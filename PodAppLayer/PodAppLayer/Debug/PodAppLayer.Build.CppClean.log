@@ -1,12 +1,30 @@
-c:\users\david\documents\visual studio 2015\projects\podapplayer\podapplayer\debug\podapplayer.pch
-c:\users\david\documents\visual studio 2015\projects\podapplayer\podapplayer\debug\vc140.pdb
-c:\users\david\documents\visual studio 2015\projects\podapplayer\podapplayer\debug\vc140.idb
-c:\users\david\documents\visual studio 2015\projects\podapplayer\podapplayer\debug\stdafx.obj
-c:\users\david\documents\visual studio 2015\projects\podapplayer\podapplayer\debug\batterycarger.obj
-c:\users\david\documents\visual studio 2015\projects\podapplayer\podapplayer\debug\bms.obj
-c:\users\david\documents\visual studio 2015\projects\podapplayer\podapplayer\debug\powernodemain.obj
-c:\users\david\documents\visual studio 2015\projects\podapplayer\podapplayer\debug\propulsionbus.obj
-c:\users\david\documents\visual studio 2015\projects\podapplayer\podapplayer\debug\tempsensors.obj
-c:\users\david\documents\visual studio 2015\projects\podapplayer\podapplayer\debug\podapplayer.tlog\cl.command.1.tlog
-c:\users\david\documents\visual studio 2015\projects\podapplayer\podapplayer\debug\podapplayer.tlog\cl.read.1.tlog
-c:\users\david\documents\visual studio 2015\projects\podapplayer\podapplayer\debug\podapplayer.tlog\cl.write.1.tlog
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\podapplayer.pch
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\vc140.pdb
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\vc140.idb
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\stdafx.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\ri2crx.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\batterycarger.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\bms.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\canbus.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\ccnodemain.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\ccnodeparameters.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\laserorientation.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\powernodemain.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\powernodeparameters.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\powernodepiuart.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\propulsionbus.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\ri2ctx.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\steppernodemain.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\steppernodeparameters.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\tempsensors.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\zmqsim.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\podapplayer.obj
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\debug\podapplayer.ilk
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\debug\podapplayer.exe
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\debug\podapplayer.pdb
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\podapplayer.tlog\cl.command.1.tlog
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\podapplayer.tlog\cl.read.1.tlog
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\podapplayer.tlog\cl.write.1.tlog
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\podapplayer.tlog\link.command.1.tlog
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\podapplayer.tlog\link.read.1.tlog
+c:\users\david\documents\github\eng-software-vs-pod\podapplayer\podapplayer\debug\podapplayer.tlog\link.write.1.tlog
