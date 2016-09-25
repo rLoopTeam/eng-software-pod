@@ -3,6 +3,7 @@
 #include "string.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "teensyByteOrder.h"
 
 
 uint8_t buffer[I2C_BUFFER_SIZE];

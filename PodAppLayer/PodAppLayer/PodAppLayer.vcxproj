@@ -170,7 +170,7 @@
     <ClInclude Include="ZmqSim.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\bsc-slave-tools\rI2CRX.c">
+    <ClCompile Include="rI2CRX.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="BatteryCharger.c">

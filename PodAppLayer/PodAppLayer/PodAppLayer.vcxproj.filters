@@ -140,9 +140,6 @@
     <ClCompile Include="LaserOrientation.c">
       <Filter>CCNode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\bsc-slave-tools\rI2CRX.c">
-      <Filter>rPodCommon</Filter>
-    </ClCompile>
     <ClCompile Include="PowerNodePiUart.c">
       <Filter>IOLayerSim</Filter>
     </ClCompile>
@@ -166,6 +163,9 @@
     </ClCompile>
     <ClCompile Include="BatteryCharger.c">
       <Filter>Power Node</Filter>
+    </ClCompile>
+    <ClCompile Include="rI2CRX.c">
+      <Filter>rPodCommon</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
