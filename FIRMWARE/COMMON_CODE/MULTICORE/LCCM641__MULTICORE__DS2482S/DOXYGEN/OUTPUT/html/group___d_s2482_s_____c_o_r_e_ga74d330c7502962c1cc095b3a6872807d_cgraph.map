@@ -1,0 +1,11 @@
+<map id="vDS2482S__Init" name="vDS2482S__Init">
+<area shape="rect" id="node2" href="$group___d_s2482_s_____d_e_v_i_c_e.html#ga337e96b9b3eb57fa30d9e0a6eccf2ea6" title="Gets the status register. " alt="" coords="901,13,1061,55"/>
+<area shape="rect" id="node6" href="$group___d_s2482_s_____d_e_v_i_c_e.html#ga4472ee3cea2d67716b061eecef6eafa2" title="Generate a device reset by activating the reset command in software. " alt="" coords="182,68,342,109"/>
+<area shape="rect" id="node10" href="$group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaf2f87a67718c500ba137dbf58755274d" title="Init any low level specifics for this device index. " alt="" coords="167,134,357,161"/>
+<area shape="rect" id="node3" href="$group___d_s2482_s_____d_e_v_i_c_e.html#ga3c287f9ad11903ac541fa53757525e50" title="Sets the devices read pointer to one of a few predetermined values. " alt="" coords="1117,5,1277,47"/>
+<area shape="rect" id="node5" href="$group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaa9dba7b1b362f36e72a83086d4845d81" title="Rx a simple register value. " alt="" coords="1109,71,1285,112"/>
+<area shape="rect" id="node4" href="$group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaf9534996d93a544c0570e3fcdc3ad973" title="Write a register on the device. " alt="" coords="1333,68,1509,109"/>
+<area shape="rect" id="node7" href="$group___d_s2482_s_____d_e_v_i_c_e.html#ga0cf6249d253f14a7e4dfa284bdede646" title="Sets the config register. " alt="" coords="413,101,573,143"/>
+<area shape="rect" id="node9" href="$group___d_s2482_s_____l_o_w_l_e_v_e_l.html#ga60c11542e75efee7894d3f55468476e5" title="Transmit a byte The DS2482 does not use traditional I2C addx &#45; reg &#45; data modes and requires sometime..." alt="" coords="405,36,581,77"/>
+<area shape="rect" id="node8" href="$group___d_s2482_s_____d_e_v_i_c_e.html#ga984c08ff8e3a99a45ae3c6b118d2012b" title="Waits for the Busy bit to be clear before continuing. " alt="" coords="629,35,853,62"/>
+</map>

@@ -1,0 +1,414 @@
+/**
+ * @file		DS18B20__ADDRESS.C
+ * @brief		Addressing search and support for DS18B20
+ * @author		Lachlan Grogan
+ * @copyright	This file contains proprietary and confidential information of
+ *				SIL3 Pty. Ltd. (ACN 123 529 064). This code may be distributed
+ *				under a license from SIL3 Pty. Ltd., and may be used, copied
+ *				and/or disclosed only pursuant to the terms of that license agreement.
+ *				This copyright notice must be retained as part of this file at all times.
+ * @copyright	This file is copyright SIL3 Pty. Ltd. 2003-2016, All Rights Reserved.
+ * @st_fileID	LCCM644R0.FILE.006
+ */
+/**
+ * @addtogroup MULTICORE
+ * @{ */
+/**
+ * @addtogroup DS18B20
+ * @ingroup MULTICORE
+ * @{ */
+/**
+ * @addtogroup DS18B20__ADDRESS
+ * @ingroup DS18B20
+ * @{ */
+
+#include "../ds18b20.h"
+#if C_LOCALDEF__LCCM644__ENABLE_THIS_MODULE == 1U
+
+extern struct _strDS18B20 sDS18B20;
+
+
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		DC7D10002E340DB726228B94093A0D5A
+ * @st_funcID		LCCM644R0.FILE.006.FUNC.002
+ */
+void vDS18B20_ADDX__Init(void)
+{
+
+	//init the vars
+	sDS18B20.sSearch.sSearchState = SEARCH_STATE__IDLE;
+	sDS18B20.sSearch.u8WireChannelCounter = 0U;
+	sDS18B20.sSearch.u8FirstSearched = 0U;
+
+}
+
+
+/***************************************************************************//**
+ * @brief
+ * Search for all devices on the bus on all channels
+ * 
+ * @note
+ * This is a single blocking function that will try and search for everything via
+ * binary tree searching of the ROM ID's.
+ * THIS IS VERY SLOW.  Several hundred sensors can take minutes to search.
+ * If this is a problem, use the state machine based search.
+ *
+ * @st_funcMD5		F9DAB99D181E7906D9963CB303DAA609
+ * @st_funcID		LCCM644R0.FILE.006.FUNC.001
+ */
+Lint16 s16DS18B20_ADDX__Search(void)
+{
+
+	Luint8 u8ChannelCounter;
+	Luint8 u8DeviceCounter;
+	Lint16 s16Return;
+	Luint8 u8Counter;
+	Luint8 u8FirstSearched;
+	Luint8 u8Flag;
+
+	//setup
+	sDS18B20.sEnum.u8NumDevices = 0U;
+
+	//flag to indicat that we have already searched for the first device.
+	u8FirstSearched = 0U;
+	u8Flag = 0U;
+
+	//search each 1 wire channel
+	for(u8ChannelCounter = 0U; u8ChannelCounter < C_LOCALDEF__LCCM644__MAX_1WIRE_CHANNELS; u8ChannelCounter++)
+	{
+
+		//handle the max devices the user has allocated space for
+		for(u8DeviceCounter = 0U; u8DeviceCounter < C_LOCALDEF__LCCM644__MAX_DEVICES; u8DeviceCounter++)
+		{
+			//see if we have not searched our fist device
+			if(u8FirstSearched == 0U)
+			{
+				//set the flag to indicate that the first search has been done.
+				u8FirstSearched = 1U;
+
+				//search for the first device on a channel
+				s16Return = s16DS18B20_SEARCH__SearchFirstDevice(u8ChannelCounter, &sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8SerialNumber[0]);
+				if(s16Return > 0)
+				{
+					//we have found a device
+					//set the channel index we are on
+					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8ChannelIndex = u8ChannelCounter;
+					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8Resolution = 0U;
+					
+					//set to our known max temp
+					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
+					//inc
+					sDS18B20.sEnum.u8NumDevices++;
+
+					//protect
+					if(sDS18B20.sEnum.u8NumDevices < C_LOCALDEF__LCCM644__MAX_DEVICES)
+					{
+						//fall on
+					}
+					else
+					{
+						//limit
+						sDS18B20.sEnum.u8NumDevices = C_LOCALDEF__LCCM644__MAX_DEVICES - 1U;
+					}
+
+				}
+				else
+				{
+					//nothign on this channel or channel fault
+					u8Flag = 1U;
+				}
+
+			}
+			else
+			{
+				//search for other devices
+				s16Return = s16DS18B20_SEARCH__SearchNextDevice(u8ChannelCounter, &sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8SerialNumber[0]);
+				if(s16Return > 0)
+				{
+					//set the channel index we are on
+					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8ChannelIndex = u8ChannelCounter;
+					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8Resolution = 0U;
+					
+					//set to our known max temp.
+					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
+
+					//inc
+					sDS18B20.sEnum.u8NumDevices++;
+
+					//protect
+					if(sDS18B20.sEnum.u8NumDevices < C_LOCALDEF__LCCM644__MAX_DEVICES)
+					{
+						//fall on
+					}
+					else
+					{
+						//limit
+						sDS18B20.sEnum.u8NumDevices = C_LOCALDEF__LCCM644__MAX_DEVICES - 1U;
+					}
+				}
+				else
+				{
+					//no devices
+					u8Flag = 1U;
+				}
+			}
+
+			if(u8Flag == 1U)
+			{
+				//MISRA-C only one break point per loop.
+				break;
+			}
+			else
+			{
+				//keep going
+			}
+			
+		}//for(u8DeviceCounter = 0U; u8DeviceCounter < C_LOCALDEF__LCCM644__MAX_DEVICES; u8DeviceCounter++)
+
+
+		//reset for next channel
+		u8FirstSearched = 0U;
+
+
+	}//for(u8ChannelCounter = 0U; u8ChannelCounter < C_LOCALDEF__LCCM644__MAX_1WIRE_CHANNELS; u8ChannelCounter++)
+
+
+	//we must find the resolutions of the devices, do this now
+	for(u8Counter = 0U; u8Counter < sDS18B20.sEnum.u8NumDevices; u8Counter++)
+	{
+
+		s16Return = s16DS18B20_TEMP__Get_Resolution(u8Counter, &sDS18B20.sDevice[u8Counter].u8Resolution);
+		if(s16Return >= 0)
+		{
+			//all good
+		}
+		else
+		{
+			//issues
+			break;
+		}
+
+	}//for(u8Counter = 0U; u8Counter < sDS18B20.sEnum.u8NumDevices; u8Counter++)
+
+	return 0;
+}
+
+/***************************************************************************//**
+ * @brief
+ * Start the search
+ * 
+ * @st_funcMD5		24F9B9296E21F4BD8177F4D713AB4017
+ * @st_funcID		LCCM644R0.FILE.006.FUNC.003
+ */
+void vDS18B20_ADDX__SearchSM_Start(void)
+{
+	//if we are idle, move to the start state
+	if(sDS18B20.sSearch.sSearchState == SEARCH_STATE__IDLE)
+	{
+		sDS18B20.sSearch.sSearchState = SEARCH_STATE__START;
+	}
+	else
+	{
+		//do not allow a resetart
+	}
+}
+
+/***************************************************************************//**
+ * @brief
+ * State machine based search processing
+ * 
+ * @st_funcMD5		D420DCA7F2244E37123945CC640D005D
+ * @st_funcID		LCCM644R0.FILE.006.FUNC.004
+ */
+void vDS18B20_ADDX__SearchSM_Process(void)
+{
+	Lint16 s16Return;
+	Luint8 u8Flag;
+
+	//handle the search processing states
+	switch(sDS18B20.sSearch.sSearchState)
+	{
+
+		case SEARCH_STATE__IDLE:
+			//in idle state do nothing.
+			break;
+
+		case SEARCH_STATE__START:
+			//setup some variables
+			sDS18B20.sSearch.u8WireChannelCounter = 0U;
+			sDS18B20.sSearch.u8FirstSearched = 0U;
+
+			//clear the enumerated devices
+			sDS18B20.sEnum.u8NumDevices = 0U;
+
+			//move state
+			sDS18B20.sSearch.sSearchState = SEARCH_STATE__RUN;
+			break;
+
+		case SEARCH_STATE__RUN:
+			//running the search
+			if(sDS18B20.sSearch.u8FirstSearched == 0U)
+			{
+				//update the flag
+				sDS18B20.sSearch.u8FirstSearched  = 1U;
+
+				//search for the first device on a channel
+				s16Return = s16DS18B20_SEARCH__SearchFirstDevice(sDS18B20.sSearch.u8WireChannelCounter, &sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8SerialNumber[0]);
+				if(s16Return > 0)
+				{
+					u8Flag = 0U;
+
+					//we have found a device
+					//set the channel index we are on
+					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8ChannelIndex = sDS18B20.sSearch.u8WireChannelCounter;
+					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8Resolution = 0U;
+
+					//set to our known max temp
+					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
+					//inc
+					sDS18B20.sEnum.u8NumDevices++;
+					//protect
+					if(sDS18B20.sEnum.u8NumDevices < C_LOCALDEF__LCCM644__MAX_DEVICES)
+					{
+						//fall on
+					}
+					else
+					{
+						//limit
+						sDS18B20.sEnum.u8NumDevices = C_LOCALDEF__LCCM644__MAX_DEVICES - 1U;
+					}
+
+				}
+				else
+				{
+					//nothign on this channel or channel fault
+					u8Flag = 1U;
+				}
+			}//if(sDS18B20.sSearch.u8FirstSearched == 0U)
+			else
+			{
+				//search for other devices
+				s16Return = s16DS18B20_SEARCH__SearchNextDevice(sDS18B20.sSearch.u8WireChannelCounter, &sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8SerialNumber[0]);
+				if(s16Return > 0)
+				{
+					//set the channel index we are on
+					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8ChannelIndex = sDS18B20.sSearch.u8WireChannelCounter;
+					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8Resolution = 0U;
+
+					//set to our known max temp.
+					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
+
+					//inc
+					sDS18B20.sEnum.u8NumDevices++;
+
+					//protect
+					if(sDS18B20.sEnum.u8NumDevices < C_LOCALDEF__LCCM644__MAX_DEVICES)
+					{
+						//fall on
+					}
+					else
+					{
+						//limit
+						sDS18B20.sEnum.u8NumDevices = C_LOCALDEF__LCCM644__MAX_DEVICES - 1U;
+					}
+				}
+				else
+				{
+					//no devices
+					u8Flag = 1U;
+				}
+
+			}//else if(sDS18B20.sSearch.u8FirstSearched == 0U)
+
+			if(u8Flag == 0U)
+			{
+				//stay in this state and loop back around
+				sDS18B20.sSearch.sSearchState = SEARCH_STATE__RUN;
+			}
+			else
+			{
+				//try the next 1-wire channel
+				sDS18B20.sSearch.sSearchState = SEARCH_STATE__INC_CHANNEL;
+			}
+
+			break;
+
+		case SEARCH_STATE__INC_CHANNEL:
+
+			//reset the variables
+			sDS18B20.sSearch.u8FirstSearched = 0U;
+
+			//increment to the next channel
+			sDS18B20.sSearch.u8WireChannelCounter++;
+
+			if(sDS18B20.sSearch.u8WireChannelCounter < C_LOCALDEF__LCCM644__MAX_1WIRE_CHANNELS)
+			{
+				//go back for more
+				sDS18B20.sSearch.sSearchState = SEARCH_STATE__RUN;
+			}
+			else
+			{
+				//we have no more channels to search, we are done
+				sDS18B20.sSearch.sSearchState = SEARCH_STATE__CLEANUP;
+			}
+
+			break;
+
+		case SEARCH_STATE__CLEANUP:
+
+			//back to idle
+			sDS18B20.sSearch.sSearchState = SEARCH_STATE__IDLE;
+
+			break;
+
+		default:
+			//do nothing
+			break;
+
+	}//switch(sDS18B20.sSearchState)
+}
+
+/***************************************************************************//**
+ * @brief
+ * Checks to see if the search state machine is busy or not
+ * 
+ * @return			1 = We are busy\n
+ *					0 = Not busy / Idle
+ * @st_funcMD5		E720061D5D7EB748E726EFDCFBCD7CB4
+ * @st_funcID		LCCM644R0.FILE.006.FUNC.005
+ */
+Luint8 u8DS18B20_ADDX__SearchSM_IsBusy(void)
+{
+	Luint8 u8Return;
+
+	//if we are idle, return not busy
+	if(sDS18B20.sSearch.sSearchState == SEARCH_STATE__IDLE)
+	{
+		u8Return = 0U;
+	}
+	else
+	{
+		//busy
+		u8Return = 1U;
+	}
+
+	return u8Return;
+}
+
+//safetys
+#ifndef C_LOCALDEF__LCCM644__MAX_1WIRE_CHANNELS
+	#error
+#endif
+
+#endif //#if C_LOCALDEF__LCCM644__ENABLE_THIS_MODULE == 1U
+//safetys
+#ifndef C_LOCALDEF__LCCM644__ENABLE_THIS_MODULE
+	#error
+#endif
+/** @} */
+/** @} */
+/** @} */
+

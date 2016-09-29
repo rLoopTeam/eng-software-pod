@@ -1,0 +1,4 @@
+<map id="s16DS18B20_TEMP__Request" name="s16DS18B20_TEMP__Request">
+<area shape="rect" id="node2" href="$group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gad0c45b626f3b1bfdcc210cbfc105a526" title="Read the scratch memory, 9 bytes. " alt="" coords="265,5,431,47"/>
+<area shape="rect" id="node3" href="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#gaa3b0ab54badd49727ff533876b0b35c8" title="Convert scratchpad to temperature Takes the two temp bytes in the scratchpad and converts to floating..." alt="" coords="256,71,440,112"/>
+</map>

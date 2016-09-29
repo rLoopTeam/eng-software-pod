@@ -1,0 +1,4 @@
+<map id="s16DS18B20_ADDX__Search" name="s16DS18B20_ADDX__Search">
+<area shape="rect" id="node2" href="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga11962e41c09a2129e886ea033a17a9bd" title="Gets the current resolution by reading the scratchpad memory. " alt="" coords="248,5,424,47"/>
+<area shape="rect" id="node3" href="$group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gad0c45b626f3b1bfdcc210cbfc105a526" title="Read the scratch memory, 9 bytes. " alt="" coords="472,5,639,47"/>
+</map>

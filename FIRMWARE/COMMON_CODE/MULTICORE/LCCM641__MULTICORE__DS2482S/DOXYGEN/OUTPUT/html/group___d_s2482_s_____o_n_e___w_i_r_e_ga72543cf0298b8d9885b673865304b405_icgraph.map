@@ -1,0 +1,11 @@
+<map id="s16DS2482S_1WIRE__Set_StrongPullup" name="s16DS2482S_1WIRE__Set_StrongPullup">
+<area shape="rect" id="node2" href="$group___d_s2482_s_____o_n_e___w_i_r_e.html#ga9775c5da0ad7d296038c5fe0d094836e" title="Read a byte on the 1&#45;wire. " alt="" coords="234,5,451,32"/>
+<area shape="rect" id="node3" href="$group___d_s2482_s_____o_n_e___w_i_r_e.html#gac7b3cece86c1419ddfb809ca518cf8f5" title="Write a bit on the 1&#45;wire device. " alt="" coords="239,56,446,83"/>
+<area shape="rect" id="node8" href="$group___d_s2482_s_____o_n_e___w_i_r_e.html#ga6d02d5649d468c135890f5c7b6a65562" title="Write a byte on the 1&#45;wire device. " alt="" coords="233,136,452,163"/>
+<area shape="rect" id="node4" href="$group___d_s2482_s_____o_n_e___w_i_r_e.html#gae09f403406dd7ec6ac077272a1f41666" title="Read a bit from the bus. " alt="" coords="500,5,707,32"/>
+<area shape="rect" id="node5" href="$group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f" title="Search the 1&#45;wire bus and return the first address. " alt="" coords="755,49,921,90"/>
+<area shape="rect" id="node6" href="$group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb" title="Search for the first device on the bus. " alt="" coords="969,15,1136,57"/>
+<area shape="rect" id="node7" href="$group___d_s2482_s_____s_e_a_r_c_h.html#ga04cfff3e7960eee3d152029a02e3d9fe" title="Search for subsequent devices. " alt="" coords="969,81,1136,122"/>
+<area shape="rect" id="node9" href="$group___d_s2482_s_____o_n_e___w_i_r_e.html#gadb5a87eee779240580a78bc1320ceed2" title="Select a device on the 1&#45;wire bus. " alt="" coords="505,158,702,199"/>
+<area shape="rect" id="node10" href="$group___d_s2482_s_____o_n_e___w_i_r_e.html#ga404cb5349ae73f2d02d017b3ef63b0ec" title="Issue a skip command on the 1 wire. " alt="" coords="510,224,697,251"/>
+</map>

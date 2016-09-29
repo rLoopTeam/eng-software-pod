@@ -1,0 +1,23 @@
+digraph "DS2482S"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir=LR;
+  Node3 [label="DS2482S__DEVICE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s2482_s_____d_e_v_i_c_e.html"];
+  Node6 [label="DS2482S__LOWLEVEL",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s2482_s_____l_o_w_l_e_v_e_l.html"];
+  Node2 [label="DS2482S__CRC",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s2482_s_____c_r_c.html"];
+  Node4 [label="DS2482S__CORE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s2482_s_____c_o_r_e.html"];
+  Node0 [label="DS2482S",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node5 [label="DS2482S__REG_DEFS",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s2482_s_____r_e_g___d_e_f_s.html"];
+  Node1 [label="MULTICORE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___m_u_l_t_i_c_o_r_e.html"];
+  Node8 [label="DS2482S__SEARCH",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s2482_s_____s_e_a_r_c_h.html"];
+  Node7 [label="DS2482S__ONE_WIRE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s2482_s_____o_n_e___w_i_r_e.html"];
+  Node1->Node0 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node2 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node3 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node4 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node5 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node6 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node7 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node8 [shape=plaintext, dir="back", style="solid"];
+}

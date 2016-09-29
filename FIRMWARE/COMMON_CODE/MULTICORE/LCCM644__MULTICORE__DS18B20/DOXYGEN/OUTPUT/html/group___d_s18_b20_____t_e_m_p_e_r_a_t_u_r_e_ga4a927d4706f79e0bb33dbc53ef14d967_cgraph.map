@@ -1,0 +1,4 @@
+<map id="s16DS18B20_TEMP__Set_Resolution" name="s16DS18B20_TEMP__Set_Resolution">
+<area shape="rect" id="node2" href="$group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gad0c45b626f3b1bfdcc210cbfc105a526" title="Read the scratch memory, 9 bytes. " alt="" coords="228,5,395,47"/>
+<area shape="rect" id="node3" href="$group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gac8c2645034dbffe593336d1cebbb936a" title="Write to the scratch pad, and then commit to the device. " alt="" coords="228,71,395,112"/>
+</map>

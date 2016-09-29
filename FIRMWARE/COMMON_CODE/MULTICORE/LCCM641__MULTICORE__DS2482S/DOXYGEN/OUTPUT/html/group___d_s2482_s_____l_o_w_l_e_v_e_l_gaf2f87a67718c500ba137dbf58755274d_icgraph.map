@@ -1,0 +1,3 @@
+<map id="vDS2482S_LOWLEVEL__Init" name="vDS2482S_LOWLEVEL__Init">
+<area shape="rect" id="node2" href="$group___d_s2482_s_____c_o_r_e.html#ga74d330c7502962c1cc095b3a6872807d" title="Init the DS2482 device User should call this first up after the I2C driver is operational. " alt="" coords="244,5,357,32"/>
+</map>

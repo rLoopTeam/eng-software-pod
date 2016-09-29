@@ -1,0 +1,13 @@
+digraph "s16DS2482S_DEVICE__Get_Status"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="s16DS2482S_DEVICE_\l_Get_Status",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="s16DS2482S_DEVICE_\l_Set_ReadPointer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s2482_s_____d_e_v_i_c_e.html#ga3c287f9ad11903ac541fa53757525e50",tooltip="Sets the devices read pointer to one of a few predetermined values. "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="s16DS2482S_LOWLEVEL\l__WriteReg",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaf9534996d93a544c0570e3fcdc3ad973",tooltip="Write a register on the device. "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="s16DS2482S_LOWLEVEL\l__RxReg",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaa9dba7b1b362f36e72a83086d4845d81",tooltip="Rx a simple register value. "];
+}

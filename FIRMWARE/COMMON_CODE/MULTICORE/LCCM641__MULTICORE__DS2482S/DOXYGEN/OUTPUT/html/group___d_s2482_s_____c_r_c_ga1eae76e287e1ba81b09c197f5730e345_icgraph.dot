@@ -1,0 +1,9 @@
+digraph "u8DS2482S_CRC__CRC8_Table"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="u8DS2482S_CRC__CRC8\l_Table",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="u8DS2482S_CRC__CRC8",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s2482_s_____c_r_c.html#ga2ffb3550217ee647a6605ad5b2114096",tooltip="Calculate the CRC8 using avail methods. "];
+}

@@ -1,0 +1,8 @@
+<map id="ds2482s.h" name="ds2482s.h">
+<area shape="rect" id="node2" href="$ds2482s____crc_8c.html" title="Implements the CRC8 protocols as per Dallas application note. " alt="" coords="5,87,151,114"/>
+<area shape="rect" id="node3" href="$ds2482s____device_8c.html" title="Main device functions. " alt="" coords="175,87,359,114"/>
+<area shape="rect" id="node4" href="$ds2482s_8c.html" title="Main source file, provides user level interraction. " alt="" coords="383,87,466,114"/>
+<area shape="rect" id="node5" href="$ds2482s____lowlevel_8c.html" title="Lowlevel hardware interface with the I2C subsystem. " alt="" coords="491,87,705,114"/>
+<area shape="rect" id="node6" href="$ds2482s____one__wire_8c.html" title="One wire functions. " alt="" coords="730,80,909,121"/>
+<area shape="rect" id="node7" href="$ds2482s____search_8c.html" title="Implements one wire search functions. " alt="" coords="933,87,1127,114"/>
+</map>
