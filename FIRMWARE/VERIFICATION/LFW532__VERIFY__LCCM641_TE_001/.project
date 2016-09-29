@@ -28,107 +28,107 @@
 		<link>
 			<name>MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC</locationURI>
 		</link>
 		<link>
 			<name>MULTICORE/LCCM118__MULTICORE__NUMERICAL</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/MULTICORE/LCCM118__MULTICORE__NUMERICAL</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM118__MULTICORE__NUMERICAL</locationURI>
 		</link>
 		<link>
 			<name>MULTICORE/LCCM284__MULTICORE__FAULT_TREE</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/MULTICORE/LCCM284__MULTICORE__FAULT_TREE</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM284__MULTICORE__FAULT_TREE</locationURI>
 		</link>
 		<link>
 			<name>MULTICORE/LCCM357__MULTICORE__SOFTWARE_FIFO</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/MULTICORE/LCCM357__MULTICORE__SOFTWARE_FIFO</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM357__MULTICORE__SOFTWARE_FIFO</locationURI>
 		</link>
 		<link>
 			<name>MULTICORE/LCCM517__MULTICORE__SAFETOOL_BRANCH</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/MULTICORE/LCCM517__MULTICORE__SAFETOOL_BRANCH</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM517__MULTICORE__SAFETOOL_BRANCH</locationURI>
 		</link>
 		<link>
 			<name>MULTICORE/LCCM641__MULTICORE__DS2482S</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S</locationURI>
 		</link>
 		<link>
 			<name>MULTICORE/LCCM644__MULTICORE__DS18B20</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/MULTICORE/LCCM644__MULTICORE__DS18B20</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM644__MULTICORE__DS18B20</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM105__RM4__BASIC_TYPES</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/RM4/LCCM105__RM4__BASIC_TYPES</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/RM4/LCCM105__RM4__BASIC_TYPES</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM133__RM4__GIO</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/RM4/LCCM133__RM4__GIO</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/RM4/LCCM133__RM4__GIO</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM135__RM4__FLASH</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/RM4/LCCM135__RM4__FLASH</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/RM4/LCCM135__RM4__FLASH</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM215__RM4__I2C</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/RM4/LCCM215__RM4__I2C</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/RM4/LCCM215__RM4__I2C</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM219__RM4__SYSTEM</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/RM4/LCCM219__RM4__SYSTEM</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/RM4/LCCM219__RM4__SYSTEM</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM220__RM4__ERROR_SIGNAL_MODULE</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/RM4/LCCM220__RM4__ERROR_SIGNAL_MODULE</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/RM4/LCCM220__RM4__ERROR_SIGNAL_MODULE</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM221__RM4__SELFTEST</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/RM4/LCCM221__RM4__SELFTEST</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/RM4/LCCM221__RM4__SELFTEST</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM222__RM4__PIN_MUX</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/RM4/LCCM222__RM4__PIN_MUX</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/RM4/LCCM222__RM4__PIN_MUX</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM223__RM4__PERIPH_CENTRAL_RESOURCE</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/RM4/LCCM223__RM4__PERIPH_CENTRAL_RESOURCE</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/RM4/LCCM223__RM4__PERIPH_CENTRAL_RESOURCE</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM224__RM4__EFUSE</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/RM4/LCCM224__RM4__EFUSE</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/RM4/LCCM224__RM4__EFUSE</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM225__RM4__VECTORED_ISR_MGR</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/RM4/LCCM225__RM4__VECTORED_ISR_MGR</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/RM4/LCCM225__RM4__VECTORED_ISR_MGR</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM227__RM4__BIST</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/RM4/LCCM227__RM4__BIST</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/RM4/LCCM227__RM4__BIST</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM228__RM4__DELAYS</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/RM4/LCCM228__RM4__DELAYS</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/RM4/LCCM228__RM4__DELAYS</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM229__RM4__DMA</name>
 			<type>2</type>
-			<locationURI>COMMON_CODE/RM4/LCCM229__RM4__DMA</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC../COMMON_CODE/RM4/LCCM229__RM4__DMA</locationURI>
 		</link>
 	</linkedResources>
 	<filteredResources>
@@ -169,10 +169,4 @@
 			</matcher>
 		</filter>
 	</filteredResources>
-	<variableList>
-		<variable>
-			<name>COMMON_CODE</name>
-			<value>file:/D:/LOCKIE/DESIGN/LDL/COMMON_CODE</value>
-		</variable>
-	</variableList>
 </projectDescription>

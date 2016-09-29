@@ -604,7 +604,7 @@ Preprocessing D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM135__RM4__FLAS
 Parsing file D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM135__RM4__FLASH/rm4_flash__localdef.h...
 Preprocessing D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM135__RM4__FLASH/rm4_flash__private.h...
 Parsing file D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM135__RM4__FLASH/rm4_flash__private.h...
-<Preprocessing D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM135__RM4__FLASH/UNIT_TEST/BRANCH_TESTS/LCCM135R0_TS_008.c...
+Preprocessing D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM135__RM4__FLASH/UNIT_TEST/BRANCH_TESTS/LCCM135R0_TS_008.c...
 Parsing file D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM135__RM4__FLASH/UNIT_TEST/BRANCH_TESTS/LCCM135R0_TS_008.c...
 Preprocessing D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM135__RM4__FLASH/UNIT_TEST/BRANCH_TESTS/LCCM135R0_TS_009.c...
 Parsing file D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM135__RM4__FLASH/UNIT_TEST/BRANCH_TESTS/LCCM135R0_TS_009.c...
@@ -742,7 +742,7 @@ Preprocessing D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM219__RM4__SYST
 Parsing file D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM219__RM4__SYSTEM/rm4_system__oscillator.c...
 Preprocessing D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM219__RM4__SYSTEM/rm4_system__pmu.h...
 Parsing file D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM219__RM4__SYSTEM/rm4_system__pmu.h...
-<Preprocessing D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM219__RM4__SYSTEM/rm4_system__private.h...
+Preprocessing D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM219__RM4__SYSTEM/rm4_system__private.h...
 Parsing file D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM219__RM4__SYSTEM/rm4_system__private.h...
 Preprocessing D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM219__RM4__SYSTEM/rm4_system__startup.c...
 Parsing file D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM219__RM4__SYSTEM/rm4_system__startup.c...
@@ -4376,129 +4376,8 @@ Generating example index...
 finalizing index lists...
 writing tag file...
 Running dot...
-Generating dot graphs using 3 parallel threads...
-Running dot for graph 1/86
-Running dot for graph 2/86
-Running dot for graph 3/86
-Running dot for graph 4/86
-Running dot for graph 5/86
-Running dot for graph 6/86
-Running dot for graph 7/86
-Running dot for graph 8/86
-Running dot for graph 9/86
-Running dot for graph 10/86
-Running dot for graph 11/86
-Running dot for graph 12/86
-Running dot for graph 13/86
-Running dot for graph 14/86
-Running dot for graph 15/86
-Running dot for graph 16/86
-Running dot for graph 17/86
-Running dot for graph 18/86
-Running dot for graph 19/86
-Running dot for graph 20/86
-Running dot for graph 21/86
-Running dot for graph 22/86
-Running dot for graph 23/86
-Running dot for graph 24/86
-Running dot for graph 25/86
-Running dot for graph 26/86
-Running dot for graph 27/86
-Running dot for graph 28/86
-Running dot for graph 29/86
-Running dot for graph 30/86
-Running dot for graph 31/86
-Running dot for graph 32/86
-Running dot for graph 33/86
-Running dot for graph 34/86
-Running dot for graph 35/86
-Running dot for graph 36/86
-Running dot for graph 37/86
-Running dot for graph 38/86
-Running dot for graph 39/86
-Running dot for graph 40/86
-Running dot for graph 41/86
-Running dot for graph 42/86
-Running dot for graph 43/86
-Running dot for graph 44/86
-Running dot for graph 45/86
-Running dot for graph 46/86
-Running dot for graph 47/86
-Running dot for graph 48/86
-Running dot for graph 49/86
-Running dot for graph 50/86
-Running dot for graph 51/86
-Running dot for graph 52/86
-Running dot for graph 53/86
-Running dot for graph 54/86
-Running dot for graph 55/86
-Running dot for graph 56/86
-Running dot for graph 57/86
-Running dot for graph 58/86
-Running dot for graph 59/86
-Running dot for graph 60/86
-Running dot for graph 61/86
-Running dot for graph 62/86
-Running dot for graph 63/86
-Running dot for graph 64/86
-Running dot for graph 65/86
-Running dot for graph 66/86
-Running dot for graph 67/86
-Running dot for graph 68/86
-Running dot for graph 69/86
-Running dot for graph 70/86
-Running dot for graph 71/86
-Running dot for graph 72/86
-Running dot for graph 73/86
-Running dot for graph 74/86
-Running dot for graph 75/86
-Running dot for graph 76/86
-Running dot for graph 77/86
-Running dot for graph 78/86
-Running dot for graph 79/86
-Running dot for graph 80/86
-Running dot for graph 81/86
-Running dot for graph 82/86
-Running dot for graph 83/86
-Running dot for graph 84/86
-Running dot for graph 85/86
-Running dot for graph 86/86
-Patching output file 1/37
-Patching output file 2/37
-Patching output file 3/37
-Patching output file 4/37
-Patching output file 5/37
-Patching output file 6/37
-Patching output file 7/37
-Patching output file 8/37
-Patching output file 9/37
-Patching output file 10/37
-Patching output file 11/37
-Patching output file 12/37
-Patching output file 13/37
-Patching output file 14/37
-Patching output file 15/37
-Patching output file 16/37
-Patching output file 17/37
-Patching output file 18/37
-Patching output file 19/37
-Patching output file 20/37
-Patching output file 21/37
-Patching output file 22/37
-Patching output file 23/37
-Patching output file 24/37
-Patching output file 25/37
-Patching output file 26/37
-Patching output file 27/37
-Patching output file 28/37
-Patching output file 29/37
-Patching output file 30/37
-Patching output file 31/37
-Patching output file 32/37
-Patching output file 33/37
-Patching output file 34/37
-Patching output file 35/37
-Patching output file 36/37
-Patching output file 37/37
-lookup cache used 6797/65536 hits=42400 misses=6855
+Generating dot graphs using 2 parallel threads...
+Running dot for graph 1/1
+Patching output file 1/1
+lookup cache used 6776/65536 hits=42473 misses=6834
 finished...

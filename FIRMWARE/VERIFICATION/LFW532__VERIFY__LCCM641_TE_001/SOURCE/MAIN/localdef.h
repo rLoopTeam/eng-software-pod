@@ -8,7 +8,8 @@
 	//Run on RM48 CNCD
 	#include <../../../../BOARD_SUPPORT/lpcb234r0__board_support.h>
 
-
+#undef C_LOCALDEF__LCCM280__ENABLE_THIS_MODULE
+#define C_LOCALDEF__LCCM280__ENABLE_THIS_MODULE 0
 
 /*******************************************************************************
 SOFTWARE BASED CRC
