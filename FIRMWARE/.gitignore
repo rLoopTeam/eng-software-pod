@@ -1,6 +1,7 @@
 # SVN Issues #
 ###################
 *.svn
+*.log
 
 # Local Workspace for CCSV6 #
 ###################

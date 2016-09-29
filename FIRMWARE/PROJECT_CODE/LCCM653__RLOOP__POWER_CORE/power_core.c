@@ -17,7 +17,6 @@
  * @ingroup POWER_NODE
  * @{ */
 
-
 #include "power_core.h"
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
@@ -54,14 +53,16 @@ void vPWRNODE__Process(void)
 	Luint8 u8Test;
 
 	//handle the init states here
-	/*
-	 * digraph G {
-	 * INIT_STATE__START -> INIT_STATE__COMMS [label = "After Setup"];
-	 * INIT_STATE__COMMS -> INIT_STATE__1_WIRE_START [label = "After configure serial comms devices"];
-	 * INIT_STATE__1_WIRE_START -> INIT_STATE__1_WIRE_SEARCH;
-	 * INIT_STATE__1_WIRE_SEARCH -> INIT_STATE__1_WIRE_SEARCH [label = "u8DS18B20_ADDX__SearchSM_IsBusy() == 1"];
-	 * INIT_STATE__1_WIRE_SEARCH -> INIT_STATE__1_WIRE_DONE  [label = "u8DS18B20_ADDX__SearchSM_IsBusy() == 0"];
-	 * }
+	/**
+	\dot
+	 digraph G {
+	 INIT_STATE__START -> INIT_STATE__COMMS [label = "After Setup"];
+	 INIT_STATE__COMMS -> INIT_STATE__1_WIRE_START [label = "After configure serial comms devices"];
+	 INIT_STATE__1_WIRE_START -> INIT_STATE__1_WIRE_SEARCH;
+	 INIT_STATE__1_WIRE_SEARCH -> INIT_STATE__1_WIRE_SEARCH [label = "u8DS18B20_ADDX__SearchSM_IsBusy() == 1"];
+	 INIT_STATE__1_WIRE_SEARCH -> INIT_STATE__1_WIRE_DONE  [label = "u8DS18B20_ADDX__SearchSM_IsBusy() == 0"];
+	 }
+	 \enddot
 	 */
 	switch(sPWRNODE.sInit.sState)
 	{

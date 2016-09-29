@@ -2,7 +2,7 @@
 #define LOCALDEF_H_
 
 	//The control card
-	#include <../../../BOARD_SUPPORT/rm48cncd__board_support.h>
+	#include <../../../BOARD_SUPPORT/lpcb234r0__board_support.h>
 
 
 /*******************************************************************************
