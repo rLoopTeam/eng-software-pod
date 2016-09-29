@@ -1,0 +1,23 @@
+# SVN Issues #
+###################
+*.svn
+
+# Local Workspace for CCSV6 #
+###################
+WORKSPACE
+
+# SIL3 Pty Ltd Confidential #
+###################
+COMMON_CODE/MULTICORE
+COMMON_CODE/RM4
+
+# rLoop Public #
+###################
+!COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S
+!COMMON_CODE/MULTICORE/LCCM644__MULTICORE__DS18B20
+
+# OUTPUTS #
+###################
+LFW513__RLOOP__POWER_NODE/Debug
+LFW513__RLOOP__FLIGHT_CONTROL/Debug
+VERIFICATION/LFW532__VERIFY__LCCM641_TE_001/Debug
