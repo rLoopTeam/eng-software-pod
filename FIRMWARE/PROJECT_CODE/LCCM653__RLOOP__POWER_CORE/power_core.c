@@ -51,6 +51,8 @@ void vPWRNODE__Init(void)
 void vPWRNODE__Process(void)
 {
 
+	Luint8 u8Test;
+
 	//handle the init states here
 	switch(sPWRNODE.sInit.sState)
 	{
@@ -100,11 +102,34 @@ void vPWRNODE__Process(void)
 			//We have a choice here to re-scan each power up or supply the addresses via the network
 			//for each sensor. For now we'll search
 
-
+			sPWRNODE.sInit.sState = INIT_STATE__1_WIRE_SEARCH;
 			break;
 
+		case INIT_STATE__1_WIRE_SEARCH:
+			//process the search
+			vDS18B20_ADDX__SearchSM_Process();
 
-			vDS18B20_ADDX__SearchSM_Process
+			//check the satate
+			u8Test = u8DS18B20_ADDX__SearchSM_IsBusy();
+			if(u8Test == 1U)
+			{
+				//stay in the search state
+				//ToDo: Update Timeout
+			}
+			else
+			{
+				//change state
+				sPWRNODE.sInit.sState = INIT_STATE__1_WIRE_DONE;
+			}
+			break;
+
+		case INIT_STATE__1_WIRE_DONE:
+			//done searching 1-wire interface,
+			break;
+
+		default:
+			//todo:
+			break;
 
 	}//switch(sPWRNODE.sInit.sState)
 

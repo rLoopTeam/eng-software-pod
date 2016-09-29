@@ -35,7 +35,10 @@
 			INIT_STATE__1_WIRE_START,
 
 			/** Run the network search */
-			INIT_STATE__1_WIRE_SEARCH
+			INIT_STATE__1_WIRE_SEARCH,
+
+			/** Done with the 1-wire searching */
+			INIT_STATE__1_WIRE_DONE
 
 		}E_PWRNODE__INIT_STATES;
 
