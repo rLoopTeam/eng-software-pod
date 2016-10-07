@@ -1,0 +1,8 @@
+<map id="vPWRNODE__Process" name="vPWRNODE__Process">
+<area shape="rect" id="node2" href="$group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p.html#ga160e251a711d99bee33282de41a00071" title="Check to see if the batt temp sensor search process is busy. " alt="" coords="222,5,401,47"/>
+<area shape="rect" id="node3" href="$group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p.html#ga937791521204932397f7153009fc2a38" title="Init the battery temperature measurement devices. " alt="" coords="211,71,412,98"/>
+<area shape="rect" id="node4" href="$group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p.html#ga3a8686c2e3ea7cad6e596952b6ae1798" title="Process any battery temp measurement tasks. " alt="" coords="223,123,400,164"/>
+<area shape="rect" id="node5" href="$group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p.html#ga067b7f6b87917e1bb00008ed449a08fe" title="Start a search of any devices on the network. " alt="" coords="223,188,400,229"/>
+<area shape="rect" id="node6" href="$group___p_o_w_e_r___n_o_d_e_____b_m_s.html#gae041352c03bc112edc240c6e19d1349d" title="Init the battery management system. " alt="" coords="230,254,393,281"/>
+<area shape="rect" id="node7" href="$group___p_o_w_e_r___n_o_d_e_____b_m_s.html#ga5289e8fc3ae44ce8b311a40adc1e163a" title="Process any battery management system items. " alt="" coords="215,305,408,331"/>
+</map>

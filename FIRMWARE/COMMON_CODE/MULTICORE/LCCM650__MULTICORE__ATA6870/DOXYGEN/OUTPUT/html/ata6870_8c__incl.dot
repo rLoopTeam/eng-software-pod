@@ -1,0 +1,12 @@
+digraph "ata6870.c"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="ata6870.c",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ata6870.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ata6870_8h.html",tooltip="Main header file of public functions and structures for the ATA6870 driver. "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="localdef.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="MULTICORE/LCCM650_\l_MULTICORE__ATA6870\l/ata6870__register_defs.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ata6870____register__defs_8h.html",tooltip="Register definitions for the ATA6870 device. "];
+}

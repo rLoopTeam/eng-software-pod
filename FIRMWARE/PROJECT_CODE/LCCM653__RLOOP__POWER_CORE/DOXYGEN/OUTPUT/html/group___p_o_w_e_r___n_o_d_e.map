@@ -1,0 +1,11 @@
+<map id="POWER_NODE" name="POWER_NODE">
+<area shape="rect" id="node1" href="$group___p_o_w_e_r___n_o_d_e_____n_o_d_e___t_e_m_p_e_r_a_t_u_r_e.html" title="POWER_NODE__NODE_TEMPERATURE" alt="" coords="284,5,555,32"/>
+<area shape="rect" id="node2" href="$group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html" title="POWER_NODE__CORE" alt="" coords="336,56,503,83"/>
+<area shape="rect" id="node3" href="$group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p.html" title="POWER_NODE__BATTERY_TEMP" alt="" coords="303,107,535,133"/>
+<area shape="rect" id="node4" href="$group___p_o_w_e_r___n_o_d_e_____c_a_n___n_e_t_w_o_r_k.html" title="POWER_NODE__CAN_NETWORK" alt="" coords="304,157,535,184"/>
+<area shape="rect" id="node5" href="$group___p_o_w_e_r___n_o_d_e_____b_m_s.html" title="POWER_NODE__BMS" alt="" coords="340,208,499,235"/>
+<area shape="rect" id="node7" href="$group___p_o_w_e_r___n_o_d_e_____n_o_d_e___p_r_e_s_s_u_r_e.html" title="POWER_NODE__NODE_PRESSURE" alt="" coords="296,259,543,285"/>
+<area shape="rect" id="node8" href="$group___p_o_w_e_r___n_o_d_e_____s_t_a_t_e___m_a_c_h_i_n_e.html" title="POWER_NODE__STATE_MACHINE" alt="" coords="301,309,538,336"/>
+<area shape="rect" id="node9" href="$group___p_o_w_e_r___n_o_d_e_____s_e_r_i_a_l___n_e_t_w_o_r_k.html" title="POWER_NODE__SERIAL\l_NETWORK" alt="" coords="331,361,507,402"/>
+<area shape="rect" id="node10" href="$group___r_l_o_o_p.html" title="RLOOP" alt="" coords="5,183,72,209"/>
+</map>

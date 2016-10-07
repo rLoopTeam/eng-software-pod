@@ -23,7 +23,7 @@
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Init any of the main application state machine items
  * 
  * @st_funcMD5		611B9683853891822BC9217033304AE8
  * @st_funcID		LCCM653R0.FILE.003.FUNC.001

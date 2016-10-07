@@ -1,7 +1,7 @@
 @INCLUDE = D:/LOCKIE/DESIGN/LDL/COMMON_CODE/DOXYGEN/CONFIG/common.doxygen
 
 GENERATE_LATEX         = NO
-PROJECT_NAME           = "(C Code, <Project Name>, Description)"
+PROJECT_NAME           = "(C Code, RLOOP, Power Node Core)"
 PROJECT_NUMBER         = "1.0"
 OUTPUT_DIRECTORY       = D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM653__RLOOP__POWER_CORE/DOXYGEN/OUTPUT
 WARN_LOGFILE           = warning.log

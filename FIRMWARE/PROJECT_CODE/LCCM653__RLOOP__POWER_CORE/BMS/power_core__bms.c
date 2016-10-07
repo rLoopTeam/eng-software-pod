@@ -22,6 +22,35 @@
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
 
+/***************************************************************************//**
+ * @brief
+ * Init the battery management system
+ * 
+ * @st_funcMD5		C25517A5352BBA3E0ADB3482CBDE4749
+ * @st_funcID		LCCM653R0.FILE.008.FUNC.001
+ */
+void vPWRNODE_BMS__Init(void)
+{
+
+	//init the ATA6870 driver
+	vATA6870__Init();
+
+}
+
+/***************************************************************************//**
+ * @brief
+ * Process any battery management system items
+ * 
+ * @st_funcMD5		9809D5F9775BE5E5A0B9636137B0DA65
+ * @st_funcID		LCCM653R0.FILE.008.FUNC.002
+ */
+void vPWRNODE_BMS__Process(void)
+{
+
+	//process any ATA6870 tasks
+	vATA6870__Process();
+
+}
 
 
 #endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U

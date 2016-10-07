@@ -44,7 +44,7 @@ void vPWRNODE__Init(void)
  * Process the power node states, this should be called as quick as possible from
  * the main program loop.
  * 
- * @st_funcMD5		70C3D19B744ABC24BDA133C0DD27A1BE
+ * @st_funcMD5		050D52427C2B119643AE863198B0965D
  * @st_funcID		LCCM653R0.FILE.000.FUNC.002
  */
 void vPWRNODE__Process(void)
@@ -57,16 +57,21 @@ void vPWRNODE__Process(void)
 	\dot
 	 digraph G {
 	 INIT_STATE__START -> INIT_STATE__COMMS [label = "After Setup"];
-	 INIT_STATE__COMMS -> INIT_STATE__1_WIRE_START [label = "After configure serial comms devices"];
-	 INIT_STATE__1_WIRE_START -> INIT_STATE__1_WIRE_SEARCH;
-	 INIT_STATE__1_WIRE_SEARCH -> INIT_STATE__1_WIRE_SEARCH [label = "u8DS18B20_ADDX__SearchSM_IsBusy() == 1"];
-	 INIT_STATE__1_WIRE_SEARCH -> INIT_STATE__1_WIRE_DONE  [label = "u8DS18B20_ADDX__SearchSM_IsBusy() == 0"];
+	 INIT_STATE__COMMS -> INIT_STATE__BATT_TEMP_START [label = "After configure serial comms devices"];
+	 INIT_STATE__CELL_TEMP_START -> INIT_STATE__CELL_TEMP_SEARCH;
+	 INIT_STATE__CELL_TEMP_SEARCH -> INIT_STATE__CELL_TEMP_SEARCH [label = "u8DS18B20_ADDX__SearchSM_IsBusy() == 1"];
+	 INIT_STATE__CELL_TEMP_SEARCH -> INIT_STATE__CELL_TEMP_SEARCH_DONE  [label = "u8DS18B20_ADDX__SearchSM_IsBusy() == 0"];
+	 INIT_STATE__CELL_TEMP_SEARCH_DONE -> INIT_STATE__BMS
 	 }
 	 \enddot
 	 */
 	switch(sPWRNODE.sInit.sState)
 	{
 
+		case INIT_STATE__UNKNOWN:
+			//todo
+			//should never get here.
+			break;
 
 		case INIT_STATE__START:
 			//We have been put into Init Start state, bring up the basic low level
@@ -98,29 +103,27 @@ void vPWRNODE__Process(void)
 			vRM4_I2C_USER__Init();
 
 			//move to next state
-			sPWRNODE.sInit.sState = INIT_STATE__1_WIRE_START;
+			sPWRNODE.sInit.sState = INIT_STATE__CELL_TEMP_START;
 			break;
 
 
-		case INIT_STATE__1_WIRE_START:
-			//bring up the 1-wire interface(s)
-			vDS2482S__Init();
+		case INIT_STATE__CELL_TEMP_START:
 
-			//check the result of the status flags for this system and if there is an
-			//error decide what to do, either keep going or change to an error state
+			//start the battery temp system
+			vPWRNODE_BATTTEMP__Init();
 
-			//We have a choice here to re-scan each power up or supply the addresses via the network
-			//for each sensor. For now we'll search
+			//start a search
+			vPWRNODE_BATTTEMP__Start_Search();
 
-			sPWRNODE.sInit.sState = INIT_STATE__1_WIRE_SEARCH;
+			sPWRNODE.sInit.sState = INIT_STATE__CELL_TEMP_SEARCH;
 			break;
 
-		case INIT_STATE__1_WIRE_SEARCH:
+		case INIT_STATE__CELL_TEMP_SEARCH:
 			//process the search
-			vDS18B20_ADDX__SearchSM_Process();
+			vPWRNODE_BATTTEMP__Process();
 
 			//check the satate
-			u8Test = u8DS18B20_ADDX__SearchSM_IsBusy();
+			u8Test = u8PWRNODE_BATTTEMP__Search_IsBusy();
 			if(u8Test == 1U)
 			{
 				//stay in the search state
@@ -129,12 +132,38 @@ void vPWRNODE__Process(void)
 			else
 			{
 				//change state
-				sPWRNODE.sInit.sState = INIT_STATE__1_WIRE_DONE;
+				sPWRNODE.sInit.sState = INIT_STATE__CELL_TEMP_SEARCH_DONE;
 			}
 			break;
 
-		case INIT_STATE__1_WIRE_DONE:
+		case INIT_STATE__CELL_TEMP_SEARCH_DONE:
 			//done searching 1-wire interface,
+
+			//todo, handle any results from the search
+
+			//next get the BMS going
+			sPWRNODE.sInit.sState = INIT_STATE__BMS;
+			break;
+
+		case INIT_STATE__BMS:
+
+			//init the BMS layer
+			vPWRNODE_BMS__Init();
+
+			break;
+
+
+
+		case INIT_STATE__RUN:
+
+			//normal run state
+
+			//process any BMS tasks
+			vPWRNODE_BMS__Process();
+
+			//process any temp sensor items
+			vPWRNODE_BATTTEMP__Process();
+
 			break;
 
 		default:

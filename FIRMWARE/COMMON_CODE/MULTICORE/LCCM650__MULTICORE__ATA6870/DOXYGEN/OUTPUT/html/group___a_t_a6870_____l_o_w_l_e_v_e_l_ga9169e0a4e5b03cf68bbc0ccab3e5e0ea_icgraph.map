@@ -1,0 +1,7 @@
+<map id="vATA6870_LOWLEVEL__Reg_WriteU8" name="vATA6870_LOWLEVEL__Reg_WriteU8">
+<area shape="rect" id="node2" href="$group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937" title="Init any ATA6870 systems. " alt="" coords="256,5,367,32"/>
+<area shape="rect" id="node3" href="$group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#gab881482bec60f5d93439668bccba1705" title="Turn off all resistors. " alt="" coords="219,56,403,83"/>
+<area shape="rect" id="node4" href="$group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga23c1ee8e1d92e772a261d306a53c7e8a" title="Turn off an individual discharge resistor. " alt="" coords="227,107,396,133"/>
+<area shape="rect" id="node5" href="$group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga7f0d8bca7c58a116e64f17939df9e351" title="Turn on an individual discharge resistor. " alt="" coords="226,157,397,184"/>
+<area shape="rect" id="node6" href="$group___a_t_a6870_____u_n_d_e_r_v_o_l_t.html#gaf8e7f8e02a5f1073ef53ca3d5391d395" title="Set the under voltage threshold value. " alt="" coords="219,208,404,235"/>
+</map>

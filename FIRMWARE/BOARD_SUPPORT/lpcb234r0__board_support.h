@@ -56,10 +56,15 @@ Change the build settings:
 	//100 (Low Power)
 	#define C_LOCALDEF__SYSTEM__HCLK_FREQ_MHZ								(200U)
 
+	//normal bus division is either 1 or 2
+	//In 1x mode, VCLK1 is 100MHZ, in 2x mode VCLK is 50MHZ
+	//you may only need 2x mode if you need ultra lo SPI comms, etc.
+	#define C_LOCALDEF__SYSTEM__VCLK1_DIVISOR								(2U)
+
 
 	//just here because of no EMIF
 	//if ou are using EMIF, then remove this line
-	#define C_LOCALDEF__LCCM107__EMIF_CLOCK_DIVISOR							1U
+	#define C_LOCALDEF__LCCM107__EMIF_CLOCK_DIVISOR							(1U)
 
 
 	//we have the ability to use the ECLK pin to generate a high frequency divided
@@ -264,18 +269,21 @@ RM4 MiB SPI 1,3 and 5 Common Driver
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_3__TXLEN_BITS	MIBSPI135_DATAFORMAT__8BITS
 
 			//set the speed of each format
-			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_0__SPEED			MIBSPI135_SPEED__5MHZ
+			//ATA6870N Clock Max = 0.5xFclk = 250KHZ!!! Max
+			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_0__SPEED			MIBSPI135_SPEED__400K
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_1__SPEED			MIBSPI135_SPEED__5MHZ
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_2__SPEED			MIBSPI135_SPEED__5MHZ
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_3__SPEED			MIBSPI135_SPEED__5MHZ
 
 			//clock phase
+			//ATA6870N is phase 0
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_0__CPHA			MIBSPI135_CPHA__1
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_1__CPHA			MIBSPI135_CPHA__1
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_2__CPHA			MIBSPI135_CPHA__1
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_3__CPHA			MIBSPI135_CPHA__1
 
 			//clock polarity
+			//ATA6870 is polarity 0
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_0__CPOL			MIBSPI135_CPOL__0
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_1__CPOL			MIBSPI135_CPOL__0
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_2__CPOL			MIBSPI135_CPOL__0

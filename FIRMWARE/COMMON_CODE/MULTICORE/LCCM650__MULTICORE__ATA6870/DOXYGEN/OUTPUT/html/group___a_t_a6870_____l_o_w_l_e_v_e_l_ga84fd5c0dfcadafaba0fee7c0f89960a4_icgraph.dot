@@ -1,0 +1,32 @@
+digraph "u16ATA6870_LOWLEVEL__Tx_DeviceID"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="u16ATA6870_LOWLEVEL\l__Tx_DeviceID",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="vATA6870_LOWLEVEL_\l_Reg_ReadU8",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b",tooltip="Read a byte / byte array from a device with a given length. "];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="vATA6870_CELL__Get\l_Voltages",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga7ff31c66d77e49d6a1f5a549aad5b912",tooltip="Gets the voltages for each cell from a specific BMS device. "];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="vATA6870_RES__TurnOn",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga7f0d8bca7c58a116e64f17939df9e351",tooltip="Turn on an individual discharge resistor. "];
+  Node2 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="vATA6870_RES__TurnOff",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga23c1ee8e1d92e772a261d306a53c7e8a",tooltip="Turn off an individual discharge resistor. "];
+  Node2 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="vATA6870_SCAN__Start",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____s_c_a_n.html#ga9f664bd9b7c6862f8bf47939bebd3ea0",tooltip="Scans the bus for devices. "];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="vATA6870__Init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937",tooltip="Init any ATA6870 systems. "];
+  Node2 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="u8ATA6870_STATUS__Get\l_Op_Status",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____s_t_a_t_u_s.html#ga0cec67bca791701be1e333f57acd3e38",tooltip="Returns the Op Status register details. "];
+  Node2 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="u8ATA6870_STATUS__Get\l_IRQ_Status",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____s_t_a_t_u_s.html#gafba1240e496181442286ed65f3804d97",tooltip="Gets the status of the IRQ system. "];
+  Node1 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="vATA6870_LOWLEVEL_\l_Reg_WriteU8",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea",tooltip="Write a U8 to a devices register. "];
+  Node10 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="vATA6870_RES__TurnAllOff",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#gab881482bec60f5d93439668bccba1705",tooltip="Turn off all resistors. "];
+  Node10 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="vATA6870_UV__Set_UVTrip",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____u_n_d_e_r_v_o_l_t.html#gaf8e7f8e02a5f1073ef53ca3d5391d395",tooltip="Set the under voltage threshold value. "];
+}

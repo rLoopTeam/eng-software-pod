@@ -1,0 +1,9 @@
+<map id="vATA6870_LOWLEVEL__Reg_ReadU8" name="vATA6870_LOWLEVEL__Reg_ReadU8">
+<area shape="rect" id="node2" href="$group___a_t_a6870_____s_t_a_t_u_s.html#gafba1240e496181442286ed65f3804d97" title="Gets the status of the IRQ system. " alt="" coords="219,5,400,47"/>
+<area shape="rect" id="node3" href="$group___a_t_a6870_____s_t_a_t_u_s.html#ga0cec67bca791701be1e333f57acd3e38" title="Returns the Op Status register details. " alt="" coords="219,71,400,112"/>
+<area shape="rect" id="node4" href="$group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga7ff31c66d77e49d6a1f5a549aad5b912" title="Gets the voltages for each cell from a specific BMS device. " alt="" coords="232,136,387,177"/>
+<area shape="rect" id="node5" href="$group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga23c1ee8e1d92e772a261d306a53c7e8a" title="Turn off an individual discharge resistor. " alt="" coords="225,202,394,229"/>
+<area shape="rect" id="node6" href="$group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga7f0d8bca7c58a116e64f17939df9e351" title="Turn on an individual discharge resistor. " alt="" coords="224,253,395,279"/>
+<area shape="rect" id="node7" href="$group___a_t_a6870_____s_c_a_n.html#ga9f664bd9b7c6862f8bf47939bebd3ea0" title="Scans the bus for devices. " alt="" coords="227,303,392,330"/>
+<area shape="rect" id="node8" href="$group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937" title="Init any ATA6870 systems. " alt="" coords="448,303,559,330"/>
+</map>

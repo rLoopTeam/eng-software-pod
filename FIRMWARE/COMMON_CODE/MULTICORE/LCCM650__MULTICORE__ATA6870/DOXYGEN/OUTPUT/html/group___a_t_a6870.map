@@ -1,0 +1,12 @@
+<map id="ATA6870" name="ATA6870">
+<area shape="rect" id="node1" href="$group___a_t_a6870_____b_a_l_a_n_c_e.html" title="ATA6870__BALANCE" alt="" coords="281,5,432,32"/>
+<area shape="rect" id="node2" href="$group___a_t_a6870_____s_c_a_n.html" title="ATA6870__SCAN" alt="" coords="294,56,419,83"/>
+<area shape="rect" id="node3" href="$group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html" title="ATA6870__RESISTORS" alt="" coords="275,107,438,133"/>
+<area shape="rect" id="node5" href="$group___a_t_a6870_____u_n_d_e_r_v_o_l_t.html" title="ATA6870__UNDERVOLT" alt="" coords="273,157,440,184"/>
+<area shape="rect" id="node6" href="$group___a_t_a6870_____i_n_t_e_r_r_u_p_t_s.html" title="ATA6870__INTERRUPTS" alt="" coords="272,208,441,235"/>
+<area shape="rect" id="node8" href="$group___a_t_a6870_____l_o_w_l_e_v_e_l.html" title="ATA6870__LOWLEVEL" alt="" coords="277,259,437,285"/>
+<area shape="rect" id="node9" href="$group___a_t_a6870_____c_o_r_e.html" title="ATA6870__CORE" alt="" coords="293,309,420,336"/>
+<area shape="rect" id="node10" href="$group___a_t_a6870_____c_e_l_l___v_o_l_t.html" title="ATA6870__CELL_VOLT" alt="" coords="276,360,437,387"/>
+<area shape="rect" id="node11" href="$group___a_t_a6870_____s_t_a_t_u_s.html" title="ATA6870__STATUS" alt="" coords="287,411,426,437"/>
+<area shape="rect" id="node7" href="$group___m_u_l_t_i_c_o_r_e.html" title="MULTICORE" alt="" coords="5,208,101,235"/>
+</map>

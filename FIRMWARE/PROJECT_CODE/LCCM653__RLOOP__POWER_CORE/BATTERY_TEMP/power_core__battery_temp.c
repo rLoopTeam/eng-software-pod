@@ -21,8 +21,72 @@
 #include "../power_core.h"
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
+/***************************************************************************//**
+ * @brief
+ * Init the battery temperature measurement devices
+ * 
+ * @st_funcMD5		125710767486723A58326AAA59E627DA
+ * @st_funcID		LCCM653R0.FILE.009.FUNC.001
+ */
+void vPWRNODE_BATTTEMP__Init(void)
+{
+	//bring up the 1-wire interface(s)
+	vDS2482S__Init();
+
+	//check the result of the status flags for this system and if there is an
+	//error decide what to do, either keep going or change to an error state
+
+	//We have a choice here to re-scan each power up or supply the addresses via the network
+	//for each sensor. For now we'll search
+
+	//start the temp sensor driver
+	vDS18B20__Init();
+
+}
 
 
+/***************************************************************************//**
+ * @brief
+ * Process any battery temp measurement tasks
+ * 
+ * @st_funcMD5		716F10371EC26421C99A1DD629ED9105
+ * @st_funcID		LCCM653R0.FILE.009.FUNC.002
+ */
+void vPWRNODE_BATTTEMP__Process(void)
+{
+	//process any search tasks
+	vDS18B20_ADDX__SearchSM_Process();
+
+}
+
+
+/***************************************************************************//**
+ * @brief
+ * Start a search of any devices on the network
+ * 
+ * @st_funcMD5		44524ACD1CAC2160BEBA831938D2122E
+ * @st_funcID		LCCM653R0.FILE.009.FUNC.003
+ */
+void vPWRNODE_BATTTEMP__Start_Search(void)
+{
+	//start the search state machine
+	vDS18B20_ADDX__SearchSM_Start();
+}
+
+
+/***************************************************************************//**
+ * @brief
+ * Check to see if the batt temp sensor search process is busy
+ * 
+ * @return			0 = not busy\n
+ *					1 = busy
+ * @st_funcMD5		CF96C635BC6184E9E3C82972F7EFA099
+ * @st_funcID		LCCM653R0.FILE.009.FUNC.004
+ */
+Luint8 u8PWRNODE_BATTTEMP__Search_IsBusy(void)
+{
+	return u8DS18B20_ADDX__SearchSM_IsBusy();
+}
 
 #endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 //safetys

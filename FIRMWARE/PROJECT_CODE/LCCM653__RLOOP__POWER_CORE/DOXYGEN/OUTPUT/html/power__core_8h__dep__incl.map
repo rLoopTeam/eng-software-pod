@@ -1,0 +1,10 @@
+<map id="power_core.h" name="power_core.h">
+<area shape="rect" id="node2" href="$power__core____battery__temp_8c.html" title="Battery Temperature Sensor, Bus Bars and Cells. " alt="" coords="5,80,168,121"/>
+<area shape="rect" id="node3" href="$power__core____bms_8c.html" title="Battery Management Interface Layer. " alt="" coords="192,87,363,114"/>
+<area shape="rect" id="node4" href="$power__core____can__network_8c.html" title="CAN Network interface layer. " alt="" coords="387,80,579,121"/>
+<area shape="rect" id="node5" href="$power__core____node__pressure_8c.html" title="Node Baro Pressure Sensor interface layer. " alt="" coords="603,80,779,121"/>
+<area shape="rect" id="node6" href="$power__core____node__temp_8c.html" title="Node temperature interface layer. " alt="" coords="803,80,975,121"/>
+<area shape="rect" id="node7" href="$power__core_8c.html" title="Top Level for the Power Node Core systems. " alt="" coords="1000,87,1099,114"/>
+<area shape="rect" id="node8" href="$power__core____serial__network_8c.html" title="Serial network interface to the Pi. " alt="" coords="1123,80,1301,121"/>
+<area shape="rect" id="node9" href="$power__core____state__machine_8c.html" title="Main state machine layer for the Power Node. " alt="" coords="1326,80,1493,121"/>
+</map>

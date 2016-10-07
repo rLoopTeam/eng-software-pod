@@ -1,0 +1,27 @@
+digraph "ATA6870"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir=LR;
+  Node3 [label="ATA6870__BALANCE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____b_a_l_a_n_c_e.html"];
+  Node8 [label="ATA6870__SCAN",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____s_c_a_n.html"];
+  Node7 [label="ATA6870__RESISTORS",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html"];
+  Node0 [label="ATA6870",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node10 [label="ATA6870__UNDERVOLT",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____u_n_d_e_r_v_o_l_t.html"];
+  Node5 [label="ATA6870__INTERRUPTS",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____i_n_t_e_r_r_u_p_t_s.html"];
+  Node1 [label="MULTICORE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___m_u_l_t_i_c_o_r_e.html"];
+  Node6 [label="ATA6870__LOWLEVEL",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____l_o_w_l_e_v_e_l.html"];
+  Node2 [label="ATA6870__CORE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____c_o_r_e.html"];
+  Node4 [label="ATA6870__CELL_VOLT",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____c_e_l_l___v_o_l_t.html"];
+  Node9 [label="ATA6870__STATUS",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___a_t_a6870_____s_t_a_t_u_s.html"];
+  Node1->Node0 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node2 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node3 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node4 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node5 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node6 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node7 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node8 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node9 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node10 [shape=plaintext, dir="back", style="solid"];
+}
