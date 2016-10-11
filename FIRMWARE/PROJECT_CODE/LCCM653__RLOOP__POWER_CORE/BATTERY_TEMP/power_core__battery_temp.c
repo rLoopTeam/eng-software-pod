@@ -30,6 +30,7 @@
  */
 void vPWRNODE_BATTTEMP__Init(void)
 {
+#ifndef WIN32
 	//bring up the 1-wire interface(s)
 	vDS2482S__Init();
 
@@ -41,7 +42,7 @@ void vPWRNODE_BATTTEMP__Init(void)
 
 	//start the temp sensor driver
 	vDS18B20__Init();
-
+#endif
 }
 
 
@@ -54,9 +55,10 @@ void vPWRNODE_BATTTEMP__Init(void)
  */
 void vPWRNODE_BATTTEMP__Process(void)
 {
+#ifndef WIN32
 	//process any search tasks
 	vDS18B20_ADDX__SearchSM_Process();
-
+#endif
 }
 
 
@@ -69,8 +71,10 @@ void vPWRNODE_BATTTEMP__Process(void)
  */
 void vPWRNODE_BATTTEMP__Start_Search(void)
 {
+#ifndef WIN32
 	//start the search state machine
 	vDS18B20_ADDX__SearchSM_Start();
+#endif
 }
 
 
@@ -85,7 +89,11 @@ void vPWRNODE_BATTTEMP__Start_Search(void)
  */
 Luint8 u8PWRNODE_BATTTEMP__Search_IsBusy(void)
 {
+#ifndef WIN32
 	return u8DS18B20_ADDX__SearchSM_IsBusy();
+#else
+	return 0U;
+#endif
 }
 
 #endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U

@@ -68,6 +68,16 @@
 
 			}sInit;
 
+			/** Win32 Functions*/
+#ifdef WIN32
+			struct
+			{
+				/** The node temp from the TSYS01 sensor */
+				Lfloat32 f32NodeTemperature;
+
+			}sWIN32;
+
+#endif
 
 		};
 
@@ -75,8 +85,8 @@
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/
-		void vPWRNODE__Init(void);
-		void vPWRNODE__Process(void);
+		DLL_DECLARATION void vPWRNODE__Init(void);
+		DLL_DECLARATION void vPWRNODE__Process(void);
 
 		//main application state machine
 		void vPWRNODE_SM__Init(void);
@@ -99,6 +109,11 @@
 		void vPWRNODE_NODETEMP__Init(void);
 		void vPWRNODE_NODETEMP__Process(void);
 		Lfloat32 f32PWRNODE_NODETEMP__Get_Temperature_DegC(void);
+
+#ifdef WIN32
+		void vPWRNODE_WIN32__Init(void);
+		DLL_DECLARATION void vPWRNODE_WIN32__Set_NodeTemperature(Lfloat32 f32Temperature);
+#endif
 
 	#endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 	//safetys

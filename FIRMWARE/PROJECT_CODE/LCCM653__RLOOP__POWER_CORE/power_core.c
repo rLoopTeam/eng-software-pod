@@ -74,6 +74,7 @@ void vPWRNODE__Process(void)
 			break;
 
 		case INIT_STATE__START:
+#ifndef WIN32
 			//We have been put into Init Start state, bring up the basic low level
 			//RM4 systems that do not return error codes
 
@@ -86,7 +87,13 @@ void vPWRNODE__Process(void)
 			//setup UART
 			vRM4_SCI__Init(SCI_CHANNEL__2);
 			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 9600U);
+#else
+			//Init any win32 variables
+			vPWRNODE_WIN32__Init();
 
+			//emit a message
+			DEBUG_PRINT("INIT_STATE__START");
+#endif
 			//move to next state
 			sPWRNODE.sInit.sState = INIT_STATE__COMMS;
 
@@ -94,6 +101,7 @@ void vPWRNODE__Process(void)
 
 
 		case INIT_STATE__COMMS:
+#ifndef WIN32
 			//init any comms channels
 
 			//get the SPI up for the BMS system
@@ -101,7 +109,7 @@ void vPWRNODE__Process(void)
 
 			//get the I2C up for the networked sensors
 			vRM4_I2C_USER__Init();
-
+#endif
 			//move to next state
 			sPWRNODE.sInit.sState = INIT_STATE__CELL_TEMP_START;
 			break;
@@ -151,8 +159,6 @@ void vPWRNODE__Process(void)
 			vPWRNODE_BMS__Init();
 
 			break;
-
-
 
 		case INIT_STATE__RUN:
 

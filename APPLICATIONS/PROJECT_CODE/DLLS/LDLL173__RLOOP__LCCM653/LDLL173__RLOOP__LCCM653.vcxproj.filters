@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE">
+      <UniqueIdentifier>{d8c58b0b-74d9-4e06-b8d9-edf6e5ec80f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM653__RLOOP__POWER_CORE">
+      <UniqueIdentifier>{15cdce45-9912-47bb-b0ea-784bf553e144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM653__RLOOP__POWER_CORE\BATTERY_TEMP">
+      <UniqueIdentifier>{6400d2b3-f8f5-49d4-aa4a-ebe9dfcffee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM653__RLOOP__POWER_CORE\BMS">
+      <UniqueIdentifier>{c97cb7f9-8257-498e-ad57-6f33bd86c373}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM653__RLOOP__POWER_CORE\CAN_NETWORK">
+      <UniqueIdentifier>{29e16f54-6174-433a-ae64-20de099d0621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM653__RLOOP__POWER_CORE\NODE_PRESSURE">
+      <UniqueIdentifier>{b7d7f576-66af-42d1-a1b9-6a1eea853ee1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM653__RLOOP__POWER_CORE\NODE_TEMP">
+      <UniqueIdentifier>{a97c243e-227d-430f-8094-db1794723a49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM653__RLOOP__POWER_CORE\SERIAL_NETWORK">
+      <UniqueIdentifier>{a1f85123-33cc-4cbc-b17c-ddc0ec94438d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM653__RLOOP__POWER_CORE\STATE_MACHINE">
+      <UniqueIdentifier>{8d79ec31-47d8-4a9a-82d7-4d586f7f03d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM653__RLOOP__POWER_CORE\WIN32">
+      <UniqueIdentifier>{8e96c28f-7583-4d8f-b311-dfdde56ed374}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE">
+      <UniqueIdentifier>{c9887278-0829-43fb-8bd9-033aa9d4b621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL">
+      <UniqueIdentifier>{8fa762c9-90bc-41ff-9d4a-e8d0ae10e4b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TOLERANCE">
+      <UniqueIdentifier>{dcfb3320-5e10-4612-ae00-093e8daea281}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\POINTS">
+      <UniqueIdentifier>{f9f5b573-5be5-4157-b58c-a9e6171e38e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\LINEAR">
+      <UniqueIdentifier>{edcf044b-4ec4-4119-8a7c-b59ff528d7e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG">
+      <UniqueIdentifier>{bf92317c-c729-4d13-904a-2b86c4c0d17e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\ABS">
+      <UniqueIdentifier>{62edcc3c-1ee0-4595-a067-2f2432bca793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\CIRCLE">
+      <UniqueIdentifier>{4cd55d1b-b5ea-4e4e-9931-71a9dbb34cbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FLOAT">
+      <UniqueIdentifier>{d87aa8b0-fa80-424b-82d5-7597ae5d08b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC">
+      <UniqueIdentifier>{e07c70fb-b9a7-48d8-9f4a-8811d5e0cb69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WIN32">
+      <UniqueIdentifier>{d7657e7f-f6a2-40af-9bf9-24d99ac03506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WIN32\DEBUG_PRINTF">
+      <UniqueIdentifier>{70d4ba12-3067-4f39-87a5-770373bae769}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC\software_crc.c">
+      <Filter>Source Files\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TOLERANCE\numerical__tolerance.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TOLERANCE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c">
+      <Filter>Source Files\WIN32\DEBUG_PRINTF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\LINEAR\numerical__linear.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\LINEAR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\POINTS\numerical__points.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\POINTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree.c">
+      <Filter>Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG_TABLES\numerical__cosine.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG_TABLES\numerical__sine.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG_TABLES\numerical__atan.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\ABS\numerical__abs.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\ABS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\CIRCLE\numerical__circle.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\CIRCLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FLOAT\numerical__float.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FLOAT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\BATTERY_TEMP\power_core__battery_temp.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\BATTERY_TEMP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\BMS\power_core__bms.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\BMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CAN_NETWORK\power_core__can_network.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\CAN_NETWORK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\WIN32\power_core__win32.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\WIN32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\STATE_MACHINE\power_core__state_machine.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\STATE_MACHINE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\SERIAL_NETWORK\power_core__serial_network.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\SERIAL_NETWORK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\NODE_TEMP\power_core__node_temp.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\NODE_TEMP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\NODE_PRESSURE\power_core__node_pressure.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\NODE_PRESSURE</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
+    </ClInclude>
+    <ClInclude Include="localdef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC\software_crc.h">
+      <Filter>Source Files\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h">
+      <Filter>Source Files\WIN32\DEBUG_PRINTF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical__structs.h">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree.h">
+      <Filter>Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree__public.h">
+      <Filter>Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC\software_crc__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core.h">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core__localdef.h">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -20,6 +20,8 @@
 #include "../power_core.h"
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
+extern struct _strPWRNODE sPWRNODE;
+
 /***************************************************************************//**
  * @brief
  * Init any node temperature based sub systems
@@ -55,9 +57,12 @@ void vPWRNODE_NODETEMP__Process(void)
  */
 Lfloat32 f32PWRNODE_NODETEMP__Get_Temperature_DegC(void)
 {
-
+#ifdef WIN32
+	return sPWRNODE.sWIN32.f32NodeTemperature;
+#else
+	//todo: get from hardware
 	return 0.0F;
-
+#endif
 }
 
 

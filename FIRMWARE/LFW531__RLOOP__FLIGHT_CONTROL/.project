@@ -41,6 +41,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM517__MULTICORE__SAFETOOL_BRANCH</locationURI>
 		</link>
 		<link>
+			<name>RLOOP/LCCM655__RLOOP__FCU_CORE</name>
+			<type>2</type>
+			<location>D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM655__RLOOP__FCU_CORE</location>
+		</link>
+		<link>
 			<name>RM4/LCCM105__RM4__BASIC_TYPES</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM105__RM4__BASIC_TYPES</locationURI>
@@ -106,6 +111,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM229__RM4__DMA</locationURI>
 		</link>
 		<link>
+			<name>RM4/LCCM280__RM4__MIBSPI_135</name>
+			<type>2</type>
+			<location>D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM280__RM4__MIBSPI_135</location>
+		</link>
+		<link>
 			<name>RM4/LCCM282__RM4__SCI</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM282__RM4__SCI</locationURI>
@@ -113,7 +123,7 @@
 	</linkedResources>
 	<filteredResources>
 		<filter>
-			<id>1461730354950</id>
+			<id>1476144520084</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -122,7 +132,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1461730354963</id>
+			<id>1476144520089</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -131,7 +141,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1461730354969</id>
+			<id>1476144520094</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -140,16 +150,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1461730354974</id>
-			<name></name>
-			<type>30</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-WIN32</arguments>
-			</matcher>
-		</filter>
-		<filter>
-			<id>1461730354978</id>
+			<id>1476144520098</id>
 			<name></name>
 			<type>30</type>
 			<matcher>

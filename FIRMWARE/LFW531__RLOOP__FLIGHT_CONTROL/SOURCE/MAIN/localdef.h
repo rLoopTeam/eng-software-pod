@@ -1,8 +1,8 @@
 #ifndef LOCALDEF_H_
 #define LOCALDEF_H_
 
-	//The control card
-	#include <../../../BOARD_SUPPORT/lpcb234r0__board_support.h>
+	//The PCB's main files
+	#include <../../../BOARD_SUPPORT/lpcb235r0__board_support.h>
 
 
 /*******************************************************************************
@@ -42,5 +42,20 @@ NUMERICAL MODULE
 		//main include
 		#include <MULTICORE/LCCM118__MULTICORE__NUMERICAL/numerical.h>
 	#endif //C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE
+
+/*******************************************************************************
+RLOOP - FLIGHT CONTROL UNIT - CORE
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM655__ENABLE_TEST_SPEC						(0U)
+
+		/** Main include file */
+		#include <LCCM655__RLOOP__FCU_CORE/fcu_core.h>
+	#endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+
 
 #endif /* LOCALDEF_H_ */

@@ -31,9 +31,10 @@
  */
 void vPWRNODE_BMS__Init(void)
 {
-
+#ifndef WIN32
 	//init the ATA6870 driver
 	vATA6870__Init();
+#endif
 
 }
 
@@ -46,10 +47,10 @@ void vPWRNODE_BMS__Init(void)
  */
 void vPWRNODE_BMS__Process(void)
 {
-
+#ifndef WIN32
 	//process any ATA6870 tasks
 	vATA6870__Process();
-
+#endif
 }
 
 

@@ -19,7 +19,7 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__ENABLE_TEST_SPEC						(0U)
 		
 		/** Main include file */
-		#include <PROJECT_CODE/LCCM653__RLOOP__POWER_CORE/power_core.h>
+		#include <LCCM653__RLOOP__POWER_CORE/power_core.h>
 
 	#endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
