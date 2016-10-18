@@ -1,0 +1,16 @@
+digraph "pi_comms.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="pi_comms.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="pi_comms.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$pi__comms_8c.html",tooltip="Main Pi Communictions module file. "];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="RM4/pi_comms__rm4.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$pi__comms____rm4_8c.html",tooltip="RM4 portion of the Pi Comms module. "];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="RX/pi_comms__rx.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$pi__comms____rx_8c.html",tooltip="Architecture neutral Rx code from Pi to Host. "];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="TX/pi_comms__tx.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$pi__comms____tx_8c.html",tooltip="Architecture neutral transmit code from host to Pi. "];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="WIN32/pi_comms__win32.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$pi__comms____win32_8c.html",tooltip="WIN32 emulation functions for the Pi Comms module. "];
+}
