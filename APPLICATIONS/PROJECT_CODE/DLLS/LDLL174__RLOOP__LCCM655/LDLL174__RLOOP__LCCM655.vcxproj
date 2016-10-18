@@ -43,7 +43,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)\bin\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)\$(Configuration)\</IntDir>
-    <IncludePath>D:\LOCKIE\DESIGN\RLOOP\APPLICATIONS\PROJECT_CODE\DLLS\LDLL174__RLOOP__LCCM655;D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE;D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\COMMON_CODE;$(IncludePath)</IncludePath>
+    <IncludePath>$(MSBuildProjectDirectory);$(MSBuildProjectDirectory)\..\..\..\..\FIRMWARE\PROJECT_CODE;$(MSBuildProjectDirectory)\..\..\..\..\FIRMWARE\COMMON_CODE;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
