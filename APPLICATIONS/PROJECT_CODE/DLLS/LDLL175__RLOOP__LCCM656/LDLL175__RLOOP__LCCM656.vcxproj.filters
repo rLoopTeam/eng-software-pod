@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE">
+      <UniqueIdentifier>{d8c58b0b-74d9-4e06-b8d9-edf6e5ec80f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WIN32">
+      <UniqueIdentifier>{f317ff19-95a5-48d7-8bae-537bfb6a701c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WIN32\DEBUG_PRINTF">
+      <UniqueIdentifier>{70d4ba12-3067-4f39-87a5-770373bae769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM656__RLOOP__PI_COMMS">
+      <UniqueIdentifier>{133e9ae8-c92e-4151-af55-d08c96f64263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM656__RLOOP__PI_COMMS\RM4">
+      <UniqueIdentifier>{e7b3721e-8543-4834-9ce7-f68b241186fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM656__RLOOP__PI_COMMS\RX">
+      <UniqueIdentifier>{57c90614-d10f-4899-9253-8e61bdec3bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM656__RLOOP__PI_COMMS\TX">
+      <UniqueIdentifier>{52587440-f9e0-47a6-9a61-afaa7376cafc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM656__RLOOP__PI_COMMS\WIN32">
+      <UniqueIdentifier>{76b9bce2-ba27-470f-af79-529f1798f4ff}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c">
+      <Filter>Source Files\WIN32\DEBUG_PRINTF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.c">
+      <Filter>LCCM656__RLOOP__PI_COMMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\RM4\pi_comms__rm4.c">
+      <Filter>LCCM656__RLOOP__PI_COMMS\RM4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\RX\pi_comms__rx.c">
+      <Filter>LCCM656__RLOOP__PI_COMMS\RX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\TX\pi_comms__tx.c">
+      <Filter>LCCM656__RLOOP__PI_COMMS\TX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\WIN32\pi_comms__win32.c">
+      <Filter>LCCM656__RLOOP__PI_COMMS\WIN32</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="localdef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h">
+      <Filter>Source Files\WIN32\DEBUG_PRINTF</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h">
+      <Filter>LCCM656__RLOOP__PI_COMMS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms__localdef.h">
+      <Filter>LCCM656__RLOOP__PI_COMMS</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
