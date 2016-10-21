@@ -143,6 +143,11 @@ Lint16 s16DS2482S_DEVICE__Set_ReadPointer(Luint8 u8DeviceIndex, E_DS2482_POINTER
  * @brief
  * Gets the status register
  * 
+ * @st_image
+ * The image below shows a get status transaction.
+ * ![](D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOXYGEN/IMAGES/DS2482S_GET_STATUS.PNG)
+ * @image latex D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOXYGEN/IMAGES/DS2482S_GET_STATUS.PNG
+ * 
  * @param[in]		*pu8Status				Returned status register data
  * @param[in]		u8DeviceIndex			The I2C bus device index
  * @return			0 = success\n

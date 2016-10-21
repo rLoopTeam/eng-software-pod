@@ -5,7 +5,7 @@ del *.pdf
 cd..
 cd OUTPUT
 cd LATEX
-rem start /wait make.bat
+start /wait make.bat
 copy refman.pdf ..\..\PDF\
 cd..
 cd..
