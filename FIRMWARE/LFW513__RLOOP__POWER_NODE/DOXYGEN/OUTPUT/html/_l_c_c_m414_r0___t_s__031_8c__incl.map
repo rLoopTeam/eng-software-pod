@@ -1,0 +1,12 @@
+<map id="COMMON_CODE/RM4/LCCM414__RM4__ADC/UNIT_TEST/FUNCTION_ENTRY_TESTS/LCCM414R0_TS_031.c" name="COMMON_CODE/RM4/LCCM414__RM4__ADC/UNIT_TEST/FUNCTION_ENTRY_TESTS/LCCM414R0_TS_031.c">
+<area shape="rect" id="node2" href="$localdef_8h.html" title="localdef.h" alt="" coords="735,109,812,136"/>
+<area shape="rect" id="node4" href="$ata6870_8h.html" title="Main header file of public functions and structures for the ATA6870 driver. " alt="" coords="219,184,389,240"/>
+<area shape="rect" id="node6" href="$ms5607_8h.html" title="MULTICORE/LCCM648_\l_MULTICORE__MS5607/ms5607.h" alt="" coords="413,191,640,233"/>
+<area shape="rect" id="node7" href="$tsys01_8h.html" title="MULTICORE/LCCM647_\l_MULTICORE__TSYS01/tsys01.h" alt="" coords="664,191,883,233"/>
+<area shape="rect" id="node8" href="$ds2482s_8h.html" title="Main DS2482S header file. " alt="" coords="907,184,1079,240"/>
+<area shape="rect" id="node11" href="$ds18b20_8h.html" title="Main header for DS18B20 library. " alt="" coords="1103,184,1275,240"/>
+<area shape="rect" id="node12" href="$power__core_8h.html" title="Main header file for the power node core functions. " alt="" coords="1300,191,1503,233"/>
+<area shape="rect" id="node5" href="$ata6870____register__defs_8h.html" title="Register definitions for the ATA6870 device. " alt="" coords="219,288,389,344"/>
+<area shape="rect" id="node9" href="$ds2482s____reg__defs_8h.html" title="Main register definitions from the datasheet. " alt="" coords="802,288,974,344"/>
+<area shape="rect" id="node10" href="$fault__tree____public_8h.html" title="Public structures for the fault tree. " alt="" coords="998,288,1197,344"/>
+</map>
