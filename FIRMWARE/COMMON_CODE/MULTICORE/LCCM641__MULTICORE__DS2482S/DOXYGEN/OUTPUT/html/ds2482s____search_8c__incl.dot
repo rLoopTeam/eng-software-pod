@@ -9,4 +9,6 @@ digraph "SEARCH/ds2482s__search.c"
   Node3 [label="localdef.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
   Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node4 [label="MULTICORE/LCCM641_\l_MULTICORE__DS2482S\l/ds2482s__reg_defs.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ds2482s____reg__defs_8h.html",tooltip="Main register definitions from the datasheet. "];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="MULTICORE/LCCM284_\l_MULTICORE__FAULT_TREE\l/fault_tree__public.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
 }

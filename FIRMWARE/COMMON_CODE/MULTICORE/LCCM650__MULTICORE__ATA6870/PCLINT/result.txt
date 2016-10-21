@@ -1,0 +1,377 @@
+
+--- Module:   D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\ATA6870.C
+    (C), consumed 37,625 bytes
+
+--- Module:   D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C
+    (C), consumed 757,017 bytes
+                                                                                                           _
+	#define C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE							(1U)
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\VERIFICATION\LFW534__RLOOP__LCCM650_TE_000\SOURCE\MAIN\..\..\..\..\BOARD_SUPPORT\lpcb234r0__board_support.h 
+    358  Info 767: macro 'C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE' was defined
+    differently in another module (line 14, file D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\VERIFICATION\LFW534__RLOOP__LCCM650_TE_000\SOURCE\MAIN\localdef.h,
+    module D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\ATA6870.C)
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\VERIFICATION\LFW534__RLOOP__LCCM650_TE_000\SOURCE\MAIN\localdef.h 
+    14  Info 830: Location cited in prior message
+                                                 _
+#...      {if(0U == 0U) vRM4_GIO__Set_BitDirection(gioPORTB, 2U, GIO_DIRECTION_
+	M_LOCALDEF__LCCM650__POWER_ENABLE_TRIS(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    55  Note 960: Violates MISRA 2004 Required Rule 14.9, left brace expected
+    for if and else
+                                                 _
+#... 0U == 0U) vRM4_GIO__Set_BitDirection(gioPORTB, 2U, GIO_DIRECTION__OUTPUT);
+	M_LOCALDEF__LCCM650__POWER_ENABLE_TRIS(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    55  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                 _
+#... ION__OUTPUT); else vRM4_GIO__Set_BitDirection(gioPORTB, 2U, GIO_DIRECTION_
+	M_LOCALDEF__LCCM650__POWER_ENABLE_TRIS(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    55  Note 960: Violates MISRA 2004 Required Rule 14.9, left brace expected
+    for if and else
+                                                 _
+#... UT); else vRM4_GIO__Set_BitDirection(gioPORTB, 2U, GIO_DIRECTION__INPUT); 
+	M_LOCALDEF__LCCM650__POWER_ENABLE_TRIS(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    55  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                 _
+	M_LOCALDEF__LCCM650__POWER_ENABLE_TRIS(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    55  Note 960: Violates MISRA 2004 Required Rule 14.3, null statement not in
+    line by itself
+                                                  _
+#...                    {vRM4_GIO__Set_Bit(gioPORTB, 2U, 0U); }
+	M_LOCALDEF__LCCM650__POWER_ENABLE_LATCH(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    56  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                  _
+	M_LOCALDEF__LCCM650__POWER_ENABLE_LATCH(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    56  Note 960: Violates MISRA 2004 Required Rule 14.3, null statement not in
+    line by itself
+                                        _
+#... 0U == 0U) vRM4_GIO__Set_BitDirection(gioPORTB, 4U, GIO_DIRECTION__OUTPUT);
+	M_LOCALDEF__LCCM650__NCS_TRIS(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    59  Note 960: Violates MISRA 2004 Required Rule 14.9, left brace expected
+    for if and else
+                                        _
+#...  vRM4_GIO__Set_BitDirection(gioPORTB, 4U, GIO_DIRECTION__OUTPUT); else vRM
+	M_LOCALDEF__LCCM650__NCS_TRIS(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    59  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                        _
+#... UT); else vRM4_GIO__Set_BitDirection(gioPORTB, 4U, GIO_DIRECTION__INPUT);}
+	M_LOCALDEF__LCCM650__NCS_TRIS(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    59  Note 960: Violates MISRA 2004 Required Rule 14.9, left brace expected
+    for if and else
+                                        _
+#...  vRM4_GIO__Set_BitDirection(gioPORTB, 4U, GIO_DIRECTION__INPUT);}
+	M_LOCALDEF__LCCM650__NCS_TRIS(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    59  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                        _
+	M_LOCALDEF__LCCM650__NCS_TRIS(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    59  Note 960: Violates MISRA 2004 Required Rule 14.3, null statement not in
+    line by itself
+                                         _
+#...           {vRM4_GIO__Set_Bit(gioPORTB, 4U, 1U);}
+	M_LOCALDEF__LCCM650__NCS_LATCH(1U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    60  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                         _
+	M_LOCALDEF__LCCM650__NCS_LATCH(1U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    60  Note 960: Violates MISRA 2004 Required Rule 14.3, null statement not in
+    line by itself
+                                                _
+#...     {if(1U == 0U) vRM4_GIO__Set_BitDirection(gioPORTB, 5U, GIO_DIRECTION__
+	M_LOCALDEF__LCCM650__POWER_AVAIL_TRIS(1U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    63  Note 960: Violates MISRA 2004 Required Rule 14.9, left brace expected
+    for if and else
+                                                _
+#... U == 0U) vRM4_GIO__Set_BitDirection(gioPORTB, 5U, GIO_DIRECTION__OUTPUT); 
+	M_LOCALDEF__LCCM650__POWER_AVAIL_TRIS(1U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    63  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                _
+#... ON__OUTPUT); else vRM4_GIO__Set_BitDirection(gioPORTB, 5U, GIO_DIRECTION__
+	M_LOCALDEF__LCCM650__POWER_AVAIL_TRIS(1U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    63  Note 960: Violates MISRA 2004 Required Rule 14.9, left brace expected
+    for if and else
+                                                _
+#... T); else vRM4_GIO__Set_BitDirection(gioPORTB, 5U, GIO_DIRECTION__INPUT); }
+	M_LOCALDEF__LCCM650__POWER_AVAIL_TRIS(1U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    63  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                _
+	M_LOCALDEF__LCCM650__POWER_AVAIL_TRIS(1U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    63  Note 960: Violates MISRA 2004 Required Rule 14.3, null statement not in
+    line by itself
+                                         _
+#...           {vRM4_GIO__Set_Bit(gioPORTB, 4U, 0U);}
+	M_LOCALDEF__LCCM650__NCS_LATCH(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    131  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                         _
+	M_LOCALDEF__LCCM650__NCS_LATCH(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    131  Note 960: Violates MISRA 2004 Required Rule 14.3, null statement not
+    in line by itself
+                                                                             _
+	u16IRQStatus = u16ATA6870_LOWLEVEL__Tx_DeviceID(u8DeviceIndex, &u8CRC);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    137  Note 934: Taking address of near auto variable 'u8CRC' (arg. no. 2)
+    [MISRA 2004 Rule 1.2]
+                        _
+	u8Control <<= 1U;
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    153  Note 960: Violates MISRA 2004 Required Rule 10.5, Operators '~' and
+    '<<' require recasting to underlying type for sub-integers
+                                         _
+#...           {vRM4_GIO__Set_Bit(gioPORTB, 4U, 1U);}
+	M_LOCALDEF__LCCM650__NCS_LATCH(1U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    187  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                         _
+	M_LOCALDEF__LCCM650__NCS_LATCH(1U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    187  Note 960: Violates MISRA 2004 Required Rule 14.3, null statement not
+    in line by itself
+_
+}
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    192  Info 818: Pointer parameter 'pu8Data' (line 111) could be declared as
+    pointing to const [MISRA 2004 Rule 16.7]
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    111  Info 830: Location cited in prior message
+_
+}
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    192  Warning 550: Symbol 'u8Temp' (line 116) not accessed
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    116  Info 830: Location cited in prior message
+                                         _
+#...           {vRM4_GIO__Set_Bit(gioPORTB, 4U, 0U);}
+	M_LOCALDEF__LCCM650__NCS_LATCH(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    227  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                         _
+	M_LOCALDEF__LCCM650__NCS_LATCH(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    227  Note 960: Violates MISRA 2004 Required Rule 14.3, null statement not
+    in line by itself
+                                                                             _
+	u16IRQStatus = u16ATA6870_LOWLEVEL__Tx_DeviceID(u8DeviceIndex, &u8CRC);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    233  Note 934: Taking address of near auto variable 'u8CRC' (arg. no. 2)
+    [MISRA 2004 Rule 1.2]
+                        _
+	u8Control <<= 1U;
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    250  Note 960: Violates MISRA 2004 Required Rule 10.5, Operators '~' and
+    '<<' require recasting to underlying type for sub-integers
+                                         _
+#...           {vRM4_GIO__Set_Bit(gioPORTB, 4U, 1U);}
+	M_LOCALDEF__LCCM650__NCS_LATCH(1U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    281  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                         _
+	M_LOCALDEF__LCCM650__NCS_LATCH(1U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    281  Note 960: Violates MISRA 2004 Required Rule 14.3, null statement not
+    in line by itself
+_
+}
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    286  Warning 550: Symbol 'u8Temp' (line 212) not accessed
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    212  Info 830: Location cited in prior message
+_
+}
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    286  Warning 529: Symbol 'u8TempData' (line 213) not subsequently
+    referenced
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    213  Info 830: Location cited in prior message
+        _
+	union
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    305  Note 960: Violates MISRA 2004 Required Rule 18.4, unions shall not be
+    used
+                                          _
+	u16Addx <<= (Luint16)u8DeviceIndex;
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    313  Info 701: Shift left of signed quantity (int) [MISRA 2004 Rule 10.5]
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    313  Note 960: Violates MISRA 2004 Required Rule 10.5, Operators '~' and
+    '<<' require recasting to underlying type for sub-integers
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    313  Info 734: Loss of precision (assignment) (31 bits to 16 bits)
+_
+}
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    339  Warning 529: Symbol 'u8CRC' (line 302) not subsequently referenced
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    302  Info 830: Location cited in prior message
+                                                      _
+	for(u8Mask = 0x01U; u8Mask > 0U; u8Mask <<= 1U)
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    384  Note 960: Violates MISRA 2004 Required Rule 10.5, Operators '~' and
+    '<<' require recasting to underlying type for sub-integers
+                                                  _
+#...                    {vRM4_GIO__Set_Bit(gioPORTB, 2U, 1U); }
+	M_LOCALDEF__LCCM650__POWER_ENABLE_LATCH(1U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    436  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                  _
+	M_LOCALDEF__LCCM650__POWER_ENABLE_LATCH(1U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    436  Note 960: Violates MISRA 2004 Required Rule 14.3, null statement not
+    in line by itself
+                                                  _
+#...                    {vRM4_GIO__Set_Bit(gioPORTB, 2U, 0U); }
+	M_LOCALDEF__LCCM650__POWER_ENABLE_LATCH(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    448  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                  _
+	M_LOCALDEF__LCCM650__POWER_ENABLE_LATCH(0U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    448  Note 960: Violates MISRA 2004 Required Rule 14.3, null statement not
+    in line by itself
+                                                        _
+#...                         u32RM4_GIO__Get_Bit(gioPORTB, 5U)
+	u32Test = M_LOCALDEF__LCCM650__POWER_AVAIL_PORT();
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    465  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+
+    --- Wrap-up for Module: D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C
+
+files.lnt  2  Warning 528: Symbol 'u8ATA6870_LOWLEVEL__CRC(unsigned char,
+    unsigned char)' (line 374, file D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C)
+    not referenced
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C 
+    374  Info 830: Location cited in prior message
+
+--- Module:   D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\INTERRUPTS\ATA6870__INTERRUPTS.C
+    (C), consumed 796,911 bytes
+                                                                                                           _
+	#define C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE							(1U)
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\VERIFICATION\LFW534__RLOOP__LCCM650_TE_000\SOURCE\MAIN\..\..\..\..\BOARD_SUPPORT\lpcb234r0__board_support.h 
+    358  Info 767: macro 'C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE' was defined
+    differently in another module (line 14, file D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\VERIFICATION\LFW534__RLOOP__LCCM650_TE_000\SOURCE\MAIN\localdef.h,
+    module D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\LOWLEVEL\ATA6870__LOWLEVEL.C)
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\VERIFICATION\LFW534__RLOOP__LCCM650_TE_000\SOURCE\MAIN\localdef.h 
+    14  Info 830: Location cited in prior message
+_
+}
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\INTERRUPTS\ATA6870__INTERRUPTS.C 
+    83  Info 715: Symbol 'u8DeviceIndex' (line 80) not referenced
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\INTERRUPTS\ATA6870__INTERRUPTS.C 
+    80  Info 830: Location cited in prior message
+
+--- Module:   D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\SCAN\ATA6870__SCAN.C
+    (C), consumed 805,599 bytes
+                                                                                                           _
+	#define C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE							(1U)
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\VERIFICATION\LFW534__RLOOP__LCCM650_TE_000\SOURCE\MAIN\..\..\..\..\BOARD_SUPPORT\lpcb234r0__board_support.h 
+    358  Info 767: macro 'C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE' was defined
+    differently in another module (line 14, file D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\VERIFICATION\LFW534__RLOOP__LCCM650_TE_000\SOURCE\MAIN\localdef.h,
+    module D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\INTERRUPTS\ATA6870__INTERRUPTS.C)
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\VERIFICATION\LFW534__RLOOP__LCCM650_TE_000\SOURCE\MAIN\localdef.h 
+    14  Info 830: Location cited in prior message
+                                                                                     _
+		vATA6870_LOWLEVEL__Reg_ReadU8(u8Counter, ATA6870_REG__REV_ID, &u8Temp, 1U);
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\SCAN\ATA6870__SCAN.C 
+    53  Note 934: Taking address of near auto variable 'u8Temp' (arg. no. 3)
+    [MISRA 2004 Rule 1.2]
+_
+}
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\SCAN\ATA6870__SCAN.C 
+    75  Warning 550: Symbol 'u8MFirst' (line 43) not accessed
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\SCAN\ATA6870__SCAN.C 
+    43  Info 830: Location cited in prior message
+_
+}
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\SCAN\ATA6870__SCAN.C 
+    75  Warning 550: Symbol 'u8RevID' (line 42) not accessed
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\SCAN\ATA6870__SCAN.C 
+    42  Info 830: Location cited in prior message
+_
+}
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\SCAN\ATA6870__SCAN.C 
+    75  Warning 550: Symbol 'u8PowerEn' (line 44) not accessed
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\SCAN\ATA6870__SCAN.C 
+    44  Info 830: Location cited in prior message
+
+    --- Wrap-up for Module: D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\SCAN\ATA6870__SCAN.C
+
+files.lnt  4  Info 752: local declarator 'sATA6870' (line 29, file
+    D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\SCAN\ATA6870__SCAN.C)
+    not referenced
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\SCAN\ATA6870__SCAN.C 
+    29  Info 830: Location cited in prior message
+
+--- Module:   D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\RESISTORS\ATA6870__RESISTORS.C
+    (C), consumed 813,671 bytes
+                                                                                                           _
+	#define C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE							(1U)
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\VERIFICATION\LFW534__RLOOP__LCCM650_TE_000\SOURCE\MAIN\..\..\..\..\BOARD_SUPPORT\lpcb234r0__board_support.h 
+    358  Info 767: macro 'C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE' was defined
+    differently in another module (line 14, file D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\VERIFICATION\LFW534__RLOOP__LCCM650_TE_000\SOURCE\MAIN\localdef.h,
+    module D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\SCAN\ATA6870__SCAN.C)
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\VERIFICATION\LFW534__RLOOP__LCCM650_TE_000\SOURCE\MAIN\localdef.h 
+    14  Info 830: Location cited in prior message
+                              _
+	u8Mask <<= u8CellIndex;
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\RESISTORS\ATA6870__RESISTORS.C 
+    52  Info 701: Shift left of signed quantity (int) [MISRA 2004 Rule 10.5]
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\RESISTORS\ATA6870__RESISTORS.C 
+    52  Note 960: Violates MISRA 2004 Required Rule 10.5, Operators '~' and
+    '<<' require recasting to underlying type for sub-integers
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\RESISTORS\ATA6870__RESISTORS.C 
+    52  Info 734: Loss of precision (assignment) (31 bits to 8 bits)
+                              _
+	u8Mask <<= u8CellIndex;
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\RESISTORS\ATA6870__RESISTORS.C 
+    85  Info 701: Shift left of signed quantity (int) [MISRA 2004 Rule 10.5]
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\RESISTORS\ATA6870__RESISTORS.C 
+    85  Note 960: Violates MISRA 2004 Required Rule 10.5, Operators '~' and
+    '<<' require recasting to underlying type for sub-integers
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\RESISTORS\ATA6870__RESISTORS.C 
+    85  Info 734: Loss of precision (assignment) (31 bits to 8 bits)
+
+    --- Wrap-up for Module: D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\RESISTORS\ATA6870__RESISTORS.C
+
+files.lnt  5  Info 752: local declarator 'sATA6870' (line 29, file
+    D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\RESISTORS\ATA6870__RESISTORS.C)
+    not referenced
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\RESISTORS\ATA6870__RESISTORS.C 
+    29  Info 830: Location cited in prior message
+
+--- Global Wrap-up
+
+Warning 552: Symbol 'sATA6870' (line 29, file D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\RESISTORS\ATA6870__RESISTORS.C)
+    not accessed
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM650__MULTICORE__ATA6870\RESISTORS\ATA6870__RESISTORS.C 
+    29  Info 830: Location cited in prior message

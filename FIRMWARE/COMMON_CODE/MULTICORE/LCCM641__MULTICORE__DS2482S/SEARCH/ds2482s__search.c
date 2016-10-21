@@ -389,12 +389,12 @@ Lint16 s16DS2482S_SEARCH__Search(Luint8 u8DeviceIndex)
 											}
 											else
 											{
-												//?
+												//
 											}
 										}
 										else
 										{
-											//?
+											//
 										}
 
 									} //if(u8IDBit != u8ComplementIDBit)
@@ -427,7 +427,7 @@ Lint16 s16DS2482S_SEARCH__Search(Luint8 u8DeviceIndex)
 									}
 									else
 									{
-										//?
+										//
 									}
 
 								}//if((u8IDBit == 1U) && (u8ComplementIDBit == 1U))
@@ -450,7 +450,7 @@ Lint16 s16DS2482S_SEARCH__Search(Luint8 u8DeviceIndex)
 								}
 								else
 								{
-									//?
+									//
 								}
 
 								//success
@@ -496,7 +496,7 @@ Lint16 s16DS2482S_SEARCH__Search(Luint8 u8DeviceIndex)
 		}//if(sDS2482S.sSearch.LastDeviceFlag == 0U)
 		else
 		{
-			//?
+			//
 			s16Return = -22;
 
 		}//else if(sDS2482S.sSearch.LastDeviceFlag == 0U)

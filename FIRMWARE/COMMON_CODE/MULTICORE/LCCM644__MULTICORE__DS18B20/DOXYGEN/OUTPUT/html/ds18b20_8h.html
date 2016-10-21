@@ -23,6 +23,7 @@
   $(document).ready(function() { init_search(); });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="sil3_style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -92,6 +93,7 @@ $(document).ready(function(){initNavTree('ds18b20_8h.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">ds18b20.h File Reference</div>  </div>
@@ -105,8 +107,6 @@ $(document).ready(function(){initNavTree('ds18b20_8h.html','');});
 Include dependency graph for ds18b20.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="ds18b20_8h__incl.png" border="0" usemap="#ds18b20_8h" alt=""/></div>
-<map name="ds18b20_8h" id="ds18b20_8h">
-</map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -115,9 +115,11 @@ This graph shows which files directly or indirectly include this file:</div>
 <map name="ds18b20_8hdep" id="ds18b20_8hdep">
 <area shape="rect" id="node2" href="ds18b20____address_8c.html" title="Addressing search and support for DS18B20. " alt="" coords="5,87,215,114"/>
 <area shape="rect" id="node3" href="ds18b20____alarms_8c.html" title="Supports setting the temperature alarms. " alt="" coords="239,87,432,114"/>
-<area shape="rect" id="node4" href="ds18b20_8c.html" title="Main module file. " alt="" coords="457,87,539,114"/>
-<area shape="rect" id="node5" href="ds18b20____scratchpad_8c.html" title="DS18B20 Scratchpad read and write functions. " alt="" coords="563,80,726,121"/>
-<area shape="rect" id="node6" href="ds18b20____temperature_8c.html" title="Temperature read and conversion functions. " alt="" coords="751,80,923,121"/>
+<area shape="rect" id="node4" href="ds18b20____delays_8c.html" title="Interface for delays. " alt="" coords="456,87,647,114"/>
+<area shape="rect" id="node5" href="ds18b20_8c.html" title="Main module file. " alt="" coords="671,87,754,114"/>
+<area shape="rect" id="node6" href="ds18b20____scratchpad_8c.html" title="DS18B20 Scratchpad read and write functions. " alt="" coords="778,80,941,121"/>
+<area shape="rect" id="node7" href="ds18b20____temperature_8c.html" title="Temperature read and conversion functions. " alt="" coords="965,80,1137,121"/>
+<area shape="rect" id="node8" href="ds18b20____wire__if_8c.html" title="Interface to various 1&#45;wire calls from other modules. " alt="" coords="1161,87,1349,114"/>
 </map>
 </div>
 </div>
@@ -127,6 +129,23 @@ This graph shows which files directly or indirectly include this file:</div>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_d_s18_b20.html">_strDS18B20</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:afa567c7f3daf739278316ef64a4659f8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ds18b20_8h.html#afa567c7f3daf739278316ef64a4659f8">E_DS18B20_SEARCH_T</a> { <br />
+&#160;&#160;<a class="el" href="ds18b20_8h.html#afa567c7f3daf739278316ef64a4659f8a793bc4e6c2013297cfc700cf8b53a2e0">SEARCH_STATE__IDLE</a> = 0U, 
+<br />
+&#160;&#160;<a class="el" href="ds18b20_8h.html#afa567c7f3daf739278316ef64a4659f8a751278737be8ce23b76671e2daffdf68">SEARCH_STATE__START</a>, 
+<br />
+&#160;&#160;<a class="el" href="ds18b20_8h.html#afa567c7f3daf739278316ef64a4659f8adaba664fe215981ba9f9f81f31ce8067">SEARCH_STATE__RUN</a>, 
+<br />
+&#160;&#160;<a class="el" href="ds18b20_8h.html#afa567c7f3daf739278316ef64a4659f8abc46579c48afc231e2f5abc346c676a0">SEARCH_STATE__INC_CHANNEL</a>, 
+<br />
+&#160;&#160;<a class="el" href="ds18b20_8h.html#afa567c7f3daf739278316ef64a4659f8a73340b3531c1dc417c4876c86de6e2a3">SEARCH_STATE__CLEANUP</a>
+<br />
+ }<tr class="memdesc:afa567c7f3daf739278316ef64a4659f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seach for devices state types.  <a href="ds18b20_8h.html#afa567c7f3daf739278316ef64a4659f8">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:afa567c7f3daf739278316ef64a4659f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -149,17 +168,56 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga11962e41c09a2129e886ea033a17a9bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current resolution by reading the scratchpad memory.  <a href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga11962e41c09a2129e886ea033a17a9bd">More...</a><br /></td></tr>
 <tr class="separator:ga11962e41c09a2129e886ea033a17a9bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5d7449e29fe5be322d8c831cf0b79582"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____a_l_a_r_m_s.html#ga5d7449e29fe5be322d8c831cf0b79582">vDS18B20_ALARMS__Init</a> (void)</td></tr>
-<tr class="memdesc:ga5d7449e29fe5be322d8c831cf0b79582"><td class="mdescLeft">&#160;</td><td class="mdescRight">ToDo.  <a href="group___d_s18_b20_____a_l_a_r_m_s.html#ga5d7449e29fe5be322d8c831cf0b79582">More...</a><br /></td></tr>
+<tr class="memdesc:ga5d7449e29fe5be322d8c831cf0b79582"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init any alarm module specifics.  <a href="group___d_s18_b20_____a_l_a_r_m_s.html#ga5d7449e29fe5be322d8c831cf0b79582">More...</a><br /></td></tr>
 <tr class="separator:ga5d7449e29fe5be322d8c831cf0b79582"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a4cca88f039bf98ea20a973d4da1689"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga8a4cca88f039bf98ea20a973d4da1689">vDS18B20_ADDX__Init</a> (void)</td></tr>
+<tr class="memdesc:ga8a4cca88f039bf98ea20a973d4da1689"><td class="mdescLeft">&#160;</td><td class="mdescRight">ToDo.  <a href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga8a4cca88f039bf98ea20a973d4da1689">More...</a><br /></td></tr>
+<tr class="separator:ga8a4cca88f039bf98ea20a973d4da1689"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3c1f4218a21309c7a9551f6f5f4b8352"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3c1f4218a21309c7a9551f6f5f4b8352">s16DS18B20_ADDX__Search</a> (void)</td></tr>
 <tr class="memdesc:ga3c1f4218a21309c7a9551f6f5f4b8352"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for all devices on the bus on all channels.  <a href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3c1f4218a21309c7a9551f6f5f4b8352">More...</a><br /></td></tr>
 <tr class="separator:ga3c1f4218a21309c7a9551f6f5f4b8352"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ec3588c5df9cb29f373c1504bf2d7e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">vDS18B20_ADDX__SearchSM_Process</a> (void)</td></tr>
+<tr class="memdesc:ga3ec3588c5df9cb29f373c1504bf2d7e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">State machine based search processing.  <a href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">More...</a><br /></td></tr>
+<tr class="separator:ga3ec3588c5df9cb29f373c1504bf2d7e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga17413c8020752cfe26d74a5c25068b18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga17413c8020752cfe26d74a5c25068b18">vDS18B20_ADDX__SearchSM_Start</a> (void)</td></tr>
+<tr class="memdesc:ga17413c8020752cfe26d74a5c25068b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the search.  <a href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga17413c8020752cfe26d74a5c25068b18">More...</a><br /></td></tr>
+<tr class="separator:ga17413c8020752cfe26d74a5c25068b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga824fdac4e984a66ac05d3e0a3d680e24"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga824fdac4e984a66ac05d3e0a3d680e24">u8DS18B20_ADDX__SearchSM_IsBusy</a> (void)</td></tr>
+<tr class="memdesc:ga824fdac4e984a66ac05d3e0a3d680e24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if the search state machine is busy or not.  <a href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga824fdac4e984a66ac05d3e0a3d680e24">More...</a><br /></td></tr>
+<tr class="separator:ga824fdac4e984a66ac05d3e0a3d680e24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad0c45b626f3b1bfdcc210cbfc105a526"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gad0c45b626f3b1bfdcc210cbfc105a526">s16DS18B20_SCRATCH__Read</a> (Luint8 u8DSIndex, Luint8 *pu8Scratch)</td></tr>
 <tr class="memdesc:gad0c45b626f3b1bfdcc210cbfc105a526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the scratch memory, 9 bytes.  <a href="group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gad0c45b626f3b1bfdcc210cbfc105a526">More...</a><br /></td></tr>
 <tr class="separator:gad0c45b626f3b1bfdcc210cbfc105a526"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac8c2645034dbffe593336d1cebbb936a"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gac8c2645034dbffe593336d1cebbb936a">s16DS18B20_SCRATCH__Write</a> (Luint8 u8DSIndex, const Luint8 *pu8Scratch)</td></tr>
 <tr class="memdesc:gac8c2645034dbffe593336d1cebbb936a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to the scratch pad, and then commit to the device.  <a href="group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gac8c2645034dbffe593336d1cebbb936a">More...</a><br /></td></tr>
 <tr class="separator:gac8c2645034dbffe593336d1cebbb936a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa2cb7543a05f574848bb32a70616f23a"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#gaa2cb7543a05f574848bb32a70616f23a">s16DS18B20_1WIRE__Generate_Reset</a> (Luint8 u8DeviceIndex)</td></tr>
+<tr class="memdesc:gaa2cb7543a05f574848bb32a70616f23a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a reset.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#gaa2cb7543a05f574848bb32a70616f23a">More...</a><br /></td></tr>
+<tr class="separator:gaa2cb7543a05f574848bb32a70616f23a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7a5476f1c807ae17de2e0652f57077be"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#ga7a5476f1c807ae17de2e0652f57077be">s16DS18B20_1WIRE__SelectDevice</a> (Luint8 u8DeviceIndex, Luint8 *pu8Addx)</td></tr>
+<tr class="memdesc:ga7a5476f1c807ae17de2e0652f57077be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select a device.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#ga7a5476f1c807ae17de2e0652f57077be">More...</a><br /></td></tr>
+<tr class="separator:ga7a5476f1c807ae17de2e0652f57077be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0dcdf9b61e256b5ef8f7e7538ebf7ce7"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#ga0dcdf9b61e256b5ef8f7e7538ebf7ce7">s16DS18B20_1WIRE__WriteByte</a> (Luint8 u8DeviceIndex, Luint8 u8Byte)</td></tr>
+<tr class="memdesc:ga0dcdf9b61e256b5ef8f7e7538ebf7ce7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a byte to the wire.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#ga0dcdf9b61e256b5ef8f7e7538ebf7ce7">More...</a><br /></td></tr>
+<tr class="separator:ga0dcdf9b61e256b5ef8f7e7538ebf7ce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae21fd6a4108fbf96b8e1a9988fd577d3"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#gae21fd6a4108fbf96b8e1a9988fd577d3">s16DS18B20_1WIRE__ReadByte</a> (Luint8 u8DeviceIndex, Luint8 *pu8Byte)</td></tr>
+<tr class="memdesc:gae21fd6a4108fbf96b8e1a9988fd577d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a byte from the 1-wire.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#gae21fd6a4108fbf96b8e1a9988fd577d3">More...</a><br /></td></tr>
+<tr class="separator:gae21fd6a4108fbf96b8e1a9988fd577d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaceecd27ea27e39d3d60ee41700b5c86f"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#gaceecd27ea27e39d3d60ee41700b5c86f">s16DS18B20_1WIRE__Skip</a> (Luint8 u8DeviceIndex)</td></tr>
+<tr class="memdesc:gaceecd27ea27e39d3d60ee41700b5c86f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implement a 1-Wire skip function.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#gaceecd27ea27e39d3d60ee41700b5c86f">More...</a><br /></td></tr>
+<tr class="separator:gaceecd27ea27e39d3d60ee41700b5c86f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga572e99fd088cd0a84241467b89134344"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#ga572e99fd088cd0a84241467b89134344">s16DS18B20_SEARCH__SearchFirstDevice</a> (Luint8 u8DeviceIndex, Luint8 *pu8Addx)</td></tr>
+<tr class="memdesc:ga572e99fd088cd0a84241467b89134344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for the first device on the bus.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#ga572e99fd088cd0a84241467b89134344">More...</a><br /></td></tr>
+<tr class="separator:ga572e99fd088cd0a84241467b89134344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafb2ae421e95ce33ea60b8c7316a533d3"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#gafb2ae421e95ce33ea60b8c7316a533d3">s16DS18B20_SEARCH__SearchNextDevice</a> (Luint8 u8DeviceIndex, Luint8 *pu8Addx)</td></tr>
+<tr class="memdesc:gafb2ae421e95ce33ea60b8c7316a533d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for the next device on the bus.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#gafb2ae421e95ce33ea60b8c7316a533d3">More...</a><br /></td></tr>
+<tr class="separator:gafb2ae421e95ce33ea60b8c7316a533d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga65fe50e4255a95da52e21820703c777b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____d_e_l_a_y_s.html#ga65fe50e4255a95da52e21820703c777b">vDS18B20_DELAYS__Delay_uS</a> (Luint32 u32Value)</td></tr>
+<tr class="memdesc:ga65fe50e4255a95da52e21820703c777b"><td class="mdescLeft">&#160;</td><td class="mdescRight">microsecond delay.  <a href="group___d_s18_b20_____d_e_l_a_y_s.html#ga65fe50e4255a95da52e21820703c777b">More...</a><br /></td></tr>
+<tr class="separator:ga65fe50e4255a95da52e21820703c777b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad87f3220125c04569d2b6a6986a2cc33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____d_e_l_a_y_s.html#gad87f3220125c04569d2b6a6986a2cc33">vDS18B20_DELAYS__Delay_mS</a> (Luint32 u32Value)</td></tr>
+<tr class="memdesc:gad87f3220125c04569d2b6a6986a2cc33"><td class="mdescLeft">&#160;</td><td class="mdescRight">millisecond delay  <a href="group___d_s18_b20_____d_e_l_a_y_s.html#gad87f3220125c04569d2b6a6986a2cc33">More...</a><br /></td></tr>
+<tr class="separator:gad87f3220125c04569d2b6a6986a2cc33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main header for DS18B20 library. </p>
@@ -168,9 +226,39 @@ Functions</h2></td></tr>
 <dd>
 This file is copyright SIL3 Pty. Ltd. 2003-2016, All Rights Reserved. </dd></dl>
 <dl class="section user"><dt>SafeTool FileID:</dt><dd>LCCM644R0.FILE.001 </dd></dl>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="afa567c7f3daf739278316ef64a4659f8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="ds18b20_8h.html#afa567c7f3daf739278316ef64a4659f8">E_DS18B20_SEARCH_T</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
-<p>Definition in file <a class="el" href="ds18b20_8h_source.html">ds18b20.h</a>.</p>
-</div></div><!-- contents -->
+<p>Seach for devices state types. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="afa567c7f3daf739278316ef64a4659f8a793bc4e6c2013297cfc700cf8b53a2e0"></a>SEARCH_STATE__IDLE&#160;</td><td class="fielddoc">
+<p>Idle state, not doing anything. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="afa567c7f3daf739278316ef64a4659f8a751278737be8ce23b76671e2daffdf68"></a>SEARCH_STATE__START&#160;</td><td class="fielddoc">
+<p>Start searching, reset what we need to. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="afa567c7f3daf739278316ef64a4659f8adaba664fe215981ba9f9f81f31ce8067"></a>SEARCH_STATE__RUN&#160;</td><td class="fielddoc">
+<p>running the search </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="afa567c7f3daf739278316ef64a4659f8abc46579c48afc231e2f5abc346c676a0"></a>SEARCH_STATE__INC_CHANNEL&#160;</td><td class="fielddoc">
+<p>Increment the channel counter. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="afa567c7f3daf739278316ef64a4659f8a73340b3531c1dc417c4876c86de6e2a3"></a>SEARCH_STATE__CLEANUP&#160;</td><td class="fielddoc">
+<p>Cleanup the system and we are done. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -23,6 +23,7 @@
   $(document).ready(function() { init_search(); });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="sil3_style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -157,6 +158,10 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the status register. </p>
+<dl class="section user"><dt>SafeTool Images:</dt><dd>The image below shows a get status transaction. <div class="image">
+<img src="D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOXYGEN/IMAGES/DS2482S_GET_STATUS.PNG" />
+</div>
+ </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">*pu8Status</td><td>Returned status register data </td></tr>
@@ -169,11 +174,9 @@ Functions</h2></td></tr>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>277602DD6823722E0663391C3ED64F36 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM641R0.FILE.006.FUNC.003 </dd></dl>
 
-<p>Definition at line <a class="el" href="ds2482s____device_8c_source.html#l00153">153</a> of file <a class="el" href="ds2482s____device_8c_source.html">ds2482s__device.c</a>.</p>
+<p>References <a class="el" href="group___d_s2482_s_____r_e_g___d_e_f_s.html#gga52180b167d0d78e0aef3adb191803560a08718cfe0d01af1b2c3673790b7f2aa6">DS2482_POINTER__STATUS</a>, <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga3c287f9ad11903ac541fa53757525e50">s16DS2482S_DEVICE__Set_ReadPointer()</a>, and <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaa9dba7b1b362f36e72a83086d4845d81">s16DS2482S_LOWLEVEL__RxReg()</a>.</p>
 
-<p>References <a class="el" href="ds2482s____reg__defs_8h_source.html#l00211">DS2482_POINTER__STATUS</a>, <a class="el" href="ds2482s____device_8c_source.html#l00130">s16DS2482S_DEVICE__Set_ReadPointer()</a>, and <a class="el" href="ds2482s____lowlevel_8c_source.html#l00113">s16DS2482S_LOWLEVEL__RxReg()</a>.</p>
-
-<p>Referenced by <a class="el" href="ds2482s____one__wire_8c_source.html#l00071">s16DS2482S_1WIRE__Generate_Reset()</a>, <a class="el" href="ds2482s____device_8c_source.html#l00390">u8DS2482S_DEVICE__Wait_Busy()</a>, and <a class="el" href="ds2482s_8c_source.html#l00040">vDS2482S__Init()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga81a319e08babac679447cf0e7a906814">s16DS2482S_1WIRE__Generate_Reset()</a>, <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga984c08ff8e3a99a45ae3c6b118d2012b">u8DS2482S_DEVICE__Wait_Busy()</a>, and <a class="el" href="group___d_s2482_s_____c_o_r_e.html#ga74d330c7502962c1cc095b3a6872807d">vDS2482S__Init()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -249,11 +252,9 @@ Here is the caller graph for this function:</div>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>87B1F205394A2E2D098CDB8F82DDF31C </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM641R0.FILE.006.FUNC.007 </dd></dl>
 
-<p>Definition at line <a class="el" href="ds2482s____device_8c_source.html#l00448">448</a> of file <a class="el" href="ds2482s____device_8c_source.html">ds2482s__device.c</a>.</p>
+<p>References <a class="el" href="group___d_s2482_s_____r_e_g___d_e_f_s.html#gga52180b167d0d78e0aef3adb191803560a80914c8bfd0d02382ce24b23feb621c9">DS2482_POINTER__DATA</a>, <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga3c287f9ad11903ac541fa53757525e50">s16DS2482S_DEVICE__Set_ReadPointer()</a>, and <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaa9dba7b1b362f36e72a83086d4845d81">s16DS2482S_LOWLEVEL__RxReg()</a>.</p>
 
-<p>References <a class="el" href="ds2482s____reg__defs_8h_source.html#l00212">DS2482_POINTER__DATA</a>, <a class="el" href="ds2482s____device_8c_source.html#l00130">s16DS2482S_DEVICE__Set_ReadPointer()</a>, and <a class="el" href="ds2482s____lowlevel_8c_source.html#l00113">s16DS2482S_LOWLEVEL__RxReg()</a>.</p>
-
-<p>Referenced by <a class="el" href="ds2482s____one__wire_8c_source.html#l00271">s16DS2482S_1WIRE__ReadByte()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga9775c5da0ad7d296038c5fe0d094836e">s16DS2482S_1WIRE__ReadByte()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -318,11 +319,9 @@ Here is the caller graph for this function:</div>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM641R0.FILE.006.FUNC.004 </dd></dl>
 <p>Remember here that the config register contains not bits: Configuration Register Bit Assignment: BIT 7 BIT 6 BIT 5 BIT 4 BIT 3 BIT 2 BIT 1 BIT 0 n1WS nSPU 1 nAPU 1WS SPU 0 APU</p>
 
-<p>Definition at line <a class="el" href="ds2482s____device_8c_source.html#l00193">193</a> of file <a class="el" href="ds2482s____device_8c_source.html">ds2482s__device.c</a>.</p>
+<p>References <a class="el" href="group___d_s2482_s_____r_e_g___d_e_f_s.html#gga52180b167d0d78e0aef3adb191803560a50c664fe49ce1fb6cbf5437cf95d8e7c">DS2482_POINTER__CONFIG</a>, <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga3c287f9ad11903ac541fa53757525e50">s16DS2482S_DEVICE__Set_ReadPointer()</a>, and <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaa9dba7b1b362f36e72a83086d4845d81">s16DS2482S_LOWLEVEL__RxReg()</a>.</p>
 
-<p>References <a class="el" href="ds2482s____reg__defs_8h_source.html#l00213">DS2482_POINTER__CONFIG</a>, <a class="el" href="ds2482s____device_8c_source.html#l00130">s16DS2482S_DEVICE__Set_ReadPointer()</a>, and <a class="el" href="ds2482s____lowlevel_8c_source.html#l00113">s16DS2482S_LOWLEVEL__RxReg()</a>.</p>
-
-<p>Referenced by <a class="el" href="ds2482s____one__wire_8c_source.html#l00231">s16DS2482S_1WIRE__Clear_StrongPullup()</a>, and <a class="el" href="ds2482s____one__wire_8c_source.html#l00192">s16DS2482S_1WIRE__Set_StrongPullup()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga4f4619831eda5c0e5f70bf52a15a4c65">s16DS2482S_1WIRE__Clear_StrongPullup()</a>, and <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga72543cf0298b8d9885b673865304b405">s16DS2482S_1WIRE__Set_StrongPullup()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -390,11 +389,9 @@ Example Bus Transaction: 0x30 [Wr Addx], 0xF0 [Command Reset Register] 0x31 [Rd 
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM641R0.FILE.006.FUNC.001 </dd></dl>
 <p>If the RST bit is 1, the DS2482-100 has performed an internal reset cycle, either caused by a power-on reset or from executing the Device Reset command. The RST bit is cleared automatically when the DS2482-100 executes a Write Configuration command to restore the selection of the desired 1-Wire features</p>
 
-<p>Definition at line <a class="el" href="ds2482s____device_8c_source.html#l00057">57</a> of file <a class="el" href="ds2482s____device_8c_source.html">ds2482s__device.c</a>.</p>
+<p>References <a class="el" href="group___d_s2482_s_____r_e_g___d_e_f_s.html#gga0dd1a9f843a974d792e91a9f6e43b6a6adab4db8739dae2ce1be9aca85f88efd7">DS2482_REGS__COMMAND_RESET</a>, <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga0cf6249d253f14a7e4dfa284bdede646">s16DS2482S_DEVICE__Set_ConfigRegister()</a>, <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaa9dba7b1b362f36e72a83086d4845d81">s16DS2482S_LOWLEVEL__RxReg()</a>, and <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#ga60c11542e75efee7894d3f55468476e5">s16DS2482S_LOWLEVEL__TxReg()</a>.</p>
 
-<p>References <a class="el" href="ds2482s____reg__defs_8h_source.html#l00048">DS2482_REGS__COMMAND_RESET</a>, <a class="el" href="ds2482s____device_8c_source.html#l00291">s16DS2482S_DEVICE__Set_ConfigRegister()</a>, <a class="el" href="ds2482s____lowlevel_8c_source.html#l00113">s16DS2482S_LOWLEVEL__RxReg()</a>, and <a class="el" href="ds2482s____lowlevel_8c_source.html#l00059">s16DS2482S_LOWLEVEL__TxReg()</a>.</p>
-
-<p>Referenced by <a class="el" href="ds2482s_8c_source.html#l00040">vDS2482S__Init()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s2482_s_____c_o_r_e.html#ga74d330c7502962c1cc095b3a6872807d">vDS2482S__Init()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -462,11 +459,9 @@ Here is the caller graph for this function:</div>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM641R0.FILE.006.FUNC.005 </dd></dl>
 <p>Write Configuration Description Writes a new configuration byte. The new settings take effect immediately. Note: When writing to the Configuration Register, the new data is accepted only if the upper nibble (bits 7 to 4) is the one's complement of the lower nibble (bits 3 to 0). When read, the upper nibble is always 0h. Typical Use Defining the features for subsequent 1-Wire communication. Restriction 1-Wire activity must have ended before the DS2482-100 can process this command. Error Response Command code and parameter are not acknowledged if 1WB = 1 at the time the command code is received and the command is ignored. Command Duration None. The Configuration Register is updated on the rising SCL edge of the configuration-byte acknowledge bit. 1-Wire Activity None Read Pointer Position Configuration Register (to verify write). Status Bits Affected RST set to 0. Config Bits Affected 1WS, SPU, APU updated.</p>
 
-<p>Definition at line <a class="el" href="ds2482s____device_8c_source.html#l00291">291</a> of file <a class="el" href="ds2482s____device_8c_source.html">ds2482s__device.c</a>.</p>
+<p>References <a class="el" href="group___d_s2482_s_____r_e_g___d_e_f_s.html#gga0dd1a9f843a974d792e91a9f6e43b6a6a5d64b4b9d6b350ce632676c723d8d9cb">DS2482_REGS__COMMAND_WRITE_CONFIG</a>, <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaa9dba7b1b362f36e72a83086d4845d81">s16DS2482S_LOWLEVEL__RxReg()</a>, <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaf9534996d93a544c0570e3fcdc3ad973">s16DS2482S_LOWLEVEL__WriteReg()</a>, and <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga984c08ff8e3a99a45ae3c6b118d2012b">u8DS2482S_DEVICE__Wait_Busy()</a>.</p>
 
-<p>References <a class="el" href="ds2482s____reg__defs_8h_source.html#l00087">DS2482_REGS__COMMAND_WRITE_CONFIG</a>, <a class="el" href="ds2482s____lowlevel_8c_source.html#l00113">s16DS2482S_LOWLEVEL__RxReg()</a>, <a class="el" href="ds2482s____lowlevel_8c_source.html#l00167">s16DS2482S_LOWLEVEL__WriteReg()</a>, and <a class="el" href="ds2482s____device_8c_source.html#l00390">u8DS2482S_DEVICE__Wait_Busy()</a>.</p>
-
-<p>Referenced by <a class="el" href="ds2482s____one__wire_8c_source.html#l00231">s16DS2482S_1WIRE__Clear_StrongPullup()</a>, and <a class="el" href="ds2482s____device_8c_source.html#l00057">s16DS2482S_DEVICE__Reset()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga4f4619831eda5c0e5f70bf52a15a4c65">s16DS2482S_1WIRE__Clear_StrongPullup()</a>, and <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga4472ee3cea2d67716b061eecef6eafa2">s16DS2482S_DEVICE__Reset()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -546,11 +541,9 @@ Here is the caller graph for this function:</div>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>542AC92DAF70666F055287D2AE3A388A </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM641R0.FILE.006.FUNC.002 </dd></dl>
 
-<p>Definition at line <a class="el" href="ds2482s____device_8c_source.html#l00130">130</a> of file <a class="el" href="ds2482s____device_8c_source.html">ds2482s__device.c</a>.</p>
+<p>References <a class="el" href="group___d_s2482_s_____r_e_g___d_e_f_s.html#gga0dd1a9f843a974d792e91a9f6e43b6a6ae8a8bc95f991528670c892a964996461">DS2482_REGS__COMMAND_SET_READ_POINTER</a>, and <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaf9534996d93a544c0570e3fcdc3ad973">s16DS2482S_LOWLEVEL__WriteReg()</a>.</p>
 
-<p>References <a class="el" href="ds2482s____reg__defs_8h_source.html#l00067">DS2482_REGS__COMMAND_SET_READ_POINTER</a>, and <a class="el" href="ds2482s____lowlevel_8c_source.html#l00167">s16DS2482S_LOWLEVEL__WriteReg()</a>.</p>
-
-<p>Referenced by <a class="el" href="ds2482s____device_8c_source.html#l00153">s16DS2482S_DEVICE__Get_Status()</a>, <a class="el" href="ds2482s____device_8c_source.html#l00448">s16DS2482S_DEVICE__Read_Byte()</a>, and <a class="el" href="ds2482s____device_8c_source.html#l00193">s16DS2482S_DEVICE__Read_ConfigRegister()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga337e96b9b3eb57fa30d9e0a6eccf2ea6">s16DS2482S_DEVICE__Get_Status()</a>, <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga1a9af5304c98fc78ccfeecd5929fce7a">s16DS2482S_DEVICE__Read_Byte()</a>, and <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga0795724aac316012a68ad3718a952f4d">s16DS2482S_DEVICE__Read_ConfigRegister()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -629,11 +622,9 @@ Here is the caller graph for this function:</div>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>0F8EE83B4B12802BCBC13DF1612ED35C </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM641R0.FILE.006.FUNC.006 </dd></dl>
 
-<p>Definition at line <a class="el" href="ds2482s____device_8c_source.html#l00390">390</a> of file <a class="el" href="ds2482s____device_8c_source.html">ds2482s__device.c</a>.</p>
+<p>References <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga337e96b9b3eb57fa30d9e0a6eccf2ea6">s16DS2482S_DEVICE__Get_Status()</a>.</p>
 
-<p>References <a class="el" href="ds2482s____device_8c_source.html#l00153">s16DS2482S_DEVICE__Get_Status()</a>.</p>
-
-<p>Referenced by <a class="el" href="ds2482s____one__wire_8c_source.html#l00071">s16DS2482S_1WIRE__Generate_Reset()</a>, <a class="el" href="ds2482s____one__wire_8c_source.html#l00564">s16DS2482S_1WIRE__ReadBit()</a>, <a class="el" href="ds2482s____one__wire_8c_source.html#l00271">s16DS2482S_1WIRE__ReadByte()</a>, <a class="el" href="ds2482s____one__wire_8c_source.html#l00469">s16DS2482S_1WIRE__WriteBit()</a>, <a class="el" href="ds2482s____one__wire_8c_source.html#l00377">s16DS2482S_1WIRE__WriteByte()</a>, <a class="el" href="ds2482s____device_8c_source.html#l00291">s16DS2482S_DEVICE__Set_ConfigRegister()</a>, and <a class="el" href="ds2482s____search_8c_source.html#l00213">s16DS2482S_SEARCH__Search()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga81a319e08babac679447cf0e7a906814">s16DS2482S_1WIRE__Generate_Reset()</a>, <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#gae09f403406dd7ec6ac077272a1f41666">s16DS2482S_1WIRE__ReadBit()</a>, <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga9775c5da0ad7d296038c5fe0d094836e">s16DS2482S_1WIRE__ReadByte()</a>, <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#gac7b3cece86c1419ddfb809ca518cf8f5">s16DS2482S_1WIRE__WriteBit()</a>, <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga6d02d5649d468c135890f5c7b6a65562">s16DS2482S_1WIRE__WriteByte()</a>, <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga0cf6249d253f14a7e4dfa284bdede646">s16DS2482S_DEVICE__Set_ConfigRegister()</a>, and <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f">s16DS2482S_SEARCH__Search()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>

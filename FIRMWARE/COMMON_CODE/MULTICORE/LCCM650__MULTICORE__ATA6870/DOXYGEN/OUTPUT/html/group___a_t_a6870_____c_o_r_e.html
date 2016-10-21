@@ -23,6 +23,7 @@
   $(document).ready(function() { init_search(); });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="sil3_style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -141,24 +142,23 @@ Variables</h2></td></tr>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>99D6BF2EA733AE85B32BE7F078646C43 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.000.FUNC.001 </dd></dl>
 
-<p>Definition at line <a class="el" href="ata6870_8c_source.html#l00038">38</a> of file <a class="el" href="ata6870_8c_source.html">ata6870.c</a>.</p>
-
-<p>References <a class="el" href="ata6870____register__defs_8h_source.html#l00045">ATA6870_REG__CONTROL</a>, <a class="el" href="ata6870____register__defs_8h_source.html#l00049">ATA6870_REG__IRQ_MASK</a>, <a class="el" href="ata6870____interrupts_8c_source.html#l00055">vATA6870_INT__Init()</a>, <a class="el" href="ata6870____lowlevel_8c_source.html#l00050">vATA6870_LOWLEVEL__Init()</a>, <a class="el" href="ata6870____lowlevel_8c_source.html#l00434">vATA6870_LOWLEVEL__PowerOn()</a>, <a class="el" href="ata6870____lowlevel_8c_source.html#l00111">vATA6870_LOWLEVEL__Reg_WriteU8()</a>, and <a class="el" href="ata6870____scan_8c_source.html#l00038">vATA6870_SCAN__Start()</a>.</p>
+<p>References <a class="el" href="ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57ace9ebb30adfa2c634f87f562a06c08bc">ATA6870_REG__CONTROL</a>, <a class="el" href="ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57a786a6ea413396fbbfaa27898153c49f1">ATA6870_REG__IRQ_MASK</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>, <a class="el" href="group___a_t_a6870_____i_n_t_e_r_r_u_p_t_s.html#gac108fe47e56a2db4e2e317f8f46211a7">vATA6870_INT__Init()</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gaad6d63b3411c3eae8561c1ca16f1b933">vATA6870_LOWLEVEL__Init()</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga156ce12539d0de358e95d274f61f7941">vATA6870_LOWLEVEL__PowerOn()</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea">vATA6870_LOWLEVEL__Reg_WriteU8()</a>, and <a class="el" href="group___a_t_a6870_____s_c_a_n.html#ga9f664bd9b7c6862f8bf47939bebd3ea0">vATA6870_SCAN__Start()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group___a_t_a6870_____c_o_r_e_ga134d692ccaea43b827bd40f8aa620937_cgraph.png" border="0" usemap="#group___a_t_a6870_____c_o_r_e_ga134d692ccaea43b827bd40f8aa620937_cgraph" alt=""/></div>
 <map name="group___a_t_a6870_____c_o_r_e_ga134d692ccaea43b827bd40f8aa620937_cgraph" id="group___a_t_a6870_____c_o_r_e_ga134d692ccaea43b827bd40f8aa620937_cgraph">
-<area shape="rect" id="node2" href="group___a_t_a6870_____i_n_t_e_r_r_u_p_t_s.html#gac108fe47e56a2db4e2e317f8f46211a7" title="Do what ever is needed to bring the interrupts up. " alt="" coords="190,5,327,32"/>
-<area shape="rect" id="node3" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gaad6d63b3411c3eae8561c1ca16f1b933" title="Perform an init of any low level systems, including IO pins. " alt="" coords="164,56,353,83"/>
-<area shape="rect" id="node5" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga156ce12539d0de358e95d274f61f7941" title="Switch the power on to the BMS pod. " alt="" coords="176,107,341,149"/>
-<area shape="rect" id="node6" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea" title="Write a U8 to a devices register. " alt="" coords="401,162,567,203"/>
-<area shape="rect" id="node9" href="group___a_t_a6870_____s_c_a_n.html#ga9f664bd9b7c6862f8bf47939bebd3ea0" title="Scans the bus for devices. " alt="" coords="176,228,341,255"/>
-<area shape="rect" id="node4" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga92592440101f5f45a271920b6d40a773" title="Generate a reset pulse on the [Just discovered] No reset line :(. " alt="" coords="401,49,567,90"/>
-<area shape="rect" id="node7" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="615,194,789,235"/>
-<area shape="rect" id="node8" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="837,201,1045,228"/>
-<area shape="rect" id="node10" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b" title="Read a byte / byte array from a device with a given length. " alt="" coords="401,227,567,269"/>
+<area shape="rect" id="node2" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677" title="Init any balancer systems. " alt="" coords="169,5,348,32"/>
+<area shape="rect" id="node3" href="group___a_t_a6870_____i_n_t_e_r_r_u_p_t_s.html#gac108fe47e56a2db4e2e317f8f46211a7" title="Do what ever is needed to bring the interrupts up. " alt="" coords="190,56,327,83"/>
+<area shape="rect" id="node4" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gaad6d63b3411c3eae8561c1ca16f1b933" title="Perform an init of any low level systems, including IO pins. " alt="" coords="164,107,353,133"/>
+<area shape="rect" id="node6" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga156ce12539d0de358e95d274f61f7941" title="Switch the power on to the BMS pod. " alt="" coords="176,158,341,199"/>
+<area shape="rect" id="node7" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea" title="Write a U8 to a devices register. " alt="" coords="401,213,567,254"/>
+<area shape="rect" id="node10" href="group___a_t_a6870_____s_c_a_n.html#ga9f664bd9b7c6862f8bf47939bebd3ea0" title="Scans the bus for devices. " alt="" coords="176,279,341,305"/>
+<area shape="rect" id="node5" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga92592440101f5f45a271920b6d40a773" title="Generate a reset pulse on the [Just discovered] No reset line :(. " alt="" coords="401,99,567,141"/>
+<area shape="rect" id="node8" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="615,245,789,286"/>
+<area shape="rect" id="node9" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="837,252,1045,279"/>
+<area shape="rect" id="node11" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b" title="Read a byte / byte array from a device with a given length. " alt="" coords="401,278,567,319"/>
 </map>
 </div>
 </p>
@@ -183,9 +183,7 @@ Here is the call graph for this function:</div>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>B36C2CF202BFF0A45AD77EE21E6F3822 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.000.FUNC.002 </dd></dl>
 
-<p>Definition at line <a class="el" href="ata6870_8c_source.html#l00096">96</a> of file <a class="el" href="ata6870_8c_source.html">ata6870.c</a>.</p>
-
-<p>References <a class="el" href="ata6870____balance_8c_source.html#l00093">vATA6870_BALANCE__Process()</a>.</p>
+<p>References <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -210,9 +208,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ata6870_8c_source.html#l00029">29</a> of file <a class="el" href="ata6870_8c_source.html">ata6870.c</a>.</p>
-
-<p>Referenced by <a class="el" href="ata6870____balance_8c_source.html#l00038">vATA6870_BALANCE__Init()</a>, <a class="el" href="ata6870____balance_8c_source.html#l00093">vATA6870_BALANCE__Process()</a>, <a class="el" href="ata6870____interrupts_8c_source.html#l00055">vATA6870_INT__Init()</a>, <a class="el" href="ata6870____lowlevel_8c_source.html#l00207">vATA6870_LOWLEVEL__Reg_ReadU8()</a>, and <a class="el" href="ata6870____lowlevel_8c_source.html#l00111">vATA6870_LOWLEVEL__Reg_WriteU8()</a>.</p>
+<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>, <a class="el" href="group___a_t_a6870_____i_n_t_e_r_r_u_p_t_s.html#gac108fe47e56a2db4e2e317f8f46211a7">vATA6870_INT__Init()</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b">vATA6870_LOWLEVEL__Reg_ReadU8()</a>, and <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea">vATA6870_LOWLEVEL__Reg_WriteU8()</a>.</p>
 
 </div>
 </div>

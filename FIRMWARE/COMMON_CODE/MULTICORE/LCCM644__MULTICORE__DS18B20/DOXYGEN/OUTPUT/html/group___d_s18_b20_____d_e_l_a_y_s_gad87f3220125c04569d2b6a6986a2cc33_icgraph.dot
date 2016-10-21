@@ -1,0 +1,17 @@
+digraph "vDS18B20_DELAYS__Delay_mS"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="vDS18B20_DELAYS__Delay_mS",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="s16DS18B20_SCRATCH\l__Write",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gac8c2645034dbffe593336d1cebbb936a",tooltip="Write to the scratch pad, and then commit to the device. "];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="s16DS18B20_TEMP__Set\l_Resolution",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga4a927d4706f79e0bb33dbc53ef14d967",tooltip="Set the temperature resolution. "];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="s16DS18B20_TEMP__All\l_Request",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga1ea9cd9334d74c0e89964ce4de00d871",tooltip="Issue a global command to start conversion of all devices on the wire This is most useful for startin..."];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="s16DS18B20_TEMP__Request",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga70cda5834889d76cba2fff8ded10ad16",tooltip="Request the temperature. "];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="vDS18B20__Init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____c_o_r_e.html#ga59b0a02052bcd41a9a187ce96156a15c",tooltip="Init the DS18B20 device. "];
+}

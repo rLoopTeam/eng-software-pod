@@ -1,4 +1,9 @@
 <map id="s16DS18B20_TEMP__Request" name="s16DS18B20_TEMP__Request">
-<area shape="rect" id="node2" href="$group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gad0c45b626f3b1bfdcc210cbfc105a526" title="Read the scratch memory, 9 bytes. " alt="" coords="265,5,431,47"/>
-<area shape="rect" id="node3" href="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#gaa3b0ab54badd49727ff533876b0b35c8" title="Convert scratchpad to temperature Takes the two temp bytes in the scratchpad and converts to floating..." alt="" coords="256,71,440,112"/>
+<area shape="rect" id="node2" href="$group___d_s18_b20_____w_i_r_e___i_f.html#gaa2cb7543a05f574848bb32a70616f23a" title="Generate a reset. " alt="" coords="521,5,735,47"/>
+<area shape="rect" id="node3" href="$group___d_s18_b20_____w_i_r_e___i_f.html#ga7a5476f1c807ae17de2e0652f57077be" title="Select a device. " alt="" coords="529,71,727,112"/>
+<area shape="rect" id="node4" href="$group___d_s18_b20_____w_i_r_e___i_f.html#ga0dcdf9b61e256b5ef8f7e7538ebf7ce7" title="Write a byte to the wire. " alt="" coords="519,187,737,214"/>
+<area shape="rect" id="node5" href="$group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gad0c45b626f3b1bfdcc210cbfc105a526" title="Read the scratch memory, 9 bytes. " alt="" coords="280,121,447,163"/>
+<area shape="rect" id="node7" href="$group___d_s18_b20_____d_e_l_a_y_s.html#gad87f3220125c04569d2b6a6986a2cc33" title="millisecond delay " alt="" coords="256,238,471,265"/>
+<area shape="rect" id="node8" href="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#gaa3b0ab54badd49727ff533876b0b35c8" title="Convert scratchpad to temperature Takes the two temp bytes in the scratchpad and converts to floating..." alt="" coords="271,289,455,331"/>
+<area shape="rect" id="node6" href="$group___d_s18_b20_____w_i_r_e___i_f.html#gae21fd6a4108fbf96b8e1a9988fd577d3" title="Read a byte from the 1&#45;wire. " alt="" coords="519,137,737,163"/>
 </map>

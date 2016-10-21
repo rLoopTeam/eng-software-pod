@@ -1,3 +1,7 @@
 <map id="s16DS18B20_TEMP__Get_Resolution" name="s16DS18B20_TEMP__Get_Resolution">
-<area shape="rect" id="node2" href="$group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gad0c45b626f3b1bfdcc210cbfc105a526" title="Read the scratch memory, 9 bytes. " alt="" coords="229,5,396,47"/>
+<area shape="rect" id="node2" href="$group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gad0c45b626f3b1bfdcc210cbfc105a526" title="Read the scratch memory, 9 bytes. " alt="" coords="229,100,396,141"/>
+<area shape="rect" id="node3" href="$group___d_s18_b20_____w_i_r_e___i_f.html#gaa2cb7543a05f574848bb32a70616f23a" title="Generate a reset. " alt="" coords="447,5,660,47"/>
+<area shape="rect" id="node4" href="$group___d_s18_b20_____w_i_r_e___i_f.html#ga7a5476f1c807ae17de2e0652f57077be" title="Select a device. " alt="" coords="455,71,652,112"/>
+<area shape="rect" id="node5" href="$group___d_s18_b20_____w_i_r_e___i_f.html#ga0dcdf9b61e256b5ef8f7e7538ebf7ce7" title="Write a byte to the wire. " alt="" coords="444,137,663,163"/>
+<area shape="rect" id="node6" href="$group___d_s18_b20_____w_i_r_e___i_f.html#gae21fd6a4108fbf96b8e1a9988fd577d3" title="Read a byte from the 1&#45;wire. " alt="" coords="445,187,662,214"/>
 </map>

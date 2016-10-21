@@ -1,2 +1,3 @@
-D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DEVICE/ds2482s__device.c:390: warning: The following parameters of u8DS2482S_DEVICE__Wait_Busy(Luint8 u8DeviceIndex, Luint8 *pu8Status) are not documented:
+D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DEVICE/ds2482s__device.c:145: warning: image file D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOXYGEN/IMAGES/DS2482S_GET_STATUS.PNG is not found in IMAGE_PATH: assuming external image.
+D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DEVICE/ds2482s__device.c:395: warning: The following parameters of u8DS2482S_DEVICE__Wait_Busy(Luint8 u8DeviceIndex, Luint8 *pu8Status) are not documented:
   parameter 'pu8Status'

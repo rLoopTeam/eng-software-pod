@@ -96,7 +96,7 @@
 		 * Typical Use 				To initiate or end any 1-Wire communication sequence.
 		 * Restriction				1-Wire activity must have ended before the DS2482-100 can process this command. Strong
 		 * 							pullup (see the SPU bit) should not be used in conjunction with the 1-Wire Reset command. If SPU
-		 * 							is enabled, the PPD bit may not be valid and may cause a violation of the device�s absolute
+		 * 							is enabled, the PPD bit may not be valid and may cause a violation of the devices absolute
 		 * 							maximum rating.
 		 * Error Response			Command code is not acknowledged if 1WB = 1 at the time the command code is received and
 		 * 							the command is ignored.
@@ -113,8 +113,8 @@
 		 * 1-Wire Single Bit
 		 * Command Code 			87h
 		 * Command Parameter 		Bit Byte
-		 * Description				Generates a single 1-Wire time slot with a bit value �V� as specified by the bit byte at the 1-Wire
-		 * 							line (see Table 2). A V value of 0b generates a write-zero time slot (Figure 5); a V value of 1b
+		 * Description				Generates a single 1-Wire time slot with a bit value  as specified by the bit byte at the 1-Wire
+		 * 							line (see Table 2). A value of 0b generates a write-zero time slot (Figure 5); a value of 1b
 		 * 							generates a write-one time slot, which also functions as a read-data time slot (Figure 6). In either
 		 * 							case, the logic level at the 1-Wire line is tested at tMSR and SBR is updated.
 		 * Typical Use				To perform single-bit writes or reads at the 1-Wire line when single bit communication is
@@ -180,7 +180,7 @@
 		 * Description				Generates three time slots: two read time slots and one write time slot at the 1-Wire line. The type
 		 * 							of write time slot depends on the result of the read time slots and the direction byte. The direction
 		 * 							byte determines the type of write time slot if both read time slots are 0 (a typical case). In this
-		 * 							case, the DS2482-100 generates a write-one time slot if V = 1 and a write-zero time slot if V = 0.
+		 * 							case, the DS2482-100 generates a write-one time slot if = 1 and a write-zero time slot if = 0.
 		 * 							See Table 3.
 		 * 							* If the read time slots are 0 and 1, they are followed by a write-zero time slot.
 		 * 							* If the read time slots are 1 and 0, they are followed by a write-one time slot.

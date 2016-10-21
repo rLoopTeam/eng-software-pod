@@ -1,0 +1,10 @@
+<map id="s16DS18B20_1WIRE__WriteByte" name="s16DS18B20_1WIRE__WriteByte">
+<area shape="rect" id="node2" href="$group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gad0c45b626f3b1bfdcc210cbfc105a526" title="Read the scratch memory, 9 bytes. " alt="" coords="272,123,439,164"/>
+<area shape="rect" id="node7" href="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga70cda5834889d76cba2fff8ded10ad16" title="Request the temperature. " alt="" coords="487,189,689,215"/>
+<area shape="rect" id="node9" href="$group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gac8c2645034dbffe593336d1cebbb936a" title="Write to the scratch pad, and then commit to the device. " alt="" coords="272,240,439,281"/>
+<area shape="rect" id="node3" href="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga1ea9cd9334d74c0e89964ce4de00d871" title="Issue a global command to start conversion of all devices on the wire This is most useful for startin..." alt="" coords="503,5,673,47"/>
+<area shape="rect" id="node4" href="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga11962e41c09a2129e886ea033a17a9bd" title="Gets the current resolution by reading the scratchpad memory. " alt="" coords="500,123,676,164"/>
+<area shape="rect" id="node6" href="$group___d_s18_b20_____c_o_r_e.html#ga59b0a02052bcd41a9a187ce96156a15c" title="Init the DS18B20 device. " alt="" coords="980,147,1093,174"/>
+<area shape="rect" id="node8" href="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga4a927d4706f79e0bb33dbc53ef14d967" title="Set the temperature resolution. " alt="" coords="501,240,675,281"/>
+<area shape="rect" id="node5" href="$group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3c1f4218a21309c7a9551f6f5f4b8352" title="Search for all devices on the bus on all channels. " alt="" coords="737,122,932,149"/>
+</map>

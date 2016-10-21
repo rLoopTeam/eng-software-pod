@@ -23,6 +23,7 @@
   $(document).ready(function() { init_search(); });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="sil3_style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -102,13 +103,11 @@ $(document).ready(function(){initNavTree('struct__str_d_s2482_s.html','');});
 Collaboration diagram for _strDS2482S:</div>
 <div class="dyncontent">
 <div class="center"><img src="struct__str_d_s2482_s__coll__graph.png" border="0" usemap="#__str_d_s2482_s_coll__map" alt="Collaboration graph"/></div>
-<map name="__str_d_s2482_s_coll__map" id="__str_d_s2482_s_coll__map">
-</map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a238e92d7e9f4ef8aa4da6c55b0dce54e"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a4ef87c83167db1ff1b0ac82404f861c3"><td class="memItemLeft" >struct {</td></tr>
 <tr class="memitem:a565c50c4e9552999681fe1b5fc2da0e4"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_d_s2482_s.html#a12e3a90266a1042f13a0932e430111f8">u8ROM_SerialNumber</a> [8U]</td></tr>
 <tr class="memdesc:a565c50c4e9552999681fe1b5fc2da0e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">the last read serial number from the search  <a href="#a565c50c4e9552999681fe1b5fc2da0e4">More...</a><br /></td></tr>
 <tr class="separator:a565c50c4e9552999681fe1b5fc2da0e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,27 +123,63 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a3c62215e4b47d0546dd95b42c1e3de44"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_d_s2482_s.html#ac4585a5ffe9c10c56a5e6daf94692b1a">u8CRC8</a></td></tr>
 <tr class="memdesc:a3c62215e4b47d0546dd95b42c1e3de44"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC storage.  <a href="#a3c62215e4b47d0546dd95b42c1e3de44">More...</a><br /></td></tr>
 <tr class="separator:a3c62215e4b47d0546dd95b42c1e3de44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a238e92d7e9f4ef8aa4da6c55b0dce54e"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_d_s2482_s.html#a238e92d7e9f4ef8aa4da6c55b0dce54e">sSearch</a></td></tr>
-<tr class="memdesc:a238e92d7e9f4ef8aa4da6c55b0dce54e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search parameters.  <a href="#a238e92d7e9f4ef8aa4da6c55b0dce54e">More...</a><br /></td></tr>
-<tr class="separator:a238e92d7e9f4ef8aa4da6c55b0dce54e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ef87c83167db1ff1b0ac82404f861c3"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_d_s2482_s.html#a4ef87c83167db1ff1b0ac82404f861c3">sSearch</a> [C_LOCALDEF__LCCM641__NUM_DEVICS]</td></tr>
+<tr class="memdesc:a4ef87c83167db1ff1b0ac82404f861c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search parameters.  <a href="#a4ef87c83167db1ff1b0ac82404f861c3">More...</a><br /></td></tr>
+<tr class="separator:a4ef87c83167db1ff1b0ac82404f861c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a930f2cebedb8107301e3472d6ed32df0"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:ad51530c9ded1581edfc8db07e4f354d4"><td class="memItemLeft" >&#160;&#160;&#160;FAULT_TREE__PUBLIC_T&#160;&#160;&#160;<a class="el" href="struct__str_d_s2482_s.html#ac0adc3a64de9823586d6b6403e0b21ef">sFaultFlags</a></td></tr>
+<tr class="memdesc:ad51530c9ded1581edfc8db07e4f354d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The local fault flags.  <a href="#ad51530c9ded1581edfc8db07e4f354d4">More...</a><br /></td></tr>
+<tr class="separator:ad51530c9ded1581edfc8db07e4f354d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a930f2cebedb8107301e3472d6ed32df0"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_d_s2482_s.html#a930f2cebedb8107301e3472d6ed32df0">sDevice</a> [C_LOCALDEF__LCCM641__NUM_DEVICS]</td></tr>
+<tr class="memdesc:a930f2cebedb8107301e3472d6ed32df0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specific flags and diagnostics for each device.  <a href="#a930f2cebedb8107301e3472d6ed32df0">More...</a><br /></td></tr>
+<tr class="separator:a930f2cebedb8107301e3472d6ed32df0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="ds2482s_8h_source.html#l00031">31</a> of file <a class="el" href="ds2482s_8h_source.html">ds2482s.h</a>.</p>
-</div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="a238e92d7e9f4ef8aa4da6c55b0dce54e"></a>
+<h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a930f2cebedb8107301e3472d6ed32df0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct { ... }  _strDS2482S::sSearch</td>
+          <td class="memname">struct { ... }  _strDS2482S::sDevice[C_LOCALDEF__LCCM641__NUM_DEVICS]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specific flags and diagnostics for each device. </p>
+
+<p>Referenced by <a class="el" href="group___d_s2482_s_____c_o_r_e.html#ga74d330c7502962c1cc095b3a6872807d">vDS2482S__Init()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac0adc3a64de9823586d6b6403e0b21ef"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FAULT_TREE__PUBLIC_T _strDS2482S::sFaultFlags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The local fault flags. </p>
+
+<p>Referenced by <a class="el" href="group___d_s2482_s_____c_o_r_e.html#ga74d330c7502962c1cc095b3a6872807d">vDS2482S__Init()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4ef87c83167db1ff1b0ac82404f861c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strDS2482S::sSearch[C_LOCALDEF__LCCM641__NUM_DEVICS]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Search parameters. </p>
 
-<p>Referenced by <a class="el" href="ds2482s____search_8c_source.html#l00213">s16DS2482S_SEARCH__Search()</a>, <a class="el" href="ds2482s____search_8c_source.html#l00061">s16DS2482S_SEARCH__SearchFirstDevice()</a>, <a class="el" href="ds2482s____search_8c_source.html#l00114">s16DS2482S_SEARCH__SearchNextDevice()</a>, and <a class="el" href="ds2482s_8c_source.html#l00040">vDS2482S__Init()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f">s16DS2482S_SEARCH__Search()</a>, <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb">s16DS2482S_SEARCH__SearchFirstDevice()</a>, <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga04cfff3e7960eee3d152029a02e3d9fe">s16DS2482S_SEARCH__SearchNextDevice()</a>, and <a class="el" href="group___d_s2482_s_____c_o_r_e.html#ga74d330c7502962c1cc095b3a6872807d">vDS2482S__Init()</a>.</p>
 
 </div>
 </div>
@@ -160,9 +195,7 @@ Data Fields</h2></td></tr>
 
 <p>CRC storage. </p>
 
-<p>Definition at line <a class="el" href="ds2482s_8h_source.html#l00054">54</a> of file <a class="el" href="ds2482s_8h_source.html">ds2482s.h</a>.</p>
-
-<p>Referenced by <a class="el" href="ds2482s____search_8c_source.html#l00213">s16DS2482S_SEARCH__Search()</a>, and <a class="el" href="ds2482s_8c_source.html#l00040">vDS2482S__Init()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f">s16DS2482S_SEARCH__Search()</a>, and <a class="el" href="group___d_s2482_s_____c_o_r_e.html#ga74d330c7502962c1cc095b3a6872807d">vDS2482S__Init()</a>.</p>
 
 </div>
 </div>
@@ -178,9 +211,7 @@ Data Fields</h2></td></tr>
 
 <p>Indicates tha the previous seach uncovered the last device, there are no more devices participating. </p>
 
-<p>Definition at line <a class="el" href="ds2482s_8h_source.html#l00051">51</a> of file <a class="el" href="ds2482s_8h_source.html">ds2482s.h</a>.</p>
-
-<p>Referenced by <a class="el" href="ds2482s____search_8c_source.html#l00213">s16DS2482S_SEARCH__Search()</a>, and <a class="el" href="ds2482s____search_8c_source.html#l00061">s16DS2482S_SEARCH__SearchFirstDevice()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f">s16DS2482S_SEARCH__Search()</a>, and <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb">s16DS2482S_SEARCH__SearchFirstDevice()</a>.</p>
 
 </div>
 </div>
@@ -196,9 +227,7 @@ Data Fields</h2></td></tr>
 
 <p>Bit index that identifies from which bit the (next) search discrepency should start. </p>
 
-<p>Definition at line <a class="el" href="ds2482s_8h_source.html#l00043">43</a> of file <a class="el" href="ds2482s_8h_source.html">ds2482s.h</a>.</p>
-
-<p>Referenced by <a class="el" href="ds2482s____search_8c_source.html#l00213">s16DS2482S_SEARCH__Search()</a>, and <a class="el" href="ds2482s____search_8c_source.html#l00061">s16DS2482S_SEARCH__SearchFirstDevice()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f">s16DS2482S_SEARCH__Search()</a>, and <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb">s16DS2482S_SEARCH__SearchFirstDevice()</a>.</p>
 
 </div>
 </div>
@@ -214,9 +243,7 @@ Data Fields</h2></td></tr>
 
 <p>Bit index that identifies the LastDiscrepancy within the first 8-bit family code ROM number. </p>
 
-<p>Definition at line <a class="el" href="ds2482s_8h_source.html#l00047">47</a> of file <a class="el" href="ds2482s_8h_source.html">ds2482s.h</a>.</p>
-
-<p>Referenced by <a class="el" href="ds2482s____search_8c_source.html#l00213">s16DS2482S_SEARCH__Search()</a>, and <a class="el" href="ds2482s____search_8c_source.html#l00061">s16DS2482S_SEARCH__SearchFirstDevice()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f">s16DS2482S_SEARCH__Search()</a>, and <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb">s16DS2482S_SEARCH__SearchFirstDevice()</a>.</p>
 
 </div>
 </div>
@@ -232,9 +259,7 @@ Data Fields</h2></td></tr>
 
 <p>the last read serial number from the search </p>
 
-<p>Definition at line <a class="el" href="ds2482s_8h_source.html#l00038">38</a> of file <a class="el" href="ds2482s_8h_source.html">ds2482s.h</a>.</p>
-
-<p>Referenced by <a class="el" href="ds2482s____search_8c_source.html#l00213">s16DS2482S_SEARCH__Search()</a>, <a class="el" href="ds2482s____search_8c_source.html#l00061">s16DS2482S_SEARCH__SearchFirstDevice()</a>, and <a class="el" href="ds2482s____search_8c_source.html#l00114">s16DS2482S_SEARCH__SearchNextDevice()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f">s16DS2482S_SEARCH__Search()</a>, <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb">s16DS2482S_SEARCH__SearchFirstDevice()</a>, and <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga04cfff3e7960eee3d152029a02e3d9fe">s16DS2482S_SEARCH__SearchNextDevice()</a>.</p>
 
 </div>
 </div>

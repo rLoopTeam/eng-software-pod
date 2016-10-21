@@ -1,0 +1,6 @@
+<map id="s16DS18B20_SCRATCH__Write" name="s16DS18B20_SCRATCH__Write">
+<area shape="rect" id="node2" href="$group___d_s18_b20_____w_i_r_e___i_f.html#gaa2cb7543a05f574848bb32a70616f23a" title="Generate a reset. " alt="" coords="223,5,436,47"/>
+<area shape="rect" id="node3" href="$group___d_s18_b20_____w_i_r_e___i_f.html#ga7a5476f1c807ae17de2e0652f57077be" title="Select a device. " alt="" coords="231,71,428,112"/>
+<area shape="rect" id="node4" href="$group___d_s18_b20_____w_i_r_e___i_f.html#ga0dcdf9b61e256b5ef8f7e7538ebf7ce7" title="Write a byte to the wire. " alt="" coords="220,137,439,163"/>
+<area shape="rect" id="node5" href="$group___d_s18_b20_____d_e_l_a_y_s.html#gad87f3220125c04569d2b6a6986a2cc33" title="millisecond delay " alt="" coords="222,187,437,214"/>
+</map>

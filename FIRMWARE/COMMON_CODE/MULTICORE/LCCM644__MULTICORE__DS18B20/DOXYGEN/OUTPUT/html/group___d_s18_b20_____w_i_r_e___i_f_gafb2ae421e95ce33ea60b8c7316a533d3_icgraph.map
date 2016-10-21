@@ -1,0 +1,6 @@
+<map id="s16DS18B20_SEARCH__SearchNextDevice" name="s16DS18B20_SEARCH__SearchNextDevice">
+<area shape="rect" id="node2" href="$group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3c1f4218a21309c7a9551f6f5f4b8352" title="Search for all devices on the bus on all channels. " alt="" coords="222,5,417,32"/>
+<area shape="rect" id="node4" href="$group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9" title="State machine based search processing. " alt="" coords="220,57,419,98"/>
+<area shape="rect" id="node3" href="$group___d_s18_b20_____c_o_r_e.html#ga59b0a02052bcd41a9a187ce96156a15c" title="Init the DS18B20 device. " alt="" coords="482,5,595,32"/>
+<area shape="rect" id="node5" href="$group___d_s18_b20_____c_o_r_e.html#ga8712f0c4cbf209c37990a4b080ef0aec" title="Process DS18B20 systems Call from main program loop as quick as possible. " alt="" coords="467,64,611,91"/>
+</map>

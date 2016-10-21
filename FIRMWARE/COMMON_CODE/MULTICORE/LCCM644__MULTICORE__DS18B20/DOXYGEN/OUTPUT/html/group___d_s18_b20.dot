@@ -3,12 +3,14 @@ digraph "DS18B20"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir=LR;
-  Node5 [label="DS18B20__SCRATCHPAD",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html"];
-  Node6 [label="DS18B20__TEMPERATURE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html"];
+  Node6 [label="DS18B20__SCRATCHPAD",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html"];
+  Node7 [label="DS18B20__TEMPERATURE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html"];
   Node0 [label="DS18B20",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node4 [label="DS18B20__DELAYS",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____d_e_l_a_y_s.html"];
   Node3 [label="DS18B20__ALARMS",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____a_l_a_r_m_s.html"];
   Node1 [label="MULTICORE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___m_u_l_t_i_c_o_r_e.html"];
-  Node4 [label="DS18B20__CORE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____c_o_r_e.html"];
+  Node8 [label="DS18B20__WIRE_IF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____w_i_r_e___i_f.html"];
+  Node5 [label="DS18B20__CORE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____c_o_r_e.html"];
   Node2 [label="DS18B20__ADDRESS",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___d_s18_b20_____a_d_d_r_e_s_s.html"];
   Node1->Node0 [shape=plaintext, dir="back", style="solid"];
   Node0->Node2 [shape=plaintext, dir="back", style="solid"];
@@ -16,4 +18,6 @@ digraph "DS18B20"
   Node0->Node4 [shape=plaintext, dir="back", style="solid"];
   Node0->Node5 [shape=plaintext, dir="back", style="solid"];
   Node0->Node6 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node7 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node8 [shape=plaintext, dir="back", style="solid"];
 }

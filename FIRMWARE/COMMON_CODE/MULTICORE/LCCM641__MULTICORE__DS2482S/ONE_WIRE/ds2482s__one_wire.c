@@ -49,7 +49,7 @@ static Lint16 s16DS2482S_1WIRE__Clear_StrongPullup(Luint8 u8DeviceIndex);
  * Typical Use 				To initiate or end any 1-Wire communication sequence.
  * Restriction				1-Wire activity must have ended before the DS2482-100 can process this command. Strong
  * 							pullup (see the SPU bit) should not be used in conjunction with the 1-Wire Reset command. If SPU
- * 							is enabled, the PPD bit may not be valid and may cause a violation of the device�s absolute
+ * 							is enabled, the PPD bit may not be valid and may cause a violation of the devices absolute
  * 							maximum rating.
  * Error Response			Command code is not acknowledged if 1WB = 1 at the time the command code is received and
  * 							the command is ignored.
@@ -453,8 +453,8 @@ Lint16 s16DS2482S_1WIRE__WriteByte(Luint8 u8DeviceIndex, Luint8 u8Byte, Luint8 u
  * Write a bit on the 1-wire device
  * 
  * @note
- * Generates a single 1-Wire time slot with a bit value V as specified by the bit byte at the 1-Wire line
- * A V value of 0b generates a write-zero time slot; a V value of 1b generates a
+ * Generates a single 1-Wire time slot with a bit value as specified by the bit byte at the 1-Wire line
+ * A value of 0b generates a write-zero time slot; a value of 1b generates a
  * write-one time slot, which also functions as a read-data time slot. In either case, the logic
  * level at the 1-Wire line is tested at tMSR and SBR is updated.
  *

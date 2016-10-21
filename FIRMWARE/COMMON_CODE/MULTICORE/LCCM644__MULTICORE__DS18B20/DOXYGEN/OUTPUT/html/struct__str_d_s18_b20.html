@@ -23,6 +23,7 @@
   $(document).ready(function() { init_search(); });
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="sil3_style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -131,11 +132,21 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a005f2807c1684df43fc1a6897a49444a"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_d_s18_b20.html#a005f2807c1684df43fc1a6897a49444a">sEnum</a></td></tr>
 <tr class="memdesc:a005f2807c1684df43fc1a6897a49444a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration results.  <a href="#a005f2807c1684df43fc1a6897a49444a">More...</a><br /></td></tr>
 <tr class="separator:a005f2807c1684df43fc1a6897a49444a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab682f88cc71d6280fca8a6926c6e3e2f"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a6e3bc89ae2a97e89c9c4c3c0cb804415"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="ds18b20_8h.html#afa567c7f3daf739278316ef64a4659f8">E_DS18B20_SEARCH_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_d_s18_b20.html#a55db8fc16cf18faf6632e0284911a921">sSearchState</a></td></tr>
+<tr class="memdesc:a6e3bc89ae2a97e89c9c4c3c0cb804415"><td class="mdescLeft">&#160;</td><td class="mdescRight">current state  <a href="#a6e3bc89ae2a97e89c9c4c3c0cb804415">More...</a><br /></td></tr>
+<tr class="separator:a6e3bc89ae2a97e89c9c4c3c0cb804415"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a317c9e364fda9ae97f3e3e086b8297f3"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_d_s18_b20.html#a9ee1c566e0b4f8ca1c3335d345bf23d6">u8WireChannelCounter</a></td></tr>
+<tr class="memdesc:a317c9e364fda9ae97f3e3e086b8297f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">1-Wire Channel Counter  <a href="#a317c9e364fda9ae97f3e3e086b8297f3">More...</a><br /></td></tr>
+<tr class="separator:a317c9e364fda9ae97f3e3e086b8297f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77d02dfe9bc514e0ed17a7b8b3451366"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_d_s18_b20.html#a988ba1429052301416d76ea665062bf2">u8FirstSearched</a></td></tr>
+<tr class="memdesc:a77d02dfe9bc514e0ed17a7b8b3451366"><td class="mdescLeft">&#160;</td><td class="mdescRight">The first device searched flag.  <a href="#a77d02dfe9bc514e0ed17a7b8b3451366">More...</a><br /></td></tr>
+<tr class="separator:a77d02dfe9bc514e0ed17a7b8b3451366"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab682f88cc71d6280fca8a6926c6e3e2f"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_d_s18_b20.html#ab682f88cc71d6280fca8a6926c6e3e2f">sSearch</a></td></tr>
+<tr class="memdesc:ab682f88cc71d6280fca8a6926c6e3e2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search State Machine.  <a href="#ab682f88cc71d6280fca8a6926c6e3e2f">More...</a><br /></td></tr>
+<tr class="separator:ab682f88cc71d6280fca8a6926c6e3e2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="ds18b20_8h_source.html#l00029">29</a> of file <a class="el" href="ds18b20_8h_source.html">ds18b20.h</a>.</p>
-</div><h2 class="groupheader">Field Documentation</h2>
+<h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="ad9f4975748729d62055b8a6fe187bed7"></a>
 <div class="memitem">
 <div class="memproto">
@@ -148,9 +159,7 @@ Data Fields</h2></td></tr>
 
 <p>The last read temperature. </p>
 
-<p>Definition at line <a class="el" href="ds18b20_8h_source.html#l00051">51</a> of file <a class="el" href="ds18b20_8h_source.html">ds18b20.h</a>.</p>
-
-<p>Referenced by <a class="el" href="ds18b20____address_8c_source.html#l00037">s16DS18B20_ADDX__Search()</a>, <a class="el" href="ds18b20____temperature_8c_source.html#l00046">s16DS18B20_TEMP__All_Request()</a>, and <a class="el" href="ds18b20____temperature_8c_source.html#l00119">s16DS18B20_TEMP__Request()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3c1f4218a21309c7a9551f6f5f4b8352">s16DS18B20_ADDX__Search()</a>, <a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga1ea9cd9334d74c0e89964ce4de00d871">s16DS18B20_TEMP__All_Request()</a>, <a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga70cda5834889d76cba2fff8ded10ad16">s16DS18B20_TEMP__Request()</a>, and <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">vDS18B20_ADDX__SearchSM_Process()</a>.</p>
 
 </div>
 </div>
@@ -166,7 +175,7 @@ Data Fields</h2></td></tr>
 
 <p>Individual Devices. </p>
 
-<p>Referenced by <a class="el" href="ds18b20____address_8c_source.html#l00037">s16DS18B20_ADDX__Search()</a>, <a class="el" href="ds18b20____scratchpad_8c_source.html#l00132">s16DS18B20_SCRATCH__Read()</a>, <a class="el" href="ds18b20____scratchpad_8c_source.html#l00040">s16DS18B20_SCRATCH__Write()</a>, <a class="el" href="ds18b20____temperature_8c_source.html#l00046">s16DS18B20_TEMP__All_Request()</a>, <a class="el" href="ds18b20____temperature_8c_source.html#l00119">s16DS18B20_TEMP__Request()</a>, <a class="el" href="ds18b20_8c_source.html#l00037">vDS18B20__Init()</a>, and <a class="el" href="ds18b20____temperature_8c_source.html#l00220">vDS18B20_TEMP__Scratch_To_Temp()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3c1f4218a21309c7a9551f6f5f4b8352">s16DS18B20_ADDX__Search()</a>, <a class="el" href="group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gad0c45b626f3b1bfdcc210cbfc105a526">s16DS18B20_SCRATCH__Read()</a>, <a class="el" href="group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gac8c2645034dbffe593336d1cebbb936a">s16DS18B20_SCRATCH__Write()</a>, <a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga1ea9cd9334d74c0e89964ce4de00d871">s16DS18B20_TEMP__All_Request()</a>, <a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga70cda5834889d76cba2fff8ded10ad16">s16DS18B20_TEMP__Request()</a>, <a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga59b0a02052bcd41a9a187ce96156a15c">vDS18B20__Init()</a>, <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">vDS18B20_ADDX__SearchSM_Process()</a>, and <a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#gaa3b0ab54badd49727ff533876b0b35c8">vDS18B20_TEMP__Scratch_To_Temp()</a>.</p>
 
 </div>
 </div>
@@ -182,7 +191,39 @@ Data Fields</h2></td></tr>
 
 <p>Enumeration results. </p>
 
-<p>Referenced by <a class="el" href="ds18b20____address_8c_source.html#l00037">s16DS18B20_ADDX__Search()</a>, and <a class="el" href="ds18b20_8c_source.html#l00037">vDS18B20__Init()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3c1f4218a21309c7a9551f6f5f4b8352">s16DS18B20_ADDX__Search()</a>, <a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga59b0a02052bcd41a9a187ce96156a15c">vDS18B20__Init()</a>, and <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">vDS18B20_ADDX__SearchSM_Process()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab682f88cc71d6280fca8a6926c6e3e2f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strDS18B20::sSearch</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Search State Machine. </p>
+
+<p>Referenced by <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga824fdac4e984a66ac05d3e0a3d680e24">u8DS18B20_ADDX__SearchSM_IsBusy()</a>, <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga8a4cca88f039bf98ea20a973d4da1689">vDS18B20_ADDX__Init()</a>, <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">vDS18B20_ADDX__SearchSM_Process()</a>, and <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga17413c8020752cfe26d74a5c25068b18">vDS18B20_ADDX__SearchSM_Start()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a55db8fc16cf18faf6632e0284911a921"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ds18b20_8h.html#afa567c7f3daf739278316ef64a4659f8">E_DS18B20_SEARCH_T</a> _strDS18B20::sSearchState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>current state </p>
+
+<p>Referenced by <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga824fdac4e984a66ac05d3e0a3d680e24">u8DS18B20_ADDX__SearchSM_IsBusy()</a>, <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga8a4cca88f039bf98ea20a973d4da1689">vDS18B20_ADDX__Init()</a>, <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">vDS18B20_ADDX__SearchSM_Process()</a>, and <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga17413c8020752cfe26d74a5c25068b18">vDS18B20_ADDX__SearchSM_Start()</a>.</p>
 
 </div>
 </div>
@@ -199,9 +240,23 @@ Data Fields</h2></td></tr>
 <p>We can support more than a single 1-wire per system, indeed if using the DS2482 we can support up to 4 one wires. </p>
 <p>In this case our sensor could be assigned on different one wire channels. This variable holds which one wire channel the device is on. </p>
 
-<p>Definition at line <a class="el" href="ds18b20_8h_source.html#l00043">43</a> of file <a class="el" href="ds18b20_8h_source.html">ds18b20.h</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3c1f4218a21309c7a9551f6f5f4b8352">s16DS18B20_ADDX__Search()</a>, <a class="el" href="group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gad0c45b626f3b1bfdcc210cbfc105a526">s16DS18B20_SCRATCH__Read()</a>, <a class="el" href="group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gac8c2645034dbffe593336d1cebbb936a">s16DS18B20_SCRATCH__Write()</a>, <a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga1ea9cd9334d74c0e89964ce4de00d871">s16DS18B20_TEMP__All_Request()</a>, <a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga70cda5834889d76cba2fff8ded10ad16">s16DS18B20_TEMP__Request()</a>, <a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga59b0a02052bcd41a9a187ce96156a15c">vDS18B20__Init()</a>, and <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">vDS18B20_ADDX__SearchSM_Process()</a>.</p>
 
-<p>Referenced by <a class="el" href="ds18b20____address_8c_source.html#l00037">s16DS18B20_ADDX__Search()</a>, <a class="el" href="ds18b20____scratchpad_8c_source.html#l00132">s16DS18B20_SCRATCH__Read()</a>, <a class="el" href="ds18b20____scratchpad_8c_source.html#l00040">s16DS18B20_SCRATCH__Write()</a>, <a class="el" href="ds18b20____temperature_8c_source.html#l00046">s16DS18B20_TEMP__All_Request()</a>, <a class="el" href="ds18b20____temperature_8c_source.html#l00119">s16DS18B20_TEMP__Request()</a>, and <a class="el" href="ds18b20_8c_source.html#l00037">vDS18B20__Init()</a>.</p>
+</div>
+</div>
+<a class="anchor" id="a988ba1429052301416d76ea665062bf2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strDS18B20::u8FirstSearched</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The first device searched flag. </p>
+
+<p>Referenced by <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3c1f4218a21309c7a9551f6f5f4b8352">s16DS18B20_ADDX__Search()</a>, <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga8a4cca88f039bf98ea20a973d4da1689">vDS18B20_ADDX__Init()</a>, and <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">vDS18B20_ADDX__SearchSM_Process()</a>.</p>
 
 </div>
 </div>
@@ -217,9 +272,7 @@ Data Fields</h2></td></tr>
 
 <p>the number of devices we have addresses for </p>
 
-<p>Definition at line <a class="el" href="ds18b20_8h_source.html#l00061">61</a> of file <a class="el" href="ds18b20_8h_source.html">ds18b20.h</a>.</p>
-
-<p>Referenced by <a class="el" href="ds18b20____address_8c_source.html#l00037">s16DS18B20_ADDX__Search()</a>, and <a class="el" href="ds18b20_8c_source.html#l00037">vDS18B20__Init()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3c1f4218a21309c7a9551f6f5f4b8352">s16DS18B20_ADDX__Search()</a>, <a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga59b0a02052bcd41a9a187ce96156a15c">vDS18B20__Init()</a>, and <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">vDS18B20_ADDX__SearchSM_Process()</a>.</p>
 
 </div>
 </div>
@@ -236,9 +289,7 @@ Data Fields</h2></td></tr>
 <p>The resolution of the device in bits. </p>
 <p>Its important to store this as it affects timing and other calculations </p>
 
-<p>Definition at line <a class="el" href="ds18b20_8h_source.html#l00048">48</a> of file <a class="el" href="ds18b20_8h_source.html">ds18b20.h</a>.</p>
-
-<p>Referenced by <a class="el" href="ds18b20____address_8c_source.html#l00037">s16DS18B20_ADDX__Search()</a>, <a class="el" href="ds18b20____temperature_8c_source.html#l00046">s16DS18B20_TEMP__All_Request()</a>, <a class="el" href="ds18b20____temperature_8c_source.html#l00119">s16DS18B20_TEMP__Request()</a>, <a class="el" href="ds18b20_8c_source.html#l00037">vDS18B20__Init()</a>, and <a class="el" href="ds18b20____temperature_8c_source.html#l00220">vDS18B20_TEMP__Scratch_To_Temp()</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3c1f4218a21309c7a9551f6f5f4b8352">s16DS18B20_ADDX__Search()</a>, <a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga1ea9cd9334d74c0e89964ce4de00d871">s16DS18B20_TEMP__All_Request()</a>, <a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga70cda5834889d76cba2fff8ded10ad16">s16DS18B20_TEMP__Request()</a>, <a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga59b0a02052bcd41a9a187ce96156a15c">vDS18B20__Init()</a>, <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">vDS18B20_ADDX__SearchSM_Process()</a>, and <a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#gaa3b0ab54badd49727ff533876b0b35c8">vDS18B20_TEMP__Scratch_To_Temp()</a>.</p>
 
 </div>
 </div>
@@ -254,9 +305,23 @@ Data Fields</h2></td></tr>
 
 <p>The device ROM serial number. </p>
 
-<p>Definition at line <a class="el" href="ds18b20_8h_source.html#l00036">36</a> of file <a class="el" href="ds18b20_8h_source.html">ds18b20.h</a>.</p>
+<p>Referenced by <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3c1f4218a21309c7a9551f6f5f4b8352">s16DS18B20_ADDX__Search()</a>, <a class="el" href="group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gad0c45b626f3b1bfdcc210cbfc105a526">s16DS18B20_SCRATCH__Read()</a>, <a class="el" href="group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gac8c2645034dbffe593336d1cebbb936a">s16DS18B20_SCRATCH__Write()</a>, <a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga70cda5834889d76cba2fff8ded10ad16">s16DS18B20_TEMP__Request()</a>, <a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga59b0a02052bcd41a9a187ce96156a15c">vDS18B20__Init()</a>, and <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">vDS18B20_ADDX__SearchSM_Process()</a>.</p>
 
-<p>Referenced by <a class="el" href="ds18b20____address_8c_source.html#l00037">s16DS18B20_ADDX__Search()</a>, <a class="el" href="ds18b20____scratchpad_8c_source.html#l00132">s16DS18B20_SCRATCH__Read()</a>, <a class="el" href="ds18b20____scratchpad_8c_source.html#l00040">s16DS18B20_SCRATCH__Write()</a>, <a class="el" href="ds18b20____temperature_8c_source.html#l00119">s16DS18B20_TEMP__Request()</a>, and <a class="el" href="ds18b20_8c_source.html#l00037">vDS18B20__Init()</a>.</p>
+</div>
+</div>
+<a class="anchor" id="a9ee1c566e0b4f8ca1c3335d345bf23d6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strDS18B20::u8WireChannelCounter</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>1-Wire Channel Counter </p>
+
+<p>Referenced by <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga8a4cca88f039bf98ea20a973d4da1689">vDS18B20_ADDX__Init()</a>, and <a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">vDS18B20_ADDX__SearchSM_Process()</a>.</p>
 
 </div>
 </div>

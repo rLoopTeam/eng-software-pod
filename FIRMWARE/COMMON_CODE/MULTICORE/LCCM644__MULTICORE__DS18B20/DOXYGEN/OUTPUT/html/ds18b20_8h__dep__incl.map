@@ -1,7 +1,9 @@
 <map id="ds18b20.h" name="ds18b20.h">
 <area shape="rect" id="node2" href="$ds18b20____address_8c.html" title="Addressing search and support for DS18B20. " alt="" coords="5,87,215,114"/>
 <area shape="rect" id="node3" href="$ds18b20____alarms_8c.html" title="Supports setting the temperature alarms. " alt="" coords="239,87,432,114"/>
-<area shape="rect" id="node4" href="$ds18b20_8c.html" title="Main module file. " alt="" coords="457,87,539,114"/>
-<area shape="rect" id="node5" href="$ds18b20____scratchpad_8c.html" title="DS18B20 Scratchpad read and write functions. " alt="" coords="563,80,726,121"/>
-<area shape="rect" id="node6" href="$ds18b20____temperature_8c.html" title="Temperature read and conversion functions. " alt="" coords="751,80,923,121"/>
+<area shape="rect" id="node4" href="$ds18b20____delays_8c.html" title="Interface for delays. " alt="" coords="456,87,647,114"/>
+<area shape="rect" id="node5" href="$ds18b20_8c.html" title="Main module file. " alt="" coords="671,87,754,114"/>
+<area shape="rect" id="node6" href="$ds18b20____scratchpad_8c.html" title="DS18B20 Scratchpad read and write functions. " alt="" coords="778,80,941,121"/>
+<area shape="rect" id="node7" href="$ds18b20____temperature_8c.html" title="Temperature read and conversion functions. " alt="" coords="965,80,1137,121"/>
+<area shape="rect" id="node8" href="$ds18b20____wire__if_8c.html" title="Interface to various 1&#45;wire calls from other modules. " alt="" coords="1161,87,1349,114"/>
 </map>
