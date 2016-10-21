@@ -1,0 +1,26 @@
+var rm4__i2c_8c =
+[
+    [ "u16RM4_I2C__IsRxBufferFull", "group___i2_c_____c_o_r_e.html#ga5c7ba4aad0ffa86c424ff9160ebb25fb", null ],
+    [ "u16RM4_I2C__IsTxBufferEmpty", "group___i2_c_____c_o_r_e.html#gaeefb761b82f74d24f96715bfa5cc882a", null ],
+    [ "u8RM4_I2C__Check_Pin_Condition", "group___i2_c_____c_o_r_e.html#ga57109765f882ce18f4a6fb46d073131a", null ],
+    [ "u8RM4_I2C__Get_NACK", "group___i2_c_____c_o_r_e.html#ga16fd0653b22413746f53c31d83b6f7f5", null ],
+    [ "u8RM4_I2C__IsBusBusy", "group___i2_c_____c_o_r_e.html#ga2d6f370f16c9d2f015cc80a5f52b2c97", null ],
+    [ "u8RM4_I2C__ReceiveByte", "group___i2_c_____c_o_r_e.html#gacf785382735e3e4b4b22e94d6d38aae0", null ],
+    [ "vRM4_I2C__Clear_NACK", "group___i2_c_____c_o_r_e.html#ga39f87fd2bc06161ee2ba41289fef604e", null ],
+    [ "vRM4_I2C__Clear_Stop", "group___i2_c_____c_o_r_e.html#gae15d099b5dd8e3331a25179211008e21", null ],
+    [ "vRM4_I2C__Init", "group___i2_c_____c_o_r_e.html#ga4b278bad9f9191045af476d2e3e80694", null ],
+    [ "vRM4_I2C__Master_Ignore_NACK", "group___i2_c_____c_o_r_e.html#ga845e0e2e1d600942f6726e6188d62f9d", null ],
+    [ "vRM4_I2C__ReceiveArray", "group___i2_c_____c_o_r_e.html#ga7ccfb8bfabce2bad8c17fc0faa580889", null ],
+    [ "vRM4_I2C__ReceiverEnable", "group___i2_c_____c_o_r_e.html#gaebbda311820a3b50a98f5cdfee8d82ae", null ],
+    [ "vRM4_I2C__SendArray", "group___i2_c_____c_o_r_e.html#ga4d416a9661f626a11361d2a617a4ffb3", null ],
+    [ "vRM4_I2C__SendByte", "group___i2_c_____c_o_r_e.html#gaec8d783e21592eacd51a356bf4c01015", null ],
+    [ "vRM4_I2C__Set_MasterMode", "group___i2_c_____c_o_r_e.html#ga1d57bf9210a077355219df827e4e92cf", null ],
+    [ "vRM4_I2C__Set_OwnAdd", "group___i2_c_____c_o_r_e.html#ga1a10939573b30fffe7b2fab98b27cdc4", null ],
+    [ "vRM4_I2C__Set_SlaveAdd", "group___i2_c_____c_o_r_e.html#gae4e209ac5a94e86a375ffbb66dc17e4c", null ],
+    [ "vRM4_I2C__Set_Start", "group___i2_c_____c_o_r_e.html#ga41b471520cc7b9396b644b045c2740b5", null ],
+    [ "vRM4_I2C__Set_Stop", "group___i2_c_____c_o_r_e.html#gac172170ea71c5304acae6ef928c16eba", null ],
+    [ "vRM4_I2C__Set_TransactionLength", "group___i2_c_____c_o_r_e.html#ga0cb2d63c972c2e35347af16ed787469b", null ],
+    [ "vRM4_I2C__SetUpTransaction", "group___i2_c_____c_o_r_e.html#ga34d5bba3cc44964fa240a2fffc6b714f", null ],
+    [ "vRM4_I2C__TransmiterEnable", "group___i2_c_____c_o_r_e.html#gab2b91b15be9e8ea6c77e0763f89acbee", null ],
+    [ "sRM4I2C", "group___i2_c_____c_o_r_e.html#gaaec6e5b47b76e52953993bbd81f584c3", null ]
+];
