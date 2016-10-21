@@ -1,0 +1,27 @@
+var rm4__rti____staticdef_8h =
+[
+    [ "RM48L950_RTI_COMPARE_WITH_COUNTER_0", "rm4__rti____staticdef_8h.html#acc410bfe15c984e81ad915daadf9d33b", null ],
+    [ "RM48L950_RTI_COMPARE_WITH_COUNTER_1", "rm4__rti____staticdef_8h.html#af583dc5e68454c13767c6202b5bb19e1", null ],
+    [ "RM48L950_RTI_COUNTER_0_RUNNING", "rm4__rti____staticdef_8h.html#a6dcde17e718fb87d984abaccb2b157bc", null ],
+    [ "RM48L950_RTI_COUNTER_0_STOPPED", "rm4__rti____staticdef_8h.html#a9fcd330bcc469edc3cf3c02e3d85b269", null ],
+    [ "RM48L950_RTI_COUNTER_1_RUNNING", "rm4__rti____staticdef_8h.html#a212c9d7fe96a2902a522ec5a9bf00788", null ],
+    [ "RM48L950_RTI_COUNTER_1_STOPPED", "rm4__rti____staticdef_8h.html#ad08133c2c264110b04ab3da22674eabf", null ],
+    [ "RM48L950_RTI_COUNTER_DOES_NOT_EXIST", "rm4__rti____staticdef_8h.html#a81f1ad3969bab5606445fb00f0bc5a74", null ],
+    [ "RM48L950_RTI_COUNTER_IS_RUNNING", "rm4__rti____staticdef_8h.html#a486361d39da83e2887a07f3b69e649e6", null ],
+    [ "RM48L950_RTI_COUNTER_ONE", "rm4__rti____staticdef_8h.html#aea8b508d599efab1cf8ad3db6519cdc1", null ],
+    [ "RM48L950_RTI_COUNTER_ZERO", "rm4__rti____staticdef_8h.html#abed1c877e88458c8486077e3a3210bdc", null ],
+    [ "RM48L950_RTI_COUNTERS_CONTINUE_ON_DEBUG_HALT", "rm4__rti____staticdef_8h.html#aeb02ca97b13467079d7ec94b10b01237", null ],
+    [ "RM48L950_RTI_COUNTERS_STOP_ON_DEBUG_HALT", "rm4__rti____staticdef_8h.html#a06b6c59cf945706be1149ce1f2de8561", null ],
+    [ "RM48L950_RTI_FREE_RUNNING_COUNTER_IS_INC_ON_FAILING_EXT_CLK", "rm4__rti____staticdef_8h.html#a0e7fffc6b279fc2e9048ae4a8211fb0b", null ],
+    [ "RM48L950_RTI_FREE_RUNNING_COUNTER_NOT_INC_ON_FAILING_EXT_CLK", "rm4__rti____staticdef_8h.html#abf414851d64ab80d54234fd5a9d81865", null ],
+    [ "RM48L950_RTI_NTU0", "rm4__rti____staticdef_8h.html#a10548832c550d381f1dcbc2859d97676", null ],
+    [ "RM48L950_RTI_NTU1", "rm4__rti____staticdef_8h.html#a961eb3cb6d2849bb8b72d50998c75ba7", null ],
+    [ "RM48L950_RTI_NTU2", "rm4__rti____staticdef_8h.html#aa7b141771ae93a7409a25e22c7bec6e8", null ],
+    [ "RM48L950_RTI_NTU3", "rm4__rti____staticdef_8h.html#a3bf9958f00d00ac2e10de2e7f1083262", null ],
+    [ "RM48L950_RTI_NUMBER_OF_COMPARE_MODULES", "rm4__rti____staticdef_8h.html#a0bb26610ed760d2f941e6ff155906d5c", null ],
+    [ "RM48L950_RTI_NUMBER_OF_COUNTERS", "rm4__rti____staticdef_8h.html#a87b5d8779a2fa52e06f87d8678326b6f", null ],
+    [ "RM48L950_RTI_SOURCE_0", "rm4__rti____staticdef_8h.html#a589e1ae386f28a7dff1e7ea461c75ac1", null ],
+    [ "RM48L950_RTI_SOURCE_1", "rm4__rti____staticdef_8h.html#a3759e04cc03c6d69fa07d042eee439b9", null ],
+    [ "RM48L950_RTI_TIMEBASE_NTU", "rm4__rti____staticdef_8h.html#a0398f0e312205e2cab73c4347852791a", null ],
+    [ "RM48L950_RTI_TIMEBASE_RTIUC0", "rm4__rti____staticdef_8h.html#ade61244ce0cfc7bf1dfea685e871b1f9", null ]
+];

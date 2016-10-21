@@ -1,0 +1,26 @@
+var struct__str_r_t_i =
+[
+    [ "Compare0_InterruptEnabled", "struct__str_r_t_i.html#a43ad1f9896abc2db2787f86fc511641c", null ],
+    [ "Compare1_InterruptEnabled", "struct__str_r_t_i.html#a38f3b48524d9875252c1f806f71ce0ed", null ],
+    [ "Compare2_InterruptEnabled", "struct__str_r_t_i.html#a722729af9d2de89434fbe274317e30d0", null ],
+    [ "Compare3_InterruptEnabled", "struct__str_r_t_i.html#a2e9561ae8ae997b27dd8630f87a5a1b3", null ],
+    [ "Counter0_Running", "struct__str_r_t_i.html#af5872da085fa395a89138c71905ab233", null ],
+    [ "Counter1_Running", "struct__str_r_t_i.html#a2b82131ed26e87d2e85b3db992cb63a7", null ],
+    [ "CountersRunInHaltDebug", "struct__str_r_t_i.html#a864c21d774a0f5f38d76e2f993846407", null ],
+    [ "DMA0_RequestEnabled", "struct__str_r_t_i.html#a512664f4c7063dac3f62636950133668", null ],
+    [ "DMA1_RequestEnabled", "struct__str_r_t_i.html#a6cff33bcc3515a94a016d900e950e6c0", null ],
+    [ "DMA2_RequestEnabled", "struct__str_r_t_i.html#a6cd0797689a1ceef7a937f3cc13217aa", null ],
+    [ "DMA3_RequestEnabled", "struct__str_r_t_i.html#af74e1eda6162d7ff7752426a532f894f", null ],
+    [ "FRC0_IncrementsOnFailingExternalClock", "struct__str_r_t_i.html#ac790c3001bb77245cb8c3a76624f629d", null ],
+    [ "FRC0_OverflowInterruptEnabled", "struct__str_r_t_i.html#a216176f4212b0286448187abd37cec5e", null ],
+    [ "FRC1_OverflowInterruptEnabled", "struct__str_r_t_i.html#ad4bce585927903e709992aeb104bacb2", null ],
+    [ "NTUsignalforTimeBase", "struct__str_r_t_i.html#a401d9aad40e752d714b5a1dd61b47ce7", null ],
+    [ "sCompare", "struct__str_r_t_i.html#aed51ae91a5a2e4328d0cd7d5719a1948", null ],
+    [ "sCounter", "struct__str_r_t_i.html#a376ee436367ed571a67b1ad89b4314d1", null ],
+    [ "SourceCaptureEventCounter0", "struct__str_r_t_i.html#ac2a8fe1318592a6e46537952dfd9cb6e", null ],
+    [ "SourceCaptureEventCounter1", "struct__str_r_t_i.html#a9775b15fd0b2d3c3444014ac139acf65", null ],
+    [ "TimebaseForFRC0", "struct__str_r_t_i.html#aeb1eabfaa2082920049a1de1bb3b2315", null ],
+    [ "TimebaseInterruptEnabled", "struct__str_r_t_i.html#a8a2c362dff392cce6ac31d237f2dbfb6", null ],
+    [ "ValueToActivateTheEdgeDetectionCircuit", "struct__str_r_t_i.html#a564f1868e23b33ad58063cd681f658a3", null ],
+    [ "ValueToDeactivateTheEdgeDetectionCircuit", "struct__str_r_t_i.html#a5e52f2d328f405eff43f25253f20127e", null ]
+];
