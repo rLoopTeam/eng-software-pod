@@ -1,0 +1,432 @@
+Basic rLoop Code Standard
+Original Author: Lachlan Grogan (SafetyLok)
+
+
+*******************************************
+DIRECTORIES
+----------------------------------------
+/FIRMWARE is the main firmware directory
+	/COMMON_CODE contains code which is not specific to the project
+	/COMMON_CODE/RM4 contains RM48 silicon driver libs
+	/COMMON_CODE/MULTICORE contains various device drivers / middle ware
+	/PROJECT_CODE contains specific modules for RLOOP
+	/VERIFICATION contains verification test projects for each PROJECT_CODE module
+	/BOARD_SUPPORT contains the board support header files.
+
+MODULE PART NUMBERS
+----------------------------------------
+Each module is in the format of LCCMXXX__<PROJECT>__<DESCRIPTION>
+For example LCCM655 is the flight control unit core processing code.
+If you need new parts numbers, please see lachlan.
+
+
+FIRMWARE PART NUMBERS
+----------------------------------------
+All firmware has a part number in the format of LFWXXX__<PROJECT>__<DESCRIPTION>
+Firmware is tracked by the main part number for example LFW513 which is the power node firmware.
+
+
+*******************************************
+FILE STRUCTURES
+----------------------------------------
+Each LCCMXXX module can contain sub modules which are located in sub folders. For example:
+LCCM653__RLOOP__POWER_CORE
+LCCM653__RLOOP__POWER_CORE\BMS for the battery manangement system interface layer.
+
+It is recommended that software is layered into sub layers (sub modules). The smaller the module, the easier to test.
+Sub layers also work well with doxygen.
+
+
+FILE NAMES
+----------------------------------------
+File names should represent the module and sub module, be in lower case, and separated by a '__'
+Example power_core__bms.c for the POWER CORE / BMS Layer
+
+
+FILE HEADERS
+----------------------------------------
+File headers are vital to give a brief of the file and help doxygen identify the file.
+Example (Copy and paste this into your new file)
+
+/**
+ * @file		POWER_CORE__BMS.C
+ * @brief		Battery Management Interface Layer
+ * @author		Lachlan Grogan
+ * @copyright	rLoop Inc.
+ * @st_fileID	
+ */
+
+Take note of the layout:
+1. There is a '/**' on a single line 
+2. There is a ' * ' on each line
+3. There is a @ symbol for each tag that doxygen will use.
+4. The header is closed with a ' */'
+
+Note: The file name must match exactly the same as the file, else doxygen will skip.
+
+
+DATA TYPES
+----------------------------------------
+The only data types available in rLoop are:
+Lint8
+Luint8
+Lint16
+Luint16
+Lint32
+Luint32
+Lint64*
+Luint64*
+Lfloat32
+Lfloat64*
+
+*Please use these types with caution.
+
+
+VARIABLE NAMES
+----------------------------------------
+Variables (and function parameters) must be prefixed with the data type.
+
+Example:
+Luint8 u8Counter;
+
+This clearly indicates to a reviewer that the data type is a unsigned 8bit value.
+
+BAD Example:
+Luint8 i;
+for(i = 0; i < 300; i++){};
+
+The reviewer is unable to determine the data type and thefore can't determine that 300 is greater than the range of data available.
+
+Avoid i, j, k
+It is better to use
+u32ArrayCounter, u32BufferIndex, s16FilterCoeff as these are easier to review.
+
+
+COMMENTS
+----------------------------------------
+1. In general each line of code should have a comment.  The comments should read like a book if the code was removed.
+	For example:
+	void vFoo(Luint8 u8X)
+	{
+		//check if X is less than 10
+		if(u8X < 10U)
+		{
+			//yes its less than 10, so call the lookup table
+			vLUT__Process();
+		}
+		else
+		{
+			//the value was greater or equal to ten, do no processing.
+		}
+	
+	}
+
+	In the above example each comment has a // and is directly on the line above the source line
+	
+2. Avoid using /* COMMENT */ in your code as this can induce nested comments.
+
+3. For doxygen to pickup on enum / structure elements, use a /** Description */ only
+
+4. Some bad example would be:
+	void vFoo(Luint8 u8X)
+	{
+		vSomeComplexFunction();
+		vSomeMoreFunctions();
+		while(*n++=*i++);
+	}
+
+	The above function is not commented at all.
+	
+	void vFoo(Luint8 u8X)
+	{
+		vSomeComplexFunction(); /* Do this complex function */
+		vSomeMoreFunctions();  							//mixing types of comments way off the page
+		while(*n++=*i++);
+														//this does stuff
+	}
+	
+	The above example does not allow a reader to follow the text very well.
+	
+	One good example of how a reviewer can catch an error.
+	...
+	
+		//Increment the counter
+		u8Counter--;
+	
+
+FUNCTION NAMES
+----------------------------------------
+Function names must be self documenting in that:
+
+1. Must be prefixed with the return data type (v = void, u8 = unsigned 8, etc.)
+2. Must contain an upper case of the source module
+3. Must contain an upper case of the sub module (if any)
+4. Must contain a '__'
+5. Must contain a description of the function they are implementing.
+
+Examples:
+Lfloat32 f32POWERNODE_BMS__Get_CellVoltage(...);
+void vPOWERNODE_BATTTEMP__Start_Sensor_Scan();
+
+The above functions are self documenting.
+
+BAD Examples:
+GetCellVoltage()
+cellVolts()
+Volts()
+GetCV()
+
+The reviwer in the above cases would not be able to determine return types, source modules, etc.
+
+
+FUNCTION DOCUMENTATION
+----------------------------------------
+To assist with documentation each function must have a doxygen function header:
+Please copy:
+
+/***************************************************************************//**
+ * @brief
+ * Insert your brief here
+ * 
+ * @param[in/out]	ParamName			Param Details
+ * @return			Information on return types (if any)
+ */
+
+Please note the layout of the header. Its important that this format is kept.
+
+There are other tags such as @note, @image, etc. that can be used too.
+
+
+TABS, SPACES and OTHER
+----------------------------------------
+There is always debates about this so..
+
+1. Tabs to be used, no spaces
+2. All { and } brackets must be on new lines
+
+
+*******************************************
+CODE SAFETY REQUIREMENTS
+----------------------------------------
+The following basic requirements are to be implemented.
+
+1. No dynamic objects. You can't use Malloc() or New(). There is no heap space in the CPU
+
+2. NO use of the word GOTO, No unconditional jumps allowed.
+
+3. Each function that returns a value must have exactly one return point:
+	Example:
+	Luint8 u8Foo(Luint8 u8X)
+	{
+		Luint8 u8Return;
+		
+		if(u8X > 10)
+		{
+			u8Return = 1U;
+		}
+		else
+		{
+			u8Return = 0U;
+		}
+		
+		return u8Return;
+	}
+	
+	as opposed to:
+	Luint8 u8Foo(Luint8 u8X)
+	{
+		if(u8X > 10)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	
+	The reason for doing this is so as the reviewer can follow the code more easily and so as the static checker (PCLINT)
+	can check that the return value has been set on all branchs in the code.
+	
+	
+4. If, #if, switch statements always must have a final clause.
+	Example:
+	void vFoo(Luint8 u8X)
+	{
+		switch(u8X)
+		{
+			case 0U:
+				//do something
+				break;
+				
+			default:
+				//log the fault, etc.
+				break;
+		
+		}
+	}
+
+	This is also important in the following situation
+	void vSetLightState(Luint8 u8State)
+	{
+		if(u8State == 1U)
+		{
+			LED_ON = 1U;
+		}
+	}
+	
+	In the above example if the led was off, and you set u8State to 1 the led would switch on.
+	BUT. If the led was already on and you set u8State to 0, the led would not switch off.
+	
+5. NO compound statements.
+	Example of what I consider compound statments
+	...
+	if(u8GetSomeValue() && u8GetAnotherValue())
+	{
+		//do something.
+	}
+	
+	This is very difficult to debug.  A better approach would be:
+	...
+	Luint8 u8A;
+	Luint8 u8B;
+	Luint8 u8C;
+	
+	u8A = u8GetSomeValue();
+	u8B = u8GetAnotherValue();
+	u8C = u8A & u8B;
+	
+	if(u8C != 0U)
+	{
+		//do something.
+	}
+	
+	It might look like more work, but in the above good example it is very easy to debug, set breakpoints, etc.
+	
+	Other bad examples are:
+	u16Temp == u16A ? u16B : u16C;
+	
+6. NO Floating Point Equality
+	You must not do this.
+	void vFoot(Lfloat32 f32Value)
+	{
+		if(f32Value == 4.0F)
+		{
+			//do something.
+		}
+	}
+	
+	Due to the nature of floating points you can't have equality.
+	A better way would be:
+	void vFoot(Lfloat32 f32Value)
+	{
+		if(f32Value >= 4.0F)
+		{
+			//do something.
+		}
+	}
+	
+	Or make a tolerance function
+	
+	
+7. All variables must be initialised by the programmer.
+	Example:
+	void vFoo(void)
+	{
+		Luint8 u8Temp;
+		if(u8Temp == 0U)
+		{
+			
+		}
+	}
+	
+	You must do something like:
+	void vFoo(void)
+	{
+		Luint8 u8Temp;
+		
+		u8Temp = 0U;
+		
+		if(u8Temp == 0U)
+		{
+			
+		}
+	}
+	
+	You also must never rely on the C_INIT functions to initialse your data.
+	
+8. Limit local memory usage.
+	Example:
+	void vFoo(void)
+	{
+		Luint32 u32Array[512];
+	
+	}
+	
+	The array is created on the stack, which is limited to a few Kb.
+	
+	Also limit taking the address of local variables, unless totally needed.
+	Example:
+	void vFoo(void)
+	{
+		Luint8 u8Buffer[8];
+		
+		//address of local.
+		vBar(&u8Buffer[0]);
+	
+	}
+	
+	
+9. NO Magic Numbers:
+	Example:
+	void vFoo(void)
+	{
+		Luint8 u8Counter;
+		Luint32 u32Array[10];
+		
+		for(u8Counter = 0U; u8Counter < 20U; u8Counter++)
+		{
+			u32Array[u8Counter] = 1U;
+		}
+	}
+	
+	//the above example corrupts the stack.
+	
+	You should always @define array sizes.
+	
+	
+10. Always check array bounds on memory writes.
+	Example:
+	void vFoo(Luint8 u8Index)
+	{
+	
+		if(u8Index < C_MAX_ARRAY_SIZE)
+		{
+			u8Array[u8Index] = 1U;
+		}
+		else
+		{
+			//log the error
+		}
+	
+	}
+	
+	
+	
+	
+	
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
