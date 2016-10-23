@@ -26,39 +26,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>RLOOP/LCCM653__RLOOP__POWER_CORE</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC../PROJECT_CODE/LCCM653__RLOOP__POWER_CORE</locationURI>
-		</link>
-
-		<link>
-			<name>MULTICORE/LCCM650__MULTICORE__ATA6870</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM650__MULTICORE__ATA6870</locationURI>
-		</link>
-		<link>
-			<name>MULTICORE/LCCM648__MULTICORE__MS5607</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM648__MULTICORE__MS5607</locationURI>
-		</link>
-		<link>
-			<name>MULTICORE/LCCM647__MULTICORE__TSYS01</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM647__MULTICORE__TSYS01</locationURI>
-		</link>
-		<link>
-			<name>MULTICORE/LCCM644__MULTICORE__DS18B20</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM644__MULTICORE__DS18B20</locationURI>
-		</link>
-		<link>
-			<name>MULTICORE/LCCM641__MULTICORE__DS2482S</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S</locationURI>
-		</link>
-
-
-	<link>
 			<name>MULTICORE/LCCM118__MULTICORE__NUMERICAL</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM118__MULTICORE__NUMERICAL</locationURI>
@@ -74,6 +41,36 @@
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM517__MULTICORE__SAFETOOL_BRANCH</locationURI>
 		</link>
 		<link>
+			<name>MULTICORE/LCCM641__MULTICORE__DS2482S</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S</locationURI>
+		</link>
+		<link>
+			<name>MULTICORE/LCCM644__MULTICORE__DS18B20</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM644__MULTICORE__DS18B20</locationURI>
+		</link>
+		<link>
+			<name>MULTICORE/LCCM647__MULTICORE__TSYS01</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM647__MULTICORE__TSYS01</locationURI>
+		</link>
+		<link>
+			<name>MULTICORE/LCCM648__MULTICORE__MS5607</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM648__MULTICORE__MS5607</locationURI>
+		</link>
+		<link>
+			<name>MULTICORE/LCCM650__MULTICORE__ATA6870</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM650__MULTICORE__ATA6870</locationURI>
+		</link>
+		<link>
+			<name>RLOOP/LCCM653__RLOOP__POWER_CORE</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../PROJECT_CODE/LCCM653__RLOOP__POWER_CORE</locationURI>
+		</link>
+		<link>
 			<name>RM4/LCCM105__RM4__BASIC_TYPES</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM105__RM4__BASIC_TYPES</locationURI>
@@ -87,6 +84,11 @@
 			<name>RM4/LCCM135__RM4__FLASH</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM135__RM4__FLASH</locationURI>
+		</link>
+		<link>
+			<name>RM4/LCCM215__RM4__I2C</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM215__RM4__I2C</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM219__RM4__SYSTEM</name>
@@ -139,24 +141,19 @@
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM229__RM4__DMA</locationURI>
 		</link>
 		<link>
-			<name>RM4/LCCM282__RM4__SCI</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM282__RM4__SCI</locationURI>
-		</link>
-		<link>
-			<name>RM4/LCCM215__RM4__I2C</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM215__RM4__I2C</locationURI>
-		</link>
-		<link>
 			<name>RM4/LCCM280__RM4__MIBSPI_135</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM280__RM4__MIBSPI_135</locationURI>
 		</link>
+		<link>
+			<name>RM4/LCCM282__RM4__SCI</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM282__RM4__SCI</locationURI>
+		</link>
 	</linkedResources>
 	<filteredResources>
 		<filter>
-			<id>1461730354950</id>
+			<id>1477213103735</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -165,7 +162,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1461730354963</id>
+			<id>1477213103740</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -174,7 +171,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1461730354969</id>
+			<id>1477213103745</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -183,7 +180,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1461730354974</id>
+			<id>1477213103750</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -192,7 +189,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1461730354978</id>
+			<id>1477213103756</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
