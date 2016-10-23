@@ -16,7 +16,7 @@ RLOOP - PI COMMUNICATIONS MODULE
 
 			//arch
 		#define C_LOCALDEF__LCCM656__USE_ON_RM4								(0U)
-		#define C_LOCALDEF__LCCM656__USE_ON_WIN32							(0U)
+		#define C_LOCALDEF__LCCM656__USE_ON_WIN32							(1U)
 
 
 			/** Testing Options */

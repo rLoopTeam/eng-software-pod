@@ -20,6 +20,23 @@
 #include "pi_comms.h"
 #if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
 
+//main structure
+struct _strPICOMMS sPC;
+
+
+void vPICOMMS__Init(void)
+{
+	//init the transmitter system
+	vPICOMMS_TX__Init();
+
+}
+
+void vPICOMMS__Process(void)
+{
+
+
+}
+
 
 
 

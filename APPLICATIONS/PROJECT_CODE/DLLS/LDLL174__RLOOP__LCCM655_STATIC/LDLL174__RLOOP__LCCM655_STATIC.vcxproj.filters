@@ -52,7 +52,7 @@
     <Filter Include="Source Files\WIN32\DEBUG_PRINTF">
       <UniqueIdentifier>{70d4ba12-3067-4f39-87a5-770373bae769}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LCCM655__RLOOP__FCU_CORE">
+    <Filter Include="Source Files\LCCM655__RLOOP__FCU_CORE">
       <UniqueIdentifier>{7144dc5a-546a-48e3-a7a7-480405a5513e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -97,7 +97,7 @@
       <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FLOAT</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core.c">
-      <Filter>LCCM655__RLOOP__FCU_CORE</Filter>
+      <Filter>Source Files\LCCM655__RLOOP__FCU_CORE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,10 +135,10 @@
       <Filter>Source Files\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core.h">
-      <Filter>LCCM655__RLOOP__FCU_CORE</Filter>
+      <Filter>Source Files\LCCM655__RLOOP__FCU_CORE</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core__localdef.h">
-      <Filter>LCCM655__RLOOP__FCU_CORE</Filter>
+      <Filter>Source Files\LCCM655__RLOOP__FCU_CORE</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

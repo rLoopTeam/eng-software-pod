@@ -24,8 +24,8 @@
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/
-		void vFCU__Init(void);
-		void vFCU__Process(void);
+		DLL_DECLARATION void vFCU__Init(void);
+		DLL_DECLARATION void vFCU__Process(void);
 		
 		
 	#endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{32471D11-A275-494C-B740-40179F755438}</ProjectGuid>
+    <ProjectGuid>{8B7C4952-670A-42A4-B02A-B959EF9B12EE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>LAPP184__RLOOP__PWRNODE_EMU.My.MyApplication</StartupObject>
-    <RootNamespace>LAPP184__RLOOP__PWRNODE_EMU</RootNamespace>
-    <AssemblyName>LAPP184__RLOOP__PWRNODE_EMU</AssemblyName>
+    <StartupObject>LAPP185__RLOOP__FCU_EMU.My.MyApplication</StartupObject>
+    <RootNamespace>LAPP185__RLOOP__FCU_EMU</RootNamespace>
+    <AssemblyName>LAPP185__RLOOP__FCU_EMU</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -20,7 +20,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>LAPP184__RLOOP__PWRNODE_EMU.xml</DocumentationFile>
+    <DocumentationFile>LAPP185__RLOOP__FCU_EMU.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -30,7 +30,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>LAPP184__RLOOP__PWRNODE_EMU.xml</DocumentationFile>
+    <DocumentationFile>LAPP185__RLOOP__FCU_EMU.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -71,9 +71,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM657__RLOOP__BATTERY_SIM\battery_sim__top.vb">
-      <Link>LCCM657__RLOOP__BATTERY_SIM\battery_sim__top.vb</Link>
-    </Compile>
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
