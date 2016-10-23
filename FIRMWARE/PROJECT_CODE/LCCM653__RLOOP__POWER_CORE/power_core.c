@@ -35,7 +35,6 @@ void vPWRNODE__Init(void)
 	//subsystems on line.
 	sPWRNODE.sInit.sState = INIT_STATE__START;
 
-
 }
 
 
