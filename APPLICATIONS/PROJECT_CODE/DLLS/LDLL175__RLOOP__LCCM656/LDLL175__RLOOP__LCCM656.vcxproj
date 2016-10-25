@@ -43,7 +43,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)\bin\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)\$(Configuration)\</IntDir>
-    <IncludePath>$(MSBuildProjectDirectory);$(MSBuildProjectDirectory)\..\..\..\..\FIRMWARE\PROJECT_CODE;$(MSBuildProjectDirectory)\..\..\..\..\FIRMWARE\COMMON_CODE;$(IncludePath)</IncludePath>
+    <IncludePath>$(MSBuildProjectDirectory);$(MSBuildProjectDirectory)\..\..\..\..\FIRMWARE\PROJECT_CODE;$(MSBuildProjectDirectory)\..\..\..\..\FIRMWARE\COMMON_CODE;$(MSBuildProjectDirectory)\..\WIN32_ZMQ\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -60,6 +60,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(MSBuildProjectDirectory)\..\WIN32_ZMQ\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libzmq-v90-mt-4_0_4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

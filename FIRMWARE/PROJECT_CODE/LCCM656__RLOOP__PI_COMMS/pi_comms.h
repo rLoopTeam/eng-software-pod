@@ -83,6 +83,7 @@
 			void vPICOMMS_WIN32__TxFrame_Callback(const Luint8 * pu8Frame, Luint16 u16Length);
 
 			DLL_DECLARATION void vPICOMMS_WIN32__Test1(void);
+			DLL_DECLARATION void vPICOMMS_WIN32__Init(void);
 		#endif
 
 	#endif //#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U

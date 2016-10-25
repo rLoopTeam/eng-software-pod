@@ -42,6 +42,13 @@ Public Class Form1
 #Region "C CODE SPECIFICS"
 
     ''' <summary>
+    ''' Init Win32 Test functions
+    ''' </summary>
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vPICOMMS_WIN32__Init()
+    End Sub
+
+    ''' <summary>
     ''' Test function
     ''' </summary>
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
@@ -158,8 +165,13 @@ Public Class Form1
         End With
         pP.Controls.Add(Me.m_txtOutput)
 
+        'call the comms init
+        vPICOMMS_WIN32__Init()
+
         'call the system setup
         Me.Setup_System()
+
+
 
     End Sub
 
