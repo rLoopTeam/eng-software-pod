@@ -61,7 +61,7 @@
 		//tx system
 		void vPICOMMS_TX__Init(void);
 		void rI2CTX_beginFrame();
-		void rI2CTX_CalculateChecksum(Luint16 lastByte);
+		void rI2CTX_calculateChecksum(Luint16 lastByte);
 		Luint16 rI2CTX_endFrame();
 		Luint8 * pu8I2CTx__Get_BufferPointer(void);
 		void rI2CTX_addParameter_int8(Luint16 u16Index, Lint8 data);

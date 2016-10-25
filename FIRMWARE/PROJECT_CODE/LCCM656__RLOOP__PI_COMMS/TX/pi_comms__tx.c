@@ -230,7 +230,7 @@ void rI2CTX_addParameter_uint32(Luint16 u16Index, Luint32 data)
 	}
 }
 
-void rI2CTX_addParameter_float(Luint16 u16Index, float data)
+void rI2CTX_addParameter_float(Luint16 u16Index, Lfloat32 data)
 {
 	rI2CTX_addHeader(0x43, u16Index);
 
@@ -246,7 +246,7 @@ void rI2CTX_addParameter_float(Luint16 u16Index, float data)
 	}
 }
 
-void rI2CTX_addParameter_double(Luint16 u16Index, double data)
+void rI2CTX_addParameter_double(Luint16 u16Index, Lfloat64 data)
 {
 	rI2CTX_addHeader(0x83, u16Index);
 
