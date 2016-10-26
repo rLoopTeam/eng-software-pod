@@ -1,0 +1,172 @@
+# Contributing to rLoop
+rLoop is an open-source entry into SpaceX's [Hyperloop Pod Competition](http://www.spacex.com/hyperloop). You can become an official member of our team by filling out [this form.](https://docs.google.com/forms/d/e/1FAIpQLSfju0tH0LtEgnZkCslsqdfcByxXOJIGZL6Jv92yz8m2VieD0A/viewform)
+We are a distributed team and communicate through Slack.
+
+
+1. [Getting Involved](#getting-involved)
+2. [Contribution Process](#contribution-process)
+3. [Standards](#standards)
+4. [Issue Reporting](#issue-reporting)
+5. [Checklists](#checklists)
+
+
+Note: This is the code development repository for the *rLoop pod systems* only. Before opening any issue or making a pull request, double check that you're in the right place.
+* Code for the groundstation can be found [in that repository](https://github.com/rLoopTeam/eng-software-ground-station)
+* For code meant for testing on the Hyperloop Development Kit, please see the [HDK repo](https://github.com/rLoopTeam/makers-hdk)
+
+
+
+
+## Getting Involved
+
+
+We're always looking for help [identifying bugs](#how-to-report-bugs), writing and reducing test cases, and improving documentation. There are quite a few features that are needed at this point. If you feel
+like you can contribute, please check out the [code standards](https://github.com/rLoopTeam/eng-software-pod/blob/master/FIRMWARE/CODE_STANDARD/rloop_code_standard.txt), make a contribution, and we will be happy to consider it!
+
+
+While we invite any and all to contribute to rLoop, most of the conversation and discussion takes place on our Slack Team. Planning is largely handled through JIRA. Please consider becoming a full member of the rLoop team
+to stay up-to-date with the project!
+
+
+Thank you.
+
+
+
+
+## Contribution Process
+
+
+rLoop uses git for software version control, and for branching and merging.
+
+
+1. Write your contribution.
+2. Make sure your contribution meets our [code standards.](https://github.com/rLoopTeam/eng-software-pod/blob/master/FIRMWARE/CODE_STANDARD/rloop_code_standard.txt)
+3. Submit a pull request from your branch back to its parent feature branch. Include a check list, as described below. (Optionally, assign this to a specific member for review.)
+4. Respond to any discussion. When the reviewer decides it's ready, they will merge the branch.
+
+
+### Branching
+
+
+Four basic types of branches are included in this repository.
+
+
+1. Master Branch
+2. Feature Branches
+3. Developer Branches
+
+
+Branches may be created during the course of development that may not fit neatly into the above categories. It is the responsibility of the developer who opens such branches to communicate
+clearly their branch's purpose and procedures.
+
+
+#### Master Branch
+
+
+The role of the master branch is to represent the latest "production-ready" code. This should be working, bug-free code ready to be compiled and deployed to the pod. Source code on the master branch has undergone several
+levels of peer review.
+
+
+#### Feature Branches
+
+
+Feature branches are used by developers to perform and record work on issues.
+
+
+Topic branches need not necessarily be stable, even when pushed to the central repository. The practice of making incremental commits while working on an issue and pushing
+these to the central repository is encouraged, to avoid lost work and to share work-in-progress. Small commits help isolate changes, which is useful when trying to debug defects.
+
+
+Where possible, feature branches should be named according to their issue identifier. For example, branch logic_analyzer31 refers to issue 31.
+
+
+Work on an issue may require the use of multiple branches. This can happen when a developer wants to try multiple solutions. Such branches should be appended with a character or descriptive term. Examples:
+logic_analyzer31b or logic_analyzer31float.
+
+
+#### Developer Branches
+
+
+Developer branches are outside the scope of the above branches. They exists to try things out, or to maintain a branch of nice-to-haves that does not interfere with the review and integration process.
+Developer branches may be pushed to the central repository as long as the branch creator is identifiable and the name of the branch does not conflict with the naming convention used in this repository.
+
+
+### Merging
+
+
+When development is complete on an issue, the first step toward merging back into master is creating a Pull Request. The contributions should meet code, test, and commit message standards as described below.
+Pull requests may be assigned to specific team members when appropriate.
+
+
+Code review should take place using discussion features within the pull request. When the reviewer is satisfied, they should add a comment to the pull request and complete the merge.
+
+
+## Standards
+
+
+Contributions to rLoop are expected to have the following standards. Reviewers should use discretion when accepting changes.
+
+
+### Code Standards
+
+
+NOTE: We will migrate the contents of [this code standards file](https://github.com/rLoopTeam/eng-software-pod/blob/master/FIRMWARE/CODE_STANDARD/rloop_code_standard.txt) into this section at a later date.
+
+
+### Commit Message Standards
+
+
+Commit messages should:
+* Contain a one-line subject, followed by one line of white space, followed by descriptive paragraphs.
+* Contain a short reference to the feature or subsystem the commit effects, in square brackets, at the start of the subject line. Example: [bugfix] Logic Analyzer
+* Contain a reference to a relevant issue number in the body of the commit.
+  * This is important for traceability. You cannot tell what branch a commit was authored on easily.
+  * May be omitted if the issue is obvious.
+* Describe the change that was made.
+* Provide sufficient information for a reviewer to understand the changes made and their relationship to the previous code.
+
+
+Commit messages should not:
+* Exceed 50 characters on the subject line.
+* Exceed 72 characters in the body.
+  * Exception: error messages may go over this character limit.
+  
+## Issue Reporting
+
+
+Issues are tracked at https://github.com/rLoopTeam/eng-software-pod/issues.
+
+
+Issues should include:
+* A short description of the issue encountered.
+* A longer-form description encountered. When possible, steps to reproduce the issue.
+* When possible, a description of the impact of the issue.
+* An assessment of the severity of the issue.
+  * Trivial - minimal impact on functionality.
+  * Critical - large scale loss of functionality of one or two subsystems.
+  * Blocker - Harmful behavior, severely compromises entire project.
+
+
+## Checklists
+
+
+The following checklists should be completed and attached to the pull requests when the are filed and when they are merged.
+
+
+### Author Checklist
+1. Changes address original issue?
+2. Command line build passes?
+
+
+### Reviewer Checklist
+1. Changes appear to address issue?
+2. Code style and in-line documentation appropriate?
+3. Commit messages meet standards?
+
+
+
+
+
+
+
+
