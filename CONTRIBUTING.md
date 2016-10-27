@@ -15,8 +15,6 @@ Note: This is the code development repository for the *rLoop pod systems* only. 
 * For code meant for testing on the Hyperloop Development Kit, please see the [HDK repo](https://github.com/rLoopTeam/makers-hdk)
 
 
-
-
 ## Getting Involved
 
 
@@ -29,8 +27,6 @@ to stay up-to-date with the project!
 
 
 Thank you.
-
-
 
 
 ## Contribution Process
@@ -133,7 +129,7 @@ Commit messages should not:
 ## Issue Reporting
 
 
-Issues are tracked at https://github.com/rLoopTeam/eng-software-pod/issues.
+Issues are tracked at https://github.com/rLoopTeam/eng-software-pod/issues. Please remember to tag issues where possible.
 
 
 Issues should include:
