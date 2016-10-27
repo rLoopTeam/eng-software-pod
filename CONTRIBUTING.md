@@ -110,6 +110,32 @@ NOTE: We will migrate the contents of [this code standards file](https://github.
 
 ### Commit Message Standards
 
+##### A special note on JIRA integration:
+rLoop uses [JIRA](http://jira.rloop.org/secure/RapidBoard.jspa?rapidView=19&projectKey=CTRL&view=detail) for team coordination and project managment. We have integrated GitHub with JIRA to streamline workflow communication. This enables us to quickly link issues to parent tasks without the need to update both services individually. Below is a quick overview on how to format your commit messages (called Smart Commits) so that everything stays in sync. The committer's email address must match their email address used in JIRA.
+
+Using Smart Commits allows you to:
+* comment on issues
+* record time tracking info against issues
+* transition issues to any status defined in the JIRA project's workflow
+
+Please visit [the Smart Commit documentation](https://confluence.atlassian.com/fisheye/using-smart-commits-298976812.html) for detailed information. **Reviewing this information is mandatory.**
+
+The basic command line syntax for a Smart Commit message are:
+* `<ignored text> <ISSUE_KEY> <ignored text> #<COMMAND> <optional COMMAND_ARGUMENTS>`
+* ISSUE_KEY corresponds to a JIRA issue. For example: CTRL-41
+* #command corresponds to one of three actions: comment, time, or transition
+* optional COMMAND_ARGUMENTS can be comments, time records, etc. 
+
+Smart Commit examples:
+* CTRL-41 #comment unable to reproduce error
+ * "unable to reproduce error" is a COMMAND_ARGUMENT and will also appear as a comment in JIRA attached to issue CTRL-41
+* CTRL-41 #close reproduced error and fixed it!
+ * this closes the issue in JIRA and appends the comment "reproduced the error and fixed it!" to the issue in JIRA
+* CTRL-41 CTRL-45 CTRL-54 #resolve 
+ * closes multiple issues without comment
+
+Not all issues in GitHub will have an associated issue in JIRA. Take care to review the descriptions of issues to stay in compliance with our communication and collaboration guidelines. Smart Commits should also follow the standards for normal commits listed below.
+
 
 Commit messages should:
 * Contain a one-line subject, followed by one line of white space, followed by descriptive paragraphs.
