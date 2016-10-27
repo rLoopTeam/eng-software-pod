@@ -72,8 +72,7 @@ levels of peer review.
 
 Feature branches are used by developers to perform and record work on issues.
 
-
-Topic branches need not necessarily be stable, even when pushed to the central repository. The practice of making incremental commits while working on an issue and pushing
+Feature branches need not necessarily be stable, even when pushed to the central repository. The practice of making incremental commits while working on an issue and pushing
 these to the central repository is encouraged, to avoid lost work and to share work-in-progress. Small commits help isolate changes, which is useful when trying to debug defects.
 
 
