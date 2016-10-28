@@ -18,6 +18,7 @@
  * @{ */
 
 #include "../pi_comms.h"
+
 #if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM656__USE_ON_WIN32 == 1U
 
