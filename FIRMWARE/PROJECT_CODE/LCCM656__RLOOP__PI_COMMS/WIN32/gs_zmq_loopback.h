@@ -1,9 +1,7 @@
 #include <stdint.h>
-
+#include "../pi_comms.h"
 
 #pragma once
-
-#define RPOD_I2C_BUFFER_SIZE 5000
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 
