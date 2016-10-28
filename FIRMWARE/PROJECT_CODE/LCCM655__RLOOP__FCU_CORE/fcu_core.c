@@ -21,9 +21,6 @@
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 
-//main FCU structure;
-struct _strFCU sFCU;
-
 /***************************************************************************//**
  * @brief
  * Init the FCU. Call this first thing.
@@ -33,9 +30,6 @@ struct _strFCU sFCU;
  */
 void vFCU__Init(void)
 {
-
-	//init the brake systems
-	vFCU_BRAKES__Init();
 
 }
 
@@ -49,9 +43,6 @@ void vFCU__Init(void)
  */
 void vFCU__Process(void)
 {
-
-	//process the brakes.
-	vFCU_BRAKES__Process();
 
 }
 
