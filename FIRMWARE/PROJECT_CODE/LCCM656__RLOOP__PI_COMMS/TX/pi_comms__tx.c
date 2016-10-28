@@ -27,14 +27,6 @@
 //the main structure
 extern struct _strPICOMMS sPC;
 
-void vPICOMMS_TX__Init(void)
-{
-
-
-}
-
-
-
 void rI2CTX_beginFrame()
 {
 	sPC.sTx.rI2CTX_buffer[0] = RPOD_I2C_CONTROL_CHAR;
