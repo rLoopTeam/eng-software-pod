@@ -1,6 +1,6 @@
 
 
-1. Clone into the current directory, open a Git power shell from the git-desktop gear icon
+1. Clone into the current directory, open a Git power shell from the git-desktop gear icon.
 
 git clone git@github.com:rLoopTeam/eng-software-pod.git .
 
