@@ -42,17 +42,24 @@ Public Class Form1
 #Region "C CODE SPECIFICS"
 
     ''' <summary>
-    ''' Init Win32 Test functions
-    ''' </summary>
-    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Private Shared Sub vPICOMMS_WIN32__Init()
-    End Sub
-
-    ''' <summary>
     ''' Test function
     ''' </summary>
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Private Shared Sub vPICOMMS_WIN32__Test1()
+    End Sub
+
+    ''' <summary>
+    ''' Init Win32 Local Loopback code
+    ''' </summary>
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub InitGSLoopback(ByVal NodeName As String)
+    End Sub
+
+    ''' <summary>
+    ''' Send a message to the ground station
+    ''' </summary>
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub SendGSMessage(ByVal pu8Array As IntPtr, u16Length As UInt16)
     End Sub
 
 #End Region '#Region "C CODE SPECIFICS"
@@ -166,7 +173,7 @@ Public Class Form1
         pP.Controls.Add(Me.m_txtOutput)
 
         'call the comms init
-        vPICOMMS_WIN32__Init()
+        InitGSLoopback("PowerA")
 
         'call the system setup
         Me.Setup_System()
@@ -431,6 +438,8 @@ Public Class Form1
     ''' <param name="pu8Array"></param>
     ''' <remarks></remarks>
     Private Sub PICOMMS_WIN32_TxFrame_Callback(ByVal pu8Array As IntPtr, u16Length As UInt16)
+
+        SendGSMessage(pu8Array, u16Length)
 
         Dim bArray() As Byte
 

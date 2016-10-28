@@ -43,7 +43,8 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)\bin\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)\$(Configuration)\</IntDir>
-    <IncludePath>$(MSBuildProjectDirectory);$(MSBuildProjectDirectory)\..\..\..\..\FIRMWARE\PROJECT_CODE;$(MSBuildProjectDirectory)\..\..\..\..\FIRMWARE\COMMON_CODE;$(MSBuildProjectDirectory)\..\WIN32_ZMQ\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(MSBuildProjectDirectory);$(MSBuildProjectDirectory)\..\..\..\..\FIRMWARE\PROJECT_CODE;$(MSBuildProjectDirectory)\..\WIN32_ZMQ\include;$(MSBuildProjectDirectory)\..\..\..\..\FIRMWARE\COMMON_CODE;$(IncludePath)</IncludePath>
+    <LibraryPath>$(MSBuildProjectDirectory)\..\WIN32_ZMQ\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -87,12 +88,14 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\RM4\pi_comms__rm4.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\RX\pi_comms__rx.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\TX\pi_comms__tx.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\WIN32\gs_zmq_loopback.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\WIN32\pi_comms__win32.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms__localdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\WIN32\gs_zmq_loopback.h" />
     <ClInclude Include="localdef.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
