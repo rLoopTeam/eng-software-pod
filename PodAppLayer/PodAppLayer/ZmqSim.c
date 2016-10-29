@@ -1,1 +1,0 @@
-//Simuates the ZMQ connection to the ground station when running on a PC
