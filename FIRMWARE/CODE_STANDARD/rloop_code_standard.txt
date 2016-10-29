@@ -17,7 +17,7 @@ MODULE PART NUMBERS
 ----------------------------------------
 Each module is in the format of LCCMXXX__<PROJECT>__<DESCRIPTION>
 For example LCCM655 is the flight control unit core processing code.
-If you need new parts numbers, please see lachlan.
+If you need new parts numbers, please see Lachlan.
 
 
 FIRMWARE PART NUMBERS
@@ -31,7 +31,7 @@ FILE STRUCTURES
 ----------------------------------------
 Each LCCMXXX module can contain sub modules which are located in sub folders. For example:
 LCCM653__RLOOP__POWER_CORE
-LCCM653__RLOOP__POWER_CORE\BMS for the battery manangement system interface layer.
+LCCM653__RLOOP__POWER_CORE\BMS for the battery management system interface layer.
 
 It is recommended that software is layered into sub layers (sub modules). The smaller the module, the easier to test.
 Sub layers also work well with doxygen.
@@ -95,7 +95,7 @@ BAD Example:
 Luint8 i;
 for(i = 0; i < 300; i++){};
 
-The reviewer is unable to determine the data type and thefore can't determine that 300 is greater than the range of data available.
+The reviewer is unable to determine the data type and therefore can't determine that 300 is greater than the range of data available.
 
 Avoid i, j, k
 It is better to use
@@ -246,7 +246,7 @@ The following basic requirements are to be implemented.
 	}
 	
 	The reason for doing this is so as the reviewer can follow the code more easily and so as the static checker (PCLINT)
-	can check that the return value has been set on all branchs in the code.
+	can check that the return value has been set on all branches in the code.
 	
 	
 4. If, #if, switch statements always must have a final clause.
@@ -279,7 +279,7 @@ The following basic requirements are to be implemented.
 	BUT. If the led was already on and you set u8State to 0, the led would not switch off.
 	
 5. NO compound statements.
-	Example of what I consider compound statments
+	Example of what I consider compound statements
 	...
 	if(u8GetSomeValue() && u8GetAnotherValue())
 	{
@@ -353,7 +353,7 @@ The following basic requirements are to be implemented.
 		}
 	}
 	
-	You also must never rely on the C_INIT functions to initialse your data.
+	You also must never rely on the C_INIT functions to initialise your data.
 	
 8. Limit local memory usage.
 	Example:
