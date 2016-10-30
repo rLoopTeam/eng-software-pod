@@ -50,7 +50,7 @@ Four basic types of branches are included in this repository.
 1. Master Branch
 2. Feature Branches
 3. Developer Branches
-4. Release Branches (tbd)
+4. Release Branches
 
 
 Branches may be created during the course of development that may not fit neatly into the above categories. It is the responsibility of the developer who opens such branches to communicate
@@ -85,6 +85,11 @@ logic_analyzer31b or logic_analyzer31float.
 
 Developer branches are outside the scope of the above branches. They exists to try things out, or to maintain a branch of nice-to-haves that does not interfere with the review and integration process.
 Developer branches may be pushed to the central repository as long as the branch creator is identifiable and the name of the branch does not conflict with the naming convention used in this repository.
+
+
+#### Release Branches
+
+Release branches are snapshots of the codebase that was run in the real world. We need to preserve the state of the code from our real-world tests so that any test data or bugs can be analyzed or replicated. Release branches are locked from continued development.
 
 
 ### Merging
@@ -157,19 +162,22 @@ Commit messages should not:
   
 ## Issue Reporting
 
+Issues are meant to capture specific, actionable tasks. These include new feature requests, bugs, optimizations, etc. Be aware that issues are generated in two ways: the vast majority originate from the top down as planning sessions and analysis and design of the system. Others come from the bottom up as bug reports, questions, or requests by the community on GitHub.
 
-Issues are tracked at https://github.com/rLoopTeam/eng-software-pod/issues. Please remember to tag issues where possible.
+Issues are organized into Milestones. Milestones collect and focus work on important or time-sensitive tasks. Milestones will almost always have a corresponding JIRA task - this is indicated by an issue tag such as "[CTRL-41]". Any issue, commit message, or milestone that has such a tag is linked to an issue in JIRA. Take care to read the [above notes on JIRA integration](#commit-message-standards) to understand the syntax used in comments and commits.
 
 
 Issues should include:
-* A short description of the issue encountered.
-* A longer-form description encountered. When possible, steps to reproduce the issue.
+* A short description of the issue or request.
+* A longer-form description. Steps to reproduce the issue where applicable.
 * When possible, a description of the impact of the issue.
+* Tag the issue with a relevant label. Update tags as required.
 * An assessment of the severity of the issue.
   * Trivial - minimal impact on functionality.
   * Critical - large scale loss of functionality of one or two subsystems.
   * Blocker - Harmful behavior, severely compromises entire project.
 
+Issues are tracked at https://github.com/rLoopTeam/eng-software-pod/issues. Please remember to tag issues where possible.
 
 ## Checklists
 
