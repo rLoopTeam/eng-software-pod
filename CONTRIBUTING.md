@@ -3,6 +3,12 @@ rLoop is an open-source entry into SpaceX's [Hyperloop Pod Competition](http://w
 Talk with the team on [Slack.](https://rloop.slack.com/)
 
 
+Note: This is for the *rLoop pod systems* repository only. Before opening issues or pull requests, check that this is the right place. Other rLoops repositories are:
+
+* [Groundstation repository](https://github.com/rLoopTeam/eng-software-ground-station)
+* [Hyperloop Development Kit repository](https://github.com/rLoopTeam/makers-hdk)
+
+
 ## Table of Contents
 
 
@@ -11,11 +17,6 @@ Talk with the team on [Slack.](https://rloop.slack.com/)
 3. [Standards](#standards)
 4. [Issue Reporting](#issue-reporting)
 5. [Checklists](#checklists)
-
-
-Note: This is the code development repository for the *rLoop pod systems* only. Before opening any issue or making a pull request, double check that you're in the right place.
-* Code for the groundstation can be found [in that repository](https://github.com/rLoopTeam/eng-software-ground-station)
-* For code meant for testing on the Hyperloop Development Kit, please see the [HDK repo](https://github.com/rLoopTeam/makers-hdk)
 
 
 ## Getting Involved
