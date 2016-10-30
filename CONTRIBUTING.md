@@ -1,6 +1,8 @@
 # Contributing to rLoop
-rLoop is an open-source entry into SpaceX's [Hyperloop Pod Competition](http://www.spacex.com/hyperloop). You can become an official member of our team by filling out [this form.](https://docs.google.com/forms/d/e/1FAIpQLSfju0tH0LtEgnZkCslsqdfcByxXOJIGZL6Jv92yz8m2VieD0A/viewform)
-We are a distributed team and communicate through Slack.
+rLoop is an open-source entry into SpaceX's [Hyperloop Pod Competition](http://www.spacex.com/hyperloop). To become a member fill out [the join rLoop form.](https://docs.google.com/forms/d/e/1FAIpQLSfju0tH0LtEgnZkCslsqdfcByxXOJIGZL6Jv92yz8m2VieD0A/viewform)
+Talk with the team on [Slack.](https://rloop.slack.com/)
+
+
 
 
 1. [Getting Involved](#getting-involved)
