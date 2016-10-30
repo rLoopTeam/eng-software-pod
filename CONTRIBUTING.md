@@ -21,16 +21,16 @@ Note: This is for the *rLoop pod systems* repository only. Before opening issues
 
 ## Getting Involved
 
+Help by identifying bugs, improving documentation, adding a feature, writing and reducing test cases.
+To contribute:
 
-We're always looking for help identifying bugs, writing and reducing test cases, and improving documentation. There are quite a few features that are needed at this point. If you feel
-like you can contribute, please check out the [code standards](https://github.com/rLoopTeam/eng-software-pod/blob/master/FIRMWARE/CODE_STANDARD/rloop_code_standard.txt), make a contribution, and we will be happy to consider it!
+* Read the [code standards](https://github.com/rLoopTeam/eng-software-pod/blob/master/FIRMWARE/CODE_STANDARD/rloop_code_standard.txt)
+* Make a contribution
+* Create a pull request
 
+Discussion takes place on [Slack](https://rloop.slack.com/messages/eng-sftw/). Planning is done with [JIRA](https://jira.rloop.org/projects/SFTW/issues/SFTW-20?filter=allopenissues). To stay up-to-date with the project, please consider becoming a [full member of rLoop](https://docs.google.com/forms/d/e/1FAIpQLSfju0tH0LtEgnZkCslsqdfcByxXOJIGZL6Jv92yz8m2VieD0A/viewform)!
 
-While we invite any and all to contribute to rLoop, most of the conversation and discussion takes place on our Slack Team. Planning is largely handled through JIRA. Please consider becoming a full member of the rLoop team
-to stay up-to-date with the project!
-
-
-Thank you.
+Thank you!
 
 
 ## Contribution Process
