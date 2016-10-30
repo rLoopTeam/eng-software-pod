@@ -36,13 +36,16 @@ Thank you!
 ## Contribution Process
 
 
-rLoop uses git for software version control, and for branching and merging.
+rLoop uses git for version control. To make a contribution:
 
 
-1. Write your contribution.
-2. Make sure your contribution meets our [code standards.](https://github.com/rLoopTeam/eng-software-pod/blob/master/FIRMWARE/CODE_STANDARD/rloop_code_standard.txt)
-3. Submit a pull request from your branch back to its parent feature branch. Include a check list, as described below. (Optionally, assign this to a specific member for review.)
-4. Respond to any discussion. When the reviewer decides it's ready, they will merge the branch.
+1. Make some changes.
+2. Check that the changes meet [the code standards.](https://github.com/rLoopTeam/eng-software-pod/blob/master/FIRMWARE/CODE_STANDARD/rloop_code_standard.txt)
+3. Submit a pull request from your branch back to its parent feature branch. 
+4. Include a check list, as [described below.](#checklists)
+5. (Optional) Assign to a member for review.
+4. Participate in the discussion. 
+6. Changes will be merged when the reviewer has approved them.
 
 
 ### Branching
