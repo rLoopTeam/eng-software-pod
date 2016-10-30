@@ -169,6 +169,30 @@ void vPWRNODE__Process(void)
 			//process any temp sensor items
 			vPWRNODE_BATTTEMP__Process();
 
+			//next read tsys01 temp sensor
+			sPWRNODE.sInit.sState = INIT_STATE__TSYS01;
+			break;
+
+		case INIT_STATE__TSYS01:
+			// ONLY NEEDS TO BE RUN ONCE
+		
+			// init TSYS01 ambient PV Temperature Sensor
+			vTSYS01__Init();
+
+			sPWRNODE.sInit.sState = INIT_STATE__TSYS01_READ;
+			break;
+
+		case INIT_STATE__TSYS01_READ:
+
+			// TSYS01 will start conversion if not already running, else will read measurement
+			vTSYS01__Process();
+
+			sPWRNODE.sInit.sState = INIT_STATE__TSYS01_TEMP_SEARCH_DONE;
+			break;
+
+		case INIT_STATE__TSYS01_TEMP_SEARCH_DONE:
+			//todo, handle any results from the search
+
 			break;
 
 		default:
