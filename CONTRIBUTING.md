@@ -50,6 +50,7 @@ Four basic types of branches are included in this repository.
 1. Master Branch
 2. Feature Branches
 3. Developer Branches
+4. Release Branches (tbd)
 
 
 Branches may be created during the course of development that may not fit neatly into the above categories. It is the responsibility of the developer who opens such branches to communicate
@@ -113,6 +114,8 @@ NOTE: We will migrate the contents of [this code standards file](https://github.
 ##### A special note on JIRA integration:
 rLoop uses [JIRA](http://jira.rloop.org/secure/RapidBoard.jspa?rapidView=19&projectKey=CTRL&view=detail) for team coordination and project managment. We have integrated GitHub with JIRA to streamline workflow communication. This enables us to quickly link issues to parent tasks without the need to update both services individually. Below is a quick overview on how to format your commit messages (called Smart Commits) so that everything stays in sync. The committer's email address must match their email address used in JIRA.
 
+Please review [this video](https://youtu.be/hkLa2QR_pi8) for more in JIRA commits
+
 Using Smart Commits allows you to:
 * comment on issues
 * record time tracking info against issues
@@ -171,18 +174,25 @@ Issues should include:
 ## Checklists
 
 
-The following checklists should be completed and attached to the pull requests when the are filed and when they are merged.
+The copy and paste the following checklists to  pull requests when the are filed (author) and when they are merged (reviewer).
 
 
 ### Author Checklist
-1. Changes address original issue?
-2. Command line build passes?
+```
+- [] Changes address original issue.
+- [] Changes coply with code standards.
+- [] Build passes verification tests.
+```
+
 
 
 ### Reviewer Checklist
-1. Changes appear to address issue?
-2. Code style and in-line documentation appropriate?
-3. Commit messages meet standards?
+```
+- [] Changes appear to address issue.
+- [] Code style and in-line documentation appropriate.
+- [] Commit messages meet standards.
+- [] Passes verification tests.
+```
 
 
 
