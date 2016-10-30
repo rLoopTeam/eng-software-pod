@@ -18,7 +18,7 @@ Note: This is the code development repository for the *rLoop pod systems* only. 
 ## Getting Involved
 
 
-We're always looking for help [identifying bugs](#how-to-report-bugs), writing and reducing test cases, and improving documentation. There are quite a few features that are needed at this point. If you feel
+We're always looking for help identifying bugs, writing and reducing test cases, and improving documentation. There are quite a few features that are needed at this point. If you feel
 like you can contribute, please check out the [code standards](https://github.com/rLoopTeam/eng-software-pod/blob/master/FIRMWARE/CODE_STANDARD/rloop_code_standard.txt), make a contribution, and we will be happy to consider it!
 
 
