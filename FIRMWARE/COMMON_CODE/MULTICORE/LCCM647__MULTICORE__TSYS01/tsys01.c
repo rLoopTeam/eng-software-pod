@@ -104,11 +104,11 @@
     }
 
 
-    type? I2CRead(char ADR)
+    Luint16 I2CRead(char ADR)
     {
     	// write to align with i2c code	
 
-    	//to [ideally] be used for: 16-bit k values, 32-bit temperature result
+    	//to [ideally] be used for: 16-bit k values, 16-bit temperature result
 
     }
 
