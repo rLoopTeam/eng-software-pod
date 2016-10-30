@@ -3,6 +3,7 @@ rLoop is an open-source entry into SpaceX's [Hyperloop Pod Competition](http://w
 Talk with the team on [Slack.](https://rloop.slack.com/)
 
 
+## Table of Contents
 
 
 1. [Getting Involved](#getting-involved)
