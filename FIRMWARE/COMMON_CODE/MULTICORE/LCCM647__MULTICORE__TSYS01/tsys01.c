@@ -1,6 +1,7 @@
 /* TODO:
  * i2c implementation
  * how to handle 10ms delay between ADC conversion and reading measurement
+ * 	timer...
  * globals demand too much space?
  * doxygen compatible commenting
 */
@@ -50,7 +51,7 @@
 			// is any return sent as acknowledgment of the command?
 
 			// Set flag to show conversion has begun
-			u8ADCConvertingFlag = 1;
+			u8ADCConvertingFlag = 1U;
 
 		}
 		// conversion is already in progress
@@ -93,7 +94,7 @@
     	// write to align with i2c code
 
     	Luint16 u16K[5];
-    	u16K[0] = i2cRead(k0_ADR);
+    	u16K[0] = i2cRead(k0_ADR); // fake function
     	u16K[1] = i2cRead(k1_ADR);
     	u16K[2] = i2cRead(k2_ADR);
     	u16K[3] = i2cRead(k3_ADR);
