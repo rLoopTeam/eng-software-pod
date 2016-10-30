@@ -1,8 +1,8 @@
 #rLoop Pod Firmware
 _Lachlan Grogan_
 
-Please make sure you review our [code standards](eng-software-pod/FIRMWARE/CODE_STANDARD/rloop_code_standard.txt)
-and [contributing document.](eng-software-pod/CONTRIBUTING.md) Also check out our [Confluence page](http://confluence.rloop.org/display/SD/CTRL+Team+Page)
+Please make sure you review our [code standards](FIRMWARE/CODE_STANDARD/rloop_code_standard.txt)
+and [contributing document.](CONTRIBUTING.md) Also check out our [Confluence page](http://confluence.rloop.org/display/SD/CTRL+Team+Page)
 
 Setup Development Tools:
 -----------------------------
