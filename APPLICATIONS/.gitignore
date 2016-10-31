@@ -5,6 +5,7 @@
 *.vs
 APPLICATIONS/.vs
 *.VC.db
+*.VC.VC.opendb
 
 
 # SIL3 Pty Ltd Confidential #
