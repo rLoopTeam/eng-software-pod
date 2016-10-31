@@ -31,15 +31,18 @@
 		// raw temp ADC value
 		Luint16 u16ADCTemperatureResult=0;
 
-		// vars for filtering
-		Luint16[64] u16Averages = {}; // TODO: too big? probably too big...
-		Luint8 * pu8AverageCounter1 = 0; // for use in u16NUMERICAL_FILTERING__Add_U16
-		Luint8 C_LCCM436__MAX_FILTERING_SIZE = 64;
-
+		// vars for filtering via u16NUMERICAL_FILTERING__Add_U16()
+		Luint8 C_LCCM436__MAX_FILTERING_SIZE = 32; // 32 values will be kept in history
+		Luint16 u16Averages[C_LCCM436__MAX_FILTERING_SIZE] = {}; // array containing filtered measurement history; NOTE UNITS ARE BITS
+		Luint8 * pu8AverageCounter1 = 0; // index counter to remember where to put next data point
+		
 		// vars for converting to Celsius
 		Lfloat32 f32Coeffs[5];
 		Lfloat32 f32TemperatureResult=0;
 		Lfloat32[10] f32Last10Values = {0,0,0,0,0,0,0,0,0,0};
+
+		// TSYS01 must be reset after power up
+		vI2CWrite(RESET); // TODO: unwritten function
 
 	    u16KValues = u16TSYS01__Read_K_Values()
 
@@ -79,20 +82,21 @@
 			u8ADCConvertingFlag = 0U;
 
 			//log and filter, build array of averages
-			whateverthisreturns = u16NUMERICAL_FILTERING__Add_U16(u16ADCTemperatureResult, pu8AverageCounter1, C_LCCM436__MAX_FILTERING_SIZE, u16Averages[64]); //TODO: not sure what number should be in the [] for the final paramter, example has 0
+			Luint16 u16ADCFilteredTemperatureResult = u16NUMERICAL_FILTERING__Add_U16(u16ADCTemperatureResult, pu8AverageCounter1, C_LCCM436__MAX_FILTERING_SIZE, u16Averages[64]); //TODO: not sure what number should be in the [] for the final paramter, example has 0
+
+			// TODO: write to u16Averages array here?
 
 			// Compute temperature polynomial terms individually then sum
-			Lfloat32 Term4 = f32Coeffs[4] * pow(u16ADCTemperatureResult, 4);
-			Lfloat32 Term3 = f32Coeffs[3] * pow(u16ADCTemperatureResult, 3);
-			Lfloat32 Term2 = f32Coeffs[2] * pow(u16ADCTemperatureResult, 2);
-			Lfloat32 Term1 = f32Coeffs[1] * u16ADCTemperatureResult;
+			Lfloat32 Term4 = f32Coeffs[4] * pow(u16ADCFilteredTemperatureResult, 4);
+			Lfloat32 Term3 = f32Coeffs[3] * pow(u16ADCFilteredTemperatureResult, 3);
+			Lfloat32 Term2 = f32Coeffs[2] * pow(u16ADCFilteredTemperatureResult, 2);
+			Lfloat32 Term1 = f32Coeffs[1] * u16ADCFilteredTemperatureResult;
 			Lfloat32 Term0 = f32Coeffs[0];
 			
 			f32TemperatureResult = Term4 + Term3 + Term2 + Term1 + Term0; // Celsius units
 
 
 			u8FaultCheck();
-
 		}
 
 	}// end vTSYS01__Process()
@@ -114,6 +118,9 @@
 	{
 		// TODO: write this	
 
+		// DATASHEET INFO:
+		//	if the sensor is busy with ADC conversion, attempting to read Temp will return 0
+		// 	others...?
 	}
 
    	/** Read each of the 5 K calibration constants over i2c */
@@ -122,28 +129,26 @@
     	// TODO: write to align with i2c code
 
     	Luint16 u16K[5];
-    	u16K[0] = i2cRead(k0_ADR); // TODO: fake function
-    	u16K[1] = i2cRead(k1_ADR);
-    	u16K[2] = i2cRead(k2_ADR);
-    	u16K[3] = i2cRead(k3_ADR);
-    	u16K[4] = i2cRead(k4_ADR);
+    	u16K[0] = u16I2CRead(k0_ADR); // TODO: unwritten function
+    	u16K[1] = u16I2CRead(k1_ADR);
+    	u16K[2] = u16I2CRead(k2_ADR);
+    	u16K[3] = u16I2CRead(k3_ADR);
+    	u16K[4] = u16I2CRead(k4_ADR);
 
     	return u16K[5];
     }
 
 
    	/** to [ideally] be used for: read 16-bit k values, read 16-bit temperature result over i2c */
-    Luint16 I2CRead(char ADR)
+    Luint16 u16I2CRead(char ADR)
     {
     	// TODO: write to align with i2c code	
-
     }
 
 
     void vI2CWrite(char ADR)
     {
     	// TODO: write to align with i2c code
-
     }
 
 
