@@ -1,6 +1,15 @@
 # Contributing to rLoop
-rLoop is an open-source entry into SpaceX's [Hyperloop Pod Competition](http://www.spacex.com/hyperloop). You can become an official member of our team by filling out [this form.](https://docs.google.com/forms/d/e/1FAIpQLSfju0tH0LtEgnZkCslsqdfcByxXOJIGZL6Jv92yz8m2VieD0A/viewform)
-We are a distributed team and communicate through Slack.
+rLoop is an open-source entry into SpaceX's [Hyperloop Pod Competition](http://www.spacex.com/hyperloop). To become a member fill out [the join rLoop form.](https://docs.google.com/forms/d/e/1FAIpQLSfju0tH0LtEgnZkCslsqdfcByxXOJIGZL6Jv92yz8m2VieD0A/viewform)
+Talk with the team on [Slack.](https://rloop.slack.com/)
+
+
+Note: This is for the *rLoop pod systems* repository only. Before opening issues or pull requests, check that this is the right place. Other rLoops repositories are:
+
+* [Groundstation repository](https://github.com/rLoopTeam/eng-software-ground-station)
+* [Hyperloop Development Kit repository](https://github.com/rLoopTeam/makers-hdk)
+
+
+## Table of Contents
 
 
 1. [Getting Involved](#getting-involved)
@@ -10,35 +19,33 @@ We are a distributed team and communicate through Slack.
 5. [Checklists](#checklists)
 
 
-Note: This is the code development repository for the *rLoop pod systems* only. Before opening any issue or making a pull request, double check that you're in the right place.
-* Code for the groundstation can be found [in that repository](https://github.com/rLoopTeam/eng-software-ground-station)
-* For code meant for testing on the Hyperloop Development Kit, please see the [HDK repo](https://github.com/rLoopTeam/makers-hdk)
-
-
 ## Getting Involved
 
+Help by identifying bugs, improving documentation, adding a feature, writing and reducing test cases.
+To contribute:
 
-We're always looking for help identifying bugs, writing and reducing test cases, and improving documentation. There are quite a few features that are needed at this point. If you feel
-like you can contribute, please check out the [code standards](https://github.com/rLoopTeam/eng-software-pod/blob/master/FIRMWARE/CODE_STANDARD/rloop_code_standard.txt), make a contribution, and we will be happy to consider it!
+* Read the [code standards](https://github.com/rLoopTeam/eng-software-pod/blob/master/FIRMWARE/CODE_STANDARD/rloop_code_standard.txt)
+* Make a contribution
+* Create a pull request
 
+Discussion takes place on [Slack](https://rloop.slack.com/messages/eng-sftw/). Planning is done with [JIRA](https://jira.rloop.org/projects/SFTW/issues/SFTW-20?filter=allopenissues). To stay up-to-date with the project, please consider becoming a [full member of rLoop](https://docs.google.com/forms/d/e/1FAIpQLSfju0tH0LtEgnZkCslsqdfcByxXOJIGZL6Jv92yz8m2VieD0A/viewform)!
 
-While we invite any and all to contribute to rLoop, most of the conversation and discussion takes place on our Slack Team. Planning is largely handled through JIRA. Please consider becoming a full member of the rLoop team
-to stay up-to-date with the project!
-
-
-Thank you.
+Thank you!
 
 
 ## Contribution Process
 
 
-rLoop uses git for software version control, and for branching and merging.
+rLoop uses git for version control. To make a contribution:
 
 
-1. Write your contribution.
-2. Make sure your contribution meets our [code standards.](https://github.com/rLoopTeam/eng-software-pod/blob/master/FIRMWARE/CODE_STANDARD/rloop_code_standard.txt)
-3. Submit a pull request from your branch back to its parent feature branch. Include a check list, as described below. (Optionally, assign this to a specific member for review.)
-4. Respond to any discussion. When the reviewer decides it's ready, they will merge the branch.
+1. Make some changes.
+2. Check that the changes meet [the code standards.](https://github.com/rLoopTeam/eng-software-pod/blob/master/FIRMWARE/CODE_STANDARD/rloop_code_standard.txt)
+3. Submit a pull request from your branch back to its parent feature branch. 
+4. Include a check list, as [described below.](#checklists)
+5. (Optional) Assign to a member for review.
+4. Participate in the discussion. 
+6. Changes will be merged when the reviewer has approved them.
 
 
 ### Branching
