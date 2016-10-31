@@ -26,18 +26,27 @@
 	/** Read calibration constants, compute conversion eqn coefficients */
 	void vTSYS01__Init(void)
 	{
-		Lfloat32 f32TemperatureResult=0;
-		Lfloat32 f32ADCTemperatureResult=0;
-		Lfloat32 f32Coeffs[5];
 		Luint8 u8ADCConvertingFlag = 0U;
-		Lfloat32[10] f32Last10Values = {0,0,0,0,0,0,0,0,0,0};
 
+		// raw temp ADC value
+		Luint16 u16ADCTemperatureResult=0;
+
+		// vars for filtering
+		Luint16[64] u16Averages = {}; // TODO: too big? probably too big...
+		Luint8 * pu8AverageCounter1 = 0; // for use in u16NUMERICAL_FILTERING__Add_U16
+		Luint8 * pu8AverageCounter2 = 0; // for use in my simple moving average 
+		Luint8 C_LCCM436__MAX_FILTERING_SIZE = 64;
+
+		// vars for converting to Celsius
+		Lfloat32 f32Coeffs[5];
+		Lfloat32 f32TemperatureResult=0;
+		Lfloat32[10] f32Last10Values = {0,0,0,0,0,0,0,0,0,0};
 
 	    u16KValues = u16TSYS01__Read_K_Values()
 
 		// Use K values to compute the full coefficient for each polynomial term,   
 	    // 	these coeffs are static, so this doesn't have to be done in __Process()
-		f32Coeffs[4] = (-2.0F) * u16KValues[4] * pow(10, -21); //TODO: fix syntax
+		f32Coeffs[4] = (-2.0F) * u16KValues[4] * pow(10, -21);
 		f32Coeffs[3] = 4.0F * u16KValues[3] * pow(10, -16);
 		f32Coeffs[2] = -2.0F * u16KValues[2] * pow(10, -11);
 		f32Coeffs[1] = 1.0F * u16KValues[1] * pow(10, -6);
@@ -65,16 +74,19 @@
 		//		assume the process is done? should return a 0 if conversion underway
 		else 
 		{
-			f32ADCTemperatureResult = F_TSYS01_Read_ADC_Temperature_Result();
-
+			u16ADCTemperatureResult = F_TSYS01_Read_ADC_Temperature_Result();
+			
 			// Reset flag now that measurement has been read
-			u8ADCConvertingFlag = 0;
+			u8ADCConvertingFlag = 0U;
+
+			//log and filter, build array of averages
+			u16NUMERICAL_FILTERING__Add_U16(u16ADCTemperatureResult, pu8AverageCounter1, C_LCCM436__MAX_FILTERING_SIZE, u16Averages[64]); //TODO: not sure what number should be in the [] for the final paramter, example has 0
 
 			// Compute temperature polynomial terms individually then sum
-			Lfloat32 Term4 = f32Coeffs[4] * pow(f32ADCTemperatureResult, 4);
-			Lfloat32 Term3 = f32Coeffs[3] * pow(f32ADCTemperatureResult, 3);
-			Lfloat32 Term2 = f32Coeffs[2] * pow(f32ADCTemperatureResult, 2);
-			Lfloat32 Term1 = f32Coeffs[1] * f32ADCTemperatureResult;
+			Lfloat32 Term4 = f32Coeffs[4] * pow(u16ADCTemperatureResult, 4);
+			Lfloat32 Term3 = f32Coeffs[3] * pow(u16ADCTemperatureResult, 3);
+			Lfloat32 Term2 = f32Coeffs[2] * pow(u16ADCTemperatureResult, 2);
+			Lfloat32 Term1 = f32Coeffs[1] * u16ADCTemperatureResult;
 			Lfloat32 Term0 = f32Coeffs[0];
 			
 			f32TemperatureResult = Term4 + Term3 + Term2 + Term1 + Term0; // Celsius units
@@ -87,40 +99,68 @@
 	}// end vTSYS01__Process()
 
 
+	/** Most recent measurement, made global for external use */
+	Lfloat32 f32TSYS01__Read_Temperature_Result(void)
+	{
+		return f32TemperatureResult;
+	}
+
+
+	/*******************************************************************************
+	My Simple Moving Average Functions
+	*******************************************************************************/
+
 	/** Compare the new data point to the average of the previous 5 points, if it deviates by X degrees C don't save the value */
 	void vFilterTemperatureData(void)
 	{
-		Lfloat32 f32RecentTemperatureAverage = f32NUMERICAL_FLOAT_AVERAGE(f32Last10Values); // TODO: func not found in FIRMWARE/COMMON_CODE/MULTICORE/LCCM118_MULTICORE_NUMERICAL/numerical.h
+		Lfloat32 f32RecentTemperatureAverage = f32NUMERICAL_FLOAT_AVERAGE(); 
 
 		// if the measurement is within acceptable range
 		if(abs(f32TemperatureResult - f32RecentTemperatureAverage) < X.0F) // TODO: Define acceptable devation from recent average
-			{
-				// update the recent history array to save this measurement
-				vUpdateMeasurementHistory();
-			}
+		{
+			// update the recent history array to save this measurement
+			vUpdateMeasurementHistory();
+		}
 		// if the measurement has deviated too greatly from the recent average
 		else
 		{
-			// TODO: append to outlier array? or do nothing
-				// if there are multiple in a row we'll want to end up accepting them
+			// TODO: undecided on action
+
+			// f32TemperatureResult = f32RecentTemperatureAverage; // TODO: pretty dangerous.
+			// vUpdateMeasurementHistory();
+			// TODO: instead, append real val to an outlier array? or do nothing
+				// if there are multiple in a row within the same range (what looks like an outlier is actually physical) we'll want to end up accepting them
 	 			// loss of vacuum --> dramatic temperature change?	
 		}
 
 	}
 
+
 	/** Compute the average of temperature measurements */
-	Lfloat32 f32NUMERICAL_FLOAT_AVERAGE(Lfloat32[10] f32Last10Values)
+	Lfloat32 f32NUMERICAL_FLOAT_AVERAGE(void)
 	{
 		Lfloat32 f32TemperatureSum = 0;
+		// sum the nums of the array
 		for(Luint8 u8Counter; u8Counter < 10; u8Counter++)
 		{
 			Lfloat32 f32TemperatureSum += f32Last10Values[u8Counter];
 		}
 
-		Lfloat32 f32AverageTemperature = f32TemperatureSum / 10.0F; // divide by array size (might be considered a magic number..) 
+		// divide by array size (might be considered a magic number..) 
+		Lfloat32 f32AverageTemperature = f32TemperatureSum / 10.0F; 
+		f32Averages[pu8AverageCounter2] = f32AverageTemperature;
+		
+		pu8AverageCounter2 += 1;
+		if(pu8AverageCounter2==64U)
+		{
+			pu8AverageCounter2 = 0;
+		}		
+
+		return f32AverageTemperature
 	}
 
-	/** delete oldest measurement in the recent history array, add new. */
+
+	/** Delete oldest measurement in the recent history array, add new. */
 	void vUpdateMeasurementHistory(void)
 	{
 		// shift all data points down one index
@@ -136,13 +176,6 @@
 		// write the new data point to the first index
 		f32Last10Values[0] = f32TemperatureResult;
 
-	}
-
-
-	/** Most recent measurement, made global for external use */
-	Lfloat32 f32TSYS01__Read_Temperature_Result(void)
-	{
-		return f32TemperatureResult;
 	}
 
 
@@ -165,6 +198,7 @@
     	return u16K[5];
     }
 
+
    	/** to [ideally] be used for: read 16-bit k values, read 16-bit temperature result over i2c */
     Luint16 I2CRead(char ADR)
     {
@@ -180,10 +214,10 @@
     }
 
 
-	Lfloat32 f32TSYS01__Read_ADC_Temperature_Result(void)
+	Lfloat16 f16TSYS01__Read_ADC_Temperature_Result(void)
 	{
 		// TODO: write to align with i2c code
-		return f32ADCTemperatureResult;
+		return u16ADCTemperatureResult;
 	}
 
 
