@@ -54,6 +54,18 @@ void vMS5607__ReadPressure(void)
 	sMS5607.sPRESSURE.D1 = uMS5607__Read24(MS5607_CMD__ADC_READ);
 }
 
+/** Return the compensated temperature as a floating point value in °C */
+Lint32 sMS5607__GetTemperature(void)
+{
+	return sMS5607.sTEMP.TEMP;
+}
+
+/** Return the compensated pressure as a floating point value, in mbar */
+Lint32 sMS5607__GetPressure(void)
+{
+	return sMS5607.sPRESSURE.P;
+}
+
 /** Start a temperature conversion with the defined OSR */
 void vMS5607__StartTemperatureConversion(void)
 {

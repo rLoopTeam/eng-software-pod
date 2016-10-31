@@ -111,6 +111,8 @@
 
         void vMS5607__ReadTemperature(void);
         void vMS5607__ReadPressure(void);
+        Luint32 sMS5607__GetTemperature(void);
+        Luint32 sMS5607__GetPressure(void);
         void vMS5607__StartTemperatureConversion(void);
         void vMS5607__StartPressureConversion(void);
         void vMS5607__CalculateTemperature(void);
