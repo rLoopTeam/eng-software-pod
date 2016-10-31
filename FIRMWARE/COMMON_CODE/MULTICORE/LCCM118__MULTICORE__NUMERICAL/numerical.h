@@ -97,8 +97,8 @@
 	Luint8 u8NUMERICAL_POINTS__Point_BetweenTwoS16(Lint16 s16A, Lint16 s16B, Lint16 s16TestPoint);
 
 	//power
-	DLL_DECLARATION Lfloat32 f32NUMERICAL__POWER(Lfloat32 x, Lfloat32 y);
-	Lfloat64 f64NUMERICAL__Power(Lfloat64 f64X, Lfloat64 f64Y);
+	DLL_DECLARATION Lfloat32 f32NUMERICAL__Power(Lfloat32 f32X, Lfloat32 f32Y);
+	DLL_DECLARATION Lfloat64 f64NUMERICAL__Power(Lfloat64 f64X, Lfloat64 f64Y);
 	
 	//conversions
 	Luint8 u8NUMERICAL_CONVERT__ASCII_To_Hex(Luint8 u8Char);
