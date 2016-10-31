@@ -34,7 +34,6 @@
 		// vars for filtering
 		Luint16[64] u16Averages = {}; // TODO: too big? probably too big...
 		Luint8 * pu8AverageCounter1 = 0; // for use in u16NUMERICAL_FILTERING__Add_U16
-		Luint8 * pu8AverageCounter2 = 0; // for use in my simple moving average 
 		Luint8 C_LCCM436__MAX_FILTERING_SIZE = 64;
 
 		// vars for converting to Celsius
@@ -75,12 +74,12 @@
 		else 
 		{
 			u16ADCTemperatureResult = F_TSYS01_Read_ADC_Temperature_Result();
-			
+
 			// Reset flag now that measurement has been read
 			u8ADCConvertingFlag = 0U;
 
 			//log and filter, build array of averages
-			u16NUMERICAL_FILTERING__Add_U16(u16ADCTemperatureResult, pu8AverageCounter1, C_LCCM436__MAX_FILTERING_SIZE, u16Averages[64]); //TODO: not sure what number should be in the [] for the final paramter, example has 0
+			whateverthisreturns = u16NUMERICAL_FILTERING__Add_U16(u16ADCTemperatureResult, pu8AverageCounter1, C_LCCM436__MAX_FILTERING_SIZE, u16Averages[64]); //TODO: not sure what number should be in the [] for the final paramter, example has 0
 
 			// Compute temperature polynomial terms individually then sum
 			Lfloat32 Term4 = f32Coeffs[4] * pow(u16ADCTemperatureResult, 4);
@@ -91,8 +90,8 @@
 			
 			f32TemperatureResult = Term4 + Term3 + Term2 + Term1 + Term0; // Celsius units
 
-			// Is new data point reasonable?
-			vFilterTemperatureData();
+
+			u8FaultCheck();
 
 		}
 
@@ -107,81 +106,15 @@
 
 
 	/*******************************************************************************
-	My Simple Moving Average Functions
-	*******************************************************************************/
-
-	/** Compare the new data point to the average of the previous 5 points, if it deviates by X degrees C don't save the value */
-	void vFilterTemperatureData(void)
-	{
-		Lfloat32 f32RecentTemperatureAverage = f32NUMERICAL_FLOAT_AVERAGE(); 
-
-		// if the measurement is within acceptable range
-		if(abs(f32TemperatureResult - f32RecentTemperatureAverage) < X.0F) // TODO: Define acceptable devation from recent average
-		{
-			// update the recent history array to save this measurement
-			vUpdateMeasurementHistory();
-		}
-		// if the measurement has deviated too greatly from the recent average
-		else
-		{
-			// TODO: undecided on action
-
-			// f32TemperatureResult = f32RecentTemperatureAverage; // TODO: pretty dangerous.
-			// vUpdateMeasurementHistory();
-			// TODO: instead, append real val to an outlier array? or do nothing
-				// if there are multiple in a row within the same range (what looks like an outlier is actually physical) we'll want to end up accepting them
-	 			// loss of vacuum --> dramatic temperature change?	
-		}
-
-	}
-
-
-	/** Compute the average of temperature measurements */
-	Lfloat32 f32NUMERICAL_FLOAT_AVERAGE(void)
-	{
-		Lfloat32 f32TemperatureSum = 0;
-		// sum the nums of the array
-		for(Luint8 u8Counter; u8Counter < 10; u8Counter++)
-		{
-			Lfloat32 f32TemperatureSum += f32Last10Values[u8Counter];
-		}
-
-		// divide by array size (might be considered a magic number..) 
-		Lfloat32 f32AverageTemperature = f32TemperatureSum / 10.0F; 
-		f32Averages[pu8AverageCounter2] = f32AverageTemperature;
-		
-		pu8AverageCounter2 += 1;
-		if(pu8AverageCounter2==64U)
-		{
-			pu8AverageCounter2 = 0;
-		}		
-
-		return f32AverageTemperature
-	}
-
-
-	/** Delete oldest measurement in the recent history array, add new. */
-	void vUpdateMeasurementHistory(void)
-	{
-		// shift all data points down one index
-		f32Last10Values[9] = f32Last10Values[8];
-		f32Last10Values[8] = f32Last10Values[7];
-		f32Last10Values[7] = f32Last10Values[6];
-		f32Last10Values[6] = f32Last10Values[5];
-		f32Last10Values[5] = f32Last10Values[4];
-		f32Last10Values[4] = f32Last10Values[3];
-		f32Last10Values[3] = f32Last10Values[2];
-		f32Last10Values[2] = f32Last10Values[1];
-		f32Last10Values[1] = f32Last10Values[0];
-		// write the new data point to the first index
-		f32Last10Values[0] = f32TemperatureResult;
-
-	}
-
-
-	/*******************************************************************************
 	Unwritten Functions
 	*******************************************************************************/
+	
+	// Check for failures of the TSYS01
+	Luint8 u8FaultCheck()
+	{
+		// TODO: write this	
+
+	}
 
    	/** Read each of the 5 K calibration constants over i2c */
     Luint16[] u16TSYS01__Read_K_Values(void)
@@ -219,7 +152,6 @@
 		// TODO: write to align with i2c code
 		return u16ADCTemperatureResult;
 	}
-
 
 
 #endif //#if C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE == 1U
