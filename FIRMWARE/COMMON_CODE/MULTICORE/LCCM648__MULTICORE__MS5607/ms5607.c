@@ -1,0 +1,12 @@
+#include "ms5607.h"
+#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
+
+
+
+
+#endif //#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
+//safetys
+#ifndef C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE
+	#error
+#endif
+
