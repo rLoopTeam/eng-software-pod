@@ -1,8 +1,127 @@
 #include "ms5607.h"
 #if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
 
+extern struct _strMS5607 sMS5607;
+
+/** Init */
+void vMS5607__Init(void)
+{
+	//init structure
+	sMS5607.eState = MS5607_STATE__INIT_DEVICE;
+
+    //TODO set I2C Address
+    vMS5607__Reset(); //The Reset sequence shall be be sent once after power-on to make sure theat the calibration PROM gets loaded into the internal register
 
 
+    //Get Calibration Data
+}
+
+void vMS5607__Process(void)
+{
+    //TODO State Machines
+}
+
+/** Issue#22: Read calibration data off the device */
+void vMS5607__GetCalibrationData(MS5607_CALIBRATION &calib)
+{
+    sMS5607.sCALIBRATION.C1 = uMS5607__Read16(MS5607_CMD__PROM_READ_1);
+    sMS5607.sCALIBRATION.C2 = uMS5607__Read16(MS5607_CMD__PROM_READ_2);
+    sMS5607.sCALIBRATION.C3 = uMS5607__Read16(MS5607_CMD__PROM_READ_3);
+    sMS5607.sCALIBRATION.C4 = uMS5607__Read16(MS5607_CMD__PROM_READ_4);
+    sMS5607.sCALIBRATION.C5 = uMS5607__Read16(MS5607_CMD__PROM_READ_5);
+    sMS5607.sCALIBRATION.C6 = uMS5607__Read16(MS5607_CMD__PROM_READ_6);
+    //TODO Check CRC is valid?
+}
+
+/** Read Digital Temperature Value D2 */
+void vMS5607__ReadTemperature(void)
+{
+	sMS5607.sTEMP.D2 = uMS5607__Read24(MS5607_CMD__ADC_READ);
+}
+
+/** Read Digital Pressure Value D1 */
+void vMS5607__ReadPressure(void)
+{
+	sMS5607.sPRESSURE.D1 = uMS5607__Read24(MS5607_CMD__ADC_READ);
+}
+
+void vMS5607__StartConversion(void)
+{
+    
+}
+
+/** Calculate Temperature */
+void vMS5607__CalculateTemperature(void)
+{
+	// Difference between actual and reference temperature
+	sMS5607.sTEMP.dT = (Lint32)sMS5607.sTEMP.D2 - ((Lint32)sMS5607.sCALIBRATION.C5 * f32NUMERICAL__Power(2, 8));
+	// Actual temperature (-40 unsigned long long 85°C with 0.01°C resolution)
+	sMS5607.sTEMP.TEMP = 2000 + ((sMS5607.sTEMP.dT * (Lint64)MS5607.C6) / f32NUMERICAL__Power(2, 23));
+}
+
+/** Calculate Temperature Compensated Pressure */
+void vMS5607__CalculateTempCompensatedPressure(void)
+{
+	// Offset at actual temperature
+	sMS5607.sPRESSURE.OFF = ((Lint64)sMS5607.sCALIBRATION.C2 * f32NUMERICAL__Power(2, 17)) + (((Lint64)sMS5607.sCALIBRATION.C4 * sMS5607.sTEMP.dT) / f32NUMERICAL__Power(2, 6));
+	// Sensitivity at actual temperature
+	sMS5607.sPRESSURE.SENS = ((Lint64)sMS5607.sCALIBRATION.C1 * f32NUMERICAL__Power(2, 16)) + (((Lint64)sMS5607.sCALIBRATION.C3 * sMS5607.sTEMP.dT) / f32NUMERICAL__Power(2, 7));
+	// Temperature compensated pressure (10 to 1200mbar with 0.01mbar resolution)
+	sMS5607.sPRESSURE.P = (Lint32)(((sMS5607.sPRESSURE.D1 * SENS) / f32NUMERICAL__Power(2, 21)) - OFF) / f32NUMERICAL__Power(2, 15);
+}
+
+/** Second Order Temperature Compensation */
+void vMS5607__compensateSecondOrder(void)
+{
+    Lint32 T2 = 0;
+    Lint64 OFF2 = 0;
+    Lint64 SENS2 = 0;
+
+    // Low Temperature
+    if (sMS5607.sTEMP.TEMP < 2000){
+        T2 = (Lint32) ((dT * dT) / f32NUMERICAL__Power(2, 31));                       // T2 = dT^2 / 2^31
+        OFF2 = 61 * (Lint64) ((sMS5607.sTEMP.TEMP - 2000)*(sMS5607.sTEMP.TEMP - 2000)) / f32NUMERICAL__Power(2, 4);       // OFF2 = 61 * (TEMP-2000)^2 / 2^4
+        SENS2 = 2 * (Lint64) ((sMS5607.sTEMP.TEMP - 2000)*(sMS5607.sTEMP.TEMP - 2000));            // SENS2 = 2 * (TEMP-2000)^2
+
+        // Very Low Temperature
+        if (sMS5607.sTEMP.TEMP < -1500) {
+            OFF2 += 15 * (sMS5607.sTEMP.TEMP + 1500)*(sMS5607.sTEMP.TEMP + 1500);       // OFF2 = OFF2 + 15 * (TEMP + 1500)^2
+            SENS2 += 8 * (sMS5607.sTEMP.TEMP + 1500)*(sMS5607.sTEMP.TEMP + 1500);       // SENS2 = SENS2 + 8 * (TEMP + 1500)^2
+        }
+        sMS5607.sTEMP.TEMP = sMS5607.sTEMP.TEMP - T2;
+        sMS5607.sPRESSURE.OFF = sMS5607.sPRESSURE.OFF - OFF2;
+        sMS5607.sPRESSURE.SENS = sMS5607.sPRESSURE.SENS - SENS2;
+    }
+}
+
+/* Write reset cmd to the MS5607 pressure sensor*/
+void vMS5607__Reset(void)
+{
+    vMS5607__Write8(MS5607_CMD__RESET);
+}
+
+/***************************************************************************
+* i2c Communcation Functions
+***************************************************************************/
+/** Read an 24-bit value from the device*/
+Luint32 uMS5607__Read24(Luint8 value)
+{
+    //TODO Reference rm4_i2c__user.c or rm4_i2c.c
+    return; //something
+}
+
+/** Read an 16-bit value from the device*/
+Luint16 uMS5607__Read16(Luint8 value)
+{
+    //TODO Reference rm4_i2c__user.c or rm4_i2c.c
+    return; //something
+}
+
+/** Write an 8-bit value to the device */
+void vMS5607__Write8(Luint8 value)
+{
+    //TODO Reference rm4_i2c__user.c or rm4_i2c.c
+}
 
 #endif //#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
 //safetys
