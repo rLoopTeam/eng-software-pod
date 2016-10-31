@@ -1,3 +1,12 @@
+/**
+ * @file        ms5607.c
+ * @brief       Barometric Pressure Sensor, with stainless steel cap
+ * @author      Edward Chan (40Chans) [Sftw, HR], Mila Antonova (scrappymacgyver) [Ctrl]
+ * @copyright   rLoop Inc.
+ * @st_file     
+ *
+ */
+
 #include "ms5607.h"
 #if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
 
@@ -22,7 +31,7 @@ void vMS5607__Process(void)
 }
 
 /** Issue#22: Read calibration data off the device */
-void vMS5607__GetCalibrationData(MS5607_CALIBRATION &calib)
+void vMS5607__GetCalibrationData(void)
 {
     sMS5607.sCALIBRATION.C1 = uMS5607__Read16(MS5607_CMD__PROM_READ_1);
     sMS5607.sCALIBRATION.C2 = uMS5607__Read16(MS5607_CMD__PROM_READ_2);
@@ -45,9 +54,16 @@ void vMS5607__ReadPressure(void)
 	sMS5607.sPRESSURE.D1 = uMS5607__Read24(MS5607_CMD__ADC_READ);
 }
 
-void vMS5607__StartConversion(void)
+/** Start a temperature conversion with the defined OSR */
+void vMS5607__StartTemperatureConversion(void)
 {
-    
+    vMS5607__Write8(MS5607_TEMPERATURE_OSR);
+}
+
+/** Start a pressure conversion with the defined OSR */
+void vMS5607__StartPressureConversion(void)
+{
+    vMS5607__Write8(MS5607_PRESSURE_OSR);
 }
 
 /** Calculate Temperature */

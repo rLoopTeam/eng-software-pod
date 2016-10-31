@@ -26,13 +26,11 @@
         typedef enum
         {
             MS5607_CMD__RESET = 0x1E,
-            //D1 Digital pressure value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
             MS5607_CMD__CONVERT_D1_OSR_256 = 0x40,
             MS5607_CMD__CONVERT_D1_OSR_512 = 0x42,
             MS5607_CMD__CONVERT_D1_OSR_1024 = 0x44,
             MS5607_CMD__CONVERT_D1_OSR_2048 = 0x46,
             MS5607_CMD__CONVERT_D1_OSR_4096 = 0x48,
-            //D2 Digital temperature value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
             MS5607_CMD__CONVERT_D2_OSR_256 = 0x50,
             MS5607_CMD__CONVERT_D2_OSR_512 = 0x52,
             MS5607_CMD__CONVERT_D2_OSR_1024 = 0x54,
@@ -90,7 +88,7 @@
 			{
 				Lint32 dT = 0U;
 				Lint32 TEMP = 0U;
-				Luint32 D2 = 0U;
+				Luint32 D2 = 0U; //D2 Digital temperature value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
 			}sTEMP;
 
 			struct
@@ -98,7 +96,7 @@
 				Lint64 OFF = 0U;
 				Lint64 SENS = 0U;
 				Lint32 P = 0U;
-				Luint32 D1 = 0U;
+				Luint32 D1 = 0U; //D1 Digital pressure value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
 			}sPRESSURE;
 
 		};
@@ -109,13 +107,21 @@
         void vMS5607__Init(void);
         void vMS5607__Process(void);
 
+        void vMS5607__GetCalibrationData(void);
+
+        void vMS5607__ReadTemperature(void);
+        void vMS5607__ReadPressure(void);
+        void vMS5607__StartTemperatureConversion(void);
+        void vMS5607__StartPressureConversion(void);
+        void vMS5607__CalculateTemperature(void);
+        void vMS5607__CalculateTempCompensatedPressure(void);
+        void vMS5607__compensateSecondOrder(void);
         void vMS5607__Reset(void);
-        void vMS5607__GetCalibrationData(MS5607_CALIBRATION &calib);
 
 
-
+        Luint32 uMS5607__Read24(Luint8 value);
+        Luint16 vMS5607__Read16(Luint8 value);
         void vMS5607__Write8(Luint8 value);
-        void vMS5607__Read24(Luint24 value);
 
 	#endif //#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
 	//safetys
