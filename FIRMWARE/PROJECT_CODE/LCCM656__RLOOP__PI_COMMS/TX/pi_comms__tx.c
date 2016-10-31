@@ -30,10 +30,7 @@ extern struct _strPICOMMS sPC;
 void vPICOMMS_TX__Init(void)
 {
 
-
 }
-
-
 
 void rI2CTX_beginFrame()
 {

@@ -37,6 +37,9 @@
     <Filter Include="LCCM656__RLOOP__PI_COMMS\WIN32">
       <UniqueIdentifier>{76b9bce2-ba27-470f-af79-529f1798f4ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LCCM656__RLOOP__PI_COMMS\LOCAL_LOOPBACK">
+      <UniqueIdentifier>{21d331de-17e9-4561-b990-1368ee91a41f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c">
@@ -57,6 +60,9 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\WIN32\pi_comms__win32.c">
       <Filter>LCCM656__RLOOP__PI_COMMS\WIN32</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\WIN32\gs_zmq_loopback.c">
+      <Filter>LCCM656__RLOOP__PI_COMMS\LOCAL_LOOPBACK</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="localdef.h">
@@ -73,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms__localdef.h">
       <Filter>LCCM656__RLOOP__PI_COMMS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\WIN32\gs_zmq_loopback.h">
+      <Filter>LCCM656__RLOOP__PI_COMMS\LOCAL_LOOPBACK</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
