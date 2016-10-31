@@ -40,8 +40,11 @@
 			/** Done with the 1-wire searching */
 			INIT_STATE__CELL_TEMP_SEARCH_DONE,
 
-			/** Get the BMS opeartional */
+			/** Init the BMS layer */
 			INIT_STATE__BMS,
+
+			/** star the TSYS01 */
+			INIT_STATE__TSYS01,
 
 
 			/** Normal run state */

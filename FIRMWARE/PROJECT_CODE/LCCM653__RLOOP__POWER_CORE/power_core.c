@@ -157,7 +157,21 @@ void vPWRNODE__Process(void)
 			//init the BMS layer
 			vPWRNODE_BMS__Init();
 
+			//start the TSYS01 temp sensor
+			sPWRNODE.sInit.sState = INIT_STATE__TSYS01;
 			break;
+
+
+		case INIT_STATE__TSYS01:
+			// ONLY NEEDS TO BE RUN ONCE
+		
+			// init TSYS01 ambient PV Temperature Sensor
+			vTSYS01__Init();
+
+			//change to run state
+			sPWRNODE.sInit.sState = INIT_STATE__RUN;
+			break;
+
 
 		case INIT_STATE__RUN:
 
@@ -169,7 +183,12 @@ void vPWRNODE__Process(void)
 			//process any temp sensor items
 			vPWRNODE_BATTTEMP__Process();
 
+			//process the TSYS01 device
+			vTSYS01__Process();
+
 			break;
+
+
 
 		default:
 			//todo:

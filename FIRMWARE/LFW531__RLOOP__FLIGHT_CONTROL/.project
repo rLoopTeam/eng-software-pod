@@ -120,6 +120,11 @@
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM282__RM4__SCI</locationURI>
 		</link>
+		<link>
+			<name>RM4/LCCM414__RM4__ADC</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM414__RM4__ADC</locationURI>
+		</link>
 	</linkedResources>
 	<filteredResources>
 		<filter>
