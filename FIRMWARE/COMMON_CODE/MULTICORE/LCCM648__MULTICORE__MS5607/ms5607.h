@@ -61,7 +61,6 @@
         	MS5607_STATE__COMPUTE,
         	MS5607_STATE__INTERRUPT,
         }E_MS5607_STATE_T;
-
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
@@ -121,9 +120,15 @@
         void vMS5607__Reset(void);
 
 
-        Luint32 uMS5607__Read24(Luint8 value);
-        Luint16 vMS5607__Read16(Luint8 value);
-        void vMS5607__Write8(Luint8 value);
+        Luint32 uMS5607__Read24(E_MS5607_CMD_T value);
+        Luint16 vMS5607__Read16(E_MS5607_CMD_T value);
+        void vMS5607__Write8(E_MS5607_CMD_T value);
+
+
+        //I2C
+		Lint16 s16TSYS01_I2C__TxCommand(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister);
+		Lint16 s16TSYS01_I2C__TxU8(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint8 u8Byte);
+		Lint16 s16TSYS01_I2C__RxU16(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint16 * pu16);
 
 	#endif //#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
 	//safetys

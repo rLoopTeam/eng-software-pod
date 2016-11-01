@@ -21,6 +21,10 @@ void vMS5607__Init(void)
 
 void vMS5607__Process(void)
 {
+
+	Lint16 s16Return;
+
+
     //TODO State Machines
 
 	switch(sMS5607.eState)
@@ -32,11 +36,22 @@ void vMS5607__Process(void)
 
 			//TODO set I2C Address??
 			//reset the device
-			vMS5607__Reset();//The Reset sequence shall be be sent once after power-on to make sure theat the calibration PROM gets loaded into the internal register
+			//vMS5607__Reset();
+			s16Return = s16TSYS01_I2C__TxCommand(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__RESET); 
+    		//TODO define C_LOCALDEF__LCCM648__BUS_ADDX under FIRMWARE/LFW513__RLOOP__POWER_NODE/SOURCE/MAIN/localdef.h
+			//The Reset sequence shall be be sent once after power-on to make sure theat the calibration PROM gets loaded into the internal register
+			
 			//TODO error check
-
-
-			sMS5607.eState = MS5607_STATE__READ_CALIBRATION;
+			if(s16Return >= 0)
+			{
+				//success
+				sMS5607.eState = MS5607_STATE__READ_CALIBRATION;
+			}
+			else 
+			{
+				//read error, handle state.
+				sMS5607.eState = MS5607_STATE__ERROR;
+			}
 
 
 			break;
@@ -73,7 +88,9 @@ void vMS5607__Process(void)
 
 			break;
 
+		case MS5607_STATE__ERROR:
 
+			break;
 	}
 
 }
@@ -176,6 +193,8 @@ void vMS5607__Reset(void)
     vMS5607__Write8(MS5607_CMD__RESET);
 }
 
+
+//TODO delete I2C functions below
 /***************************************************************************
 * i2c Communcation Functions
 ***************************************************************************/
