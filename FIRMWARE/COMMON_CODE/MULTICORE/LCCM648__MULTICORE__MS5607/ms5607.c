@@ -37,7 +37,7 @@ void vMS5607__Process(void)
 			//TODO set I2C Address??
 			//reset the device
 			//vMS5607__Reset();
-			s16Return = s16TSYS01_I2C__TxCommand(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__RESET); 
+			s16Return = s16MS5607_I2C__TxCommand(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__RESET); 
     		//TODO define C_LOCALDEF__LCCM648__BUS_ADDX under FIRMWARE/LFW513__RLOOP__POWER_NODE/SOURCE/MAIN/localdef.h
 			//The Reset sequence shall be be sent once after power-on to make sure theat the calibration PROM gets loaded into the internal register
 			

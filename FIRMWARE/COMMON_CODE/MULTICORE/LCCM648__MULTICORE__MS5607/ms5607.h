@@ -126,9 +126,9 @@
 
 
         //I2C
-		Lint16 s16TSYS01_I2C__TxCommand(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister);
-		Lint16 s16TSYS01_I2C__TxU8(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint8 u8Byte);
-		Lint16 s16TSYS01_I2C__RxU16(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint16 * pu16);
+		Lint16 s16MS5607_I2C__TxCommand(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister);
+		Lint16 s16MS5607_I2C__TxU8(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint8 u8Byte);
+		Lint16 s16MS5607_I2C__RxU16(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint16 * pu16);
 
 	#endif //#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
 	//safetys
