@@ -17,17 +17,65 @@ void vMS5607__Init(void)
 {
 	//init structure
 	sMS5607.eState = MS5607_STATE__INIT_DEVICE;
-
-    //TODO set I2C Address
-    vMS5607__Reset(); //The Reset sequence shall be be sent once after power-on to make sure theat the calibration PROM gets loaded into the internal register
-
-
-    //Get Calibration Data
 }
 
 void vMS5607__Process(void)
 {
     //TODO State Machines
+
+	switch(sMS5607.eState)
+	{
+		case MS5607_STATE__IDLE:
+			//do nothing,
+			break;
+		case MS5607_STATE__INIT_DEVICE:
+
+			//TODO set I2C Address??
+			//reset the device
+			vMS5607__Reset();//The Reset sequence shall be be sent once after power-on to make sure theat the calibration PROM gets loaded into the internal register
+			//TODO error check
+
+
+			sMS5607.eState = MS5607_STATE__READ_CALIBRATION;
+
+
+			break;
+		case MS5607_STATE__READ_CALIBRATION:
+			vMS5607__GetCalibrationData();
+			//TODO error check
+
+			sMS5607.eState = MS5607_STATE__WAITING;
+			//TODO error check
+
+			break;
+		case MS5607_STATE__WAITING:
+			//TODO start conversion
+
+			break;
+
+		case MS5607_STATE__BEGIN_SAMPLE:
+
+			break;
+
+		case MS5607_STATE__WAIT_LOOPS:
+
+			break;
+
+		case MS5607_STATE__READ_ADC:
+
+			break;
+
+		case MS5607_STATE__COMPUTE:
+
+			break;
+
+		case MS5607_STATE__INTERRUPT:
+
+			break;
+
+
+	}
+
 }
 
 /** Issue#22: Read calibration data off the device */
