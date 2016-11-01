@@ -24,7 +24,7 @@
 		#define C_TSYS01__MAX_FILTER_SAMPLES					(8U)
 
 
-		/** enum type for all other tsys01 addresses */
+		/** enum type for tsys01 PROM addresses */
 		typedef enum
 		{
 			TSYS01_REG__RESET = 0x1E,
@@ -91,7 +91,7 @@
 			/** the coeffs from the device */
 			Lfloat32 f32Coeffs[5];
 
-			//counter the number of main program loops */
+			/** counter the number of main program loops */
 			Luint32 u32LoopCounter;
 
 			/** Last sampled ADC result*/
