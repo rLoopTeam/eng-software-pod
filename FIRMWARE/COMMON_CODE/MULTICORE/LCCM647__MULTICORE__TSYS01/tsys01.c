@@ -110,7 +110,6 @@ void vTSYS01__Process(void)
 			//just start processing if the rest of the system is not operational..
 			break;
 
-
 		case TSYS01_STATE__BEGIN_SAMPLE:
 			//issue the request
 			s16Return = s16TSYS01_I2C__TxCommand(C_LOCALDEF__LCCM647__BUS_ADDX, TSYS01_REG__START_ADC_TEMPERATURE_CONVERSION);
@@ -144,10 +143,10 @@ void vTSYS01__Process(void)
 			}
 			else
 			{
+				sTSYS.u32LoopCounter += 1;
 				//stay in state
 			}
 			break;
-
 
 		case TSYS01_STATE__READ_ADC:
 			//do the ADC read

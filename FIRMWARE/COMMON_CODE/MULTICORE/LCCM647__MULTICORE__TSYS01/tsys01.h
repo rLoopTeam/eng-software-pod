@@ -91,7 +91,7 @@
 			/** the coeffs from the device */
 			Lfloat32 f32Coeffs[5];
 
-			//counter the number of main program loops */
+			/** counter the number of main program loops */
 			Luint32 u32LoopCounter;
 
 			/** Last sampled ADC result*/
