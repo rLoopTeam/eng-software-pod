@@ -72,30 +72,30 @@
 
 			struct
 			{
-				Luint16 Reserved = 0U;
-				Luint16 C1 = 0U;            // C1 - Pressure Sensitivity
-	            Luint16 C2 = 0U;            // C2 - Pressure Offset
-	            Luint16 C3 = 0U;            // C3 - Temperature coefficient of pressure sensitivity
-	            Luint16 C4 = 0U;            // C4 - Temperature coefficient of pressure offset
-	            Luint16 C5 = 0U;            // C5 - Reference temperature
-	            Luint16 C6 = 0U;            // C6 - Temperature coefficient of the temperature
-	            Luint16 CRC = 0U;
+				Luint16 u16Reserved = 0U;
+				Luint16 u16C1 = 0U;            // C1 - Pressure Sensitivity
+	            Luint16 u16C2 = 0U;            // C2 - Pressure Offset
+	            Luint16 u16C3 = 0U;            // C3 - Temperature coefficient of pressure sensitivity
+	            Luint16 u16C4 = 0U;            // C4 - Temperature coefficient of pressure offset
+	            Luint16 u16C5 = 0U;            // C5 - Reference temperature
+	            Luint16 u16C6 = 0U;            // C6 - Temperature coefficient of the temperature
+	            Luint16 u16CRC = 0U;
 	            //unsigned int 16, 16bit, 0-65535
 			}sCALIBRATION;
 
 			struct
 			{
-				Lint32 dT = 0U;
-				Lint32 TEMP = 0U;
-				Luint32 D2 = 0U; //D2 Digital temperature value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
+				Lint32 s32dT = 0U;
+				Lint32 s32TEMP = 0U;
+				Luint32 u32D2 = 0U; //D2 Digital temperature value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
 			}sTEMP;
 
 			struct
 			{
-				Lint64 OFF = 0U;
-				Lint64 SENS = 0U;
-				Lint32 P = 0U;
-				Luint32 D1 = 0U; //D1 Digital pressure value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
+				Lint64 s64OFF = 0U;
+				Lint64 s64SENS = 0U;
+				Lint32 s32P = 0U;
+				Luint32 u32D1 = 0U; //D1 Digital pressure value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
 			}sPRESSURE;
 
 		};

@@ -98,37 +98,37 @@ void vMS5607__Process(void)
 /** Issue#22: Read calibration data off the device */
 void vMS5607__GetCalibrationData(void)
 {
-    sMS5607.sCALIBRATION.C1 = uMS5607__Read16(MS5607_CMD__PROM_READ_1);
-    sMS5607.sCALIBRATION.C2 = uMS5607__Read16(MS5607_CMD__PROM_READ_2);
-    sMS5607.sCALIBRATION.C3 = uMS5607__Read16(MS5607_CMD__PROM_READ_3);
-    sMS5607.sCALIBRATION.C4 = uMS5607__Read16(MS5607_CMD__PROM_READ_4);
-    sMS5607.sCALIBRATION.C5 = uMS5607__Read16(MS5607_CMD__PROM_READ_5);
-    sMS5607.sCALIBRATION.C6 = uMS5607__Read16(MS5607_CMD__PROM_READ_6);
+    sMS5607.sCALIBRATION.u16C1 = uMS5607__Read16(MS5607_CMD__PROM_READ_1);
+    sMS5607.sCALIBRATION.u16C2 = uMS5607__Read16(MS5607_CMD__PROM_READ_2);
+    sMS5607.sCALIBRATION.u16C3 = uMS5607__Read16(MS5607_CMD__PROM_READ_3);
+    sMS5607.sCALIBRATION.u16C4 = uMS5607__Read16(MS5607_CMD__PROM_READ_4);
+    sMS5607.sCALIBRATION.u16C5 = uMS5607__Read16(MS5607_CMD__PROM_READ_5);
+    sMS5607.sCALIBRATION.u16C6 = uMS5607__Read16(MS5607_CMD__PROM_READ_6);
     //TODO Check CRC is valid?
 }
 
 /** Read Digital Temperature Value D2 */
 void vMS5607__ReadTemperature(void)
 {
-	sMS5607.sTEMP.D2 = uMS5607__Read24(MS5607_CMD__ADC_READ);
+	sMS5607.sTEMP.u32D2 = uMS5607__Read24(MS5607_CMD__ADC_READ);
 }
 
 /** Read Digital Pressure Value D1 */
 void vMS5607__ReadPressure(void)
 {
-	sMS5607.sPRESSURE.D1 = uMS5607__Read24(MS5607_CMD__ADC_READ);
+	sMS5607.sPRESSURE.u32D1 = uMS5607__Read24(MS5607_CMD__ADC_READ);
 }
 
 /** Return the compensated temperature as a floating point value in °C */
 Lint32 sMS5607__GetTemperature(void)
 {
-	return sMS5607.sTEMP.TEMP;
+	return sMS5607.sTEMP.s32TEMP;
 }
 
 /** Return the compensated pressure as a floating point value, in mbar */
 Lint32 sMS5607__GetPressure(void)
 {
-	return sMS5607.sPRESSURE.P;
+	return sMS5607.sPRESSURE.s32P;
 }
 
 /** Start a temperature conversion with the defined OSR */
@@ -147,20 +147,20 @@ void vMS5607__StartPressureConversion(void)
 void vMS5607__CalculateTemperature(void)
 {
 	// Difference between actual and reference temperature
-	sMS5607.sTEMP.dT = (Lint32)sMS5607.sTEMP.D2 - ((Lint32)sMS5607.sCALIBRATION.C5 * f32NUMERICAL__Power(2, 8));
+	sMS5607.sTEMP.s32dT = (Lint32)sMS5607.sTEMP.u32D2 - ((Lint32)sMS5607.sCALIBRATION.u16C5 * f32NUMERICAL__Power(2, 8));
 	// Actual temperature (-40 unsigned long long 85°C with 0.01°C resolution)
-	sMS5607.sTEMP.TEMP = 2000 + ((sMS5607.sTEMP.dT * (Lint64)MS5607.C6) / f32NUMERICAL__Power(2, 23));
+	sMS5607.sTEMP.s32TEMP = 2000 + ((sMS5607.sTEMP.s32dT * (Lint64)sMS5607.sCALIBRATION.u16C6) / f32NUMERICAL__Power(2, 23));
 }
 
 /** Calculate Temperature Compensated Pressure */
 void vMS5607__CalculateTempCompensatedPressure(void)
 {
 	// Offset at actual temperature
-	sMS5607.sPRESSURE.OFF = ((Lint64)sMS5607.sCALIBRATION.C2 * f32NUMERICAL__Power(2, 17)) + (((Lint64)sMS5607.sCALIBRATION.C4 * sMS5607.sTEMP.dT) / f32NUMERICAL__Power(2, 6));
+	sMS5607.sPRESSURE.s64OFF = ((Lint64)sMS5607.sCALIBRATION.u16C2 * f32NUMERICAL__Power(2, 17)) + (((Lint64)sMS5607.sCALIBRATION.u16C4 * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 6));
 	// Sensitivity at actual temperature
-	sMS5607.sPRESSURE.SENS = ((Lint64)sMS5607.sCALIBRATION.C1 * f32NUMERICAL__Power(2, 16)) + (((Lint64)sMS5607.sCALIBRATION.C3 * sMS5607.sTEMP.dT) / f32NUMERICAL__Power(2, 7));
+	sMS5607.sPRESSURE.s64SENS = ((Lint64)sMS5607.sCALIBRATION.u16C1 * f32NUMERICAL__Power(2, 16)) + (((Lint64)sMS5607.sCALIBRATION.u16C3 * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 7));
 	// Temperature compensated pressure (10 to 1200mbar with 0.01mbar resolution)
-	sMS5607.sPRESSURE.P = (Lint32)(((sMS5607.sPRESSURE.D1 * SENS) / f32NUMERICAL__Power(2, 21)) - OFF) / f32NUMERICAL__Power(2, 15);
+	sMS5607.sPRESSURE.s32P = (Lint32)(((sMS5607.sPRESSURE.u32D1 * sMS5607.sPRESSURE.s64SENS) / f32NUMERICAL__Power(2, 21)) - sMS5607.sPRESSURE.s64OFF) / f32NUMERICAL__Power(2, 15);
 }
 
 /** Second Order Temperature Compensation */
@@ -171,19 +171,19 @@ void vMS5607__compensateSecondOrder(void)
     Lint64 SENS2 = 0;
 
     // Low Temperature
-    if (sMS5607.sTEMP.TEMP < 2000){
-        T2 = (Lint32) ((dT * dT) / f32NUMERICAL__Power(2, 31));                       // T2 = dT^2 / 2^31
-        OFF2 = 61 * (Lint64) ((sMS5607.sTEMP.TEMP - 2000)*(sMS5607.sTEMP.TEMP - 2000)) / f32NUMERICAL__Power(2, 4);       // OFF2 = 61 * (TEMP-2000)^2 / 2^4
-        SENS2 = 2 * (Lint64) ((sMS5607.sTEMP.TEMP - 2000)*(sMS5607.sTEMP.TEMP - 2000));            // SENS2 = 2 * (TEMP-2000)^2
+    if (sMS5607.sTEMP.s32TEMP < 2000){
+        T2 = (Lint32) ((sMS5607.sTEMP.s32dT * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 31));                       // T2 = dT^2 / 2^31
+        OFF2 = 61 * (Lint64) ((sMS5607.sTEMP.s32TEMP - 2000)*(sMS5607.sTEMP.s32TEMP - 2000)) / f32NUMERICAL__Power(2, 4);       // OFF2 = 61 * (TEMP-2000)^2 / 2^4
+        SENS2 = 2 * (Lint64) ((sMS5607.sTEMP.s32TEMP - 2000)*(sMS5607.sTEMP.s32TEMP - 2000));            // SENS2 = 2 * (TEMP-2000)^2
 
         // Very Low Temperature
-        if (sMS5607.sTEMP.TEMP < -1500) {
-            OFF2 += 15 * (sMS5607.sTEMP.TEMP + 1500)*(sMS5607.sTEMP.TEMP + 1500);       // OFF2 = OFF2 + 15 * (TEMP + 1500)^2
-            SENS2 += 8 * (sMS5607.sTEMP.TEMP + 1500)*(sMS5607.sTEMP.TEMP + 1500);       // SENS2 = SENS2 + 8 * (TEMP + 1500)^2
+        if (sMS5607.sTEMP.s32TEMP < -1500) {
+            OFF2 += 15 * (sMS5607.sTEMP.s32TEMP + 1500)*(sMS5607.sTEMP.s32TEMP + 1500);       // OFF2 = OFF2 + 15 * (TEMP + 1500)^2
+            SENS2 += 8 * (sMS5607.sTEMP.s32TEMP + 1500)*(sMS5607.sTEMP.s32TEMP + 1500);       // SENS2 = SENS2 + 8 * (TEMP + 1500)^2
         }
-        sMS5607.sTEMP.TEMP = sMS5607.sTEMP.TEMP - T2;
-        sMS5607.sPRESSURE.OFF = sMS5607.sPRESSURE.OFF - OFF2;
-        sMS5607.sPRESSURE.SENS = sMS5607.sPRESSURE.SENS - SENS2;
+        sMS5607.sTEMP.s32TEMP = sMS5607.sTEMP.s32TEMP - T2;
+        sMS5607.sPRESSURE.s64OFF = sMS5607.sPRESSURE.s64OFF - OFF2;
+        sMS5607.sPRESSURE.s64SENS = sMS5607.sPRESSURE.s64SENS - SENS2;
     }
 }
 
