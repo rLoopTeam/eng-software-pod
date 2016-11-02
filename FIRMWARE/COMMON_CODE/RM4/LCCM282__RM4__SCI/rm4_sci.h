@@ -69,82 +69,60 @@
 	}RM4_SCI__INTERRUPT_FLAGS_T;
 
 
-/** @struct sciBase
-*   @brief SCI Register Definition
-*
-*   This structure is used to access the SCI module egisters.
-*/
-/** @typedef RM4_SCI__BASE_T
-*   @brief SCI Register Frame Type Definition
-*
-*   This type is used to access the SCI Registers.
-*/
-
-/*****************************************************************************
-*****************************************************************************/
-enum sciPinSelect
-{
-    PIN_SCI_TX = 0U,
-    PIN_SCI_RX = 1U
-};
+	/** Pin select types */
+	enum sciPinSelect
+	{
+		PIN_SCI_TX = 0U,
+		PIN_SCI_RX = 1U
+	};
 
 
+	//function protos
+	void vRM4_SCI__Init(RM4_SCI__CHANNEL_T eChannel);
+	void vRM4_SCI__Set_Baudrate(RM4_SCI__CHANNEL_T eChannel, Luint32 baud);
+
+	void vRM4_SCI__Set_PortFunctional(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Port);
+	Luint32 u32RM4_SCI__Is_TxReady(RM4_SCI__CHANNEL_T eChannel);
+	void vRM4_SCI__TxByte(RM4_SCI__CHANNEL_T eChannel, Luint8 byte);
+	void vRM4_SCI__TxByteArray(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Length, Luint8 *pu8Data);
+	Luint32 u32RM4_SCI__Is__RxReady(RM4_SCI__CHANNEL_T eChannel);
+	Luint32 u32RM4_SCI__Get__RxErrorFlags(RM4_SCI__CHANNEL_T eChannel);
+	Luint8 u8RM4_SCI__RxByte(RM4_SCI__CHANNEL_T eChannel);
+	void u8RM4_SCI__RxByteArray(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Length, Luint8 *pu8Data);
+	Luint8 u8RM4_SCI__Get_Rx_Value(RM4_SCI__CHANNEL_T eChannel);
+
+	//loopback
+	void vRM4_SCI_LOOPBACK__Enable(RM4_SCI__CHANNEL_T eChannel, RM4_SCI__LOOPBACK_T eLoopback);
+	void vRM4_SCI_LOOPBACK__Disable(RM4_SCI__CHANNEL_T eChannel);
+
+	//interrupts
+	#if C_LOCALDEF__LCCM282__ENABLE_INTERRUPTS == 1U
+		void vRM4_SCI_INT__Enable_Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags);
+		void vRM4_SCI_INT__Disable_Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags);
+
+		/* This is a callback that is provided by the application and is called apon
+		* an interrupt.  The parameter passed to the callback is a copy of the
+		* interrupt flag register.
+		*/
+		void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags);
+
+		//interrupts called by VIM
+		void vRM4_SCI_ISR__LowLevel(void);
+		void vRM4_SCILIN_ISR__LowLevel(void);
+		void vRM4_SCI_ISR__HighLevel(void);
+		void vRM4_SCILIN_ISR__HighLevel(void);
+	#endif
 
 
+	void vRM4_SCI__Init_Transfer(Luint32 u32Index, Luint32 u32Mode, Luint32 u32Length);
+	Luint32 u32RM4_SCI_INT__Get_TransferMode(Luint32 u32Index);
+	void vRM4_SCI_INT__Set_TransferMode(Luint32 u32Index, Luint32 u32Mode);
+	void vRM4_SCI_INT__Set_TransferLength(Luint32 u32Index, Luint32 u32Length);
+	void vRM4_SCI_INT__Set_TransferData(Luint32 u32Index, Luint8 *pu8Data);
+	Luint8 * pu8RM4_SCI_INT__Get_TransferData(Luint32 u32Index);
 
-
-
-		//function protos
-		void vRM4_SCI__Init(RM4_SCI__CHANNEL_T eChannel);
-		void vRM4_SCI__Set_Baudrate(RM4_SCI__CHANNEL_T eChannel, Luint32 baud);
-
-		void vRM4_SCI__Set_PortFunctional(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Port);
-		Luint32  u32RM4_SCI__Is_TxReady(RM4_SCI__CHANNEL_T eChannel);
-		void vRM4_SCI__TxByteArrayByte(RM4_SCI__CHANNEL_T eChannel, Luint8 byte);
-		void vRM4_SCI__TxByteArray(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Length, Luint8 * pu8Data);
-		Luint32  u32RM4_SCI__Is__RxReady(RM4_SCI__CHANNEL_T eChannel);
-		Luint32  u32RM4_SCI__Get__RxErrorFlags(RM4_SCI__CHANNEL_T eChannel);
-		Luint8  u8RM4_SCI__RxByte(RM4_SCI__CHANNEL_T eChannel);
-		void u8RM4_SCI__RxByteArray(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Length, Luint8 * pu8Data);
-		Luint8 u8RM4_SCI__Get_Rx_Value(RM4_SCI__CHANNEL_T eChannel);
-
-		//loopback
-		void vRM4_SCI_LOOPBACK__Enable(RM4_SCI__CHANNEL_T eChannel, RM4_SCI__LOOPBACK_T eLoopback);
-		void vRM4_SCI_LOOPBACK__Disable(RM4_SCI__CHANNEL_T eChannel);
-
-		//interrupts
-		#if C_LOCALDEF__LCCM282__ENABLE_INTERRUPTS == 1U
-			void vRM4_SCI_INT__Enable_Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags);
-			void vRM4_SCI_INT__Disable_Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags);
-
-			/* This is a callback that is provided by the application and is called apon
-			* an interrupt.  The parameter passed to the callback is a copy of the
-			* interrupt flag register.
-			*/
-			void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags);
-
-			//interrupts called by VIM
-			void vRM4_SCI_ISR__LowLevel(void);
-			void vRM4_SCILIN_ISR__LowLevel(void);
-			void vRM4_SCI_ISR__HighLevel(void);
-			void vRM4_SCILIN_ISR__HighLevel(void);
-
-
-		#endif
-
-
-
-
-
-		void vRM4_SCI__Init_Transfer(Luint32 u32Index, Luint32 u32Mode, Luint32 u32Length);
-		Luint32 u32RM4_SCI_INT__Get_TransferMode(Luint32 u32Index);
-		void vRM4_SCI_INT__Set_TransferMode(Luint32 u32Index, Luint32 u32Mode);
-		void vRM4_SCI_INT__Set_TransferLength(Luint32 u32Index, Luint32 u32Length);
-		void vRM4_SCI_INT__Set_TransferData(Luint32 u32Index, Luint8 * pu8Data);
-		Luint8 * pu8RM4_SCI_INT__Get_TransferData(Luint32 u32Index);
-
-		//helpers
-		void vRM4_SCI_HELPERS__DisplayText(RM4_SCI__CHANNEL_T eChannel, const Luint8 *text,Luint32 u32Length);
+	//helpers
+	void vRM4_SCI_HELPERS__DisplayText(RM4_SCI__CHANNEL_T eChannel, const Luint8 *cpu8Text, Luint32 u32Length);
 	#endif //C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE
 	
 	#ifndef C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE
