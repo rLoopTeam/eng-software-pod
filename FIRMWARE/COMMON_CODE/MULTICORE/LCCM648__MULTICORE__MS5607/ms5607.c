@@ -166,24 +166,24 @@ void vMS5607__CalculateTempCompensatedPressure(void)
 /** Second Order Temperature Compensation */
 void vMS5607__compensateSecondOrder(void)
 {
-    Lint32 T2 = 0;
-    Lint64 OFF2 = 0;
-    Lint64 SENS2 = 0;
+    Lint32 s32T2 = 0;
+    Lint64 s32OFF2 = 0;
+    Lint64 s64SENS2 = 0;
 
     // Low Temperature
     if (sMS5607.sTEMP.s32TEMP < 2000){
-        T2 = (Lint32) ((sMS5607.sTEMP.s32dT * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 31));                       // T2 = dT^2 / 2^31
-        OFF2 = 61 * (Lint64) ((sMS5607.sTEMP.s32TEMP - 2000)*(sMS5607.sTEMP.s32TEMP - 2000)) / f32NUMERICAL__Power(2, 4);       // OFF2 = 61 * (TEMP-2000)^2 / 2^4
-        SENS2 = 2 * (Lint64) ((sMS5607.sTEMP.s32TEMP - 2000)*(sMS5607.sTEMP.s32TEMP - 2000));            // SENS2 = 2 * (TEMP-2000)^2
+        s32T2 = (Lint32) ((sMS5607.sTEMP.s32dT * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 31));                       // T2 = dT^2 / 2^31
+        s32OFF2 = 61 * (Lint64) ((sMS5607.sTEMP.s32TEMP - 2000)*(sMS5607.sTEMP.s32TEMP - 2000)) / f32NUMERICAL__Power(2, 4);       // OFF2 = 61 * (TEMP-2000)^2 / 2^4
+        s64SENS2 = 2 * (Lint64) ((sMS5607.sTEMP.s32TEMP - 2000)*(sMS5607.sTEMP.s32TEMP - 2000));            // SENS2 = 2 * (TEMP-2000)^2
 
         // Very Low Temperature
         if (sMS5607.sTEMP.s32TEMP < -1500) {
-            OFF2 += 15 * (sMS5607.sTEMP.s32TEMP + 1500)*(sMS5607.sTEMP.s32TEMP + 1500);       // OFF2 = OFF2 + 15 * (TEMP + 1500)^2
-            SENS2 += 8 * (sMS5607.sTEMP.s32TEMP + 1500)*(sMS5607.sTEMP.s32TEMP + 1500);       // SENS2 = SENS2 + 8 * (TEMP + 1500)^2
+            s32OFF2 += 15 * (sMS5607.sTEMP.s32TEMP + 1500)*(sMS5607.sTEMP.s32TEMP + 1500);       // OFF2 = OFF2 + 15 * (TEMP + 1500)^2
+            s64SENS2 += 8 * (sMS5607.sTEMP.s32TEMP + 1500)*(sMS5607.sTEMP.s32TEMP + 1500);       // SENS2 = SENS2 + 8 * (TEMP + 1500)^2
         }
-        sMS5607.sTEMP.s32TEMP = sMS5607.sTEMP.s32TEMP - T2;
-        sMS5607.sPRESSURE.s64OFF = sMS5607.sPRESSURE.s64OFF - OFF2;
-        sMS5607.sPRESSURE.s64SENS = sMS5607.sPRESSURE.s64SENS - SENS2;
+        sMS5607.sTEMP.s32TEMP = sMS5607.sTEMP.s32TEMP - s32T2;
+        sMS5607.sPRESSURE.s64OFF = sMS5607.sPRESSURE.s64OFF - s32OFF2;
+        sMS5607.sPRESSURE.s64SENS = sMS5607.sPRESSURE.s64SENS - s64SENS2;
     }
 }
 
