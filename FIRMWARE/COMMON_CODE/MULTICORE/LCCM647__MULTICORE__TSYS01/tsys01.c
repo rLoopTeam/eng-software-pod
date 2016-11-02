@@ -6,7 +6,7 @@
 /**
  * @file		tsys01.C
  * @brief		Pressure Vessel Temperature Sensor
- * @author		Dean
+ * @author		Dean & Lachlan
  * @copyright	rLoop Inc.
  * @st_fileID	
  */
@@ -110,7 +110,6 @@ void vTSYS01__Process(void)
 			//just start processing if the rest of the system is not operational..
 			break;
 
-
 		case TSYS01_STATE__BEGIN_SAMPLE:
 			//issue the request
 			s16Return = s16TSYS01_I2C__TxCommand(C_LOCALDEF__LCCM647__BUS_ADDX, TSYS01_REG__START_ADC_TEMPERATURE_CONVERSION);
@@ -135,7 +134,7 @@ void vTSYS01__Process(void)
 
 		case TSYS01_STATE__WAIT_LOOPS:
 
-			//todo, change to constat
+			//todo, change to constant
 			if(sTSYS.u32LoopCounter > 1000)
 			{
 				//move on to read the ADC
@@ -144,10 +143,10 @@ void vTSYS01__Process(void)
 			}
 			else
 			{
+				sTSYS.u32LoopCounter += 1;
 				//stay in state
 			}
 			break;
-
 
 		case TSYS01_STATE__READ_ADC:
 			//do the ADC read
@@ -210,11 +209,6 @@ void vTSYS01__Enable(void)
 
 }
 
-/** Most recent measurement, made global for external use */
-Lfloat32 f32TSYS01__Get_TempDegC(void)
-{
-	return sTSYS.f32TempDegC;
-}
 
 /** Read each of the 5 K calibration constants over i2c */
 Lint16 s16TSYS01__Read_K_Values(Luint16 *pu16Values)
@@ -267,6 +261,13 @@ Lint16 s16TSYS01__Read_K_Values(Luint16 *pu16Values)
 
 	//return with the status of the I2C read
 	return s16Return;
+}
+
+
+/** Most recent measurement, made global for external use */
+Lfloat32 f32TSYS01__Get_TempDegC(void)
+{
+	return sTSYS.f32TempDegC;
 }
 
 #endif //#if C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE == 1U
