@@ -190,7 +190,7 @@ SCI / LIN Module
 
 		//determine which SCI module to enable
 		//SCI1 shares pins with EMAC
-		#define C_LOCALDEF__LCCM282__ENABLE_SCI_1							(0U)
+		#define C_LOCALDEF__LCCM282__ENABLE_SCI_1							(1U)
 
 		//SCI 2 is also LIN and uses the LIN pins on ZWT Package
 		//SCI2 is USB debug on HDK
