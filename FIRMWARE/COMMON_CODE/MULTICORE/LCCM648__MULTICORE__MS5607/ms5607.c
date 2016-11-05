@@ -58,22 +58,39 @@ void vMS5607__Process(void)
 		case MS5607_STATE__READ_CALIBRATION:
 			vMS5607__GetCalibrationData();
 			//TODO error check
+			if(uMS5607__crc4(sMS5607.u16Coefficients) == MS5607_CMD__PROM_READ_7)
+			{
+				;
+			}
 
 			sMS5607.eState = MS5607_STATE__WAITING;
 			//TODO error check
 
 			break;
 		case MS5607_STATE__WAITING:
-			//TODO start conversion
+			//Nothing
 
 			break;
 
 		case MS5607_STATE__BEGIN_SAMPLE:
-
+				//Start conversion here
 			break;
 
 		case MS5607_STATE__WAIT_LOOPS:
+				//TODO add delay here for conversion then
+				//After the conversion is over, move to next stage to read ADC
+				//todo, change to constant
+				if(_strMS5607.u32LoopCounter > 1000)
+				{
+					//move on to read the ADC
+					_strMS5607.eState = MS5607_STATE__READ_ADC;
 
+				}
+				else
+				{
+					_strMS5607.u32LoopCounter += 1;
+					//stay in state
+				}
 			break;
 
 		case MS5607_STATE__READ_ADC:
@@ -98,13 +115,22 @@ void vMS5607__Process(void)
 /** Issue#22: Read calibration data off the device */
 void vMS5607__GetCalibrationData(void)
 {
-    sMS5607.sCALIBRATION.u16C1 = uMS5607__Read16(MS5607_CMD__PROM_READ_1);
-    sMS5607.sCALIBRATION.u16C2 = uMS5607__Read16(MS5607_CMD__PROM_READ_2);
-    sMS5607.sCALIBRATION.u16C3 = uMS5607__Read16(MS5607_CMD__PROM_READ_3);
-    sMS5607.sCALIBRATION.u16C4 = uMS5607__Read16(MS5607_CMD__PROM_READ_4);
-    sMS5607.sCALIBRATION.u16C5 = uMS5607__Read16(MS5607_CMD__PROM_READ_5);
-    sMS5607.sCALIBRATION.u16C6 = uMS5607__Read16(MS5607_CMD__PROM_READ_6);
+	//TODO to save all coefficients to an array
+//    sMS5607.sCALIBRATION.u16C1 = c
+//    sMS5607.sCALIBRATION.u16C2 = uMS5607__Read16(MS5607_CMD__PROM_READ_2);
+//    sMS5607.sCALIBRATION.u16C3 = uMS5607__Read16(MS5607_CMD__PROM_READ_3);
+//    sMS5607.sCALIBRATION.u16C4 = uMS5607__Read16(MS5607_CMD__PROM_READ_4);
+//    sMS5607.sCALIBRATION.u16C5 = uMS5607__Read16(MS5607_CMD__PROM_READ_5);
+//    sMS5607.sCALIBRATION.u16C6 = uMS5607__Read16(MS5607_CMD__PROM_READ_6);
     //TODO Check CRC is valid?
+	sMS5607.u16Coefficients[0] = uMS5607__Read16(MS5607_CMD__PROM_READ_0);
+	sMS5607.u16Coefficients[1] = uMS5607__Read16(MS5607_CMD__PROM_READ_1);
+	sMS5607.u16Coefficients[2] = uMS5607__Read16(MS5607_CMD__PROM_READ_2);
+	sMS5607.u16Coefficients[3] = uMS5607__Read16(MS5607_CMD__PROM_READ_3);
+	sMS5607.u16Coefficients[4] = uMS5607__Read16(MS5607_CMD__PROM_READ_4);
+	sMS5607.u16Coefficients[5] = uMS5607__Read16(MS5607_CMD__PROM_READ_5);
+	sMS5607.u16Coefficients[6] = uMS5607__Read16(MS5607_CMD__PROM_READ_6);
+	sMS5607.u16Coefficients[7] = uMS5607__Read16(MS5607_CMD__PROM_READ_7);
 }
 
 /** Read Digital Temperature Value D2 */
@@ -192,6 +218,43 @@ void vMS5607__Reset(void)
 {
     vMS5607__Write8(MS5607_CMD__RESET);
 }
+
+//********************************************************
+//! @brief calculate the CRC code for details look into CRC CODE NOTES
+//!
+//! @return crc code
+// http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=AN520_C-code_example_for_MS56xx&DocType=SS&DocLang=EN
+// Code from TE AN520
+//********************************************************
+Luint8 uMS5607__crc4(Luint32 u32Coefficients[])
+{
+	Lint32 s32count; // simple counter
+	Luint32 u32n_rem; // crc reminder
+	Luint32 u32crc_read; // original value of the crc
+	Luint8 u8n_bit;
+	u32n_rem = 0x00;
+	u32crc_read=u32Coefficients[7]; //save read CRC
+	u32Coefficients[7]=(0xFF00 & (u32Coefficients[7])); //CRC byte is replaced by 0
+	for (s32count = 0; s32count < 16; s32count++) // operation is performed on bytes
+	{ // choose LSB or MSB
+		if (s32count%2==1) u32n_rem ^= (Luint16) ((u32Coefficients[s32count>>1]) & 0x00FF);
+		else u32n_rem ^= (Luint16) (u32Coefficients[s32count>>1]>>8);
+		for (u8n_bit = 8; u8n_bit > 0; u8n_bit--)
+		{
+			if (u32n_rem & (0x8000))
+			{
+				u32n_rem = (u32n_rem << 1) ^ 0x3000;
+			}
+			else
+			{
+				u32n_rem = (u32n_rem << 1);
+			}
+		}
+	}
+	u32n_rem= (0x000F & (u32n_rem >> 12)); // // final 4-bit reminder is CRC code
+	u32Coefficients[7]=u32crc_read; // restore the crc_read to its original place
+	return (u32n_rem ^ 0x00);
+} 
 
 
 //TODO delete I2C functions below

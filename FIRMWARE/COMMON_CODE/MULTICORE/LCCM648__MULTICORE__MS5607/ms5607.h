@@ -21,30 +21,33 @@
 		*******************************************************************************/
 		#define MS5607_TEMPERATURE_OSR			MS5607_CMD__CONVERT_D2_OSR_4096
 		#define MS5607_PRESSURE_OSR				MS5607_CMD__CONVERT_D1_OSR_4096
+		#define MS5607_NUM_OF_COEFFICIENTS		8U
 
 		/** COMMANDS */
         typedef enum
         {
             MS5607_CMD__RESET = 0x1E,
+			//D1 Digital Pressure Value
             MS5607_CMD__CONVERT_D1_OSR_256 = 0x40,
             MS5607_CMD__CONVERT_D1_OSR_512 = 0x42,
             MS5607_CMD__CONVERT_D1_OSR_1024 = 0x44,
             MS5607_CMD__CONVERT_D1_OSR_2048 = 0x46,
             MS5607_CMD__CONVERT_D1_OSR_4096 = 0x48,
+			//D2 Digital Temp Value
             MS5607_CMD__CONVERT_D2_OSR_256 = 0x50,
             MS5607_CMD__CONVERT_D2_OSR_512 = 0x52,
             MS5607_CMD__CONVERT_D2_OSR_1024 = 0x54,
             MS5607_CMD__CONVERT_D2_OSR_2048 = 0x56,
             MS5607_CMD__CONVERT_D2_OSR_4096 = 0x58,
             MS5607_CMD__ADC_READ = 0x00,
-            MS5607_CMD__PROM_READ_0 = 0xA0,
+            MS5607_CMD__PROM_READ_0 = 0xA0, //Manufacturer Reserved
             MS5607_CMD__PROM_READ_1 = 0xA2,
             MS5607_CMD__PROM_READ_2 = 0xA4,
             MS5607_CMD__PROM_READ_3 = 0xA6,
             MS5607_CMD__PROM_READ_4 = 0xA8,
             MS5607_CMD__PROM_READ_5 = 0xAA,
             MS5607_CMD__PROM_READ_6 = 0xAC,
-            MS5607_CMD__PROM_READ_7 = 0xAE
+            MS5607_CMD__PROM_READ_7 = 0xAE //CRC
         }E_MS5607_CMD_T;
 
         /** State types for the MS5607 state machine */
@@ -56,7 +59,7 @@
         	MS5607_STATE__READ_CALIBRATION,
         	MS5607_STATE__WAITING,
         	MS5607_STATE__BEGIN_SAMPLE,
-        	MS5607_STATE__WAIT_LOOPS.
+        	MS5607_STATE__WAIT_LOOPS,
         	MS5607_STATE__READ_ADC,
         	MS5607_STATE__COMPUTE,
         	MS5607_STATE__INTERRUPT,
@@ -69,19 +72,35 @@
 		struct _strMS5607
 		{
 			E_MS5607_STATE_T eState;
+			/**
+			 *		C0 - Manufacturer Reserved
+			 *		C1 - Pressure Sensitivity
+			 *		C2 - Pressure Offset
+			 *		C3 - Temperature coefficient of pressure sensitivity
+			 *		C4 - Temperature coefficient of pressure offset
+			 *		C5 - Reference temperature
+			 *		C6 - Temperature coefficient of the temperature
+			 *		C7 - CRC
+			 * */
+			Luint16 u16Coefficients[MS5607_NUM_OF_COEFFICIENTS];
+			/** counter the number of main program loops */
+			Luint32 u32LoopCounter;
 
-			struct
-			{
-				Luint16 u16Reserved = 0U;
-				Luint16 u16C1 = 0U;            // C1 - Pressure Sensitivity
-	            Luint16 u16C2 = 0U;            // C2 - Pressure Offset
-	            Luint16 u16C3 = 0U;            // C3 - Temperature coefficient of pressure sensitivity
-	            Luint16 u16C4 = 0U;            // C4 - Temperature coefficient of pressure offset
-	            Luint16 u16C5 = 0U;            // C5 - Reference temperature
-	            Luint16 u16C6 = 0U;            // C6 - Temperature coefficient of the temperature
-	            Luint16 u16CRC = 0U;
-	            //unsigned int 16, 16bit, 0-65535
-			}sCALIBRATION;
+
+//MTODO: delete sCALIBRATION
+//
+//			struct
+//			{
+//				Luint16 u16Reserved = 0U;
+//				Luint16 u16C1 = 0U;            // C1 - Pressure Sensitivity
+//	            Luint16 u16C2 = 0U;            // C2 - Pressure Offset
+//	            Luint16 u16C3 = 0U;            // C3 - Temperature coefficient of pressure sensitivity
+//	            Luint16 u16C4 = 0U;            // C4 - Temperature coefficient of pressure offset
+//	            Luint16 u16C5 = 0U;            // C5 - Reference temperature
+//	            Luint16 u16C6 = 0U;            // C6 - Temperature coefficient of the temperature
+//	            Luint16 u16CRC = 0U;
+//	            //unsigned int 16, 16bit, 0-65535
+//			}sCALIBRATION;
 
 			struct
 			{
@@ -118,6 +137,7 @@
         void vMS5607__CalculateTempCompensatedPressure(void);
         void vMS5607__compensateSecondOrder(void);
         void vMS5607__Reset(void);
+        Luint8 uMS5607__crc4(Luint32);
 
 
         Luint32 uMS5607__Read24(E_MS5607_CMD_T value);
