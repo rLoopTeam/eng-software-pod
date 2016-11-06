@@ -83,9 +83,12 @@ void vPWRNODE__Process(void)
 			//GIO
 			vRM4_GIO__Init();
 
-			//setup UART
+			//setup UART, SCI2 = Pi Connection
 			vRM4_SCI__Init(SCI_CHANNEL__2);
 			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 9600U);
+			vRM4_SCI_HELPERS__DisplayText(SCI_CHANNEL__2, "Lok", 100);
+
+
 #else
 			//Init any win32 variables
 			vPWRNODE_WIN32__Init();
