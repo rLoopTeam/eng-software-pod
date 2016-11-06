@@ -68,7 +68,7 @@ void vMS5607__Process(void)
 				// handle error
 			}
 
-			sMS5607.eState = MS5607_STATE__WAITING;
+			sMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_TEMPERATURE; //QUESTION: DO WE NEED MS5607_STATE__WAITING?
 			//TODO error check
 
 			break;
@@ -77,18 +77,20 @@ void vMS5607__Process(void)
 
 			break;
 
-		case MS5607_STATE__BEGIN_SAMPLE:
+	    case MS5607_STATE__BEGIN_SAMPLE_TEMPERATURE:
 				//Start conversion here
+
+	    	sMS5607.eState = MS5607_STATE__WAIT_LOOPS_TEMPERATURE;
 			break;
 
-		case MS5607_STATE__WAIT_LOOPS:
+		case MS5607_STATE__WAIT_LOOPS_TEMPERATURE:
 				//TODO add delay here for conversion then
 				//After the conversion is over, move to next stage to read ADC
 				//todo, change to constant
 				if(_strMS5607.u32LoopCounter > 1000)
 				{
 					//move on to read the ADC
-					_strMS5607.eState = MS5607_STATE__READ_ADC;
+					_strMS5607.eState = MS5607_STATE__READ_ADC_TEMPERATURE;
 
 				}
 				else
@@ -98,8 +100,38 @@ void vMS5607__Process(void)
 				}
 			break;
 
-		case MS5607_STATE__READ_ADC:
+		case MS5607_STATE__READ_ADC_TEMPERATURE:
 
+
+			_strMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_PRESSURE;
+			break;
+
+		case MS5607_STATE__BEGIN_SAMPLE_PRESSURE:
+				//Start conversion here
+
+			_strMS5607.eState =  MS5607_STATE__WAIT_LOOPS_PRESSURE;
+			break;
+
+		case MS5607_STATE__WAIT_LOOPS_PRESSURE:
+				//TODO add delay here for conversion then
+				//After the conversion is over, move to next stage to read ADC
+				//todo, change to constant
+				if(_strMS5607.u32LoopCounter > 1000)
+				{
+					//move on to read the ADC
+					_strMS5607.eState = MS5607_STATE__READ_ADC_PRESSURE;
+
+				}
+				else
+				{
+					_strMS5607.u32LoopCounter += 1;
+					//stay in state
+				}
+			break;
+
+		case MS5607_STATE__READ_ADC_PRESSURE:
+
+			_strMS5607.eState = MS5607_STATE__COMPUTE;
 			break;
 
 		case MS5607_STATE__COMPUTE:
@@ -150,7 +182,7 @@ void vMS5607__ReadPressure(void)
 	sMS5607.sPRESSURE.u32D1 = uMS5607__Read24(MS5607_CMD__ADC_READ);
 }
 
-/** Return the compensated temperature as a floating point value in Â°C */
+/** Return the compensated temperature as a floating point value in °C */
 Lint32 sMS5607__GetTemperature(void)
 {
 	return sMS5607.sTEMP.s32TEMP;

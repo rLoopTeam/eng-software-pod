@@ -58,12 +58,17 @@
         	MS5607_STATE__INIT_DEVICE,
         	MS5607_STATE__READ_CALIBRATION,
         	MS5607_STATE__WAITING,
-        	MS5607_STATE__BEGIN_SAMPLE,
-        	MS5607_STATE__WAIT_LOOPS,
-        	MS5607_STATE__READ_ADC,
+			MS5607_STATE__BEGIN_SAMPLE_TEMPERATURE,
+			MS5607_STATE__BEGIN_SAMPLE_PRESSURE,
+			MS5607_STATE__WAIT_LOOPS_TEMPERATURE,
+			MS5607_STATE__WAIT_LOOPS_PRESSURE,
+        	MS5607_STATE__READ_ADC_TEMPERATURE,
+			MS5607_STATE__READ_ADC_PRESSURE,
         	MS5607_STATE__COMPUTE,
         	MS5607_STATE__INTERRUPT,
         }E_MS5607_STATE_T;
+
+
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
@@ -85,6 +90,7 @@
 			Luint16 u16Coefficients[MS5607_NUM_OF_COEFFICIENTS];
 			/** counter the number of main program loops */
 			Luint32 u32LoopCounter;
+
 
 
 //MTODO: delete sCALIBRATION
