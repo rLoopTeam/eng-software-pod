@@ -359,7 +359,7 @@ RM4 I2C
 	#if C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE == 1U
 
 		//The bus freq (100K, 400K, 1MHZ)
-		#define C_LOCALDEF__LCCM215__BUS_FREQUENCY_HZ   					(100000U)
+		#define C_LOCALDEF__LCCM215__BUS_FREQUENCY_HZ   					(400000U)
 
 		#define C_LOCALDEF__LCCM215__OWN_ADDRESS                        	(0x50)
 

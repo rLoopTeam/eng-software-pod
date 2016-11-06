@@ -142,6 +142,7 @@
 	DLL_DECLARATION Lint16 s16NUMERICAL_FILTERING__Add_S16(Lint16 s16Sample, Luint16 * pu16AverageCounter, Luint16 u16MaxAverageSize, Lint16 * ps16Array);
 	DLL_DECLARATION Luint16 u16NUMERICAL_FILTERING__Add_U16(Luint16 u16Sample, Luint16 * pu16AverageCounter, Luint16 u16MaxAverageSize, Luint16 * pu16Array);
 	DLL_DECLARATION Lint32 s32NUMERICAL_FILTERING__Add_S32(Lint32 s32Sample, Luint16 * pu16AverageCounter, Luint16 u16MaxAverageSize, Lint32 * ps32Array);
+	Luint32 u32NUMERICAL_FILTERING__Add_U32(Luint32 u32Sample, Luint16 *pu16AverageCounter, Luint16 u16MaxAverageSize, Luint32 *pu32Array);
 	DLL_DECLARATION Lfloat32 f32NUMERICAL_FILTERING__Add_F32(Lfloat32 f32Sample, Luint16 * pu16AverageCounter, Luint16 u16MaxAverageSize, Lfloat32 * pf32Array);
 	
 	//tolerance checks
