@@ -57,10 +57,15 @@ void vMS5607__Process(void)
 			break;
 		case MS5607_STATE__READ_CALIBRATION:
 			vMS5607__GetCalibrationData();
-			//TODO error check
-			if(uMS5607__crc4(sMS5607.u16Coefficients) == MS5607_CMD__PROM_READ_7)
+			Luint8 u8crc4Result = uMS5607__getLSB4Bits(uMS5607__crc4(sMS5607.u16Coefficients));
+			Luint8 u8crc4read = uMS5607__getLSB4Bits(sMS5607.u16Coefficients[7]);
+			if (u8crc4Result == u8crc4read)
 			{
-				;
+				// success
+			}
+			else
+			{
+				// handle error
 			}
 
 			sMS5607.eState = MS5607_STATE__WAITING;
@@ -236,9 +241,15 @@ Luint8 uMS5607__crc4(Luint32 u32Coefficients[])
 	u32crc_read=u32Coefficients[7]; //save read CRC
 	u32Coefficients[7]=(0xFF00 & (u32Coefficients[7])); //CRC byte is replaced by 0
 	for (s32count = 0; s32count < 16; s32count++) // operation is performed on bytes
-	{ // choose LSB or MSB
-		if (s32count%2==1) u32n_rem ^= (Luint16) ((u32Coefficients[s32count>>1]) & 0x00FF);
-		else u32n_rem ^= (Luint16) (u32Coefficients[s32count>>1]>>8);
+	{
+		if (s32count%2==1) // choose LSB or MSB
+		{
+			u32n_rem ^= (Luint16) ((u32Coefficients[s32count>>1]) & 0x00FF);
+		}
+		else
+		{
+			u32n_rem ^= (Luint16) (u32Coefficients[s32count>>1]>>8);
+		}
 		for (u8n_bit = 8; u8n_bit > 0; u8n_bit--)
 		{
 			if (u32n_rem & (0x8000))
@@ -256,6 +267,10 @@ Luint8 uMS5607__crc4(Luint32 u32Coefficients[])
 	return (u32n_rem ^ 0x00);
 } 
 
+Luint8 uMS5607__getLSB4Bits(Luint32 u32LastCoefficient)
+{
+	return u32LastCoefficient & 0x000F;
+}
 
 //TODO delete I2C functions below
 /***************************************************************************

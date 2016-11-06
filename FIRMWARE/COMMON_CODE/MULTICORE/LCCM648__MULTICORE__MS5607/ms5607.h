@@ -138,7 +138,7 @@
         void vMS5607__compensateSecondOrder(void);
         void vMS5607__Reset(void);
         Luint8 uMS5607__crc4(Luint32);
-
+        Luint8 uMS5607__getLSB4Bits(Luint32 u32LastCoefficient);
 
         Luint32 uMS5607__Read24(E_MS5607_CMD_T value);
         Luint16 vMS5607__Read16(E_MS5607_CMD_T value);
