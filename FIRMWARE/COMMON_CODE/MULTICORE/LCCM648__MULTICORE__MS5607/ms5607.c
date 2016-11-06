@@ -12,11 +12,15 @@
 
 extern struct _strMS5607 sMS5607;
 
+//locals
+Lint16 s16MS5607__GetCalibrationContants(Luint16 *pu16Values);
+
 /** Init */
 void vMS5607__Init(void)
 {
 	//init structure
 	sMS5607.eState = MS5607_STATE__INIT_DEVICE;
+	//TODO add counters
 }
 
 void vMS5607__Process(void)
@@ -24,24 +28,16 @@ void vMS5607__Process(void)
 
 	Lint16 s16Return;
 
-
-    //TODO State Machines
-
 	switch(sMS5607.eState)
 	{
 		case MS5607_STATE__IDLE:
 			//do nothing,
 			break;
 		case MS5607_STATE__INIT_DEVICE:
-
-			//TODO set I2C Address??
 			//reset the device
-			//vMS5607__Reset();
 			s16Return = s16MS5607_I2C__TxCommand(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__RESET); 
-    		//TODO define C_LOCALDEF__LCCM648__BUS_ADDX under FIRMWARE/LFW513__RLOOP__POWER_NODE/SOURCE/MAIN/localdef.h
 			//The Reset sequence shall be be sent once after power-on to make sure theat the calibration PROM gets loaded into the internal register
-			
-			//TODO error check
+
 			if(s16Return >= 0)
 			{
 				//success
@@ -53,23 +49,30 @@ void vMS5607__Process(void)
 				sMS5607.eState = MS5607_STATE__ERROR;
 			}
 
-
 			break;
 		case MS5607_STATE__READ_CALIBRATION:
-			vMS5607__GetCalibrationData();
-			Luint8 u8crc4Result = uMS5607__getLSB4Bits(uMS5607__crc4(sMS5607.u16Coefficients));
-			Luint8 u8crc4read = uMS5607__getLSB4Bits(sMS5607.u16Coefficients[7]);
-			if (u8crc4Result == u8crc4read)
+			s16Return = s16MS5607__GetCalibrationContants(&sMS5607.u16Coefficients[0]);
+			if(s16Return >= 0)
 			{
-				// success
+				//crc check
+				Luint8 u8crc4Result = uMS5607__getLSB4Bits(uMS5607__crc4(sMS5607.u16Coefficients));
+				Luint8 u8crc4read = uMS5607__getLSB4Bits(sMS5607.u16Coefficients[7]);
+				if (u8crc4Result == u8crc4read)
+				{
+					// success
+					sMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_TEMPERATURE; //QUESTION: DO WE NEED MS5607_STATE__WAITING?
+				}
+				else
+				{
+					// handle error
+					sMS5607.eState = MS5607_STATE__ERROR;
+				}
 			}
 			else
 			{
-				// handle error
+				//read error, handle state.
+				sMS5607.eState = MS5607_STATE__ERROR;
 			}
-
-			sMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_TEMPERATURE; //QUESTION: DO WE NEED MS5607_STATE__WAITING?
-			//TODO error check
 
 			break;
 		case MS5607_STATE__WAITING:
@@ -78,38 +81,57 @@ void vMS5607__Process(void)
 			break;
 
 	    case MS5607_STATE__BEGIN_SAMPLE_TEMPERATURE:
-				//Start conversion here
+			//Start conversion here
+	    	s16Return = s16MS5607__StartTemperatureConversion();
 
-	    	sMS5607.eState = MS5607_STATE__WAIT_LOOPS_TEMPERATURE;
+	    	if(s16Return >= 0)
+			{
+				//success
+				sMS5607.eState = MS5607_STATE__WAIT_LOOPS_TEMPERATURE;
+			}
+			else
+			{
+				//read error, handle state.
+				sMS5607.eState = MS5607_STATE__ERROR;
+			}
 			break;
 
 		case MS5607_STATE__WAIT_LOOPS_TEMPERATURE:
-				//TODO add delay here for conversion then
-				//After the conversion is over, move to next stage to read ADC
-				//todo, change to constant
-				if(_strMS5607.u32LoopCounter > 1000)
-				{
-					//move on to read the ADC
-					_strMS5607.eState = MS5607_STATE__READ_ADC_TEMPERATURE;
+			//TODO add delay here for conversion then
+			//After the conversion is over, move to next stage to read ADC
+			//todo, change to constant
+			if(_strMS5607.u32LoopCounter > 1000)
+			{
+				//move on to read the ADC
+				_strMS5607.eState = MS5607_STATE__READ_ADC_TEMPERATURE;
 
-				}
-				else
-				{
-					_strMS5607.u32LoopCounter += 1;
-					//stay in state
-				}
+			}
+			else
+			{
+				_strMS5607.u32LoopCounter += 1;
+				//stay in state
+			}
 			break;
 
 		case MS5607_STATE__READ_ADC_TEMPERATURE:
-
-
+			//TODO Read ADC Temp here
 			_strMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_PRESSURE;
 			break;
 
 		case MS5607_STATE__BEGIN_SAMPLE_PRESSURE:
-				//Start conversion here
+			//Start conversion here
+			s16Return = s16MS5607__StartPressureConversion();
 
-			_strMS5607.eState =  MS5607_STATE__WAIT_LOOPS_PRESSURE;
+			if(s16Return >= 0)
+			{
+				//success
+				sMS5607.eState = MS5607_STATE__WAIT_LOOPS_PRESSURE;
+			}
+			else
+			{
+				//read error, handle state.
+				sMS5607.eState = MS5607_STATE__ERROR;
+			}
 			break;
 
 		case MS5607_STATE__WAIT_LOOPS_PRESSURE:
@@ -149,36 +171,104 @@ void vMS5607__Process(void)
 
 }
 
-/** Issue#22: Read calibration data off the device */
-void vMS5607__GetCalibrationData(void)
+/** Read each of coefficients over i2c */
+Lint16 s16MS5607__GetCalibrationContants(Luint16 *pu16Values)
 {
-	//TODO to save all coefficients to an array
-//    sMS5607.sCALIBRATION.u16C1 = c
-//    sMS5607.sCALIBRATION.u16C2 = uMS5607__Read16(MS5607_CMD__PROM_READ_2);
-//    sMS5607.sCALIBRATION.u16C3 = uMS5607__Read16(MS5607_CMD__PROM_READ_3);
-//    sMS5607.sCALIBRATION.u16C4 = uMS5607__Read16(MS5607_CMD__PROM_READ_4);
-//    sMS5607.sCALIBRATION.u16C5 = uMS5607__Read16(MS5607_CMD__PROM_READ_5);
-//    sMS5607.sCALIBRATION.u16C6 = uMS5607__Read16(MS5607_CMD__PROM_READ_6);
-    //TODO Check CRC is valid?
-	sMS5607.u16Coefficients[0] = uMS5607__Read16(MS5607_CMD__PROM_READ_0);
-	sMS5607.u16Coefficients[1] = uMS5607__Read16(MS5607_CMD__PROM_READ_1);
-	sMS5607.u16Coefficients[2] = uMS5607__Read16(MS5607_CMD__PROM_READ_2);
-	sMS5607.u16Coefficients[3] = uMS5607__Read16(MS5607_CMD__PROM_READ_3);
-	sMS5607.u16Coefficients[4] = uMS5607__Read16(MS5607_CMD__PROM_READ_4);
-	sMS5607.u16Coefficients[5] = uMS5607__Read16(MS5607_CMD__PROM_READ_5);
-	sMS5607.u16Coefficients[6] = uMS5607__Read16(MS5607_CMD__PROM_READ_6);
-	sMS5607.u16Coefficients[7] = uMS5607__Read16(MS5607_CMD__PROM_READ_7);
+	Lint16 s16Return;
+	Luint16 * pu16Temp;
+
+	pu16Temp = &pu16Values[0];
+	s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_0, pu16Temp);
+	if(s16Return >= 0)
+	{
+		pu16Temp = &pu16Values[1];
+		s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_1, pu16Temp);
+		if(s16Return >= 0)
+		{
+			pu16Temp = &pu16Values[2];
+			s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_2, pu16Temp);
+			if(s16Return >= 0)
+			{
+				pu16Temp = &pu16Values[3];
+				s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_3, pu16Temp);
+				if(s16Return >= 0)
+				{
+					pu16Temp = &pu16Values[4];
+					s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_4, pu16Temp);
+					if(s16Return >= 0)
+					{
+						pu16Temp = &pu16Values[5];
+						s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_5, pu16Temp);
+						if(s16Return >= 0)
+						{
+							pu16Temp = &pu16Values[6];
+							s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_6, pu16Temp);
+							if(s16Return >= 0)
+							{
+								pu16Temp = &pu16Values[7];
+								s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_7, pu16Temp);
+
+
+								//fall on
+							}
+							else
+							{
+								//fall on
+							}
+
+							//fall on
+						}
+						else
+						{
+							//fall on
+						}
+
+						//fall on
+					}
+					else
+					{
+						//fall on
+					}
+
+					//fall on
+				}
+				else
+				{
+					//fall on
+				}
+
+			}
+			else
+			{
+				//fall on with error code
+			}
+
+		}
+		else
+		{
+			//fall on with error code
+		}
+	}
+	else
+	{
+		//fall on
+	}
+
+	//return with the status of the I2C read
+	return s16Return;
 }
 
 /** Read Digital Temperature Value D2 */
 void vMS5607__ReadTemperature(void)
 {
+	//TODO need a read24 from ms5607_i2c.c
 	sMS5607.sTEMP.u32D2 = uMS5607__Read24(MS5607_CMD__ADC_READ);
 }
 
 /** Read Digital Pressure Value D1 */
 void vMS5607__ReadPressure(void)
 {
+	//TODO need a read24 from ms5607_i2c.c
 	sMS5607.sPRESSURE.u32D1 = uMS5607__Read24(MS5607_CMD__ADC_READ);
 }
 
@@ -195,15 +285,17 @@ Lint32 sMS5607__GetPressure(void)
 }
 
 /** Start a temperature conversion with the defined OSR */
-void vMS5607__StartTemperatureConversion(void)
+Lint16 s16MS5607__StartTemperatureConversion(void)
 {
-    vMS5607__Write8(MS5607_TEMPERATURE_OSR);
+	//return with the status of the I2C read
+	return s16MS5607_I2C__TxCommand(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_TEMPERATURE_OSR);
 }
 
 /** Start a pressure conversion with the defined OSR */
-void vMS5607__StartPressureConversion(void)
+Lint16 s16MS5607__StartPressureConversion(void)
 {
-    vMS5607__Write8(MS5607_PRESSURE_OSR);
+	//return with the status of the I2C read
+	return s16MS5607_I2C__TxCommand(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_TEMPERATURE_OSR);
 }
 
 /** Calculate Temperature */
@@ -248,12 +340,6 @@ void vMS5607__compensateSecondOrder(void)
         sMS5607.sPRESSURE.s64OFF = sMS5607.sPRESSURE.s64OFF - s32OFF2;
         sMS5607.sPRESSURE.s64SENS = sMS5607.sPRESSURE.s64SENS - s64SENS2;
     }
-}
-
-/* Write reset cmd to the MS5607 pressure sensor*/
-void vMS5607__Reset(void)
-{
-    vMS5607__Write8(MS5607_CMD__RESET);
 }
 
 //********************************************************
@@ -302,30 +388,6 @@ Luint8 uMS5607__crc4(Luint32 u32Coefficients[])
 Luint8 uMS5607__getLSB4Bits(Luint32 u32LastCoefficient)
 {
 	return u32LastCoefficient & 0x000F;
-}
-
-//TODO delete I2C functions below
-/***************************************************************************
-* i2c Communcation Functions
-***************************************************************************/
-/** Read an 24-bit value from the device*/
-Luint32 uMS5607__Read24(Luint8 value)
-{
-    //TODO Reference rm4_i2c__user.c or rm4_i2c.c
-    return; //something
-}
-
-/** Read an 16-bit value from the device*/
-Luint16 uMS5607__Read16(Luint8 value)
-{
-    //TODO Reference rm4_i2c__user.c or rm4_i2c.c
-    return; //something
-}
-
-/** Write an 8-bit value to the device */
-void vMS5607__Write8(Luint8 value)
-{
-    //TODO Reference rm4_i2c__user.c or rm4_i2c.c
 }
 
 #endif //#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U

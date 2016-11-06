@@ -2,7 +2,7 @@
 #include "../ms5607.h"
 
 
-Lint16 s16MS5607_I2C__TxCommand(Luint8 u8DeviceAddx, E_TSYS01_REGS_T eRegister)
+Lint16 s16MS5607_I2C__TxCommand(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister)
 {
 	Lint16 s16Return;
 
@@ -17,7 +17,7 @@ Lint16 s16MS5607_I2C__TxCommand(Luint8 u8DeviceAddx, E_TSYS01_REGS_T eRegister)
 }
 
 //perform the actual transmission
-Lint16 s16MS5607_I2C__TxU8(Luint8 u8DeviceAddx, E_TSYS01_REGS_T eRegister, Luint8 u8Byte)
+Lint16 s16MS5607_I2C__TxU8(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint8 u8Byte)
 {
 	Lint16 s16Return;
 
@@ -31,7 +31,7 @@ Lint16 s16MS5607_I2C__TxU8(Luint8 u8DeviceAddx, E_TSYS01_REGS_T eRegister, Luint
 	return s16Return;
 }
 
-Lint16 s16MS5607_I2C__RxU16(Luint8 u8DeviceAddx, E_TSYS01_REGS_T eRegister, Luint16 *pu16)
+Lint16 s16MS5607_I2C__RxU16(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint16 *pu16)
 {
 	Lint16 s16Return;
 	union

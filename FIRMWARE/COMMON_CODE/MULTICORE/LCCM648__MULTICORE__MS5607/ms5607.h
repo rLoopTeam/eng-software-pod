@@ -91,23 +91,6 @@
 			/** counter the number of main program loops */
 			Luint32 u32LoopCounter;
 
-
-
-//MTODO: delete sCALIBRATION
-//
-//			struct
-//			{
-//				Luint16 u16Reserved = 0U;
-//				Luint16 u16C1 = 0U;            // C1 - Pressure Sensitivity
-//	            Luint16 u16C2 = 0U;            // C2 - Pressure Offset
-//	            Luint16 u16C3 = 0U;            // C3 - Temperature coefficient of pressure sensitivity
-//	            Luint16 u16C4 = 0U;            // C4 - Temperature coefficient of pressure offset
-//	            Luint16 u16C5 = 0U;            // C5 - Reference temperature
-//	            Luint16 u16C6 = 0U;            // C6 - Temperature coefficient of the temperature
-//	            Luint16 u16CRC = 0U;
-//	            //unsigned int 16, 16bit, 0-65535
-//			}sCALIBRATION;
-
 			struct
 			{
 				Lint32 s32dT = 0U;
@@ -137,18 +120,13 @@
         void vMS5607__ReadPressure(void);
         Luint32 sMS5607__GetTemperature(void);
         Luint32 sMS5607__GetPressure(void);
-        void vMS5607__StartTemperatureConversion(void);
-        void vMS5607__StartPressureConversion(void);
+        Lint16 s16MS5607__StartTemperatureConversion(void);
+        Lint16 s16MS5607__StartPressureConversion(void);
         void vMS5607__CalculateTemperature(void);
         void vMS5607__CalculateTempCompensatedPressure(void);
         void vMS5607__compensateSecondOrder(void);
-        void vMS5607__Reset(void);
         Luint8 uMS5607__crc4(Luint32);
         Luint8 uMS5607__getLSB4Bits(Luint32 u32LastCoefficient);
-
-        Luint32 uMS5607__Read24(E_MS5607_CMD_T value);
-        Luint16 vMS5607__Read16(E_MS5607_CMD_T value);
-        void vMS5607__Write8(E_MS5607_CMD_T value);
 
 
         //I2C
