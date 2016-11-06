@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//Debug/LIB/subdir_rules.mk=UTF-8
+encoding//Debug/LIB/subdir_vars.mk=UTF-8
 encoding//Debug/MULTICORE/LCCM118__MULTICORE__NUMERICAL/ABS/subdir_rules.mk=UTF-8
 encoding//Debug/MULTICORE/LCCM118__MULTICORE__NUMERICAL/ABS/subdir_vars.mk=UTF-8
 encoding//Debug/MULTICORE/LCCM118__MULTICORE__NUMERICAL/ARCTAN2/subdir_rules.mk=UTF-8
@@ -39,6 +41,20 @@ encoding//Debug/MULTICORE/LCCM517__MULTICORE__SAFETOOL_BRANCH/STRINGS/subdir_rul
 encoding//Debug/MULTICORE/LCCM517__MULTICORE__SAFETOOL_BRANCH/STRINGS/subdir_vars.mk=UTF-8
 encoding//Debug/MULTICORE/LCCM517__MULTICORE__SAFETOOL_BRANCH/subdir_rules.mk=UTF-8
 encoding//Debug/MULTICORE/LCCM517__MULTICORE__SAFETOOL_BRANCH/subdir_vars.mk=UTF-8
+encoding//Debug/MULTICORE/LCCM658__MULTICORE__AMC7812/ADC/subdir_rules.mk=UTF-8
+encoding//Debug/MULTICORE/LCCM658__MULTICORE__AMC7812/ADC/subdir_vars.mk=UTF-8
+encoding//Debug/MULTICORE/LCCM658__MULTICORE__AMC7812/DAC/subdir_rules.mk=UTF-8
+encoding//Debug/MULTICORE/LCCM658__MULTICORE__AMC7812/DAC/subdir_vars.mk=UTF-8
+encoding//Debug/MULTICORE/LCCM658__MULTICORE__AMC7812/GPIO/subdir_rules.mk=UTF-8
+encoding//Debug/MULTICORE/LCCM658__MULTICORE__AMC7812/GPIO/subdir_vars.mk=UTF-8
+encoding//Debug/MULTICORE/LCCM658__MULTICORE__AMC7812/I2C/subdir_rules.mk=UTF-8
+encoding//Debug/MULTICORE/LCCM658__MULTICORE__AMC7812/I2C/subdir_vars.mk=UTF-8
+encoding//Debug/MULTICORE/LCCM658__MULTICORE__AMC7812/LOWLEVEL/subdir_rules.mk=UTF-8
+encoding//Debug/MULTICORE/LCCM658__MULTICORE__AMC7812/LOWLEVEL/subdir_vars.mk=UTF-8
+encoding//Debug/MULTICORE/LCCM658__MULTICORE__AMC7812/WIN32/subdir_rules.mk=UTF-8
+encoding//Debug/MULTICORE/LCCM658__MULTICORE__AMC7812/WIN32/subdir_vars.mk=UTF-8
+encoding//Debug/MULTICORE/LCCM658__MULTICORE__AMC7812/subdir_rules.mk=UTF-8
+encoding//Debug/MULTICORE/LCCM658__MULTICORE__AMC7812/subdir_vars.mk=UTF-8
 encoding//Debug/RLOOP/LCCM655__RLOOP__FCU_CORE/BRAKES/subdir_rules.mk=UTF-8
 encoding//Debug/RLOOP/LCCM655__RLOOP__FCU_CORE/BRAKES/subdir_vars.mk=UTF-8
 encoding//Debug/RLOOP/LCCM655__RLOOP__FCU_CORE/subdir_rules.mk=UTF-8
