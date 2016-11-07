@@ -33,6 +33,7 @@ static void vFCU_BRAKES__Apply_Span(E_FCU__BRAKE_INDEX_T eBrake);
  * @brief
  * Init any brakes variables, etc.
  * 
+ *
  */
 void vFCU_BRAKES__Init(void)
 {
