@@ -51,6 +51,8 @@ MS5607 - PRESSURE SENSOR
 	#define C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
 
+		/** MS5607 Device Address */
+		#define C_LOCALDEF__LCCM648__BUS_ADDX								(0x77U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM648__ENABLE_TEST_SPEC							(0U)

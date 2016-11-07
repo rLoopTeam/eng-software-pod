@@ -124,14 +124,14 @@
 
         void vMS5607__ReadTemperature(void);
         void vMS5607__ReadPressure(void);
-        Luint32 sMS5607__GetTemperature(void);
-        Luint32 sMS5607__GetPressure(void);
+        Lint32 sMS5607__GetTemperature(void);
+        Lint32 sMS5607__GetPressure(void);
         Lint16 s16MS5607__StartTemperatureConversion(void);
         Lint16 s16MS5607__StartPressureConversion(void);
         void vMS5607__CalculateTemperature(void);
         void vMS5607__CalculateTempCompensatedPressure(void);
         void vMS5607__compensateSecondOrder(void);
-        Luint8 uMS5607__crc4(Luint32);
+        Luint8 uMS5607__crc4(Luint32[]);
         Luint8 uMS5607__getLSB4Bits(Luint32 u32LastCoefficient);
 
 

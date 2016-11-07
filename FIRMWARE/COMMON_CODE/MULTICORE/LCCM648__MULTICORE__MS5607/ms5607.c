@@ -35,7 +35,7 @@ void vMS5607__Process(void)
 			break;
 		case MS5607_STATE__INIT_DEVICE:
 			//reset the device
-			s16Return = s16MS5607_I2C__TxCommand(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__RESET); 
+			s16Return = s16MS5607_I2C__TxCommand(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__RESET);
 			//The Reset sequence shall be be sent once after power-on to make sure theat the calibration PROM gets loaded into the internal register
 
 			if(s16Return >= 0)
@@ -100,22 +100,22 @@ void vMS5607__Process(void)
 			//TODO add delay here for conversion then
 			//After the conversion is over, move to next stage to read ADC
 			//todo, change to constant
-			if(_strMS5607.u32LoopCounter > 1000)
+			if(sMS5607.u32LoopCounter > 1000)
 			{
 				//move on to read the ADC
-				_strMS5607.eState = MS5607_STATE__READ_ADC_TEMPERATURE;
+				sMS5607.eState = MS5607_STATE__READ_ADC_TEMPERATURE;
 
 			}
 			else
 			{
-				_strMS5607.u32LoopCounter += 1;
+				sMS5607.u32LoopCounter += 1;
 				//stay in state
 			}
 			break;
 
 		case MS5607_STATE__READ_ADC_TEMPERATURE:
 			//TODO Read ADC Temp here
-			_strMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_PRESSURE;
+			sMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_PRESSURE;
 			break;
 
 		case MS5607_STATE__BEGIN_SAMPLE_PRESSURE:
@@ -138,22 +138,22 @@ void vMS5607__Process(void)
 				//TODO add delay here for conversion then
 				//After the conversion is over, move to next stage to read ADC
 				//todo, change to constant
-				if(_strMS5607.u32LoopCounter > 1000)
+				if(sMS5607.u32LoopCounter > 1000)
 				{
 					//move on to read the ADC
-					_strMS5607.eState = MS5607_STATE__READ_ADC_PRESSURE;
+					sMS5607.eState = MS5607_STATE__READ_ADC_PRESSURE;
 
 				}
 				else
 				{
-					_strMS5607.u32LoopCounter += 1;
+					sMS5607.u32LoopCounter += 1;
 					//stay in state
 				}
 			break;
 
 		case MS5607_STATE__READ_ADC_PRESSURE:
 
-			_strMS5607.eState = MS5607_STATE__COMPUTE;
+			sMS5607.eState = MS5607_STATE__COMPUTE;
 			break;
 
 		case MS5607_STATE__COMPUTE:
@@ -311,9 +311,9 @@ void vMS5607__CalculateTemperature(void)
 void vMS5607__CalculateTempCompensatedPressure(void)
 {
 	// Offset at actual temperature
-	sMS5607.sPRESSURE.s64OFF = ((Lint64)sMS5607.sCALIBRATION.u16C2 * f32NUMERICAL__Power(2, 17)) + (((Lint64)sMS5607.sCALIBRATION.u16C4 * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 6));
+	sMS5607.sPRESSURE.s64OFF = ((Lint64)sMS5607.u16Coefficients[2] * f32NUMERICAL__Power(2, 17)) + (((Lint64)sMS5607.u16Coefficients[4] * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 6));
 	// Sensitivity at actual temperature
-	sMS5607.sPRESSURE.s64SENS = ((Lint64)sMS5607.sCALIBRATION.u16C1 * f32NUMERICAL__Power(2, 16)) + (((Lint64)sMS5607.sCALIBRATION.u16C3 * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 7));
+	sMS5607.sPRESSURE.s64SENS = ((Lint64)sMS5607.u16Coefficients[1] * f32NUMERICAL__Power(2, 16)) + (((Lint64)sMS5607.u16Coefficients[3] * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 7));
 	// Temperature compensated pressure (10 to 1200mbar with 0.01mbar resolution)
 	sMS5607.sPRESSURE.s32P = (Lint32)(((sMS5607.sPRESSURE.u32D1 * sMS5607.sPRESSURE.s64SENS) / f32NUMERICAL__Power(2, 21)) - sMS5607.sPRESSURE.s64OFF) / f32NUMERICAL__Power(2, 15);
 }
