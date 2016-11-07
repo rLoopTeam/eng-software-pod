@@ -162,7 +162,11 @@
         void vMS5607__CalculateTemperature(void);
         void vMS5607__CalculateTempCompensatedPressure(void);
         void vMS5607__compensateSecondOrder(void);
+<<<<<<< HEAD
         Luint8 u8MS5607__CRC4(Luint32 * pu32Coefficients);
+=======
+        Luint8 uMS5607__crc4(Luint32[]);
+>>>>>>> Fix some syntax errors
         Luint8 uMS5607__getLSB4Bits(Luint32 u32LastCoefficient);
 
 
