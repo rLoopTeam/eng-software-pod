@@ -58,11 +58,17 @@ void vFCU__Process(void)
 			//setup flash memory access
 			vRM4_FLASH__Init();
 
+			//int the RM4's EEPROM
+			vRM4_EEPROM__Init();
+
+			//init the EEPROM Params
+			vEEPARAM__Init();
+
 			//GIO
 			vRM4_GIO__Init();
 
 			//change state
-			sFCU.eInitStates = INIT_STATE__INIT_COMMS;
+			sFCU.eInitStates = INIT_STATE__LOWER_SYSTEMS; //INIT_STATE__INIT_COMMS;
 			break;
 
 		case INIT_STATE__INIT_COMMS:
@@ -98,13 +104,17 @@ void vFCU__Process(void)
 			vSC16__Init(7);
 
 			//move state
+			sFCU.eInitStates = INIT_STATE__LOWER_SYSTEMS;
+			break;
+
+		case INIT_STATE__LOWER_SYSTEMS:
+			//init the brake systems
+			vFCU_BRAKES__Init();
+
 			sFCU.eInitStates = INIT_STATE__RUN;
 			break;
 
 		case INIT_STATE__RUN:
-			//init the brake systems
-			vFCU_BRAKES__Init();
-			
 			//process the brakes.
 			vFCU_BRAKES__Process();
 			break;

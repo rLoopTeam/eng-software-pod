@@ -26,6 +26,16 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC</locationURI>
+		</link>
+		<link>
+			<name>MULTICORE/LCCM188__MULTICORE__EEPROM_PARAMS</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM188__MULTICORE__EEPROM_PARAMS</locationURI>
+		</link>
+		<link>
 			<name>MULTICORE/LCCM357__MULTICORE__SOFTWARE_FIFO</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM357__MULTICORE__SOFTWARE_FIFO</locationURI>
@@ -149,6 +159,11 @@
 			<name>RM4/LCCM240__RM4__N2HET</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM240__RM4__N2HET</locationURI>
+		</link>
+		<link>
+			<name>RM4/LCCM230__RM4__EEPROM</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM230__RM4__EEPROM</locationURI>
 		</link>
 
 	</linkedResources>

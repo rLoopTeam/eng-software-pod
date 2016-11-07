@@ -39,6 +39,8 @@ void vFCU_BRAKES__Init(void)
 {
 
 	Luint8 u8Counter;
+	Luint32 u32Header;
+	Luint8 u8Test;
 
 	//loop through each brake.
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
@@ -60,10 +62,47 @@ void vFCU_BRAKES__Init(void)
 
 	}
 
+	//read the header.
+	u32Header = u32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER);
 
-	//todo, load the zero value from memory.
+	//check the CRC
+	u8Test = u8EEPARAM_CRC__Is_CRC_OK(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER,
+										C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN,
+										C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_CRC);
+	if(u8Test == 1U)
+	{
+		//valid
+		sFCU.sBrakes[0].sMLP.u16ADC_Zero = u16EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO);
+		sFCU.sBrakes[1].sMLP.u16ADC_Zero = u16EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_ZERO);
+
+		sFCU.sBrakes[0].sMLP.f32SystemSpan = f32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_SPAN);
+		sFCU.sBrakes[1].sMLP.f32SystemSpan = f32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN);
+	}
+	else
+	{
+		//CRC is invalid
+		//rewrite.
+		vEEPARAM__WriteU32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER, 0xAABBCCDD, 1U);
+
+		//save the zero
+		vEEPARAM__WriteU16(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO, 0U, 1U);
+		vEEPARAM__WriteU16(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_ZERO, 0U, 1U);
+
+		//do the span
+		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_SPAN, 1.0F, 1U);
+		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN, 1.0F, 0U);
+
+		//redo the CRC;
+		vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER,
+												C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN,
+												C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_CRC);
+
+		//Todo:
+		//1. Reload the structures.
+		//2. Set Flags.
 
 
+	}
 
 }
 
