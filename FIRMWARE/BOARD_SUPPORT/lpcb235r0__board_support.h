@@ -235,8 +235,8 @@ RM4 MiB SPI 1,3 and 5 Common Driver
 
 		//enable specific channels
 		#define C_LOCALDEF__LCCM280__ENABLE_MIBSPI_1						(1U)
-		#define C_LOCALDEF__LCCM280__ENABLE_MIBSPI_3						(0U)
-		#define C_LOCALDEF__LCCM280__ENABLE_MIBSPI_5						(0U)
+		#define C_LOCALDEF__LCCM280__ENABLE_MIBSPI_3						(1U)
+		#define C_LOCALDEF__LCCM280__ENABLE_MIBSPI_5						(1U)
 
 		//set to 1 to use interrupts
 		#define C_LOCALDEF__LCCM280__ENABLE_INTERRUPTS						(1U)
@@ -343,7 +343,7 @@ RM4 I2C
 	#if C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE == 1U
 
 		//The bus freq (100K, 400K, 1MHZ)
-		#define C_LOCALDEF__LCCM215__BUS_FREQUENCY_HZ   					(100000U)
+		#define C_LOCALDEF__LCCM215__BUS_FREQUENCY_HZ   					(400000U)
 
 		#define C_LOCALDEF__LCCM215__OWN_ADDRESS                        	(0x50)
 
@@ -577,6 +577,102 @@ ADC Module
 		//main include file
 		#include <RM4/LCCM414__RM4__ADC/rm4_adc.h>
 	#endif //C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE
+
+
+/*******************************************************************************
+RM4 SPI2,4 MODULE
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM108__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM108__ENABLE_THIS_MODULE == 1U
+
+		/** interrupt support */
+		#define C_LOCALDEF__LCCM108__ENABLE_INTERRUPTS 						(0U)
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM108__ENABLE_TEST_SPEC		 				(0U)
+
+		//based on our PinMUX system, there are various limitations
+		//Use NENA = 1, or NCS1 = 0
+		#define C_LOCALDEF__LCCM108__SPI2_PINMUX_NENA_OR_NCS1				(1U)
+
+		//SPI2 Setup
+
+		//the transfer length of up to 16 bits
+		#define C_LOCALDEF__LCCM108__SPI2__DATAFMT_0__TXLEN_BITS			(8U)
+		#define C_LOCALDEF__LCCM108__SPI2__DATAFMT_1__TXLEN_BITS			(8U)
+		#define C_LOCALDEF__LCCM108__SPI2__DATAFMT_2__TXLEN_BITS			(8U)
+		#define C_LOCALDEF__LCCM108__SPI2__DATAFMT_3__TXLEN_BITS			(8U)
+
+		//set the speed of each format
+		#define C_LOCALDEF__LCCM108__SPI2__DATAFMT_0__SPEED					SPI24_SPEED__5MHZ
+		#define C_LOCALDEF__LCCM108__SPI2__DATAFMT_1__SPEED					SPI24_SPEED__5MHZ
+		#define C_LOCALDEF__LCCM108__SPI2__DATAFMT_2__SPEED					SPI24_SPEED__5MHZ
+		#define C_LOCALDEF__LCCM108__SPI2__DATAFMT_3__SPEED					SPI24_SPEED__5MHZ
+
+		//clock phase
+		#define C_LOCALDEF__LCCM108__SPI2__DATAFMT_0__CPHA					SPI24_CPHA__1
+		#define C_LOCALDEF__LCCM108__SPI2__DATAFMT_1__CPHA					SPI24_CPHA__1
+		#define C_LOCALDEF__LCCM108__SPI2__DATAFMT_2__CPHA					SPI24_CPHA__1
+		#define C_LOCALDEF__LCCM108__SPI2__DATAFMT_3__CPHA					SPI24_CPHA__1
+
+
+		//the transfer length of up to 16 bits
+		#define C_LOCALDEF__LCCM108__SPI4__DATAFMT_0__TXLEN_BITS			(8U)
+		#define C_LOCALDEF__LCCM108__SPI4__DATAFMT_1__TXLEN_BITS			(8U)
+		#define C_LOCALDEF__LCCM108__SPI4__DATAFMT_2__TXLEN_BITS			(8U)
+		#define C_LOCALDEF__LCCM108__SPI4__DATAFMT_3__TXLEN_BITS			(8U)
+
+		//set the speed of each format
+		#define C_LOCALDEF__LCCM108__SPI4__DATAFMT_0__SPEED					SPI24_SPEED__5MHZ
+		#define C_LOCALDEF__LCCM108__SPI4__DATAFMT_1__SPEED					SPI24_SPEED__5MHZ
+		#define C_LOCALDEF__LCCM108__SPI4__DATAFMT_2__SPEED					SPI24_SPEED__5MHZ
+		#define C_LOCALDEF__LCCM108__SPI4__DATAFMT_3__SPEED					SPI24_SPEED__5MHZ
+
+		//clock phase
+		#define C_LOCALDEF__LCCM108__SPI4__DATAFMT_0__CPHA					SPI24_CPHA__1
+		#define C_LOCALDEF__LCCM108__SPI4__DATAFMT_1__CPHA					SPI24_CPHA__1
+		#define C_LOCALDEF__LCCM108__SPI4__DATAFMT_2__CPHA					SPI24_CPHA__1
+		#define C_LOCALDEF__LCCM108__SPI4__DATAFMT_3__CPHA					SPI24_CPHA__1
+
+
+		//main include file
+		#include <RM4/LCCM108__RM4__SPI24/rm4_spi24.h>
+
+	#endif //#if  C_LOCALDEF__LCCM108__ENABLE_THIS_MODULE == 1
+
+
+/*******************************************************************************
+RM4 High End Timers (HET)
+General Configuration
+HR Clock = 100MHZ
+VCLK2 = 100Mhz, Actual HR Clock = 100MHZ
+Loop Time = 100ns
+LR Time = 160ns
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM240__ENABLE_THIS_MODULE							(1U)
+ 	 #if C_LOCALDEF__LCCM240__ENABLE_THIS_MODULE == 1U
+
+		//Module Enables
+		#define C_LOCALDEF__LCCM240__ENABLE_N2HET1							(1U)
+		#define C_LOCALDEF__LCCM240__ENABLE_N2HET2							(0U)
+
+		//enable interrupts or not
+		#define C_LOCALDEF__LCCM240__ENABLE_INTERRUPTS						(0U)
+
+
+		//HET Options
+		#define C_LOCALDEF__LCCM240__ENABLE_INPUT_CAPTURE					(0U)
+		#define C_LOCALDEF__LCCM240__ENABLE_EDGE_CAPTURE					(0U)
+		#define C_LOCALDEF__LCCM240__ENABLE_PWM								(0U)
+		#define C_LOCALDEF__LCCM240__ENABLE_TIMESTAMPING					(0U)
+
+		//testing
+		#define C_LOCALDEF__LCCM240__ENABLE_TEST_SPEC						(0U)
+
+ 	 	//main include
+ 	 	#include <RM4/LCCM240__RM4__N2HET/rm4_n2het.h>
+
+ 	 #endif //C_LOCALDEF__LCCM240__ENABLE_THIS_MODULE
 
 #endif //_LPCB235R0_BOARD_SUPPORT_H_
 
