@@ -674,5 +674,20 @@ LR Time = 160ns
 
  	 #endif //C_LOCALDEF__LCCM240__ENABLE_THIS_MODULE
 
+/*******************************************************************************
+RM4 EEPROM EMULATION
+You'll need the flash access module for this
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE							(1U)
+ 	 #if C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE == 1U
+
+		//testing options
+		#define C_LOCALDEF__LCCM230__ENABLE_TEST_SPEC						(0U)
+
+ 	 	//main include
+ 	 	#include <RM4/LCCM230__RM4__EEPROM/rm4_eeprom.h>
+
+ 	 #endif //C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE
+
 #endif //_LPCB235R0_BOARD_SUPPORT_H_
 

@@ -15,6 +15,9 @@
 		/** Setup the SPI uarts */
 		INIT_STATE__INIT_SPI_UARTS,
 
+		/** Setup any lower systems */
+		INIT_STATE__LOWER_SYSTEMS,
+
 
 		/** init is done, run the main state machine */
 		INIT_STATE__RUN,
