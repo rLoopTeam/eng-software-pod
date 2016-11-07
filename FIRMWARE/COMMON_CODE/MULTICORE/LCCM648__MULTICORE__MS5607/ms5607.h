@@ -68,11 +68,27 @@
         	MS5607_STATE__INTERRUPT,
         }E_MS5607_STATE_T;
 
-
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
-		
+
+        /*** The temperature compensation values ***/
+		struct _strTemperature
+		{
+			Lint32 s32dT;
+			Lint32 s32TEMP;
+			Luint32 u32D2; //D2 Digital temperature value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
+		};
+
+		/*** The pressure values ***/
+		struct _strPressure
+		{
+			Lint64 s64OFF;
+			Lint64 s64SENS;
+			Lint32 s32P;
+			Luint32 u32D1; //D1 Digital pressure value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
+		};
+
 		/** Main MS5607 Structure */
 		struct _strMS5607
 		{
@@ -91,21 +107,11 @@
 			/** counter the number of main program loops */
 			Luint32 u32LoopCounter;
 
-			struct
-			{
-				Lint32 s32dT = 0U;
-				Lint32 s32TEMP = 0U;
-				Luint32 u32D2 = 0U; //D2 Digital temperature value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
-			}sTEMP;
+			/** temperature values **/
+			struct _strTemperature sTEMP;
 
-			struct
-			{
-				Lint64 s64OFF = 0U;
-				Lint64 s64SENS = 0U;
-				Lint32 s32P = 0U;
-				Luint32 u32D1 = 0U; //D1 Digital pressure value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
-			}sPRESSURE;
-
+			/** pressure values **/
+			struct _strPressure sPRESSURE;
 		};
 
 		/*******************************************************************************

@@ -272,7 +272,7 @@ void vMS5607__ReadPressure(void)
 	sMS5607.sPRESSURE.u32D1 = uMS5607__Read24(MS5607_CMD__ADC_READ);
 }
 
-/** Return the compensated temperature as a floating point value in �C */
+/** Return the compensated temperature as a floating point value in C */
 Lint32 sMS5607__GetTemperature(void)
 {
 	return sMS5607.sTEMP.s32TEMP;
@@ -302,9 +302,9 @@ Lint16 s16MS5607__StartPressureConversion(void)
 void vMS5607__CalculateTemperature(void)
 {
 	// Difference between actual and reference temperature
-	sMS5607.sTEMP.s32dT = (Lint32)sMS5607.sTEMP.u32D2 - ((Lint32)sMS5607.sCALIBRATION.u16C5 * f32NUMERICAL__Power(2, 8));
+	sMS5607.sTEMP.s32dT = (Lint32)sMS5607.sTEMP.u32D2 - ((Lint32)sMS5607.u16Coefficients[5] * f32NUMERICAL__Power(2, 8));
 	// Actual temperature (-40 unsigned long long 85°C with 0.01°C resolution)
-	sMS5607.sTEMP.s32TEMP = 2000 + ((sMS5607.sTEMP.s32dT * (Lint64)sMS5607.sCALIBRATION.u16C6) / f32NUMERICAL__Power(2, 23));
+	sMS5607.sTEMP.s32TEMP = 2000 + ((sMS5607.sTEMP.s32dT * (Lint64)sMS5607.u16Coefficients[6]) / f32NUMERICAL__Power(2, 23));
 }
 
 /** Calculate Temperature Compensated Pressure */
