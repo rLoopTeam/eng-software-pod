@@ -21,6 +21,7 @@
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 
+//main FCU structure;
 struct _strFCU sFCU;
 
 /***************************************************************************//**
@@ -101,7 +102,11 @@ void vFCU__Process(void)
 			break;
 
 		case INIT_STATE__RUN:
-
+			//init the brake systems
+			vFCU_BRAKES__Init();
+			
+			//process the brakes.
+			vFCU_BRAKES__Process();
 			break;
 
 	}//switch(sFCU.eInitStates)
