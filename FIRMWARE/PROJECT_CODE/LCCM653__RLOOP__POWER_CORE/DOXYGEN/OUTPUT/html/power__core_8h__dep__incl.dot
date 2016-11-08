@@ -19,4 +19,6 @@ digraph "power_core.h"
   Node8 [label="SERIAL_NETWORK/power\l_core__serial_network.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$power__core____serial__network_8c.html",tooltip="Serial network interface to the Pi. "];
   Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node9 [label="STATE_MACHINE/power\l_core__state_machine.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$power__core____state__machine_8c.html",tooltip="Main state machine layer for the Power Node. "];
+  Node1 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="WIN32/power_core__win32.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$power__core____win32_8c.html"];
 }

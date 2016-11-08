@@ -9,6 +9,7 @@ var power__core_8h =
       [ "INIT_STATE__CELL_TEMP_SEARCH", "power__core_8h.html#ac3a9575010d4bd27eb79d8edd68a15a9ad3ba71f78cba30689be517e341e7bf70", null ],
       [ "INIT_STATE__CELL_TEMP_SEARCH_DONE", "power__core_8h.html#ac3a9575010d4bd27eb79d8edd68a15a9a6f9aaefbc2811923c90154c7149ad1cf", null ],
       [ "INIT_STATE__BMS", "power__core_8h.html#ac3a9575010d4bd27eb79d8edd68a15a9a4a374b8f0acd36bb2fb909449f149236", null ],
+      [ "INIT_STATE__TSYS01", "power__core_8h.html#ac3a9575010d4bd27eb79d8edd68a15a9a2e28432166b5e6c290cbf30d5d48d9b2", null ],
       [ "INIT_STATE__RUN", "power__core_8h.html#ac3a9575010d4bd27eb79d8edd68a15a9aaf2061203d5df58c1953055d1df17093", null ]
     ] ],
     [ "f32PWRNODE_NODETEMP__Get_Temperature_DegC", "group___p_o_w_e_r___n_o_d_e_____n_o_d_e___t_e_m_p_e_r_a_t_u_r_e.html#ga9c1bdd2cae1366462524f54fe67a6dd6", null ],
