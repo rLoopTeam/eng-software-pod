@@ -19,6 +19,10 @@
 		INIT_STATE__LOWER_SYSTEMS,
 
 
+		/** Setup any timers */
+		INIT_STATE__START_TIMERS,
+
+
 		/** init is done, run the main state machine */
 		INIT_STATE__RUN,
 
