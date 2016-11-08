@@ -7,6 +7,7 @@ var files =
     [ "NODE_TEMP", "dir_94d6c7e36c44989395253875190df460.html", "dir_94d6c7e36c44989395253875190df460" ],
     [ "SERIAL_NETWORK", "dir_b995f5cf5f3b4f87be2648b7f67c2003.html", "dir_b995f5cf5f3b4f87be2648b7f67c2003" ],
     [ "STATE_MACHINE", "dir_98f8a0a501a187a56ef720b49b9f6d34.html", "dir_98f8a0a501a187a56ef720b49b9f6d34" ],
+    [ "WIN32", "dir_bee4c5d732cc5e91f2341bc9763e21a5.html", "dir_bee4c5d732cc5e91f2341bc9763e21a5" ],
     [ "power_core.c", "power__core_8c.html", "power__core_8c" ],
     [ "power_core.h", "power__core_8h.html", "power__core_8h" ],
     [ "power_core__localdef.h", "power__core____localdef_8h.html", null ]

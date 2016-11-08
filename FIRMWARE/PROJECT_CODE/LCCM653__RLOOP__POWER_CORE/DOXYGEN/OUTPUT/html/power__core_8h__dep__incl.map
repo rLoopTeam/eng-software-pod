@@ -7,4 +7,5 @@
 <area shape="rect" id="node7" href="$power__core_8c.html" title="Top Level for the Power Node Core systems. " alt="" coords="1000,87,1099,114"/>
 <area shape="rect" id="node8" href="$power__core____serial__network_8c.html" title="Serial network interface to the Pi. " alt="" coords="1123,80,1301,121"/>
 <area shape="rect" id="node9" href="$power__core____state__machine_8c.html" title="Main state machine layer for the Power Node. " alt="" coords="1326,80,1493,121"/>
+<area shape="rect" id="node10" href="$power__core____win32_8c.html" title="WIN32/power_core__win32.c" alt="" coords="1517,87,1707,114"/>
 </map>
