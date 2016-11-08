@@ -24,6 +24,10 @@
 extern struct _strFCU sFCU;
 
 
+void vFCU_BRAKES_SW__Init(void)
+{
+
+}
 
 /***************************************************************************//**
  * @brief

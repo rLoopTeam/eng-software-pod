@@ -19,6 +19,27 @@
 		Defines
 		*******************************************************************************/
 
+		/** Brakes states */
+		typedef enum
+		{
+
+			/** We are in idle state */
+			BRAKE_STATE__IDLE = 0U,
+
+			/** Beginning to move the brakes */
+			BRAKE_STATE__BEGIN_MOVE,
+
+			/** The brakes are moving */
+			BRAKE_STATE__MOVING,
+
+			/** The brakes were moving, and now they have stopped, cleanup any necessary stuff */
+			BRAKE_STATE__MOVE_STOPPED,
+
+			/** A fault has occurred with the brake system */
+			BRAKE_STATE__FAULT
+
+		}E_FCU_BRAKES__STATES_T;
+
 
 		/*******************************************************************************
 		Structures
@@ -31,6 +52,9 @@
 
 			/** The init statemachine */
 			E_FCU__INIT_STATE_TYPES eInitStates;
+
+			/** The brakes state machine */
+			E_FCU_BRAKES__STATES_T eBrakeStates;
 
 			/** Brake Substructure */
 			struct
@@ -70,11 +94,19 @@
 		DLL_DECLARATION void vFCU__Init(void);
 		DLL_DECLARATION void vFCU__Process(void);
 		
+		void vFCU__RTI_100MS_ISR(void);
+		void vFCU__RTI_10MS_ISR(void);
+
 		//brakes
 		void vFCU_BRAKES__Init(void);
 		void vFCU_BRAKES__Process(void);
 		
+		//stepper drive
+		void vFCU_BRAKES_STEP__Init(void);
+		void vFCU_BRAKES_STEP__Process(void);
+
 		//brake switches
+		void vFCU_BRAKES_SW__Init(void);
 		void vFCU_BRAKES_SW__B0_SwitchExtend_ISR(void);
 		void vFCU_BRAKES_SW__B0_SwitchRetract_ISR(void);
 		void vFCU_BRAKES_SW__B1_SwitchExtend_ISR(void);
@@ -83,6 +115,10 @@
 		Luint8 u8FCU_BRAKES_SW__Get_B0_Retract(void);
 		Luint8 u8FCU_BRAKES_SW__Get_B1_Extend(void);
 		Luint8 u8FCU_BRAKES_SW__Get_B1_Retract(void);
+
+		//brakes MLP sensor
+		void vFCU_BRAKES_MLP__Init(void);
+		void vFCU_BRAKES_MLP__Process(void);
 
 
 	#endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U

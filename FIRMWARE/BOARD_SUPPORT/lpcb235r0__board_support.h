@@ -806,16 +806,16 @@ RTI MODULE
 		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(50U)
 
 		//Sets up the time periods for each compare. Must be defined in microSeconds.
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_PERIOD_US 				(15625U)
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_PERIOD_US 				(100000U)
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_PERIOD_US 				(1000000U)
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_PERIOD_US 				(100000U)
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_PERIOD_US 				(10000U)
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_PERIOD_US 				(50U)
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_3_PERIOD_US 				(1000000U)
 
 		//these are the interrupt handlers which should point
 		//to a function, otherwise leave as default
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_CALLBACK					vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_CALLBACK					vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_CALLBACK					vFCU__RTI_100MS_ISR()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_CALLBACK					vFCU__RTI_10MS_ISR()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_CALLBACK	 				vSTEPDRIVE_TIMEBASE__ISR()
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_3_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
 
 		//These values need to be updated if the HALCoGen file is modified
