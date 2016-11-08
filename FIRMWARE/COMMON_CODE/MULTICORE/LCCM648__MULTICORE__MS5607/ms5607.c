@@ -114,8 +114,37 @@ void vMS5607__Process(void)
 			break;
 
 		case MS5607_STATE__READ_ADC_TEMPERATURE:
-			//TODO Read ADC Temp here
-			sMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_PRESSURE;
+			//TODO Read ADC Temp here - USE s16RM4_I2C_USER__RxByteArray
+			//CHANGE s16Return = s16TSYS01_I2C__RxU24(C_LOCALDEF__LCCM647__BUS_ADDX, TSYS01_REG__READ_ADC_TEMPERATURE_RESULT, &sTSYS.u32LastResult);
+			if(s16Return >= 0)
+			{
+
+				#if C_LOCALDEF__LCCM648__ENABLE_DS_VALUES == 1U
+					sMS5607.u32LastResultTemperature = 8077636;
+				#endif
+				//add to filter
+				sMS5607.u32AverageResultTemperature = u32NUMERICAL_FILTERING__Add_U32(sMS5607.u32LastResultTemperature,
+																		&sMS5607.u16AverageCounterTemperature,
+																		C_MS5607__MAX_FILTER_SAMPLES,
+																		&sMS5607.u32AverageArrayTemperature[0]);
+				#if C_LOCALDEF__LCCM648__ENABLE_DS_VALUES == 1U
+					sMS5607.u32AverageResultTemperature = 8077636;
+				#endif
+
+				//generate the DIV256 option
+				sMS5607.u32AverageResult_Div256Temperature = sMS5607.u32AverageResultTemperature >> 8U;
+
+				//change state
+				sMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_PRESSURE;
+			}
+			else
+			{
+				//error has occurred
+				sMS5607.eState = MS5607_STATE__ERROR;
+			}
+
+
+
 			break;
 
 		case MS5607_STATE__BEGIN_SAMPLE_PRESSURE:
@@ -152,8 +181,37 @@ void vMS5607__Process(void)
 			break;
 
 		case MS5607_STATE__READ_ADC_PRESSURE:
+			//TODO Read ADC Temp here - USE s16RM4_I2C_USER__RxByteArray
+			//CHANGE s16Return = s16TSYS01_I2C__RxU24(C_LOCALDEF__LCCM647__BUS_ADDX, TSYS01_REG__READ_ADC_TEMPERATURE_RESULT, &sTSYS.u32LastResult);
 
-			sMS5607.eState = MS5607_STATE__COMPUTE;
+			if(s16Return >= 0)
+			{
+
+				#if C_LOCALDEF__LCCM648__ENABLE_DS_VALUES == 1U
+					sMS5607.u32LastResultPressure = 6465444;
+				#endif
+				//add to filter
+				sMS5607.u32AverageResultPressure = u32NUMERICAL_FILTERING__Add_U32(sMS5607.u32LastResultPressure,
+																		&sMS5607.u16AverageCounterPressure,
+																		C_MS5607__MAX_FILTER_SAMPLES,
+																		&sMS5607.u32AverageArrayPressure[0]);
+				#if C_LOCALDEF__LCCM648__ENABLE_DS_VALUES == 1U
+					sMS5607.u32AverageResultPressure = 6465444;
+				#endif
+
+				//generate the DIV256 option
+				sMS5607.u32AverageResult_Div256Pressure = sMS5607.u32AverageResultPressure >> 8U;
+
+				//change state
+				sMS5607.eState = MS5607_STATE__COMPUTE;
+			}
+			else
+			{
+				//error has occurred
+				sMS5607.eState = MS5607_STATE__ERROR;
+			}
+
+
 			break;
 
 		case MS5607_STATE__COMPUTE:

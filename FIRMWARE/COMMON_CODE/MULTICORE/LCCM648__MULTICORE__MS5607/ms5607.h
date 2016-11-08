@@ -21,7 +21,8 @@
 		*******************************************************************************/
 		#define MS5607_TEMPERATURE_OSR			MS5607_CMD__CONVERT_D2_OSR_4096
 		#define MS5607_PRESSURE_OSR				MS5607_CMD__CONVERT_D1_OSR_4096
-		#define MS5607_NUM_OF_COEFFICIENTS		8U
+		#define C_MS5607__NUM_OF_COEFFICIENTS	(8U)
+		#define C_MS5607__MAX_FILTER_SAMPLES    (8U)
 
 		/** COMMANDS */
         typedef enum
@@ -103,9 +104,39 @@
 			 *		C6 - Temperature coefficient of the temperature
 			 *		C7 - CRC
 			 * */
-			Luint16 u16Coefficients[MS5607_NUM_OF_COEFFICIENTS];
+			Luint16 u16Coefficients[C_MS5607__NUM_OF_COEFFICIENTS];
 			/** counter the number of main program loops */
 			Luint32 u32LoopCounter;
+
+			/** Last sampled temperature ADC result*/
+			Luint32 u32LastResultTemperature;
+
+			/** Last average temperature  result */
+			Luint32 u32AverageResultTemperature;
+
+			/** some reason the math requires div256 */
+			Luint32 u32AverageResult_Div256Temperature;
+
+			/** Count the averages */
+			Luint16 u16AverageCounterTemperature;
+
+			/** The averages */
+			Luint32 u32AverageArrayTemperature[C_MS5607__MAX_FILTER_SAMPLES];
+
+			/** Last sampled pressure ADC result*/
+			Luint32 u32LastResultPressure;
+
+			/** Last average pressure  result */
+			Luint32 u32AverageResultPressure;
+
+			/** some reason the math requires div256 */
+			Luint32 u32AverageResult_Div256Pressure;
+
+			/** Count the averages */
+			Luint16 u16AverageCounterPressure;
+
+			/** The averages */
+			Luint32 u32AverageArrayPressure[C_MS5607__MAX_FILTER_SAMPLES];
 
 			/** temperature values **/
 			struct _strTemperature sTEMP;
@@ -113,7 +144,7 @@
 			/** pressure values **/
 			struct _strPressure sPRESSURE;
 		};
-
+		u32AverageResultTemperature
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/
