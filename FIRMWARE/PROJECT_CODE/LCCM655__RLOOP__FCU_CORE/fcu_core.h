@@ -74,6 +74,17 @@
 		void vFCU_BRAKES__Init(void);
 		void vFCU_BRAKES__Process(void);
 		
+		//brake switches
+		void vFCU_BRAKES_SW__B0_SwitchExtend_ISR(void);
+		void vFCU_BRAKES_SW__B0_SwitchRetract_ISR(void);
+		void vFCU_BRAKES_SW__B1_SwitchExtend_ISR(void);
+		void vFCU_BRAKES_SW__B1_SwitchRetract_ISR(void);
+		Luint8 u8FCU_BRAKES_SW__Get_B0_Extend(void);
+		Luint8 u8FCU_BRAKES_SW__Get_B0_Retract(void);
+		Luint8 u8FCU_BRAKES_SW__Get_B1_Extend(void);
+		Luint8 u8FCU_BRAKES_SW__Get_B1_Retract(void);
+
+
 	#endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 	//safetys
 	#ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE

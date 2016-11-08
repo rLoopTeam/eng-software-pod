@@ -26,6 +26,16 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>MULTICORE/LCCM121__MULTICORE__MCP23S17</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM121__MULTICORE__MCP23S17</locationURI>
+		</link>
+		<link>
+			<name>MULTICORE/LCCM231__MULTICORE__STEPPER_DRIVE</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM231__MULTICORE__STEPPER_DRIVE</locationURI>
+		</link>
+		<link>
 			<name>MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC</locationURI>
@@ -164,6 +174,16 @@
 			<name>RM4/LCCM230__RM4__EEPROM</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM230__RM4__EEPROM</locationURI>
+		</link>
+		<link>
+			<name>RM4/LCCM107__RM4__EMIF</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM107__RM4__EMIF</locationURI>
+		</link>
+		<link>
+			<name>RM4/LCCM124__RM4__RTI</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM124__RM4__RTI</locationURI>
 		</link>
 
 	</linkedResources>
