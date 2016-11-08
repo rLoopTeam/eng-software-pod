@@ -196,26 +196,27 @@ RM4 GIO MODULE
 	#define C_LOCALDEF__LCCM133__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM133__ENABLE_THIS_MODULE == 1U
 
-		#define C_LOCALDEF__LCCM133__ENABLE_INTERRUPTS						(0U)
+		#define C_LOCALDEF__LCCM133__ENABLE_INTERRUPTS						(1U)
 
 		#if C_LOCALDEF__LCCM133__ENABLE_INTERRUPTS == 1U
 
-			#define GIOA_PIN_0_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_1_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_2_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_3_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_4_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOA_PIN_0_ISR()										vFCU_BRAKES_SW__B0_SwitchRetract_ISR()
+			#define GIOA_PIN_1_ISR()										vFCU_BRAKES_SW__B0_SwitchExtend_ISR()
+			#define GIOA_PIN_2_ISR()										vSC16_INT__Handle_ISR(0U)
+			#define GIOA_PIN_3_ISR()										vSC16_INT__Handle_ISR(1U)
+			#define GIOA_PIN_4_ISR()										vSC16_INT__Handle_ISR(2U)
 			#define GIOA_PIN_5_ISR()										vRM4_GIO_ISR__DefaultRoutine()
 			#define GIOA_PIN_6_ISR()										vRM4_GIO_ISR__DefaultRoutine()
 			#define GIOA_PIN_7_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_0_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_1_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+
+			#define GIOB_PIN_0_ISR()										vSC16_INT__Handle_ISR(7U)
+			#define GIOB_PIN_1_ISR()										vSC16_INT__Handle_ISR(3U)
 			#define GIOB_PIN_2_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_3_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOB_PIN_3_ISR()										vSC16_INT__Handle_ISR(4U)
 			#define GIOB_PIN_4_ISR()										vRM4_GIO_ISR__DefaultRoutine()
 			#define GIOB_PIN_5_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_6_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_7_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOB_PIN_6_ISR()										vSC16_INT__Handle_ISR(5U)
+			#define GIOB_PIN_7_ISR()										vSC16_INT__Handle_ISR(8U)
 
 		#endif //#if C_LOCALDEF__LCCM133__ENABLE_INTERRUPTS == 1U
 
@@ -499,8 +500,8 @@ ADC Module
 
 
 		/** Determine which of ADC1 to enable */
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN0						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN1						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN0						(1U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN1						(1U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN2						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN3						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN4						(0U)
@@ -529,7 +530,7 @@ ADC Module
 		 * structure to reduce the complexity of finding our result
 		 * Value can be from 1 to 24
 		 */
-		#define C_LOCALDEF__LCCM414__NUM_CONNECTED_DEVICES					(3U)
+		#define C_LOCALDEF__LCCM414__NUM_CONNECTED_DEVICES					(2U)
 
 		/** For each device we determine the location of the device within our strucrture
 		 * You must configure an index from 0 to NUM_CONNECTED_DEVICES - 1
@@ -538,7 +539,7 @@ ADC Module
 		 */
 		#define C_LOCALDEF__LCCM414__ADC1_IN0__INDEX						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1_IN1__INDEX						(1U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN2__INDEX						(2U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN2__INDEX						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1_IN3__INDEX						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1_IN4__INDEX						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1_IN5__INDEX						(0U)
@@ -566,7 +567,6 @@ ADC Module
 		 * voltage based on VREF
 		 */
 		#define C_LOCALDEF__LCCM414__ENABLE_VOLTAGE_CALC					(1U)
-
 
 		#define C_LOCALDEF__LCCM414__ENABLE_INTERRUPTS						(0U)
 
@@ -654,7 +654,7 @@ LR Time = 160ns
 
 		//Module Enables
 		#define C_LOCALDEF__LCCM240__ENABLE_N2HET1							(1U)
-		#define C_LOCALDEF__LCCM240__ENABLE_N2HET2							(0U)
+		#define C_LOCALDEF__LCCM240__ENABLE_N2HET2							(1U)
 
 		//enable interrupts or not
 		#define C_LOCALDEF__LCCM240__ENABLE_INTERRUPTS						(0U)
@@ -688,6 +688,152 @@ You'll need the flash access module for this
  	 	#include <RM4/LCCM230__RM4__EEPROM/rm4_eeprom.h>
 
  	 #endif //C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE
+
+/*******************************************************************************
+EMIF (External Memory Interface)
+*******************************************************************************/
+ 	#define C_LOCALDEF__LCCM107__ENABLE_THIS_MODULE 						(1U)
+	#if C_LOCALDEF__LCCM107__ENABLE_THIS_MODULE == 1U
+
+		//enable special features
+		#define C_LOCALDEF__LCCM107__ENABLE_SPECIAL_FEATURES				(0U)
+
+		//testing options
+		#define C_LOCALDEF__LCCM107__ENABLE_TEST_SPEC						(0U)
+
+		/* EMIF Clock Speed
+		 * The EMIF clock is from VCLK3 which can be HCLK/1... HCLK/16
+		 * Remember in our standard systems HCLK = VCLK/2.
+		 * Valid values are 0x00..0x0F = (0..16d)
+		 * Typical value is 1 (= HCLK/2 = 100MHZ for a 200MHZ system clock)
+		 */
+		#define C_LOCALDEF__LCCM107__EMIF_CLOCK_DIVISOR						(1U)
+
+
+		//These are the nCS lines we can use, they relate to physical memory addresses
+		//Refer to the microcontroller manual, however usually
+		//CS0 - 0x80000000 -> 0x87FFFFFF 	= SDRAM (128MB)
+		//CS2 - 0x60000000 -> 0x64000000
+		//CS3 - 0x64000000 -> 0x68000000
+		//CS4 - 0x68000000 -> 0x6C000000
+		#define C_LOCALDEF__LCCM107__ENABLE_CS0								(0U)
+		#define C_LOCALDEF__LCCM107__ENABLE_CS2								(0U)
+		#define C_LOCALDEF__LCCM107__ENABLE_CS3								(0U)
+		#define C_LOCALDEF__LCCM107__ENABLE_CS4								(0U)
+
+		//various options
+		//When run at 100MHZ (clock divisor = 1), widths are typically 10ns multiples
+		#if C_LOCALDEF__LCCM107__ENABLE_CS2 == 1U
+			//0-15
+			#define C_LOCALDEF__LCCM107__CS2_WRITE_SETUP_WIDTH				(4U)
+			//0-63
+			#define C_LOCALDEF__LCCM107__CS2_WRITE_STROBE_WIDTH				(4U)
+			//0-7
+			#define C_LOCALDEF__LCCM107__CS2_WRITE_HOLD_WIDTH				(4U)
+			//0-15
+			#define C_LOCALDEF__LCCM107__CS2_READ_SETUP_WIDTH				(4U)
+			//0-63
+			#define C_LOCALDEF__LCCM107__CS2_READ_STROBE_WIDTH				(4U)
+			//0-7
+			#define C_LOCALDEF__LCCM107__CS2_READ_HOLD_WIDTH				(4U)
+		#endif
+
+
+		#if C_LOCALDEF__LCCM107__ENABLE_CS3 == 1U
+			//0-15
+			#define C_LOCALDEF__LCCM107__CS3_WRITE_SETUP_WIDTH				(4U)
+			//0-63
+			#define C_LOCALDEF__LCCM107__CS3_WRITE_STROBE_WIDTH				(4U)
+			//0-7
+			#define C_LOCALDEF__LCCM107__CS3_WRITE_HOLD_WIDTH				(4U)
+			//0-15
+			#define C_LOCALDEF__LCCM107__CS3_READ_SETUP_WIDTH				(4U)
+			//0-63
+			#define C_LOCALDEF__LCCM107__CS3_READ_STROBE_WIDTH				(4U)
+			//0-7
+			#define C_LOCALDEF__LCCM107__CS3_READ_HOLD_WIDTH				(4U)
+		#endif
+
+		#if C_LOCALDEF__LCCM107__ENABLE_CS4 == 1U
+			//0-15
+			#define C_LOCALDEF__LCCM107__CS4_WRITE_SETUP_WIDTH				(4U)
+			//0-63
+			#define C_LOCALDEF__LCCM107__CS4_WRITE_STROBE_WIDTH				(4U)
+			//0-7
+			#define C_LOCALDEF__LCCM107__CS4_WRITE_HOLD_WIDTH				(4U)
+			//0-15
+			#define C_LOCALDEF__LCCM107__CS4_READ_SETUP_WIDTH				(4U)
+			//0-63
+			#define C_LOCALDEF__LCCM107__CS4_READ_STROBE_WIDTH				(4U)
+			//0-7
+			#define C_LOCALDEF__LCCM107__CS4_READ_HOLD_WIDTH				(4U)
+		#endif
+
+
+
+		//enable standard encapsulation for FPGA comms
+		#define C_LOCALDEF__LCCM107__ENABLE_ENCAP							(0U)
+
+		#if C_LOCALDEF__LCCM107__ENABLE_ENCAP == 1U
+
+			#define C_LOCALDEF__LCCM107__ENCAP_HWPIN__ISR_TRIS()			{vRM4_GIO__Set_BitDirection(gioPORTB, 7, GIO_DIRECTION__INPUT);}
+			#define C_LOCALDEF__LCCM107__ENCAP_HWPIN__ISR_PORT()			u32RM4_GIO__Get_Bit(gioPORTB, 7U)
+			#define C_LOCALDEF__LCCM107__ENCAP_HWPIN__BUSY_TRIS()			{vRM4_GIO__Set_BitDirection(gioPORTB, 6, GIO_DIRECTION__INPUT);}
+			#define C_LOCALDEF__LCCM107__ENCAP_HWPIN__BUSY_PORT()			u32RM4_GIO__Get_Bit(gioPORTB, 6U)
+
+		#endif
+
+		//main include file
+		#include <RM4/LCCM107__RM4__EMIF/rm4_emif.h>
+
+	#endif //C_LOCALDEF__LCCM107__ENABLE_THIS_MODULE
+
+/*******************************************************************************
+RTI MODULE
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1U
+
+		//globally switch on the WDT
+		#define C_LOCALDEF__LCCM124__ENABLE_WDT								(0U)
+
+		/** RTI CLOCK FREQUENCY
+		 * Based on our standard system, valid values are div(2,4,8):
+		 * 100 	(100MHZ)
+		 * 50	(50MHZ)
+		 * 25	(25MHZ)
+		 * */
+		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(50U)
+
+		//Sets up the time periods for each compare. Must be defined in microSeconds.
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_PERIOD_US 				(15625U)
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_PERIOD_US 				(100000U)
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_PERIOD_US 				(1000000U)
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_3_PERIOD_US 				(1000000U)
+
+		//these are the interrupt handlers which should point
+		//to a function, otherwise leave as default
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_CALLBACK					vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_CALLBACK					vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_3_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
+
+		//These values need to be updated if the HALCoGen file is modified
+		#define GCLK_FREQ		 											(200)
+		#define HCLK_FREQ													(200)
+		#define VCLK1_FREQ													(100)
+		#define VCLK2_FREQ													(100)
+		#define VCLK3_FREQ													(100)
+		#define VCLKA1_FREQ	 												(100)
+		#define VCLKA4_FREQ	 												(100)
+
+		//Testing options
+		#define C_LOCALDEF__LCCM124__ENABLE_TEST_SPEC	 					(0U)
+
+		#include <RM4/LCCM124__RM4__RTI/rm4_rti.h>
+
+	#endif //#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1U
+
 
 #endif //_LPCB235R0_BOARD_SUPPORT_H_
 

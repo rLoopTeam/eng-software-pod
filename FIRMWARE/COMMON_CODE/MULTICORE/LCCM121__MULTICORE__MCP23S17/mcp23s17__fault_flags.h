@@ -1,0 +1,8 @@
+
+#ifndef MCP23S17__FAULT_FLAGS_H_
+#define MCP23S17__FAULT_FLAGS_H_
+
+
+
+
+#endif /* MCP23S17__FAULT_FLAGS_H_ */

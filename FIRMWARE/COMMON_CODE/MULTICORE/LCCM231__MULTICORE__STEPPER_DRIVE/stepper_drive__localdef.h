@@ -1,0 +1,252 @@
+/**
+ * @file		STEPPER_DRIVE__LOCALDEF.H
+ * @brief		Stepper drive local template
+ * @author		Lachlan Grogan
+ * @copyright	This file contains proprietary and confidential information of the Lockie Group
+ *				of companies, including Lockie Innovation Pty. Ltd (ACN 123 529 064) and
+ *				Lockie Safety Systems Pty. Ltd (ACN 132 340 571). This code may be distributed
+ *				under a license from the Lockie Group of companies, and may be used, copied
+ *				and/or disclosed only pursuant to the terms of that license agreement.
+ *				This copyright notice must be retained as part of this file at all times.
+ * @copyright	This file is copyright Lockie Innovation Pty Ltd 2003-2012, All Rights Reserved.
+ * @copyright	This file is copyright Lockie Safety Systems Pty Ltd 2008-2012, All Rights Reserved.
+ * @st_fileID	LCCM231R0.FILE.006
+ */
+
+#if 0
+
+/*******************************************************************************
+STEP MOTOR DRIVER
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM231__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM231__ENABLE_THIS_MODULE == 1U
+
+		//determine our architecture
+		#define C_LOCALDEF__LCCM231__USE_ON_PIC32							(0U)
+		#define C_LOCALDEF__LCCM231__USE_ON_RM4								(0U)
+		#define C_LOCALDEF__LCCM231__USE_ON_WIN32							(0U)
+
+		//use f64 if you need the precisions
+		#define C_LOCALDEF__LCCM231__USE_F64								(0U)
+
+		//determine the target
+		#define C_LOCALDEF__LCCM231__STEP_VIA_A4988							(0U)
+		#define C_LOCALDEF__LCCM231__STEP_VIA_GEKO							(1U)
+		#define C_LOCALDEF__LCCM231__STEP_VIA_WIN32							(0U)
+
+
+		//value in seconds of the time base being used
+		//10uS is a good value
+		#define C_LOCALDEF__LCCM321__MOTOR_DRIVER_TICK_VALUE_HZ 			(0.000010F)
+
+
+		//max number of motors in the system
+		#define C_LOCALDEF__LCCM231__NUMBER_OF_MOTORS						(1U)
+	
+		//set to 1 to enable USB interface on PIC32 / RM4
+		#define C_LOCALDEF__LCCM231__ENABLE_USB								(0U)
+
+		//if you have USB, or other modules that want to use the USB
+		//there are some system level functions that you will want to use
+		#define C_LOCALDEF__LCCM231__ENABLE_USB_FUNCTIONS					(0U)
+
+		//enable text debugging
+		#define C_LOCALDEF__LCCM231__ENABLE_TEXT_DEBUG						(1U)
+
+
+		//this is the parameter layout
+		#define C_LOCALDEF__LCCM231__M0_MICROSTEP_RESOLUTION__PARAM_INDEX			(0U)
+		#define C_LOCALDEF__LCCM231__M0_MAX_ACCELERATION__PARAM_INDEX				(1U)
+		#define C_LOCALDEF__LCCM231__M0_MICRONS_PER_REVOLUTION__PARAM_INDEX		2U
+		#define C_LOCALDEF__LCCM231__M0_STEPS_PER_REVOLUTION__PARAM_INDEX			3U
+		#define C_LOCALDEF__LCCM231__M0_MAX_ANGULAR_VELOCITY__PARAM_INDEX			4U
+
+		#define C_LOCALDEF__LCCM231__M1_MICROSTEP_RESOLUTION__PARAM_INDEX			6U
+		#define C_LOCALDEF__LCCM231__M1_MAX_ACCELERATION__PARAM_INDEX				7U
+		#define C_LOCALDEF__LCCM231__M1_MICRONS_PER_REVOLUTION__PARAM_INDEX		8U
+		#define C_LOCALDEF__LCCM231__M1_STEPS_PER_REVOLUTION__PARAM_INDEX			9U
+		#define C_LOCALDEF__LCCM231__M1_MAX_ANGULAR_VELOCITY__PARAM_INDEX			(10U)
+
+		#define C_LOCALDEF__LCCM231__M2_MICROSTEP_RESOLUTION__PARAM_INDEX			(12U)
+		#define C_LOCALDEF__LCCM231__M2_MAX_ACCELERATION__PARAM_INDEX				(13U)
+		#define C_LOCALDEF__LCCM231__M2_MICRONS_PER_REVOLUTION__PARAM_INDEX		(14U)
+		#define C_LOCALDEF__LCCM231__M2_STEPS_PER_REVOLUTION__PARAM_INDEX			(15U)
+		#define C_LOCALDEF__LCCM231__M2_MAX_ANGULAR_VELOCITY__PARAM_INDEX			(16U)
+
+		#define C_LOCALDEF__LCCM231__M3_MICROSTEP_RESOLUTION__PARAM_INDEX			(18U)
+		#define C_LOCALDEF__LCCM231__M3_MAX_ACCELERATION__PARAM_INDEX				(19U)
+		#define C_LOCALDEF__LCCM231__M3_MICRONS_PER_REVOLUTION__PARAM_INDEX		20U
+		#define C_LOCALDEF__LCCM231__M3_STEPS_PER_REVOLUTION__PARAM_INDEX			21U
+		#define C_LOCALDEF__LCCM231__M3_MAX_ANGULAR_VELOCITY__PARAM_INDEX			22U
+
+		#define C_LOCALDEF__LCCM231__M4_MICROSTEP_RESOLUTION__PARAM_INDEX			24U
+		#define C_LOCALDEF__LCCM231__M4_MAX_ACCELERATION__PARAM_INDEX				25U
+		#define C_LOCALDEF__LCCM231__M4_MILIMITERS_PER_REVOLUTION__PARAM_INDEX		26U
+		#define C_LOCALDEF__LCCM231__M4_STEPS_PER_REVOLUTION__PARAM_INDEX			27U
+		#define C_LOCALDEF__LCCM231__M4_MAX_ANGULAR_VELOCITY__PARAM_INDEX			28U
+
+		#define C_LOCALDEF__LCCM231__M5_MICROSTEP_RESOLUTION__PARAM_INDEX			30U
+		#define C_LOCALDEF__LCCM231__M5_MAX_ACCELERATION__PARAM_INDEX				31U
+		#define C_LOCALDEF__LCCM231__M5_MILIMITERS_PER_REVOLUTION__PARAM_INDEX		32U
+		#define C_LOCALDEF__LCCM231__M5_STEPS_PER_REVOLUTION__PARAM_INDEX			33U
+		#define C_LOCALDEF__LCCM231__M5_MAX_ANGULAR_VELOCITY__PARAM_INDEX			34U
+
+		#define C_LOCALDEF__LCCM231__PARAM_INDEX__HEADER							36U
+		#define C_LOCALDEF__LCCM231__PARAM_INDEX__CRC								37U
+
+
+		#if C_LOCALDEF__LCCM231__STEP_VIA_A4988 == 1U
+			//set to 1 if all of the driver chips are on the same reset line
+			//if not individual resets need to be provided for each device
+			#define C_LOCALDEF__LCCM231__ALL_RESETS_COMMON						(1U)
+
+			#if C_LOCALDEF__LCCM231__ALL_RESETS_COMMON == 1
+				#if C_LOCALDEF__LCCM231__USE_ON_PIC32 == 1
+					#define C_LOCALDEF__LCCM231__COMMON_RESET_TRIS()			{TRISDbits.TRISD0 = 0);
+					#define C_LOCALDEF__LCCM231__COMMON_RESET_LATCH(x)			LATDbits.LATD0 = x
+				#elif C_LOCALDEF__LCCM231__USE_ON_RM4 == 1
+					#define C_LOCALDEF__LCCM231__COMMON_RESET_TRIS()			{vRM4_GIO__Set_BitDirection(gioPORTA, 0, GIO_DIRECTION__OUTPUT);}
+					#define C_LOCALDEF__LCCM231__COMMON_RESET_LATCH(x)			vRM4_GIO__Set_Bit(gioPORTA, 0, x)
+				#else
+					#error
+				#endif
+			#endif
+
+			//Map the Pulse and Direction signals to the proper pins
+			#if C_LOCALDEF__LCCM231__NUMBER_OF_MOTORS >=1
+				#if C_LOCALDEF__LCCM231__ALL_RESETS_COMMON == 0
+					#define C_LOCALDEF__M0_RESET_TRIS							TRISDbits.TRISD0
+					#define C_LOCALDEF__M0_RESET_LATCH							LATDbits.LATD0
+				#endif //C_LOCALDEF__LCCM231__ALL_RESETS_COMMON == 0
+
+				#define C_LOCALDEF__LCCM231__M0__PIN_PULSE__TRIS				TRISDbits.TRISD8
+				#define C_LOCALDEF__LCCM231__M0__PIN_PULSE__LATCH				LATDbits.LATD8
+				#define C_LOCALDEF__LCCM231__M0__PIN_DIR__TRIS					TRISEbits.TRISE8
+				#define C_LOCALDEF__LCCM231__M0__PIN_DIR__LATCH					LATEbits.LATE8
+				#define C_LOCALDEF__LCCM231__M0__PIN_SLEEP__TRIS				TRISDbits.TRISD11
+				#define C_LOCALDEF__LCCM231__M0__PIN_SLEEP__LATCH				LATDbits.LATD11
+				#define C_LOCALDEF__LCCM231__M0__PIN_MS3__TRIS					TRISCbits.TRISC4
+				#define C_LOCALDEF__LCCM231__M0__PIN_MS3__LATCH					LATCbits.LATC4
+				#define C_LOCALDEF__LCCM231__M0__PIN_MS2__TRIS					TRISCbits.TRISC4
+				#define C_LOCALDEF__LCCM231__M0__PIN_MS2__LATCH					LATCbits.LATC4
+				#define C_LOCALDEF__LCCM231__M0__PIN_MS1__TRIS					TRISDbits.TRISD9
+				#define C_LOCALDEF__LCCM231__M0__PIN_MS1__LATCH					LATDbits.LATD9
+				#define C_LOCALDEF__LCCM231__M0__PIN_ENA__TRIS					TRISDbits.TRISD10
+				#define C_LOCALDEF__LCCM231__M0__PIN_ENA__LATCH					LATDbits.LATD10
+			#endif
+			#if C_LOCALDEF__LCCM231__NUMBER_OF_MOTORS >= 2
+				#if C_LOCALDEF__LCCM231__ALL_RESETS_COMMON == 0
+					#define C_LOCALDEF__M1_RESET_TRIS
+					#define C_LOCALDEF__M1_RESET_LATCH
+				#endif //C_LOCALDEF__LCCM231__ALL_RESETS_COMMON == 0
+
+				#define C_LOCALDEF__LCCM231__M1__PIN_PULSE__TRIS
+				#define C_LOCALDEF__LCCM231__M1__PIN_PULSE__LATCH
+				#define C_LOCALDEF__LCCM231__M1__PIN_DIR__TRIS
+				#define C_LOCALDEF__LCCM231__M1__PIN_DIR__LATCH
+				#define C_LOCALDEF__LCCM231__M1__PIN_SLEEP__TRIS
+				#define C_LOCALDEF__LCCM231__M1__PIN_SLEEP__LATCH
+				#define C_LOCALDEF__LCCM231__M1__PIN_MS3__TRIS
+				#define C_LOCALDEF__LCCM231__M1__PIN_MS3__LATCH
+				#define C_LOCALDEF__LCCM231__M1__PIN_MS2__TRIS
+				#define C_LOCALDEF__LCCM231__M1__PIN_MS2__LATCH
+				#define C_LOCALDEF__LCCM231__M1__PIN_MS1__TRIS
+				#define C_LOCALDEF__LCCM231__M1__PIN_MS1__LATCH
+				#define C_LOCALDEF__LCCM231__M1__PIN_ENA__TRIS
+				#define C_LOCALDEF__LCCM231__M1__PIN_ENA__LATCH
+			#endif
+			#if C_LOCALDEF__LCCM231__NUMBER_OF_MOTORS >= 3
+				#if C_LOCALDEF__LCCM231__ALL_RESETS_COMMON == 0
+					#define C_LOCALDEF__M2_RESET_TRIS
+					#define C_LOCALDEF__M2_RESET_LATCH
+				#endif //C_LOCALDEF__LCCM231__ALL_RESETS_COMMON == 0
+
+				#define C_LOCALDEF__LCCM231__M2__PIN_PULSE__TRIS
+				#define C_LOCALDEF__LCCM231__M2__PIN_PULSE__LATCH
+				#define C_LOCALDEF__LCCM231__M2__PIN_DIR__TRIS
+				#define C_LOCALDEF__LCCM231__M2__PIN_DIR__LATCH
+				#define C_LOCALDEF__LCCM231__M2__PIN_SLEEP__TRIS
+				#define C_LOCALDEF__LCCM231__M2__PIN_SLEEP__LATCH
+				#define C_LOCALDEF__LCCM231__M2__PIN_MS3__TRIS
+				#define C_LOCALDEF__LCCM231__M2__PIN_MS3__LATCH
+				#define C_LOCALDEF__LCCM231__M2__PIN_MS2__TRIS
+				#define C_LOCALDEF__LCCM231__M2__PIN_MS2__LATCH
+				#define C_LOCALDEF__LCCM231__M2__PIN_MS1__TRIS
+				#define C_LOCALDEF__LCCM231__M2__PIN_MS1__LATCH
+				#define C_LOCALDEF__LCCM231__M2__PIN_ENA__TRIS
+				#define C_LOCALDEF__LCCM231__M2__PIN_ENA__LATCH
+			#endif
+			#if C_LOCALDEF__LCCM231__NUMBER_OF_MOTORS >= 4
+				#if C_LOCALDEF__LCCM231__ALL_RESETS_COMMON == 0
+					#define C_LOCALDEF__LCCM231__M3_RESET_TRIS
+					#define C_LOCALDEF__LCCM231__M3_RESET_LATCH
+				#endif //C_LOCALDEF__LCCM231__ALL_RESETS_COMMON == 0
+
+				#define C_LOCALDEF__LCCM231__M3_PULSE_TRIS
+				#define C_LOCALDEF__LCCM231__M3_PULSE_LATCH
+				#define C_LOCALDEF__LCCM231__M3_ROTATION_TRIS
+				#define C_LOCALDEF__LCCM231__M3_ROTATION_LATCH
+				#define C_LOCALDEF__LCCM231__M3_SLEEP_TRIS
+				#define C_LOCALDEF__LCCM231__M3_SLEEP_LATCH
+				#define C_LOCALDEF__LCCM231__M3_MS3_TRIS
+				#define C_LOCALDEF__LCCM231__M3_MS3_LATCH
+				#define C_LOCALDEF__LCCM231__M3_MS2_TRIS
+				#define C_LOCALDEF__LCCM231__M3_MS2_LATCH
+				#define C_LOCALDEF__LCCM231__M3_MS1_TRIS
+				#define C_LOCALDEF__LCCM231__M3_MS1_LATCH
+				#define C_LOCALDEF__LCCM231__M3_ENABLE_TRIS
+				#define C_LOCALDEF__LCCM231__M3_ENABLE_LATCH
+			#endif
+			#if C_LOCALDEF__LCCM231__NUMBER_OF_MOTORS >= 5
+				#if C_LOCALDEF__LCCM231__ALL_RESETS_COMMON == 0
+					#define C_LOCALDEF__LCCM231__M4_RESET_TRIS
+					#define C_LOCALDEF__LCCM231__M4_RESET_LATCH
+				#endif //C_LOCALDEF__LCCM231__ALL_RESETS_COMMON == 0
+
+				#define C_LOCALDEF__LCCM231__M4_PULSE_TRIS
+				#define C_LOCALDEF__LCCM231__M4_PULSE_LATCH
+				#define C_LOCALDEF__LCCM231__M4_ROTATION_TRIS
+				#define C_LOCALDEF__LCCM231__M4_ROTATION_LATCH
+				#define C_LOCALDEF__LCCM231__M4_SLEEP_TRIS
+				#define C_LOCALDEF__LCCM231__M4_SLEEP_LATCH
+				#define C_LOCALDEF__LCCM231__M4_MS3_TRIS
+				#define C_LOCALDEF__LCCM231__M4_MS3_LATCH
+				#define C_LOCALDEF__LCCM231__M4_MS2_TRIS
+				#define C_LOCALDEF__LCCM231__M4_MS2_LATCH
+				#define C_LOCALDEF__LCCM231__M4_MS1_TRIS
+				#define C_LOCALDEF__LCCM231__M4_MS1_LATCH
+				#define C_LOCALDEF__LCCM231__M4_ENABLE_TRIS
+				#define C_LOCALDEF__LCCM231__M4_ENABLE_LATCH
+			#endif
+			#if C_LOCALDEF__LCCM231__NUMBER_OF_MOTORS >= 6
+				#if C_LOCALDEF__LCCM231__ALL_RESETS_COMMON == 0
+					#define C_LOCALDEF__LCCM231__M5_RESET_TRIS
+					#define C_LOCALDEF__LCCM231__M5_RESET_LATCH
+				#endif //C_LOCALDEF__LCCM231__ALL_RESETS_COMMON == 0
+
+				#define C_LOCALDEF__LCCM231__M5_PULSE_TRIS
+				#define C_LOCALDEF__LCCM231__M5_PULSE_LATCH
+				#define C_LOCALDEF__LCCM231__M5_ROTATION_TRIS
+				#define C_LOCALDEF__LCCM231__M5_ROTATION_LATCH
+				#define C_LOCALDEF__LCCM231__M5_SLEEP_TRIS
+				#define C_LOCALDEF__LCCM231__M5_SLEEP_LATCH
+				#define C_LOCALDEF__LCCM231__M5_MS3_TRIS
+				#define C_LOCALDEF__LCCM231__M5_MS3_LATCH
+				#define C_LOCALDEF__LCCM231__M5_MS2_TRIS
+				#define C_LOCALDEF__LCCM231__M5_MS2_LATCH
+				#define C_LOCALDEF__LCCM231__M5_MS1_TRIS
+				#define C_LOCALDEF__LCCM231__M5_MS1_LATCH
+				#define C_LOCALDEF__LCCM231__M5_ENABLE_TRIS
+				#define C_LOCALDEF__LCCM231__M5_ENABLE_LATCH
+			#endif
+		#endif //#if C_LOCALDEF__LCCM231__STEP_VIA_A4988 == 1U
+
+		//testing
+		#define C_LOCALDEF__LCCM231__ENABLE_TEST_SPEC					(0U)
+
+		#include <MULTICORE/LCCM231__MULTICORE__STEPPER_DRIVE/stepper_drive.h>
+	
+	#endif
+	
+
+#endif //0
