@@ -7,5 +7,6 @@ var searchData=
   ['init_5fstate_5f_5fcomms',['INIT_STATE__COMMS',['../power__core_8h.html#ac3a9575010d4bd27eb79d8edd68a15a9a559eaa0d7498ee149dedf9432247f6bc',1,'power_core.h']]],
   ['init_5fstate_5f_5frun',['INIT_STATE__RUN',['../power__core_8h.html#ac3a9575010d4bd27eb79d8edd68a15a9aaf2061203d5df58c1953055d1df17093',1,'power_core.h']]],
   ['init_5fstate_5f_5fstart',['INIT_STATE__START',['../power__core_8h.html#ac3a9575010d4bd27eb79d8edd68a15a9ad720045bd427673511050611fdb584b9',1,'power_core.h']]],
+  ['init_5fstate_5f_5ftsys01',['INIT_STATE__TSYS01',['../power__core_8h.html#ac3a9575010d4bd27eb79d8edd68a15a9a2e28432166b5e6c290cbf30d5d48d9b2',1,'power_core.h']]],
   ['init_5fstate_5f_5funknown',['INIT_STATE__UNKNOWN',['../power__core_8h.html#ac3a9575010d4bd27eb79d8edd68a15a9a127826ee557f312c5a6d6d9d46e13260',1,'power_core.h']]]
 ];

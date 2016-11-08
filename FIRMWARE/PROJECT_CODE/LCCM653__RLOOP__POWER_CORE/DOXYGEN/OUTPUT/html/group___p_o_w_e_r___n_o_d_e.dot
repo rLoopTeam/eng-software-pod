@@ -6,6 +6,7 @@ digraph "POWER_NODE"
   Node6 [label="POWER_NODE__NODE_TEMPERATURE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___p_o_w_e_r___n_o_d_e_____n_o_d_e___t_e_m_p_e_r_a_t_u_r_e.html"];
   Node7 [label="POWER_NODE__CORE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html"];
   Node2 [label="POWER_NODE__BATTERY_TEMP",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p.html"];
+  Node10 [label="POWER_NODE__WIN32",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___p_o_w_e_r___n_o_d_e_____w_i_n32.html"];
   Node4 [label="POWER_NODE__CAN_NETWORK",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___p_o_w_e_r___n_o_d_e_____c_a_n___n_e_t_w_o_r_k.html"];
   Node3 [label="POWER_NODE__BMS",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___p_o_w_e_r___n_o_d_e_____b_m_s.html"];
   Node0 [label="POWER_NODE",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
@@ -22,4 +23,5 @@ digraph "POWER_NODE"
   Node0->Node7 [shape=plaintext, dir="back", style="solid"];
   Node0->Node8 [shape=plaintext, dir="back", style="solid"];
   Node0->Node9 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node10 [shape=plaintext, dir="back", style="solid"];
 }
