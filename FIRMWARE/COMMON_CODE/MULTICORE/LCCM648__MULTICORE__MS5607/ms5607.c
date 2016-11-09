@@ -188,14 +188,8 @@ void vMS5607__Process(void)
 			break;
 
 		case MS5607_STATE__WAIT_LOOPS_PRESSURE:
-				//TODO add delay here for conversion then
 				//After the conversion is over, move to next stage to read ADC
-				//todo, change to constant
-<<<<<<< HEAD
 				if(sMS5607.u32LoopCounter > C_LOCALDEF__LCCM648__NUM_CONVERSION_LOOPS)
-=======
-				if(sMS5607.u32LoopCounter > 1000)
->>>>>>> Fix some syntax errors
 				{
 					//move on to read the ADC
 					sMS5607.eState = MS5607_STATE__READ_ADC_PRESSURE;

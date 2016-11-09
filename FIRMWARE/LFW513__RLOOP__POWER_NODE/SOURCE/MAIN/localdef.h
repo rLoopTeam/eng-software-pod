@@ -79,6 +79,10 @@ MS5607 - PRESSURE SENSOR
 		/** The number of main program loops to wait for conversion */
 		#define C_LOCALDEF__LCCM648__NUM_CONVERSION_LOOPS					(10000U)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Add read 24 I2C function for ADC values. Finish state machine
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM648__ENABLE_TEST_SPEC						(0U)
 
