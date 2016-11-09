@@ -26,9 +26,16 @@ extern struct _strFCU sFCU;
 //locals
 static void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake);
 static Lint16 s16FCU_BRAKES_MLP__Check_ADC_Limits(E_FCU__BRAKE_INDEX_T eBrake);
+//locals
+static void vFCU_BRAKES_MLP__Apply_Zero(E_FCU__BRAKE_INDEX_T eBrake);
+static void vFCU_BRAKES_MLP__Apply_Span(E_FCU__BRAKE_INDEX_T eBrake);
 
 
-//init the systems specifically to the MLP
+/***************************************************************************//**
+ * @brief
+ * init the systems specifically to the MLP
+ *
+ */
 void vFCU_BRAKES_MLP__Init(void)
 {
 
@@ -40,6 +47,10 @@ void vFCU_BRAKES_MLP__Init(void)
 	//loop through each brake.
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
 	{
+
+		//setup the fault flags
+		vFAULTTREE__Init(&sFCU.sBrakes[u8Counter].sFaultFlags);
+
 		//clear the current ADC sample
 		sFCU.sBrakes[u8Counter].sMLP.u16ADC_Sample = 0U;
 
@@ -57,9 +68,6 @@ void vFCU_BRAKES_MLP__Init(void)
 
 	}
 
-	//read the header.
-	u32Header = u32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER);
-
 	//check the CRC
 	u8Test = u8EEPARAM_CRC__Is_CRC_OK(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER,
 										C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN,
@@ -72,7 +80,8 @@ void vFCU_BRAKES_MLP__Init(void)
 
 		sFCU.sBrakes[0].sMLP.f32SystemSpan = f32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_SPAN);
 		sFCU.sBrakes[1].sMLP.f32SystemSpan = f32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN);
-	}
+
+	}//if(u8Test == 1U)
 	else
 	{
 		//CRC is invalid
@@ -92,18 +101,32 @@ void vFCU_BRAKES_MLP__Init(void)
 												C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN,
 												C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_CRC);
 
-		//Todo:
 		//1. Reload the structures.
-		//2. Set Flags.
+		sFCU.sBrakes[0].sMLP.u16ADC_Zero = u16EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO);
+		sFCU.sBrakes[1].sMLP.u16ADC_Zero = u16EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_ZERO);
+		sFCU.sBrakes[0].sMLP.f32SystemSpan = f32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_SPAN);
+		sFCU.sBrakes[1].sMLP.f32SystemSpan = f32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN);
+
+		//set the flags for a general fault and cal data reload fault.
+		vFAULTTREE__Set_Flag(&sFCU.sBrakes[0].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__00);
+		vFAULTTREE__Set_Flag(&sFCU.sBrakes[0].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__03);
+		vFAULTTREE__Set_Flag(&sFCU.sBrakes[1].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__00);
+		vFAULTTREE__Set_Flag(&sFCU.sBrakes[1].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__03);
 
 
-	}
+	}//else if(u8Test == 1U)
 
 }
 
-//resample the MLP sensors
+/***************************************************************************//**
+ * @brief
+ * resample the MLP sensors
+ *
+ */
 void vFCU_BRAKES_MLP__Process(void)
 {
+	Luint8 u8Counter;
+	Lint16 s16Return;
 
 	//loop through each brake.
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
@@ -121,10 +144,10 @@ void vFCU_BRAKES_MLP__Process(void)
 			//filter the data.
 
 			//zero the data.
-			vFCU_BRAKES__Apply_Zero((E_FCU__BRAKE_INDEX_T)u8Counter);
+			vFCU_BRAKES_MLP__Apply_Zero((E_FCU__BRAKE_INDEX_T)u8Counter);
 
 			//apply the span.
-			vFCU_BRAKES__Apply_Span((E_FCU__BRAKE_INDEX_T)u8Counter);
+			vFCU_BRAKES_MLP__Apply_Span((E_FCU__BRAKE_INDEX_T)u8Counter);
 
 			//at this point here, the value in f32BrakePosition_Percent is the calibrated brake position.
 
@@ -200,6 +223,71 @@ Lint16 s16FCU_BRAKES_MLP__Check_ADC_Limits(E_FCU__BRAKE_INDEX_T eBrake)
 	return s16Return;
 
 }
+
+
+
+/***************************************************************************//**
+ * @brief
+ * Apply the system span value.
+ *
+ * @example
+ * Brake_Pos = (ADCValue - Zero) * Span
+ *
+ */
+void vFCU_BRAKES_MLP__Apply_Span(E_FCU__BRAKE_INDEX_T eBrake)
+{
+	Lfloat32 f32Temp;
+
+	//protect the array
+	if((Luint32)eBrake < C_FCU__NUM_BRAKES)
+	{
+
+		//cast to F32
+		f32Temp = (Lfloat32)sFCU.sBrakes[(Luint32)eBrake].sMLP.s32ADC_Minus_Zero;
+
+		//apply the span
+		f32Temp *= sFCU.sBrakes[(Luint32)eBrake].sMLP.f32SystemSpan;
+
+		//assign
+		sFCU.sBrakes[(Luint32)eBrake].sMLP.f32BrakePosition_Percent = f32Temp;
+
+	}
+	else
+	{
+		//error
+		//log this error
+	}
+}
+
+/***************************************************************************//**
+ * @brief
+ * Apply the zero value to the ADC sample
+ *
+ */
+void vFCU_BRAKES_MLP__Apply_Zero(E_FCU__BRAKE_INDEX_T eBrake)
+{
+	Lint32 s32Temp;
+
+	//protect the array
+	if((Luint32)eBrake < C_FCU__NUM_BRAKES)
+	{
+
+		//convert ADC sample to s32
+		s32Temp = (Lint32)sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Sample;
+
+		//subtract the zero
+		s32Temp =- (Lint32)sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Zero;
+
+		//assign to the intermediate result
+		sFCU.sBrakes[(Luint32)eBrake].sMLP.s32ADC_Minus_Zero = s32Temp;
+
+	}
+	else
+	{
+		//error
+	}
+}
+
 
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 //safetys
