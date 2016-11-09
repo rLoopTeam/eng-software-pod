@@ -16,6 +16,13 @@
  * @ingroup FCU
  * @{ */
 
+/* Keith:
+ * When the brake is fully deployed the airgap is 2.5 mm.
+ * The airgap increases by tan 17 deg x mm moved by lead screw.
+ * If counting revolutions, every rotation of the ball screw moves the wedge 3 mm.
+ * 0.9172 mm airgap increase per revolution.
+ */
+
 #include "../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
@@ -23,9 +30,7 @@
 //the structure
 extern struct _strFCU sFCU;
 
-//locals
-static void vFCU_BRAKES__Apply_Zero(E_FCU__BRAKE_INDEX_T eBrake);
-static void vFCU_BRAKES__Apply_Span(E_FCU__BRAKE_INDEX_T eBrake);
+
 
 /***************************************************************************//**
  * @brief
@@ -48,9 +53,6 @@ void vFCU_BRAKES__Init(void)
 	//init the stepper rotate module
 	vFCU_BRAKES_STEP__Init();
 
-
-
-
 }
 
 
@@ -61,6 +63,8 @@ void vFCU_BRAKES__Init(void)
  */
 void vFCU_BRAKES__Process(void)
 {
+	Luint8 u8Test;
+
 	//process the stepper driver if its active
 	vSTEPDRIVE__Process();
 
@@ -75,6 +79,9 @@ void vFCU_BRAKES__Process(void)
 			//begin to move the brakes, setup the movement planner
 			//compare brake distances with known postion, limit switch postion and MLP position before moving.
 			//alert upper layer if movement not possible due to position sensor error
+
+			sFCU.eBrakeStates = BRAKE_STATE__MOVING;
+
 			break;
 
 		case BRAKE_STATE__MOVING:
@@ -82,6 +89,27 @@ void vFCU_BRAKES__Process(void)
 			//monitor their performance by getting the current pos from the move planner
 			//check the MLP (it will lag)
 			//process any PID algo's here too
+
+			//check the movement planner
+			sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__LEFT);
+			sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__RIGHT);
+
+			//todo, compute the brake position in terms of Ibeam distance.
+
+
+			//check to see if the curent move task is done.
+			u8Test = u8STEPDRIVE__Get_TaskComplete();
+			if(u8Test == 0U)
+			{
+				//stay in state
+			}
+			else
+			{
+				//change state
+				sFCU.eBrakeStates = BRAKE_STATE__MOVE_STOPPED;
+			}
+
+
 			break;
 
 		case BRAKE_STATE__MOVE_STOPPED:
@@ -94,8 +122,12 @@ void vFCU_BRAKES__Process(void)
 		case BRAKE_STATE__FAULT:
 
 			//a fault has occurred
-			break
+			break;
 
+		case BRAKE_STATE__TEST:
+			//just LG test area.
+			vFCU_BRAKES__Move_IBeam_Distance_Microns(500);
+			break;
 
 
 	}
@@ -105,75 +137,20 @@ void vFCU_BRAKES__Process(void)
 //move the brakes to a distance in MM from the I Beam
 //approx distances are 25mm (fully open) to 0mm (fully closed)
 //some calibration will be needed here.
-void vFCU_BRAKES__Move_IBeam_Distance_MM(Lfloat32 f32Distance)
+void vFCU_BRAKES__Move_IBeam_Distance_Microns(Luint32 u32Distance)
 {
 
+	//temp
+
+	//Tell the movement planner to go
+	vFCU_BRAKES_STEP__Move(2000, 2000);
+
+	//change state
+	sFCU.eBrakeStates = BRAKE_STATE__BEGIN_MOVE;
 }
 
 
 
-
-/***************************************************************************//**
- * @brief
- * Apply the system span value.
- *
- * @example
- * Brake_Pos = (ADCValue - Zero) * Span
- *
- */
-void vFCU_BRAKES__Apply_Span(E_FCU__BRAKE_INDEX_T eBrake)
-{
-	Lfloat32 f32Temp;
-
-	//protect the array
-	if((Luint32)eBrake < C_FCU__NUM_BRAKES)
-	{
-
-		//cast to F32
-		f32Temp = (Lfloat32)sFCU.sBrakes[(Luint32)eBrake].sMLP.s32ADC_Minus_Zero;
-
-		//apply the span
-		f32Temp *= sFCU.sBrakes[(Luint32)eBrake].sMLP.f32SystemSpan;
-
-		//assign
-		sFCU.sBrakes[(Luint32)eBrake].sMLP.f32BrakePosition_Percent = f32Temp;
-
-	}
-	else
-	{
-		//error
-		//log this error
-	}
-}
-
-/***************************************************************************//**
- * @brief
- * Apply the zero value to the ADC sample
- *
- */
-void vFCU_BRAKES__Apply_Zero(E_FCU__BRAKE_INDEX_T eBrake)
-{
-	Lint32 s32Temp;
-
-	//protect the array
-	if((Luint32)eBrake < C_FCU__NUM_BRAKES)
-	{
-
-		//convert ADC sample to s32
-		s32Temp = (Lint32)sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Sample;
-
-		//subtract the zero
-		s32Temp =- (Lint32)sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Zero;
-
-		//assign to the intermediate result
-		sFCU.sBrakes[(Luint32)eBrake].sMLP.s32ADC_Minus_Zero = s32Temp;
-
-	}
-	else
-	{
-		//error
-	}
-}
 
 
 
