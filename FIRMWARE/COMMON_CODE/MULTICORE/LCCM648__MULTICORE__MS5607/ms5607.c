@@ -18,9 +18,32 @@ Lint16 s16MS5607__GetCalibrationContants(Luint16 *pu16Values);
 /** Init */
 void vMS5607__Init(void)
 {
+	Luint8 u8Counter;
+
 	//init structure
 	sMS5607.eState = MS5607_STATE__INIT_DEVICE;
-	//TODO add counters
+	sMS5607.u32LoopCounter = 0U;
+	sMS5607.u32AverageResultTemperature = 0U;
+	sMS5607.u32AverageResultPressure = 0U;
+	sMS5607.u32AverageResult_Div256Temperature = 0U;
+	sMS5607.u32AverageResult_Div256Pressure = 0U;
+	sMS5607.u16AverageCounterTemperature = 0U;
+	sMS5607.u16AverageCounterPressure = 0U;
+
+	sMS5607.sTEMP.s32TEMP = 90.0F;    // MILA&ED: this needs to be confirmed
+	sMS5607.sPRESSURE.s32P = 1300.0F; // MILA&ED: this needs to be confirmed
+
+	//clear the average
+	for(u8Counter = 0U; u8Counter < C_MS5607__MAX_FILTER_SAMPLES; u8Counter++)
+	{
+		sMS5607.u32AverageArrayTemperature[u8Counter] = 0U;
+		sMS5607.u32AverageArrayPressure[u8Counter] = 0U;
+
+	}
+
+
+
+
 }
 
 void vMS5607__Process(void)
@@ -100,7 +123,7 @@ void vMS5607__Process(void)
 			//TODO add delay here for conversion then
 			//After the conversion is over, move to next stage to read ADC
 			//todo, change to constant
-			if(sMS5607.u32LoopCounter > 1000)
+			if(sMS5607.u32LoopCounter > C_LOCALDEF__LCCM648__NUM_CONVERSION_LOOPS)
 			{
 				//move on to read the ADC
 				sMS5607.eState = MS5607_STATE__READ_ADC_TEMPERATURE;
@@ -114,8 +137,8 @@ void vMS5607__Process(void)
 			break;
 
 		case MS5607_STATE__READ_ADC_TEMPERATURE:
-			//TODO Read ADC Temp here - USE s16RM4_I2C_USER__RxByteArray
-			//CHANGE s16Return = s16TSYS01_I2C__RxU24(C_LOCALDEF__LCCM647__BUS_ADDX, TSYS01_REG__READ_ADC_TEMPERATURE_RESULT, &sTSYS.u32LastResult);
+			//Read ADC Temperature
+			s16Return = s16MS5607_I2C__RxU24(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__ADC_READ, &sMS5607.u32LastResultTemperature);
 			if(s16Return >= 0)
 			{
 
@@ -167,7 +190,7 @@ void vMS5607__Process(void)
 				//TODO add delay here for conversion then
 				//After the conversion is over, move to next stage to read ADC
 				//todo, change to constant
-				if(sMS5607.u32LoopCounter > 1000)
+				if(sMS5607.u32LoopCounter > C_LOCALDEF__LCCM648__NUM_CONVERSION_LOOPS)
 				{
 					//move on to read the ADC
 					sMS5607.eState = MS5607_STATE__READ_ADC_PRESSURE;
@@ -181,8 +204,8 @@ void vMS5607__Process(void)
 			break;
 
 		case MS5607_STATE__READ_ADC_PRESSURE:
-			//TODO Read ADC Temp here - USE s16RM4_I2C_USER__RxByteArray
-			//CHANGE s16Return = s16TSYS01_I2C__RxU24(C_LOCALDEF__LCCM647__BUS_ADDX, TSYS01_REG__READ_ADC_TEMPERATURE_RESULT, &sTSYS.u32LastResult);
+			// Read ADC Preassure
+			s16Return = s16MS5607_I2C__RxU24(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__ADC_READ, &sMS5607.u32LastResultPressure);
 
 			if(s16Return >= 0)
 			{
@@ -215,7 +238,17 @@ void vMS5607__Process(void)
 			break;
 
 		case MS5607_STATE__COMPUTE:
+            // Compute temperature first
+			vMS5607__CalculateTemperature();
 
+			if(sMS5607.sTEMP.s32TEMP < 2000)
+			{
+				vMS5607__compensateSecondOrder();
+			}
+
+			vMS5607__CalculateTempCompensatedPressure();
+
+			sMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_TEMPERATURE; //MILA&ED: SHOULD THS BE ..._STATE_IDLE
 			break;
 
 		case MS5607_STATE__INTERRUPT:
@@ -317,18 +350,18 @@ Lint16 s16MS5607__GetCalibrationContants(Luint16 *pu16Values)
 }
 
 /** Read Digital Temperature Value D2 */
-void vMS5607__ReadTemperature(void)
-{
-	//TODO need a read24 from ms5607_i2c.c
-	sMS5607.sTEMP.u32D2 = uMS5607__Read24(MS5607_CMD__ADC_READ);
-}
+//void vMS5607__ReadTemperature(void)
+//{
+//	//TODO need a read24 from ms5607_i2c.c
+//	sMS5607.sTEMP.u32D2 = uMS5607__Read24(MS5607_CMD__ADC_READ);
+//}
 
 /** Read Digital Pressure Value D1 */
-void vMS5607__ReadPressure(void)
-{
-	//TODO need a read24 from ms5607_i2c.c
-	sMS5607.sPRESSURE.u32D1 = uMS5607__Read24(MS5607_CMD__ADC_READ);
-}
+//void vMS5607__ReadPressure(void)
+//{
+//	//TODO need a read24 from ms5607_i2c.c
+//	sMS5607.sPRESSURE.u32D1 = uMS5607__Read24(MS5607_CMD__ADC_READ);
+//}
 
 /** Return the compensated temperature as a floating point value in C */
 Lint32 sMS5607__GetTemperature(void)
@@ -356,12 +389,12 @@ Lint16 s16MS5607__StartPressureConversion(void)
 	return s16MS5607_I2C__TxCommand(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_TEMPERATURE_OSR);
 }
 
-/** Calculate Temperature */
+/** Calculate Compensated Temperature */
 void vMS5607__CalculateTemperature(void)
 {
 	// Difference between actual and reference temperature
-	sMS5607.sTEMP.s32dT = (Lint32)sMS5607.sTEMP.u32D2 - ((Lint32)sMS5607.u16Coefficients[5] * f32NUMERICAL__Power(2, 8));
-	// Actual temperature (-40 unsigned long long 85Â°C with 0.01Â°C resolution)
+	sMS5607.sTEMP.s32dT = (Lint32)sMS5607.u32AverageResult_Div256Temperature - ((Lint32)sMS5607.u16Coefficients[5] * f32NUMERICAL__Power(2, 8));
+	// Actual temperature (-40 unsigned long long 85°C with 0.01°C resolution)
 	sMS5607.sTEMP.s32TEMP = 2000 + ((sMS5607.sTEMP.s32dT * (Lint64)sMS5607.u16Coefficients[6]) / f32NUMERICAL__Power(2, 23));
 }
 
@@ -373,7 +406,7 @@ void vMS5607__CalculateTempCompensatedPressure(void)
 	// Sensitivity at actual temperature
 	sMS5607.sPRESSURE.s64SENS = ((Lint64)sMS5607.u16Coefficients[1] * f32NUMERICAL__Power(2, 16)) + (((Lint64)sMS5607.u16Coefficients[3] * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 7));
 	// Temperature compensated pressure (10 to 1200mbar with 0.01mbar resolution)
-	sMS5607.sPRESSURE.s32P = (Lint32)(((sMS5607.sPRESSURE.u32D1 * sMS5607.sPRESSURE.s64SENS) / f32NUMERICAL__Power(2, 21)) - sMS5607.sPRESSURE.s64OFF) / f32NUMERICAL__Power(2, 15);
+	sMS5607.sPRESSURE.s32P = (Lint32)(((sMS5607.u32AverageResult_Div256Pressure * sMS5607.sPRESSURE.s64SENS) / f32NUMERICAL__Power(2, 21)) - sMS5607.sPRESSURE.s64OFF) / f32NUMERICAL__Power(2, 15);
 }
 
 /** Second Order Temperature Compensation */

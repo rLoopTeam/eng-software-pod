@@ -78,7 +78,7 @@
 		{
 			Lint32 s32dT;
 			Lint32 s32TEMP;
-			Luint32 u32D2; //D2 Digital temperature value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
+//			Luint32 u32D2; //D2 Digital temperature value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
 		};
 
 		/*** The pressure values ***/
@@ -87,7 +87,7 @@
 			Lint64 s64OFF;
 			Lint64 s64SENS;
 			Lint32 s32P;
-			Luint32 u32D1; //D1 Digital pressure value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
+//			Luint32 u32D1; //D1 Digital pressure value, type: unsigned int 32, size:24bit, 0-16777216 (min-max)
 		};
 
 		/** Main MS5607 Structure */
@@ -144,7 +144,7 @@
 			/** pressure values **/
 			struct _strPressure sPRESSURE;
 		};
-		u32AverageResultTemperature
+
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/
