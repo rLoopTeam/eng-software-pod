@@ -23,7 +23,11 @@
 //the structure
 extern struct _strFCU sFCU;
 
-
+/***************************************************************************//**
+ * @brief
+ * Init the brake switches modules
+ *
+ */
 void vFCU_BRAKES_SW__Init(void)
 {
 
