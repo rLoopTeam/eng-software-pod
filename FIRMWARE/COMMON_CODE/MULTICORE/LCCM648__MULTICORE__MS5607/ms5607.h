@@ -162,14 +162,15 @@
         void vMS5607__CalculateTemperature(void);
         void vMS5607__CalculateTempCompensatedPressure(void);
         void vMS5607__compensateSecondOrder(void);
-        Luint8 uMS5607__crc4(Luint32[]);
+        Luint8 u8MS5607__CRC4(Luint32 * pu32Coefficients);
         Luint8 uMS5607__getLSB4Bits(Luint32 u32LastCoefficient);
 
 
         //I2C
 		Lint16 s16MS5607_I2C__TxCommand(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister);
 		Lint16 s16MS5607_I2C__TxU8(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint8 u8Byte);
-		Lint16 s16MS5607_I2C__RxU16(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint16 * pu16);
+		Lint16 s16MS5607_I2C__RxU16(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint16 *pu16);
+		Lint16 s16MS5607_I2C__RxU24(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint32 *pu32);
 
 	#endif //#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
 	//safetys

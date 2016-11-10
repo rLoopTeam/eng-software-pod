@@ -9,6 +9,10 @@
 		/** Just come out of reset */
 		INIT_STATE__RESET = 0U,
 
+		/** Setup the IO */
+		INIT_STATE__INIT_IO,
+
+
 		/** Init the comms chanels */
 		INIT_STATE__INIT_COMMS,
 
