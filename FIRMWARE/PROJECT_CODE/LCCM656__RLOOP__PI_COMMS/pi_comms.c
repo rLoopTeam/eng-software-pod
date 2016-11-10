@@ -44,7 +44,7 @@ void vPICOMMS_DoTelemetry()
 
 void vPICOMMS__Process(void)
 {
-	if (u32RM4_SCI__Is_TxReady(SCI_CHANNEL__2)){
+	if (u32RM4_SCI__Is_TxReady(SCI_CHANNEL__2) == 256){
 		vPICOMMS_DoTelemetry();
 	}
 
