@@ -29,7 +29,7 @@ Change the build settings:
 
 	//change osc freq to match the osc on your board
 	//valid values are 10 and 16MHZ
-	#define C_LOCALDEF__SYSTEM__OSCILLATOR_FREQ     						(16000000U)
+	#define C_LOCALDEF__SYSTEM__OSCILLATOR_FREQ     						(10000000U)
 
 	//This is the HCLK frequency, it is not defined here, but is a result of the
 	//PLL1 setup.  Standard range is 200MHZ to 220MHZ (952 part)
@@ -1161,7 +1161,7 @@ MMA8451 - 3 AXIS ACCELEROMETER
 		//Define the number of MMA8451's that are on the I2C Chain (MAX = 2)
 		//Limit if 2 is due to addx pin limit
 		//for 4 devices, two chains will be used, the second for device 2,3
-		#define C_LOCALDEF__LCCM418__NUM_DEVICES							(1U)
+		#define C_LOCALDEF__LCCM418__NUM_DEVICES							(2U)
 
 		#define C_LOCALDEF__LCCM418__DELAY_US(x)							vRM4_DELAYS__Delay_uS(x)
 
@@ -1196,7 +1196,7 @@ MMA8451 - 3 AXIS ACCELEROMETER
 
 		//define the data rate required
 		//Valid Values are: 800, 400, 200, 100, 50, 12, 6, 1
-		#define C_LOCALDEF__LCCM418__DEV0__DATA_RATE_HZ						(100U)
+		#define C_LOCALDEF__LCCM418__DEV0__DATA_RATE_HZ						(800U)
 		#define C_LOCALDEF__LCCM418__DEV1__DATA_RATE_HZ						(12U)
 		#define C_LOCALDEF__LCCM418__DEV2__DATA_RATE_HZ						(50U)
 		#define C_LOCALDEF__LCCM418__DEV3__DATA_RATE_HZ						(50U)
