@@ -130,6 +130,13 @@
 			
 		};
 
+		/** ASI controller command structure */
+		struct _strASICmd {
+			Lint32 cmdAddx;
+			Luint32 cmdValue;
+			Luint8 bRW;
+		};
+
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/
@@ -176,6 +183,11 @@
 
 		//ASI interface
 		void vFCU_ASI__Init(void);
+		Lint16 vFCU_ASI__Cmd_Init(Luint8 u8ASIDevNum);
+		Lint16 vFCU_ASI__Tx_Cmd(Luint8 u8ASIDevNum, struct _strASICmd *sCmdParams);
+		Lint16 vFCU_ASI__SetRPM(Luint8 u8ASIDevNum, Luint32 u32Rpm);
+		Lint16 vFCU_ASI__SaveParams(Luint8 u8ASIDevNum);
+		Luint16 vFCU_ASI__GetFaults(Luint8 u8ASIDevNum);
 
 		//throttle layer
 		void vFCU_THROTTLE__Init(void);
