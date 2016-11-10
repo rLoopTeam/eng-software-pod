@@ -15,6 +15,7 @@
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__types.h>
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__defines.h>
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__enums.h>
+		#include <LCCM655__RLOOP__FCU_CORE/PI_COMMS/fcu__pi_comms__types.h>
 
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/BRAKES/fcu__brakes__fault_flags.h>
@@ -151,6 +152,15 @@
 
 			}sAccel;
 
+			/** Pi Comms Layer */
+			struct
+			{
+
+				//the current state
+				E_FCU_PICOM__STATE_T eState;
+
+			}sPiComms;
+
 
 			/** Structure guard 2*/
 			Luint32 u32Guard2;
@@ -171,6 +181,10 @@
 		void vFCU_FAULTS__Process(void);
 		Luint8 u8FCU_FAULTS__Get_IsFault(void);
 		Luint32 u32FCU_FAULTS__Get_FaultFlags(void);
+
+		//pi comms
+		void vFCU_PICOMMS__Init(void);
+		void vFCU_PICOMMS__Process(void);
 
 		//brakes
 		void vFCU_BRAKES__Init(void);

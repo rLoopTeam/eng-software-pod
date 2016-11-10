@@ -95,6 +95,9 @@ void vFCU__Process(void)
 			//init the EEPROM Params
 			vEEPARAM__Init();
 
+			//init the DMA
+			vRM4_DMA__Init();
+
 			//GIO
 			vRM4_GIO__Init();
 
@@ -172,6 +175,9 @@ void vFCU__Process(void)
 			//init the acclerometer system
 			vFCU_ACCEL__Init();
 
+			//PiComms Layer
+			vFCU_PICOMMS__Init();
+
 			sFCU.eInitStates = INIT_STATE__START_TIMERS;
 			break;
 
@@ -203,6 +209,9 @@ void vFCU__Process(void)
 
 			//process the accel channels
 			vFCU_ACCEL__Process();
+
+			//process any Pi Comms
+			vFCU_PICOMMS__Process();
 
 			break;
 
