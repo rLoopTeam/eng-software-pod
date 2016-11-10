@@ -116,7 +116,7 @@ void vFCU__Process(void)
 			//already done in stepper init
 
 
-			sFCU.eInitStates = INIT_STATE__LOWER_SYSTEMS; //INIT_STATE__INIT_COMMS;
+			sFCU.eInitStates = INIT_STATE__INIT_COMMS;
 			break;
 
 		case INIT_STATE__INIT_COMMS:
@@ -135,8 +135,11 @@ void vFCU__Process(void)
 			//serial subsystem B
 			vRM4_SPI24__Init(SPI24_CHANNEL__2);
 
+			//I2C Channel
+			vRM4_I2C_USER__Init();
+
 			//init the I2C
-			sFCU.eInitStates = INIT_STATE__INIT_SPI_UARTS;
+			sFCU.eInitStates = INIT_STATE__LOWER_SYSTEMS; //INIT_STATE__INIT_SPI_UARTS;
 			break;
 
 		case INIT_STATE__INIT_SPI_UARTS:
@@ -198,6 +201,8 @@ void vFCU__Process(void)
 			//process the brakes.
 			vFCU_BRAKES__Process();
 
+			//process the accel channels
+			vFCU_ACCEL__Process();
 
 			break;
 

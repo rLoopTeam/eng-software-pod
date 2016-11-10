@@ -26,6 +26,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>MULTICORE/LCCM418__MULTICORE__MMA8451</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM418__MULTICORE__MMA8451</locationURI>
+		</link>
+		<link>
 			<name>MULTICORE/LCCM121__MULTICORE__MCP23S17</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM121__MULTICORE__MCP23S17</locationURI>
@@ -94,6 +99,11 @@
 			<name>RM4/LCCM135__RM4__FLASH</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM135__RM4__FLASH</locationURI>
+		</link>
+		<link>
+			<name>RM4/LCCM215__RM4__I2C</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM215__RM4__I2C</locationURI>
 		</link>
 		<link>
 			<name>RM4/LCCM219__RM4__SYSTEM</name>
