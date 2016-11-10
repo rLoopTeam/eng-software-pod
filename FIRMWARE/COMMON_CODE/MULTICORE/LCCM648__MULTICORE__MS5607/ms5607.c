@@ -50,6 +50,9 @@ void vMS5607__Process(void)
 {
 
 	Lint16 s16Return;
+	Luint8 u8crc4Result;
+	Luint8 u8crc4read;
+
 
 	switch(sMS5607.eState)
 	{
@@ -78,8 +81,9 @@ void vMS5607__Process(void)
 			if(s16Return >= 0)
 			{
 				//crc check
-				Luint8 u8crc4Result = uMS5607__getLSB4Bits(uMS5607__crc4(sMS5607.u16Coefficients));
-				Luint8 u8crc4read = uMS5607__getLSB4Bits(sMS5607.u16Coefficients[7]);
+				u8crc4Result = uMS5607__getLSB4Bits(u8MS5607__CRC4(sMS5607.u16Coefficients));
+				u8crc4read = uMS5607__getLSB4Bits(sMS5607.u16Coefficients[7]);
+
 				if (u8crc4Result == u8crc4read)
 				{
 					// success
@@ -440,24 +444,32 @@ void vMS5607__compensateSecondOrder(void)
 // http://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=AN520_C-code_example_for_MS56xx&DocType=SS&DocLang=EN
 // Code from TE AN520
 //********************************************************
-Luint8 uMS5607__crc4(Luint32 u32Coefficients[])
+Luint8 u8MS5607__CRC4(Luint32 * pu32Coefficients)
 {
-	Lint32 s32count; // simple counter
+	Luint32 u32count; // simple counter
 	Luint32 u32n_rem; // crc reminder
 	Luint32 u32crc_read; // original value of the crc
 	Luint8 u8n_bit;
+
 	u32n_rem = 0x00;
-	u32crc_read=u32Coefficients[7]; //save read CRC
-	u32Coefficients[7]=(0xFF00 & (u32Coefficients[7])); //CRC byte is replaced by 0
-	for (s32count = 0; s32count < 16; s32count++) // operation is performed on bytes
+
+	//save read CRC
+	u32crc_read = pu32Coefficients[7];
+
+	//CRC byte is replaced by 0
+	u32Coefficients[7] = (0xFF00 & (pu32Coefficients[7]));
+
+	// operation is performed on bytes
+	for(u32count = 0; u32count < 16; u32count++)
 	{
-		if (s32count%2==1) // choose LSB or MSB
+		// choose LSB or MSB
+		if((u32count % 2U) == 1U)
 		{
-			u32n_rem ^= (Luint16) ((u32Coefficients[s32count>>1]) & 0x00FF);
+			u32n_rem ^= (Luint16) ((pu32Coefficients[u32count>>1]) & 0x00FF);
 		}
 		else
 		{
-			u32n_rem ^= (Luint16) (u32Coefficients[s32count>>1]>>8);
+			u32n_rem ^= (Luint16) (pu32Coefficients[u32count>>1]>>8);
 		}
 		for (u8n_bit = 8; u8n_bit > 0; u8n_bit--)
 		{

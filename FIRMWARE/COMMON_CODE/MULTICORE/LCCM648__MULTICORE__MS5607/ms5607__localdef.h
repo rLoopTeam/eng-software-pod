@@ -7,11 +7,10 @@ MS5607 - PRESSURE SENSOR
 	#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
 
 		/** MS5607 Device Address */
-		#define C_LOCALDEF__LCCM648__BUS_ADDX								(0x77U)
+		#define C_LOCALDEF__LCCM648__BUS_ADDX								(0x76U)
 
 		/** The number of main program loops to wait for conversion */
 		#define C_LOCALDEF__LCCM648__NUM_CONVERSION_LOOPS					(10000U)
-
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM648__ENABLE_TEST_SPEC						(0U)
