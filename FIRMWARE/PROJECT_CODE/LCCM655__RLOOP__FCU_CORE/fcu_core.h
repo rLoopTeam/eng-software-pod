@@ -18,6 +18,7 @@
 
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/BRAKES/fcu__brakes__fault_flags.h>
+		#include <LCCM655__RLOOP__FCU_CORE/ACCELEROMETERS/fcu__accel__fault_flags.h>
 
 		//for software fault tree handling
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
@@ -72,6 +73,10 @@
 				/** top level fault tree subsystem for the flight controller */
 				FAULT_TREE__PUBLIC_T sTopLevel;
 
+				/** Accel subsystem faults */
+				FAULT_TREE__PUBLIC_T sAccel;
+
+
 			}sFaults;
 
 
@@ -125,6 +130,21 @@
 			}sBrakes[C_FCU__NUM_BRAKES];
 
 
+			/** Accel subsystem */
+			struct
+			{
+
+				/** individual accel channels */
+				struct
+				{
+					/** most recent recorded sample from the Accel */
+					Lint16 s16LastSample;
+
+				}sChannels[C_LOCALDEF__LCCM418__NUM_DEVICES];
+
+			}sAccel;
+
+
 			/** Structure guard 2*/
 			Luint32 u32Guard2;
 			
@@ -173,6 +193,7 @@
 
 		//accelerometer layer
 		void vFCU_ACCEL__Init(void);
+		void vFCU_ACCEL__Process(void);
 
 		//ASI interface
 		void vFCU_ASI__Init(void);
