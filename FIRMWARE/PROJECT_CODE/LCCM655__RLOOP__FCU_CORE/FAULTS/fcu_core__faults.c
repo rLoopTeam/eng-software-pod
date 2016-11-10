@@ -28,6 +28,10 @@ void vFCU_FAULTS__Init(void)
 {
 	//init the fault tree module.
 	vFAULTTREE__Init(&sFCU.sFaults.sTopLevel);
+
+	//accel subsystem
+	vFAULTTREE__Init(&sFCU.sFaults.sAccel);
+
 }
 
 

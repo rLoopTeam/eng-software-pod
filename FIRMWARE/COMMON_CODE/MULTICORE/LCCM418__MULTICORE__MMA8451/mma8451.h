@@ -128,20 +128,28 @@
 		* This value is updated each interrupt or data ready call */
 		struct
 		{
-			/** This is the averaging system, used to filter the data for each channel */
-			struct
-			{
-				/** The current position in the averag buffer */
-				Luint16 u16AverageCounter;
+			#if C_LOCALDEF__LCCM418__USER_AVERAGE_MAX_SAMPLES > 0
+				/** This is the averaging system, used to filter the data for each channel */
+				struct
+				{
+					/** The current position in the averag buffer */
+					Luint16 u16AverageCounter;
 
-				/** The average samples */
-				Lint16 s16AverageSamples[C_LOCALDEF__LCCM418__USER_AVERAGE_MAX_SAMPLES];
+					/** The average samples */
+					Lint16 s16AverageSamples[C_LOCALDEF__LCCM418__USER_AVERAGE_MAX_SAMPLES];
 
-				/** the actual average value. */
-				Lint16 s16Average;
+					/** the actual average value. */
+					Lint16 s16Average;
 
-			}sAverage[3U];
+				}sAverage[3U];
+			#else
+				struct
+				{
+					/** the actual average value, in this mode just used as raw sample. */
+					Lint16 s16Average;
 
+				}sAverage[3U];
+			#endif
 			/** The computed G-Forces */
 			struct
 			{
@@ -161,15 +169,16 @@
 				/** The calculated ROC*/
 				Lfloat32 f32ROC;
 
-				/** Buffer for ROC */
-				Lfloat32 f32ROC_Filter[C_LOCALDEF__LCCM418__ROC_AVERAGE_MAX_SAMPLES];
+				#if C_LOCALDEF__LCCM418__ROC_AVERAGE_MAX_SAMPLES > 0U
+					/** Buffer for ROC */
+					Lfloat32 f32ROC_Filter[C_LOCALDEF__LCCM418__ROC_AVERAGE_MAX_SAMPLES];
 
-				/** Current average ROC value */
-				Lfloat32 f32ROC_Average_Value;
-				
-				/** ROC average counter */
-				Luint16 u16AverageCounter;
+					/** Current average ROC value */
+					Lfloat32 f32ROC_Average_Value;
 
+					/** ROC average counter */
+					Luint16 u16AverageCounter;
+				#endif
 			}sROC;
 				
 		#endif
@@ -194,10 +203,12 @@
 	Lfloat32 f32MMA8451_ROC__Get_ROC(Luint8 u8DeviceIndex);
 
 	//filtering
-	void vMMA8451_FILTERING__Init(Luint8 u8DeviceIndex);
-	void vMMA8451_FILTERING__Add(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis, Lint16 s16Value);
+	#if C_LOCALDEF__LCCM418__USER_AVERAGE_MAX_SAMPLES > 0U
+		void vMMA8451_FILTERING__Init(Luint8 u8DeviceIndex);
+		void vMMA8451_FILTERING__Add(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis, Lint16 s16Value);
+	#endif
 	Lint16 s16MMA8451_FILTERING__Get_Average(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis);
-	
+
 	//read	
 	Lint16 s16MMA8451_READ__ReadXYZ(Luint8 u8DeviceIndex);
 	Lint16 s16MMA8451_LOWLEVEL__ReadByte(Luint8 u8DeviceIndex, Luint8 u8AddxOffset, Luint8 * pu8Value);
@@ -207,14 +218,18 @@
 
 	//math
 	void vMMA8451_MATH__Sum_Acceleration(Luint8 u8DeviceIndex);
-	void vMMA8451_MATH__Process_GForce(Luint8 u8DeviceIndex);
-	void vMMA8451_MATH__Calculate_Roll_Z(Luint8 u8DeviceIndex);
-	void vMMA8451_MATH__Calculate_InclineXY(Luint8 u8DeviceIndex);
-	Lfloat32 f32MMA8451_MATH__Get_PitchAngle(Luint8 u8DeviceIndex);
-	Lfloat32 f32MMA8451_MATH__Get_RollAngle(Luint8 u8DeviceIndex);
-	Lfloat32 f32MMA8451_MATH__Get_GForce(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis);
 	Lfloat32 f32MMA8451_MATH__Get_AccelSum(Luint8 u8DeviceIndex);
-	
+
+	//only some functions avail with gforce options.
+	#if C_LOCALDEF__LCCM418__ENABLE_G_FORCE == 1U
+		void vMMA8451_MATH__Process_GForce(Luint8 u8DeviceIndex);
+		Lfloat32 f32MMA8451_MATH__Get_GForce(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis);
+		void vMMA8451_MATH__Calculate_Roll_Z(Luint8 u8DeviceIndex);
+		void vMMA8451_MATH__Calculate_InclineXY(Luint8 u8DeviceIndex);
+		Lfloat32 f32MMA8451_MATH__Get_PitchAngle(Luint8 u8DeviceIndex);
+		Lfloat32 f32MMA8451_MATH__Get_RollAngle(Luint8 u8DeviceIndex);
+	#endif
+
 	//zero
 	void vMMA8451_ZERO__AutoZero(Luint8 u8DeviceIndex);
 	void vMMA8451_ZERO__Set_FineZero(Luint8 u8SensorIndex, MMA8451__AXIS_E eAxis);
