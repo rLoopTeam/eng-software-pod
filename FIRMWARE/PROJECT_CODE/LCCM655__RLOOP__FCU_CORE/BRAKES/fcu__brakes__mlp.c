@@ -243,7 +243,7 @@ Lint16 s16FCU_BRAKES_MLP__Filter_ADC_Value(E_FCU__BRAKE_INDEX_T eBrake)
 {
 	Lint16 s16Return;
 
-	s16Return = s16NUMERICAL_FILTERING__Add_U16(	sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Sample,
+	s16Return = u16NUMERICAL_FILTERING__Add_U16(	sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Sample,
 												&sFCU.sBrakes[(Luint32)eBrake].sMLP.u16AverageCounter,
 												C_MLP__MAX_AVERAGE_SIZE,
 												&sFCU.sBrakes[(Luint32)eBrake].sMLP.u16AverageArray[0]);
