@@ -80,12 +80,15 @@ void vPWRNODE__Process(void)
 			//setup flash memory access
 			vRM4_FLASH__Init();
 
+			//DMA
+			vRM4_DMA__Init();
+
 			//GIO
 			vRM4_GIO__Init();
 
 			//setup UART, SCI2 = Pi Connection
 			vRM4_SCI__Init(SCI_CHANNEL__2);
-			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, (57600*2));
+			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 57600);
 
 
 #else
@@ -95,6 +98,10 @@ void vPWRNODE__Process(void)
 			//emit a message
 			DEBUG_PRINT("INIT_STATE__START");
 #endif
+
+			//start the pi comms layer
+			vPWRNODE_PICOMMS__Init();
+
 			//move to next state
 			sPWRNODE.sInit.sState = INIT_STATE__COMMS;
 
@@ -179,6 +186,8 @@ void vPWRNODE__Process(void)
 
 			//normal run state
 
+			vPWRNODE_PICOMMS__Process();
+
 			//process any BMS tasks
 			vPWRNODE_BMS__Process();
 
@@ -198,8 +207,6 @@ void vPWRNODE__Process(void)
 
 	}//switch(sPWRNODE.sInit.sState)
 
-	if(sPWRNODE.sInit.sState > INIT_STATE__COMMS)
-		vPICOMMS__Process();
 
 }
 

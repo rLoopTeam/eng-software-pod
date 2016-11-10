@@ -40,7 +40,7 @@
 				* implement double or tripple buffering */
 				Luint8 u8BufferIndex;
 			
-				Luint8 rI2CTX_buffer[RPOD_I2C_BUFFER_SIZE];
+				Luint8 rI2CTX_buffer[RPOD_I2C_BUFFER_SIZE] __attribute__((aligned(0x04)));
 				Luint16 rI2CTX_bufferPos;
 				Luint16 rI2CTX_frameLength;
 				Luint8 checksum;
@@ -48,6 +48,7 @@
 			}sTx;
 			
 		
+
 			/** Lower structure guarding */
 			Luint32 u32LowerGuard;
 		
@@ -57,6 +58,7 @@
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/
+		void vPICOMMS__Init(void);
 
 		//tx system
 		void vPICOMMS_TX__Init(void);
