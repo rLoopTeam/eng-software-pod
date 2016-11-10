@@ -31,9 +31,22 @@ void vPICOMMS__Init(void)
 
 }
 
+void vPICOMMS_DoTelemetry()
+{
+	Luint16 u16Length;
+
+	rI2CTX_beginFrame();
+	rI2CTX_addParameter_int16((Luint16)0U, 20);
+	u16Length = rI2CTX_endFrame();
+
+	vRM4_SCI__TxByteArray(SCI_CHANNEL__2,u16Length,pu8I2CTx__Get_BufferPointer());
+}
+
 void vPICOMMS__Process(void)
 {
-
+	if (u32RM4_SCI__Is_TxReady(SCI_CHANNEL__2)){
+		vPICOMMS_DoTelemetry();
+	}
 
 }
 
