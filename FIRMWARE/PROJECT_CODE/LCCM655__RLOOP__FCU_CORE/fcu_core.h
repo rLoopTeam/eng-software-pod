@@ -26,6 +26,7 @@
 		/*******************************************************************************
 		Defines
 		*******************************************************************************/
+		#define C_MLP__MAX_AVERAGE_SIZE				(8U)
 
 		/** Brakes states */
 		typedef enum
@@ -101,6 +102,12 @@
 
 					/** Percent of braking from 0.0 to 100.0*/
 					Lfloat32 f32BrakePosition_Percent;
+
+					/** Average Counter	for MLP filter function				 */
+					Luint16 u16AverageCounter;
+
+					/** Average Array for MLP filter function				 */
+					Luint16 u16AverageArray[C_MLP__MAX_AVERAGE_SIZE];
 
 				}sMLP;
 

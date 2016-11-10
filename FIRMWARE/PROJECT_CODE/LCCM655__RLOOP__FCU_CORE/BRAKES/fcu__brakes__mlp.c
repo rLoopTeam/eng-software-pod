@@ -218,10 +218,37 @@ Lint16 s16FCU_BRAKES_MLP__Check_ADC_Limits(E_FCU__BRAKE_INDEX_T eBrake)
 	//1. determine the brake index
 	//2. check if the data is in range.
 	//hint: sFCU.sBrakes[].u16ADC_Sample
-
+	if (		(sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Sample < C_LOCALDEF__LCCM655__ADC_SAMPLE__LOWER_BOUND) ||
+			(sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Sample > C_LOCALDEF__LCCM655__ADC_SAMPLE__UPPER_BOUND))
+	{
+		s16Return = -1;
+	}
+	else
+		{
+			s16Return = 0;
+		}
 
 	return s16Return;
 
+}
+
+/***************************************************************************//**
+ * @brief
+ * Filtering the MLP sensor value
+ *
+ * @return			Filtered Value
+ *
+ */
+Lint16 s16FCU_BRAKES_MLP__Filter_ADC_Value(E_FCU__BRAKE_INDEX_T eBrake)
+{
+	Lint16 s16Return;
+
+	s16Return = s16NUMERICAL_FILTERING__Add_U16(	sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Sample,
+												&sFCU.sBrakes[(Luint32)eBrake].sMLP.u16AverageCounter,
+												C_MLP__MAX_AVERAGE_SIZE,
+												&sFCU.sBrakes[(Luint32)eBrake].sMLP.u16AverageArray[0]);
+
+	return s16Return;
 }
 
 
