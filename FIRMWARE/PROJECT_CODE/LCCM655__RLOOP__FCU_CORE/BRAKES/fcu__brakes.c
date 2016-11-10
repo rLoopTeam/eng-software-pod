@@ -149,11 +149,24 @@ void vFCU_BRAKES__Move_IBeam_Distance_Microns(Luint32 u32Distance)
 	sFCU.eBrakeStates = BRAKE_STATE__BEGIN_MOVE;
 }
 
-
-
-
-
-
+//move the brakes position by a certain percentage between 0-100%
+//approx distances are 25mm (fully open) to 0mm (fully closed)
+//some calibration will be needed here.
+void vFCU_BRAKES__Move_Percent_Position(Lfloat32 f32Percent, E_FCU__BRAKE_INDEX_T eBrake)
+{
+	if((f32Percent < 0) || (f32Percent > 100))
+	{
+		//do nothing
+	}
+	else
+	{
+		if(eBrake < FCU_BRAKE__MAX_BRAKES)
+		{
+			//set BrakePosition_Percent to value
+			sFCU.sBrakes[(Luint32)eBrake].sMLP.f32BrakePosition_Percent = f32Percent;
+		}
+	}
+}
 
 
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
