@@ -85,7 +85,7 @@ void vPWRNODE__Process(void)
 
 			//setup UART, SCI2 = Pi Connection
 			vRM4_SCI__Init(SCI_CHANNEL__2);
-			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 9600U);
+			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, (115200*2));
 			vRM4_SCI_HELPERS__DisplayText(SCI_CHANNEL__2, "Lok", 100);
 
 
@@ -198,6 +198,9 @@ void vPWRNODE__Process(void)
 			break;
 
 	}//switch(sPWRNODE.sInit.sState)
+
+	if(sPWRNODE.sInit.sState > INIT_STATE__COMMS)
+		vPICOMMS__Process();
 
 }
 
