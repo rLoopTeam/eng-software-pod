@@ -29,7 +29,8 @@ static Lint16 s16FCU_BRAKES_MLP__Check_ADC_Limits(E_FCU__BRAKE_INDEX_T eBrake);
 //locals
 static void vFCU_BRAKES_MLP__Apply_Zero(E_FCU__BRAKE_INDEX_T eBrake);
 static void vFCU_BRAKES_MLP__Apply_Span(E_FCU__BRAKE_INDEX_T eBrake);
-
+static void vFCU_BRAKES__Move_Percent_Position(Lfloat32 f32Percent, E_FCU__BRAKE_INDEX_T eBrake);
+static void vFCU_BRAKES__Move_Distance_Position(Lfloat32 f32Percent, E_FCU__BRAKE_INDEX_T eBrake);
 
 /***************************************************************************//**
  * @brief

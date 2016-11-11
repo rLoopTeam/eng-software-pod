@@ -27,7 +27,10 @@
 		/*******************************************************************************
 		Defines
 		*******************************************************************************/
-		#define C_MLP__MAX_AVERAGE_SIZE				(8U)
+		#define C_MLP__MAX_AVERAGE_SIZE							(8U)
+		#define FCU_BRAKE__MIN_BRAKES_POSITION_PERCENT			(0.0F)
+	 	#define FCU_BRAKE__MAX_BRAKES_POSITION_PERCENT			(100.0F)
+		#define FCU_BRAKE__BRAKES_POSITION_PERCENT_TO_DISTANCE	(0.225F)
 
 		/** Brakes states */
 		typedef enum
@@ -103,6 +106,9 @@
 
 					/** Percent of braking from 0.0 to 100.0*/
 					Lfloat32 f32BrakePosition_Percent;
+
+					/** Distance brakes move from 0 mm to 22.5mm*/
+					Lfloat32 f32BrakePosition_Distance;
 
 					/** Average Counter	for MLP filter function				 */
 					Luint16 u16AverageCounter;
