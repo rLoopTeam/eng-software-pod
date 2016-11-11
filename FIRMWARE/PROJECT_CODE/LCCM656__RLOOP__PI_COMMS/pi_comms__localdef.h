@@ -17,7 +17,9 @@ RLOOP - PI COMMUNICATIONS MODULE
 		//arch
 		#define C_LOCALDEF__LCCM656__USE_ON_RM4								(1U)
 		#define C_LOCALDEF__LCCM656__USE_ON_WIN32							(0U)
-	
+
+		/** enable the receiver side? */
+		#define C_LOCALDEF__LCCM656__ENABLE_RX								(0U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM656__ENABLE_TEST_SPEC						(0U)
