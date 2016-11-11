@@ -183,7 +183,7 @@
 
 		//ASI interface
 		void vFCU_ASI__Init(void);
-		Lint16 vFCU_ASI__Cmd_Init(Luint8 u8ASIDevNum);
+		Lint16 vFCU_ASI__Controller_Init(Luint8 u8ASIDevNum);
 		Lint16 vFCU_ASI__Tx_Cmd(Luint8 u8ASIDevNum, struct _strASICmd *sCmdParams);
 		Lint16 vFCU_ASI__SetRPM(Luint8 u8ASIDevNum, Luint32 u32Rpm);
 		Lint16 vFCU_ASI__SaveParams(Luint8 u8ASIDevNum);

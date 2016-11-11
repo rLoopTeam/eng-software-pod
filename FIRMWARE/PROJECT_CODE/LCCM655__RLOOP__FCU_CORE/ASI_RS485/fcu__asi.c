@@ -49,7 +49,7 @@ Lint16 vFCU_ASI__Tx_Cmd(Luint8 u8ASIDevNum, struct _strASICmd *sCmdParams)
  * @return			-1 = error
  * 					0 = success
  */
-Lint16 vFCU_ASI__Cmd_Init(Luint8 u8ASIDevNum)
+Lint16 vFCU_ASI__Controller_Init(Luint8 u8ASIDevNum)
 {
 	Lint16 i16Return = 0;
 	struct _strASICmd sCmdParam;
@@ -64,6 +64,9 @@ Lint16 vFCU_ASI__Cmd_Init(Luint8 u8ASIDevNum)
 		// report an error
 		return i16Return;
 	}
+
+	// set motor rating
+
 
 	// set temperature thresholds
 	sCmdParam.cmdAddx = C_FCU_ASI__OVER_TEMP_THRESHOLD;
