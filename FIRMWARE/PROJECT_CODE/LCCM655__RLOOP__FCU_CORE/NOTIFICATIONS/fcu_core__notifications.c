@@ -37,9 +37,9 @@ void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
 }
 
 
-#endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
+#endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 //safetys
-#ifndef C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE
+#ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
 	#error
 #endif
 /** @} */

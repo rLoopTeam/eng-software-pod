@@ -170,7 +170,7 @@ SCI / LIN Module
 		#define DEBUG_PRINT(x)												vRM4_SCI_HELPERS__DisplayText(SCI_CHANNEL__2, x, 100)
 
 		//enable interrupts, else use polling Mode
-		#define C_LOCALDEF__LCCM282__ENABLE_INTERRUPTS						(0U)
+		#define C_LOCALDEF__LCCM282__ENABLE_INTERRUPTS						(1U)
 
 		/** Switch on DMA functions */
 		#define C_LOCALDEF__LCCM282__ENABLE_DMA								(1U)
