@@ -15,9 +15,11 @@
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__types.h>
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__defines.h>
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__enums.h>
+		#include <LCCM655__RLOOP__FCU_CORE/PI_COMMS/fcu__pi_comms__types.h>
 
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/BRAKES/fcu__brakes__fault_flags.h>
+		#include <LCCM655__RLOOP__FCU_CORE/ACCELEROMETERS/fcu__accel__fault_flags.h>
 
 		//for software fault tree handling
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
@@ -25,6 +27,7 @@
 		/*******************************************************************************
 		Defines
 		*******************************************************************************/
+		#define C_MLP__MAX_AVERAGE_SIZE				(8U)
 
 		/** Brakes states */
 		typedef enum
@@ -72,6 +75,10 @@
 				/** top level fault tree subsystem for the flight controller */
 				FAULT_TREE__PUBLIC_T sTopLevel;
 
+				/** Accel subsystem faults */
+				FAULT_TREE__PUBLIC_T sAccel;
+
+
 			}sFaults;
 
 
@@ -96,6 +103,12 @@
 
 					/** Percent of braking from 0.0 to 100.0*/
 					Lfloat32 f32BrakePosition_Percent;
+
+					/** Average Counter	for MLP filter function				 */
+					Luint16 u16AverageCounter;
+
+					/** Average Array for MLP filter function				 */
+					Luint16 u16AverageArray[C_MLP__MAX_AVERAGE_SIZE];
 
 				}sMLP;
 
@@ -125,6 +138,30 @@
 			}sBrakes[C_FCU__NUM_BRAKES];
 
 
+			/** Accel subsystem */
+			struct
+			{
+
+				/** individual accel channels */
+				struct
+				{
+					/** most recent recorded sample from the Accel */
+					Lint16 s16LastSample;
+
+				}sChannels[C_LOCALDEF__LCCM418__NUM_DEVICES];
+
+			}sAccel;
+
+			/** Pi Comms Layer */
+			struct
+			{
+
+				//the current state
+				E_FCU_PICOM__STATE_T eState;
+
+			}sPiComms;
+
+
 			/** Structure guard 2*/
 			Luint32 u32Guard2;
 			
@@ -151,6 +188,10 @@
 		void vFCU_FAULTS__Process(void);
 		Luint8 u8FCU_FAULTS__Get_IsFault(void);
 		Luint32 u32FCU_FAULTS__Get_FaultFlags(void);
+
+		//pi comms
+		void vFCU_PICOMMS__Init(void);
+		void vFCU_PICOMMS__Process(void);
 
 		//brakes
 		void vFCU_BRAKES__Init(void);
@@ -180,6 +221,7 @@
 
 		//accelerometer layer
 		void vFCU_ACCEL__Init(void);
+		void vFCU_ACCEL__Process(void);
 
 		//ASI interface
 		void vFCU_ASI__Init(void);

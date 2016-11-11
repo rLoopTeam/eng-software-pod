@@ -16,6 +16,11 @@
 #ifndef _MMA8451__REGISTER_DEFS_H_
 #define _MMA8451__REGISTER_DEFS_H_
 
+
+
+
+
+
 /*
 Name        Type        Register    Auto-Increment  Default     Comment
                         Address     Address
@@ -90,15 +95,15 @@ Debounce counters are clear during invalid
 sequence condition.
 PL_COUNT(1)(3) R/W 0x1B 0x1C 00000000 Landscape/Portrait debounce counter
 PL_BF_ZCOMP(1)(4) R/W 0x1C 0x1D 00000010
-Back-Front Trip threshold is �75�.
-Z-Lockout angle is 32.14�
+Back-Front Trip threshold is ï¿½75ï¿½.
+Z-Lockout angle is 32.14ï¿½
 
-PL_P_L_THS_REG1(1)(4) R/W 0x1D 0x1E 00011010 Portrait-to-Landscape Trip Angle is 30�
-PL_P_L_THS_REG2(1)(4) R/W 0x1E 0x1F 00100010 Portrait-to-Landscape Trip Angle is 30�
-PL_P_L_THS_REG3(1)(4) R/W 0x1F 0x20 11010100 Portrait-to-Landscape Trip Angle is 30�
-PL_L_P_THS_REG1(1)(4) R/W 0x20 0x21 00101101 Landscape-to-Portrait Trip Angle is 60�
-PL_L_P_THS_REG2(1)(4) R/W 0x21 0x22 01000001 Landscape-to-Portrait Trip Angle is 60�
-PL_L_P_THS_REG3(1)(4) R/W 0x22 0x23 10100010 Landscape-to-Portrait Trip Angle is 60�
+PL_P_L_THS_REG1(1)(4) R/W 0x1D 0x1E 00011010 Portrait-to-Landscape Trip Angle is 30ï¿½
+PL_P_L_THS_REG2(1)(4) R/W 0x1E 0x1F 00100010 Portrait-to-Landscape Trip Angle is 30ï¿½
+PL_P_L_THS_REG3(1)(4) R/W 0x1F 0x20 11010100 Portrait-to-Landscape Trip Angle is 30ï¿½
+PL_L_P_THS_REG1(1)(4) R/W 0x20 0x21 00101101 Landscape-to-Portrait Trip Angle is 60ï¿½
+PL_L_P_THS_REG2(1)(4) R/W 0x21 0x22 01000001 Landscape-to-Portrait Trip Angle is 60ï¿½
+PL_L_P_THS_REG3(1)(4) R/W 0x22 0x23 10100010 Landscape-to-Portrait Trip Angle is 60ï¿½
 FF_MT_CFG_1(1)(4) R/W 0x23 0x24 00000000 Freefall/Motion1 configuration
 FF_MT_SRC_1(1)(2) R 0x24 0x25 00000000 Freefall/Motion1 event source register
 FF_MT_THS_1(1)(3) R/W 0x25 0x26 00000000 Freefall/Motion1 threshold register
@@ -142,6 +147,37 @@ CTRL_REG1(1)(4) R/W 0x38 0x39 00000000 ODR = 400 Hz, Standby Mode.
 #define C_MMA8451__REGISTER__OFF_Y_RW		0x30
 //OFF_Z(1)(4) R/W 0x3F 0x0F 00000000 Z-axis offset adjust
 #define C_MMA8451__REGISTER__OFF_Z_RW		0x31
+
+
+	/* 0x09: F_SETUP FIFO Setup Register
+	 * BITS 						Description
+	 * F_MODE[1:0](1)(2)			FIFO buffer overflow mode. Default value: 0.
+	 * 									00: FIFO is disabled.
+	 *
+	 * 									01: FIFO contains the most recent samples when overflowed (circular buffer).
+	 * 									Oldest sample is discarded to be replaced by new sample.
+	 *
+	 * 									10: FIFO stops accepting new samples when overflowed.
+	 *
+	 * 									11: Trigger mode. The FIFO will be in a circular mode up to the number of samples in the watermark.
+	 * 									The FIFO will be in a circular mode until the trigger event occurs after that the FIFO will continue to accept samples
+	 * 									for 32-WMRK samples and then stop receiving further samples. This allows data to be collected both before
+	 * 									and after the trigger event and it is definable by the watermark setting.
+	 *
+	 * 									The FIFO is flushed whenever the FIFO is disabled, during an automatic ODR change (Auto-WAKE/SLEEP),
+	 * 									or transitioning from STANDBY mode to ACTIVE mode.
+	 * 									Disabling the FIFO (F_MODE = 00) resets the F_OVF, F_WMRK_FLAG, F_CNT to zero.
+	 * 									A FIFO overflow event (i.e., F_CNT = 32) will assert the F_OVF flag and a FIFO sample count equal to the
+	 * 									sample count watermark (i.e., F_WMRK) asserts the F_WMRK_FLAG event flag.
+	 *
+	 * F_WMRK[5:0](2)					FIFO Event Sample Count Watermark. Default value: 00_0000.
+	 * 									These bits set the number of FIFO samples required to trigger a watermark interrupt. A FIFO watermark event
+	 * 									flag is raised when FIFO sample count F_CNT[5:0] ≥ F_WMRK[5:0] watermark.
+	 * 									Setting the F_WMRK[5:0] to 00_0000 will disable the FIFO watermark event flag generation.
+	 * 									Also used to set the number of pre-trigger samples in Trigger mode.
+	 */
+	#define C_MMA8451__REGISTER__FIFO_SETUP					0x09
+
 
 
 #endif //

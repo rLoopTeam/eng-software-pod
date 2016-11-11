@@ -11,6 +11,8 @@
 	#include <localdef.h>
 	#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
+		#include <LCCM653__RLOOP__POWER_CORE/PI_COMMS/power_core__pi_comms__types.h>
+
 		/*******************************************************************************
 		Defines
 		*******************************************************************************/
@@ -71,6 +73,16 @@
 
 			}sInit;
 
+			/** Pi Comms Layer */
+			struct
+			{
+
+				/** the current state */
+				E_POWER_PICOM__STATE_T eState;
+
+			}sPiComms;
+
+
 			/** Win32 Functions*/
 #ifdef WIN32
 			struct
@@ -97,6 +109,10 @@
 		//BMS interface layer
 		void vPWRNODE_BMS__Init(void);
 		void vPWRNODE_BMS__Process(void);
+
+		//pi comms interface
+		void vPWRNODE_PICOMMS__Init(void);
+		void vPWRNODE_PICOMMS__Process(void);
 
 		//CAN
 		void vPWRNODE_CAN__Init(void);

@@ -21,6 +21,9 @@
 	
 	#include <RM4/LCCM282__RM4__SCI/rm4_sci__private.h>
 
+	#if C_LOCALDEF__LCCM282__ENABLE_DMA == 1U
+		#include <RM4/LCCM229__RM4__DMA/rm4_dma__private.h>
+	#endif
 
 	//There are two SCI channels, one is SCI1 (wich uses the SCI Pins) and the
 	//other is SCI2 which shares the LIN pins
@@ -76,6 +79,24 @@
 		PIN_SCI_RX = 1U
 	};
 
+	/** Main Structure for SCI */
+	struct _strRM4SCI
+	{
+
+		#if C_LOCALDEF__LCCM282__ENABLE_DMA == 1U
+			struct
+			{
+				//dma control packet
+				RM4_DMA__CONTROL_T pDMAControl;
+
+			}sDMA[2];
+		#else
+			Luint8 u8Dummy;
+		#endif
+
+
+	};
+
 
 	//function protos
 	void vRM4_SCI__Init(RM4_SCI__CHANNEL_T eChannel);
@@ -95,16 +116,23 @@
 	void vRM4_SCI_LOOPBACK__Enable(RM4_SCI__CHANNEL_T eChannel, RM4_SCI__LOOPBACK_T eLoopback);
 	void vRM4_SCI_LOOPBACK__Disable(RM4_SCI__CHANNEL_T eChannel);
 
+	//DMA
+	#if C_LOCALDEF__LCCM282__ENABLE_DMA == 1U
+		void vRM4_SCI_DMA__Init(void);
+		void vRM4_SCI_DMA__Begin_Tx(RM4_SCI__CHANNEL_T eChannel, Luint8 *pu8SourceBuffer, Luint32 u32Length);
+		Luint8 u8RM4_SCI_DMA__Is_TxBusy(RM4_SCI__CHANNEL_T eChannel);
+	#endif
+
 	//interrupts
 	#if C_LOCALDEF__LCCM282__ENABLE_INTERRUPTS == 1U
-		void vRM4_SCI_INT__Enable_Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags);
-		void vRM4_SCI_INT__Disable_Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags);
+		void vRM4_SCI_INT__Enable_Notification(RM4_SCI__CHANNEL_T eChannel, RM4_SCI__INTERRUPT_FLAGS_T eFlags);
+		void vRM4_SCI_INT__Disable_Notification(RM4_SCI__CHANNEL_T eChannel, RM4_SCI__INTERRUPT_FLAGS_T eFlags);
 
 		/* This is a callback that is provided by the application and is called apon
 		* an interrupt.  The parameter passed to the callback is a copy of the
 		* interrupt flag register.
 		*/
-		void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags);
+		void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, RM4_SCI__INTERRUPT_FLAGS_T eFlags);
 
 		//interrupts called by VIM
 		void vRM4_SCI_ISR__LowLevel(void);

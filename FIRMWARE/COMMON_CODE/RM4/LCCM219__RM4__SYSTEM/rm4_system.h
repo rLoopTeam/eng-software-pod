@@ -32,6 +32,11 @@
 	#define C_LOCALDEF__SYSTEM__VCLK2_FREQ_MHZ								(C_LOCALDEF__SYSTEM__VCLK_FREQ_MHZ)
 
 
+	#ifndef C_LOCALDEF__SYSTEM__VCLK1_DIVISOR
+		#error
+	#endif
+	#define C_LOCALDEF__SYSTEM__VCLK1_FREQ_MHZ								(C_LOCALDEF__SYSTEM__VCLK_FREQ_MHZ / C_LOCALDEF__SYSTEM__VCLK1_DIVISOR)
+
 	/** @enum loopBackType
 	*   @brief Loopback type definition
 	*/

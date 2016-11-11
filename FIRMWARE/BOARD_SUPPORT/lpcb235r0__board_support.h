@@ -29,7 +29,7 @@ Change the build settings:
 
 	//change osc freq to match the osc on your board
 	//valid values are 10 and 16MHZ
-	#define C_LOCALDEF__SYSTEM__OSCILLATOR_FREQ     						(16000000U)
+	#define C_LOCALDEF__SYSTEM__OSCILLATOR_FREQ     						(10000000U)
 
 	//This is the HCLK frequency, it is not defined here, but is a result of the
 	//PLL1 setup.  Standard range is 200MHZ to 220MHZ (952 part)
@@ -170,7 +170,10 @@ SCI / LIN Module
 		#define DEBUG_PRINT(x)												vRM4_SCI_HELPERS__DisplayText(SCI_CHANNEL__2, x, 100)
 
 		//enable interrupts, else use polling Mode
-		#define C_LOCALDEF__LCCM282__ENABLE_INTERRUPTS						(0U)
+		#define C_LOCALDEF__LCCM282__ENABLE_INTERRUPTS						(1U)
+
+		/** Switch on DMA functions */
+		#define C_LOCALDEF__LCCM282__ENABLE_DMA								(1U)
 
 		//determine which SCI module to enable
 		//SCI1 shares pins with EMAC
@@ -206,8 +209,8 @@ RM4 GIO MODULE
 			#define GIOA_PIN_3_ISR()										vSC16_INT__Handle_ISR(1U)
 			#define GIOA_PIN_4_ISR()										vSC16_INT__Handle_ISR(2U)
 			#define GIOA_PIN_5_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_6_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_7_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOA_PIN_6_ISR()										vMMA8451__ISR(0U)
+			#define GIOA_PIN_7_ISR()										vMMA8451__ISR(1U)
 
 			#define GIOB_PIN_0_ISR()										vSC16_INT__Handle_ISR(7U)
 			#define GIOB_PIN_1_ISR()										vSC16_INT__Handle_ISR(3U)
@@ -349,7 +352,7 @@ RM4 I2C
 		#define C_LOCALDEF__LCCM215__OWN_ADDRESS                        	(0x50)
 
 		/** Number of loops to wait for the timeout*/
-		#define C_LOCALDEF__LCCM215__TIMEOUT_CYCLES   						(10000000U)
+		#define C_LOCALDEF__LCCM215__TIMEOUT_CYCLES   						(1000000U)
 
 		#define C_LOCALDEF__LCCM215__USE_INTERRUPTS 						(0U)
 
@@ -795,7 +798,7 @@ RTI MODULE
 	#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1U
 
 		//globally switch on the WDT
-		#define C_LOCALDEF__LCCM124__ENABLE_WDT								(0U)
+		#define C_LOCALDEF__LCCM124__ENABLE_WDT								(1U)
 
 		/** RTI CLOCK FREQUENCY
 		 * Based on our standard system, valid values are div(2,4,8):
@@ -834,6 +837,403 @@ RTI MODULE
 
 	#endif //#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1U
 
+
+/*******************************************************************************
+GENERAL PURPOSE
+SOFTWARE FIFO
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE == 1U
+
+		//testing options
+		#define C_LOCALDEF__LCCM357__ENABLE_TEST_SPEC						(0U)
+
+		//main include file
+		#include <MULTICORE/LCCM357__MULTICORE__SOFTWARE_FIFO/software_fifo.h>
+
+	#endif //C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE
+
+/*******************************************************************************
+SOFTWARE BASED CRC
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM012__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM012__ENABLE_THIS_MODULE == 1U
+
+		//set to 1 to enable test specification code
+		#define C_LOCALDEF__LCCM012__ENABLE_TEST_SPEC						(0U)
+
+		//types of CRC
+		#define C_LOCALDEF__LCCM012__ENABLE_CRC7							(0U)
+		#define C_LOCALDEF__LCCM012__ENABLE_CRC8							(1U)
+		#define C_LOCALDEF__LCCM012__ENABLE_CRC16							(1U)
+
+		//set to 1 to enable table based CRC16
+		//Note: Not possible on PIC18 due to page sizes
+		#define C_LOCALDEF__LCCM012__ENABLE_TABLE_BASED_CRC					(1U)
+
+
+		#if C_LOCALDEF__LCCM012__ENABLE_CRC16 == 1U
+
+			//if using tables, define any alignment issues
+			#if C_LOCALDEF__LCCM012__ENABLE_TABLE_BASED_CRC == 1U
+				#ifndef WIN32
+					#define C_LOCALDEF__LCCM012__TABLE16_DEF const Luint16 u16SWCRC_CRC_TABLE[] __attribute__ ((aligned (128)))
+				#else
+					//no alignment possible on win32.
+					#define C_LOCALDEF__LCCM012__TABLE16_DEF const Luint16 u16SWCRC_CRC_TABLE[]
+				#endif
+			#endif //C_LOCALDEF__LCCM012__ENABLE_TABLE_BASED_CRC
+		#endif
+
+		#include <MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC/software_crc.h>
+
+	#endif
+
+
+/*******************************************************************************
+SC16IS741 - UART TO SPI MODULE
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE == 1U
+
+		//architecture
+		#define C_LOCALDEF__LCCM487__USE_ON_RM4								(1U)
+		#define C_LOCALDEF__LCCM487__USE_ON_MSP430							(0U)
+
+		//configure the number of devices in the system
+		#define C_LOCALDEF__LCCM487__NUM_DEVICES							(8U)
+
+		/** If we have multiple devices we can choose to have a common hardware
+		reset line */
+		#define C_LOCALDEF__LCCM487__HAVE_COMMON_HW_RESET					(1U)
+
+		//HW reset tristate
+		//Serial A, Serial B, ASI Serial
+		#define M_LOCALDEF__LCCM487__HW_RESET__TRIS(index)					{vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 1U); \
+																			 vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 2U); \
+																			 vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 23U);}
+
+		//Serial A, Serial B, ASI Serial
+		#define M_LOCALDEF__LCCM487__HW_RESET__LATCH(value)					{vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 1U, value); \
+																			 vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 2U, value);	\
+																			 vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 23U, value);	}
+
+		//CS indexing
+		//A0, A1, A2
+		//B0, B1, B2, B3
+		//ASI0
+		#define M_LOCALDEF__LCCM487__HW_CHIPSELECT__TRIS(index) 			{\
+																			if(index == 0U)			vRM4_MIBSPI135_PINS__Set_OutputDirection(MIBSPI135_CHANNEL__3, MIBSPI135_PIN__CS0);\
+																			else if(index == 1U) 	vRM4_MIBSPI135_PINS__Set_OutputDirection(MIBSPI135_CHANNEL__3, MIBSPI135_PIN__ENA);\
+																			else if(index == 2U) 	vRM4_MIBSPI135_PINS__Set_OutputDirection(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__CS3); \
+																			else if(index == 3U) 	vRM4_MIBSPI135_PINS__Set_OutputDirection(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__SIMO1); \
+																			else if(index == 4U) 	vRM4_MIBSPI135_PINS__Set_OutputDirection(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__SOMI1); \
+																			else if(index == 5U) 	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 3U); \
+																			else if(index == 6U) 	vRM4_MIBSPI135_PINS__Set_OutputDirection(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__SIMO3); \
+																			else if(index == 7U) 	vRM4_MIBSPI135_PINS__Set_OutputDirection(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__SOMI3); \
+																			}
+
+
+		//Chip select latch pin
+		#define M_LOCALDEF__LCCM487__HW_CHIPSELECT__LATCH(index, value) 	{\
+																			if(index == 0U)			vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__3, MIBSPI135_PIN__CS0, value); \
+																			else if(index == 1U) 	vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__3, MIBSPI135_PIN__ENA, value); \
+																			else if(index == 2U) 	vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__CS3, value); \
+																			else if(index == 3U) 	vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__SIMO1, value); \
+																			else if(index == 4U) 	vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__SOMI1, value); \
+																			else if(index == 5U) 	vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 3U, value); \
+																			else if(index == 6U) 	vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__SIMO3, value); \
+																			else if(index == 7U) 	vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__SOMI3, value); \
+																			}
+
+		#define M_LOCALDEF__LCCM487__HW_INTERUPTPIN__TRIS(index) 			{ \
+																			if(index == 0U) 		vRM4_GIO__Set_BitDirection(gioPORTA, 2, GIO_DIRECTION__INPUT); \
+																			else if(index == 1U) 	vRM4_GIO__Set_BitDirection(gioPORTA, 3, GIO_DIRECTION__INPUT); \
+																			else if(index == 2U) 	vRM4_GIO__Set_BitDirection(gioPORTA, 4, GIO_DIRECTION__INPUT); \
+																			else if(index == 3U) 	vRM4_GIO__Set_BitDirection(gioPORTB, 1, GIO_DIRECTION__INPUT); \
+																			else if(index == 4U) 	vRM4_GIO__Set_BitDirection(gioPORTB, 3, GIO_DIRECTION__INPUT); \
+																			else if(index == 5U) 	vRM4_GIO__Set_BitDirection(gioPORTB, 6, GIO_DIRECTION__INPUT); \
+																			else if(index == 6U) 	vRM4_GIO__Set_BitDirection(gioPORTB, 0, GIO_DIRECTION__INPUT); \
+																			else if(index == 7U) 	vRM4_GIO__Set_BitDirection(gioPORTB, 7, GIO_DIRECTION__INPUT); \
+																			}
+
+
+		//SPI Interface
+		#define M_LOCALDEF__LCCM487__SPI__TX_U8(u8Value)					u8RM4_MIBSPI135__Tx_U8(MIBSPI135_CHANNEL__1, MIBSPI135_DATA_FORMAT__0, MIBSPI135_CS__NONE, u8Value)
+
+		//testing
+		#define C_LOCALDEF__LCCM487__ENABLE_TEST_SPEC							(1U)
+
+
+		//main include file
+		#include <MULTICORE/LCCM487__MULTICORE__SC16IS741/sc16.h>
+	#endif //#if C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE == 1U
+
+
+/*******************************************************************************
+EEPROM BASIC PARAMETERS
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
+
+		//select your architecture
+		#define C_LOCALDEF__LCCM188__USE_ON_PIC18							(0U)
+		#define C_LOCALDEF__LCCM188__USE_ON_PIC32							(0U)
+		#define C_LOCALDEF__LCCM188__USE_ON_DSPIC							(0U)
+		#define C_LOCALDEF__LCCM188__USE_ON_RM4 							(1U)
+		#define C_LOCALDEF__LCCM188__USE_ON_MSP430 							(0U)
+		#define C_LOCALDEF__LCCM188__USE_ON_WIN32 							(0U)
+
+		/** Use the EEPRARAMS module with an external FLASH */
+		#define C_LOCALDEF__LCCM188__USE_WITH_LCCM013						(0U)
+
+		/** Define the number of parameters in the system */
+		#define C_LOCALDEF__LCCM188__NUM_PARAMETERS							(128U)
+
+		/** set to 1 if you want to enable CRC's across the entire paramter
+		range.  If so you will loose one paramter at the end to store theCRC
+		*/
+		#define C_LOCALDEF__LCCM188__ENABLE_CRC								(1U)
+
+		/** Offset to start in memory */
+		#define C_LOCALDEF__LCCM188__EEPROM_START_OFFSET					(0U)
+
+		/** DISABLES */
+		#define C_LOCALDEF__LCCM188__DISABLE__U16							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__S16							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__U32							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__S32							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__F32							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__MAC							(0U)
+
+		/** Testing options */
+		#define C_LOCALDEF__LCCM188__ENABLE_TEST_SPEC						(0U)
+
+		//main include file
+		#include <MULTICORE/LCCM188__MULTICORE__EEPROM_PARAMS/eeprom_params.h>
+
+	#endif //C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE
+
+
+/*******************************************************************************
+MCP23S17 DRIVER
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM121__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM121__ENABLE_THIS_MODULE == 1U
+
+		//determine the CPU
+		#define C_LOCALDEF__LCCM121__USE_ON_PIC32							(0U)
+		#define C_LOCALDEF__LCCM121__USE_ON_PIC18							(0U)
+		#define C_LOCALDEF__LCCM121__USE_ON_DSPIC							(0U)
+		#define C_LOCALDEF__LCCM121__USE_ON_RM4 							(1U)
+
+		//determine interface
+		#define C_LOCALDEF__LCCM121__USE_I2C 								(0U)
+		#define C_LOCALDEF__LCCM121__USE_SPI								(1U)
+
+		//chip select port
+		#define C_LOCALDEF__LCCM121__NCS_TRIS(index, x)						{vRM4_MIBSPI135_PINS__Set_OutputDirection(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__SOMI2);}
+		#define C_LOCALDEF__LCCM121__NCS_LATCH(index, x)					{vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__SOMI2, x);}
+
+		//reset port
+		#define C_LOCALDEF__LCCM121__NRESET_TRIS(index, x)					{vRM4_MIBSPI135_PINS__Set_OutputDirection(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__CS0);}
+		#define C_LOCALDEF__LCCM121__NRESET_LATCH(index, x)					{vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__CS0, x);}
+
+		//interrupt port (if used)
+
+		//this is the SPI send byte routine
+		#define C_LOCALDEF__LCCM121__SPI_SENDBYTE(x) 						u8RM4_MIBSPI135__Tx_U8(MIBSPI135_CHANNEL__1, MIBSPI135_DATA_FORMAT__0, MIBSPI135_CS__NONE, x)
+
+		//testing
+		#define C_LOCALDEF__LCCM121__ENABLE_TEST_SPEC						(0U)
+
+		//main include file
+		#include <MULTICORE/LCCM121__MULTICORE__MCP23S17/mcp23s17.h>
+
+	#endif //C_LOCALDEF__LCCM121__ENABLE_THIS_MODULE
+
+
+/*******************************************************************************
+STEP MOTOR DRIVER
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM231__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM231__ENABLE_THIS_MODULE == 1U
+
+		//determine our architecture
+		#define C_LOCALDEF__LCCM231__USE_ON_PIC32							(0U)
+		#define C_LOCALDEF__LCCM231__USE_ON_RM4								(1U)
+		#define C_LOCALDEF__LCCM231__USE_ON_WIN32							(0U)
+
+		//use f64 if you need the precisions
+		#define C_LOCALDEF__LCCM231__USE_F64								(0U)
+
+		//determine the target
+		#define C_LOCALDEF__LCCM231__STEP_VIA_A4988							(0U)
+		#define C_LOCALDEF__LCCM231__STEP_VIA_GEKO							(1U)
+		#define C_LOCALDEF__LCCM231__STEP_VIA_WIN32							(0U)
+
+
+		//value in seconds of the time base being used
+		//50us
+		#define C_LOCALDEF__LCCM321__MOTOR_DRIVER_TICK_VALUE_HZ 			(0.000050F)
+
+
+		//max number of motors in the system
+		#define C_LOCALDEF__LCCM231__NUMBER_OF_MOTORS						(2U)
+
+		//set to 1 to enable USB interface on PIC32 / RM4
+		#define C_LOCALDEF__LCCM231__ENABLE_USB								(0U)
+
+		//if you have USB, or other modules that want to use the USB
+		//there are some system level functions that you will want to use
+		#define C_LOCALDEF__LCCM231__ENABLE_USB_FUNCTIONS					(0U)
+
+		//enable text debugging
+		#define C_LOCALDEF__LCCM231__ENABLE_TEXT_DEBUG						(0U)
+
+
+		//this is the parameter layout
+		#define C_LOCALDEF__LCCM231__M0_MICROSTEP_RESOLUTION__PARAM_INDEX	(0U)
+		#define C_LOCALDEF__LCCM231__M0_MAX_ACCELERATION__PARAM_INDEX		(1U)
+		#define C_LOCALDEF__LCCM231__M0_MICRONS_PER_REVOLUTION__PARAM_INDEX	(2U)
+		#define C_LOCALDEF__LCCM231__M0_STEPS_PER_REVOLUTION__PARAM_INDEX	(3U)
+		#define C_LOCALDEF__LCCM231__M0_MAX_ANGULAR_VELOCITY__PARAM_INDEX	(4U)
+
+		#define C_LOCALDEF__LCCM231__M1_MICROSTEP_RESOLUTION__PARAM_INDEX	(6U)
+		#define C_LOCALDEF__LCCM231__M1_MAX_ACCELERATION__PARAM_INDEX		(7U)
+		#define C_LOCALDEF__LCCM231__M1_MICRONS_PER_REVOLUTION__PARAM_INDEX	(8U)
+		#define C_LOCALDEF__LCCM231__M1_STEPS_PER_REVOLUTION__PARAM_INDEX	(9U)
+		#define C_LOCALDEF__LCCM231__M1_MAX_ANGULAR_VELOCITY__PARAM_INDEX	(10U)
+
+		#define C_LOCALDEF__LCCM231__PARAM_INDEX__HEADER					(11U)
+		#define C_LOCALDEF__LCCM231__PARAM_INDEX__CRC						(12U)
+
+		//set to 1 if all of the driver chips are on the same reset line
+		//if not individual resets need to be provided for each device
+		#define C_LOCALDEF__LCCM231__ALL_RESETS_COMMON						(1U)
+		#define C_LOCALDEF__LCCM231__COMMON_RESET_TRIS()
+		#define C_LOCALDEF__LCCM231__COMMON_RESET_LATCH(x)
+
+		#define C_LOCALDEF__LCCM231__M0__PIN_PULSE__TRIS()					{vRM4_SPI24_PINS__Set_DirectionOutput(SPI24_CHANNEL__2, SPI24_PIN__CS0);}
+		#define C_LOCALDEF__LCCM231__M0__PIN_PULSE__LATCH(x)				{vRM4_SPI24_PINS__Set_Pin(SPI24_CHANNEL__2, SPI24_PIN__CS0, x);}
+		#define C_LOCALDEF__LCCM231__M0__PIN_DIR__TRIS()					{vRM4_MIBSPI135_PINS__Set_OutputDirection(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__CS1);}
+		#define C_LOCALDEF__LCCM231__M0__PIN_DIR__LATCH(x)					{vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__5, MIBSPI135_PIN__CS1, x);}
+
+		#define C_LOCALDEF__LCCM231__M1__PIN_PULSE__TRIS()					{vRM4_SPI24_PINS__Set_DirectionOutput(SPI24_CHANNEL__2, SPI24_PIN__ENA);}
+		#define C_LOCALDEF__LCCM231__M1__PIN_PULSE__LATCH(x)				{vRM4_SPI24_PINS__Set_Pin(SPI24_CHANNEL__2, SPI24_PIN__ENA, x);}
+		#define C_LOCALDEF__LCCM231__M1__PIN_DIR__TRIS()					{vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 21U);}
+		#define C_LOCALDEF__LCCM231__M1__PIN_DIR__LATCH(x)					{vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 21U, x);}
+
+		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_DEFAULT_RESOLUTION        10
+		//Value in rev / square second
+		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MAX_ACCELERATION 			100
+		//Value in mm / rev
+		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MILIMITERS_PER_REVOLUTION 10
+		//number of steps per revolution [Integer]
+		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_STEPS_PER_REVOLUTION 		200
+		//Value in RPMs [Integer]
+		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MAX_ANGULAR_VELOCITY 		100
+
+
+		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_DEFAULT_RESOLUTION        10
+		//Value in rev / square second
+		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MAX_ACCELERATION 			100
+		//Value in mm / rev
+		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MILIMITERS_PER_REVOLUTION 10
+		//number of steps per revolution [Integer]
+		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_STEPS_PER_REVOLUTION 		200
+		//Value in RPMs [Integer]
+		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MAX_ANGULAR_VELOCITY 		100
+
+
+		//testing
+		#define C_LOCALDEF__LCCM231__ENABLE_TEST_SPEC					(0U)
+
+		#include <MULTICORE/LCCM231__MULTICORE__STEPPER_DRIVE/stepper_drive.h>
+
+	#endif
+
+/*******************************************************************************
+MMA8451 - 3 AXIS ACCELEROMETER
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM418__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM418__ENABLE_THIS_MODULE == 1U
+
+		#define C_LOCALDEF__LCCM418__USE_ON_DSPIC							(0U)
+
+		//Define the number of MMA8451's that are on the I2C Chain (MAX = 2)
+		//Limit if 2 is due to addx pin limit
+		//for 4 devices, two chains will be used, the second for device 2,3
+		#define C_LOCALDEF__LCCM418__NUM_DEVICES							(2U)
+
+		#define C_LOCALDEF__LCCM418__DELAY_US(x)							vRM4_DELAYS__Delay_uS(x)
+
+		/** The max number of process loops without seeing an interrupt before we raise a flag. */
+		#define C_LOCALDEF__LCCM418__MAX_INTERRUPT_LOST_COUNT				(500000U)
+
+		/** set to 1 to use interrupts, not polling method */
+		#define C_LOCALDEF__LCCM418__USE_INTERRUPT_DEV0						(1U)
+		#define C_LOCALDEF__LCCM418__USE_INTERRUPT_DEV1						(1U)
+		#define C_LOCALDEF__LCCM418__USE_INTERRUPT_DEV2						(0U)
+		#define C_LOCALDEF__LCCM418__USE_INTERRUPT_DEV3						(0U)
+
+		/** Force interrupt pin on, but do not use interrupts
+		This will be used if you just want data ready available on the IO pin
+		but would perform a manual poll of the device register.
+		*/
+		#define C_LOCALDEF__LCCM418__FORCE_INTERRUPT_DEV0					(0U)
+		#define C_LOCALDEF__LCCM418__FORCE_INTERRUPT_DEV1					(0U)
+		#define C_LOCALDEF__LCCM418__FORCE_INTERRUPT_DEV2					(0U)
+		#define C_LOCALDEF__LCCM418__FORCE_INTERRUPT_DEV3					(0U)
+
+		//testing options
+		#define C_LOCALDEF__LCCM418__ENABLE_TEST_SPEC 						(0U)
+
+		//enable rate of change calculations
+		#define C_LOCALDEF__LCCM418__ENABLE_ROC								(0U)
+		#define C_LOCALDEF__LCCM418__ENABLE_G_FORCE							(0U)
+
+		//the number of samples for the averaging
+		#define C_LOCALDEF__LCCM418__USER_AVERAGE_MAX_SAMPLES				(0U)
+		#define C_LOCALDEF__LCCM418__ROC_AVERAGE_MAX_SAMPLES				(0U)
+
+		//define the data rate required
+		//Valid Values are: 800, 400, 200, 100, 50, 12, 6, 1
+		#define C_LOCALDEF__LCCM418__DEV0__DATA_RATE_HZ						(800U)
+		#define C_LOCALDEF__LCCM418__DEV1__DATA_RATE_HZ						(12U)
+		#define C_LOCALDEF__LCCM418__DEV2__DATA_RATE_HZ						(50U)
+		#define C_LOCALDEF__LCCM418__DEV3__DATA_RATE_HZ						(50U)
+
+
+		//The parameter indexes
+		#define C_LOCALDEF__LCCM418__PARAM_INDEX__U32_HEADER				(20U)
+		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR0_X_ZERO		(21U)
+		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR0_Y_ZERO		(22U)
+		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR0_Z_ZERO		(23U)
+		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR1_X_ZERO		(24U)
+		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR1_Y_ZERO		(25U)
+		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR1_Z_ZERO		(26U)
+		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR2_X_ZERO		(27U)
+		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR2_Y_ZERO		(28U)
+		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR2_Z_ZERO		(29U)
+		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR3_X_ZERO		(30U)
+		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR3_Y_ZERO		(31U)
+		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR3_Z_ZERO		(32U)
+		#define C_LOCALDEF__LCCM418__PARAM_INDEX__U16_CRC					(33U)
+
+
+		//I2C PORT DETAILS
+		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__TxByte(device, reg, byt)
+		#define C_LOCALDEF__LCCM418__I2C0_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__RxByte(device, reg, ptrByte)
+		#define C_LOCALDEF__LCCM418__I2C0_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__RxByteArray(device, reg, pArray, len)
+
+		#define C_LOCALDEF__LCCM418__I2C1_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__TxByte(device, reg, byt)
+		#define C_LOCALDEF__LCCM418__I2C1_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__RxByte(device, reg, ptrByte)
+		#define C_LOCALDEF__LCCM418__I2C1_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__RxByteArray(device, reg, pArray, len)
+
+		//main include file
+		#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8451.h>
+	#endif //C_LOCALDEF__LCCM418__ENABLE_THIS_MODULE
 
 #endif //_LPCB235R0_BOARD_SUPPORT_H_
 
