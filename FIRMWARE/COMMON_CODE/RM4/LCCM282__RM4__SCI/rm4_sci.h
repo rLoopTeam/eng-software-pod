@@ -125,14 +125,14 @@
 
 	//interrupts
 	#if C_LOCALDEF__LCCM282__ENABLE_INTERRUPTS == 1U
-		void vRM4_SCI_INT__Enable_Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags);
-		void vRM4_SCI_INT__Disable_Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags);
+		void vRM4_SCI_INT__Enable_Notification(RM4_SCI__CHANNEL_T eChannel, RM4_SCI__INTERRUPT_FLAGS_T eFlags);
+		void vRM4_SCI_INT__Disable_Notification(RM4_SCI__CHANNEL_T eChannel, RM4_SCI__INTERRUPT_FLAGS_T eFlags);
 
 		/* This is a callback that is provided by the application and is called apon
 		* an interrupt.  The parameter passed to the callback is a copy of the
 		* interrupt flag register.
 		*/
-		void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags);
+		void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, RM4_SCI__INTERRUPT_FLAGS_T eFlags);
 
 		//interrupts called by VIM
 		void vRM4_SCI_ISR__LowLevel(void);

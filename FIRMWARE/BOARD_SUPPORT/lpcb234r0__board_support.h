@@ -189,7 +189,7 @@ SCI / LIN Module
 		#define C_LOCALDEF__LCCM282__ENABLE_INTERRUPTS						(0U)
 
 		/** Switch on DMA functions */
-		#define C_LOCALDEF__LCCM282__ENABLE_DMA								(1U)
+		#define C_LOCALDEF__LCCM282__ENABLE_DMA								(0U)
 
 		//determine which SCI module to enable
 		//SCI1 shares pins with EMAC
