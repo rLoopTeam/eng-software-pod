@@ -23,7 +23,7 @@ TSYS01 - DIGITAL TEMP SENSOR
 		#define C_LOCALDEF__LCCM647__NUM_CONVERSION_LOOPS					(10000U)
 
 		/** the I2C address on the bus */
-		#define C_LOCALDEF__LCCM647__BUS_ADDX								(0x77U)
+		#define C_LOCALDEF__LCCM647__BUS_ADDX								(0x76U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM647__ENABLE_TEST_SPEC						(0U)

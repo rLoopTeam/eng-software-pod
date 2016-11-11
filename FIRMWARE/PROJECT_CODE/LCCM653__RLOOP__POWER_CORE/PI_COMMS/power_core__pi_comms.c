@@ -37,6 +37,10 @@ void vPWRNODE_PICOMMS__Init(void)
 	//init pi comms
 	vPICOMMS__Init();
 
+	//switch on notifications now we are ready
+	#if C_LOCALDEF__LCCM282__ENABLE_INTERRUPTS == 1U
+		vRM4_SCI_INT__Enable_Notification(SCI_CHANNEL__2, SCI_RX_INT);
+	#endif
 }
 
 
@@ -90,7 +94,9 @@ void vPWRNODE_PICOMMS__Process(void)
 			//todo, probably should check transaction is not running
 
 			//start the transaction.
-			vRM4_SCI_DMA__Begin_Tx(SCI_CHANNEL__2, pu8Buffer, u32Length);
+			#if C_LOCALDEF__LCCM282__ENABLE_DMA == 1U
+				vRM4_SCI_DMA__Begin_Tx(SCI_CHANNEL__2, pu8Buffer, u32Length);
+			#endif
 
 			//change state
 			sPWRNODE.sPiComms.eState = PICOM_STATE__WAIT_DMA;
@@ -99,7 +105,11 @@ void vPWRNODE_PICOMMS__Process(void)
 		case PICOM_STATE__WAIT_DMA:
 
 			//test if the DMA is running
-			u8Test = u8RM4_SCI_DMA__Is_TxBusy(SCI_CHANNEL__2);
+			#if C_LOCALDEF__LCCM282__ENABLE_DMA == 1U
+				u8Test = u8RM4_SCI_DMA__Is_TxBusy(SCI_CHANNEL__2);
+			#else
+				u8Test = 0U;
+			#endif
 			if(u8Test == 0U)
 			{
 				//todo, for now go back to start.
