@@ -150,7 +150,7 @@ void vFCU_BRAKES__Move_IBeam_Distance_Microns(Luint32 u32Distance)
 }
 
 //move the brakes position by a certain percentage between 0-100%
-//approx distances are 25mm (fully open) to 0mm (fully closed)
+//approx distances are 25.4mm (fully open) to 2.5mm (fully closed)
 //some calibration will be needed here.
 void vFCU_BRAKES__Move_Percent_Position(Lfloat32 f32Percent,
 		E_FCU__BRAKE_INDEX_T eBrake) {
@@ -170,8 +170,8 @@ void vFCU_BRAKES__Move_Percent_Position(Lfloat32 f32Percent,
 		}
 	}
 }
-//move the brakes position by distance: from 25mm (fully open) to 2.5mm (fully closed).
-//The length that the brakes move from 0% to 100% is 22.5mm
+//move the brakes position by distance: from 25.4mm (fully open) to 2.5mm (fully closed).
+//The length that the brakes move from 0% to 100% is 22.9mm
 void vFCU_BRAKES__Move_Distance_Position(Lfloat32 f32Percent,
 		E_FCU__BRAKE_INDEX_T eBrake) {
 
