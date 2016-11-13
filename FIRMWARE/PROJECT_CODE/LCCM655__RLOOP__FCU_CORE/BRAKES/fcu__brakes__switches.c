@@ -37,6 +37,21 @@ void vFCU_BRAKES_SW__Init(void)
 	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 0U;
 }
 
+void vFCU_BRAKES_SW__Process(void)
+{
+
+	//if an edge has occurred, sample the switches and save the switch state.
+	if(sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen == 1U)
+	{
+		//read and save the switch status
+
+		//clear the flag
+		sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 0U;
+
+	}
+
+}
+
 /***************************************************************************//**
  * @brief
  * Gets the state of a brake limit swtich

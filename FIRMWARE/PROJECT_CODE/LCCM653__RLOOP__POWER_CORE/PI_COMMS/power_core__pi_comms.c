@@ -33,7 +33,7 @@ void vPWRNODE_PICOMMS__recvLfloat32(Luint16 index, Lfloat32 data);
 void vPWRNODE_PICOMMS__recvLfloat64(Luint16 index, Lfloat64 data);
 
 //the structure
-struct _strPWRNODE sPWRNODE;
+extern struct _strPWRNODE sPWRNODE;
 
 //the main structure
 extern struct _strPICOMMS sPC;

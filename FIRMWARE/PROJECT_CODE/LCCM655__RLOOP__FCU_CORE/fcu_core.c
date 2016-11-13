@@ -185,6 +185,7 @@ void vFCU__Process(void)
 
 		case INIT_STATE__LOWER_SYSTEMS:
 
+
 			//get our main SM operational
 			vFCU_MAINSM__Init();
 
@@ -226,7 +227,9 @@ void vFCU__Process(void)
 			vFCU_ACCEL__Process();
 
 			//process any Pi Comms
-			vFCU_PICOMMS__Process();
+			#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
+				vFCU_PICOMMS__Process();
+			#endif
 
 			break;
 

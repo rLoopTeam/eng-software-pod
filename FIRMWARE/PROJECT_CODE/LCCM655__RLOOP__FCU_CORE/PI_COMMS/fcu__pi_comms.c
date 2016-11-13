@@ -19,6 +19,7 @@
 #include "../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
 
 //the structure
 extern struct _strFCU sFCU;
@@ -116,7 +117,7 @@ void vFCU_PICOMMS__Process(void)
 
 }
 
-
+#endif //C_LOCALDEF__LCCM655__ENABLE_PI_COMMS
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 //safetys
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE

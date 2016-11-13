@@ -29,6 +29,9 @@ RLOOP - POWER NODE CORE
 		/** Node pressure using MS5607 */
 		#define C_LOCALDEF__LCCM652__ENABLE_NODE_PRESS						(1U)
 
+		/** Enable the DC/DC converter subsystem */
+		#define C_LOCALDEF__LCCM652__ENABLE_DC_CONVERTER					(1U)
+
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM653__ENABLE_TEST_SPEC						(0U)
 		

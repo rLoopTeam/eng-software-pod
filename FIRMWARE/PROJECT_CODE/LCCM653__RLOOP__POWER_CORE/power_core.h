@@ -12,50 +12,22 @@
 	#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
 		#include <LCCM653__RLOOP__POWER_CORE/PI_COMMS/power_core__pi_comms__types.h>
+		#include <LCCM653__RLOOP__POWER_CORE/power_core__state_types.h>
+
+		//local fault flags
+		#include <LCCM653__RLOOP__POWER_CORE/power_core__fault_flags.h>
+
+
+
+		//for software fault tree handling
+		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
+
 
 		/*******************************************************************************
 		Defines
 		*******************************************************************************/
 
-		/** Init states.
-		 * These enums are for the init states of the Power Node. As each subsystem is brought
-		 * online the states will be incremented.
-		 */
-		typedef enum
-		{
 
-			/** Unknown state, could also be out of reset */
-			INIT_STATE__UNKNOWN = 0U,
-
-			/** First starting state launched after Init */
-			INIT_STATE__START,
-
-			/** Init any comms channels such as I2C and SPI */
-			INIT_STATE__COMMS,
-
-			/** Init the 1 wire network and I2C <> 1 Wire devices */
-			INIT_STATE__CELL_TEMP_START,
-
-			/** Run the network search */
-			INIT_STATE__CELL_TEMP_SEARCH,
-
-			/** Done with the 1-wire searching */
-			INIT_STATE__CELL_TEMP_SEARCH_DONE,
-
-			/** Init the BMS layer */
-			INIT_STATE__BMS,
-
-			/** Start the TSYS01 */
-			INIT_STATE__TSYS01,
-
-			/** Init the node pressure MS5607*/
-			INIT_STATE__MS5607,
-
-
-			/** Normal run state */
-			INIT_STATE__RUN
-
-		}E_PWRNODE__INIT_STATES;
 
 
 
@@ -66,15 +38,35 @@
 		/** Main Power Node Structure */
 		struct _strPWRNODE
 		{
+			//upper structure guarding
+			Luint32 u32Guard1;
+
+			/** fault flags structure */
+			struct
+			{
+
+				/** Main top level fault system */
+				FAULT_TREE__PUBLIC_T sTopLevel;
+
+			}sFaults;
 
 			/** Power on state machines and diagnostics */
 			struct
 			{
 
 				/** The current Init State */
-				E_PWRNODE__INIT_STATES sState;
+				E_PWRNODE__INIT_STATES eState;
 
 			}sInit;
+
+			/** DC/DC Converter control layer */
+			struct
+			{
+
+				/** DC/DC state machine */
+				E_PWR_DC__STATE_T eState;
+
+			}sDC;
 
 			/** Pi Comms Layer */
 			struct
@@ -96,6 +88,8 @@
 			}sWIN32;
 
 #endif
+			//lower structure guarding
+			Luint32 u32Guard2;
 
 		};
 
@@ -106,8 +100,16 @@
 		DLL_DECLARATION void vPWRNODE__Init(void);
 		DLL_DECLARATION void vPWRNODE__Process(void);
 
+		//fault subsystem
+		void vPWRNODE_FAULTS__Init(void);
+		void vPWRNODE_FAULTS__Process(void);
+
 		//main application state machine
 		void vPWRNODE_SM__Init(void);
+
+		//DC/DC converter system
+		void vPWRNODE_DC__Init(void);
+		void vPWRNODE_DC__Process(void);
 
 		//BMS interface layer
 		void vPWRNODE_BMS__Init(void);
