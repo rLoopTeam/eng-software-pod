@@ -203,8 +203,8 @@ RM4 GIO MODULE
 
 		#if C_LOCALDEF__LCCM133__ENABLE_INTERRUPTS == 1U
 
-			#define GIOA_PIN_0_ISR()										vFCU_BRAKES_SW__B0_SwitchRetract_ISR()
-			#define GIOA_PIN_1_ISR()										vFCU_BRAKES_SW__B0_SwitchExtend_ISR()
+			#define GIOA_PIN_0_ISR()										vFCU_BRAKES_SW__Left_SwitchRetract_ISR()
+			#define GIOA_PIN_1_ISR()										vFCU_BRAKES_SW__Left_SwitchExtend_ISR()
 			#define GIOA_PIN_2_ISR()										vSC16_INT__Handle_ISR(0U)
 			#define GIOA_PIN_3_ISR()										vSC16_INT__Handle_ISR(1U)
 			#define GIOA_PIN_4_ISR()										vSC16_INT__Handle_ISR(2U)
@@ -660,12 +660,12 @@ LR Time = 160ns
 		#define C_LOCALDEF__LCCM240__ENABLE_N2HET2							(1U)
 
 		//enable interrupts or not
-		#define C_LOCALDEF__LCCM240__ENABLE_INTERRUPTS						(0U)
+		#define C_LOCALDEF__LCCM240__ENABLE_INTERRUPTS						(1U)
 
 
 		//HET Options
 		#define C_LOCALDEF__LCCM240__ENABLE_INPUT_CAPTURE					(0U)
-		#define C_LOCALDEF__LCCM240__ENABLE_EDGE_CAPTURE					(0U)
+		#define C_LOCALDEF__LCCM240__ENABLE_EDGE_CAPTURE					(1U)
 		#define C_LOCALDEF__LCCM240__ENABLE_PWM								(0U)
 		#define C_LOCALDEF__LCCM240__ENABLE_TIMESTAMPING					(0U)
 

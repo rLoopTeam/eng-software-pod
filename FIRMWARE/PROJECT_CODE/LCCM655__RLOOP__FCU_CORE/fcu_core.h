@@ -38,28 +38,6 @@
 		#define C_ASI__READ_INPUT_REGISTER			(0x04)
 		#define C_ASI__WRITE_SINGLE_REGISTER		(0x06)
 
-		/** Brakes states */
-		typedef enum
-		{
-
-			/** We are in idle state */
-			BRAKE_STATE__IDLE = 0U,
-
-			/** Beginning to move the brakes */
-			BRAKE_STATE__BEGIN_MOVE,
-
-			/** The brakes are moving */
-			BRAKE_STATE__MOVING,
-
-			/** The brakes were moving, and now they have stopped, cleanup any necessary stuff */
-			BRAKE_STATE__MOVE_STOPPED,
-
-			/** A fault has occurred with the brake system */
-			BRAKE_STATE__FAULT,
-
-			BRAKE_STATE__TEST
-
-		}E_FCU_BRAKES__STATES_T;
 
 		/** ASI communication (modbus client) states */
 		typedef enum
@@ -128,6 +106,8 @@
 			/** Structure guard 1*/
 			Luint32 u32Guard1;
 
+			/** The main state machine for run mode */
+			E_FCU__RUN_STATE_T eRunState;
 
 			/** The init statemachine */
 			E_FCU__INIT_STATE_TYPES eInitStates;
@@ -151,6 +131,21 @@
 			/** Brake Substructure */
 			struct
 			{
+				/** Limit switch structure
+				 * There are two limit switches per brake assy
+				 */
+				struct
+				{
+
+					/** An edge was captured on the interrupt subsystem
+					 * Its up to some other layer to clear the flag once its used.
+					 */
+					Luint8 u8EdgeSeen;
+
+					/** The program index for N2HET, even if not used on both channels */
+					Luint16 u16N2HET_Prog;
+
+				}sLimits[BRAKE_SW__MAX_SWITCHES];
 
 				/** Linear position sensor detail */
 				struct
@@ -250,6 +245,42 @@
 
 			}sASIComms;
 
+			/** Pusher Interface Layer */
+			struct
+			{
+				/** Guard variable 1*/
+				Luint32 u32Guard1;
+
+				/** The pusher subsystem state machine */
+				E_FCU_PUSHER__STATES_T eState;
+
+				/** Interlock switch status */
+				Luint8 u8Pusher_Status;
+
+
+
+				/** Timer of 10ms ticks used for switch state timing */
+				Luint32 u32SwtichTimer;
+
+				/** Switch interfaces */
+				struct
+				{
+					/** N2HET Program index for edge interrupts*/
+					Luint16 u16N2HET_Prog;
+
+					/** The state of the switch based on the last sample */
+					Luint8 u8SwitchState;
+
+					/** Edge interrupt has occurred, meaning there has been a switch transition */
+					Luint8 u8EdgeFlag;
+
+				}sSwitches[2];
+
+				/** Guard variable 2*/
+				Luint32 u32Guard2;
+
+			}sPusher;
+
 			/** Structure guard 2*/
 			Luint32 u32Guard2;
 			
@@ -273,6 +304,10 @@
 		Luint8 u8FCU_FAULTS__Get_IsFault(void);
 		Luint32 u32FCU_FAULTS__Get_FaultFlags(void);
 
+		//main state machine
+		void vFCU_MAINSM__Init(void);
+		void vFCU_MAINSM__Process(void);
+
 		//pi comms
 		void vFCU_PICOMMS__Init(void);
 		void vFCU_PICOMMS__Process(void);
@@ -290,14 +325,12 @@
 
 			//brake switches
 			void vFCU_BRAKES_SW__Init(void);
-			void vFCU_BRAKES_SW__B0_SwitchExtend_ISR(void);
-			void vFCU_BRAKES_SW__B0_SwitchRetract_ISR(void);
-			void vFCU_BRAKES_SW__B1_SwitchExtend_ISR(void);
-			void vFCU_BRAKES_SW__B1_SwitchRetract_ISR(void);
-			Luint8 u8FCU_BRAKES_SW__Get_B0_Extend(void);
-			Luint8 u8FCU_BRAKES_SW__Get_B0_Retract(void);
-			Luint8 u8FCU_BRAKES_SW__Get_B1_Extend(void);
-			Luint8 u8FCU_BRAKES_SW__Get_B1_Retract(void);
+			void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void);
+			void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void);
+			void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void);
+			void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void);
+			E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
+
 
 			//brakes MLP sensor
 			void vFCU_BRAKES_MLP__Init(void);
@@ -306,6 +339,16 @@
 		//accelerometer layer
 		void vFCU_ACCEL__Init(void);
 		void vFCU_ACCEL__Process(void);
+
+		//Pusher interface
+		void vFCU_PUSHER__Init(void);
+		void vFCU_PUSHER__Process(void);
+		void vFCU_PUSHER__InterlockA_ISR(void);
+		void vFCU_PUSHER__InterlockB_ISR(void);
+		Luint8 u8FCU_PUSHER__Get_InterlockA(void);
+		Luint8 u8FCU_PUSHER__Get_InterlockB(void);
+		void vFCU_PUSHER__10MS_ISR(void);
+
 
 		//ASI interface
 		void vFCU_ASI__Init(void);
