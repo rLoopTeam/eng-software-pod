@@ -41,6 +41,9 @@
 			//upper structure guarding
 			Luint32 u32Guard1;
 
+			/** main state machine */
+			E_PWRNODE__RUN_STATES eMainState;
+
 			/** fault flags structure */
 			struct
 			{
@@ -65,6 +68,12 @@
 
 				/** DC/DC state machine */
 				E_PWR_DC__STATE_T eState;
+
+				/** Unlock Key Issued*/
+				Luint8 u8Unlock;
+
+				/** Issued to safe the pod */
+				Luint8 u8PodSafeCommand;
 
 			}sDC;
 
@@ -106,10 +115,13 @@
 
 		//main application state machine
 		void vPWRNODE_SM__Init(void);
+		void vPWRNODE_SM__Process(void);
 
 		//DC/DC converter system
 		void vPWRNODE_DC__Init(void);
 		void vPWRNODE_DC__Process(void);
+		void vPWRNODE_DC__Pod_Safe_Unlock(Luint32 u32UnlockKey);
+		void vPWRNODE_DC__Pod_Safe_Go(void);
 
 		//BMS interface layer
 		void vPWRNODE_BMS__Init(void);

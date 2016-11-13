@@ -37,7 +37,7 @@ void vPWRNODE__Init(void)
 
 	//setup the power node basic states and allow the process function to bring all the devices and
 	//subsystems on line.
-	sPWRNODE.sInit.sState = INIT_STATE__START;
+	sPWRNODE.sInit.eState = INIT_STATE__START;
 
 	//init the guarding systems
 	sPWRNODE.u32Guard1 = 0xABCD9876U;
@@ -77,7 +77,7 @@ void vPWRNODE__Process(void)
 	 }
 	 \enddot
 	 */
-	switch(sPWRNODE.sInit.sState)
+	switch(sPWRNODE.sInit.eState)
 	{
 
 		case INIT_STATE__UNKNOWN:
@@ -120,7 +120,7 @@ void vPWRNODE__Process(void)
 			#endif
 
 			//move to next state
-			sPWRNODE.sInit.sState = INIT_STATE__COMMS;
+			sPWRNODE.sInit.eState = INIT_STATE__COMMS;
 
 			break;
 
@@ -137,7 +137,7 @@ void vPWRNODE__Process(void)
 #endif
 			//move to next state
 			//if we have the batt temp system enabled (DS18B20) then start the cell temp system
-			sPWRNODE.sInit.sState = INIT_STATE__DC_CONVERTER;
+			sPWRNODE.sInit.eState = INIT_STATE__DC_CONVERTER;
 			break;
 
 		case INIT_STATE__DC_CONVERTER:
@@ -149,7 +149,7 @@ void vPWRNODE__Process(void)
 
 			//move to next state
 			//if we have the batt temp system enabled (DS18B20) then start the cell temp system
-			sPWRNODE.sInit.sState = INIT_STATE__CELL_TEMP_START;
+			sPWRNODE.sInit.eState = INIT_STATE__CELL_TEMP_START;
 			break;
 
 
@@ -164,7 +164,7 @@ void vPWRNODE__Process(void)
 			#endif
 
 			//start searching for temp sensors
-			sPWRNODE.sInit.sState = INIT_STATE__CELL_TEMP_SEARCH;
+			sPWRNODE.sInit.eState = INIT_STATE__CELL_TEMP_SEARCH;
 			break;
 
 
@@ -183,11 +183,11 @@ void vPWRNODE__Process(void)
 				else
 				{
 					//change state
-					sPWRNODE.sInit.sState = INIT_STATE__CELL_TEMP_SEARCH_DONE;
+					sPWRNODE.sInit.eState = INIT_STATE__CELL_TEMP_SEARCH_DONE;
 				}
 			#else
 				//if we don't have batt temp enabled, move states
-				sPWRNODE.sInit.sState = INIT_STATE__CELL_TEMP_SEARCH_DONE;
+				sPWRNODE.sInit.eState = INIT_STATE__CELL_TEMP_SEARCH_DONE;
 			#endif
 
 			break;
@@ -201,7 +201,7 @@ void vPWRNODE__Process(void)
 			#endif
 
 			//next get the BMS going
-			sPWRNODE.sInit.sState = INIT_STATE__BMS;
+			sPWRNODE.sInit.eState = INIT_STATE__BMS;
 			break;
 
 
@@ -213,7 +213,7 @@ void vPWRNODE__Process(void)
 			#endif
 
 			//start the TSYS01 temp sensor
-			sPWRNODE.sInit.sState = INIT_STATE__TSYS01;
+			sPWRNODE.sInit.eState = INIT_STATE__TSYS01;
 			break;
 
 
@@ -225,7 +225,7 @@ void vPWRNODE__Process(void)
 			#endif
 
 			//Start the node pressure system
-			sPWRNODE.sInit.sState = INIT_STATE__MS5607;
+			sPWRNODE.sInit.eState = INIT_STATE__MS5607;
 			break;
 
 		case INIT_STATE__MS5607:
@@ -235,7 +235,7 @@ void vPWRNODE__Process(void)
 			#endif
 
 			//change to run state
-			sPWRNODE.sInit.sState = INIT_STATE__RUN;
+			sPWRNODE.sInit.eState = INIT_STATE__RUN;
 			break;
 
 
@@ -272,6 +272,9 @@ void vPWRNODE__Process(void)
 				vPWRNODE_NODEPRESS__Process();
 			#endif
 
+			//process the main state machine
+			vPWRNODE_SM__Process();
+
 		break;
 
 
@@ -280,7 +283,7 @@ void vPWRNODE__Process(void)
 			//todo:
 			break;
 
-	}//switch(sPWRNODE.sInit.sState)
+	}//switch(sPWRNODE.sInit.eState)
 
 
 }

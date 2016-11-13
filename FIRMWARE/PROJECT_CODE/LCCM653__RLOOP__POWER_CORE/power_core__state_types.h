@@ -9,7 +9,18 @@
 #define RLOOP_LCCM653__RLOOP__POWER_CORE_POWER_CORE__STATE_TYPES_H_
 
 
-/** Init states.
+		/** Power node control states */
+		typedef enum
+		{
+			/** Just come out of reset */
+			RUN_STATE__RESET = 0U,
+
+
+
+		}E_PWRNODE__RUN_STATES;
+
+
+		/** Init states.
 		 * These enums are for the init states of the Power Node. As each subsystem is brought
 		 * online the states will be incremented.
 		 */
