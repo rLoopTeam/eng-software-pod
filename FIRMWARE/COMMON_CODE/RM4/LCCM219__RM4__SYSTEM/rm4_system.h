@@ -69,16 +69,16 @@
 
 	#include <RM4/LCCM219__RM4__SYSTEM/rm4_system__private.h>
 
-	#include <RM4/LCCM223__RM4__periph_central_resource/rm4_pcr.h>
-	#include <RM4/LCCM222__RM4__pin_mux/rm4_pinmux.h>
-	#include <RM4/LCCM221__RM4__selftest/rm4_selftest.h>
+	#include <RM4/LCCM223__RM4__PERIPH_CENTRAL_RESOURCE/rm4_pcr.h>
+	#include <RM4/LCCM222__RM4__PIN_MUX/rm4_pinmux.h>
+	#include <RM4/LCCM221__RM4__SELFTEST/rm4_selftest.h>
 	//included as its own module
 	//#include <RM4/LCCM220__RM4__error_signal_module/rm4_esm.h>
-	#include <RM4/LCCM224__RM4__efuse/rm4_efuse.h>
-	#include <RM4/LCCM225__RM4__vectored_isr_mgr/rm4_vim.h>
-	#include <RM4/LCCM219__RM4__system/rm4_system__mpu.h>
-	#include <RM4/LCCM227__RM4__bist/rm4_bist.h>
-	#include <RM4/LCCM219__RM4__system/rm4_system__pmu.h>
+	#include <RM4/LCCM224__RM4__EFUSE/rm4_efuse.h>
+	#include <RM4/LCCM225__RM4__VECTORED_ISR_MGR/rm4_vim.h>
+	#include <RM4/LCCM219__RM4__SYSTEM/rm4_system__mpu.h>
+	#include <RM4/LCCM227__RM4__BIST/rm4_bist.h>
+	#include <RM4/LCCM219__RM4__SYSTEM/rm4_system__pmu.h>
 
 
 

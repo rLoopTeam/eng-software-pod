@@ -20,7 +20,7 @@
 	#endif
 	#if C_LOCALDEF__LCCM226__ENABLE_THIS_MODULE == 1U
 
-		#include <rm4/lccm226__rm4__crc/rm4_crc__private.h>
+		#include <RM4/LCCM226__RM4__CRC/rm4_crc__private.h>
 
 
 	/* Function Prots */

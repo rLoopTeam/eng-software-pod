@@ -3,14 +3,14 @@
  *  -------------------------------------------------------------------------------------------------------------------
  *  \verbatim
  *
- *                 © Copyright 2009-2012 Texas Instruments Incorporated.  All rights reserved.
+ *                 ï¿½ Copyright 2009-2012 Texas Instruments Incorporated.  All rights reserved.
  *
  *  \endverbatim
  *  -------------------------------------------------------------------------------------------------------------------
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
  *
- *      Project:  Hercules™ ARM® Safety MCUs - F021 Flash API 
+ *      Project:  Herculesï¿½ ARMï¿½ Safety MCUs - F021 Flash API 
  *      Version:  v2.00.01 Build(000824)                                                                                
  *   Build Date:  2013-07-18                                                                                            
  *
@@ -38,12 +38,12 @@
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
-#include <RM4/LCCM135__RM4__FLASH/F021_Flash_API/V2.00.01/include/Types.h>
-#include <RM4/LCCM135__RM4__FLASH/F021_Flash_API/V2.00.01/include/Helpers.h>
-#include <RM4/LCCM135__RM4__FLASH/F021_Flash_API/V2.00.01/include/Constants.h>
-#include <RM4/LCCM135__RM4__FLASH/F021_Flash_API/V2.00.01/include/Registers.h>
-#include <RM4/LCCM135__RM4__FLASH/F021_Flash_API/V2.00.01/include/FapiFunctions.h>
-#include <RM4/LCCM135__RM4__FLASH/F021_Flash_API/V2.00.01/include/Compatibility.h>
+#include <RM4/LCCM135__RM4__FLASH/F021_Flash_API/V2.00.01/Include/Types.h>
+#include <RM4/LCCM135__RM4__FLASH/F021_Flash_API/V2.00.01/Include/Helpers.h>
+#include <RM4/LCCM135__RM4__FLASH/F021_Flash_API/V2.00.01/Include/Constants.h>
+#include <RM4/LCCM135__RM4__FLASH/F021_Flash_API/V2.00.01/Include/Registers.h>
+#include <RM4/LCCM135__RM4__FLASH/F021_Flash_API/V2.00.01/Include/FapiFunctions.h>
+#include <RM4/LCCM135__RM4__FLASH/F021_Flash_API/V2.00.01/Include/Compatibility.h>
 
 #endif //WIN32
 #endif /*F021_H_*/
