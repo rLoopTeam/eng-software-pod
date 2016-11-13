@@ -456,7 +456,7 @@ Luint8 u8MS5607__CRC4(Luint32 * pu32Coefficients)
 	u32crc_read = pu32Coefficients[7];
 
 	//CRC byte is replaced by 0
-	u32Coefficients[7] = (0xFF00 & (pu32Coefficients[7]));
+	pu32Coefficients[7] = (0xFF00 & (pu32Coefficients[7]));
 
 	// operation is performed on bytes
 	for(u32count = 0; u32count < 16; u32count++)
@@ -483,7 +483,7 @@ Luint8 u8MS5607__CRC4(Luint32 * pu32Coefficients)
 		}
 	}
 	u32n_rem= (0x000F & (u32n_rem >> 12)); // // final 4-bit reminder is CRC code
-	u32Coefficients[7]=u32crc_read; // restore the crc_read to its original place
+	pu32Coefficients[7]=u32crc_read; // restore the crc_read to its original place
 	return (u32n_rem ^ 0x00);
 } 
 
