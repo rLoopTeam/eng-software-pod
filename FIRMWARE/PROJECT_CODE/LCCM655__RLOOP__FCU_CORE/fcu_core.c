@@ -118,6 +118,28 @@ void vFCU__Process(void)
 			//brakes outputs
 			//already done in stepper init
 
+			//setup the dynamic programs for
+			//1. pusher interlock edges
+			//2. contrast lasers
+			//setup the pins
+			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 4U);
+			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 5U);
+
+
+			//interrupts
+			//Channel A1, A2
+			vRM4_N2HET__Disable(N2HET_CHANNEL__1);
+			//N2HET programs for the edge interrupts for pusher
+			sFCU.sPusher.sSwitches[0].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 4U, EDGE_TYPE__BOTH, 1U);
+			sFCU.sPusher.sSwitches[1].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 5U, EDGE_TYPE__BOTH, 1U);
+
+			//programs for right brake limit switches
+			sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 9U, EDGE_TYPE__BOTH, 1U);
+			sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 22U, EDGE_TYPE__BOTH, 1U);
+			sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = 0U;
+			sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
+
+			vRM4_N2HET__Enable(N2HET_CHANNEL__1);
 
 			sFCU.eInitStates = INIT_STATE__INIT_COMMS;
 			break;
@@ -163,20 +185,10 @@ void vFCU__Process(void)
 
 		case INIT_STATE__LOWER_SYSTEMS:
 
-			//init the brake systems
-			vFCU_BRAKES__Init();
+			//get our main SM operational
+			vFCU_MAINSM__Init();
 
-			//Init the throttles
-			vFCU_THROTTLE__Init();
 
-			//init the ASI RS485 interface
-			vFCU_ASI__Init();
-
-			//init the acclerometer system
-			vFCU_ACCEL__Init();
-
-			//PiComms Layer
-			vFCU_PICOMMS__Init();
 
 			sFCU.eInitStates = INIT_STATE__START_TIMERS;
 			break;
@@ -203,6 +215,9 @@ void vFCU__Process(void)
 			break;
 
 		case INIT_STATE__RUN:
+
+			//process the main state machine
+			vFCU_MAINSM__Init();
 
 			//process the brakes.
 			vFCU_BRAKES__Process();
@@ -234,7 +249,8 @@ void vFCU__RTI_100MS_ISR(void)
 void vFCU__RTI_10MS_ISR(void)
 {
 
-
+	//tell the pusher interface about us.
+	vFCU_PUSHER__10MS_ISR();
 }
 
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
