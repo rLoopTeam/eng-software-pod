@@ -20,6 +20,7 @@
 #include "../power_core.h"
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
+extern struct _strPWRNODE sPWRNODE;
 
 /***************************************************************************//**
  * @brief
@@ -31,6 +32,24 @@
 void vPWRNODE_SM__Init(void)
 {
 
+	//init
+	sPWRNODE.eMainState = RUN_STATE__RESET;
+
+}
+
+//process
+void vPWRNODE_SM__Process(void)
+{
+
+	switch(sPWRNODE.eMainState)
+	{
+		case RUN_STATE__RESET:
+			//we have just reset
+
+			break;
+
+
+	}//switch(sPWRNODE.eMainState)
 
 }
 

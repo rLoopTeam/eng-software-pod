@@ -74,9 +74,9 @@ Lint16 s16MS5607_I2C__RxU24(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint
 	s16Return = s16RM4_I2C_USER__RxByteArray(u8DeviceAddx, (Luint8)eRegister, &u8Temp[0], 3U);
 
 	//mapping
-	unT.u8[0] = unTemp.u8[2];
-	unT.u8[1] = unTemp.u8[1];
-	unT.u8[2] = unTemp.u8[0];
+	unT.u8[0] = u8Temp[2];
+	unT.u8[1] = u8Temp[1];
+	unT.u8[2] = u8Temp[0];
 	unT.u8[3] = 0U;
 
 	*pu32 = unT.u32;

@@ -32,6 +32,8 @@ void vPWRNODE_DC__Init(void)
 
 	//configure our states
 	sPWRNODE.sDC.eState = DC_STATE__RESET;
+	sPWRNODE.sDC.u8Unlock = 0U;
+	sPWRNODE.sDC.u8PodSafeCommand = 0U;
 
 	//Setup the hardware pins
 	//GPIOA0
@@ -56,16 +58,34 @@ void vPWRNODE_DC__Process(void)
 
 		case DC_STATE__RESET:
 			//just come out of reset
+
+			sPWRNODE.sDC.eState = DC_STATE__CHECK_WDT_PET;
 			break;
 
 		case DC_STATE__CHECK_WDT_PET:
 			//do we need to pet the WDT in its current window?
+
+			//check if we need to safe the pod.
+			sPWRNODE.sDC.eState = DC_STATE__CHECK_POD_SAFE;
 			break;
 
 		case DC_STATE__CHECK_POD_SAFE:
 			//do we need to implement the Pod safe command?
+			if((sPWRNODE.sDC.u8Unlock == 1U) && (sPWRNODE.sDC.u8PodSafeCommand == 1U))
+			{
+				//kill the power immediate
+				//no going back now
+				vRM4_GIO__Set_Bit(gioPORTA, 0U, 0U);
+			}
+			else
+			{
+				//move state
+			}
 			break;
 
+		default:
+			//do nothing.
+			break;
 
 	}//switch(sPWRNODE.sDC.eState)
 
@@ -83,12 +103,26 @@ void vPWRNODE_DC__Pod_Safe_Unlock(Luint32 u32UnlockKey)
 	if(u32UnlockKey == 0xABCD1298)
 	{
 		//OK to unlock
+		sPWRNODE.sDC.u8Unlock = 1U;
 	}
 	else
 	{
 		//error, wrong unlock command
+
+		//hold unlock key off
+		sPWRNODE.sDC.u8Unlock = 0U;
 	}
 
+}
+
+/***************************************************************************//**
+ * @brief
+ * Execute pod safe
+ *
+ */
+void vPWRNODE_DC__Pod_Safe_Go(void)
+{
+	sPWRNODE.sDC.u8PodSafeCommand = 1U;
 }
 
 
