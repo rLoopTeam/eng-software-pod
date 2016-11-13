@@ -21,53 +21,65 @@
 #if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM656__ENABLE_RX == 1U
 
-#include <stdint.h>
-#include <string.h>
+Luint8 buffer[RPOD_PICOMMS_BUFFER_SIZE];
+Luint16 bufferBegin;
+Luint16 bufferLength;
 
-
-Luint8 buffer[I2C_BUFFER_SIZE];
-uint16_t bufferBegin;
-uint16_t bufferLength;
-
-void(*rI2CRX_frameRXBeginCB)();
-void(*rI2CRX_recvDecParamCB)(struct rI2CRX_decParam decParam);
-void(*rI2CRX_frameRXEndCB)();
+void (*PICOMMS_RX_frameRXBeginCB) ();
+void (*PICOMMS_RX_frameRXEndCB) ();
+void (*PICOMMS_RX_recvLuint8) (Luint16 index, Luint8 data);
+void (*PICOMMS_RX_recvLint8) (Luint16 index, Lint8 data);
+void (*PICOMMS_RX_recvLuint16) (Luint16 index, Luint16 data);
+void (*PICOMMS_RX_recvLint16) (Luint16 index, Lint16 data);
+void (*PICOMMS_RX_recvLuint32) (Luint16 index, Luint32 data);
+void (*PICOMMS_RX_recvLint32) (Luint16 index, Lint32 data);
+void (*PICOMMS_RX_recvLuint64) (Luint16 index, Luint64 data);
+void (*PICOMMS_RX_recvLint64) (Luint16 index, Lint64 data);
+void (*PICOMMS_RX_recvLfloat32) (Luint16 index, Lfloat32 data);
+void (*PICOMMS_RX_recvLfloat64) (Luint16 index, Lfloat64 data);
 
 void processBuffer();
-int processFrame(Luint8 *frameBuffer, uint16_t length);
-void receiveParam(Luint8 type, uint16_t index, uint64_t rawData);
-int8_t temp_1byte;
-int16_t temp_2byte;
-int32_t temp_4byte;
-int64_t temp_8byte;
+Luint16 processFrame(Luint8 *frameBuffer, Luint16 length);
+void receiveParam(Luint8 type, Luint16 index, Luint64 rawData);
 
 
-void rI2CRX_begin()
+void PICOMMS_RX_Init()
 {
 	bufferLength = 0;
 	bufferBegin = 0;
-	rI2CRX_frameRXBeginCB = 0;
-	rI2CRX_recvDecParamCB = 0;
-	rI2CRX_frameRXEndCB = 0;
+	PICOMMS_RX_frameRXBeginCB = 0;
+
+	PICOMMS_RX_recvLuint8 = 0;
+	PICOMMS_RX_recvLint8 = 0;
+	PICOMMS_RX_recvLuint16 = 0;
+	PICOMMS_RX_recvLint16 = 0;
+	PICOMMS_RX_recvLuint32 = 0;
+	PICOMMS_RX_recvLint32 = 0;
+	PICOMMS_RX_recvLuint64 = 0;
+	PICOMMS_RX_recvLint64 = 0;
+	PICOMMS_RX_recvLfloat32 = 0;
+	PICOMMS_RX_recvLfloat64 = 0;
+
+	PICOMMS_RX_frameRXEndCB = 0;
 }
 
-void rI2CRX_receiveBytes(Luint8* data, uint16_t length)
+void PICOMMS_RX_receiveBytes(Luint8* data, Luint16 length)
 {
 	int i = 0;
 
-	if (length > I2C_BUFFER_SIZE)
+	if (length > RPOD_PICOMMS_BUFFER_SIZE)
 		return; //somehthing's not right, drop this data and hope we catch up
 	else {}//All is well, continue on
 
 	//Got some bad data at some point
-	if (bufferLength + length > I2C_BUFFER_SIZE)
+	if (bufferLength + length > RPOD_PICOMMS_BUFFER_SIZE)
 	{
 		bufferLength = 0;
 		bufferBegin = 0;
 	}
 
 	for (i = 0; i < length; i++)
-		buffer[(i + bufferBegin + bufferLength)%I2C_BUFFER_SIZE] = data[i];
+		buffer[(i + bufferBegin + bufferLength)%RPOD_PICOMMS_BUFFER_SIZE] = data[i];
 	bufferLength += length;
 
 	//See if there's enough data for a full frame
@@ -83,7 +95,7 @@ void rI2CRX_receiveBytes(Luint8* data, uint16_t length)
 
 void processBuffer()
 {
-	Luint8 frameBuffer[I2C_BUFFER_SIZE];
+	Luint8 frameBuffer[RPOD_PICOMMS_BUFFER_SIZE];
 
 	int i = 0;
 	int bufferBeginJump = 0;
@@ -92,22 +104,24 @@ void processBuffer()
 	for (i = 0; i < (bufferLength-1); i++)
 	{
 		//Is this a start code?
-		if (buffer[(bufferBegin + i) % I2C_BUFFER_SIZE] == I2C_CONTROL_CHAR && buffer[((bufferBegin + i + 1) % I2C_BUFFER_SIZE)] == I2C_FRAME_START)
+		if (buffer[(bufferBegin + i) % RPOD_PICOMMS_BUFFER_SIZE] == RPOD_PICOMMS_CONTROL_CHAR && buffer[((bufferBegin + i + 1) % RPOD_PICOMMS_BUFFER_SIZE)] == RPOD_PICOMMS_FRAME_START)
 		{
+
 			//See if we should have the whole header yet
 			if (i + 5 < bufferLength)
 			{
+
 				//Grab the length of the frame from the header
-				uint16_t frameLength = buffer[(bufferBegin + i + 2) % I2C_BUFFER_SIZE];
+				Luint16 frameLength = buffer[(bufferBegin + i + 2) % RPOD_PICOMMS_BUFFER_SIZE];
 				int headerLength = 4;
-				if (frameLength == I2C_CONTROL_CHAR){
-					frameLength = frameLength * 256 + buffer[(bufferBegin + i + 4) % I2C_BUFFER_SIZE];
+				if (frameLength == RPOD_PICOMMS_CONTROL_CHAR){
+					frameLength = frameLength * 256 + buffer[(bufferBegin + i + 4) % RPOD_PICOMMS_BUFFER_SIZE];
 					headerLength++;
-					if (buffer[(bufferBegin + i + 4) % I2C_BUFFER_SIZE] == I2C_CONTROL_CHAR)
+					if (buffer[(bufferBegin + i + 4) % RPOD_PICOMMS_BUFFER_SIZE] == RPOD_PICOMMS_CONTROL_CHAR)
 						headerLength++;
 				}
 				else
-					frameLength = frameLength*256 + buffer[(bufferBegin + i + 3) % I2C_BUFFER_SIZE];
+					frameLength = frameLength*256 + buffer[(bufferBegin + i + 3) % RPOD_PICOMMS_BUFFER_SIZE];
 
 				//See if we have the end of the frame in the buffer yet
 				if (i + headerLength + frameLength <= bufferLength)
@@ -117,7 +131,7 @@ void processBuffer()
 					int x;
 					for (x = 0; x < (frameLength + headerLength); x++)
 					{
-						frameBuffer[x] = buffer[(x+i+bufferBegin) % I2C_BUFFER_SIZE];
+						frameBuffer[x] = buffer[(x+i+bufferBegin) % RPOD_PICOMMS_BUFFER_SIZE];
 					}
 
 					//Process the frame!
@@ -130,6 +144,7 @@ void processBuffer()
 					//We have a start code, but not enough data for a full frame yet
 					i = bufferLength;
 				}
+
 			}
 			else{
 				//Don't have the full header yet, nothing to do for now
@@ -142,17 +157,28 @@ void processBuffer()
 		}
 	}
 	bufferBegin += bufferBeginJump;
-	bufferBegin = bufferBegin % I2C_BUFFER_SIZE;
+	bufferBegin = bufferBegin % RPOD_PICOMMS_BUFFER_SIZE;
 	bufferLength -= bufferBeginJump;
 
 }
 
-int processFrame(Luint8 *frameBuffer, uint16_t length)
+Luint16 processFrame(Luint8 *frameBuffer, Luint16 length)
 {
 	//Check the start and end headers
-	if (frameBuffer[0] != I2C_CONTROL_CHAR || frameBuffer[1] != I2C_FRAME_START || frameBuffer[length - 4] != I2C_CONTROL_CHAR || frameBuffer[length - 3] != I2C_FRAME_END)
-		return 0;
 
+	//Check the start of the buffer for the sof control code
+	if (frameBuffer[0] != RPOD_PICOMMS_CONTROL_CHAR || frameBuffer[1] != RPOD_PICOMMS_FRAME_START ||
+
+			//Check the end of the frame for the eof control code
+			frameBuffer[length - 4] != RPOD_PICOMMS_CONTROL_CHAR || frameBuffer[length - 3] != RPOD_PICOMMS_FRAME_END)
+	{
+		//Improper packet framing, get out of here
+		return 0;
+	}else{
+		//Proper packet framing so all is well, continue on
+	}
+
+	//Simple checkum on the packet, should implement a better scheme
 	int i = 0;
 	Luint8 checksum = 0;
 	for (i = 0; i < length-4; i++)
@@ -160,23 +186,26 @@ int processFrame(Luint8 *frameBuffer, uint16_t length)
 
 	if (frameBuffer[length - 2] != checksum)
 	{
+		//Bad checksum, abort
 		return 0;
 	}
 	else
 	{
+		//Checksum is valid, continue on
+	}
 
-	} //All good, continue on
-
-	if (rI2CRX_frameRXBeginCB != 0)
+	//Call user code to indicate we're starting to process a new frame
+	if (PICOMMS_RX_frameRXBeginCB != 0)
 	{
-		rI2CRX_frameRXBeginCB();
+		PICOMMS_RX_frameRXBeginCB();
 	}
 
 
 	//Shorten any escaped data now that we've isolated a single frame
+	//So any {RPOD_PICOMMS_CONTROL_CHAR,RPOD_PICOMMS_CONTROL_CHAR}  becomes simply {RPOD_PICOMMS_CONTROL_CHAR}
 	for (i = 2; i < length-1; i++)
 	{
-		if (frameBuffer[i] == I2C_CONTROL_CHAR && frameBuffer[i + 1] == I2C_CONTROL_CHAR)
+		if (frameBuffer[i] == RPOD_PICOMMS_CONTROL_CHAR && frameBuffer[i + 1] == RPOD_PICOMMS_CONTROL_CHAR)
 		{
 			int x;
 			for (x = i + 1; x < length - 1; x++)
@@ -188,30 +217,44 @@ int processFrame(Luint8 *frameBuffer, uint16_t length)
 		else{}//no escaped data here, continue on.
 	}
 
-	uint16_t position = 4;
-	uint64_t rawData;
+	Luint16 position = 4;
+	Luint64 rawData;
+
+	//Scan the whole packet for data
 	while (position < length)
 	{
-		if (frameBuffer[position] == 0xD5)
+		//Found a control character
+		if (frameBuffer[position] == RPOD_PICOMMS_CONTROL_CHAR)
 		{
 			position++;
+
+			//See which control character we've got
 			switch (frameBuffer[position])
 			{
-			case I2C_PARAMETER_START:
+
+			//Found a data parameter in the packet
+			case RPOD_PICOMMS_PARAMETER_START:
 				{
 					position++;
 
+					//Figure out which type of data we're being given
 					int dataType = frameBuffer[position] & 0x0F;
 					Luint8 dataSize = (frameBuffer[position] & 0xF0) / 16;
 
+					//Copy the parameter data into a buffer and pass it along for processing by user code
 					if (dataType == 1 || dataType == 2 || dataType == 3)
 					{
-						rawData = 0;
-						//safety check for memcopy
-						if (dataSize <= 8){
-							memcpy(&rawData, &frameBuffer[position + 3], dataSize);
+
+						//Copy data from the packet buffer to a 64 bit buffer and swap the endianess in the process
+						rawData = frameBuffer[position+3];
+						Luint8 i; //Put this somewhere else?
+						for(i = 1;i<dataSize;i++)
+						{
+							rawData *= 256;
+							rawData += frameBuffer[position+3 + i];
 						}
-						else{ break; } //Somethings not right
+
+						//TODO Add code and defines to not swap endianess on big endian CPUs
 
 						receiveParam(frameBuffer[position], frameBuffer[position + 1] * 256 + frameBuffer[position+2], rawData);
 
@@ -224,10 +267,10 @@ int processFrame(Luint8 *frameBuffer, uint16_t length)
 					position += dataSize+3;
 				}
 					break;
-			case I2C_FRAME_END:
-				if (rI2CRX_frameRXEndCB != 0)
+			case RPOD_PICOMMS_FRAME_END:
+				if (PICOMMS_RX_frameRXEndCB != 0)
 				{
-					rI2CRX_frameRXEndCB();
+					PICOMMS_RX_frameRXEndCB();
 				}
 				return 1;
 			}
@@ -237,83 +280,121 @@ int processFrame(Luint8 *frameBuffer, uint16_t length)
 			position++;
 		}
 	}
-
-		rI2CRX_frameRXEndCB();
+	if(PICOMMS_RX_frameRXEndCB != 0)
+	{
+		PICOMMS_RX_frameRXEndCB();
+	}else
+	{
+		//No callback to make
+	}
 		return 1;
 }
 
 
 
 
-void receiveParam(Luint8 type, uint16_t index, uint64_t rawData)
+void receiveParam(Luint8 type, Luint16 index, Luint64 rawData)
 {
-	struct rI2CRX_decParam receivedParam;
-	receivedParam.index = index;
-	receivedParam.type = type;
+	Lfloat32 float32Ret = 0;
+	Lfloat64 float64Ret = 0;
 	switch (type)
 	{
-		case 0x11:
-			receivedParam.val = &temp_1byte;
-					*((int8_t*)receivedParam.val) = (int8_t)rawData;
-					receivedParam.length = 1;
+		case PICOMMS_INT8:
+					//Make sure the function pointer was assigned
+					if(PICOMMS_RX_recvLint8 != 0){
+						PICOMMS_RX_recvLint8(index, (Lint8)rawData);
+					}else{
+						//Do nothing
+					}
 					break;
-		case 0x12:
-			receivedParam.val = &temp_1byte;
-					*((Luint8*)receivedParam.val) = (Luint8)rawData;
-					receivedParam.length = 1;
-					break;
-
-		case 0x21:
-			receivedParam.val = &temp_2byte;
-					*((int16_t*)receivedParam.val) = (int16_t)ntohs((uint16_t)rawData);
-					receivedParam.length = 2;
-					break;
-
-		case 0x22:
-			receivedParam.val = &temp_2byte;
-					*((uint16_t*)receivedParam.val) = ntohs((uint16_t)rawData);
-					receivedParam.length = 2;
+		case PICOMMS_UINT8:
+					if(PICOMMS_RX_recvLuint8 != 0){
+						PICOMMS_RX_recvLuint8(index, (Luint8)rawData);
+					}else{
+						//Do nothing
+					}
 					break;
 
-		case 0x41:
-			receivedParam.val = &temp_4byte;
-					*((int32_t*)receivedParam.val) = ntohl((uint32_t)rawData);
-					receivedParam.length = 4;
+		case PICOMMS_INT16:
+					if(PICOMMS_RX_recvLint16 != 0){
+						PICOMMS_RX_recvLint16(index, (Lint16)rawData);
+					}else{
+						//Do nothing
+					}
 					break;
 
-		case 0x42:
-			receivedParam.val = &temp_4byte;
-					*((uint32_t*)receivedParam.val) = ntohl((uint32_t)rawData);
-					receivedParam.length = 4;
+		case PICOMMS_UINT16:
+					if(PICOMMS_RX_recvLuint16 != 0){
+						PICOMMS_RX_recvLuint16(index, (Luint16)rawData);
+					}else{
+						//Do nothing
+					}
 					break;
 
-		case 0x81:
-			receivedParam.val = &temp_8byte;
-					*((int64_t*)receivedParam.val) = (int64_t)be64toh((uint64_t)rawData);
-					receivedParam.length = 8;
+		case PICOMMS_INT32:
+					if(PICOMMS_RX_recvLint32 != 0){
+						PICOMMS_RX_recvLint32(index, (Lint32)rawData);
+					}else{
+						//Do nothing
+					}
 					break;
 
-		case 0x82:
-			receivedParam.val = &temp_8byte;
-					*((uint64_t*)receivedParam.val) = be64toh((uint64_t)rawData);
-					receivedParam.length = 8;
+		case PICOMMS_UINT32:
+					if(PICOMMS_RX_recvLuint32 != 0){
+						PICOMMS_RX_recvLuint32(index, (Luint32)rawData);
+					}else{
+						//Do nothing
+					}
 					break;
 
-		case 0x43:
-			receivedParam.val = &temp_4byte;
-					memcpy(receivedParam.val, &rawData, 4);
-					receivedParam.length = 4;
+		case PICOMMS_INT64:
+					if(PICOMMS_RX_recvLint64 != 0){
+						PICOMMS_RX_recvLint64(index, (Lint64)rawData);
+					}else{
+						//Do nothing
+					}
 					break;
 
-		case 0x83:
-			receivedParam.val = &temp_8byte;
-					memcpy(receivedParam.val, &rawData, 8);
-					receivedParam.length = 8;
+		case PICOMMS_UINT64:
+					if(PICOMMS_RX_recvLuint64 != 0){
+						PICOMMS_RX_recvLuint64(index, (Luint64)rawData);
+					}else{
+						//Do nothing
+					}
+					break;
+
+		case PICOMMS_FLOAT:
+					//Simply casting doesn't work so we have to resort to byte manipulation :/
+					*((Luint8*)(&float32Ret)+3) = *((Luint8*)(&rawData)+3);
+					*((Luint8*)(&float32Ret)+2) = *((Luint8*)(&rawData)+2);
+					*((Luint8*)(&float32Ret)+1) = *((Luint8*)(&rawData)+1);
+					*((Luint8*)(&float32Ret)+0) = *((Luint8*)(&rawData)+0);
+					if(PICOMMS_RX_recvLfloat32 != 0){
+						PICOMMS_RX_recvLfloat32(index,  float32Ret);
+					}else{
+						//Do nothing
+					}
+					break;
+
+		case PICOMMS_DOUBLE:
+					//Simply casting doesn't work so we have to resort to byte manipulation :/
+					*((Luint8*)(&float64Ret)+7) = *((Luint8*)(&rawData)+7);
+					*((Luint8*)(&float64Ret)+6) = *((Luint8*)(&rawData)+6);
+					*((Luint8*)(&float64Ret)+5) = *((Luint8*)(&rawData)+5);
+					*((Luint8*)(&float64Ret)+4) = *((Luint8*)(&rawData)+4);
+					*((Luint8*)(&float64Ret)+3) = *((Luint8*)(&rawData)+3);
+					*((Luint8*)(&float64Ret)+2) = *((Luint8*)(&rawData)+2);
+					*((Luint8*)(&float64Ret)+1) = *((Luint8*)(&rawData)+1);
+					*((Luint8*)(&float64Ret)+0) = *((Luint8*)(&rawData)+0);
+					if(PICOMMS_RX_recvLfloat64 != 0){
+						PICOMMS_RX_recvLfloat64(index, float64Ret);
+					}else{
+							//Do nothing
+					}
 					break;
 
 		default:return;
 	}
-	rI2CRX_recvDecParamCB(receivedParam);
 }
 
 

@@ -101,7 +101,9 @@ void vPWRNODE__Process(void)
 
 			//start the pi comms layer
 			#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
-				vPWRNODE_PICOMMS__Init();
+				#if C_LOCALDEF__LCCM652__ENABLE_PI_COMMS == 1U
+					vPWRNODE_PICOMMS__Init();
+				#endif
 			#endif
 
 			//move to next state
@@ -121,52 +123,71 @@ void vPWRNODE__Process(void)
 			vRM4_I2C_USER__Init();
 #endif
 			//move to next state
+			//if we have the batt temp system enabled (DS18B20) then start the cell temp system
 			sPWRNODE.sInit.sState = INIT_STATE__CELL_TEMP_START;
 			break;
 
 
+
 		case INIT_STATE__CELL_TEMP_START:
 
-			//start the battery temp system
-			vPWRNODE_BATTTEMP__Init();
+			#if C_LOCALDEF__LCCM652__ENABLE_BATT_TEMP == 1U
+				//start the battery temp system
+				vPWRNODE_BATTTEMP__Init();
 
-			//start a search
-			vPWRNODE_BATTTEMP__Start_Search();
+				//start a search
+				vPWRNODE_BATTTEMP__Start_Search();
+			#endif
 
+			//start searching for temp sensors
 			sPWRNODE.sInit.sState = INIT_STATE__CELL_TEMP_SEARCH;
 			break;
 
-		case INIT_STATE__CELL_TEMP_SEARCH:
-			//process the search
-			vPWRNODE_BATTTEMP__Process();
 
-			//check the satate
-			u8Test = u8PWRNODE_BATTTEMP__Search_IsBusy();
-			if(u8Test == 1U)
-			{
-				//stay in the search state
-				//ToDo: Update Timeout
-			}
-			else
-			{
-				//change state
+		case INIT_STATE__CELL_TEMP_SEARCH:
+			#if C_LOCALDEF__LCCM652__ENABLE_BATT_TEMP == 1U
+				//process the search
+				vPWRNODE_BATTTEMP__Process();
+
+				//check the satate
+				u8Test = u8PWRNODE_BATTTEMP__Search_IsBusy();
+				if(u8Test == 1U)
+				{
+					//stay in the search state
+					//ToDo: Update Timeout
+				}
+				else
+				{
+					//change state
+					sPWRNODE.sInit.sState = INIT_STATE__CELL_TEMP_SEARCH_DONE;
+				}
+			#else
+				//if we don't have batt temp enabled, move states
 				sPWRNODE.sInit.sState = INIT_STATE__CELL_TEMP_SEARCH_DONE;
-			}
+			#endif
+
 			break;
 
+
 		case INIT_STATE__CELL_TEMP_SEARCH_DONE:
+			#if C_LOCALDEF__LCCM652__ENABLE_BATT_TEMP == 1U
 			//done searching 1-wire interface,
 
 			//todo, handle any results from the search
+			#endif
 
 			//next get the BMS going
 			sPWRNODE.sInit.sState = INIT_STATE__BMS;
 			break;
 
+
+
 		case INIT_STATE__BMS:
 
 			//init the BMS layer
-			vPWRNODE_BMS__Init();
+			#if C_LOCALDEF__LCCM652__ENABLE_BMS == 1U
+				vPWRNODE_BMS__Init();
+			#endif
 
 			//start the TSYS01 temp sensor
 			sPWRNODE.sInit.sState = INIT_STATE__TSYS01;
@@ -174,10 +195,21 @@ void vPWRNODE__Process(void)
 
 
 		case INIT_STATE__TSYS01:
-			// ONLY NEEDS TO BE RUN ONCE
-		
-			// init TSYS01 ambient PV Temperature Sensor
-			vTSYS01__Init();
+
+			#if C_LOCALDEF__LCCM652__ENABLE_NODE_TEMP == 1U
+				// Init the node temp subsystem
+				vPWRNODE_NODETEMP__Init();
+			#endif
+
+			//Start the node pressure system
+			sPWRNODE.sInit.sState = INIT_STATE__MS5607;
+			break;
+
+		case INIT_STATE__MS5607:
+			#if C_LOCALDEF__LCCM652__ENABLE_NODE_TEMP == 1U
+				// Init the node temp subsystem
+				vPWRNODE_NODETEMP__Init();
+			#endif
 
 			//change to run state
 			sPWRNODE.sInit.sState = INIT_STATE__RUN;
@@ -188,19 +220,31 @@ void vPWRNODE__Process(void)
 
 			//normal run state
 			#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
-				vPWRNODE_PICOMMS__Process();
+				#if C_LOCALDEF__LCCM652__ENABLE_PI_COMMS == 1U
+					vPWRNODE_PICOMMS__Process();
+				#endif
 			#endif
 
 			//process any BMS tasks
-			vPWRNODE_BMS__Process();
+			#if C_LOCALDEF__LCCM652__ENABLE_BMS == 1U
+					vPWRNODE_BMS__Process();
+			#endif
 
-			//process any temp sensor items
-			vPWRNODE_BATTTEMP__Process();
+			#if C_LOCALDEF__LCCM652__ENABLE_BATT_TEMP == 1U
+				//process the DS18B20 1-wire subsystem
+				vPWRNODE_BATTTEMP__Process();
+			#endif
 
-			//process the TSYS01 device
-			vTSYS01__Process();
+			#if C_LOCALDEF__LCCM652__ENABLE_NODE_TEMP == 1U
+				// Process the node temp subsystem
+				vPWRNODE_NODETEMP__Process();
+			#endif
+			#if C_LOCALDEF__LCCM652__ENABLE_NODE_PRESS == 1U
+				// Process the node pressure subsystem
+				vPWRNODE_NODEPRESS__Process();
+			#endif
 
-			break;
+		break;
 
 
 
