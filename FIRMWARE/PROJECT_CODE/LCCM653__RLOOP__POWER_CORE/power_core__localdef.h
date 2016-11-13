@@ -14,6 +14,20 @@ RLOOP - POWER NODE CORE
 	#define C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
+		/** Enable or disable the PiComms layer */
+		#define C_LOCALDEF__LCCM652__ENABLE_PI_COMMS						(1U)
+
+		/** Enable the battery temperature measurement system */
+		#define C_LOCALDEF__LCCM652__ENABLE_BATT_TEMP						(1U)
+
+		/** Enable the BMS Subsystem */
+		#define C_LOCALDEF__LCCM652__ENABLE_BMS								(1U)
+
+		/** Enable the PV temp system using TSYS01 */
+		#define C_LOCALDEF__LCCM652__ENABLE_NODE_TEMP						(1U)
+
+		/** Node pressure using MS5607 */
+		#define C_LOCALDEF__LCCM652__ENABLE_NODE_PRESS						(1U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM653__ENABLE_TEST_SPEC						(0U)

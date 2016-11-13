@@ -24,11 +24,17 @@
 struct _strPICOMMS sPC;
 
 
-void vPICOMMS_Init(void)
+void vPICOMMS__Init(void)
 {
 	//init the transmitter system
 	PICOMMS_TX_Init();
 	PICOMMS_RX_Init();
+
+}
+
+//process the picomms layer
+void vPICOMMS__Process(void)
+{
 
 }
 

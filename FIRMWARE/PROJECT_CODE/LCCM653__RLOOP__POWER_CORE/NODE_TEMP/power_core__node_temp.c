@@ -31,6 +31,10 @@ extern struct _strPWRNODE sPWRNODE;
  */
 void vPWRNODE_NODETEMP__Init(void)
 {
+	#if C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE == 1U
+		// init TSYS01 ambient PV Temperature Sensor
+		vTSYS01__Init();
+	#endif
 
 }
 
@@ -43,7 +47,10 @@ void vPWRNODE_NODETEMP__Init(void)
  */
 void vPWRNODE_NODETEMP__Process(void)
 {
-
+	#if C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE == 1U
+		//process the digital temp sensor
+		vTSYS01__Process();
+	#endif
 }
 
 

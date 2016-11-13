@@ -20,6 +20,7 @@
 
 #include "../power_core.h"
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
+#if C_LOCALDEF__LCCM652__ENABLE_BATT_TEMP == 1U
 
 /***************************************************************************//**
  * @brief
@@ -96,6 +97,7 @@ Luint8 u8PWRNODE_BATTTEMP__Search_IsBusy(void)
 #endif
 }
 
+#endif //C_LOCALDEF__LCCM652__ENABLE_BATT_TEMP
 #endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 //safetys
 #ifndef C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE
