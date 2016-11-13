@@ -76,7 +76,10 @@ void vFCU_MAINSM__Process(void)
 			//laser contrast
 
 			//PiComms Layer
-			vFCU_PICOMMS__Init();
+			#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
+				vFCU_PICOMMS__Init();
+			#endif
+
 
 			break;
 
@@ -88,6 +91,21 @@ void vFCU_MAINSM__Process(void)
 			//this is the flight mode controller
 			break;
 	}
+
+	//always process pi comms
+	#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
+	if(sFCU.eRunState > RUN_STATE__RESET)
+	{
+		//process the pi comss
+		vFCU_PICOMMS__Process();
+	}
+	else
+	{
+		//do nothing.
+	}
+
+	#endif
+
 }
 
 

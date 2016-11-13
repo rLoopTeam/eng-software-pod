@@ -63,13 +63,20 @@ void PICOMMS_RX_Init()
 	PICOMMS_RX_frameRXEndCB = 0;
 }
 
-void PICOMMS_RX_receiveBytes(Luint8* data, Luint16 length)
+void vPICOMMS_RX__Receive_Bytes(Luint8 *data, Luint16 length)
 {
 	int i = 0;
 
 	if (length > RPOD_PICOMMS_BUFFER_SIZE)
-		return; //somehthing's not right, drop this data and hope we catch up
-	else {}//All is well, continue on
+	{
+		//todo: Flags?
+		//somehthing's not right, drop this data and hope we catch up
+		return;
+	}
+	else
+	{
+		//All is well, continue on
+	}
 
 	//Got some bad data at some point
 	if (bufferLength + length > RPOD_PICOMMS_BUFFER_SIZE)
@@ -77,13 +84,22 @@ void PICOMMS_RX_receiveBytes(Luint8* data, Luint16 length)
 		bufferLength = 0;
 		bufferBegin = 0;
 	}
+	else
+	{
+		//todo: what to do?
+	}
 
 	for (i = 0; i < length; i++)
+	{
 		buffer[(i + bufferBegin + bufferLength)%RPOD_PICOMMS_BUFFER_SIZE] = data[i];
+	}
+
 	bufferLength += length;
 
 	//See if there's enough data for a full frame
-	if (bufferLength >= 8){
+	if (bufferLength >= 8)
+	{
+		//todo: really call this every time?
 		processBuffer();
 	}
 	else

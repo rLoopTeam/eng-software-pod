@@ -31,9 +31,17 @@ struct _strPWRNODE sPWRNODE;
  */
 void vPWRNODE__Init(void)
 {
+
+	//init the fault handling system
+	vPWRNODE_FAULTS__Init();
+
 	//setup the power node basic states and allow the process function to bring all the devices and
 	//subsystems on line.
 	sPWRNODE.sInit.sState = INIT_STATE__START;
+
+	//init the guarding systems
+	sPWRNODE.u32Guard1 = 0xABCD9876U;
+	sPWRNODE.u32Guard2 = 0x12983465U;
 
 }
 
@@ -50,6 +58,11 @@ void vPWRNODE__Process(void)
 {
 
 	Luint8 u8Test;
+
+
+
+
+
 
 	//handle the init states here
 	/**
@@ -124,9 +137,20 @@ void vPWRNODE__Process(void)
 #endif
 			//move to next state
 			//if we have the batt temp system enabled (DS18B20) then start the cell temp system
-			sPWRNODE.sInit.sState = INIT_STATE__CELL_TEMP_START;
+			sPWRNODE.sInit.sState = INIT_STATE__DC_CONVERTER;
 			break;
 
+		case INIT_STATE__DC_CONVERTER:
+
+			//make sure we latch on the DC/DC converter now.
+			#if C_LOCALDEF__LCCM652__ENABLE_DC_CONVERTER == 1U
+				vPWRNODE_DC__Init();
+			#endif
+
+			//move to next state
+			//if we have the batt temp system enabled (DS18B20) then start the cell temp system
+			sPWRNODE.sInit.sState = INIT_STATE__CELL_TEMP_START;
+			break;
 
 
 		case INIT_STATE__CELL_TEMP_START:
@@ -181,7 +205,6 @@ void vPWRNODE__Process(void)
 			break;
 
 
-
 		case INIT_STATE__BMS:
 
 			//init the BMS layer
@@ -225,9 +248,14 @@ void vPWRNODE__Process(void)
 				#endif
 			#endif
 
+			//process the DC/DC conveter, may need to pet the watchdog, etc
+			#if C_LOCALDEF__LCCM652__ENABLE_DC_CONVERTER == 1U
+				vPWRNODE_DC__Process();
+			#endif
+
 			//process any BMS tasks
 			#if C_LOCALDEF__LCCM652__ENABLE_BMS == 1U
-					vPWRNODE_BMS__Process();
+				vPWRNODE_BMS__Process();
 			#endif
 
 			#if C_LOCALDEF__LCCM652__ENABLE_BATT_TEMP == 1U

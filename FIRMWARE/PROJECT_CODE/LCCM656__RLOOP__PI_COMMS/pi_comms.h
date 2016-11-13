@@ -53,7 +53,7 @@
 		void vPICOMMS_Init();
 
 		void PICOMMS_RX_Init();
-		void PICOMMS_RX_receiveBytes(Luint8* data, Luint16 length);
+		void vPICOMMS_RX__Receive_Bytes(Luint8* data, Luint16 length);
 
 		/*******************************************************************************
 		Structures
