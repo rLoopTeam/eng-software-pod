@@ -29,7 +29,7 @@ void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
 			//pass off to PI
 			u8Array[0] = u8RM4_SCI__Get_Rx_Value(SCI_CHANNEL__2);
 #if C_LOCALDEF__LCCM656__ENABLE_RX == 1U
-			rI2CRX_receiveBytes(&u8Array[0], 1);
+			PICOMMS_RX_receiveBytes(&u8Array[0], 1);
 #endif
 			break;
 
