@@ -19,6 +19,9 @@
 #include "../fcu_core.h"
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 
+extern struct _strFCU sFCU;
+
+
 void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
 {
 	Luint8 u8Array[1];
@@ -34,6 +37,35 @@ void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
 			break;
 
 	}//switch(eChannel)
+}
+
+void vRM4_N2HET_DYNAMIC__Notification(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32ProgramIndex, Luint32 u32Register)
+{
+
+	switch(eChannel)
+	{
+		case N2HET_CHANNEL__1:
+			if(u32ProgramIndex == (Luint32)sFCU.sPusher.sSwitches[0].u16N2HET_Prog)
+			{
+				vFCU_PUSHER__InterlockA_ISR();
+			}
+			if(u32ProgramIndex == (Luint32)sFCU.sPusher.sSwitches[1].u16N2HET_Prog)
+			{
+				vFCU_PUSHER__InterlockB_ISR();
+			}
+			if(u32ProgramIndex == (Luint32)sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog)
+			{
+				vFCU_BRAKES_SW__Right_SwitchExtend_ISR();
+			}
+			if(u32ProgramIndex == (Luint32)sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog)
+			{
+				vFCU_BRAKES_SW__Right_SwitchRetract_ISR();
+			}
+			break;
+
+	}//switch(eChannel)
+
+	//FCU_Process_EdgeISR(u32ProgramIndex, u32Register);
 }
 
 
