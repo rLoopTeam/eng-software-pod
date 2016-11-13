@@ -232,12 +232,6 @@ void vMS5607__Process(void)
 				//error has occurred
 				sMS5607.eState = MS5607_STATE__ERROR;
 			}
-
-
-<<<<<<< HEAD
-=======
-			sMS5607.eState = MS5607_STATE__COMPUTE;
->>>>>>> Fix some syntax errors
 			break;
 
 		case MS5607_STATE__COMPUTE:

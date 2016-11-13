@@ -70,10 +70,6 @@ MS5607 - PRESSURE SENSOR
 	#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
 
 		/** MS5607 Device Address */
-<<<<<<< HEAD
-
-=======
->>>>>>> Fix some syntax errors
 		#define C_LOCALDEF__LCCM648__BUS_ADDX								(0x77U)
 
 		/** The number of main program loops to wait for conversion */
