@@ -30,116 +30,117 @@ extern struct _strFCU sFCU;
  */
 void vFCU_BRAKES_SW__Init(void)
 {
+	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 0U;
+	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 0U;
 
+	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 0U;
+	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 0U;
 }
 
 /***************************************************************************//**
  * @brief
- * Get Brake 0 (Left) Extend swtich state
+ * Gets the state of a brake limit swtich
  *
- * @return				1 = Closed\n
- * 						0 = Open
- */
-Luint8 u8FCU_BRAKES_SW__Get_B0_Extend(void)
+ * @param[in] 			eBrake			The brake, left or right
+ * @param[in]			eSwitch			The extend or retract switch
+ * @return				Open, Closed or Unknown
+  */
+E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch)
 {
 	Luint32 u32Temp;
-	Luint8 u8Return;
+	Luint8 u8Temp;
+	E_FCU__SWITCH_STATE_T eReturn;
 
-	u32Temp = u32RM4_GIO__Get_Bit(gioPORTA, 0U);
-	if(u32Temp == 0U)
+	//init our return in place of default switch statements
+	eReturn = SW_STATE__UNKNOWN;
+
+	switch(eBrake)
 	{
-		//switch closed
-		u8Return = 1U;
-	}
-	else
-	{
-		//switch open
-		u8Return = 0U;
-	}
+		case FCU_BRAKE__LEFT:
 
-	return u8Return;
-}
+			switch(eSwitch)
+			{
+				case BRAKE_SW__EXTEND:
+					u32Temp = u32RM4_GIO__Get_Bit(gioPORTA, 0U);
+					if(u32Temp == 0U)
+					{
+						//switch closed
+						eReturn = SW_STATE__CLOSED;
+					}
+					else
+					{
+						//switch open
+						eReturn = SW_STATE__OPEN;
+					}
+					break;
+
+				case BRAKE_SW__RETRACT:
+					u32Temp = u32RM4_GIO__Get_Bit(gioPORTA, 1U);
+					if(u32Temp == 0U)
+					{
+						//switch closed
+						eReturn = SW_STATE__CLOSED;
+					}
+					else
+					{
+						//switch open
+						eReturn = SW_STATE__OPEN;
+					}
+					break;
+
+				default:
+					//handled in init return
+					break;
+			}//switch(eSwitch)
 
 
-/***************************************************************************//**
- * @brief
- * Get Brake 0 (Left) Retract swtich state
- *
- * @return				1 = Closed\n
- * 						0 = Open
- */
-Luint8 u8FCU_BRAKES_SW__Get_B0_Retract(void)
-{
-	Luint32 u32Temp;
-	Luint8 u8Return;
+			break;
 
-	u32Temp = u32RM4_GIO__Get_Bit(gioPORTA, 1U);
-	if(u32Temp == 0U)
-	{
-		//switch closed
-		u8Return = 1U;
-	}
-	else
-	{
-		//switch open
-		u8Return = 0U;
-	}
+		case FCU_BRAKE__RIGHT:
+			switch(eSwitch)
+			{
+				case BRAKE_SW__EXTEND:
+					u8Temp = u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, 9U);
+					if(u8Temp == 0U)
+					{
+						//switch closed
+						eReturn = SW_STATE__CLOSED;
+					}
+					else
+					{
+						//switch open
+						eReturn = SW_STATE__OPEN;
+					}
+					break;
 
-	return u8Return;
-}
+				case BRAKE_SW__RETRACT:
+					u8Temp = u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, 22U);
+					if(u8Temp == 0U)
+					{
+						//switch closed
+						eReturn = SW_STATE__CLOSED;
+					}
+					else
+					{
+						//switch open
+						eReturn = SW_STATE__OPEN;
+					}
+					break;
 
-/***************************************************************************//**
- * @brief
- * Get Brake 1 (Right) Extend swtich state
- *
- * @return				1 = Closed\n
- * 						0 = Open
- */
-Luint8 u8FCU_BRAKES_SW__Get_B1_Extend(void)
-{
-	Luint32 u8Temp;
-	Luint8 u8Return;
+				default:
+					//handled in return init
+					break;
+			}//switch(eSwitch)
+			break;
 
-	u8Temp = u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, 9U);
-	if(u8Temp == 0U)
-	{
-		//switch closed
-		u8Return = 1U;
-	}
-	else
-	{
-		//switch open
-		u8Return = 0U;
-	}
+		default:
+			//handled in return init
+			break;
 
-	return u8Return;
-}
+	}//switch(eBrake)
 
-/***************************************************************************//**
- * @brief
- * Get Brake 1 (Right) Retract swtich state
- *
- * @return				1 = Closed\n
- * 						0 = Open
- */
-Luint8 u8FCU_BRAKES_SW__Get_B1_Retract(void)
-{
-	Luint32 u8Temp;
-	Luint8 u8Return;
 
-	u8Temp = u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, 22U);
-	if(u8Temp == 0U)
-	{
-		//switch closed
-		u8Return = 1U;
-	}
-	else
-	{
-		//switch open
-		u8Return = 0U;
-	}
-
-	return u8Return;
+	return eReturn;
 }
 
 
@@ -149,9 +150,11 @@ Luint8 u8FCU_BRAKES_SW__Get_B1_Retract(void)
  *
  *
  */
-void vFCU_BRAKES_SW__B0_SwitchRetract_ISR(void)
+void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void)
 {
-	//todo
+	vSTEPDRIVE_LIMIT__Limit_ISR(0U);
+
+	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 1U;
 }
 
 /***************************************************************************//**
@@ -160,9 +163,11 @@ void vFCU_BRAKES_SW__B0_SwitchRetract_ISR(void)
  *
  *
  */
-void vFCU_BRAKES_SW__B0_SwitchExtend_ISR(void)
+void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void)
 {
-	//todo
+	vSTEPDRIVE_LIMIT__Limit_ISR(0U);
+
+	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 1U;
 }
 
 
@@ -172,9 +177,11 @@ void vFCU_BRAKES_SW__B0_SwitchExtend_ISR(void)
  *
  *
  */
-void vFCU_BRAKES_SW__B1_SwitchRetract_ISR(void)
+void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void)
 {
-	//todo
+	vSTEPDRIVE_LIMIT__Limit_ISR(1U);
+
+	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 1U;
 }
 
 /***************************************************************************//**
@@ -183,9 +190,11 @@ void vFCU_BRAKES_SW__B1_SwitchRetract_ISR(void)
  *
  *
  */
-void vFCU_BRAKES_SW__B1_SwitchExtend_ISR(void)
+void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void)
 {
-	//todo
+	vSTEPDRIVE_LIMIT__Limit_ISR(1U);
+
+	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 1U;
 }
 
 
