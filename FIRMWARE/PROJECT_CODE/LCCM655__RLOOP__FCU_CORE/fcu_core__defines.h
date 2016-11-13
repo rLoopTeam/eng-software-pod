@@ -11,23 +11,20 @@
 	/** the number of brake actuators in the system */
 	#define C_FCU__NUM_BRAKES								(2U)
 
-	/** ASI command parameter addresses */
+	/** ASI command parameter register address */
+	// see ASI BAC object Dictionary document for more
 	#define C_FCU_ASI__OVER_TEMP_THRESHOLD					(90)
 	#define C_FCU_ASI__FOLDBACK_STARING_TEMP				(91)
 	#define C_FCU_ASI__FOLDBACK_END_TEMP					(92)
 	#define C_FCU_ASI__COMMAND_SOURCE						(208)
 	#define C_FCU_ASI__CONTROLLER_STATUS					(257)
 	#define C_FCU_ASI__FAULTS								(258)
-	#define C_FCU_ASI__CONTROLLER_TEMPERATURE				(259)
+	#define C_FCU_ASI__CONT_TEMP							(259)
 	#define C_FCU_ASI__TEMPERATURE							(261)
 	#define C_FCU_ASI__MOTOR_RPM							(263)
 	#define C_FCU_ASI__LAST_FAULT							(269)
 	#define C_FCU_ASI__RAW_SENSOR_TEMPERATURE				(273)
-	#define C_FCU_ASI__WRITE_PARAMS							(511)
-
-	/** ASI command read or write */
-	#define C_FCU_ASI__PARAM_READ							(0)
-	#define C_FCU_ASI__PARAM_WRITE							(1)
+	#define C_FCU_ASI__SAVE_SETTINGS						(511)
 
 	/** ASI controller faults bit array*/
 	#define C_FCU_ASI__CONTROLLER_OVER_VOLTAGE				(OX0001)

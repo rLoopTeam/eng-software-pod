@@ -213,6 +213,9 @@ void vFCU__Process(void)
 			//process any Pi Comms
 			vFCU_PICOMMS__Process();
 
+			//process ASI Comms
+			vFCU_ASI__Process();
+
 			break;
 
 	}//switch(sFCU.eInitStates)

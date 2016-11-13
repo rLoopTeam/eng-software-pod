@@ -23,120 +23,132 @@
 //the structure
 extern struct _strFCU sFCU;
 
-/***************************************************************************//**
- * @brief
- * Transmit command structure to ASI
- *
- * @param[in]		u8ASIDevNum		ASI controler device to communicate with
- * @param[in/out]	sCmdParams		Command structure with params and values
- * @return			-1 = error
- * 					0 = success
- */
-Lint16 vFCU_ASI__Tx_Cmd(Luint8 u8ASIDevNum, struct _strASICmd *sCmdParams)
-{
-	Lint16 i16Return = 0;
-
-	// need ASI MODBus protocol to send command
-
-	return i16Return;
-}
 
 /***************************************************************************//**
  * @brief
  * Initialize ASI controller parameters
+ * Broadcast to all devices
  *
- * @param[in]		u8ASIDevNum		ASI controler device to communicate with
  * @return			-1 = error
  * 					0 = success
  */
-Lint16 vFCU_ASI__Controller_Init(Luint8 u8ASIDevNum)
+Lint16 vFCU_ASI__Controller_Init(void)
 {
 	Lint16 i16Return = 0;
-	struct _strASICmd sCmdParam;
+	struct _strASICmd sCmd;
+
+	memset(sCmd,0,sizeof(struct _strASICmd));
+	// Common for all these init commands
+	sCmd.slaveAddress = 0;
+	sCmd.fncCode = C_ASI__WRITE_SINGLE_REGISTER;
 
 	// set command control source as serial network
-	sCmdParam.cmdAddx = C_FCU_ASI__COMMAND_SOURCE;
-	sCmdParam.cmdValue = 0;
-	sCmdParam.bRW = C_FCU_ASI__PARAM_WRITE;
-	i16Return = vFCU_ASI__Tx_Cmd(u8ASIDevNum, &sCmdParam);
-	if (i16Return != 0)
+	sCmd.paramAddress = C_FCU_ASI__COMMAND_SOURCE;
+	sCmd.paramValue = 0;	// sets to serial
+	if ((i16Return=vFCU_ASI__SendCommand(&sCmd)) != 0)
 	{
 		// report an error
 		return i16Return;
 	}
-
-	// set motor rating
-
 
 	// set temperature thresholds
-	sCmdParam.cmdAddx = C_FCU_ASI__OVER_TEMP_THRESHOLD;
-	sCmdParam.cmdValue = 0;
-	sCmdParam.bRW = C_FCU_ASI__PARAM_WRITE;
-	i16Return = vFCU_ASI__Tx_Cmd(u8ASIDevNum, &sCmdParam);
-	if (i16Return != 0)
+	sCmd.paramAddress = C_FCU_ASI__OVER_TEMP_THRESHOLD;
+	sCmd.paramValue = 0;	// TODO: what value?
+	if ((i16Return=vFCU_ASI__SendCommand(&sCmd)) != 0)
 	{
 		// report an error
 		return i16Return;
 	}
-	sCmdParam.cmdAddx = C_FCU_ASI__FOLDBACK_STARING_TEMP;
-	sCmdParam.cmdValue = 0;
-	sCmdParam.bRW = C_FCU_ASI__PARAM_WRITE;
-	i16Return = vFCU_ASI__Tx_Cmd(u8ASIDevNum, &sCmdParam);
-	if (i16Return != 0)
+	sCmd.paramAddress = C_FCU_ASI__FOLDBACK_STARING_TEMP;
+	sCmd.paramValue = 0;	// TODO: what value?
+	if ((i16Return=vFCU_ASI__SendCommand(&sCmd)) != 0)
 	{
 		// report an error
 		return i16Return;
 	}
-	sCmdParam.cmdAddx = C_FCU_ASI__FOLDBACK_END_TEMP;
-	sCmdParam.cmdValue = 0;
-	sCmdParam.bRW = C_FCU_ASI__PARAM_WRITE;
-	i16Return = vFCU_ASI__Tx_Cmd(u8ASIDevNum, &sCmdParam);
-	if (i16Return != 0)
+	sCmd.paramAddress = C_FCU_ASI__FOLDBACK_END_TEMP;
+	sCmd.paramValue = 0;	// TODO: what value?
+	if ((i16Return=vFCU_ASI__SendCommand(&sCmd)) != 0)
 	{
 		// report an error
 		return i16Return;
 	}
-}
 
-/***************************************************************************//**
- * @brief
- * Set RPM for ASI controller
- *
- * @param[in]		u8ASIDevNum		ASI controler device to communicate with
- * @param[in]		u32Rpm			RPM value to set
- * @return			-1 = error
- * 					0 = success
- */
-Lint16 vFCU_ASI__SetRPM(Luint8 u8ASIDevNum, Luint32 u32Rpm)
-{
-	Lint16 i16Return = 0;
-
+	// set motor rating?
 	return i16Return;
 }
 
 /***************************************************************************//**
  * @brief
- * Save RPM params on ASI controller
+ * Read motor rpm
  *
- * @param[in]		u8ASIDevNum		ASI controler device to communicate with
+ * @param[in]		u8ASIDevNum		ASI controler device to communicate (1-8)
+ * @param[out]		u16Rpm			Parameter to store rpm
  * @return			-1 = error
  * 					0 = success
  */
-Lint16 vFCU_ASI__SaveParams(Luint8 u8ASIDevNum)
+Lint16 vFCU_ASI__ReadMotorRpm(Luint8 u8ASIDevNum, Luint16* u16Rpm)
 {
 	Lint16 i16Return = 0;
-	struct _strASICmd sCmdParam;
+	struct _strASICmd sCmd;
 
-	sCmdParam.cmdAddx = C_FCU_ASI__WRITE_PARAMS;
-	sCmdParam.cmdValue = 0;
-	sCmdParam.bRW = C_FCU_ASI__PARAM_WRITE;
-	i16Return = vFCU_ASI__Tx_Cmd(u8ASIDevNum, &sCmdParam);
-	if (i16Return != 0)
-	{
-		// report an error
-		return i16Return;
-	}
+	memset(sCmd,0,sizeof(struct _strASICmd));
+	sCmd.slaveAddress = u8ASIDevNum;
+	sCmd.fncCode = C_ASI__READ_INPUT_REGISTER;
+	sCmd.paramAddress = C_FCU_ASI__MOTOR_RPM;
+	sCmd.paramValue = 1;	// we just want to read one register
+	sCmd.destVar = (void*)u16Rpm;
+	sCmd.eDestVarType = E_UINT16;
+	i16Return=vFCU_ASI__SendCommand(&sCmd);
+	return i16Return;
+}
 
+/***************************************************************************//**
+ * @brief
+ * Read controller's base plate temperature
+ *
+ * @param[in]		u8ASIDevNum		ASI controler device to communicate (1-8)
+ * @param[out]		u16Temp			Parameter to store temperature in Celsius
+ * @return			-1 = error
+ * 					0 = success
+ */
+Lint16 vFCU_ASI__ReadControllerTemperature(Luint8 u8ASIDevNum, Luint16* u16Temp)
+{
+	Lint16 i16Return = 0;
+	struct _strASICmd sCmd;
+
+	memset(sCmd,0,sizeof(struct _strASICmd));
+	sCmd.slaveAddress = u8ASIDevNum;
+	sCmd.fncCode = C_ASI__READ_INPUT_REGISTER;
+	sCmd.paramAddress = C_FCU_ASI__CONT_TEMP;
+	sCmd.paramValue = 1;	// we just want to read one register
+	sCmd.destVar = (void*)u16Temp;
+	sCmd.eDestVarType = E_UINT16;
+	i16Return=vFCU_ASI__SendCommand(&sCmd);
+	return i16Return;
+}
+
+
+/***************************************************************************//**
+ * @brief
+ * Save ASI controller settings
+ *
+ * @param[in]		u8ASIDevNum		ASI controler device to communicate (1-8)
+ * @return			-1 = error
+ * 					0 = success
+ */
+Lint16 vFCU_ASI__SaveSettings(Luint8 u8ASIDevNum)
+{
+	// cannot do this when controller is in the RUN state
+	Lint16 i16Return = 0;
+	struct _strASICmd sCmd;
+
+	memset(sCmd,0,sizeof(struct _strASICmd));
+	sCmd.slaveAddress = u8ASIDevNum;
+	sCmd.fncCode = C_ASI__WRITE_SINGLE_REGISTER;
+	sCmd.paramAddress = C_FCU_ASI__SAVE_SETTINGS;
+	sCmd.paramValue = 32767;
+	i16Return=vFCU_ASI__SendCommand(&sCmd);
 	return i16Return;
 }
 
@@ -144,26 +156,26 @@ Lint16 vFCU_ASI__SaveParams(Luint8 u8ASIDevNum)
  * @brief
  * Get faults from ASI controller
  *
- * @param[in]		u8ASIDevNum		ASI controler device to communicate with
+ * @param[in]		u8ASIDevNum		ASI controler device to communicate (1-8)
+ * @param[out]		u16Faults		Parameter to store faults bit array
  * @return			-1 = error
  * 					0 = success
  */
-Luint16 vFCU_ASI__GetFaults(Luint8 u8ASIDevNum)
+Luint16 vFCU_ASI__GetFaults(Luint8 u8ASIDevNum, Luint16* u16Faults)
 {
-	Luint16 i16Return = 0;
-	struct _strASICmd sCmdParam;
+	Lint16 i16Return = 0;
+	struct _strASICmd sCmd;
 
-	sCmdParam.cmdAddx = C_FCU_ASI__FAULTS;
-	sCmdParam.cmdValue = 0;
-	sCmdParam.bRW = C_FCU_ASI__PARAM_READ;
-	i16Return = vFCU_ASI__Tx_Cmd(u8ASIDevNum, &sCmdParam);
-	if (i16Return != 0)
-	{
-		// report an error
-		return (Luint16)i16Return;
-	}
-
-	return sCmdParam.cmdValue;
+	memset(sCmd,0,sizeof(struct _strASICmd));
+	sCmd.slaveAddress = u8ASIDevNum;
+	sCmd.fncCode = C_ASI__READ_INPUT_REGISTER;
+	sCmd.paramAddress = C_FCU_ASI__FAULTS;
+	sCmd.paramValue = 1;	// we just want to read one register
+	sCmd.destVar = (void*)u16Faults;
+	sCmd.eDestVarType = E_UINT16;
+	i16Return=vFCU_ASI__SendCommand(&sCmd);
+	// TODO: create a log message with all faults, defined in fcu_core_defines.h
+	return i16Return;
 }
 
 
