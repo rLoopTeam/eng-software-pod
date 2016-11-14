@@ -147,8 +147,8 @@
 		Lfloat32 f32PWRNODE_NODETEMP__Get_Temperature_DegC(void);
 
 		//node pressure reading
-		void vPWNODE_NODEPRESS__Init(void);
-		void vPWNODE_NODEPRESS__Process(void);
+		void vPWRNODE_NODEPRESS__Init(void);
+		void vPWRNODE_NODEPRESS__Process(void);
 
 #ifdef WIN32
 		void vPWRNODE_WIN32__Init(void);

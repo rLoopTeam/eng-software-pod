@@ -193,7 +193,7 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__ENABLE_BMS								(0U)
 
 		/** Enable the PV temp system using TSYS01 */
-		#define C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP						(1U)
+		#define C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP						(0U)
 
 		/** Node pressure using MS5607 */
 		#define C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS						(1U)
