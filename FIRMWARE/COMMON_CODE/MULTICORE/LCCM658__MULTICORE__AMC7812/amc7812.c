@@ -25,6 +25,8 @@
 #include "amc7812.h"
 #if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 
+extern struct _strAMC7812 strAMC7812;
+
 /***************************************************************************//**
  * @brief
  * Init the core module
@@ -61,6 +63,88 @@ void vAMC7812__Init(void)
  */
 void vAMC7812__Process(void)
 {
+
+
+	Lfloat32 f32Pow;
+	Lint16 s16Return;
+
+	//handle the state machine
+	switch(strAMC7812.eState)
+	{
+		case AMC7812_DAC_STATE__IDLE:
+			//do nothing,
+			break;
+
+		case AMC7812_DAC_STATE__INIT_DEVICE:
+			//reset the device
+
+			//wait a little bit incase we came in from clocking out bad I2C data.
+			vRM4_DELAYS__Delay_mS(10U);
+
+			//AMC7812 must be reset after power up
+			s16Return = s16AMC7812_I2C__TxCommand(C_LOCALDEF__LCCM658__BUS_ADDX, ACM7812_DAC_REG__RESET);
+
+			if(s16Return >= 0)
+			{
+				//success
+				//change state
+				strAMC7812.eState = AMC7812_DAC_STATE__WRITE;
+			}
+			else
+			{
+				//read error, handle state.
+				strAMC7812.eState = AMC7812_DAC_STATE__ERROR;
+			}
+			break;
+
+
+
+		case AMC7812_DAC_STATE__WRITE:
+
+			// write throttle values
+			s16Return = s16AMC7812_I2C__WriteU16( C_LOCALDEF__LCCM658__BUS_ADDX, strAMC7812.eDAC_Data_Addx, strAMC7812.u16ThrottleCommand);
+
+			if(s16Return >= 0)
+			{
+				//sample started, wait for some processing loops to expire
+
+				//change states
+				strAMC7812.eState = AMC7812_DAC_STATE__WAIT_LOOPS;
+
+			}
+			else
+			{
+				//error has occurred
+				strAMC7812.eState = AMC7812_DAC_STATE__ERROR;
+			}
+
+			break;
+
+		case AMC7812_DAC_STATE__WAIT_LOOPS:
+
+			//todo, change to constant
+			if(strAMC7812.u32LoopCounter > C_LOCALDEF__LCCM658__NUM_CONVERSION_LOOPS)
+			{
+				//move on to write to DAC
+				strAMC7812.eState = AMC7812_DAC_STATE__WRITE;
+
+			}
+			else
+			{
+				//increment the loop counter;
+				strAMC7812.u32LoopCounter += 1;
+				//stay in state
+			}
+			break;
+
+
+		case AMC7812_DAC_STATE__ERROR:
+			//some error has happened
+			break;
+
+	}
+
+
 
 
 }
