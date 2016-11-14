@@ -82,7 +82,7 @@ void vMS5607__Process(void)
 				u8crc4Result = uMS5607__getLSB4Bits(u8MS5607__CRC4(sMS5607.u16Coefficients));
 				u8crc4Read = uMS5607__getLSB4Bits(sMS5607.u16Coefficients[7]);
 
-				if (u8crc4Result == u8crc4read)
+				if (u8crc4Result == u8crc4Read)
 				{
 					// success
 					sMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_TEMPERATURE; //QUESTION: DO WE NEED MS5607_STATE__WAITING?
