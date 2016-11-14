@@ -40,14 +40,7 @@
             MS5607_CMD__CONVERT_D2_OSR_2048 = 0x56,
             MS5607_CMD__CONVERT_D2_OSR_4096 = 0x58,
             MS5607_CMD__ADC_READ = 0x00,
-            MS5607_CMD__PROM_READ_0 = 0xA0, //Manufacturer Reserved
-            MS5607_CMD__PROM_READ_1 = 0xA2,
-            MS5607_CMD__PROM_READ_2 = 0xA4,
-            MS5607_CMD__PROM_READ_3 = 0xA6,
-            MS5607_CMD__PROM_READ_4 = 0xA8,
-            MS5607_CMD__PROM_READ_5 = 0xAA,
-            MS5607_CMD__PROM_READ_6 = 0xAC,
-            MS5607_CMD__PROM_READ_7 = 0xAE //CRC
+            MS5607_CMD__PROM_READ = 0xA0, // Calibration data (from 0xA0 to 0xAE)
         }E_MS5607_CMD_T;
 
         /** State types for the MS5607 state machine */
