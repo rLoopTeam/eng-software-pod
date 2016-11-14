@@ -352,12 +352,20 @@ void vMS5607__CalculateTemperature(void)
 /** Calculate Temperature Compensated Pressure */
 void vMS5607__CalculateTempCompensatedPressure(void)
 {
+	Lfloat64 f64TempD1Sens = 0;
+	Lfloat64 f64TempD1SensDiv2p21 = 0;
+	Lfloat64 f64TempD1SensDiv2p21MinusOffset = 0;
+	Lfloat64 f64TempD1SensDiv2p21MinusOffsetDiv2p15 = 0;
 	// Offset at actual temperature
 	sMS5607.sPRESSURE.s64OFF = ((Lint64)sMS5607.u16Coefficients[2] * f32NUMERICAL__Power(2, 17)) + (((Lint64)sMS5607.u16Coefficients[4] * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 6));
 	// Sensitivity at actual temperature
 	sMS5607.sPRESSURE.s64SENS = ((Lint64)sMS5607.u16Coefficients[1] * f32NUMERICAL__Power(2, 16)) + (((Lint64)sMS5607.u16Coefficients[3] * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 7));
 	// Temperature compensated pressure (10 to 1200mbar with 0.01mbar resolution)
-	sMS5607.sPRESSURE.s32P = (Lint32)(((Lfloat64)sMS5607.u32AverageResult_Div256Pressure * (Lfloat64)sMS5607.sPRESSURE.s64SENS / f64NUMERICAL__Power(2, 21)) - (Lfloat64)sMS5607.sPRESSURE.s64OFF) / f64NUMERICAL__Power(2, 15);
+	f64TempD1Sens = sMS5607.u32AverageResult_Div256Pressure * sMS5607.sPRESSURE.s64SENS;
+	f64TempD1SensDiv2p21 = f64TempD1Sens / f64NUMERICAL__Power(2, 21);
+	f64TempD1SensDiv2p21MinusOffset = f64TempD1SensDiv2p21 - sMS5607.sPRESSURE.s64OFF;
+	f64TempD1SensDiv2p21MinusOffsetDiv2p15 =  f64TempD1SensDiv2p21MinusOffset / f64NUMERICAL__Power(2, 15);
+	sMS5607.sPRESSURE.s32P = (Lint32)f64TempD1SensDiv2p21MinusOffsetDiv2p15;
 }
 
 /** Second Order Temperature Compensation */
