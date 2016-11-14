@@ -224,7 +224,7 @@
 		void vSC16_LOOPBACK__Enable_Rx_Loopback(Luint8 u8DeviceIndex, Luint8 u8Enable);
 
 		//Baud
-		void vSC16_BAUD__Set_BaudRate(Luint8 u8DeviceIndex, Luint8 u8InputClockFreq, Luint16 u16Baudrate, Luint8 u8Prescalar);
+		void vSC16_BAUD__Set_BaudRate(Luint8 u8DeviceIndex, Luint8 u8InputClockFreq, Luint32 u32Baudrate, Luint8 u8Prescalar);
 		void vSC16_BAUD__Set_Stopbits(Luint8 u8DeviceIndex, Luint8 u8StopBit);
 		void vSC16_BAUD__Set_Wordlength(Luint8 u8DeviceIndex, Luint8 u8Wordlength);
 
