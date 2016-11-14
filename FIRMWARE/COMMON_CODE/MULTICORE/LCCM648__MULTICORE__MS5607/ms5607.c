@@ -48,12 +48,9 @@ void vMS5607__Init(void)
 
 void vMS5607__Process(void)
 {
-
 	Lint16 s16Return;
 	Luint8 u8crc4Result;
-	Luint8 u8crc4read;
-	Luint8 u8CRC_Temp;
-
+	Luint8 u8crc4Read;
 
 	switch(sMS5607.eState)
 	{
@@ -82,9 +79,8 @@ void vMS5607__Process(void)
 			if(s16Return >= 0)
 			{
 				//crc check
-				u8CRC_Temp = u8MS5607__CRC4(sMS5607.u16Coefficients);
-				u8crc4Result = uMS5607__getLSB4Bits(u8CRC_Temp);
-				u8crc4read = uMS5607__getLSB4Bits(sMS5607.u16Coefficients[7]);
+				u8crc4Result = uMS5607__getLSB4Bits(u8MS5607__CRC4(sMS5607.u16Coefficients));
+				u8crc4Read = uMS5607__getLSB4Bits(sMS5607.u16Coefficients[7]);
 
 				if (u8crc4Result == u8crc4read)
 				{
