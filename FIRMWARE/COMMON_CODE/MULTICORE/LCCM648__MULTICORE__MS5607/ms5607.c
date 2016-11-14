@@ -318,7 +318,7 @@ Lint16 s16MS5607__StartTemperatureConversion(void)
 Lint16 s16MS5607__StartPressureConversion(void)
 {
 	//return with the status of the I2C read
-	return s16MS5607_I2C__TxCommand(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_TEMPERATURE_OSR);
+	return s16MS5607_I2C__TxCommand(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_PRESSURE_OSR);
 }
 
 /** Calculate Compensated Temperature */
