@@ -229,9 +229,9 @@ void vPWRNODE__Process(void)
 			break;
 
 		case INIT_STATE__MS5607:
-			#if C_LOCALDEF__LCCM652__ENABLE_NODE_TEMP == 1U
-				// Init the node temp subsystem
-				vPWRNODE_NODETEMP__Init();
+			#if C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS == 1U
+				// Init the node pressure subsystem
+				vPWRNODE_NODEPRESS__Init();
 			#endif
 
 			//change to run state
@@ -267,7 +267,7 @@ void vPWRNODE__Process(void)
 				// Process the node temp subsystem
 				vPWRNODE_NODETEMP__Process();
 			#endif
-			#if C_LOCALDEF__LCCM652__ENABLE_NODE_PRESS == 1U
+			#if C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS == 1U
 				// Process the node pressure subsystem
 				vPWRNODE_NODEPRESS__Process();
 			#endif
