@@ -48,12 +48,9 @@ void vMS5607__Init(void)
 
 void vMS5607__Process(void)
 {
-
 	Lint16 s16Return;
 	Luint8 u8crc4Result;
-	Luint8 u8crc4read;
-	Luint8 u8CRC_Temp;
-
+	Luint8 u8crc4Read;
 
 	switch(sMS5607.eState)
 	{
@@ -82,11 +79,10 @@ void vMS5607__Process(void)
 			if(s16Return >= 0)
 			{
 				//crc check
-				u8CRC_Temp = u8MS5607__CRC4(sMS5607.u16Coefficients);
-				u8crc4Result = uMS5607__getLSB4Bits(u8CRC_Temp);
-				u8crc4read = uMS5607__getLSB4Bits(sMS5607.u16Coefficients[7]);
+				u8crc4Result = uMS5607__getLSB4Bits(u8MS5607__CRC4(sMS5607.u16Coefficients));
+				u8crc4Read = uMS5607__getLSB4Bits(sMS5607.u16Coefficients[7]);
 
-				if (u8crc4Result == u8crc4read)
+				if (u8crc4Result == u8crc4Read)
 				{
 					// success
 					sMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_TEMPERATURE; //QUESTION: DO WE NEED MS5607_STATE__WAITING?
@@ -264,87 +260,24 @@ void vMS5607__Process(void)
 /** Read each of coefficients over i2c */
 Lint16 s16MS5607__GetCalibrationContants(Luint16 *pu16Values)
 {
-	Lint16 s16Return;
-	Luint16 * pu16Temp;
+	Lint16 s16Return; // I2C read return status
+	Luint8 u8CoefficientIndex; // Factor used to move the address ahead in the loop.
+	Luint8 u8CoefficientStartingAddress = MS5607_CMD__PROM_READ;
 
-	pu16Temp = &pu16Values[0];
-	s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_0, pu16Temp);
-	if(s16Return >= 0)
+	// Loop through the coefficients from 0 to 8.
+	for (u8CoefficientIndex = 0; u8CoefficientIndex < 8; u8CoefficientIndex++)
 	{
-		pu16Temp = &pu16Values[1];
-		s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_1, pu16Temp);
-		if(s16Return >= 0)
+		// We have to make sure we're increasing the address by 2,
+		// since we're reading two bytes at a time (16-bit words).
+		s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, (E_MS5607_CMD_T)(u8CoefficientStartingAddress + (2 * u8CoefficientIndex)), &pu16Values[u8CoefficientIndex]);
+		if (s16Return != 0)
 		{
-			pu16Temp = &pu16Values[2];
-			s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_2, pu16Temp);
-			if(s16Return >= 0)
-			{
-				pu16Temp = &pu16Values[3];
-				s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_3, pu16Temp);
-				if(s16Return >= 0)
-				{
-					pu16Temp = &pu16Values[4];
-					s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_4, pu16Temp);
-					if(s16Return >= 0)
-					{
-						pu16Temp = &pu16Values[5];
-						s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_5, pu16Temp);
-						if(s16Return >= 0)
-						{
-							pu16Temp = &pu16Values[6];
-							s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_6, pu16Temp);
-							if(s16Return >= 0)
-							{
-								pu16Temp = &pu16Values[7];
-								s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__PROM_READ_7, pu16Temp);
-
-
-								//fall on
-							}
-							else
-							{
-								//fall on
-							}
-
-							//fall on
-						}
-						else
-						{
-							//fall on
-						}
-
-						//fall on
-					}
-					else
-					{
-						//fall on
-					}
-
-					//fall on
-				}
-				else
-				{
-					//fall on
-				}
-
-			}
-			else
-			{
-				//fall on with error code
-			}
-
-		}
-		else
-		{
-			//fall on with error code
+			// Failed reading.
+			break;
 		}
 	}
-	else
-	{
-		//fall on
-	}
 
-	//return with the status of the I2C read
+	// Return with the status of the I2C read.
 	return s16Return;
 }
 
@@ -385,7 +318,7 @@ Lint16 s16MS5607__StartTemperatureConversion(void)
 Lint16 s16MS5607__StartPressureConversion(void)
 {
 	//return with the status of the I2C read
-	return s16MS5607_I2C__TxCommand(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_TEMPERATURE_OSR);
+	return s16MS5607_I2C__TxCommand(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_PRESSURE_OSR);
 }
 
 /** Calculate Compensated Temperature */
