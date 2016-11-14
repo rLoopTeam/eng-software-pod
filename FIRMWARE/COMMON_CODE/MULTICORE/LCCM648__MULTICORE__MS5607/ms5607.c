@@ -286,6 +286,7 @@ Lint16 s16MS5607__GetCalibrationContants(Luint16 *pu16Values)
 	// Loop through the coefficients from 0 to 8.
 	for (u8CoefficientIndex = 0; u8CoefficientIndex < 8; u8CoefficientIndex++)
 	{
+		vRM4_DELAYS__Delay_mS(10U);
 		// We have to make sure we're increasing the address by 2,
 		// since we're reading two bytes at a time (16-bit words).
 		s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, (E_MS5607_CMD_T)(u8CoefficientStartingAddress + (2 * u8CoefficientIndex)), &pu16Values[u8CoefficientIndex]);
