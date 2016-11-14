@@ -357,7 +357,7 @@ void vMS5607__CalculateTempCompensatedPressure(void)
 	// Sensitivity at actual temperature
 	sMS5607.sPRESSURE.s64SENS = ((Lint64)sMS5607.u16Coefficients[1] * f32NUMERICAL__Power(2, 16)) + (((Lint64)sMS5607.u16Coefficients[3] * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 7));
 	// Temperature compensated pressure (10 to 1200mbar with 0.01mbar resolution)
-	sMS5607.sPRESSURE.s32P = (Lint32)(((sMS5607.u32AverageResult_Div256Pressure * sMS5607.sPRESSURE.s64SENS) / f32NUMERICAL__Power(2, 21)) - sMS5607.sPRESSURE.s64OFF) / f32NUMERICAL__Power(2, 15);
+	sMS5607.sPRESSURE.s32P = (Lint32)(((Lfloat64)sMS5607.u32AverageResult_Div256Pressure * (Lfloat64)sMS5607.sPRESSURE.s64SENS / f64NUMERICAL__Power(2, 21)) - (Lfloat64)sMS5607.sPRESSURE.s64OFF) / f64NUMERICAL__Power(2, 15);
 }
 
 /** Second Order Temperature Compensation */
