@@ -83,7 +83,6 @@
 
 			E_AMC7812_DAC_DATA_REG_ADDRESSES eDAC_Data_Addx;
 
-			Luint16 u16ThrottleCommand;
 
 		};
 

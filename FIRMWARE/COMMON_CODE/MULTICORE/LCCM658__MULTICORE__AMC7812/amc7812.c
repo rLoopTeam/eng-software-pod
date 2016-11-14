@@ -61,10 +61,11 @@ void vAMC7812__Init(void)
  * @st_funcMD5		96394E4CC69E197E228D42A9743AF8BC
  * @st_funcID		LCCM658R0.FILE.000.FUNC.002
  */
-void vAMC7812__Process(void)
+void vAMC7812__Process( Luint16 u16ThtrottleCommand, Luint8 u8EngineNumber)
 {
 
 	Lint16 s16Return = 0;
+	E_AMC7812_DAC_DATA_REG_ADDRESSES eDAC_REG_ADDR;
 
 	//handle the state machine
 	switch ( strAMC7812_DAC.eState )
@@ -101,8 +102,37 @@ void vAMC7812__Process(void)
 
 		case AMC7812_DAC_STATE__WRITE:
 
+			switch ( u8EngineNumber )
+			{
+				case 1:
+					eDAC_REG_ADDR = ACM7812_DAC_DATA_REG_ADR__HE1;
+					break;
+				case 2:
+					eDAC_REG_ADDR = ACM7812_DAC_DATA_REG_ADR__HE2;
+					break;
+				case 3:
+					eDAC_REG_ADDR = ACM7812_DAC_DATA_REG_ADR__HE3;
+					break;
+				case 4:
+					eDAC_REG_ADDR = ACM7812_DAC_DATA_REG_ADR__HE4;
+					break;
+				case 5:
+					eDAC_REG_ADDR = ACM7812_DAC_DATA_REG_ADR__HE5;
+					break;
+				case 6:
+					eDAC_REG_ADDR = ACM7812_DAC_DATA_REG_ADR__HE6;
+					break;
+				case 7:
+					eDAC_REG_ADDR = ACM7812_DAC_DATA_REG_ADR__HE7;
+					break;
+				case 8:
+					eDAC_REG_ADDR = ACM7812_DAC_DATA_REG_ADR__HE8;
+					break;
+			}	// end of switch(u8EngineNumber)
+
+
 			// write throttle values
-			s16Return = s16AMC7812_I2C__WriteU16( C_LOCALDEF__LCCM658__BUS_ADDX, strAMC7812_DAC.eDAC_Data_Addx, strAMC7812_DAC.u16ThrottleCommand );
+			s16Return = s16AMC7812_I2C__WriteU16( C_LOCALDEF__LCCM658__BUS_ADDX, strAMC7812_DAC.eDAC_Data_Addx, u16ThrottleCommand );
 
 			if ( s16Return >= 0 )
 			{
@@ -149,9 +179,28 @@ void vAMC7812__Process(void)
 
 	return s16Return;
 
-
 }
 
+
+
+// ACM7812 DAC control commands
+
+Lint16 s16AMC7812__DAC_Control( Luint8 u8Input )
+{
+
+	// ACM7812 DAC control signals:
+
+	// DAC CLR0 (low clears DAC, high is normal)
+
+	// DAC CLR1 (low clears DAC, high is normal)
+
+	// DAC RESET (low resets hardware)
+
+	// DAC DAV (data available - low when conversion ends)
+
+	// DAC CNVT (conversion trigger - falling edge starts sampling)
+
+}
 
 #endif //#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 //safetys
