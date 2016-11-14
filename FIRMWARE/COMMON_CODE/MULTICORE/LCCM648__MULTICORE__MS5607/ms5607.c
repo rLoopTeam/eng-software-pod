@@ -76,6 +76,7 @@ void vMS5607__Process(void)
 			break;
 		case MS5607_STATE__READ_CALIBRATION:
 			s16Return = s16MS5607__GetCalibrationContants(&sMS5607.u16Coefficients[0]);
+
 			if(s16Return >= 0)
 			{
 				//crc check
@@ -98,6 +99,16 @@ void vMS5607__Process(void)
 				//read error, handle state.
 				sMS5607.eState = MS5607_STATE__ERROR;
 			}
+
+			#if C_LOCALDEF__LCCM648__ENABLE_DS_VALUES == 1U
+				// Coefficient values copied from the MS5607 data sheet (ENG_DS_MS5607-02BA03_B.pdf; page 8)
+				sMS5607.u16Coefficients[1] = 46372;
+				sMS5607.u16Coefficients[2] = 43981;
+				sMS5607.u16Coefficients[3] = 29059;
+				sMS5607.u16Coefficients[4] = 27842;
+				sMS5607.u16Coefficients[5] = 31553;
+				sMS5607.u16Coefficients[6] = 28165;
+			#endif
 
 			break;
 		case MS5607_STATE__WAITING:
@@ -159,6 +170,10 @@ void vMS5607__Process(void)
 				//generate the DIV256 option
 				sMS5607.u32AverageResult_Div256Temperature = sMS5607.u32AverageResultTemperature >> 8U;
 
+				#if C_LOCALDEF__LCCM648__ENABLE_DS_VALUES == 1U
+					sMS5607.u32AverageResult_Div256Temperature = 8077636;
+				#endif
+
 				//change state
 				sMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_PRESSURE;
 			}
@@ -201,7 +216,7 @@ void vMS5607__Process(void)
 			break;
 
 		case MS5607_STATE__READ_ADC_PRESSURE:
-			// Read ADC Preassure
+			// Read ADC Preassure (reading the D2 value from the MS5607).
 			s16Return = s16MS5607_I2C__RxU24(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__ADC_READ, &sMS5607.u32LastResultPressure);
 
 			if(s16Return >= 0)
@@ -221,6 +236,10 @@ void vMS5607__Process(void)
 
 				//generate the DIV256 option
 				sMS5607.u32AverageResult_Div256Pressure = sMS5607.u32AverageResultPressure >> 8U;
+
+				#if C_LOCALDEF__LCCM648__ENABLE_DS_VALUES == 1U
+					sMS5607.u32AverageResult_Div256Pressure = 6465444;
+				#endif
 
 				//change state
 				sMS5607.eState = MS5607_STATE__COMPUTE;
@@ -267,6 +286,7 @@ Lint16 s16MS5607__GetCalibrationContants(Luint16 *pu16Values)
 	// Loop through the coefficients from 0 to 8.
 	for (u8CoefficientIndex = 0; u8CoefficientIndex < 8; u8CoefficientIndex++)
 	{
+		vRM4_DELAYS__Delay_mS(10U);
 		// We have to make sure we're increasing the address by 2,
 		// since we're reading two bytes at a time (16-bit words).
 		s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, (E_MS5607_CMD_T)(u8CoefficientStartingAddress + (2 * u8CoefficientIndex)), &pu16Values[u8CoefficientIndex]);
@@ -333,12 +353,20 @@ void vMS5607__CalculateTemperature(void)
 /** Calculate Temperature Compensated Pressure */
 void vMS5607__CalculateTempCompensatedPressure(void)
 {
+	Lfloat64 f64TempD1Sens = 0;
+	Lfloat64 f64TempD1SensDiv2p21 = 0;
+	Lfloat64 f64TempD1SensDiv2p21MinusOffset = 0;
+	Lfloat64 f64TempD1SensDiv2p21MinusOffsetDiv2p15 = 0;
 	// Offset at actual temperature
 	sMS5607.sPRESSURE.s64OFF = ((Lint64)sMS5607.u16Coefficients[2] * f32NUMERICAL__Power(2, 17)) + (((Lint64)sMS5607.u16Coefficients[4] * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 6));
 	// Sensitivity at actual temperature
 	sMS5607.sPRESSURE.s64SENS = ((Lint64)sMS5607.u16Coefficients[1] * f32NUMERICAL__Power(2, 16)) + (((Lint64)sMS5607.u16Coefficients[3] * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 7));
 	// Temperature compensated pressure (10 to 1200mbar with 0.01mbar resolution)
-	sMS5607.sPRESSURE.s32P = (Lint32)(((sMS5607.u32AverageResult_Div256Pressure * sMS5607.sPRESSURE.s64SENS) / f32NUMERICAL__Power(2, 21)) - sMS5607.sPRESSURE.s64OFF) / f32NUMERICAL__Power(2, 15);
+	f64TempD1Sens = sMS5607.u32AverageResult_Div256Pressure * sMS5607.sPRESSURE.s64SENS;
+	f64TempD1SensDiv2p21 = f64TempD1Sens / f64NUMERICAL__Power(2, 21);
+	f64TempD1SensDiv2p21MinusOffset = f64TempD1SensDiv2p21 - sMS5607.sPRESSURE.s64OFF;
+	f64TempD1SensDiv2p21MinusOffsetDiv2p15 =  f64TempD1SensDiv2p21MinusOffset / f64NUMERICAL__Power(2, 15);
+	sMS5607.sPRESSURE.s32P = (Lint32)f64TempD1SensDiv2p21MinusOffsetDiv2p15;
 }
 
 /** Second Order Temperature Compensation */
