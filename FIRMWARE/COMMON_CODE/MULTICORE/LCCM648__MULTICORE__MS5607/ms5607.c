@@ -76,6 +76,7 @@ void vMS5607__Process(void)
 			break;
 		case MS5607_STATE__READ_CALIBRATION:
 			s16Return = s16MS5607__GetCalibrationContants(&sMS5607.u16Coefficients[0]);
+
 			if(s16Return >= 0)
 			{
 				//crc check
@@ -98,6 +99,16 @@ void vMS5607__Process(void)
 				//read error, handle state.
 				sMS5607.eState = MS5607_STATE__ERROR;
 			}
+
+			#if C_LOCALDEF__LCCM648__ENABLE_DS_VALUES == 1U
+				// Coefficient values copied from the MS5607 data sheet (ENG_DS_MS5607-02BA03_B.pdf; page 8)
+				sMS5607.u16Coefficients[1] = 46372;
+				sMS5607.u16Coefficients[2] = 43981;
+				sMS5607.u16Coefficients[3] = 29059;
+				sMS5607.u16Coefficients[4] = 27842;
+				sMS5607.u16Coefficients[5] = 31553;
+				sMS5607.u16Coefficients[6] = 28165;
+			#endif
 
 			break;
 		case MS5607_STATE__WAITING:
@@ -159,6 +170,10 @@ void vMS5607__Process(void)
 				//generate the DIV256 option
 				sMS5607.u32AverageResult_Div256Temperature = sMS5607.u32AverageResultTemperature >> 8U;
 
+				#if C_LOCALDEF__LCCM648__ENABLE_DS_VALUES == 1U
+					sMS5607.u32AverageResult_Div256Temperature = 8077636;
+				#endif
+
 				//change state
 				sMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_PRESSURE;
 			}
@@ -201,7 +216,7 @@ void vMS5607__Process(void)
 			break;
 
 		case MS5607_STATE__READ_ADC_PRESSURE:
-			// Read ADC Preassure
+			// Read ADC Preassure (reading the D2 value from the MS5607).
 			s16Return = s16MS5607_I2C__RxU24(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__ADC_READ, &sMS5607.u32LastResultPressure);
 
 			if(s16Return >= 0)
@@ -221,6 +236,10 @@ void vMS5607__Process(void)
 
 				//generate the DIV256 option
 				sMS5607.u32AverageResult_Div256Pressure = sMS5607.u32AverageResultPressure >> 8U;
+
+				#if C_LOCALDEF__LCCM648__ENABLE_DS_VALUES == 1U
+					sMS5607.u32AverageResult_Div256Pressure = 6465444;
+				#endif
 
 				//change state
 				sMS5607.eState = MS5607_STATE__COMPUTE;
