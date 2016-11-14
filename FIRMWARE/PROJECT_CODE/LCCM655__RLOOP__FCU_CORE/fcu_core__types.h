@@ -21,6 +21,23 @@
 	}E_FCU__RUN_STATE_T;
 
 
+	/** Opto NCDT Laser processing subsystem state machine */
+	typedef enum
+	{
+
+		/** just come out of reset */
+		OPTOLASER_STATE__RESET = 0U,
+
+		/** Check if any new data is avail from the laser FIFO's */
+		OPTOLASER_STATE__CHECK_NEW_DATA,
+
+
+	}E_FCU_OPTOLASER__STATE_T;
+
+
+
+
+
 	/** Flight control state machine INIT types */
 	typedef enum
 	{

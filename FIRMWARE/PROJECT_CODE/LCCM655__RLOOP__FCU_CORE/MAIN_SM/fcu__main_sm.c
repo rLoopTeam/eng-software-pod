@@ -70,6 +70,9 @@ void vFCU_MAINSM__Process(void)
 			vFCU_ACCEL__Init();
 
 			//laser opto's
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
+				vFCU_LASEROPTO__Init();
+			#endif
 
 			//laser distance
 
@@ -90,21 +93,32 @@ void vFCU_MAINSM__Process(void)
 		case RUN_STATE__FLIGHT_MODE:
 			//this is the flight mode controller
 			break;
-	}
 
-	//always process pi comms
-	#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
+	}//switch(sFCU.eRunState)
+
+	//always process these items
 	if(sFCU.eRunState > RUN_STATE__RESET)
 	{
-		//process the pi comss
-		vFCU_PICOMMS__Process();
+		#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
+			vFCU_LASEROPTO__Process();
+		#endif
+
+		//process the brakes.
+		vFCU_BRAKES__Process();
+
+		//process the accel channels
+		vFCU_ACCEL__Process();
+
+		//process any Pi Comms
+		#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
+			vFCU_PICOMMS__Process();
+		#endif
 	}
 	else
 	{
 		//do nothing.
 	}
 
-	#endif
 
 }
 

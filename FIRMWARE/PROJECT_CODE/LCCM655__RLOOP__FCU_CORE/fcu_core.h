@@ -30,7 +30,6 @@
 		#define C_MLP__MAX_AVERAGE_SIZE				(8U)
 
 
-
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
@@ -193,6 +192,24 @@
 
 			}sPusher;
 
+			/** Overall structure for the laser interfaces */
+			struct
+			{
+				/** state machine for processing the OptoNCDT systems */
+				E_FCU_OPTOLASER__STATE_T eOptoNCDTState;
+
+				/** The opto NCDT laser interfaces */
+				struct
+				{
+
+					Luint8 u8Dummy;
+
+				}sOptoLaser[C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT];
+
+			}sLasers;
+
+
+
 			/** Structure guard 2*/
 			Luint32 u32Guard2;
 			
@@ -216,6 +233,10 @@
 		//main state machine
 		void vFCU_MAINSM__Init(void);
 		void vFCU_MAINSM__Process(void);
+
+		//lasers for OptoNCDT inerface
+		void vFCU_LASEROPTO__Init(void);
+		void vFCU_LASEROPTO__Process(void);
 
 		//pi comms
 		void vFCU_PICOMMS__Init(void);

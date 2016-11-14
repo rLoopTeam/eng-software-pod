@@ -56,6 +56,7 @@ void vFCU__Init(void)
  */
 void vFCU__Process(void)
 {
+	Luint8 u8Counter;
 
 	//check the guarding
 	if(sFCU.u32Guard1 != 0xAABBCCDDU)
@@ -125,7 +126,6 @@ void vFCU__Process(void)
 			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 4U);
 			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 5U);
 
-
 			//interrupts
 			//Channel A1, A2
 			vRM4_N2HET__Disable(N2HET_CHANNEL__1);
@@ -140,6 +140,20 @@ void vFCU__Process(void)
 			sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
 
 			vRM4_N2HET__Enable(N2HET_CHANNEL__1);
+
+			//brake left inputs
+			vRM4_GIO__Set_BitDirection(gioPORTA, 0U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(gioPORTA, 1U, GIO_DIRECTION__INPUT);
+
+			//configure the interrupts
+			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__BOTH, GIO_ISR_PIN__GIOA_0);
+			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__BOTH, GIO_ISR_PIN__GIOA_1);
+
+			//setup the interrupts
+			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_0);
+			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_1);
+
+
 
 			sFCU.eInitStates = INIT_STATE__INIT_COMMS;
 			break;
@@ -170,14 +184,10 @@ void vFCU__Process(void)
 		case INIT_STATE__INIT_SPI_UARTS:
 
 			//init all 7 of our uarts
-			vSC16__Init(0);
-			vSC16__Init(1);
-			vSC16__Init(2);
-			vSC16__Init(3);
-			vSC16__Init(4);
-			vSC16__Init(5);
-			vSC16__Init(6);
-			vSC16__Init(7);
+			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM487__NUM_DEVICES; u8Counter++)
+			{
+				vSC16__Init(u8Counter);
+			}
 
 			//move state
 			sFCU.eInitStates = INIT_STATE__LOWER_SYSTEMS;
@@ -185,11 +195,8 @@ void vFCU__Process(void)
 
 		case INIT_STATE__LOWER_SYSTEMS:
 
-
 			//get our main SM operational
 			vFCU_MAINSM__Init();
-
-
 
 			sFCU.eInitStates = INIT_STATE__START_TIMERS;
 			break;
@@ -220,16 +227,7 @@ void vFCU__Process(void)
 			//process the main state machine
 			vFCU_MAINSM__Init();
 
-			//process the brakes.
-			vFCU_BRAKES__Process();
 
-			//process the accel channels
-			vFCU_ACCEL__Process();
-
-			//process any Pi Comms
-			#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
-				vFCU_PICOMMS__Process();
-			#endif
 
 			break;
 
