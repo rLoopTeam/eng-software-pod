@@ -52,6 +52,12 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Enable or disable the PiComms layer */
 		#define C_LOCALDEF__LCCM655__ENABLE_PI_COMMS						(0U)
 
+		/** Enable the OptoNCDT laser interface */
+		#define C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT					(1U)
+
+		/** Number of OptoNCDT lasers, must be in order from A0:2, B0:2*/
+		#define C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT						(1U)
+
 
 		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER			(40U)
 		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO				(41U)
