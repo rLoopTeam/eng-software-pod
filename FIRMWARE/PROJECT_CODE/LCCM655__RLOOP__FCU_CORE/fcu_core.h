@@ -201,8 +201,20 @@
 				/** The opto NCDT laser interfaces */
 				struct
 				{
+					/** RX byte state machine */
+					E_OPTONCDT__RX_STATE_T eRxState;
 
-					Luint8 u8Dummy;
+					/** A new packet is available for distance processing */
+					Luint8 u8NewPacket;
+
+					/** Array to hold new bytes received */
+					Luint8 u8NewByteArray[3];
+
+					/** The most recent distance*/
+					Lfloat32 f32Distance;
+
+					/** New distance has been measured, other layer to clear it */
+					Luint8 u8NewDistanceAvail;
 
 				}sOptoLaser[C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT];
 

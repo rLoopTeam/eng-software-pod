@@ -31,10 +31,19 @@
 		/** Check if any new data is avail from the laser FIFO's */
 		OPTOLASER_STATE__CHECK_NEW_DATA,
 
+		/** Check if a new packet is avail for each laser */
+		OPTOLASER_STATE__CHECK_NEW_PACKET,
 
 	}E_FCU_OPTOLASER__STATE_T;
 
+	/** Rx state machine for the laser data from OptoNCDT*/
+	typedef enum
+	{
+		OPTONCDT_RX__BYTE_1 = 0U,
+		OPTONCDT_RX__BYTE_2,
+		OPTONCDT_RX__BYTE_3,
 
+	}E_OPTONCDT__RX_STATE_T;
 
 
 

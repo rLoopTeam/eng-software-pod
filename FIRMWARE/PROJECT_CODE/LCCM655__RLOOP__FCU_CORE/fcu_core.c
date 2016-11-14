@@ -186,7 +186,17 @@ void vFCU__Process(void)
 			//init all 7 of our uarts
 			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM487__NUM_DEVICES; u8Counter++)
 			{
+				//init the device
 				vSC16__Init(u8Counter);
+
+				//check the fault tree
+
+				//configure for our baud if we are good
+				vSC16_BAUD__Set_BaudRate(u8Counter, 1U, 192600U, 4U);
+
+				//set to 1 stop bits.
+				vSC16_BAUD__Set_Stopbits(u8Counter, 0U);
+
 			}
 
 			//move state
@@ -226,8 +236,6 @@ void vFCU__Process(void)
 
 			//process the main state machine
 			vFCU_MAINSM__Init();
-
-
 
 			break;
 
