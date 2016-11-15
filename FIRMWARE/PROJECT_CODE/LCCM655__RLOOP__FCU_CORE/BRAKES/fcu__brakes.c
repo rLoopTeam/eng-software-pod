@@ -155,12 +155,14 @@ void vFCU_BRAKES__Move_IBeam_Distance_Microns(Luint32 u32Distance)
 void vFCU_BRAKES__Move_Percent_Position(Lfloat32 f32Percent,
 		E_FCU__BRAKE_INDEX_T eBrake) {
 
-	if ((f32Percent < FCU_BRAKE__MIN_BRAKES_POSITION_PERCENT)
-			|| (f32Percent > FCU_BRAKE__MAX_BRAKES_POSITION_PERCENT)) {
-
-		//do nothing
-
-	} else {
+	if (f32Percent < FCU_BRAKE__MIN_BRAKES_POSITION_PERCENT) {
+			sFCU.sBrakes[(Luint32) eBrake].sMLP.f32BrakePosition_Percent =
+					FCU_BRAKE__MIN_BRAKES_POSITION_PERCENT;
+		} else if (f32Percent > FCU_BRAKE__MAX_BRAKES_POSITION_PERCENT) {
+			sFCU.sBrakes[(Luint32) eBrake].sMLP.f32BrakePosition_Percent =
+					FCU_BRAKE__MAX_BRAKES_POSITION_PERCENT;
+		}
+		else {
 
 		if (eBrake < FCU_BRAKE__MAX_BRAKES) {
 
@@ -170,25 +172,30 @@ void vFCU_BRAKES__Move_Percent_Position(Lfloat32 f32Percent,
 		}
 	}
 }
+
 //move the brakes position by distance: from 25.4mm (fully open) to 2.5mm (fully closed).
 //The length that the brakes move from 0% to 100% is 22.9mm
 void vFCU_BRAKES__Move_Distance_Position(Lfloat32 f32Percent,
 		E_FCU__BRAKE_INDEX_T eBrake) {
 
-	if ((f32Percent < FCU_BRAKE__MIN_BRAKES_POSITION_PERCENT)
-			|| (f32Percent > FCU_BRAKE__MAX_BRAKES_POSITION_PERCENT)) {
-
-		//do nothing
-
-	} else {
-
-		if (eBrake < FCU_BRAKE__MAX_BRAKES) {
-
-			//set BrakePosition_Distance to value in mm
-			sFCU.sBrakes[(Luint32) eBrake].sMLP.f32BrakePosition_Distance =
-					f32Percent*FCU_BRAKE__BRAKES_POSITION_PERCENT_TO_DISTANCE;
-		}
+	if (f32Percent < FCU_BRAKE__MIN_BRAKES_POSITION_PERCENT) {
+		sFCU.sBrakes[(Luint32) eBrake].sMLP.f32BrakePosition_Distance =
+				FCU_BRAKE__MIN_BRAKES_POSITION_PERCENT*FCU_BRAKE__BRAKES_POSITION_PERCENT_TO_DISTANCE;
+	} else if (f32Percent > FCU_BRAKE__MAX_BRAKES_POSITION_PERCENT) {
+		sFCU.sBrakes[(Luint32) eBrake].sMLP.f32BrakePosition_Distance =
+				FCU_BRAKE__MAX_BRAKES_POSITION_PERCENT*FCU_BRAKE__BRAKES_POSITION_PERCENT_TO_DISTANCE;
 	}
+
+}
+else {
+
+	if (eBrake < FCU_BRAKE__MAX_BRAKES) {
+
+		//set BrakePosition_Distance to value in mm
+		sFCU.sBrakes[(Luint32) eBrake].sMLP.f32BrakePosition_Distance =
+		f32Percent*FCU_BRAKE__BRAKES_POSITION_PERCENT_TO_DISTANCE;
+	}
+}
 }
 
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
