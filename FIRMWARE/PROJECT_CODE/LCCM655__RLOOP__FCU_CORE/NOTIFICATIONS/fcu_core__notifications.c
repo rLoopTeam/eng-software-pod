@@ -45,25 +45,33 @@ void vRM4_N2HET_DYNAMIC__Notification(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32
 	switch(eChannel)
 	{
 		case N2HET_CHANNEL__1:
-			if(u32ProgramIndex == (Luint32)sFCU.sPusher.sSwitches[0].u16N2HET_Prog)
-			{
-				vFCU_PUSHER__InterlockA_ISR();
-			}
+			#if C_LOCALDEF__LCCM656__ENABLE_PUSHER == 1U
+				if(u32ProgramIndex == (Luint32)sFCU.sPusher.sSwitches[0].u16N2HET_Prog)
+				{
+					vFCU_PUSHER__InterlockA_ISR();
+				}
 
-			if(u32ProgramIndex == (Luint32)sFCU.sPusher.sSwitches[1].u16N2HET_Prog)
-			{
-				vFCU_PUSHER__InterlockB_ISR();
-			}
+				if(u32ProgramIndex == (Luint32)sFCU.sPusher.sSwitches[1].u16N2HET_Prog)
+				{
+					vFCU_PUSHER__InterlockB_ISR();
+				}
+			#endif
 
-			if(u32ProgramIndex == (Luint32)sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog)
-			{
-				vFCU_BRAKES_SW__Right_SwitchExtend_ISR();
-			}
+			#if C_LOCALDEF__LCCM656__ENABLE_BRAKES == 1U
+				if(u32ProgramIndex == (Luint32)sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog)
+				{
+					vFCU_BRAKES_SW__Right_SwitchExtend_ISR();
+				}
 
-			if(u32ProgramIndex == (Luint32)sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog)
-			{
-				vFCU_BRAKES_SW__Right_SwitchRetract_ISR();
-			}
+				if(u32ProgramIndex == (Luint32)sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog)
+				{
+					vFCU_BRAKES_SW__Right_SwitchRetract_ISR();
+				}
+			#endif
+			break;
+
+		default:
+			//do nothing.
 			break;
 
 	}//switch(eChannel)

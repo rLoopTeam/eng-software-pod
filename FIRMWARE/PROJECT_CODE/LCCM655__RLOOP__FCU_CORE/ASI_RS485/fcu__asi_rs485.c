@@ -19,6 +19,7 @@
 #include "../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
 
 //the structure
 extern struct _strFCU sFCU;
@@ -46,7 +47,10 @@ void vFCU_ASI__Process(void)
 
 }
 
-
+#endif //C_LOCALDEF__LCCM655__ENABLE_ASI_RS485
+#ifndef C_LOCALDEF__LCCM655__ENABLE_ASI_RS485
+	#error
+#endif
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 //safetys
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE

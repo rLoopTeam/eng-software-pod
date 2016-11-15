@@ -19,6 +19,7 @@
 #include "../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
 
 //the structure
 extern struct _strFCU sFCU;
@@ -200,6 +201,8 @@ void vFCU_PUSHER__Process(void)
 	}
 
 }
+#endif //C_LOCALDEF__LCCM655__ENABLE_PUSHER
+
 
 /***************************************************************************//**
  * @brief
@@ -208,8 +211,10 @@ void vFCU_PUSHER__Process(void)
  */
 void vFCU_PUSHER__InterlockA_ISR(void)
 {
-	//indicate that the pusher interlock A has had an edge and we should re-read the pin
-	sFCU.sPusher.sSwitches[0].u8EdgeFlag = 1U;
+	#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
+		//indicate that the pusher interlock A has had an edge and we should re-read the pin
+		sFCU.sPusher.sSwitches[0].u8EdgeFlag = 1U;
+	#endif
 }
 
 /***************************************************************************//**
@@ -219,10 +224,13 @@ void vFCU_PUSHER__InterlockA_ISR(void)
  */
 void vFCU_PUSHER__InterlockB_ISR(void)
 {
-	//indicate that the pusher interlock A has had an edge and we should re-read the pin
-	sFCU.sPusher.sSwitches[1].u8EdgeFlag = 1U;
+	#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
+		//indicate that the pusher interlock A has had an edge and we should re-read the pin
+		sFCU.sPusher.sSwitches[1].u8EdgeFlag = 1U;
+	#endif
 }
 
+#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
 /***************************************************************************//**
  * @brief
  * Gets the current pin status of interlock A
@@ -264,6 +272,7 @@ Luint8 u8FCU_PUSHER__Get_InterlockB(void)
 
 	return u8Return;
 }
+#endif //C_LOCALDEF__LCCM655__ENABLE_PUSHER
 
 /***************************************************************************//**
  * @brief
@@ -273,12 +282,16 @@ Luint8 u8FCU_PUSHER__Get_InterlockB(void)
  */
 void vFCU_PUSHER__10MS_ISR(void)
 {
-	//increment the timer always. Dont be concerned with rollover as we manage the timer
-	//in the state machine.
-	sFCU.sPusher.u32SwtichTimer++;
+	#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
+		//increment the timer always. Dont be concerned with rollover as we manage the timer
+		//in the state machine.
+		sFCU.sPusher.u32SwtichTimer++;
+	#endif
 }
 
-
+#ifndef C_LOCALDEF__LCCM655__ENABLE_PUSHER
+	#error
+#endif
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 //safetys
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE

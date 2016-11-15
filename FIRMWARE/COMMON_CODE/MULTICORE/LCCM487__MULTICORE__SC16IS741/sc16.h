@@ -181,10 +181,9 @@
 		void vSC16__Clear_NewDataAvalible(Luint8 u8DeviceIndex);
 		void vSC16__Clear_Rx_Byetes(Luint8 u8DeviceIndex);
 		Luint8 u8SC16_USER__Is_TxAvail(Luint8 u8DeviceIndex);
-		void vSC16_USER__Tx_Byte(Luint8 u8DeviceIndex);
 		Luint8 u8SC16_USER__Get_ByteAvail(Luint8 u8DeviceIndex);
 		Luint8 u8SC16_USER__Get_Byte(Luint8 u8DeviceIndex);
-		void vSC16__Command_Write(Luint8 u8DeviceIndex, Luint8 *u8Data, Luint8 u8StringLength);
+		void vSC16__Tx_ByteArray(Luint8 u8DeviceIndex, Luint8 *pu8Data, Luint8 u8ArrayLength);
 
 
 		//Interrupt
@@ -214,7 +213,7 @@
 		void vSC16_FLOWCONTROL__Enable_ProgTriggerLvlRegister(Luint8 u8DeviceIndex, Luint8 u8Enable);
 		void vSC16_FLOWCONTROL__Enable_Parity(Luint8 u8DeviceIndex, Luint8 u8Enable);
 		void vSC16_FLOWCONTROL__Set_ProgTriggerlvlRegister(Luint8 u8DeviceIndex, Luint8 u8Triglevels);
-		void vSC16_FLOWCONTROL__Set_RxTriggerlvl(Luint8 u8DeviceIndex, Luint8 u8Rxlevel);
+		void vSC16_FLOWCONTROL__Set_RxTrigger_Level(Luint8 u8DeviceIndex, Luint8 u8Rxlevel);
 		void vSC16_FLOWCONTROL__Set_SpecialCharacter(Luint8 u8DeviceIndex, Luint8 u8Character);
 
 		Luint8 u8SC16_FLOWCONTROL__Read_Rx_FillLevel(Luint8 u8DeviceIndex);

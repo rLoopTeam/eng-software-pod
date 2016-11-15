@@ -19,6 +19,7 @@
 #include "../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 
 //the structure
 extern struct _strFCU sFCU;
@@ -157,7 +158,7 @@ E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_
 
 	return eReturn;
 }
-
+#endif //C_LOCALDEF__LCCM655__ENABLE_BRAKES
 
 /***************************************************************************//**
  * @brief
@@ -167,9 +168,11 @@ E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_
  */
 void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void)
 {
-	vSTEPDRIVE_LIMIT__Limit_ISR(0U);
+	#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+		vSTEPDRIVE_LIMIT__Limit_ISR(0U);
 
-	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 1U;
+		sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 1U;
+	#endif
 }
 
 /***************************************************************************//**
@@ -180,9 +183,11 @@ void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void)
  */
 void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void)
 {
-	vSTEPDRIVE_LIMIT__Limit_ISR(0U);
+	#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+		vSTEPDRIVE_LIMIT__Limit_ISR(0U);
 
-	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 1U;
+		sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 1U;
+	#endif
 }
 
 
@@ -194,9 +199,11 @@ void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void)
  */
 void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void)
 {
-	vSTEPDRIVE_LIMIT__Limit_ISR(1U);
+	#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+		vSTEPDRIVE_LIMIT__Limit_ISR(1U);
 
-	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 1U;
+		sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 1U;
+	#endif
 }
 
 /***************************************************************************//**
@@ -207,9 +214,11 @@ void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void)
  */
 void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void)
 {
-	vSTEPDRIVE_LIMIT__Limit_ISR(1U);
+	#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+		vSTEPDRIVE_LIMIT__Limit_ISR(1U);
 
-	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 1U;
+		sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 1U;
+	#endif
 }
 
 

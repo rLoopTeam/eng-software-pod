@@ -26,6 +26,7 @@
 #include "../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 
 //the structure
 extern struct _strFCU sFCU;
@@ -168,7 +169,10 @@ void vFCU_BRAKES__Move_Percent_Position(Lfloat32 f32Percent, E_FCU__BRAKE_INDEX_
 	}
 }
 
-
+#endif //C_LOCALDEF__LCCM655__ENABLE_BRAKES
+#ifndef C_LOCALDEF__LCCM655__ENABLE_BRAKES
+	#error
+#endif
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 //safetys
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
