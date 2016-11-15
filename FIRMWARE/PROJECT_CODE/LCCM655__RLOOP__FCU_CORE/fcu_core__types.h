@@ -28,6 +28,12 @@
 		/** just come out of reset */
 		OPTOLASER_STATE__RESET = 0U,
 
+		/** configure the laser into RS422 mode */
+		OPTOLASER_STATE__INIT_LASER,
+
+		/** Wait until the laser has been initted */
+		OPTOLASER_STATE__WAIT_INIT_DONE,
+
 		/** Check if any new data is avail from the laser FIFO's */
 		OPTOLASER_STATE__CHECK_NEW_DATA,
 

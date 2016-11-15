@@ -125,35 +125,48 @@ void vFCU__Process(void)
 			//setup the pins
 			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 4U);
 			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 5U);
+			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 9U);
+			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 22U);
 
 			//interrupts
 			//Channel A1, A2
-			vRM4_N2HET__Disable(N2HET_CHANNEL__1);
-			//N2HET programs for the edge interrupts for pusher
-			sFCU.sPusher.sSwitches[0].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 4U, EDGE_TYPE__BOTH, 1U);
-			sFCU.sPusher.sSwitches[1].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 5U, EDGE_TYPE__BOTH, 1U);
 
-			//programs for right brake limit switches
-			sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 9U, EDGE_TYPE__BOTH, 1U);
-			sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 22U, EDGE_TYPE__BOTH, 1U);
-			sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = 0U;
-			sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
+				vRM4_N2HET__Disable(N2HET_CHANNEL__1);
 
-			vRM4_N2HET__Enable(N2HET_CHANNEL__1);
+				#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
+					//N2HET programs for the edge interrupts for pusher
+					sFCU.sPusher.sSwitches[0].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 4U, EDGE_TYPE__BOTH, 1U);
+					sFCU.sPusher.sSwitches[1].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 5U, EDGE_TYPE__BOTH, 1U);
+				#endif
 
-			//brake left inputs
-			vRM4_GIO__Set_BitDirection(gioPORTA, 0U, GIO_DIRECTION__INPUT);
-			vRM4_GIO__Set_BitDirection(gioPORTA, 1U, GIO_DIRECTION__INPUT);
+				//programs for right brake limit switches
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+					sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 9U, EDGE_TYPE__BOTH, 1U);
+					sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 22U, EDGE_TYPE__BOTH, 1U);
+					sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = 0U;
+					sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
+				#else
+					sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = 0U;
+					sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
+					sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = 0U;
+					sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
+				#endif
 
-			//configure the interrupts
-			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__BOTH, GIO_ISR_PIN__GIOA_0);
-			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__BOTH, GIO_ISR_PIN__GIOA_1);
+				vRM4_N2HET__Enable(N2HET_CHANNEL__1);
 
-			//setup the interrupts
-			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_0);
-			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_1);
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+					//brake left inputs
+					vRM4_GIO__Set_BitDirection(gioPORTA, 0U, GIO_DIRECTION__INPUT);
+					vRM4_GIO__Set_BitDirection(gioPORTA, 1U, GIO_DIRECTION__INPUT);
 
+					//configure the interrupts
+					vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__BOTH, GIO_ISR_PIN__GIOA_0);
+					vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__BOTH, GIO_ISR_PIN__GIOA_1);
 
+					//setup the interrupts
+					vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_0);
+					vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_1);
+				#endif
 
 			sFCU.eInitStates = INIT_STATE__INIT_COMMS;
 			break;
@@ -178,10 +191,46 @@ void vFCU__Process(void)
 			vRM4_I2C_USER__Init();
 
 			//init the I2C
-			sFCU.eInitStates = INIT_STATE__LOWER_SYSTEMS; //INIT_STATE__INIT_SPI_UARTS;
+			sFCU.eInitStates = INIT_STATE__INIT_SPI_UARTS;
 			break;
 
 		case INIT_STATE__INIT_SPI_UARTS:
+
+			//give us some interrupts going
+			vRM4_GIO__Set_BitDirection(gioPORTA, 2U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(gioPORTA, 3U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(gioPORTA, 4U, GIO_DIRECTION__INPUT);
+
+			vRM4_GIO__Set_BitDirection(gioPORTB, 1U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(gioPORTB, 3U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(gioPORTB, 6U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(gioPORTB, 0U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(gioPORTB, 7U, GIO_DIRECTION__INPUT);
+
+
+			//configure the interrupts
+			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOA_2);
+			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOA_3);
+			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOA_4);
+
+			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOB_1);
+			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOB_3);
+			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOB_6);
+			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOB_0);
+			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOB_7);
+
+
+			//setup the interrupts
+			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_2);
+			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_3);
+			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_4);
+
+			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOB_1);
+			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOB_3);
+			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOB_6);
+			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOB_0);
+			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOB_7);
+
 
 			//init all 7 of our uarts
 			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM487__NUM_DEVICES; u8Counter++)
@@ -192,12 +241,32 @@ void vFCU__Process(void)
 				//check the fault tree
 
 				//configure for our baud if we are good
-				vSC16_BAUD__Set_BaudRate(u8Counter, 1U, 192600U, 4U);
+				vSC16_BAUD__Set_BaudRate(u8Counter, 1U, 19200U, 1U);
+
+				//8bits, no parity
+				vSC16_BAUD__Set_Wordlength(u8Counter, 8U);
+				vSC16_FLOWCONTROL__Enable_Parity(u8Counter, 0U);
 
 				//set to 1 stop bits.
 				vSC16_BAUD__Set_Stopbits(u8Counter, 0U);
 
+				//use FIFO mode
+				vSC16_FIFO___Enable_FIFOs(u8Counter, 1U);
+
+				//reset
+				vSC16_FIFO__Reset_Rx_FIFO(u8Counter, 1U);
+				vSC16_FIFO__Reset_Tx_FIFO(u8Counter, 1U);
+
+				//set the Rx trig level to prevent software overhead.
+				vSC16_FLOWCONTROL__Set_RxTrigger_Level(u8Counter, 16U);
+
+				//Rx Int
+				vSC16_INT__Enable_Rx_DataAvalibleInterupt(u8Counter, 1U);
 			}
+
+			//todo:
+			//setup the baud for the lasers only
+
 
 			//move state
 			sFCU.eInitStates = INIT_STATE__LOWER_SYSTEMS;
@@ -235,7 +304,7 @@ void vFCU__Process(void)
 		case INIT_STATE__RUN:
 
 			//process the main state machine
-			vFCU_MAINSM__Init();
+			vFCU_MAINSM__Process();
 
 			break;
 

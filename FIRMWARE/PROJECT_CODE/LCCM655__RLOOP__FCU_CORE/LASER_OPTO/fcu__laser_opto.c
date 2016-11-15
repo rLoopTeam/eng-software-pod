@@ -61,6 +61,7 @@ void vFCU_LASEROPTO__Process(void)
 {
 	Luint8 u8Counter;
 	Luint8 u8Temp;
+	Luint8 u8BurstCount;
 
 	//handle the optoNCDT laser state
 	switch(sFCU.sLasers.eOptoNCDTState)
@@ -68,31 +69,63 @@ void vFCU_LASEROPTO__Process(void)
 		case OPTOLASER_STATE__RESET:
 			//just fresh out of reset.
 
+			//setup the lasers
+			sFCU.sLasers.eOptoNCDTState = OPTOLASER_STATE__INIT_LASER;
+			break;
+
+		case OPTOLASER_STATE__INIT_LASER:
+
+			//sucks but we have had to set the profile called rLoop into each sensor
+			//put the lasers into RS422 mode.
+			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT; u8Counter++)
+			{
+				//send the command
+				vSC16__Tx_ByteArray(u8Counter, "\r\nOUTPUT RS422\r\n", 16U);
+			}
+			//todo:
+			//Check that the laser is in the mode.
+			sFCU.sLasers.eOptoNCDTState = OPTOLASER_STATE__WAIT_INIT_DONE;
+			break;
+
+		case OPTOLASER_STATE__WAIT_INIT_DONE:
+			//wait until the laser is up
+
+
+			//continue to check for new data.
 			sFCU.sLasers.eOptoNCDTState = OPTOLASER_STATE__CHECK_NEW_DATA;
 			break;
 
 		case OPTOLASER_STATE__CHECK_NEW_DATA:
-			//check if any new laser data is available on the bus.
-			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT; u8Counter++)
+
+			//do a sneeky burst here
+			for(u8BurstCount = 0U; u8BurstCount < 3U; u8BurstCount++)
 			{
-				//see if there is at least one byte of data avail in the FIFO's
-				u8Temp = u8SC16_USER__Get_ByteAvail(u8Counter);
-				if(u8Temp == 0U)
+
+				//check if any new laser data is available on the bus.
+				for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT; u8Counter++)
 				{
-					//no new data
+					//see if there is at least one byte of data avail in the FIFO's
+					u8Temp = u8SC16_USER__Get_ByteAvail(u8Counter);
+					if(u8Temp == 0U)
+					{
+						//no new data
+					}
+					else
+					{
+						//yep some new laser data avail, what to do with it?
+
+						//get the byte and send it off for processing if we have enough data
+						u8Temp = u8SC16_USER__Get_Byte(u8Counter);
+
+						//process the byte.
+						vFCU_LASEROPTO__Append_Byte(u8Counter, u8Temp);
+					}
+
 				}
-				else
-				{
-					//yep some new laser data avail, what to do with it?
-
-					//get the byte and send it off for processing if we have enough data
-					u8Temp = u8SC16_USER__Get_Byte(u8Counter);
-
-					//process the byte.
-					vFCU_LASEROPTO__Append_Byte(u8Counter, u8Temp);
-				}
-
 			}
+
+
+			sFCU.sLasers.eOptoNCDTState = OPTOLASER_STATE__CHECK_NEW_PACKET;
 			break;
 
 		case OPTOLASER_STATE__CHECK_NEW_PACKET:
@@ -115,6 +148,8 @@ void vFCU_LASEROPTO__Process(void)
 				}
 			}
 
+			//back to check for more data
+			sFCU.sLasers.eOptoNCDTState = OPTOLASER_STATE__CHECK_NEW_DATA;
 			break;
 
 	}//switch(sFCU.sLasers.eOptoNCDTState)
@@ -125,24 +160,25 @@ void vFCU_LASEROPTO__Process(void)
 void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex)
 {
 	Lfloat32 f32Temp;
-	union
-	{
-		Luint8 u8[4];
-		Luint32 u32;
-	}unT;
+	Luint32 u32ValA;
+	Luint32 u32ValB;
+	Luint32 u32ValC;
 
 	//protect the laser index
 	if(u8LaserIndex < C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT)
 	{
 
 		//assemble
-		unT.u8[0] = sFCU.sLasers.sOptoLaser[u8LaserIndex].u8NewByteArray[0];
-		unT.u8[1] = sFCU.sLasers.sOptoLaser[u8LaserIndex].u8NewByteArray[1];
-		unT.u8[2] = sFCU.sLasers.sOptoLaser[u8LaserIndex].u8NewByteArray[2];
-		unT.u8[3] = 0U;
+		u32ValA = sFCU.sLasers.sOptoLaser[u8LaserIndex].u8NewByteArray[0];
+		u32ValB = sFCU.sLasers.sOptoLaser[u8LaserIndex].u8NewByteArray[1];
+		u32ValC = sFCU.sLasers.sOptoLaser[u8LaserIndex].u8NewByteArray[2];
+
+		//format
+		u32ValA += u32ValB << 6U;
+		u32ValA += u32ValC << 12U;
 
 		//convert
-		f32Temp = (Lfloat32)unT.u32;
+		f32Temp = (Lfloat32)u32ValA;
 		f32Temp *= 102.0F;
 		f32Temp /= 65520.0F;
 		f32Temp -= 1.0F;
@@ -211,7 +247,7 @@ void vFCU_LASEROPTO__Append_Byte(Luint8 u8LaserIndex, Luint8 u8Value)
 			case OPTONCDT_RX__BYTE_2:
 
 				//check for byte 1
-				if((u8Value & 0xC0U) == 1U)
+				if((u8Value & 0xC0U) == 0x40U)
 				{
 					//the top two bits are 1, we are good to go
 					//save the byte
@@ -230,7 +266,7 @@ void vFCU_LASEROPTO__Append_Byte(Luint8 u8LaserIndex, Luint8 u8Value)
 			case OPTONCDT_RX__BYTE_3:
 
 				//check for byte 1
-				if((u8Value & 0xC0U) == 2U)
+				if((u8Value & 0xC0U) == 0x80U)
 				{
 					//the top two bits are valid, we are good to go
 					//save the byte
