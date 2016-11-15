@@ -83,7 +83,6 @@
 		/*** The second order temperature compensation ***/
 		struct _strSecondOrderCompensation
 		{
-			Lint32 s32T2;
 			Lint32 s32OFF2;
 			Lint64 s64SENS2;
 		};
