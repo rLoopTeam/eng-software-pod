@@ -111,6 +111,7 @@
 		void vTSYS01__Process(void);
 		void vTSYS01__Enable(void);
 		Lfloat32 f32TSYS01__Get_TempDegC(void);
+		Luint32 u32TSYS01__Get_FaultFlags(void);
 		
 		
 		//I2C

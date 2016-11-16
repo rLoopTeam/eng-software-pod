@@ -18,9 +18,12 @@
 
 #include "../power_core.h"
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
-#if C_LOCALDEF__LCCM652__ENABLE_DC_CONVERTER == 1U
+#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
 
 extern struct _strPWRNODE sPWRNODE;
+
+//locals
+static void vPWRNODE_DC__Power_Off(void);
 
 /***************************************************************************//**
  * @brief
@@ -34,8 +37,10 @@ void vPWRNODE_DC__Init(void)
 	sPWRNODE.sDC.eState = DC_STATE__RESET;
 	sPWRNODE.sDC.u8Unlock = 0U;
 	sPWRNODE.sDC.u8PodSafeCommand = 0U;
+	sPWRNODE.sDC.u8100MS_Tick = 0U;
+	sPWRNODE.sDC.u32100MS_TimerCount = 0U;
 
-	//Setup the hardware pins
+	//Setup the hardware pins (DC_WATCHDOG Signal)
 	//GPIOA0
 	vRM4_GIO__Set_BitDirection(gioPORTA, 0U, GIO_DIRECTION__OUTPUT);
 
@@ -75,13 +80,53 @@ void vPWRNODE_DC__Process(void)
 			{
 				//kill the power immediate
 				//no going back now
-				vRM4_GIO__Set_Bit(gioPORTA, 0U, 0U);
+				vPWRNODE_DC__Power_Off();
+
+				//stay here until powered off
 			}
 			else
 			{
 				//move state
+				sPWRNODE.sDC.eState = DC_STATE__CHECK_WDT_TIMER;
 			}
 			break;
+
+		case DC_STATE__CHECK_WDT_TIMER:
+
+			#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER__HEART_TIMEOUT == 1U
+				//check if we have seen the flag
+				if(sPWRNODE.sDC.u8100MS_Tick == 1U)
+				{
+
+					//clear the timer tick for next time
+					sPWRNODE.sDC.u8100MS_Tick = 0U;
+
+					//inc the counter
+					sPWRNODE.sDC.u32100MS_TimerCount++;
+
+					//check if the counter is greater than our required time.
+					if(sPWRNODE.sDC.u32100MS_TimerCount > C_LOCALDEF__LCCM653__DC_CONVERTER__HEART_TIMER_MAX)
+					{
+						//if so kill the power
+						vPWRNODE_DC__Power_Off();
+					}
+					else
+					{
+						//less than our timeout, keep going
+					}
+
+				}
+				else
+				{
+					// do nothing.
+				}
+			#else
+				//fall on
+			#endif
+			//loop back around
+			sPWRNODE.sDC.eState = DC_STATE__CHECK_WDT_PET;
+			break;
+
 
 		default:
 			//do nothing.
@@ -117,6 +162,41 @@ void vPWRNODE_DC__Pod_Safe_Unlock(Luint32 u32UnlockKey)
 
 /***************************************************************************//**
  * @brief
+ * Pet the DC/DC conveters timeout watchdog based on GS messages.
+ *
+ * @param[in]		u32Key			0x1234ABCD
+ */
+void vPWRNODE_DC__Pet_GS_Message(Luint32 u32Key)
+{
+	if(u32Key == 0x1234ABCD)
+	{
+		//reset the timer count
+		sPWRNODE.sDC.u32100MS_TimerCount = 0U;
+	}
+	else
+	{
+		//do nothing, wrong key
+	}
+}
+
+Luint32 u32PWRNODE_DC__Get_TimerCount(void)
+{
+	return sPWRNODE.sDC.u32100MS_TimerCount;
+}
+
+/***************************************************************************//**
+ * @brief
+ * Switch the power off
+ *
+ */
+void vPWRNODE_DC__Power_Off(void)
+{
+	vRM4_GIO__Set_Bit(gioPORTA, 0U, 0U);
+}
+
+
+/***************************************************************************//**
+ * @brief
  * Execute pod safe
  *
  */
@@ -125,8 +205,27 @@ void vPWRNODE_DC__Pod_Safe_Go(void)
 	sPWRNODE.sDC.u8PodSafeCommand = 1U;
 }
 
+/***************************************************************************//**
+ * @brief
+ * 100ms timer tick
+ *
+ */
+void vPWRNODE_DC__100MS_ISR(void)
+{
+	//set the flag
+	sPWRNODE.sDC.u8100MS_Tick = 1U;
+}
 
-#endif //C_LOCALDEF__LCCM652__ENABLE_DC_CONVERTER
+
+//safetys
+#ifndef C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER__HEART_TIMEOUT
+	#error
+#endif
+#ifndef C_LOCALDEF__LCCM653__DC_CONVERTER__HEART_TIMER_MAX
+	#error
+#endif
+
+#endif //C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER
 #endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 //safetys
 #ifndef C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE

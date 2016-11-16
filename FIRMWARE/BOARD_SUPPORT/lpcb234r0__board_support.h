@@ -183,7 +183,8 @@ SCI / LIN Module
 	#if C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE == 1U
 
 		//if you have to do debugging
-		#define DEBUG_PRINT(x)												vRM4_SCI_HELPERS__DisplayText(SCI_CHANNEL__2, x, 100)
+		//#define DEBUG_PRINT(x)												vRM4_SCI_HELPERS__DisplayText(SCI_CHANNEL__1, x, 100)
+		#define DEBUG_PRINT(x)
 
 		//enable interrupts, else use polling Mode
 		#define C_LOCALDEF__LCCM282__ENABLE_INTERRUPTS						(1U)
@@ -192,11 +193,11 @@ SCI / LIN Module
 		#define C_LOCALDEF__LCCM282__ENABLE_DMA								(1U)
 
 		//determine which SCI module to enable
-		//SCI1 shares pins with EMAC
-		#define C_LOCALDEF__LCCM282__ENABLE_SCI_1							(1U)
+		//SCI1 shares pins with EMAC and on RM48 CNCD with resistors removed is not avail
+		#define C_LOCALDEF__LCCM282__ENABLE_SCI_1							(0U)
 
 		//SCI 2 is also LIN and uses the LIN pins on ZWT Package
-		//SCI2 is USB debug on HDK
+		//SCI2 is Pi Comms
 		#define C_LOCALDEF__LCCM282__ENABLE_SCI_2							(1U)
 
 		//testing
@@ -414,6 +415,52 @@ RM4 I2C
 
 	#endif //C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE
 	
+/*******************************************************************************
+RTI MODULE
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1U
+
+		//globally switch on the WDT
+		#define C_LOCALDEF__LCCM124__ENABLE_WDT								(1U)
+
+		/** RTI CLOCK FREQUENCY
+		 * Based on our standard system, valid values are div(2,4,8):
+		 * 100 	(100MHZ)
+		 * 50	(50MHZ)
+		 * 25	(25MHZ)
+		 * */
+		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(50U)
+
+		//Sets up the time periods for each compare. Must be defined in microSeconds.
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_PERIOD_US 				(100000U)
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_PERIOD_US 				(10000U)
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_PERIOD_US 				(1000000U)
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_3_PERIOD_US 				(1000000U)
+
+		//these are the interrupt handlers which should point
+		//to a function, otherwise leave as default
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_CALLBACK					vPWRNODE__RTI_100MS_ISR()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_CALLBACK					vPWRNODE__RTI_10MS_ISR()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_3_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
+
+		//These values need to be updated if the HALCoGen file is modified
+		#define GCLK_FREQ		 											(200)
+		#define HCLK_FREQ													(200)
+		#define VCLK1_FREQ													(100)
+		#define VCLK2_FREQ													(100)
+		#define VCLK3_FREQ													(100)
+		#define VCLKA1_FREQ	 												(100)
+		#define VCLKA4_FREQ	 												(100)
+
+		//Testing options
+		#define C_LOCALDEF__LCCM124__ENABLE_TEST_SPEC	 					(0U)
+
+		#include <RM4/LCCM124__RM4__RTI/rm4_rti.h>
+
+	#endif //#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1U
+
 /*******************************************************************************
 SafeTool Branch Analysis Support
 *******************************************************************************/

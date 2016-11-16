@@ -19,6 +19,7 @@
 #include "../power_core.h"
 
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
+#if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
 
 //The PICOMMS RX Callbacks
 void vPWRNODE_PICOMMS__recvLuint8(Luint16 index, Luint8 data);
@@ -50,7 +51,7 @@ void vPWRNODE_PICOMMS__Init(void)
 	sPWRNODE.sPiComms.eState = PICOM_STATE__IDLE;
 
 	//init pi comms
-	vPICOMMS_Init();
+	vPICOMMS__Init();
 
 	//Attach all the callbacks
 	PICOMMS_RX_recvLuint8 = &vPWRNODE_PICOMMS__recvLuint8;
@@ -303,6 +304,12 @@ void vPWRNODE_PICOMMS__recvLfloat64(Luint16 index, Lfloat64 data)
 				break;
 	}
 }
+
+#endif//C_LOCALDEF__LCCM653__ENABLE_PI_COMMS
+
+#ifndef C_LOCALDEF__LCCM653__ENABLE_PI_COMMS
+	#error
+#endif
 
 #endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 //safetys

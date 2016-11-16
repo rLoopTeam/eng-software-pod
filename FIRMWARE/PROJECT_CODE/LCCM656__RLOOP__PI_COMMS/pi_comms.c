@@ -27,8 +27,8 @@ struct _strPICOMMS sPC;
 void vPICOMMS__Init(void)
 {
 	//init the transmitter system
-	PICOMMS_TX_Init();
-	PICOMMS_RX_Init();
+	vPICOMMS_TX__Init();
+	vPICOMMS_RX__Init();
 
 }
 

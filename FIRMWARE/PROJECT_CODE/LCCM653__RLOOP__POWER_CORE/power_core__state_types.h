@@ -19,6 +19,15 @@
 
 		}E_PWRNODE__RUN_STATES;
 
+		/** Charger RELAY state machine control */
+		typedef enum
+		{
+
+			/** Charger control just come out of reset */
+			CHG_RLY_STATE__RESET = 0U,
+
+		}E_PWRNODE__CHG_RLY_STATES_T;
+
 
 		/** Init states.
 		 * These enums are for the init states of the Power Node. As each subsystem is brought
@@ -74,8 +83,11 @@
 			/** check the WDT needs petting */
 			DC_STATE__CHECK_WDT_PET,
 
-
+			/** Check if we need to implement the pod safe command from the user */
 			DC_STATE__CHECK_POD_SAFE,
+
+			/** Check our internal timer to make sure we have not received comms */
+			DC_STATE__CHECK_WDT_TIMER,
 
 		}E_PWR_DC__STATE_T;
 

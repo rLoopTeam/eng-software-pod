@@ -23,8 +23,9 @@
 //the main structure
 extern struct _strPICOMMS sPC;
 
-void PICOMMS_TX_Init(void)
+void vPICOMMS_TX__Init(void)
 {
+
 }
 
 void PICOMMS_TX_beginFrame()
@@ -37,11 +38,11 @@ void PICOMMS_TX_beginFrame()
 
 void PICOMMS_TX_calculateChecksum(Luint16 lastByte)
 {
-	sPC.sTx.checksum = 0;
+	sPC.sTx.u8Checksum = 0;
 	Luint16 i;
 	for (i = 0; i < lastByte;i++)
 	{
-		sPC.sTx.checksum ^= sPC.sTx.PICOMMS_TX_buffer[i];
+		sPC.sTx.u8Checksum ^= sPC.sTx.PICOMMS_TX_buffer[i];
 	}
 }
 
@@ -122,7 +123,7 @@ Luint16 PICOMMS_TX_endFrame()
 
 	PICOMMS_TX_add_unchecked_byte( RPOD_PICOMMS_CONTROL_CHAR);
 	PICOMMS_TX_add_unchecked_byte( RPOD_PICOMMS_FRAME_END);
-	PICOMMS_TX_add_unchecked_byte(sPC.sTx.checksum);
+	PICOMMS_TX_add_unchecked_byte(sPC.sTx.u8Checksum);
 	PICOMMS_TX_add_unchecked_byte(0x00);
 
 	return sPC.sTx.PICOMMS_TX_bufferPos;
