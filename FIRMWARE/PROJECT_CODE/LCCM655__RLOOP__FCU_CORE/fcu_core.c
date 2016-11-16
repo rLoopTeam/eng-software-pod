@@ -320,7 +320,9 @@ void vFCU__Process(void)
 //100ms timer
 void vFCU__RTI_100MS_ISR(void)
 {
-
+	#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
+		vFCU_PICOMMS__100MS_ISR();
+	#endif
 
 }
 

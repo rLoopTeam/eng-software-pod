@@ -64,7 +64,7 @@ Lfloat32 f32PWRNODE_NODEPRESS__Get_Pressure_Bar(void)
 	f32Return = (Lfloat32)sMS5607__GetPressure();
 
 	//convert to Bar
-	f32Return *= 1000.0F;
+	f32Return /= 100000.0F;
 
 	return f32Return;
 

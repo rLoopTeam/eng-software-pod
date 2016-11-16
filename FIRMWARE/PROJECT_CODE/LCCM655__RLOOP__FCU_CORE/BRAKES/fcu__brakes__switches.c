@@ -33,23 +33,42 @@ void vFCU_BRAKES_SW__Init(void)
 {
 	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 0U;
 	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 0U;
-
 	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 0U;
 	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 0U;
+
+	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].eSwitchState = SW_STATE__UNKNOWN;
+	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].eSwitchState = SW_STATE__UNKNOWN;
+	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].eSwitchState = SW_STATE__UNKNOWN;
+	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].eSwitchState = SW_STATE__UNKNOWN;
+
+
 }
 
 void vFCU_BRAKES_SW__Process(void)
 {
 
-	//if an edge has occurred, sample the switches and save the switch state.
-	if(sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen == 1U)
-	{
-		//read and save the switch status
+	Luint8 u8Brake;
+	Luint8 u8Switch;
 
-		//clear the flag
-		sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 0U;
+	for(u8Brake = 0U; u8Brake < FCU_BRAKE__MAX_BRAKES; u8Brake++)
+	{
+		for(u8Switch = 0U; u8Switch < BRAKE_SW__MAX_SWITCHES; u8Switch++)
+		{
+			if(sFCU.sBrakes[(Luint8)u8Brake].sLimits[(Luint8)u8Switch].u8EdgeSeen == 1U)
+			{
+				//read and save the switch status
+				sFCU.sBrakes[(Luint8)u8Brake].sLimits[(Luint8)u8Switch].eSwitchState = eFCU_BRAKES_SW__Get_Switch((E_FCU__BRAKE_INDEX_T)u8Brake, (E_FCU__BRAKE_LIMSW_INDEX_T)u8Switch);
+
+				//clear the flag
+				sFCU.sBrakes[(Luint8)u8Brake].sLimits[(Luint8)u8Switch].u8EdgeSeen = 0U;
+
+			}
+
+		}
 
 	}
+
+	//if an edge has occurred, sample the switches and save the switch state.
 
 }
 

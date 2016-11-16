@@ -231,6 +231,17 @@ void vFCU_PUSHER__InterlockB_ISR(void)
 }
 
 #if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
+
+Luint8 u8FCU_PUSHER__Get_Switch(Luint8 u8Switch)
+{
+	return sFCU.sPusher.sSwitches[u8Switch].u8SwitchState;
+}
+
+Luint8 u8FCU_PUSHER__Get_PusherState(void)
+{
+	return sFCU.sPusher.u8Pusher_Status;
+}
+
 /***************************************************************************//**
  * @brief
  * Gets the current pin status of interlock A

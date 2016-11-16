@@ -32,10 +32,14 @@ extern struct _strFCU sFCU;
 void vFCU_ACCEL__Init(void)
 {
 	Luint32 u32Temp;
+	Luint8 u8Counter;
 
 	//init vars
-	sFCU.sAccel.sChannels[0].s16LastSample = 0;
-	sFCU.sAccel.sChannels[1].s16LastSample = 0;
+	for(u8Counter = 0U; u8Counter < 3U; u8Counter++)
+	{
+		sFCU.sAccel.sChannels[0].s16LastSample[u8Counter] = 0;
+		sFCU.sAccel.sChannels[1].s16LastSample[u8Counter] = 0;
+	}
 
 	//get some interrupts going for channel 0
 	vRM4_GIO__Set_BitDirection(gioPORTA, 6U, GIO_DIRECTION__INPUT);
@@ -145,7 +149,9 @@ void vFCU_ACCEL__Process(void)
 	if(u32Temp0 == 0U)
 	{
 		//no faults on sensor 0, safe to process accel data
-		sFCU.sAccel.sChannels[0].s16LastSample = s16MMA8451_FILTERING__Get_Average(0U, AXIS_X);
+		sFCU.sAccel.sChannels[0].s16LastSample[0] = s16MMA8451_FILTERING__Get_Average(0U, AXIS_X);
+		sFCU.sAccel.sChannels[0].s16LastSample[1] = s16MMA8451_FILTERING__Get_Average(0U, AXIS_Y);
+		sFCU.sAccel.sChannels[0].s16LastSample[2] = s16MMA8451_FILTERING__Get_Average(0U, AXIS_Z);
 
 	}
 	else
@@ -157,7 +163,9 @@ void vFCU_ACCEL__Process(void)
 		if(u32Temp1 == 0U)
 		{
 			//no faults on sensor 1, safe to process accel data
-			sFCU.sAccel.sChannels[1].s16LastSample = s16MMA8451_FILTERING__Get_Average(1U, AXIS_X);
+			sFCU.sAccel.sChannels[1].s16LastSample[0] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_X);
+			sFCU.sAccel.sChannels[1].s16LastSample[1] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_Y);
+			sFCU.sAccel.sChannels[1].s16LastSample[2] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_Z);
 		}
 		else
 		{
@@ -165,6 +173,11 @@ void vFCU_ACCEL__Process(void)
 		}
 	#endif
 
+}
+
+Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis)
+{
+	return sFCU.sAccel.sChannels[u8Index].s16LastSample[u8Axis];
 }
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_ACCEL

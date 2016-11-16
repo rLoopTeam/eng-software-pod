@@ -179,7 +179,7 @@ void PICOMMS_TX_addParameter_int16(Luint16 u16Index, Lint16 data)
 	}
 }
 
-void PICOMMS_TX_addParameter_uint16(Luint16 u16Index, Luint16 data)
+void vPICOMMS_TX__Add_U16(Luint16 u16Index, Luint16 data)
 {
 	PICOMMS_TX_addHeader(0x22, u16Index);
 
@@ -231,7 +231,7 @@ void PICOMMS_TX_addParameter_int32(Luint16 u16Index, Lint32 data)
 	}
 }
 
-void PICOMMS_TX_addParameter_uint32(Luint16 u16Index, Luint32 data)
+void vPICOMMS_TX__Add_U32(Luint16 u16Index, Luint32 data)
 {
 	PICOMMS_TX_addHeader(0x42, u16Index);
 

@@ -156,6 +156,12 @@ void vFCU_LASEROPTO__Process(void)
 
 }
 
+//get a lasers distance
+Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex)
+{
+	return sFCU.sLasers.sOptoLaser[u8LaserIndex].f32Distance;
+}
+
 //Process the laser packet
 void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex)
 {
