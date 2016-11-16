@@ -132,7 +132,8 @@ void vFCU_BRAKES__Process(void)
 
 
 	}
-
+	//Process the MLP
+	vFCU_BRAKES_MLP__Process();
 }
 
 //move the brakes to a distance in MM from the I Beam
