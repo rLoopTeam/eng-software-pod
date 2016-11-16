@@ -90,6 +90,9 @@
 				/** the current state */
 				E_POWER_PICOM__STATE_T eState;
 
+				/** 100ms timer interrupt tick*/
+				Luint8 u8100MS_Timer;
+
 			}sPiComms;
 
 			/** Charger Control */
@@ -157,6 +160,7 @@
 		//pi comms interface
 		void vPWRNODE_PICOMMS__Init(void);
 		void vPWRNODE_PICOMMS__Process(void);
+		void vPWRNODE_PICOMMS__100MS_ISR(void);
 
 			//common messaging interface
 			//for the PodSafe (DC/DC converter system)

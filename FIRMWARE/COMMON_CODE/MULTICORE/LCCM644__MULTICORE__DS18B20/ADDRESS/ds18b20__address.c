@@ -371,6 +371,12 @@ void vDS18B20_ADDX__SearchSM_Process(void)
 	}//switch(sDS18B20.sSearchState)
 }
 
+//returns the number of enumerated devices.
+Luint8 u8DS18B20_ADDX__Get_NumEnumerated(void)
+{
+	return sDS18B20.sEnum.u8NumDevices;
+}
+
 /***************************************************************************//**
  * @brief
  * Checks to see if the search state machine is busy or not

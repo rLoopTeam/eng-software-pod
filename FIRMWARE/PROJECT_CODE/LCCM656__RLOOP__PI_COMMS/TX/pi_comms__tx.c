@@ -50,16 +50,24 @@ void PICOMMS_TX_calculateChecksum(Luint16 lastByte)
 
 void PICOMMS_TX_add_checked_byte(Luint8 byte)
 {
-	sPC.sTx.PICOMMS_TX_buffer[sPC.sTx.PICOMMS_TX_bufferPos++] = byte;
-	if(byte ==  RPOD_PICOMMS_CONTROL_CHAR)
+
+	if(sPC.sTx.PICOMMS_TX_bufferPos < (RPOD_PICOMMS_BUFFER_SIZE - 2))
 	{
 		sPC.sTx.PICOMMS_TX_buffer[sPC.sTx.PICOMMS_TX_bufferPos++] = byte;
+
+		if(byte ==  RPOD_PICOMMS_CONTROL_CHAR)
+		{
+			sPC.sTx.PICOMMS_TX_buffer[sPC.sTx.PICOMMS_TX_bufferPos++] = byte;
+		}
 	}
 }
 
 void PICOMMS_TX_add_unchecked_byte(Luint8 byte)
 {
-	sPC.sTx.PICOMMS_TX_buffer[sPC.sTx.PICOMMS_TX_bufferPos++] = byte;
+	if(sPC.sTx.PICOMMS_TX_bufferPos < (RPOD_PICOMMS_BUFFER_SIZE - 2))
+	{
+		sPC.sTx.PICOMMS_TX_buffer[sPC.sTx.PICOMMS_TX_bufferPos++] = byte;
+	}
 }
 
 Luint8 * pu8I2CTx__Get_BufferPointer(void)
@@ -151,7 +159,7 @@ void PICOMMS_TX_addParameter_int8(Luint16 u16Index, Lint8 data)
 	PICOMMS_TX_add_checked_byte(data);
 }
 
-void PICOMMS_TX_addParameter_uint8(Luint16 u16Index, Luint8 data)
+void vPICOMMS_TX__Add_U8(Luint16 u16Index, Luint8 data)
 {
 	PICOMMS_TX_addHeader(0x12, u16Index);
 
@@ -236,7 +244,7 @@ void PICOMMS_TX_addParameter_uint32(Luint16 u16Index, Luint32 data)
 	}
 }
 
-void PICOMMS_TX_addParameter_float(Luint16 u16Index, Lfloat32 data)
+void vPICOMMS_TX__Add_F32(Luint16 u16Index, Lfloat32 data)
 {
 	PICOMMS_TX_addHeader(0x43, u16Index);
 

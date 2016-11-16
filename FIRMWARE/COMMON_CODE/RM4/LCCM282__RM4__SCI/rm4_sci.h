@@ -122,6 +122,7 @@
 		void vRM4_SCI_DMA__Init(void);
 		void vRM4_SCI_DMA__Begin_Tx(RM4_SCI__CHANNEL_T eChannel, Luint8 *pu8SourceBuffer, Luint32 u32Length);
 		Luint8 u8RM4_SCI_DMA__Is_TxBusy(RM4_SCI__CHANNEL_T eChannel);
+		void vRM4_SCI_DMA__Cleanup(RM4_SCI__CHANNEL_T eChannel);
 	#endif
 
 	//interrupts

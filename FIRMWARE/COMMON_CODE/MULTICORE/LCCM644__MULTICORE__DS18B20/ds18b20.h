@@ -126,6 +126,7 @@
 		void vDS18B20_ADDX__SearchSM_Process(void);
 		void vDS18B20_ADDX__SearchSM_Start(void);
 		Luint8 u8DS18B20_ADDX__SearchSM_IsBusy(void);
+		Luint8 u8DS18B20_ADDX__Get_NumEnumerated(void);
 
 		//scratchpad
 		Lint16 s16DS18B20_SCRATCH__Read(Luint8 u8DSIndex, Luint8 *pu8Scratch);
