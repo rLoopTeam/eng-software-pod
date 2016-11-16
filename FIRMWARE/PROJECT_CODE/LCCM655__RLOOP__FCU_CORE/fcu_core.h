@@ -104,6 +104,13 @@
 					/** Average Array for MLP filter function				 */
 					Luint16 u16AverageArray[C_MLP__MAX_AVERAGE_SIZE];
 
+					/** Lowest MLP Value				 */
+					Luint16 lowest_value;
+
+					/** Highest MLP Value				 */
+					Luint16 highest_value;
+
+
 				}sMLP;
 
 
