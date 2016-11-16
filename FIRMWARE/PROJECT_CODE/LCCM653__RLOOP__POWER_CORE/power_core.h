@@ -75,6 +75,12 @@
 				/** Issued to safe the pod */
 				Luint8 u8PodSafeCommand;
 
+				/** 100ms timer tick flag */
+				Luint8 u8100MS_Tick;
+
+				/** Increments of 100ms */
+				Luint32 u32100MS_TimerCount;
+
 			}sDC;
 
 			/** Pi Comms Layer */
@@ -85,6 +91,16 @@
 				E_POWER_PICOM__STATE_T eState;
 
 			}sPiComms;
+
+			/** Charger Control */
+			struct
+			{
+
+				/** Charger Relay control state */
+				E_PWRNODE__CHG_RLY_STATES_T eRelayState;
+
+
+			}sCharger;
 
 
 			/** Win32 Functions*/
@@ -108,6 +124,8 @@
 		*******************************************************************************/
 		DLL_DECLARATION void vPWRNODE__Init(void);
 		DLL_DECLARATION void vPWRNODE__Process(void);
+		void vPWRNODE__RTI_100MS_ISR(void);
+		void vPWRNODE__RTI_10MS_ISR(void);
 
 		//fault subsystem
 		void vPWRNODE_FAULTS__Init(void);
@@ -120,8 +138,17 @@
 		//DC/DC converter system
 		void vPWRNODE_DC__Init(void);
 		void vPWRNODE_DC__Process(void);
+		void vPWRNODE_DC__Pet_GS_Message(Luint32 u32Key);
+		Luint32 u32PWRNODE_DC__Get_TimerCount(void);
 		void vPWRNODE_DC__Pod_Safe_Unlock(Luint32 u32UnlockKey);
 		void vPWRNODE_DC__Pod_Safe_Go(void);
+		void vPWRNODE_DC__100MS_ISR(void);
+
+		//charger relay
+		void vPWRNODE_CHG_RELAY__Init(void);
+		void vPWRNODE_CHG_RELAY__Process(void);
+		void vPWRNODE_CHG_RELAY__On(void);
+		void vPWRNODE_CHG_RELAY__Off(void);
 
 		//BMS interface layer
 		void vPWRNODE_BMS__Init(void);
@@ -130,6 +157,20 @@
 		//pi comms interface
 		void vPWRNODE_PICOMMS__Init(void);
 		void vPWRNODE_PICOMMS__Process(void);
+
+			//common messaging interface
+			//for the PodSafe (DC/DC converter system)
+			void vPWRNODE_PICOMMS_MSG__PodSafe__UnlockKey(Luint32 u32Key);
+			void vPWRNODE_PICOMMS_MSG__PodSafe__Execute(void);
+			Luint32 u32PWRNODE_PICOMMS_MSG__PodSafe__Get_Watchdog_Value(void);
+
+			//for the node temperature system
+			Lfloat32 f32PWRNODE_PICOMMS_MSG__NodeTemp__Get_DegC(void);
+			Luint32 u32PWRNODE_PICOMMS_MSG__NodeTemp__Get_FaulFlags(void);
+
+			//for the node pressure system
+
+
 
 		//CAN
 		void vPWRNODE_CAN__Init(void);
@@ -144,7 +185,8 @@
 		//node temperature reading
 		void vPWRNODE_NODETEMP__Init(void);
 		void vPWRNODE_NODETEMP__Process(void);
-		Lfloat32 f32PWRNODE_NODETEMP__Get_Temperature_DegC(void);
+		Lfloat32 f32PWRNODE_NODETEMP__Get_DegC(void);
+		Luint32 u32PWRNODE_NODETEMP__Get_FaultFlags(void);
 
 		//node pressure reading
 		void vPWRNODE_NODEPRESS__Init(void);

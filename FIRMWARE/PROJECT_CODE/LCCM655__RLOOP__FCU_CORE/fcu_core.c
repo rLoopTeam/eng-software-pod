@@ -175,7 +175,8 @@ void vFCU__Process(void)
 
 			//setup UART, SCI2 = Pi Connection
 			vRM4_SCI__Init(SCI_CHANNEL__2);
-			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 9600U);
+			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 57600U);
+			vRM4_SCI__TxByte(SCI_CHANNEL__2, 0xAA);
 
 			//setup our SPI channels.
 			//ASI Interface

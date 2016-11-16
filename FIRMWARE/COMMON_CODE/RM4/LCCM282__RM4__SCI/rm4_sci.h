@@ -111,6 +111,7 @@
 	Luint8 u8RM4_SCI__RxByte(RM4_SCI__CHANNEL_T eChannel);
 	void u8RM4_SCI__RxByteArray(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Length, Luint8 *pu8Data);
 	Luint8 u8RM4_SCI__Get_Rx_Value(RM4_SCI__CHANNEL_T eChannel);
+	Luint8 u8RM4_SCI__IsIdle(RM4_SCI__CHANNEL_T eChannel);
 
 	//loopback
 	void vRM4_SCI_LOOPBACK__Enable(RM4_SCI__CHANNEL_T eChannel, RM4_SCI__LOOPBACK_T eLoopback);

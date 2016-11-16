@@ -312,6 +312,11 @@ Lfloat32 f32TSYS01__Get_TempDegC(void)
 	return sTSYS.f32TempDegC;
 }
 
+Luint32 u32TSYS01__Get_FaultFlags(void)
+{
+	return 0U;
+}
+
 #endif //#if C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE == 1U
 //safetys
 #ifndef C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE

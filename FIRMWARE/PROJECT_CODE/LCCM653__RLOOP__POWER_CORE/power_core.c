@@ -59,11 +59,6 @@ void vPWRNODE__Process(void)
 
 	Luint8 u8Test;
 
-
-
-
-
-
 	//handle the init states here
 	/**
 	\dot
@@ -101,8 +96,10 @@ void vPWRNODE__Process(void)
 
 			//setup UART, SCI2 = Pi Connection
 			vRM4_SCI__Init(SCI_CHANNEL__2);
-			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 57600);
-
+			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 57600U);
+			//vRM4_SCI_HELPERS__DisplayText(SCI_CHANNEL__2, "LOK\r\n", 5U);
+			//vRM4_SCI_INT__Enable_Notification(SCI_CHANNEL__2, SCI_RX_INT);
+			//vRM4_SCI__TxByte(SCI_CHANNEL__2, 0xAAU);
 
 #else
 			//Init any win32 variables
@@ -114,10 +111,11 @@ void vPWRNODE__Process(void)
 
 			//start the pi comms layer
 			#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
-				#if C_LOCALDEF__LCCM652__ENABLE_PI_COMMS == 1U
+				#if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
 					vPWRNODE_PICOMMS__Init();
 				#endif
 			#endif
+
 
 			//move to next state
 			sPWRNODE.sInit.eState = INIT_STATE__COMMS;
@@ -143,8 +141,13 @@ void vPWRNODE__Process(void)
 		case INIT_STATE__DC_CONVERTER:
 
 			//make sure we latch on the DC/DC converter now.
-			#if C_LOCALDEF__LCCM652__ENABLE_DC_CONVERTER == 1U
+			#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
 				vPWRNODE_DC__Init();
+			#endif
+
+			//do the charger too
+			#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
+				vPWRNODE_CHG_RELAY__Init();
 			#endif
 
 			//move to next state
@@ -155,7 +158,7 @@ void vPWRNODE__Process(void)
 
 		case INIT_STATE__CELL_TEMP_START:
 
-			#if C_LOCALDEF__LCCM652__ENABLE_BATT_TEMP == 1U
+			#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
 				//start the battery temp system
 				vPWRNODE_BATTTEMP__Init();
 
@@ -169,7 +172,7 @@ void vPWRNODE__Process(void)
 
 
 		case INIT_STATE__CELL_TEMP_SEARCH:
-			#if C_LOCALDEF__LCCM652__ENABLE_BATT_TEMP == 1U
+			#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
 				//process the search
 				vPWRNODE_BATTTEMP__Process();
 
@@ -194,7 +197,7 @@ void vPWRNODE__Process(void)
 
 
 		case INIT_STATE__CELL_TEMP_SEARCH_DONE:
-			#if C_LOCALDEF__LCCM652__ENABLE_BATT_TEMP == 1U
+			#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
 			//done searching 1-wire interface,
 
 			//todo, handle any results from the search
@@ -208,7 +211,7 @@ void vPWRNODE__Process(void)
 		case INIT_STATE__BMS:
 
 			//init the BMS layer
-			#if C_LOCALDEF__LCCM652__ENABLE_BMS == 1U
+			#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
 				vPWRNODE_BMS__Init();
 			#endif
 
@@ -219,7 +222,7 @@ void vPWRNODE__Process(void)
 
 		case INIT_STATE__TSYS01:
 
-			#if C_LOCALDEF__LCCM652__ENABLE_NODE_TEMP == 1U
+			#if C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP == 1U
 				// Init the node temp subsystem
 				vPWRNODE_NODETEMP__Init();
 			#endif
@@ -243,27 +246,32 @@ void vPWRNODE__Process(void)
 
 			//normal run state
 			#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
-				#if C_LOCALDEF__LCCM652__ENABLE_PI_COMMS == 1U
+				#if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
 					vPWRNODE_PICOMMS__Process();
 				#endif
 			#endif
 
 			//process the DC/DC conveter, may need to pet the watchdog, etc
-			#if C_LOCALDEF__LCCM652__ENABLE_DC_CONVERTER == 1U
+			#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
 				vPWRNODE_DC__Process();
 			#endif
 
+			//do the charger too
+			#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
+				vPWRNODE_CHG_RELAY__Process();
+			#endif
+
 			//process any BMS tasks
-			#if C_LOCALDEF__LCCM652__ENABLE_BMS == 1U
+			#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
 				vPWRNODE_BMS__Process();
 			#endif
 
-			#if C_LOCALDEF__LCCM652__ENABLE_BATT_TEMP == 1U
+			#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
 				//process the DS18B20 1-wire subsystem
 				vPWRNODE_BATTTEMP__Process();
 			#endif
 
-			#if C_LOCALDEF__LCCM652__ENABLE_NODE_TEMP == 1U
+			#if C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP == 1U
 				// Process the node temp subsystem
 				vPWRNODE_NODETEMP__Process();
 			#endif
@@ -288,7 +296,20 @@ void vPWRNODE__Process(void)
 
 }
 
+//100ms timer
+void vPWRNODE__RTI_100MS_ISR(void)
+{
 
+
+}
+
+//10ms timer
+void vPWRNODE__RTI_10MS_ISR(void)
+{
+
+	//tell the DC/DC converter about us for pod safe command.
+	vPWRNODE_DC__100MS_ISR();
+}
 
 #endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 //safetys

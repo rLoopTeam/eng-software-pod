@@ -167,7 +167,8 @@ SCI / LIN Module
 	#if C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE == 1U
 
 		//if you have to do debugging
-		#define DEBUG_PRINT(x)												vRM4_SCI_HELPERS__DisplayText(SCI_CHANNEL__2, x, 100)
+		//#define DEBUG_PRINT(x)												vRM4_SCI_HELPERS__DisplayText(SCI_CHANNEL__2, x, 100)
+		#define DEBUG_PRINT(x)
 
 		//enable interrupts, else use polling Mode
 		#define C_LOCALDEF__LCCM282__ENABLE_INTERRUPTS						(1U)

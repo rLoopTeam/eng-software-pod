@@ -20,10 +20,9 @@
 #include "../pi_comms.h"
 #if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM656__ENABLE_RX == 1U
+//the main structure
+extern struct _strPICOMMS sPC;
 
-Luint8 buffer[RPOD_PICOMMS_BUFFER_SIZE];
-Luint16 bufferBegin;
-Luint16 bufferLength;
 
 void (*PICOMMS_RX_frameRXBeginCB) ();
 void (*PICOMMS_RX_frameRXEndCB) ();
@@ -43,10 +42,10 @@ Luint16 processFrame(Luint8 *frameBuffer, Luint16 length);
 void receiveParam(Luint8 type, Luint16 index, Luint64 rawData);
 
 
-void PICOMMS_RX_Init()
+void vPICOMMS_RX__Init()
 {
-	bufferLength = 0;
-	bufferBegin = 0;
+	sPC.sRx.bufferLength = 0;
+	sPC.sRx.bufferBegin = 0;
 	PICOMMS_RX_frameRXBeginCB = 0;
 
 	PICOMMS_RX_recvLuint8 = 0;
@@ -79,10 +78,10 @@ void vPICOMMS_RX__Receive_Bytes(Luint8 *data, Luint16 length)
 	}
 
 	//Got some bad data at some point
-	if (bufferLength + length > RPOD_PICOMMS_BUFFER_SIZE)
+	if (sPC.sRx.bufferLength + length > RPOD_PICOMMS_BUFFER_SIZE)
 	{
-		bufferLength = 0;
-		bufferBegin = 0;
+		sPC.sRx.bufferLength = 0;
+		sPC.sRx.bufferBegin = 0;
 	}
 	else
 	{
@@ -91,13 +90,13 @@ void vPICOMMS_RX__Receive_Bytes(Luint8 *data, Luint16 length)
 
 	for (i = 0; i < length; i++)
 	{
-		buffer[(i + bufferBegin + bufferLength)%RPOD_PICOMMS_BUFFER_SIZE] = data[i];
+		sPC.sRx.buffer[(i + sPC.sRx.bufferBegin + sPC.sRx.bufferLength) % RPOD_PICOMMS_BUFFER_SIZE] = data[i];
 	}
 
-	bufferLength += length;
+	sPC.sRx.bufferLength += length;
 
 	//See if there's enough data for a full frame
-	if (bufferLength >= 8)
+	if (sPC.sRx.bufferLength >= 8)
 	{
 		//todo: really call this every time?
 		processBuffer();
@@ -111,70 +110,82 @@ void vPICOMMS_RX__Receive_Bytes(Luint8 *data, Luint16 length)
 
 void processBuffer()
 {
-	Luint8 frameBuffer[RPOD_PICOMMS_BUFFER_SIZE];
+
 
 	int i = 0;
 	int bufferBeginJump = 0;
 
 	//Search for a full frame
-	for (i = 0; i < (bufferLength-1); i++)
+	for (i = 0; i < (sPC.sRx.bufferLength - 1); i++)
 	{
 		//Is this a start code?
-		if (buffer[(bufferBegin + i) % RPOD_PICOMMS_BUFFER_SIZE] == RPOD_PICOMMS_CONTROL_CHAR && buffer[((bufferBegin + i + 1) % RPOD_PICOMMS_BUFFER_SIZE)] == RPOD_PICOMMS_FRAME_START)
+		if (sPC.sRx.buffer[(sPC.sRx.bufferBegin + i) % RPOD_PICOMMS_BUFFER_SIZE] == RPOD_PICOMMS_CONTROL_CHAR && sPC.sRx.buffer[((sPC.sRx.bufferBegin + i + 1) % RPOD_PICOMMS_BUFFER_SIZE)] == RPOD_PICOMMS_FRAME_START)
 		{
 
 			//See if we should have the whole header yet
-			if (i + 5 < bufferLength)
+			if ((i + 5) < sPC.sRx.bufferLength)
 			{
 
 				//Grab the length of the frame from the header
-				Luint16 frameLength = buffer[(bufferBegin + i + 2) % RPOD_PICOMMS_BUFFER_SIZE];
+				Luint16 frameLength = sPC.sRx.buffer[(sPC.sRx.bufferBegin + i + 2) % RPOD_PICOMMS_BUFFER_SIZE];
 				int headerLength = 4;
-				if (frameLength == RPOD_PICOMMS_CONTROL_CHAR){
-					frameLength = frameLength * 256 + buffer[(bufferBegin + i + 4) % RPOD_PICOMMS_BUFFER_SIZE];
+				if (frameLength == RPOD_PICOMMS_CONTROL_CHAR)
+				{
+					frameLength = frameLength * 256 + sPC.sRx.buffer[(sPC.sRx.bufferBegin + i + 4) % RPOD_PICOMMS_BUFFER_SIZE];
 					headerLength++;
-					if (buffer[(bufferBegin + i + 4) % RPOD_PICOMMS_BUFFER_SIZE] == RPOD_PICOMMS_CONTROL_CHAR)
+					if (sPC.sRx.buffer[(sPC.sRx.bufferBegin + i + 4) % RPOD_PICOMMS_BUFFER_SIZE] == RPOD_PICOMMS_CONTROL_CHAR)
+					{
 						headerLength++;
+					}
 				}
 				else
-					frameLength = frameLength*256 + buffer[(bufferBegin + i + 3) % RPOD_PICOMMS_BUFFER_SIZE];
+				{
+					frameLength = frameLength*256 + sPC.sRx.buffer[(sPC.sRx.bufferBegin + i + 3) % RPOD_PICOMMS_BUFFER_SIZE];
+				}
 
 				//See if we have the end of the frame in the buffer yet
-				if (i + headerLength + frameLength <= bufferLength)
+				if (i + headerLength + frameLength <= sPC.sRx.bufferLength)
 				{
 					//Copy the frame into a flat buffer
 					//This step isn't 100% necessary but it does make processing the frame a bit easier to follow
 					int x;
 					for (x = 0; x < (frameLength + headerLength); x++)
 					{
-						frameBuffer[x] = buffer[(x+i+bufferBegin) % RPOD_PICOMMS_BUFFER_SIZE];
+						sPC.sRx.u8TempFrameBuffer[x] = sPC.sRx.buffer[((x + i) + sPC.sRx.bufferBegin) % RPOD_PICOMMS_BUFFER_SIZE];
 					}
 
 					//Process the frame!
-					if (processFrame(frameBuffer, frameLength + 4)){
+					if (processFrame(&sPC.sRx.u8TempFrameBuffer[0], frameLength + 4))
+					{
 						i += frameLength + headerLength;
 						bufferBeginJump += headerLength + frameLength;
 					}
 				}
-				else{
+				else
+				{
+
 					//We have a start code, but not enough data for a full frame yet
-					i = bufferLength;
+					i = sPC.sRx.bufferLength;
 				}
 
 			}
-			else{
+			else
+			{
 				//Don't have the full header yet, nothing to do for now
-				i = bufferLength - 1;
+				i = sPC.sRx.bufferLength - 1;
 			}
 		}
-		else{
+		else
+		{
 			//Not sure what we got sent, but it's not a start code so advance the buffer.
 			bufferBeginJump++;
 		}
 	}
-	bufferBegin += bufferBeginJump;
-	bufferBegin = bufferBegin % RPOD_PICOMMS_BUFFER_SIZE;
-	bufferLength -= bufferBeginJump;
+
+	//tod: check that this is not an error
+	sPC.sRx.bufferBegin += bufferBeginJump;
+	sPC.sRx.bufferBegin = sPC.sRx.bufferBegin % RPOD_PICOMMS_BUFFER_SIZE;
+	sPC.sRx.bufferLength -= bufferBeginJump;
 
 }
 

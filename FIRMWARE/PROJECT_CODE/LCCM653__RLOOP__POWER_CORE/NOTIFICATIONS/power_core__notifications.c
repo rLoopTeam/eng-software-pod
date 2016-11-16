@@ -24,15 +24,20 @@ void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
 	Luint8 u8Array[1];
 	switch(eChannel)
 	{
+		#if C_LOCALDEF__LCCM282__ENABLE_SCI_2 == 1U
 		case SCI_CHANNEL__2:
 
 			//pass off to PI
 			u8Array[0] = u8RM4_SCI__Get_Rx_Value(SCI_CHANNEL__2);
-			#if C_LOCALDEF__LCCM652__ENABLE_PI_COMMS == 1U
+			#if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
 				#if C_LOCALDEF__LCCM656__ENABLE_RX == 1U
-					PICOMMS_RX_receiveBytes(&u8Array[0], 1);
+					vPICOMMS_RX__Receive_Bytes(&u8Array[0], 1);
 				#endif
 			#endif
+			break;
+		#endif
+
+		default:
 			break;
 
 	}//switch(eChannel)

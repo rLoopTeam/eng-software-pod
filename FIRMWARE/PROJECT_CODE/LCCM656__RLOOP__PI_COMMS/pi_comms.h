@@ -3,7 +3,6 @@
  * @brief		Main header file for pi comms
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
- * @st_fileID	LCCM656R0.FILE.001
  */
 
 #ifndef _PI_COMMS_H_
@@ -50,10 +49,6 @@
 			PICOMMS_DOUBLE = 0x83
 		};
 
-		void vPICOMMS_Init();
-
-		void PICOMMS_RX_Init();
-		void vPICOMMS_RX__Receive_Bytes(Luint8* data, Luint16 length);
 
 		/*******************************************************************************
 		Structures
@@ -77,9 +72,20 @@
 				Luint8 PICOMMS_TX_buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
 				Luint16 PICOMMS_TX_bufferPos;
 				Luint16 PICOMMS_TX_frameLength;
-				Luint8 checksum;
+				Luint8 u8Checksum;
 				
 			}sTx;
+
+			/** Receive side */
+			struct
+			{
+
+				Luint8 buffer[RPOD_PICOMMS_BUFFER_SIZE];
+				Luint16 bufferBegin;
+				Luint16 bufferLength;
+				Luint8 u8TempFrameBuffer[RPOD_PICOMMS_BUFFER_SIZE];
+
+			}sRx;
 
 			struct
 			{
@@ -103,10 +109,12 @@
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/
-		void PICOMMS_TX_Init(void);
+		void vPICOMMS__Init(void);
+		void vPICOMMS__Process(void);
+
 
 		//tx system
-		void PICOMMS_TX_Init(void);
+		void vPICOMMS_TX__Init(void);
 		void PICOMMS_TX_beginFrame();
 		void PICOMMS_TX_calculateChecksum(Luint16 lastByte);
 		Luint16 PICOMMS_TX_endFrame();
@@ -122,6 +130,11 @@
 		void PICOMMS_TX_addParameter_float(Luint16 u16Index, Lfloat32 data);
 		void PICOMMS_TX_addParameter_double(Luint16 u16Index, Lfloat64 data);
 		
+
+		//Rx system
+		void vPICOMMS_RX__Init();
+		void vPICOMMS_RX__Receive_Bytes(Luint8* data, Luint16 length);
+
 
 		//win32 support
 		#ifdef WIN32
