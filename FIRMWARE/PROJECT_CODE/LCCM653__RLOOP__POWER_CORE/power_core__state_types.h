@@ -15,7 +15,9 @@
 			/** Just come out of reset */
 			RUN_STATE__RESET = 0U,
 
+			RUN_STATE__IDLE,
 
+			RUN_STATE__TEST,
 
 		}E_PWRNODE__RUN_STATES;
 
@@ -66,6 +68,8 @@
 			/** Init the node pressure MS5607*/
 			INIT_STATE__MS5607,
 
+			/** start the RTI subsystem */
+			INIT_STATE__START_TIMERS,
 
 			/** Normal run state */
 			INIT_STATE__RUN

@@ -238,9 +238,27 @@ void vPWRNODE__Process(void)
 			#endif
 
 			//change to run state
-			sPWRNODE.sInit.eState = INIT_STATE__RUN;
+			sPWRNODE.sInit.eState = INIT_STATE__START_TIMERS;
 			break;
 
+
+		case INIT_STATE__START_TIMERS:
+
+			//start the relevant RTI interrupts going.
+			//100ms timer
+			vRTI_COMPARE__Enable_CompareInterrupt(0);
+			//10ms timer
+			vRTI_COMPARE__Enable_CompareInterrupt(1);
+
+			//int the RTI
+			vRM4_RTI__Init();
+			vRM4_RTI_ISR__Enable_Interrupts();
+			//Starts the counter zero
+			vRM4_RTI__Start_Counter(0);
+
+			//move state
+			sPWRNODE.sInit.eState = INIT_STATE__RUN;
+			break;
 
 		case INIT_STATE__RUN:
 
@@ -299,7 +317,14 @@ void vPWRNODE__Process(void)
 //100ms timer
 void vPWRNODE__RTI_100MS_ISR(void)
 {
+	#if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
+		vPWRNODE_PICOMMS__100MS_ISR();
+	#endif
 
+	#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
+		//tell the DC/DC converter about us for pod safe command.
+		vPWRNODE_DC__100MS_ISR();
+	#endif
 
 }
 
@@ -307,8 +332,6 @@ void vPWRNODE__RTI_100MS_ISR(void)
 void vPWRNODE__RTI_10MS_ISR(void)
 {
 
-	//tell the DC/DC converter about us for pod safe command.
-	vPWRNODE_DC__100MS_ISR();
 }
 
 #endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U

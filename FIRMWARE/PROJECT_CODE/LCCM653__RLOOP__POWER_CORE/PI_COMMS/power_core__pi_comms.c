@@ -21,12 +21,14 @@
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
 
+#include <LCCM653__RLOOP__POWER_CORE/PI_COMMS/power_core__pi_comms__types.h>
+
 //The PICOMMS RX Callbacks
 void vPWRNODE_PICOMMS__recvLuint8(Luint16 index, Luint8 data);
 void vPWRNODE_PICOMMS__recvLint8(Luint16 index, Lint8 data);
 void vPWRNODE_PICOMMS__recvLuint16(Luint16 index, Luint16 data);
 void vPWRNODE_PICOMMS__recvLint16(Luint16 index, Lint16 data);
-void vPWRNODE_PICOMMS__recvLuint32(Luint16 index, Luint32 data);
+void vPWRNODE_PICOMMS__recvLuint32(Luint16 u16Index, Luint32 u32Data);
 void vPWRNODE_PICOMMS__recvLint32(Luint16 index, Lint32 data);
 void vPWRNODE_PICOMMS__recvLuint64(Luint16 index, Luint64 data);
 void vPWRNODE_PICOMMS__recvLint64(Luint16 index, Lint64 data);
@@ -49,6 +51,7 @@ void vPWRNODE_PICOMMS__Init(void)
 
 	//default or variables
 	sPWRNODE.sPiComms.eState = PICOM_STATE__IDLE;
+	sPWRNODE.sPiComms.u8100MS_Timer = 0U;
 
 	//init pi comms
 	vPICOMMS__Init();
@@ -90,7 +93,24 @@ void vPWRNODE_PICOMMS__Process(void)
 		case PICOM_STATE__IDLE:
 
 			//todo, just for now.
-			sPWRNODE.sPiComms.eState = PICOM_STATE__SETUP_FRAME;
+			//sPWRNODE.sPiComms.eState = PICOM_STATE__SETUP_FRAME;
+
+			if(sPWRNODE.sPiComms.u8100MS_Timer == 1U)
+			{
+				//only do a new frame the DMA is not busy
+				u8Test = u8RM4_SCI_DMA__Is_TxBusy(SCI_CHANNEL__2);
+				if(u8Test == 0U)
+				{
+					sPWRNODE.sPiComms.eState = PICOM_STATE__SETUP_FRAME;
+
+					sPWRNODE.sPiComms.u8100MS_Timer = 0U;
+				}
+			}
+			else
+			{
+
+			}
+
 			break;
 
 		case PICOM_STATE__SETUP_FRAME:
@@ -103,23 +123,12 @@ void vPWRNODE_PICOMMS__Process(void)
 
 		case PICOM_STATE__ASSEMBLE_BUFFER:
 
-			//add 0xAA as param 1
-			PICOMMS_TX_addParameter_uint8(0x0001U, 0xAA);
-
-			PICOMMS_TX_addParameter_uint8(10000U, sPC.sLp.PICOMMS_LOOP_UINT8);
-			PICOMMS_TX_addParameter_uint8(10001U, sPC.sLp.PICOMMS_LOOP_INT8);
-			PICOMMS_TX_addParameter_uint8(10002U, sPC.sLp.PICOMMS_LOOP_UINT16);
-			PICOMMS_TX_addParameter_uint8(10003U, sPC.sLp.PICOMMS_LOOP_INT16);
-			PICOMMS_TX_addParameter_uint8(10004U, sPC.sLp.PICOMMS_LOOP_UINT32);
-			PICOMMS_TX_addParameter_uint8(10005U, sPC.sLp.PICOMMS_LOOP_INT32);
-			PICOMMS_TX_addParameter_uint8(10006U, sPC.sLp.PICOMMS_LOOP_UINT64);
-			PICOMMS_TX_addParameter_uint8(10007U, sPC.sLp.PICOMMS_LOOP_INT64);
-			PICOMMS_TX_addParameter_uint8(10008U, sPC.sLp.PICOMMS_LOOP_FLOAT32);
-			PICOMMS_TX_addParameter_uint8(10009U, sPC.sLp.PICOMMS_LOOP_FLOAT64);
+			//add the node temperature
+			vPICOMMS_TX__Add_F32(PI_PACKET__PWRNODE__NODE_TEMP_RETURN, f32PWRNODE_NODETEMP__Get_DegC());
 
 			//add as many more params as you need depending on current tx state.
 
-			sPWRNODE.sPiComms.eState = PICOM_STATE__ASSEMBLE_BUFFER;
+			sPWRNODE.sPiComms.eState = PICOM_STATE__START_DMA;
 
 			break;
 
@@ -151,6 +160,9 @@ void vPWRNODE_PICOMMS__Process(void)
 			#endif
 			if(u8Test == 0U)
 			{
+				//cleanup the DMA interrupts for next time.
+				vRM4_SCI_DMA__Cleanup(SCI_CHANNEL__2);
+
 				//todo, for now go back to start.
 				sPWRNODE.sPiComms.eState = PICOM_STATE__IDLE;
 			}
@@ -162,6 +174,14 @@ void vPWRNODE_PICOMMS__Process(void)
 			break;
 
 	}
+
+}
+
+//100ms timer tick
+void vPWRNODE_PICOMMS__100MS_ISR(void)
+{
+	//set the flag
+	sPWRNODE.sPiComms.u8100MS_Timer = 1U;
 
 }
 
@@ -226,13 +246,38 @@ void vPWRNODE_PICOMMS__recvLint16(Luint16 index, Lint16 data)
  * Process all the UINT32 parameters sent from the GS.
  *
  */
-void vPWRNODE_PICOMMS__recvLuint32(Luint16 index, Luint32 data)
+void vPWRNODE_PICOMMS__recvLuint32(Luint16 u16Index, Luint32 u32Data)
 {
-	switch(index)
+
+	switch((E_PICOMMS__PACKET_TYPES_T)u16Index)
+	{
+		case PI_PACKET__PWRNODE__POD_SAFE_UNLOCK_KEY:
+			//unlock the pod safe key
+			#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
+				vPWRNODE_DC__Pod_Safe_Unlock(u32Data);
+			#endif
+			break;
+
+		case PI_PACKET__PWRNODE__POD_SAFE_COMMAND:
+			//execute pod safe.
+			#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
+				vPWRNODE_DC__Pod_Safe_Go();
+			#endif
+			break;
+
+		default:
+			//do nothing.
+			break;
+
+	}//switch((E_PICOMMS__PACKET_TYPES_T)index)
+
+	/*
+	switch(u16Index)
 	{
 		case  10004: sPC.sLp.PICOMMS_LOOP_UINT32 = data;
 				break;
 	}
+	*/
 }
 
 /***************************************************************************//**

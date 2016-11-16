@@ -10,6 +10,9 @@
 	#include <localdef.h>
 	#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
 
+		//our default packet types.
+		#include <LCCM656__RLOOP__PI_COMMS/pi_comms__packet_types.h>
+
 		/*******************************************************************************
 		Defines
 		*******************************************************************************/
@@ -80,10 +83,13 @@
 			struct
 			{
 
-				Luint8 buffer[RPOD_PICOMMS_BUFFER_SIZE];
+				Luint8 u8Buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
 				Luint16 bufferBegin;
 				Luint16 bufferLength;
-				Luint8 u8TempFrameBuffer[RPOD_PICOMMS_BUFFER_SIZE];
+				Luint8 u8TempFrameBuffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+
+				//quick and nasty fault counter
+				Luint32 u32Faults;
 
 			}sRx;
 
@@ -120,14 +126,14 @@
 		Luint16 PICOMMS_TX_endFrame();
 		Luint8 * pu8I2CTx__Get_BufferPointer(void);
 		void PICOMMS_TX_addParameter_int8(Luint16 u16Index, Lint8 data);
-		void PICOMMS_TX_addParameter_uint8(Luint16 u16Index, Luint8 data);
+		void vPICOMMS_TX__Add_U8(Luint16 u16Index, Luint8 data);
 		void PICOMMS_TX_addParameter_int16(Luint16 u16Index, Lint16 data);
 		void PICOMMS_TX_addParameter_uint16(Luint16 u16Index, Luint16 data);
 		void PICOMMS_TX_addParameter_int64(Luint16 u16Index, Lint64 data);
 		void PICOMMS_TX_addParameter_uint64(Luint16 u16Index, Luint64 data);
 		void PICOMMS_TX_addParameter_int32(Luint16 u16Index, Lint32 data);
 		void PICOMMS_TX_addParameter_uint32(Luint16 u16Index, Luint32 data);
-		void PICOMMS_TX_addParameter_float(Luint16 u16Index, Lfloat32 data);
+		void vPICOMMS_TX__Add_F32(Luint16 u16Index, Lfloat32 data);
 		void PICOMMS_TX_addParameter_double(Luint16 u16Index, Lfloat64 data);
 		
 

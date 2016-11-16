@@ -37,17 +37,19 @@ void (*PICOMMS_RX_recvLint64) (Luint16 index, Lint64 data);
 void (*PICOMMS_RX_recvLfloat32) (Luint16 index, Lfloat32 data);
 void (*PICOMMS_RX_recvLfloat64) (Luint16 index, Lfloat64 data);
 
-void processBuffer();
-Luint16 processFrame(Luint8 *frameBuffer, Luint16 length);
-void receiveParam(Luint8 type, Luint16 index, Luint64 rawData);
+void vPICOMMS_RX__ProcessBuffer();
+Luint16 u16PICOMMS_RX__ProcessFrame(Luint8 *frameBuffer, Luint16 length);
+void vPICOMMS_RX__ReceiveParam(Luint8 u8Type, Luint16 u16Index, Luint64 u64RawData);
 
 
 void vPICOMMS_RX__Init()
 {
 	sPC.sRx.bufferLength = 0;
 	sPC.sRx.bufferBegin = 0;
-	PICOMMS_RX_frameRXBeginCB = 0;
+	sPC.sRx.u32Faults = 0U;
 
+
+	PICOMMS_RX_frameRXBeginCB = 0;
 	PICOMMS_RX_recvLuint8 = 0;
 	PICOMMS_RX_recvLint8 = 0;
 	PICOMMS_RX_recvLuint16 = 0;
@@ -58,7 +60,6 @@ void vPICOMMS_RX__Init()
 	PICOMMS_RX_recvLint64 = 0;
 	PICOMMS_RX_recvLfloat32 = 0;
 	PICOMMS_RX_recvLfloat64 = 0;
-
 	PICOMMS_RX_frameRXEndCB = 0;
 }
 
@@ -88,9 +89,16 @@ void vPICOMMS_RX__Receive_Bytes(Luint8 *data, Luint16 length)
 		//todo: what to do?
 	}
 
-	for (i = 0; i < length; i++)
+	if((sPC.sRx.bufferBegin + sPC.sRx.bufferLength) < RPOD_PICOMMS_BUFFER_SIZE)
 	{
-		sPC.sRx.buffer[(i + sPC.sRx.bufferBegin + sPC.sRx.bufferLength) % RPOD_PICOMMS_BUFFER_SIZE] = data[i];
+		for (i = 0; i < length; i++)
+		{
+			sPC.sRx.u8Buffer[(i + sPC.sRx.bufferBegin + sPC.sRx.bufferLength) % RPOD_PICOMMS_BUFFER_SIZE] = data[i];
+		}
+	}
+	else
+	{
+		sPC.sRx.u32Faults++;
 	}
 
 	sPC.sRx.bufferLength += length;
@@ -99,7 +107,7 @@ void vPICOMMS_RX__Receive_Bytes(Luint8 *data, Luint16 length)
 	if (sPC.sRx.bufferLength >= 8)
 	{
 		//todo: really call this every time?
-		processBuffer();
+		vPICOMMS_RX__ProcessBuffer();
 	}
 	else
 	{
@@ -108,9 +116,8 @@ void vPICOMMS_RX__Receive_Bytes(Luint8 *data, Luint16 length)
 
 }
 
-void processBuffer()
+void vPICOMMS_RX__ProcessBuffer(void)
 {
-
 
 	int i = 0;
 	int bufferBeginJump = 0;
@@ -119,7 +126,7 @@ void processBuffer()
 	for (i = 0; i < (sPC.sRx.bufferLength - 1); i++)
 	{
 		//Is this a start code?
-		if (sPC.sRx.buffer[(sPC.sRx.bufferBegin + i) % RPOD_PICOMMS_BUFFER_SIZE] == RPOD_PICOMMS_CONTROL_CHAR && sPC.sRx.buffer[((sPC.sRx.bufferBegin + i + 1) % RPOD_PICOMMS_BUFFER_SIZE)] == RPOD_PICOMMS_FRAME_START)
+		if (sPC.sRx.u8Buffer[(sPC.sRx.bufferBegin + i) % RPOD_PICOMMS_BUFFER_SIZE] == RPOD_PICOMMS_CONTROL_CHAR && sPC.sRx.u8Buffer[((sPC.sRx.bufferBegin + i + 1) % RPOD_PICOMMS_BUFFER_SIZE)] == RPOD_PICOMMS_FRAME_START)
 		{
 
 			//See if we should have the whole header yet
@@ -127,38 +134,49 @@ void processBuffer()
 			{
 
 				//Grab the length of the frame from the header
-				Luint16 frameLength = sPC.sRx.buffer[(sPC.sRx.bufferBegin + i + 2) % RPOD_PICOMMS_BUFFER_SIZE];
+				Luint16 u16FrameLength = sPC.sRx.u8Buffer[(sPC.sRx.bufferBegin + i + 2) % RPOD_PICOMMS_BUFFER_SIZE];
 				int headerLength = 4;
-				if (frameLength == RPOD_PICOMMS_CONTROL_CHAR)
+				if (u16FrameLength == RPOD_PICOMMS_CONTROL_CHAR)
 				{
-					frameLength = frameLength * 256 + sPC.sRx.buffer[(sPC.sRx.bufferBegin + i + 4) % RPOD_PICOMMS_BUFFER_SIZE];
+					u16FrameLength = u16FrameLength * 256 + sPC.sRx.u8Buffer[(sPC.sRx.bufferBegin + i + 4) % RPOD_PICOMMS_BUFFER_SIZE];
 					headerLength++;
-					if (sPC.sRx.buffer[(sPC.sRx.bufferBegin + i + 4) % RPOD_PICOMMS_BUFFER_SIZE] == RPOD_PICOMMS_CONTROL_CHAR)
+
+					if (sPC.sRx.u8Buffer[(sPC.sRx.bufferBegin + i + 4) % RPOD_PICOMMS_BUFFER_SIZE] == RPOD_PICOMMS_CONTROL_CHAR)
 					{
 						headerLength++;
 					}
 				}
 				else
 				{
-					frameLength = frameLength*256 + sPC.sRx.buffer[(sPC.sRx.bufferBegin + i + 3) % RPOD_PICOMMS_BUFFER_SIZE];
+					u16FrameLength = u16FrameLength * 256 + sPC.sRx.u8Buffer[(sPC.sRx.bufferBegin + i + 3) % RPOD_PICOMMS_BUFFER_SIZE];
 				}
 
 				//See if we have the end of the frame in the buffer yet
-				if (i + headerLength + frameLength <= sPC.sRx.bufferLength)
+				if (i + headerLength + u16FrameLength <= sPC.sRx.bufferLength)
 				{
 					//Copy the frame into a flat buffer
 					//This step isn't 100% necessary but it does make processing the frame a bit easier to follow
 					int x;
-					for (x = 0; x < (frameLength + headerLength); x++)
+					if((u16FrameLength + headerLength) < RPOD_PICOMMS_BUFFER_SIZE)
 					{
-						sPC.sRx.u8TempFrameBuffer[x] = sPC.sRx.buffer[((x + i) + sPC.sRx.bufferBegin) % RPOD_PICOMMS_BUFFER_SIZE];
+						for (x = 0; x < (u16FrameLength + headerLength); x++)
+						{
+
+							sPC.sRx.u8TempFrameBuffer[x] = sPC.sRx.u8Buffer[((x + i) + sPC.sRx.bufferBegin) % RPOD_PICOMMS_BUFFER_SIZE];
+						}
+					}
+					else
+					{
+						//major fault.
+						sPC.sRx.u32Faults++;
 					}
 
+
 					//Process the frame!
-					if (processFrame(&sPC.sRx.u8TempFrameBuffer[0], frameLength + 4))
+					if (u16PICOMMS_RX__ProcessFrame(&sPC.sRx.u8TempFrameBuffer[0], u16FrameLength + 4))
 					{
-						i += frameLength + headerLength;
-						bufferBeginJump += headerLength + frameLength;
+						i += u16FrameLength + headerLength;
+						bufferBeginJump += headerLength + u16FrameLength;
 					}
 				}
 				else
@@ -189,27 +207,32 @@ void processBuffer()
 
 }
 
-Luint16 processFrame(Luint8 *frameBuffer, Luint16 length)
+Luint16 u16PICOMMS_RX__ProcessFrame(Luint8 *frameBuffer, Luint16 length)
 {
+	int i = 0;
+	Luint8 checksum = 0;
+
 	//Check the start and end headers
 
 	//Check the start of the buffer for the sof control code
-	if (frameBuffer[0] != RPOD_PICOMMS_CONTROL_CHAR || frameBuffer[1] != RPOD_PICOMMS_FRAME_START ||
-
-			//Check the end of the frame for the eof control code
-			frameBuffer[length - 4] != RPOD_PICOMMS_CONTROL_CHAR || frameBuffer[length - 3] != RPOD_PICOMMS_FRAME_END)
+	//Check the end of the frame for the eof control code
+	if (frameBuffer[0] != RPOD_PICOMMS_CONTROL_CHAR || frameBuffer[1] != RPOD_PICOMMS_FRAME_START || frameBuffer[length - 4] != RPOD_PICOMMS_CONTROL_CHAR || frameBuffer[length - 3] != RPOD_PICOMMS_FRAME_END)
 	{
 		//Improper packet framing, get out of here
 		return 0;
-	}else{
+
+	}
+	else
+	{
 		//Proper packet framing so all is well, continue on
 	}
 
 	//Simple checkum on the packet, should implement a better scheme
-	int i = 0;
-	Luint8 checksum = 0;
+
 	for (i = 0; i < length-4; i++)
+	{
 		checksum ^= frameBuffer[i];
+	}
 
 	if (frameBuffer[length - 2] != checksum)
 	{
@@ -220,6 +243,7 @@ Luint16 processFrame(Luint8 *frameBuffer, Luint16 length)
 	{
 		//Checksum is valid, continue on
 	}
+
 
 	//Call user code to indicate we're starting to process a new frame
 	if (PICOMMS_RX_frameRXBeginCB != 0)
@@ -235,13 +259,26 @@ Luint16 processFrame(Luint8 *frameBuffer, Luint16 length)
 		if (frameBuffer[i] == RPOD_PICOMMS_CONTROL_CHAR && frameBuffer[i + 1] == RPOD_PICOMMS_CONTROL_CHAR)
 		{
 			int x;
-			for (x = i + 1; x < length - 1; x++)
+
+			if((i + 1 + length) < RPOD_PICOMMS_BUFFER_SIZE)
 			{
-				frameBuffer[x] = frameBuffer[x + 1];
+
+				for (x = i + 1; x < length - 1; x++)
+				{
+					frameBuffer[x] = frameBuffer[x + 1];
+				}
+
+				frameBuffer[length - 1] = 0x00;
 			}
-			frameBuffer[length - 1] = 0x00;
+			else
+			{
+				sPC.sRx.u32Faults++;
+			}
 		}
-		else{}//no escaped data here, continue on.
+		else
+		{
+			//no escaped data here, continue on.
+		}
 	}
 
 	Luint16 position = 4;
@@ -259,8 +296,8 @@ Luint16 processFrame(Luint8 *frameBuffer, Luint16 length)
 			switch (frameBuffer[position])
 			{
 
-			//Found a data parameter in the packet
-			case RPOD_PICOMMS_PARAMETER_START:
+				//Found a data parameter in the packet
+				case RPOD_PICOMMS_PARAMETER_START:
 				{
 					position++;
 
@@ -274,8 +311,9 @@ Luint16 processFrame(Luint8 *frameBuffer, Luint16 length)
 
 						//Copy data from the packet buffer to a 64 bit buffer and swap the endianess in the process
 						rawData = frameBuffer[position+3];
+
 						Luint8 i; //Put this somewhere else?
-						for(i = 1;i<dataSize;i++)
+						for(i = 1; i <dataSize; i++)
 						{
 							rawData *= 256;
 							rawData += frameBuffer[position+3 + i];
@@ -283,17 +321,22 @@ Luint16 processFrame(Luint8 *frameBuffer, Luint16 length)
 
 						//TODO Add code and defines to not swap endianess on big endian CPUs
 
-						receiveParam(frameBuffer[position], frameBuffer[position + 1] * 256 + frameBuffer[position+2], rawData);
+						vPICOMMS_RX__ReceiveParam(frameBuffer[position], frameBuffer[position + 1] * 256 + frameBuffer[position+2], rawData);
 
 					}
-					else if (dataType == 0){
+					else if (dataType == 0)
+					{
 
 					}
-					else{}
+					else
+					{
+
+					}
 
 					position += dataSize+3;
 				}
-					break;
+				break;
+
 			case RPOD_PICOMMS_FRAME_END:
 				if (PICOMMS_RX_frameRXEndCB != 0)
 				{
@@ -302,15 +345,19 @@ Luint16 processFrame(Luint8 *frameBuffer, Luint16 length)
 				return 1;
 			}
 		}
-		else{
+		else
+		{
 			//Should report an error
 			position++;
 		}
 	}
+
 	if(PICOMMS_RX_frameRXEndCB != 0)
 	{
 		PICOMMS_RX_frameRXEndCB();
-	}else
+
+	}
+	else
 	{
 		//No callback to make
 	}
@@ -320,107 +367,119 @@ Luint16 processFrame(Luint8 *frameBuffer, Luint16 length)
 
 
 
-void receiveParam(Luint8 type, Luint16 index, Luint64 rawData)
+void vPICOMMS_RX__ReceiveParam(Luint8 u8Type, Luint16 u16Index, Luint64 u64RawData)
 {
 	Lfloat32 float32Ret = 0;
 	Lfloat64 float64Ret = 0;
-	switch (type)
+	switch (u8Type)
 	{
 		case PICOMMS_INT8:
-					//Make sure the function pointer was assigned
-					if(PICOMMS_RX_recvLint8 != 0){
-						PICOMMS_RX_recvLint8(index, (Lint8)rawData);
-					}else{
-						//Do nothing
-					}
-					break;
+			//Make sure the function pointer was assigned
+			if(PICOMMS_RX_recvLint8 != 0)
+			{
+				PICOMMS_RX_recvLint8(u16Index, (Lint8)u64RawData);
+			}else{
+				//Do nothing
+			}
+			break;
 		case PICOMMS_UINT8:
-					if(PICOMMS_RX_recvLuint8 != 0){
-						PICOMMS_RX_recvLuint8(index, (Luint8)rawData);
-					}else{
-						//Do nothing
-					}
-					break;
+			if(PICOMMS_RX_recvLuint8 != 0)
+			{
+				PICOMMS_RX_recvLuint8(u16Index, (Luint8)u64RawData);
+			}else{
+				//Do nothing
+			}
+			break;
 
 		case PICOMMS_INT16:
-					if(PICOMMS_RX_recvLint16 != 0){
-						PICOMMS_RX_recvLint16(index, (Lint16)rawData);
-					}else{
-						//Do nothing
-					}
-					break;
+			if(PICOMMS_RX_recvLint16 != 0)
+			{
+				PICOMMS_RX_recvLint16(u16Index, (Lint16)u64RawData);
+			}else{
+				//Do nothing
+			}
+			break;
 
 		case PICOMMS_UINT16:
-					if(PICOMMS_RX_recvLuint16 != 0){
-						PICOMMS_RX_recvLuint16(index, (Luint16)rawData);
-					}else{
-						//Do nothing
-					}
-					break;
+			if(PICOMMS_RX_recvLuint16 != 0)
+			{
+				PICOMMS_RX_recvLuint16(u16Index, (Luint16)u64RawData);
+			}else{
+				//Do nothing
+			}
+			break;
 
 		case PICOMMS_INT32:
-					if(PICOMMS_RX_recvLint32 != 0){
-						PICOMMS_RX_recvLint32(index, (Lint32)rawData);
-					}else{
-						//Do nothing
-					}
-					break;
+			if(PICOMMS_RX_recvLint32 != 0)
+			{
+				PICOMMS_RX_recvLint32(u16Index, (Lint32)u64RawData);
+			}else{
+				//Do nothing
+			}
+			break;
 
 		case PICOMMS_UINT32:
-					if(PICOMMS_RX_recvLuint32 != 0){
-						PICOMMS_RX_recvLuint32(index, (Luint32)rawData);
-					}else{
-						//Do nothing
-					}
-					break;
+			if(PICOMMS_RX_recvLuint32 != 0)
+			{
+				PICOMMS_RX_recvLuint32(u16Index, (Luint32)u64RawData);
+			}else{
+				//Do nothing
+			}
+			break;
 
 		case PICOMMS_INT64:
-					if(PICOMMS_RX_recvLint64 != 0){
-						PICOMMS_RX_recvLint64(index, (Lint64)rawData);
-					}else{
-						//Do nothing
-					}
-					break;
+			if(PICOMMS_RX_recvLint64 != 0)
+			{
+				PICOMMS_RX_recvLint64(u16Index, (Lint64)u64RawData);
+			}else{
+				//Do nothing
+			}
+			break;
 
 		case PICOMMS_UINT64:
-					if(PICOMMS_RX_recvLuint64 != 0){
-						PICOMMS_RX_recvLuint64(index, (Luint64)rawData);
-					}else{
-						//Do nothing
-					}
-					break;
+			if(PICOMMS_RX_recvLuint64 != 0)
+			{
+				PICOMMS_RX_recvLuint64(u16Index, (Luint64)u64RawData);
+			}else{
+				//Do nothing
+			}
+			break;
 
 		case PICOMMS_FLOAT:
-					//Simply casting doesn't work so we have to resort to byte manipulation :/
-					*((Luint8*)(&float32Ret)+3) = *((Luint8*)(&rawData)+3);
-					*((Luint8*)(&float32Ret)+2) = *((Luint8*)(&rawData)+2);
-					*((Luint8*)(&float32Ret)+1) = *((Luint8*)(&rawData)+1);
-					*((Luint8*)(&float32Ret)+0) = *((Luint8*)(&rawData)+0);
-					if(PICOMMS_RX_recvLfloat32 != 0){
-						PICOMMS_RX_recvLfloat32(index,  float32Ret);
-					}else{
-						//Do nothing
-					}
-					break;
+			//Simply casting doesn't work so we have to resort to byte manipulation :/
+			*((Luint8*)(&float32Ret)+3) = *((Luint8*)(&u64RawData)+3);
+			*((Luint8*)(&float32Ret)+2) = *((Luint8*)(&u64RawData)+2);
+			*((Luint8*)(&float32Ret)+1) = *((Luint8*)(&u64RawData)+1);
+			*((Luint8*)(&float32Ret)+0) = *((Luint8*)(&u64RawData)+0);
+			if(PICOMMS_RX_recvLfloat32 != 0)
+			{
+				PICOMMS_RX_recvLfloat32(u16Index,  float32Ret);
+			}else{
+				//Do nothing
+			}
+			break;
 
 		case PICOMMS_DOUBLE:
-					//Simply casting doesn't work so we have to resort to byte manipulation :/
-					*((Luint8*)(&float64Ret)+7) = *((Luint8*)(&rawData)+7);
-					*((Luint8*)(&float64Ret)+6) = *((Luint8*)(&rawData)+6);
-					*((Luint8*)(&float64Ret)+5) = *((Luint8*)(&rawData)+5);
-					*((Luint8*)(&float64Ret)+4) = *((Luint8*)(&rawData)+4);
-					*((Luint8*)(&float64Ret)+3) = *((Luint8*)(&rawData)+3);
-					*((Luint8*)(&float64Ret)+2) = *((Luint8*)(&rawData)+2);
-					*((Luint8*)(&float64Ret)+1) = *((Luint8*)(&rawData)+1);
-					*((Luint8*)(&float64Ret)+0) = *((Luint8*)(&rawData)+0);
-					if(PICOMMS_RX_recvLfloat64 != 0){
-						PICOMMS_RX_recvLfloat64(index, float64Ret);
-					}else{
-							//Do nothing
-					}
-					break;
+			//Simply casting doesn't work so we have to resort to byte manipulation :/
+			*((Luint8*)(&float64Ret)+7) = *((Luint8*)(&u64RawData)+7);
+			*((Luint8*)(&float64Ret)+6) = *((Luint8*)(&u64RawData)+6);
+			*((Luint8*)(&float64Ret)+5) = *((Luint8*)(&u64RawData)+5);
+			*((Luint8*)(&float64Ret)+4) = *((Luint8*)(&u64RawData)+4);
+			*((Luint8*)(&float64Ret)+3) = *((Luint8*)(&u64RawData)+3);
+			*((Luint8*)(&float64Ret)+2) = *((Luint8*)(&u64RawData)+2);
+			*((Luint8*)(&float64Ret)+1) = *((Luint8*)(&u64RawData)+1);
+			*((Luint8*)(&float64Ret)+0) = *((Luint8*)(&u64RawData)+0);
+			if(PICOMMS_RX_recvLfloat64 != 0)
+			{
+				PICOMMS_RX_recvLfloat64(u16Index, float64Ret);
+			}else{
+					//Do nothing
+			}
+			break;
 
-		default:return;
+		default:
+			//fall on.
+			break;
 	}
 }
 
