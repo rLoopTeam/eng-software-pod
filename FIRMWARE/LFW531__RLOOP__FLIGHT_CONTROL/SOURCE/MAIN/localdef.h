@@ -62,7 +62,7 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		#define C_LOCALDEF__LCCM655__ENABLE_ACCEL							(0U)
 
 		/** Enable the braking subsystems */
-		#define C_LOCALDEF__LCCM655__ENABLE_BRAKES							(0U)
+		#define C_LOCALDEF__LCCM655__ENABLE_BRAKES							(1U)
 
 		/** Enable the throttle control */
 		#define C_LOCALDEF__LCCM655__ENABLE_THROTTLE						(0U)
@@ -87,8 +87,8 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP_CRC				(50U)
 
 		/** ADC Sample Limits */
-		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__LOWER_BOUND				(300U)
-		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__UPPER_BOUND				(3000U)
+		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__LOWER_BOUND				(420U)
+		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__UPPER_BOUND				(3500U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM655__ENABLE_TEST_SPEC						(0U)

@@ -44,6 +44,8 @@ void vFCU__Init(void)
 	//setup the fault flags
 	vFCU_FAULTS__Init();
 
+	//setup the brakes
+	vFCU_BRAKES__Init();
 }
 
 
@@ -311,6 +313,8 @@ void vFCU__Process(void)
 
 	}//switch(sFCU.eInitStates)
 
+	//Process the brakes
+	vFCU_BRAKES__Process();
 }
 
 
