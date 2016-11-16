@@ -25,8 +25,6 @@ void vMS5607__Init(void)
 	sMS5607.u32LoopCounter = 0U;
 	sMS5607.u32AverageResultTemperature = 0U;
 	sMS5607.u32AverageResultPressure = 0U;
-	sMS5607.u32AverageResult_Div256Temperature = 0U;
-	sMS5607.u32AverageResult_Div256Pressure = 0U;
 	sMS5607.u16AverageCounterTemperature = 0U;
 	sMS5607.u16AverageCounterPressure = 0U;
 
@@ -122,6 +120,9 @@ void vMS5607__Process(void)
 
 	    	if(s16Return >= 0)
 			{
+	    		//clear the counter
+	    		sMS5607.u32LoopCounter = 0U;
+
 				//success
 				sMS5607.eState = MS5607_STATE__WAIT_LOOPS_TEMPERATURE;
 			}
@@ -171,15 +172,6 @@ void vMS5607__Process(void)
 					sMS5607.u32AverageResultTemperature = 7000000; //Below -15 (at -16C)
 				#endif
 
-				//generate the DIV256 option
-				sMS5607.u32AverageResult_Div256Temperature = sMS5607.u32AverageResultTemperature >> 8U;
-
-				#if C_LOCALDEF__LCCM648__ENABLE_DS_VALUES == 1U
-					//sMS5607.u32AverageResult_Div256Temperature = 8077636;
-					//sMS5607.u32AverageResult_Div256Temperature = 8077036; //Below 20 (at 19C)
-					sMS5607.u32AverageResult_Div256Temperature = 7000000; //Below -15 (at -16C)
-				#endif
-
 				//change state
 				sMS5607.eState = MS5607_STATE__BEGIN_SAMPLE_PRESSURE;
 			}
@@ -196,6 +188,9 @@ void vMS5607__Process(void)
 
 			if(s16Return >= 0)
 			{
+				//clear the counter
+				sMS5607.u32LoopCounter = 0U;
+
 				//success
 				sMS5607.eState = MS5607_STATE__WAIT_LOOPS_PRESSURE;
 			}
@@ -238,13 +233,6 @@ void vMS5607__Process(void)
 																		&sMS5607.u32AverageArrayPressure[0]);
 				#if C_LOCALDEF__LCCM648__ENABLE_DS_VALUES == 1U
 					sMS5607.u32AverageResultPressure = 6465444;
-				#endif
-
-				//generate the DIV256 option
-				sMS5607.u32AverageResult_Div256Pressure = sMS5607.u32AverageResultPressure >> 8U;
-
-				#if C_LOCALDEF__LCCM648__ENABLE_DS_VALUES == 1U
-					sMS5607.u32AverageResult_Div256Pressure = 6465444;
 				#endif
 
 				//change state
@@ -351,7 +339,8 @@ Lint16 s16MS5607__StartPressureConversion(void)
 void vMS5607__CalculateTemperature(void)
 {
 	// Difference between actual and reference temperature
-	sMS5607.sTEMP.s32dT = (Lint32)sMS5607.u32AverageResult_Div256Temperature - ((Lint32)sMS5607.u16Coefficients[5] * f32NUMERICAL__Power(2, 8));
+	sMS5607.sTEMP.s32dT = (Lint32)sMS5607.u32AverageResultTemperature - ((Lint32)sMS5607.u16Coefficients[5] * f32NUMERICAL__Power(2, 8));
+
 	// Actual temperature (-40 unsigned long long 85C with 0.01C resolution)
 	sMS5607.sTEMP.s32TEMP = 2000 + ((sMS5607.sTEMP.s32dT * (Lint64)sMS5607.u16Coefficients[6]) / f32NUMERICAL__Power(2, 23));
 }
@@ -373,7 +362,7 @@ void vMS5607__CalculateTempCompensatedPressure(void)
 	sMS5607.sPRESSURE.s64SENS = sMS5607.sPRESSURE.s64SENS - sMS5607.sSECONDORDER.s64SENS2;
 
 	// Temperature compensated pressure (10 to 1200mbar with 0.01mbar resolution)
-	f64TempD1Sens = sMS5607.u32AverageResult_Div256Pressure * sMS5607.sPRESSURE.s64SENS;
+	f64TempD1Sens = sMS5607.u32AverageResultPressure * sMS5607.sPRESSURE.s64SENS;
 	f64TempD1SensDiv2p21 = f64TempD1Sens / f64NUMERICAL__Power(2, 21);
 	f64TempD1SensDiv2p21MinusOffset = f64TempD1SensDiv2p21 - sMS5607.sPRESSURE.s64OFF;
 	f64TempD1SensDiv2p21MinusOffsetDiv2p15 =  f64TempD1SensDiv2p21MinusOffset / f64NUMERICAL__Power(2, 15);
