@@ -21,7 +21,7 @@
 		#define MS5607_TEMPERATURE_OSR			MS5607_CMD__CONVERT_D2_OSR_4096
 		#define MS5607_PRESSURE_OSR				MS5607_CMD__CONVERT_D1_OSR_4096
 		#define C_MS5607__NUM_OF_COEFFICIENTS	(8U)
-		#define C_MS5607__MAX_FILTER_SAMPLES    (8U)
+		#define C_MS5607__MAX_FILTER_SAMPLES    (1U)
 
 		/** COMMANDS */
         typedef enum
@@ -112,9 +112,6 @@
 			/** Last average temperature  result */
 			Luint32 u32AverageResultTemperature;
 
-			/** some reason the math requires div256 */
-			Luint32 u32AverageResult_Div256Temperature;
-
 			/** Count the averages */
 			Luint16 u16AverageCounterTemperature;
 
@@ -126,9 +123,6 @@
 
 			/** Last average pressure  result */
 			Luint32 u32AverageResultPressure;
-
-			/** some reason the math requires div256 */
-			Luint32 u32AverageResult_Div256Pressure;
 
 			/** Count the averages */
 			Luint16 u16AverageCounterPressure;
