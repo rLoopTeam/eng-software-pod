@@ -128,11 +128,11 @@
 		void PICOMMS_TX_addParameter_int8(Luint16 u16Index, Lint8 data);
 		void vPICOMMS_TX__Add_U8(Luint16 u16Index, Luint8 data);
 		void PICOMMS_TX_addParameter_int16(Luint16 u16Index, Lint16 data);
-		void PICOMMS_TX_addParameter_uint16(Luint16 u16Index, Luint16 data);
+		void vPICOMMS_TX__Add_U16(Luint16 u16Index, Luint16 data);
 		void PICOMMS_TX_addParameter_int64(Luint16 u16Index, Lint64 data);
 		void PICOMMS_TX_addParameter_uint64(Luint16 u16Index, Luint64 data);
 		void PICOMMS_TX_addParameter_int32(Luint16 u16Index, Lint32 data);
-		void PICOMMS_TX_addParameter_uint32(Luint16 u16Index, Luint32 data);
+		void vPICOMMS_TX__Add_U32(Luint16 u16Index, Luint32 data);
 		void vPICOMMS_TX__Add_F32(Luint16 u16Index, Lfloat32 data);
 		void PICOMMS_TX_addParameter_double(Luint16 u16Index, Lfloat64 data);
 		

@@ -24,7 +24,7 @@
 #include <LCCM653__RLOOP__POWER_CORE/PI_COMMS/power_core__pi_comms__types.h>
 
 //The PICOMMS RX Callbacks
-void vPWRNODE_PICOMMS__recvLuint8(Luint16 index, Luint8 data);
+void vPWRNODE_PICOMMS__recvLuint8(Luint16 u16Index, Luint8 data);
 void vPWRNODE_PICOMMS__recvLint8(Luint16 index, Lint8 data);
 void vPWRNODE_PICOMMS__recvLuint16(Luint16 index, Luint16 data);
 void vPWRNODE_PICOMMS__recvLint16(Luint16 index, Lint16 data);
@@ -126,6 +126,10 @@ void vPWRNODE_PICOMMS__Process(void)
 			//add the node temperature
 			vPICOMMS_TX__Add_F32(PI_PACKET__PWRNODE__NODE_TEMP_RETURN, f32PWRNODE_NODETEMP__Get_DegC());
 
+			//node pressure
+			vPICOMMS_TX__Add_F32(PI_PACKET__PWRNODE__NODE_PRESS_RETURN, f32PWRNODE_NODEPRESS__Get_Pressure_Bar());
+
+
 			//add as many more params as you need depending on current tx state.
 
 			sPWRNODE.sPiComms.eState = PICOM_STATE__START_DMA;
@@ -190,13 +194,45 @@ void vPWRNODE_PICOMMS__100MS_ISR(void)
  * Process all the UINT8 parameters sent from the GS.
  *
  */
-void vPWRNODE_PICOMMS__recvLuint8(Luint16 index, Luint8 data)
+void vPWRNODE_PICOMMS__recvLuint8(Luint16 u16Index, Luint8 data)
 {
+
+	switch((E_PICOMMS__PACKET_TYPES_T)u16Index)
+	{
+		case PI_PACKET__PWRNODE__NODE_PRESS_STREAM_CONTROL:
+
+			break;
+
+		case PI_PACKET__PWRNODE__NODE_TEMP_STREAM_CONTROL:
+
+			break;
+
+		case PI_PACKET__PWRNODE__CHG_RELAY_CONTROL:
+			#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
+			switch(data)
+			{
+				case 0U:
+					vPWRNODE_CHG_RELAY__Off();
+					break;
+				case 1U:
+					vPWRNODE_CHG_RELAY__On();
+					break;
+				default:
+					break;
+			}//switch(data)
+			#endif
+			break;
+
+	}
+
+/*
 	switch(index)
 	{
 		case  10000: sPC.sLp.PICOMMS_LOOP_UINT8 = data;
 				break;
 	}
+*/
+
 }
 
 /***************************************************************************//**

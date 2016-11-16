@@ -78,6 +78,10 @@
 					/** The program index for N2HET, even if not used on both channels */
 					Luint16 u16N2HET_Prog;
 
+					/** The current state of the switch */
+					E_FCU__SWITCH_STATE_T eSwitchState;
+
+
 				}sLimits[BRAKE_SW__MAX_SWITCHES];
 
 				/** Linear position sensor detail */
@@ -126,6 +130,24 @@
 				}sMove;
 
 
+				/** Current Details */
+				struct
+				{
+
+					/** the screw position in mm */
+					Lfloat32 f32ScrewPos_mm;
+
+					/** I-Beam distance in mm */
+					Lfloat32 f32IBeam_mm;
+
+					/** I-Beam distance in mm */
+					Lfloat32 f32MLP_mm;
+
+
+				}sCurrent;
+
+
+
 				/** individual brake fault flags */
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
@@ -140,7 +162,7 @@
 				struct
 				{
 					/** most recent recorded sample from the Accel */
-					Lint16 s16LastSample;
+					Lint16 s16LastSample[3];
 
 				}sChannels[C_LOCALDEF__LCCM418__NUM_DEVICES];
 
@@ -152,6 +174,9 @@
 
 				//the current state
 				E_FCU_PICOM__STATE_T eState;
+
+				/** 100ms timer tick */
+				Luint8 u8100MS_Timer;
 
 			}sPiComms;
 
@@ -249,16 +274,23 @@
 		//lasers for OptoNCDT inerface
 		void vFCU_LASEROPTO__Init(void);
 		void vFCU_LASEROPTO__Process(void);
+		Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex);
 
 		//pi comms
 		void vFCU_PICOMMS__Init(void);
 		void vFCU_PICOMMS__Process(void);
+		void vFCU_PICOMMS__100MS_ISR(void);
 
 		//brakes
 		void vFCU_BRAKES__Init(void);
 		void vFCU_BRAKES__Process(void);
-		void vFCU_BRAKES__Move_IBeam_Distance_Microns(Luint32 u32Distance);
-		
+		void vFCU_BRAKES__Move_IBeam_Distance_mm(Luint32 u32Distance);
+		Lfloat32 f32FCU_BRAKES__Get_ScrewPos(E_FCU__BRAKE_INDEX_T eBrake);
+		E_FCU__SWITCH_STATE_T eFCU_BRAKES__Get_SwtichState(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
+		Luint16 u16FCU_BRAKES__Get_ADC_Raw(E_FCU__BRAKE_INDEX_T eBrake);
+		Lfloat32 f32FCU_BRAKES__Get_IBeam_mm(E_FCU__BRAKE_INDEX_T eBrake);
+		Lfloat32 f32FCU_BRAKES__Get_MLP_mm(E_FCU__BRAKE_INDEX_T eBrake);
+
 			//stepper drive
 			void vFCU_BRAKES_STEP__Init(void);
 			void vFCU_BRAKES_STEP__Process(void);
@@ -281,6 +313,7 @@
 		//accelerometer layer
 		void vFCU_ACCEL__Init(void);
 		void vFCU_ACCEL__Process(void);
+		Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis);
 
 		//Pusher interface
 		void vFCU_PUSHER__Init(void);
@@ -290,6 +323,8 @@
 		Luint8 u8FCU_PUSHER__Get_InterlockA(void);
 		Luint8 u8FCU_PUSHER__Get_InterlockB(void);
 		void vFCU_PUSHER__10MS_ISR(void);
+		Luint8 u8FCU_PUSHER__Get_Switch(Luint8 u8Switch);
+		Luint8 u8FCU_PUSHER__Get_PusherState(void);
 
 
 		//ASI interface

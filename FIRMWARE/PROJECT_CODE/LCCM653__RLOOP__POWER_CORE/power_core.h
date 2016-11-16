@@ -195,6 +195,7 @@
 		//node pressure reading
 		void vPWRNODE_NODEPRESS__Init(void);
 		void vPWRNODE_NODEPRESS__Process(void);
+		Lfloat32 f32PWRNODE_NODEPRESS__Get_Pressure_Bar(void);
 
 #ifdef WIN32
 		void vPWRNODE_WIN32__Init(void);
