@@ -28,6 +28,9 @@
 		/** just come out of reset */
 		OPTOLASER_STATE__RESET = 0U,
 
+		/** we need to wait until the lasers power up before issuing a command*/
+		OPTOLASER_STATE__WAIT_LASER_RESET,
+
 		/** configure the laser into RS422 mode */
 		OPTOLASER_STATE__INIT_LASER,
 

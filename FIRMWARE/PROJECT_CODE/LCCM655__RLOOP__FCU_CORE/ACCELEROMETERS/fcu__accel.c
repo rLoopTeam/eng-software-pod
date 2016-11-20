@@ -153,6 +153,11 @@ void vFCU_ACCEL__Process(void)
 		sFCU.sAccel.sChannels[0].s16LastSample[1] = s16MMA8451_FILTERING__Get_Average(0U, AXIS_Y);
 		sFCU.sAccel.sChannels[0].s16LastSample[2] = s16MMA8451_FILTERING__Get_Average(0U, AXIS_Z);
 
+		sFCU.sAccel.sChannels[0].f32LastG[0] = f32MMA8451_MATH__Get_GForce(0U, AXIS_X);
+		sFCU.sAccel.sChannels[0].f32LastG[1] = f32MMA8451_MATH__Get_GForce(0U, AXIS_Y);
+		sFCU.sAccel.sChannels[0].f32LastG[2] = f32MMA8451_MATH__Get_GForce(0U, AXIS_Z);
+
+
 	}
 	else
 	{
@@ -166,6 +171,12 @@ void vFCU_ACCEL__Process(void)
 			sFCU.sAccel.sChannels[1].s16LastSample[0] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_X);
 			sFCU.sAccel.sChannels[1].s16LastSample[1] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_Y);
 			sFCU.sAccel.sChannels[1].s16LastSample[2] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_Z);
+
+
+			sFCU.sAccel.sChannels[1].f32LastG[0] = f32MMA8451_MATH__Get_GForce(1U, AXIS_X);
+			sFCU.sAccel.sChannels[1].f32LastG[1] = f32MMA8451_MATH__Get_GForce(1U, AXIS_Y);
+			sFCU.sAccel.sChannels[1].f32LastG[2] = f32MMA8451_MATH__Get_GForce(1U, AXIS_Z);
+
 		}
 		else
 		{
@@ -178,6 +189,11 @@ void vFCU_ACCEL__Process(void)
 Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis)
 {
 	return sFCU.sAccel.sChannels[u8Index].s16LastSample[u8Axis];
+}
+
+Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis)
+{
+	return sFCU.sAccel.sChannels[u8Index].f32LastG[u8Axis];
 }
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_ACCEL

@@ -1185,7 +1185,7 @@ MMA8451 - 3 AXIS ACCELEROMETER
 		#define C_LOCALDEF__LCCM418__DELAY_US(x)							vRM4_DELAYS__Delay_uS(x)
 
 		/** The max number of process loops without seeing an interrupt before we raise a flag. */
-		#define C_LOCALDEF__LCCM418__MAX_INTERRUPT_LOST_COUNT				(500000U)
+		#define C_LOCALDEF__LCCM418__MAX_INTERRUPT_LOST_COUNT				(1000000U)
 
 		/** set to 1 to use interrupts, not polling method */
 		#define C_LOCALDEF__LCCM418__USE_INTERRUPT_DEV0						(1U)
@@ -1207,7 +1207,7 @@ MMA8451 - 3 AXIS ACCELEROMETER
 
 		//enable rate of change calculations
 		#define C_LOCALDEF__LCCM418__ENABLE_ROC								(0U)
-		#define C_LOCALDEF__LCCM418__ENABLE_G_FORCE							(0U)
+		#define C_LOCALDEF__LCCM418__ENABLE_G_FORCE							(1U)
 
 		//the number of samples for the averaging
 		#define C_LOCALDEF__LCCM418__USER_AVERAGE_MAX_SAMPLES				(0U)
@@ -1215,7 +1215,7 @@ MMA8451 - 3 AXIS ACCELEROMETER
 
 		//define the data rate required
 		//Valid Values are: 800, 400, 200, 100, 50, 12, 6, 1
-		#define C_LOCALDEF__LCCM418__DEV0__DATA_RATE_HZ						(800U)
+		#define C_LOCALDEF__LCCM418__DEV0__DATA_RATE_HZ						(400U)
 		#define C_LOCALDEF__LCCM418__DEV1__DATA_RATE_HZ						(12U)
 		#define C_LOCALDEF__LCCM418__DEV2__DATA_RATE_HZ						(50U)
 		#define C_LOCALDEF__LCCM418__DEV3__DATA_RATE_HZ						(50U)
