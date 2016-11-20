@@ -166,7 +166,7 @@ void vPICOMMS_TX__Add_U8(Luint16 u16Index, Luint8 data)
 	PICOMMS_TX_add_checked_byte(data);
  }
 
-void PICOMMS_TX_addParameter_int16(Luint16 u16Index, Lint16 data)
+void vPICOMMS_TX__Add_S16(Luint16 u16Index, Lint16 data)
 {
 	PICOMMS_TX_addHeader(0x21, u16Index);
 

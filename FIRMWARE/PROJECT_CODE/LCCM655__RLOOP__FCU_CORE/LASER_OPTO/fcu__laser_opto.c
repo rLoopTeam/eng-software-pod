@@ -69,8 +69,25 @@ void vFCU_LASEROPTO__Process(void)
 		case OPTOLASER_STATE__RESET:
 			//just fresh out of reset.
 
+			sFCU.sLasers.u32LaserPOR_Counter = 0U;
+
 			//setup the lasers
-			sFCU.sLasers.eOptoNCDTState = OPTOLASER_STATE__INIT_LASER;
+			sFCU.sLasers.eOptoNCDTState = OPTOLASER_STATE__WAIT_LASER_RESET;
+			break;
+
+		case OPTOLASER_STATE__WAIT_LASER_RESET:
+
+			//wait here until the lasers are out of rest.
+			if(sFCU.sLasers.u32LaserPOR_Counter > 50U)
+			{
+				sFCU.sLasers.eOptoNCDTState = OPTOLASER_STATE__INIT_LASER;
+			}
+			else
+			{
+				//stay in state
+			}
+
+
 			break;
 
 		case OPTOLASER_STATE__INIT_LASER:
@@ -303,6 +320,11 @@ void vFCU_LASEROPTO__Append_Byte(Luint8 u8LaserIndex, Luint8 u8Value)
 	}
 }
 
+void vFCU_LASEROPTO__100MS_ISR(void)
+{
+
+	sFCU.sLasers.u32LaserPOR_Counter++;
+}
 
 
 

@@ -218,7 +218,7 @@ void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
 				sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.lowest_value = sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample;
 			}
 			break;
-			break;
+
 
 		default:
 			//todo, log the error.

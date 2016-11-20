@@ -168,8 +168,11 @@
 				/** individual accel channels */
 				struct
 				{
-					/** most recent recorded sample from the Accel */
+					/** most recent recorded sample from the Accel in raw units */
 					Lint16 s16LastSample[3];
+
+					/** Last sample of the G-Force*/
+					Lfloat32 f32LastG[3];
 
 				}sChannels[C_LOCALDEF__LCCM418__NUM_DEVICES];
 
@@ -230,6 +233,9 @@
 				/** state machine for processing the OptoNCDT systems */
 				E_FCU_OPTOLASER__STATE_T eOptoNCDTState;
 
+				/** A 100ms counter to wait until the lasers have powered up*/
+				Luint32 u32LaserPOR_Counter;
+
 				/** The opto NCDT laser interfaces */
 				struct
 				{
@@ -282,6 +288,7 @@
 		void vFCU_LASEROPTO__Init(void);
 		void vFCU_LASEROPTO__Process(void);
 		Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex);
+		void vFCU_LASEROPTO__100MS_ISR(void);
 
 		//pi comms
 		void vFCU_PICOMMS__Init(void);
@@ -321,6 +328,7 @@
 		void vFCU_ACCEL__Init(void);
 		void vFCU_ACCEL__Process(void);
 		Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis);
+		Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis);
 
 		//Pusher interface
 		void vFCU_PUSHER__Init(void);
