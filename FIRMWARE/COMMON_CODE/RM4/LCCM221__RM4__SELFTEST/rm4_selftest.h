@@ -17,7 +17,7 @@
 
 	#include <localdef.h>
 	#include <RM4/LCCM221__RM4__SELFTEST/rm4_selftest__fault_flags.h>
-	#include <MULTICORE/lccm284__multicore__fault_tree/fault_tree__public.h>
+	#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
 
 	/** Selftest Structure */
 	struct _strRM4ST

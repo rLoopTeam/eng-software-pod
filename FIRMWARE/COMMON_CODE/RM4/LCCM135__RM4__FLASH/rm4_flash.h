@@ -20,14 +20,14 @@
 	#endif
 	#if C_LOCALDEF__LCCM135__ENABLE_THIS_MODULE == 1U
 
-	#include <RM4/lccm135__rm4__flash/rm4_flash__private.h>
-	#include <RM4/lccm135__rm4__flash/rm4_flash__fault_flags.h>
-	#include <MULTICORE/lccm284__multicore__fault_tree/fault_tree__public.h>
+	#include <RM4/LCCM135__RM4__FLASH/rm4_flash__private.h>
+	#include <RM4/LCCM135__RM4__FLASH/rm4_flash__fault_flags.h>
+	#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
 
 
 	//Include the TI parts
 	#if C_LOCALDEF__LCCM135__ENABLE_F021 == 1U
-		#include <RM4/lccm135__rm4__flash/F021_Flash_API/V2.00.01/include/F021.h>
+		#include <RM4/LCCM135__RM4__FLASH/F021_Flash_API/V2.00.01/Include/F021.h>
 	#endif
 
 

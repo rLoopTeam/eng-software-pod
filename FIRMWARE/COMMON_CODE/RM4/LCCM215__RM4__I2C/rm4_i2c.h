@@ -21,7 +21,7 @@
 
 		#include <RM4/LCCM215__RM4__I2C/rm4_i2c__private.h>
 		#include <RM4/LCCM215__RM4__I2C/rm4_i2c__fault_flags.h>
-		#include <multicore/lccm284__multicore__fault_tree/fault_tree__public.h>
+		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
 
 		//error
 		#define C_RM4I2C__ERROR__NO_ERROR 							(0)

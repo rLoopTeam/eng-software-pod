@@ -22,7 +22,7 @@
 	#endif
 	#if C_LOCALDEF__LCCM133__ENABLE_THIS_MODULE == 1U
 
-		#include <rm4/lccm133__rm4__gio/rm4_gio__private.h>
+		#include <RM4/LCCM133__RM4__GIO/rm4_gio__private.h>
 
 
 		//when handlign the interrupts, GIO interrupt bits are

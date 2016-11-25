@@ -17,7 +17,7 @@
 #include <localdef.h>
 
 	#include <RM4/LCCM227__RM4__BIST/rm4_bist__fault_flags.h>
-	#include <MULTICORE/lccm284__multicore__fault_tree/fault_tree__public.h>
+	#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
 
 	struct _strRM4BIST
 	{
