@@ -41,7 +41,7 @@ void vFCU_BRAKES_SW__Init(void)
 	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].eSwitchState = SW_STATE__UNKNOWN;
 	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].eSwitchState = SW_STATE__UNKNOWN;
 
-
+//TODO: set flag if interrapt was seen
 }
 
 void vFCU_BRAKES_SW__Process(void)
@@ -65,7 +65,7 @@ void vFCU_BRAKES_SW__Process(void)
 			}
 
 		}
-
+		//if both switches is closed, then flag fault; enum fault type
 	}
 
 	//if an edge has occurred, sample the switches and save the switch state.
