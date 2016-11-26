@@ -313,6 +313,7 @@
 
 			//brake switches
 			void vFCU_BRAKES_SW__Init(void);
+			void vFCU_BRAKES_SW__Process(void);
 			void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void);
 			void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void);
 			void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void);

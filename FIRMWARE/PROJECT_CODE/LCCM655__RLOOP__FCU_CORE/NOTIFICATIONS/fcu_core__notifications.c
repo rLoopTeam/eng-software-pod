@@ -57,7 +57,7 @@ void vRM4_N2HET_DYNAMIC__Notification(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32
 				}
 			#endif
 
-			#if C_LOCALDEF__LCCM656__ENABLE_BRAKES == 1U
+			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 				if(u32ProgramIndex == (Luint32)sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog)
 				{
 					vFCU_BRAKES_SW__Right_SwitchExtend_ISR();

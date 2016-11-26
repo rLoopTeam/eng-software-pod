@@ -144,6 +144,7 @@ void vFCU_BRAKES__Process(void)
 	}
 	//Process the MLP
 	vFCU_BRAKES_MLP__Process();
+	vFCU_BRAKES_SW__Process();
 }
 
 
