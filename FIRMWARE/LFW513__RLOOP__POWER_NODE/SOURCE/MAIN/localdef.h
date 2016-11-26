@@ -6,6 +6,78 @@
 	//The control card
 	#include <../../../BOARD_SUPPORT/lpcb234r0__board_support.h>
 
+/*******************************************************************************
+ETHERNET TRANSPORT
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM325__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM325__ENABLE_THIS_MODULE == 1U
+
+		//CPU Support
+#ifndef WIN32
+		#define C_LOCALDEF__LCCM325__USE_ON_RM4								(1U)
+		#define C_LOCALDEF__LCCM325__USE_ON_XILINX							(0U)
+		#define C_LOCALDEF__LCCM325__USE_ON_WIN32							(0U)
+#else
+		#define C_LOCALDEF__LCCM325__USE_ON_RM4								(0U)
+		#define C_LOCALDEF__LCCM325__USE_ON_XILINX							(0U)
+		#define C_LOCALDEF__LCCM325__USE_ON_WIN32							(1U)
+#endif
+
+
+		//various protocol options
+		//DHCP Client
+		#define C_LOCALDEF__LCCM325__ENABLE_DHCP_CLIENT						(0U)
+		//Link Layer Discovery Protocol
+		#define C_LOCALDEF__LCCM325__ENABLE_LLDP							(0U)
+
+		//UDP Rx
+		#define C_LOCALDEF__LCCM325__UDP_RX_CALLBACK(buffer,length,dest_port)	vPWRNODE_NET_RX__RxUDP(buffer, length, dest_port)
+		/*vECU_ETHERNET_RX__UDPPacket*/
+
+		//testing options
+		#define C_LOCALDEF__LCCM325__ENABLE_TEST_SPEC						(0U)
+
+		//protocol specific options
+		//set to 1 to consider port numbers
+		#define C_LOCALDEF__LCCM325__PROTO_UDP__ENABLE_PORT_NUMBERS			(1U)
+
+		//main include file
+		#include <MULTICORE/LCCM325__MULTICORE__802_3/eth.h>
+
+	#endif //C_LOCALDEF__LCCM325__ENABLE_THIS_MODULE
+
+/*******************************************************************************
+SAFETY UDP LAYER
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM528__ENABLE_THIS_MODULE							(0U)
+	#if C_LOCALDEF__LCCM528__ENABLE_THIS_MODULE == 1U
+
+		/* Architecture Options*/
+		#define C_LOCALDEF__LCCM528__USE_ON_XILINX							(0U)
+		#define C_LOCALDEF__LCCM528__USE_ON_RM4								(1U)
+		#define C_LOCALDEF__LCCM528__USE_ON_WIN32							(0U)
+
+		/** User Rx Callback
+		* Payload, Length, Type, DestPort, Faults
+		*/
+		#define C_LOCALDEF__LCCM528__RX_CALLBACK(p,l,t,d,f)					vECU_ETHERNET_RX__UDPSAFE_Packet(p,l,t,d,f)
+
+		/** The one and only UDP port we can operate on */
+		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER					(9900U)
+		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER2					(0U)
+
+		/** Vision over SafeUDP Options */
+		#define C_LOCALDEF__LCCM528__VISION__ENABLE_TX						(0U)
+		#define C_LOCALDEF__LCCM528__VISION__ENABLE_RX						(0U)
+		#define C_LOCALDEF__LCCM528__VISION__MAX_BUFFER_SIZE				(640UL * 480UL * 2UL)
+
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM528__ENABLE_TEST_SPEC						(0U)
+
+		/** Main include file */
+		#include <MULTICORE/LCCM528__MULTICORE__SAFE_UDP/safe_udp.h>
+	#endif //#if C_LOCALDEF__LCCM528__ENABLE_THIS_MODULE == 1U
 
 /*******************************************************************************
 RLOOP - PI COMMUNICATIONS MODULE
@@ -209,6 +281,9 @@ RLOOP - POWER NODE CORE
 
 		/** Enable the charger subsystem */
 		#define C_LOCALDEF__LCCM653__ENABLE_CHARGER							(0U)
+
+		/** Enable Ethernet */
+		#define C_LOCALDEF__LCCM653__ENABLE_ETHERNET						(1U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM653__ENABLE_TEST_SPEC						(0U)

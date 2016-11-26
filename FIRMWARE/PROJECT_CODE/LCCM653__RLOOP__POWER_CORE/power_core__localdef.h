@@ -42,6 +42,9 @@ RLOOP - POWER NODE CORE
 		/** Enable the charger subsystem */
 		#define C_LOCALDEF__LCCM653__ENABLE_CHARGER							(1U)
 
+		/** Enable Ethernet */
+		#define C_LOCALDEF__LCCM653__ENABLE_ETHERNET						(1U)
+
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM653__ENABLE_TEST_SPEC						(0U)
 		

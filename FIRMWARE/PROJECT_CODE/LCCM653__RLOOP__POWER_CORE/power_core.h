@@ -116,6 +116,17 @@
 			}sWIN32;
 
 #endif
+			/** Ethernet comms structure */
+			struct
+			{
+				/** our hardware MAC */
+				Luint8 u8MACAddx[6];
+
+				/** our locally assigned IP*/
+				Luint8 u8IPAddx[4];
+
+			}sEthernet;
+
 			//lower structure guarding
 			Luint32 u32Guard2;
 
@@ -133,6 +144,12 @@
 		//fault subsystem
 		void vPWRNODE_FAULTS__Init(void);
 		void vPWRNODE_FAULTS__Process(void);
+
+		//networking
+		void vPWRNODE_NET__Init(void);
+		void vPWRNODE_NET__Process(void);
+		Luint8 u8PWRNODE_NET__Is_LinkUp(void);
+		void vPWRNODE_NET_RX__RxUDP(Luint8 * pu8Buffer, Luint16 u16Length, Luint16 u16DestPort);
 
 		//main application state machine
 		void vPWRNODE_SM__Init(void);

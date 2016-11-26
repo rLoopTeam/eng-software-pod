@@ -538,6 +538,97 @@ NUMERICAL MODULE
 		#include <MULTICORE/LCCM118__MULTICORE__NUMERICAL/numerical.h>
 	#endif //C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE
 
-	
+/*******************************************************************************
+SOFTWARE BASED CRC
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM012__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM012__ENABLE_THIS_MODULE == 1U
+
+		//set to 1 to enable test specification code
+		#define C_LOCALDEF__LCCM012__ENABLE_TEST_SPEC						(0U)
+
+		//types of CRC
+		#define C_LOCALDEF__LCCM012__ENABLE_CRC7							(0U)
+		#define C_LOCALDEF__LCCM012__ENABLE_CRC8							(1U)
+		#define C_LOCALDEF__LCCM012__ENABLE_CRC16							(1U)
+
+		//set to 1 to enable table based CRC16
+		//Note: Not possible on PIC18 due to page sizes
+		#define C_LOCALDEF__LCCM012__ENABLE_TABLE_BASED_CRC					(1U)
+
+
+		#if C_LOCALDEF__LCCM012__ENABLE_CRC16 == 1U
+
+			//if using tables, define any alignment issues
+			#if C_LOCALDEF__LCCM012__ENABLE_TABLE_BASED_CRC == 1U
+				#ifndef WIN32
+					#define C_LOCALDEF__LCCM012__TABLE16_DEF const Luint16 u16SWCRC_CRC_TABLE[] __attribute__ ((aligned (128)))
+				#else
+					//no alignment possible on win32.
+					#define C_LOCALDEF__LCCM012__TABLE16_DEF const Luint16 u16SWCRC_CRC_TABLE[]
+				#endif
+			#endif //C_LOCALDEF__LCCM012__ENABLE_TABLE_BASED_CRC
+		#endif
+
+		#include <MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC/software_crc.h>
+
+	#endif
+
+/*******************************************************************************
+DP83640 - Ethernet PHY with IEE1588
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE == 1U
+
+		/** CPU Architecture */
+		#define C_LOCALDEF__LCCM515__USE_ON_RM4								(1U)
+		#define C_LOCALDEF__LCCM515__USE_ON_XILINX							(0U)
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM515__ENABLE_TEST_SPEC						(0U)
+
+		/** Main include file */
+		#include <MULTICORE/LCCM515__MULTICORE__DP83640/dp83640.h>
+
+	#endif //#if C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE == 1U
+
+
+/*******************************************************************************
+EMAC Module
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM254__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM254__ENABLE_THIS_MODULE == 1U
+
+		//on some dev boards we need to use RMII mode, not MII mode
+		//RMII on RM48CNCD cards
+		#define C_LOCALDEF__LCCM254__ENABLE_RMII_MODE						(1U)
+
+
+		//set to 1 if you have an external reset pin to the EMAC
+#ifndef WIN32
+		#define C_LOCALDEF__LCCM254__ENABLE_EXTERN_RESET					(0U)
+#else
+		#define C_LOCALDEF__LCCM254__ENABLE_EXTERN_RESET					(0U)
+#endif
+
+		#if C_LOCALDEF__LCCM254__ENABLE_EXTERN_RESET == 1U
+			#define C_LOCALDEF__LCCM254__NRESET_PIN__TRIS()					vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 0U)
+			#define C_LOCALDEF__LCCM254__NRESET_PIN__LATCH(x)				vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 0U, x)
+		#endif
+
+
+		//use LWIP or not
+		#define C_LOCALDEF__LCCM254__USE_WITH_LWIP							(0U)
+		#define C_LOCALDEF__LCCM254__USE_WITH_LCCM325						(1U)
+
+		//testing options
+		#define C_LOCALDEF__LCCM254__ENABLE_TEST_SPEC						(0U)
+		#define C_LOCALDEF__LCCM254__ENABLE_IO_PIN_TESTING					(0U)
+
+		//main include file
+		#include <RM4/LCCM254__RM4__EMAC/rm4_emac.h>
+
+	#endif //C_LOCALDEF__LCCM254__ENABLE_THIS_MODULE
+
 #endif //_LPCB234R0_BOARD_SUPPORT_H_
 
