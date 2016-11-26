@@ -1251,5 +1251,61 @@ MMA8451 - 3 AXIS ACCELEROMETER
 		#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8451.h>
 	#endif //C_LOCALDEF__LCCM418__ENABLE_THIS_MODULE
 
+/*******************************************************************************
+DP83640 - Ethernet PHY with IEE1588
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE == 1U
+
+		/** CPU Architecture */
+		#define C_LOCALDEF__LCCM515__USE_ON_RM4								(1U)
+		#define C_LOCALDEF__LCCM515__USE_ON_XILINX							(0U)
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM515__ENABLE_TEST_SPEC						(0U)
+
+		/** Main include file */
+		#include <MULTICORE/LCCM515__MULTICORE__DP83640/dp83640.h>
+
+	#endif //#if C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE == 1U
+
+
+/*******************************************************************************
+EMAC Module
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM254__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM254__ENABLE_THIS_MODULE == 1U
+
+		//on some dev boards we need to use RMII mode, not MII mode
+		//MII on FCU
+		#define C_LOCALDEF__LCCM254__ENABLE_RMII_MODE						(0U)
+
+
+		//set to 1 if you have an external reset pin to the EMAC
+#ifndef WIN32
+		#define C_LOCALDEF__LCCM254__ENABLE_EXTERN_RESET					(1U)
+#else
+		#define C_LOCALDEF__LCCM254__ENABLE_EXTERN_RESET					(0U)
+#endif
+
+		#if C_LOCALDEF__LCCM254__ENABLE_EXTERN_RESET == 1U
+			#define C_LOCALDEF__LCCM254__NRESET_PIN__TRIS()					vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 0U)
+			#define C_LOCALDEF__LCCM254__NRESET_PIN__LATCH(x)				vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 0U, x)
+		#endif
+
+
+		//use LWIP or not
+		#define C_LOCALDEF__LCCM254__USE_WITH_LWIP							(0U)
+		#define C_LOCALDEF__LCCM254__USE_WITH_LCCM325						(1U)
+
+		//testing options
+		#define C_LOCALDEF__LCCM254__ENABLE_TEST_SPEC						(0U)
+		#define C_LOCALDEF__LCCM254__ENABLE_IO_PIN_TESTING					(0U)
+
+		//main include file
+		#include <RM4/LCCM254__RM4__EMAC/rm4_emac.h>
+
+	#endif //C_LOCALDEF__LCCM254__ENABLE_THIS_MODULE
+
 #endif //_LPCB235R0_BOARD_SUPPORT_H_
 

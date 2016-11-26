@@ -26,6 +26,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC</locationURI>
+		</link>
+		<link>
 			<name>MULTICORE/LCCM118__MULTICORE__NUMERICAL</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM118__MULTICORE__NUMERICAL</locationURI>
@@ -40,6 +45,21 @@
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM517__MULTICORE__SAFETOOL_BRANCH</locationURI>
 		</link>
+		<link>
+			<name>MULTICORE/LCCM528__MULTICORE__SAFE_UDP</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM528__MULTICORE__SAFE_UDP</locationURI>
+		</link>	
+		<link>
+			<name>MULTICORE/LCCM325__MULTICORE__802_3</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM325__MULTICORE__802_3</locationURI>
+		</link>
+		<link>
+			<name>MULTICORE/LCCM515__MULTICORE__DP83640</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM515__MULTICORE__DP83640</locationURI>
+		</link>	
 		<link>
 			<name>MULTICORE/LCCM641__MULTICORE__DS2482S</name>
 			<type>2</type>
@@ -160,7 +180,11 @@
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM124__RM4__RTI</locationURI>
 		</link>
-		
+		<link>
+			<name>RM4/LCCM254__RM4__EMAC</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM254__RM4__EMAC</locationURI>
+		</link>	
 		<link>
 			<name>RLOOP/LCCM656__RLOOP__PI_COMMS/pi_comms.h</name>
 			<type>1</type>

@@ -133,6 +133,11 @@ void vPWRNODE__Process(void)
 			//get the I2C up for the networked sensors
 			vRM4_I2C_USER__Init();
 #endif
+			//startup the ethernet
+			#if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
+				vPWRNODE_NET__Init();
+			#endif
+
 			//move to next state
 			//if we have the batt temp system enabled (DS18B20) then start the cell temp system
 			sPWRNODE.sInit.eState = INIT_STATE__DC_CONVERTER;
@@ -261,6 +266,10 @@ void vPWRNODE__Process(void)
 			break;
 
 		case INIT_STATE__RUN:
+			//process the ethernet.
+			#if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
+				vPWRNODE_NET__Process();
+			#endif
 
 			//normal run state
 			#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
