@@ -320,6 +320,7 @@
 		void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void);
 		void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void);
 		E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
+		Luint8 u8FCU_BRAKES_SW__Get_FaultFlag(E_FCU__BRAKE_INDEX_T eBrake);
 
 
 		//brakes MLP sensor

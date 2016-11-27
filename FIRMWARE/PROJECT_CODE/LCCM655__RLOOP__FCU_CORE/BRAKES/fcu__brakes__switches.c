@@ -79,6 +79,18 @@ void vFCU_BRAKES_SW__Process(void)
 
 }
 
+/*******************************************************************************
+ * @brief
+ * Gets the fault flag of a brake limit switches
+ *
+ * @param[in]			eBrake			The brake, left or right, 0 or 1 index
+ * @return				0 = normal, 1 = fault
+ */
+Luint8 u8FCU_BRAKES_SW__Get_FaultFlag(E_FCU__BRAKE_INDEX_T eBrake)
+{
+	return sFCU.sBrakes[(Luint8)eBrake].u8BrakeSWErr;
+}
+
 /***************************************************************************//**
  * @brief
  * Gets the state of a brake limit swtich
