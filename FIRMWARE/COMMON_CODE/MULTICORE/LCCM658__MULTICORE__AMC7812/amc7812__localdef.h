@@ -20,7 +20,8 @@ AMC7812
 	#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 
 		//I2C Bus Address
-		#define C_LOCALDEF__LCCM658__BUS_ADDX								(0xC2)	// See Table 8, p. 49 and p. 51, ACM7812 datasheet; G. Sweriduk
+		// See Table 8, p. 49 and p. 51, ACM7812 datasheet
+		#define C_LOCALDEF__LCCM658__BUS_ADDX								(0xC2)
 
 		/** Num devices on the bus */
 		#define C_LOCALDEF__LCCM658__NUM_DEVICES							(1U)
