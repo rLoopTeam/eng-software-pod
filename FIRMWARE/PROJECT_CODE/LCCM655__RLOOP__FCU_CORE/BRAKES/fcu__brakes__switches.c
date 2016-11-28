@@ -35,6 +35,8 @@ void vFCU_BRAKES_SW__Init(void)
 	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 0U;
 	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 0U;
 	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 0U;
+	sFCU.sBrakes[FCU_BRAKE__LEFT].u8BrakeSWErr = 0U;
+	sFCU.sBrakes[FCU_BRAKE__RIGHT].u8BrakeSWErr = 0U;
 
 	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].eSwitchState = SW_STATE__UNKNOWN;
 	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].eSwitchState = SW_STATE__UNKNOWN;
@@ -66,10 +68,27 @@ void vFCU_BRAKES_SW__Process(void)
 
 		}
 		//if both switches is closed, then flag fault; enum fault type
+		if (sFCU.sBrakes[(Luint8)u8Brake].sLimits[0].eSwitchState == SW_STATE__CLOSED && sFCU.sBrakes[(Luint8)u8Brake].sLimits[1].eSwitchState == SW_STATE__CLOSED)
+		{
+			//set fault flags
+			sFCU.sBrakes[(Luint8)u8Brake].u8BrakeSWErr = 1U;
+		}
 	}
 
 	//if an edge has occurred, sample the switches and save the switch state.
 
+}
+
+/*******************************************************************************
+ * @brief
+ * Gets the fault flag of a brake limit switches
+ *
+ * @param[in]			eBrake			The brake, left or right, 0 or 1 index
+ * @return				0 = normal, 1 = fault
+ */
+Luint8 u8FCU_BRAKES_SW__Get_FaultFlag(E_FCU__BRAKE_INDEX_T eBrake)
+{
+	return sFCU.sBrakes[(Luint8)eBrake].u8BrakeSWErr;
 }
 
 /***************************************************************************//**
@@ -138,13 +157,13 @@ E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_
 					u8Temp = u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, 9U);
 					if(u8Temp == 0U)
 					{
-						//switch closed
-						eReturn = SW_STATE__CLOSED;
+						//switch open
+						eReturn = SW_STATE__OPEN;
 					}
 					else
 					{
-						//switch open
-						eReturn = SW_STATE__OPEN;
+						//switch closed
+						eReturn = SW_STATE__CLOSED;
 					}
 					break;
 
@@ -152,13 +171,13 @@ E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_
 					u8Temp = u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, 22U);
 					if(u8Temp == 0U)
 					{
-						//switch closed
-						eReturn = SW_STATE__CLOSED;
+						//switch open
+						eReturn = SW_STATE__OPEN;
 					}
 					else
 					{
-						//switch open
-						eReturn = SW_STATE__OPEN;
+						//switch closed
+						eReturn = SW_STATE__CLOSED;
 					}
 					break;
 

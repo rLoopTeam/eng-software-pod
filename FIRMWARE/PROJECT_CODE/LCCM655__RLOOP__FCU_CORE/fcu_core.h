@@ -154,9 +154,10 @@
 				}sCurrent;
 
 
-
 				/** individual brake fault flags */
 				FAULT_TREE__PUBLIC_T sFaultFlags;
+
+				Luint8 u8BrakeSWErr;
 
 			}sBrakes[C_FCU__NUM_BRAKES];
 
@@ -322,25 +323,26 @@
 		Lfloat32 f32FCU_BRAKES__Get_IBeam_mm(E_FCU__BRAKE_INDEX_T eBrake);
 		Lfloat32 f32FCU_BRAKES__Get_MLP_mm(E_FCU__BRAKE_INDEX_T eBrake);
 
-			//stepper drive
-			void vFCU_BRAKES_STEP__Init(void);
-			void vFCU_BRAKES_STEP__Process(void);
-			void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos);
-			Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake);
+		//stepper drive
+		void vFCU_BRAKES_STEP__Init(void);
+		void vFCU_BRAKES_STEP__Process(void);
+		void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos);
+		Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake);
 
-			//brake switches
-			void vFCU_BRAKES_SW__Init(void);
-			void vFCU_BRAKES_SW__Process(void);
-			void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void);
-			void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void);
-			void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void);
-			void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void);
-			E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
+		//brake switches
+		void vFCU_BRAKES_SW__Init(void);
+		void vFCU_BRAKES_SW__Process(void);
+		void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void);
+		void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void);
+		void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void);
+		void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void);
+		E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
+		Luint8 u8FCU_BRAKES_SW__Get_FaultFlag(E_FCU__BRAKE_INDEX_T eBrake);
 
 
-			//brakes MLP sensor
-			void vFCU_BRAKES_MLP__Init(void);
-			void vFCU_BRAKES_MLP__Process(void);
+		//brakes MLP sensor
+		void vFCU_BRAKES_MLP__Init(void);
+		void vFCU_BRAKES_MLP__Process(void);
 
 		//accelerometer layer
 		void vFCU_ACCEL__Init(void);
