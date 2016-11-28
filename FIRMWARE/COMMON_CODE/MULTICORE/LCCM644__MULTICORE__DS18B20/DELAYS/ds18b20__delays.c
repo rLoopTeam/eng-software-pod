@@ -39,6 +39,8 @@ void vDS18B20_DELAYS__Delay_uS(Luint32 u32Value)
 		vRM4_DELAYS__Delay_uS(u32Value);
 	#elif C_LOCALDEF__LCCM644__USE_ON_XILINX == 1U
 		vXILINX_DELAYS__Delay_uS(u32Value);
+	#elif C_LOCALDEF__LCCM644__USE_ON_MSP430 == 1U
+		vMSP430_DELAYS__Delay_uS(u32Value);
 	#else
 		#error
 	#endif
@@ -58,6 +60,8 @@ void vDS18B20_DELAYS__Delay_mS(Luint32 u32Value)
 		vRM4_DELAYS__Delay_mS(u32Value);
 	#elif C_LOCALDEF__LCCM644__USE_ON_XILINX == 1U
 		vXILINX_DELAYS__Delay_mS(u32Value);
+	#elif C_LOCALDEF__LCCM644__USE_ON_MSP430 == 1U
+		vMSP430_DELAYS__Delay_mS(u32Value);
 	#else
 		#error
 	#endif

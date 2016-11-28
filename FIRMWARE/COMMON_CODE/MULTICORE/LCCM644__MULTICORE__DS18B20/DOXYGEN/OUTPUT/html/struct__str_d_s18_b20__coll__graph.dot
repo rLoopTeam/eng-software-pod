@@ -1,6 +1,0 @@
-digraph "_strDS18B20"
-{
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{_strDS18B20\n|+ u8SerialNumber\l+ u8ChannelIndex\l+ u8Resolution\l+ f32Temperature\l+ sDevice\l+ u8NumDevices\l+ sEnum\l+ sSearchState\l+ u8WireChannelCounter\l+ u8FirstSearched\l+ sSearch\l|}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
-}

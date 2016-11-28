@@ -167,6 +167,8 @@
 			#endif
 		#elif C_LOCALDEF__LCCM325__USE_ON_WIN32 == 1U
 			void vETHERNET_FIFO__Transmit_Worker_WIN32(void);
+		#elif C_LOCALDEF__LCCM325__USE_ON_MSP430 == 1U
+			void vETHERNET_FIFO__Transmit_Worker_MSP430(void);
 		#else
 			#error
 		#endif

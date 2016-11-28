@@ -1,5 +1,0 @@
-<map id="s16DS2482S_DEVICE__Get_Status" name="s16DS2482S_DEVICE__Get_Status">
-<area shape="rect" id="node2" href="$group___d_s2482_s_____d_e_v_i_c_e.html#ga3c287f9ad11903ac541fa53757525e50" title="Sets the devices read pointer to one of a few predetermined values. " alt="" coords="221,5,381,47"/>
-<area shape="rect" id="node4" href="$group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaa9dba7b1b362f36e72a83086d4845d81" title="Rx a simple register value. " alt="" coords="213,71,389,112"/>
-<area shape="rect" id="node3" href="$group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaf9534996d93a544c0570e3fcdc3ad973" title="Write a register on the device. " alt="" coords="437,5,613,47"/>
-</map>

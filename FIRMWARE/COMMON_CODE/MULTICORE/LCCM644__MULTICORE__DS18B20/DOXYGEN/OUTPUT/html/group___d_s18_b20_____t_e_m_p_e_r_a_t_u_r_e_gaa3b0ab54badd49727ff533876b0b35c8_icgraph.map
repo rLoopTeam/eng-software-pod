@@ -1,5 +1,0 @@
-<map id="vDS18B20_TEMP__Scratch_To_Temp" name="vDS18B20_TEMP__Scratch_To_Temp">
-<area shape="rect" id="node2" href="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga1ea9cd9334d74c0e89964ce4de00d871" title="Issue a global command to start conversion of all devices on the wire This is most useful for startin..." alt="" coords="253,5,424,47"/>
-<area shape="rect" id="node3" href="$group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga70cda5834889d76cba2fff8ded10ad16" title="Request the temperature. " alt="" coords="237,71,440,98"/>
-<area shape="rect" id="node4" href="$group___d_s18_b20_____c_o_r_e.html#ga59b0a02052bcd41a9a187ce96156a15c" title="Init the DS18B20 device. " alt="" coords="488,71,601,98"/>
-</map>
