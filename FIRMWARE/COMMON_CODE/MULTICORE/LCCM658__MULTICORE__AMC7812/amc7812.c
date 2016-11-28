@@ -61,9 +61,10 @@ void vAMC7812__Init(void)
  * @st_funcMD5		96394E4CC69E197E228D42A9743AF8BC
  * @st_funcID		LCCM658R0.FILE.000.FUNC.002
  */
-void vAMC7812__Process( Luint16 u16ThtrottleCommand, Luint8 u8EngineNumber)
+void vAMC7812__Process(void)
 {
-
+	Luint8 u8EngineNumber = 0;
+	Luint16 u16ThrottleCommand = 0;
 	Lint16 s16Return = 0;
 	E_AMC7812_DAC_DATA_REG_ADDRESSES eDAC_REG_ADDR;
 
@@ -200,6 +201,7 @@ Lint16 s16AMC7812__DAC_Control( Luint8 u8Input )
 
 	// DAC CNVT (conversion trigger - falling edge starts sampling)
 
+	return 0;
 }
 
 #endif //#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U

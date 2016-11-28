@@ -97,6 +97,9 @@
 
 		//I2C
 		void vAMC7812_I2C__Init(void);
+		Lint16 s16AMC7812_I2C__TxCommand(Luint8 u8DeviceAddx, E_AMC7812_DAC_CONTROL_REG_ADDRESSES eRegister);
+		Lint16 s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint16 u16Value);
+
 		
 		//DAC
 		void vAMC7812_DAC__Init(void);
