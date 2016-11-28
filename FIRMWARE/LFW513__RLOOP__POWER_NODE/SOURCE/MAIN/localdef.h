@@ -17,10 +17,12 @@ ETHERNET TRANSPORT
 		#define C_LOCALDEF__LCCM325__USE_ON_RM4								(1U)
 		#define C_LOCALDEF__LCCM325__USE_ON_XILINX							(0U)
 		#define C_LOCALDEF__LCCM325__USE_ON_WIN32							(0U)
+		#define C_LOCALDEF__LCCM325__USE_ON_MSP430							(0U)
 #else
 		#define C_LOCALDEF__LCCM325__USE_ON_RM4								(0U)
 		#define C_LOCALDEF__LCCM325__USE_ON_XILINX							(0U)
 		#define C_LOCALDEF__LCCM325__USE_ON_WIN32							(1U)
+		#define C_LOCALDEF__LCCM325__USE_ON_MSP430							(0U)
 #endif
 
 
@@ -49,7 +51,7 @@ ETHERNET TRANSPORT
 /*******************************************************************************
 SAFETY UDP LAYER
 *******************************************************************************/
-	#define C_LOCALDEF__LCCM528__ENABLE_THIS_MODULE							(0U)
+	#define C_LOCALDEF__LCCM528__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM528__ENABLE_THIS_MODULE == 1U
 
 		/* Architecture Options*/
@@ -60,7 +62,7 @@ SAFETY UDP LAYER
 		/** User Rx Callback
 		* Payload, Length, Type, DestPort, Faults
 		*/
-		#define C_LOCALDEF__LCCM528__RX_CALLBACK(p,l,t,d,f)					vECU_ETHERNET_RX__UDPSAFE_Packet(p,l,t,d,f)
+		#define C_LOCALDEF__LCCM528__RX_CALLBACK(p,l,t,d,f)					vPWRNODE_NET_RX__RxSafeUDP(p,l,t,d,f)
 
 		/** The one and only UDP port we can operate on */
 		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER					(9900U)
