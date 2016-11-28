@@ -88,6 +88,18 @@ Lint16 s16DS2482S_LOWLEVEL__TxReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegister)
 		{
 			s16Return = 0;
 		}
+	#elif C_LOCALDEF__LCCM641__USE_ON_MSP430 == 1U
+		s16R = M_LOCALDEF__LCCM641__I2C_TX_REG(u8Addx, (Luint8)eRegister);
+
+		//we should convert here the I2C layer reuturns to our own returns
+		if(s16R < 0)
+		{
+			s16Return = -1;
+		}
+		else
+		{
+			s16Return = 0;
+		}
 	#else
 		#error
 	#endif
@@ -133,6 +145,18 @@ Lint16 s16DS2482S_LOWLEVEL__RxReg(Luint8 u8DeviceIndex, Luint8 *pu8Data)
 
 	//do the actual write
 	#if C_LOCALDEF__LCCM641__USE_ON_RM4 == 1U
+		s16R = M_LOCALDEF__LCCM641__I2C_RX_REG(u8Addx, pu8Data);
+
+		//we should convert here the I2C layer reuturns to our own returns
+		if(s16R < 0)
+		{
+			s16Return = -1;
+		}
+		else
+		{
+			s16Return = 0;
+		}
+	#elif C_LOCALDEF__LCCM641__USE_ON_MSP430 == 1U
 		s16R = M_LOCALDEF__LCCM641__I2C_RX_REG(u8Addx, pu8Data);
 
 		//we should convert here the I2C layer reuturns to our own returns
@@ -198,6 +222,18 @@ Lint16 s16DS2482S_LOWLEVEL__WriteReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegist
 		{
 			s16Return = 0;
 		}
+	#elif C_LOCALDEF__LCCM641__USE_ON_MSP430 == 1U
+		s16R = M_LOCALDEF__LCCM641__I2C_TX_BYTE(u8Addx, (Luint8)eRegister, u8Value);
+
+		//we should convert here the I2C layer reuturns to our own returns
+		if(s16R < 0)
+		{
+			s16Return = -1;
+		}
+		else
+		{
+			s16Return = 0;
+		}
 	#else
 		#error
 	#endif
@@ -240,6 +276,18 @@ Lint16 s16DS2482S_LOWLEVEL__ReadReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegiste
 
 	//do the actual write
 	#if C_LOCALDEF__LCCM641__USE_ON_RM4 == 1U
+		s16R = M_LOCALDEF__LCCM641__I2C_RX_BYTE(u8Addx, (Luint8)eRegister, pu8Value);
+
+		//we should convert here the I2C layer reuturns to our own returns
+		if(s16R < 0)
+		{
+			s16Return = -1;
+		}
+		else
+		{
+			s16Return = 0;
+		}
+	#elif C_LOCALDEF__LCCM641__USE_ON_MSP430 == 1U
 		s16R = M_LOCALDEF__LCCM641__I2C_RX_BYTE(u8Addx, (Luint8)eRegister, pu8Value);
 
 		//we should convert here the I2C layer reuturns to our own returns

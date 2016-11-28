@@ -1,7 +1,0 @@
-<map id="s16DS2482S_1WIRE__Set_StrongPullup" name="s16DS2482S_1WIRE__Set_StrongPullup">
-<area shape="rect" id="node2" href="$group___d_s2482_s_____d_e_v_i_c_e.html#ga0795724aac316012a68ad3718a952f4d" title="Read from the configuration register. " alt="" coords="241,37,401,79"/>
-<area shape="rect" id="node6" href="$group___d_s2482_s_____l_o_w_l_e_v_e_l.html#ga60c11542e75efee7894d3f55468476e5" title="Transmit a byte The DS2482 does not use traditional I2C addx &#45; reg &#45; data modes and requires sometime..." alt="" coords="233,103,409,144"/>
-<area shape="rect" id="node3" href="$group___d_s2482_s_____d_e_v_i_c_e.html#ga3c287f9ad11903ac541fa53757525e50" title="Sets the devices read pointer to one of a few predetermined values. " alt="" coords="465,5,625,47"/>
-<area shape="rect" id="node5" href="$group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaa9dba7b1b362f36e72a83086d4845d81" title="Rx a simple register value. " alt="" coords="457,71,633,112"/>
-<area shape="rect" id="node4" href="$group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaf9534996d93a544c0570e3fcdc3ad973" title="Write a register on the device. " alt="" coords="681,5,857,47"/>
-</map>

@@ -76,10 +76,13 @@
 		struct RM4_EMAC_IF
 		{
 
-			//the state machine used to get our link up and running.
+			/** the state machine used to get our link up and running */
 			RM4_EMAC__LINK_STATE_T eLinkState;
 
+			/** Our Local MAC Addx */
 			Luint8 u8MACAddx[6];
+			
+			/** Our assigned IP Addx */
 			Luint8 u8IPAddx[4];
 
 			//The tx/rx channels for the interface

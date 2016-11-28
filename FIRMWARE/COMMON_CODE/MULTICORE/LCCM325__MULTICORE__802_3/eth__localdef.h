@@ -23,12 +23,13 @@ ETHERNET TRANSPORT
 	#if C_LOCALDEF__LCCM325__ENABLE_THIS_MODULE == 1U
 
 		//CPU Support
-		#define C_LOCALDEF__LCCM325__USE_ON_RM4								(1U)
+		#define C_LOCALDEF__LCCM325__USE_ON_RM4								(0U)
 		#define C_LOCALDEF__LCCM325__USE_ON_XILINX							(0U)
 		#define C_LOCALDEF__LCCM325__USE_ON_WIN32							(0U)
+		#define C_LOCALDEF__LCCM325__USE_ON_MSP430							(0U)
 
 		/** On Xilinx Architectures we can use NPI burst transfers */
-		#define C_LOCALDEF__LCCM325__XILINX_USE_NPI_INTERFACE				(1U)
+		#define C_LOCALDEF__LCCM325__XILINX_USE_NPI_INTERFACE				(0U)
 
 		//various protocol options
 		//DHCP Client
