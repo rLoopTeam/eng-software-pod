@@ -26,6 +26,21 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>MULTICORE/LCCM528__MULTICORE__SAFE_UDP</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM528__MULTICORE__SAFE_UDP</locationURI>
+		</link>	
+		<link>
+			<name>MULTICORE/LCCM325__MULTICORE__802_3</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM325__MULTICORE__802_3</locationURI>
+		</link>	
+		<link>
+			<name>MULTICORE/LCCM515__MULTICORE__DP83640</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM515__MULTICORE__DP83640</locationURI>
+		</link>	
+		<link>
 			<name>MULTICORE/LCCM418__MULTICORE__MMA8451</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM418__MULTICORE__MMA8451</locationURI>
@@ -200,7 +215,11 @@
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM124__RM4__RTI</locationURI>
 		</link>
-
+		<link>
+			<name>RM4/LCCM254__RM4__EMAC</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM254__RM4__EMAC</locationURI>
+		</link>	
 	</linkedResources>
 	<filteredResources>
 		<filter>
