@@ -178,7 +178,6 @@ void vFCU__Process(void)
 			//setup UART, SCI2 = Pi Connection
 			vRM4_SCI__Init(SCI_CHANNEL__2);
 			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 57600U);
-			vRM4_SCI__TxByte(SCI_CHANNEL__2, 0xAA);
 
 			//setup our SPI channels.
 			//ASI Interface
@@ -192,6 +191,7 @@ void vFCU__Process(void)
 
 			//I2C Channel
 			vRM4_I2C_USER__Init();
+
 
 			//init the I2C
 			sFCU.eInitStates = INIT_STATE__INIT_SPI_UARTS;
@@ -277,6 +277,11 @@ void vFCU__Process(void)
 
 		case INIT_STATE__LOWER_SYSTEMS:
 
+			//start the network
+			#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
+				vFCU_NET__Init();
+			#endif
+
 			//get our main SM operational
 			vFCU_MAINSM__Init();
 
@@ -305,6 +310,11 @@ void vFCU__Process(void)
 			break;
 
 		case INIT_STATE__RUN:
+
+			//process networking
+			#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
+				vFCU_NET__Process();
+			#endif
 
 			//process the main state machine
 			vFCU_MAINSM__Process();

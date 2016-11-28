@@ -39,6 +39,8 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Enable the pusher detection system */
 		#define C_LOCALDEF__LCCM655__ENABLE_PUSHER							(0U)
 
+		/** Ethernet Systems */
+		#define C_LOCALDEF__LCCM655__ENABLE_ETHERNET						(1U)
 
 		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER			(20U)
 		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO				(21U)
