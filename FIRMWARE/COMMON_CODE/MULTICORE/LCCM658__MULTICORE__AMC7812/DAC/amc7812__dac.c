@@ -25,6 +25,9 @@
 #include "../amc7812.h"
 #if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 
+extern struct _strAMC7812_DAC strAMC7812_DAC;
+
+
 /***************************************************************************//**
  * @brief
  * Init the DAC portion.
@@ -35,6 +38,9 @@
 void vAMC7812_DAC__Init(void)
 {
 
+	//structure init
+	strAMC7812_DAC.eState = AMC7812_DAC_STATE__INIT_DEVICE;
+	strAMC7812_DAC.u32LoopCounter = 0U;
 
 }
 

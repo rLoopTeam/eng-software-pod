@@ -19,11 +19,17 @@ AMC7812
 	#define C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 
+		//I2C Bus Address
+		#define C_LOCALDEF__LCCM658__BUS_ADDX								(0xC2)	// See Table 8, p. 49 and p. 51, ACM7812 datasheet; G. Sweriduk
+
 		/** Num devices on the bus */
 		#define C_LOCALDEF__LCCM658__NUM_DEVICES							(1U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM658__ENABLE_TEST_SPEC						(0U)
+
+		/** The number of main program loops to wait for conversion */
+		#define C_LOCALDEF__LCCM658__NUM_CONVERSION_LOOPS					(10000U)
 
 		/** Main include file */
 		#include <MULTICORE/LCCM658__MULTICORE__AMC7812/amc7812.h>
