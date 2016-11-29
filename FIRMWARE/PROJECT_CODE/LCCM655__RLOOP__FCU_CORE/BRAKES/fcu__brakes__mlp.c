@@ -307,7 +307,7 @@ void vFCU_BRAKES_MLP__Apply_Span(E_FCU__BRAKE_INDEX_T eBrake)
 		f32Temp = (Lfloat32)sFCU.sBrakes[(Luint32)eBrake].sMLP.s32ADC_Minus_Zero;
 
 		//apply the span
-		f32Temp *= sFCU.sBrakes[(Luint32)eBrake].sMLP.f32SystemSpan;
+		f32Temp = f32Temp * sFCU.sBrakes[(Luint32)eBrake].sMLP.f32SystemSpan;
 
 		//assign
 		sFCU.sBrakes[(Luint32)eBrake].sMLP.f32BrakePosition_Percent = f32Temp;
@@ -337,7 +337,7 @@ void vFCU_BRAKES_MLP__Apply_Zero(E_FCU__BRAKE_INDEX_T eBrake)
 		s32Temp = (Lint32)sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Sample;
 
 		//subtract the zero
-		s32Temp =- (Lint32)sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Zero;
+		s32Temp = s32Temp - (Lint32)sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Zero;
 
 		//assign to the intermediate result
 		sFCU.sBrakes[(Luint32)eBrake].sMLP.s32ADC_Minus_Zero = s32Temp;
