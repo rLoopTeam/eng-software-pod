@@ -1,3 +1,16 @@
+/**
+ * @file		DS18B20__STATE_TYPES.H
+ * @brief		State type defines
+ * @author		Lachlan Grogan
+ * @copyright	This file contains proprietary and confidential information of
+ *				SIL3 Pty. Ltd. (ACN 123 529 064). This code may be distributed
+ *				under a license from SIL3 Pty. Ltd., and may be used, copied
+ *				and/or disclosed only pursuant to the terms of that license agreement.
+ *				This copyright notice must be retained as part of this file at all times.
+ * @copyright	This file is copyright SIL3 Pty. Ltd. 2003-2016, All Rights Reserved.
+ * @st_fileID	LCCM644R0.FILE.009
+ */
+
 
 
 #ifndef __DS18B20_DS18B20__STATE_TYPES_H_
@@ -20,7 +33,7 @@
 		/** Start to convert all sensors */
 		DS18B20_STATE__START_CONVERT_ALL,
 
-		//wait for the conversion to finish, if needed.
+		/** Wait for the conversion to finish, if needed. */
 		DS18B20_STATE__WAIT_CONVERT,
 
 		/** Read all the sensors */

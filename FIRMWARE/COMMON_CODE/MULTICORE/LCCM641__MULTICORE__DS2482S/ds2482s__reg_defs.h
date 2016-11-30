@@ -10,17 +10,6 @@
  * @copyright	This file is copyright SIL3 Pty. Ltd. 2003-2016, All Rights Reserved.
  * @st_fileID	LCCM641R0.FILE.003
  */
-/**
- * @addtogroup MULTICORE
- * @{ */
-/**
- * @addtogroup DS2482S
- * @ingroup MULTICORE
- * @{ */
-/**
- * @addtogroup DS2482S__REG_DEFS
- * @ingroup DS2482S
- * @{ */
 
 #ifndef _DS2482S_REG_DEFS_H_
 #define _DS2482S_REG_DEFS_H_
@@ -218,6 +207,3 @@
 
 
 #endif //_DS2482S_REG_DEFS_H_
-/** @} */
-/** @} */
-/** @} */

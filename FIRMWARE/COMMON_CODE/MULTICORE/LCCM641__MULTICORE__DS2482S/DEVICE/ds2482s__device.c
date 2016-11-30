@@ -389,7 +389,7 @@ Lint16 s16DS2482S_DEVICE__Set_ConfigRegister(Luint8 u8DeviceIndex, Luint8 u8Valu
  * @param[in]		u8DeviceIndex			Device index on the bus
  * @return			0 = not busy or not time out\n
  * 					1 = Timeout (busy status unknown)
- * @st_funcMD5		0F8EE83B4B12802BCBC13DF1612ED35C
+ * @st_funcMD5		132D148226E5D79562337B0A6AB8E23D
  * @st_funcID		LCCM641R0.FILE.006.FUNC.006
  */
 Luint8 u8DS2482S_DEVICE__Wait_Busy(Luint8 u8DeviceIndex, Luint8 *pu8Status)

@@ -127,7 +127,7 @@ Lint16 s16DS18B20_SCRATCH__Write(Luint8 u8DSIndex, const Luint8 *pu8Scratch)
  * @param[in]		u8DSIndex				The index of the DS2482 device ROM serial number
  * @return			0 = success\n
  * 					-ve = error
- * @st_funcMD5		BB4F8A36658D40C30111C7BC85C12AAE
+ * @st_funcMD5		F5C21A2413EB188C980C35D9929417EC
  * @st_funcID		LCCM644R0.FILE.004.FUNC.001
  */
 Lint16 s16DS18B20_SCRATCH__Read(Luint8 u8DSIndex, Luint8 *pu8Scratch)
@@ -214,8 +214,18 @@ Lint16 s16DS18B20_SCRATCH__Read(Luint8 u8DSIndex, Luint8 *pu8Scratch)
 	return s16Return;
 }
 
-//compute the CRC on the scratch pad
-//http://pdfserv.maximintegrated.com/en/an/AN27.pdf
+/***************************************************************************//**
+ * @brief
+ * compute the CRC on the scratch pad
+ *
+ * @note
+ * http://pdfserv.maximintegrated.com/en/an/AN27.pdf
+ * 
+ * @param[in]		*pu8Scratch				Pointer to the scratch ram buffer
+ * @return			The computed CRC
+ * @st_funcMD5		AEAF986D7CBDBAA8D8CD0B4C903D15DE
+ * @st_funcID		LCCM644R0.FILE.004.FUNC.003
+ */
 Luint8 u8DS18B20_SCRATCH__Compute_CRC(Luint8 *pu8Scratch)
 {
 
