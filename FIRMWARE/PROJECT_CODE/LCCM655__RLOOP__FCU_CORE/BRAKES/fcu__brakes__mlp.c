@@ -72,6 +72,14 @@ void vFCU_BRAKES_MLP__Init(void)
 		//set higest mlp value to 0
 		sFCU.sBrakes[u8Counter].sMLP.highest_value = 0U;
 
+		#if C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES == 1U
+			//debug only
+			sFCU.sBrakes[(Luint32)u8Counter].sMLP.zero_count = 0U;
+		#endif
+
+		// temporary use; identify when the startup sequence is over and ADC won't be 0.
+		sFCU.sBrakes[(Luint32)u8Counter].sMLP.u8Running = 0U;
+
 	}
 
 	//check the CRC
@@ -134,6 +142,7 @@ void vFCU_BRAKES_MLP__Process(void)
 {
 	Luint8 u8Counter;
 	Lint16 s16Limit;
+	Lint16 s16Return;
 
 	//loop through each brake.
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
@@ -142,8 +151,17 @@ void vFCU_BRAKES_MLP__Process(void)
 		vFCU_BRAKES_MLP__Sample_ADC((E_FCU__BRAKE_INDEX_T)u8Counter);
 
 		// sometimes sample hits 0 but isn't a real value, throw it out
-		if (sFCU.sBrakes[(Luint32)u8Counter].sMLP.u16ADC_Sample == 0U) {
-		  continue;
+		if (sFCU.sBrakes[(Luint32)u8Counter].sMLP.u16ADC_Sample == 0U && sFCU.sBrakes[(Luint32)u8Counter].sMLP.u8Running == 0U)
+		{
+			#if C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES == 1U
+				sFCU.sBrakes[(Luint32)u8Counter].sMLP.zero_count++;
+			#endif
+			continue;
+		}
+		else
+		{
+			// start up time ended
+			sFCU.sBrakes[(Luint32)u8Counter].sMLP.u8Running = 1U;
 		}
 
 		//check the limits
@@ -154,6 +172,15 @@ void vFCU_BRAKES_MLP__Process(void)
 			//the adc limits are safe, proceed
 
 			//filter the data.
+			s16Return = s16FCU_BRAKES_MLP__Filter_ADC_Value((E_FCU__BRAKE_INDEX_T)u8Counter);
+			if( s16Return < 0 )
+			{
+				//handle error
+			}
+			else
+			{
+				sFCU.sBrakes[(Luint32)u8Counter].sMLP.u16ADC_FilteredSample = (Luint16) s16Return;
+			}
 
 			//zero the data.
 			vFCU_BRAKES_MLP__Apply_Zero((E_FCU__BRAKE_INDEX_T)u8Counter);
@@ -330,10 +357,10 @@ void vFCU_BRAKES_MLP__Apply_Zero(E_FCU__BRAKE_INDEX_T eBrake)
 	{
 
 		//convert ADC sample to s32
-		s32Temp = (Lint32)sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Sample;
+		s32Temp = (Lint32)sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_FilteredSample;
 
 		//subtract the zero
-		s32Temp =- (Lint32)sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Zero;
+		s32Temp -= (Lint32)sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Zero;
 
 		//assign to the intermediate result
 		sFCU.sBrakes[(Luint32)eBrake].sMLP.s32ADC_Minus_Zero = s32Temp;
