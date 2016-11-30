@@ -18,10 +18,6 @@
 /*******************************************************************************
 DP83640 - Ethernet PHY with IEE1588
 *******************************************************************************/
-/**
- * @defgroup LCCM515_LOCALDEF_CONSTANTS
- * @{
-*/
 	#define C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE == 1U
 
@@ -36,7 +32,7 @@ DP83640 - Ethernet PHY with IEE1588
 		#include <MULTICORE/LCCM515__MULTICORE__DP83640/dp83640.h>
 
 	#endif //#if C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE == 1U
-/** @} */
+
 
 #endif //#if 0
 

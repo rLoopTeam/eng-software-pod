@@ -60,6 +60,11 @@ void vPWRNODE_BATTTEMP__Process(void)
 	//process any search tasks
 	vDS18B20_ADDX__SearchSM_Process();
 #endif
+
+	//process the DS18B20 devices.
+	//devices wont start converting until the network search has completed.
+	vDS18B20__Process();
+
 }
 
 

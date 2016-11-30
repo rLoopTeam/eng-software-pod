@@ -8,6 +8,9 @@ extern struct _strPWRNODE sPWRNODE;
 //inits the ethernet networking
 void vPWRNODE_NET__Init(void)
 {
+	sPWRNODE.sEthernet.u810MS_Timer = 0U;
+	sPWRNODE.sEthernet.eMainState = NET_STATE__IDLE;
+
 	//SIL3 OUID
 	sPWRNODE.sEthernet.u8MACAddx[0] = 0x00;
 	sPWRNODE.sEthernet.u8MACAddx[1] = 0x26;
@@ -45,6 +48,8 @@ void vPWRNODE_NET__Init(void)
  */
 void vPWRNODE_NET__Process(void)
 {
+	Luint8 u8Test;
+
 #ifndef WIN32
 	//constantly process the EMAC link as it will take some time to get operational
 	vRM4_EMAC_LINK__Process();
@@ -52,6 +57,56 @@ void vPWRNODE_NET__Process(void)
 
 	//process the ethernet layer.
 	vETHERNET__Process();
+
+	//hande our state machine for Tx
+	switch(sPWRNODE.sEthernet.eMainState)
+	{
+		case NET_STATE__IDLE:
+
+			sPWRNODE.sEthernet.eMainState = NET_STATE__WAIT_LINK;
+			break;
+
+		case NET_STATE__WAIT_LINK:
+			u8Test = u8PWRNODE_NET__Is_LinkUp();
+			if(u8Test == 1U)
+			{
+				//link is up
+				sPWRNODE.sEthernet.eMainState = NET_STATE__WAIT_TIMER_TICK;
+			}
+			else
+			{
+
+			}
+
+			break;
+
+		case NET_STATE__WAIT_TIMER_TICK:
+
+			if(sPWRNODE.sEthernet.u810MS_Timer == 1U)
+			{
+				sPWRNODE.sEthernet.eMainState = NET_STATE__RUN;
+
+				sPWRNODE.sEthernet.u810MS_Timer = 0U;
+			}
+			else
+			{
+
+			}
+
+			break;
+
+		case NET_STATE__RUN:
+
+			//do what we need to do
+
+			//wait for the next tick
+			sPWRNODE.sEthernet.eMainState = NET_STATE__WAIT_TIMER_TICK;
+			break;
+
+	}//switch(sPWRNODE.sEthernet.eMainState)
+
+
+
 }
 
 /***************************************************************************//**
@@ -68,6 +123,12 @@ Luint8 u8PWRNODE_NET__Is_LinkUp(void)
 #else
 	return 1;
 #endif
+}
+
+//10ms ISR from system timer.
+void vPWRNODE_NET__10MS_ISR(void)
+{
+	sPWRNODE.sEthernet.u810MS_Timer = 1U;
 }
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_ETHERNET

@@ -8,6 +8,22 @@
 #ifndef RLOOP_LCCM653__RLOOP__POWER_CORE_POWER_CORE__STATE_TYPES_H_
 #define RLOOP_LCCM653__RLOOP__POWER_CORE_POWER_CORE__STATE_TYPES_H_
 
+		/** Networking States*/
+		typedef enum
+		{
+			NET_STATE__IDLE = 0U,
+
+			/** wait for the link to become avail */
+			NET_STATE__WAIT_LINK,
+
+			/** wait for our timer */
+			NET_STATE__WAIT_TIMER_TICK,
+
+
+			NET_STATE__RUN
+
+		}E_PWRNODE_NET__MAIN_STATES;
+
 
 		/** Power node control states */
 		typedef enum

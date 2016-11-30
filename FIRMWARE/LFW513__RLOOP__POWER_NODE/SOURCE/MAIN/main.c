@@ -11,6 +11,9 @@ int main()
 	{
 		//process any power node tasks.
 		vPWRNODE__Process();
+
+		//todo: watchdog tasks
+
 	}
 
 }
