@@ -340,7 +340,9 @@ void vPWRNODE__RTI_100MS_ISR(void)
 //10ms timer
 void vPWRNODE__RTI_10MS_ISR(void)
 {
-
+	#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
+		vDS18B20__10MS_ISR();
+	#endif
 }
 
 #endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U

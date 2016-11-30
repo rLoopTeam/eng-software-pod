@@ -66,7 +66,7 @@ Lint16 s16DS2482S_LOWLEVEL__TxReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegister)
 	//Violates MISRA 2004 Required Rule 10.5, Operators '~' and '<<' require recasting to underlying type for sub-integers
 
 	//Bus Free Time Between a STOP and START Condition, need 2us
-	vRM4_DELAYS__Delay_uS(2U);
+	vDS18B20_DELAYS__Delay_uS(2U);
 
 	//setup the device address
 	//Devices should be addressed by AD[00] to AD[11] pins in hardware
@@ -132,7 +132,7 @@ Lint16 s16DS2482S_LOWLEVEL__RxReg(Luint8 u8DeviceIndex, Luint8 *pu8Data)
 	//Violates MISRA 2004 Required Rule 10.5, Operators '~' and '<<' require recasting to underlying type for sub-integers
 
 	//Bus Free Time Between a STOP and START Condition, need 2us
-	vRM4_DELAYS__Delay_uS(2U);
+	vDS18B20_DELAYS__Delay_uS(2U);
 
 	//setup the device address
 	//Devices should be addressed by AD[00] to AD[11] pins in hardware
@@ -198,7 +198,7 @@ Lint16 s16DS2482S_LOWLEVEL__WriteReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegist
 	//Violates MISRA 2004 Required Rule 10.5, Operators '~' and '<<' require recasting to underlying type for sub-integers
 
 	//Bus Free Time Between a STOP and START Condition, need 2us
-	vRM4_DELAYS__Delay_uS(2U);
+	vDS18B20_DELAYS__Delay_uS(2U);
 
 	//setup the device address
 	//Devices should be addressed by AD[00] to AD[11] pins in hardware
@@ -263,7 +263,7 @@ Lint16 s16DS2482S_LOWLEVEL__ReadReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegiste
 	//Violates MISRA 2004 Required Rule 10.5, Operators '~' and '<<' require recasting to underlying type for sub-integers
 
 	//Bus Free Time Between a STOP and START Condition, need 2us
-	vRM4_DELAYS__Delay_uS(2U);
+	vDS18B20_DELAYS__Delay_uS(2U);
 
 	//setup the device address
 	//Devices should be addressed by AD[00] to AD[11] pins in hardware

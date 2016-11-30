@@ -19,36 +19,24 @@
 		/*lint -e950*/
 
 		/*******************************************************************************
+		Includes
+		*******************************************************************************/
+		#include <MULTICORE/LCCM644__MULTICORE__DS18B20/ds18b20__state_types.h>
+		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
+
+
+		/*******************************************************************************
 		Defines
 		*******************************************************************************/
-
-		/** Seach for devices state types */
-		typedef enum
-		{
-
-			/** Idle state, not doing anything */
-			SEARCH_STATE__IDLE = 0U,
-
-			/** Start searching, reset what we need to */
-			SEARCH_STATE__START,
-
-			/** running the search */
-			SEARCH_STATE__RUN,
-
-			/** Increment the channel counter */
-			SEARCH_STATE__INC_CHANNEL,
-
-			/** Cleanup the system and we are done */
-			SEARCH_STATE__CLEANUP
-
-		}E_DS18B20_SEARCH_T;
-
 
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
 		struct _strDS18B20
 		{
+
+			//upper guard.
+			Luint32 u32Guard1;
 
 			/** Individual Devices*/
 			struct
@@ -98,10 +86,26 @@
 				/** The first device searched flag */
 				Luint8 u8FirstSearched;
 
+				/** A search has been completed */
+				Luint8 u8SearchCompleted;
+
 			}sSearch;
 
+			//Temporaray scratch pad, save stack
+			Luint8 u8TempScratch[9U];
 
 
+			/** Main state machine */
+			E_DS18B20__MAIN_STATES eMainState;
+
+			/** A counter used by the main SM to track progress */
+			Luint8 u8MainStateCounter;
+
+			/** The count of 10ms ISR's*/
+			Luint32 u32ISR_Counter;
+
+			//lower guard */
+			Luint32 u32Guard2;
 
 		};
 
@@ -110,8 +114,10 @@
 		*******************************************************************************/
 		void vDS18B20__Init(void);
 		void vDS18B20__Process(void);
+		void vDS18B20__10MS_ISR(void);
 
 		//temperature
+		Lint16 s16DS18B20_TEMP__Read(Luint8 u8DSIndex);
 		Lint16 s16DS18B20_TEMP__Request(Luint8 u8DSIndex, Luint8 u8Wait);
 		Lint16 s16DS18B20_TEMP__All_Request(Luint8 u8DSIndex, Luint8 u8Wait);
 		Lint16 s16DS18B20_TEMP__Set_Resolution(Luint8 u8DSIndex, Luint8 u8Resolution);
@@ -129,6 +135,7 @@
 		Luint8 u8DS18B20_ADDX__Get_NumEnumerated(void);
 
 		//scratchpad
+		Luint8 u8DS18B20_SCRATCH__Compute_CRC(Luint8 *pu8Scratch);
 		Lint16 s16DS18B20_SCRATCH__Read(Luint8 u8DSIndex, Luint8 *pu8Scratch);
 		Lint16 s16DS18B20_SCRATCH__Write(Luint8 u8DSIndex, const Luint8 *pu8Scratch);
 

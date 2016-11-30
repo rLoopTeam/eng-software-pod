@@ -24,6 +24,18 @@ DS18B20 - 1-Wire Temperature Sensor
 		#define C_LOCALDEF__LCCM644__USE_ON_XILINX							(0U)
 		#define C_LOCALDEF__LCCM644__USE_ON_MSP430							(0U)
 
+		/** Specific the required resoltuion 9, 10, 11 or 12 bit
+		 * Each resolution takes longer to convert
+		 */
+		#define C_LOCALDEF__LCCM644__RESOLUTION_SETTING						(9U)
+
+		/** If we have access to a 10ms ISR then we don't need to wait
+		 * for the conversion to finish. If we don't have an ISR then
+		 * set this to 0
+		 */
+		#define C_LOCALDEF__LCCM644__USE_10MS_ISR							(0U)
+
+
 		//connectivity options
 		//1-Wire software library
 		#define C_LOCALDEF__LCCM644__CONNECT_LCCM236						(0U)

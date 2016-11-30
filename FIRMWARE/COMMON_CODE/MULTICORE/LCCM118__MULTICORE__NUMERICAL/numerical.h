@@ -3,11 +3,11 @@
  * @brief		Numerical main header
  * @author		Lachlan Grogan
  * @copyright	This file contains proprietary and confidential information of the Lockie Group
- *				of companies, including Lockie Innovation Pty. Ltd (ACN 123 529 064) and
- *				Lockie Safety Systems Pty. Ltd (ACN 132 340 571).  This code may be distributed
- *				under a license from the Lockie Group of companies, and may be used, copied
- *				and/or disclosed only pursuant to the terms of that license agreement.
- *				This copyright notice must be retained as part of this file at all times.
+ * 				of companies, including Lockie Innovation Pty. Ltd (ACN 123 529 064) and
+ * 				Lockie Safety Systems Pty. Ltd (ACN 132 340 571).  This code may be distributed
+ * 				under a license from the Lockie Group of companies, and may be used, copied
+ * 				and/or disclosed only pursuant to the terms of that license agreement.
+ * 				This copyright notice must be retained as part of this file at all times.
  * @copyright	This file is copyright Lockie Innovation Pty Ltd 2003-2012, All Rights Reserved.
  * @copyright	This file is copyright Lockie Safety Systems Pty Ltd 2008-2012, All Rights Reserved.
  * @st_fileID	LCCM118R0.FILE.002
@@ -89,7 +89,7 @@
 	DLL_DECLARATION Lfloat32 f32NUMERICAL_POINTS__Length_BetweenPoints_2DPoints(const struct tsNUM_f32Point_2D *pt1, const struct tsNUM_f32Point_2D *pt2);
 	DLL_DECLARATION Lfloat32 f32NUMERICAL_POINTS__Length_BetweenPoints_S16(Lint16 s16AX, Lint16 s16AY, Lint16 s16BX, Lint16 s16BY);
 	DLL_DECLARATION Lfloat32 f32NUMERICAL_POINTS__Calculate_Mx_FromPoints_S16(Lint16 s16AX, Lint16 s16AY, Lint16 s16BX, Lint16 s16BY);
-	void vNUMERICAL_POINTS__Bounds_U162D(struct tsNUM_u16Point_2D * ptArray, Luint16 u16NumPoints, Luint16 * pu16MinX, Luint16 * pu16MinY, Luint16 * pu16MaxX, Luint16 * pu16MaxY);
+	void vNUMERICAL_POINTS__Bounds_U162D(struct tsNUM_u16Point_2D *ptArray, Luint16 u16NumPoints, Luint16 *pu16MinX, Luint16 *pu16MinY, Luint16 *pu16MaxX, Luint16 *pu16MaxY);
 	Luint16 u16NUMERICAL_POINTS__Min(Luint16 u16A, Luint16 u16B);
 	Lint16 s16NUMERICAL_POINTS__Min(Lint16 s16A, Lint16 s16B);
 	Luint16 u16NUMERICAL_POINTS__Max(Luint16 u16A, Luint16 u16B);
@@ -102,36 +102,39 @@
 	
 	//conversions
 	Luint8 u8NUMERICAL_CONVERT__ASCII_To_Hex(Luint8 u8Char);
-	void vNUMERICAL_CONVERT__ASCIIArray_To_MAC8(const Luint8 * pu8Array, Luint8 * pu8MAC);
-	DLL_DECLARATION Luint16 u16NUMERICAL_CONVERT__Array_LITTLEENDIAN(const Luint8 * pu8Array);
-	DLL_DECLARATION Luint16 u16NUMERICAL_CONVERT__Array(const Luint8 * pu8Array);
-	DLL_DECLARATION Lint16 s16NUMERICAL_CONVERT__Array(const Luint8 * pu8Array);
-	DLL_DECLARATION Luint32 u32NUMERICAL_CONVERT__Array(const Luint8 * pu8Array);
-	DLL_DECLARATION Luint32 u32NUMERICAL_CONVERT__Array_LITTLEENDIAN(const Luint8 * pu8Array);
-	DLL_DECLARATION Luint32 u32NUMERICAL_CONVERT__Array_BIGENDIAN(const Luint8 * pu8Array);
-	DLL_DECLARATION Lint32 s32NUMERICAL_CONVERT__Array(const Luint8 * pu8Array);
-	DLL_DECLARATION Lfloat32 f32NUMERICAL_CONVERT__Array(const Luint8 * pu8Array);
-	DLL_DECLARATION Lfloat32 f32NUMERICAL_CONVERT__Array_BIGENDIAN(const Luint8 * pu8Array);
-	Lfloat64 f64NUMERICAL_CONVERT__Array(const Luint8 * pu8Array);
+	void vNUMERICAL_CONVERT__ASCIIArray_To_MAC8(const Luint8 *pu8Array, Luint8 *pu8MAC);
+	DLL_DECLARATION Luint16 u16NUMERICAL_CONVERT__Array_LITTLEENDIAN(const Luint8 *pu8Array);
+	DLL_DECLARATION Luint16 u16NUMERICAL_CONVERT__Array(const Luint8 *pu8Array);
+	Luint16 u16NUMERICAL_CONVERT__Array_2(const Luint8 * pu8Array);
+	DLL_DECLARATION Lint16 s16NUMERICAL_CONVERT__Array(const Luint8 *pu8Array);
+	Lint16 s16NUMERICAL_CONVERT__Array_2(const Luint8 *pu8Array);
+	DLL_DECLARATION Luint32 u32NUMERICAL_CONVERT__Array(const Luint8 *pu8Array);
+	Luint32 u32NUMERICAL_CONVERT__Array_2(const Luint8 *pu8Array);
+	DLL_DECLARATION Luint32 u32NUMERICAL_CONVERT__Array_LITTLEENDIAN(const Luint8 *pu8Array);
+	DLL_DECLARATION Luint32 u32NUMERICAL_CONVERT__Array_BIGENDIAN(const Luint8 *pu8Array);
+	DLL_DECLARATION Lint32 s32NUMERICAL_CONVERT__Array(const Luint8 *pu8Array);
+	DLL_DECLARATION Lfloat32 f32NUMERICAL_CONVERT__Array(const Luint8 *pu8Array);
+	DLL_DECLARATION Lfloat32 f32NUMERICAL_CONVERT__Array_BIGENDIAN(const Luint8 *pu8Array);
+	Lfloat64 f64NUMERICAL_CONVERT__Array(const Luint8 *pu8Array);
 
-	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U16(Luint8 * pu8Array, Luint16 u16Value);
-	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U16_LITTLEENDIAN(Luint8 * pu8Array, Luint16 u16Value);
-	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U16_BIGENDIAN(Luint8 * pu8Array, Luint16 u16Value);
-	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_S16(Luint8 * pu8Array, Lint16 s16Value);
-	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U32(Luint8 * pu8Array, Luint32 u32Value);
-	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U32_BIGENDIAN(Luint8 * pu8Array, Luint32 u32Value);
-	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U32_LITTLEENDIAN(Luint8 * pu8Array, Luint32 u32Value);
-	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_S32(Luint8 * pu8Array, Lint32 s32Value);
-	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_F32(Luint8 * pu8Array, Lfloat32 f32Value);
-	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_F32_LITTLEENDIAN(Luint8 * pu8Array, Lfloat32 f32Value);
-	void vNUMERICAL_CONVERT__Array_F64(Luint8 * pu8Array, Lfloat64 f64Value);
+	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U16(Luint8 *pu8Array, Luint16 u16Value);
+	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U16_LITTLEENDIAN(Luint8 *pu8Array, Luint16 u16Value);
+	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U16_BIGENDIAN(Luint8 *pu8Array, Luint16 u16Value);
+	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_S16(Luint8 *pu8Array, Lint16 s16Value);
+	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U32(Luint8 *pu8Array, Luint32 u32Value);
+	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U32_BIGENDIAN(Luint8 *pu8Array, Luint32 u32Value);
+	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U32_LITTLEENDIAN(Luint8 *pu8Array, Luint32 u32Value);
+	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_S32(Luint8 *pu8Array, Lint32 s32Value);
+	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_F32(Luint8 *pu8Array, Lfloat32 f32Value);
+	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_F32_LITTLEENDIAN(Luint8 *pu8Array, Lfloat32 f32Value);
+	void vNUMERICAL_CONVERT__Array_F64(Luint8 *pu8Array, Lfloat64 f64Value);
 
 	//linear equations
 	DLL_DECLARATION Lfloat32 f32NUMERICAL_LINEAR__CalculateM(Lint32 s32Rise, Lint32 s32Run);
 	DLL_DECLARATION Lfloat32 f32NUMERICAL_LINEAR__CalculateC(Lfloat32 f32M, Lint32 s32X, Lint32 s32Y);
 
 	//mac
-	DLL_DECLARATION Luint8 u8NUMERICAL_MAC__Compare_MAC8(Luint8 * pu8MAC1, Luint8 * pu8MAC2);
+	DLL_DECLARATION Luint8 u8NUMERICAL_MAC__Compare_MAC8(Luint8 *pu8MAC1, Luint8 *pu8MAC2);
 
 	//vectors
 	DLL_DECLARATION void vNUMERICAL_VECTOR__CrossProduct(const struct tsNUM_f32Vector_3D *a, const struct tsNUM_f32Vector_3D *b, struct tsNUM_f32Vector_3D *out);
@@ -139,11 +142,11 @@
 	DLL_DECLARATION void vNUMERICAL_VECTOR__Normalize(struct tsNUM_f32Vector_3D *a);
 	
 	//filtering
-	DLL_DECLARATION Lint16 s16NUMERICAL_FILTERING__Add_S16(Lint16 s16Sample, Luint16 * pu16AverageCounter, Luint16 u16MaxAverageSize, Lint16 * ps16Array);
-	DLL_DECLARATION Luint16 u16NUMERICAL_FILTERING__Add_U16(Luint16 u16Sample, Luint16 * pu16AverageCounter, Luint16 u16MaxAverageSize, Luint16 * pu16Array);
-	DLL_DECLARATION Lint32 s32NUMERICAL_FILTERING__Add_S32(Lint32 s32Sample, Luint16 * pu16AverageCounter, Luint16 u16MaxAverageSize, Lint32 * ps32Array);
+	DLL_DECLARATION Lint16 s16NUMERICAL_FILTERING__Add_S16(Lint16 s16Sample, Luint16 *pu16AverageCounter, Luint16 u16MaxAverageSize, Lint16 *ps16Array);
+	DLL_DECLARATION Luint16 u16NUMERICAL_FILTERING__Add_U16(Luint16 u16Sample, Luint16 *pu16AverageCounter, Luint16 u16MaxAverageSize, Luint16 *pu16Array);
+	DLL_DECLARATION Lint32 s32NUMERICAL_FILTERING__Add_S32(Lint32 s32Sample, Luint16 *pu16AverageCounter, Luint16 u16MaxAverageSize, Lint32 *ps32Array);
 	Luint32 u32NUMERICAL_FILTERING__Add_U32(Luint32 u32Sample, Luint16 *pu16AverageCounter, Luint16 u16MaxAverageSize, Luint32 *pu32Array);
-	DLL_DECLARATION Lfloat32 f32NUMERICAL_FILTERING__Add_F32(Lfloat32 f32Sample, Luint16 * pu16AverageCounter, Luint16 u16MaxAverageSize, Lfloat32 * pf32Array);
+	DLL_DECLARATION Lfloat32 f32NUMERICAL_FILTERING__Add_F32(Lfloat32 f32Sample, Luint16 *pu16AverageCounter, Luint16 u16MaxAverageSize, Lfloat32 *pf32Array);
 	
 	//tolerance checks
 	DLL_DECLARATION Luint8 u8NUMERICAL_TOLERANCE__S16(Lint16 s16A, Lint16 s16B, Luint16 u16Tolerance);
@@ -190,7 +193,7 @@
 	Luint8 u8NUMERICAL_STRING__ToUpper(Luint8 u8Char);
 	Luint16 u16NUMERICAL_STRING__Get_Length(const Luint8 *pString);
 	Luint16 u16NUMERICAL_STRING__Get_Length_ExcludeNewline(const Luint8 *pString);
-	Lint16 s16NUMERICAL_STRING__Compare(const Luint8 * pS1, const Luint8 * pS2);
+	Lint16 s16NUMERICAL_STRING__Compare(const Luint8 *pS1, const Luint8 *pS2);
 
 	#if C_LOCALDEF__LCCM118__ENABLE_TEST_SPEC == 1U
 		DLL_DECLARATION void vLCCM118_TS_001(void);

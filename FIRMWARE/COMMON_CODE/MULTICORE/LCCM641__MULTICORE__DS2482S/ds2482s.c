@@ -46,10 +46,8 @@ void vDS2482S__Init(void)
 	Luint8 u8Status;
 	Luint8 u8Counter;
 
-	
-
 	//Note 15: I2C communication should not take place for the max tOSCWUP time following a power-on reset.
-	vRM4_DELAYS__Delay_uS(100U);
+	vDS18B20_DELAYS__Delay_uS(100U);
 
 	//go through the devices.
 	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM641__NUM_DEVICS; u8Counter++)
@@ -102,8 +100,11 @@ void vDS2482S__Init(void)
 void vDS2482S__Process(void)
 {
 
+	//nothing here
 
 }
+
+
 
 /***************************************************************************//**
  * @brief

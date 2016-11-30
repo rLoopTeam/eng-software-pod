@@ -30,7 +30,7 @@ extern struct _strDS18B20 sDS18B20;
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Init the addressing module
  * 
  * @st_funcMD5		DC7D10002E340DB726228B94093A0D5A
  * @st_funcID		LCCM644R0.FILE.006.FUNC.002
@@ -42,6 +42,7 @@ void vDS18B20_ADDX__Init(void)
 	sDS18B20.sSearch.sSearchState = SEARCH_STATE__IDLE;
 	sDS18B20.sSearch.u8WireChannelCounter = 0U;
 	sDS18B20.sSearch.u8FirstSearched = 0U;
+	sDS18B20.sSearch.u8SearchCompleted = 0U;
 
 }
 
@@ -151,8 +152,9 @@ Lint16 s16DS18B20_ADDX__Search(void)
 				}
 				else
 				{
-					//no devices
+					//no devices or no more devices
 					u8Flag = 1U;
+
 				}
 			}
 
@@ -192,6 +194,10 @@ Lint16 s16DS18B20_ADDX__Search(void)
 		}
 
 	}//for(u8Counter = 0U; u8Counter < sDS18B20.sEnum.u8NumDevices; u8Counter++)
+
+	//indicate that we have completed searching
+	sDS18B20.sSearch.u8SearchCompleted = 1U;
+
 
 	return 0;
 }
@@ -358,6 +364,9 @@ void vDS18B20_ADDX__SearchSM_Process(void)
 			break;
 
 		case SEARCH_STATE__CLEANUP:
+
+			//indicate that we have completed searching
+			sDS18B20.sSearch.u8SearchCompleted = 1U;
 
 			//back to idle
 			sDS18B20.sSearch.sSearchState = SEARCH_STATE__IDLE;
