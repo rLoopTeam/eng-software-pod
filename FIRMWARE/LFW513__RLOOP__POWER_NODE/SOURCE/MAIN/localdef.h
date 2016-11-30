@@ -203,6 +203,18 @@ DS18B20 - 1-Wire Temperature Sensor
 		//processor options
 		#define C_LOCALDEF__LCCM644__USE_ON_RM4								(1U)
 		#define C_LOCALDEF__LCCM644__USE_ON_XILINX							(0U)
+		#define C_LOCALDEF__LCCM644__USE_ON_MSP430							(0U)
+
+		/** Specific the required resoltuion 9, 10, 11 or 12 bit
+		 * Each resolution takes longer to convert
+		 */
+		#define C_LOCALDEF__LCCM644__RESOLUTION_SETTING						(9U)
+
+		/** If we have access to a 10ms ISR then we don't need to wait
+		 * for the conversion to finish. If we don't have an ISR then
+		 * set this to 0
+		 */
+		#define C_LOCALDEF__LCCM644__USE_10MS_ISR							(1U)
 
 		//connectivity options
 		//1-Wire software library
@@ -261,7 +273,7 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__ENABLE_PI_COMMS						(1U)
 
 		/** Enable the battery temperature measurement system */
-		#define C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP						(0U)
+		#define C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP						(1U)
 
 		/** Enable the BMS Subsystem */
 		#define C_LOCALDEF__LCCM653__ENABLE_BMS								(0U)

@@ -266,10 +266,6 @@ void vPWRNODE__Process(void)
 			break;
 
 		case INIT_STATE__RUN:
-			//process the ethernet.
-			#if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
-				vPWRNODE_NET__Process();
-			#endif
 
 			//normal run state
 			#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
@@ -321,6 +317,15 @@ void vPWRNODE__Process(void)
 	}//switch(sPWRNODE.sInit.eState)
 
 
+	if(sPWRNODE.sInit.eState > INIT_STATE__COMMS)
+	{
+		//process the ethernet.
+		#if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
+			vPWRNODE_NET__Process();
+		#endif
+
+	}
+
 }
 
 //100ms timer
@@ -341,9 +346,25 @@ void vPWRNODE__RTI_100MS_ISR(void)
 void vPWRNODE__RTI_10MS_ISR(void)
 {
 	#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
-		vDS18B20__10MS_ISR();
+		#if C_LOCALDEF__LCCM644__USE_10MS_ISR == 1U
+			vDS18B20__10MS_ISR();
+		#endif
 	#endif
+
+	#if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
+		vPWRNODE_NET__10MS_ISR();
+	#endif
+
 }
+
+
+//safetys
+#ifndef C_LOCALDEF__LCCM653__ENABLE_ETHERNET
+	#error
+#endif
+#ifndef C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP
+	#error
+#endif
 
 #endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 //safetys
