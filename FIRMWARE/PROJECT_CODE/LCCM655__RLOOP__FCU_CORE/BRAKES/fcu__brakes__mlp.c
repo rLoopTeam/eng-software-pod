@@ -122,8 +122,6 @@ void vFCU_BRAKES_MLP__Init(void)
 
 	}//else if(u8Test == 1U)
 
-	//initialize ADC user
-	vRM4_ADC_USER__Init();
 
 }
 
@@ -186,9 +184,7 @@ void vFCU_BRAKES_MLP__Process(void)
  */
 void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
 {
-	//Initialize conversion and process ADC
-	vRM4_ADC_USER__StartConversion();
-	vRM4_ADC_USER__Process();
+
 
 
 	//determine the brake index
