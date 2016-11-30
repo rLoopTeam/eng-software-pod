@@ -53,7 +53,7 @@ void vDS2482S_LOWLEVEL__Init(Luint8 u8DeviceIndex)
  * @param[in]		u8DeviceIndex			Device index on the bus
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		D536F98D5ACAB3C3191814F7A8D28D10
+ * @st_funcMD5		C08FEB01EB95C3FCD26306F0583CCA18
  * @st_funcID		LCCM641R0.FILE.005.FUNC.002
  */
 Lint16 s16DS2482S_LOWLEVEL__TxReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegister)
@@ -119,7 +119,7 @@ Lint16 s16DS2482S_LOWLEVEL__TxReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegister)
  * @param[in]		u8DeviceIndex			The I2C device index
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		2ACA3147B62B9EA48295A501A229D1D9
+ * @st_funcMD5		C2AEAE98623C9D28C0E75AB6CD439B87
  * @st_funcID		LCCM641R0.FILE.005.FUNC.003
  */
 Lint16 s16DS2482S_LOWLEVEL__RxReg(Luint8 u8DeviceIndex, Luint8 *pu8Data)
@@ -185,7 +185,7 @@ Lint16 s16DS2482S_LOWLEVEL__RxReg(Luint8 u8DeviceIndex, Luint8 *pu8Data)
  * @param[in]		u8DeviceIndex			Device index on the bus.
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		4F5B9DF104F6BFCDBCA82B26C2704C74
+ * @st_funcMD5		FD6924149A1B238D92247783C79AE570
  * @st_funcID		LCCM641R0.FILE.005.FUNC.004
  */
 Lint16 s16DS2482S_LOWLEVEL__WriteReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegister, Luint8 u8Value)
@@ -250,7 +250,7 @@ Lint16 s16DS2482S_LOWLEVEL__WriteReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegist
  * @param[in]		u8DeviceIndex			Device index on the bus
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		29D34C25CE0177FAEC9D72506979CD1D
+ * @st_funcMD5		7A8803D447E394E96E9561CD82676185
  * @st_funcID		LCCM641R0.FILE.005.FUNC.005
  */
 Lint16 s16DS2482S_LOWLEVEL__ReadReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegister, Luint8 *pu8Value)

@@ -55,7 +55,7 @@ static Lint16 s16DS2482S_SEARCH__Search(Luint8 u8DeviceIndex);
  * @return			1 = Device Found\n
  * 					0 = No device found and no bus error\n
  * 					-ve = error
- * @st_funcMD5		8F7C8910A44EAB7D120A56C093DBE111
+ * @st_funcMD5		B8083B04F6B1522EEE22289652F28BEA
  * @st_funcID		LCCM641R0.FILE.008.FUNC.001
  */
 Lint16 s16DS2482S_SEARCH__SearchFirstDevice(Luint8 u8DeviceIndex, Luint8 *pu8Addx)
@@ -119,7 +119,7 @@ Lint16 s16DS2482S_SEARCH__SearchFirstDevice(Luint8 u8DeviceIndex, Luint8 *pu8Add
  * @return			1 = Device Found\n
  * 					0 = No device found and no bus error\n
  * 					-ve = error
- * @st_funcMD5		EB7C0E617DEA9CB709D476449BB1054D
+ * @st_funcMD5		99DF3C21F8004D1A95C0BDDC679DE229
  * @st_funcID		LCCM641R0.FILE.008.FUNC.002
  */
 Lint16 s16DS2482S_SEARCH__SearchNextDevice(Luint8 u8DeviceIndex, Luint8 *pu8Addx)
@@ -165,7 +165,7 @@ Lint16 s16DS2482S_SEARCH__SearchNextDevice(Luint8 u8DeviceIndex, Luint8 *pu8Addx
  * 
  * @param[in]		*pu8Addx				Pointer to address to verify
  * @param[in]		u8DeviceIndex			I2C device index
- * @st_funcMD5		7C80DF04ACBBB568FD976DC6C6BC4E4E
+ * @st_funcMD5		840510695ACABF41C9D210374BDCE184
  * @st_funcID		LCCM641R0.FILE.008.FUNC.004
  */
 Lint16 s16DS2482S_SEARCH__Verify(Luint8 u8DeviceIndex, const Luint8 *pu8Addx)
@@ -229,7 +229,7 @@ unsigned char rom_backup[8];
  * @return			1 = Device Found\n
  * 					0 = No device found and no bus error\n
  * 					-ve = error
- * @st_funcMD5		B439FB4C86E8B041082AC6AB968AB9DC
+ * @st_funcMD5		AFB43CA5022930897FEE4B5DD48A3DBD
  * @st_funcID		LCCM641R0.FILE.008.FUNC.003
  */
 Lint16 s16DS2482S_SEARCH__Search(Luint8 u8DeviceIndex)

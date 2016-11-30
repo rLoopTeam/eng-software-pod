@@ -34,7 +34,7 @@ struct _strDS2482S sDS2482S;
  * Init the DS2482 device
  * User should call this first up after the I2C driver is operational.
  * 
- * @st_funcMD5		F66DF3BBFFE38B31DE9077D79A2E4B82
+ * @st_funcMD5		AB42CA5A54FA471C8DA154300E5B09A1
  * @st_funcID		LCCM641R0.FILE.000.FUNC.001
  */
 void vDS2482S__Init(void)
@@ -94,7 +94,7 @@ void vDS2482S__Init(void)
  * Process any DS2482 tasks.
  * The user should call this in their main program loop as fast as possible.
  * 
- * @st_funcMD5		9AFB9D855908D63AE113FC13B71D863D
+ * @st_funcMD5		88AB41C00C534DD2DCE01D8AF6B0FECE
  * @st_funcID		LCCM641R0.FILE.000.FUNC.002
  */
 void vDS2482S__Process(void)

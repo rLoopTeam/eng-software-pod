@@ -30,8 +30,6 @@ extern struct _strDS18B20 sDS18B20;
 //locals
 static void vDS18B20_TEMP__Scratch_To_Temp(Luint8 u8DSIndex, const Luint8 *pu8Scratch, Lfloat32 *pf32Temp);
 
-
-
 /***************************************************************************//**
  * @brief
  * Read the temperature from a device ONCE the conversion is complete
@@ -39,6 +37,10 @@ static void vDS18B20_TEMP__Scratch_To_Temp(Luint8 u8DSIndex, const Luint8 *pu8Sc
  * @param[in]		u8DSIndex				The address index
  * @return			0 = success\n
  *					-ve = error
+ * 
+ * @param[in]		u8DSIndex		## Desc ##
+ * @st_funcMD5		AA39BBEC8AC2F71F753F69608659B42B
+ * @st_funcID		LCCM644R0.FILE.003.FUNC.006
  */
 Lint16 s16DS18B20_TEMP__Read(Luint8 u8DSIndex)
 {
@@ -73,7 +75,7 @@ Lint16 s16DS18B20_TEMP__Read(Luint8 u8DSIndex)
  * @param[in]		u8DSIndex				The address index
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		6140433336A0CA8489B98F68D99BCC2D
+ * @st_funcMD5		2A3FA2AC34982FD9EA9455F9CB0482D1
  * @st_funcID		LCCM644R0.FILE.003.FUNC.003
  */
 Lint16 s16DS18B20_TEMP__All_Request(Luint8 u8DSIndex, Luint8 u8Wait)
@@ -144,7 +146,7 @@ Lint16 s16DS18B20_TEMP__All_Request(Luint8 u8DSIndex, Luint8 u8Wait)
  * @param[in]		u8DSIndex				The addressed index of the device.
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		90A173BE636B190FE2355EA7AF485384
+ * @st_funcMD5		89A3015EC826C995418FFAA3AA6466BA
  * @st_funcID		LCCM644R0.FILE.003.FUNC.004
  */
 Lint16 s16DS18B20_TEMP__Request(Luint8 u8DSIndex, Luint8 u8Wait)
@@ -244,7 +246,7 @@ Lint16 s16DS18B20_TEMP__Request(Luint8 u8DSIndex, Luint8 u8Wait)
  * @param[out]		*pf32Temp				Pointer to return temperature value
  * @param[in]		*pu8Scratch				Pointer to scratchpad memory
  * @param[in]		u8DSIndex				Index of the device so as we know our resoltion
- * @st_funcMD5		9A0ED5AB3219331A1C1DC2C700DED3E6
+ * @st_funcMD5		65DE1541B347FC9CA29984F03A7B741D
  * @st_funcID		LCCM644R0.FILE.003.FUNC.005
  */
 void vDS18B20_TEMP__Scratch_To_Temp(Luint8 u8DSIndex, const Luint8 *pu8Scratch, Lfloat32 *pf32Temp)
@@ -376,7 +378,7 @@ void vDS18B20_TEMP__Scratch_To_Temp(Luint8 u8DSIndex, const Luint8 *pu8Scratch, 
  * @param[in]		u8DSIndex				Already enumerated address ID
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		B97FF5A7F9DAABC011F2404905B8614A
+ * @st_funcMD5		79132391B133E345569932CFFF9C4316
  * @st_funcID		LCCM644R0.FILE.003.FUNC.002
  */
 Lint16 s16DS18B20_TEMP__Get_Resolution(Luint8 u8DSIndex, Luint8 *pu8Resolution)
@@ -426,7 +428,7 @@ Lint16 s16DS18B20_TEMP__Get_Resolution(Luint8 u8DSIndex, Luint8 *pu8Resolution)
  * @param[in]		u8DSIndex				Device index address
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		A4C1E4D505C049983604EE4E068E1DCC
+ * @st_funcMD5		AA30E950FFA1C69214EC088D9D467661
  * @st_funcID		LCCM644R0.FILE.003.FUNC.001
  */
 Lint16 s16DS18B20_TEMP__Set_Resolution(Luint8 u8DSIndex, Luint8 u8Resolution)

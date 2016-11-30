@@ -35,7 +35,7 @@ struct _strDS18B20 sDS18B20;
  * YOU MUST Either start the search process or manually load
  * ROMID values into the tables before doing anything with this module.
  *
- * @st_funcMD5		F9EE967EC67F9DAD0866F756CF98A726
+ * @st_funcMD5		D45F6551874DD457C74126E5B2C5F6FC
  * @st_funcID		LCCM644R0.FILE.000.FUNC.001
  */
 void vDS18B20__Init(void)
@@ -59,7 +59,7 @@ void vDS18B20__Init(void)
  * Process DS18B20 systems
  * Call from main program loop as quick as possible.
  * 
- * @st_funcMD5		231B3835C46BE862352D9F1FB404D4C2
+ * @st_funcMD5		EBE3ADDA6ABB2C232DB283BD4E188067
  * @st_funcID		LCCM644R0.FILE.000.FUNC.002
  */
 void vDS18B20__Process(void)
@@ -311,8 +311,13 @@ void vDS18B20__Process(void)
 
 }
 
-
-//start the temperature read state machine
+/***************************************************************************//**
+ * @brief
+ * Start the temperature read state machine
+ * 
+ * @st_funcMD5		506F869ABA240892F387AF5B18B8B8E3
+ * @st_funcID		LCCM644R0.FILE.000.FUNC.003
+ */
 void vDS18B20__Start_TempRead(void)
 {
 	if(sDS18B20.eMainState == DS18B20_STATE__IDLE)
@@ -327,7 +332,13 @@ void vDS18B20__Start_TempRead(void)
 
 
 #if C_LOCALDEF__LCCM644__USE_10MS_ISR == 1U
-//if we have access to a 10ms ISR then use it, else we need to wait manually
+/***************************************************************************//**
+ * @brief
+ * If we have access to a 10ms ISR then use it, else we need to wait manually
+ * 
+ * @st_funcMD5		2EFF2F9513ECDACF63F2615A2C620299
+ * @st_funcID		LCCM644R0.FILE.000.FUNC.004
+ */
 void vDS18B20__10MS_ISR(void)
 {
 	//inc the count of 10ms interrupts.

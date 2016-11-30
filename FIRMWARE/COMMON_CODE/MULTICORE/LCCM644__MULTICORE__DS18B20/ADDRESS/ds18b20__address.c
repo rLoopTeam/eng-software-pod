@@ -32,7 +32,7 @@ extern struct _strDS18B20 sDS18B20;
  * @brief
  * Init the addressing module
  * 
- * @st_funcMD5		DC7D10002E340DB726228B94093A0D5A
+ * @st_funcMD5		035167D86A5C1B6A0F972794E0D0E221
  * @st_funcID		LCCM644R0.FILE.006.FUNC.002
  */
 void vDS18B20_ADDX__Init(void)
@@ -57,7 +57,7 @@ void vDS18B20_ADDX__Init(void)
  * THIS IS VERY SLOW.  Several hundred sensors can take minutes to search.
  * If this is a problem, use the state machine based search.
  *
- * @st_funcMD5		F9DAB99D181E7906D9963CB303DAA609
+ * @st_funcMD5		B6B772269813720C0DD21DAF118A59B6
  * @st_funcID		LCCM644R0.FILE.006.FUNC.001
  */
 Lint16 s16DS18B20_ADDX__Search(void)
@@ -226,7 +226,7 @@ void vDS18B20_ADDX__SearchSM_Start(void)
  * @brief
  * State machine based search processing
  * 
- * @st_funcMD5		D420DCA7F2244E37123945CC640D005D
+ * @st_funcMD5		919A65C66B7AC9B46AE66ADE2BC12D20
  * @st_funcID		LCCM644R0.FILE.006.FUNC.004
  */
 void vDS18B20_ADDX__SearchSM_Process(void)
@@ -380,7 +380,70 @@ void vDS18B20_ADDX__SearchSM_Process(void)
 	}//switch(sDS18B20.sSearchState)
 }
 
-//returns the number of enumerated devices.
+
+/***************************************************************************//**
+ * @brief
+ * Manually upload an address into the device table.
+ *
+ * @note
+ * WARNING: Addresses must be loaded incrementally from 0 to n.  This function
+ * Will set the maximum enumerated index as +1 from the last supplied index
+ * 
+ * @param[in]		*pu8Addx				Pointer to the ROM ID
+ * @param[in]		u8Channel				The 1-wire channel (0 ro 1)
+ * @param[in]		u8Index					The index in the device table.
+ * @return			0 = success\n
+ *					-ve = error
+ * @st_funcMD5		C5F366E226D6FBF235ACD5DE610D696C
+ * @st_funcID		LCCM644R0.FILE.006.FUNC.006
+ */
+Lint16 s16DS18B20_ADDX__Upload_Addx(Luint8 u8Index, Luint8 u8Channel, Luint8 *pu8Addx)
+{
+	Lint16 s16Return;
+
+	if(u8Index < C_LOCALDEF__LCCM644__MAX_DEVICES)
+	{
+
+		//addx was in range, save addx data.
+		//Do this manually
+		sDS18B20.sDevice[u8Index].u8SerialNumber[0] = pu8Addx[0];
+		sDS18B20.sDevice[u8Index].u8SerialNumber[1] = pu8Addx[1];
+		sDS18B20.sDevice[u8Index].u8SerialNumber[2] = pu8Addx[2];
+		sDS18B20.sDevice[u8Index].u8SerialNumber[3] = pu8Addx[3];
+		sDS18B20.sDevice[u8Index].u8SerialNumber[4] = pu8Addx[4];
+		sDS18B20.sDevice[u8Index].u8SerialNumber[5] = pu8Addx[5];
+		sDS18B20.sDevice[u8Index].u8SerialNumber[6] = pu8Addx[6];
+		sDS18B20.sDevice[u8Index].u8SerialNumber[7] = pu8Addx[7];
+
+		sDS18B20.sDevice[u8Index].u8ChannelIndex = u8Channel;
+
+		//set the num devices to the max index.
+		//expected that user updates in order
+		sDS18B20.sEnum.u8NumDevices = u8Index + 1U;
+
+		//good
+		s16Return = 0;
+
+	}
+	else
+	{
+		//error
+		s16Return = -1;
+	}
+
+	//return the fault code
+	return s16Return;
+
+}
+
+/***************************************************************************//**
+ * @brief
+ * Returns the number of enumerated devices.
+ * 
+ * @return			The num enumerated, or manually added devices
+ * @st_funcMD5		78A160EF3A561E598B4CEED556011A47
+ * @st_funcID		LCCM644R0.FILE.006.FUNC.007
+ */
 Luint8 u8DS18B20_ADDX__Get_NumEnumerated(void)
 {
 	return sDS18B20.sEnum.u8NumDevices;
