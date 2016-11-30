@@ -104,6 +104,10 @@ void vFCU__Process(void)
 			//GIO
 			vRM4_GIO__Init();
 
+			//Setup the ADC
+			vRM4_ADC_USER__Init();
+
+
 			//change state
 			sFCU.eInitStates = INIT_STATE__INIT_IO;
 			break;
@@ -311,6 +315,9 @@ void vFCU__Process(void)
 
 		case INIT_STATE__RUN:
 
+			//Handle the ADC conversions
+			vRM4_ADC_USER__Process();
+
 			//process networking
 			#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 				vFCU_NET__Process();
@@ -323,8 +330,6 @@ void vFCU__Process(void)
 
 	}//switch(sFCU.eInitStates)
 
-	//Process the brakes
-	vFCU_BRAKES__Process();
 }
 
 
