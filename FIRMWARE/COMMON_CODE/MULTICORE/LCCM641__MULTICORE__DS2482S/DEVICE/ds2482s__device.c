@@ -425,7 +425,7 @@ Luint8 u8DS2482S_DEVICE__Wait_Busy(Luint8 u8DeviceIndex, Luint8 *pu8Status)
 			}
 
 			//wait a little bit
-			vRM4_DELAYS__Delay_uS(10U);
+			vDS18B20_DELAYS__Delay_uS(10U);
 		}
 		else
 		{

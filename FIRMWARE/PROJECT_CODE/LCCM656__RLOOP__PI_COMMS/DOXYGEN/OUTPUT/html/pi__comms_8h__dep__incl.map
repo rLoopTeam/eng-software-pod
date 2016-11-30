@@ -1,7 +1,0 @@
-<map id="pi_comms.h" name="pi_comms.h">
-<area shape="rect" id="node2" href="$pi__comms_8c.html" title="Main Pi Communictions module file. " alt="" coords="5,80,99,107"/>
-<area shape="rect" id="node3" href="$pi__comms____rm4_8c.html" title="RM4 portion of the Pi Comms module. " alt="" coords="123,80,283,107"/>
-<area shape="rect" id="node4" href="$pi__comms____rx_8c.html" title="Architecture neutral Rx code from Pi to Host. " alt="" coords="307,80,445,107"/>
-<area shape="rect" id="node5" href="$pi__comms____tx_8c.html" title="Architecture neutral transmit code from host to Pi. " alt="" coords="469,80,605,107"/>
-<area shape="rect" id="node6" href="$pi__comms____win32_8c.html" title="WIN32 emulation functions for the Pi Comms module. " alt="" coords="630,80,813,107"/>
-</map>
