@@ -43,7 +43,14 @@ void vFCU_BRAKES_SW__Init(void)
 	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].eSwitchState = SW_STATE__UNKNOWN;
 	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].eSwitchState = SW_STATE__UNKNOWN;
 
-//TODO: set flag if interrapt was seen
+	#if C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES == 1U
+		sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeenCnt = 0U;
+		sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeenCnt = 0U;
+		sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeenCnt = 0U;
+		sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeenCnt = 0U;
+	#endif
+
+	//TODO: set flag if interrupt was seen
 }
 
 void vFCU_BRAKES_SW__Process(void)
@@ -67,10 +74,10 @@ void vFCU_BRAKES_SW__Process(void)
 			}
 
 		}
-		//if both switches is closed, then flag fault; enum fault type
-		if (sFCU.sBrakes[(Luint8)u8Brake].sLimits[0].eSwitchState == SW_STATE__CLOSED && sFCU.sBrakes[(Luint8)u8Brake].sLimits[1].eSwitchState == SW_STATE__CLOSED)
+		//if both switches is closed, then flag fault
+		if (sFCU.sBrakes[(Luint8)u8Brake].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED && sFCU.sBrakes[(Luint8)u8Brake].sLimits[BRAKE_SW__RETRACT].eSwitchState == SW_STATE__CLOSED)
 		{
-			//set fault flags
+			//set fault flag
 			sFCU.sBrakes[(Luint8)u8Brake].u8BrakeSWErr = 1U;
 		}
 	}
@@ -115,30 +122,34 @@ E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_
 			switch(eSwitch)
 			{
 				case BRAKE_SW__EXTEND:
-					u32Temp = u32RM4_GIO__Get_Bit(gioPORTA, 0U);
+					// pin 1 (1U) is mapped to BRAKE_SW_EXTEND SWITCH
+					// @TODO: Create a mapping of GIO PINS to respective LIMIT SWITCH
+					u32Temp = u32RM4_GIO__Get_Bit(gioPORTA, 1U);
 					if(u32Temp == 0U)
-					{
-						//switch closed
-						eReturn = SW_STATE__CLOSED;
-					}
-					else
 					{
 						//switch open
 						eReturn = SW_STATE__OPEN;
+					}
+					else
+					{
+						//switch closed
+						eReturn = SW_STATE__CLOSED;
 					}
 					break;
 
 				case BRAKE_SW__RETRACT:
-					u32Temp = u32RM4_GIO__Get_Bit(gioPORTA, 1U);
+					// pin 0 (0U) is mapped to BRAKE_SW_RETRACT SWITCH
+					// @TODO: Create a mapping of GIO PINS to respective LIMIT SWITCH
+					u32Temp = u32RM4_GIO__Get_Bit(gioPORTA, 0U);
 					if(u32Temp == 0U)
-					{
-						//switch closed
-						eReturn = SW_STATE__CLOSED;
-					}
-					else
 					{
 						//switch open
 						eReturn = SW_STATE__OPEN;
+					}
+					else
+					{
+						//switch closed
+						eReturn = SW_STATE__CLOSED;
 					}
 					break;
 
@@ -210,6 +221,9 @@ void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void)
 		vSTEPDRIVE_LIMIT__Limit_ISR(0U);
 
 		sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 1U;
+		#if C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES == 1U
+				sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeenCnt++;
+		#endif
 	#endif
 }
 
@@ -225,6 +239,9 @@ void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void)
 		vSTEPDRIVE_LIMIT__Limit_ISR(0U);
 
 		sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 1U;
+		#if C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES == 1U
+				sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeenCnt++;
+		#endif
 	#endif
 }
 
@@ -241,6 +258,9 @@ void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void)
 		vSTEPDRIVE_LIMIT__Limit_ISR(1U);
 
 		sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 1U;
+		#if C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES == 1U
+				sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeenCnt++;
+		#endif
 	#endif
 }
 
@@ -256,6 +276,9 @@ void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void)
 		vSTEPDRIVE_LIMIT__Limit_ISR(1U);
 
 		sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 1U;
+		#if C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES == 1U
+				sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeenCnt++;
+		#endif
 	#endif
 }
 

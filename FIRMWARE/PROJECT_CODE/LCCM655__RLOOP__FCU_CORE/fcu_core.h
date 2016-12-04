@@ -75,6 +75,12 @@
 					 */
 					Luint8 u8EdgeSeen;
 
+					#if C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES == 1U
+						/** Debugs how many interrupts have been received
+						 */
+						Luint32 u8EdgeSeenCnt;
+					#endif
+
 					/** The program index for N2HET, even if not used on both channels */
 					Luint16 u16N2HET_Prog;
 
@@ -89,6 +95,9 @@
 				{
 					/** This is the sample from the ADC converter */
 					Luint16 u16ADC_Sample;
+
+					/** This is the filtered result from the raw sample */
+					Luint16 u16ADC_FilteredSample;
 
 					/** The zero value when the brakes are fully retracted */
 					Luint16 u16ADC_Zero;
@@ -114,7 +123,13 @@
 					/** Highest MLP Value				 */
 					Luint16 highest_value;
 
+					#if C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES == 1U
+						/** Debug how many times we get a zero */
+						Luint32 zero_count;
+					#endif
 
+					/** Temporary use; identify when startup sequence has ended and mlp won't return 0. */
+					Luint8 u8Running;
 				}sMLP;
 
 
