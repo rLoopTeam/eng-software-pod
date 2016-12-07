@@ -43,7 +43,7 @@ Change the build settings:
 	//normal bus division is either 1 or 2
 	//In 1x mode, VCLK1 is 100MHZ, in 2x mode VCLK is 50MHZ
 	//you may only need 2x mode if you need ultra lo SPI comms, etc.
-	#define C_LOCALDEF__SYSTEM__VCLK1_DIVISOR								(1U)
+	#define C_LOCALDEF__SYSTEM__VCLK1_DIVISOR								(2U)
 
 
 	//just here because of no EMIF
