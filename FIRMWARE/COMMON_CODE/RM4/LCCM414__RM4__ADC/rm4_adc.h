@@ -124,6 +124,7 @@
 	Lfloat32 f32RM4_ADC_USER__Get_Voltage(Luint8 u8DeviceIndex);
 	Luint8 u8RM4_ADC_USER__Is_ConversionInProgress(void);
 	Luint8 u8RM4_ADC_USER__Is_NewDataAvailable(void);
+	void vRM4_ADC_USER__Clear_NewDataAvailable(void);
 
 	void vRM4_ADC__Enable_GroupPin(RM4_ADC__INDEX_T eADC, RM4_ADC__GROUPS_T eGroup, Luint32 u32PinIndex);
 	void vRM4_ADC__Disable_GroupPin(RM4_ADC__INDEX_T eADC, RM4_ADC__GROUPS_T eGroup, Luint32 u32PinIndex);
