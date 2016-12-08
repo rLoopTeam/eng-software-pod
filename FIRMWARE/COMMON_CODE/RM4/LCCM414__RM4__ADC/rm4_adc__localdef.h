@@ -12,7 +12,7 @@
  */
 
 
-#if 0
+#if 1
 
 /*******************************************************************************
 ADC Module
@@ -40,8 +40,8 @@ ADC Module
 
 
 		/** Determine which of ADC1 to enable */
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN0						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN1						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN0						(1U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN1						(1U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN2						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN3						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN4						(0U)

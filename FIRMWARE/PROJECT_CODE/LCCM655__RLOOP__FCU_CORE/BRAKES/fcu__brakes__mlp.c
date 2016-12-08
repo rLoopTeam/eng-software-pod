@@ -128,9 +128,10 @@ void vFCU_BRAKES_MLP__Init(void)
 		vFAULTTREE__Set_Flag(&sFCU.sBrakes[1].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__03);
 
 
+
 	}//else if(u8Test == 1U)
 
-
+	vRM4_ADC_USER__StartConversion();
 }
 
 /***************************************************************************//**
@@ -217,7 +218,7 @@ void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
 	//check the ADC converter process
 	u8Convert = u8RM4_ADC_USER__Is_ConversionInProgress();
 	u8New = u8RM4_ADC_USER__Is_NewDataAvailable();
-	if((u8Convert == 0U) && (u8New == 1U))
+	if((u8New == 1U))
 	{
 
 		//determine the brake index
@@ -257,6 +258,7 @@ void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
 
 		//taken the data now
 		vRM4_ADC_USER__Clear_NewDataAvailable();
+		vRM4_ADC_USER__StartConversion();
 	}
 	else
 	{
