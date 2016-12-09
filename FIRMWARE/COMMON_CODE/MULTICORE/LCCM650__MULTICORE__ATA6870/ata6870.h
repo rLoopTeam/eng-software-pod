@@ -73,6 +73,12 @@
 				}sIRQ;
 		
 			}sDevice[C_LOCALDEF__LCCM650__NUM_DEVICES];
+
+			/** NTC Temperature Reading **/
+			Lfloat32 f32NTCTemperatureReading[C_LOCALDEF__LCCM650__NUM_DEVICES];
+
+			/** Voltages of a battery pack **/
+			Lfloat32 f32Voltage[C_LOCALDEF__LCCM650__NUM_6P_MODULES];
 		};
 
 		/*******************************************************************************

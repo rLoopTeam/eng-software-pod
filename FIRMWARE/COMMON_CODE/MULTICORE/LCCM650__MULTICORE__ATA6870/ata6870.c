@@ -42,6 +42,16 @@ void vATA6870__Init(void)
 	Luint8 u8Counter;
 	Luint8 u8Temp;
 
+	//Init NTC Temp reading and Voltages
+	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
+	{
+		sATA6870.f32NTCTemperatureReading[u8Counter] = 0;
+	}
+	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_6P_MODULES; u8Counter++)
+	{
+		sATA6870.f32Voltage[u8Counter] = 0;
+	}
+
 	//setup the lowlevel
 	vATA6870_LOWLEVEL__Init();
 	
@@ -81,6 +91,9 @@ void vATA6870__Init(void)
 
 	}
 
+	u8Temp = 0x01U;
+	vATA6870_LOWLEVEL__Reg_WriteU8(0U, ATA6870_REG__OPERATION, &u8Temp, 1U);
+
 
 	//make sure we have our devices
 	vATA6870_SCAN__Start();
@@ -98,10 +111,18 @@ void vATA6870__Init(void)
  */
 void vATA6870__Process(void)
 {
+	Luint8 u8Counter;
+	Luint8 u8VolCounter = 0U;
+
+	//read voltages from the battery pack, all 18 modules - each module is being treated as a cell
+	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
+	{
+		vATA6870_CELL__Get_Voltages(u8Counter, &sATA6870.f32Voltage[u8VolCounter], &sATA6870.f32NTCTemperatureReading[u8Counter]);
+		u8VolCounter += C_ATA6870__MAX_CELLS;
+	}
 
 	//process any balancer tasks.
 	vATA6870_BALANCE__Process();
-
 }
 
 

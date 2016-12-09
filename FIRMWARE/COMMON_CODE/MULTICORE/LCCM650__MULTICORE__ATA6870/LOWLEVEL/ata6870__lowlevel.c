@@ -313,7 +313,7 @@ Luint16 u16ATA6870_LOWLEVEL__Tx_DeviceID(Luint8 u8DeviceIndex, Luint8 *pu8CRC)
 	//generate the address of the device in the chain
 	u16Addx = 0x0001U;
 	u16Addx <<= (Luint16)u8DeviceIndex;
-	
+
 	//perform the transfer
 	unT.u16 = u16Addx;
 
