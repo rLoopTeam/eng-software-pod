@@ -12,6 +12,8 @@
 	#define C_FCU__NUM_BRAKES								(2U)
 
 
+	/** 2 Accel devices on the PCB - DO NOT CHANGE */
+	#define C_FCU__NUM_ACCEL_CHIPS							(2U)
 
 
 #endif /* RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__DEFINES_H_ */

@@ -39,11 +39,33 @@
 		/** Run the flight computer in startup, do any diagnostics, etc*/
 		RUN_STATE__STARTUP_MODE,
 
+		/** in this mode the pod takes care of its functional tests as a terminal countdown */
+		RUN_STATE__AUTO_SEQUENCE_MODE,
+
 		/** Run the flight computer in flight mode*/
 		RUN_STATE__FLIGHT_MODE,
 
+		/** we have aborted flight, need to cleanup systems, landing gear and safe the pod */
+		RUN_STATE__FLIGHT_ABORT,
+
 
 	}E_FCU__RUN_STATE_T;
+
+
+	/** Auto sequence functional mode cheks */
+	typedef enum
+	{
+		/** Come out of reset and handle any startup tasks*/
+		AUTOSEQ_STATE__RESET = 0U,
+
+		/** Doing nothing, return here when idle */
+		AUTOSEQ_STATE__IDLE,
+
+		AUTOSEQ_STATE__TEST_FUNCTION_X,
+
+
+	}E_FCU__AUTO_SEQUENCE_STATE_T;
+
 
 
 	/** Opto NCDT Laser processing subsystem state machine */
