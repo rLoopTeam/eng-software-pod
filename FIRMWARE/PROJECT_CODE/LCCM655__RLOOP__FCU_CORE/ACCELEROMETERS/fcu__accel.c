@@ -26,8 +26,10 @@ extern struct _strFCU sFCU;
 
 /***************************************************************************//**
  * @brief
- * Init any variables
- *
+ * Init the accel subsystem layer
+ * 
+ * @st_funcMD5		D264BD376B68C2C783DE6D1321A16048
+ * @st_funcID		LCCM655R0.FILE.010.FUNC.001
  */
 void vFCU_ACCEL__Init(void)
 {
@@ -100,11 +102,13 @@ void vFCU_ACCEL__Init(void)
 
 }
 
-
 /***************************************************************************//**
  * @brief
- * Process any Throttle tasks
+ * Process the accel's
+ * Call as fast as possible from the main loop
  * 
+ * @st_funcMD5		B97F20C16A7FF5AD8D9EB993D4D2337C
+ * @st_funcID		LCCM655R0.FILE.010.FUNC.002
  */
 void vFCU_ACCEL__Process(void)
 {
@@ -186,11 +190,34 @@ void vFCU_ACCEL__Process(void)
 
 }
 
+/***************************************************************************//**
+ * @brief
+ * Get the last recorded sample from the Accels
+ *
+ * @note
+ * If the accels fault out, this value wont update.
+ * 
+ * @param[in]		u8Axis					The axis index
+ * @param[in]		u8Index					The accel device index
+ * @return			The S16 last accel value
+ * @st_funcMD5		8BA7DA408E22C09AEF1CAEFD11E12ACF
+ * @st_funcID		LCCM655R0.FILE.010.FUNC.003
+ */
 Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis)
 {
 	return sFCU.sAccel.sChannels[u8Index].s16LastSample[u8Axis];
 }
 
+/***************************************************************************//**
+ * @brief
+ * Get the last G-Force calculated value
+ * 
+ * @param[in]		u8Axis					The axis index
+ * @param[in]		u8Index					The accel device index
+ * @return			The F32 last computed G-Force from each sensor
+ * @st_funcMD5		A1292B6EC9CD5190837BCF3CF23D23F6
+ * @st_funcID		LCCM655R0.FILE.010.FUNC.004
+ */
 Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis)
 {
 	return sFCU.sAccel.sChannels[u8Index].f32LastG[u8Axis];

@@ -25,12 +25,17 @@ extern struct _strFCU sFCU;
 
 /***************************************************************************//**
  * @brief
- * Init any variables
- *
+ * Init any variables as is needed by the main state machine
+ * 
+ * @st_funcMD5		5224534176289DBD9FF1B39936308C7E
+ * @st_funcID		LCCM655R0.FILE.020.FUNC.001
  */
 void vFCU_MAINSM__Init(void)
 {
 	sFCU.eRunState = RUN_STATE__RESET;
+
+	//init the auto sequence
+	vFCU_MAINSM_AUTO__Init();
 
 }
 
@@ -39,10 +44,13 @@ void vFCU_MAINSM__Init(void)
  * @brief
  * Process the main state machine
  * 
+ * @st_funcMD5		2C23D1564E9845C3BED5E00B06C0BBB3
+ * @st_funcID		LCCM655R0.FILE.020.FUNC.002
  */
 void vFCU_MAINSM__Process(void)
 {
 	Luint8 u8Counter;
+	Luint8 u8Test;
 
 	//hande the state machine.
 	switch(sFCU.eRunState)
@@ -106,15 +114,50 @@ void vFCU_MAINSM__Process(void)
 			//run what we need to in startup mode, checkout sensors and other diagnostics
 			break;
 
+		case RUN_STATE__AUTO_SEQUENCE_MODE:
+			//in this mode we are performing an auto-sequence
+
+			//see if we have an auto sequence abort
+			u8Test = u8FCU_MAINSM_AUTO__Is_Abort();
+			if(u8Test == 1U)
+			{
+				sFCU.eRunState = RUN_STATE__FLIGHT_ABORT;
+			}
+			else
+			{
+				u8Test = u8FCU_MAINSM_AUTO__Is_Busy();
+				if(u8Test == 1U)
+				{
+					//stay in state, we are still busy
+				}
+				else
+				{
+					//not busy and not abort, move to flight
+					sFCU.eRunState = RUN_STATE__FLIGHT_MODE;
+				}
+
+			}
+			break;
+
 		case RUN_STATE__FLIGHT_MODE:
 			//this is the flight mode controller
+			//if we are in this state, we are ready for flight
+			break;
+
+		case RUN_STATE__FLIGHT_ABORT:
+			//cleanup the pod and safe it
+			break;
+
+		default:
+			//should not get here
 			break;
 
 	}//switch(sFCU.eRunState)
 
-	//always process these items
-	if(sFCU.eRunState > RUN_STATE__RESET)
+	//always process these items after we have been initted
+	if(sFCU.eRunState > RUN_STATE__INIT_SYSTEMS)
 	{
+
 		//process the SC16IS interface always
 		for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM487__NUM_DEVICES; u8Counter++)
 		{
@@ -143,6 +186,11 @@ void vFCU_MAINSM__Process(void)
 		#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
 			vFCU_PICOMMS__Process();
 		#endif
+
+		//process auto-sequence control
+		vFCU_MAINSM_AUTO__Process();
+
+
 	}
 	else
 	{

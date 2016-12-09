@@ -26,6 +26,8 @@
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_defines.h>
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_types.h>
 
+		#include <LCCM655__RLOOP__FCU_CORE/NETWORKING/fcu_core__net__packet_types.h>
+
 
 		//for software fault tree handling
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
@@ -53,6 +55,9 @@
 
 			/** The main state machine for run mode */
 			E_FCU__RUN_STATE_T eRunState;
+
+			/** Auto sequence state machine */
+			E_FCU__AUTO_SEQUENCE_STATE_T eAutoSeqState;
 
 			/** The init statemachine */
 			E_FCU__INIT_STATE_TYPES eInitStates;
@@ -286,6 +291,7 @@
 
 			}sLasers;
 
+			#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 			/** Ethernet comms structure */
 			struct
 			{
@@ -297,6 +303,23 @@
 
 			}sEthernet;
 
+
+			/** UDP diagnostics system */
+			struct
+			{
+
+				/** A flag to indicate 10ms has elapsed if we are using timed packets */
+				Luint8 u810MS_Flag;
+
+				/** The next packet type to transmit */
+				E_FCU_NET_PACKET_TYPES eTxPacketType;
+
+				/** If the user has enabled Tx streaming */
+				E_FCU_NET_PACKET_TYPES eTxStreamingType;
+
+
+			}sUDPDiag;
+			#endif
 
 			#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
 			/** ASI Comms Layer */
@@ -348,6 +371,11 @@
 		void vFCU_NET_RX__RxUDP(Luint8 * pu8Buffer, Luint16 u16Length, Luint16 u16DestPort);
 		void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault);
 
+			//transmit
+			void vFCU_NET_TX__Init(void);
+			void vFCU_NET_TX__Process(void);
+			void vFCU_NET_TX__10MS_ISR(void);
+
 		//fault handling layer
 		void vFCU_FAULTS__Init(void);
 		void vFCU_FAULTS__Process(void);
@@ -357,6 +385,13 @@
 		//main state machine
 		void vFCU_MAINSM__Init(void);
 		void vFCU_MAINSM__Process(void);
+
+			//auto sequence
+			void vFCU_MAINSM_AUTO__Init(void);
+			void vFCU_MAINSM_AUTO__Process(void);
+			Luint8 u8FCU_MAINSM_AUTO__Is_Busy(void);
+			Luint8 u8FCU_MAINSM_AUTO__Is_Abort(void);
+
 
 		//lasers for OptoNCDT inerface
 		void vFCU_LASEROPTO__Init(void);
@@ -405,6 +440,7 @@
 		void vFCU_ACCEL__Process(void);
 		Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis);
 		Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis);
+		void vFCU_ACCEL_ETH__Transmit(E_FCU_NET_PACKET_TYPES ePacketType);
 
 		//Pusher interface
 		void vFCU_PUSHER__Init(void);

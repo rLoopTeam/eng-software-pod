@@ -28,7 +28,7 @@ struct _strFCU sFCU;
  * @brief
  * Init the FCU. Call this first thing.
  * 
- * @st_funcMD5		CC1CE932DF70839CDB882B5F32B8106A
+ * @st_funcMD5		2B87B49581828868F2B8726833317ADB
  * @st_funcID		LCCM655R0.FILE.000.FUNC.001
  */
 void vFCU__Init(void)
@@ -53,7 +53,7 @@ void vFCU__Init(void)
  * @brief
  * Process any FCU tasks.
  * 
- * @st_funcMD5		05CF3F7820A29ABF562E522CC9365071
+ * @st_funcMD5		92D4D90BE080ABD016BE3A72425C865F
  * @st_funcID		LCCM655R0.FILE.000.FUNC.002
  */
 void vFCU__Process(void)
@@ -343,11 +343,13 @@ void vFCU__Process(void)
 
 }
 
-
-
-
-
-//100ms timer
+/***************************************************************************//**
+ * @brief
+ * 100ms timer
+ * 
+ * @st_funcMD5		06B4A521A48891BB1E0C70746532CC66
+ * @st_funcID		LCCM655R0.FILE.000.FUNC.003
+ */
 void vFCU__RTI_100MS_ISR(void)
 {
 	#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
@@ -358,12 +360,24 @@ void vFCU__RTI_100MS_ISR(void)
 	#endif
 }
 
-//10ms timer
+/***************************************************************************//**
+ * @brief
+ * 10ms timer
+ * 
+ * @st_funcMD5		132920CE083F2C05C9100CBC35DA7876
+ * @st_funcID		LCCM655R0.FILE.000.FUNC.004
+ */
 void vFCU__RTI_10MS_ISR(void)
 {
 
-	//tell the pusher interface about us.
-	vFCU_PUSHER__10MS_ISR();
+	#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
+		vFCU_NET_TX__10MS_ISR();
+	#endif
+
+	#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
+		//tell the pusher interface about us.
+		vFCU_PUSHER__10MS_ISR();
+	#endif
 }
 
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
