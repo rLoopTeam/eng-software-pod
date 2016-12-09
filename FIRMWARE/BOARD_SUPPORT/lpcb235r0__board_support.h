@@ -43,7 +43,7 @@ Change the build settings:
 	//normal bus division is either 1 or 2
 	//In 1x mode, VCLK1 is 100MHZ, in 2x mode VCLK is 50MHZ
 	//you may only need 2x mode if you need ultra lo SPI comms, etc.
-	#define C_LOCALDEF__SYSTEM__VCLK1_DIVISOR								(2U)
+	#define C_LOCALDEF__SYSTEM__VCLK1_DIVISOR								(1U)
 
 
 	//just here because of no EMIF
@@ -846,6 +846,10 @@ SOFTWARE FIFO
 	#define C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE == 1U
 
+		/** Software FIFO depth size, U8 = 255 or U16 = 65K, not both */
+		#define C_LOCALDEF__LCCM357__FIFO_DEPTH_U8							(0U)
+		#define C_LOCALDEF__LCCM357__FIFO_DEPTH_U16							(1U)
+
 		//testing options
 		#define C_LOCALDEF__LCCM357__ENABLE_TEST_SPEC						(0U)
 
@@ -1306,6 +1310,73 @@ EMAC Module
 		#include <RM4/LCCM254__RM4__EMAC/rm4_emac.h>
 
 	#endif //C_LOCALDEF__LCCM254__ENABLE_THIS_MODULE
+
+/*******************************************************************************
+RM48 - CPU LOAD MEASUREMENT
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM663__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM663__ENABLE_THIS_MODULE == 1U
+
+		/** The filtering size for the percentage trend */
+		#define C_LOCALDEF__LCCM663__FILTER_WINDOW							(4U)
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM663__ENABLE_TEST_SPEC						(0U)
+
+		/** Main include file */
+		#include <RM4/LCCM663__RM4__CPU_LOAD/rm4_cpuload.h>
+	#endif //#if C_LOCALDEF__LCCM663__ENABLE_THIS_MODULE == 1U
+
+
+/*******************************************************************************
+MULTIPURPOSE DAQ MODULE
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
+
+		/** Number of DAQ channels in each data format
+		* The channels are allocated on an index basis in descending order
+		* with F32 being the last channel. If you change the number of channels
+		* The indexing needs to change. Macros are avail for this.
+		*/
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U8					(1U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S16					(1U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U16					(1U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S32					(1U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U32					(1U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__F32					(1U)
+
+		/** Maximum length of DAQ data for each channel in 4 byte blocks
+		* WARNING: Value must be divisible by 4 and will be aligned.*/
+		#define C_LOCALDEF__LCCM662__MAX_DAQ_BUFFER_BLOCKS					(128U)
+
+		/** The level at which a notification should occur on all buffers
+		 * For buffers that are not 4 bytes, this value will be expanded.
+		 *  */
+		#define C_LOCALDEF__LCCM662__BUFFER_WATERMARK_LEVEL					(64U)
+
+		/** enable double buffering of DAQ channels */
+		#define C_LOCALDEF__LCCM662__ENABLE_DOUBLE_BUFFER					(0U)
+
+		/** Enable user payload types, otherwise use the standard 0x1210+ for up
+		 * to 128 streams. Typically this is 0
+		 */
+		#define C_LOCALDEF__LCCM662__ENABLE_USER_PAYLOAD_TYPES				(0U)
+
+		/** Enable a snapshot of the core timer along with each channel of data
+		* this chews NUM_CHANNELS * 4 worth of bytes and will have a slight performance
+		* penalty */
+		#define C_LOCALDEF__LCCM662__ENABLE_TIMER_IN_DATA					(0U)
+
+		/** Transmission notification handler */
+		#define M_LOCALDEF__LCCM662__TX_HANDLER(index, pbuffer, length)		s16DAQ_TRANSMIT__Template(index, pbuffer, length)
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM662__ENABLE_TEST_SPEC						(0U)
+
+		/** Main include file */
+		#include <MULTICORE/LCCM662__MULTICORE__DAQ/daq.h>
+	#endif //#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
 
 #endif //_LPCB235R0_BOARD_SUPPORT_H_
 

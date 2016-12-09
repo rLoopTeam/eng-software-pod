@@ -143,6 +143,14 @@
 
 			}sDHCP;
 			#endif
+			
+			#ifdef WIN32
+			struct
+			{
+				/** Temp Assy buffer for WIN32 systems */
+				Luint8 u8WIN32_AssemblyBuffer[1600];
+			}sWIN32;
+			#endif
 
 		};
 	
@@ -154,6 +162,7 @@
 		Lint16 s16ETHERNET_FIFO__Pop(Luint8 * pu8BufferIndex, Luint16 * pu16PacketLength);
 		void vETHERNET_FIFO__Peek(Luint8 u8BufferPos, Luint8 * pu8BufferIndex, Luint16 * pu16PacketLength);
 		Lint16 s16ETHERNET_FIFO__Push(Luint16 u16PacketLength);
+		void vETH_FIFO__Push_UpdateLength(Luint8 u8FIFOIndex, Luint16 u16NewLength);
 		void vETHERNET_FIFO__Transmit(void);
 		void vETHERNET_FIFO__Reset(void);
 		
@@ -186,6 +195,14 @@
 		void vETHERNET_ARP__Reply(void);
 		void vETHERNET_ARP__Gratuitous(void);
 		
+		//SNMP
+		#if C_LOCALDEF__LCCM325__ENABLE_SNMP == 1U
+			void vETH_SNMP__Init(void);
+			void vETH_SNMP__Process(void);
+			void vETH_SNMP__Input(Luint8 * pu8Buffer);
+			void vETH_SNMP__Transmit(Luint16 *pu16OID, Luint8 u8OIDLength, Luint8 u8RequestType);
+		#endif
+
 		//udp
 		void vETHERNET_UDP__Transmit(Luint16 u16Length, Luint16 u16SourcePort, Luint16 u16DestPort);
 		#if (C_LOCALDEF__LCCM325__USE_ON_XILINX == 1U) || (C_LOCALDEF__LCCM325__USE_ON_WIN32 == 1U)
@@ -210,8 +227,10 @@
 
 		//buffer desc
 		Luint32 u32ETHERNET_BUFFERDESC__Get_TxBufferPointer(Luint8 u8BufferIndex);
+		Luint16 u16ETHERNET_BUFFERDESC__Get_BufferSize(Luint8 u8BufferIndex);
 		
 		#ifdef WIN32
+			void vETH_WIN32__Init(void);
 			//declare the type
 			typedef void (__cdecl * pETHERNET_WIN32__TxCallback_FuncType)(Luint8 * pu8Buffer, Luint16 u16BufferLength);
 			DLL_DECLARATION void vETHERNET_WIN32__Set_Ethernet_TxCallback(pETHERNET_WIN32__TxCallback_FuncType pFunc);
@@ -250,6 +269,7 @@
 			void vLCCM325_TS_027(void);
 			void vLCCM325R0_TS_028(void);
 			void vLCCM325R0_TS_029(void);
+			DLL_DECLARATION void vLCCM325R0_TS_040(void);
 		#endif
 	
 	#endif //C_LOCALDEF__LCCM325__ENABLE_THIS_MODULE

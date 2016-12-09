@@ -14,23 +14,35 @@
  */
 
 
+
 #ifndef __SOFTWARE_FIFO_PUBLIC_H_
 #define __SOFTWARE_FIFO_PUBLIC_H_
+
+	/*******************************************************************************
+	Defines
+	*******************************************************************************/
+	#if C_LOCALDEF__LCCM357__FIFO_DEPTH_U16 == 1U
+		#define C_SOFTFIFO__DT												Luint16
+	#elif C_LOCALDEF__LCCM357__FIFO_DEPTH_U8 == 1U
+		#define C_SOFTFIFO__DT												Luint8
+	#else
+		#error
+	#endif
 
 	/** FIFO Structure */
 	typedef struct
 	{
 		/** user configurable fifo depth */
-		Luint8 u8FIFO_Depth;
+		C_SOFTFIFO__DT uFIFO_Depth;
 	
 		//FIFO Positions
-		Luint8 u8FIFO_WritePosition;
-		Luint8 u8FIFO_ReadPosition;
+		C_SOFTFIFO__DT uFIFO_WritePosition;
+		C_SOFTFIFO__DT uFIFO_ReadPosition;
 				
 		//the full flag is set by the write position going to the end.
 		Luint8 u8FIFO_Full;
 		Luint8 u8FIFO_Empty;
-		Luint8 u8FIFO_FillLevel;
+		C_SOFTFIFO__DT uFIFO_FillLevel;
 
 		/** Indicates that the FIFO is busy writing, and therfore a read should be delayed*/
 		Luint8 u8FIFO_WriteBusy;

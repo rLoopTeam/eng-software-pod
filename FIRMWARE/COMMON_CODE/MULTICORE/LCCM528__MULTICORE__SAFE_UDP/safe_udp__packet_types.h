@@ -33,6 +33,16 @@
 		SAFE_UDP__LCCM111__RETURN_IMAGER_CHUNK = 0x1101U,
 
 
+        ////////////////////////////////////////////////
+        // LCCM662 - DAQ
+        // 0x1200 - 0x12FF
+        ////////////////////////////////////////////////
+        SAFE_UDP__LCCM662__DAQ_STREAMING_CONTROL = 0x1200U,
+
+        //support 64 streams
+        SAFE_UDP__LCCM662__DAQ_DATA_PACKET_START = 0x1210U,
+        SAFE_UDP__LCCM662__DAQ_DATA_PACKET_END = 0x1290U,
+
 		////////////////////////////////////////////////
 		// LCCM293 - CNC MACHINE - XYZ
 		// 0x2100 - 0x21FF

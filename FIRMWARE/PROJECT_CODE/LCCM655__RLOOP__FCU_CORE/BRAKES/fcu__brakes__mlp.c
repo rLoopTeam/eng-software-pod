@@ -131,6 +131,7 @@ void vFCU_BRAKES_MLP__Init(void)
 
 	}//else if(u8Test == 1U)
 
+	//now that we are ready, start the conversions.
 	vRM4_ADC_USER__StartConversion();
 }
 
@@ -212,13 +213,11 @@ void vFCU_BRAKES_MLP__Process(void)
  */
 void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
 {
-	Luint8 u8Convert;
 	Luint8 u8New;
 
 	//check the ADC converter process
-	u8Convert = u8RM4_ADC_USER__Is_ConversionInProgress();
 	u8New = u8RM4_ADC_USER__Is_NewDataAvailable();
-	if((u8New == 1U))
+	if(u8New == 1U)
 	{
 
 		//determine the brake index
@@ -258,7 +257,6 @@ void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
 
 		//taken the data now
 		vRM4_ADC_USER__Clear_NewDataAvailable();
-		vRM4_ADC_USER__StartConversion();
 	}
 	else
 	{

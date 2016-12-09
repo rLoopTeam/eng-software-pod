@@ -99,6 +99,9 @@
 				//the current stack position
 				Luint8 u8StackPos;
 
+				/** Transmit in progress indicator */
+				Luint8 u8TxInProgress;
+
 			}sTxStack;
 
 
@@ -190,6 +193,8 @@
 
 		//Tx
 		void vRM4_EMAC_TX__Tx_IntHandler(void);
+		void vRM4_EMAC_TX__Set_TxBusy(void);
+		Luint8 u8RM4_EMAC_TX__Get_IsBusy(void);
 
 
 		Lint16 s16RM4_EMAC_LINK__Link_Setup(void);
