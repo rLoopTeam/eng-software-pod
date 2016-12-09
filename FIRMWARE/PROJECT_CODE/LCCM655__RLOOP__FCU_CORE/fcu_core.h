@@ -11,7 +11,9 @@
 	#include <localdef.h>
 	#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 
-		//state machine types
+		/*******************************************************************************
+		Includes
+		*******************************************************************************/
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__types.h>
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__defines.h>
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__enums.h>
@@ -21,6 +23,10 @@
 		#include <LCCM655__RLOOP__FCU_CORE/BRAKES/fcu__brakes__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/ACCELEROMETERS/fcu__accel__fault_flags.h>
 
+		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_defines.h>
+		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_types.h>
+
+
 		//for software fault tree handling
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
 
@@ -29,6 +35,12 @@
 		*******************************************************************************/
 		#define C_MLP__MAX_AVERAGE_SIZE				(8U)
 
+
+		// number of ASI commands waiting in queue
+		#define C_ASI__COMMAND_QUEUE				(8)
+
+		// max modbus frame size
+		#define C_ASI__MAX_FRAME_SIZE				(256)
 
 		/*******************************************************************************
 		Structures
@@ -285,6 +297,35 @@
 
 			}sEthernet;
 
+
+			#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
+			/** ASI Comms Layer */
+			struct
+			{
+				/** the modbus state */
+				E_FCU_MODBUS__STATE_T eMbState;
+
+				/** a circular queue of modbus commands to ASI devices */
+				struct _strASICmd cmdQueue[C_ASI__COMMAND_QUEUE];
+
+				/** command queue head index*/
+				Lint8 qHead;
+
+				/** command queue tail index*/
+				Lint8 qTail;
+
+				/** a set of timers to control tx timeouts */
+				Luint64 timeout_3_5_char;
+				Luint64 timeout_1_5_char;
+				Luint64 timeout_response;
+				Luint64 timeout_turnaround;
+				Luint64 timer_3_5_char_start;
+				Luint64 timer_1_5_char_start;
+				Luint64 timer_response_start;
+				Luint64 timer_turnaround_start;
+
+			}sASIComms;
+			#endif
 
 			/** Structure guard 2*/
 			Luint32 u32Guard2;

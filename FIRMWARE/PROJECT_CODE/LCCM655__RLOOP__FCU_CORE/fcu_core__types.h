@@ -2,6 +2,31 @@
 #ifndef RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__TYPES_H_
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__TYPES_H_
 
+	/** ASI communication (modbus client) states */
+	typedef enum
+	{
+		/** Initial state */
+		ASI_COMM_STATE__INITIAL = 0u,
+
+		/** Idle state */
+		ASI_COMM_STATE__IDLE = 1u,
+
+		/** Transmit to all slaves */
+		ASI_COMM_STATE__BROADCAST_EMISSION = 2u,
+
+		/** Transmit to a specific slave */
+		ASI_COMM_STATE__UNICAST_EMISSION = 3u,
+
+		/** Receive state */
+		ASI_COMM_STATE__RECEPTION = 4u,
+
+		/** Process reply or error */
+		ASI_COMM_STATE__CONTROL_AND_WAIT = 5u
+
+	} E_FCU_MODBUS__STATE_T;
+
+
+
 	/** Run state types */
 	typedef enum
 	{
