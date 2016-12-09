@@ -320,6 +320,8 @@ void vDS18B20_ADDX__SearchSM_Process(void)
 						//limit
 						sDS18B20.sEnum.u8NumDevices = C_LOCALDEF__LCCM644__MAX_DEVICES - 1U;
 					}
+
+					u8Flag = 0U;
 				}
 				else
 				{

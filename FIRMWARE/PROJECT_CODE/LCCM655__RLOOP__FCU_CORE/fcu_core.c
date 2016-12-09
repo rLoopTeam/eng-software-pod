@@ -107,6 +107,8 @@ void vFCU__Process(void)
 			//Setup the ADC
 			vRM4_ADC_USER__Init();
 
+			//CPU load monitoring
+			vRM4_CPULOAD__Init();
 
 			//change state
 			sFCU.eInitStates = INIT_STATE__INIT_IO;
@@ -315,6 +317,12 @@ void vFCU__Process(void)
 
 		case INIT_STATE__RUN:
 
+			//CPU load processing
+			vRM4_CPULOAD__Process();
+
+			//start of while entry point
+			vRM4_CPULOAD__While_Entry();
+
 			//Handle the ADC conversions
 			vRM4_ADC_USER__Process();
 
@@ -325,6 +333,9 @@ void vFCU__Process(void)
 
 			//process the main state machine
 			vFCU_MAINSM__Process();
+
+			//end of while loop
+			vRM4_CPULOAD__While_Exit();
 
 			break;
 

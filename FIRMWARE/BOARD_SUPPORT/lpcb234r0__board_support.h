@@ -59,7 +59,7 @@ Change the build settings:
 	//normal bus division is either 1 or 2
 	//In 1x mode, VCLK1 is 100MHZ, in 2x mode VCLK is 50MHZ
 	//you may only need 2x mode if you need ultra lo SPI comms, etc.
-	#define C_LOCALDEF__SYSTEM__VCLK1_DIVISOR								(1U)
+	#define C_LOCALDEF__SYSTEM__VCLK1_DIVISOR								(2U)
 
 
 	//just here because of no EMIF
@@ -629,6 +629,148 @@ EMAC Module
 		#include <RM4/LCCM254__RM4__EMAC/rm4_emac.h>
 
 	#endif //C_LOCALDEF__LCCM254__ENABLE_THIS_MODULE
+
+
+/*******************************************************************************
+ADC Module
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
+
+		/** The number of ADC channels (modules) being used
+		 * Keep a 1 for now
+		 */
+		#define C_LOCALDEF__LCCM414__NUM_ADC_MODULES						(1U)
+
+		/** Continuous Conversion Mode:  When enabled the ADC
+		 * Will always keep making samples of the configured channels
+		 */
+		#define C_LOCALDEF__LCCM414__ENABLE_CONTINUOUS_CONVERSION			(0U)
+
+		/** Averaging is enabled across all channels.
+		 * It can consume serious CPU time for a fully enabled ADC
+		 */
+		#define C_LOCALDEF__LCCM414__ENABLE_AVERAGING						(1U)
+
+		/** The number of samples for each channels ADC averager */
+		#define C_LOCALDEF__LCCM414__AVERAGE_MAX_SAMPLES					(4U)
+
+
+		/** Determine which of ADC1 to enable */
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN0						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN1						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN2						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN3						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN4						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN5						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN6						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN7						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN8						(1U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN9						(1U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN10						(1U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN11						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN12						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN13						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN14						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN15						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN16						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN17						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN18						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN19						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN20						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN21						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN22						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN23						(0U)
+
+		/** The number of connected devices to the ADC's
+		 * We store a local copy of our ADC results in a user addressable
+		 * structure to reduce the complexity of finding our result
+		 * Value can be from 1 to 24
+		 */
+		#define C_LOCALDEF__LCCM414__NUM_CONNECTED_DEVICES					(3U)
+
+		/** For each device we determine the location of the device within our strucrture
+		 * You must configure an index from 0 to NUM_CONNECTED_DEVICES - 1
+		 * No two units may have the same index
+		 * Example MAP ADC1_IN0 to Device (1)
+		 */
+		#define C_LOCALDEF__LCCM414__ADC1_IN0__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN1__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN2__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN3__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN4__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN5__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN6__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN7__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN8__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN9__INDEX						(1U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN10__INDEX						(2U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN11__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN12__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN13__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN14__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN15__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN16__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN17__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN18__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN19__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN20__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN21__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN22__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN23__INDEX						(0U)
+
+		/** Enable voltage conversion to return the voltage value
+		 * for a device.  This reduces the external workload to compute the
+		 * voltage based on VREF
+		 */
+		#define C_LOCALDEF__LCCM414__ENABLE_VOLTAGE_CALC					(1U)
+
+
+		#define C_LOCALDEF__LCCM414__ENABLE_INTERRUPTS						(0U)
+
+		#define C_LOCALDEF__LCCM414__ENABLE_TEST_SPEC						(0U)
+
+
+
+		//main include file
+		#include <RM4/LCCM414__RM4__ADC/rm4_adc.h>
+	#endif //C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE
+
+/*******************************************************************************
+GENERAL PURPOSE
+SOFTWARE FIFO
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE == 1U
+
+		/** Software FIFO depth size, U8 = 255 or U16 = 65K, not both */
+		#define C_LOCALDEF__LCCM357__FIFO_DEPTH_U8							(0U)
+		#define C_LOCALDEF__LCCM357__FIFO_DEPTH_U16							(1U)
+
+		//testing options
+		#define C_LOCALDEF__LCCM357__ENABLE_TEST_SPEC						(0U)
+
+		//main include file
+		#include <MULTICORE/LCCM357__MULTICORE__SOFTWARE_FIFO/software_fifo.h>
+
+	#endif //C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE
+
+
+/*******************************************************************************
+RM48 - CPU LOAD MEASUREMENT
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM663__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM663__ENABLE_THIS_MODULE == 1U
+
+		/** The filtering size for the percentage trend */
+		#define C_LOCALDEF__LCCM663__FILTER_WINDOW							(4U)
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM663__ENABLE_TEST_SPEC						(0U)
+
+		/** Main include file */
+		#include <RM4/LCCM663__RM4__CPU_LOAD/rm4_cpuload.h>
+	#endif //#if C_LOCALDEF__LCCM663__ENABLE_THIS_MODULE == 1U
 
 #endif //_LPCB234R0_BOARD_SUPPORT_H_
 

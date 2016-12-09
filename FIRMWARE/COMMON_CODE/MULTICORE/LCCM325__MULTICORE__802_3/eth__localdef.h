@@ -32,11 +32,12 @@ ETHERNET TRANSPORT
 		#define C_LOCALDEF__LCCM325__XILINX_USE_NPI_INTERFACE				(0U)
 
 		//various protocol options
-		//DHCP Client
+		/** DHCP Client */
 		#define C_LOCALDEF__LCCM325__ENABLE_DHCP_CLIENT						(0U)
-		//Link Layer Discovery Protocol
+		/** Link Layer Discovery Protocol */
 		#define C_LOCALDEF__LCCM325__ENABLE_LLDP							(0U)
-
+		/** Simple Network Management Protocol */
+		#define C_LOCALDEF__LCCM325__ENABLE_SNMP							(0U)
 
 		//UDP Rx
 		#define C_LOCALDEF__LCCM325__UDP_RX_CALLBACK(buffer,length,port)	vSAFE_UDP_RX__UDPPacket(buffer, length, port)
@@ -47,7 +48,7 @@ ETHERNET TRANSPORT
 
 		//protocol specific options
 		//set to 1 to consider port numbers
-		#define C_LOCALDEF__LCCM325__PROTO_UDP__ENABLE_PORT_NUMBERS			(1U)
+		#define C_LOCALDEF__LCCM325__PROTO_UDP__ENABLE_PORT_NUMBERS			(0U)
 
 		//main include file
 		#include <MULTICORE/LCCM325__MULTICORE__802_3/eth.h>

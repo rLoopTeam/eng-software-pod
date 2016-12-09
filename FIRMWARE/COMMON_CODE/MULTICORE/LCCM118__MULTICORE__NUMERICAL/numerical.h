@@ -117,6 +117,17 @@
 	DLL_DECLARATION Lfloat32 f32NUMERICAL_CONVERT__Array_BIGENDIAN(const Luint8 *pu8Array);
 	Lfloat64 f64NUMERICAL_CONVERT__Array(const Luint8 *pu8Array);
 
+	//arrays
+	void vNUM_ARRAY__Insert_U8(Luint8 *pu8Array, Luint8 u8ArrayLength, Luint8 u8InsertPosition, Luint8 u8InsertValue);
+	
+	//binary
+	void vNUM_BINARY__ToBitArray_U8(Luint8 u8Value, Luint8 *pu8Array);
+	void vNUM_BINARY__ToBitArray_U16(Luint16 u16Value, Luint8 *pu8Array);
+	void vNUM_BINARY__ToBitArray_U32(Luint32 u32Value, Luint8 *pu8Array);
+	Luint8 u8NUM_BINARY__FromBitArray(Luint8 *pu8Array);
+	Luint16 u16NUM_BINARY__FromBitArray(Luint8 *pu8Array);
+	Luint32 u32NUM_BINARY__FromBitArray(Luint8 *pu8Array);
+	
 	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U16(Luint8 *pu8Array, Luint16 u16Value);
 	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U16_LITTLEENDIAN(Luint8 *pu8Array, Luint16 u16Value);
 	DLL_DECLARATION void vNUMERICAL_CONVERT__Array_U16_BIGENDIAN(Luint8 *pu8Array, Luint16 u16Value);

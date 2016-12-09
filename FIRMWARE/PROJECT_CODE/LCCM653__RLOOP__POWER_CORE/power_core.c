@@ -94,6 +94,9 @@ void vPWRNODE__Process(void)
 			//GIO
 			vRM4_GIO__Init();
 
+			//CPU Load minitoring
+			vRM4_CPULOAD__Init();
+
 			//setup UART, SCI2 = Pi Connection
 			vRM4_SCI__Init(SCI_CHANNEL__2);
 			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 57600U);
@@ -144,6 +147,9 @@ void vPWRNODE__Process(void)
 			break;
 
 		case INIT_STATE__DC_CONVERTER:
+
+			//startup the ADC for voltage and current measurement.
+			vRM4_ADC_USER__Init();
 
 			//make sure we latch on the DC/DC converter now.
 			#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
@@ -261,11 +267,26 @@ void vPWRNODE__Process(void)
 			//Starts the counter zero
 			vRM4_RTI__Start_Counter(0);
 
+			//kick off the ADC too
+			vRM4_ADC_USER__StartConversion();
+
 			//move state
 			sPWRNODE.sInit.eState = INIT_STATE__RUN;
 			break;
 
 		case INIT_STATE__RUN:
+
+
+			//CPU load monitoring processing.
+			vRM4_CPULOAD__Process();
+
+			//mark the entry point
+			vRM4_CPULOAD__While_Entry();
+
+			//process any ADC averaging.
+			vRM4_ADC_USER__Process();
+
+
 
 			//normal run state
 			#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
@@ -305,6 +326,10 @@ void vPWRNODE__Process(void)
 
 			//process the main state machine
 			vPWRNODE_SM__Process();
+
+
+			//mark th exit point
+			vRM4_CPULOAD__While_Exit();
 
 		break;
 

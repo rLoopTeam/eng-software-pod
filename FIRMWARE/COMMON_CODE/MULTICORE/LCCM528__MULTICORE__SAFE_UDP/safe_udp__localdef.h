@@ -24,6 +24,7 @@ SAFETY UDP LAYER
 		/* Architecture Options*/
 		#define C_LOCALDEF__LCCM528__USE_ON_XILINX							(0U)
 		#define C_LOCALDEF__LCCM528__USE_ON_RM4								(0U)
+		#define C_LOCALDEF__LCCM528__USE_ON_MSP430							(0U)
 		#define C_LOCALDEF__LCCM528__USE_ON_WIN32							(0U)
 
 		/** User Rx Callback

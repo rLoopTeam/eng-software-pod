@@ -19,12 +19,24 @@
 	#include <localdef.h>
 	
 	#if C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE == 1U
+
+		/*******************************************************************************
+		Includes
+		*******************************************************************************/
 		#include <MULTICORE/LCCM357__MULTICORE__SOFTWARE_FIFO/software_fifo__public.h>
-	
-		//function prots
-		void vSOFTFIFO__Init(SOFTWARE_FIFO__USER_T * pUserT, Luint8 u8Depth);
+
+
+
+
+
+		/*******************************************************************************
+		Function Prototypes
+		*******************************************************************************/
+		void vSOFTFIFO__Init(SOFTWARE_FIFO__USER_T * pUserT, C_SOFTFIFO__DT uDepth);
+		void vSOFTFIFO__Flush(SOFTWARE_FIFO__USER_T * pUserT);
 		Lint16 s16SOFTFIFO__Push(SOFTWARE_FIFO__USER_T * pUserT);
 		Lint16 s16SOFTFIFO__Pop(SOFTWARE_FIFO__USER_T * pUserT);
+		Lint16 s16SOFTFIFO__PopMany(SOFTWARE_FIFO__USER_T *pUserT, Luint16 u16Num);
 		Luint8 u8SOFTFIFO__Is_Empty(const SOFTWARE_FIFO__USER_T * pUserT);
 		Luint8 u8SOFTFIFO__Is_Full(const SOFTWARE_FIFO__USER_T * pUserT);
 		Luint8 u8SOFTFIFO__Get__WritePosition(const SOFTWARE_FIFO__USER_T * pUserT);
@@ -39,6 +51,20 @@
 			DLL_DECLARATION void vLCCM357R0_TS_011(void);
 			DLL_DECLARATION void vLCCM357R0_TS_012(void);
 		#endif
+
+
+	//safetys
+	#ifndef C_LOCALDEF__LCCM357__FIFO_DEPTH_U16
+		#error
+	#endif
+	#ifndef C_LOCALDEF__LCCM357__FIFO_DEPTH_U8
+		#error
+	#endif
+	#if C_LOCALDEF__LCCM357__FIFO_DEPTH_U16 == 1U
+		#if C_LOCALDEF__LCCM357__FIFO_DEPTH_U8 == 1U
+			#error
+		#endif
+	#endif
 
 	#endif //C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE
 	#ifndef C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE

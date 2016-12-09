@@ -25,6 +25,13 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
 	<linkedResources>
+	
+		<link>
+			<name>MULTICORE/LCCM662__MULTICORE__DAQ</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/MULTICORE/LCCM662__MULTICORE__DAQ</locationURI>
+		</link>	
+	
 		<link>
 			<name>MULTICORE/LCCM528__MULTICORE__SAFE_UDP</name>
 			<type>2</type>
@@ -220,6 +227,11 @@
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM254__RM4__EMAC</locationURI>
 		</link>	
+		<link>
+			<name>RM4/LCCM663__RM4__CPU_LOAD</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM663__RM4__CPU_LOAD</locationURI>
+		</link>
 	</linkedResources>
 	<filteredResources>
 		<filter>

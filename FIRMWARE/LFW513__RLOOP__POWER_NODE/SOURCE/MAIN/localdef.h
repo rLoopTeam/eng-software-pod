@@ -31,6 +31,7 @@ ETHERNET TRANSPORT
 		#define C_LOCALDEF__LCCM325__ENABLE_DHCP_CLIENT						(0U)
 		//Link Layer Discovery Protocol
 		#define C_LOCALDEF__LCCM325__ENABLE_LLDP							(0U)
+		#define C_LOCALDEF__LCCM325__ENABLE_SNMP							(0U)
 
 		//UDP Rx
 		#define C_LOCALDEF__LCCM325__UDP_RX_CALLBACK(buffer,length,dest_port)	vPWRNODE_NET_RX__RxUDP(buffer, length, dest_port)

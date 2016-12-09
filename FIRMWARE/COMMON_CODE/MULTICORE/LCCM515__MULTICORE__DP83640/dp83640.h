@@ -16,9 +16,6 @@
 #ifndef _DP83640_H_
 #define _DP83640_H_
 	#include <localdef.h>
-	/**
-	 * @defgroup DP83640
-	 * @{ */
 	#if C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE == 1U
 
 		#include <MULTICORE/LCCM515__MULTICORE__DP83640/dp83640__private.h>
@@ -88,7 +85,6 @@
 	#ifndef C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE
 		#error
 	#endif
-	/** @} */
 
 #endif //_DP83640_H_
 

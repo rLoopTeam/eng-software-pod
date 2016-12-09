@@ -23,6 +23,10 @@ SOFTWARE FIFO
 	#define C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE == 1U
 	
+		/** Software FIFO depth size, U8 = 255 or U16 = 65K, not both */
+		#define C_LOCALDEF__LCCM357__FIFO_DEPTH_U8							(1U)
+		#define C_LOCALDEF__LCCM357__FIFO_DEPTH_U16							(0U)
+
 		//testing options
 		#define C_LOCALDEF__LCCM357__ENABLE_TEST_SPEC						(0U)
 	
