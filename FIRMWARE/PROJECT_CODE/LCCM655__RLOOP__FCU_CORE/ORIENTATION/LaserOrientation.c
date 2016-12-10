@@ -25,7 +25,7 @@
 	// - will want to calc roll/pitch as seen by two sets of 3 lasers (a,b,c; b,c,d)
 	//	and return angle of twisting based on any discrepancy between the two measurements
 
-
+#include "../fcu_core.h"
 #include "LaserOrientation.h"
 #include "../../../COMMON_CODE/MULTICORE/LCCMXXX__MULTICORE__OPTONCDT/optoncdt.c" // TODO: check this
 
