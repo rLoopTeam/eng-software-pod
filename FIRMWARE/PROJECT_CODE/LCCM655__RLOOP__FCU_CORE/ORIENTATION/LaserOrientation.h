@@ -41,6 +41,7 @@ struct _strComponent // TODO: might want to make a separate one for HE/laser, so
 {
 	Lfloat32 f32Position[3]; // x,y,z
 	Lfloat32 f32Measurement; // measurement returned from the distance lasers; height of hover engines above ground
+	// TODO: need eState	
 };
 
 struct _strPodOrientation

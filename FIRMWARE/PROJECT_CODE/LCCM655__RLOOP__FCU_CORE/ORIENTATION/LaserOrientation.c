@@ -16,17 +16,21 @@
 	  // parallel equation in another data type to prevent the sorts of errors that
 	  // are commonly seen with floating point trig.
 
-	 	// trig functions used in this code:
+	 	// trig functions used in this code (search "trig" to find all cases)
 	 		// f32NUMERICAL_Atan()
 	 		// acos() - not yet implemented
 	 		// f32NUMERICAL_Cosine()
 
- // currently checks lasers for an error status in this code, might be better to do it in the optoncdt file and read from here.
+// TODO: need to access the laser states from optoncdt code
 
- // now that we have 4 ground lasers
-	// - will want to calc roll/pitch as seen by two sets of 3 lasers (a,b,c; b,c,d)
-	//	and return angle of twisting based on any discrepancy between the two measurements
- 	// --> Calculate the ground plane using 2 triplets of ground lasers; the difference between the pitch and roll found is the twist of the pod structure
+// All units in mm, but the math doesn't care as long as you're consistent
+
+// Laser.f32Position[Z] is the reading when pod is sitting flat
+
+// Yaw value expressed accordingly the rloop system variable
+// http://confluence.rloop.org/display/SD/System+Variables
+
+
 
 #include "../fcu_core.h"
 #include "LaserOrientation.h"
@@ -41,19 +45,6 @@
 #define C 2U
 #define D 3U
 
-
-//All units in mm
-//The math doesn't care as long as you're consistent
-
-// z-position is reading when pod is sitting flat
-	// (historic def: For the laser positions Z should be the reading when the HDK is sitting flat on the 4 hover engines)
-
-// Yaw value expressed accordingly the rloop system variable
-// http://confluence.rloop.org/display/SD/System+Variables
-
-// TODO: need to access the laser states..
-
-
 /** set laser structs */
 //_strComponent sHoverEngines[C_LOCALDEF__LCCM655__NUM_HOVER_ENGINES]; // todo: this isn't declared in LOCALDEF yet; wait on Throttle work?
 _strComponent sHoverEngines[8]; 
@@ -67,6 +58,8 @@ void vLaserOrientation__Init(void)
 		// blocked by installation of the components
 
 	//Ground Facing Laser Positions
+	 // Laser.f32Position[Z] is the reading when pod is sitting flat
+  	   // (historic def: For the laser positions Z should be the reading when the HDK is sitting flat on the 4 hover engines)
 	sGroundLasers[0].f32Position[3] = {8, 185, 35}; // ground laser 1 position {x,y,z}
 	sGroundLasers[1].f32Position[3] = {-112, 18, 35}; // ground laser 2 position {x,y,z}
 	sGroundLasers[2].f32Position[3] = {121, -53, 35}; // ground laser 3 position {x,y,z}
@@ -77,7 +70,6 @@ void vLaserOrientation__Init(void)
 	sBeamLasers[1].f32Position[3] = {25, 100, 35};  //i-beam laser 2 position {x,y,z}
 
 	//Hover Engine Positions {x,y,z} (from top view)
-	// TODO: get mount positions of lasers on pod
 	sHoverEngines[0].f32Position[3] = {61, 130, 0}; // Top Left {x,y,z}
 	sHoverEngines[1].f32Position[3] = {62, 129, 0}; // Top Right {x,y,z}
 	sHoverEngines[2].f32Position[3] = {62, 126, 0}; // Bottom Right {x,y,z}
@@ -88,7 +80,6 @@ void vLaserOrientation__Init(void)
 	sHoverEngines[6].f32Position[3] = {0, 0, 0}; // Bottom Right {x,y,z}
 	sHoverEngines[7].f32Position[3] = {0, 0, 0}; // Bottom Left {x,y,z}
 
-
 	// Init PodOrientation values
 	sOrient.s16Roll = 0;
 	sOrient.s16Pitch = 0;
@@ -98,7 +89,7 @@ void vLaserOrientation__Init(void)
 	sOrient.s16TwistRoll = 0;
 
 	sOrient.f32PlaneCoeffs[4] = {0,0,0,0}; // ground plane coefficients
-	sOrient.f32TwistPlaneCoeffs[4] = {0,0,0,0}; // TODO: not yet implemented
+	sOrient.f32TwistPlaneCoeffs[4] = {0,0,0,0}; // 2nd ground plane coefficients; compare to latter to get twist parameters
 
 	sOrient.eState = LaserOrientation_STATE__INIT;
 
@@ -312,6 +303,7 @@ void vCalcTwistRoll(void)
 
 	//Angle between two planes // TODO: Need to find a Lachlan func for this and account for floating point errors 
 	sOrient.s16TwistRoll = (Lint16)(acos((double)((f32vec1x * sOrient.f32TwistPlaneCoeffs[A] + f32vec1y * sOrient.f32TwistPlaneCoeffs[B] + f32vec1z * sOrient.f32TwistPlaneCoeffs[C]) / sqrt((double)(sOrient.f32TwistPlaneCoeffs[A] * sOrient.f32TwistPlaneCoeffs[A] + sOrient.f32TwistPlaneCoeffs[B] * sOrient.f32TwistPlaneCoeffs[B] + sOrient.f32TwistPlaneCoeffs[C] * sOrient.f32TwistPlaneCoeffs[C])))) * 10000);  // TODO: Trig
+	// the discrepancy in roll measured by two triplets of lasers gives the twisting of the pod structure // TODO: check signs
 	sOrient.s16TwistRoll -= sOrient.s16Roll;
 }
 
@@ -324,6 +316,7 @@ void vCalcTwistPitch(void)
 
 	//Angle between two planes // TODO: Need to find a Lachlan func for this
 	sOrient.s16TwistPitch = (Lint16)(acos((double)((f32vec1x * sOrient.f32TwistPlaneCoeffs[A] + f32vec1y * sOrient.f32TwistPlaneCoeffs[B] + f32vec1z * sOrient.f32TwistPlaneCoeffs[C]) / sqrt((double)(sOrient.f32TwistPlaneCoeffs[A] * sOrient.f32TwistPlaneCoeffs[A] + sOrient.f32TwistPlaneCoeffs[B] * sOrient.f32TwistPlaneCoeffs[B] + sOrient.f32TwistPlaneCoeffs[C] * sOrient.f32TwistPlaneCoeffs[C])))) * 10000);  // TODO: Trig
+	// the discrepancy in pitch measured by two triplets of lasers gives the bending of the pod structure // TODO: check signs
 	sOrient.s16TwistPitch -= sOrient.s16Pitch;
 }
 
@@ -337,8 +330,7 @@ void vPrintPlane(void)
 
 /** Calculate the ground plane given three points */
 //Ax + By + Cz + D = 0
-//TODO: need to store the return to compare the result from two triplets of lasers for twist.
-void vCalculateGroundPlane(struct sLaserA, struct sLaserB, struct sLaserC, Lfloat32[4] *f32PlaneEqnCoeffs)
+void vCalculateGroundPlane(struct sLaserA, struct sLaserB, struct sLaserC, Lfloat32[4] *f32PlaneEqnCoeffs) // TODO: check implementation of the pointer input
 {
 	Lfloat32 f32Vec1X, f32Vec1Y, f32Vec1Z;
 	Lfloat32 f32Vec2X, f32Vec2Y, f32f32Vec2Z;
