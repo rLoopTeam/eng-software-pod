@@ -106,6 +106,24 @@
 			}sCharger;
 
 
+			/** ATA6870 interface */
+			#define NUM_CELLS_PER_MODULE    (6U)
+			struct
+			{
+
+				struct
+				{
+					Luint8 u8DeviceIndex;
+
+					Lfloat32 pf32Voltages[NUM_CELLS_PER_MODULE];
+
+
+					Lfloat32 pf32DeviceTemperature;
+
+				}sDevice[C_LOCALDEF__LCCM650__NUM_DEVICES];
+
+			}sATA6870;
+
 			/** Win32 Functions*/
 #ifdef WIN32
 			struct

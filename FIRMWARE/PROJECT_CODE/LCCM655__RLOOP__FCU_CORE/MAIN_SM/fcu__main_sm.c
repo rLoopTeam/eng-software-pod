@@ -76,6 +76,9 @@ void vFCU_MAINSM__Process(void)
 				vFCU_LASERCONT__Init();
 			#endif
 
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
+				vFCU_LASERDIST__Process();
+			#endif
 			//init the brake systems
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 				vFCU_BRAKES__Init();
@@ -175,6 +178,10 @@ void vFCU_MAINSM__Process(void)
 
 		#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONT == 1U
 			vFCU_LASERCONT__Process();
+		#endif
+
+		#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
+			vFCU_LASERDIST__Process();
 		#endif
 
 		#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
