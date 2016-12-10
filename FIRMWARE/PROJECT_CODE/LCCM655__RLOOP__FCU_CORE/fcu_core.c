@@ -136,45 +136,57 @@ void vFCU__Process(void)
 			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 9U);
 			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 22U);
 
-			//interrupts
-			//Channel A1, A2
+			//laser contrast sensors
+			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 6U);
+			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 7U);
+			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 13U);
 
-				vRM4_N2HET__Disable(N2HET_CHANNEL__1);
+			//must disable N2HET before adding programs.
+			vRM4_N2HET__Disable(N2HET_CHANNEL__1);
 
-				#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
-					//N2HET programs for the edge interrupts for pusher
-					sFCU.sPusher.sSwitches[0].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 4U, EDGE_TYPE__BOTH, 1U);
-					sFCU.sPusher.sSwitches[1].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 5U, EDGE_TYPE__BOTH, 1U);
-				#endif
+			#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
+				//N2HET programs for the edge interrupts for pusher
+				sFCU.sPusher.sSwitches[0].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 4U, EDGE_TYPE__BOTH, 1U);
+				sFCU.sPusher.sSwitches[1].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 5U, EDGE_TYPE__BOTH, 1U);
+			#endif
 
-				//programs for right brake limit switches
-				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-					sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 9U, EDGE_TYPE__BOTH, 1U);
-					sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 22U, EDGE_TYPE__BOTH, 1U);
-					sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = 0U;
-					sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
-				#else
-					sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = 0U;
-					sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
-					sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = 0U;
-					sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
-				#endif
+			//programs for right brake limit switches
+			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+				sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 9U, EDGE_TYPE__BOTH, 1U);
+				sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 22U, EDGE_TYPE__BOTH, 1U);
+				sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = 0U;
+				sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
+			#else
+				sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = 0U;
+				sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
+				sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = 0U;
+				sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
+			#endif
 
-				vRM4_N2HET__Enable(N2HET_CHANNEL__1);
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
 
-				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-					//brake left inputs
-					vRM4_GIO__Set_BitDirection(gioPORTA, 0U, GIO_DIRECTION__INPUT);
-					vRM4_GIO__Set_BitDirection(gioPORTA, 1U, GIO_DIRECTION__INPUT);
+				//setup the contrast sensor programs
+				sFCU.sContrast.sSensors[LASER_CONT__FWD].u16N2HET_Index = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 6U, EDGE_TYPE__RISING, 1U);
+				sFCU.sContrast.sSensors[LASER_CONT__MID].u16N2HET_Index = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 7U, EDGE_TYPE__RISING, 1U);
+				sFCU.sContrast.sSensors[LASER_CONT__AFT].u16N2HET_Index = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 13U, EDGE_TYPE__RISING, 1U);
+			#endif
 
-					//configure the interrupts
-					vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__BOTH, GIO_ISR_PIN__GIOA_0);
-					vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__BOTH, GIO_ISR_PIN__GIOA_1);
+			//once all the programs are added, enable the N2HET:1
+			vRM4_N2HET__Enable(N2HET_CHANNEL__1);
 
-					//setup the interrupts
-					vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_0);
-					vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_1);
-				#endif
+			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+				//brake left inputs
+				vRM4_GIO__Set_BitDirection(gioPORTA, 0U, GIO_DIRECTION__INPUT);
+				vRM4_GIO__Set_BitDirection(gioPORTA, 1U, GIO_DIRECTION__INPUT);
+
+				//configure the interrupts
+				vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__BOTH, GIO_ISR_PIN__GIOA_0);
+				vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__BOTH, GIO_ISR_PIN__GIOA_1);
+
+				//setup the interrupts
+				vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_0);
+				vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_1);
+			#endif
 
 			sFCU.eInitStates = INIT_STATE__INIT_COMMS;
 			break;

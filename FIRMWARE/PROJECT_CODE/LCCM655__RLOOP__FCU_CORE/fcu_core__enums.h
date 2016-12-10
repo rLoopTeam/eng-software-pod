@@ -8,6 +8,19 @@
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__ENUMS_H_
 
 
+	/** Laser contrast sensors */
+	typedef enum
+	{
+		LASER_CONT__FWD = 0U,
+
+		LASER_CONT__MID = 1U,
+
+		LASER_CONT__AFT = 2U,
+
+		LASER_CONT__MAX = 3U
+
+	}E_FCU__LASER_CONT_INDEX_T;
+
 	/** enum type for the left or right brakes */
 	typedef enum
 	{

@@ -24,10 +24,10 @@ extern struct _strFCU sFCU;
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * UART Interrupt Notification
  * 
- * @param[in]		u32Flags		## Desc ##
- * @param[in]		eChannel		## Desc ##
+ * @param[in]		u32Flags				Module Flags
+ * @param[in]		eChannel				Uart Channel
  * @st_funcMD5		214EA4E2D995E0950A98A14AB765E2D1
  * @st_funcID		LCCM655R0.FILE.015.FUNC.001
  */
@@ -50,11 +50,11 @@ void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Interrupt from N2HET programs
  * 
- * @param[in]		u32Register		## Desc ##
- * @param[in]		u32ProgramIndex		## Desc ##
- * @param[in]		eChannel		## Desc ##
+ * @param[in]		u32Register				Reg values passed in
+ * @param[in]		u32ProgramIndex			N2HET program index
+ * @param[in]		eChannel				N2HET Channel
  * @st_funcMD5		6508A64B693FB9DFECFF55706881E867
  * @st_funcID		LCCM655R0.FILE.015.FUNC.002
  */
@@ -87,6 +87,25 @@ void vRM4_N2HET_DYNAMIC__Notification(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32
 					vFCU_BRAKES_SW__Right_SwitchRetract_ISR();
 				}
 			#endif
+
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
+
+				//setup the contrast sensor programs
+				if(u32ProgramIndex == sFCU.sContrast.sSensors[LASER_CONT__FWD].u16N2HET_Index)
+				{
+					vFCU_LASERCONT__ISR(LASER_CONT__FWD);
+				}
+				if(u32ProgramIndex == sFCU.sContrast.sSensors[LASER_CONT__MID].u16N2HET_Index)
+				{
+					vFCU_LASERCONT__ISR(LASER_CONT__MID);
+				}
+				if(u32ProgramIndex == sFCU.sContrast.sSensors[LASER_CONT__AFT].u16N2HET_Index)
+				{
+					vFCU_LASERCONT__ISR(LASER_CONT__AFT);
+				}
+			#endif
+
+
 			break;
 
 		default:
