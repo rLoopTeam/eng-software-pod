@@ -291,6 +291,23 @@
 
 			}sLasers;
 
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
+			/** Contrast sensor structure */
+			struct
+			{
+
+				/** Individual contrast senors */
+				struct
+				{
+
+					/** The N2HET program index */
+					Luint16 u16N2HET_Index;
+
+				}sSensors[LASER_CONT__MAX];
+
+			}sContrast;
+			#endif
+
 			#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 			/** Ethernet comms structure */
 			struct
@@ -381,6 +398,11 @@
 		void vFCU_FAULTS__Process(void);
 		Luint8 u8FCU_FAULTS__Get_IsFault(void);
 		Luint32 u32FCU_FAULTS__Get_FaultFlags(void);
+
+		//laser contrast sensors
+		void vFCU_LASERCONT__Init(void);
+		void vFCU_LASERCONT__Process(void);
+		void vFCU_LASERCONT__ISR(LASER_CONT__FWD eLaser);
 
 		//main state machine
 		void vFCU_MAINSM__Init(void);

@@ -24,6 +24,9 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Number of OptoNCDT lasers, must be in order from A0:2, B0:2*/
 		#define C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT						(1U)
 
+		/** Enable the Laser contrast sensors */
+		#define C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST					(1U)
+
 		/** Enable accel subsystem */
 		#define C_LOCALDEF__LCCM655__ENABLE_ACCEL							(0U)
 
