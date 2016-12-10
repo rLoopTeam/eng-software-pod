@@ -27,6 +27,9 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Enable the Laser contrast sensors */
 		#define C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST					(1U)
 
+		/** Laser Distance Unit */
+		#define C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE					(1U)
+
 		/** Enable accel subsystem */
 		#define C_LOCALDEF__LCCM655__ENABLE_ACCEL							(0U)
 

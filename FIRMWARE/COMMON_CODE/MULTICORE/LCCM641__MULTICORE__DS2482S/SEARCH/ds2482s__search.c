@@ -170,54 +170,64 @@ Lint16 s16DS2482S_SEARCH__SearchNextDevice(Luint8 u8DeviceIndex, Luint8 *pu8Addx
  */
 Lint16 s16DS2482S_SEARCH__Verify(Luint8 u8DeviceIndex, const Luint8 *pu8Addx)
 {
+	// Each address is 8 bytes, so we create an array
+	// of size 8 to store a backup of the address
 
-#if 0
-//TODO: Cleanup dallas App Note.
-//Note: Public Code.
-//dallas app note.
-unsigned char rom_backup[8];
-   int i,rslt,ld_backup,ldf_backup,lfd_backup;
+	#define u8ADDRX_LENGTH 8U
 
-   // keep a backup copy of the current state
-   for (i = 0; i < 8; i++)
-      rom_backup[i] = ROM_NO[i];
-   ld_backup = LastDiscrepancy;
-   ldf_backup = LastDeviceFlag;
-   lfd_backup = LastFamilyDiscrepancy;
 
-   // set search to find the same device
-   LastDiscrepancy = 64;
-   LastDeviceFlag = FALSE;
+	   Luint8 u8ROM_Backup[u8ADDRX_LENGTH];
+	   Luint8 u8ArrayCounter, u8LastDiscrepancy_Backup;
+	   Luint8 u8LastDeviceFlag_Backup, u8LastFamilyDiscrepancy_Backup;
+	   Lint16 s16Result;
 
-   if (OWSearch())
-   {
-      // check if same device found
-      rslt = TRUE;
-      for (i = 0; i < 8; i++)
-      {
-         if (rom_backup[i] != ROM_NO[i])
-         {
-            rslt = FALSE;
-            break;
-         }
-      }
-   }
-   else
-     rslt = FALSE;
+	   // keep a backup copy of the current state
+	   for (u8ArrayCounter = 0U; u8ArrayCounter < u8ADDRX_LENGTH; u8ArrayCounter++)
+	   {
+	      u8ROM_Backup[u8ArrayCounter] = pu8Addx[u8ArrayCounter];
+	   }
 
-   // restore the search state 
-   for (i = 0; i < 8; i++)
-      ROM_NO[i] = rom_backup[i];
-   LastDiscrepancy = ld_backup;
-   LastDeviceFlag = ldf_backup;
-   LastFamilyDiscrepancy = lfd_backup;
+	   u8LastDiscrepancy_Backup = sDS2482S.sSearch[u8DeviceIndex].u8LastDiscrepancy;
+	   u8LastDeviceFlag_Backup = sDS2482S.sSearch[u8DeviceIndex].u8LastDeviceFlag;
+	   u8LastFamilyDiscrepancy_Backup = sDS2482S.sSearch[u8DeviceIndex].u8LastFamilyDiscrepancy;
 
-   // return the result of the verify
-   return rslt;
-#endif 
+	   // set search to find the same device
+	   sDS2482S.sSearch[u8DeviceIndex].u8LastDiscrepancy = 64U;
+	   sDS2482S.sSearch[u8DeviceIndex].u8LastDeviceFlag = 0U;
 
-   return 0;
+	   // run the search. if it works, verify the address
+	   if (s16DS2482S_SEARCH__Search(u8DeviceIndex))
+	   {
+	      // check if addresses match
+	      s16Result = 0;
+	      for (u8ArrayCounter = 0U; u8ArrayCounter < u8ADDRX_LENGTH; u8ArrayCounter++)
+	      {
+	         if (u8ROM_Backup[u8ArrayCounter] != pu8Addx[u8ArrayCounter])
+	         {
+				// addresses do not match. Log the error
+	            s16Result = -1;
+	            break;
+	         }
+	      }
+	   }
+	   // else search failed. Log the error
+	   else
+	   {
+	     s16Result = -1;
+	   }
 
+	   // restore the search state
+	   // NOTE: this loop is from the dallas app note code.
+	   // Since we pass pu8Addx as const, i do not think
+	   // this is necessary.
+	   //for (u8ArrayCounter = 0U; u8ArrayCounter < u8ADDRX_LENGTH; u8ArrayCounter++)
+	   //   pu8Addx[u8ArrayCounter] = u8ROM_Backup[u8ArrayCounter];
+	   sDS2482S.sSearch[u8DeviceIndex].u8LastDiscrepancy = u8LastDiscrepancy_Backup;
+	   sDS2482S.sSearch[u8DeviceIndex].u8LastDeviceFlag = u8LastDeviceFlag_Backup;
+	   sDS2482S.sSearch[u8DeviceIndex].u8LastFamilyDiscrepancy = u8LastFamilyDiscrepancy_Backup;
+
+	   // return the result of the verify
+	   return s16Result;
 }
 
 

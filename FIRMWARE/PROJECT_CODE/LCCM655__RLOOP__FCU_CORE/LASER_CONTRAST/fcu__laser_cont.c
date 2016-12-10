@@ -20,7 +20,7 @@ void vFCU_LASERCONT__Process(void)
 
 
 //inerrupt from the RM4 notification system
-void vFCU_LASERCONT__ISR(LASER_CONT__FWD eLaser)
+void vFCU_LASERCONT__ISR(E_FCU__LASER_CONT_INDEX_T eLaser)
 {
 
 }

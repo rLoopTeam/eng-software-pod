@@ -22,6 +22,8 @@
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
 
+extern struct _strPWRNODE sPWRNODE;
+
 /***************************************************************************//**
  * @brief
  * Init the battery management system

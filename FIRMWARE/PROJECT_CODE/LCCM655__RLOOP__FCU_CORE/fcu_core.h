@@ -402,7 +402,12 @@
 		//laser contrast sensors
 		void vFCU_LASERCONT__Init(void);
 		void vFCU_LASERCONT__Process(void);
-		void vFCU_LASERCONT__ISR(LASER_CONT__FWD eLaser);
+		void vFCU_LASERCONT__ISR(E_FCU__LASER_CONT_INDEX_T eLaser);
+
+		//Laser distance
+		void vFCU_LASERDIST__Init(void);
+		void vFCU_LASERDIST__Process(void);
+
 
 		//main state machine
 		void vFCU_MAINSM__Init(void);
