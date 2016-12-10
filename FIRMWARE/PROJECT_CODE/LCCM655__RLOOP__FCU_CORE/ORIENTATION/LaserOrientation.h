@@ -48,15 +48,16 @@ struct _strPodOrientation
 	Lint16 s16Roll;
 	Lint16 s16Pitch;
 	Lint16 s16Yaw;
-	Lint16 s16Twist;
 	Lfloat32 f32Lateral;
+	Lint16 s16TwistPitch; // TODO s8?
+	Lint16 s16TwistRoll; // TODO s8?
 
 	//Basically the vehicle is a static reference
 	//and we recalculate the orientation of the
 	//ground plane relative to the vehicle
 	//and the hover engines
 	Lfloat32 f32PlaneCoeffs[4]; //TODO: Check this size   // ordered as: A, B, C, D, decreasing polynomial terms
-	Lfloat32 f32TwistPlaneCoeffs[4]; //TODO: Check this size   // ordered as: A, B, C, D, decreasing polynomial terms
+	Lfloat32 f32TwistPlaneCoeffs[4]; //TODO: Check this size   // ordered as: A, B, C, D, decreasing polynomial terms // to be built with CalculateGroundPlane using the second laser triplet
 	
 	E_LaserOrientation_STATES_T eState
 
@@ -68,11 +69,12 @@ Function Prototypes
 
 void vLaserOrientation__Init(void);
 void vLaserOrientation__Process(void);
-void vRecalcRoll(void);
-void vRecalcPitch(void);
+void vCalcRoll(void);
+void vCalcPitch(void);
+void vCalcTwistRoll(void);
+void vCalcTwistPitch(void);
 Lfloat32 f32PointToPlaneDistance(Lfloat32 f32Position[3]);
-void vRecalcOrientation(void);
 void vPrintPlane(void);
 void vCalculateGroundPlane(struct sLaserA, struct sLaserB, struct sLaserC);
-void vRecalcYaw(void);
-void vRecalcLateral(void);
+void vCalcYaw(void);
+void vCalcLateral(void);

@@ -10,7 +10,7 @@
  * @st_fileID
  */
 
-// TODO: 
+// TODO:  
   // If we are using anything involving floating point trig and that trig
 	  // is safety critical (i.e. pod distance or braking) then we must also do a
 	  // parallel equation in another data type to prevent the sorts of errors that
@@ -21,9 +21,12 @@
 	 		// acos() - not yet implemented
 	 		// f32NUMERICAL_Cosine()
 
-// now that we have 4 ground lasers
+ // currently checks lasers for an error status in this code, might be better to do it in the optoncdt file and read from here.
+
+ // now that we have 4 ground lasers
 	// - will want to calc roll/pitch as seen by two sets of 3 lasers (a,b,c; b,c,d)
 	//	and return angle of twisting based on any discrepancy between the two measurements
+ 	// --> Calculate the ground plane using 2 triplets of ground lasers; the difference between the pitch and roll found is the twist of the pod structure
 
 #include "../fcu_core.h"
 #include "LaserOrientation.h"
@@ -42,13 +45,16 @@
 //All units in mm
 //The math doesn't care as long as you're consistent
 
-//For the laser positions Z should be the reading when
-//the HDK is sitting flat on the 4 hover engines
+// z-position is reading when pod is sitting flat
+	// (historic def: For the laser positions Z should be the reading when the HDK is sitting flat on the 4 hover engines)
 
 // Yaw value expressed accordingly the rloop system variable
 // http://confluence.rloop.org/display/SD/System+Variables
 
-// set laser structs
+// TODO: need to access the laser states..
+
+
+/** set laser structs */
 //_strComponent sHoverEngines[C_LOCALDEF__LCCM655__NUM_HOVER_ENGINES]; // todo: this isn't declared in LOCALDEF yet; wait on Throttle work?
 _strComponent sHoverEngines[8]; 
 _strComponent sGroundLasers[C_LOCALDEF__LCCM655__LASER_OPTONCDT__NUM_GROUND];
@@ -71,12 +77,12 @@ void vLaserOrientation__Init(void)
 	sBeamLasers[1].f32Position[3] = {25, 100, 35};  //i-beam laser 2 position {x,y,z}
 
 	//Hover Engine Positions {x,y,z} (from top view)
-	// TODO: get true mount positions
+	// TODO: get mount positions of lasers on pod
 	sHoverEngines[0].f32Position[3] = {61, 130, 0}; // Top Left {x,y,z}
 	sHoverEngines[1].f32Position[3] = {62, 129, 0}; // Top Right {x,y,z}
 	sHoverEngines[2].f32Position[3] = {62, 126, 0}; // Bottom Right {x,y,z}
 	sHoverEngines[3].f32Position[3] = {60, 128, 0}; // Bottom Left {x,y,z}
-	// TODO: These engines are not yet implemented in this code.
+
 	sHoverEngines[4].f32Position[3] = {0, 0, 0}; // Top Left {x,y,z}
 	sHoverEngines[5].f32Position[3] = {0, 0, 0}; // Top Right {x,y,z}
 	sHoverEngines[6].f32Position[3] = {0, 0, 0}; // Bottom Right {x,y,z}
@@ -88,7 +94,8 @@ void vLaserOrientation__Init(void)
 	sOrient.s16Pitch = 0;
 	sOrient.s16Yaw = 0;
 	sOrient.f32Lateral = 0;
-	sOrient.s16Twist = 0;
+	sOrient.s16TwistPitch = 0;
+	sOrient.s16TwistRoll = 0;
 
 	sOrient.f32PlaneCoeffs[4] = {0,0,0,0}; // ground plane coefficients
 	sOrient.f32TwistPlaneCoeffs[4] = {0,0,0,0}; // TODO: not yet implemented
@@ -110,16 +117,16 @@ void vLaserOrientation__Process(void)
 			break;
 
 		case LaserOrientation_STATE__INIT:
-			// store current values of 
+			//do nothing?
+			sOrient.eState = LaserOrientation_STATE__RECALCULATE_PITCH_ROLL_TWIST;
 			break;
 
 		case LaserOrientation_STATE__RECALCULATE_PITCH_ROLL_TWIST:
-			// check laser states in optoncdt.c
-			// count which lasers are not in the error state and append them to array.
+			/** count which lasers are not in the error state and append them to array */
 			Luint8 u8OperationalCount = 0U;
 			Luint8 u8OperationalLasers[4]; // TODO: array of struct types? {sLaserGround1, sLaserGround2, ...}
 
-			if (sLaserGround1.eState != OPTONCDT_STATE__ERROR)
+			if(sGroundLasers[0].eState != OPTONCDT_STATE__ERROR)
 			{
 				u8OperationalLasers[u8OperationalCount] = 1U; // Laser 1 works, store a 1 in the array to denote this
 				u8OperationalCount += 1U; // increment count of operational lasers
@@ -128,7 +135,8 @@ void vLaserOrientation__Process(void)
 			{
 				// laser 1 bad
 			}
-			if (sLaserGround2.eState != OPTONCDT_STATE__ERROR)
+
+			if(sGroundLasers[1].eState != OPTONCDT_STATE__ERROR)
 			{
 				u8OperationalLasers[u8OperationalCount] = 2U; // Laser 2 works, store a 2 in the array to denote this
 				u8OperationalCount += 1U; // increment count of operational lasers
@@ -137,7 +145,8 @@ void vLaserOrientation__Process(void)
 			{
 				// laser 2 bad
 			}
-			if (sLaserGround3.eState != OPTONCDT_STATE__ERROR)
+
+			if(sGroundLasers[2].eState != OPTONCDT_STATE__ERROR)
 			{
 				u8OperationalLasers[u8OperationalCount] = 3U; // Laser 3 works, store a 3 in the array to denote this
 				u8OperationalCount += 1U; // increment count of operational lasers
@@ -146,7 +155,8 @@ void vLaserOrientation__Process(void)
 			{
 				// laser 3 bad
 			}
-			if (sLaserGround4.eState != OPTONCDT_STATE__ERROR)
+
+			if(sGroundLasers[3].eState != OPTONCDT_STATE__ERROR)
 			{
 				u8OperationalLasers[u8OperationalCount] = 4U; // Laser 4 works, store a 4 in the array to denote this
 				u8OperationalCount += 1U; // increment count of operational lasers 
@@ -156,11 +166,15 @@ void vLaserOrientation__Process(void)
 				// laser 4 bad
 			}
 
-			if (u8OperationalCount == 4U)
+
+			/** Calculate as many of the pods orientation parameters as possible based on the number of operational lasers */
+			if(u8OperationalCount == 4U)
 			{
 				// calculate pitch, roll, and twist of the pod
-			    vCalculateGroundPlane(sGroundLasers[0], sGroundLasers[1], sGroundLasers[2]); 
-			    vCalculateGroundPlane(sGroundLasers[1], sGroundLasers[2], sGroundLasers[3]);
+				// 1st triplet of ground lasers
+			    vCalculateGroundPlane(sGroundLasers[0], sGroundLasers[1], sGroundLasers[2], &sOrient.f32PlaneCoeffs[0]);
+			    // 2nd triplet of ground lasers
+			    vCalculateGroundPlane(sGroundLasers[1], sGroundLasers[2], sGroundLasers[3], &sOrient.f32TwistPlaneCoeffs[0]); 
 
 			    for (u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM655__NUM_HOVER_ENGINES; u8Counter++)
 			    {
@@ -168,13 +182,13 @@ void vLaserOrientation__Process(void)
 					sHoverEngines[u8Counter].f32Measurement = f32PointToPlaneDistance(sHE1.f32Position);
 				}
 
-				vRecalcPitch();
-				vRecalcRoll();
+				vCalcRoll();
+				vCalcPitch();
 
-				vCalculateTwist(); // TODO: write fn
-
+				vCalcTwistRoll();
+				vCalcTwistPitch();
 			}
-			else if (u8OperationalCount == 3U)
+			else if(u8OperationalCount == 3U)
 			{ 
 				// calculate pitch and roll. cannot calculate twist.
 			    vCalculateGroundPlane(sGroundLasers[u8OperationalLasers[0]], sGroundLasers[u8OperationalLasers[1]], sGroundLasers[u8OperationalLasers[2]]);
@@ -185,29 +199,29 @@ void vLaserOrientation__Process(void)
 					sHoverEngines[u8Counter].f32Measurement = f32PointToPlaneDistance(sHE1.f32Position);
 				}
 
-				vRecalcPitch();
-				vRecalcRoll();
+				vCalcPitch();
+				vCalcRoll();
 			}
-			else if (u8OperationalCount == 2U)
+			else if(u8OperationalCount == 2U)
 			{
 				// there are 2 operable lasers; can't compute any of the orientation parameters directly, but can infer information from what we have.
 				// TODO write code to infer orientation parameters
-
 			}
 			else
 			{
 				// there is 1 or fewer operable lasers; can't compute twist/pitch/roll/HE heights.
 			}
+
 			sOrient.eState = LaserOrientation_STATE__RECALCULATE_YAW_AND_LATERAL;
 			break;
 
 		case LaserOrientation_STATE__RECALCULATE_YAW_AND_LATERAL:
-			// check laser states in optoncdt.c
-			// count which lasers are not in the error state and append them to array.
+
+			/** count which lasers are not in the error state and append them to array. */
 			Luint8 u8OperationalCount = 0U;
 			Luint8 u8OperationalLasers[2];
 
-			if (sBeamLasers[0].eState != OPTONCDT_STATE__ERROR)
+			if(sBeamLasers[0].eState != OPTONCDT_STATE__ERROR)
 			{
 				u8OperationalLasers[u8OperationalCount] = 1U; // Laser 1 works, store a 1 in the array to denote this
 				u8OperationalCount += 1U; // increment count of operational lasers
@@ -216,7 +230,8 @@ void vLaserOrientation__Process(void)
 			{
 				// Laser 1 is down
 			}
-			else if (sBeamLasers[1].eState != OPTONCDT_STATE__ERROR)
+
+			if(sBeamLasers[1].eState != OPTONCDT_STATE__ERROR)
 			{
 				u8OperationalLasers[u8OperationalCount] = 2U; // Laser 2 works, store a 2 in the array to denote this
 				u8OperationalCount += 1U; // increment count of operational lasers
@@ -225,12 +240,14 @@ void vLaserOrientation__Process(void)
 			{
 				// Laser 2 is down
 			}
-			if (u8OperationalCount == 2U)
+
+			/** Calculate as many of the pods orientation parameters as possible based on the number of operational lasers */
+			if(u8OperationalCount == 2U)
 			{
 				vRecalcYaw();
 				vRecalcLateral();
 			}
-			else if (u8OperationalCount == 1U)
+			else if(u8OperationalCount == 1U)
 			{
 				// At least one i-beam laser is down; can't explicitly compute yaw/translation.
 				//TODO: assume yaw = 0 compute lateral translation?  or the opposite, depending on which parameter is more likely to deviate from its ideal value.
@@ -240,15 +257,15 @@ void vLaserOrientation__Process(void)
 				// no i-beam lasers are working, no measurement can be made.
 			}
 
-			// sOrient.eState = ; // TODO: finish state flow
+			sOrient.eState = LaserOrientation_STATE__INIT;
 			break;
 
 		case LaserOrientation_STATE__WAIT_LOOPS:
-			// TODO: is this needed?
+			// do nothing
 			break;
 
 		case LaserOrientation_STATE__ERROR:
-			//some error has happened
+			//some error has happened 
 			break;
 	}
 }
@@ -266,7 +283,7 @@ Lfloat32 f32PointToPlaneDistance(Lfloat32 f32Position[3])
 
 
 /** The angle between two planes that yield the roll */
-void vRecalcRoll(void)
+void vCalcRoll(void)
 {
 	//Normal vector of the other plane
 	Lfloat32 f32vec1x = 1, f32vec1y = 0, f32vec1z = 0;
@@ -277,7 +294,7 @@ void vRecalcRoll(void)
 
 
 /** The angle between two planes that yields the pitch */
-void vRecalcPitch(void)
+void vCalcPitch(void)
 {
 	//Normal vector of the other plane
 	Lfloat32 f32vec1x = 0, f32vec1y = 1, f32vec1z = 0;
@@ -287,6 +304,31 @@ void vRecalcPitch(void)
 }
 
 
+/** Calculate the pod's twisting due to the lack of perfect rigidity of the substructure: Roll Twisting */
+void vCalcTwistRoll(void)
+{
+	//Normal vector of the other plane
+	Lfloat32 f32vec1x = 1, f32vec1y = 0, f32vec1z = 0;
+
+	//Angle between two planes // TODO: Need to find a Lachlan func for this and account for floating point errors 
+	sOrient.s16TwistRoll = (Lint16)(acos((double)((f32vec1x * sOrient.f32TwistPlaneCoeffs[A] + f32vec1y * sOrient.f32TwistPlaneCoeffs[B] + f32vec1z * sOrient.f32TwistPlaneCoeffs[C]) / sqrt((double)(sOrient.f32TwistPlaneCoeffs[A] * sOrient.f32TwistPlaneCoeffs[A] + sOrient.f32TwistPlaneCoeffs[B] * sOrient.f32TwistPlaneCoeffs[B] + sOrient.f32TwistPlaneCoeffs[C] * sOrient.f32TwistPlaneCoeffs[C])))) * 10000);  // TODO: Trig
+	sOrient.s16TwistRoll -= sOrient.s16Roll;
+}
+
+
+/** Calculate the pod's twisting due to the lack of perfect rigidity of the substructure: Bending */
+void vCalcTwistPitch(void)
+{
+	//Normal vector of the other plane
+	Lfloat32 f32vec1x = 0, f32vec1y = 1, f32vec1z = 0;
+
+	//Angle between two planes // TODO: Need to find a Lachlan func for this
+	sOrient.s16TwistPitch = (Lint16)(acos((double)((f32vec1x * sOrient.f32TwistPlaneCoeffs[A] + f32vec1y * sOrient.f32TwistPlaneCoeffs[B] + f32vec1z * sOrient.f32TwistPlaneCoeffs[C]) / sqrt((double)(sOrient.f32TwistPlaneCoeffs[A] * sOrient.f32TwistPlaneCoeffs[A] + sOrient.f32TwistPlaneCoeffs[B] * sOrient.f32TwistPlaneCoeffs[B] + sOrient.f32TwistPlaneCoeffs[C] * sOrient.f32TwistPlaneCoeffs[C])))) * 10000);  // TODO: Trig
+	sOrient.s16TwistPitch -= sOrient.s16Pitch;
+}
+
+
+//historic
 void vPrintPlane(void)
 {
 	// printf("A:%f B:%f C:%f D:%f\n", sOrient.f32PlaneCoeffs[0], sOrient.f32PlaneCoeffs[1], sOrient.f32PlaneCoeffs[2], sOrient.f32PlaneCoeffs[3]);
@@ -295,7 +337,8 @@ void vPrintPlane(void)
 
 /** Calculate the ground plane given three points */
 //Ax + By + Cz + D = 0
-void vCalculateGroundPlane(struct sLaserA, struct sLaserB, struct sLaserC)
+//TODO: need to store the return to compare the result from two triplets of lasers for twist.
+void vCalculateGroundPlane(struct sLaserA, struct sLaserB, struct sLaserC, Lfloat32[4] *f32PlaneEqnCoeffs)
 {
 	Lfloat32 f32Vec1X, f32Vec1Y, f32Vec1Z;
 	Lfloat32 f32Vec2X, f32Vec2Y, f32f32Vec2Z;
@@ -326,17 +369,17 @@ void vCalculateGroundPlane(struct sLaserA, struct sLaserB, struct sLaserC)
 	//Plane in 3D: Ax + By + Cz + D = 0
 	//A, B, C is the vector normal to the plane
 	//Use one of our original points to calculate D
-	sOrient.f32PlaneCoeffs[A] = f32XProductX;
-	sOrient.f32PlaneCoeffs[B] = f32XProductY;
-	sOrient.f32PlaneCoeffs[C] = f32XProductZ;
+	f32PlaneEqnCoeffs[A] = f32XProductX;
+	f32PlaneEqnCoeffs[B] = f32XProductY;
+	f32PlaneEqnCoeffs[C] = f32XProductZ;
 
-	sOrient.f32PlaneCoeffs[D] = -1 * (sOrient.f32PlaneCoeffs[A] * sGroundLasers[0].f32Position[X] + sOrient.f32PlaneCoeffs[B] * sGroundLasers[0].f32Position[Y] + sOrient.f32PlaneCoeffs[C] * sGroundLasers[0].f32Position[Z]);
+	f32PlaneEqnCoeffs[D] = -1 * (sOrient.f32PlaneCoeffs[A] * sGroundLasers[0].f32Position[X] + sOrient.f32PlaneCoeffs[B] * sGroundLasers[0].f32Position[Y] + sOrient.f32PlaneCoeffs[C] * sGroundLasers[0].f32Position[Z]);
 
 }
 
 
 /** Calculate the pod's yaw */
-void vRecalcYaw(void)
+void vCalcYaw(void)
 {
   Lfloat32 f32SDif = (Lfloat32)(sBeamLasers[0].f32Measurement - sBeamLasers[1].f32Measurement);
   Lfloat32 f32DTan = f32SDif / ((Lfloat32)(sBeamLasers[0].f32Position[Z] - sBeamLasers[1].f32Position[Z]));
@@ -347,23 +390,11 @@ void vRecalcYaw(void)
 
 
 /** Calculate the pod's lateral translation */
-void vRecalcLateral(void) 
+void vCalcLateral(void) 
 {
   Lfloat32 f32XDif = (Lfloat32)(sBeamLasers[0].f32Position[Z] - sBeamLasers[1].f32Position[Z]);
   Lfloat32 f32Coef =
       ((Lfloat32)(sBeamLasers[1].f32Position[Z]) / f32XDif * sBeamLasers[0].f32Measurement) -
       ((Lfloat32)(sBeamLasers[0].f32Position[Z]) / f32XDif * sBeamLasers[1].f32Measurement);
   sOrient.f32Lateral = f32Coef* f32NUMERICAL_Cosine((Lfloat32)(s16Yaw) / 10000.0);  // TODO: Trig
-}
-
-
-/** Calculate the pod's twisting due to the lack of perfect rigidity of the substructure */
-void vCalculateTwist();
-{
-	//Normal vector of the other plane
-	//Lfloat32 f32vec1x = 0, f32vec1y = 1, f32vec1z = 0;
-
-	//Angle between two planes // TODO: Need to find a Lachlan func for this
-	//sOrient.s16Twist = (Lint16)(acos((double)((f32vec1x * sOrient.f32TwistPlaneCoeffs[A] + f32vec1y * sOrient.f32TwistPlaneCoeffs[B] + f32vec1z * sOrient.f32TwistPlaneCoeffs[C]) / sqrt((double)(sOrient.f32TwistPlaneCoeffs[A] * sOrient.f32TwistPlaneCoeffs[A] + sOrient.f32TwistPlaneCoeffs[B] * sOrient.f32TwistPlaneCoeffs[B] + sOrient.f32TwistPlaneCoeffs[C] * sOrient.f32TwistPlaneCoeffs[C])))) * 10000); // TODO: Trig
-	//todo find the angle between planes from 2 triplets of lasers, or between each of 2 laser triplets and a base coordinate plane?
 }
