@@ -10,8 +10,13 @@
  * @st_fileID
  */
 
+// All units in mm, but the math doesn't care as long as you're consistent
+
+// Yaw value expressed accordingly the rloop system variable
+// http://confluence.rloop.org/display/SD/System+Variables
+
 // TODO:  
-  // If we are using anything involving floating point trig and that trig
+	// If we are using anything involving floating point trig and that trig
 	  // is safety critical (i.e. pod distance or braking) then we must also do a
 	  // parallel equation in another data type to prevent the sorts of errors that
 	  // are commonly seen with floating point trig.
@@ -21,16 +26,7 @@
 	 		// acos() - not yet implemented
 	 		// f32NUMERICAL_Cosine()
 
-// TODO: need to access the laser states from optoncdt code
-
-// All units in mm, but the math doesn't care as long as you're consistent
-
-// Laser.f32Position[Z] is the reading when pod is sitting flat
-
-// Yaw value expressed accordingly the rloop system variable
-// http://confluence.rloop.org/display/SD/System+Variables
-
-
+	// Need to access the laser states from optoncdt code
 
 #include "../fcu_core.h"
 #include "LaserOrientation.h"
