@@ -140,17 +140,23 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Number of OptoNCDT lasers, must be in order from A0:2, B0:2*/
 		#define C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT						(3U)
 
-		/** Enable the Laser contrast sensors */
-		#define C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST					(1U)
-
-		/** Laser Distance Unit */
-		#define C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE					(1U)
+		/** Enable calculation of pod orientation parameters */
+		#define C_LOCALDEF__LCCM655__ENABLE_ORIENTATION						(0U)
 
 		/** Number of OptoNCDT lasers facing ibeam, must be in order from A0:2, B0:2*/
 		#define C_LOCALDEF__LCCM655__LASER_OPTONCDT__NUM_BEAM				(2U)
 
 		/** Number of OptoNCDT lasers facing ground, must be in order from A0:2, B0:2*/
 		#define C_LOCALDEF__LCCM655__LASER_OPTONCDT__NUM_GROUND				(4U)
+
+		/** Number of hover engines (used for calc of hover heights) */
+		#define C_LOCALDEF__LCCM655__NUM_HOVER_ENGINES 						(8U)
+
+		/** Enable the Laser contrast sensors */
+		#define C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST					(1U)
+
+		/** Laser Distance Unit */
+		#define C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE					(1U)
 
 		/** Enable accel subsystem */
 		#define C_LOCALDEF__LCCM655__ENABLE_ACCEL							(1U)
