@@ -27,6 +27,7 @@
 
 // TODO:  
 	// NEED TO ACCESS THE LASER STATES AND MEASUREMENTS FROM OPTONCDT CODE
+ 		// sFCU.sLasers.sOptoLaser[] need to know which lasers are ground v ibeam facing.
 
  	// Need to finish function that provides orientation parameters when called from other files
 
@@ -128,7 +129,11 @@ void vFCU_LASER_ORIENTATION__Process(void)
 			//get a lasers distance
 				// relevant function from ../LASER_OPTO/fcu__laser_opto.c:
 					// Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex)
+				// or
+					// sFCU.sLasers.sOptoLaser[].f32Distance
+
 			// laser opto struct doesn't appear to have an error state
+				// sFCU.sLasers.sOptoLaser[]
 			break;
 
 		case LASER_ORIENTATION_STATE__RECALCULATE_PITCH_ROLL_TWIST:
@@ -206,7 +211,7 @@ void vFCU_LASER_ORIENTATION__Process(void)
 
 			/** count which lasers are not in the error state and append them to array. */
 			Luint8 u8OperationalCount = 0U;
-			Luint8 u8OperationalLasers[2];
+			Luint8 u8OperationalLasers[C_LOCALDEF__LCCM655__LASER_OPTONCDT__NUM_BEAM];
 
 			for(Luint8 u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM655__LASER_OPTONCDT__NUM_BEAM; u8Counter++)
 			{
