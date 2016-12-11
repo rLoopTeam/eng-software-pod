@@ -27,8 +27,12 @@ typedef enum
 	/** Wait for a number of processing loops to expire */
 	LaserOrientation_STATE__WAIT_LOOPS,
 
-	/** Read the ADC */
-	LaserOrientation_STATE__RECALCULATE_ORIENTATION,
+	/** Get laser measurements and states from optoncdt code */
+	LaserOrientation_STATE__GET_LASER_DATA,
+
+	LaserOrientation_STATE__RECALCULATE_PITCH_ROLL_TWIST,
+
+	LaserOrientation_STATE__RECALCULATE_YAW_AND_LATERAL,
 
 
 }E_LaserOrientation_STATES_T;

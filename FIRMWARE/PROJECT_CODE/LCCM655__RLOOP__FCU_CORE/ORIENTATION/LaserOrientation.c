@@ -16,6 +16,10 @@
 // http://confluence.rloop.org/display/SD/System+Variables
 
 // TODO:  
+	// NEED TO ACCESS THE LASER STATES AND MEASUREMENTS FROM OPTONCDT CODE
+
+ 	// Need to finish function that provides orientation parameters, for calling from other files
+
 	// If we are using anything involving floating point trig and that trig
 	  // is safety critical (i.e. pod distance or braking) then we must also do a
 	  // parallel equation in another data type to prevent the sorts of errors that
@@ -26,11 +30,12 @@
 	 		// acos() - not yet implemented
 	 		// f32NUMERICAL_Cosine()
 
-	// Need to access the laser states from optoncdt code
 
 #include "../fcu_core.h"
 #include "LaserOrientation.h"
-#include "../../../COMMON_CODE/MULTICORE/LCCMXXX__MULTICORE__OPTONCDT/optoncdt.c" // TODO: check this
+//old?
+	//#include "../../../COMMON_CODE/MULTICORE/LCCMXXX__MULTICORE__OPTONCDT/optoncdt.c" // TODO: check this  
+#include "../LASER_OPTO/fcu__laser_opto.c" // source for laser data
 
 #define PI 3.14159265359
 #define X 0U
@@ -107,6 +112,12 @@ void vLaserOrientation__Process(void)
 			//do nothing?
 			sOrient.eState = LaserOrientation_STATE__RECALCULATE_PITCH_ROLL_TWIST;
 			break;
+
+		case LaserOrientation_STATE__GET_LASER_DATA:
+			//get a lasers distance
+				// relevant function from ../LASER_OPTO/fcu__laser_opto.c
+					// Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex)
+
 
 		case LaserOrientation_STATE__RECALCULATE_PITCH_ROLL_TWIST:
 			/** count which lasers are not in the error state and append them to array */
@@ -317,13 +328,6 @@ void vCalcTwistPitch(void)
 }
 
 
-//historic
-void vPrintPlane(void)
-{
-	// printf("A:%f B:%f C:%f D:%f\n", sOrient.f32PlaneCoeffs[0], sOrient.f32PlaneCoeffs[1], sOrient.f32PlaneCoeffs[2], sOrient.f32PlaneCoeffs[3]);
-}
-
-
 /** Calculate the ground plane given three points */
 //Ax + By + Cz + D = 0
 void vCalculateGroundPlane(struct sLaserA, struct sLaserB, struct sLaserC, Lfloat32[4] *f32PlaneEqnCoeffs) // TODO: check implementation of the pointer input
@@ -386,3 +390,18 @@ void vCalcLateral(void)
       ((Lfloat32)(sBeamLasers[0].f32Position[Z]) / f32XDif * sBeamLasers[1].f32Measurement);
   sOrient.f32Lateral = f32Coef* f32NUMERICAL_Cosine((Lfloat32)(s16Yaw) / 10000.0);  // TODO: Trig
 }
+
+
+//historic
+void vPrintPlane(void)
+{
+	// printf("A:%f B:%f C:%f D:%f\n", sOrient.f32PlaneCoeffs[0], sOrient.f32PlaneCoeffs[1], sOrient.f32PlaneCoeffs[2], sOrient.f32PlaneCoeffs[3]);
+}
+
+// TODO: Finish/check this!!!
+/** get orientation parameters, for use by other files */
+struct f32FCU_ORIENTATION__Get_Params(void)
+{
+	return sOrient;
+}
+
