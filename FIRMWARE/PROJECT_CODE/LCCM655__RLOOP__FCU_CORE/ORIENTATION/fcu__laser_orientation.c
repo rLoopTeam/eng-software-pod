@@ -43,8 +43,7 @@
 
 
 #include "../fcu_core.h"
-#include "../LASER_OPTO/fcu__laser_opto.c" // source for laser data
-#include "LaserOrientation.h"
+#include "fcu__laser_orientation.h"
 //old
 	//#include "../../../COMMON_CODE/MULTICORE/LCCMXXX__MULTICORE__OPTONCDT/optoncdt.c"
 
@@ -149,9 +148,6 @@ void vFCU_LASER_ORIENTATION__Process(void)
 					u8OperationalLasers[u8OperationalCount] = u8Counter; 
 					// increment count of operational lasers
 					u8OperationalCount += 1U; 
-
-					// TODO: if there's a failed laser, the u8OperationalLasers array will have fewer indices than were reserved.
-						// is this a problem when for looping through the array later?
 				}
 				else
 				{
@@ -164,9 +160,9 @@ void vFCU_LASER_ORIENTATION__Process(void)
 			{
 				// calculate pitch, roll, and twist of the pod
 				// 1st triplet of ground lasers
-			    vCalculateGroundPlane(sFCU.sOrient.sGroundLasers[0], sFCU.sOrient.sGroundLasers[1], sFCU.sOrient.sGroundLasers[2], &sFCU.sOrient.f32PlaneCoeffs[0]);
+			    vCalculateGroundPlane(0U, 1U, 2U, &sFCU.sOrient.f32PlaneCoeffs[0]);
 			    // 2nd triplet of ground lasers
-			    vCalculateGroundPlane(sFCU.sOrient.sGroundLasers[1], sFCU.sOrient.sGroundLasers[2], sFCU.sOrient.sGroundLasers[3], &sFCU.sOrient.f32TwistPlaneCoeffs[0]); 
+			    vCalculateGroundPlane(1U, 2U, 3U, &sFCU.sOrient.f32TwistPlaneCoeffs[0]); 
 
 			    for(Luint u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM655__NUM_HOVER_ENGINES; u8Counter++)
 			    {
@@ -183,7 +179,7 @@ void vFCU_LASER_ORIENTATION__Process(void)
 			else if(u8OperationalCount == 3U)
 			{ 
 				// calculate pitch and roll. cannot calculate twist.
-			    vCalculateGroundPlane(sFCU.sOrient.sGroundLasers[u8OperationalLasers[0]], sFCU.sOrient.sGroundLasers[u8OperationalLasers[1]], sFCU.sOrient.sGroundLasers[u8OperationalLasers[2]]);
+			    vCalculateGroundPlane(u8OperationalLasers[0], u8OperationalLasers[1], u8OperationalLasers[2], &sFCU.sOrient.f32PlaneCoeffs[0]);
 
 			    for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM655__NUM_HOVER_ENGINES; u8Counter++)
 			    {
@@ -221,9 +217,6 @@ void vFCU_LASER_ORIENTATION__Process(void)
 					u8OperationalLasers[u8OperationalCount] = u8Counter; 
 					// increment count of operational lasers
 					u8OperationalCount += 1U; 
-
-					// TODO: if there's a failed laser, the u8OperationalLasers array will have fewer indices than were reserved.
-						// is this a problem when for looping through the array later?
 				}
 				else
 				{
@@ -322,19 +315,19 @@ void vCalcTwistPitch(void)
 
 /** Calculate the ground plane given three points */
 // uses plane eqn: Ax + By + Cz + D = 0
-void vCalculateGroundPlane(struct sLaserA, struct sLaserB, struct sLaserC, Lfloat32[4] *f32PlaneEqnCoeffs) // TODO: check implementation of the pointer input
+void vCalculateGroundPlane(Luint8 u8A, Luint8 u8B, Luint8 u8C, Lfloat32 *pf32PlaneEqnCoeffs[4])
 {
 	Lfloat32 f32Vec1X, f32Vec1Y, f32Vec1Z;
 	Lfloat32 f32Vec2X, f32Vec2Y, f32f32Vec2Z;
 	Lfloat32 f32XProductX, f32XProductY, f32XProductZ;
 
 	//Calculate two vectors in the plane
-	f32Vec1X = sFCU.sOrient.sGroundLasers[0].f32Position[X] - sFCU.sOrient.sGroundLasers[1].f32Position[X];
-	f32Vec1Y = sFCU.sOrient.sGroundLasers[0].f32Position[Y] - sFCU.sOrient.sGroundLasers[1].f32Position[Y];
-	f32Vec1Z = (sFCU.sOrient.sGroundLasers[0].f32Position[Z] - sFCU.sOrient.sGroundLasers[0].f32Measurement) - (sFCU.sOrient.sGroundLasers[1].f32Position[Z] - sFCU.sOrient.sGroundLasers[1].f32Measurement);
-	f32Vec2X = sFCU.sOrient.sGroundLasers[1].f32Position[X] - sFCU.sOrient.sGroundLasers[2].f32Position[X];
-	f32Vec2Y = sFCU.sOrient.sGroundLasers[1].f32Position[Y] - sFCU.sOrient.sGroundLasers[2].f32Position[Y];
-	f32Vec2Z = (sFCU.sOrient.sGroundLasers[1].f32Position[Z] - sFCU.sOrient.sGroundLasers[1].f32Measurement) - (sFCU.sOrient.sGroundLasers[2].f32Position[Z] - sFCU.sOrient.sGroundLasers[2].f32Measurement);
+	f32Vec1X = sFCU.sOrient.sGroundLasers[u8A].f32Position[X] - sFCU.sOrient.sGroundLasers[u8B].f32Position[X];
+	f32Vec1Y = sFCU.sOrient.sGroundLasers[u8A].f32Position[Y] - sFCU.sOrient.sGroundLasers[u8B].f32Position[Y];
+	f32Vec1Z = (sFCU.sOrient.sGroundLasers[u8A].f32Position[Z] - sFCU.sOrient.sGroundLasers[u8A].f32Measurement) - (sFCU.sOrient.sGroundLasers[u8B].f32Position[Z] - sFCU.sOrient.sGroundLasers[u8B].f32Measurement);
+	f32Vec2X = sFCU.sOrient.sGroundLasers[u8B].f32Position[X] - sFCU.sOrient.sGroundLasers[u8C].f32Position[X];
+	f32Vec2Y = sFCU.sOrient.sGroundLasers[u8B].f32Position[Y] - sFCU.sOrient.sGroundLasers[u8C].f32Position[Y];
+	f32Vec2Z = (sFCU.sOrient.sGroundLasers[u8B].f32Position[Z] - sFCU.sOrient.sGroundLasers[u8B].f32Measurement) - (sFCU.sOrient.sGroundLasers[u8C].f32Position[Z] - sFCU.sOrient.sGroundLasers[u8C].f32Measurement);
 
 	//Calculate the cross product of the vectors
 	//to get a vector normal to the plane
@@ -354,11 +347,11 @@ void vCalculateGroundPlane(struct sLaserA, struct sLaserB, struct sLaserC, Lfloa
 	//Plane in 3D: Ax + By + Cz + D = 0
 	//A, B, C is the vector normal to the plane
 	//Use one of our original points to calculate D
-	f32PlaneEqnCoeffs[A] = f32XProductX;
-	f32PlaneEqnCoeffs[B] = f32XProductY;
-	f32PlaneEqnCoeffs[C] = f32XProductZ;
+	pf32PlaneEqnCoeffs[A] = f32XProductX;
+	pf32PlaneEqnCoeffs[B] = f32XProductY;
+	pf32PlaneEqnCoeffs[C] = f32XProductZ;
 
-	f32PlaneEqnCoeffs[D] = -1 * (sFCU.sOrient.f32PlaneCoeffs[A] * sFCU.sOrient.sGroundLasers[0].f32Position[X] + sFCU.sOrient.f32PlaneCoeffs[B] * sFCU.sOrient.sGroundLasers[0].f32Position[Y] + sFCU.sOrient.f32PlaneCoeffs[C] * sFCU.sOrient.sGroundLasers[0].f32Position[Z]);
+	pf32PlaneEqnCoeffs[D] = -1 * (pf32PlaneEqnCoeffs[A] * sFCU.sOrient.sGroundLasers[u8A].f32Position[X] + pf32PlaneEqnCoeffs[B] * sFCU.sOrient.sGroundLasers[u8A].f32Position[Y] + pf32PlaneEqnCoeffs[C] * sFCU.sOrient.sGroundLasers[u8A].f32Position[Z]);
 
 }
 

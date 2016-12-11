@@ -295,16 +295,8 @@
 			#if C_LOCALDEF__LCCM655__ENABLE_ORIENTATION == 1U
 			/** Orientation structure */
 
-			/** sub-structure for laser and hover engine positions and measurements*/
-			struct _strComponent
-			{
-				Lfloat32 f32Position[3]; // x,y,z
-				Lfloat32 f32Measurement; // measurement returned from the distance lasers; height of hover engines above ground
-				// TODO: need eState	
-			};
-
 			/** Main orientation parameter structure */
-			struct _strPodOrientation
+			struct
 			{
 				Lint16 s16Roll;
 				Lint16 s16Pitch;
@@ -313,16 +305,33 @@
 				Lint16 s16TwistPitch; // TODO s8?
 				Lint16 s16TwistRoll; // TODO s8?
 
-				//Basically the vehicle is a static reference
-				//and we recalculate the orientation of the
-				//ground plane relative to the vehicle
-				//and the hover engines
+				//Basically the vehicle is a static reference and we recalculate the orientation 
+				//of the ground plane relative to the vehicle and the hover engines
 				Lfloat32 f32PlaneCoeffs[4]; //TODO: Check this size   // ordered as: A, B, C, D, decreasing polynomial terms
-				Lfloat32 f32TwistPlaneCoeffs[4]; //TODO: Check this size   // ordered as: A, B, C, D, decreasing polynomial terms // to be built with CalculateGroundPlane using the second laser triplet
+				Lfloat32 f32TwistPlaneCoeffs[4]; //TODO: Check this size   // ordered as: A, B, C, D, decreasing polynomial terms // to be built with vCalculateGroundPlane() using the second laser triplet
 				
-				_strComponent sHoverEngines[C_LOCALDEF__LCCM655__NUM_HOVER_ENGINES];
-				_strComponent sGroundLasers[C_LOCALDEF__LCCM655__LASER_OPTONCDT__NUM_GROUND];
-				_strComponent sBeamLasers[C_LOCALDEF__LCCM655__LASER_OPTONCDT__NUM_BEAM];
+				/** sub-structure for ground lasers and their measurements*/
+				struct 
+				{
+					Lfloat32 f32Position[3]; // x,y,z
+					Lfloat32 f32Measurement; // measurement returned from the distance laser
+					// TODO: need eState	
+				}sGroundLasers[C_LOCALDEF__LCCM655__LASER_OPTONCDT__NUM_GROUND];
+
+				/** sub-structure for beam lasers and their measurements*/
+				struct 
+				{
+					Lfloat32 f32Position[3]; // x,y,z
+					Lfloat32 f32Measurement; // measurement returned from the distance laser
+					// TODO: need eState	
+				}sBeamLasers[C_LOCALDEF__LCCM655__LASER_OPTONCDT__NUM_BEAM];
+
+				/** sub-structure for hover engine positions and their hover heights*/
+				struct 
+				{
+					Lfloat32 f32Position[3]; // x,y,z
+					Lfloat32 f32Measurement; // height of hover engine above ground
+				}sHoverEngines[C_LOCALDEF__LCCM655__NUM_HOVER_ENGINES];
 
 				E_LaserOrientation_STATES_T eState
 
