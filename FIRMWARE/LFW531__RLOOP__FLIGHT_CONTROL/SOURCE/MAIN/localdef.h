@@ -146,6 +146,12 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Laser Distance Unit */
 		#define C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE					(1U)
 
+		/** Number of OptoNCDT lasers facing ibeam, must be in order from A0:2, B0:2*/
+		#define C_LOCALDEF__LCCM655__LASER_OPTONCDT__NUM_BEAM				(2U)
+
+		/** Number of OptoNCDT lasers facing ground, must be in order from A0:2, B0:2*/
+		#define C_LOCALDEF__LCCM655__LASER_OPTONCDT__NUM_GROUND				(4U)
+
 		/** Enable accel subsystem */
 		#define C_LOCALDEF__LCCM655__ENABLE_ACCEL							(1U)
 
