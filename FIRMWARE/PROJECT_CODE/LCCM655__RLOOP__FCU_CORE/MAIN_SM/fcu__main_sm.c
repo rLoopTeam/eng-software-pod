@@ -104,11 +104,6 @@ void vFCU_MAINSM__Process(void)
 				vFCU_LASEROPTO__Init();
 			#endif
 
-			//laser orientation
-			#if C_LOCALDEF__LCCM655__ENABLE_ORIENTATION == 1U
-				vFCU_LASER_ORIENTATION__Init();
-			#endif
-
 			//laser distance
 
 			//laser contrast
@@ -116,6 +111,11 @@ void vFCU_MAINSM__Process(void)
 			//PiComms Layer
 			#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
 				vFCU_PICOMMS__Init();
+			#endif
+
+			//finally init the flight controller
+			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
+				vFCU_FLIGHTCTL__Init();
 			#endif
 
 			//put the flight computer into startup mode now that everything has been initted.
@@ -155,6 +155,12 @@ void vFCU_MAINSM__Process(void)
 		case RUN_STATE__FLIGHT_MODE:
 			//this is the flight mode controller
 			//if we are in this state, we are ready for flight
+
+			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
+				vFCU_FLIGHTCTL__Process();
+			#endif
+
+
 			break;
 
 		case RUN_STATE__FLIGHT_ABORT:
@@ -215,6 +221,7 @@ void vFCU_MAINSM__Process(void)
 
 		//process auto-sequence control
 		vFCU_MAINSM_AUTO__Process();
+
 
 
 	}
