@@ -28,6 +28,7 @@
 
 		#include <LCCM655__RLOOP__FCU_CORE/NETWORKING/fcu_core__net__packet_types.h>
 
+		#include <LCCM655__RLOOP__FCU_CORE/ORIENTATION/fcu__laser_orientation.h>
 
 		//for software fault tree handling
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
@@ -291,6 +292,52 @@
 
 			}sLasers;
 
+			#if C_LOCALDEF__LCCM655__ENABLE_ORIENTATION == 1U
+			/** Orientation structure */
+
+			/** Main orientation parameter structure */
+			struct
+			{
+				Lint16 s16Roll;
+				Lint16 s16Pitch;
+				Lint16 s16Yaw;
+				Lfloat32 f32Lateral;
+				Lint16 s16TwistPitch; // TODO s8?
+				Lint16 s16TwistRoll; // TODO s8?
+
+				//Basically the vehicle is a static reference and we recalculate the orientation 
+				//of the ground plane relative to the vehicle and the hover engines
+				Lfloat32 f32PlaneCoeffs[4]; //TODO: Check this size   // ordered as: A, B, C, D, decreasing polynomial terms
+				Lfloat32 f32TwistPlaneCoeffs[4]; //TODO: Check this size   // ordered as: A, B, C, D, decreasing polynomial terms // to be built with vCalculateGroundPlane() using the second laser triplet
+				
+				/** sub-structure for ground lasers and their measurements*/
+				struct 
+				{
+					Lfloat32 f32Position[3]; // x,y,z
+					Lfloat32 f32Measurement; // measurement returned from the distance laser
+					// TODO: need eState	
+				}sGroundLasers[C_LOCALDEF__LCCM655__LASER_OPTONCDT__NUM_GROUND];
+
+				/** sub-structure for beam lasers and their measurements*/
+				struct 
+				{
+					Lfloat32 f32Position[3]; // x,y,z
+					Lfloat32 f32Measurement; // measurement returned from the distance laser
+					// TODO: need eState	
+				}sBeamLasers[C_LOCALDEF__LCCM655__LASER_OPTONCDT__NUM_BEAM];
+
+				/** sub-structure for hover engine positions and their hover heights*/
+				struct 
+				{
+					Lfloat32 f32Position[3]; // x,y,z
+					Lfloat32 f32Measurement; // height of hover engine above ground
+				}sHoverEngines[C_LOCALDEF__LCCM655__NUM_HOVER_ENGINES];
+
+				E_LaserOrientation_STATES_T eState
+
+			}sOrient;
+			#endif
+			
 			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
 			/** Contrast sensor structure */
 			struct
@@ -425,6 +472,10 @@
 		void vFCU_LASEROPTO__Process(void);
 		Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex);
 		void vFCU_LASEROPTO__100MS_ISR(void);
+
+		// Laser Orientation
+		void vFCU_LASER_ORIENTATION__Init(void);
+		void vFCU_LASER_ORIENTATION__Process(void);
 
 		//pi comms
 		void vFCU_PICOMMS__Init(void);

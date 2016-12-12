@@ -104,6 +104,11 @@ void vFCU_MAINSM__Process(void)
 				vFCU_LASEROPTO__Init();
 			#endif
 
+			//laser orientation
+			#if C_LOCALDEF__LCCM655__ENABLE_ORIENTATION == 1U
+				vFCU_LASER_ORIENTATION__Init();
+			#endif
+
 			//laser distance
 
 			//laser contrast
@@ -174,6 +179,11 @@ void vFCU_MAINSM__Process(void)
 
 		#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
 			vFCU_LASEROPTO__Process();
+		#endif
+
+		//laser orientation
+		#if C_LOCALDEF__LCCM655__ENABLE_ORIENTATION == 1U
+			vFCU_LASER_ORIENTATION__Process();
 		#endif
 
 		#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONT == 1U
