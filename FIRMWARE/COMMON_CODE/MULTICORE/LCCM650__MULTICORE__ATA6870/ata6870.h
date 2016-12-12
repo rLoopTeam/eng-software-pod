@@ -34,7 +34,10 @@
 		
 		/** Voltage input measurement resolution in VOLTS */
 		#define C_ATA6870__ADC_RES_V				(0.0015F)
-		
+
+		//** Voltage thresholds for each module, CHANGE IF NEEDED*/
+		#define C_ATA6870_MIN_VOLTS					(3.0U)
+		#define C_ATA6870_MAX_VOLTS					(4.3U)
 
 		/** Balancer Stats */
 		typedef enum

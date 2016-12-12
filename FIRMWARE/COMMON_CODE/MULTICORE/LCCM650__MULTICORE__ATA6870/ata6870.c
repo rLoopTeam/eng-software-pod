@@ -124,29 +124,29 @@ void vATA6870__Process(void)
 	vATA6870_BALANCE__Process();
 }
 
-// bulk read voltages
+// bulk read voltages: 6 voltages, 1 temperature
 Luint8 uATA6870__BulkRead(Luint8 u8VoltageMode, Luint8 u8TempBit)
 {
-	// volt mode = calibration or regular aquisition. 0 for calibration, 1 for regular.
+	// volt mode = calibration or regular acquisition. 0 for calibration, 1 for regular.
 	// tempBit = temperature sensor to select. 1 for internal, 0 for external.
 
 
-	Luint8 u8Counter;
-	Luint8 u8VolCounter = 0U;
-	Luint8 u8TempData;
-	Luint8 u8BulkReadError = 0U;
+	Luint8 u8Counter;						// loop counter
+	Luint8 u8VolCounter = 0U;				// number of cell voltage readings
+	Luint8 u8TempData;						// NTC device temperature
+	Luint8 u8BulkReadError = 0U;			// error flag
 
-	// start conversion by clearing out any exixting comands and issuing our own
+	// start conversion by clearing out any existing commands and issuing our own
 	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
 	{
 		//Clear any existing interrupts
 		uATA6870__GetStatus(u8Counter);
 
-		// check and clear exixting commands
+		// check and clear existing commands
 		if (uATA6870__GetOpStatus(u8Counter) != 0U)
 		{
 			//OpClear
-			u8TempData = 0x00u;
+			u8TempData = 0x00U;
 
 			//clear existing command
 			vATA6870_LOWLEVEL__Reg_WriteU8(u8Counter, ATA6870_REG__OPERATION, &u8TempData, 1U);
@@ -175,17 +175,19 @@ Luint8 uATA6870__BulkRead(Luint8 u8VoltageMode, Luint8 u8TempBit)
 		//TODO
 
 		// 8.2ms conversion time according to datasheet.
+		//TODO: change to for loop
 		vRM4_DELAYS__Delay_mS(10U);
 	}
 
 	// read data
 	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
 	{
-
-
 		vATA6870_CELL__Get_Voltages(u8Counter, &sATA6870.f32Voltage[u8VolCounter], &sATA6870.f32NTCTemperatureReading[u8Counter]);
+		// move to next module
 		u8VolCounter += C_ATA6870__MAX_CELLS;
 	}
+	// check if any cells are dead or out of threshold
+	u8BulkReadError = u8VoltageError(sATA6870.f32Voltage);
 
 	return u8BulkReadError;
 }
@@ -207,7 +209,7 @@ Luint8 uATA6870__GetOpStatus(Luint8 u8DeviceIndex)
 	// 0 = no operation
 	// 1 = ongoing operation
 	// 2 = operation finished
-	// 3 = operation failed/was cancled. result not available.
+	// 3 = operation failed/was canceled. result not available.
 
 	Luint8 u8Return = 0xFFU;
 	vATA6870_LOWLEVEL__Reg_ReadU8(u8DeviceIndex, ATA6870_REG__OP_STATUS, &u8Return, 1U);
@@ -215,6 +217,36 @@ Luint8 uATA6870__GetOpStatus(Luint8 u8DeviceIndex)
 	return u8Return;
 }
 
+//*** check if a cell is above or below safe threshold ***//
+//TODO: if we use UNDER_VOLT function instead, be sure to implement
+//      an upper bound check as well for over voltage
+// Lfloat32 *f32Voltages					voltages array of size C_ATA6870__MAX_CELLS
+Luint8 u8VoltageError(Lfloat32 *f32Voltages const)
+{
+	Luint8 u8VoltageError = 0U;
+
+	// check each voltage is within threshold
+	for (Luint8 u8Counter = 0U; u8Counter < C_ATA6870__MAX_CELLS; u8Counter++)
+	{
+		if (f32Voltages[u8Counter] > C_ATA6870_MAX_VOLTS)
+		{
+			// log voltage error
+			// TODO: standardize error codes
+			u8VoltageError = -1;
+		}
+		else if (f32Voltages[u8Counter] < C_ATA6870_MIN_VOLTS)
+		{
+			// log voltage error
+			// TODO: standardize error codes
+			u8VoltageError = -2;
+		}
+		else
+		{
+			// fall through
+		}
+	}
+	return u8VoltageError;
+}
 
 //safetys
 #ifndef C_LOCALDEF__LCCM650__ENABLE_CRC
