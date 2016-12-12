@@ -74,7 +74,7 @@
 		}RM4_N2HET__CHANNEL_T;
 
 
-		/** N2HET Prescaler values */
+		/** N2HET Prescaler values for Loop Resolution */
 		typedef enum
 		{
 			LR_PRESCALE__1 = 0U,
@@ -88,6 +88,19 @@
 
 		}RM4_N2HET__LR_PRESCALE_T;
 
+		/** High Resolution Prescaler Values */
+		typedef enum
+		{
+			HR_PRESCALE__1 = 0U,
+			HR_PRESCALE__2 = 1U,
+			HR_PRESCALE__4 = 2U,
+			HR_PRESCALE__8 = 3U,
+			HR_PRESCALE__16 = 4U,
+			HR_PRESCALE__32 = 5U,
+			HR_PRESCALE__64 = 6U,
+
+		}RM4_N2HET__HR_PRESCALE_T;
+		
 		/** This type is used to access a HET Instruction.*/
 		typedef volatile struct hetInstructionBase
 		{
@@ -166,6 +179,11 @@
 			/** A basic timebase counter to register T */
 			DYN_TYPE__TIMEBASE,
 
+			/** A 50 bit timer using the 25bit timebase and then on each rollover
+			* generate an interrupt and inc a new counter. Reading time base
+			* requires reading two values */
+			DYN_TYPE__TIMEBASE_50BIT,
+			
 			/** Pulse Width Capture, determined by rising / falling edge types */
 			DYN_TYPE__PULSE_CAPTURE,
 
@@ -218,7 +236,7 @@
 
 
 		//Function Protos
-		void vRM4_N2HET__Init(RM4_N2HET__CHANNEL_T eChannel, Luint8 u8DontUpdateRAM, RM4_N2HET__LR_PRESCALE_T ePrescale);
+		void vRM4_N2HET__Init(RM4_N2HET__CHANNEL_T eChannel, Luint8 u8DontUpdateRAM, RM4_N2HET__HR_PRESCALE_T eHR_Prescale, RM4_N2HET__LR_PRESCALE_T eLR_Prescale);
 		void vRM4_N2HET__Disable(RM4_N2HET__CHANNEL_T eChannel);
 		void vRM4_N2HET__Enable(RM4_N2HET__CHANNEL_T eChannel);
 

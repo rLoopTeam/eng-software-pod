@@ -14,23 +14,21 @@
 #ifndef _RM4_HET_PRIVATE_H_
 #define _RM4_HET_PRIVATE_H_
 
-#if 0
-	/** Program types used when stacking programs */
+	/** Timestamping Options*/
 	typedef enum
 	{
+		/** Rising edges only */
+		TIMESTAMP_TYPE__RISING = 0U,
 
-		/** PWM Based Program */
-		PROG_TYPE__PWM = 0U,
+		/** Falling edges only */
+		TIMESTAMP_TYPE__FALLING,
 
-		/** EDGE Detection / counting program */
-		PROG_TYPE__EDGE,
+		/** Both edges */
+		TIMESTAMP_TYPE__BOTH,
 
-		/** PULSE Capture */
-		PROG_TYPE__PULSE
+	}RM4_N2HET__TIMESTAMP_T;
 
-	}RM4_N2HET__PROGRAM_T;
-#endif
-
+	/** Capture program types */
 	typedef enum
 	{
 		/** Count low pulse duration on selected pin */
