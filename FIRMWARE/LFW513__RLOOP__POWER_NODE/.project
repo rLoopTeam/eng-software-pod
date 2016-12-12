@@ -211,6 +211,11 @@
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM663__RM4__CPU_LOAD</locationURI>
 		</link>
+		<link>
+			<name>RM4/LCCM240__RM4__N2HET</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM240__RM4__N2HET</locationURI>
+		</link>
 	</linkedResources>
 	<filteredResources>
 		<filter>
