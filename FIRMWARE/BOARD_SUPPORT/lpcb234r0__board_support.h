@@ -772,5 +772,39 @@ RM48 - CPU LOAD MEASUREMENT
 		#include <RM4/LCCM663__RM4__CPU_LOAD/rm4_cpuload.h>
 	#endif //#if C_LOCALDEF__LCCM663__ENABLE_THIS_MODULE == 1U
 
+/*******************************************************************************
+RM4 High End Timers (HET)
+General Configuration
+HR Clock = 100MHZ
+VCLK2 = 100Mhz, Actual HR Clock = 100MHZ
+Loop Time = 100ns
+LR Time = 160ns
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM240__ENABLE_THIS_MODULE							(1U)
+ 	 #if C_LOCALDEF__LCCM240__ENABLE_THIS_MODULE == 1U
+
+		//Module Enables
+		#define C_LOCALDEF__LCCM240__ENABLE_N2HET1							(1U)
+		#define C_LOCALDEF__LCCM240__ENABLE_N2HET2							(0U)
+
+		//enable interrupts or not
+		#define C_LOCALDEF__LCCM240__ENABLE_INTERRUPTS						(0U)
+
+
+		//HET Options
+		#define C_LOCALDEF__LCCM240__ENABLE_INPUT_CAPTURE					(0U)
+		#define C_LOCALDEF__LCCM240__ENABLE_EDGE_CAPTURE					(0U)
+		#define C_LOCALDEF__LCCM240__ENABLE_PWM								(0U)
+		#define C_LOCALDEF__LCCM240__ENABLE_TIMESTAMPING					(0U)
+
+		//testing
+		#define C_LOCALDEF__LCCM240__ENABLE_TEST_SPEC						(0U)
+
+ 	 	//main include
+ 	 	#include <RM4/LCCM240__RM4__N2HET/rm4_n2het.h>
+
+ 	 #endif //C_LOCALDEF__LCCM240__ENABLE_THIS_MODULE
+
+
 #endif //_LPCB234R0_BOARD_SUPPORT_H_
 
