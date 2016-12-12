@@ -49,15 +49,15 @@
 extern struct _strFCU sFCU;
 
 //locals
-void vFCU_FLIGHTCLT_LASERORIENT__CalcRoll(void);
-void vFCU_FLIGHTCLT_LASERORIENT__CalcPitch(void);
-void vFCU_FLIGHTCLT_LASERORIENT__CalcTwistRoll(void);
-void vFCU_FLIGHTCLT_LASERORIENT__CalcTwistPitch(void);
-Lfloat32 f32FCU_FLIGHTCLT_LASERORIENT__PointToPlaneDistance(Lfloat32 f32Position[3]);
-void vFCU_FLIGHTCLT_LASERORIENT__PrintPlane(void);
-void vFCU_FLIGHTCLT_LASERORIENT__CalculateGroundPlane(Luint8 u8A, Luint8 u8B, Luint8 u8C, Lfloat32 *pf32PlaneEqnCoeffs);
-void vFCU_FLIGHTCLT_LASERORIENT__CalcYaw(void);
-void vFCU_FLIGHTCLT_LASERORIENT__CalcLateral(void);
+void vFCU_FLIGHTCTL_LASERORIENT__CalcRoll(void);
+void vFCU_FLIGHTCTL_LASERORIENT__CalcPitch(void);
+void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistRoll(void);
+void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistPitch(void);
+Lfloat32 f32FCU_FLIGHTCTL_LASERORIENT__PointToPlaneDistance(Lfloat32 f32Position[3]);
+void vFCU_FLIGHTCTL_LASERORIENT__PrintPlane(void);
+void vFCU_FLIGHTCTL_LASERORIENT__CalculateGroundPlane(Luint8 u8A, Luint8 u8B, Luint8 u8C, Lfloat32 *pf32PlaneEqnCoeffs);
+void vFCU_FLIGHTCTL_LASERORIENT__CalcYaw(void);
+void vFCU_FLIGHTCTL_LASERORIENT__CalcLateral(void);
 
 
 
@@ -67,7 +67,7 @@ void vFCU_FLIGHTCLT_LASERORIENT__CalcLateral(void);
  * 
  *
  */
-void vFCU_FLIGHTCLT_LASERORIENT__Init(void)
+void vFCU_FLIGHTCTL_LASERORIENT__Init(void)
 {
 	// TODO: All positions of components need their positions measured and assigned here.
 		// blocked by installation of the components
@@ -116,7 +116,7 @@ void vFCU_FLIGHTCLT_LASERORIENT__Init(void)
  * Process the calculation of pod orientation and engine heights.
  * 
  */
-void vFCU_FLIGHTCLT_LASERORIENT__Process(void)
+void vFCU_FLIGHTCTL_LASERORIENT__Process(void)
 {
 	Luint8 u8OperationalLasers[C_FCU__NUM_LASERS_GROUND];
 	Luint8 u8OperationalCount = 0U;
@@ -169,36 +169,36 @@ void vFCU_FLIGHTCLT_LASERORIENT__Process(void)
 			{
 				// calculate pitch, roll, and twist of the pod
 				// 1st triplet of ground lasers
-			    vFCU_FLIGHTCLT_LASERORIENT__CalculateGroundPlane(0U, 1U, 2U, &sFCU.sFlightControl.sOrient.f32PlaneCoeffs[0]);
+			    vFCU_FLIGHTCTL_LASERORIENT__CalculateGroundPlane(0U, 1U, 2U, &sFCU.sFlightControl.sOrient.f32PlaneCoeffs[0]);
 
 			    // 2nd triplet of ground lasers
-			    vFCU_FLIGHTCLT_LASERORIENT__CalculateGroundPlane(1U, 2U, 3U, &sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[0]);
+			    vFCU_FLIGHTCTL_LASERORIENT__CalculateGroundPlane(1U, 2U, 3U, &sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[0]);
 
 			    for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
 			    {
 			    	// Calc the position of each hover engine
-					sFCU.sFlightControl.sOrient.sHoverEngines[u8Counter].f32Measurement = f32FCU_FLIGHTCLT_LASERORIENT__PointToPlaneDistance(&sFCU.sFlightControl.sOrient.sHoverEngines[u8Counter].f32Position[0]);
+					sFCU.sFlightControl.sOrient.sHoverEngines[u8Counter].f32Measurement = f32FCU_FLIGHTCTL_LASERORIENT__PointToPlaneDistance(&sFCU.sFlightControl.sOrient.sHoverEngines[u8Counter].f32Position[0]);
 				}
 
-				vFCU_FLIGHTCLT_LASERORIENT__CalcRoll();
-				vFCU_FLIGHTCLT_LASERORIENT__CalcPitch();
+				vFCU_FLIGHTCTL_LASERORIENT__CalcRoll();
+				vFCU_FLIGHTCTL_LASERORIENT__CalcPitch();
 
-				vFCU_FLIGHTCLT_LASERORIENT__CalcTwistRoll();
-				vFCU_FLIGHTCLT_LASERORIENT__CalcTwistPitch();
+				vFCU_FLIGHTCTL_LASERORIENT__CalcTwistRoll();
+				vFCU_FLIGHTCTL_LASERORIENT__CalcTwistPitch();
 			}
 			else if(u8OperationalCount == 3U)
 			{ 
 				// calculate pitch and roll. cannot calculate twist.
-			    vFCU_FLIGHTCLT_LASERORIENT__CalculateGroundPlane(u8OperationalLasers[0], u8OperationalLasers[1], u8OperationalLasers[2], &sFCU.sFlightControl.sOrient.f32PlaneCoeffs[0]);
+			    vFCU_FLIGHTCTL_LASERORIENT__CalculateGroundPlane(u8OperationalLasers[0], u8OperationalLasers[1], u8OperationalLasers[2], &sFCU.sFlightControl.sOrient.f32PlaneCoeffs[0]);
 
 			    for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
 			    {
 			    	// Calc the position of each hover engine
-					sFCU.sFlightControl.sOrient.sHoverEngines[u8Counter].f32Measurement = f32FCU_FLIGHTCLT_LASERORIENT__PointToPlaneDistance(&sFCU.sFlightControl.sOrient.sHoverEngines[u8Counter].f32Position[0]);
+					sFCU.sFlightControl.sOrient.sHoverEngines[u8Counter].f32Measurement = f32FCU_FLIGHTCTL_LASERORIENT__PointToPlaneDistance(&sFCU.sFlightControl.sOrient.sHoverEngines[u8Counter].f32Position[0]);
 				}
 
-				vFCU_FLIGHTCLT_LASERORIENT__CalcPitch();
-				vFCU_FLIGHTCLT_LASERORIENT__CalcRoll();
+				vFCU_FLIGHTCTL_LASERORIENT__CalcPitch();
+				vFCU_FLIGHTCTL_LASERORIENT__CalcRoll();
 			}
 			else if(u8OperationalCount == 2U)
 			{
@@ -237,9 +237,9 @@ void vFCU_FLIGHTCLT_LASERORIENT__Process(void)
 			/** Calculate as many of the pods orientation parameters as possible based on the number of operational lasers */
 			if(u8OperationalCount == 2U)
 			{
-				vFCU_FLIGHTCLT_LASERORIENT__RecalcYaw();
+				vFCU_FLIGHTCTL_LASERORIENT__RecalcYaw();
 
-				vFCU_FLIGHTCLT_LASERORIENT__RecalcLateral();
+				vFCU_FLIGHTCTL_LASERORIENT__RecalcLateral();
 
 			}
 			else if(u8OperationalCount == 1U)
@@ -267,7 +267,7 @@ void vFCU_FLIGHTCLT_LASERORIENT__Process(void)
 
 
 /** Return the least distance between a point and the plane */
-Lfloat32 f32FCU_FLIGHTCLT_LASERORIENT__PointToPlaneDistance(Lfloat32 f32Position[3])
+Lfloat32 f32FCU_FLIGHTCTL_LASERORIENT__PointToPlaneDistance(Lfloat32 f32Position[3]) // TODO add a * since it's now called with ref &?
 {
 	return 
 	(
@@ -278,7 +278,7 @@ Lfloat32 f32FCU_FLIGHTCLT_LASERORIENT__PointToPlaneDistance(Lfloat32 f32Position
 
 
 /** The angle between two planes that yield the roll */
-void vFCU_FLIGHTCLT_LASERORIENT__CalcRoll(void)
+void vFCU_FLIGHTCTL_LASERORIENT__CalcRoll(void)
 {
 	//Normal vector of the other plane
 	Lfloat32 f32vec1x = 1, f32vec1y = 0, f32vec1z = 0;
@@ -289,7 +289,7 @@ void vFCU_FLIGHTCLT_LASERORIENT__CalcRoll(void)
 
 
 /** The angle between two planes that yields the pitch */
-void vFCU_FLIGHTCLT_LASERORIENT__CalcPitch(void)
+void vFCU_FLIGHTCTL_LASERORIENT__CalcPitch(void)
 {
 	//Normal vector of the other plane
 	Lfloat32 f32vec1x = 0, f32vec1y = 1, f32vec1z = 0;
@@ -300,7 +300,7 @@ void vFCU_FLIGHTCLT_LASERORIENT__CalcPitch(void)
 
 
 /** Calculate the pod's twisting due to the lack of perfect rigidity of the substructure: Roll Twisting */
-void vFCU_FLIGHTCLT_LASERORIENT__CalcTwistRoll(void)
+void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistRoll(void)
 {
 	//Normal vector of the other plane
 	Lfloat32 f32vec1x = 1, f32vec1y = 0, f32vec1z = 0;
@@ -313,7 +313,7 @@ void vFCU_FLIGHTCLT_LASERORIENT__CalcTwistRoll(void)
 
 
 /** Calculate the pod's twisting due to the lack of perfect rigidity of the substructure: Bending */
-void vFCU_FLIGHTCLT_LASERORIENT__CalcTwistPitch(void)
+void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistPitch(void)
 {
 	//Normal vector of the other plane
 	Lfloat32 f32vec1x = 0, f32vec1y = 1, f32vec1z = 0;
@@ -327,7 +327,7 @@ void vFCU_FLIGHTCLT_LASERORIENT__CalcTwistPitch(void)
 
 /** Calculate the ground plane given three points */
 // uses plane eqn: Ax + By + Cz + D = 0
-void vFCU_FLIGHTCLT_LASERORIENT__CalculateGroundPlane(Luint8 u8A, Luint8 u8B, Luint8 u8C, Lfloat32 *pf32PlaneEqnCoeffs)
+void vFCU_FLIGHTCTL_LASERORIENT__CalculateGroundPlane(Luint8 u8A, Luint8 u8B, Luint8 u8C, Lfloat32 *pf32PlaneEqnCoeffs)
 {
 	Lfloat32 f32Vec1X, f32Vec1Y, f32Vec1Z;
 	Lfloat32 f32Vec2X, f32Vec2Y, f32Vec2Z;
@@ -369,7 +369,7 @@ void vFCU_FLIGHTCLT_LASERORIENT__CalculateGroundPlane(Luint8 u8A, Luint8 u8B, Lu
 
 
 /** Calculate the pod's yaw */
-void vFCU_FLIGHTCLT_LASERORIENT__CalcYaw(void)
+void vFCU_FLIGHTCTL_LASERORIENT__CalcYaw(void)
 {
   Lfloat32 f32SDif = (Lfloat32)(sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Measurement - sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Measurement);
 
@@ -382,7 +382,7 @@ void vFCU_FLIGHTCLT_LASERORIENT__CalcYaw(void)
 
 
 /** Calculate the pod's lateral translation */
-void vFCU_FLIGHTCLT_LASERORIENT__CalcLateral(void) 
+void vFCU_FLIGHTCTL_LASERORIENT__CalcLateral(void) 
 {
   Lfloat32 f32XDif = (Lfloat32)(sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Position[LASER_ORIENT__Z] - sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Position[LASER_ORIENT__Z]);
 
@@ -395,7 +395,7 @@ void vFCU_FLIGHTCLT_LASERORIENT__CalcLateral(void)
 
 
 //historic
-void vFCU_FLIGHTCLT_LASERORIENT__PrintPlane(void)
+void vFCU_FLIGHTCTL_LASERORIENT__PrintPlane(void)
 {
 	// printf("A:%f B:%f C:%f D:%f\n", sFCU.sFlightControl.sOrient.f32PlaneCoeffs[0], sFCU.sFlightControl.sOrient.f32PlaneCoeffs[1], sFCU.sFlightControl.sOrient.f32PlaneCoeffs[2], sFCU.sFlightControl.sOrient.f32PlaneCoeffs[3]);
 }

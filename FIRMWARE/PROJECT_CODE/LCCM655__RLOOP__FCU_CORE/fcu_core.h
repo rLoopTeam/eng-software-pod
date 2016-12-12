@@ -291,7 +291,7 @@
 			}sLasers;
 
 
-			/** Flight Controlle r*/
+			/** Flight Controller */
 			struct
 			{
 				#if C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION == 1U
@@ -440,8 +440,8 @@
 		void vFCU_FLIGHTCTL__Process(void);
 
 		// Laser Orientation
-		void vFCU_FLIGHTCLT_LASERORIENT__Init(void);
-		void vFCU_FLIGHTCLT_LASERORIENT__Process(void);
+		void vFCU_FLIGHTCTL_LASERORIENT__Init(void);
+		void vFCU_FLIGHTCTL_LASERORIENT__Process(void);
 
 
 		//network
@@ -483,7 +483,7 @@
 			Luint8 u8FCU_MAINSM_AUTO__Is_Abort(void);
 
 
-		//lasers for OptoNCDT inerface
+		//lasers for OptoNCDT interface
 		void vFCU_LASEROPTO__Init(void);
 		void vFCU_LASEROPTO__Process(void);
 		Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex);
