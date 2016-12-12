@@ -1,6 +1,6 @@
 /**
  * @file		FCU_CORE__ENUMS.H
- * @brief		Flight control code constatants
+ * @brief		Flight control code constants
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
  */
