@@ -33,7 +33,6 @@ static Luint8 uATA6870__GetStatus(Luint8 u8DeviceIndex);
 static Luint8 uATA6870__GetOpStatus(Luint8 u8DeviceIndex);
 static Luint8 uATA6870__BulkRead(void);
 static void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit);
-static void vATA6870__WaitConversion(void);
 
 
 /***************************************************************************//**
@@ -133,8 +132,16 @@ void vATA6870__Process(void)
 		sATA6870.eState = ATA6870_STATE__WAIT_CONVERSION;
 		break;
 	case ATA6870_STATE__WAIT_CONVERSION:
-		vATA6870__WaitConversion();
-		sATA6870.eState = ATA6870_STATE__READ_CELL_VOLTAGES;
+		// 8.2ms conversion time according to datasheet
+		if(sATA6870.u32ISR_Counter > 10U)
+		{
+			//go and read the voltages now
+			sATA6870.eState = ATA6870_STATE__READ_CELL_VOLTAGES;
+		}
+		else
+		{
+			//wait here.
+		}
 		break;
 	case ATA6870_STATE__READ_CELL_VOLTAGES:
 		uATA6870__BulkRead();
@@ -187,28 +194,9 @@ void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
 		//Start Conversion
 		vATA6870_LOWLEVEL__Reg_WriteU8(u8Counter, ATA6870_REG__OPERATION, &u8TempData, 1U);
 	}
-}
-/***************************************************************************//**
- * @brief
- * Wait for conversion to finish
- * 8.2ms conversion time according to datasheet
- *
- * @st_funcMD5
- * @st_funcID
- */
-void vATA6870__WaitConversion(void)
-{
-	Luint8 u8Counter;
 
-	// scan the bus for a dataready interrupt and read data into adc value arrays
-	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
-	{
-		//TODO
-
-		// 8.2ms conversion time according to datasheet.
-		//TODO: change to for loop
-		vRM4_DELAYS__Delay_mS(10U);
-	}
+	//clear the counter
+	sATA6870.u32ISR_Counter = 0U;
 }
 
 /***************************************************************************//**
@@ -309,6 +297,18 @@ Luint8 uATA6870__u8VoltageError(Lfloat32 *pf32Voltages)
 		}
 	}
 	return u8VoltageError;
+}
+/***************************************************************************//**
+ * @brief
+ * 10ms ISR
+ *
+ * @st_funcMD5		2EFF2F9513ECDACF63F2615A2C620299
+ * @st_funcID		LCCM644R0.FILE.000.FUNC.004
+ */
+void vATA6870__10MS_ISR(void)
+{
+	//inc the count of 10ms interrupts.
+	sATA6870.u32ISR_Counter++;
 }
 
 //safetys

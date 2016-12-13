@@ -94,6 +94,9 @@
 
 			/** Voltages of a battery pack **/
 			Lfloat32 f32Voltage[C_LOCALDEF__LCCM650__NUM_6P_MODULES];
+
+			/** The count of 10ms ISR's*/
+			Luint32 u32ISR_Counter;
 		};
 
 		/*******************************************************************************
@@ -101,6 +104,7 @@
 		*******************************************************************************/
 		void vATA6870__Init(void);
 		void vATA6870__Process(void);
+		void vATA6870__10MS_ISR(void);
 		
 		//balance control
 		void vATA6870_BALANCE__Init(void);
