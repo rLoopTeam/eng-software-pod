@@ -36,8 +36,8 @@
 		#define C_ATA6870__ADC_RES_V				(0.0015F)
 
 		//** Voltage thresholds for each module, CHANGE IF NEEDED*/
-		#define C_ATA6870_MIN_VOLTS					(3.0U)
-		#define C_ATA6870_MAX_VOLTS					(4.3U)
+		#define C_ATA6870_MIN_VOLTS					(3.0)
+		#define C_ATA6870_MAX_VOLTS					(4.3)
 
 		/** Balancer Stats */
 		typedef enum
@@ -49,13 +49,25 @@
 
 		}E_ATA6870__BALANCE_STATE_T;
 
+		/** State types for the ATA6870N state machine */
+		typedef enum
+		{
+			ATA6870_STATE__IDLE = 0U,
+			ATA6870_STATE__ERROR,
+			ATA6870_STATE__INIT_DEVICE,
+			ATA6870_STATE__START_CONVERSION,
+			ATA6870_STATE__WAIT_CONVERSION,
+			ATA6870_STATE__READ_CELL_VOLTAGES,
+			ATA6870_STATE__INTERRUPT,
+		}E_ATA6870_STATE_T;
+
 
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
 		struct _str6870
 		{
-
+			E_ATA6870_STATE_T eState;
 			/** Balancing control state machine */
 			struct
 			{
@@ -127,6 +139,8 @@
 		void vATA6870_INT__Init(void);
 		void vATA6870_INT__ISR(Luint8 u8DeviceIndex);
 		
+		Luint8 uATA6870__u8VoltageError(Lfloat32 *pf32Voltages);
+
 	//safetys
 	#ifndef C_LOCALDEF__LCCM650__NUM_DEVICES
 		#error
