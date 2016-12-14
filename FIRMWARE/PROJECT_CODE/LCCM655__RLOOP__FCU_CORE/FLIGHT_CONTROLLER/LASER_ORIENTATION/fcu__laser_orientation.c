@@ -400,12 +400,44 @@ void vFCU_FLIGHTCTL_LASERORIENT__PrintPlane(void)
 	// printf("A:%f B:%f C:%f D:%f\n", sFCU.sFlightControl.sOrient.f32PlaneCoeffs[0], sFCU.sFlightControl.sOrient.f32PlaneCoeffs[1], sFCU.sFlightControl.sOrient.f32PlaneCoeffs[2], sFCU.sFlightControl.sOrient.f32PlaneCoeffs[3]);
 }
 
-// TODO: Finish this!!!
-/** get orientation parameters, for use by other files */
-//  sFCU_ORIENTATION__Get_Params(void)
-// {
-// 	return sFCU.sFlightControl.sOrient;
-// }
+
+/** Functions to retrieve orientation parameters, to be called from other files */
+
+/** Get pod's current Roll */
+Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Roll()
+{
+	return sFCU.sFlightControl.sOrient.s16Roll
+}
+
+/** Get pod's current Pitch */
+Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Pitch()
+{
+	return sFCU.sFlightControl.sOrient.s16Pitch
+}
+
+/** Get pod's current Yaw */
+Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Yaw()
+{
+	return sFCU.sFlightControl.sOrient.s16Yaw
+}
+
+/** Get Lateral translation parameter */
+Lfloat32 f32FCU_FLIGHTCTL_LASERORIENT__Get_Lateral()
+{
+	return sFCU.sFlightControl.sOrient.f32Lateral
+}
+
+/** Get pitch due to lack of perfect structural rigidity */
+Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_TwistPitch()
+{
+	return sFCU.sFlightControl.sOrient.s16TwistPitch
+}
+
+/** Get roll due to lack of perfect structural rigidity */
+Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_TwistRoll()
+{
+	return sFCU.sFlightControl.sOrient.s16TwistRoll
+}
 
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION
