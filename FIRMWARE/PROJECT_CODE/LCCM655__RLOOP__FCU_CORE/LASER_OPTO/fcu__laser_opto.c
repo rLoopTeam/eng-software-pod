@@ -214,7 +214,7 @@ void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex)
 		//check for error value
 		//todo: 0U is a stand-in, shouldnt cause any trouble unless we end up mastering 
 		//	the lasers; insert real error value(s); Appx 3.7, man pg99	
-		if(u32ValA == 0U) 
+		if(u32ValA == C_LOCALDEF__LCCM655__LASER_OPTONCDT_ERROR) 
 		{
 			//Laser returned the error value
 			sFCU.sLasers.sOptoLaser[u8LaserIndex].u8Error = 1U;
