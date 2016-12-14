@@ -442,7 +442,12 @@
 		// Laser Orientation
 		void vFCU_FLIGHTCTL_LASERORIENT__Init(void);
 		void vFCU_FLIGHTCTL_LASERORIENT__Process(void);
-
+		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Roll(void);
+		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Pitch(void);
+		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Yaw(void);
+		Lfloat32 f32FCU_FLIGHTCTL_LASERORIENT__Get_Lateral(void);
+		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_TwistRoll(void);
+		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_TwistPitch(void);
 
 		//network
 		void vFCU_NET__Init(void);
