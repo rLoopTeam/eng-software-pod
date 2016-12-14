@@ -36,6 +36,10 @@
 	 		// acos() - not yet implemented
 	 		// f32NUMERICAL_Cosine()
 
+ 	// My code here has forced that the optoncdt's are ordered as:
+ 		// 0-4: Ground facing lasers
+ 		// 5-6: I-beam facing lasers
+
 
 #include "../../fcu_core.h"
 //old
@@ -49,15 +53,14 @@
 extern struct _strFCU sFCU;
 
 //locals
-void vFCU_FLIGHTCTL_LASERORIENT__CalcRoll(void);
-void vFCU_FLIGHTCTL_LASERORIENT__CalcPitch(void);
-void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistRoll(void);
-void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistPitch(void);
-Lfloat32 f32FCU_FLIGHTCTL_LASERORIENT__PointToPlaneDistance(Lfloat32 f32Position[3]);
-void vFCU_FLIGHTCTL_LASERORIENT__PrintPlane(void);
-void vFCU_FLIGHTCTL_LASERORIENT__CalculateGroundPlane(Luint8 u8A, Luint8 u8B, Luint8 u8C, Lfloat32 *pf32PlaneEqnCoeffs);
-void vFCU_FLIGHTCTL_LASERORIENT__CalcYaw(void);
-void vFCU_FLIGHTCTL_LASERORIENT__CalcLateral(void);
+static void vFCU_FLIGHTCTL_LASERORIENT__CalcRoll(void);
+static void vFCU_FLIGHTCTL_LASERORIENT__CalcPitch(void);
+static void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistRoll(void);
+static void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistPitch(void);
+static Lfloat32 f32FCU_FLIGHTCTL_LASERORIENT__PointToPlaneDistance(Lfloat32 f32Position[3]);
+static void vFCU_FLIGHTCTL_LASERORIENT__CalculateGroundPlane(Luint8 u8A, Luint8 u8B, Luint8 u8C, Lfloat32 *pf32PlaneEqnCoeffs);
+static void vFCU_FLIGHTCTL_LASERORIENT__CalcYaw(void);
+static void vFCU_FLIGHTCTL_LASERORIENT__CalcLateral(void);
 
 
 
@@ -94,6 +97,20 @@ void vFCU_FLIGHTCTL_LASERORIENT__Init(void)
 	sFCU.sFlightControl.sOrient.sHoverEngines[5].f32Position[3] = {0, 0, 0}; // Rear Top Right {x,y,z}
 	sFCU.sFlightControl.sOrient.sHoverEngines[6].f32Position[3] = {0, 0, 0}; // Rear Bottom Right {x,y,z}
 	sFCU.sFlightControl.sOrient.sHoverEngines[7].f32Position[3] = {0, 0, 0}; // Rear Bottom Left {x,y,z}
+
+	Luint8 u8Counter = 0U;
+	// Init measurements and error states to zero
+	for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_GROUND; u8Counter++)
+	{
+		sFCU.sFlightControl.sOrient.sGroundLasers[u8Counter].f32Measurement = 0.0F;
+		sFCU.sFlightControl.sOrient.sGroundLasers[u8Counter].u8Error = 0U;
+	} 
+
+	for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_IBEAM; u8Counter++)
+	{
+		sFCU.sFlightControl.sOrient.sBeamLasers[u8Counter].f32Measurement = 0.0F;
+		sFCU.sFlightControl.sOrient.sBeamLasers[u8Counter].u8Error = 0U;
+	} 
 
 	// Init PodOrientation values
 	sFCU.sFlightControl.sOrient.s16Roll = 0;
@@ -132,18 +149,25 @@ void vFCU_FLIGHTCTL_LASERORIENT__Process(void)
 
 		case LASER_ORIENTATION_STATE__INIT:
 			//do nothing?
-			sFCU.sFlightControl.sOrient.eState = LASER_ORIENTATION_STATE__RECALCULATE_PITCH_ROLL_TWIST;
+			sFCU.sFlightControl.sOrient.eState = LASER_ORIENTATION_STATE__GET_LASER_DATA;
 			break;
 
 		case LASER_ORIENTATION_STATE__GET_LASER_DATA:
-			//get a lasers distance
-				// relevant function from ../LASER_OPTO/fcu__laser_opto.c:
-					// Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex)
-				// or
-					// sFCU.sLasers.sOptoLaser[].f32Distance
+			/** store each laser's most recent distance measurement and error state to sOrient struct */
 
-			// laser opto struct doesn't appear to have an error state
-				// sFCU.sLasers.sOptoLaser[]
+			for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_GROUND; u8Counter++)
+			{
+				sFCU.sFlightControl.sOrient.sGroundLasers[u8Counter].f32Measurement = f32FCU_LASEROPTO__Get_Distance(u8Counter);
+				sFCU.sFlightControl.sOrient.sGroundLasers[u8Counter].u8Error = u8FCU_LASEROPTO__Get_Error(u8Counter);
+			} 
+
+			for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_IBEAM; u8Counter++)
+			{
+				sFCU.sFlightControl.sOrient.sBeamLasers[u8Counter].f32Measurement = f32FCU_LASEROPTO__Get_Distance(u8Counter + C_FCU__NUM_LASERS_GROUND); // kinda hacky
+				sFCU.sFlightControl.sOrient.sBeamLasers[u8Counter].u8Error = u8FCU_LASEROPTO__Get_Error(u8Counter + C_FCU__NUM_LASERS_GROUND);
+			} 
+
+			sFCU.sFlightControl.sOrient.eState = LASER_ORIENTATION_STATE__RECALCULATE_PITCH_ROLL_TWIST;
 			break;
 
 		case LASER_ORIENTATION_STATE__RECALCULATE_PITCH_ROLL_TWIST:
@@ -151,7 +175,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__Process(void)
 
 			for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_GROUND; u8Counter++)
 			{
-				if(sFCU.sFlightControl.sOrient.sGroundLasers[u8Counter].eState != OPTONCDT_STATE__ERROR)
+				if(sFCU.sFlightControl.sOrient.sGroundLasers[u8Counter].u8Error != 1U)
 				{
 					// Laser works, store its index in the array
 					u8OperationalLasers[u8OperationalCount] = u8Counter; 
@@ -221,7 +245,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__Process(void)
 
 			for(Luint8 u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_IBEAM; u8Counter++)
 			{
-				if(sFCU.sFlightControl.sOrient.sBeamLasers[u8Counter].eState != OPTONCDT_STATE__ERROR)
+				if(sFCU.sFlightControl.sOrient.sBeamLasers[u8Counter].u8Error != 1U)
 				{
 					// Laser works, store its index in the array
 					u8OperationalLasers[u8OperationalCount] = u8Counter; 
@@ -391,13 +415,6 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalcLateral(void)
       ((Lfloat32)(sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Position[LASER_ORIENT__Z]) / f32XDif * sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Measurement);
 
   sFCU.sFlightControl.sOrient.f32Lateral = f32Coef* f32NUMERICAL_Cosine((Lfloat32)(sFCU.sFlightControl.sOrient.s16Yaw) / 10000.0);  // TODO: Trig
-}
-
-
-//historic
-void vFCU_FLIGHTCTL_LASERORIENT__PrintPlane(void)
-{
-	// printf("A:%f B:%f C:%f D:%f\n", sFCU.sFlightControl.sOrient.f32PlaneCoeffs[0], sFCU.sFlightControl.sOrient.f32PlaneCoeffs[1], sFCU.sFlightControl.sOrient.f32PlaneCoeffs[2], sFCU.sFlightControl.sOrient.f32PlaneCoeffs[3]);
 }
 
 

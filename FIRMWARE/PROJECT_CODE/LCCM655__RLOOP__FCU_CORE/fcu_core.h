@@ -286,6 +286,9 @@
 					/** New distance has been measured, other layer to clear it */
 					Luint8 u8NewDistanceAvail;
 
+					/** is f32Distance equal to error value? */
+					Luint8 u8Error;
+
 				}sOptoLaser[C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT];
 
 			}sLasers;
@@ -317,7 +320,7 @@
 					{
 						Lfloat32 f32Position[3]; // x,y,z
 						Lfloat32 f32Measurement; // measurement returned from the distance laser
-						// TODO: need eState
+						Luint8 u8Error; //Error value as read from fcu__laser_opto.c 
 					}sGroundLasers[C_FCU__NUM_LASERS_GROUND];
 
 					/** sub-structure for beam lasers and their measurements*/
@@ -325,7 +328,7 @@
 					{
 						Lfloat32 f32Position[3]; // x,y,z
 						Lfloat32 f32Measurement; // measurement returned from the distance laser
-						// TODO: need eState
+						Luint8 u8Error; //Error value as read from fcu__laser_opto.c 
 					}sBeamLasers[C_FCU__NUM_LASERS_IBEAM];
 
 					/** sub-structure for hover engine positions and their hover heights*/
@@ -492,6 +495,7 @@
 		void vFCU_LASEROPTO__Init(void);
 		void vFCU_LASEROPTO__Process(void);
 		Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex);
+		Luint8 u8FCU_LASEROPTO__Get_Error(Luint8 u8LaserIndex);
 		void vFCU_LASEROPTO__100MS_ISR(void);
 
 
