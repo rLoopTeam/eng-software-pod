@@ -147,7 +147,7 @@ void vFCU_THROTTLE__Process(void)
 		// set command variables
 
 		sFCU.sThrottle.u16ThrottleCommands[0] =   sFCU.sThrottle.u16rpmHEStaticHoveringSpeed;
-		sFCU.sThrottle.u8EngineNumber = ALL_HES;
+		sFCU.sThrottle.u8EngineNumber = 6U;//ALL_HES;//xxxxxxxxxxxxxxxxxxxxxTEMPORARYXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 		// change the state
 

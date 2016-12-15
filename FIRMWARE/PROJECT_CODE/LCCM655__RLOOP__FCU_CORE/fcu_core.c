@@ -375,6 +375,13 @@ void vFCU__RTI_100MS_ISR(void)
 	#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
 		vFCU_LASERDIST__100MS_ISR();
 	#endif
+
+	// Timer for throttle layer
+	// (added by @gsweriduk on 23 NOV 2016)
+	#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+		vFCU_THROTTLE__100MS_ISR();
+	#endif
+
 }
 
 
