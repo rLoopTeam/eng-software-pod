@@ -12,15 +12,9 @@
  * @copyright	This file is copyright Lockie Safety Systems Pty Ltd 2008-2015, All Rights Reserved.
  * @st_fileID	LCCM528R0.FILE.009
  */
-/**
- * @addtogroup MULTICORE
- * @{ */
-/**
- * @addtogroup MULTICORE__SAFE_UDP
- * @{ */
 
-#ifndef SOURCE_MULTICORE_LCCM528__MULTICORE__SAFE_UDP_SAFE_UDP__TYPES_H_
-#define SOURCE_MULTICORE_LCCM528__MULTICORE__SAFE_UDP_SAFE_UDP__TYPES_H_
+#ifndef __SAFE_UDP_SAFE_UDP__TYPES_H_
+#define __SAFE_UDP_SAFE_UDP__TYPES_H_
 
 
 		typedef enum
@@ -50,6 +44,4 @@
 
 
 
-#endif /* SOURCE_MULTICORE_LCCM528__MULTICORE__SAFE_UDP_SAFE_UDP__TYPES_H_ */
-/** @} */
-/** @} */
+#endif /* __SAFE_UDP_SAFE_UDP__TYPES_H_ */

@@ -29,6 +29,13 @@ extern struct _strFCU sFCU;
  * Init any variables
  *
  */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		A209581104A0AEE6C3F06C95D1B77B7C
+ * @st_funcID		LCCM655R0.FILE.012.FUNC.001
+ */
 void vFCU_PUSHER__Init(void)
 {
 
@@ -50,6 +57,13 @@ void vFCU_PUSHER__Init(void)
  * @brief
  * Process any pusher interface tasks
  * 
+ */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		8E34704E4F1C7C92744F7538476CE733
+ * @st_funcID		LCCM655R0.FILE.012.FUNC.002
  */
 void vFCU_PUSHER__Process(void)
 {
@@ -209,6 +223,13 @@ void vFCU_PUSHER__Process(void)
  * Called from the N2HET notifications that an edge has occurred on Interlock A
  *
  */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		F532E783C3D9B9BC924CFEFB16029DC8
+ * @st_funcID		LCCM655R0.FILE.012.FUNC.003
+ */
 void vFCU_PUSHER__InterlockA_ISR(void)
 {
 	#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
@@ -222,6 +243,13 @@ void vFCU_PUSHER__InterlockA_ISR(void)
  * Called from the N2HET notifications that an edge has occurred on Interlock B
  *
  */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		F66C164179E4FC4101AE1B9F280DA709
+ * @st_funcID		LCCM655R0.FILE.012.FUNC.004
+ */
 void vFCU_PUSHER__InterlockB_ISR(void)
 {
 	#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
@@ -232,11 +260,26 @@ void vFCU_PUSHER__InterlockB_ISR(void)
 
 #if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u8Switch		## Desc ##
+ * @st_funcMD5		06E52713C8F3CF4DECF9DB0F2411A42E
+ * @st_funcID		LCCM655R0.FILE.012.FUNC.005
+ */
 Luint8 u8FCU_PUSHER__Get_Switch(Luint8 u8Switch)
 {
 	return sFCU.sPusher.sSwitches[u8Switch].u8SwitchState;
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		F51AB362F5D574A9114B7915B833FF9F
+ * @st_funcID		LCCM655R0.FILE.012.FUNC.006
+ */
 Luint8 u8FCU_PUSHER__Get_PusherState(void)
 {
 	return sFCU.sPusher.u8Pusher_Status;
@@ -249,6 +292,13 @@ Luint8 u8FCU_PUSHER__Get_PusherState(void)
  * @return		0 = switch open\n
  * 				1 = switch closed.
  *
+ */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		DFF6CAA5AA89911B5F17F526CA8D8101
+ * @st_funcID		LCCM655R0.FILE.012.FUNC.007
  */
 Luint8 u8FCU_PUSHER__Get_InterlockA(void)
 {
@@ -271,6 +321,13 @@ Luint8 u8FCU_PUSHER__Get_InterlockA(void)
  * 				1 = switch closed.
  *
  */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		24628908E0C4D8F42F98E903E5F91DE7
+ * @st_funcID		LCCM655R0.FILE.012.FUNC.008
+ */
 Luint8 u8FCU_PUSHER__Get_InterlockB(void)
 {
 	Luint8 u8Return;
@@ -290,6 +347,13 @@ Luint8 u8FCU_PUSHER__Get_InterlockB(void)
  * 10ms interrupt function, coming from FCU Core indicating that a new
  * 10mS event has occurred.
  *
+ */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		D970044779CEE3EA4596DB4D7FFBA79F
+ * @st_funcID		LCCM655R0.FILE.012.FUNC.009
  */
 void vFCU_PUSHER__10MS_ISR(void)
 {

@@ -104,6 +104,10 @@
 			/** The count of 10ms ISR's*/
 			Luint32 u32ISR_Counter;
 
+
+			/** A simple flag to indcate the end of the read process */
+			Luint8 u8NewData;
+
 			//lower guard */
 			Luint32 u32Guard2;
 
@@ -114,6 +118,9 @@
 		*******************************************************************************/
 		void vDS18B20__Init(void);
 		void vDS18B20__Process(void);
+		Lfloat32 f32DS18B20__Get_Temperature_DegC(Luint16 u16Index);
+		Luint8 u8DS18B20__Is_NewDataAvail(void);
+		void vDS18B20__Clear_NewDataAvail(void);
 		void vDS18B20__10MS_ISR(void);
 
 		//temperature

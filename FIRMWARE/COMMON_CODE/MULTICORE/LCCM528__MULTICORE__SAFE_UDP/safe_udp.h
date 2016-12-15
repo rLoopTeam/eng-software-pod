@@ -100,29 +100,29 @@
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/
-		void vSAFE_UDP__Init(void);
-		void vSAFE_UDP__Process(void);
-		void vSAFE_UDP__100MS_TimerTick(void);
+		void vSAFEUDP__Init(void);
+		void vSAFEUDP__Process(void);
+		void vSAFEUDP__100MS_TimerTick(void);
 		
 		//rx
 		DLL_DECLARATION void vSAFE_UDP_RX__UDPPacket(Luint8 * pu8PacketBuffer, Luint16 u16PacketLength, Luint16 u16DestPort);
 		
 		//tx
-		Luint16 s16SAFE_UDP_TX__PreCommit(Luint16 u16PayloadLength, SAFE_UDP__PACKET_T ePacketType, Luint8 ** pu8Buffer, Luint8 * pu8BufferIndex);
-		void vSAFE_UDP_TX__Commit(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort);
-		void vSAFE_UDP_TX__Commit_ZeroCRC(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort);
-		void vSAFE_UDP_TX__Commit_WithPayload(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort, Luint32 u32ExtraLength, Luint32 u32ExtraAddx);
+		Luint16 s16SAFEUDP_TX__PreCommit(Luint16 u16PayloadLength, SAFE_UDP__PACKET_T ePacketType, Luint8 ** pu8Buffer, Luint8 * pu8BufferIndex);
+		void vSAFEUDP_TX__Commit(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort);
+		void vSAFEUDP_TX__Commit_ZeroCRC(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort);
+		void vSAFEUDP_TX__Commit_WithPayload(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort, Luint32 u32ExtraLength, Luint32 u32ExtraAddx);
 
 		//sequence
-		void vSAFE_UDP_SEQ__Init(void);
-		void vSAFE_UDP_SEQ__Process(void);
+		void vSAFEUDP_SEQ__Init(void);
+		void vSAFEUDP_SEQ__Process(void);
 		SAFE_UDP__FAULTS_T eSAFE_UDP_SEQ__Rx(Luint32 u32Seq);
 
 		//message types
-		void vSAFE_UDP_MSG__Init(void);
-		void vSAFE_UDP_MSG__Process(void);
-		void vSAFE_UDP_MSG__Register(SAFE_UDP__PACKET_T eMessageType, Luint32 u32Max100MS);
-		SAFE_UDP__FAULTS_T eSAFE_UDP_MSG__Rx(SAFE_UDP__PACKET_T eMessageType);
+		void vSAFEUDP_MSG__Init(void);
+		void vSAFEUDP_MSG__Process(void);
+		void vSAFEUDP_MSG__Register(SAFE_UDP__PACKET_T eMessageType, Luint32 u32Max100MS);
+		SAFE_UDP__FAULTS_T eSAFEUDP_MSG__Rx(SAFE_UDP__PACKET_T eMessageType);
 		
 		//special functions
 		#if C_LOCALDEF__LCCM528__VISION__ENABLE_TX == 1U

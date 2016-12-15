@@ -29,12 +29,14 @@ static void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake);
 static Lint16 s16FCU_BRAKES_MLP__Check_ADC_Limits(E_FCU__BRAKE_INDEX_T eBrake);
 static void vFCU_BRAKES_MLP__Apply_Zero(E_FCU__BRAKE_INDEX_T eBrake);
 static void vFCU_BRAKES_MLP__Apply_Span(E_FCU__BRAKE_INDEX_T eBrake);
-
+static Lint16 s16FCU_BRAKES_MLP__Filter_ADC_Value(E_FCU__BRAKE_INDEX_T eBrake);
 
 /***************************************************************************//**
  * @brief
  * init the systems specifically to the MLP
- *
+ * 
+ * @st_funcMD5		A4B3B673117DD0A42C704C2512DC604D
+ * @st_funcID		LCCM655R0.FILE.024.FUNC.001
  */
 void vFCU_BRAKES_MLP__Init(void)
 {
@@ -138,7 +140,9 @@ void vFCU_BRAKES_MLP__Init(void)
 /***************************************************************************//**
  * @brief
  * resample the MLP sensors
- *
+ * 
+ * @st_funcMD5		B0CAF27A0006C9DD7D4CD5096CE28252
+ * @st_funcID		LCCM655R0.FILE.024.FUNC.002
  */
 void vFCU_BRAKES_MLP__Process(void)
 {
@@ -208,8 +212,11 @@ void vFCU_BRAKES_MLP__Process(void)
 
 /***************************************************************************//**
  * @brief
- * Call this function to sample the ADC channel associated with the brake
- *
+ *  Call this function to sample the ADC channel associated with the brake
+ * 
+ * @param[in]		eBrake				The brake index
+ * @st_funcMD5		6C5FC47D0A1DFC4991301F047C4FB3B5
+ * @st_funcID		LCCM655R0.FILE.024.FUNC.003
  */
 void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
 {
@@ -271,8 +278,11 @@ void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
  * @brief
  * Check the limits of the ADC data
  *
+ * @param[in]		eBrake				The brake index
  * @return			-1 = Error, limits out of range\n
  * 					0 = success
+ * @st_funcMD5		BE00FC48D260311DF0578D1DA2E875DB
+ * @st_funcID		LCCM655R0.FILE.024.FUNC.004
  */
 Lint16 s16FCU_BRAKES_MLP__Check_ADC_Limits(E_FCU__BRAKE_INDEX_T eBrake)
 {
@@ -305,8 +315,10 @@ Lint16 s16FCU_BRAKES_MLP__Check_ADC_Limits(E_FCU__BRAKE_INDEX_T eBrake)
  * @brief
  * Filtering the MLP sensor value
  *
+ * @param[in]		eBrake					The brake index
  * @return			Filtered Value
- *
+ * @st_funcMD5		5026035D4C7154FA483D9F60FA67916B
+ * @st_funcID		LCCM655R0.FILE.024.FUNC.005
  */
 Lint16 s16FCU_BRAKES_MLP__Filter_ADC_Value(E_FCU__BRAKE_INDEX_T eBrake)
 {
@@ -321,14 +333,16 @@ Lint16 s16FCU_BRAKES_MLP__Filter_ADC_Value(E_FCU__BRAKE_INDEX_T eBrake)
 }
 
 
-
 /***************************************************************************//**
  * @brief
  * Apply the system span value.
  *
  * @example
  * Brake_Pos = (ADCValue - Zero) * Span
- *
+ * 
+ * @param[in]		eBrake				The brake index
+ * @st_funcMD5		C18091983749952AB5441691700A6A98
+ * @st_funcID		LCCM655R0.FILE.024.FUNC.006
  */
 void vFCU_BRAKES_MLP__Apply_Span(E_FCU__BRAKE_INDEX_T eBrake)
 {
@@ -358,7 +372,10 @@ void vFCU_BRAKES_MLP__Apply_Span(E_FCU__BRAKE_INDEX_T eBrake)
 /***************************************************************************//**
  * @brief
  * Apply the zero value to the ADC sample
- *
+ * 
+ * @param[in]		eBrake					The brake index
+ * @st_funcMD5		91B14636179F6DEA07A2A6B2DD7B2C37
+ * @st_funcID		LCCM655R0.FILE.024.FUNC.007
  */
 void vFCU_BRAKES_MLP__Apply_Zero(E_FCU__BRAKE_INDEX_T eBrake)
 {

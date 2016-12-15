@@ -187,13 +187,13 @@
 	Lfloat64 f64NUMERICAL_FLOAT__Log(Lfloat64 f64Value);
 
 	//matrix
-	void matrixMultiply(Luint32 aRows, Luint32 aCols_bRows, Luint32 bCols, Lfloat32 matrixC[], const Lfloat32 matrixA[], const Lfloat32 matrixB[]);
-	void Matrix_Multiply3X3(const Lfloat32 a[3][3], const Lfloat32 b[3][3], Lfloat32 mat[3][3]);
-	void matrixAdd(Luint32 rows, Luint32 cols, Lfloat32 matrixC[], const Lfloat32 matrixA[], const Lfloat32 matrixB[]);
-	void matrixSubtract(Luint32 rows, Luint32 cols, Lfloat32 matrixC[], const Lfloat32 matrixA[], const Lfloat32 matrixB[]);
-	void matrixScale(Luint32 rows, Luint32 cols, Lfloat32 matrixC[], Lfloat32 scaler, const Lfloat32 matrixA[]);
-	void matrixTranspose3x3(Lfloat32 matrixC[9], const Lfloat32 matrixA[9]);
-	void matrixInverse3x3(Lfloat32 matrixC[9], const Lfloat32 matrixA[9]);
+	void vNUMERICAL_MATRIX__Mult(Luint32 aRows, Luint32 aCols_bRows, Luint32 bCols, Lfloat32 matrixC[], const Lfloat32 matrixA[], const Lfloat32 matrixB[]);
+	void vNUMERICAL_MATRIX__Mult_3X3(const Lfloat32 a[3][3], const Lfloat32 b[3][3], Lfloat32 mat[3][3]);
+	void vNUMERICAL_MATRIX__Add(Luint32 rows, Luint32 cols, Lfloat32 matrixC[], const Lfloat32 matrixA[], const Lfloat32 matrixB[]);
+	void vNUMERICAL_MATRIX__Sub(Luint32 rows, Luint32 cols, Lfloat32 matrixC[], const Lfloat32 matrixA[], const Lfloat32 matrixB[]);
+	void vNUMERICAL_MATRIX__Scale(Luint32 rows, Luint32 cols, Lfloat32 matrixC[], Lfloat32 scaler, const Lfloat32 matrixA[]);
+	void vNUMERICAL_MATRIX__Transpose_3X3(Lfloat32 matrixC[9], const Lfloat32 matrixA[9]);
+	void vNUMERICAL_MATRIX__Inverse_3X3(Lfloat32 matrixC[9], const Lfloat32 matrixA[9]);
 
 	//circle
 	Lfloat32 f32NUMERICAL_CIRCLE__Area_Radius(Luint16 u16Radius);

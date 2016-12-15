@@ -53,7 +53,7 @@ void vFCU__Init(void)
  * @brief
  * Process any FCU tasks.
  * 
- * @st_funcMD5		92D4D90BE080ABD016BE3A72425C865F
+ * @st_funcMD5		BC230E2F20B042C85F76C1DBCF00A966
  * @st_funcID		LCCM655R0.FILE.000.FUNC.002
  */
 void vFCU__Process(void)
@@ -309,6 +309,9 @@ void vFCU__Process(void)
 
 		case INIT_STATE__START_TIMERS:
 
+			//int the RTI
+			vRM4_RTI__Init();
+
 			//start the relevant RTI interrupts going.
 			//100ms timer
 			vRTI_COMPARE__Enable_CompareInterrupt(0);
@@ -316,9 +319,6 @@ void vFCU__Process(void)
 			vRTI_COMPARE__Enable_CompareInterrupt(1);
 			//10uS timer for the stepper system
 			vRTI_COMPARE__Enable_CompareInterrupt(2);
-
-			//int the RTI
-			vRM4_RTI__Init();
 			vRM4_RTI_ISR__Enable_Interrupts();
 			//Starts the counter zero
 			vRM4_RTI__Start_Counter(0);
@@ -359,7 +359,7 @@ void vFCU__Process(void)
  * @brief
  * 100ms timer
  * 
- * @st_funcMD5		06B4A521A48891BB1E0C70746532CC66
+ * @st_funcMD5		29FA796863975C61E514D3ED94ED79CA
  * @st_funcID		LCCM655R0.FILE.000.FUNC.003
  */
 void vFCU__RTI_100MS_ISR(void)
@@ -370,7 +370,11 @@ void vFCU__RTI_100MS_ISR(void)
 	#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
 		vFCU_LASEROPTO__100MS_ISR();
 	#endif
+	#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
+		vFCU_LASERDIST__100MS_ISR();
+	#endif
 }
+
 
 /***************************************************************************//**
  * @brief
