@@ -177,7 +177,7 @@ void vFCU_LASEROPTO__Process(void)
 			sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__CHECK_NEW_DATA;
 			break;
 
-	}//switch(sFCU.sLasers.eOptoNCDTState)
+	}//switch(sFCU.sLaserOpto.eOptoNCDTState)
 
 }
 

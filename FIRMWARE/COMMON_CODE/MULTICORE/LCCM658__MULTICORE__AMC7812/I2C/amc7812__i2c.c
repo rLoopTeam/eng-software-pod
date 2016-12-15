@@ -49,19 +49,24 @@ void vAMC7812_I2C__Init(void)
  * @st_funcMD5		9A98D912BAD5639D22BB440479EE1774
  * @st_funcID		LCCM647R0.FILE.003.FUNC.001
  */
-Lint16 s16AMC7812_I2C__TxCommand(Luint8 u8DeviceAddx, E_AMC7812_DAC_CONTROL_REG_ADDRESSES eRegister)
+Lint16 s16AMC7812_I2C__TxCommand(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx)
 {
-	Lint16 s16Return = 0;
+	Lint16 s16Return;
 
 #ifndef WIN32
-	//tx only the command
-	s16Return = s16RM4_I2C_USER__TxReg(u8DeviceAddx, (Luint8)eRegister);
+
+	// write to control register to issue command
+
+	s16Return = -1;
+	s16Return = s16RM4_I2C_USER__TxReg(u8DeviceAddx, u8RegisterAddx);
+
 #else
 	//fake on win32
 	s16Return = 0;
 #endif
 	return s16Return;
 }
+
 
 
 
@@ -81,9 +86,9 @@ Lint16 s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luin
 {
 
 	Luint8 u8Array[2];
-	Luint8 u8ArrayLength = 2U;
-	Lint16 s16Return  = 0;
-
+	Luint8 u8ArrayLength;
+	Lint16 s16Return;
+	Luint8 *pu8ArrayPtr;
 	union
 	{
 		Luint8 u8[2];
@@ -91,15 +96,22 @@ Lint16 s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luin
 	} unT2;
 
 
-	// write data to DAC 16-bit register as two bytes
 #ifndef WIN32
 
+	// convert 16-bit number to two-byte array
 	//Map
-	unT2.u8[1] = u8Array[0];
-	unT2.u8[0] = u8Array[1];
 	unT2.u16 = u16Value;
+	u8Array[0] = unT2.u8[1];
+	u8Array[1] = unT2.u8[0];
 
-	s16Return = s16RM4_I2C_USER__TxByteArray( u8DeviceAddx, u8RegisterAddx, u8Array, u8ArrayLength );
+	// write data to DAC register
+
+	u8ArrayLength = 2U;
+	s16Return = -1;
+	s16Return = s16RM4_I2C_USER__TxByteArray(u8DeviceAddx, u8RegisterAddx, &u8Array[0], u8ArrayLength);
+
+	//pu8ArrayPtr = &u8Array[0];
+	//s16Return = s16RM4_I2C_USER__TxByteArray(u8DeviceAddx, u8RegisterAddx, pu8ArrayPtr, u8ArrayLength);
 
 #else
 	//fake on win32
@@ -110,6 +122,53 @@ Lint16 s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luin
 	return s16Return;
 }
 
+/***************************************************************************//**
+ * @brief
+ * Read a U16 from the device
+ *
+ * @param[out]		*pu16Value				Return pointer to the read value
+ * @param[in]		u8RegAddx				The register to write to
+ * @param[in]		u8DeviceAddx			The I2C device address
+ * @st_funcMD5		920EC5F4487D524CBA82E9759E84475F
+ * @st_funcID		LCCM658R0.FILE.005.FUNC.003
+ */
+Lint16 s16AMC7812_I2C__ReadU16(Luint8 u8DeviceAddx, Luint8 u8RegAddx, Luint16 *pu16Value)
+{
+
+	// declarations
+
+	Luint8 u8Array[2];
+	Luint8 u8ArrayLength;
+	Lint16 s16Return;
+	union
+	{
+		Luint8 u8[2];
+		Luint16 u16;
+	}unT2;
+
+	s16Return = -1;
+
+	//read two bytes
+
+#ifndef WIN32
+
+	u8ArrayLength = 2U;
+
+	s16Return = s16RM4_I2C_USER__RxByteArray(u8DeviceAddx, u8RegAddx, &u8Array[0], 	u8ArrayLength);
+
+	//Map
+	unT2.u8[1] = u8Array[0];
+	unT2.u8[0] = u8Array[1];
+	*pu16Value = unT2.u16;
+#else
+	//fake on win32
+	*pu16Value = 0U;
+	s16Return = 0;
+#endif
+
+
+	return s16Return;
+}
 
 
 #endif //#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U

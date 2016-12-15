@@ -160,6 +160,15 @@ void vFCU_MAINSM__Process(void)
 				vFCU_FLIGHTCTL__Process();
 			#endif
 
+			// process the AMC7812
+			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+				vAMC7812__Process();
+			#endif
+
+			// process the throttles
+			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+				vFCU_THROTTLE__Process();
+			#endif
 
 			break;
 
