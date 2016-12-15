@@ -16,6 +16,11 @@
  * @ingroup FCU
  * @{ */
 
+// Note:
+	// ../LASER_ORIENTATION/fcu__laser_orientation.c relies on index reqs:
+ 		// 0-4: Ground facing lasers
+ 		// 5-6: I-beam facing lasers
+
 #include "../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
@@ -54,7 +59,8 @@ void vFCU_LASEROPTO__Init(void)
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].u8NewDistanceAvail = 0U;
 		//just set to some obscene distance
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].f32Distance = 99999.9F;
-	}
+		sFCU.sLaserOpto.sOptoLaser[u8Counter].u8Error = 0U;
+  }
 
 }
 
@@ -155,7 +161,6 @@ void vFCU_LASEROPTO__Process(void)
 				}
 			}
 
-
 			sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__CHECK_NEW_PACKET;
 			break;
 
@@ -171,7 +176,6 @@ void vFCU_LASEROPTO__Process(void)
 
 					//clear the flag
 					sFCU.sLaserOpto.sOptoLaser[u8Counter].u8NewPacket = 0U;
-
 				}
 				else
 				{
@@ -199,6 +203,13 @@ void vFCU_LASEROPTO__Process(void)
 Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex)
 {
 	return sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].f32Distance;
+	//todo: clear u8NewDistanceAvail ?
+}
+
+//get laser error state
+Luint8 u8FCU_LASEROPTO__Get_Error(Luint8 u8LaserIndex)
+{
+	return sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8Error;
 }
 
 //Process the laser packet
@@ -230,20 +241,33 @@ void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex)
 		u32ValA += u32ValB << 6U;
 		u32ValA += u32ValC << 12U;
 
-		//convert
-		f32Temp = (Lfloat32)u32ValA;
-		f32Temp *= 102.0F;
-		f32Temp /= 65520.0F;
-		f32Temp -= 1.0F;
-		f32Temp *= 50.0F;
-		f32Temp /= 100.0F;
+		//check for error value
+		//todo: 0U is a stand-in, shouldnt cause any trouble unless we end up mastering 
+		//	the lasers; insert real error value(s); Appx 3.7, man pg99	
+		if(u32ValA == C_LOCALDEF__LCCM655__LASER_OPTONCDT_ERROR) 
+		{
+			//Laser returned the error value
+			sFCU.sLasers.sOptoLaser[u8LaserIndex].u8Error = 1U;
+		}
+		else
+		{
+			//convert
+			f32Temp = (Lfloat32)u32ValA;
+			f32Temp *= 102.0F;
+			f32Temp /= 65520.0F;
+			f32Temp -= 1.0F;
+			f32Temp *= 50.0F;
+			f32Temp /= 100.0F;
 
-		//save off the distance.
-		sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].f32Distance = f32Temp;
+			//save off the distance.
+			sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].f32Distance = f32Temp;
 
-		//save off.
-		sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8NewDistanceAvail = 1U;
+			//save off.
+			sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8NewDistanceAvail = 1U; //todo: currently never cleared
 
+			// Value is not the error value, clear error flag
+			sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8Error = 0U;
+		}
 	}
 	else
 	{

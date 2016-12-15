@@ -140,6 +140,9 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Number of OptoNCDT lasers, must be in order from A0:2, B0:2*/
 		#define C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT						(3U)
 
+		/** OptoNCDT's error value (out of range) */
+		#define C_LOCALDEF__LCCM655__LASER_OPTONCDT_ERROR					(65467U)
+
 		/** Enable the Laser contrast sensors */
 		#define C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST					(1U)
 
