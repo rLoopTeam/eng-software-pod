@@ -119,15 +119,15 @@ ATA6870N - BATTERY MANAGEMENT DEVICE
 
 		
 		//setup for functions
-		#define M_LOCALDEF__LCCM650__NCS_TRIS(dir)							{if(dir == 0U) vRM4_GIO__Set_BitDirection(gioPORTB, 4U, GIO_DIRECTION__OUTPUT); else vRM4_GIO__Set_BitDirection(gioPORTB, 4U, GIO_DIRECTION__INPUT);}
-		#define M_LOCALDEF__LCCM650__NCS_LATCH(val)							{vRM4_GIO__Set_Bit(gioPORTB, 4U, val);}
+		#define M_LOCALDEF__LCCM650__NCS_TRIS(dir)							{if(dir == 0U) vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 4U, GIO_DIRECTION__OUTPUT); else vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 4U, GIO_DIRECTION__INPUT);}
+		#define M_LOCALDEF__LCCM650__NCS_LATCH(val)							{vRM4_GIO__Set_Bit(RM4_GIO__PORT_B, 4U, val);}
 		#define M_LOCALDEF__LCCM650__SPI_TX_U8(x)							u8RM4_MIBSPI135__Tx_U8(MIBSPI135_CHANNEL__1, MIBSPI135_DATA_FORMAT__0, MIBSPI135_CS__NONE, x)
 
-		#define M_LOCALDEF__LCCM650__POWER_ENABLE_TRIS(x)					{if(x == 0U) vRM4_GIO__Set_BitDirection(gioPORTB, 2U, GIO_DIRECTION__OUTPUT); else vRM4_GIO__Set_BitDirection(gioPORTB, 2U, GIO_DIRECTION__INPUT); }
-		#define M_LOCALDEF__LCCM650__POWER_ENABLE_LATCH(x)					{vRM4_GIO__Set_Bit(gioPORTB, 2U, x); }
+		#define M_LOCALDEF__LCCM650__POWER_ENABLE_TRIS(x)					{if(x == 0U) vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 2U, GIO_DIRECTION__OUTPUT); else vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 2U, GIO_DIRECTION__INPUT); }
+		#define M_LOCALDEF__LCCM650__POWER_ENABLE_LATCH(x)					{vRM4_GIO__Set_Bit(RM4_GIO__PORT_B, 2U, x); }
 
-		#define M_LOCALDEF__LCCM650__POWER_AVAIL_TRIS(x)					{if(x == 0U) vRM4_GIO__Set_BitDirection(gioPORTB, 5U, GIO_DIRECTION__OUTPUT); else vRM4_GIO__Set_BitDirection(gioPORTB, 5U, GIO_DIRECTION__INPUT); }
-		#define M_LOCALDEF__LCCM650__POWER_AVAIL_PORT()						u32RM4_GIO__Get_Bit(gioPORTB, 5U)
+		#define M_LOCALDEF__LCCM650__POWER_AVAIL_TRIS(x)					{if(x == 0U) vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 5U, GIO_DIRECTION__OUTPUT); else vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 5U, GIO_DIRECTION__INPUT); }
+		#define M_LOCALDEF__LCCM650__POWER_AVAIL_PORT()						u32RM4_GIO__Get_Bit(RM4_GIO__PORT_B, 5U)
 
 		
 		/** Testing Options */

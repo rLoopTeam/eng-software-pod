@@ -42,10 +42,10 @@ void vPWRNODE_DC__Init(void)
 
 	//Setup the hardware pins (DC_WATCHDOG Signal)
 	//GPIOA0
-	vRM4_GIO__Set_BitDirection(gioPORTA, 0U, GIO_DIRECTION__OUTPUT);
+	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 0U, GIO_DIRECTION__OUTPUT);
 
 	//set to ON
-	vRM4_GIO__Set_Bit(gioPORTA, 0U, 1U);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 1U);
 
 }
 
@@ -191,7 +191,7 @@ Luint32 u32PWRNODE_DC__Get_TimerCount(void)
  */
 void vPWRNODE_DC__Power_Off(void)
 {
-	vRM4_GIO__Set_Bit(gioPORTA, 0U, 0U);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 0U);
 }
 
 

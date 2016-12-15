@@ -34,6 +34,7 @@
     Structure describing the Flash Wrapper registers allowing register and bit
     level accesses.
 */
+/*lint -e960*/
 typedef volatile struct FMC_REGISTERS
 {
    /*!
@@ -855,7 +856,7 @@ typedef volatile struct FMC_REGISTERS
    } FcfgBank;
 
 } Fapi_FmcRegistersType;
-
+/*lint +e960*/
 #endif /* REGISTERS_LE_H_ */
 
 /**********************************************************************************************************************

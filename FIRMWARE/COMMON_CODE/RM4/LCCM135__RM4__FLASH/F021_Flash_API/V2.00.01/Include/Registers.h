@@ -35,7 +35,7 @@
 /*LDRA_INSPECTED 42 S MR: 3.5 "Necessary for FMC register definitions" */
 /*LDRA_INSPECTED 74 S MR: 18.4 "Necessary for FMC register definitions" */
 //#if defined(_LITTLE_ENDIAN)
-    #include "Registers_FMC_LE.h"
+    #include <RM4/LCCM135__RM4__FLASH/F021_Flash_API/V2.00.01/Include/Registers_FMC_LE.h>
 //#else
     //#include "Registers_FMC_BE.h"
 //#endif

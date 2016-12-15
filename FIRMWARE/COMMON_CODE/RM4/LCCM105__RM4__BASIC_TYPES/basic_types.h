@@ -55,6 +55,10 @@
 		/** SIL3 define especially for use in Numerical Library */
 		#define _WE_ARE_ON_RM4_
 
+		#ifdef PCLINT_ENABLED
+			/** For FLASH API on PCLINT */
+			#define __TI_COMPILER_VERSION__
+		#endif
 
 		/** For Win32 DLL exporting */
 		#ifdef WIN32

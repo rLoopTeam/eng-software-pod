@@ -34,11 +34,11 @@
 		//Structure to hold details about the counters
 		struct _strCounter
 		{
-			Luint32 FRCValue; //Free Running Counter Current Value or Preset
-			Luint32 CUValue; //Counter Up Current Value or Preset
-			Luint32 CUCompareValuePrescale; //Value to generate pulse and restart the counter
-			Luint32 FRCCaptureOnEvent; //Holds the value of the Free Running Counter on External Event (Just read)
-			Luint32 CUCaptureOnEvent; //Holds the value of the Counter Up on External Event (Just read)
+			Luint32 u32FRCValue; //Free Running Counter Current Value or Preset
+			Luint32 u32CUValue; //Counter Up Current Value or Preset
+			Luint32 u32CUCompareValuePrescale; //Value to generate pulse and restart the counter
+			Luint32 u32FRCCaptureOnEvent; //Holds the value of the Free Running Counter on External Event (Just read)
+			Luint32 u32CUCaptureOnEvent; //Holds the value of the Counter Up on External Event (Just read)
 		};
 
 		//Structure to hold details about the compare modules
@@ -56,30 +56,30 @@
 		*****************************************************************************/
 		struct _strRTI
 		{
-			Luint8 NTUsignalforTimeBase;
-			Luint8 CountersRunInHaltDebug;
-			Luint8 Counter0_Running;
-			Luint8 Counter1_Running;
-			Luint8 FRC0_IncrementsOnFailingExternalClock;
-			Luint8 TimebaseForFRC0;
-			Luint8 SourceCaptureEventCounter1;
-			Luint8 SourceCaptureEventCounter0;
+			Luint8 u8NTUsignalforTimeBase;
+			Luint8 u8CountersRunInHaltDebug;
+			Luint8 u8Counter0_Running;
+			Luint8 u8Counter1_Running;
+			Luint8 u8FRC0_IncrementsOnFailingExternalClock;
+			Luint8 u8TimebaseForFRC0;
+			Luint8 u8SourceCaptureEventCounter1;
+			Luint8 u8SourceCaptureEventCounter0;
 			struct _strCounter sCounter[RM48L950_RTI_NUMBER_OF_COUNTERS];
 			struct _strCompare sCompare[RM48L950_RTI_NUMBER_OF_COMPARE_MODULES];
-			Luint32 ValueToActivateTheEdgeDetectionCircuit;
-			Luint32 ValueToDeactivateTheEdgeDetectionCircuit;
+			Luint32 u32ValueToActivateTheEdgeDetectionCircuit;
+			Luint32 u32ValueToDeactivateTheEdgeDetectionCircuit;
 
-			Luint32 FRC1_OverflowInterruptEnabled;
-			Luint32 FRC0_OverflowInterruptEnabled;
-			Luint32 TimebaseInterruptEnabled;
-			Luint32 DMA3_RequestEnabled;
-			Luint32 DMA2_RequestEnabled;
-			Luint32 DMA1_RequestEnabled;
-			Luint32 DMA0_RequestEnabled;
-			Luint32 Compare3_InterruptEnabled;
-			Luint32 Compare2_InterruptEnabled;
-			Luint32 Compare1_InterruptEnabled;
-			Luint32 Compare0_InterruptEnabled;
+			Luint32 u32FRC1_OverflowInterruptEnabled;
+			Luint32 u32FRC0_OverflowInterruptEnabled;
+			Luint32 u32TimebaseInterruptEnabled;
+			Luint32 u32DMA3_RequestEnabled;
+			Luint32 u32DMA2_RequestEnabled;
+			Luint32 u32DMA1_RequestEnabled;
+			Luint32 u32DMA0_RequestEnabled;
+			Luint32 u32Compare3_InterruptEnabled;
+			Luint32 u32Compare2_InterruptEnabled;
+			Luint32 u32Compare1_InterruptEnabled;
+			Luint32 u32Compare0_InterruptEnabled;
 
 			//Interrupt Flag register does not provide value to the structure.
 			//WatchDog Registers not defined as it is not the intended use of the driver
@@ -156,13 +156,8 @@
 		
 		/*Declarations fot the Test Unit*/
 		#if C_LOCALDEF__LCCM124__ENABLE_TEST_SPEC == 1U
-			void vRTI_Test(void);
 
-			void vRM4_RTI_ISR__Compare0(void);
-			void vRM4_RTI_ISR__Compare1(void);
-			void vRM4_RTI_ISR__Compare2(void);
-			void vRM4_RTI_ISR__Compare3(void);
-
+			void vLCCM124_TS_001(void);
 
 			//Manage IO on the test
 			#define RM48L950_GIO_SET_LOW 0

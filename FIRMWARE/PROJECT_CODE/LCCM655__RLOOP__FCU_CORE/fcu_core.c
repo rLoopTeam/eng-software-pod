@@ -319,7 +319,9 @@ void vFCU__Process(void)
 			vRTI_COMPARE__Enable_CompareInterrupt(1U);
 			//10uS timer for the stepper system
 			vRTI_COMPARE__Enable_CompareInterrupt(2U);
-			vRM4_RTI_ISR__Enable_Interrupts();
+
+
+			vRM4_RTI__Start_Interrupts();
 			//Starts the counter zero
 			vRM4_RTI__Start_Counter(0U);
 
