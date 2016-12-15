@@ -100,8 +100,6 @@
 		}RM4_RTI__COUNTER_CLOCK_T;
 
 		//RTI Internal clock structure
-		/*****************************************************************************
-		*****************************************************************************/
 		typedef struct
 		{
 			 RM4_RTI__COUNTER_CLOCK_T sCounters[2];
@@ -109,18 +107,21 @@
 		}RM4_RTI__INTERNAL_CLOCK_T;
 
 
-		//main
+
+		/*****************************************************************************
+		//function prototypes
+		*****************************************************************************/
 		void vRM4_RTI__Init(void);
 		void vRM4_RTI__Clear_Flags(Luint32 u32FlagsToClear);
 		void vRM4_RTI__Update_Period(Luint8 u8Counter, Luint32 u32Period_US);
 		void vRM4_RTI__SystemReset(void);
 
-
-		Luint32 u32RM4_RTI__Get_FreeClock(Luint8 u8Index);
+		Luint64 u64RM4_RTI__Get_Counter1(void);
 
 		void vRM4_RTI__Start_Counter(Luint32 u32Counter);
 		Lint16 s16RM4_RTI__Stop_Counter(Luint32 u32Counter);
 		Lint16 s16RM4_RTI__ResetCounter(Luint32 u32Counter);
+		Luint64 u64RM4_RTI__Get_Counter1(void);
 		void vRM4_RTI__Start_Interrupts(void);
 
 		void vRM4_RTI__Struct_Init(void);

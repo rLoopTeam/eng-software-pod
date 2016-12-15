@@ -278,7 +278,7 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP						(0U)
 
 		/** Enable the BMS Subsystem */
-		#define C_LOCALDEF__LCCM653__ENABLE_BMS								(1U)
+		#define C_LOCALDEF__LCCM653__ENABLE_BMS								(0U)
 
 		/** Enable the PV temp system using TSYS01 */
 		#define C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP						(0U)

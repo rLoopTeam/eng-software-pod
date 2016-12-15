@@ -30,6 +30,10 @@ RTI MODULE
 		 * */
 		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(50U)
 
+		/** RTCLK1 feeds counter 1 and can be used for 64bit timing */
+		#define C_LOCALDEF__LCCM124__RTI_COUNTER1_PRESCALER					(1U)
+
+
 		//Sets up the time periods for each compare. Must be defined in microSeconds.
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_PERIOD_US 				(15625U)
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_PERIOD_US 				(100000U)
@@ -42,15 +46,6 @@ RTI MODULE
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_CALLBACK					vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_3_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
-
-		//These values need to be updated if the HALCoGen file is modified
-		#define GCLK_FREQ		 											(200)
-		#define HCLK_FREQ													(200)
-		#define VCLK1_FREQ													(100)
-		#define VCLK2_FREQ													(100)
-		#define VCLK3_FREQ													(100)
-		#define VCLKA1_FREQ	 												(100)
-		#define VCLKA4_FREQ	 												(100)
 
 		//Testing options
 		#define C_LOCALDEF__LCCM124__ENABLE_TEST_SPEC	 					(0U)
