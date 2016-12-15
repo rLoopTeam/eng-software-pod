@@ -63,9 +63,9 @@ void vAMC7812__Init(void)
  */
 void vAMC7812__Process(void)
 {
+/*
 	Luint8 u8EngineNumber = 0;
 	Luint16 u16ThrottleCommand = 0;
-	Lint16 s16Return = 0;
 	E_AMC7812_DAC_DATA_REG_ADDRESSES eDAC_REG_ADDR;
 
 	//handle the state machine
@@ -177,8 +177,12 @@ void vAMC7812__Process(void)
 			break;
 
 	}
+*/
+	Lint16 s16Return;
 
-	return s16Return;
+	s16Return = -1;
+
+	s16Return = vAMC7812_DAC__Process();
 
 }
 

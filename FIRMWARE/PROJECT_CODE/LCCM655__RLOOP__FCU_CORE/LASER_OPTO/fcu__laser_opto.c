@@ -187,7 +187,7 @@ void vFCU_LASEROPTO__Process(void)
 			sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__CHECK_NEW_DATA;
 			break;
 
-	}//switch(sFCU.sLasers.eOptoNCDTState)
+	}//switch(sFCU.sLaserOpto.eOptoNCDTState)
 
 }
 
@@ -247,7 +247,7 @@ void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex)
 		if(u32ValA == C_LOCALDEF__LCCM655__LASER_OPTONCDT_ERROR) 
 		{
 			//Laser returned the error value
-			sFCU.sLasers.sOptoLaser[u8LaserIndex].u8Error = 1U;
+			sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8Error = 1U;
 		}
 		else
 		{

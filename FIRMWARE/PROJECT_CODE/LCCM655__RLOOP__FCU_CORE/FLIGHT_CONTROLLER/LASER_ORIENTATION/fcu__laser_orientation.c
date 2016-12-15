@@ -418,7 +418,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalcLateral(void)
 }
 
 
-/***************************************************************************//**
+/****************************************************************************/
 /** Functions to retrieve orientation parameters, to be called from other files */
 
 /** Get pod's current Roll */
