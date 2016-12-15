@@ -121,32 +121,35 @@ void vATA6870__Init(void)
  */
 void vATA6870__Process(void)
 {
-	case ATA6870_STATE__IDLE:
-		//do nothing,
-		break;
-	case ATA6870_STATE__INIT_DEVICE:
-		sATA6870.eState = ATA6870_STATE__START_CONVERSION;
-		break;
-	case ATA6870_STATE__START_CONVERSION:
-		vATA6870__StartConversion(1U, 1U);
-		sATA6870.eState = ATA6870_STATE__WAIT_CONVERSION;
-		break;
-	case ATA6870_STATE__WAIT_CONVERSION:
-		// 8.2ms conversion time according to datasheet
-		if(sATA6870.u32ISR_Counter > 10U)
-		{
-			//go and read the voltages now
-			sATA6870.eState = ATA6870_STATE__READ_CELL_VOLTAGES;
-		}
-		else
-		{
-			//wait here.
-		}
-		break;
-	case ATA6870_STATE__READ_CELL_VOLTAGES:
-		uATA6870__BulkRead();
-		sATA6870.eState = ATA6870_STATE__START_CONVERSION;
-		break;
+	switch(sATA6870.eState)
+	{
+		case ATA6870_STATE__IDLE:
+			//do nothing,
+			break;
+		case ATA6870_STATE__INIT_DEVICE:
+			sATA6870.eState = ATA6870_STATE__START_CONVERSION;
+			break;
+		case ATA6870_STATE__START_CONVERSION:
+			vATA6870__StartConversion(1U, 1U);
+			sATA6870.eState = ATA6870_STATE__WAIT_CONVERSION;
+			break;
+		case ATA6870_STATE__WAIT_CONVERSION:
+			// 8.2ms conversion time according to datasheet
+			if(sATA6870.u32ISR_Counter > 1U)
+			{
+				//go and read the voltages now
+				sATA6870.eState = ATA6870_STATE__READ_CELL_VOLTAGES;
+			}
+			else
+			{
+				//wait here.
+			}
+			break;
+		case ATA6870_STATE__READ_CELL_VOLTAGES:
+			uATA6870__BulkRead();
+			sATA6870.eState = ATA6870_STATE__START_CONVERSION;
+			break;
+	}
 
 	//process any balancer tasks.
 	vATA6870_BALANCE__Process();
