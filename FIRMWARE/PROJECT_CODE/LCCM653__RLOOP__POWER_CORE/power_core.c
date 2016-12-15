@@ -381,6 +381,9 @@ void vPWRNODE__RTI_10MS_ISR(void)
 		vPWRNODE_NET__10MS_ISR();
 	#endif
 
+	#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+		vATA6870__10MS_ISR();
+	#endif
 }
 
 

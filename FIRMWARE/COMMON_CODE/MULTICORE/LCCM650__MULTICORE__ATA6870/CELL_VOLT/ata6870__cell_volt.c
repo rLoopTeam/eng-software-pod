@@ -25,6 +25,8 @@
 #include "../ata6870.h"
 #if C_LOCALDEF__LCCM650__ENABLE_THIS_MODULE == 1U
 
+#define ATA6870_OFFSET_VOLTAGE 410
+
 //main structure
 extern struct _str6870 sATA6870;
 
@@ -67,11 +69,12 @@ void vATA6870_CELL__Get_Voltages(Luint8 u8DeviceIndex, Lfloat32 *pf32Voltages, L
 	for(u8Counter = 0U; u8Counter < C_ATA6870__MAX_CELLS; u8Counter++)
 	{
 		//convert
-		unT.u8[0] = u8Buffer[0 + (u8Counter * 2U)];
-		unT.u8[1] = u8Buffer[1 + (u8Counter * 2U)];
+		unT.u8[0] = u8Buffer[1 + (u8Counter * 2U)];
+		unT.u8[1] = u8Buffer[0 + (u8Counter * 2U)];
 	
 		//unpack
 		f32Temp = (Lfloat32)unT.u16;
+		f32Temp -= ATA6870_OFFSET_VOLTAGE; //pg.18, 5.5 Offset Voltage
 		f32Temp *= C_ATA6870__ADC_RES_V;
 		
 		//assign
