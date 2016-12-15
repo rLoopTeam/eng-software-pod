@@ -489,6 +489,55 @@
 			/** Structure guard 2*/
 			Luint32 u32Guard2;
 			
+			/** Input data for throttle layer */
+			// (added by @gsweriduk on 23 NOV 2016)
+
+			struct strThrottleInterfaceData
+			{
+				// Ground Station command
+				E_GS_COMMANDS eGS_Command;
+
+				// Flight Control Unit mode
+				E_FCU_MODES eFCU_Mode;
+
+				// throttle command units (0 for RPM*10, 1 for Percent), needs to be sent by GS
+				Luint8 u8CommandUnits;
+
+				// speeds of HE1 to HE8
+				Luint16 u16HE_Speeds[8];
+
+				// duration of ramp command *** ASSUMING throttleStartRampDuration IS IN UNITS of MILLISECONDS ***
+				Luint16 u16throttleStartRampDuration;
+
+				// maximum speed of HEs in RPM*10
+				Luint16 u16HE_MAX_SPD;
+
+				// minimum speed of HEs in RPM*10
+				Luint16 u16HE_MIN_SPD;
+
+				// HE speeds for static hover
+				Luint16 u16rpmHEStaticHoveringSpeed;
+
+				// HE speeds for standby mode
+				Luint16 u16maxRunModeStandbySpeed;
+
+				// Throttle command values:
+				// use [0] to command all HEs, use [1] - [8] for commands to individual HEs
+				Luint16 u16ThrottleCommands[9];
+
+				// Number of the HE being given a command:
+				// A value of 0 signifies all HEs, 1 - 8 indicates a specific HE
+				Luint8 u8EngineNumber;
+
+				// state variable
+				E_THROTTLE_STATES_T eState;
+
+				// timer state
+				Luint8 u8100MS_Timer;
+
+			} sThrottle;
+
+
 		};
 
 		/*******************************************************************************
@@ -640,6 +689,20 @@
 
 		//throttle layer
 		void vFCU_THROTTLE__Init(void);
+		void vFCU_THROTTLE__Process(void);
+		Lint16 s16FCU_THROTTLE__Step_Command(void);
+		Lint16 s16FCU_THROTTLE__Ramp_Command(void);
+		Lint16 s16FCU_THROTTLE__Write_HEx_Throttle_Command_to_DAC(Luint16 u16ThrottleCommand, Luint8 u8EngineNumber);
+		Lint16 s16FCU_THROTTLE__Write_All_HE_Throttle_Commands_to_DAC(Luint16 u16ThrottleCommand);
+		Lint16 s16FCU_THROTTLE__Hold(void);
+		void vFCU_THROTTLE__100MS_ISR(void);
+		void vFCU_THROTTLE__GetGroundStationStructValues(void);
+
+		// AMC7812 DAC
+
+		void vAMC7812__Process(void);
+		void vAMC7812__Init(void);
+
 
 		#if C_LOCALDEF__LCCM655__ENABLE_TEST_SPEC == 1U
 
