@@ -101,7 +101,7 @@
 		HW_REQ__ADC1_GROUP_2	= 11U,
 
 		HW_REQ__SCILIN_TX	= 29U,
-		HW_REQ__SCI_TX	= 31U,
+		HW_REQ__SCI_TX	= 31U
 
 
 

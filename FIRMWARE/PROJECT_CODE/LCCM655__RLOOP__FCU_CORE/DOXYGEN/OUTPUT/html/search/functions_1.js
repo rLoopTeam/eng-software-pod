@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['u8fcu_5fbrakes_5fsw_5f_5fget_5fb0_5fextend',['u8FCU_BRAKES_SW__Get_B0_Extend',['../group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga5e4ce01e600a4718b0bc066ba562ca68',1,'u8FCU_BRAKES_SW__Get_B0_Extend(void):&#160;fcu__brakes__switches.c'],['../group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga5e4ce01e600a4718b0bc066ba562ca68',1,'u8FCU_BRAKES_SW__Get_B0_Extend(void):&#160;fcu__brakes__switches.c']]],
-  ['u8fcu_5fbrakes_5fsw_5f_5fget_5fb0_5fretract',['u8FCU_BRAKES_SW__Get_B0_Retract',['../group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga5489f2862a661f5dcbb81cd903b73e7b',1,'u8FCU_BRAKES_SW__Get_B0_Retract(void):&#160;fcu__brakes__switches.c'],['../group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga5489f2862a661f5dcbb81cd903b73e7b',1,'u8FCU_BRAKES_SW__Get_B0_Retract(void):&#160;fcu__brakes__switches.c']]],
-  ['u8fcu_5fbrakes_5fsw_5f_5fget_5fb1_5fextend',['u8FCU_BRAKES_SW__Get_B1_Extend',['../group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga2afb9ad043a34b27ed8f0a930502e76c',1,'u8FCU_BRAKES_SW__Get_B1_Extend(void):&#160;fcu__brakes__switches.c'],['../group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga2afb9ad043a34b27ed8f0a930502e76c',1,'u8FCU_BRAKES_SW__Get_B1_Extend(void):&#160;fcu__brakes__switches.c']]],
-  ['u8fcu_5fbrakes_5fsw_5f_5fget_5fb1_5fretract',['u8FCU_BRAKES_SW__Get_B1_Retract',['../group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga486852699dc1906e06d0495d107aa0b8',1,'u8FCU_BRAKES_SW__Get_B1_Retract(void):&#160;fcu__brakes__switches.c'],['../group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga486852699dc1906e06d0495d107aa0b8',1,'u8FCU_BRAKES_SW__Get_B1_Retract(void):&#160;fcu__brakes__switches.c']]]
+  ['f32fcu_5faccel_5f_5fget_5flastg',['f32FCU_ACCEL__Get_LastG',['../fcu__core_8h.html#a7e14ea2daf6614473d7f54a6f99ae681',1,'fcu_core.h']]],
+  ['f32fcu_5fbrakes_5f_5fget_5fibeam_5fmm',['f32FCU_BRAKES__Get_IBeam_mm',['../fcu__core_8h.html#a08d1359d6000db61a027ce0371956d11',1,'fcu_core.h']]],
+  ['f32fcu_5fbrakes_5f_5fget_5fmlp_5fmm',['f32FCU_BRAKES__Get_MLP_mm',['../fcu__core_8h.html#a693ae3b12cb5b162bb9874d830a41800',1,'fcu_core.h']]],
+  ['f32fcu_5fbrakes_5f_5fget_5fscrewpos',['f32FCU_BRAKES__Get_ScrewPos',['../fcu__core_8h.html#a1dbbb17de48a6213057bd409ddec1212',1,'fcu_core.h']]],
+  ['f32fcu_5flaserdist_5f_5fget_5fdistance',['f32FCU_LASERDIST__Get_Distance',['../fcu__core_8h.html#a1629b8d380ba2466ea8c5f64efb89762',1,'fcu_core.h']]],
+  ['f32fcu_5flaseropto_5f_5fget_5fdistance',['f32FCU_LASEROPTO__Get_Distance',['../fcu__core_8h.html#a3762fb88663a8b99171351a944ebc06d',1,'fcu_core.h']]]
 ];

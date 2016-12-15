@@ -157,7 +157,7 @@
 			#error
 		#endif
 	
-		#if C_LOCALDEF__LCCM107__TEST_SPEC == 1
+		#if C_LOCALDEF__LCCM107__ENABLE_TEST_SPEC == 1U
 			void vLCCM107_TS_001(void);
 			void vLCCM107_TS_002(void);
 			void vLCCM107_TS_003(void);

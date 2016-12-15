@@ -36,11 +36,6 @@ static void vFCU_LASEROPTO__Append_Byte(Luint8 u8LaserIndex, Luint8 u8Value);
 /***************************************************************************//**
  * @brief
  * Init any variables
- *
- */
-/***************************************************************************//**
- * @brief
- * ToDo
  * 
  * @st_funcMD5		43E3B51D6FA2BE8AA4AF8EAD005BCF6C
  * @st_funcID		LCCM655R0.FILE.021.FUNC.001
@@ -68,11 +63,6 @@ void vFCU_LASEROPTO__Init(void)
 /***************************************************************************//**
  * @brief
  * Process any laser opto tasks
- * 
- */
-/***************************************************************************//**
- * @brief
- * ToDo
  * 
  * @st_funcMD5		9660F0019D5A030ED73D615506E16AE5
  * @st_funcID		LCCM655R0.FILE.021.FUNC.002
@@ -191,10 +181,9 @@ void vFCU_LASEROPTO__Process(void)
 
 }
 
-//get a lasers distance
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Get a lasers distance
  * 
  * @param[in]		u8LaserIndex		## Desc ##
  * @st_funcMD5		53DF2998864036ECF23F9BF1F1C816DA
@@ -212,10 +201,9 @@ Luint8 u8FCU_LASEROPTO__Get_Error(Luint8 u8LaserIndex)
 	return sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8Error;
 }
 
-//Process the laser packet
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Process the laser packet
  * 
  * @param[in]		u8LaserIndex		## Desc ##
  * @st_funcMD5		B571B7763675B602E57E87C48C2B173C
@@ -277,8 +265,12 @@ void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex)
 
 }
 
-//append a newly received byte of data onto the laser subsystem
-/* 8.2 Measurement Data Format
+/***************************************************************************//**
+ * @brief
+ * Append a newly received byte of data onto the laser subsystem
+ *
+ * @note
+ * 8.2 Measurement Data Format
  * 18 bits are transmitted per output value, see Chap. 7.5.2. An output value is divided into three bytes
  * that differ in the two most significant bits. The transmission of additional output values is optional.
  * Output value 1 / additional:
@@ -293,10 +285,6 @@ void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex)
  * pending on the measuring rate, baud rate and output data rate output all data can be output in one block. If
  * data output is not possible, a run-time error will be output. Use the command GETOUTINFO_RS422 to query
  * for data selection and output sequence.
- */
-/***************************************************************************//**
- * @brief
- * ToDo
  * 
  * @param[in]		u8Value		## Desc ##
  * @param[in]		u8LaserIndex		## Desc ##
@@ -385,7 +373,7 @@ void vFCU_LASEROPTO__Append_Byte(Luint8 u8LaserIndex, Luint8 u8Value)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * 100MS ISR point
  * 
  * @st_funcMD5		E23807C52369107D55D0953516ED2BFB
  * @st_funcID		LCCM655R0.FILE.021.FUNC.006

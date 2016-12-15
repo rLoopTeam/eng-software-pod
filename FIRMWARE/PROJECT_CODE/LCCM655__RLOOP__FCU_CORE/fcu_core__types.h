@@ -46,7 +46,7 @@
 		RUN_STATE__FLIGHT_MODE,
 
 		/** we have aborted flight, need to cleanup systems, landing gear and safe the pod */
-		RUN_STATE__FLIGHT_ABORT,
+		RUN_STATE__FLIGHT_ABORT
 
 
 	}E_FCU__RUN_STATE_T;
@@ -61,7 +61,7 @@
 		/** Doing nothing, return here when idle */
 		AUTOSEQ_STATE__IDLE,
 
-		AUTOSEQ_STATE__TEST_FUNCTION_X,
+		AUTOSEQ_STATE__TEST_FUNCTION_X
 
 
 	}E_FCU__AUTO_SEQUENCE_STATE_T;
@@ -88,7 +88,7 @@
 		OPTOLASER_STATE__CHECK_NEW_DATA,
 
 		/** Check if a new packet is avail for each laser */
-		OPTOLASER_STATE__CHECK_NEW_PACKET,
+		OPTOLASER_STATE__CHECK_NEW_PACKET
 
 	}E_FCU_OPTOLASER__STATE_T;
 
@@ -112,7 +112,7 @@
 		LASERDIST_STATE__CHECK_NEW_DATA,
 
 		/** Check if a new packet is avail for each laser */
-		LASERDIST_STATE__CHECK_NEW_PACKET,
+		LASERDIST_STATE__CHECK_NEW_PACKET
 
 	}E_FCU_LASERDIST__STATE_T;
 
@@ -137,7 +137,7 @@
 
 		LASER_ORIENTATION_STATE__RECALCULATE_PITCH_ROLL_TWIST,
 
-		LASER_ORIENTATION_STATE__RECALCULATE_YAW_AND_LATERAL,
+		LASER_ORIENTATION_STATE__RECALCULATE_YAW_AND_LATERAL
 
 	}E_LASER_ORIENTATION__STATE_T;
 
@@ -147,7 +147,7 @@
 	{
 		OPTONCDT_RX__BYTE_1 = 0U,
 		OPTONCDT_RX__BYTE_2,
-		OPTONCDT_RX__BYTE_3,
+		OPTONCDT_RX__BYTE_3
 
 	}E_OPTONCDT__RX_STATE_T;
 
@@ -156,7 +156,7 @@
 	{
 		LASERDIST_RX__BYTE_1 = 0U,
 		LASERDIST_RX__BYTE_2,
-		LASERDIST_RX__BYTE_3,
+		LASERDIST_RX__BYTE_3
 
 	}E_LASERDIST__RX_STATE_T;
 
@@ -187,7 +187,7 @@
 
 
 		/** init is done, run the main state machine */
-		INIT_STATE__RUN,
+		INIT_STATE__RUN
 
 	}E_FCU__INIT_STATE_TYPES;
 
@@ -235,7 +235,7 @@
 			PUSH_STATE__DETERMINE_PUSHER_STATE,
 
 			/** Check if there is some long term disagree with the switches */
-			PUSH_STATE__CHECK_DISAGREE,
+			PUSH_STATE__CHECK_DISAGREE
 
 		}E_FCU_PUSHER__STATES_T;
 

@@ -24,13 +24,14 @@
 	#endif
 
 	#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1U
+		/*****************************************************************************
+		Includes
+		*****************************************************************************/
 		#include <RM4/LCCM124__RM4__RTI/rm4_rti__private.h>
 		#include <RM4/LCCM124__RM4__RTI/rm4_rti__semistaticdef.h>
 
 
 		//Structure to hold details about the counters
-		/*****************************************************************************
-		*****************************************************************************/
 		struct _strCounter
 		{
 			Luint32 FRCValue; //Free Running Counter Current Value or Preset
@@ -154,7 +155,7 @@
 		#endif
 		
 		/*Declarations fot the Test Unit*/
-		#if RM48L950_RTI_ENABLE_TEST == 1
+		#if C_LOCALDEF__LCCM124__ENABLE_TEST_SPEC == 1U
 			void vRTI_Test(void);
 
 			void vRM4_RTI_ISR__Compare0(void);
@@ -166,7 +167,7 @@
 			//Manage IO on the test
 			#define RM48L950_GIO_SET_LOW 0
 			#define RM48L950_GIO_SET_HIGH 1
-		#endif//#define RM48L950_RTI_ENABLE_TEST
+		#endif//#define C_LOCALDEF__LCCM124__ENABLE_TEST_SPEC
 
 	#endif //#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1
 #endif //#ifndef __RM48_RTI_H__

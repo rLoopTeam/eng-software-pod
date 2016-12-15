@@ -116,6 +116,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gadd53ba76044f744165c7c0a6536c1c2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c">vFCU__Process</a> (void)</td></tr>
 <tr class="memdesc:gadd53ba76044f744165c7c0a6536c1c2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process any FCU tasks.  <a href="#gadd53ba76044f744165c7c0a6536c1c2c">More...</a><br /></td></tr>
 <tr class="separator:gadd53ba76044f744165c7c0a6536c1c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga633c7c5268bc4c315340199d0b024c15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____c_o_r_e.html#ga633c7c5268bc4c315340199d0b024c15">vFCU__RTI_100MS_ISR</a> (void)</td></tr>
+<tr class="memdesc:ga633c7c5268bc4c315340199d0b024c15"><td class="mdescLeft">&#160;</td><td class="mdescRight">100ms timer  <a href="#ga633c7c5268bc4c315340199d0b024c15">More...</a><br /></td></tr>
+<tr class="separator:ga633c7c5268bc4c315340199d0b024c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab8335875b185e48b92cc6a8801ea9843"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____c_o_r_e.html#gab8335875b185e48b92cc6a8801ea9843">vFCU__RTI_10MS_ISR</a> (void)</td></tr>
+<tr class="memdesc:gab8335875b185e48b92cc6a8801ea9843"><td class="mdescLeft">&#160;</td><td class="mdescRight">10ms timer  <a href="#gab8335875b185e48b92cc6a8801ea9843">More...</a><br /></td></tr>
+<tr class="separator:gab8335875b185e48b92cc6a8801ea9843"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -140,10 +146,21 @@ Variables</h2></td></tr>
 
 <p>Init the FCU. </p>
 <p>Call this first thing.</p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>CC1CE932DF70839CDB882B5F32B8106A </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>2B87B49581828868F2B8726833317ADB </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.000.FUNC.001 </dd></dl>
 
-<p>References <a class="el" href="struct__str_f_c_u.html#a3f614417d0c3eb6bb3a1bd23b0eaca1f">_strFCU::eInitStates</a>, <a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4cac5516a83ea1335e7d16e4ec104fc6c31">INIT_STATE__RESET</a>, and <a class="el" href="group___f_c_u_____c_o_r_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>.</p>
+<p>References <a class="el" href="struct__str_f_c_u.html#a3f614417d0c3eb6bb3a1bd23b0eaca1f">_strFCU::eInitStates</a>, <a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4cac5516a83ea1335e7d16e4ec104fc6c31">INIT_STATE__RESET</a>, <a class="el" href="group___f_c_u_____c_o_r_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a7fe840b59832dbdf1a07cb64bc0dcc6e">_strFCU::u32Guard1</a>, <a class="el" href="struct__str_f_c_u.html#a26cb452b3951534cad28e36d59c55e86">_strFCU::u32Guard2</a>, <a class="el" href="fcu__core_8h.html#ab24c028a2114a308c2136029398bb20f">vFCU_BRAKES__Init()</a>, and <a class="el" href="group___f_c_u___c_o_r_e_____f_a_u_l_t_s.html#gac598056500d4c28bf0375f8bcdea3e8f">vFCU_FAULTS__Init()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____c_o_r_e_gad25e10934b04c9673eda50f3c7bb7a56_cgraph.png" border="0" usemap="#group___f_c_u_____c_o_r_e_gad25e10934b04c9673eda50f3c7bb7a56_cgraph" alt=""/></div>
+<map name="group___f_c_u_____c_o_r_e_gad25e10934b04c9673eda50f3c7bb7a56_cgraph" id="group___f_c_u_____c_o_r_e_gad25e10934b04c9673eda50f3c7bb7a56_cgraph">
+<area shape="rect" id="node2" href="fcu__core_8h.html#ab24c028a2114a308c2136029398bb20f" title="vFCU_BRAKES__Init" alt="" coords="137,5,283,32"/>
+<area shape="rect" id="node3" href="group___f_c_u___c_o_r_e_____f_a_u_l_t_s.html#gac598056500d4c28bf0375f8bcdea3e8f" title="Init the fault processing system. " alt="" coords="140,56,280,83"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -162,22 +179,107 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Process any FCU tasks. </p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>05CF3F7820A29ABF562E522CC9365071 </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>BC230E2F20B042C85F76C1DBCF00A966 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.000.FUNC.002 </dd></dl>
 
-<p>References <a class="el" href="struct__str_f_c_u.html#a3f614417d0c3eb6bb3a1bd23b0eaca1f">_strFCU::eInitStates</a>, <a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4ca9177cb10a4db04a151060f3cf1e1e988">INIT_STATE__INIT_COMMS</a>, <a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caf2f2c5a22525fc2f3b9d1cb007092ada">INIT_STATE__INIT_SPI_UARTS</a>, <a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caf335a6ffa959d5ae290f518d61bcacae">INIT_STATE__LOWER_SYSTEMS</a>, <a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4cac5516a83ea1335e7d16e4ec104fc6c31">INIT_STATE__RESET</a>, <a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caaf2061203d5df58c1953055d1df17093">INIT_STATE__RUN</a>, <a class="el" href="group___f_c_u_____c_o_r_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gab24c028a2114a308c2136029398bb20f">vFCU_BRAKES__Init()</a>, and <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gaef79f34b59d1188532b2dfc7ce6a318f">vFCU_BRAKES__Process()</a>.</p>
+<p>References <a class="el" href="fcu__core____enums_8h.html#ac31f471107a577664bc177153ab990b9a37871bb7ebd294a0dd3b9ee957530708">BRAKE_SW__EXTEND</a>, <a class="el" href="fcu__core____enums_8h.html#ac31f471107a577664bc177153ab990b9a820c05781e2854231cde5f2b0a4177bf">BRAKE_SW__RETRACT</a>, <a class="el" href="fcu__core____fault__flags_8h.html#af6f51b1e015f36648eaca08b753d1dcc">C_LCCM655__CORE__FAULT_INDEX__00</a>, <a class="el" href="fcu__core____fault__flags_8h.html#a9e5e13f4443dafd20c5425747baaf07e">C_LCCM655__CORE__FAULT_INDEX__01</a>, <a class="el" href="struct__str_f_c_u.html#a3f614417d0c3eb6bb3a1bd23b0eaca1f">_strFCU::eInitStates</a>, <a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7ba7285821a8733fd55fdb059d6b24b9612">FCU_BRAKE__LEFT</a>, <a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7bac3c1da45459f5e310a186fa25daaedfe">FCU_BRAKE__RIGHT</a>, <a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4ca9177cb10a4db04a151060f3cf1e1e988">INIT_STATE__INIT_COMMS</a>, <a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4ca76e657837b6984fa167a7332559e1ea5">INIT_STATE__INIT_IO</a>, <a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caf2f2c5a22525fc2f3b9d1cb007092ada">INIT_STATE__INIT_SPI_UARTS</a>, <a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caf335a6ffa959d5ae290f518d61bcacae">INIT_STATE__LOWER_SYSTEMS</a>, <a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4cac5516a83ea1335e7d16e4ec104fc6c31">INIT_STATE__RESET</a>, <a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caaf2061203d5df58c1953055d1df17093">INIT_STATE__RUN</a>, <a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caceb3d7dc07525718c3d8df84a6057a32">INIT_STATE__START_TIMERS</a>, <a class="el" href="fcu__core____enums_8h.html#aca56f900b11ab5b05c97d4618bbe321eac1ea595de25bb8d3f84560fc2dff349c">LASER_CONT__AFT</a>, <a class="el" href="fcu__core____enums_8h.html#aca56f900b11ab5b05c97d4618bbe321eaddc978956934df26d06933a6b7b27fef">LASER_CONT__FWD</a>, <a class="el" href="fcu__core____enums_8h.html#aca56f900b11ab5b05c97d4618bbe321eadf24bb2b06c8aa2a002b13c3ef77c31b">LASER_CONT__MID</a>, <a class="el" href="struct__str_f_c_u.html#af42621efbc9d4a5750ce18376bd8402e">_strFCU::sBrakes</a>, <a class="el" href="struct__str_f_c_u.html#ac37f372cd764a70bdf25019373eac4a7">_strFCU::sFaults</a>, <a class="el" href="group___f_c_u_____c_o_r_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a9d2f511030bc7c7de8fd0d86f532fc67">_strFCU::sLimits</a>, <a class="el" href="struct__str_f_c_u.html#a565b25bc289349971f616ea85274adf4">_strFCU::sPusher</a>, <a class="el" href="struct__str_f_c_u.html#a09979ee846f05c97cc0a48f6515df935">_strFCU::sSwitches</a>, <a class="el" href="struct__str_f_c_u.html#a383f9930618dd937a4bb30896b3a71c6">_strFCU::sTopLevel</a>, <a class="el" href="struct__str_f_c_u.html#a7fe840b59832dbdf1a07cb64bc0dcc6e">_strFCU::u32Guard1</a>, <a class="el" href="struct__str_f_c_u.html#a26cb452b3951534cad28e36d59c55e86">_strFCU::u32Guard2</a>, <a class="el" href="group___f_c_u_____m_a_i_n___s_m.html#ga8561db4d70de2d60f5b8bbccfcac1e8d">vFCU_MAINSM__Init()</a>, <a class="el" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12">vFCU_MAINSM__Process()</a>, <a class="el" href="fcu__core_8h.html#a3ce114f04575fa404e1473f39efe7b8b">vFCU_NET__Init()</a>, and <a class="el" href="fcu__core_8h.html#a5c521a84cd9ce0b8db27a7a779de58fe">vFCU_NET__Process()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group___f_c_u_____c_o_r_e_gadd53ba76044f744165c7c0a6536c1c2c_cgraph.png" border="0" usemap="#group___f_c_u_____c_o_r_e_gadd53ba76044f744165c7c0a6536c1c2c_cgraph" alt=""/></div>
 <map name="group___f_c_u_____c_o_r_e_gadd53ba76044f744165c7c0a6536c1c2c_cgraph" id="group___f_c_u_____c_o_r_e_gadd53ba76044f744165c7c0a6536c1c2c_cgraph">
-<area shape="rect" id="node2" href="group___f_c_u_____b_r_a_k_e_s.html#gab24c028a2114a308c2136029398bb20f" title="Init any brakes variables, etc. " alt="" coords="183,46,329,73"/>
-<area shape="rect" id="node3" href="group___f_c_u_____b_r_a_k_e_s.html#gaef79f34b59d1188532b2dfc7ce6a318f" title="Process any brakes tasks. " alt="" coords="168,97,344,123"/>
-<area shape="rect" id="node4" href="group___f_c_u_____b_r_a_k_e_s.html#ga47f7f6191ba133370b8cf19c5f0f0a0d" title="Check the limits of the ADC data. " alt="" coords="405,5,586,47"/>
-<area shape="rect" id="node5" href="group___f_c_u_____b_r_a_k_e_s.html#gace46e5ec48d6f50719047ca64c2c4ba8" title="Apply the system span value. " alt="" coords="396,71,595,98"/>
-<area shape="rect" id="node6" href="group___f_c_u_____b_r_a_k_e_s.html#gaf1c5d2e979d8be05f7c7912f797b3fe2" title="Apply the zero value to the ADC sample. " alt="" coords="399,122,592,149"/>
-<area shape="rect" id="node7" href="group___f_c_u_____b_r_a_k_e_s.html#ga44881f7db2d33903e1bb6cf4a507e6ae" title="Call this function to sample the ADC channel associated with the brake. " alt="" coords="392,173,599,199"/>
+<area shape="rect" id="node2" href="group___f_c_u_____m_a_i_n___s_m.html#ga8561db4d70de2d60f5b8bbccfcac1e8d" title="Init any variables as is needed by the main state machine. " alt="" coords="184,233,327,260"/>
+<area shape="rect" id="node4" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="168,487,343,513"/>
+<area shape="rect" id="node24" href="fcu__core_8h.html#a3ce114f04575fa404e1473f39efe7b8b" title="vFCU_NET__Init" alt="" coords="197,537,313,564"/>
+<area shape="rect" id="node25" href="fcu__core_8h.html#a5c521a84cd9ce0b8db27a7a779de58fe" title="vFCU_NET__Process" alt="" coords="182,588,329,615"/>
+<area shape="rect" id="node3" href="group___f_c_u_____m_a_i_n___s_m___a_u_t_o.html#ga679d7e5fc6ed23a378fc2e6c9e6a00ac" title="Init the auto sequence system. " alt="" coords="406,5,591,32"/>
+<area shape="rect" id="node5" href="fcu__core_8h.html#aa37de03b1b152ac655b318fc2a4654d6" title="vFCU_PUSHER__Init" alt="" coords="426,56,571,83"/>
+<area shape="rect" id="node6" href="fcu__core_8h.html#a96c5145f0dbf4a7552efda365495baaa" title="vFCU_LASERCONT__Init" alt="" coords="414,107,583,133"/>
+<area shape="rect" id="node7" href="fcu__core_8h.html#a104d67a1b33f6b6826c756de6a48ffbf" title="vFCU_LASERDIST__Process" alt="" coords="402,157,595,184"/>
+<area shape="rect" id="node8" href="fcu__core_8h.html#ab24c028a2114a308c2136029398bb20f" title="vFCU_BRAKES__Init" alt="" coords="426,208,571,235"/>
+<area shape="rect" id="node9" href="fcu__core_8h.html#aa222734e1ef90fdde25b4b740093f1c1" title="vFCU_THROTTLE__Init" alt="" coords="421,259,577,285"/>
+<area shape="rect" id="node10" href="fcu__core_8h.html#ae959883b6fcdb596d1ed122f0198abf0" title="vFCU_ASI__Init" alt="" coords="443,309,555,336"/>
+<area shape="rect" id="node11" href="fcu__core_8h.html#a3226e17fb2f55703e7de8934b1f86f80" title="vFCU_ACCEL__Init" alt="" coords="431,360,566,387"/>
+<area shape="rect" id="node12" href="fcu__core_8h.html#a01d25ff9372b9ce53f639fe99af51e1f" title="vFCU_LASEROPTO__Init" alt="" coords="413,411,584,437"/>
+<area shape="rect" id="node13" href="fcu__core_8h.html#ab5de6b2351351181ba23cbcd4fcab240" title="vFCU_PICOMMS__Init" alt="" coords="422,461,575,488"/>
+<area shape="rect" id="node14" href="fcu__core_8h.html#a44cae23a29aface9f6c17b0ee32cfa62" title="vFCU_FLIGHTCTL__Init" alt="" coords="419,512,578,539"/>
+<area shape="rect" id="node15" href="group___f_c_u_____m_a_i_n___s_m___a_u_t_o.html#ga291246fb6695a5bd8beaa7abcf8181ac" title="Do we need to do an immediate abort? " alt="" coords="413,563,584,605"/>
+<area shape="rect" id="node16" href="group___f_c_u_____m_a_i_n___s_m___a_u_t_o.html#gaae19df0ddbd9537080d8857d991dafaf" title="Are we busy in the auto sequence. " alt="" coords="413,629,584,670"/>
+<area shape="rect" id="node17" href="fcu__core_8h.html#a6be117f0d149ea97154c828dc1724cd4" title="vFCU_FLIGHTCTL__Process" alt="" coords="404,695,593,721"/>
+<area shape="rect" id="node18" href="fcu__core_8h.html#afebb61bf06478b4a61f80f417227e368" title="vFCU_LASEROPTO__Process" alt="" coords="398,745,599,772"/>
+<area shape="rect" id="node19" href="fcu__core_8h.html#ac28ff88ff4cc6190856710b87b23aee8" title="vFCU_LASERCONT__Process" alt="" coords="399,796,599,823"/>
+<area shape="rect" id="node20" href="fcu__core_8h.html#aef79f34b59d1188532b2dfc7ce6a318f" title="vFCU_BRAKES__Process" alt="" coords="411,847,587,873"/>
+<area shape="rect" id="node21" href="fcu__core_8h.html#aed5fa1fea46dd35cded2eacec73a2c9f" title="vFCU_ACCEL__Process" alt="" coords="416,897,581,924"/>
+<area shape="rect" id="node22" href="fcu__core_8h.html#a85b2b10a4916dbe636da77dccf0dbb3e" title="vFCU_PICOMMS__Process" alt="" coords="407,948,591,975"/>
+<area shape="rect" id="node23" href="group___f_c_u_____m_a_i_n___s_m___a_u_t_o.html#ga74af8dabaa5a8bf9e1dd2a2089757fdf" title="Process the main state machine. " alt="" coords="391,999,607,1025"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga633c7c5268bc4c315340199d0b024c15"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU__RTI_100MS_ISR </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>100ms timer </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>29FA796863975C61E514D3ED94ED79CA </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.000.FUNC.003 </dd></dl>
+
+<p>References <a class="el" href="fcu__core_8h.html#aad87a308d6a4ecb14365d0ae236203e3">vFCU_LASERDIST__100MS_ISR()</a>, <a class="el" href="fcu__core_8h.html#af3e4d9da6eb2dff898893a7b5db2da14">vFCU_LASEROPTO__100MS_ISR()</a>, and <a class="el" href="fcu__core_8h.html#a381545bfa96df0b9bbf38a9a2a59a5f6">vFCU_PICOMMS__100MS_ISR()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____c_o_r_e_ga633c7c5268bc4c315340199d0b024c15_cgraph.png" border="0" usemap="#group___f_c_u_____c_o_r_e_ga633c7c5268bc4c315340199d0b024c15_cgraph" alt=""/></div>
+<map name="group___f_c_u_____c_o_r_e_ga633c7c5268bc4c315340199d0b024c15_cgraph" id="group___f_c_u_____c_o_r_e_ga633c7c5268bc4c315340199d0b024c15_cgraph">
+<area shape="rect" id="node2" href="fcu__core_8h.html#aad87a308d6a4ecb14365d0ae236203e3" title="vFCU_LASERDIST__100MS_ISR" alt="" coords="220,5,435,32"/>
+<area shape="rect" id="node3" href="fcu__core_8h.html#af3e4d9da6eb2dff898893a7b5db2da14" title="vFCU_LASEROPTO__100MS_ISR" alt="" coords="216,56,439,83"/>
+<area shape="rect" id="node4" href="fcu__core_8h.html#a381545bfa96df0b9bbf38a9a2a59a5f6" title="vFCU_PICOMMS__100MS_ISR" alt="" coords="225,107,430,133"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="gab8335875b185e48b92cc6a8801ea9843"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU__RTI_10MS_ISR </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>10ms timer </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>132920CE083F2C05C9100CBC35DA7876 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.000.FUNC.004 </dd></dl>
+
+<p>References <a class="el" href="fcu__core_8h.html#ad5e5ca4b4f9056246705b92649499f05">vFCU_NET_TX__10MS_ISR()</a>, and <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga9ee7d3503898fc47eb2100cdb6b89107">vFCU_PUSHER__10MS_ISR()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____c_o_r_e_gab8335875b185e48b92cc6a8801ea9843_cgraph.png" border="0" usemap="#group___f_c_u_____c_o_r_e_gab8335875b185e48b92cc6a8801ea9843_cgraph" alt=""/></div>
+<map name="group___f_c_u_____c_o_r_e_gab8335875b185e48b92cc6a8801ea9843_cgraph" id="group___f_c_u_____c_o_r_e_gab8335875b185e48b92cc6a8801ea9843_cgraph">
+<area shape="rect" id="node2" href="fcu__core_8h.html#ad5e5ca4b4f9056246705b92649499f05" title="vFCU_NET_TX__10MS_ISR" alt="" coords="212,5,395,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____p_u_s_h_e_r.html#ga9ee7d3503898fc47eb2100cdb6b89107" title="10ms interrupt function, coming from FCU Core indicating that a new 10mS event has occurred..." alt="" coords="208,56,399,83"/>
 </map>
 </div>
 </p>
@@ -195,7 +297,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Referenced by <a class="el" href="group___f_c_u_____c_o_r_e.html#gad25e10934b04c9673eda50f3c7bb7a56">vFCU__Init()</a>, <a class="el" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c">vFCU__Process()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gace46e5ec48d6f50719047ca64c2c4ba8">vFCU_BRAKES__Apply_Span()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gaf1c5d2e979d8be05f7c7912f797b3fe2">vFCU_BRAKES__Apply_Zero()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gab24c028a2114a308c2136029398bb20f">vFCU_BRAKES__Init()</a>, and <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#ga44881f7db2d33903e1bb6cf4a507e6ae">vFCU_BRAKES__Sample_ADC()</a>.</p>
+<p>Referenced by <a class="el" href="group___f_c_u___c_o_r_e_____f_a_u_l_t_s.html#ga019d6eccaf28f4169dca7352f5bcf28e">u32FCU_FAULTS__Get_FaultFlags()</a>, <a class="el" href="group___f_c_u___c_o_r_e_____f_a_u_l_t_s.html#ga0432f92045ae85dfdcc05ef7b06ef79d">u8FCU_FAULTS__Get_IsFault()</a>, <a class="el" href="group___f_c_u_____m_a_i_n___s_m___a_u_t_o.html#gaae19df0ddbd9537080d8857d991dafaf">u8FCU_MAINSM_AUTO__Is_Busy()</a>, <a class="el" href="group___f_c_u_____c_o_r_e.html#gad25e10934b04c9673eda50f3c7bb7a56">vFCU__Init()</a>, <a class="el" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c">vFCU__Process()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#gac7ff0d8cd242935e8ec98aed645976bb">vFCU_BRAKES_SW__Left_SwitchExtend_ISR()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga18eac87718bf23ff1491ccc111d4cf3c">vFCU_BRAKES_SW__Left_SwitchRetract_ISR()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga4341bc4639bdf826b32782364354b47e">vFCU_BRAKES_SW__Right_SwitchExtend_ISR()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga8328a88cb357909840af193afae8f1b9">vFCU_BRAKES_SW__Right_SwitchRetract_ISR()</a>, <a class="el" href="group___f_c_u___c_o_r_e_____f_a_u_l_t_s.html#gac598056500d4c28bf0375f8bcdea3e8f">vFCU_FAULTS__Init()</a>, <a class="el" href="group___f_c_u_____m_a_i_n___s_m.html#ga8561db4d70de2d60f5b8bbccfcac1e8d">vFCU_MAINSM__Init()</a>, <a class="el" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12">vFCU_MAINSM__Process()</a>, <a class="el" href="group___f_c_u_____m_a_i_n___s_m___a_u_t_o.html#ga679d7e5fc6ed23a378fc2e6c9e6a00ac">vFCU_MAINSM_AUTO__Init()</a>, <a class="el" href="group___f_c_u_____m_a_i_n___s_m___a_u_t_o.html#ga74af8dabaa5a8bf9e1dd2a2089757fdf">vFCU_MAINSM_AUTO__Process()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga9ee7d3503898fc47eb2100cdb6b89107">vFCU_PUSHER__10MS_ISR()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gad3e8eda9017014acaf29327be32ece7c">vFCU_PUSHER__InterlockA_ISR()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gafc57e9c4ee006f35f00adf2e4594b73e">vFCU_PUSHER__InterlockB_ISR()</a>, and <a class="el" href="group___f_c_u___c_o_r_e_____n_o_t_i_f_i_c_a_t_i_o_n_s.html#ga07cdc68173bd53f2c82d19081af66665">vRM4_N2HET_DYNAMIC__Notification()</a>.</p>
 
 </div>
 </div>

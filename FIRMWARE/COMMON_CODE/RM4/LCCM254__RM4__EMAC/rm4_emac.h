@@ -20,9 +20,12 @@
 	#endif
 	#if C_LOCALDEF__LCCM254__ENABLE_THIS_MODULE == 1U
 
-		#include "rm4_emac__private.h"
-		#include "rm4_emac__dp83640_private.h"
-		#include "rm4_emac__bd_private.h"
+		/*******************************************************************************
+		Inlcudes
+		*******************************************************************************/
+		#include <RM4/LCCM254__RM4__EMAC/rm4_emac__private.h>
+		#include <RM4/LCCM254__RM4__EMAC/rm4_emac__dp83640_private.h>
+		#include <RM4/LCCM254__RM4__EMAC/rm4_emac__bd_private.h>
 
 		/** The possible link states */
 		typedef enum
@@ -216,8 +219,6 @@
 		void vRM4_EMAC__Set_NumFreeRxBuffers(Luint32 u32Channel, Luint32 u32NumBuffers);
 		Luint32 u32RM4_EMAC__Get_IntVector(void);
 		void vRM4_EMAC__Set_Duplex(Luint32 u32DuplexMode);
-		void vRM4_EMAC__Set_MACSrcAddx(Luint8 *pu8MACAddx);
-		void vRM4_EMAC__Set_NumFreeRxBuffers(Luint32 u32Channel, Luint32 u32NumBuffers);
 		void vRM4_EMAC__Enable_Tx(void);
 		void vRM4_EMAC__Enable_Rx(void);
 		void vRM4_EMAC__Enable_MII(void);

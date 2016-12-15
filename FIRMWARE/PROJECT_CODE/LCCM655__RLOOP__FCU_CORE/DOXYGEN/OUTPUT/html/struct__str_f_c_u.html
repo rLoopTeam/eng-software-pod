@@ -115,39 +115,263 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a7fe840b59832dbdf1a07cb64bc0dcc6e"><td class="memItemLeft" align="right" valign="top">Luint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#a7fe840b59832dbdf1a07cb64bc0dcc6e">u32Guard1</a></td></tr>
 <tr class="memdesc:a7fe840b59832dbdf1a07cb64bc0dcc6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure guard 1.  <a href="#a7fe840b59832dbdf1a07cb64bc0dcc6e">More...</a><br /></td></tr>
 <tr class="separator:a7fe840b59832dbdf1a07cb64bc0dcc6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39405b1b15312de3857bc96c9b0d0a13"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fcu__core____types_8h.html#ad51c0bedd8ff2f532e6e314b01f579cc">E_FCU__RUN_STATE_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#a39405b1b15312de3857bc96c9b0d0a13">eRunState</a></td></tr>
+<tr class="memdesc:a39405b1b15312de3857bc96c9b0d0a13"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main state machine for run mode.  <a href="#a39405b1b15312de3857bc96c9b0d0a13">More...</a><br /></td></tr>
+<tr class="separator:a39405b1b15312de3857bc96c9b0d0a13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5966a936be0d18949dca152ee835490c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fcu__core____types_8h.html#acd5fd46296a0ec15a0d36d9d773c2f2a">E_FCU__AUTO_SEQUENCE_STATE_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#a5966a936be0d18949dca152ee835490c">eAutoSeqState</a></td></tr>
+<tr class="memdesc:a5966a936be0d18949dca152ee835490c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto sequence state machine.  <a href="#a5966a936be0d18949dca152ee835490c">More...</a><br /></td></tr>
+<tr class="separator:a5966a936be0d18949dca152ee835490c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f614417d0c3eb6bb3a1bd23b0eaca1f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4c">E_FCU__INIT_STATE_TYPES</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#a3f614417d0c3eb6bb3a1bd23b0eaca1f">eInitStates</a></td></tr>
 <tr class="memdesc:a3f614417d0c3eb6bb3a1bd23b0eaca1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The init statemachine.  <a href="#a3f614417d0c3eb6bb3a1bd23b0eaca1f">More...</a><br /></td></tr>
 <tr class="separator:a3f614417d0c3eb6bb3a1bd23b0eaca1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a555aed8eec0e45fccd0fd2541e14efc7"><td class="memItemLeft" >struct {</td></tr>
-<tr class="memitem:a01d870853047819f4f4068d3d910e510"><td class="memItemLeft" >&#160;&#160;&#160;struct {</td></tr>
-<tr class="memitem:ac750dbe83188a6961627b2536536a30e"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#aab5f92a64856791c48f4f3fe3ef4dc20">u16ADC_Sample</a></td></tr>
-<tr class="memdesc:ac750dbe83188a6961627b2536536a30e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the sample from the ADC converter.  <a href="#ac750dbe83188a6961627b2536536a30e">More...</a><br /></td></tr>
-<tr class="separator:ac750dbe83188a6961627b2536536a30e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f85a7d8669925a84e61c88007c35d3a"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a27e2518dbb09cffb149b6478414fe82a">u16ADC_Zero</a></td></tr>
-<tr class="memdesc:a0f85a7d8669925a84e61c88007c35d3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The zero value when the brakes are fully retracted.  <a href="#a0f85a7d8669925a84e61c88007c35d3a">More...</a><br /></td></tr>
-<tr class="separator:a0f85a7d8669925a84e61c88007c35d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae166230ccd578808d38e742e0c2da813"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#af475b22c45d29a6c7a5af849ca9a92a6">f32SystemSpan</a></td></tr>
-<tr class="memdesc:ae166230ccd578808d38e742e0c2da813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current ADC span to convert ADC units into engineering units.  <a href="#ae166230ccd578808d38e742e0c2da813">More...</a><br /></td></tr>
-<tr class="separator:ae166230ccd578808d38e742e0c2da813"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ee582357db18bdccad943787cb025b9"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lint32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a014afb21bfba62e926d8cf55e672f986">s32ADC_Minus_Zero</a></td></tr>
-<tr class="memdesc:a1ee582357db18bdccad943787cb025b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">ADC value - Zero Value.  <a href="#a1ee582357db18bdccad943787cb025b9">More...</a><br /></td></tr>
-<tr class="separator:a1ee582357db18bdccad943787cb025b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3270e81088921901ac0840551dcf3419"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a09b7fe7c6f4d4064102ebcec0567b43c">f32BrakePosition_Percent</a></td></tr>
-<tr class="memdesc:a3270e81088921901ac0840551dcf3419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Percent of braking from 0.0 to 100.0.  <a href="#a3270e81088921901ac0840551dcf3419">More...</a><br /></td></tr>
-<tr class="separator:a3270e81088921901ac0840551dcf3419"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01d870853047819f4f4068d3d910e510"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#ac2f2f8a74d46736b721796ed1dcec198">sMLP</a></td></tr>
-<tr class="memdesc:a01d870853047819f4f4068d3d910e510"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear position sensor detail.  <a href="#a01d870853047819f4f4068d3d910e510">More...</a><br /></td></tr>
-<tr class="separator:a01d870853047819f4f4068d3d910e510"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a555aed8eec0e45fccd0fd2541e14efc7"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#a555aed8eec0e45fccd0fd2541e14efc7">sBrakes</a> [<a class="el" href="fcu__core____defines_8h.html#ac8ba75a349a1ef80c0996365feed04be">C_FCU__NUM_BRAKES</a>]</td></tr>
-<tr class="memdesc:a555aed8eec0e45fccd0fd2541e14efc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Brake Substructure.  <a href="#a555aed8eec0e45fccd0fd2541e14efc7">More...</a><br /></td></tr>
-<tr class="separator:a555aed8eec0e45fccd0fd2541e14efc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26cb452b3951534cad28e36d59c55e86"><td class="memItemLeft" align="right" valign="top">Luint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#a26cb452b3951534cad28e36d59c55e86">u32Guard2</a></td></tr>
-<tr class="memdesc:a26cb452b3951534cad28e36d59c55e86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure guard 2.  <a href="#a26cb452b3951534cad28e36d59c55e86">More...</a><br /></td></tr>
-<tr class="separator:a26cb452b3951534cad28e36d59c55e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a358380f75933d68aa48c47167346fbf4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413a">E_FCU_BRAKES__STATES_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#a358380f75933d68aa48c47167346fbf4">eBrakeStates</a></td></tr>
+<tr class="memdesc:a358380f75933d68aa48c47167346fbf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The brakes state machine.  <a href="#a358380f75933d68aa48c47167346fbf4">More...</a><br /></td></tr>
+<tr class="separator:a358380f75933d68aa48c47167346fbf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac37f372cd764a70bdf25019373eac4a7"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:ab939c052c7810827d20298c1cc803fb3"><td class="memItemLeft" >&#160;&#160;&#160;FAULT_TREE__PUBLIC_T&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a383f9930618dd937a4bb30896b3a71c6">sTopLevel</a></td></tr>
+<tr class="memdesc:ab939c052c7810827d20298c1cc803fb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">top level fault tree subsystem for the flight controller  <a href="#ab939c052c7810827d20298c1cc803fb3">More...</a><br /></td></tr>
+<tr class="separator:ab939c052c7810827d20298c1cc803fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad5a27852a985f3ee29d2d21cae08333"><td class="memItemLeft" >&#160;&#160;&#160;FAULT_TREE__PUBLIC_T&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a584309e4e149941b6b88516273a767a5">sAccel</a></td></tr>
+<tr class="memdesc:aad5a27852a985f3ee29d2d21cae08333"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accel subsystem faults.  <a href="#aad5a27852a985f3ee29d2d21cae08333">More...</a><br /></td></tr>
+<tr class="separator:aad5a27852a985f3ee29d2d21cae08333"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac37f372cd764a70bdf25019373eac4a7"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#ac37f372cd764a70bdf25019373eac4a7">sFaults</a></td></tr>
+<tr class="memdesc:ac37f372cd764a70bdf25019373eac4a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fault handling subsystem.  <a href="#ac37f372cd764a70bdf25019373eac4a7">More...</a><br /></td></tr>
+<tr class="separator:ac37f372cd764a70bdf25019373eac4a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af42621efbc9d4a5750ce18376bd8402e"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a0b81c4d5a1bbf92428e60f45185b2c77"><td class="memItemLeft" >&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:aa70e3e03303c773c144a507ac70a1a2e"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a70c40c508db7e8bdfaf75874a8a6f32b">u8EdgeSeen</a></td></tr>
+<tr class="memdesc:aa70e3e03303c773c144a507ac70a1a2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">An edge was captured on the interrupt subsystem Its up to some other layer to clear the flag once its used.  <a href="#aa70e3e03303c773c144a507ac70a1a2e">More...</a><br /></td></tr>
+<tr class="separator:aa70e3e03303c773c144a507ac70a1a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac78bb57b429fb8bccc220ea4b1c04508"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a94871049f1a08d23a73b6259ec2e3c4a">u16N2HET_Prog</a></td></tr>
+<tr class="memdesc:ac78bb57b429fb8bccc220ea4b1c04508"><td class="mdescLeft">&#160;</td><td class="mdescRight">The program index for N2HET, even if not used on both channels.  <a href="#ac78bb57b429fb8bccc220ea4b1c04508">More...</a><br /></td></tr>
+<tr class="separator:ac78bb57b429fb8bccc220ea4b1c04508"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c73534acb4f7250c451aa4edd6557e2"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;<a class="el" href="fcu__core____enums_8h.html#a6f20fe18350cd3140c493b063ab9d88d">E_FCU__SWITCH_STATE_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a93f951f6860811191addb3793bd2ecc6">eSwitchState</a></td></tr>
+<tr class="memdesc:a8c73534acb4f7250c451aa4edd6557e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current state of the switch.  <a href="#a8c73534acb4f7250c451aa4edd6557e2">More...</a><br /></td></tr>
+<tr class="separator:a8c73534acb4f7250c451aa4edd6557e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b81c4d5a1bbf92428e60f45185b2c77"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a9d2f511030bc7c7de8fd0d86f532fc67">sLimits</a> [<a class="el" href="fcu__core____enums_8h.html#ac31f471107a577664bc177153ab990b9a9887cf8d48c92a6052d346a86ace7821">BRAKE_SW__MAX_SWITCHES</a>]</td></tr>
+<tr class="memdesc:a0b81c4d5a1bbf92428e60f45185b2c77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Limit switch structure There are two limit switches per brake assy.  <a href="#a0b81c4d5a1bbf92428e60f45185b2c77">More...</a><br /></td></tr>
+<tr class="separator:a0b81c4d5a1bbf92428e60f45185b2c77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf39c1e4ed6b5b62c2f86a9d0b5ed096"><td class="memItemLeft" >&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:ab59570eb09102b272b60937c807685da"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#aab5f92a64856791c48f4f3fe3ef4dc20">u16ADC_Sample</a></td></tr>
+<tr class="memdesc:ab59570eb09102b272b60937c807685da"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the sample from the ADC converter.  <a href="#ab59570eb09102b272b60937c807685da">More...</a><br /></td></tr>
+<tr class="separator:ab59570eb09102b272b60937c807685da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae98538d8cfba13816245496e21e23264"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a082a338efce5e9955e50d40c2e4d2277">u16ADC_FilteredSample</a></td></tr>
+<tr class="memdesc:ae98538d8cfba13816245496e21e23264"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the filtered result from the raw sample.  <a href="#ae98538d8cfba13816245496e21e23264">More...</a><br /></td></tr>
+<tr class="separator:ae98538d8cfba13816245496e21e23264"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6417507b505e46dd6d0a4094488418c"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a27e2518dbb09cffb149b6478414fe82a">u16ADC_Zero</a></td></tr>
+<tr class="memdesc:ad6417507b505e46dd6d0a4094488418c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The zero value when the brakes are fully retracted.  <a href="#ad6417507b505e46dd6d0a4094488418c">More...</a><br /></td></tr>
+<tr class="separator:ad6417507b505e46dd6d0a4094488418c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ae0c4b52c2e0f39063ff1a42a8c03fe"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#af475b22c45d29a6c7a5af849ca9a92a6">f32SystemSpan</a></td></tr>
+<tr class="memdesc:a4ae0c4b52c2e0f39063ff1a42a8c03fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current ADC span to convert ADC units into engineering units.  <a href="#a4ae0c4b52c2e0f39063ff1a42a8c03fe">More...</a><br /></td></tr>
+<tr class="separator:a4ae0c4b52c2e0f39063ff1a42a8c03fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a385259e8ed684591ce7fffc186d509c0"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lint32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a014afb21bfba62e926d8cf55e672f986">s32ADC_Minus_Zero</a></td></tr>
+<tr class="memdesc:a385259e8ed684591ce7fffc186d509c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">ADC value - Zero Value.  <a href="#a385259e8ed684591ce7fffc186d509c0">More...</a><br /></td></tr>
+<tr class="separator:a385259e8ed684591ce7fffc186d509c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8db4b2547f996590c2324eaf64bc8817"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a09b7fe7c6f4d4064102ebcec0567b43c">f32BrakePosition_Percent</a></td></tr>
+<tr class="memdesc:a8db4b2547f996590c2324eaf64bc8817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Percent of braking from 0.0 to 100.0.  <a href="#a8db4b2547f996590c2324eaf64bc8817">More...</a><br /></td></tr>
+<tr class="separator:a8db4b2547f996590c2324eaf64bc8817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9e34db4fa9c1ded218280f06b4af081"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a6f9248f4a9710b3f6fa885f82734d191">u16AverageCounter</a></td></tr>
+<tr class="memdesc:ab9e34db4fa9c1ded218280f06b4af081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Average Counter for MLP filter function.  <a href="#ab9e34db4fa9c1ded218280f06b4af081">More...</a><br /></td></tr>
+<tr class="separator:ab9e34db4fa9c1ded218280f06b4af081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacb7bfe786f650e7efdbaf98697f0652"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a7451c41ca506ed035e93498b7460670d">u16AverageArray</a> [<a class="el" href="fcu__core_8h.html#a50f917bc6849f2efc56d644c32ee7020">C_MLP__MAX_AVERAGE_SIZE</a>]</td></tr>
+<tr class="memdesc:aacb7bfe786f650e7efdbaf98697f0652"><td class="mdescLeft">&#160;</td><td class="mdescRight">Average Array for MLP filter function.  <a href="#aacb7bfe786f650e7efdbaf98697f0652">More...</a><br /></td></tr>
+<tr class="separator:aacb7bfe786f650e7efdbaf98697f0652"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad94512bb8c168f5c93589abb757f6e0"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a30ba3cff5710c97007c9ea9d52871c09">lowest_value</a></td></tr>
+<tr class="memdesc:aad94512bb8c168f5c93589abb757f6e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lowest MLP Value.  <a href="#aad94512bb8c168f5c93589abb757f6e0">More...</a><br /></td></tr>
+<tr class="separator:aad94512bb8c168f5c93589abb757f6e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77f3b5eb95a7813d48d8f681915353c2"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a2eea1c7e2a3257ccddd46c42ff973a83">highest_value</a></td></tr>
+<tr class="memdesc:a77f3b5eb95a7813d48d8f681915353c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Highest MLP Value.  <a href="#a77f3b5eb95a7813d48d8f681915353c2">More...</a><br /></td></tr>
+<tr class="separator:a77f3b5eb95a7813d48d8f681915353c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73baee18d77de942a75dfe308d81ce01"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#aecde2dfff3e6d67ea9e3f0f6d9bfbbb7">u8Running</a></td></tr>
+<tr class="memdesc:a73baee18d77de942a75dfe308d81ce01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temporary use; identify when startup sequence has ended and mlp won't return 0.  <a href="#a73baee18d77de942a75dfe308d81ce01">More...</a><br /></td></tr>
+<tr class="separator:a73baee18d77de942a75dfe308d81ce01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf39c1e4ed6b5b62c2f86a9d0b5ed096"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a7fa61d01c0c11817ad41bfb6aa5a2da3">sMLP</a></td></tr>
+<tr class="memdesc:abf39c1e4ed6b5b62c2f86a9d0b5ed096"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear position sensor detail.  <a href="#abf39c1e4ed6b5b62c2f86a9d0b5ed096">More...</a><br /></td></tr>
+<tr class="separator:abf39c1e4ed6b5b62c2f86a9d0b5ed096"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace4b7372ff0b70320052c238f84546fc"><td class="memItemLeft" >&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:a956e93a83d281775a98ed194c486ae6c"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lint32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a03ce979928eca8feff41da1992dd3f54">s32LinearVeloc</a></td></tr>
+<tr class="memdesc:a956e93a83d281775a98ed194c486ae6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The required linear veloc for the move.  <a href="#a956e93a83d281775a98ed194c486ae6c">More...</a><br /></td></tr>
+<tr class="separator:a956e93a83d281775a98ed194c486ae6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7600f74d7158302c6bc54e84980b79c0"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lint32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#afda78fe042522ccd3224740efb8afdbf">s32LinearAccel</a></td></tr>
+<tr class="memdesc:a7600f74d7158302c6bc54e84980b79c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The required linear accel for the move.  <a href="#a7600f74d7158302c6bc54e84980b79c0">More...</a><br /></td></tr>
+<tr class="separator:a7600f74d7158302c6bc54e84980b79c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23f152412f56df54758768d68599504b"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lint32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a6457aa8f7ea2fc8736f971723317807e">s32MoveToPos</a></td></tr>
+<tr class="memdesc:a23f152412f56df54758768d68599504b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The position that we have requested the brake to move to.  <a href="#a23f152412f56df54758768d68599504b">More...</a><br /></td></tr>
+<tr class="separator:a23f152412f56df54758768d68599504b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c050883242f35fe364d409004ab2d2a"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lint32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#ae70448a2beab52a7d33b7b662d32efe5">s32currentPos</a></td></tr>
+<tr class="memdesc:a1c050883242f35fe364d409004ab2d2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current position of the lead screw.  <a href="#a1c050883242f35fe364d409004ab2d2a">More...</a><br /></td></tr>
+<tr class="separator:a1c050883242f35fe364d409004ab2d2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace4b7372ff0b70320052c238f84546fc"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#aad4078869e4868839286377fd25f3574">sMove</a></td></tr>
+<tr class="memdesc:ace4b7372ff0b70320052c238f84546fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Movement Planner.  <a href="#ace4b7372ff0b70320052c238f84546fc">More...</a><br /></td></tr>
+<tr class="separator:ace4b7372ff0b70320052c238f84546fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c55b271cfc691548cf3af9a964b5018"><td class="memItemLeft" >&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:ac679e22026ef96e8dc9b0ec55b9f9b6e"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a2cd9730500ac07eb47344b39bd451f60">f32ScrewPos_mm</a></td></tr>
+<tr class="memdesc:ac679e22026ef96e8dc9b0ec55b9f9b6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">the screw position in mm  <a href="#ac679e22026ef96e8dc9b0ec55b9f9b6e">More...</a><br /></td></tr>
+<tr class="separator:ac679e22026ef96e8dc9b0ec55b9f9b6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f946c818d5812959e64bde97b02e056"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a5f6ff45b253ad7aca5532fc5b9e411d3">f32IBeam_mm</a></td></tr>
+<tr class="memdesc:a5f946c818d5812959e64bde97b02e056"><td class="mdescLeft">&#160;</td><td class="mdescRight">I-Beam distance in mm.  <a href="#a5f946c818d5812959e64bde97b02e056">More...</a><br /></td></tr>
+<tr class="separator:a5f946c818d5812959e64bde97b02e056"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2558dc4063a3fbd727672ca2abd3c55"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#ac39de84fcfa6501ad9633a4173011fc6">f32MLP_mm</a></td></tr>
+<tr class="memdesc:ad2558dc4063a3fbd727672ca2abd3c55"><td class="mdescLeft">&#160;</td><td class="mdescRight">I-Beam distance in mm.  <a href="#ad2558dc4063a3fbd727672ca2abd3c55">More...</a><br /></td></tr>
+<tr class="separator:ad2558dc4063a3fbd727672ca2abd3c55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c55b271cfc691548cf3af9a964b5018"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a7627d07539a5c537863347a7ad581c01">sCurrent</a></td></tr>
+<tr class="memdesc:a9c55b271cfc691548cf3af9a964b5018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current Details.  <a href="#a9c55b271cfc691548cf3af9a964b5018">More...</a><br /></td></tr>
+<tr class="separator:a9c55b271cfc691548cf3af9a964b5018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b4118d467e14757ca1bfacb8e420947"><td class="memItemLeft" >&#160;&#160;&#160;FAULT_TREE__PUBLIC_T&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#ad5bd01c0c0913880e71513ce0f2a08e6">sFaultFlags</a></td></tr>
+<tr class="memdesc:a4b4118d467e14757ca1bfacb8e420947"><td class="mdescLeft">&#160;</td><td class="mdescRight">individual brake fault flags  <a href="#a4b4118d467e14757ca1bfacb8e420947">More...</a><br /></td></tr>
+<tr class="separator:a4b4118d467e14757ca1bfacb8e420947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2efe9f73886edd96b0613c0f4ca0546"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a753faf5229911fef4f418b40ae88af51">u8BrakeSWErr</a></td></tr>
+<tr class="separator:ae2efe9f73886edd96b0613c0f4ca0546"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af42621efbc9d4a5750ce18376bd8402e"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#af42621efbc9d4a5750ce18376bd8402e">sBrakes</a> [<a class="el" href="fcu__core____defines_8h.html#ac8ba75a349a1ef80c0996365feed04be">C_FCU__NUM_BRAKES</a>]</td></tr>
+<tr class="memdesc:af42621efbc9d4a5750ce18376bd8402e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Brake Substructure.  <a href="#af42621efbc9d4a5750ce18376bd8402e">More...</a><br /></td></tr>
+<tr class="separator:af42621efbc9d4a5750ce18376bd8402e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3abe02ceca2af32b59ba382f92d41b85"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a48b1308087f09affe55ff9d1a8b7ff99"><td class="memItemLeft" >&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:aa197db16fb58af8122701b4cba30e9d7"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lint16&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#aa4df043736f37370d015ed99a7a7e436">s16LastSample</a> [3]</td></tr>
+<tr class="memdesc:aa197db16fb58af8122701b4cba30e9d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">most recent recorded sample from the Accel in raw units  <a href="#aa197db16fb58af8122701b4cba30e9d7">More...</a><br /></td></tr>
+<tr class="separator:aa197db16fb58af8122701b4cba30e9d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6871e67f9b041107ff87b287747f84f"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a8f08d2b6527794c305f3049cbf16cd8e">f32LastG</a> [3]</td></tr>
+<tr class="memdesc:ae6871e67f9b041107ff87b287747f84f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last sample of the G-Force.  <a href="#ae6871e67f9b041107ff87b287747f84f">More...</a><br /></td></tr>
+<tr class="separator:ae6871e67f9b041107ff87b287747f84f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48b1308087f09affe55ff9d1a8b7ff99"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a387a8c9424abc0475e523f32d8d1c999">sChannels</a> [C_LOCALDEF__LCCM418__NUM_DEVICES]</td></tr>
+<tr class="memdesc:a48b1308087f09affe55ff9d1a8b7ff99"><td class="mdescLeft">&#160;</td><td class="mdescRight">individual accel channels  <a href="#a48b1308087f09affe55ff9d1a8b7ff99">More...</a><br /></td></tr>
+<tr class="separator:a48b1308087f09affe55ff9d1a8b7ff99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3abe02ceca2af32b59ba382f92d41b85"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#a3abe02ceca2af32b59ba382f92d41b85">sAccel</a></td></tr>
+<tr class="memdesc:a3abe02ceca2af32b59ba382f92d41b85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accel subsystem.  <a href="#a3abe02ceca2af32b59ba382f92d41b85">More...</a><br /></td></tr>
+<tr class="separator:a3abe02ceca2af32b59ba382f92d41b85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4b2161ff8badc0947f10afb005ddabb"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a84a4fb540e4ba0b708c89c82c24a00f6"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705">E_FCU_PICOM__STATE_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#ab22b7ea6a7383bf698478e25fc7f24fc">eState</a></td></tr>
+<tr class="separator:a84a4fb540e4ba0b708c89c82c24a00f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0467165fffc48a230432139e7e9ab4d0"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#ac2690471b76a6e48f10fe9ed28d8c616">u8100MS_Timer</a></td></tr>
+<tr class="memdesc:a0467165fffc48a230432139e7e9ab4d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">100ms timer tick  <a href="#a0467165fffc48a230432139e7e9ab4d0">More...</a><br /></td></tr>
+<tr class="separator:a0467165fffc48a230432139e7e9ab4d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4b2161ff8badc0947f10afb005ddabb"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#af4b2161ff8badc0947f10afb005ddabb">sPiComms</a></td></tr>
+<tr class="memdesc:af4b2161ff8badc0947f10afb005ddabb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pi Comms Layer.  <a href="#af4b2161ff8badc0947f10afb005ddabb">More...</a><br /></td></tr>
+<tr class="separator:af4b2161ff8badc0947f10afb005ddabb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a565b25bc289349971f616ea85274adf4"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a43a6e1c08c37ef42a71f24c2eef9bba9"><td class="memItemLeft" >&#160;&#160;&#160;Luint32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a7fe840b59832dbdf1a07cb64bc0dcc6e">u32Guard1</a></td></tr>
+<tr class="memdesc:a43a6e1c08c37ef42a71f24c2eef9bba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Guard variable 1.  <a href="#a43a6e1c08c37ef42a71f24c2eef9bba9">More...</a><br /></td></tr>
+<tr class="separator:a43a6e1c08c37ef42a71f24c2eef9bba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9eb7b3dc474a10cb7a4ae0bc1ccf29bf"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03">E_FCU_PUSHER__STATES_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a30851e9dae700a917d322cc5906bffe2">eState</a></td></tr>
+<tr class="memdesc:a9eb7b3dc474a10cb7a4ae0bc1ccf29bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pusher subsystem state machine.  <a href="#a9eb7b3dc474a10cb7a4ae0bc1ccf29bf">More...</a><br /></td></tr>
+<tr class="separator:a9eb7b3dc474a10cb7a4ae0bc1ccf29bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04412b366dab362a1aa97e469cac3cdf"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#aa6573dbb743459ebafe23fff7c0e5528">u8Pusher_Status</a></td></tr>
+<tr class="memdesc:a04412b366dab362a1aa97e469cac3cdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interlock switch status.  <a href="#a04412b366dab362a1aa97e469cac3cdf">More...</a><br /></td></tr>
+<tr class="separator:a04412b366dab362a1aa97e469cac3cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab71c3fccd8aed9f6c616dd02aa9807cd"><td class="memItemLeft" >&#160;&#160;&#160;Luint32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#aa5ed0a9a63b2875bdabe41e898856821">u32SwtichTimer</a></td></tr>
+<tr class="memdesc:ab71c3fccd8aed9f6c616dd02aa9807cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer of 10ms ticks used for switch state timing.  <a href="#ab71c3fccd8aed9f6c616dd02aa9807cd">More...</a><br /></td></tr>
+<tr class="separator:ab71c3fccd8aed9f6c616dd02aa9807cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa44bfa963f9a47cc9e87366add4bf481"><td class="memItemLeft" >&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:a791096192390f495f3408b8cba25de51"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a94871049f1a08d23a73b6259ec2e3c4a">u16N2HET_Prog</a></td></tr>
+<tr class="memdesc:a791096192390f495f3408b8cba25de51"><td class="mdescLeft">&#160;</td><td class="mdescRight">N2HET Program index for edge interrupts.  <a href="#a791096192390f495f3408b8cba25de51">More...</a><br /></td></tr>
+<tr class="separator:a791096192390f495f3408b8cba25de51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a190fd1a4b4df44efceccdc913ac0cb5a"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#afc74fab12806ea989fe4d5f730c5a9de">u8SwitchState</a></td></tr>
+<tr class="memdesc:a190fd1a4b4df44efceccdc913ac0cb5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The state of the switch based on the last sample.  <a href="#a190fd1a4b4df44efceccdc913ac0cb5a">More...</a><br /></td></tr>
+<tr class="separator:a190fd1a4b4df44efceccdc913ac0cb5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21014bd501cac815fc679a5acfda6002"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#af5d6b0f5da2a22ab69ff08052b80c454">u8EdgeFlag</a></td></tr>
+<tr class="memdesc:a21014bd501cac815fc679a5acfda6002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Edge interrupt has occurred, meaning there has been a switch transition.  <a href="#a21014bd501cac815fc679a5acfda6002">More...</a><br /></td></tr>
+<tr class="separator:a21014bd501cac815fc679a5acfda6002"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa44bfa963f9a47cc9e87366add4bf481"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a09979ee846f05c97cc0a48f6515df935">sSwitches</a> [2]</td></tr>
+<tr class="memdesc:aa44bfa963f9a47cc9e87366add4bf481"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch interfaces.  <a href="#aa44bfa963f9a47cc9e87366add4bf481">More...</a><br /></td></tr>
+<tr class="separator:aa44bfa963f9a47cc9e87366add4bf481"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a135906cd92c203ba7063f40109f74b3e"><td class="memItemLeft" >&#160;&#160;&#160;Luint32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a26cb452b3951534cad28e36d59c55e86">u32Guard2</a></td></tr>
+<tr class="memdesc:a135906cd92c203ba7063f40109f74b3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Guard variable 2.  <a href="#a135906cd92c203ba7063f40109f74b3e">More...</a><br /></td></tr>
+<tr class="separator:a135906cd92c203ba7063f40109f74b3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a565b25bc289349971f616ea85274adf4"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#a565b25bc289349971f616ea85274adf4">sPusher</a></td></tr>
+<tr class="memdesc:a565b25bc289349971f616ea85274adf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pusher Interface Layer.  <a href="#a565b25bc289349971f616ea85274adf4">More...</a><br /></td></tr>
+<tr class="separator:a565b25bc289349971f616ea85274adf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a9e7b88c5efa541dec034992c49a1c8"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a2a6daeca17c755f6aa29d3aaa249b17d"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="fcu__core____types_8h.html#a728afd2ed544e2628728e73ebe7cc232">E_FCU_OPTOLASER__STATE_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a1539f81b70dcb8756f2c8fdb68d7fd87">eOptoNCDTState</a></td></tr>
+<tr class="memdesc:a2a6daeca17c755f6aa29d3aaa249b17d"><td class="mdescLeft">&#160;</td><td class="mdescRight">state machine for processing the OptoNCDT systems  <a href="#a2a6daeca17c755f6aa29d3aaa249b17d">More...</a><br /></td></tr>
+<tr class="separator:a2a6daeca17c755f6aa29d3aaa249b17d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40dbddf4bb9421af6e6886f69ba46114"><td class="memItemLeft" >&#160;&#160;&#160;Luint32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a73f0b05bda016ed96d145f212780b95e">u32LaserPOR_Counter</a></td></tr>
+<tr class="memdesc:a40dbddf4bb9421af6e6886f69ba46114"><td class="mdescLeft">&#160;</td><td class="mdescRight">A 100ms counter to wait until the lasers have powered up.  <a href="#a40dbddf4bb9421af6e6886f69ba46114">More...</a><br /></td></tr>
+<tr class="separator:a40dbddf4bb9421af6e6886f69ba46114"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2f3a3bf05d4abcb24223fa522363e95"><td class="memItemLeft" >&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:ac46670e26083576d2af4a19a2dd75255"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;<a class="el" href="fcu__core____types_8h.html#abe8ac1639441b657735ca9bdb233ce44">E_OPTONCDT__RX_STATE_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#af82b7d78f1a3af83e3d53e90440b61a6">eRxState</a></td></tr>
+<tr class="memdesc:ac46670e26083576d2af4a19a2dd75255"><td class="mdescLeft">&#160;</td><td class="mdescRight">RX byte state machine.  <a href="#ac46670e26083576d2af4a19a2dd75255">More...</a><br /></td></tr>
+<tr class="separator:ac46670e26083576d2af4a19a2dd75255"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bfc674abe8aab74fa59371504ca68f2"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#ad922ec5f364b3d83068fddc92918ac77">u8NewPacket</a></td></tr>
+<tr class="memdesc:a2bfc674abe8aab74fa59371504ca68f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">A new packet is available for distance processing.  <a href="#a2bfc674abe8aab74fa59371504ca68f2">More...</a><br /></td></tr>
+<tr class="separator:a2bfc674abe8aab74fa59371504ca68f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0279afe5c1de4f258d1d59eef843ff0"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#aee762a3902e391f8001ac0a4890c6cea">u8NewByteArray</a> [3]</td></tr>
+<tr class="memdesc:ab0279afe5c1de4f258d1d59eef843ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array to hold new bytes received.  <a href="#ab0279afe5c1de4f258d1d59eef843ff0">More...</a><br /></td></tr>
+<tr class="separator:ab0279afe5c1de4f258d1d59eef843ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add07aa8a54f854b6152510a22df58ab7"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a6ec69975a6bf89c395a2ecd9aaf9a728">f32Distance</a></td></tr>
+<tr class="memdesc:add07aa8a54f854b6152510a22df58ab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The most recent distance.  <a href="#add07aa8a54f854b6152510a22df58ab7">More...</a><br /></td></tr>
+<tr class="separator:add07aa8a54f854b6152510a22df58ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac226cafed2ad96d43ce7a4ff19e46b49"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a1609796c82459e0109495ecf91e7b8ff">u8NewDistanceAvail</a></td></tr>
+<tr class="memdesc:ac226cafed2ad96d43ce7a4ff19e46b49"><td class="mdescLeft">&#160;</td><td class="mdescRight">New distance has been measured, other layer to clear it.  <a href="#ac226cafed2ad96d43ce7a4ff19e46b49">More...</a><br /></td></tr>
+<tr class="separator:ac226cafed2ad96d43ce7a4ff19e46b49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2f3a3bf05d4abcb24223fa522363e95"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a3e548e1c4e9706ff2067065f0c75e9ba">sOptoLaser</a> [C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT]</td></tr>
+<tr class="memdesc:ae2f3a3bf05d4abcb24223fa522363e95"><td class="mdescLeft">&#160;</td><td class="mdescRight">The opto NCDT laser interfaces.  <a href="#ae2f3a3bf05d4abcb24223fa522363e95">More...</a><br /></td></tr>
+<tr class="separator:ae2f3a3bf05d4abcb24223fa522363e95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a9e7b88c5efa541dec034992c49a1c8"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#a1a9e7b88c5efa541dec034992c49a1c8">sLaserOpto</a></td></tr>
+<tr class="memdesc:a1a9e7b88c5efa541dec034992c49a1c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overall structure for the OPTONCDT laser interfaces.  <a href="#a1a9e7b88c5efa541dec034992c49a1c8">More...</a><br /></td></tr>
+<tr class="separator:a1a9e7b88c5efa541dec034992c49a1c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85a34f75dfbd42ee546370542e33f831"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:afe605bc97c1322829bf41ebf25de7edb"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259">E_FCU_LASERDIST__STATE_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#aad5fb073dd85593d4e21debac2a68a5f">eLaserState</a></td></tr>
+<tr class="memdesc:afe605bc97c1322829bf41ebf25de7edb"><td class="mdescLeft">&#160;</td><td class="mdescRight">main state machine  <a href="#afe605bc97c1322829bf41ebf25de7edb">More...</a><br /></td></tr>
+<tr class="separator:afe605bc97c1322829bf41ebf25de7edb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f5206e3a313b5ef4e1279c947f2ba24"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0">E_LASERDIST__RX_STATE_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a63373337b1a8ea93917955fbe31a9291">eRxState</a></td></tr>
+<tr class="memdesc:a0f5206e3a313b5ef4e1279c947f2ba24"><td class="mdescLeft">&#160;</td><td class="mdescRight">RX byte state machine.  <a href="#a0f5206e3a313b5ef4e1279c947f2ba24">More...</a><br /></td></tr>
+<tr class="separator:a0f5206e3a313b5ef4e1279c947f2ba24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30e7f38d6c7c5a8ce8671ed2cf65cb4f"><td class="memItemLeft" >&#160;&#160;&#160;Luint32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a73f0b05bda016ed96d145f212780b95e">u32LaserPOR_Counter</a></td></tr>
+<tr class="memdesc:a30e7f38d6c7c5a8ce8671ed2cf65cb4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">A 100ms counter to wait until the lasers have powered up.  <a href="#a30e7f38d6c7c5a8ce8671ed2cf65cb4f">More...</a><br /></td></tr>
+<tr class="separator:a30e7f38d6c7c5a8ce8671ed2cf65cb4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a499c03e1129b5b0259e94521d5562b11"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#ad922ec5f364b3d83068fddc92918ac77">u8NewPacket</a></td></tr>
+<tr class="memdesc:a499c03e1129b5b0259e94521d5562b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">A new packet is available for distance processing.  <a href="#a499c03e1129b5b0259e94521d5562b11">More...</a><br /></td></tr>
+<tr class="separator:a499c03e1129b5b0259e94521d5562b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae35c809d39252204bd9b514434b4db3e"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#aee762a3902e391f8001ac0a4890c6cea">u8NewByteArray</a> [3]</td></tr>
+<tr class="memdesc:ae35c809d39252204bd9b514434b4db3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array to hold new bytes received.  <a href="#ae35c809d39252204bd9b514434b4db3e">More...</a><br /></td></tr>
+<tr class="separator:ae35c809d39252204bd9b514434b4db3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2927641977e3ae3d7f359f8d00132e19"><td class="memItemLeft" >&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a6ec69975a6bf89c395a2ecd9aaf9a728">f32Distance</a></td></tr>
+<tr class="memdesc:a2927641977e3ae3d7f359f8d00132e19"><td class="mdescLeft">&#160;</td><td class="mdescRight">The most recent distance.  <a href="#a2927641977e3ae3d7f359f8d00132e19">More...</a><br /></td></tr>
+<tr class="separator:a2927641977e3ae3d7f359f8d00132e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cf120b3620524a4a6b245acd9196ecd"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_f_c_u.html#a1609796c82459e0109495ecf91e7b8ff">u8NewDistanceAvail</a></td></tr>
+<tr class="memdesc:a1cf120b3620524a4a6b245acd9196ecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">New distance has been measured, other layer to clear it.  <a href="#a1cf120b3620524a4a6b245acd9196ecd">More...</a><br /></td></tr>
+<tr class="separator:a1cf120b3620524a4a6b245acd9196ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85a34f75dfbd42ee546370542e33f831"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#a85a34f75dfbd42ee546370542e33f831">sLaserDist</a></td></tr>
+<tr class="memdesc:a85a34f75dfbd42ee546370542e33f831"><td class="mdescLeft">&#160;</td><td class="mdescRight">structure for the laser distance interface  <a href="#a85a34f75dfbd42ee546370542e33f831">More...</a><br /></td></tr>
+<tr class="separator:a85a34f75dfbd42ee546370542e33f831"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab79a26d71c435c05812e995786076f9a"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:ab79a26d71c435c05812e995786076f9a"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_f_c_u.html#ab79a26d71c435c05812e995786076f9a">sFlightControl</a></td></tr>
+<tr class="memdesc:ab79a26d71c435c05812e995786076f9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flight Controller.  <a href="#ab79a26d71c435c05812e995786076f9a">More...</a><br /></td></tr>
+<tr class="separator:ab79a26d71c435c05812e995786076f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>main flight control structure </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a5966a936be0d18949dca152ee835490c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fcu__core____types_8h.html#acd5fd46296a0ec15a0d36d9d773c2f2a">E_FCU__AUTO_SEQUENCE_STATE_T</a> _strFCU::eAutoSeqState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Auto sequence state machine. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____m_a_i_n___s_m___a_u_t_o.html#gaae19df0ddbd9537080d8857d991dafaf">u8FCU_MAINSM_AUTO__Is_Busy()</a>, <a class="el" href="group___f_c_u_____m_a_i_n___s_m___a_u_t_o.html#ga679d7e5fc6ed23a378fc2e6c9e6a00ac">vFCU_MAINSM_AUTO__Init()</a>, and <a class="el" href="group___f_c_u_____m_a_i_n___s_m___a_u_t_o.html#ga74af8dabaa5a8bf9e1dd2a2089757fdf">vFCU_MAINSM_AUTO__Process()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a358380f75933d68aa48c47167346fbf4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413a">E_FCU_BRAKES__STATES_T</a> _strFCU::eBrakeStates</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The brakes state machine. </p>
+
+</div>
+</div>
 <a class="anchor" id="a3f614417d0c3eb6bb3a1bd23b0eaca1f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -161,6 +385,118 @@ Data Fields</h2></td></tr>
 <p>The init statemachine. </p>
 
 <p>Referenced by <a class="el" href="group___f_c_u_____c_o_r_e.html#gad25e10934b04c9673eda50f3c7bb7a56">vFCU__Init()</a>, and <a class="el" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c">vFCU__Process()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aad5fb073dd85593d4e21debac2a68a5f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259">E_FCU_LASERDIST__STATE_T</a> _strFCU::eLaserState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>main state machine </p>
+
+</div>
+</div>
+<a class="anchor" id="a1539f81b70dcb8756f2c8fdb68d7fd87"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fcu__core____types_8h.html#a728afd2ed544e2628728e73ebe7cc232">E_FCU_OPTOLASER__STATE_T</a> _strFCU::eOptoNCDTState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>state machine for processing the OptoNCDT systems </p>
+
+</div>
+</div>
+<a class="anchor" id="a39405b1b15312de3857bc96c9b0d0a13"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fcu__core____types_8h.html#ad51c0bedd8ff2f532e6e314b01f579cc">E_FCU__RUN_STATE_T</a> _strFCU::eRunState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The main state machine for run mode. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____m_a_i_n___s_m.html#ga8561db4d70de2d60f5b8bbccfcac1e8d">vFCU_MAINSM__Init()</a>, and <a class="el" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12">vFCU_MAINSM__Process()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af82b7d78f1a3af83e3d53e90440b61a6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fcu__core____types_8h.html#abe8ac1639441b657735ca9bdb233ce44">E_OPTONCDT__RX_STATE_T</a> _strFCU::eRxState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RX byte state machine. </p>
+
+</div>
+</div>
+<a class="anchor" id="a63373337b1a8ea93917955fbe31a9291"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0">E_LASERDIST__RX_STATE_T</a> _strFCU::eRxState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RX byte state machine. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab22b7ea6a7383bf698478e25fc7f24fc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705">E_FCU_PICOM__STATE_T</a> _strFCU::eState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a30851e9dae700a917d322cc5906bffe2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03">E_FCU_PUSHER__STATES_T</a> _strFCU::eState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The pusher subsystem state machine. </p>
+
+</div>
+</div>
+<a class="anchor" id="a93f951f6860811191addb3793bd2ecc6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fcu__core____enums_8h.html#a6f20fe18350cd3140c493b063ab9d88d">E_FCU__SWITCH_STATE_T</a> _strFCU::eSwitchState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The current state of the switch. </p>
 
 </div>
 </div>
@@ -178,6 +514,76 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a6ec69975a6bf89c395a2ecd9aaf9a728"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _strFCU::f32Distance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The most recent distance. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5f6ff45b253ad7aca5532fc5b9e411d3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _strFCU::f32IBeam_mm</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>I-Beam distance in mm. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8f08d2b6527794c305f3049cbf16cd8e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _strFCU::f32LastG[3]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Last sample of the G-Force. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac39de84fcfa6501ad9633a4173011fc6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _strFCU::f32MLP_mm</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>I-Beam distance in mm. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2cd9730500ac07eb47344b39bd451f60"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _strFCU::f32ScrewPos_mm</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>the screw position in mm </p>
+
+</div>
+</div>
 <a class="anchor" id="af475b22c45d29a6c7a5af849ca9a92a6"></a>
 <div class="memitem">
 <div class="memproto">
@@ -189,6 +595,48 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Current ADC span to convert ADC units into engineering units. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2eea1c7e2a3257ccddd46c42ff973a83"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint16 _strFCU::highest_value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Highest MLP Value. </p>
+
+</div>
+</div>
+<a class="anchor" id="a30ba3cff5710c97007c9ea9d52871c09"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint16 _strFCU::lowest_value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lowest MLP Value. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa4df043736f37370d015ed99a7a7e436"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lint16 _strFCU::s16LastSample[3]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>most recent recorded sample from the Accel in raw units </p>
 
 </div>
 </div>
@@ -206,7 +654,93 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a555aed8eec0e45fccd0fd2541e14efc7"></a>
+<a class="anchor" id="ae70448a2beab52a7d33b7b662d32efe5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lint32 _strFCU::s32currentPos</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The current position of the lead screw. </p>
+
+</div>
+</div>
+<a class="anchor" id="afda78fe042522ccd3224740efb8afdbf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lint32 _strFCU::s32LinearAccel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The required linear accel for the move. </p>
+
+</div>
+</div>
+<a class="anchor" id="a03ce979928eca8feff41da1992dd3f54"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lint32 _strFCU::s32LinearVeloc</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The required linear veloc for the move. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6457aa8f7ea2fc8736f971723317807e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lint32 _strFCU::s32MoveToPos</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The position that we have requested the brake to move to. </p>
+
+</div>
+</div>
+<a class="anchor" id="a584309e4e149941b6b88516273a767a5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FAULT_TREE__PUBLIC_T _strFCU::sAccel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Accel subsystem faults. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u___c_o_r_e_____f_a_u_l_t_s.html#gac598056500d4c28bf0375f8bcdea3e8f">vFCU_FAULTS__Init()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3abe02ceca2af32b59ba382f92d41b85"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strFCU::sAccel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Accel subsystem. </p>
+
+</div>
+</div>
+<a class="anchor" id="af42621efbc9d4a5750ce18376bd8402e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -218,11 +752,127 @@ Data Fields</h2></td></tr>
 
 <p>Brake Substructure. </p>
 
-<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gace46e5ec48d6f50719047ca64c2c4ba8">vFCU_BRAKES__Apply_Span()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gaf1c5d2e979d8be05f7c7912f797b3fe2">vFCU_BRAKES__Apply_Zero()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gab24c028a2114a308c2136029398bb20f">vFCU_BRAKES__Init()</a>, and <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#ga44881f7db2d33903e1bb6cf4a507e6ae">vFCU_BRAKES__Sample_ADC()</a>.</p>
+<p>Referenced by <a class="el" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c">vFCU__Process()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#gac7ff0d8cd242935e8ec98aed645976bb">vFCU_BRAKES_SW__Left_SwitchExtend_ISR()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga18eac87718bf23ff1491ccc111d4cf3c">vFCU_BRAKES_SW__Left_SwitchRetract_ISR()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga4341bc4639bdf826b32782364354b47e">vFCU_BRAKES_SW__Right_SwitchExtend_ISR()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga8328a88cb357909840af193afae8f1b9">vFCU_BRAKES_SW__Right_SwitchRetract_ISR()</a>, and <a class="el" href="group___f_c_u___c_o_r_e_____n_o_t_i_f_i_c_a_t_i_o_n_s.html#ga07cdc68173bd53f2c82d19081af66665">vRM4_N2HET_DYNAMIC__Notification()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ac2f2f8a74d46736b721796ed1dcec198"></a>
+<a class="anchor" id="a387a8c9424abc0475e523f32d8d1c999"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strFCU::sChannels[C_LOCALDEF__LCCM418__NUM_DEVICES]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>individual accel channels </p>
+
+</div>
+</div>
+<a class="anchor" id="a7627d07539a5c537863347a7ad581c01"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strFCU::sCurrent</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Current Details. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad5bd01c0c0913880e71513ce0f2a08e6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FAULT_TREE__PUBLIC_T _strFCU::sFaultFlags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>individual brake fault flags </p>
+
+</div>
+</div>
+<a class="anchor" id="ac37f372cd764a70bdf25019373eac4a7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strFCU::sFaults</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fault handling subsystem. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u___c_o_r_e_____f_a_u_l_t_s.html#ga019d6eccaf28f4169dca7352f5bcf28e">u32FCU_FAULTS__Get_FaultFlags()</a>, <a class="el" href="group___f_c_u___c_o_r_e_____f_a_u_l_t_s.html#ga0432f92045ae85dfdcc05ef7b06ef79d">u8FCU_FAULTS__Get_IsFault()</a>, <a class="el" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c">vFCU__Process()</a>, and <a class="el" href="group___f_c_u___c_o_r_e_____f_a_u_l_t_s.html#gac598056500d4c28bf0375f8bcdea3e8f">vFCU_FAULTS__Init()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab79a26d71c435c05812e995786076f9a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strFCU::sFlightControl</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flight Controller. </p>
+
+</div>
+</div>
+<a class="anchor" id="a85a34f75dfbd42ee546370542e33f831"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strFCU::sLaserDist</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>structure for the laser distance interface </p>
+
+</div>
+</div>
+<a class="anchor" id="a1a9e7b88c5efa541dec034992c49a1c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strFCU::sLaserOpto</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Overall structure for the OPTONCDT laser interfaces. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9d2f511030bc7c7de8fd0d86f532fc67"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strFCU::sLimits[<a class="el" href="fcu__core____enums_8h.html#ac31f471107a577664bc177153ab990b9a9887cf8d48c92a6052d346a86ace7821">BRAKE_SW__MAX_SWITCHES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Limit switch structure There are two limit switches per brake assy. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c">vFCU__Process()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#gac7ff0d8cd242935e8ec98aed645976bb">vFCU_BRAKES_SW__Left_SwitchExtend_ISR()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga18eac87718bf23ff1491ccc111d4cf3c">vFCU_BRAKES_SW__Left_SwitchRetract_ISR()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga4341bc4639bdf826b32782364354b47e">vFCU_BRAKES_SW__Right_SwitchExtend_ISR()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#ga8328a88cb357909840af193afae8f1b9">vFCU_BRAKES_SW__Right_SwitchRetract_ISR()</a>, and <a class="el" href="group___f_c_u___c_o_r_e_____n_o_t_i_f_i_c_a_t_i_o_n_s.html#ga07cdc68173bd53f2c82d19081af66665">vRM4_N2HET_DYNAMIC__Notification()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7fa61d01c0c11817ad41bfb6aa5a2da3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -234,7 +884,109 @@ Data Fields</h2></td></tr>
 
 <p>Linear position sensor detail. </p>
 
-<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gace46e5ec48d6f50719047ca64c2c4ba8">vFCU_BRAKES__Apply_Span()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gaf1c5d2e979d8be05f7c7912f797b3fe2">vFCU_BRAKES__Apply_Zero()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gab24c028a2114a308c2136029398bb20f">vFCU_BRAKES__Init()</a>, and <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#ga44881f7db2d33903e1bb6cf4a507e6ae">vFCU_BRAKES__Sample_ADC()</a>.</p>
+</div>
+</div>
+<a class="anchor" id="aad4078869e4868839286377fd25f3574"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strFCU::sMove</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Movement Planner. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3e548e1c4e9706ff2067065f0c75e9ba"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strFCU::sOptoLaser[C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The opto NCDT laser interfaces. </p>
+
+</div>
+</div>
+<a class="anchor" id="af4b2161ff8badc0947f10afb005ddabb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strFCU::sPiComms</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pi Comms Layer. </p>
+
+</div>
+</div>
+<a class="anchor" id="a565b25bc289349971f616ea85274adf4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strFCU::sPusher</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pusher Interface Layer. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c">vFCU__Process()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga9ee7d3503898fc47eb2100cdb6b89107">vFCU_PUSHER__10MS_ISR()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gad3e8eda9017014acaf29327be32ece7c">vFCU_PUSHER__InterlockA_ISR()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gafc57e9c4ee006f35f00adf2e4594b73e">vFCU_PUSHER__InterlockB_ISR()</a>, and <a class="el" href="group___f_c_u___c_o_r_e_____n_o_t_i_f_i_c_a_t_i_o_n_s.html#ga07cdc68173bd53f2c82d19081af66665">vRM4_N2HET_DYNAMIC__Notification()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a09979ee846f05c97cc0a48f6515df935"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strFCU::sSwitches[2]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Switch interfaces. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c">vFCU__Process()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gad3e8eda9017014acaf29327be32ece7c">vFCU_PUSHER__InterlockA_ISR()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gafc57e9c4ee006f35f00adf2e4594b73e">vFCU_PUSHER__InterlockB_ISR()</a>, and <a class="el" href="group___f_c_u___c_o_r_e_____n_o_t_i_f_i_c_a_t_i_o_n_s.html#ga07cdc68173bd53f2c82d19081af66665">vRM4_N2HET_DYNAMIC__Notification()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a383f9930618dd937a4bb30896b3a71c6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FAULT_TREE__PUBLIC_T _strFCU::sTopLevel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>top level fault tree subsystem for the flight controller </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u___c_o_r_e_____f_a_u_l_t_s.html#ga019d6eccaf28f4169dca7352f5bcf28e">u32FCU_FAULTS__Get_FaultFlags()</a>, <a class="el" href="group___f_c_u___c_o_r_e_____f_a_u_l_t_s.html#ga0432f92045ae85dfdcc05ef7b06ef79d">u8FCU_FAULTS__Get_IsFault()</a>, <a class="el" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c">vFCU__Process()</a>, and <a class="el" href="group___f_c_u___c_o_r_e_____f_a_u_l_t_s.html#gac598056500d4c28bf0375f8bcdea3e8f">vFCU_FAULTS__Init()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a082a338efce5e9955e50d40c2e4d2277"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint16 _strFCU::u16ADC_FilteredSample</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This is the filtered result from the raw sample. </p>
 
 </div>
 </div>
@@ -266,6 +1018,49 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a7451c41ca506ed035e93498b7460670d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint16 _strFCU::u16AverageArray[<a class="el" href="fcu__core_8h.html#a50f917bc6849f2efc56d644c32ee7020">C_MLP__MAX_AVERAGE_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Average Array for MLP filter function. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6f9248f4a9710b3f6fa885f82734d191"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint16 _strFCU::u16AverageCounter</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Average Counter for MLP filter function. </p>
+
+</div>
+</div>
+<a class="anchor" id="a94871049f1a08d23a73b6259ec2e3c4a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint16 _strFCU::u16N2HET_Prog</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The program index for N2HET, even if not used on both channels. </p>
+<p>N2HET Program index for edge interrupts. </p>
+
+</div>
+</div>
 <a class="anchor" id="a7fe840b59832dbdf1a07cb64bc0dcc6e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -277,6 +1072,9 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Structure guard 1. </p>
+<p>Guard variable 1. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____c_o_r_e.html#gad25e10934b04c9673eda50f3c7bb7a56">vFCU__Init()</a>, and <a class="el" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c">vFCU__Process()</a>.</p>
 
 </div>
 </div>
@@ -290,7 +1088,180 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Guard variable 2. </p>
 <p>Structure guard 2. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____c_o_r_e.html#gad25e10934b04c9673eda50f3c7bb7a56">vFCU__Init()</a>, and <a class="el" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c">vFCU__Process()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a73f0b05bda016ed96d145f212780b95e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint32 _strFCU::u32LaserPOR_Counter</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A 100ms counter to wait until the lasers have powered up. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa5ed0a9a63b2875bdabe41e898856821"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint32 _strFCU::u32SwtichTimer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Timer of 10ms ticks used for switch state timing. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga9ee7d3503898fc47eb2100cdb6b89107">vFCU_PUSHER__10MS_ISR()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac2690471b76a6e48f10fe9ed28d8c616"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strFCU::u8100MS_Timer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>100ms timer tick </p>
+
+</div>
+</div>
+<a class="anchor" id="a753faf5229911fef4f418b40ae88af51"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strFCU::u8BrakeSWErr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af5d6b0f5da2a22ab69ff08052b80c454"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strFCU::u8EdgeFlag</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Edge interrupt has occurred, meaning there has been a switch transition. </p>
+
+</div>
+</div>
+<a class="anchor" id="a70c40c508db7e8bdfaf75874a8a6f32b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strFCU::u8EdgeSeen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>An edge was captured on the interrupt subsystem Its up to some other layer to clear the flag once its used. </p>
+
+</div>
+</div>
+<a class="anchor" id="aee762a3902e391f8001ac0a4890c6cea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strFCU::u8NewByteArray[3]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Array to hold new bytes received. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1609796c82459e0109495ecf91e7b8ff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strFCU::u8NewDistanceAvail</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>New distance has been measured, other layer to clear it. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad922ec5f364b3d83068fddc92918ac77"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strFCU::u8NewPacket</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A new packet is available for distance processing. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa6573dbb743459ebafe23fff7c0e5528"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strFCU::u8Pusher_Status</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interlock switch status. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gafc57e9c4ee006f35f00adf2e4594b73e">vFCU_PUSHER__InterlockB_ISR()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aecde2dfff3e6d67ea9e3f0f6d9bfbbb7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strFCU::u8Running</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Temporary use; identify when startup sequence has ended and mlp won't return 0. </p>
+
+</div>
+</div>
+<a class="anchor" id="afc74fab12806ea989fe4d5f730c5a9de"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strFCU::u8SwitchState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The state of the switch based on the last sample. </p>
 
 </div>
 </div>

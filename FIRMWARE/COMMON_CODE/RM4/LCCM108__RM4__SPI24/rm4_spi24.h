@@ -23,10 +23,16 @@
 	#endif
 	#if C_LOCALDEF__LCCM108__ENABLE_THIS_MODULE == 1U
 
+		/*****************************************************************************
+		Includes
+		*****************************************************************************/
 		#include <rm4/lccm108__rm4__spi24/rm4_spi24__private.h>
-		#include "rm4_spi24__semistaticdef.h"
+		#include <rm4/lccm108__rm4__spi24/rm4_spi24__semistaticdef.h>
 
 
+		/*****************************************************************************
+		Defines
+		*****************************************************************************/
 		#define CS0_MSK  0x00000001
 		#define CS1_MSK  0x00000002
 		#define ENA_MSK  0x00000100
@@ -167,8 +173,9 @@
 
 		extern RM4_SPI24__DATA_REG__T m_SPI24DataFormat;
 
-
-		//Locals
+		/*****************************************************************************
+		Function Prototypes
+		*****************************************************************************/
 		void vRM4_SPI24__Init(RM4_SPI24__CHANNELS_T eChannel);
 		void vRM4_SPI24__Set_Speed(RM4_SPI24__CHANNELS_T eChannel, RM4_SPI24__DATA_FORMAT_T eDataFormat, RM4_SPI24__SPEEDS_T eSpeed);
 		void vRM4_SPI24__Setup_Interrupts(RM4_SPI24__CHANNELS_T eChannel);
@@ -186,7 +193,7 @@
 		void vRM4_SPI24_PINS__Off(RM4_SPI24__CHANNELS_T eChannel, RM4_SPI24__PIN_T ePin);
 
 		//Declarations without and with interrupts enabled
-		#if C_LOCALDEF__LCCM108__ENABLE_INTERRUPTS == 0
+		#if C_LOCALDEF__LCCM108__ENABLE_INTERRUPTS == 0U
 			Luint32 u32RM4_SPI2__TransmitData(RM4_SPI24__DATA_REG__T * pDataconfig_t, Luint32 u32Blocksize, Luint16 * pSrcbuff);
 			Luint32 u32RM4_SPI2__ReceiveData(RM4_SPI24__DATA_REG__T * pDataconfig_t, Luint32 u32Blocksize, Luint16 * pDestbuff);
 		#else //C_LOCALDEF__LCCM108__ENABLE_INTERRUPTS == 0

@@ -53,7 +53,7 @@ void vFCU__Init(void)
  * @brief
  * Process any FCU tasks.
  * 
- * @st_funcMD5		BC230E2F20B042C85F76C1DBCF00A966
+ * @st_funcMD5		90BCA89C58F5B330129D0B7665BF02F0
  * @st_funcID		LCCM655R0.FILE.000.FUNC.002
  */
 void vFCU__Process(void)
@@ -117,10 +117,10 @@ void vFCU__Process(void)
 		case INIT_STATE__INIT_IO:
 
 			//setup the N2HET's
-			vRM4_N2HET__Init(N2HET_CHANNEL__1, 0, HR_PRESCALE__1, LR_PRESCALE__32);
+			vRM4_N2HET__Init(N2HET_CHANNEL__1, 0U, HR_PRESCALE__1, LR_PRESCALE__32);
 			vRM4_N2HET_PINS__Init(N2HET_CHANNEL__1);
 
-			vRM4_N2HET__Init(N2HET_CHANNEL__2, 0, HR_PRESCALE__1, LR_PRESCALE__32);
+			vRM4_N2HET__Init(N2HET_CHANNEL__2, 0U, HR_PRESCALE__1, LR_PRESCALE__32);
 			vRM4_N2HET_PINS__Init(N2HET_CHANNEL__2);
 
 
@@ -176,8 +176,8 @@ void vFCU__Process(void)
 
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 				//brake left inputs
-				vRM4_GIO__Set_BitDirection(gioPORTA, 0U, GIO_DIRECTION__INPUT);
-				vRM4_GIO__Set_BitDirection(gioPORTA, 1U, GIO_DIRECTION__INPUT);
+				vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 0U, GIO_DIRECTION__INPUT);
+				vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 1U, GIO_DIRECTION__INPUT);
 
 				//configure the interrupts
 				vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__BOTH, GIO_ISR_PIN__GIOA_0);
@@ -218,15 +218,15 @@ void vFCU__Process(void)
 		case INIT_STATE__INIT_SPI_UARTS:
 
 			//give us some interrupts going
-			vRM4_GIO__Set_BitDirection(gioPORTA, 2U, GIO_DIRECTION__INPUT);
-			vRM4_GIO__Set_BitDirection(gioPORTA, 3U, GIO_DIRECTION__INPUT);
-			vRM4_GIO__Set_BitDirection(gioPORTA, 4U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 2U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 3U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 4U, GIO_DIRECTION__INPUT);
 
-			vRM4_GIO__Set_BitDirection(gioPORTB, 1U, GIO_DIRECTION__INPUT);
-			vRM4_GIO__Set_BitDirection(gioPORTB, 3U, GIO_DIRECTION__INPUT);
-			vRM4_GIO__Set_BitDirection(gioPORTB, 6U, GIO_DIRECTION__INPUT);
-			vRM4_GIO__Set_BitDirection(gioPORTB, 0U, GIO_DIRECTION__INPUT);
-			vRM4_GIO__Set_BitDirection(gioPORTB, 7U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 1U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 3U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 6U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 0U, GIO_DIRECTION__INPUT);
+			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 7U, GIO_DIRECTION__INPUT);
 
 
 			//configure the interrupts
@@ -314,14 +314,14 @@ void vFCU__Process(void)
 
 			//start the relevant RTI interrupts going.
 			//100ms timer
-			vRTI_COMPARE__Enable_CompareInterrupt(0);
+			vRTI_COMPARE__Enable_CompareInterrupt(0U);
 			//10ms timer
-			vRTI_COMPARE__Enable_CompareInterrupt(1);
+			vRTI_COMPARE__Enable_CompareInterrupt(1U);
 			//10uS timer for the stepper system
-			vRTI_COMPARE__Enable_CompareInterrupt(2);
+			vRTI_COMPARE__Enable_CompareInterrupt(2U);
 			vRM4_RTI_ISR__Enable_Interrupts();
 			//Starts the counter zero
-			vRM4_RTI__Start_Counter(0);
+			vRM4_RTI__Start_Counter(0U);
 
 			//move state
 			sFCU.eInitStates = INIT_STATE__RUN;

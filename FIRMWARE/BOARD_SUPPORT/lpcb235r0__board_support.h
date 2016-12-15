@@ -48,7 +48,7 @@ Change the build settings:
 
 	//just here because of no EMIF
 	//if ou are using EMIF, then remove this line
-	#define C_LOCALDEF__LCCM107__EMIF_CLOCK_DIVISOR							(1U)
+	//#define C_LOCALDEF__LCCM107__EMIF_CLOCK_DIVISOR							(1U)
 
 
 	//we have the ability to use the ECLK pin to generate a high frequency divided
@@ -780,10 +780,10 @@ EMIF (External Memory Interface)
 
 		#if C_LOCALDEF__LCCM107__ENABLE_ENCAP == 1U
 
-			#define C_LOCALDEF__LCCM107__ENCAP_HWPIN__ISR_TRIS()			{vRM4_GIO__Set_BitDirection(gioPORTB, 7, GIO_DIRECTION__INPUT);}
-			#define C_LOCALDEF__LCCM107__ENCAP_HWPIN__ISR_PORT()			u32RM4_GIO__Get_Bit(gioPORTB, 7U)
-			#define C_LOCALDEF__LCCM107__ENCAP_HWPIN__BUSY_TRIS()			{vRM4_GIO__Set_BitDirection(gioPORTB, 6, GIO_DIRECTION__INPUT);}
-			#define C_LOCALDEF__LCCM107__ENCAP_HWPIN__BUSY_PORT()			u32RM4_GIO__Get_Bit(gioPORTB, 6U)
+			#define C_LOCALDEF__LCCM107__ENCAP_HWPIN__ISR_TRIS()			{vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 7, GIO_DIRECTION__INPUT);}
+			#define C_LOCALDEF__LCCM107__ENCAP_HWPIN__ISR_PORT()			u32RM4_GIO__Get_Bit(RM4_GIO__PORT_B, 7U)
+			#define C_LOCALDEF__LCCM107__ENCAP_HWPIN__BUSY_TRIS()			{vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 6, GIO_DIRECTION__INPUT);}
+			#define C_LOCALDEF__LCCM107__ENCAP_HWPIN__BUSY_PORT()			u32RM4_GIO__Get_Bit(RM4_GIO__PORT_B, 6U)
 
 		#endif
 
@@ -952,14 +952,14 @@ SC16IS741 - UART TO SPI MODULE
 																			}
 
 		#define M_LOCALDEF__LCCM487__HW_INTERUPTPIN__TRIS(index) 			{ \
-																			if(index == 0U) 		vRM4_GIO__Set_BitDirection(gioPORTA, 2, GIO_DIRECTION__INPUT); \
-																			else if(index == 1U) 	vRM4_GIO__Set_BitDirection(gioPORTA, 3, GIO_DIRECTION__INPUT); \
-																			else if(index == 2U) 	vRM4_GIO__Set_BitDirection(gioPORTA, 4, GIO_DIRECTION__INPUT); \
-																			else if(index == 3U) 	vRM4_GIO__Set_BitDirection(gioPORTB, 1, GIO_DIRECTION__INPUT); \
-																			else if(index == 4U) 	vRM4_GIO__Set_BitDirection(gioPORTB, 3, GIO_DIRECTION__INPUT); \
-																			else if(index == 5U) 	vRM4_GIO__Set_BitDirection(gioPORTB, 6, GIO_DIRECTION__INPUT); \
-																			else if(index == 6U) 	vRM4_GIO__Set_BitDirection(gioPORTB, 0, GIO_DIRECTION__INPUT); \
-																			else if(index == 7U) 	vRM4_GIO__Set_BitDirection(gioPORTB, 7, GIO_DIRECTION__INPUT); \
+																			if(index == 0U) 		vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 2, GIO_DIRECTION__INPUT); \
+																			else if(index == 1U) 	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 3, GIO_DIRECTION__INPUT); \
+																			else if(index == 2U) 	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 4, GIO_DIRECTION__INPUT); \
+																			else if(index == 3U) 	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 1, GIO_DIRECTION__INPUT); \
+																			else if(index == 4U) 	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 3, GIO_DIRECTION__INPUT); \
+																			else if(index == 5U) 	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 6, GIO_DIRECTION__INPUT); \
+																			else if(index == 6U) 	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 0, GIO_DIRECTION__INPUT); \
+																			else if(index == 7U) 	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 7, GIO_DIRECTION__INPUT); \
 																			}
 
 

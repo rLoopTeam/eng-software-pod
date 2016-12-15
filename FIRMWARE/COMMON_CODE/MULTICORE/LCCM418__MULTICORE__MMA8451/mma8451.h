@@ -22,7 +22,10 @@
 		#error
 	#endif
 	#if C_LOCALDEF__LCCM418__ENABLE_THIS_MODULE == 1U
-
+	
+	/*****************************************************************************
+	Includes
+	*****************************************************************************/
 	#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8451__register_defs.h>
 	#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8541__fault_flags.h>
 	#include <multicore/lccm284__multicore__fault_tree/fault_tree__public.h>
@@ -79,12 +82,14 @@
 		struct
 		{
 			/** mma8450 only supports 8 bit offsets but we need to store the data as twos complement*/
+			/*lint -e960*/
+			//Note 960: Violates MISRA 2004 Required Rule 18.4, unions
 			union
 			{
 				Lint8 s8;
 				Luint8 u8;
 			}unT;
-				
+			/*lint +e960*/
 			
 		}sSensorOffset[3];
 		
@@ -128,7 +133,7 @@
 		* This value is updated each interrupt or data ready call */
 		struct
 		{
-			#if C_LOCALDEF__LCCM418__USER_AVERAGE_MAX_SAMPLES > 0
+			#if C_LOCALDEF__LCCM418__USER_AVERAGE_MAX_SAMPLES > 0U
 				/** This is the averaging system, used to filter the data for each channel */
 				struct
 				{
@@ -188,8 +193,9 @@
 		Luint16 u16Prev_UserAverageValue;
 	};
 
-
-	//functions
+	/*****************************************************************************
+	Function Prototypes
+	*****************************************************************************/
 	void vMMA8451__Init(Luint8 u8DeviceIndex);
 	void vMMA8451__Process(Luint8 u8DeviceIndex);
 	Luint8 u8MMA8451_PROCESS__Get_CalibrationState(Luint8 u8DeviceIndex);

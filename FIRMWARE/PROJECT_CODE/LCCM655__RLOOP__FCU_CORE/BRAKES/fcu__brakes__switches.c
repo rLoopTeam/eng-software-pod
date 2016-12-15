@@ -60,7 +60,7 @@ void vFCU_BRAKES_SW__Init(void)
  * @brief
  * Process the brake swtich tasks
  * 
- * @st_funcMD5		5DCE42957C174F4E6C02820CECCDE574
+ * @st_funcMD5		24FC7CAFDEFC3718FA50379B661CA39A
  * @st_funcID		LCCM655R0.FILE.008.FUNC.002
  */
 void vFCU_BRAKES_SW__Process(void)
@@ -69,9 +69,9 @@ void vFCU_BRAKES_SW__Process(void)
 	Luint8 u8Brake;
 	Luint8 u8Switch;
 
-	for(u8Brake = 0U; u8Brake < FCU_BRAKE__MAX_BRAKES; u8Brake++)
+	for(u8Brake = 0U; u8Brake < (Luint8)FCU_BRAKE__MAX_BRAKES; u8Brake++)
 	{
-		for(u8Switch = 0U; u8Switch < BRAKE_SW__MAX_SWITCHES; u8Switch++)
+		for(u8Switch = 0U; u8Switch < (Luint8)BRAKE_SW__MAX_SWITCHES; u8Switch++)
 		{
 			if(sFCU.sBrakes[(Luint8)u8Brake].sLimits[(Luint8)u8Switch].u8EdgeSeen == 1U)
 			{
@@ -85,7 +85,7 @@ void vFCU_BRAKES_SW__Process(void)
 
 		}
 		//if both switches is closed, then flag fault
-		if (sFCU.sBrakes[(Luint8)u8Brake].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED && sFCU.sBrakes[(Luint8)u8Brake].sLimits[BRAKE_SW__RETRACT].eSwitchState == SW_STATE__CLOSED)
+		if (sFCU.sBrakes[(Luint8)u8Brake].sLimits[(Luint8)BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED && sFCU.sBrakes[(Luint8)u8Brake].sLimits[BRAKE_SW__RETRACT].eSwitchState == SW_STATE__CLOSED)
 		{
 			//set fault flag
 			sFCU.sBrakes[(Luint8)u8Brake].u8BrakeSWErr = 1U;
@@ -138,7 +138,7 @@ E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_
 				case BRAKE_SW__EXTEND:
 					// pin 1 (1U) is mapped to BRAKE_SW_EXTEND SWITCH
 					// @TODO: Create a mapping of GIO PINS to respective LIMIT SWITCH
-					u32Temp = u32RM4_GIO__Get_Bit(gioPORTA, 1U);
+					u32Temp = u32RM4_GIO__Get_Bit(RM4_GIO__PORT_A, 1U);
 					if(u32Temp == 0U)
 					{
 						//switch open
@@ -154,7 +154,7 @@ E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_
 				case BRAKE_SW__RETRACT:
 					// pin 0 (0U) is mapped to BRAKE_SW_RETRACT SWITCH
 					// @TODO: Create a mapping of GIO PINS to respective LIMIT SWITCH
-					u32Temp = u32RM4_GIO__Get_Bit(gioPORTA, 0U);
+					u32Temp = u32RM4_GIO__Get_Bit(RM4_GIO__PORT_A, 0U);
 					if(u32Temp == 0U)
 					{
 						//switch open
