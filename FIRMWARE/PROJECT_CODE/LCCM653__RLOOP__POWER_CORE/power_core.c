@@ -264,7 +264,7 @@ void vPWRNODE__Process(void)
 			//10ms timer
 			vRTI_COMPARE__Enable_CompareInterrupt(1);
 
-			vRM4_RTI_ISR__Enable_Interrupts();
+			vRM4_RTI__Start_Interrupts();
 			//Starts the counter zero
 			vRM4_RTI__Start_Counter(0);
 
