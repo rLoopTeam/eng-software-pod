@@ -24,10 +24,13 @@
 //the structure
 extern struct _strFCU sFCU;
 
+
 /***************************************************************************//**
  * @brief
  * Init the brake switches modules
- *
+ * 
+ * @st_funcMD5		BADA00E37708032B41CF323DF1117D6D
+ * @st_funcID		LCCM655R0.FILE.008.FUNC.001
  */
 void vFCU_BRAKES_SW__Init(void)
 {
@@ -53,6 +56,13 @@ void vFCU_BRAKES_SW__Init(void)
 	//TODO: set flag if interrupt was seen
 }
 
+/***************************************************************************//**
+ * @brief
+ * Process the brake swtich tasks
+ * 
+ * @st_funcMD5		5DCE42957C174F4E6C02820CECCDE574
+ * @st_funcID		LCCM655R0.FILE.008.FUNC.002
+ */
 void vFCU_BRAKES_SW__Process(void)
 {
 
@@ -86,12 +96,14 @@ void vFCU_BRAKES_SW__Process(void)
 
 }
 
-/*******************************************************************************
+/***************************************************************************//**
  * @brief
  * Gets the fault flag of a brake limit switches
  *
- * @param[in]			eBrake			The brake, left or right, 0 or 1 index
+ * @param[in]		eBrake					The brake index
  * @return				0 = normal, 1 = fault
+ * @st_funcMD5		4D64D7EE0EA87E2F031F6F1E830B0400
+ * @st_funcID		LCCM655R0.FILE.008.FUNC.003
  */
 Luint8 u8FCU_BRAKES_SW__Get_FaultFlag(E_FCU__BRAKE_INDEX_T eBrake)
 {
@@ -105,7 +117,9 @@ Luint8 u8FCU_BRAKES_SW__Get_FaultFlag(E_FCU__BRAKE_INDEX_T eBrake)
  * @param[in] 			eBrake			The brake, left or right
  * @param[in]			eSwitch			The extend or retract switch
  * @return				Open, Closed or Unknown
-  */
+ * @st_funcMD5		28F32CC92259F9C82BFC73E52E3F0E5F
+ * @st_funcID		LCCM655R0.FILE.008.FUNC.004
+ */
 E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch)
 {
 	Luint32 u32Temp;
@@ -212,8 +226,9 @@ E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_
 /***************************************************************************//**
  * @brief
  * Brake 0 (Left) Retract switch interrupt handler
- *
- *
+ * 
+ * @st_funcMD5		A8CE24558C449D064B0F8DAE39F73A2B
+ * @st_funcID		LCCM655R0.FILE.008.FUNC.005
  */
 void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void)
 {
@@ -230,8 +245,9 @@ void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void)
 /***************************************************************************//**
  * @brief
  * Brake 0 (Left) Extended switch interrupt handler
- *
- *
+ * 
+ * @st_funcMD5		52D447864E938FED83B81425C24A17E9
+ * @st_funcID		LCCM655R0.FILE.008.FUNC.006
  */
 void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void)
 {
@@ -249,8 +265,9 @@ void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void)
 /***************************************************************************//**
  * @brief
  * Brake 1 (Right) Retract switch interrupt handler
- *
- *
+ * 
+ * @st_funcMD5		0F6BA6917B67273329EC9170E241988D
+ * @st_funcID		LCCM655R0.FILE.008.FUNC.007
  */
 void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void)
 {
@@ -267,8 +284,9 @@ void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void)
 /***************************************************************************//**
  * @brief
  * Brake 1 (Right) Extended switch interrupt handler
- *
- *
+ * 
+ * @st_funcMD5		57473F00C9D72BDB4147318A86C69A46
+ * @st_funcID		LCCM655R0.FILE.008.FUNC.008
  */
 void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void)
 {

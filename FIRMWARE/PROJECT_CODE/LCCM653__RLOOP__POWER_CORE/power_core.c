@@ -255,14 +255,15 @@ void vPWRNODE__Process(void)
 
 		case INIT_STATE__START_TIMERS:
 
+			//int the RTI
+			vRM4_RTI__Init();
+
 			//start the relevant RTI interrupts going.
 			//100ms timer
 			vRTI_COMPARE__Enable_CompareInterrupt(0);
 			//10ms timer
 			vRTI_COMPARE__Enable_CompareInterrupt(1);
 
-			//int the RTI
-			vRM4_RTI__Init();
 			vRM4_RTI_ISR__Enable_Interrupts();
 			//Starts the counter zero
 			vRM4_RTI__Start_Counter(0);

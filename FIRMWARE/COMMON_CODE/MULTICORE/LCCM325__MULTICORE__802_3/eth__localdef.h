@@ -38,6 +38,8 @@ ETHERNET TRANSPORT
 		#define C_LOCALDEF__LCCM325__ENABLE_LLDP							(0U)
 		/** Simple Network Management Protocol */
 		#define C_LOCALDEF__LCCM325__ENABLE_SNMP							(0U)
+		/** TCP/IP */
+		#define C_LOCALDEF__LCCM325__ENABLE_TCP								(0U)
 
 		//UDP Rx
 		#define C_LOCALDEF__LCCM325__UDP_RX_CALLBACK(buffer,length,port)	vSAFE_UDP_RX__UDPPacket(buffer, length, port)

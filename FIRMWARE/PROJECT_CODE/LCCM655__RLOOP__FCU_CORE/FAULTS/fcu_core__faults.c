@@ -24,6 +24,13 @@
 extern struct _strFCU sFCU;
 
 
+/***************************************************************************//**
+ * @brief
+ * Init the fault processing system
+ * 
+ * @st_funcMD5		A90C065A837545DA2DDABFF3642666D9
+ * @st_funcID		LCCM655R0.FILE.022.FUNC.001
+ */
 void vFCU_FAULTS__Init(void)
 {
 	//init the fault tree module.
@@ -36,6 +43,13 @@ void vFCU_FAULTS__Init(void)
 
 
 
+/***************************************************************************//**
+ * @brief
+ * Process any faults
+ * 
+ * @st_funcMD5		FEA2B8A4105CFE7859CE5B11B1A35CDD
+ * @st_funcID		LCCM655R0.FILE.022.FUNC.002
+ */
 void vFCU_FAULTS__Process(void)
 {
 
@@ -48,7 +62,13 @@ void vFCU_FAULTS__Process(void)
 
 }
 
-//return 1 if we have some sort of a fault, dig into the flags to see what happened
+/***************************************************************************//**
+ * @brief
+ * return 1 if we have some sort of a fault, dig into the flags to see what happened
+ * 
+ * @st_funcMD5		646024F18B39EE4EB1A7E44000184D1B
+ * @st_funcID		LCCM655R0.FILE.022.FUNC.003
+ */
 Luint8 u8FCU_FAULTS__Get_IsFault(void)
 {
 	//return with the fault flag status
@@ -57,6 +77,13 @@ Luint8 u8FCU_FAULTS__Get_IsFault(void)
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * Return the top level fault flags.
+ * 
+ * @st_funcMD5		C6B448B0CA30A17A3C405BB7FEE3C440
+ * @st_funcID		LCCM655R0.FILE.022.FUNC.004
+ */
 Luint32 u32FCU_FAULTS__Get_FaultFlags(void)
 {
 	return sFCU.sFaults.sTopLevel.u32Flags[0];
