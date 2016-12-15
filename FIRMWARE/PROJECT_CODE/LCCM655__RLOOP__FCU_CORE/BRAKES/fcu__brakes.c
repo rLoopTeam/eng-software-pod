@@ -166,6 +166,8 @@ Lfloat32 f32FCU_BRAKES__Get_ScrewPos(E_FCU__BRAKE_INDEX_T eBrake)
  * @brief
  * Returns the brake switch state
  * 
+ * @st_tsID			LCCM655R0.TS.000
+ *
  * @param[in]		eSwitch					The switch type
  * @param[in]		eBrake					The brake index
  * @st_funcMD5		458791C58F924A8B4F72976BC03CD51D

@@ -1,0 +1,419 @@
+
+--- Module:   D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C
+    (C), consumed 37,625 bytes
+                _
+		} E_AMC7812_DAC_STATES_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\amc7812.h 
+    68  Info 726: Extraneous comma ignored
+        _
+	}E_PICOMMS__PACKET_TYPES_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms__packet_types.h 
+    108  Info 726: Extraneous comma ignored
+                                                                                   _
+				Luint8 PICOMMS_TX_buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    75  Error 10: Expecting ';'
+                                                                          _
+				Luint8 u8Buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    86  Error 10: Expecting ';'
+                                                                                   _
+				Luint8 u8TempFrameBuffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    89  Error 10: Expecting ';'
+                                            _
+		void PICOMMS_TX_beginFrame();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    124  Note 937: old-style function declaration for function
+    'PICOMMS_TX_beginFrame' [MISRA 2004 Rules 8.1 and 16.5]
+                                             _
+		Luint16 PICOMMS_TX_endFrame();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    126  Note 937: old-style function declaration for function
+    'PICOMMS_TX_endFrame' [MISRA 2004 Rules 8.1 and 16.5]
+                                        _
+		void vPICOMMS_RX__Init();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    141  Note 937: old-style function declaration for function
+    'vPICOMMS_RX__Init' [MISRA 2004 Rules 8.1 and 16.5]
+        _
+	}E_FCU_PICOM__STATE_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\PI_COMMS\fcu__pi_comms__types.h 
+    26  Info 726: Extraneous comma ignored
+                        _
+			vRM4_FLASH__Init();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C 
+    93  Info 718: Symbol 'vRM4_FLASH__Init' undeclared, assumed to return int
+    [MISRA 2004 Rule 8.1]
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C 
+    93  Info 746: call to function 'vRM4_FLASH__Init()' not made in the
+    presence of a prototype [MISRA 2004 Rule 8.1]
+                                                           _
+				vRM4_GIO__Set_BitDirection(gioPORTA, 0U, GIO_DIRECTION__INPUT);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C 
+    179  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                           _
+				vRM4_GIO__Set_BitDirection(gioPORTA, 1U, GIO_DIRECTION__INPUT);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C 
+    180  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                   _
+			vRM4_GIO__Set_BitDirection(gioPORTA, 2U, GIO_DIRECTION__INPUT);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C 
+    221  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                   _
+			vRM4_GIO__Set_BitDirection(gioPORTA, 3U, GIO_DIRECTION__INPUT);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C 
+    222  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                   _
+			vRM4_GIO__Set_BitDirection(gioPORTA, 4U, GIO_DIRECTION__INPUT);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C 
+    223  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                   _
+			vRM4_GIO__Set_BitDirection(gioPORTB, 1U, GIO_DIRECTION__INPUT);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C 
+    225  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                   _
+			vRM4_GIO__Set_BitDirection(gioPORTB, 3U, GIO_DIRECTION__INPUT);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C 
+    226  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                   _
+			vRM4_GIO__Set_BitDirection(gioPORTB, 6U, GIO_DIRECTION__INPUT);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C 
+    227  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                   _
+			vRM4_GIO__Set_BitDirection(gioPORTB, 0U, GIO_DIRECTION__INPUT);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C 
+    228  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                   _
+			vRM4_GIO__Set_BitDirection(gioPORTB, 7U, GIO_DIRECTION__INPUT);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C 
+    229  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+
+--- Module:   D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\THROTTLES\FCU__THROTTLES.C
+    (C), consumed 1,613,081 bytes
+                _
+		} E_AMC7812_DAC_STATES_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\amc7812.h 
+    68  Info 726: Extraneous comma ignored
+        _
+	}E_PICOMMS__PACKET_TYPES_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms__packet_types.h 
+    108  Info 726: Extraneous comma ignored
+                                                                                   _
+				Luint8 PICOMMS_TX_buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    75  Error 10: Expecting ';'
+                                                                          _
+				Luint8 u8Buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    86  Error 10: Expecting ';'
+                                                                                   _
+				Luint8 u8TempFrameBuffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    89  Error 10: Expecting ';'
+                                            _
+		void PICOMMS_TX_beginFrame();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    124  Note 937: old-style function declaration for function
+    'PICOMMS_TX_beginFrame()' [MISRA 2004 Rules 8.1 and 16.5]
+                                             _
+		Luint16 PICOMMS_TX_endFrame();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    126  Note 937: old-style function declaration for function
+    'PICOMMS_TX_endFrame()' [MISRA 2004 Rules 8.1 and 16.5]
+                                        _
+		void vPICOMMS_RX__Init();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    141  Note 937: old-style function declaration for function
+    'vPICOMMS_RX__Init()' [MISRA 2004 Rules 8.1 and 16.5]
+        _
+	}E_FCU_PICOM__STATE_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\PI_COMMS\fcu__pi_comms__types.h 
+    26  Info 726: Extraneous comma ignored
+
+--- Module:   D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES.C
+    (C), consumed 1,654,833 bytes
+                _
+		} E_AMC7812_DAC_STATES_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\amc7812.h 
+    68  Info 726: Extraneous comma ignored
+        _
+	}E_PICOMMS__PACKET_TYPES_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms__packet_types.h 
+    108  Info 726: Extraneous comma ignored
+                                                                                   _
+				Luint8 PICOMMS_TX_buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    75  Error 10: Expecting ';'
+                                                                          _
+				Luint8 u8Buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    86  Error 10: Expecting ';'
+                                                                                   _
+				Luint8 u8TempFrameBuffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    89  Error 10: Expecting ';'
+                                            _
+		void PICOMMS_TX_beginFrame();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    124  Note 937: old-style function declaration for function
+    'PICOMMS_TX_beginFrame()' [MISRA 2004 Rules 8.1 and 16.5]
+                                             _
+		Luint16 PICOMMS_TX_endFrame();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    126  Note 937: old-style function declaration for function
+    'PICOMMS_TX_endFrame()' [MISRA 2004 Rules 8.1 and 16.5]
+                                        _
+		void vPICOMMS_RX__Init();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    141  Note 937: old-style function declaration for function
+    'vPICOMMS_RX__Init()' [MISRA 2004 Rules 8.1 and 16.5]
+        _
+	}E_FCU_PICOM__STATE_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\PI_COMMS\fcu__pi_comms__types.h 
+    26  Info 726: Extraneous comma ignored
+                                                               _
+			vFCU_BRAKES__Move_IBeam_Distance_mm(500);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES.C 
+    141  Note 960: Violates MISRA 2004 Required Rule 10.1, Prohibited Implicit
+    Conversion: Signed versus Unsigned
+_
+}
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES.C 
+    244  Info 715: Symbol 'u32Distance' (line 234) not referenced
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES.C 
+    234  Info 830: Location cited in prior message
+_
+{
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES.C 
+    259  Note 957: Function 'vFCU_BRAKES__Move_Percent_Position' defined
+    without a prototype in scope [MISRA 2004 Rule 8.1]
+                          _
+	if((f32Percent < 0) || (f32Percent > 100))
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES.C 
+    260  Note 960: Violates MISRA 2004 Required Rule 10.1, Prohibited Implicit
+    Conversion: Integer versus Floating-point
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES.C 
+    260  Note 960: Violates MISRA 2004 Required Rule 10.1, Prohibited Implicit
+    Conversion: Integer versus Floating-point
+
+--- Module:   D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES__SWITCHES.C
+    (C), consumed 1,680,743 bytes
+                _
+		} E_AMC7812_DAC_STATES_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\amc7812.h 
+    68  Info 726: Extraneous comma ignored
+        _
+	}E_PICOMMS__PACKET_TYPES_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms__packet_types.h 
+    108  Info 726: Extraneous comma ignored
+                                                                                   _
+				Luint8 PICOMMS_TX_buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    75  Error 10: Expecting ';'
+                                                                          _
+				Luint8 u8Buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    86  Error 10: Expecting ';'
+                                                                                   _
+				Luint8 u8TempFrameBuffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    89  Error 10: Expecting ';'
+                                            _
+		void PICOMMS_TX_beginFrame();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    124  Note 937: old-style function declaration for function
+    'PICOMMS_TX_beginFrame()' [MISRA 2004 Rules 8.1 and 16.5]
+                                             _
+		Luint16 PICOMMS_TX_endFrame();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    126  Note 937: old-style function declaration for function
+    'PICOMMS_TX_endFrame()' [MISRA 2004 Rules 8.1 and 16.5]
+                                        _
+		void vPICOMMS_RX__Init();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    141  Note 937: old-style function declaration for function
+    'vPICOMMS_RX__Init()' [MISRA 2004 Rules 8.1 and 16.5]
+        _
+	}E_FCU_PICOM__STATE_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\PI_COMMS\fcu__pi_comms__types.h 
+    26  Info 726: Extraneous comma ignored
+                                                                                                                        _
+		if (sFCU.sBrakes[(Luint8)u8Brake].sLimits[(Luint8)BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED && sFCU.sBrakes[(Luint8)u8Brake].sLimits[BRAKE_SW__RETRACT].eSwitchState == SW_STATE__CLOSED)
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES__SWITCHES.C 
+    88  Note 961: Violates MISRA 2004 Advisory Rule 12.1, dependence placed on
+    C's operator precedence; operators: '==' and '&&'
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES__SWITCHES.C 
+    88  Note 961: Violates MISRA 2004 Advisory Rule 12.1, dependence placed on
+    C's operator precedence; operators: '&&' and '=='
+                                                                      _
+					u32Temp = u32RM4_GIO__Get_Bit(gioPORTA, 1U);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES__SWITCHES.C 
+    141  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                                      _
+					u32Temp = u32RM4_GIO__Get_Bit(gioPORTA, 0U);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES__SWITCHES.C 
+    157  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                        _
+			}//switch(eSwitch)
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES__SWITCHES.C 
+    173  Info 788: enum constant 'BRAKE_SW__MAX_SWITCHES' not used within
+    defaulted switch
+                        _
+			}//switch(eSwitch)
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES__SWITCHES.C 
+    212  Info 788: enum constant 'BRAKE_SW__MAX_SWITCHES' not used within
+    defaulted switch
+        _
+	}//switch(eBrake)
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES__SWITCHES.C 
+    219  Info 788: enum constant 'FCU_BRAKE__MAX_BRAKES' not used within
+    defaulted switch
+
+--- Module:   D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\FCU__ASI_RS485.C
+    (C), consumed 1,708,327 bytes
+                _
+		} E_AMC7812_DAC_STATES_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\amc7812.h 
+    68  Info 726: Extraneous comma ignored
+        _
+	}E_PICOMMS__PACKET_TYPES_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms__packet_types.h 
+    108  Info 726: Extraneous comma ignored
+                                                                                   _
+				Luint8 PICOMMS_TX_buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    75  Error 10: Expecting ';'
+                                                                          _
+				Luint8 u8Buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    86  Error 10: Expecting ';'
+                                                                                   _
+				Luint8 u8TempFrameBuffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    89  Error 10: Expecting ';'
+                                            _
+		void PICOMMS_TX_beginFrame();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    124  Note 937: old-style function declaration for function
+    'PICOMMS_TX_beginFrame()' [MISRA 2004 Rules 8.1 and 16.5]
+                                             _
+		Luint16 PICOMMS_TX_endFrame();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    126  Note 937: old-style function declaration for function
+    'PICOMMS_TX_endFrame()' [MISRA 2004 Rules 8.1 and 16.5]
+                                        _
+		void vPICOMMS_RX__Init();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    141  Note 937: old-style function declaration for function
+    'vPICOMMS_RX__Init()' [MISRA 2004 Rules 8.1 and 16.5]
+        _
+	}E_FCU_PICOM__STATE_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\PI_COMMS\fcu__pi_comms__types.h 
+    26  Info 726: Extraneous comma ignored
+
+--- Module:   D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\FCU__ACCEL.C
+    (C), consumed 1,733,623 bytes
+                _
+		} E_AMC7812_DAC_STATES_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\amc7812.h 
+    68  Info 726: Extraneous comma ignored
+        _
+	}E_PICOMMS__PACKET_TYPES_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms__packet_types.h 
+    108  Info 726: Extraneous comma ignored
+                                                                                   _
+				Luint8 PICOMMS_TX_buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    75  Error 10: Expecting ';'
+                                                                          _
+				Luint8 u8Buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    86  Error 10: Expecting ';'
+                                                                                   _
+				Luint8 u8TempFrameBuffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    89  Error 10: Expecting ';'
+                                            _
+		void PICOMMS_TX_beginFrame();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    124  Note 937: old-style function declaration for function
+    'PICOMMS_TX_beginFrame()' [MISRA 2004 Rules 8.1 and 16.5]
+                                             _
+		Luint16 PICOMMS_TX_endFrame();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    126  Note 937: old-style function declaration for function
+    'PICOMMS_TX_endFrame()' [MISRA 2004 Rules 8.1 and 16.5]
+                                        _
+		void vPICOMMS_RX__Init();
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM656__RLOOP__PI_COMMS\pi_comms.h 
+    141  Note 937: old-style function declaration for function
+    'vPICOMMS_RX__Init()' [MISRA 2004 Rules 8.1 and 16.5]
+        _
+	}E_FCU_PICOM__STATE_T;
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\PI_COMMS\fcu__pi_comms__types.h 
+    26  Info 726: Extraneous comma ignored
+                                   _
+	vRM4_GIO__Set_BitDirection(gioPORTA, 6U, GIO_DIRECTION__INPUT);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\FCU__ACCEL.C 
+    47  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                  _
+	vRM4_GIO__Set_Port_Pullup(gioPORTA, 6U);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\FCU__ACCEL.C 
+    49  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                                _
+	#if C_LOCALDEF__LCCM418__NUM_DEVICES >= 2
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\FCU__ACCEL.C 
+    74  Note 960: Violates MISRA 2004 Required Rule 10.1, Prohibited Implicit
+    Conversion: Signed versus Unsigned
+                _
+		vRM4_GIO__Set_BitDirection(gioPORTA, 7U, GIO_DIRECTION__INPUT);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\FCU__ACCEL.C 
+    76  Warning 539: Did not expect positive indentation from line 68
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\FCU__ACCEL.C 
+    68  Info 830: Location cited in prior message
+                                           _
+		vRM4_GIO__Set_BitDirection(gioPORTA, 7U, GIO_DIRECTION__INPUT);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\FCU__ACCEL.C 
+    76  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+                                          _
+		vRM4_GIO__Set_Port_Pullup(gioPORTA, 7U);
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\FCU__ACCEL.C 
+    78  Note 923: cast from unsigned int to pointer [Encompasses MISRA 2004
+    Rules 11.1 and 11.3]
+
+--- Global Wrap-up
+
+Info 765: external 'vFCU_BRAKES__Move_Percent_Position(float,
+    E_FCU__BRAKE_INDEX_T)' (line 258, file D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES.C)
+    could be made static [MISRA 2004 Rule 8.10]
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES.C 
+    258  Info 830: Location cited in prior message
+Info 714: Symbol 'vFCU_BRAKES__Move_Percent_Position(float,
+    E_FCU__BRAKE_INDEX_T)' (line 258, file D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES.C)
+    not referenced
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\FCU__BRAKES.C 
+    258  Info 830: Location cited in prior message
+Warning 526: Symbol 'vRM4_FLASH__Init()' (line 93, file D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C)
+    not defined
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C 
+    93  Info 830: Location cited in prior message
+Warning 628: no argument information provided for function 'vRM4_FLASH__Init()'
+    (line 93, file D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C)
+D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FCU_CORE.C 
+    93  Info 830: Location cited in prior message

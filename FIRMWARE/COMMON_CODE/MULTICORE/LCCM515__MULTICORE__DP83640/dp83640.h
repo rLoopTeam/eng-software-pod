@@ -18,6 +18,9 @@
 	#include <localdef.h>
 	#if C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE == 1U
 
+		/*******************************************************************************
+		Includes
+		*******************************************************************************/
 		#include <MULTICORE/LCCM515__MULTICORE__DP83640/dp83640__private.h>
 
 		/*******************************************************************************
@@ -73,8 +76,8 @@
 		#endif
 
 		//safetys
-		#if C_LOCALDEF__LCCM515__USE_ON_RM4 == 0
-			#if C_LOCALDEF__LCCM515__USE_ON_XILINX == 0
+		#if C_LOCALDEF__LCCM515__USE_ON_RM4 == 0U
+			#if C_LOCALDEF__LCCM515__USE_ON_XILINX == 0U
 				#error
 			#endif
 		#endif

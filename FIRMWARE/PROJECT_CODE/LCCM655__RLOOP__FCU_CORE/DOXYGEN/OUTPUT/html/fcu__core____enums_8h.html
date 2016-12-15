@@ -98,20 +98,39 @@ $(document).ready(function(){initNavTree('fcu__core____enums_8h.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>Flight control code constatants.  
+<p>Flight control code constants.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="fcu__core____enums_8h__dep__incl.png" border="0" usemap="#fcu__core____enums_8hdep" alt=""/></div>
 <map name="fcu__core____enums_8hdep" id="fcu__core____enums_8hdep">
-<area shape="rect" id="node2" href="fcu__core_8h.html" title="Main header for the FCU. " alt="" coords="492,80,575,107"/>
-<area shape="rect" id="node3" href="fcu____accel_8c.html" title="Accelerometer Subsystem. " alt="" coords="5,155,173,196"/>
-<area shape="rect" id="node4" href="fcu____asi__rs485_8c.html" title="RS485 interface to ASI controller. " alt="" coords="197,155,339,196"/>
-<area shape="rect" id="node5" href="fcu____brakes_8c.html" title="Brake control subsystem for the FCU. " alt="" coords="363,162,525,189"/>
-<area shape="rect" id="node6" href="fcu____brakes____switches_8c.html" title="Switch interface for the brakes. " alt="" coords="549,155,699,196"/>
-<area shape="rect" id="node7" href="fcu__core_8c.html" title="Core of the flight control unit. " alt="" coords="724,162,807,189"/>
-<area shape="rect" id="node8" href="fcu____throttles_8c.html" title="Throttle Controller. " alt="" coords="831,162,1020,189"/>
+<area shape="rect" id="node2" href="fcu__core_8h.html" title="Main header for the FCU. " alt="" coords="2184,80,2267,107"/>
+<area shape="rect" id="node3" href="fcu____accel_8c.html" title="Accelerometer Subsystem. " alt="" coords="5,162,173,203"/>
+<area shape="rect" id="node4" href="fcu____accel____ethernet_8c.html" title="Ethernet UDP diagnostics for the accel system. " alt="" coords="197,162,365,203"/>
+<area shape="rect" id="node5" href="fcu____asi_8c.html" title="Command interface to ASI controller. " alt="" coords="389,169,541,196"/>
+<area shape="rect" id="node6" href="fcu____asi__rs485_8c.html" title="RS485 interface to ASI controller. " alt="" coords="565,162,707,203"/>
+<area shape="rect" id="node7" href="fcu____asi__rs485__mux_8c.html" title="Multiplexer for the RS485. " alt="" coords="731,162,872,203"/>
+<area shape="rect" id="node8" href="fcu____brakes_8c.html" title="Brake control subsystem for the FCU. " alt="" coords="897,169,1058,196"/>
+<area shape="rect" id="node9" href="fcu____brakes____mlp_8c.html" title="MLP interface for the brakes. " alt="" coords="1082,162,1233,203"/>
+<area shape="rect" id="node10" href="fcu____brakes____stepper_8c.html" title="Stepper interface for the brakes. " alt="" coords="1257,162,1407,203"/>
+<area shape="rect" id="node11" href="fcu____brakes____switches_8c.html" title="Switch interface for the brakes. " alt="" coords="1431,162,1582,203"/>
+<area shape="rect" id="node12" href="fcu__core____faults_8c.html" title="Fault handing interface. " alt="" coords="1606,169,1786,196"/>
+<area shape="rect" id="node13" href="fcu__core_8c.html" title="Core of the flight control unit. " alt="" coords="1811,169,1893,196"/>
+<area shape="rect" id="node14" href="fcu____flight__controller_8c.html" title="The actual flight control algo&#39;s. " alt="" coords="1918,162,2098,203"/>
+<area shape="rect" id="node15" href="fcu____laser__orientation_8c.html" title="Orientation and Position from Distance Lasers. " alt="" coords="2122,155,2329,211"/>
+<area shape="rect" id="node16" href="fcu____laser__cont_8c.html" title="LASER_CONTRAST/fcu\l__laser_cont.c" alt="" coords="2353,162,2516,203"/>
+<area shape="rect" id="node17" href="fcu____laser__distance_8c.html" title="Forward looking laser distance. " alt="" coords="2540,162,2697,203"/>
+<area shape="rect" id="node18" href="fcu____laser__opto_8c.html" title="OptoNCDT laser interface for pitch and yaw. " alt="" coords="2721,162,2892,203"/>
+<area shape="rect" id="node19" href="fcu____main__sm_8c.html" title="Main state machine for the flight control unit. " alt="" coords="2917,169,3097,196"/>
+<area shape="rect" id="node20" href="fcu____main__sm____auto__seq_8c.html" title="Auto sequence functional tests. " alt="" coords="3121,162,3290,203"/>
+<area shape="rect" id="node21" href="fcu__core____net_8c.html" title="Netoworking Module. " alt="" coords="3315,162,3477,203"/>
+<area shape="rect" id="node22" href="fcu__core____net____rx_8c.html" title="Network Rx portion. " alt="" coords="3501,162,3664,203"/>
+<area shape="rect" id="node23" href="fcu__core____net____tx_8c.html" title="Network Tx portion. " alt="" coords="3688,162,3851,203"/>
+<area shape="rect" id="node24" href="fcu__core____notifications_8c.html" title="RM4 system level notifications. " alt="" coords="3875,162,4045,203"/>
+<area shape="rect" id="node25" href="fcu____pi__comms_8c.html" title="FCU to PiComms interface layer. " alt="" coords="4069,169,4267,196"/>
+<area shape="rect" id="node26" href="fcu____pusher_8c.html" title="Pusher Interface subsystem. " alt="" coords="4291,169,4453,196"/>
+<area shape="rect" id="node27" href="fcu____throttles_8c.html" title="Throttle Controller. " alt="" coords="4477,169,4667,196"/>
 </map>
 </div>
 </div>
@@ -119,19 +138,51 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:aca56f900b11ab5b05c97d4618bbe321e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fcu__core____enums_8h.html#aca56f900b11ab5b05c97d4618bbe321e">E_FCU__LASER_CONT_INDEX_T</a> { <br />
+&#160;&#160;<a class="el" href="fcu__core____enums_8h.html#aca56f900b11ab5b05c97d4618bbe321eaddc978956934df26d06933a6b7b27fef">LASER_CONT__FWD</a> = 0U, 
+<br />
+&#160;&#160;<a class="el" href="fcu__core____enums_8h.html#aca56f900b11ab5b05c97d4618bbe321eadf24bb2b06c8aa2a002b13c3ef77c31b">LASER_CONT__MID</a> = 1U, 
+<br />
+&#160;&#160;<a class="el" href="fcu__core____enums_8h.html#aca56f900b11ab5b05c97d4618bbe321eac1ea595de25bb8d3f84560fc2dff349c">LASER_CONT__AFT</a> = 2U, 
+<br />
+&#160;&#160;<a class="el" href="fcu__core____enums_8h.html#aca56f900b11ab5b05c97d4618bbe321ea2e7f55bfe1e21b710f7b811c52327b61">LASER_CONT__MAX</a> = 3U
+<br />
+ }<tr class="memdesc:aca56f900b11ab5b05c97d4618bbe321e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Laser contrast sensors.  <a href="fcu__core____enums_8h.html#aca56f900b11ab5b05c97d4618bbe321e">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:aca56f900b11ab5b05c97d4618bbe321e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a183bf227a9fc200b0e356989d736ae7b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a> { <br />
 &#160;&#160;<a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7ba7285821a8733fd55fdb059d6b24b9612">FCU_BRAKE__LEFT</a> = 0U, 
 <br />
 &#160;&#160;<a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7bac3c1da45459f5e310a186fa25daaedfe">FCU_BRAKE__RIGHT</a> = 1U, 
 <br />
-&#160;&#160;<a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7ba887605ce7490bef510ecc4269e156536">FCU_BRAKE__MAX_BRAKES</a>
+&#160;&#160;<a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7ba887605ce7490bef510ecc4269e156536">FCU_BRAKE__MAX_BRAKES</a> = 2U
 <br />
  }<tr class="memdesc:a183bf227a9fc200b0e356989d736ae7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">enum type for the left or right brakes  <a href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:a183bf227a9fc200b0e356989d736ae7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac31f471107a577664bc177153ab990b9"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fcu__core____enums_8h.html#ac31f471107a577664bc177153ab990b9">E_FCU__BRAKE_LIMSW_INDEX_T</a> { <br />
+&#160;&#160;<a class="el" href="fcu__core____enums_8h.html#ac31f471107a577664bc177153ab990b9a37871bb7ebd294a0dd3b9ee957530708">BRAKE_SW__EXTEND</a> = 0U, 
+<br />
+&#160;&#160;<a class="el" href="fcu__core____enums_8h.html#ac31f471107a577664bc177153ab990b9a820c05781e2854231cde5f2b0a4177bf">BRAKE_SW__RETRACT</a> = 1U, 
+<br />
+&#160;&#160;<a class="el" href="fcu__core____enums_8h.html#ac31f471107a577664bc177153ab990b9a9887cf8d48c92a6052d346a86ace7821">BRAKE_SW__MAX_SWITCHES</a> = 2U
+<br />
+ }<tr class="memdesc:ac31f471107a577664bc177153ab990b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Brake limit switch enums.  <a href="fcu__core____enums_8h.html#ac31f471107a577664bc177153ab990b9">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ac31f471107a577664bc177153ab990b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f20fe18350cd3140c493b063ab9d88d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fcu__core____enums_8h.html#a6f20fe18350cd3140c493b063ab9d88d">E_FCU__SWITCH_STATE_T</a> { <br />
+&#160;&#160;<a class="el" href="fcu__core____enums_8h.html#a6f20fe18350cd3140c493b063ab9d88da5a9ae6828584de79fdb88d35086669ca">SW_STATE__UNKNOWN</a> = 0U, 
+<br />
+&#160;&#160;<a class="el" href="fcu__core____enums_8h.html#a6f20fe18350cd3140c493b063ab9d88dacc512e949337c7d4f27ae86ddff430cc">SW_STATE__CLOSED</a>, 
+<br />
+&#160;&#160;<a class="el" href="fcu__core____enums_8h.html#a6f20fe18350cd3140c493b063ab9d88daa4991a1c8de8beb958810499803c9beb">SW_STATE__OPEN</a>
+<br />
+ }<tr class="memdesc:a6f20fe18350cd3140c493b063ab9d88d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The final swtich state, and indeed any switch state.  <a href="fcu__core____enums_8h.html#a6f20fe18350cd3140c493b063ab9d88d">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:a6f20fe18350cd3140c493b063ab9d88d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Flight control code constatants. </p>
+<div class="textblock"><p>Flight control code constants. </p>
 <dl class="section author"><dt>Author</dt><dd>Lachlan Grogan </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>rLoop Inc. </dd></dl>
 </div><h2 class="groupheader">Enumeration Type Documentation</h2>
@@ -154,6 +205,79 @@ Enumerations</h2></td></tr>
 <p>Right hand brake. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a183bf227a9fc200b0e356989d736ae7ba887605ce7490bef510ecc4269e156536"></a>FCU_BRAKE__MAX_BRAKES&#160;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="ac31f471107a577664bc177153ab990b9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="fcu__core____enums_8h.html#ac31f471107a577664bc177153ab990b9">E_FCU__BRAKE_LIMSW_INDEX_T</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Brake limit switch enums. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="ac31f471107a577664bc177153ab990b9a37871bb7ebd294a0dd3b9ee957530708"></a>BRAKE_SW__EXTEND&#160;</td><td class="fielddoc">
+<p>Fully extended limit switch. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ac31f471107a577664bc177153ab990b9a820c05781e2854231cde5f2b0a4177bf"></a>BRAKE_SW__RETRACT&#160;</td><td class="fielddoc">
+<p>Fully retracted switch. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ac31f471107a577664bc177153ab990b9a9887cf8d48c92a6052d346a86ace7821"></a>BRAKE_SW__MAX_SWITCHES&#160;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="aca56f900b11ab5b05c97d4618bbe321e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="fcu__core____enums_8h.html#aca56f900b11ab5b05c97d4618bbe321e">E_FCU__LASER_CONT_INDEX_T</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Laser contrast sensors. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="aca56f900b11ab5b05c97d4618bbe321eaddc978956934df26d06933a6b7b27fef"></a>LASER_CONT__FWD&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="aca56f900b11ab5b05c97d4618bbe321eadf24bb2b06c8aa2a002b13c3ef77c31b"></a>LASER_CONT__MID&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="aca56f900b11ab5b05c97d4618bbe321eac1ea595de25bb8d3f84560fc2dff349c"></a>LASER_CONT__AFT&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="aca56f900b11ab5b05c97d4618bbe321ea2e7f55bfe1e21b710f7b811c52327b61"></a>LASER_CONT__MAX&#160;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="a6f20fe18350cd3140c493b063ab9d88d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="fcu__core____enums_8h.html#a6f20fe18350cd3140c493b063ab9d88d">E_FCU__SWITCH_STATE_T</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The final swtich state, and indeed any switch state. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a6f20fe18350cd3140c493b063ab9d88da5a9ae6828584de79fdb88d35086669ca"></a>SW_STATE__UNKNOWN&#160;</td><td class="fielddoc">
+<p>Big issue, unknown state type. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a6f20fe18350cd3140c493b063ab9d88dacc512e949337c7d4f27ae86ddff430cc"></a>SW_STATE__CLOSED&#160;</td><td class="fielddoc">
+<p>The switch is closed, physically but maybe not electrically. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a6f20fe18350cd3140c493b063ab9d88daa4991a1c8de8beb958810499803c9beb"></a>SW_STATE__OPEN&#160;</td><td class="fielddoc">
+<p>The switch is open. </p>
 </td></tr>
 </table>
 

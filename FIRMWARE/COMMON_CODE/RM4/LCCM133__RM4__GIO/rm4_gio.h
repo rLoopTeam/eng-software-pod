@@ -99,18 +99,18 @@
 		}RM4_GIO__PULL_T;
 
 
-		//Function protos
 		/*****************************************************************************
+		//Function protos
 		*****************************************************************************/
 		void vRM4_GIO__Init(void);
-		void vRM4_GIO__Set_PortDirection(RM4_GIO__PORT_T * pPort, RM4_GIO__PORT_DIRECTION_T eDir);
-		void vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_T * pPort, Luint32 u32Bit, RM4_GIO__PORT_DIRECTION_T eDIR);
-		void vRM4_GIO__Set_Bit(RM4_GIO__PORT_T * pPort, Luint32 u32Bit, Luint32 u32Value);
-		void vRM4_GIO__Set_Port(RM4_GIO__PORT_T * pPort, Luint32 u32Value);
-		void vRM4_GIO__Set_Port_Pullup(RM4_GIO__PORT_T * pPort, Luint32 u32Bit);
-		Luint32 u32RM4_GIO__Get_Bit(const RM4_GIO__PORT_T * pPort, Luint32 u32Bit);
-		Luint32 u32RM4_GIO__Get_Port(const RM4_GIO__PORT_T * pPort);
-		void vRM4_GIO__Toggle_Bit(RM4_GIO__PORT_T * pPort, Luint32 u32Bit);
+		void vRM4_GIO__Set_PortDirection(RM4_GIO__PORT_DEFINE_T ePort, RM4_GIO__PORT_DIRECTION_T eDir);
+		void vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_DEFINE_T ePort, Luint32 u32Bit, RM4_GIO__PORT_DIRECTION_T eDIR);
+		void vRM4_GIO__Set_Bit(RM4_GIO__PORT_DEFINE_T ePort, Luint32 u32Bit, Luint32 u32Value);
+		void vRM4_GIO__Set_Port(RM4_GIO__PORT_DEFINE_T ePort, Luint32 u32Value);
+		void vRM4_GIO__Set_Port_Pullup(RM4_GIO__PORT_DEFINE_T ePort, Luint32 u32Bit);
+		Luint32 u32RM4_GIO__Get_Bit(RM4_GIO__PORT_DEFINE_T ePort, Luint32 u32Bit);
+		Luint32 u32RM4_GIO__Get_Port(RM4_GIO__PORT_DEFINE_T ePort);
+		void vRM4_GIO__Toggle_Bit(RM4_GIO__PORT_DEFINE_T ePort, Luint32 u32Bit);
 
 		//pullups
 		void vRM4_GIO_PULL__Enable_Pull(RM4_GIO__PORT_DEFINE_T ePort, Luint8 u8BitIndex);

@@ -24,11 +24,12 @@
 //the structure
 extern struct _strFCU sFCU;
 
-
 /***************************************************************************//**
  * @brief
  * Init the stepper interface
- *
+ * 
+ * @st_funcMD5		789F80370F1D1EEB00F64DD61C585732
+ * @st_funcID		LCCM655R0.FILE.025.FUNC.001
  */
 void vFCU_BRAKES_STEP__Init(void)
 {
@@ -86,7 +87,9 @@ void vFCU_BRAKES_STEP__Init(void)
 /***************************************************************************//**
  * @brief
  * Process any brake commands
- *
+ * 
+ * @st_funcMD5		792382B2C7B93024D59EDDDE0DBD345D
+ * @st_funcID		LCCM655R0.FILE.025.FUNC.002
  */
 void vFCU_BRAKES_STEP__Process(void)
 {
@@ -94,21 +97,28 @@ void vFCU_BRAKES_STEP__Process(void)
 
 }
 
-
 /***************************************************************************//**
  * @brief
  * Returns the current position of the lead screw for the brakes
- *
+ * 
+ * @param[in]		eBrake		## Desc ##
+ * @st_funcMD5		3BF5E1F91C16F1F30165C47A35510773
+ * @st_funcID		LCCM655R0.FILE.025.FUNC.003
  */
 Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake)
 {
 	return s32STEPDRIVE_POSITION__Get_Position((Luint8)eBrake);
 }
 
+
 /***************************************************************************//**
  * @brief
  * Move the brakes as a pair to a position based on the lead screw distance
- *
+ * 
+ * @param[in]		s32Brake1Pos		## Desc ##
+ * @param[in]		s32Brake0Pos		## Desc ##
+ * @st_funcMD5		2294887F0A4BEF2482FF3AE3F94AF8E4
+ * @st_funcID		LCCM655R0.FILE.025.FUNC.004
  */
 void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos)
 {

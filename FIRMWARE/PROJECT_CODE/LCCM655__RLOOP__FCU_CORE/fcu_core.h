@@ -365,6 +365,10 @@
 					E_LASER_ORIENTATION__STATE_T eState;
 
 				}sOrient;
+				
+				#else
+					//Needed for compatibiltiy
+					Luint8 u8Dummy;
 				#endif
 
 			}sFlightControl;
@@ -579,6 +583,14 @@
 
 		//throttle layer
 		void vFCU_THROTTLE__Init(void);
+
+		#if C_LOCALDEF__LCCM655__ENABLE_TEST_SPEC == 1U
+
+			//only for testing
+			extern struct _strFCU sFCU;
+
+			DLL_DECLARATION void vLCCM655R0_TS_000(void);
+		#endif
 
 
 	#endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U

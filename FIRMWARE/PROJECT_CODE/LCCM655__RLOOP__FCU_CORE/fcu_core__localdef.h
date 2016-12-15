@@ -35,6 +35,7 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 
 		/** Enable the braking subsystems */
 		#define C_LOCALDEF__LCCM655__ENABLE_BRAKES							(0U)
+		#define C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES					(0U)
 
 		/** Enable the throttle control */
 		#define C_LOCALDEF__LCCM655__ENABLE_THROTTLE						(0U)

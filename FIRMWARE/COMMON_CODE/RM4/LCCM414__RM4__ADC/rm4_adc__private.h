@@ -17,7 +17,7 @@
 	typedef enum
 	{
 		RM4_ADC__1 = 0U,
-		RM4_ADC__2 = 1U,
+		RM4_ADC__2 = 1U
 
 	}RM4_ADC__INDEX_T;
 
@@ -165,7 +165,7 @@
 				#endif
 
 
-			}sDevice[C_LOCALDEF__LCCM414__NUM_CONNECTED_DEVICES + 1];
+			}sDevice[C_LOCALDEF__LCCM414__NUM_CONNECTED_DEVICES + 1U];
 
 		}sChannel[C_LOCALDEF__LCCM414__NUM_ADC_MODULES];
 

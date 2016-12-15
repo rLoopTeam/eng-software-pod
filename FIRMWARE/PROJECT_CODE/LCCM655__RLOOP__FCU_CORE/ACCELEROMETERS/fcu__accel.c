@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the accel subsystem layer
  * 
- * @st_funcMD5		D264BD376B68C2C783DE6D1321A16048
+ * @st_funcMD5		F190FD444F5B80EC7C484B263C288928
  * @st_funcID		LCCM655R0.FILE.010.FUNC.001
  */
 void vFCU_ACCEL__Init(void)
@@ -44,9 +44,9 @@ void vFCU_ACCEL__Init(void)
 	}
 
 	//get some interrupts going for channel 0
-	vRM4_GIO__Set_BitDirection(gioPORTA, 6U, GIO_DIRECTION__INPUT);
+	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 6U, GIO_DIRECTION__INPUT);
 	vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOA_6);
-	vRM4_GIO__Set_Port_Pullup(gioPORTA, 6U);
+	vRM4_GIO__Set_Port_Pullup(RM4_GIO__PORT_A, 6U);
 
 	//enable
 	vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_6);
@@ -73,9 +73,9 @@ void vFCU_ACCEL__Init(void)
 
 	#if C_LOCALDEF__LCCM418__NUM_DEVICES >= 2
 		//get some interrupts going for channel 1
-		vRM4_GIO__Set_BitDirection(gioPORTA, 7U, GIO_DIRECTION__INPUT);
+		vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 7U, GIO_DIRECTION__INPUT);
 		vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOA_7);
-		vRM4_GIO__Set_Port_Pullup(gioPORTA, 7U);
+		vRM4_GIO__Set_Port_Pullup(RM4_GIO__PORT_A, 7U);
 
 		//enable
 		vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_7);
@@ -107,7 +107,7 @@ void vFCU_ACCEL__Init(void)
  * Process the accel's
  * Call as fast as possible from the main loop
  * 
- * @st_funcMD5		B97F20C16A7FF5AD8D9EB993D4D2337C
+ * @st_funcMD5		CC85D859A7DAFE2A9EC3DBE59C6E5665
  * @st_funcID		LCCM655R0.FILE.010.FUNC.002
  */
 void vFCU_ACCEL__Process(void)
@@ -116,7 +116,7 @@ void vFCU_ACCEL__Process(void)
 	Luint32 u32Temp1;
 
 	//process device 0
-	vMMA8451__Process(0);
+	vMMA8451__Process(0U);
 
 	//after processing check for any fault flags
 	u32Temp0 = u32MMA8451__Get_FaultFlags(0U);
@@ -131,23 +131,22 @@ void vFCU_ACCEL__Process(void)
 		//do nothing
 	}
 
-	#if C_LOCALDEF__LCCM418__NUM_DEVICES >= 2
-		//do sensor 1
-		vMMA8451__Process(1U);
+	#if C_LOCALDEF__LCCM418__NUM_DEVICES >= 2U
+	//do sensor 1
+	vMMA8451__Process(1U);
 
-		//after processing check for any fault flags
-		u32Temp1 = u32MMA8451__Get_FaultFlags(0U);
-		if(u32Temp1 != 0x00000000U)
-		{
-			//we had a fault with sensor 0
-			vFAULTTREE__Set_Flag(&sFCU.sFaults.sAccel, C_LCCM655__ACCEL__FAULT_INDEX__00);
-			vFAULTTREE__Set_Flag(&sFCU.sFaults.sAccel, C_LCCM655__ACCEL__FAULT_INDEX__01);
-		}
-		else
-		{
-			//do nothing
-		}
-
+	//after processing check for any fault flags
+	u32Temp1 = u32MMA8451__Get_FaultFlags(0U);
+	if(u32Temp1 != 0x00000000U)
+	{
+		//we had a fault with sensor 0
+		vFAULTTREE__Set_Flag(&sFCU.sFaults.sAccel, C_LCCM655__ACCEL__FAULT_INDEX__00);
+		vFAULTTREE__Set_Flag(&sFCU.sFaults.sAccel, C_LCCM655__ACCEL__FAULT_INDEX__01);
+	}
+	else
+	{
+		//do nothing
+	}
 	#endif
 
 	if(u32Temp0 == 0U)
@@ -168,24 +167,24 @@ void vFCU_ACCEL__Process(void)
 		//lost accel data on this sensor
 	}
 
-	#if C_LOCALDEF__LCCM418__NUM_DEVICES >= 2
-		if(u32Temp1 == 0U)
-		{
-			//no faults on sensor 1, safe to process accel data
-			sFCU.sAccel.sChannels[1].s16LastSample[0] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_X);
-			sFCU.sAccel.sChannels[1].s16LastSample[1] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_Y);
-			sFCU.sAccel.sChannels[1].s16LastSample[2] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_Z);
+	#if C_LOCALDEF__LCCM418__NUM_DEVICES >= 2U
+	if(u32Temp1 == 0U)
+	{
+		//no faults on sensor 1, safe to process accel data
+		sFCU.sAccel.sChannels[1].s16LastSample[0] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_X);
+		sFCU.sAccel.sChannels[1].s16LastSample[1] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_Y);
+		sFCU.sAccel.sChannels[1].s16LastSample[2] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_Z);
 
 
-			sFCU.sAccel.sChannels[1].f32LastG[0] = f32MMA8451_MATH__Get_GForce(1U, AXIS_X);
-			sFCU.sAccel.sChannels[1].f32LastG[1] = f32MMA8451_MATH__Get_GForce(1U, AXIS_Y);
-			sFCU.sAccel.sChannels[1].f32LastG[2] = f32MMA8451_MATH__Get_GForce(1U, AXIS_Z);
+		sFCU.sAccel.sChannels[1].f32LastG[0] = f32MMA8451_MATH__Get_GForce(1U, AXIS_X);
+		sFCU.sAccel.sChannels[1].f32LastG[1] = f32MMA8451_MATH__Get_GForce(1U, AXIS_Y);
+		sFCU.sAccel.sChannels[1].f32LastG[2] = f32MMA8451_MATH__Get_GForce(1U, AXIS_Z);
 
-		}
-		else
-		{
-			//lost accel data on this sensor
-		}
+	}
+	else
+	{
+		//lost accel data on this sensor
+	}
 	#endif
 
 }
