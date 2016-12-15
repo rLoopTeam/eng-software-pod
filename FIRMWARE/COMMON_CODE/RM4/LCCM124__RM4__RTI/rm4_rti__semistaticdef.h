@@ -4,11 +4,12 @@
 
 #include <RM4/LCCM124__RM4__RTI/rm4_rti__staticdef.h>
 
-	//Preescaler for each timer
-	//The RTI1CLK goes into counter 0 and counter 1
+	/** Preescaler for each timer
+	 * The RTI1CLK feeds into counter 0 and counter 1
+	 */
 	//The prescaler value takes the RTI1CLK and divides it down to the compare frequency.
 	#define RM48L950_RTI_COUNTER0_PRESC 10U
-	#define RM48L950_RTI_COUNTER1_PRESC 10U
+
 
 	//Clarifying the sintaxis for each timer.
 	#define RM48L950_RTI_TIME_1_64_SEC RM48L950_RTI_TIMER_0

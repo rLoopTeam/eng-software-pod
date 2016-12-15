@@ -432,6 +432,10 @@ RTI MODULE
 		 * */
 		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(50U)
 
+		/** RTCLK1 feeds counter 1 and can be used for 64bit timing */
+		#define C_LOCALDEF__LCCM124__RTI_COUNTER1_PRESCALER					(1U)
+
+
 		//Sets up the time periods for each compare. Must be defined in microSeconds.
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_PERIOD_US 				(100000U)
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_PERIOD_US 				(10000U)
