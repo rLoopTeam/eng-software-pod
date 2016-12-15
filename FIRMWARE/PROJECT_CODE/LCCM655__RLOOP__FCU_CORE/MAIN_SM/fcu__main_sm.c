@@ -210,7 +210,7 @@ void vFCU_MAINSM__Process(void)
 		#endif
 
 		#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
-			vFCU_PUSHER__Pusher();
+			vFCU_PUSHER__Process();
 		#endif
 
 		//process the brakes.
