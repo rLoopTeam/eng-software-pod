@@ -259,7 +259,7 @@
 
 			}sPusher;
 
-			/** Overall structure for the laser interfaces */
+			/** Overall structure for the OPTONCDT laser interfaces */
 			struct
 			{
 				/** state machine for processing the OptoNCDT systems */
@@ -291,7 +291,34 @@
 
 				}sOptoLaser[C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT];
 
-			}sLasers;
+			}sLaserOpto;
+
+			/** structure for the laser distance interface */
+			struct
+			{
+
+				/** main state machine */
+				E_FCU_LASERDIST__STATE_T eLaserState;
+
+				/** RX byte state machine */
+				E_LASERDIST__RX_STATE_T eRxState;
+
+				/** A 100ms counter to wait until the lasers have powered up*/
+				Luint32 u32LaserPOR_Counter;
+
+				/** A new packet is available for distance processing */
+				Luint8 u8NewPacket;
+
+				/** Array to hold new bytes received */
+				Luint8 u8NewByteArray[3];
+
+				/** The most recent distance*/
+				Lfloat32 f32Distance;
+
+				/** New distance has been measured, other layer to clear it */
+				Luint8 u8NewDistanceAvail;
+
+			}sLaserDist;
 
 
 			/** Flight Controller */
@@ -478,6 +505,8 @@
 		//Laser distance
 		void vFCU_LASERDIST__Init(void);
 		void vFCU_LASERDIST__Process(void);
+		Lfloat32 f32FCU_LASERDIST__Get_Distance(void);
+		void vFCU_LASERDIST__100MS_ISR(void);
 
 
 		//main state machine

@@ -92,6 +92,30 @@
 
 	}E_FCU_OPTOLASER__STATE_T;
 
+	/** laser distance state types */
+	typedef enum
+	{
+
+		/** just come out of reset */
+		LASERDIST_STATE__RESET = 0U,
+
+		/** we need to wait until the lasers power up before issuing a command*/
+		LASERDIST_STATE__WAIT_LASER_RESET,
+
+		/** configure the laser into RS422 mode */
+		LASERDIST_STATE__INIT_LASER,
+
+		/** Wait until the laser has been initted */
+		LASERDIST_STATE__WAIT_INIT_DONE,
+
+		/** Check if any new data is avail from the laser FIFO's */
+		LASERDIST_STATE__CHECK_NEW_DATA,
+
+		/** Check if a new packet is avail for each laser */
+		LASERDIST_STATE__CHECK_NEW_PACKET,
+
+	}E_FCU_LASERDIST__STATE_T;
+
 	/** State types for the LaserOrientation state machine */
 	typedef enum
 	{
@@ -127,6 +151,14 @@
 
 	}E_OPTONCDT__RX_STATE_T;
 
+	/** Laser distance Rx states */
+	typedef enum
+	{
+		LASERDIST_RX__BYTE_1 = 0U,
+		LASERDIST_RX__BYTE_2,
+		LASERDIST_RX__BYTE_3,
+
+	}E_LASERDIST__RX_STATE_T;
 
 
 	/** Flight control state machine INIT types */

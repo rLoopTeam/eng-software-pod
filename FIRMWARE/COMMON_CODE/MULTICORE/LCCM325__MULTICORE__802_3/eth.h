@@ -158,42 +158,42 @@
 		//function protos
 		void vETHERNET__Init(Luint8 * pu8MAC, Luint8 * pu8IP);
 		void vETHERNET__Process(void);
-		Luint8 u8ETHERNET_FIFO__Is_Empty(void);
-		Lint16 s16ETHERNET_FIFO__Pop(Luint8 * pu8BufferIndex, Luint16 * pu16PacketLength);
-		void vETHERNET_FIFO__Peek(Luint8 u8BufferPos, Luint8 * pu8BufferIndex, Luint16 * pu16PacketLength);
-		Lint16 s16ETHERNET_FIFO__Push(Luint16 u16PacketLength);
+		Luint8 u8ETH_FIFO__Is_Empty(void);
+		Lint16 s16ETH_FIFO__Pop(Luint8 * pu8BufferIndex, Luint16 * pu16PacketLength);
+		void vETH_FIFO__Peek(Luint8 u8BufferPos, Luint8 * pu8BufferIndex, Luint16 * pu16PacketLength);
+		Lint16 s16ETH_FIFO__Push(Luint16 u16PacketLength);
 		void vETH_FIFO__Push_UpdateLength(Luint8 u8FIFOIndex, Luint16 u16NewLength);
-		void vETHERNET_FIFO__Transmit(void);
-		void vETHERNET_FIFO__Reset(void);
+		void vETH_FIFO__Transmit(void);
+		void vETH_FIFO__Reset(void);
 		
 		#if C_LOCALDEF__LCCM325__USE_ON_RM4 == 1U
-			void vETHERNET_FIFO__Transmit_Worker_RM4(void);
+			void vETH_FIFO__Transmit_Worker_RM4(void);
 		#elif C_LOCALDEF__LCCM325__USE_ON_XILINX == 1U
-			void vETHERNET_XILINX__Init(void);
-			void vETHERNET_XILINX__Transmit_PLB(Luint8 u8DeviceIndex);
+			void vETH_XILINX__Init(void);
+			void vETH_XILINX__Transmit_PLB(Luint8 u8DeviceIndex);
 			#if C_LOCALDEF__LCCM325__XILINX_USE_NPI_INTERFACE == 1U
-				void vETHERNET_XILINX__Transmit_NPI(Luint8 u8DeviceIndex);
+				void vETH_XILINX__Transmit_NPI(Luint8 u8DeviceIndex);
 			#endif
 		#elif C_LOCALDEF__LCCM325__USE_ON_WIN32 == 1U
-			void vETHERNET_FIFO__Transmit_Worker_WIN32(void);
+			void vETH_FIFO__Transmit_Worker_WIN32(void);
 		#elif C_LOCALDEF__LCCM325__USE_ON_MSP430 == 1U
-			void vETHERNET_FIFO__Transmit_Worker_MSP430(void);
+			Lint16 s16ETH_FIFO__Transmit_Worker_MSP430(void);
 		#else
 			#error
 		#endif
 
 		//ethernet layer
-		void vETHERNET_ETH__Input(Luint8 * pu8Buffer);
-		void vETHERNET_ETH__Transmit(Luint16 u16EtherType, Luint8 * pu8DestMAC);
+		void vETH_ETH__Input(Luint8 * pu8Buffer);
+		void vETH_ETH__Transmit(Luint16 u16EtherType, Luint8 * pu8DestMAC);
 	
 		//ipv4 layer
-		void vETHERNET_IPV4__Input(Luint8 * pu8Buffer);
-		void vETHERNET_IPV4__Transmit(Luint16 u16Length);
+		void vETH_IPV4__Input(Luint8 * pu8Buffer);
+		void vETH_IPV4__Transmit(Luint16 u16Length);
 	
 		//ARP
-		void vETHERNET_ARP__Input(Luint8 * pu8Buffer);
-		void vETHERNET_ARP__Reply(void);
-		void vETHERNET_ARP__Gratuitous(void);
+		void vETH_ARP__Input(Luint8 * pu8Buffer);
+		void vETH_ARP__Reply(void);
+		void vETH_ARP__Gratuitous(void);
 		
 		//SNMP
 		#if C_LOCALDEF__LCCM325__ENABLE_SNMP == 1U
@@ -204,13 +204,13 @@
 		#endif
 
 		//udp
-		void vETHERNET_UDP__Transmit(Luint16 u16Length, Luint16 u16SourcePort, Luint16 u16DestPort);
+		void vETH_UDP__Transmit(Luint16 u16Length, Luint16 u16SourcePort, Luint16 u16DestPort);
 		#if (C_LOCALDEF__LCCM325__USE_ON_XILINX == 1U) || (C_LOCALDEF__LCCM325__USE_ON_WIN32 == 1U)
 			#if C_LOCALDEF__LCCM325__XILINX_USE_NPI_INTERFACE == 1U
-				void vETHERNET_UDP__Transmit_WithPayload(Luint16 u16Length, Luint16 u16SourcePort, Luint16 u16DestPort, Luint32 u32PayloadLength, Luint32 u32PayloadAddx);
+				void vETH_UDP__Transmit_WithPayload(Luint16 u16Length, Luint16 u16SourcePort, Luint16 u16DestPort, Luint32 u32PayloadLength, Luint32 u32PayloadAddx);
 			#endif
 		#endif
-		void vETHERNET_UDP__Input(Luint8 * pu8Buffer);
+		void vETH_UDP__Input(Luint8 * pu8Buffer);
 		
 		//DHCP
 		#if C_LOCALDEF__LCCM325__ENABLE_DHCP_CLIENT == 1U
@@ -226,16 +226,16 @@
 		#endif
 
 		//buffer desc
-		Luint32 u32ETHERNET_BUFFERDESC__Get_TxBufferPointer(Luint8 u8BufferIndex);
-		Luint16 u16ETHERNET_BUFFERDESC__Get_BufferSize(Luint8 u8BufferIndex);
+		Luint32 u32ETH_BUFFERDESC__Get_TxBufferPointer(Luint8 u8BufferIndex);
+		Luint16 u16ETH_BUFFERDESC__Get_BufferSize(Luint8 u8BufferIndex);
 		
 		#ifdef WIN32
 			void vETH_WIN32__Init(void);
 			//declare the type
-			typedef void (__cdecl * pETHERNET_WIN32__TxCallback_FuncType)(Luint8 * pu8Buffer, Luint16 u16BufferLength);
-			DLL_DECLARATION void vETHERNET_WIN32__Set_Ethernet_TxCallback(pETHERNET_WIN32__TxCallback_FuncType pFunc);
-			DLL_DECLARATION void vETHERNET_WIN32__Ethernet_Input(Luint8 * pu8Buffer, Luint16 u16BufferLength);
-			DLL_DECLARATION void vETHERNET_WIN32__Ethernet_Output(Luint8 * pu8Buffer, Luint16 u16BufferLength);
+			typedef void (__cdecl * pETH_WIN32__TxCallback_FuncType)(Luint8 * pu8Buffer, Luint16 u16BufferLength);
+			DLL_DECLARATION void vETH_WIN32__Set_Ethernet_TxCallback(pETH_WIN32__TxCallback_FuncType pFunc);
+			DLL_DECLARATION void vETH_WIN32__Ethernet_Input(Luint8 * pu8Buffer, Luint16 u16BufferLength);
+			DLL_DECLARATION void vETH_WIN32__Ethernet_Output(Luint8 * pu8Buffer, Luint16 u16BufferLength);
 		#endif		
 		
 		//testing

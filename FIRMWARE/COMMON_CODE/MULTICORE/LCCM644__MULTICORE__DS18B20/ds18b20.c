@@ -43,6 +43,7 @@ void vDS18B20__Init(void)
 
 	//setup
 	sDS18B20.sEnum.u8NumDevices = 0U;
+	sDS18B20.u8NewData = 0U;
 	//setup the vars
 	sDS18B20.u32Guard1 = 0x11223344;
 	sDS18B20.u32Guard2 = 0x44556677;
@@ -302,6 +303,7 @@ void vDS18B20__Process(void)
 		case DS18B20_STATE__READ_DONE:
 
 			//signal that new temp data is avail
+			sDS18B20.u8NewData = 1U;
 
 			//go back and do more
 			sDS18B20.eMainState = DS18B20_STATE__START_CONVERT_ALL;
@@ -309,6 +311,16 @@ void vDS18B20__Process(void)
 
 	}//switch(sDS18B20.eMainState)
 
+}
+
+Luint8 u8DS18B20__Is_NewDataAvail(void)
+{
+	return sDS18B20.u8NewData;
+}
+
+void vDS18B20__Clear_NewDataAvail(void)
+{
+	sDS18B20.u8NewData = 0U;
 }
 
 /***************************************************************************//**
@@ -329,6 +341,12 @@ void vDS18B20__Start_TempRead(void)
 		//do not allow the state change
 	}
 }
+
+Lfloat32 f32DS18B20__Get_Temperature_DegC(Luint16 u16Index)
+{
+	return sDS18B20.sDevice[u16Index].f32Temperature;
+}
+
 
 
 #if C_LOCALDEF__LCCM644__USE_10MS_ISR == 1U

@@ -28,7 +28,7 @@
  * Transmit acceleration data over ethernet
  *
  * @param[in]		u16PacketType			The type of packet to transmit
- * @st_funcMD5		E90CA00FA79E5384E92D64FCA0D05B8F
+ * @st_funcMD5		DEA19C257EED4866C38D9C84CAEB8BCA
  * @st_funcID		LCCM655R0.FILE.030.FUNC.001
  */
 void vFCU_ACCEL_ETH__Transmit(E_FCU_NET_PACKET_TYPES ePacketType)
@@ -60,7 +60,7 @@ void vFCU_ACCEL_ETH__Transmit(E_FCU_NET_PACKET_TYPES ePacketType)
 	}//switch(ePacketType)
 
 	//pre-comit
-	s16Return = s16SAFE_UDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
 	if(s16Return == 0)
 	{
 		//handle the packet
@@ -136,7 +136,7 @@ void vFCU_ACCEL_ETH__Transmit(E_FCU_NET_PACKET_TYPES ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSAFE_UDP_TX__Commit(u8BufferIndex, u16Length, C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER, C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER);
+		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER, C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER);
 
 	}//if(s16Return == 0)
 	else
