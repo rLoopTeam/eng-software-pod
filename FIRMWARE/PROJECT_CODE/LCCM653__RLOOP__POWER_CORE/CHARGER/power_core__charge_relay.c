@@ -31,10 +31,10 @@ void vPWRNODE_CHG_RELAY__Init(void)
 
 	//Setup the hardware pins
 	//GPIOA1
-	vRM4_GIO__Set_BitDirection(gioPORTA, 1U, GIO_DIRECTION__OUTPUT);
+	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 1U, GIO_DIRECTION__OUTPUT);
 
 	//set to OFF
-	vRM4_GIO__Set_Bit(gioPORTA, 1U, 0U);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 0U);
 }
 
 void vPWRNODE_CHG_RELAY__Process(void)
@@ -59,7 +59,7 @@ void vPWRNODE_CHG_RELAY__On(void)
 	//todo, change state
 
 	//for test week, toggle the pin.
-	vRM4_GIO__Set_Bit(gioPORTA, 1U, 1U);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 1U);
 }
 
 void vPWRNODE_CHG_RELAY__Off(void)
@@ -68,7 +68,7 @@ void vPWRNODE_CHG_RELAY__Off(void)
 	//todo, change state
 
 	//for test week, toggle the pin.
-	vRM4_GIO__Set_Bit(gioPORTA, 1U, 0U);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 0U);
 }
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_CHARGER

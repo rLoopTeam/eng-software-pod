@@ -267,6 +267,7 @@ void vPWRNODE__Process(void)
 			vRM4_RTI__Start_Interrupts();
 			//Starts the counter zero
 			vRM4_RTI__Start_Counter(0);
+			vRM4_RTI__Start_Counter(1);
 
 			//kick off the ADC too
 			vRM4_ADC_USER__StartConversion();

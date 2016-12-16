@@ -430,7 +430,7 @@ RTI MODULE
 		 * 50	(50MHZ)
 		 * 25	(25MHZ)
 		 * */
-		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(50U)
+		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(25U)
 
 		/** RTCLK1 feeds counter 1 and can be used for 64bit timing */
 		#define C_LOCALDEF__LCCM124__RTI_COUNTER1_PRESCALER					(1U)
@@ -792,12 +792,12 @@ LR Time = 160ns
 		#define C_LOCALDEF__LCCM240__ENABLE_N2HET2							(0U)
 
 		//enable interrupts or not
-		#define C_LOCALDEF__LCCM240__ENABLE_INTERRUPTS						(0U)
+		#define C_LOCALDEF__LCCM240__ENABLE_INTERRUPTS						(1U)
 
 
 		//HET Options
 		#define C_LOCALDEF__LCCM240__ENABLE_INPUT_CAPTURE					(0U)
-		#define C_LOCALDEF__LCCM240__ENABLE_EDGE_CAPTURE					(0U)
+		#define C_LOCALDEF__LCCM240__ENABLE_EDGE_CAPTURE					(1U)
 		#define C_LOCALDEF__LCCM240__ENABLE_PWM								(0U)
 		#define C_LOCALDEF__LCCM240__ENABLE_TIMESTAMPING					(0U)
 
