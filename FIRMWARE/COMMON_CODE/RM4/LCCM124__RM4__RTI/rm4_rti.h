@@ -165,6 +165,19 @@
 			#define RM48L950_GIO_SET_HIGH 1
 		#endif//#define C_LOCALDEF__LCCM124__ENABLE_TEST_SPEC
 
+
+		//some things to check
+		//VCLK/3
+		#if C_LOCALDEF__SYSTEM__VCLK1_DIVISOR > 1U
+			#if C_LOCALDEF__LCCM124__RTI_CLK_FREQ > 25U
+				#error
+			#endif
+		#endif
+		#ifndef C_LOCALDEF__SYSTEM__VCLK1_DIVISOR
+			#error
+		#endif
+
+
 	#endif //#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1
 #endif //#ifndef __RM48_RTI_H__
 
