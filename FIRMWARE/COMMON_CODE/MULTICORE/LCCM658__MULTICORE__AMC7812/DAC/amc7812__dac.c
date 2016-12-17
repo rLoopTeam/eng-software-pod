@@ -72,6 +72,7 @@ Luint16 vAMC7812_DAC__Process(void)
 	Lint16 s16Return;
 	Luint16 u16RegisterBitValues;
 	Luint16 u16DeviceIDAddr;
+	Lint16 s16Errf;
 
 	// initialize
 
@@ -147,7 +148,7 @@ Luint16 vAMC7812_DAC__Process(void)
 
 			s16Return = s16AMC7812_I2C__ReadU16(C_LOCALDEF__LCCM658__BUS_ADDX, AMC7812_REG_ADR__DEV_ID, &u16DeviceIDAddr);
 
-			if (u8ReturnVal == 1U)
+			if(u8ReturnVal == 1U)
 			{
 				// Power-on reset successful
 				// set the power-down register
@@ -169,6 +170,16 @@ Luint16 vAMC7812_DAC__Process(void)
 				// set the power-down register
 
 				s16Return = s16AMC7812_I2C__WriteU16(C_LOCALDEF__LCCM658__BUS_ADDX, AMC7812_REG_ADR__PWR_DWN, u16RegisterBitValues);
+
+				s16Errf = 0;
+				if(s16Return < 0)
+				{
+					s16Errf = -1;
+				}
+				else
+				{
+					//
+				}
 
 				// set the DAC gain
 				// output voltage is GAIN * Vref,
@@ -192,6 +203,15 @@ Luint16 vAMC7812_DAC__Process(void)
 				}
 				s16Return = s16AMC7812_I2C__WriteU16(C_LOCALDEF__LCCM658__BUS_ADDX, AMC7812_DAC_REG__GAINS, u16RegisterBitValues);
 
+				if(s16Return < 0)
+				{
+					s16Errf = -1;
+				}
+				else
+				{
+					//
+				}
+
 				// Set the configuration mode
 
 				if(AMC7812_DAC_CONFIG_MODE_FLAG == 1U)
@@ -208,6 +228,15 @@ Luint16 vAMC7812_DAC__Process(void)
 				}
 				s16Return = s16AMC7812_I2C__WriteU16(C_LOCALDEF__LCCM658__BUS_ADDX, AMC7812_DAC_REG__CONFIG, u16RegisterBitValues);
 
+				if(s16Return < 0)
+				{
+					s16Errf = -1;
+				}
+				else
+				{
+					//
+				}
+
 				// Compute the output scale factor (DAC registers are 12-bit, so range is 0 to 2^12 = 4096)
 				// 	The DAC register value is Vreqd * Gain * Vref / 2^12
 
@@ -215,7 +244,7 @@ Luint16 vAMC7812_DAC__Process(void)
 
 			}	// end if (u8ReturnVal == 1U)
 
-			if (u8ReturnVal == 0U && s16Return >= 0U)
+			if(u8ReturnVal > 0U && s16Errf >= 0U)
 			{
 				// setup successful, change state
 
@@ -225,6 +254,7 @@ Luint16 vAMC7812_DAC__Process(void)
 			{
 				// setup failed, change state
 
+				s16Return = -1;
 				strAMC7812_DAC.eState = AMC7812_DAC_STATE__ERROR;
 
 			}

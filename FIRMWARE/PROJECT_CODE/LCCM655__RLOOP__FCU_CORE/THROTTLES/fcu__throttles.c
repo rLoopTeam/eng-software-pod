@@ -49,10 +49,10 @@ extern struct _strFCU sFCU;
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 //xxxxxxxxxxxxx  DUMMY VALUES - TO BE SENT BY GROUND STATION  xxxxxxxxxxxxxx
-#define GS_COMMAND_MODE						STATIC_HOVERING//SET_HEX_SPEED
+#define GS_COMMAND_MODE						SET_HEX_SPEED
 #define GS_COMMAND_UNITS					0U
 #define GS_THROTTLE_COMMAND					15000U
-#define GS_ENGINE_NUMBER					6U//0U//6U
+#define GS_ENGINE_NUMBER					6U//0U
 #define GS_THROTTLE_RAMP_DURATION			3000U
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
