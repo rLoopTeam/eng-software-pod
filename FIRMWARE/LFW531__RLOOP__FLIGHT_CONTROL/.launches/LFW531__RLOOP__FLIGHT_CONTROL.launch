@@ -5,7 +5,7 @@
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROGRAM.Texas Instruments XDS100v2 USB Emulator/CortexR4" value="${build_artifact:LFW531__RLOOP__FLIGHT_CONTROL}"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROJECT.Texas Instruments XDS100v2 USB Emulator/CortexR4" value="LFW531__RLOOP__FLIGHT_CONTROL"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_TARGET_CONFIG" value="${target_config_active_default:LFW531__RLOOP__FLIGHT_CONTROL}"/>
-<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.Texas Instruments XDS100v2 USB Emulator/CortexR4" value="/Users/ruchivyas/Documents/rLoop_git/eng-software-pod/FIRMWARE/LFW531__RLOOP__FLIGHT_CONTROL/Debug/LFW531__RLOOP__FLIGHT_CONTROL.out"/>
+<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.Texas Instruments XDS100v2 USB Emulator/CortexR4" value="C:/Users\Public\eng-software-pod\FIRMWARE\LFW531__RLOOP__FLIGHT_CONTROL\Debug\LFW531__RLOOP__FLIGHT_CONTROL.out"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/LFW531__RLOOP__FLIGHT_CONTROL"/>
 </listAttribute>
