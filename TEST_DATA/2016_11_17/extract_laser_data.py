@@ -6,6 +6,9 @@
 # Date:     2016-Dec-17
 # @see:     go.m (Lachlan Grogan)
 
+# Note: command to create accel_laser_data.csv: 
+#    python extract_laser_data.py -p "Flig*.csv" -o accel_laser_data.csv
+
 import argparse
 import csv
 import glob
