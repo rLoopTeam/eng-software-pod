@@ -15,11 +15,11 @@ import glob
 
 # Command line arguments
 # @see http://stackoverflow.com/questions/11154946/argparse-require-either-of-two-arguments
-parser = argparse.ArgumentParser(description="Utility for extracting I-beam laser sensor and accelerometer data from Flig_tellog .csv files. NOTE: You must supply either INPUT or PATTERN.")
+parser = argparse.ArgumentParser(description="Utility for extracting I-beam laser sensor and accelerometer data from Flig_tellog .csv files.")
 input_pattern_group = parser.add_mutually_exclusive_group(required=True)
 input_pattern_group.add_argument('-i', '--input', help=".csv file to import", required=False)
 input_pattern_group.add_argument('-p', '--pattern', help="File matching pattern (e.g. Flig*.csv). Pattern must be in quotes.", required=False)
-parser.add_argument('-o', '--output', help=".csv file to import", required=False, default=None)
+parser.add_argument('-o', '--output', help="output .csv file", required=False, default=None)
 args = parser.parse_args()
 input_file = args.input
 
