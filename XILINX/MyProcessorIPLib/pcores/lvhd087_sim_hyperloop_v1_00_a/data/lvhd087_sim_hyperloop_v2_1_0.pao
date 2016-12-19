@@ -1,0 +1,9 @@
+##############################################################################
+##############################################################################
+
+lib lvhd022_xilinx_proc_common_v3_00_a all
+lib lvhd031_xilinx_plbv46_slave_single_v1_01_a all
+
+lib lvhd087_sim_hyperloop_v1_00_a lvhd087_pkg vhdl
+lib lvhd087_sim_hyperloop_v1_00_a lvhd087_user_logic vhdl
+lib lvhd087_sim_hyperloop_v1_00_a lvhd087_sim_hyperloop vhdl
