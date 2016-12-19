@@ -5,8 +5,25 @@
  *      Author: Lachlan
  */
 
-#ifndef RLOOP_LCCM655__RLOOP__FCU_CORE_NETWORKING_FCU_CORE__NET__PACKET_TYPES_H_
-#define RLOOP_LCCM655__RLOOP__FCU_CORE_NETWORKING_FCU_CORE__NET__PACKET_TYPES_H_
+#ifndef __NET__PACKET_TYPES_H_
+#define __NET__PACKET_TYPES_H_
+
+	/** rLoop UDP network packet types
+	* http://confluence.rloop.org/display/SD/Packet+Types
+	*/
+	typedef enum
+	{
+	
+	
+		//////////////////////////////////////////////////////
+		//XILINX HYPERLOOP SIMULATION (0x5000)
+		//////////////////////////////////////////////////////
+	
+		/** simulation control on the ML507 board */
+		NET_PKT__XILINX_SIM__SIMULATION_CONTROL = 0x5000U
+	
+	
+	}E_NET__PACKET_T;
 
 
 	/** Enumerated packet types for network transmission for UDP diagnostics */
@@ -42,4 +59,4 @@
 
 
 
-#endif /* RLOOP_LCCM655__RLOOP__FCU_CORE_NETWORKING_FCU_CORE__NET__PACKET_TYPES_H_ */
+#endif /* __NET__PACKET_TYPES_H_ */
