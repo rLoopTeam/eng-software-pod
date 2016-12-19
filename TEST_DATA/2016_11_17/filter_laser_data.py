@@ -5,61 +5,99 @@
 # Author:   Ryan Adams (@ninetimeout)
 # Date:     2016-Dec-18
 
-# Notes: maybe change alpha based on speed (slower speed = more reliance on old values; higher speed more reliance on samples? Seems confusing and possibly dangerous.)
+# Running this file:  python filter_laser_data.py -i accel_laser_data.csv
 
 ################################################################
 # Laser Sensor Processing
 ################################################################
 
-# Global Variables
-laser_sensor_alpha = 0.008  # larger alpha = higher reliance on current sample.
+# -----------------
+# Structures
+# -----------------
 
 # Laser sensor struct
 class strLaserSensor:
     def __init__(self):
-        self.current_value = 0.
-        self.previous_value = 0.
-                
-def process_laser_sensor(laser_sensor_struct, new_sample):
+        
+        # Volatile values
+        self.f32_current_value = 0.
+        self.f32_previous_value = 0.
+
+        # Stable values
+        self.f32_alpha = 0.008  # @todo: how to calculate this? Based on sampling frequency? Varying based on speed? 
+
+        # Configuration values (initialized later)
+        self.int_sampling_rate_hz = 0
+        self.f32_min_range_mm = 0.0
+        self.f32_max_range_mm = 0.0
+
+
+# -----------------
+# Functions
+# -----------------
+
+# Function that processes the data coming in. Takes a laser sensor struct and a new sample as arguments, returns the new value
+def process_laser_sensor(str_laser_sensor, f32_new_sample):
     """ Use an exponential moving average to filter laser sensor data """
     
-    if new_sample < 50.:
-        # If new sample is above 50, it's a 'no value'
+    # If new sample is above f32_LASER_SENSOR_MAX_RANGE, it's a 'no value' -- keep our last value
+    if f32_new_sample < str_laser_sensor.f32_max_range_mm:
         
         # Move us along
-        laser_sensor_struct.previous_value = laser_sensor_struct.current_value
+        str_laser_sensor.f32_previous_value = str_laser_sensor.f32_current_value
     
-        # Calculate a new current_value
+        # Calculate a new f32_current_value
         # @see http://dsp.stackexchange.com/questions/20333/how-to-implement-a-moving-average-in-c-without-a-buffer
-        new_sample_influence = laser_sensor_alpha * new_sample
-        old_value_influence = (1 - laser_sensor_alpha) * laser_sensor_struct.previous_value
-        laser_sensor_struct.current_value = new_sample_influence + old_value_influence
+        f32_new_sample_influence = str_laser_sensor.f32_alpha * f32_new_sample
+        f32_old_value_influence = (1 - str_laser_sensor.f32_alpha) * str_laser_sensor.f32_previous_value
+        str_laser_sensor.f32_current_value = f32_new_sample_influence + f32_old_value_influence
     
-    return laser_sensor_struct.current_value
-    
+    return str_laser_sensor.f32_current_value
 
+    
+# -----------------
+# Configuration
+# -----------------
+
+# Note: these could be put into an array in part of a substructure like the brakes or contrast sensors
+# Just declare them in the global scope for now
 laser_l = strLaserSensor()
 laser_r = strLaserSensor()
 laser_aft = strLaserSensor()
 
+# Configure the laser sensors
+# @todo: how do we handle configuration/calibration values in the FCU? e.g. setting zeros during calibration, etc.
+laser_l.int_sampling_rate_hz = 250
+laser_l.f32_min_range_mm = 0.0
+laser_l.f32_max_range_mm = 50.0
+laser_l.f32_alpha = 0.008  # @todo: how to calculate this? Based on sampling frequency? Varying based on speed? 
+
+laser_r.int_sampling_rate_hz = 250.0
+laser_r.f32_min_range_mm = 0.0
+laser_r.f32_max_range_mm = 50.0
+laser_r.f32_alpha = 0.008  # @todo: how to calculate this? Based on sampling frequency? Varying based on speed? 
+
+laser_aft.int_sampling_rate_hz = 250.0
+laser_aft.f32_min_range_mm = 0.0
+laser_aft.f32_max_range_mm = 50.0
+laser_aft.f32_alpha = 0.008  # @todo: how to calculate this? Based on sampling frequency? Varying based on speed? 
+
+# Anything else we need to do? Do we want to calculate the alphas based on sampling frequency or something? 
 
 
-
-################################################################
+#####################################################################
 #  Everything below here is just .csv and file management
-################################################################
+#  Description: A loop reads values from a .csv file and passes them 
+#  to process_laser_sensor() along with the appropriate laser sensor 
+#  struct (i.e. laser_l, laser_r, laser_aft). 
+#####################################################################
 
-
-
-# Note: command to create accel_laser_data.csv: 
-#    python extract_laser_data.py -p "Flig*.csv" -o accel_laser_data.csv
 
 import argparse
 import csv
 import glob
 
 # Command line arguments
-# @see http://stackoverflow.com/questions/11154946/argparse-require-either-of-two-arguments
 parser = argparse.ArgumentParser(description="Example of processing laser sensor data function")
 parser.add_argument('-i', '--input', help=".csv file to import", required=True)
 parser.add_argument('-o', '--output', help="output .csv file", required=False, default=None)
@@ -67,13 +105,10 @@ args = parser.parse_args()
 input_file = args.input
 
 
-# Setup input files. Make it a list if we just have one to simplify the code
+# Setup input file
 input_filename = args.input
 
-
-# Setup the channel indexes into the csv file (see go.m)
-# @todo: where did these indices come from? 
-# @todo: may need to offset all of these by 1 to get the right column...
+# Setup the channel indexes into the csv file
 col_indices = [
     ('timestamp', 0),
     ('ch_idx__accel_x', 1),
@@ -91,18 +126,22 @@ def output_csv(input_filename, col_indices, writer=None):
     with open(input_filename, 'rb') as infile:
         reader = csv.reader(infile)
         for row in reader:
+            # Extract the columns. This is more necessary if you have specific data you want to read out of a larger file
             cols = [row[idx] for name, idx in col_indices]
-            # Just hard code it for now -- process the laser sensors and append the values as new columns
+
+            # Note: Just hard code the indices for now -- process the laser sensors and append the values as new columns
             cols.append( str(process_laser_sensor(laser_l, float(row[4]))) )
             cols.append( str(process_laser_sensor(laser_r, float(row[5]))) )
             cols.append( str(process_laser_sensor(laser_aft, float(row[6]))) )
+            
+            # Write or print the csv row
             if writer is not None: 
                 writer.writerow(cols)
             else:
                 print ",".join(cols)
 
 
-# Write output
+# Handle output and call the output_csv function (which will read the csv)
 if args.output is not None:
     with open(args.output, 'w+') as outfile:
         writer = csv.writer(outfile)
