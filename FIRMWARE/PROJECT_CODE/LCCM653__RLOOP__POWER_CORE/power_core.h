@@ -196,6 +196,10 @@
 		void vPWRNODE_CHG_RELAY__On(void);
 		void vPWRNODE_CHG_RELAY__Off(void);
 
+		//charger current and voltage measurement
+		void vPWRNODE_CHG_IV__Init(void);
+		void vPWRNODE_CHG_IV__Process(void);
+
 		//BMS interface layer
 		void vPWRNODE_BMS__Init(void);
 		void vPWRNODE_BMS__Process(void);

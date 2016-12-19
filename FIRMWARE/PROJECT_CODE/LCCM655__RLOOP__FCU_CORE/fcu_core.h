@@ -424,6 +424,15 @@
 
 
 			}sUDPDiag;
+
+			/** SpaceX required transmission */
+			struct
+			{
+				/** A flag to indicate 10ms has elapsed if we are using timed packets */
+				Luint8 u8100MS_Flag;
+
+			}sSpaceX;
+
 			#endif
 
 			#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
@@ -494,6 +503,11 @@
 			void vFCU_NET_TX__Init(void);
 			void vFCU_NET_TX__Process(void);
 			void vFCU_NET_TX__10MS_ISR(void);
+
+			//spaceX specific
+			void vFCU_NET_SPACEX_TX__Init(void);
+			void vFCU_NET_SPACEX_TX__Process(void);
+			void vFCU_NET_SPACEX_TX__100MS_ISR(void);
 
 		//fault handling layer
 		void vFCU_FAULTS__Init(void);
