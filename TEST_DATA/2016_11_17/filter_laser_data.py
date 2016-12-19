@@ -12,28 +12,28 @@
 ################################################################
 
 # Global Variables
-laser_sensor_alpha = 0.005  # larger alpha = higher reliance on current sample.
+laser_sensor_alpha = 0.008  # larger alpha = higher reliance on current sample.
 
 # Laser sensor struct
 class strLaserSensor:
     def __init__(self):
         self.current_value = 0.
         self.previous_value = 0.
-        
-        # Maybe?
-        self.confidence = 0.
-
+                
 def process_laser_sensor(laser_sensor_struct, new_sample):
     """ Use an exponential moving average to filter laser sensor data """
-        
-    # Move us along
-    laser_sensor_struct.previous_value = laser_sensor_struct.current_value
     
-    # Calculate a new current_value
-    # @see http://dsp.stackexchange.com/questions/20333/how-to-implement-a-moving-average-in-c-without-a-buffer
-    new_sample_influence = laser_sensor_alpha * new_sample
-    old_value_influence = (1 - laser_sensor_alpha) * laser_sensor_struct.previous_value
-    laser_sensor_struct.current_value = new_sample_influence + old_value_influence
+    if new_sample < 50.:
+        # If new sample is above 50, it's a 'no value'
+        
+        # Move us along
+        laser_sensor_struct.previous_value = laser_sensor_struct.current_value
+    
+        # Calculate a new current_value
+        # @see http://dsp.stackexchange.com/questions/20333/how-to-implement-a-moving-average-in-c-without-a-buffer
+        new_sample_influence = laser_sensor_alpha * new_sample
+        old_value_influence = (1 - laser_sensor_alpha) * laser_sensor_struct.previous_value
+        laser_sensor_struct.current_value = new_sample_influence + old_value_influence
     
     return laser_sensor_struct.current_value
     
