@@ -1,0 +1,1 @@
+timestamp,accel_x,accel_y,accel_z,laser_l_aft_height,laser_r_aft_height,laser_aft_yaw,laser_l_aft_height_filtered,laser_r_aft_height_filtered,laser_aft_yaw_filtered
