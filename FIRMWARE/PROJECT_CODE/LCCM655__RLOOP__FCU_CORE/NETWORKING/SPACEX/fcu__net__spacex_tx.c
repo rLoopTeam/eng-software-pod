@@ -16,7 +16,7 @@
  * @ingroup FCU
  * @{ */
 
-#include "../fcu_core.h"
+#include "../../fcu_core.h"
 #if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 
 extern struct _strFCU sFCU;
