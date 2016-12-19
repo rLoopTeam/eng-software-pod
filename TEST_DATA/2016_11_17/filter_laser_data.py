@@ -11,6 +11,12 @@
 # Laser Sensor Processing
 ################################################################
 
+###  This code is written in a style intended to be translated into c code.
+###    - don't use fancy libraries (and most libraries are fancy. Think, "what's available in c?")
+###    - no classes (except when they're used to emulate a struct) 
+###    - indicate the types of all variables as a prefix (e.g. f32_myvar)
+###    - if you're stuck, ask on #eng-embed slack channel
+
 # -----------------
 # Structures
 # -----------------
@@ -82,11 +88,15 @@ laser_aft.f32_min_range_mm = 0.0
 laser_aft.f32_max_range_mm = 50.0
 laser_aft.f32_alpha = 0.008  # @todo: how to calculate this? Based on sampling frequency? Varying based on speed? 
 
-# Anything else we need to do? Do we want to calculate the alphas based on sampling frequency or something? 
+# Anything else we need to do? Do we want to calculate the alphas here based on sampling frequency or something? 
 
+
+# -----------------
+# Run/Test
+# -----------------
 
 #####################################################################
-#  Everything below here is just .csv and file management
+#  Everything below here is just .csv, file management, and run loop
 #  Description: A loop reads values from a .csv file and passes them 
 #  to process_laser_sensor() along with the appropriate laser sensor 
 #  struct (i.e. laser_l, laser_r, laser_aft). 
@@ -104,7 +114,6 @@ parser.add_argument('-o', '--output', help="output .csv file", required=False, d
 args = parser.parse_args()
 input_file = args.input
 
-
 # Setup input file
 input_filename = args.input
 
@@ -120,16 +129,18 @@ col_indices = [
 ]
 
 
+# Main loop to read from the .csv, send values for processing, and create the output
 def output_csv(input_filename, col_indices, writer=None):
     """ Output csv data using list of input filenames, column indices, and an optional writer """
     
     with open(input_filename, 'rb') as infile:
         reader = csv.reader(infile)
         for row in reader:
-            # Extract the columns. This is more necessary if you have specific data you want to read out of a larger file
+            # Extract the columns. This technique is more necessary if you have specific data you want to read out of a wider file
             cols = [row[idx] for name, idx in col_indices]
 
-            # Note: Just hard code the indices for now -- process the laser sensors and append the values as new columns
+            # Process the laser sensor samples and append the returned values to the row
+            # Note: Just hard code the indices for now -- 
             cols.append( str(process_laser_sensor(laser_l, float(row[4]))) )
             cols.append( str(process_laser_sensor(laser_r, float(row[5]))) )
             cols.append( str(process_laser_sensor(laser_aft, float(row[6]))) )
