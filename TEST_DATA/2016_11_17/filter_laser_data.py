@@ -46,7 +46,7 @@ class strLaserSensor:
 def process_laser_sensor(str_laser_sensor, f32_new_sample):
     """ Use an exponential moving average to filter laser sensor data """
     
-    # If new sample is above f32_LASER_SENSOR_MAX_RANGE, it's a 'no value' -- keep our last value
+    # If new sample is above the max range of this sensor, it's a 'no value' -- keep our last value
     if f32_new_sample < str_laser_sensor.f32_max_range_mm:
         
         # Move us along
@@ -73,7 +73,7 @@ laser_aft = strLaserSensor()
 
 # Configure the laser sensors
 # @todo: how do we handle configuration/calibration values in the FCU? e.g. setting zeros during calibration, etc.
-laser_l.int_sampling_rate_hz = 250
+laser_l.int_sampling_rate_hz = 250.0
 laser_l.f32_min_range_mm = 0.0
 laser_l.f32_max_range_mm = 50.0
 laser_l.f32_alpha = 0.008  # @todo: how to calculate this? Based on sampling frequency? Varying based on speed? 
