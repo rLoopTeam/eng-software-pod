@@ -86,12 +86,18 @@ void vFCU_NET_TX__Process(void)
 	switch(eType)
 	{
 		case FCU_PKT__ACCEL__TX_CAL_DATA:
-			vFCU_ACCEL_ETH__Transmit(FCU_PKT__ACCEL__TX_CAL_DATA);
+			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
+				vFCU_ACCEL_ETH__Transmit(FCU_PKT__ACCEL__TX_CAL_DATA);
+			#endif
+
 			sFCU.sUDPDiag.eTxPacketType = FCU_PKT__NONE;
 			break;
 
 		case FCU_PKT__ACCEL__TX_FULL_DATA:
-			vFCU_ACCEL_ETH__Transmit(FCU_PKT__ACCEL__TX_FULL_DATA);
+			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
+				vFCU_ACCEL_ETH__Transmit(FCU_PKT__ACCEL__TX_FULL_DATA);
+			#endif
+
 			sFCU.sUDPDiag.eTxPacketType = FCU_PKT__NONE;
 			break;
 

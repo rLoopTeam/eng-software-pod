@@ -25,7 +25,8 @@
 #include "amc7812.h"
 #if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 
-extern struct _strAMC7812_DAC strAMC7812_DAC;
+struct _strAMC7812_DAC strAMC7812_DAC;
+Luint8 u8DACOutputChannelAddr[NUM_DAC_CHANNELS];
 
 /***************************************************************************//**
  * @brief

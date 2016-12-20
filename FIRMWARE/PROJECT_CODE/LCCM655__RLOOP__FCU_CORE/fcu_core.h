@@ -384,6 +384,8 @@
 			struct
 			{
 
+				Luint32 u32Guard1;
+
 				/** Individual contrast senors */
 				struct
 				{
@@ -392,6 +394,26 @@
 					Luint16 u16N2HET_Index;
 
 				}sSensors[LASER_CONT__MAX];
+
+				/** a timing based list to store the rising and falling edges of each laser */
+				struct
+				{
+
+					/** Rising edge time stamp */
+					Luint64 u64RisingList[C_FCU__LASER_CONTRAST__MAX_STRIPES];
+
+					/** Falling edge time stamp */
+					Luint64 u64FallingList[C_FCU__LASER_CONTRAST__MAX_STRIPES];
+
+					/** Rising edge count */
+					Luint16 u16RisingCount;
+
+					/** Falling edge count */
+					Luint16 u16FallingCount;
+
+				}sTimingList[LASER_CONT__MAX];
+
+				Luint32 u32Guard2;
 
 			}sContrast;
 			#endif
@@ -482,15 +504,22 @@
 		void vFCU_FLIGHTCTL__Init(void);
 		void vFCU_FLIGHTCTL__Process(void);
 
-		// Laser Orientation
-		void vFCU_FLIGHTCTL_LASERORIENT__Init(void);
-		void vFCU_FLIGHTCTL_LASERORIENT__Process(void);
-		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Roll(void);
-		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Pitch(void);
-		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Yaw(void);
-		Lfloat32 f32FCU_FLIGHTCTL_LASERORIENT__Get_Lateral(void);
-		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_TwistRoll(void);
-		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_TwistPitch(void);
+			// Laser Orientation
+			void vFCU_FLIGHTCTL_LASERORIENT__Init(void);
+			void vFCU_FLIGHTCTL_LASERORIENT__Process(void);
+			Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Roll(void);
+			Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Pitch(void);
+			Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Yaw(void);
+			Lfloat32 f32FCU_FLIGHTCTL_LASERORIENT__Get_Lateral(void);
+			Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_TwistRoll(void);
+			Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_TwistPitch(void);
+
+			//contrast sensor nav
+			void vFCU_FLIGHTCTL_CONTRASTNAV__Init(void);
+			void vFCU_FLIGHTCTL_CONTRASTNAV__Process(void);
+			Luint32 u32FCU_FLIGHTCTL_CONTRASTNAV__Get_Position_mm(void);
+			Luint8 u8FCU_FLIGHTCTL_CONTRASTNAV__Get_IsFault(void);
+			Luint32 u32FCU_FLIGHTCTL_CONTRASTNAV__Get_FaultFlags(void);
 
 		//network
 		void vFCU_NET__Init(void);
@@ -518,7 +547,12 @@
 		//laser contrast sensors
 		void vFCU_LASERCONT__Init(void);
 		void vFCU_LASERCONT__Process(void);
-		void vFCU_LASERCONT__ISR(E_FCU__LASER_CONT_INDEX_T eLaser);
+		void vFCU_LASERCONT__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Register);
+
+			//timing list
+			void vFCU_LASERCONT_TL__Init(void);
+			void vFCU_LASERCONT_TL__Process(void);
+			DLL_DECLARATION void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Register);
 
 		//Laser distance
 		void vFCU_LASERDIST__Init(void);

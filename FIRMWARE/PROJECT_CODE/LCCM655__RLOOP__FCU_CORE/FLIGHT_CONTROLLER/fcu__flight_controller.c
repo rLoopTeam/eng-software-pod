@@ -35,7 +35,13 @@ void vFCU_FLIGHTCTL__Init(void)
 {
 
 	#if C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION == 1U
+		//setup laser orientation module
 		vFCU_FLIGHTCLT_LASERORIENT__Init();
+	#endif
+
+	#if C_LOCALDEF__LCCM655__ENABLE_FCTL_CONTRAST_NAV == 1U
+		//setup contrast sensor nav module
+		vFCU_FLIGHTCTL_CONTRASTNAV__Init();
 	#endif
 
 }
@@ -53,6 +59,10 @@ void vFCU_FLIGHTCTL__Process(void)
 
 	#if C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION == 1U
 		vFCU_FLIGHTCLT_LASERORIENT__Process();
+	#endif
+
+	#if C_LOCALDEF__LCCM655__ENABLE_FCTL_CONTRAST_NAV == 1U
+		vFCU_FLIGHTCTL_CONTRASTNAV__Process();
 	#endif
 
 }

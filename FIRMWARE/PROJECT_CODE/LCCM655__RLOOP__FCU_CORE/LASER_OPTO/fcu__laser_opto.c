@@ -26,6 +26,9 @@
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
 
+/** OptoNCDT's error value (out of range) */
+#define C_LASEROPTO__ERROR_CODE_VALUE					(65467U)
+
 //the structure
 extern struct _strFCU sFCU;
 
@@ -107,7 +110,7 @@ void vFCU_LASEROPTO__Process(void)
 			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT; u8Counter++)
 			{
 				//send the command
-				vSC16__Tx_ByteArray(u8Counter, "\r\nOUTPUT RS422\r\n", 16U);
+				vSC16__Tx_ByteArray(u8Counter, (Luint8*)"\r\nOUTPUT RS422\r\n", 16U);
 			}
 			//todo:
 			//Check that the laser is in the mode.
@@ -232,7 +235,7 @@ void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex)
 		//check for error value
 		//todo: 0U is a stand-in, shouldnt cause any trouble unless we end up mastering 
 		//	the lasers; insert real error value(s); Appx 3.7, man pg99	
-		if(u32ValA == C_LOCALDEF__LCCM655__LASER_OPTONCDT_ERROR) 
+		if(u32ValA == C_LASEROPTO__ERROR_CODE_VALUE) 
 		{
 			//Laser returned the error value
 			sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8Error = 1U;

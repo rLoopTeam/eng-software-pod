@@ -26,7 +26,7 @@
 #if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 
 extern struct _strAMC7812_DAC strAMC7812_DAC;
-
+extern Luint8 u8DACOutputChannelAddr[NUM_DAC_CHANNELS];
 
 /***************************************************************************//**
  * @brief
@@ -92,7 +92,9 @@ Luint16 vAMC7812_DAC__Process(void)
 
 			// wait in case we came in from clocking out bad I2C data
 
+#ifndef WIN32
 			vRM4_DELAYS__Delay_mS(10U);
+#endif
 
 			// software reset
 
@@ -102,13 +104,15 @@ Luint16 vAMC7812_DAC__Process(void)
 			// Hardware reset
 
 			// first, set the pin direction
-
+#ifndef WIN32
 			vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, RM48_N2HET1_PIN__AMC7812_HW_RESET);
+#endif
 
 			// To reset the device, create a pulse:
 
 			// first check the value of the pin
 
+#ifndef WIN32
 			u8ReturnVal = u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, RM48_N2HET1_PIN__AMC7812_HW_RESET);
 
 			if(u8ReturnVal == 0U)
@@ -224,6 +228,7 @@ Luint16 vAMC7812_DAC__Process(void)
 				strAMC7812_DAC.eState = AMC7812_DAC_STATE__ERROR;
 
 			}
+#endif //WIN32
 			break;
 
 		case AMC7812_DAC_STATE__SET_VOLTAGE:

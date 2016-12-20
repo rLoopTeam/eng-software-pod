@@ -16,7 +16,7 @@
  * @ingroup POWER_NODE
  * @{ */
 
-#include "../power_core.h"
+#include "../../power_core.h"
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
 
