@@ -55,6 +55,15 @@
     <Filter Include="Source Files\LCCM655__RLOOP__FCU_CORE">
       <UniqueIdentifier>{7144dc5a-546a-48e3-a7a7-480405a5513e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\LCCM655__RLOOP__FCU_CORE\UNIT_TEST">
+      <UniqueIdentifier>{ce34fdd0-69c4-4c66-958d-73d83b044878}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS">
+      <UniqueIdentifier>{d72edb92-f016-4cf8-ba92-2fba375f8950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM655__RLOOP__FCU_CORE\BRAKES">
+      <UniqueIdentifier>{d3a01edb-7502-4d9c-8e86-246baa8fe562}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
@@ -99,6 +108,21 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core.c">
       <Filter>Source Files\LCCM655__RLOOP__FCU_CORE</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_000.c">
+      <Filter>Source Files\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes.c">
+      <Filter>Source Files\LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__mlp.c">
+      <Filter>Source Files\LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__stepper.c">
+      <Filter>Source Files\LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__switches.c">
+      <Filter>Source Files\LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h">
@@ -139,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core__localdef.h">
       <Filter>Source Files\LCCM655__RLOOP__FCU_CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__fault_flags.h">
+      <Filter>Source Files\LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

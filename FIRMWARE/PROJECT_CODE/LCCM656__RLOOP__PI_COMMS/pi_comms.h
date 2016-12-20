@@ -72,7 +72,11 @@
 				* implement double or tripple buffering */
 				Luint8 u8BufferIndex;
 			
+				#ifndef WIN32
 				Luint8 PICOMMS_TX_buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
+				#else
+				Luint8 PICOMMS_TX_buffer[RPOD_PICOMMS_BUFFER_SIZE];
+				#endif
 				Luint16 PICOMMS_TX_bufferPos;
 				Luint16 PICOMMS_TX_frameLength;
 				Luint8 u8Checksum;
@@ -83,11 +87,15 @@
 			struct
 			{
 
-				Luint8 u8Buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
 				Luint16 bufferBegin;
 				Luint16 bufferLength;
+				#ifndef WIN32
+				Luint8 u8Buffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
 				Luint8 u8TempFrameBuffer[RPOD_PICOMMS_BUFFER_SIZE] __attribute__((aligned(0x04)));
-
+				#else
+				Luint8 u8Buffer[RPOD_PICOMMS_BUFFER_SIZE];
+				Luint8 u8TempFrameBuffer[RPOD_PICOMMS_BUFFER_SIZE];
+				#endif
 				//quick and nasty fault counter
 				Luint32 u32Faults;
 

@@ -36,6 +36,7 @@ void vLCCM655R0_TS_000_TCASE_001(void)
 
 	DEBUG_PRINT("START:LCCM655R0.TS.000.TCASE.001\r\n");
 
+#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 	//pre-setup the test by faking the structure
 	sFCU.sBrakes[eBrake].sLimits[eSwitch].eSwitchState = SW_STATE__UNKNOWN;
 
@@ -51,6 +52,9 @@ void vLCCM655R0_TS_000_TCASE_001(void)
 	{
 		DEBUG_PRINT("FAIL:LCCM655R0.TS.000.TCASE.001\r\n");
 	}
+
+#endif
+
 	DEBUG_PRINT("END:LCCM655R0.TS.000.TCASE.001\r\n");
 
 }

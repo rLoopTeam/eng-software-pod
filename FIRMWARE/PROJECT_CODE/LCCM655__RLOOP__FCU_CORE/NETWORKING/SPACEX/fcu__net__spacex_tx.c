@@ -44,18 +44,18 @@ void vFCU_NET_SPACEX_TX__Process(void)
 	{
 		//send the UDP stream
 		//see if we have space to transmit
-		u8Test = u8ETHERNET_FIFO__Is_Empty();
+		u8Test = u8ETH_FIFO__Is_Empty();
 		if(u8Test == 1U)
 		{
 
 			//add space for the network packet
 			u16PacketLength = 32U;
-			s16Return = s16ETHERNET_FIFO__Push(u16PacketLength);
+			s16Return = s16ETH_FIFO__Push(u16PacketLength);
 			if(s16Return >= 0)
 			{
 
 				//get a pointer to the buffer
-				u32Buffer = u32ETHERNET_BUFFERDESC__Get_TxBufferPointer((Luint8)s16Return);
+				u32Buffer = u32ETH_BUFFERDESC__Get_TxBufferPointer((Luint8)s16Return);
 				pu8Return = (Luint8 *)u32Buffer;
 
 				//append some data
@@ -64,7 +64,7 @@ void vFCU_NET_SPACEX_TX__Process(void)
 				pu8Return += 4U;
 
 				//send it
-				vETHERNET_UDP__Transmit(u16PacketLength, 3000, 3000);
+				vETH_UDP__Transmit(u16PacketLength, 3000, 3000);
 
 				//clear the flag only after a send because im sure SpX want the data
 				//on the 100ms mark.

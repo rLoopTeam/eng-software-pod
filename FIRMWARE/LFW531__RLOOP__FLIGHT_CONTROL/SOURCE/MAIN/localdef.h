@@ -140,9 +140,6 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Number of OptoNCDT lasers, must be in order from A0:2, B0:2*/
 		#define C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT						(3U)
 
-		/** OptoNCDT's error value (out of range) */
-		#define C_LOCALDEF__LCCM655__LASER_OPTONCDT_ERROR					(65467U)
-
 		/** Enable the Laser contrast sensors */
 		#define C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST					(1U)
 
@@ -170,7 +167,15 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 
 		/** Flight control specifics */
 		#define C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL					(1U)
-		#define C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION				(0U)
+
+			//Pitch/Roll/Yaw
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION				(0U)
+
+			//Brake Controller
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_BRAKE_CONTROL				(1U)
+
+			//Contrast Sensor Navigation
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_CONTRAST_NAV				(1U)
 
 		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER			(40U)
 		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO				(41U)

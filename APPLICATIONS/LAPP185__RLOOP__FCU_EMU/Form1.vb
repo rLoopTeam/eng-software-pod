@@ -56,6 +56,12 @@ Public Class Form1
     End Sub
 
 
+    'Testing Area
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vLCCM655R0_TS_000()
+    End Sub
+
+
 #End Region '#Region "C CODE SPECIFICS"
 
 #End Region '#Region "DLL HANDLING"
@@ -124,6 +130,15 @@ Public Class Form1
         pP.Controls.Add(pB1)
         AddHandler pB1.Click, AddressOf Me.btnStart__Click
 
+
+        Dim pB2 As New Button
+        With pB2
+            .Location = New Point(pB1.Location.X + pB1.Size.Width + 5, 10)
+            .Size = New Size(100, 24)
+            .Text = "Test Cases"
+        End With
+        pP.Controls.Add(pB2)
+        AddHandler pB2.Click, AddressOf Me.btnTestCases__Click
 
         'create some input item.
         Dim l1 As New Label
@@ -215,6 +230,18 @@ Public Class Form1
 #End Region '#Region "KEY PRESS HANDLERS"
 
 #Region "BUTTON HANDLERS"
+
+    ''' <summary>
+    ''' Run the test cases
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub btnTestCases__Click(sender As Object, e As EventArgs)
+
+
+        vLCCM655R0_TS_000()
+    End Sub
+
     ''' <summary>
     ''' Called to start/stop
     ''' </summary>

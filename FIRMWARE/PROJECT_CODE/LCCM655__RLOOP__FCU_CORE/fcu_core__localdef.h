@@ -51,7 +51,16 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 
 		/** Flight control specifics */
 		#define C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL					(1U)
-		#define C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION				(1U)
+
+			//Pitch/Roll/Yaw
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION				(1U)
+
+			//Brake Controller
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_BRAKE_CONTROL				(1U)
+
+			//Contrast Sensor Navigation
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_CONTRAST_NAV				(1U)
+
 
 
 		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER			(20U)
