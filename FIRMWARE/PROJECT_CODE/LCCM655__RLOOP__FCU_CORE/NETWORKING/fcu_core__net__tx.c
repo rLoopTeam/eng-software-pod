@@ -35,8 +35,8 @@ void vFCU_NET_TX__Init(void)
 	sFCU.sUDPDiag.u810MS_Flag = 0U;
 
 	//set our default packet types
-	sFCU.sUDPDiag.eTxPacketType = FCU_PKT__NONE;
-	sFCU.sUDPDiag.eTxStreamingType = FCU_PKT__NONE;
+	sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+	sFCU.sUDPDiag.eTxStreamingType = NET_PKT__NONE;
 }
 
 
@@ -50,10 +50,10 @@ void vFCU_NET_TX__Init(void)
 void vFCU_NET_TX__Process(void)
 {
 	Luint8 u8Flag;
-	E_FCU_NET_PACKET_TYPES eType;
+	E_NET__PACKET_T eType;
 
 	//see if we have a streaming flag set
-	if(sFCU.sUDPDiag.eTxStreamingType != FCU_PKT__NONE)
+	if(sFCU.sUDPDiag.eTxStreamingType != NET_PKT__NONE)
 	{
 		//yes we do
 
@@ -69,7 +69,7 @@ void vFCU_NET_TX__Process(void)
 		else
 		{
 			//nope
-			eType = FCU_PKT__NONE;
+			eType = NET_PKT__NONE;
 		}
 
 
@@ -85,20 +85,20 @@ void vFCU_NET_TX__Process(void)
 	//detemrine the packet type
 	switch(eType)
 	{
-		case FCU_PKT__ACCEL__TX_CAL_DATA:
+		case NET_PKT__FCU_ACCEL__TX_CAL_DATA:
 			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
-				vFCU_ACCEL_ETH__Transmit(FCU_PKT__ACCEL__TX_CAL_DATA);
+				vFCU_ACCEL_ETH__Transmit(eType);
 			#endif
 
-			sFCU.sUDPDiag.eTxPacketType = FCU_PKT__NONE;
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
 
-		case FCU_PKT__ACCEL__TX_FULL_DATA:
+		case NET_PKT__FCU_ACCEL__TX_FULL_DATA:
 			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
-				vFCU_ACCEL_ETH__Transmit(FCU_PKT__ACCEL__TX_FULL_DATA);
+				vFCU_ACCEL_ETH__Transmit(eType);
 			#endif
 
-			sFCU.sUDPDiag.eTxPacketType = FCU_PKT__NONE;
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
 
 		default:

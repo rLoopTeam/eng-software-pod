@@ -34,7 +34,11 @@ extern struct _strFCU sFCU;
  */
 void vFCU_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPort)
 {
+	//Todo
+	//We can interpretate messages here,
 
+	//pass to safety udp processor
+	vSAFE_UDP_RX__UDPPacket(pu8Buffer,u16Length, u16DestPort);
 }
 
 /***************************************************************************//**
@@ -66,31 +70,42 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 		u32Block[3] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
 
 		//determine the type of packet that came in
-		switch((E_FCU_NET_PACKET_TYPES)ePacketType)
+		switch((E_NET__PACKET_T)ePacketType)
 		{
 
-			case FCU_PKT__ENABLE_STREAMING:
-				//handle streaming control
+			case NET_PKT__FCU_GEN__STREAMING_CONTROL:
+				//if the host wants to stream data packets.
+				if(u32Block[0] == 1U)
+				{
+					//streaming on
+					sFCU.sUDPDiag.eTxStreamingType = (E_NET__PACKET_T)u32Block[1];
+				}
+				else
+				{
+					//streaming off
+					sFCU.sUDPDiag.eTxStreamingType = NET_PKT__NONE;
+				}
 
 				break;
 
-			case FCU_PKT__ACCEL__REQUEST_CAL_DATA:
+
+			case NET_PKT__FCU_ACCEL__REQUEST_CAL_DATA:
 				//Host wants us to transmit the calibration data for the accelerometers system
-				sFCU.sUDPDiag.eTxPacketType = FCU_PKT__ACCEL__TX_CAL_DATA;
+				sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_ACCEL__TX_CAL_DATA;
 				break;
 
-			case FCU_PKT__ACCEL__REQUEST_FULL_DATA:
+			case NET_PKT__FCU_ACCEL__REQUEST_FULL_DATA:
 				//transmit a full data packet including g-force, etc
-				sFCU.sUDPDiag.eTxPacketType = FCU_PKT__ACCEL__TX_FULL_DATA;
+				sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_ACCEL__TX_FULL_DATA;
 				break;
 
-			case FCU_PKT__ACCEL__AUTO_CALIBRATE:
+			case NET_PKT__FCU_ACCEL__AUTO_CALIBRATE:
 				//enter auto calibration mode
 				//block 0 = device
 				vMMA8451_ZERO__AutoZero((Luint8)u32Block[0]);
 				break;
 
-			case FCU_PKT__ACCEL__FINE_ZERO_ADJUSTMENT:
+			case NET_PKT__FCU_ACCEL__FINE_ZERO_ADJUSTMENT:
 				//Fine Zero adjustment on a particular axis
 				//block 0 = device
 				//block 1 = axis

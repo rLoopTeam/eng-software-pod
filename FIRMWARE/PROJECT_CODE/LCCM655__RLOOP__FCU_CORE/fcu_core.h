@@ -439,10 +439,10 @@
 				Luint8 u810MS_Flag;
 
 				/** The next packet type to transmit */
-				E_FCU_NET_PACKET_TYPES eTxPacketType;
+				E_NET__PACKET_T eTxPacketType;
 
 				/** If the user has enabled Tx streaming */
-				E_FCU_NET_PACKET_TYPES eTxStreamingType;
+				E_NET__PACKET_T eTxStreamingType;
 
 
 			}sUDPDiag;
@@ -497,8 +497,8 @@
 		//core
 		DLL_DECLARATION void vFCU__Init(void);
 		DLL_DECLARATION void vFCU__Process(void);
-		void vFCU__RTI_100MS_ISR(void);
-		void vFCU__RTI_10MS_ISR(void);
+		DLL_DECLARATION void vFCU__RTI_100MS_ISR(void);
+		DLL_DECLARATION void vFCU__RTI_10MS_ISR(void);
 
 		//flight controller
 		void vFCU_FLIGHTCTL__Init(void);
@@ -621,7 +621,7 @@
 		void vFCU_ACCEL__Process(void);
 		Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis);
 		Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis);
-		void vFCU_ACCEL_ETH__Transmit(E_FCU_NET_PACKET_TYPES ePacketType);
+		void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
 		//Pusher interface
 		void vFCU_PUSHER__Init(void);
