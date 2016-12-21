@@ -136,6 +136,7 @@
 		void vATA6870_UV__Set_UVTrip(Luint8 u8DeviceIndex, Lfloat32 f32Value);
 		
 		//status
+		Luint8 u8ATA6870_STATUS__GetStatus(Luint8 u8DeviceIndex);
 		Luint8 u8ATA6870_STATUS__Get_Op_Status(Luint8 u8DeviceIndex);
 		Luint8 u8ATA6870_STATUS__Get_IRQ_Status(Luint8 u8DeviceIndex);
 		
@@ -143,7 +144,7 @@
 		void vATA6870_INT__Init(void);
 		void vATA6870_INT__ISR(Luint8 u8DeviceIndex);
 		
-		Luint8 uATA6870__u8VoltageError(Lfloat32 *pf32Voltages);
+		Luint8 u8ATA6870__u8VoltageError(Lfloat32 *pf32Voltages);
 
 	//safetys
 	#ifndef C_LOCALDEF__LCCM650__NUM_DEVICES
