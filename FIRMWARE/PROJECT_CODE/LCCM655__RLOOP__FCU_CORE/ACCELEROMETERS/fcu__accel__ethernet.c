@@ -31,7 +31,7 @@
  * @st_funcMD5		DEA19C257EED4866C38D9C84CAEB8BCA
  * @st_funcID		LCCM655R0.FILE.030.FUNC.001
  */
-void vFCU_ACCEL_ETH__Transmit(E_FCU_NET_PACKET_TYPES ePacketType)
+void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 {
 
 	Lint16 s16Return;
@@ -45,11 +45,11 @@ void vFCU_ACCEL_ETH__Transmit(E_FCU_NET_PACKET_TYPES ePacketType)
 	//setup length based on packet.
 	switch(ePacketType)
 	{
-		case FCU_PKT__ACCEL__TX_FULL_DATA:
+		case NET_PKT__FCU_ACCEL__TX_FULL_DATA:
 			u16Length = C_FCU__NUM_ACCEL_CHIPS * 30U;
 			break;
 
-		case FCU_PKT__ACCEL__TX_CAL_DATA:
+		case NET_PKT__FCU_ACCEL__TX_CAL_DATA:
 			u16Length = C_FCU__NUM_ACCEL_CHIPS * 10U;
 			break;
 
@@ -66,7 +66,7 @@ void vFCU_ACCEL_ETH__Transmit(E_FCU_NET_PACKET_TYPES ePacketType)
 		//handle the packet
 		switch(ePacketType)
 		{
-			case FCU_PKT__ACCEL__TX_FULL_DATA:
+			case NET_PKT__FCU_ACCEL__TX_FULL_DATA:
 				//30
 				for(u8Device = 0U; u8Device < C_FCU__NUM_ACCEL_CHIPS; u8Device++)
 				{
@@ -110,7 +110,9 @@ void vFCU_ACCEL_ETH__Transmit(E_FCU_NET_PACKET_TYPES ePacketType)
 				}//for(u8Device = 0; u8Device < 3; u8Device++)
 				break;
 
-			case FCU_PKT__ACCEL__TX_CAL_DATA:
+			case NET_PKT__FCU_ACCEL__TX_CAL_DATA:
+
+				//20 bytes per device
 				for(u8Device = 0U; u8Device < C_FCU__NUM_ACCEL_CHIPS; u8Device++)
 				{
 

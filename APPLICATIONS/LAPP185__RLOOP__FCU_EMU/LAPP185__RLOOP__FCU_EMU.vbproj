@@ -104,6 +104,9 @@
     <Compile Include="..\common_code\vb.net\lccm249__vbnet__iso_datetime\iso_datetime.vb">
       <Link>LCCM249__VBNET__ISO_DATETIME\iso_datetime.vb</Link>
     </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM269__VBNET__MEMORY_COPY\memory_copy.vb">
+      <Link>LCCM269__VBNET__MEMORY_COPY\memory_copy.vb</Link>
+    </Compile>
     <Compile Include="..\common_code\vb.net\lccm429__vbnet__file\file_support__binary_file.vb">
       <Link>LCCM429__VBNET__FILE\file_support__binary_file.vb</Link>
     </Compile>
@@ -327,12 +330,6 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="sc16.c" />
-    <Content Include="sc16.h" />
-    <Content Include="sc16__fault_flags.h" />
-    <Content Include="sc16__localdef.h" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="LCCM431__VBNET__APP\ICONS\" />
