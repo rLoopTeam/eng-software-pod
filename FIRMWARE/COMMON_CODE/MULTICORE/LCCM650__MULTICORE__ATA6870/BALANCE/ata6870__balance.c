@@ -26,7 +26,7 @@
 #if C_LOCALDEF__LCCM650__ENABLE_THIS_MODULE == 1U
 
 //main structure
-extern struct _str6870 sATA6870;
+extern struct _strPWRNODE sPWRNODE;
 
 /***************************************************************************//**
  * @brief
@@ -39,7 +39,7 @@ void vATA6870_BALANCE__Init(void)
 {
 
 	//init the variables
-	sATA6870.sBalance.eState = BALANCE_STATE__IDLE;
+	sPWRNODE.sBalance.eState = BALANCE_STATE__IDLE;
 
 }
 
@@ -93,14 +93,14 @@ Luint8 u8ATA6870_BALANCE__Is_Busy(void)
 void vATA6870_BALANCE__Process(void)
 {
 
-	switch(sATA6870.sBalance.eState)
+	switch(sPWRNODE.sATA6870.sBalance.eState)
 	{
 
 		case BALANCE_STATE__IDLE:
 			//do nothing.
 			break;
 
-	}//switch(sATA6870.sBalance.eState)
+	}//switch(sPWRNODE.sATA6870.sBalance.eState)
 
 }
 
