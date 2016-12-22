@@ -123,6 +123,7 @@ void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Registe
 			if(sFCU.sContrast.sTimingList[(Luint8)eLaser].u16FallingCount < C_FCU__LASER_CONTRAST__MAX_STRIPES)
 			{
 				sFCU.sContrast.sTimingList[(Luint8)eLaser].u64FallingList[sFCU.sContrast.sTimingList[(Luint8)eLaser].u16FallingCount] = u64RM4_RTI__Get_Counter1();
+				sFCU.sContrast.sTimingList[(Luint8)eLaser].u16FallingCount++;
 			}
 			else
 			{
@@ -136,6 +137,7 @@ void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Registe
 			if(sFCU.sContrast.sTimingList[(Luint8)eLaser].u16RisingCount < C_FCU__LASER_CONTRAST__MAX_STRIPES)
 			{
 				sFCU.sContrast.sTimingList[(Luint8)eLaser].u64RisingList[sFCU.sContrast.sTimingList[(Luint8)eLaser].u16RisingCount] = u64RM4_RTI__Get_Counter1();
+				sFCU.sContrast.sTimingList[(Luint8)eLaser].u16RisingCount++;
 			}
 			else
 			{

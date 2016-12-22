@@ -33,6 +33,9 @@
 	/** number of lasers for the i-beam */
 	#define C_FCU__NUM_LASERS_IBEAM							(2U)
 
+	/** number of lasers for the constrast detection system */
+	#define C_FCU__NUM_LASERS_CONTRAST						(3U)
+
 
 	/** The max number of contrast laser stripes in the tube
 	 * 1 Mile Tube = 5280ft
