@@ -38,7 +38,7 @@
 #if C_LOCALDEF__LCCM650__ENABLE_THIS_MODULE == 1U
 
 //main structure
-extern struct _str6870 sATA6870;
+extern struct _strPWRNODE sPWRNODE;
 
 /***************************************************************************//**
  * @brief

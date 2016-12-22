@@ -17,6 +17,7 @@
 	#if C_LOCALDEF__LCCM650__ENABLE_THIS_MODULE == 1U
 
 		#include <MULTICORE/LCCM650__MULTICORE__ATA6870/ata6870__register_defs.h>
+		#include <LCCM653__RLOOP__POWER_CORE/power_core.h>
 	
 	
 		/*******************************************************************************

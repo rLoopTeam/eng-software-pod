@@ -9,6 +9,7 @@
 #ifndef _POWER_CORE_H_
 #define _POWER_CORE_H_
 	#include <localdef.h>
+	#include <MULTICORE/LCCM650__MULTICORE__ATA6870/ata6870.h>
 	#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
 		/*******************************************************************************
@@ -29,6 +30,7 @@
 		/*******************************************************************************
 		Defines
 		*******************************************************************************/
+
 
 
 		/*******************************************************************************
@@ -105,22 +107,41 @@
 
 			}sCharger;
 
-
-			/** ATA6870 interface */
-			#define NUM_CELLS_PER_MODULE    (6U)
 			struct
 			{
-
+				E_ATA6870_STATE_T eState;
+				/** Balancing control state machine */
 				struct
 				{
+					E_ATA6870__BALANCE_STATE_T eState;
+
+				}sBalance;
+
+				/** Structure for each individual device in the chain */
+				struct
+				{
+					/** Interrupt support */
+					struct
+					{
+						/** The status of the last device ID command where the IRQ status is returned
+						as part of the ID phase of the SPI transaction */
+						Luint16 u16IRQ_Status;
+
+					}sIRQ;
+
+					/** Device Index **/
 					Luint8 u8DeviceIndex;
 
-					Lfloat32 pf32Voltages[NUM_CELLS_PER_MODULE];
+					/** Voltages of a battery pack **/
+					Lfloat32 pf32Voltages[C_LOCALDEF__LCCM650__NUM_6P_MODULES];
 
-
-					Lfloat32 pf32DeviceTemperature;
+					/** NTC Temperature Reading **/
+					Lfloat32 pf32Temperature;
 
 				}sDevice[C_LOCALDEF__LCCM650__NUM_DEVICES];
+
+				/** The count of 10ms ISR's*/
+				Luint32 u32ISR_Counter;
 
 			}sATA6870;
 

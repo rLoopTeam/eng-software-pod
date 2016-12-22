@@ -26,7 +26,7 @@
 #if C_LOCALDEF__LCCM650__ENABLE_THIS_MODULE == 1U
 
 //main structure
-struct _str6870 sATA6870;
+extern struct _strPWRNODE sPWRNODE;
 
 //locals
 static Luint8 u8ATA6870__BulkRead(void);
@@ -50,14 +50,14 @@ void vATA6870__Init(void)
 	//Init NTC Temp reading and Voltages
 	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
 	{
-		sATA6870.f32NTCTemperatureReading[u8Counter] = 0;
+		sPWRNODE.sATA6870.f32NTCTemperatureReading[u8Counter] = 0;
 	}
 	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_6P_MODULES; u8Counter++)
 	{
-		sATA6870.f32Voltage[u8Counter] = 0;
+		sPWRNODE.sATA6870.f32Voltage[u8Counter] = 0;
 	}
 
-	sATA6870.eState = ATA6870_STATE__INIT_DEVICE;
+	sPWRNODE.sATA6870.eState = ATA6870_STATE__INIT_DEVICE;
 
 	//setup the lowlevel
 	vATA6870_LOWLEVEL__Init();
@@ -119,24 +119,24 @@ void vATA6870__Init(void)
  */
 void vATA6870__Process(void)
 {
-	switch(sATA6870.eState)
+	switch(sPWRNODE.sATA6870.eState)
 	{
 		case ATA6870_STATE__IDLE:
 			//do nothing,
 			break;
 		case ATA6870_STATE__INIT_DEVICE:
-			sATA6870.eState = ATA6870_STATE__START_CONVERSION;
+			sPWRNODE.sATA6870.eState = ATA6870_STATE__START_CONVERSION;
 			break;
 		case ATA6870_STATE__START_CONVERSION:
 			vATA6870__StartConversion(1U, 1U);
-			sATA6870.eState = ATA6870_STATE__WAIT_CONVERSION;
+			sPWRNODE.sATA6870.eState = ATA6870_STATE__WAIT_CONVERSION;
 			break;
 		case ATA6870_STATE__WAIT_CONVERSION:
 			// 8.2ms conversion time according to datasheet
-			if(sATA6870.u32ISR_Counter > 1U)
+			if(sPWRNODE.sATA6870.u32ISR_Counter > 1U)
 			{
 				//go and read the voltages now
-				sATA6870.eState = ATA6870_STATE__READ_CELL_VOLTAGES;
+				sPWRNODE.sATA6870.eState = ATA6870_STATE__READ_CELL_VOLTAGES;
 			}
 			else
 			{
@@ -145,7 +145,7 @@ void vATA6870__Process(void)
 			break;
 		case ATA6870_STATE__READ_CELL_VOLTAGES:
 			u8ATA6870__BulkRead();
-			sATA6870.eState = ATA6870_STATE__START_CONVERSION;
+			sPWRNODE.sATA6870.eState = ATA6870_STATE__START_CONVERSION;
 			break;
 	}
 
@@ -197,7 +197,7 @@ void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
 	}
 
 	//clear the counter
-	sATA6870.u32ISR_Counter = 0U;
+	sPWRNODE.sATA6870.u32ISR_Counter = 0U;
 }
 
 /***************************************************************************//**
@@ -220,12 +220,14 @@ Luint8 u8ATA6870__BulkRead(void)
 	// read data
 	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
 	{
-		vATA6870_CELL__Get_Voltages(u8Counter, &sATA6870.f32Voltage[u8VolCounter], &sATA6870.f32NTCTemperatureReading[u8Counter]);
+		vATA6870_CELL__Get_Voltages(u8Counter,
+									&sPWRNODE.sATA6870.sDevice[u8Counter].pf32Voltages[0],
+									&sPWRNODE.sATA6870.sDevice[u8Counter].pf32Temperature);
 		// move to next module
-		u8VolCounter += C_ATA6870__MAX_CELLS;
+		//u8VolCounter += C_ATA6870__MAX_CELLS;
 	}
 	// check if any cells are dead or out of threshold
-	u8BulkReadError = u8ATA6870__u8VoltageError(&sATA6870.f32Voltage[0]);
+	u8BulkReadError = u8ATA6870__u8VoltageError(&sPWRNODE.sATA6870.sDevice[0].pf32Voltages[0]);
 
 	return u8BulkReadError;
 }

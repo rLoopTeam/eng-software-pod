@@ -10,7 +10,7 @@ void vBMS__Get_Voltages()
   for (Luint8 u8LoopCounter = 0; u8LoopCounter < NUM_DEVICES; u8LoopCounter++)
     CELL__GetVoltages(sPWRNODE.sATA6870.sDevice[u8LoopCounter].u8DeviceIndex,
                       &sPWRNODE.sATA6870.sDevice[u8LoopCounter].pf32Voltages,
-                      &sPWRNODE.sATA6870.sDevice[u8LoopCounter].pf23DeviceTemperature);
+                      &sPWRNODE.sATA6870.sDevice[u8LoopCounter].pf23Temperature);
 }
 
 // Turn on a discharge resistor of a given cell
