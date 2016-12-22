@@ -1,6 +1,7 @@
 /**
  * @file		FCU__LASER_CONT.C
  * @brief		Contrast laser top level interface.
+ * @note		http://confluence.rloop.org/display/SD/2.3.+Determine+Pod+x+Position%2C+Speed+and+Acceleration+in+tube
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
  */
@@ -38,6 +39,16 @@ void vFCU_LASERCONT__Init(void)
 	//at the entry point here the N2HET should have created 3 programs for either
 	//edge capture, or HTU.
 
+
+	//init the timing list capture system
+	vFCU_LASERCONT_TL__Init();
+
+	//init veloc calculation
+	vFCU_LASERCONT_VELOC__Init();
+
+	//start track database
+	vFCU_LASERCONT_TRKDB__Init();
+
 }
 
 /***************************************************************************//**
@@ -66,7 +77,29 @@ void vFCU_LASERCONT__Process(void)
 	//we can't really start timing until we are moving.
 	//moving should be notified, and confirmed on the first marker.
 
+	//process the velocity calculation.
+	vFCU_LASERCONT_VELOC__Process();
+
+	//compute the track database.
+	vFCU_LASERCONT_TRKDB__Process();
+
 }
+
+void vFCU_LASERCONT__Reset(Luint32 u32Key)
+{
+
+	if(u32Key == 0xABCDABCD)
+	{
+		//upper layer wants to reset the position system
+	}
+	else
+	{
+		//invalid key
+	}
+
+
+}
+
 
 /***************************************************************************//**
  * @brief

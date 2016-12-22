@@ -1,6 +1,6 @@
 /**
  * @file		SIM_HYPERLOOP.H
- * @brief		Main Header
+ * @brief		
  * @author		Lachlan Grogan
  * @copyright	This file contains proprietary and confidential information of
  *				SIL3 Pty. Ltd. (ACN 123 529 064). This code may be distributed
@@ -10,6 +10,10 @@
  * @copyright	This file is copyright SIL3 Pty. Ltd. 2003-2016, All Rights Reserved.
  * @st_fileID	LCCM666R0.FILE.001
  */
+/**
+ * @addtogroup <TODO>
+ * @{ */
+/** @} */
 
 #ifndef _SIM_HYPERLOOP_H_
 #define _SIM_HYPERLOOP_H_

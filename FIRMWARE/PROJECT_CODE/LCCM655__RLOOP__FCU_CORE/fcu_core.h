@@ -386,6 +386,17 @@
 
 				Luint32 u32Guard1;
 
+				/** Velocity Calc Area */
+				struct
+				{
+
+					/** The current velocity in mm/sec */
+					Luint32 u32CurrentVeloc_mms;
+
+
+
+				}sVeloc;
+
 				/** Individual contrast senors */
 				struct
 				{
@@ -405,11 +416,17 @@
 					/** Falling edge time stamp */
 					Luint64 u64FallingList[C_FCU__LASER_CONTRAST__MAX_STRIPES];
 
+					/** list of time that has elapsed between sensor marks */
+					Luint64 u64ElapsedList_Rising[C_FCU__LASER_CONTRAST__MAX_STRIPES];
+
 					/** Rising edge count */
 					Luint16 u16RisingCount;
 
 					/** Falling edge count */
 					Luint16 u16FallingCount;
+
+					/** signalled by the rising edge that a new item is avail */
+					Luint8 u8NewRisingAvail;
 
 				}sTimingList[LASER_CONT__MAX];
 
@@ -547,12 +564,23 @@
 		//laser contrast sensors
 		void vFCU_LASERCONT__Init(void);
 		void vFCU_LASERCONT__Process(void);
+		void vFCU_LASERCONT__Reset(Luint32 u32Key);
 		void vFCU_LASERCONT__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Register);
 
 			//timing list
 			void vFCU_LASERCONT_TL__Init(void);
 			void vFCU_LASERCONT_TL__Process(void);
 			DLL_DECLARATION void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Register);
+			Luint8 u8FCU_LASERCONT_TL__Get_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser);
+			void vFCU_LASERCONT_TL__Clear_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser);
+
+			//velocity
+			void vFCU_LASERCONT_VELOC__Init(void);
+			void vFCU_LASERCONT_VELOC__Process(void);
+
+			//track database
+			void vFCU_LASERCONT_TRKDB__Init(void);
+			void vFCU_LASERCONT_TRKDB__Process(void);
 
 		//Laser distance
 		void vFCU_LASERDIST__Init(void);
