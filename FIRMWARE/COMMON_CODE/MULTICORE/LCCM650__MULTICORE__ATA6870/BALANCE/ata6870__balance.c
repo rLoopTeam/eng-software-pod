@@ -39,7 +39,7 @@ void vATA6870_BALANCE__Init(void)
 {
 
 	//init the variables
-	sPWRNODE.sBalance.eState = BALANCE_STATE__IDLE;
+	sPWRNODE.sATA6870.sBalance.eState = BALANCE_STATE__IDLE;
 
 }
 
