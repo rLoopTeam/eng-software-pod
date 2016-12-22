@@ -42,11 +42,14 @@ void vFCU_LASERCONT_TL__Init(void)
 		{
 			sFCU.sContrast.sTimingList[u8LaserCount].u64RisingList[u32ListCount] = 0U;
 			sFCU.sContrast.sTimingList[u8LaserCount].u64FallingList[u32ListCount] = 0U;
+			sFCU.sContrast.sTimingList[u8LaserCount].u64ElapsedList_Rising[u32ListCount] = 0U;
+
 		}
 
 		//clear the counts
 		sFCU.sContrast.sTimingList[u8LaserCount].u16RisingCount = 0U;
 		sFCU.sContrast.sTimingList[u8LaserCount].u16FallingCount = 0U;
+		sFCU.sContrast.sTimingList[u8LaserCount].u8NewRisingAvail = 0U;
 
 	}
 
@@ -59,6 +62,9 @@ void vFCU_LASERCONT_TL__Init(void)
  */
 void vFCU_LASERCONT_TL__Process(void)
 {
+	Luint32 u32ListCounter;
+	Luint8 u8LaserCount;
+	Luint64 u64Temp;
 
 	//We need to do a couple of tasks here
 
@@ -66,6 +72,31 @@ void vFCU_LASERCONT_TL__Process(void)
 
 	//2.Compute the time distance between the stripes
 	//This could be run constantly so as we keep a consistent CPU load.
+	//this will also prevent unexpected load if we hit the ripple strips and can't simulate it easy.
+	for(u8LaserCount = 0U; u8LaserCount < (Luint8)LASER_CONT__MAX; u8LaserCount++)
+	{
+		for(u32ListCount = 0U; u32ListCount < (C_FCU__LASER_CONTRAST__MAX_STRIPES - 1); u32ListCount++)
+		{
+			//here we have to assume that *always* one is greater than the other
+			//but this will chew computing time
+			if(sFCU.sContrast.sTimingList[u8LaserCount].u64RisingList[u32ListCount] < sFCU.sContrast.sTimingList[u8LaserCount].u64RisingList[u32ListCount + 1])
+			{
+
+				u64Temp = sFCU.sContrast.sTimingList[u8LaserCount].u64RisingList[u32ListCount + 1];
+				u64Temp -= sFCU.sContrast.sTimingList[u8LaserCount].u64RisingList[u32ListCount];
+
+				//update the elapsed list.
+				sFCU.sContrast.sTimingList[u8LaserCount].u64ElapsedList_Rising[u32ListCount] = u64Temp;
+
+			}
+			else
+			{
+				//big issue here, we are not able to subtract;
+			}
+
+
+		}
+	}
 
 	//3. Update a rolling database of markers passed
 
@@ -138,6 +169,9 @@ void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Registe
 			{
 				sFCU.sContrast.sTimingList[(Luint8)eLaser].u64RisingList[sFCU.sContrast.sTimingList[(Luint8)eLaser].u16RisingCount] = u64RM4_RTI__Get_Counter1();
 				sFCU.sContrast.sTimingList[(Luint8)eLaser].u16RisingCount++;
+
+				//update the velocity system
+				sFCU.sContrast.sTimingList[(Luint8)eLaser].u8NewRisingAvail = 1U;
 			}
 			else
 			{
@@ -151,6 +185,15 @@ void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Registe
 	}
 }
 
+Luint8 u8FCU_LASERCONT_TL__Get_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser)
+{
+	return sFCU.sContrast.sTimingList[(Luint8)eLaser].u8NewRisingAvail;
+}
+
+void vFCU_LASERCONT_TL__Clear_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser)
+{
+	sFCU.sContrast.sTimingList[(Luint8)eLaser].u8NewRisingAvail = 0U;
+}
 
 #endif
 #ifndef C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST
