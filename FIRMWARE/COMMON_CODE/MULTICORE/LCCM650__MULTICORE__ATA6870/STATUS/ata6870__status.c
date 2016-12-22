@@ -30,21 +30,6 @@ extern struct _str6870 sATA6870;
 
 /***************************************************************************//**
  * @brief
- * read the status register
- *
- * @st_funcMD5
- * @st_funcID
- */
-Luint8 u8ATA6870_STATUS__GetStatus(Luint8 u8DeviceIndex)
-{
-	Luint8 u8Return = 0xFFU;
-	vATA6870_LOWLEVEL__Reg_WriteU8(u8DeviceIndex, ATA6870_REG__IRQ_STATUS, &u8Return, 1U);
-
-	return u8Return;
-}
-
-/***************************************************************************//**
- * @brief
  * Returns the Op Status register details
  * 
  * @param[in]		u8DeviceIndex			The BMS device idnex
@@ -57,16 +42,16 @@ Luint8 u8ATA6870_STATUS__GetStatus(Luint8 u8DeviceIndex)
  */
 Luint8 u8ATA6870_STATUS__Get_Op_Status(Luint8 u8DeviceIndex)
 {
-	Luint8 u8Status;
+	Luint8 u8StatusOP;
 	
 	//Clear
-	u8Status = 0xFFU;
+	u8StatusOP = 0xFFU;
 	
 	//Get
-	vATA6870_LOWLEVEL__Reg_ReadU8(u8DeviceIndex, ATA6870_REG__OP_STATUS, &u8Status, 1U);
+	vATA6870_LOWLEVEL__Reg_ReadU8(u8DeviceIndex, ATA6870_REG__OP_STATUS, &u8StatusOP, 1U);
 	
 	//return it
-	return u8Status;
+	return u8StatusOP;
 
 }
 
@@ -88,16 +73,16 @@ Luint8 u8ATA6870_STATUS__Get_Op_Status(Luint8 u8DeviceIndex)
  */
 Luint8 u8ATA6870_STATUS__Get_IRQ_Status(Luint8 u8DeviceIndex)
 {
-	Luint8 u8Temp;
+	Luint8 u8StatusIRQ;
 	
 	//Init
-	u8Temp = 0xFFU;
+	u8StatusIRQ = 0xFFU;
 	
 	//Get
-	vATA6870_LOWLEVEL__Reg_ReadU8(u8DeviceIndex, ATA6870_REG__IRQ_STATUS, &u8Temp, 1U);
+	vATA6870_LOWLEVEL__Reg_ReadU8(u8DeviceIndex, ATA6870_REG__IRQ_STATUS, &u8StatusIRQ, 1U);
 	
 	//return it
-	return u8Temp;
+	return u8StatusIRQ;
 
 }
 

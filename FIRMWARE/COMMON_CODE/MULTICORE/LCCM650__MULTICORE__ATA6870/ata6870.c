@@ -170,7 +170,7 @@ void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
 	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
 	{
 		//Clear any existing interrupts
-		u8ATA6870_STATUS__GetStatus(u8Counter);
+		u8ATA6870_STATUS__Get_IRQ_Status(u8Counter);
 
 		// check and clear existing commands
 		if (u8ATA6870_STATUS__Get_Op_Status(u8Counter) != 0U)
@@ -184,7 +184,7 @@ void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
 			vRM4_DELAYS__Delay_mS(5U);
 
 			//Get Status
-			u8ATA6870_STATUS__GetStatus(u8Counter);
+			u8ATA6870_STATUS__Get_IRQ_Status(u8Counter);
 
 			//Get Op Status
 			u8ATA6870_STATUS__Get_Op_Status(u8Counter);
