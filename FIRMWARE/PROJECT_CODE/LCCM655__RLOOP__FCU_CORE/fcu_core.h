@@ -393,6 +393,9 @@
 				/** Distance elapsed between last stripe */
 				Luint32 u32DistLastStripe_mm;
 
+				/** Current velocity in mm/sec */
+				Luint32 u32CurrentVeloc_mms;
+
 				/** Velocity Calc Area */
 				struct
 				{
@@ -446,6 +449,12 @@
 
 					/** The current optical marker */
 					Luint8 u8ElapsedCount;
+
+					/** Distance Remaining - computed*/
+					Luint32 u32DistRemain;
+
+					/** Last Increment */
+					Luint32 u32LastIncrement;
 
 				}sTrackDatabase[LASER_CONT__MAX];
 
@@ -592,10 +601,13 @@
 			DLL_DECLARATION void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Register);
 			Luint8 u8FCU_LASERCONT_TL__Get_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser);
 			void vFCU_LASERCONT_TL__Clear_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser);
+			Luint64 u64FCU_LASERCONT_TL__Get_TimeDelta(E_FCU__LASER_CONT_INDEX_T eLaser);
 
 			//velocity
 			void vFCU_LASERCONT_VELOC__Init(void);
 			void vFCU_LASERCONT_VELOC__Process(void);
+			Luint32 u32FCU_LASERCONT_VELOC__Get_CurrentVeloc_mms(void);
+			void vFCU_LASERCONT_VELOC__Compute(Luint32 u32Distance, Luint64 u64TimeDelta);
 
 			//track database
 			void vFCU_LASERCONT_TRKDB__Init(void);
@@ -698,7 +710,15 @@
 			extern struct _strFCU sFCU;
 
 			DLL_DECLARATION void vLCCM655R0_TS_000(void);
-		#endif
+			DLL_DECLARATION void vLCCM655R0_TS_001(void);
+			DLL_DECLARATION void vLCCM655R0_TS_002(void);
+			DLL_DECLARATION void vLCCM655R0_TS_003(void);
+			DLL_DECLARATION void vLCCM655R0_TS_004(void);
+			DLL_DECLARATION void vLCCM655R0_TS_005(void);
+			DLL_DECLARATION void vLCCM655R0_TS_006(void);
+
+
+			#endif
 
 
 	#endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U

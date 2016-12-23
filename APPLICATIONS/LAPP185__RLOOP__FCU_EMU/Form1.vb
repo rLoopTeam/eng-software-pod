@@ -80,6 +80,25 @@ Public Class Form1
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Private Shared Sub vLCCM655R0_TS_000()
     End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vLCCM655R0_TS_001()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vLCCM655R0_TS_002()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vLCCM655R0_TS_003()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vLCCM655R0_TS_004()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vLCCM655R0_TS_005()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vLCCM655R0_TS_006()
+    End Sub
+
 
 
 #End Region '#Region "C CODE SPECIFICS"
@@ -283,8 +302,12 @@ Public Class Form1
     ''' <param name="e"></param>
     Private Sub btnTestCases__Click(sender As Object, e As EventArgs)
 
+        'brakes
+        'vLCCM655R0_TS_000()
 
-        vLCCM655R0_TS_000()
+        'track contrast database
+        'vLCCM655R0_TS_001()
+        vLCCM655R0_TS_003()
     End Sub
 
     ''' <summary>

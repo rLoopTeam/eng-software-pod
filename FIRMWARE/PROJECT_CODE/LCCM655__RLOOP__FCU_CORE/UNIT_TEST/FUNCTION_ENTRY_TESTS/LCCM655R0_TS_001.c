@@ -6,30 +6,10 @@
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_TEST_SPEC == 1U
-/*
-VB.NET CALL
-<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)> Private Shared Sub vLCCM655R0_TS_001()
-End Sub
-copy to localdef.h
-#include <stdio.h>
-#define DEBUG_PRINT(x) vLU_SendString(XPAR_LVHD016_UART_0_BASEADDR, (const Xuint8 *)x)
-#define DEBUG_PRINT(x) printf(x)
-*/
+#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
 
 void vLCCM655R0_TS_001_TCASE_001(void);
-//local function declarations
-void vLCCM655R0_TS_001(void);
 
-/*
-int main()
-{
-	//Call your setup functions here...
-
-	//Start the tests
-	vLCCM655R0_TS_001();
-
-}
-*/
 
 //Function to call the tests for this test specification
 void vLCCM655R0_TS_001(void)
@@ -45,19 +25,39 @@ void vLCCM655R0_TS_001(void)
  * @st_test_case_id
  * LCCM655R0.TS.001.TCASE.001
  * @st_test_desc
- * Todo
+ * Trigger the laser interface
  * 
 */
 void vLCCM655R0_TS_001_TCASE_001(void)
 {
+	E_FCU__LASER_CONT_INDEX_T eLaser;
+	Luint32 u32Register;
+	Luint8 u8Test;
+	
 	DEBUG_PRINT("START:LCCM655R0.TS.001.TCASE.001\r\n");
 
+	//setup
+	vFCU_LASERCONT__Init();
+
+
 	//Call the target function
-	E_FCU__LASER_CONT_INDEX_T eLaser = ;
-	Luint32 u32Register = ;
-	vFCU_LASERCONT_TL__ISR(eLaser,u32Register);
-	//todo: USER TO ADD
-	if( == )
+	eLaser = LASER_CONT__FWD;
+
+	//trigger rising edge on pin 6
+	u32Register = 1 << 6U;
+	vFCU_LASERCONT_TL__ISR(eLaser, u32Register);
+
+	//at this point we should have incremented to the next marker on the track
+	u8Test = 1U;
+
+	if (u8FCU_LASERCONT_TL__Get_NewRisingAvail(eLaser) != 1U)
+	{
+		u8Test = 0U;
+	}
+
+	
+	
+	if(u8Test == 1U)
 	{
 		DEBUG_PRINT("PASS:LCCM655R0.TS.001.TCASE.001\r\n");
 	}
@@ -68,6 +68,7 @@ void vLCCM655R0_TS_001_TCASE_001(void)
 	DEBUG_PRINT("END:LCCM655R0.TS.001.TCASE.001\r\n");
 
 }
+#endif //C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST
 
 #endif
 #ifndef C_LOCALDEF__LCCM655__ENABLE_TEST_SPEC

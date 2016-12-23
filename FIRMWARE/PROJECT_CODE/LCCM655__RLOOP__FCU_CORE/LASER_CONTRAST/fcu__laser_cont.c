@@ -41,6 +41,7 @@ void vFCU_LASERCONT__Init(void)
 	//to use caution here has if distremain = 0 then maybe the brakes will be hard on.
 	sFCU.sContrast.u32DistRemain_mm = 0U;
 	sFCU.sContrast.u32DistLastStripe_mm = 0U;
+	sFCU.sContrast.u32CurrentVeloc_mms = 0U;
 
 	//at the entry point here the N2HET should have created 3 programs for either
 	//edge capture, or HTU.
@@ -69,6 +70,7 @@ void vFCU_LASERCONT__Process(void)
 {
 	Luint8 u8LaserCount;
 	Luint8 u8Test;
+	Luint64 u64Temp;
 
 	if(sFCU.sContrast.u32Guard1 != 0xAB12AB34U)
 	{
@@ -112,7 +114,16 @@ void vFCU_LASERCONT__Process(void)
 			//Note: This could be 0 when we are starting off before the first maker.
 			sFCU.sContrast.u32DistLastStripe_mm = u32FCU_LASERCONT_TRKDB__Get_DistancePrevSeg_mm((E_FCU__LASER_CONT_INDEX_T)u8LaserCount);
 
+			//get the difference in time between pulses.
+			u64Temp = u64FCU_LASERCONT_TL__Get_TimeDelta((E_FCU__LASER_CONT_INDEX_T)u8LaserCount);
+
+			//the time delta is in 20ns increments (50MHz) so need to divide by 20
+
 			//use the previous distance to compute our veloc.
+			vFCU_LASERCONT_VELOC__Compute(sFCU.sContrast.u32DistLastStripe_mm, u64Temp);
+
+			//capture it
+			sFCU.sContrast.u32CurrentVeloc_mms = u32FCU_LASERCONT_VELOC__Get_CurrentVeloc_mms();
 
 			//done with the flag, clear it.
 			vFCU_LASERCONT_TL__Clear_NewRisingAvail((E_FCU__LASER_CONT_INDEX_T)u8LaserCount);

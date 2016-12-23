@@ -129,14 +129,8 @@ void vFCU_LASERCONT_TL__Process(void)
  * @note
  * This is an interrupt task!. Take Care
  *
- * @param[in]		eLaser					The laser index
- */
-/***************************************************************************//**
- * @brief
- * ToDo
- * 
- * @param[in]		u32Register		## Desc ##
- * @param[in]		eLaser		## Desc ##
+ * @param[in]		eLaser					The laser
+ * @param[in]		u32Register				Snapshot of pin
  * @st_funcMD5		F3C854A1CAA2EDBA01A78A58084577A1
  * @st_funcID		LCCM655R0.FILE.042.FUNC.003
  */
@@ -152,17 +146,17 @@ void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Registe
 	{
 		case LASER_CONT__FWD:
 			//generate the mask for this laser
-			u32Mask = (1U << 6U) ^ 0xFFFFFFFFU;
+			u32Mask = (1U << 6U);
 			break;
 
 		case LASER_CONT__MID:
 			//generate the mask for this laser
-			u32Mask = (1U << 7U) ^ 0xFFFFFFFFU;
+			u32Mask = (1U << 7U);
 			break;
 
 		case LASER_CONT__AFT:
 			//generate the mask for this laser
-			u32Mask = (1U << 13U) ^ 0xFFFFFFFFU;
+			u32Mask = (1U << 13U);
 			break;
 
 		default:
@@ -213,11 +207,37 @@ void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Registe
 	}
 }
 
+//gets the difference btween the current edge and previous edge.
+//can only use used if new rising edge avail = 1 and there is suitable rising data
+Luint64 u64FCU_LASERCONT_TL__Get_TimeDelta(E_FCU__LASER_CONT_INDEX_T eLaser)
+{
+	Luint64 u64Return;
+	Luint8 u8Index0;
+	Luint8 u8Index1;
+
+	if (sFCU.sContrast.sTimingList[(Luint8)eLaser].u16RisingCount > 1)
+	{
+
+		//compute the indexes
+		u8Index0 = sFCU.sContrast.sTimingList[(Luint8)eLaser].u16RisingCount - 1U;
+		u8Index1 = sFCU.sContrast.sTimingList[(Luint8)eLaser].u16RisingCount - 2U;
+
+		u64Return = sFCU.sContrast.sTimingList[(Luint8)eLaser].u64RisingList[u8Index0];
+		u64Return -= sFCU.sContrast.sTimingList[(Luint8)eLaser].u64RisingList[u8Index1];
+	}
+	else
+	{
+		u64Return = 0U;
+	}
+	
+	return u64Return;
+}
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Return if a new rising edge has been detected
  * 
- * @param[in]		eLaser		## Desc ##
+ * @param[in]		eLaser					The laser index
  * @st_funcMD5		92F834345EEDB528E2092A78E1806443
  * @st_funcID		LCCM655R0.FILE.042.FUNC.004
  */
@@ -228,9 +248,9 @@ Luint8 u8FCU_LASERCONT_TL__Get_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Clear out the new rising edge flag once its been taken
  * 
- * @param[in]		eLaser		## Desc ##
+ * @param[in]		eLaser					The laser index
  * @st_funcMD5		E776E69E5EDEE8E30C9B3BC6D316D0A2
  * @st_funcID		LCCM655R0.FILE.042.FUNC.005
  */
