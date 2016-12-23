@@ -117,7 +117,7 @@ Luint8 u8FCU_BRAKES_SW__Get_FaultFlag(E_FCU__BRAKE_INDEX_T eBrake)
  * @param[in] 			eBrake			The brake, left or right
  * @param[in]			eSwitch			The extend or retract switch
  * @return				Open, Closed or Unknown
- * @st_funcMD5		28F32CC92259F9C82BFC73E52E3F0E5F
+ * @st_funcMD5		6DCC43E5255CBEDF8C3D98FEDD691FE3
  * @st_funcID		LCCM655R0.FILE.008.FUNC.004
  */
 E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch)

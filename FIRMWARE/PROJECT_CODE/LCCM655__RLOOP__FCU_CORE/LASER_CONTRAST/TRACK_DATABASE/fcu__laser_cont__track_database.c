@@ -27,6 +27,13 @@ extern struct _strFCU sFCU;
  * Create the database
  *
  */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		3C773A24A7F84F027224A6C44349E55E
+ * @st_funcID		LCCM655R0.FILE.041.FUNC.001
+ */
 void vFCU_LASERCONT_TRKDB__Init(void)
 {
 	Luint8 u8LaserCount;
@@ -53,6 +60,13 @@ void vFCU_LASERCONT_TRKDB__Init(void)
  * Process track database systems
  *
  */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		6EF07E2EEC2ECB4D66687A49F883A6C3
+ * @st_funcID		LCCM655R0.FILE.041.FUNC.002
+ */
 void vFCU_LASERCONT_TRKDB__Process(void)
 {
 
@@ -60,6 +74,14 @@ void vFCU_LASERCONT_TRKDB__Process(void)
 
 
 //increment the next marker position based on a rising edge from the system.
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		eLaser		## Desc ##
+ * @st_funcMD5		82CCBDEE1895BD30BA9EC79492F2C184
+ * @st_funcID		LCCM655R0.FILE.041.FUNC.003
+ */
 void vFCU_LASERCONT_TRKDB__Inc_Marker(E_FCU__LASER_CONT_INDEX_T eLaser)
 {
 	//increment the maker position
@@ -75,6 +97,14 @@ void vFCU_LASERCONT_TRKDB__Inc_Marker(E_FCU__LASER_CONT_INDEX_T eLaser)
 
 //compute the previous track distance
 //should really only do this on a new marker, but for constatnt CPU loading can do repeateldy.
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		eLaser		## Desc ##
+ * @st_funcMD5		58AB4F17401D6FA1ACE8E38F7211DE8E
+ * @st_funcID		LCCM655R0.FILE.041.FUNC.004
+ */
 void vFCU_LASERCONT_TRKDB__Compute(E_FCU__LASER_CONT_INDEX_T eLaser)
 {
 	if(eLaser < LASER_CONT__MAX)
@@ -101,6 +131,14 @@ void vFCU_LASERCONT_TRKDB__Compute(E_FCU__LASER_CONT_INDEX_T eLaser)
 }
 
 //return the distance remaining until the end of the track in mm
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		eLaser		## Desc ##
+ * @st_funcMD5		5C7C6D7E6AD5B0BD3CC857371100E2CC
+ * @st_funcID		LCCM655R0.FILE.041.FUNC.005
+ */
 Luint32 u32FCU_LASERCONT_TRKDB__Get_DistanceRemain_mm(E_FCU__LASER_CONT_INDEX_T eLaser)
 {
 	return 0;
@@ -108,6 +146,14 @@ Luint32 u32FCU_LASERCONT_TRKDB__Get_DistanceRemain_mm(E_FCU__LASER_CONT_INDEX_T 
 
 //gets the distance in the previous 100ft, 30.48m segment. This does not include the distance
 //over the ripple strips, only full 100ft strips.
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		eLaser		## Desc ##
+ * @st_funcMD5		8BFF83813FEA97EB683772F0EBA4ABBB
+ * @st_funcID		LCCM655R0.FILE.041.FUNC.006
+ */
 Luint32 u32FCU_LASERCONT_TRKDB__Get_DistancePrevSeg_mm(E_FCU__LASER_CONT_INDEX_T eLaser)
 {
 	return 0;

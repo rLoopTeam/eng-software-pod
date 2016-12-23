@@ -27,7 +27,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the contrast laser system
  * 
- * @st_funcMD5		C1848D993533270D8CBF0F5AA80195D4
+ * @st_funcMD5		590B7FC2DBDF273D9CDE2745149FB0D1
  * @st_funcID		LCCM655R0.FILE.034.FUNC.001
  */
 void vFCU_LASERCONT__Init(void)
@@ -62,7 +62,7 @@ void vFCU_LASERCONT__Init(void)
  * @brief
  * Process the laser contrast system
  * 
- * @st_funcMD5		08341218BBDD8E9287DAF96DC79A35CD
+ * @st_funcMD5		D1F8C137ABF865560FD54E143FB36D33
  * @st_funcID		LCCM655R0.FILE.034.FUNC.002
  */
 void vFCU_LASERCONT__Process(void)
@@ -129,6 +129,14 @@ void vFCU_LASERCONT__Process(void)
 
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u32Key		## Desc ##
+ * @st_funcMD5		9B7EF718A626E5BD6764A01761302CFF
+ * @st_funcID		LCCM655R0.FILE.034.FUNC.004
+ */
 void vFCU_LASERCONT__Reset(Luint32 u32Key)
 {
 
@@ -150,7 +158,7 @@ void vFCU_LASERCONT__Reset(Luint32 u32Key)
  * Interrupt from the RM4 notification system
  * 
  * @param[in]		eLaser					The laser index
- * @st_funcMD5		04E149EFEE2CED7AD1BDC4735B418677
+ * @st_funcMD5		85A22E789F8036525ED16796EED95EC4
  * @st_funcID		LCCM655R0.FILE.034.FUNC.003
  */
 void vFCU_LASERCONT__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Register)

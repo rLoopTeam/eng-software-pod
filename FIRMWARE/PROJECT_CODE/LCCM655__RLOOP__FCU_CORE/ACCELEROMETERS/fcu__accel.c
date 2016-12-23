@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the accel subsystem layer
  * 
- * @st_funcMD5		F190FD444F5B80EC7C484B263C288928
+ * @st_funcMD5		809972C08E10832306B77DABFAEAA1D2
  * @st_funcID		LCCM655R0.FILE.010.FUNC.001
  */
 void vFCU_ACCEL__Init(void)

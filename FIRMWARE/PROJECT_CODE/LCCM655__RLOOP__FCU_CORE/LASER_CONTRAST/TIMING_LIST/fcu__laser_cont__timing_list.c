@@ -29,6 +29,13 @@ extern struct _strFCU sFCU;
  * Init the timing list
  *
  */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		B8F3BEDA21C0436C178D38187F87B646
+ * @st_funcID		LCCM655R0.FILE.042.FUNC.001
+ */
 void vFCU_LASERCONT_TL__Init(void)
 {
 	Luint8 u8LaserCount;
@@ -59,6 +66,13 @@ void vFCU_LASERCONT_TL__Init(void)
  * @brief
  * Process the laser contrast list system
  *
+ */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		B49F777F22EE331A3A234297EEC04270
+ * @st_funcID		LCCM655R0.FILE.042.FUNC.002
  */
 void vFCU_LASERCONT_TL__Process(void)
 {
@@ -116,6 +130,15 @@ void vFCU_LASERCONT_TL__Process(void)
  * This is an interrupt task!. Take Care
  *
  * @param[in]		eLaser					The laser index
+ */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u32Register		## Desc ##
+ * @param[in]		eLaser		## Desc ##
+ * @st_funcMD5		F3C854A1CAA2EDBA01A78A58084577A1
+ * @st_funcID		LCCM655R0.FILE.042.FUNC.003
  */
 void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Register)
 {
@@ -190,11 +213,27 @@ void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Registe
 	}
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		eLaser		## Desc ##
+ * @st_funcMD5		92F834345EEDB528E2092A78E1806443
+ * @st_funcID		LCCM655R0.FILE.042.FUNC.004
+ */
 Luint8 u8FCU_LASERCONT_TL__Get_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser)
 {
 	return sFCU.sContrast.sTimingList[(Luint8)eLaser].u8NewRisingAvail;
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		eLaser		## Desc ##
+ * @st_funcMD5		E776E69E5EDEE8E30C9B3BC6D316D0A2
+ * @st_funcID		LCCM655R0.FILE.042.FUNC.005
+ */
 void vFCU_LASERCONT_TL__Clear_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser)
 {
 	sFCU.sContrast.sTimingList[(Luint8)eLaser].u8NewRisingAvail = 0U;

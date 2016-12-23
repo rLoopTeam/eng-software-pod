@@ -29,7 +29,7 @@ extern struct _strFCU sFCU;
  * @param[in]		u16DestPort				The dest port on the UDP frame
  * @param[in]		u16Length				Length of UDP payload
  * @param[in]		*pu8Buffer				Pointer to UDP payload
- * @st_funcMD5		76D8DC0A961B982A77D66FAE499CC8B0
+ * @st_funcMD5		0B2659AA6A5FE97E7C312A615612AAD9
  * @st_funcID		LCCM655R0.FILE.018.FUNC.001
  */
 void vFCU_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPort)
@@ -50,7 +50,7 @@ void vFCU_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPor
  * @param[in]		ePacketType				SafeUDP packet Type
  * @param[in]		u16PayloadLength		Length of only the SafeUDP payload
  * @param[in]		*pu8Payload				Pointer to the payload bytes
- * @st_funcMD5		C706059D6DAB529AB0EDA6507E4201C4
+ * @st_funcMD5		B60C07200ADBE561C1A9CD55076889FB
  * @st_funcID		LCCM655R0.FILE.018.FUNC.002
  */
 void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)

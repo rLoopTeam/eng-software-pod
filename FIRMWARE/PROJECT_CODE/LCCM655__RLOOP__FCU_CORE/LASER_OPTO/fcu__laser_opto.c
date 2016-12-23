@@ -40,7 +40,7 @@ static void vFCU_LASEROPTO__Append_Byte(Luint8 u8LaserIndex, Luint8 u8Value);
  * @brief
  * Init any variables
  * 
- * @st_funcMD5		43E3B51D6FA2BE8AA4AF8EAD005BCF6C
+ * @st_funcMD5		11F52FEC2BD77F5D757128671E3D3726
  * @st_funcID		LCCM655R0.FILE.021.FUNC.001
  */
 void vFCU_LASEROPTO__Init(void)
@@ -67,7 +67,7 @@ void vFCU_LASEROPTO__Init(void)
  * @brief
  * Process any laser opto tasks
  * 
- * @st_funcMD5		9660F0019D5A030ED73D615506E16AE5
+ * @st_funcMD5		9AA2BC3B1A4F96F85F643C73E5CE6C23
  * @st_funcID		LCCM655R0.FILE.021.FUNC.002
  */
 void vFCU_LASEROPTO__Process(void)
@@ -189,7 +189,7 @@ void vFCU_LASEROPTO__Process(void)
  * Get a lasers distance
  * 
  * @param[in]		u8LaserIndex		## Desc ##
- * @st_funcMD5		53DF2998864036ECF23F9BF1F1C816DA
+ * @st_funcMD5		51DAC43E2C175DD5F95BCA33429423F8
  * @st_funcID		LCCM655R0.FILE.021.FUNC.003
  */
 Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex)
@@ -199,6 +199,14 @@ Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex)
 }
 
 //get laser error state
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u8LaserIndex		## Desc ##
+ * @st_funcMD5		CBF4B747622921B8E44DB3E220DA3C54
+ * @st_funcID		LCCM655R0.FILE.021.FUNC.007
+ */
 Luint8 u8FCU_LASEROPTO__Get_Error(Luint8 u8LaserIndex)
 {
 	return sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8Error;
@@ -209,7 +217,7 @@ Luint8 u8FCU_LASEROPTO__Get_Error(Luint8 u8LaserIndex)
  * Process the laser packet
  * 
  * @param[in]		u8LaserIndex		## Desc ##
- * @st_funcMD5		B571B7763675B602E57E87C48C2B173C
+ * @st_funcMD5		84ECB80689D73D89F1CD4F0A106BC70A
  * @st_funcID		LCCM655R0.FILE.021.FUNC.004
  */
 void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex)
