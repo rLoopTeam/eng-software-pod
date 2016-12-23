@@ -36,8 +36,15 @@ void vFCU_LASERCONT__Init(void)
 	sFCU.sContrast.u32Guard1 = 0xAB12AB34U;
 	sFCU.sContrast.u32Guard2 = 0x76540987U;
 
+	//Update the distance remaining in mm.
+	//This could be set to the max track distance, or some other distance, but we really need
+	//to use caution here has if distremain = 0 then maybe the brakes will be hard on.
+	sFCU.sContrast.u32DistRemain_mm = 0U;
+	sFCU.sContrast.u32DistLastStripe_mm = 0U;
+
 	//at the entry point here the N2HET should have created 3 programs for either
 	//edge capture, or HTU.
+	//todo: Verify the N2HET programs are valid and operating correctly.
 
 
 	//init the timing list capture system
@@ -60,6 +67,8 @@ void vFCU_LASERCONT__Init(void)
  */
 void vFCU_LASERCONT__Process(void)
 {
+	Luint8 u8LaserCount;
+	Luint8 u8Test;
 
 	if(sFCU.sContrast.u32Guard1 != 0xAB12AB34U)
 	{
@@ -82,6 +91,41 @@ void vFCU_LASERCONT__Process(void)
 
 	//compute the track database.
 	vFCU_LASERCONT_TRKDB__Process();
+
+	//process all the lasers
+	for(u8LaserCount = 0U; u8LaserCount < (Luint8)LASER_CONT__MAX; u8LaserCount++)
+	{
+		u8Test = u8FCU_LASERCONT_TL__Get_NewRisingAvail((E_FCU__LASER_CONT_INDEX_T)u8LaserCount);
+		if(u8Test == 1U)
+		{
+
+			//tell the track database about our new edge
+			vFCU_LASERCONT_TRKDB__Inc_Marker((E_FCU__LASER_CONT_INDEX_T)u8LaserCount);
+
+			//recompute the last distance covered and dist remain
+			vFCU_LASERCONT_TRKDB__Compute((E_FCU__LASER_CONT_INDEX_T)u8LaserCount);
+
+			//update our internal structure of either the dist remain, or a fault
+			sFCU.sContrast.u32DistRemain_mm = u32FCU_LASERCONT_TRKDB__Get_DistanceRemain_mm((E_FCU__LASER_CONT_INDEX_T)u8LaserCount);
+
+			//get the distance covered in the last stripe:
+			//Note: This could be 0 when we are starting off before the first maker.
+			sFCU.sContrast.u32DistLastStripe_mm = u32FCU_LASERCONT_TRKDB__Get_DistancePrevSeg_mm((E_FCU__LASER_CONT_INDEX_T)u8LaserCount);
+
+			//use the previous distance to compute our veloc.
+
+			//done with the flag, clear it.
+			vFCU_LASERCONT_TL__Clear_NewRisingAvail((E_FCU__LASER_CONT_INDEX_T)u8LaserCount);
+		}
+		else
+		{
+			//laser edge not ready yet
+			//todo: check for a timeout
+		}
+
+	}//for(u8LaserCount = 0U; u8LaserCount < (Luint8)LASER_CONT__MAX; u8LaserCount++)
+
+
 
 }
 

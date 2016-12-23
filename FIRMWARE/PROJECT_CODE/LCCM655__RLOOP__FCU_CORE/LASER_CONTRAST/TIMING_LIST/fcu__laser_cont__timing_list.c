@@ -62,7 +62,7 @@ void vFCU_LASERCONT_TL__Init(void)
  */
 void vFCU_LASERCONT_TL__Process(void)
 {
-	Luint32 u32ListCounter;
+	Luint32 u32ListCount;
 	Luint8 u8LaserCount;
 	Luint64 u64Temp;
 
@@ -75,6 +75,8 @@ void vFCU_LASERCONT_TL__Process(void)
 	//this will also prevent unexpected load if we hit the ripple strips and can't simulate it easy.
 	for(u8LaserCount = 0U; u8LaserCount < (Luint8)LASER_CONT__MAX; u8LaserCount++)
 	{
+		//do only up to the last marker -1
+		//because we are +1 internal to the for loop.
 		for(u32ListCount = 0U; u32ListCount < (C_FCU__LASER_CONTRAST__MAX_STRIPES - 1); u32ListCount++)
 		{
 			//here we have to assume that *always* one is greater than the other
@@ -82,7 +84,10 @@ void vFCU_LASERCONT_TL__Process(void)
 			if(sFCU.sContrast.sTimingList[u8LaserCount].u64RisingList[u32ListCount] < sFCU.sContrast.sTimingList[u8LaserCount].u64RisingList[u32ListCount + 1])
 			{
 
+				//get the next entry
 				u64Temp = sFCU.sContrast.sTimingList[u8LaserCount].u64RisingList[u32ListCount + 1];
+
+				//subtract it from the current entry
 				u64Temp -= sFCU.sContrast.sTimingList[u8LaserCount].u64RisingList[u32ListCount];
 
 				//update the elapsed list.
@@ -94,9 +99,9 @@ void vFCU_LASERCONT_TL__Process(void)
 				//big issue here, we are not able to subtract;
 			}
 
+		}//for(u32ListCount = 0U; u32ListCount < (C_FCU__LASER_CONTRAST__MAX_STRIPES - 1); u32ListCount++)
 
-		}
-	}
+	}//for(u8LaserCount = 0U; u8LaserCount < (Luint8)LASER_CONT__MAX; u8LaserCount++)
 
 	//3. Update a rolling database of markers passed
 

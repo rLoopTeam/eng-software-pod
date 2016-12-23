@@ -386,6 +386,13 @@
 
 				Luint32 u32Guard1;
 
+
+				/** Top level distance remaining in the run in mm */
+				Luint32 u32DistRemain_mm;
+
+				/** Distance elapsed between last stripe */
+				Luint32 u32DistLastStripe_mm;
+
 				/** Velocity Calc Area */
 				struct
 				{
@@ -429,6 +436,18 @@
 					Luint8 u8NewRisingAvail;
 
 				}sTimingList[LASER_CONT__MAX];
+
+
+				/** The track database for each sensor */
+				struct
+				{
+					/** The distance remaining in the tube */
+					Luint32 u32DistanceRemain_mm[C_FCU__LASER_CONTRAST__MAX_STRIPES];
+
+					/** The current optical marker */
+					Luint8 u8ElapsedCount;
+
+				}sTrackDatabase[LASER_CONT__MAX];
 
 				Luint32 u32Guard2;
 
@@ -581,6 +600,10 @@
 			//track database
 			void vFCU_LASERCONT_TRKDB__Init(void);
 			void vFCU_LASERCONT_TRKDB__Process(void);
+			void vFCU_LASERCONT_TRKDB__Inc_Marker(E_FCU__LASER_CONT_INDEX_T eLaser);
+			void vFCU_LASERCONT_TRKDB__Compute(E_FCU__LASER_CONT_INDEX_T eLaser);
+			Luint32 u32FCU_LASERCONT_TRKDB__Get_DistanceRemain_mm(E_FCU__LASER_CONT_INDEX_T eLaser);
+			Luint32 u32FCU_LASERCONT_TRKDB__Get_DistancePrevSeg_mm(E_FCU__LASER_CONT_INDEX_T eLaser);
 
 		//Laser distance
 		void vFCU_LASERDIST__Init(void);
