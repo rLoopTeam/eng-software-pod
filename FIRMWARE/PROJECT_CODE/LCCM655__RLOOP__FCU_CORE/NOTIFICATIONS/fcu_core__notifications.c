@@ -57,7 +57,7 @@ void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
  * @param[in]		u32Register				Reg values passed in
  * @param[in]		u32ProgramIndex			N2HET program index
  * @param[in]		eChannel				N2HET Channel
- * @st_funcMD5		DCBC25218EECC25BF54AAE6CB56BF7AB
+ * @st_funcMD5		BA3672C0F276685B06058BF6ECA514B1
  * @st_funcID		LCCM655R0.FILE.015.FUNC.002
  */
 void vRM4_N2HET_DYNAMIC__Notification(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32ProgramIndex, Luint32 u32Register)

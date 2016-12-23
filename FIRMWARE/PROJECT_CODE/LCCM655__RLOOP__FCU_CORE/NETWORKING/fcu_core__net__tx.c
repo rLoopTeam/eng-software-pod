@@ -26,7 +26,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init any network transmission stuff
  * 
- * @st_funcMD5		A045D43577055558C4337E5A72E5B4B6
+ * @st_funcMD5		94AA1680BB7A0F956864DDFB9C292C1F
  * @st_funcID		LCCM655R0.FILE.019.FUNC.001
  */
 void vFCU_NET_TX__Init(void)
@@ -44,7 +44,7 @@ void vFCU_NET_TX__Init(void)
  * @brief
  * Process network transmission and do any transmission as required.
  * 
- * @st_funcMD5		195225AD0B954EDBA13250B3414B88AB
+ * @st_funcMD5		2BFE075A2689648599D1A7F394BE9692
  * @st_funcID		LCCM655R0.FILE.019.FUNC.002
  */
 void vFCU_NET_TX__Process(void)

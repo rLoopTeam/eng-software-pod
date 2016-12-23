@@ -27,6 +27,13 @@
 extern struct _strFCU sFCU;
 
 //init contrast sensor navigation
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		14CBEEAA431417A502AD910A69B1485D
+ * @st_funcID		LCCM655R0.FILE.043.FUNC.001
+ */
 void vFCU_FLIGHTCTL_CONTRASTNAV__Init(void)
 {
 
@@ -34,6 +41,13 @@ void vFCU_FLIGHTCTL_CONTRASTNAV__Init(void)
 }
 
 //process nav tasks
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		F684FDABB832922904872564B152B586
+ * @st_funcID		LCCM655R0.FILE.043.FUNC.002
+ */
 void vFCU_FLIGHTCTL_CONTRASTNAV__Process(void)
 {
 
@@ -41,18 +55,39 @@ void vFCU_FLIGHTCTL_CONTRASTNAV__Process(void)
 
 
 //returns our current pod position in mm
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		6D13439034F249C54D595BA6B2528867
+ * @st_funcID		LCCM655R0.FILE.043.FUNC.003
+ */
 Luint32 u32FCU_FLIGHTCTL_CONTRASTNAV__Get_Position_mm(void)
 {
 	return 0;
 }
 
 //immediate return of a fault condition in the nav.
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		FFDC1C0AEC3456B65DEF4913151FBFAE
+ * @st_funcID		LCCM655R0.FILE.043.FUNC.004
+ */
 Luint8 u8FCU_FLIGHTCTL_CONTRASTNAV__Get_IsFault(void)
 {
 	return 0;
 }
 
 //return the list of fault flag conditions.
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		9AA4367164F368C40B7DF9881F7347A7
+ * @st_funcID		LCCM655R0.FILE.043.FUNC.005
+ */
 Luint32 u32FCU_FLIGHTCTL_CONTRASTNAV__Get_FaultFlags(void)
 {
 	return 0;

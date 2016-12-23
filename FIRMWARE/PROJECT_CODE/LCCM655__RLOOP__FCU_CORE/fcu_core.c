@@ -28,7 +28,7 @@ struct _strFCU sFCU;
  * @brief
  * Init the FCU. Call this first thing.
  * 
- * @st_funcMD5		2B87B49581828868F2B8726833317ADB
+ * @st_funcMD5		88020D6DBDEB162F14FFBCD41F36BD19
  * @st_funcID		LCCM655R0.FILE.000.FUNC.001
  */
 void vFCU__Init(void)
@@ -51,7 +51,7 @@ void vFCU__Init(void)
  * @brief
  * Process any FCU tasks.
  * 
- * @st_funcMD5		90BCA89C58F5B330129D0B7665BF02F0
+ * @st_funcMD5		AFF39BD1292A813ABE8E9D51BCCA9673
  * @st_funcID		LCCM655R0.FILE.000.FUNC.002
  */
 void vFCU__Process(void)
@@ -376,7 +376,7 @@ void vFCU__Process(void)
  * @brief
  * 100ms timer
  * 
- * @st_funcMD5		29FA796863975C61E514D3ED94ED79CA
+ * @st_funcMD5		28BC0DFB0E9EBABFFDC7FBE98B4FBDD8
  * @st_funcID		LCCM655R0.FILE.000.FUNC.003
  */
 void vFCU__RTI_100MS_ISR(void)
