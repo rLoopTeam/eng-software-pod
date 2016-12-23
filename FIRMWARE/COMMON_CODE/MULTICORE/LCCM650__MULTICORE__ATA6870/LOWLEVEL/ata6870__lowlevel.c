@@ -27,7 +27,7 @@
 #include "../ata6870.h"
 #if C_LOCALDEF__LCCM650__ENABLE_THIS_MODULE == 1U
 
-extern struct _strPWRNODE sPWRNODE;
+extern struct _str6870 sATA6870;
 
 //Constant value Boolean [MISRA 2004 Rules 13.7 and 14.1], reviewed
 /*lint -e506*/
@@ -139,7 +139,8 @@ void vATA6870_LOWLEVEL__Reg_WriteU8(Luint8 u8DeviceIndex, ATA6870_REGS_T eRegist
 	//save off the interrupt status from this transaction
 	if(u8DeviceIndex < C_LOCALDEF__LCCM650__NUM_DEVICES)
 	{
-		sPWRNODE.sDevice[u8DeviceIndex].sIRQ.u16IRQ_Status = u16IRQStatus;
+
+		sATA6870.sDevice[u8DeviceIndex].sIRQ.u16IRQ_Status = u16IRQStatus;
 	}
 	else
 	{
@@ -235,7 +236,7 @@ void vATA6870_LOWLEVEL__Reg_ReadU8(Luint8 u8DeviceIndex, ATA6870_REGS_T eRegiste
 	//save off the interrupt status from this transaction
 	if(u8DeviceIndex < C_LOCALDEF__LCCM650__NUM_DEVICES)
 	{
-		sPWRNODE.sATA6870.sDevice[u8DeviceIndex].sIRQ.u16IRQ_Status = u16IRQStatus;
+		sATA6870.sDevice[u8DeviceIndex].sIRQ.u16IRQ_Status = u16IRQStatus;
 	}
 	else
 	{

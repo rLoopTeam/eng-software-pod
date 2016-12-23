@@ -43,7 +43,7 @@
 #include "../ata6870.h"
 #if C_LOCALDEF__LCCM650__ENABLE_THIS_MODULE == 1U
 
-extern struct _strPWRNODE sPWRNODE;
+extern struct _str6870 sATA6870;
 
 /***************************************************************************//**
  * @brief
@@ -59,7 +59,7 @@ void vATA6870_INT__Init(void)
 	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
 	{
 		//clear the interrupt vars
-		sPWRNODE.sATA6870.sDevice[u8Counter].sIRQ.u16IRQ_Status = 0x0000U;
+		sATA6870.sDevice[u8Counter].sIRQ.u16IRQ_Status = 0x0000U;
 	}
 
 }

@@ -28,7 +28,7 @@
 #define ATA6870_OFFSET_VOLTAGE 410
 
 //main structure
-extern struct _strPWRNODE sPWRNODE;
+extern struct _str6870 sATA6870;
 
 /***************************************************************************//**
  * @brief

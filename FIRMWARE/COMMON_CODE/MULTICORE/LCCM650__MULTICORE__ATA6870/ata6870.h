@@ -67,6 +67,34 @@
 		Structures
 		*******************************************************************************/
 
+		struct _str6870
+		{
+			E_ATA6870_STATE_T eState;
+			/** Balancing control state machine */
+			struct
+			{
+				E_ATA6870__BALANCE_STATE_T eState;
+
+			}sBalance;
+
+			/** Structure for each individual device in the chain */
+			struct
+			{
+				/** Interrupt support */
+				struct
+				{
+					/** The status of the last device ID command where the IRQ status is returned
+					as part of the ID phase of the SPI transaction */
+					Luint16 u16IRQ_Status;
+
+				}sIRQ;
+
+			}sDevice[C_LOCALDEF__LCCM650__NUM_DEVICES];
+
+			/** The count of 10ms ISR's*/
+			Luint32 u32ISR_Counter;
+		};
+
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/

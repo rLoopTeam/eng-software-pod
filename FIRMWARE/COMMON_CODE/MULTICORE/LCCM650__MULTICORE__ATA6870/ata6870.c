@@ -26,6 +26,7 @@
 #if C_LOCALDEF__LCCM650__ENABLE_THIS_MODULE == 1U
 
 //main structure
+extern struct _str6870 sATA6870;
 extern struct _strPWRNODE sPWRNODE;
 
 //locals
@@ -57,7 +58,7 @@ void vATA6870__Init(void)
 		}
 	}
 
-	sPWRNODE.sATA6870.eState = ATA6870_STATE__INIT_DEVICE;
+	sATA6870.eState = ATA6870_STATE__INIT_DEVICE;
 
 	//setup the lowlevel
 	vATA6870_LOWLEVEL__Init();
@@ -119,24 +120,24 @@ void vATA6870__Init(void)
  */
 void vATA6870__Process(void)
 {
-	switch(sPWRNODE.sATA6870.eState)
+	switch(sATA6870.eState)
 	{
 		case ATA6870_STATE__IDLE:
 			//do nothing,
 			break;
 		case ATA6870_STATE__INIT_DEVICE:
-			sPWRNODE.sATA6870.eState = ATA6870_STATE__START_CONVERSION;
+			sATA6870.eState = ATA6870_STATE__START_CONVERSION;
 			break;
 		case ATA6870_STATE__START_CONVERSION:
 			vATA6870__StartConversion(1U, 1U);
-			sPWRNODE.sATA6870.eState = ATA6870_STATE__WAIT_CONVERSION;
+			sATA6870.eState = ATA6870_STATE__WAIT_CONVERSION;
 			break;
 		case ATA6870_STATE__WAIT_CONVERSION:
 			// 8.2ms conversion time according to datasheet
-			if(sPWRNODE.sATA6870.u32ISR_Counter > 1U)
+			if(sATA6870.u32ISR_Counter > 1U)
 			{
 				//go and read the voltages now
-				sPWRNODE.sATA6870.eState = ATA6870_STATE__READ_CELL_VOLTAGES;
+				sATA6870.eState = ATA6870_STATE__READ_CELL_VOLTAGES;
 			}
 			else
 			{
@@ -145,7 +146,7 @@ void vATA6870__Process(void)
 			break;
 		case ATA6870_STATE__READ_CELL_VOLTAGES:
 			u8ATA6870__BulkRead();
-			sPWRNODE.sATA6870.eState = ATA6870_STATE__START_CONVERSION;
+			sATA6870.eState = ATA6870_STATE__START_CONVERSION;
 			break;
 	}
 
@@ -197,7 +198,7 @@ void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
 	}
 
 	//clear the counter
-	sPWRNODE.sATA6870.u32ISR_Counter = 0U;
+	sATA6870.u32ISR_Counter = 0U;
 }
 
 /***************************************************************************//**
