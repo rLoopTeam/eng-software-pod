@@ -146,6 +146,7 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\TRANSMIT\daq__transmit_template.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32\daq__win32.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32\daq__win32_main.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\fcu__accel.c" />
@@ -164,6 +165,8 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\LASER_ORIENTATION\fcu__laser_orientation.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\fcu__laser_cont.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TIMING_LIST\fcu__laser_cont__timing_list.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TRACK_DATABASE\fcu__laser_cont__track_database.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\VELOCITY\fcu__laser_cont__veloc.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_DISTANCE\fcu__laser_distance.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_OPTO\fcu__laser_opto.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\MAIN_SM\fcu__main_sm.c" />
@@ -176,6 +179,11 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\PUSHER\fcu__pusher.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\THROTTLES\fcu__throttles.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_000.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_001.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_002.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_003.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_004.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_005.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC\software_crc.h" />
@@ -209,6 +217,11 @@
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\amc7812__localdef.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq__localdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__localdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__private.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__semistaticdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__staticdef.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload__localdef.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h" />
@@ -218,6 +231,7 @@
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__fault_flags.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core__localdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\fcu__laser_cont__fault_flags.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\NETWORKING\fcu_core__net__packet_types.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\THROTTLES\fcu__throttles.h" />
     <ClInclude Include="localdef.h" />

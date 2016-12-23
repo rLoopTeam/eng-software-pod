@@ -178,6 +178,15 @@
     <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FILTERING">
       <UniqueIdentifier>{561eee60-1570-4744-a4d7-bb7069973af1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\VELOCITY">
+      <UniqueIdentifier>{0e4d4546-1f7a-4816-849a-b14f170a481c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TRACK_DATABASE">
+      <UniqueIdentifier>{294e9711-8cd4-45b0-a1a1-3babd79c75a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RM4\LCCM124__RM4__RTI">
+      <UniqueIdentifier>{49c322d8-9912-429b-a7fb-ba85628f2d3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
@@ -468,6 +477,30 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FILTERING\numerical__average.c">
       <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FILTERING</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_001.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_002.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_003.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_004.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_005.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\VELOCITY\fcu__laser_cont__veloc.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\VELOCITY</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TRACK_DATABASE\fcu__laser_cont__track_database.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TRACK_DATABASE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.c">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h">
@@ -601,6 +634,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\eth__fault_flags.h">
       <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\fcu__laser_cont__fault_flags.h">
+      <Filter>LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__localdef.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__private.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__semistaticdef.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__staticdef.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

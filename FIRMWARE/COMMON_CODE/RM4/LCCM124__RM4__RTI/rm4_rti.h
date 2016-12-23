@@ -106,7 +106,9 @@
 
 		}RM4_RTI__INTERNAL_CLOCK_T;
 
-
+		#ifdef WIN32
+			extern Luint64 u64RTI_WIN32__Counter1;
+		#endif
 
 		/*****************************************************************************
 		//function prototypes
