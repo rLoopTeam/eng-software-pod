@@ -566,6 +566,9 @@
 			Luint8 u8FCU_FLIGHTCTL_CONTRASTNAV__Get_IsFault(void);
 			Luint32 u32FCU_FLIGHTCTL_CONTRASTNAV__Get_FaultFlags(void);
 
+			//brake profiler
+			Lint16 s16FCU_FLIGHTCTL_BRAKES__Brake_Lookup(Luint32 u32Veloc_mms, Luint32 u32DragForce_n, Luint32 *pu32IBDistance_um);
+
 		//network
 		void vFCU_NET__Init(void);
 		void vFCU_NET__Process(void);

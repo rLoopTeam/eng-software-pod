@@ -131,7 +131,7 @@ void vFCU_LASERCONT_TL__Process(void)
  *
  * @param[in]		eLaser					The laser
  * @param[in]		u32Register				Snapshot of pin
- * @st_funcMD5		F3C854A1CAA2EDBA01A78A58084577A1
+ * @st_funcMD5		C9E0D08D7A05712DAD2D8ACF97A7DF77
  * @st_funcID		LCCM655R0.FILE.042.FUNC.003
  */
 void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Register)
@@ -209,6 +209,14 @@ void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Registe
 
 //gets the difference btween the current edge and previous edge.
 //can only use used if new rising edge avail = 1 and there is suitable rising data
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		eLaser		## Desc ##
+ * @st_funcMD5		9940CA9BC9719734DE3ABC97353DA6D0
+ * @st_funcID		LCCM655R0.FILE.042.FUNC.006
+ */
 Luint64 u64FCU_LASERCONT_TL__Get_TimeDelta(E_FCU__LASER_CONT_INDEX_T eLaser)
 {
 	Luint64 u64Return;

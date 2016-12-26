@@ -26,10 +26,10 @@
 //the structure
 extern struct _strFCU sFCU;
 
-//init contrast sensor navigation
+//
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Init contrast sensor navigation
  * 
  * @st_funcMD5		14CBEEAA431417A502AD910A69B1485D
  * @st_funcID		LCCM655R0.FILE.043.FUNC.001
@@ -40,10 +40,10 @@ void vFCU_FLIGHTCTL_CONTRASTNAV__Init(void)
 
 }
 
-//process nav tasks
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Process any navigation tasks
  * 
  * @st_funcMD5		F684FDABB832922904872564B152B586
  * @st_funcID		LCCM655R0.FILE.043.FUNC.002
