@@ -307,7 +307,10 @@ Public Class Form1
 
         'track contrast database
         'vLCCM655R0_TS_001()
-        vLCCM655R0_TS_003()
+        'vLCCM655R0_TS_003()
+
+        'brake lookup
+        vLCCM655R0_TS_006()
     End Sub
 
     ''' <summary>

@@ -1,7 +1,7 @@
 #Python 2.7.13
 #Processing script to convert a43 brake data table to a suitable format for RM48
 #Original Author: SafetyLok
-#example: d:\python27\python.exe go.py ../a34data.csv -p3 -v25 -g0
+#example: d:\python27\python.exe go.py ../a34data.csv -p3 -y3 -v25 -g0
 
 #Need various toolboxes
 import argparse
@@ -24,6 +24,7 @@ from qr import qr_decomp
 m_parse = argparse.ArgumentParser()
 m_parse.add_argument('csv_file')
 m_parse.add_argument('-p', '--polyorder', help="Polynomial Degree", type=int, default=2, required=True)
+m_parse.add_argument('-y', '--vertpoly', help="Vertical Polynomial Degree", type=int, default=2, required=True)
 m_parse.add_argument('-v', '--min_veloc', help="Minimum Velocity To Use", type=int, default=30, required=True)
 m_parse.add_argument('-g', '--produce_graphs', help="Produce Graphs = 1", type=int, default=0, required=False)
 m_args = m_parse.parse_args()
@@ -35,7 +36,8 @@ m_csv_sort = m_csv.sort(['h'])
 
 #create an array of unique heights on the sorted array
 m_unique_heights = m_csv_sort['h'].unique()
-#print m_unique_heights
+print m_unique_heights
+
 
 #create the dictionary of all the i-beam distances (heights) in the file
 #drag and veloc are separated here
@@ -45,6 +47,7 @@ dict_heights_v = {}
 #go through each height
 for iHeight in m_unique_heights:
 	
+
 	#see if our current height key is in the dict
 	if not iHeight in dict_heights_d:
 	
@@ -143,11 +146,12 @@ for iHeight in m_unique_heights:
 		plt.grid()
 		plt.plot(x, yy, label='Polynomial')
 		plt.plot(v_arrX, d_arrX, label='A34 Data')
+		plt.legend()
 		#plt.show()
 		filename = 'qr_fig_h_'
 		newname = 'OUTPUT/GRAPHS/{}{:f}.png'.format(filename, iHeight)
-		plt.savefig(newname)
-
+		#plt.savefig(newname)
+		plt.close()
 	
 	#At this point here we have an array of polys for a given height, lets
 	#save these polys off into an easy to handle format so as we can re-load them and
@@ -188,33 +192,87 @@ for iVeloc in range(0, veloc_max):
 
 	#create the veloc table entry, which is a dictionary of arrays
 	veloc_tables[iVeloc] = []
+	
+	#the dictionary of our resultant matrixP (the coeffs) for a given velocity
 	veloc_tables_matrixP[iVeloc] = []
 
 	#create an array of the current velocity from all the height tables
+	#imagine 6 rows in a table, these rows are the 'height tables'
 	for iHeight in m_unique_heights:
 	
-		#add the item
+		#add the item to the dictionary under our current velocity
+		#We are building a dict of:
+		#velocity[0m/s][force0, force1, force2]
+		#			   [vel=0, vel=1, vel=2]
 		veloc_tables[iVeloc].append(veloc_tables_for_height[iHeight][iVeloc])
 		
+	#print 'Veloc Table for Height Array'
+	#pprint.pprint(veloc_tables[iVeloc])
 		
+	#here our veloc_table should look like for V=0
+	#[drag for H=0, Drag for H=1, etc.]
+
 	#at this point we have an array which represents columns of data, where each column
 	#is the computed drag force at the current velocity
-	
+
 	#get our coeffs
-	veloc_tables_matrixP[iVeloc] = qr_decomp(veloc_tables[iVeloc], m_unique_heights, poly_degree, False)
+	#compute such at that we have have a x = drags at current veloc, y = heights
 	
-	#do some testing
-	testX = veloc_tables[iVeloc][0]
-	testY = 0.0
+	veloc_tables_matrixP[iVeloc] = qr_decomp(veloc_tables[iVeloc], m_unique_heights, m_args.vertpoly, False)
+
+	if iVeloc >= 30:
+		#do some testing
+		#X = Drag at point 0
+		testX = veloc_tables[iVeloc][0]
+		testY = 0.0
+		
+		#thx ryan!
+		for idx, coefficient in enumerate(veloc_tables_matrixP[iVeloc]):
+			# length of coefficients (in this case, 6) - the list index (0 to 5) - 1
+			power = len(veloc_tables_matrixP[iVeloc]) - idx - 1
+			testY += coefficient * testX**power
+		
+		print 'Column Test: Drag:', testX, ', Calc I-Beam:', testY #, ', Expected IBeam: ', iHeight #m_unique_heights[iHeight]
+
+		#quit()
 	
-	#thx ryan!
-	for idx, coefficient in enumerate(veloc_tables_matrixP[iVeloc]):
-		# length of coefficients (in this case, 6) - the list index (0 to 5) - 1
-		power = len(veloc_tables_matrixP[iVeloc]) - idx - 1
-		testY += coefficient * testX**power
+		#plot this graph
+		if m_args.produce_graphs == 1:
+			plt.figure()
+			plt.title('Vertical Veloc = ' + str(iVeloc) + ', Poly = ' + str(m_args.vertpoly))
+
+
+			yy = []
+			#generate the values up to 10K
+			x = np.linspace(-500, 10000, 500)
+			for xx in x:
+				ay = 0.0
+				for idx, coefficient in enumerate(veloc_tables_matrixP[iVeloc]):
+					power = len(veloc_tables_matrixP[iVeloc]) - idx - 1
+					ay += coefficient * xx**power
+					
+				#limit for graphing purposes
+				if ay > 0.05:
+					ay = 0.05
+				if ay < 0.00:
+					ay = 0.0
+					
+				yy.append(ay)
+
+			plt.ylabel('I-Beam Distance')
+			plt.xlabel('Drag Force n')
+			
+			plt.grid()
+			plt.plot(veloc_tables[iVeloc], m_unique_heights, label='A34 Data', marker='o')
+			plt.plot(x, yy, label='Polynomial')
+			plt.legend()
+			#plt.show()
+			filename = 'veloc_'
+			newname = 'OUTPUT/VERTICAL/{}{:f}.png'.format(filename, iVeloc)
+			plt.savefig(newname)
+			plt.close()
 	
-	print 'Column Test: (x=', testX, ')', testY, 'expected: ', m_unique_heights[0]
-	
+			#quit()
 	#At this point we know that our column tables have been curve fitted and we have the polys for
 	#this table in MatrixP
 	#So here we have:
@@ -226,7 +284,15 @@ for iVeloc in range(0, veloc_max):
 #from the column tables, lets spit out a C-File
 
 #setup the C-File
-c_output = "Lfloat32 f32Array[] = {\n" # + floats_str + "}"
+c_output = "#include ../../fcu_core.h\n"
+
+c_output += "#ifndef WIN32\n"
+c_output += "const Lfloat32 f32A34_BrakeTable[] = {\n"
+c_output += "#else\n"
+c_output += "Lfloat32 f32A34_BrakeTable[] = {\n"
+c_output += "#endif\n"
+
+
 
 for iVeloc in range(0, veloc_max):
 
@@ -239,7 +305,7 @@ for iVeloc in range(0, veloc_max):
 c_output = c_output[:-2]
 
 #append the last
-c_output += "}\n"
+c_output += "};\n"
 	
 with open('a34_brake_table.c', 'w') as c_file:
    c_file.write(c_output)
