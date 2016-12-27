@@ -138,7 +138,7 @@ void vLCCM655R0_TS_006_TCASE_001(void)
 		u32Veloc_mms = (Luint32)f32Temp;
 
 		//only do above 25m/s
-		if(u32Veloc_mms > 25000)
+		if(u32Veloc_mms == 30000)
 		{
 			//get the drag force
 			f32Temp = f32A34Data[u32Index + 1U];

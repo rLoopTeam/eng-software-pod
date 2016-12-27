@@ -223,7 +223,7 @@ for iVeloc in range(0, veloc_max):
 	if iVeloc >= 30:
 		#do some testing
 		#X = Drag at point 0
-		testX = veloc_tables[iVeloc][0]
+		testX = 7150.0 #veloc_tables[iVeloc][0]
 		testY = 0.0
 		
 		#thx ryan!
@@ -232,7 +232,7 @@ for iVeloc in range(0, veloc_max):
 			power = len(veloc_tables_matrixP[iVeloc]) - idx - 1
 			testY += coefficient * testX**power
 		
-		print 'Column Test: Drag:', testX, ', Calc I-Beam:', testY #, ', Expected IBeam: ', iHeight #m_unique_heights[iHeight]
+		print 'Column Test: Veloc:', iVeloc, ' Drag:', testX, ', Calc I-Beam:', testY #, ', Expected IBeam: ', iHeight #m_unique_heights[iHeight]
 
 		#quit()
 	
@@ -243,8 +243,8 @@ for iVeloc in range(0, veloc_max):
 
 
 			yy = []
-			#generate the values up to 10K
-			x = np.linspace(-500, 10000, 500)
+			#generate the values up to 10K, 100 points.
+			x = np.linspace(-500, 10000, 100)
 			for xx in x:
 				ay = 0.0
 				for idx, coefficient in enumerate(veloc_tables_matrixP[iVeloc]):
