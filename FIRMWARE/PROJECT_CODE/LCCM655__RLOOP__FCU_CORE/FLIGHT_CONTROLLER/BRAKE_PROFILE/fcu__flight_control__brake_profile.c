@@ -1,6 +1,7 @@
 /**
  * @file		FCU__FLIGHT_CONTROL__BRAKE_PROFILE.C
  * @brief		Brake profile control
+ * 				This is the top level point that we can control the brakes from.
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
  */

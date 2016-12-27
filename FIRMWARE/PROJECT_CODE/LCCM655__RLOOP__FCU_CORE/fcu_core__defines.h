@@ -33,6 +33,9 @@
 	/** number of lasers for the i-beam */
 	#define C_FCU__NUM_LASERS_IBEAM							(2U)
 
+	/** Total number of Laser OptoNCDT's*/
+	#define C_FCU__NUM_LASERS_OPTONCDT						(C_FCU__NUM_LASERS_GROUND + C_FCU__NUM_LASERS_IBEAM)
+
 	/** number of lasers for the constrast detection system */
 	#define C_FCU__NUM_LASERS_CONTRAST						(3U)
 

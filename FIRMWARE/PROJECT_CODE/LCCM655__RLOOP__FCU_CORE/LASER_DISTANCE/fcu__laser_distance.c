@@ -43,7 +43,7 @@ void vFCU_LASERDIST__Init(void)
 	sFCU.sLaserDist.u8NewDistanceAvail = 0U;
 	sFCU.sLaserDist.u32LaserPOR_Counter = 0U;
 	//just set to some obscene distance
-	sFCU.sLaserDist.f32Distance = 99999.9F;
+	sFCU.sLaserDist.f32Distance = 88888.8F;
 
 
 }
@@ -128,7 +128,7 @@ void vFCU_LASERDIST__Process(void)
 					vFCU_LASERDIST__Append_Byte(u8Temp);
 				}
 
-			}
+			}//for(u8BurstCount = 0U; u8BurstCount < 3U; u8BurstCount++)
 
 
 			sFCU.sLaserDist.eLaserState = LASERDIST_STATE__CHECK_NEW_PACKET;

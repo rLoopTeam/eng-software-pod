@@ -22,6 +22,7 @@
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/BRAKES/fcu__brakes__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/ACCELEROMETERS/fcu__accel__fault_flags.h>
+		#include <LCCM655__RLOOP__FCU_CORE/LASER_OPTO/fcu__laser_opto__fault_flags.h>
 
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_defines.h>
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_types.h>
@@ -262,6 +263,9 @@
 			/** Overall structure for the OPTONCDT laser interfaces */
 			struct
 			{
+				/** Global laser fault flags */
+				FAULT_TREE__PUBLIC_T sFaultFlags;
+
 				/** state machine for processing the OptoNCDT systems */
 				E_FCU_OPTOLASER__STATE_T eOptoNCDTState;
 
@@ -271,14 +275,20 @@
 				/** The opto NCDT laser interfaces */
 				struct
 				{
+					/** Individual laser fault flags */
+					FAULT_TREE__PUBLIC_T sFaultFlags;
+
 					/** RX byte state machine */
 					E_OPTONCDT__RX_STATE_T eRxState;
 
 					/** A new packet is available for distance processing */
 					Luint8 u8NewPacket;
 
+					/** A new packet is available and ready to be filtered */
+					Luint8 u8ReadyForFiltering;
+
 					/** Array to hold new bytes received */
-					Luint8 u8NewByteArray[3];
+					Luint8 u8NewByteArray[3U];
 
 					/** The most recent distance*/
 					Lfloat32 f32Distance;
@@ -289,7 +299,29 @@
 					/** is f32Distance equal to error value? */
 					Luint8 u8Error;
 
-				}sOptoLaser[C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT];
+
+					/** Diagnostic Counters */
+					struct
+					{
+
+						/** We have received an error code from the laser */
+						Luint32 u32ErrorCode;
+
+						/** First packet byte was not in the correct place */
+						Luint32 u32Byte1Wrong;
+
+					}sCounters;
+
+					/** Filtered data structure */
+					struct
+					{
+
+						/** The filtered height */
+						Lfloat32 f32FilteredValue;
+
+					}sFiltered;
+
+				}sOptoLaser[C_FCU__NUM_LASERS_OPTONCDT];
 
 			}sLaserOpto;
 
@@ -384,7 +416,11 @@
 			struct
 			{
 
+				/** Upper guard */
 				Luint32 u32Guard1;
+
+				/** Top level fault system */
+				FAULT_TREE__PUBLIC_T sFaultFlags;
 
 
 				/** Top level distance remaining in the run in mm */
@@ -413,6 +449,9 @@
 
 					/** The N2HET program index */
 					Luint16 u16N2HET_Index;
+
+					/** Individual fault flags */
+					FAULT_TREE__PUBLIC_T sFaultFlags;
 
 				}sSensors[LASER_CONT__MAX];
 
@@ -620,12 +659,17 @@
 			Luint32 u32FCU_LASERCONT_TRKDB__Get_DistanceRemain_mm(E_FCU__LASER_CONT_INDEX_T eLaser);
 			Luint32 u32FCU_LASERCONT_TRKDB__Get_DistancePrevSeg_mm(E_FCU__LASER_CONT_INDEX_T eLaser);
 
+			//ethernet
+			void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType);
+
 		//Laser distance
 		void vFCU_LASERDIST__Init(void);
 		void vFCU_LASERDIST__Process(void);
 		Lfloat32 f32FCU_LASERDIST__Get_Distance(void);
 		void vFCU_LASERDIST__100MS_ISR(void);
 
+			//eth
+			void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
 		//main state machine
 		void vFCU_MAINSM__Init(void);
@@ -641,9 +685,15 @@
 		//lasers for OptoNCDT interface
 		void vFCU_LASEROPTO__Init(void);
 		void vFCU_LASEROPTO__Process(void);
-		Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex);
-		Luint8 u8FCU_LASEROPTO__Get_Error(Luint8 u8LaserIndex);
+		Lfloat32 f32FCU_LASEROPTO__Get_Distance(E_FCU__LASER_OPTO__INDEX_T eLaser);
+		Luint8 u8FCU_LASEROPTO__Get_Error(E_FCU__LASER_OPTO__INDEX_T eLaser);
 		void vFCU_LASEROPTO__100MS_ISR(void);
+
+			//eth
+			void vFCU_LASEROPTO_ETH__Transmit(E_NET__PACKET_T ePacketType);
+
+			//filtering
+			void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser);
 
 
 		//pi comms

@@ -27,11 +27,6 @@ extern struct _strFCU sFCU;
 /***************************************************************************//**
  * @brief
  * Init the timing list
- *
- */
-/***************************************************************************//**
- * @brief
- * ToDo
  * 
  * @st_funcMD5		B8F3BEDA21C0436C178D38187F87B646
  * @st_funcID		LCCM655R0.FILE.042.FUNC.001
@@ -65,11 +60,6 @@ void vFCU_LASERCONT_TL__Init(void)
 /***************************************************************************//**
  * @brief
  * Process the laser contrast list system
- *
- */
-/***************************************************************************//**
- * @brief
- * ToDo
  * 
  * @st_funcMD5		B49F777F22EE331A3A234297EEC04270
  * @st_funcID		LCCM655R0.FILE.042.FUNC.002
@@ -207,13 +197,13 @@ void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Registe
 	}
 }
 
-//gets the difference btween the current edge and previous edge.
-//can only use used if new rising edge avail = 1 and there is suitable rising data
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Gets the difference btween the current edge and previous edge.
+ * can only use used if new rising edge avail = 1 and there is suitable rising data
  * 
- * @param[in]		eLaser		## Desc ##
+ * @param[in]		eLaser				The laser index
  * @st_funcMD5		9940CA9BC9719734DE3ABC97353DA6D0
  * @st_funcID		LCCM655R0.FILE.042.FUNC.006
  */
@@ -223,7 +213,7 @@ Luint64 u64FCU_LASERCONT_TL__Get_TimeDelta(E_FCU__LASER_CONT_INDEX_T eLaser)
 	Luint8 u8Index0;
 	Luint8 u8Index1;
 
-	if (sFCU.sContrast.sTimingList[(Luint8)eLaser].u16RisingCount > 1)
+	if(sFCU.sContrast.sTimingList[(Luint8)eLaser].u16RisingCount > 1)
 	{
 
 		//compute the indexes

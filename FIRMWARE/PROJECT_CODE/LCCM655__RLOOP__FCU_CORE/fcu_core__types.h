@@ -88,7 +88,10 @@
 		OPTOLASER_STATE__CHECK_NEW_DATA,
 
 		/** Check if a new packet is avail for each laser */
-		OPTOLASER_STATE__CHECK_NEW_PACKET
+		OPTOLASER_STATE__CHECK_NEW_PACKET,
+
+		/** Perform packet filtering */
+		OPTOLASER_STATE__FILTER_PACKET
 
 	}E_FCU_OPTOLASER__STATE_T;
 
