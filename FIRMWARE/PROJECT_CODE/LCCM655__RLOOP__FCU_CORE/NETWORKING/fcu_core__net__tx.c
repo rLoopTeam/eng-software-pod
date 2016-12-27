@@ -97,7 +97,27 @@ void vFCU_NET_TX__Process(void)
 			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 				vFCU_ACCEL_ETH__Transmit(eType);
 			#endif
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+			break;
 
+		case NET_PKT__LASER_OPTO__TX_LASER_DATA:
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
+				vFCU_LASEROPTO_ETH__Transmit(eType);
+			#endif
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+			break;
+
+		case NET_PKT__LASER_DIST__TX_LASER_DATA:
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
+				vFCU_LASERDIST_ETH__Transmit(eType);
+			#endif
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+			break;
+
+		case NET_PKT__LASER_CONT__TX_LASER_DATA:
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
+				vFCU_LASERCONST_ETH__Transmit(eType);
+			#endif
 			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
 

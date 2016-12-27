@@ -32,6 +32,7 @@ extern struct _strFCU sFCU;
  */
 void vFCU_LASERCONT__Init(void)
 {
+	Luint8 u8Counter;
 
 	sFCU.sContrast.u32Guard1 = 0xAB12AB34U;
 	sFCU.sContrast.u32Guard2 = 0x76540987U;
@@ -42,6 +43,17 @@ void vFCU_LASERCONT__Init(void)
 	sFCU.sContrast.u32DistRemain_mm = 0U;
 	sFCU.sContrast.u32DistLastStripe_mm = 0U;
 	sFCU.sContrast.u32CurrentVeloc_mms = 0U;
+
+	//init the fault system for top level
+	vFAULTTREE__Init(&sFCU.sContrast.sFaultFlags);
+
+	//init the sensor specifics
+	for(u8Counter = 0U; u8Counter < LASER_CONT__MAX; u8Counter++)
+	{
+
+		vFAULTTREE__Init(&sFCU.sContrast.sSensors[u8Counter].sFaultFlags);
+
+	}
 
 	//at the entry point here the N2HET should have created 3 programs for either
 	//edge capture, or HTU.

@@ -73,6 +73,30 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 		switch((E_NET__PACKET_T)ePacketType)
 		{
 
+
+			case NET_PKT__FCU_GEN__POD_STOP_COMMAND:
+				if(u32Block[0] == 0x1234ABCDU)
+				{
+					//transition to the pod stop phase.
+
+					/*9.2.2. Execute Pod-Safe Command from GS
+					 * The following requirements describe how the Pod-Safe Command from Ground Station should be implemented.
+					 * The Pod-Safe Command from the Ground Station shall be executed in two steps, so as to prevent operator
+					 * from triggering it by mistake.
+					 * Upon reception of the Authorize Pod-Safe Command from the Ground Station,
+					 * the FCU shall set pod safe command authorized to true.
+					 */
+				}
+				else
+				{
+					//maybe should log this error.
+				}
+				break;
+
+			case NET_PKT__FCU_GEN__POD_EMULATION_CONTROL:
+
+				break;
+
 			case NET_PKT__FCU_GEN__STREAMING_CONTROL:
 				//if the host wants to stream data packets.
 				if(u32Block[0] == 1U)
@@ -100,16 +124,36 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				break;
 
 			case NET_PKT__FCU_ACCEL__AUTO_CALIBRATE:
-				//enter auto calibration mode
-				//block 0 = device
-				vMMA8451_ZERO__AutoZero((Luint8)u32Block[0]);
+				#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
+					//enter auto calibration mode
+					//block 0 = device
+					vMMA8451_ZERO__AutoZero((Luint8)u32Block[0]);
+				#endif
 				break;
 
 			case NET_PKT__FCU_ACCEL__FINE_ZERO_ADJUSTMENT:
-				//Fine Zero adjustment on a particular axis
-				//block 0 = device
-				//block 1 = axis
-				vMMA8451_ZERO__Set_FineZero((Luint8)u32Block[0], (MMA8451__AXIS_E)u32Block[1]);
+				#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
+					//Fine Zero adjustment on a particular axis
+					//block 0 = device
+					//block 1 = axis
+					vMMA8451_ZERO__Set_FineZero((Luint8)u32Block[0], (MMA8451__AXIS_E)u32Block[1]);
+				#endif
+				break;
+
+
+			case NET_PKT__LASER_OPTO__REQUEST_LASER_DATA:
+				//transmit the laser opto's data
+				sFCU.sUDPDiag.eTxPacketType = NET_PKT__LASER_OPTO__TX_LASER_DATA;
+				break;
+
+			case NET_PKT__LASER_DIST__REQUEST_LASER_DATA:
+				//transmit the laser distance data
+				sFCU.sUDPDiag.eTxPacketType = NET_PKT__LASER_DIST__TX_LASER_DATA;
+				break;
+
+			case NET_PKT__LASER_CONT__REQUEST_LASER_DATA:
+				//transmit the laser contrast sub system
+				sFCU.sUDPDiag.eTxPacketType = NET_PKT__LASER_CONT__TX_LASER_DATA;
 				break;
 
 			default:

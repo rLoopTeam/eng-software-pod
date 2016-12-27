@@ -33,8 +33,8 @@
 extern struct _strFCU sFCU;
 
 //locals
-static void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex);
-static void vFCU_LASEROPTO__Append_Byte(Luint8 u8LaserIndex, Luint8 u8Value);
+static void vFCU_LASEROPTO__Process_Packet(E_FCU__LASER_OPTO__INDEX_T eLaser);
+static void vFCU_LASEROPTO__Append_Byte(E_FCU__LASER_OPTO__INDEX_T eLaser, Luint8 u8Value);
 
 /***************************************************************************//**
  * @brief
@@ -48,17 +48,26 @@ void vFCU_LASEROPTO__Init(void)
 	Luint8 u8Counter;
 
 	sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__RESET;
+	vFAULTTREE__Init(&sFCU.sLaserOpto.sFaultFlags);
 
 	//reset everything that is needed
-	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT; u8Counter++)
+	for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
 	{
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].eRxState = OPTONCDT_RX__BYTE_1;
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].u8NewPacket = 0U;
+		sFCU.sLaserOpto.sOptoLaser[u8Counter].u8ReadyForFiltering = 0U;
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].u8NewDistanceAvail = 0U;
 		//just set to some obscene distance
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].f32Distance = 99999.9F;
+		sFCU.sLaserOpto.sOptoLaser[u8Counter].sFiltered.f32FilteredValue = 0.0F;
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].u8Error = 0U;
-  }
+
+		sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32ErrorCode = 0U;
+		sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32Byte1Wrong = 0U;
+
+		vFAULTTREE__Init(&sFCU.sLaserOpto.sOptoLaser[u8Counter].sFaultFlags);
+
+  }//for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
 
 }
 
@@ -107,7 +116,7 @@ void vFCU_LASEROPTO__Process(void)
 
 			//sucks but we have had to set the profile called rLoop into each sensor
 			//put the lasers into RS422 mode.
-			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT; u8Counter++)
+			for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
 			{
 				//send the command
 				vSC16__Tx_ByteArray(u8Counter, (Luint8*)"\r\nOUTPUT RS422\r\n", 16U);
@@ -132,7 +141,7 @@ void vFCU_LASEROPTO__Process(void)
 			{
 
 				//check if any new laser data is available on the bus.
-				for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT; u8Counter++)
+				for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
 				{
 					//see if there is at least one byte of data avail in the FIFO's
 					u8Temp = u8SC16_USER__Get_ByteAvail(u8Counter);
@@ -148,11 +157,12 @@ void vFCU_LASEROPTO__Process(void)
 						u8Temp = u8SC16_USER__Get_Byte(u8Counter);
 
 						//process the byte.
-						vFCU_LASEROPTO__Append_Byte(u8Counter, u8Temp);
+						vFCU_LASEROPTO__Append_Byte((E_FCU__LASER_OPTO__INDEX_T)u8Counter, u8Temp);
 					}
 
-				}
-			}
+				}//for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+
+			}//for(u8BurstCount = 0U; u8BurstCount < 3U; u8BurstCount++)
 
 			sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__CHECK_NEW_PACKET;
 			break;
@@ -160,12 +170,15 @@ void vFCU_LASEROPTO__Process(void)
 		case OPTOLASER_STATE__CHECK_NEW_PACKET:
 
 			//check the packet state of each laser
-			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT; u8Counter++)
+			for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
 			{
 				if(sFCU.sLaserOpto.sOptoLaser[u8Counter].u8NewPacket == 1U)
 				{
 					//we have a new laser packet, process it for distance or error code.
-					vFCU_LASEROPTO__Process_Packet(u8Counter);
+					vFCU_LASEROPTO__Process_Packet((E_FCU__LASER_OPTO__INDEX_T)u8Counter);
+
+					//good for packet filtering.
+					sFCU.sLaserOpto.sOptoLaser[u8Counter].u8ReadyForFiltering = 1U;
 
 					//clear the flag
 					sFCU.sLaserOpto.sOptoLaser[u8Counter].u8NewPacket = 0U;
@@ -174,12 +187,44 @@ void vFCU_LASEROPTO__Process(void)
 				{
 					//no new packet has arrived, loop around
 				}
-			}
+
+			}//or(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+
+			//now filter it
+			sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__FILTER_PACKET;
+			break;
+
+		case OPTOLASER_STATE__FILTER_PACKET:
+
+			//check the packet state of each laser
+			for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+			{
+				if(sFCU.sLaserOpto.sOptoLaser[u8Counter].u8ReadyForFiltering == 1U)
+				{
+					//filter the data
+					vFCU_LASEROPTO_FILT__FilterPacket((E_FCU__LASER_OPTO__INDEX_T)u8Counter);
+
+					//clear the flag
+					sFCU.sLaserOpto.sOptoLaser[u8Counter].u8ReadyForFiltering = 0U;
+
+					//set a flag allowing the upper layer or the DAQ to read us.
+
+				}
+				else
+				{
+					//no filtering needed on this packet.
+				}
+
+			}//or(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
 
 			//back to check for more data
 			sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__CHECK_NEW_DATA;
 			break;
 
+
+		default:
+			//log;
+			break;
 	}//switch(sFCU.sLaserOpto.eOptoNCDTState)
 
 }
@@ -188,39 +233,39 @@ void vFCU_LASEROPTO__Process(void)
  * @brief
  * Get a lasers distance
  * 
- * @param[in]		u8LaserIndex		## Desc ##
+ * @param[in]		u8LaserIndex			The laser index
  * @st_funcMD5		51DAC43E2C175DD5F95BCA33429423F8
  * @st_funcID		LCCM655R0.FILE.021.FUNC.003
  */
-Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex)
+Lfloat32 f32FCU_LASEROPTO__Get_Distance(E_FCU__LASER_OPTO__INDEX_T eLaser)
 {
-	return sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].f32Distance;
+	return sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32Distance;
 	//todo: clear u8NewDistanceAvail ?
 }
 
-//get laser error state
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Get laser error state
  * 
- * @param[in]		u8LaserIndex		## Desc ##
+ * @param[in]		u8LaserIndex			The laser index
  * @st_funcMD5		CBF4B747622921B8E44DB3E220DA3C54
  * @st_funcID		LCCM655R0.FILE.021.FUNC.007
  */
-Luint8 u8FCU_LASEROPTO__Get_Error(Luint8 u8LaserIndex)
+Luint8 u8FCU_LASEROPTO__Get_Error(E_FCU__LASER_OPTO__INDEX_T eLaser)
 {
-	return sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8Error;
+	return sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].u8Error;
 }
 
 /***************************************************************************//**
  * @brief
  * Process the laser packet
  * 
- * @param[in]		u8LaserIndex		## Desc ##
+ * @param[in]		u8LaserIndex		The laser index
  * @st_funcMD5		84ECB80689D73D89F1CD4F0A106BC70A
  * @st_funcID		LCCM655R0.FILE.021.FUNC.004
  */
-void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex)
+void vFCU_LASEROPTO__Process_Packet(E_FCU__LASER_OPTO__INDEX_T eLaser)
 {
 	Lfloat32 f32Temp;
 	Luint32 u32ValA;
@@ -228,13 +273,13 @@ void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex)
 	Luint32 u32ValC;
 
 	//protect the laser index
-	if(u8LaserIndex < C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT)
+	if((Luint8)eLaser < C_FCU__NUM_LASERS_OPTONCDT)
 	{
 
 		//assemble
-		u32ValA = sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8NewByteArray[0];
-		u32ValB = sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8NewByteArray[1];
-		u32ValC = sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8NewByteArray[2];
+		u32ValA = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].u8NewByteArray[0];
+		u32ValB = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].u8NewByteArray[1];
+		u32ValC = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].u8NewByteArray[2];
 
 		//format
 		u32ValA += u32ValB << 6U;
@@ -246,7 +291,10 @@ void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex)
 		if(u32ValA == C_LASEROPTO__ERROR_CODE_VALUE) 
 		{
 			//Laser returned the error value
-			sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8Error = 1U;
+			sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].u8Error = 1U;
+
+			//Increment the count of error code values from the laser
+			sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sCounters.u32ErrorCode++;
 		}
 		else
 		{
@@ -259,13 +307,13 @@ void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex)
 			f32Temp /= 100.0F;
 
 			//save off the distance.
-			sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].f32Distance = f32Temp;
+			sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32Distance = f32Temp;
 
 			//save off.
-			sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8NewDistanceAvail = 1U; //todo: currently never cleared
+			sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].u8NewDistanceAvail = 1U; //todo: currently never cleared
 
 			// Value is not the error value, clear error flag
-			sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8Error = 0U;
+			sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].u8Error = 0U;
 		}
 	}
 	else
@@ -302,12 +350,12 @@ void vFCU_LASEROPTO__Process_Packet(Luint8 u8LaserIndex)
  * @st_funcMD5		284B7A0596470227F034E54C723DC426
  * @st_funcID		LCCM655R0.FILE.021.FUNC.005
  */
-void vFCU_LASEROPTO__Append_Byte(Luint8 u8LaserIndex, Luint8 u8Value)
+void vFCU_LASEROPTO__Append_Byte(E_FCU__LASER_OPTO__INDEX_T eLaser, Luint8 u8Value)
 {
 	//protect the laser structures from accidential addressing.
-	if(u8LaserIndex < C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT)
+	if((Luint8)eLaser < C_FCU__NUM_LASERS_OPTONCDT)
 	{
-		switch(sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].eRxState)
+		switch(sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].eRxState)
 		{
 			case OPTONCDT_RX__BYTE_1:
 
@@ -316,16 +364,19 @@ void vFCU_LASEROPTO__Append_Byte(Luint8 u8LaserIndex, Luint8 u8Value)
 				{
 					//the top two bits are zero, we are good to go
 					//save the byte
-					sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8NewByteArray[0] = u8Value & 0x3FU;
+					sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].u8NewByteArray[0] = u8Value & 0x3FU;
 
 					//wait for byte 2
-					sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].eRxState = OPTONCDT_RX__BYTE_2;
+					sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].eRxState = OPTONCDT_RX__BYTE_2;
 				}
 				else
 				{
 					//we are not at the right point for detection of the packet start, loop back
 
 					//todo: check if we can see a laser error here
+
+					//inc the counter
+					sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sCounters.u32Byte1Wrong++;
 				}
 
 				break;
@@ -336,15 +387,15 @@ void vFCU_LASEROPTO__Append_Byte(Luint8 u8LaserIndex, Luint8 u8Value)
 				{
 					//the top two bits are 1, we are good to go
 					//save the byte
-					sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8NewByteArray[1] = u8Value & 0x3FU;
+					sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].u8NewByteArray[1] = u8Value & 0x3FU;
 
 					//wait for byte 3
-					sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].eRxState = OPTONCDT_RX__BYTE_3;
+					sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].eRxState = OPTONCDT_RX__BYTE_3;
 				}
 				else
 				{
 					//go back to the start, becase we have lost our position
-					sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].eRxState = OPTONCDT_RX__BYTE_1;
+					sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].eRxState = OPTONCDT_RX__BYTE_1;
 				}
 				break;
 
@@ -355,18 +406,18 @@ void vFCU_LASEROPTO__Append_Byte(Luint8 u8LaserIndex, Luint8 u8Value)
 				{
 					//the top two bits are valid, we are good to go
 					//save the byte
-					sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8NewByteArray[2] = u8Value & 0x0FU;
+					sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].u8NewByteArray[2] = u8Value & 0x0FU;
 
 					//signal that a new packet is ready
-					sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].u8NewPacket = 1U;
+					sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].u8NewPacket = 1U;
 
 					//go back and rx the next new packet
-					sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].eRxState = OPTONCDT_RX__BYTE_1;
+					sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].eRxState = OPTONCDT_RX__BYTE_1;
 				}
 				else
 				{
 					//go back to the start, becase we have lost our position
-					sFCU.sLaserOpto.sOptoLaser[u8LaserIndex].eRxState = OPTONCDT_RX__BYTE_1;
+					sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].eRxState = OPTONCDT_RX__BYTE_1;
 				}
 
 				break;

@@ -8,6 +8,21 @@
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__ENUMS_H_
 
 
+	/** OptoNCDT Laser Positions
+	 *  must be in order from A0:2, B0:2
+	 *  */
+	typedef enum
+	{
+
+		LASER_OPTO__HEIGHT_FL = 0U,
+		LASER_OPTO__HEIGHT_FR = 1U,
+		LASER_OPTO__HEIGHT_RL = 2U,
+		LASER_OPTO__HEIGHT_RR = 3U,
+		LASER_OPTO__IBEAM_FWD = 4U,
+		LASER_OPTO__IBEAM_AFT = 5U,
+		LASER_OPTO__NUM = 6U
+
+	}E_FCU__LASER_OPTO__INDEX_T;
 
 	/** Laser contrast sensors */
 	typedef enum

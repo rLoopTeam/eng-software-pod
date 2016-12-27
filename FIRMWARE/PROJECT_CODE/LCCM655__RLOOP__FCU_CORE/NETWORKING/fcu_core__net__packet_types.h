@@ -21,6 +21,12 @@
 		//FCU: GENERAL (0x0000)
 		//////////////////////////////////////////////////////
 
+		/** Pod stop command */
+		NET_PKT__FCU_GEN__POD_STOP_COMMAND = 0x0001U,
+
+		/** Allow us to emulate pod sensor data */
+		NET_PKT__FCU_GEN__POD_EMULATION_CONTROL = 0x0002U,
+
 		/** Flight control data streaming */
 		NET_PKT__FCU_GEN__STREAMING_CONTROL = 0x0100U,
 
@@ -46,6 +52,40 @@
 		/** Fine adjustment on Any */
 		NET_PKT__FCU_ACCEL__FINE_ZERO_ADJUSTMENT = 0x1005U,
 
+
+		//////////////////////////////////////////////////////
+		//FCU: LASER OPTONCDT (0x1100)
+		//////////////////////////////////////////////////////
+
+		/** Request from the host to send the laser data */
+		NET_PKT__LASER_OPTO__REQUEST_LASER_DATA = 0x1100U,
+
+		/** FCU to Host, return laser data */
+		NET_PKT__LASER_OPTO__TX_LASER_DATA = 0x1101U,
+
+
+
+		//////////////////////////////////////////////////////
+		//FCU: LASER DISTANCE (0x1200)
+		//////////////////////////////////////////////////////
+
+		/** Request from the host to send the laser data */
+		NET_PKT__LASER_DIST__REQUEST_LASER_DATA = 0x1200U,
+
+		/** FCU to Host, return laser data */
+		NET_PKT__LASER_DIST__TX_LASER_DATA = 0x1201U,
+
+
+
+		//////////////////////////////////////////////////////
+		//FCU: LASER CONTRAST (0x1300)
+		//////////////////////////////////////////////////////
+
+		/** Request from the host to send the laser data */
+		NET_PKT__LASER_CONT__REQUEST_LASER_DATA = 0x1300U,
+
+		/** FCU to Host, return laser data */
+		NET_PKT__LASER_CONT__TX_LASER_DATA = 0x1201U,
 
 
 		//////////////////////////////////////////////////////

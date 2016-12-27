@@ -80,6 +80,12 @@ void vFCU_BRAKES__Process(void)
 	//process the stepper driver if its active
 	vSTEPDRIVE__Process();
 
+	//Process the MLP
+	vFCU_BRAKES_MLP__Process();
+
+	//process the switches
+	vFCU_BRAKES_SW__Process();
+
 	switch(sFCU.eBrakeStates)
 	{
 
@@ -143,9 +149,7 @@ void vFCU_BRAKES__Process(void)
 
 
 	}
-	//Process the MLP
-	vFCU_BRAKES_MLP__Process();
-	vFCU_BRAKES_SW__Process();
+
 }
 
 
