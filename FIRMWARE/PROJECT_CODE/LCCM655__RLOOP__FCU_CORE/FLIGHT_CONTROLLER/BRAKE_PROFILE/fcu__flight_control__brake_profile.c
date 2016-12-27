@@ -78,8 +78,8 @@ Lint16 s16FCU_FLIGHTCTL_BRAKES__Brake_Lookup(Luint32 u32Veloc_mms, Luint32 u32Dr
 	Lint16 s16Return;
 	Luint32 u32LookupIndex;
 	Lfloat32 *pf32Data;
-	Luint32 u32VelocPow3;
-	Luint32 u32VelocPow2;
+	Lfloat32 f32DragPow3;
+	Lfloat32 f32DragPow2;
 	Lfloat32 f32Result;
 
 	//firstly lets convert our mm/sec veloc into whole units of meters/second
@@ -101,14 +101,15 @@ Lint16 s16FCU_FLIGHTCTL_BRAKES__Brake_Lookup(Luint32 u32Veloc_mms, Luint32 u32Dr
 		//mult by 4
 		u32LookupIndex <<= 2U;
 
-		//compute the veloc's
-		u32VelocPow2 = u32Veloc_ms * u32Veloc_ms;
-		u32VelocPow3 = u32VelocPow2 * u32Veloc_ms;
+		//compute the drags's
+		f32DragPow2 = (Lfloat32)u32DragForce_n;
+		f32DragPow2 *= (Lfloat32)u32DragForce_n;
+		f32DragPow3 = f32DragPow2 * (Lfloat32)u32DragForce_n;
 
 		//do the poly calc
-		f32Result = (f32A34_BrakeTable[u32LookupIndex] * (Lfloat32)u32VelocPow3);
-		f32Result += (f32A34_BrakeTable[u32LookupIndex + 1U] * (Lfloat32)u32VelocPow2);
-		f32Result += (f32A34_BrakeTable[u32LookupIndex + 2U] * (Lfloat32)u32Veloc_ms);
+		f32Result = (f32A34_BrakeTable[u32LookupIndex] * f32DragPow3);
+		f32Result += (f32A34_BrakeTable[u32LookupIndex + 1U] * f32DragPow2);
+		f32Result += (f32A34_BrakeTable[u32LookupIndex + 2U] * (Lfloat32)u32DragForce_n);
 		f32Result += f32A34_BrakeTable[u32LookupIndex + 3U];
 
 		//convert to microns from meters
