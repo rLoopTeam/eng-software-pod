@@ -116,7 +116,7 @@ void vFCU_NET_TX__Process(void)
 
 		case NET_PKT__LASER_CONT__TX_LASER_DATA:
 			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
-				vFCU_LASERCONST_ETH__Transmit(eType);
+				vFCU_LASERCONT_ETH__Transmit(eType);
 			#endif
 			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;

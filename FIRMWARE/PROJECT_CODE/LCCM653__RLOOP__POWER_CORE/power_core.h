@@ -20,7 +20,7 @@
 		//local fault flags
 		#include <LCCM653__RLOOP__POWER_CORE/power_core__fault_flags.h>
 
-
+		#include <LCCM655__RLOOP__FCU_CORE/NETWORKING/fcu_core__net__packet_types.h>
 
 		//for software fault tree handling
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
@@ -134,6 +134,8 @@
 			}sWIN32;
 
 #endif
+
+			#if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
 			/** Ethernet comms structure */
 			struct
 			{
@@ -150,6 +152,24 @@
 				E_PWRNODE_NET__MAIN_STATES eMainState;
 
 			}sEthernet;
+
+			/** UDP diagnostics system */
+			struct
+			{
+
+				/** A flag to indicate 10ms has elapsed if we are using timed packets */
+				Luint8 u810MS_Flag;
+
+				/** The next packet type to transmit */
+				E_NET__PACKET_T eTxPacketType;
+
+				/** If the user has enabled Tx streaming */
+				E_NET__PACKET_T eTxStreamingType;
+
+
+			}sUDPDiag;
+
+			#endif
 
 			//lower structure guarding
 			Luint32 u32Guard2;
@@ -176,6 +196,11 @@
 		Luint8 u8PWRNODE_NET__Is_LinkUp(void);
 		void vPWRNODE_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPort);
 		void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault);
+
+			//transmit
+			void vPWRNODE_NET_TX__Init(void);
+			void vPWRNODE_NET_TX__Process(void);
+			void vPWRNODE_NET_TX__10MS_ISR(void);
 
 		//main application state machine
 		void vPWRNODE_SM__Init(void);

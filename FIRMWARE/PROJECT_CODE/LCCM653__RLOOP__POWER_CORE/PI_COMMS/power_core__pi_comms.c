@@ -386,6 +386,12 @@ void vPWRNODE_PICOMMS__recvLfloat64(Luint16 index, Lfloat64 data)
 	}
 }
 
+#else
+void vPICOMMS_RX__Receive_Bytes(Luint8 *data, Luint16 length)
+{
+	//do nothing.
+}
+
 #endif//C_LOCALDEF__LCCM653__ENABLE_PI_COMMS
 
 #ifndef C_LOCALDEF__LCCM653__ENABLE_PI_COMMS
