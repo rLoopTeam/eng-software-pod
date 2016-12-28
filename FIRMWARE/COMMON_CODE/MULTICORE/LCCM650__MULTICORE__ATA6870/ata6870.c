@@ -29,9 +29,9 @@
 struct _str6870 sATA6870;
 
 //locals
-static Luint8 uATA6870__GetStatus(Luint8 u8DeviceIndex);
-static Luint8 uATA6870__GetOpStatus(Luint8 u8DeviceIndex);
-static Luint8 uATA6870__BulkRead(void);
+static Luint8 u8ATA6870__GetStatus(Luint8 u8DeviceIndex);
+static Luint8 u8ATA6870__GetOpStatus(Luint8 u8DeviceIndex);
+static Luint8 u8ATA6870__BulkRead(void);
 static void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit);
 
 
@@ -146,13 +146,19 @@ void vATA6870__Process(void)
 			}
 			break;
 		case ATA6870_STATE__READ_CELL_VOLTAGES:
-			uATA6870__BulkRead();
+			u8ATA6870__BulkRead();
+			sATA6870.eState = ATA6870_STATE__BALANCE;
+			break;
+
+		case ATA6870_STATE__BALANCE:
+			//process any balancer tasks.
+			vATA6870_BALANCE__Process();
 			sATA6870.eState = ATA6870_STATE__START_CONVERSION;
 			break;
+
 	}
 
-	//process any balancer tasks.
-	vATA6870_BALANCE__Process();
+
 }
 
 
@@ -172,10 +178,10 @@ void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
 	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
 	{
 		//Clear any existing interrupts
-		uATA6870__GetStatus(u8Counter);
+		u8ATA6870__GetStatus(u8Counter);
 
 		// check and clear existing commands
-		if (uATA6870__GetOpStatus(u8Counter) != 0U)
+		if (u8ATA6870__GetOpStatus(u8Counter) != 0U)
 		{
 			//OpClear
 			u8TempData = 0x00U;
@@ -186,10 +192,10 @@ void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
 			vRM4_DELAYS__Delay_mS(5U);
 
 			//Get Status
-			uATA6870__GetStatus(u8Counter);
+			u8ATA6870__GetStatus(u8Counter);
 
 			//Get Op Status
-			uATA6870__GetOpStatus(u8Counter);
+			u8ATA6870__GetOpStatus(u8Counter);
 		}
 
 		//Op Req Data
@@ -209,7 +215,7 @@ void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
  * @st_funcMD5
  * @st_funcID
  */
-Luint8 uATA6870__BulkRead(void)
+Luint8 u8ATA6870__BulkRead(void)
 {
 	// volt mode = calibration or regular acquisition. 0 for calibration, 1 for regular.
 	// tempBit = temperature sensor to select. 1 for internal, 0 for external.
@@ -227,7 +233,7 @@ Luint8 uATA6870__BulkRead(void)
 		u8VolCounter += C_ATA6870__MAX_CELLS;
 	}
 	// check if any cells are dead or out of threshold
-	u8BulkReadError = uATA6870__u8VoltageError(&sATA6870.f32Voltage[0]);
+	u8BulkReadError = u8ATA6870__VoltageError(&sATA6870.f32Voltage[0]);
 
 	return u8BulkReadError;
 }
@@ -240,7 +246,7 @@ Luint8 uATA6870__BulkRead(void)
  * @st_funcMD5
  * @st_funcID
  */
-Luint8 uATA6870__GetStatus(Luint8 u8DeviceIndex)
+Luint8 u8ATA6870__GetStatus(Luint8 u8DeviceIndex)
 {
 	Luint8 u8Return = 0xFFU;
 	vATA6870_LOWLEVEL__Reg_WriteU8(u8DeviceIndex, ATA6870_REG__IRQ_STATUS, &u8Return, 1U);
@@ -255,7 +261,7 @@ Luint8 uATA6870__GetStatus(Luint8 u8DeviceIndex)
  * @st_funcMD5
  * @st_funcID
  */
-Luint8 uATA6870__GetOpStatus(Luint8 u8DeviceIndex)
+Luint8 u8ATA6870__GetOpStatus(Luint8 u8DeviceIndex)
 {
 	//useage
 	// output:
@@ -274,7 +280,7 @@ Luint8 uATA6870__GetOpStatus(Luint8 u8DeviceIndex)
 //TODO: if we use UNDER_VOLT function instead, be sure to implement
 //      an upper bound check as well for over voltage
 // Lfloat32 *f32Voltages					voltages array of size C_ATA6870__MAX_CELLS
-Luint8 uATA6870__u8VoltageError(Lfloat32 *pf32Voltages)
+Luint8 u8ATA6870__VoltageError(Lfloat32 *pf32Voltages)
 {
 	Luint8 u8VoltageError = 0U;
 	Luint8 u8Counter;
@@ -301,6 +307,9 @@ Luint8 uATA6870__u8VoltageError(Lfloat32 *pf32Voltages)
 	}
 	return u8VoltageError;
 }
+
+
+
 /***************************************************************************//**
  * @brief
  * 10ms ISR
