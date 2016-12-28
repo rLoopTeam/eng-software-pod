@@ -29,8 +29,6 @@
 struct _str6870 sATA6870;
 
 //locals
-static Luint8 u8ATA6870__GetStatus(Luint8 u8DeviceIndex);
-static Luint8 u8ATA6870__GetOpStatus(Luint8 u8DeviceIndex);
 static Luint8 u8ATA6870__BulkRead(void);
 static void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit);
 
@@ -174,10 +172,10 @@ void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
 	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
 	{
 		//Clear any existing interrupts
-		u8ATA6870__GetStatus(u8Counter);
+		u8ATA6870_STATUS__Get_IRQ_Status(u8Counter);
 
 		// check and clear existing commands
-		if (u8ATA6870__GetOpStatus(u8Counter) != 0U)
+		if (u8ATA6870_STATUS__Get_Op_Status(u8Counter) != 0U)
 		{
 			//OpClear
 			u8TempData = 0x00U;
@@ -188,10 +186,10 @@ void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
 			vRM4_DELAYS__Delay_mS(5U);
 
 			//Get Status
-			u8ATA6870__GetStatus(u8Counter);
+			u8ATA6870_STATUS__Get_IRQ_Status(u8Counter);
 
 			//Get Op Status
-			u8ATA6870__GetOpStatus(u8Counter);
+			u8ATA6870_STATUS__Get_Op_Status(u8Counter);
 		}
 
 		//Op Req Data
@@ -234,43 +232,6 @@ Luint8 u8ATA6870__BulkRead(void)
 	return u8BulkReadError;
 }
 
-
-/***************************************************************************//**
- * @brief
- * read the status register
- *
- * @st_funcMD5
- * @st_funcID
- */
-Luint8 u8ATA6870__GetStatus(Luint8 u8DeviceIndex)
-{
-	Luint8 u8Return = 0xFFU;
-	vATA6870_LOWLEVEL__Reg_WriteU8(u8DeviceIndex, ATA6870_REG__IRQ_STATUS, &u8Return, 1U);
-
-	return u8Return;
-}
-
-/***************************************************************************//**
- * @brief
- * get operation status
- *
- * @st_funcMD5
- * @st_funcID
- */
-Luint8 u8ATA6870__GetOpStatus(Luint8 u8DeviceIndex)
-{
-	//useage
-	// output:
-	// 0 = no operation
-	// 1 = ongoing operation
-	// 2 = operation finished
-	// 3 = operation failed/was canceled. result not available.
-
-	Luint8 u8Return = 0xFFU;
-	vATA6870_LOWLEVEL__Reg_ReadU8(u8DeviceIndex, ATA6870_REG__OP_STATUS, &u8Return, 1U);
-
-	return u8Return;
-}
 
 //*** check if a cell is above or below safe threshold ***//
 //TODO: if we use UNDER_VOLT function instead, be sure to implement
