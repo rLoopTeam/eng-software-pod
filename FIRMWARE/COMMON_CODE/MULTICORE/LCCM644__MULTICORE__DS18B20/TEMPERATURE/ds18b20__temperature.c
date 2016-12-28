@@ -53,7 +53,7 @@ Lint16 s16DS18B20_TEMP__Read(Luint8 u8DSIndex)
 	if(s16Return >= 0)
 	{
 		//convert scratch RAM to a temperature
-		vDS18B20_TEMP__Scratch_To_Temp(u8DSIndex, &sDS18B20.u8TempScratch[0], &sDS18B20.sDevice[u8DSIndex].f32Temperature);
+		vDS18B20_TEMP__Scratch_To_Temp(u8DSIndex, &sDS18B20.u8TempScratch[0], &sDS18B20.sTemp[u8DSIndex].f32Temperature);
 
 	}
 	else
@@ -199,8 +199,10 @@ Lint16 s16DS18B20_TEMP__Request(Luint8 u8DSIndex, Luint8 u8Wait)
 					//read the scratch
 					s16Return = s16DS18B20_SCRATCH__Read(u8DSIndex, &sDS18B20.u8TempScratch[0]);
 
-					vDS18B20_TEMP__Scratch_To_Temp(u8DSIndex, &sDS18B20.u8TempScratch[0], &sDS18B20.sDevice[u8DSIndex].f32Temperature);
+					//convert scratch to temp
+					vDS18B20_TEMP__Scratch_To_Temp(u8DSIndex, &sDS18B20.u8TempScratch[0], &sDS18B20.sTemp[u8DSIndex].f32Temperature);
 
+					//success code
 					s16Return = 0;
 
 				}

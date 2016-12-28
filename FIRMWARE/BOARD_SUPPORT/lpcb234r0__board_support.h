@@ -810,5 +810,101 @@ LR Time = 160ns
  	 #endif //C_LOCALDEF__LCCM240__ENABLE_THIS_MODULE
 
 
+/*******************************************************************************
+RM4 EEPROM EMULATION
+You'll need the flash access module for this
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE							(1U)
+ 	 #if C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE == 1U
+
+		//testing options
+		#define C_LOCALDEF__LCCM230__ENABLE_TEST_SPEC						(0U)
+
+ 	 	//main include
+ 	 	#include <RM4/LCCM230__RM4__EEPROM/rm4_eeprom.h>
+
+ 	 #endif //C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE
+
+
+/*******************************************************************************
+EEPROM BASIC PARAMETERS
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
+
+		//select your architecture
+		#define C_LOCALDEF__LCCM188__USE_ON_PIC18							(0U)
+		#define C_LOCALDEF__LCCM188__USE_ON_PIC32							(0U)
+		#define C_LOCALDEF__LCCM188__USE_ON_DSPIC							(0U)
+		#define C_LOCALDEF__LCCM188__USE_ON_RM4 							(1U)
+		#define C_LOCALDEF__LCCM188__USE_ON_MSP430 							(0U)
+		#define C_LOCALDEF__LCCM188__USE_ON_WIN32 							(0U)
+
+		/** Use the EEPRARAMS module with an external FLASH */
+		#define C_LOCALDEF__LCCM188__USE_WITH_LCCM013						(0U)
+
+		/** Define the number of parameters in the system */
+		#define C_LOCALDEF__LCCM188__NUM_PARAMETERS							(128U)
+
+		/** set to 1 if you want to enable CRC's across the entire paramter
+		range.  If so you will loose one paramter at the end to store theCRC
+		*/
+		#define C_LOCALDEF__LCCM188__ENABLE_CRC								(1U)
+
+		/** Offset to start in memory */
+		#define C_LOCALDEF__LCCM188__EEPROM_START_OFFSET					(0U)
+
+		/** DISABLES */
+		#define C_LOCALDEF__LCCM188__DISABLE__U16							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__S16							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__U32							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__S32							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__F32							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__MAC							(0U)
+
+		/** Testing options */
+		#define C_LOCALDEF__LCCM188__ENABLE_TEST_SPEC						(0U)
+
+		//main include file
+		#include <MULTICORE/LCCM188__MULTICORE__EEPROM_PARAMS/eeprom_params.h>
+
+	#endif //C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE
+
+/*******************************************************************************
+SOFTWARE BASED CRC
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM012__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM012__ENABLE_THIS_MODULE == 1U
+
+		//set to 1 to enable test specification code
+		#define C_LOCALDEF__LCCM012__ENABLE_TEST_SPEC						(0U)
+
+		//types of CRC
+		#define C_LOCALDEF__LCCM012__ENABLE_CRC7							(0U)
+		#define C_LOCALDEF__LCCM012__ENABLE_CRC8							(1U)
+		#define C_LOCALDEF__LCCM012__ENABLE_CRC16							(1U)
+
+		//set to 1 to enable table based CRC16
+		//Note: Not possible on PIC18 due to page sizes
+		#define C_LOCALDEF__LCCM012__ENABLE_TABLE_BASED_CRC					(1U)
+
+
+		#if C_LOCALDEF__LCCM012__ENABLE_CRC16 == 1U
+
+			//if using tables, define any alignment issues
+			#if C_LOCALDEF__LCCM012__ENABLE_TABLE_BASED_CRC == 1U
+				#ifndef WIN32
+					#define C_LOCALDEF__LCCM012__TABLE16_DEF const Luint16 u16SWCRC_CRC_TABLE[] __attribute__ ((aligned (128)))
+				#else
+					//no alignment possible on win32.
+					#define C_LOCALDEF__LCCM012__TABLE16_DEF const Luint16 u16SWCRC_CRC_TABLE[]
+				#endif
+			#endif //C_LOCALDEF__LCCM012__ENABLE_TABLE_BASED_CRC
+		#endif
+
+		#include <MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC/software_crc.h>
+
+	#endif
+
 #endif //_LPCB234R0_BOARD_SUPPORT_H_
 

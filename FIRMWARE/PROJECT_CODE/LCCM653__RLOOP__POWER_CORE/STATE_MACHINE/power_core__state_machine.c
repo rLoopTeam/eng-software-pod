@@ -67,7 +67,7 @@ void vPWRNODE_SM__Process(void)
 			//test a message into the Rx unit.
 			for(u8Counter = 0U; u8Counter < 17U; u8Counter++)
 			{
-				vPICOMMS_RX__Receive_Bytes(&u8TestMsg[u8Counter], 1);
+				//vPICOMMS_RX__Receive_Bytes(&u8TestMsg[u8Counter], 1);
 			}
 
 			sPWRNODE.eMainState = RUN_STATE__IDLE;

@@ -2,6 +2,8 @@
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
 
+#if 0
+
 extern struct _strPWRNODE sPWRNODE;
 
 void vBMS__Get_Voltages()
@@ -39,6 +41,8 @@ void vBMS__Set_Undervoltage_Threshold(Lfloat32 f32Threshold)
     for (Luint8 u8LoopCounter = 0; u8LoopCounter < NUM_DEVICES; u8LoopCounter++)
         vATA6870_UV__Set_UVTrip(Devices[u8LoopCounter].u8DeviceIndex, f32Threshold);
 }
+
+#endif //0
 
 #endif
 #endif
