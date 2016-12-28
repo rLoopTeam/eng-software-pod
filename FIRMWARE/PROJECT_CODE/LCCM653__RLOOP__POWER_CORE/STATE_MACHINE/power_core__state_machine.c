@@ -29,7 +29,7 @@ Luint8 u8TestMsg[] = {0xD5, 0xD0, 0x00, 0x0D, 0xD5, 0xD3, 0x43, 0x00, 0x05, 0x40
  * @brief
  * Init any of the main application state machine items
  * 
- * @st_funcMD5		611B9683853891822BC9217033304AE8
+ * @st_funcMD5		A40323662C84BEFCABD28662D11DA6D2
  * @st_funcID		LCCM653R0.FILE.003.FUNC.001
  */
 void vPWRNODE_SM__Init(void)
@@ -40,7 +40,13 @@ void vPWRNODE_SM__Init(void)
 
 }
 
-//process
+/***************************************************************************//**
+ * @brief
+ * Process
+ * 
+ * @st_funcMD5		A4CC59DE21CBBFA6ECDBCB7C1A9D331D
+ * @st_funcID		LCCM653R0.FILE.003.FUNC.002
+ */
 void vPWRNODE_SM__Process(void)
 {
 	Luint8 u8Counter;

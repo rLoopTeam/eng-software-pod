@@ -23,6 +23,13 @@
 extern struct _strPWRNODE sPWRNODE;
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		60D7C48E9A55F549B328B969C6A38605
+ * @st_funcID		LCCM653R0.FILE.023.FUNC.001
+ */
 void vPWRNODE_CHG_IV__Init(void)
 {
 
@@ -30,6 +37,13 @@ void vPWRNODE_CHG_IV__Init(void)
 
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		AF5EF4D90978E6F62271760FF836E754
+ * @st_funcID		LCCM653R0.FILE.023.FUNC.002
+ */
 void vPWRNODE_CHG_IV__Process(void)
 {
 	Luint8 u8New;

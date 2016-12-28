@@ -19,6 +19,15 @@
 #include "../power_core.h"
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
+/***************************************************************************//**
+ * @brief
+ * SCI notify
+ * 
+ * @param[in]		u32Flags		## Desc ##
+ * @param[in]		eChannel		## Desc ##
+ * @st_funcMD5		4D4CD34FE128DAC67CC7D303CF15CECB
+ * @st_funcID		LCCM653R0.FILE.016.FUNC.001
+ */
 void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
 {
 	Luint8 u8Array[1];

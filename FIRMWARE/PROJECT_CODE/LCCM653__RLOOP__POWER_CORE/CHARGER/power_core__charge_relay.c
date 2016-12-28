@@ -23,6 +23,13 @@
 extern struct _strPWRNODE sPWRNODE;
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		6F451776DBE4DCAE500A358AB04D18A7
+ * @st_funcID		LCCM653R0.FILE.022.FUNC.001
+ */
 void vPWRNODE_CHG_RELAY__Init(void)
 {
 
@@ -37,6 +44,13 @@ void vPWRNODE_CHG_RELAY__Init(void)
 	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 0U);
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		1C9F48BE1837BEFD9325D836ACCB6CFC
+ * @st_funcID		LCCM653R0.FILE.022.FUNC.002
+ */
 void vPWRNODE_CHG_RELAY__Process(void)
 {
 
@@ -52,7 +66,14 @@ void vPWRNODE_CHG_RELAY__Process(void)
 }
 
 
-//switch on the charger relay
+
+/***************************************************************************//**
+ * @brief
+ * switch on the charger relay
+ * 
+ * @st_funcMD5		A9BFD6505E8FC763D0B281BE62161696
+ * @st_funcID		LCCM653R0.FILE.022.FUNC.003
+ */
 void vPWRNODE_CHG_RELAY__On(void)
 {
 
@@ -62,6 +83,13 @@ void vPWRNODE_CHG_RELAY__On(void)
 	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 1U);
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		44A67B75C1052F8DCA9577FCCE0DE0E4
+ * @st_funcID		LCCM653R0.FILE.022.FUNC.004
+ */
 void vPWRNODE_CHG_RELAY__Off(void)
 {
 

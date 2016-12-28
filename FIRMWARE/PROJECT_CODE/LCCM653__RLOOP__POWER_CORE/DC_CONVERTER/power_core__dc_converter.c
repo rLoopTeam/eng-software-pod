@@ -25,10 +25,13 @@ extern struct _strPWRNODE sPWRNODE;
 //locals
 static void vPWRNODE_DC__Power_Off(void);
 
+
 /***************************************************************************//**
  * @brief
  * Init the DC/DC Converter system
- *
+ * 
+ * @st_funcMD5		620C799234B5B3567ADDF656945DDB19
+ * @st_funcID		LCCM653R0.FILE.021.FUNC.001
  */
 void vPWRNODE_DC__Init(void)
 {
@@ -52,7 +55,9 @@ void vPWRNODE_DC__Init(void)
 /***************************************************************************//**
  * @brief
  * Process the DC/DC converter control
- *
+ * 
+ * @st_funcMD5		0EFE25E73A8AE12AE86AD3975F0A8D52
+ * @st_funcID		LCCM653R0.FILE.021.FUNC.002
  */
 void vPWRNODE_DC__Process(void)
 {
@@ -143,6 +148,14 @@ void vPWRNODE_DC__Process(void)
  *
  * @param[in]		u32UnlockKey			The key, should be ABCD1298
  */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u32UnlockKey		## Desc ##
+ * @st_funcMD5		13855F3831AD134B745053EB8442E3B7
+ * @st_funcID		LCCM653R0.FILE.021.FUNC.003
+ */
 void vPWRNODE_DC__Pod_Safe_Unlock(Luint32 u32UnlockKey)
 {
 	if(u32UnlockKey == 0xABCD1298)
@@ -165,6 +178,8 @@ void vPWRNODE_DC__Pod_Safe_Unlock(Luint32 u32UnlockKey)
  * Pet the DC/DC conveters timeout watchdog based on GS messages.
  *
  * @param[in]		u32Key			0x1234ABCD
+ * @st_funcMD5		57D147559750E935DEE4C30BC7AB0CB6
+ * @st_funcID		LCCM653R0.FILE.021.FUNC.004
  */
 void vPWRNODE_DC__Pet_GS_Message(Luint32 u32Key)
 {
@@ -179,15 +194,25 @@ void vPWRNODE_DC__Pet_GS_Message(Luint32 u32Key)
 	}
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		04BE188F4A4B4B9C88B952F3C988059E
+ * @st_funcID		LCCM653R0.FILE.021.FUNC.005
+ */
 Luint32 u32PWRNODE_DC__Get_TimerCount(void)
 {
 	return sPWRNODE.sDC.u32100MS_TimerCount;
 }
 
+
 /***************************************************************************//**
  * @brief
  * Switch the power off
- *
+ * 
+ * @st_funcMD5		0B2C9EBE29F946E9B0F7A68EAEA09B99
+ * @st_funcID		LCCM653R0.FILE.021.FUNC.006
  */
 void vPWRNODE_DC__Power_Off(void)
 {
@@ -198,17 +223,22 @@ void vPWRNODE_DC__Power_Off(void)
 /***************************************************************************//**
  * @brief
  * Execute pod safe
- *
+ * 
+ * @st_funcMD5		DABA4496931CC78AF6D1DAB36C684991
+ * @st_funcID		LCCM653R0.FILE.021.FUNC.007
  */
 void vPWRNODE_DC__Pod_Safe_Go(void)
 {
 	sPWRNODE.sDC.u8PodSafeCommand = 1U;
 }
 
+
 /***************************************************************************//**
  * @brief
  * 100ms timer tick
- *
+ * 
+ * @st_funcMD5		6B09D957DBEA0F8BE72657B22AE106B6
+ * @st_funcID		LCCM653R0.FILE.021.FUNC.008
  */
 void vPWRNODE_DC__100MS_ISR(void)
 {

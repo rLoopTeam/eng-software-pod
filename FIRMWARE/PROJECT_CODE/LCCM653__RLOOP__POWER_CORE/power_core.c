@@ -26,7 +26,7 @@ struct _strPWRNODE sPWRNODE;
  * @brief
  * Init the power node, this should be the first call
  * 
- * @st_funcMD5		EB03B89D86A4E961B7C982E89CA4A3EA
+ * @st_funcMD5		5E00CDBD0D5864C84CA2AD39AC3F3703
  * @st_funcID		LCCM653R0.FILE.000.FUNC.001
  */
 void vPWRNODE__Init(void)
@@ -51,7 +51,7 @@ void vPWRNODE__Init(void)
  * Process the power node states, this should be called as quick as possible from
  * the main program loop.
  * 
- * @st_funcMD5		050D52427C2B119643AE863198B0965D
+ * @st_funcMD5		740175141C8F930D0C0ADC1A40130460
  * @st_funcID		LCCM653R0.FILE.000.FUNC.002
  */
 void vPWRNODE__Process(void)
@@ -357,7 +357,14 @@ void vPWRNODE__Process(void)
 
 }
 
-//100ms timer
+
+/***************************************************************************//**
+ * @brief
+ * 100ms timer
+ * 
+ * @st_funcMD5		1C91DBE904A59002BE4066D0653B78F1
+ * @st_funcID		LCCM653R0.FILE.000.FUNC.003
+ */
 void vPWRNODE__RTI_100MS_ISR(void)
 {
 	#if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
@@ -371,7 +378,14 @@ void vPWRNODE__RTI_100MS_ISR(void)
 
 }
 
-//10ms timer
+
+/***************************************************************************//**
+ * @brief
+ * 10ms timer
+ * 
+ * @st_funcMD5		6A863930CAD007EDEE0C5B0179EA027A
+ * @st_funcID		LCCM653R0.FILE.000.FUNC.004
+ */
 void vPWRNODE__RTI_10MS_ISR(void)
 {
 	#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
