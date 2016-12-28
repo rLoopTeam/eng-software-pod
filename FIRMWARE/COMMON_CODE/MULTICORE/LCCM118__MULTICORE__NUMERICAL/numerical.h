@@ -117,6 +117,8 @@
 	DLL_DECLARATION Lfloat32 f32NUMERICAL_CONVERT__Array_BIGENDIAN(const Luint8 *pu8Array);
 	Lfloat64 f64NUMERICAL_CONVERT__Array(const Luint8 *pu8Array);
 
+	void vNUMERICAL_CONVERT__Array_U64(Luint8 *pu8Array, Luint64 u64Value);
+
 	//arrays
 	void vNUM_ARRAY__Insert_U8(Luint8 *pu8Array, Luint8 u8ArrayLength, Luint8 u8InsertPosition, Luint8 u8InsertValue);
 	

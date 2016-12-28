@@ -85,8 +85,22 @@
 		NET_PKT__LASER_CONT__REQUEST_LASER_DATA = 0x1300U,
 
 		/** FCU to Host, return laser data */
-		NET_PKT__LASER_CONT__TX_LASER_DATA = 0x1201U,
+		NET_PKT__LASER_CONT__TX_LASER_DATA = 0x1301U,
 
+
+
+		//////////////////////////////////////////////////////
+		//POWER: GENERAL (0x3000)
+		//////////////////////////////////////////////////////
+
+		/** Pod safe command */
+		NET_PKT__PWR_GEN__POD_SAFE_COMMAND = 0x3000U,
+
+		/** Allow us to emulate pod sensor data */
+		NET_PKT__PWR_GEN__POD_EMULATION_CONTROL = 0x3001U,
+
+		/** Power Node data streaming */
+		NET_PKT__PWR_GEN__STREAMING_CONTROL = 0x3010U,
 
 		//////////////////////////////////////////////////////
 		//XILINX HYPERLOOP SIMULATION (0x5000)

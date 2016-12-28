@@ -460,7 +460,12 @@ void vFCU_PICOMMS__recvLfloat64(Luint16 index, Lfloat64 data)
 				break;
 	}
 }
+#else
+void vPICOMMS_RX__Receive_Bytes(Luint8 *data, Luint16 length)
+{
+	//do nothing.
 
+}
 #endif //C_LOCALDEF__LCCM655__ENABLE_PI_COMMS
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 //safetys

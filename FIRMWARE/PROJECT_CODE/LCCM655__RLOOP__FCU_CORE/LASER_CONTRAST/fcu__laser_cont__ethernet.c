@@ -96,18 +96,18 @@ void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				{
 
 					//Rising Edge Count
-					vNUMERICAL_CONVERT__Array_U16(sFCU.sContrast.sTimingList[u8Counter].u16RisingCount);
+					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sContrast.sTimingList[u8Counter].u16RisingCount);
 					pu8Buffer+=2;
 
 					//Falling edge count
-					vNUMERICAL_CONVERT__Array_U16(sFCU.sContrast.sTimingList[u8Counter].u16FallingCount);
+					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sContrast.sTimingList[u8Counter].u16FallingCount);
 					pu8Buffer+=2;
 
 					//send the timing list, rising
 					for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
 					{
 
-						vNUMERICAL_CONVERT__Array_U64(sFCU.sContrast.sTimingList[u8Counter].u64RisingList[u8Counter2]);
+						vNUMERICAL_CONVERT__Array_U64(pu8Buffer, sFCU.sContrast.sTimingList[u8Counter].u64RisingList[u8Counter2]);
 						pu8Buffer+=8;
 
 					}//for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
@@ -116,7 +116,7 @@ void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
 					{
 
-						vNUMERICAL_CONVERT__Array_U64(sFCU.sContrast.sTimingList[u8Counter].u64FallingList[u8Counter2]);
+						vNUMERICAL_CONVERT__Array_U64(pu8Buffer, sFCU.sContrast.sTimingList[u8Counter].u64FallingList[u8Counter2]);
 						pu8Buffer+=8;
 
 					}//for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)

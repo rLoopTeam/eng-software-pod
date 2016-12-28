@@ -108,7 +108,7 @@ AMC7812
 /*******************************************************************************
 RLOOP - PI COMMUNICATIONS MODULE
 *******************************************************************************/
-	#define C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE							(1U)
+	#define C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE							(0U)
 	#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
 
 		//arch

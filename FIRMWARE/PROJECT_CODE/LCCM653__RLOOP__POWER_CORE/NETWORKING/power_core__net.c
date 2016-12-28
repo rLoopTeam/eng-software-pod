@@ -129,6 +129,8 @@ Luint8 u8PWRNODE_NET__Is_LinkUp(void)
 void vPWRNODE_NET__10MS_ISR(void)
 {
 	sPWRNODE.sEthernet.u810MS_Timer = 1U;
+
+	vPWRNODE_NET_TX__10MS_ISR();
 }
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_ETHERNET
