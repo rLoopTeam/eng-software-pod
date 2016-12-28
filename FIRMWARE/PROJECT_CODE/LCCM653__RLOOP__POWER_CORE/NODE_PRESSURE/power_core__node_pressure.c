@@ -26,7 +26,9 @@ extern struct _strPWRNODE sPWRNODE;
 /***************************************************************************//**
  * @brief
  * Init the node pressure layer
- *
+ * 
+ * @st_funcMD5		431FFDCF30F00FA61A07843EAEF32994
+ * @st_funcID		LCCM653R0.FILE.006.FUNC.001
  */
 void vPWRNODE_NODEPRESS__Init(void)
 {
@@ -41,6 +43,13 @@ void vPWRNODE_NODEPRESS__Init(void)
  * Process the node pressure layer
  *
  */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		14FC06472F5A34E8DC409148E0A8E283
+ * @st_funcID		LCCM653R0.FILE.006.FUNC.002
+ */
 void vPWRNODE_NODEPRESS__Process(void)
 {
 	#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
@@ -50,11 +59,14 @@ void vPWRNODE_NODEPRESS__Process(void)
 
 }
 
+
 /***************************************************************************//**
  * @brief
  * Return the node pressure in Bar
  *
- * @return		The most recent pressure sample.
+ * @return		The most recent pressure sample. 
+ * @st_funcMD5		70C54965EA46ECDD79FCC81F477BA2B4
+ * @st_funcID		LCCM653R0.FILE.006.FUNC.003
  */
 Lfloat32 f32PWRNODE_NODEPRESS__Get_Pressure_Bar(void)
 {

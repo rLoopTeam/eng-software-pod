@@ -21,10 +21,13 @@
 
 extern struct _strPWRNODE sPWRNODE;
 
+
 /***************************************************************************//**
  * @brief
  * Init the faults
- *
+ * 
+ * @st_funcMD5		CBEED90EEFF7D81B70D366D76617977B
+ * @st_funcID		LCCM653R0.FILE.020.FUNC.001
  */
 void vPWRNODE_FAULTS__Init(void)
 {
@@ -33,10 +36,13 @@ void vPWRNODE_FAULTS__Init(void)
 
 }
 
+
 /***************************************************************************//**
  * @brief
  * Process any faults
- *
+ * 
+ * @st_funcMD5		19F51A99163A0836D41AACBEED64BD7F
+ * @st_funcID		LCCM653R0.FILE.020.FUNC.002
  */
 void vPWRNODE_FAULTS__Process(void)
 {

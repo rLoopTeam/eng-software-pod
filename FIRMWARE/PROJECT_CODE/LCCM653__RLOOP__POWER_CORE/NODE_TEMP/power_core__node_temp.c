@@ -27,7 +27,7 @@ extern struct _strPWRNODE sPWRNODE;
  * @brief
  * Init any node temperature based sub systems
  * 
- * @st_funcMD5		A89279621555EEA443A026A35AA628A9
+ * @st_funcMD5		498EA8089ED7B6A33E5428EA2B8B0C14
  * @st_funcID		LCCM653R0.FILE.005.FUNC.001
  */
 void vPWRNODE_NODETEMP__Init(void)
@@ -43,7 +43,7 @@ void vPWRNODE_NODETEMP__Init(void)
  * @brief
  * Process anything related to the node temperature
  * 
- * @st_funcMD5		F462FB8C7D44A9FA6D84C5E1D66304F1
+ * @st_funcMD5		72250C8B79693D5F000F4F14867A0915
  * @st_funcID		LCCM653R0.FILE.005.FUNC.002
  */
 void vPWRNODE_NODETEMP__Process(void)
@@ -60,7 +60,7 @@ void vPWRNODE_NODETEMP__Process(void)
  * Return the most recent node temperature reading in degreesC
  * 
  * @return			The node temperature in DegC
- * @st_funcMD5		C5D2D1750FB5650E4E987E9D4E79D71D
+ * @st_funcMD5		D6F0022A63A277FC6870789CAC50E861
  * @st_funcID		LCCM653R0.FILE.005.FUNC.003
  */
 Lfloat32 f32PWRNODE_NODETEMP__Get_DegC(void)
@@ -73,6 +73,13 @@ Lfloat32 f32PWRNODE_NODETEMP__Get_DegC(void)
 	#endif
 }
 
+/***************************************************************************//**
+ * @brief
+ * Return any fault flags.
+ * 
+ * @st_funcMD5		182BAF22E6D596A4EEB4A925EB2F4953
+ * @st_funcID		LCCM653R0.FILE.005.FUNC.004
+ */
 Luint32 u32PWRNODE_NODETEMP__Get_FaultFlags(void)
 {
 	#if C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE == 1U
