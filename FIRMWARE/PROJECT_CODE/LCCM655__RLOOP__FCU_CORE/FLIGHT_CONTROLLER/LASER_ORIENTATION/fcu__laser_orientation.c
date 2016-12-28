@@ -14,22 +14,21 @@
 
 
 // All units in mm, but the math doesn't care as long as you're consistent
-
 // coordinate system: +x in direction of travel; +z up wrt gravity
 
 // Yaw value expressed accordingly the rloop system variable
 // http://confluence.rloop.org/display/SD/System+Variables
 
 // TODO:  
-	// NEED TO ACCESS THE LASER STATES AND MEASUREMENTS FROM OPTONCDT CODE
- 		// sFCU.sLasers.sOptoLaser[] need to know which lasers are ground v ibeam facing.
-
- 	// Need to finish function that provides orientation parameters when called from other files
+	// sFCU.sLasers.sOptoLaser[] need consistency in laser/HE numbering convention between this file and optoncdt.c
+	 	// My code here has forced that the optoncdt's are ordered as:
+	 		// 0-4: Ground facing lasers
+	 		// 5-6: I-beam facing lasers
 
 	// If we are using anything involving floating point trig and that trig
-	  // is safety critical (i.e. pod distance or braking) then we must also do a
-	  // parallel equation in another data type to prevent the sorts of errors that
-	  // are commonly seen with floating point trig.
+		// is safety critical (i.e. pod distance or braking) then we must also do a
+		// parallel equation in another data type to prevent the sorts of errors that
+		// are commonly seen with floating point trig.
 
 	 	// trig functions used in this code (search "trig" to find all cases)
 	 		// f32NUMERICAL_Atan()
@@ -37,14 +36,8 @@
 				// C_NUMERICAL__PI/2 - f32NUMERICAL_Asine
 	 		// f32NUMERICAL_Cosine()
 
- 	// My code here has forced that the optoncdt's are ordered as:
- 		// 0-4: Ground facing lasers
- 		// 5-6: I-beam facing lasers
-
 
 #include "../../fcu_core.h"
-//old
-	//#include "../../../COMMON_CODE/MULTICORE/LCCMXXX__MULTICORE__OPTONCDT/optoncdt.c"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
@@ -75,6 +68,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__Init(void)
 {
 	// TODO: All positions of components need their positions measured and assigned here.
 		// blocked by installation of the components
+	// TODO: This data should be read in from EEPROM so a rebuild is not necessary to incorporate changes
 
 	//Ground Facing Laser Positions
 	 // Laser.f32Position[LASER_ORIENT__Z] is the reading when pod is sitting flat
@@ -164,7 +158,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__Process(void)
 
 			for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_IBEAM; u8Counter++)
 			{
-				sFCU.sFlightControl.sOrient.sBeamLasers[u8Counter].f32Measurement = f32FCU_LASEROPTO__Get_Distance(u8Counter + C_FCU__NUM_LASERS_GROUND); // kinda hacky
+				sFCU.sFlightControl.sOrient.sBeamLasers[u8Counter].f32Measurement = f32FCU_LASEROPTO__Get_Distance(u8Counter + C_FCU__NUM_LASERS_GROUND); // kinda hacky; consistency in laser/HE numbering should help ground this
 				sFCU.sFlightControl.sOrient.sBeamLasers[u8Counter].u8Error = u8FCU_LASEROPTO__Get_Error(u8Counter + C_FCU__NUM_LASERS_GROUND);
 			} 
 
@@ -308,7 +302,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalcRoll(void)
 	//Normal vector of the other plane
 	Lfloat32 f32vec1x = 1, f32vec1y = 0, f32vec1z = 0;
 
-	//Angle between two planes // TODO: Need to find a Lachlan func for this and account for floating point errors 
+	//Angle between two planes
 	sFCU.sFlightControl.sOrient.s16Roll = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((double)((f32vec1x * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C]) / sqrt((double)(sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig
 }
 
@@ -319,7 +313,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalcPitch(void)
 	//Normal vector of the other plane
 	Lfloat32 f32vec1x = 0, f32vec1y = 1, f32vec1z = 0;
 
-	//Angle between two planes // TODO: Need to find a Lachlan func for this
+	//Angle between two planes
 	sFCU.sFlightControl.sOrient.s16Pitch = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((double)((f32vec1x * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C]) / sqrt((double)(sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig
 }
 
@@ -330,7 +324,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistRoll(void)
 	//Normal vector of the other plane
 	Lfloat32 f32vec1x = 1, f32vec1y = 0, f32vec1z = 0;
 
-	//Angle between two planes // TODO: Need to find a Lachlan func for this and account for floating point errors 
+	//Angle between two planes
 	sFCU.sFlightControl.sOrient.s16TwistRoll = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((double)((f32vec1x * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C]) / sqrt((double)(sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig
 	// the discrepancy in roll measured by two triplets of lasers gives the twisting of the pod structure // TODO: check signs
 	sFCU.sFlightControl.sOrient.s16TwistRoll -= sFCU.sFlightControl.sOrient.s16Roll;
@@ -343,7 +337,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistPitch(void)
 	//Normal vector of the other plane
 	Lfloat32 f32vec1x = 0, f32vec1y = 1, f32vec1z = 0;
 
-	//Angle between two planes // TODO: Need to find a Lachlan func for this
+	//Angle between two planes
 	sFCU.sFlightControl.sOrient.s16TwistPitch = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((double)((f32vec1x * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C]) / sqrt((double)(sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig
 	// the discrepancy in pitch measured by two triplets of lasers gives the bending of the pod structure // TODO: check signs
 	sFCU.sFlightControl.sOrient.s16TwistPitch -= sFCU.sFlightControl.sOrient.s16Pitch;
@@ -472,5 +466,3 @@ Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_TwistRoll()
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
 	#error
 #endif
-
-
