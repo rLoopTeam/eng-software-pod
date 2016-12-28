@@ -4,6 +4,7 @@
 
 extern struct _strPWRNODE sPWRNODE;
 
+/**
 void vBMS__Get_Voltages()
 {
   // We modify the content of each struct (each device)
@@ -39,7 +40,7 @@ void vBMS__Set_Undervoltage_Threshold(Lfloat32 f32Threshold)
     for (Luint8 u8LoopCounter = 0; u8LoopCounter < NUM_DEVICES; u8LoopCounter++)
         vATA6870_UV__Set_UVTrip(Devices[u8LoopCounter].u8DeviceIndex, f32Threshold);
 }
-
+*/
 #endif
 #endif
 
