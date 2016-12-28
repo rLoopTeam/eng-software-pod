@@ -22,6 +22,8 @@
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
 
+extern struct _strPWRNODE sPWRNODE;
+
 /***************************************************************************//**
  * @brief
  * Init the battery temperature measurement devices
@@ -44,6 +46,10 @@ void vPWRNODE_BATTTEMP__Init(void)
 	//start the temp sensor driver
 	vDS18B20__Init();
 #endif
+
+	//load up the stored details mem
+	vPWRNODE_BATTTEMP_MEM__Init();
+
 }
 
 
@@ -65,7 +71,11 @@ void vPWRNODE_BATTTEMP__Process(void)
 	//devices wont start converting until the network search has completed.
 	vDS18B20__Process();
 
+
+	//see if we have any battery temp systems.
+	vPWRNODE_BATTTEMP_MEM__Process();
 }
+
 
 
 /***************************************************************************//**

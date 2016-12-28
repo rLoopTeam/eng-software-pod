@@ -344,7 +344,14 @@ void vDS18B20__Start_TempRead(void)
 
 Lfloat32 f32DS18B20__Get_Temperature_DegC(Luint16 u16Index)
 {
-	return sDS18B20.sDevice[u16Index].f32Temperature;
+	return sDS18B20.sTemp[u16Index].f32Temperature;
+}
+
+
+//gets the device memory address
+Luint32 u32DS18B20__Get_DeviceAddx(void)
+{
+	return (Luint32)&sDS18B20.sDevice[0];
 }
 
 

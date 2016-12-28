@@ -16,6 +16,9 @@
 		*******************************************************************************/
 		#include <LCCM653__RLOOP__POWER_CORE/PI_COMMS/power_core__pi_comms__types.h>
 		#include <LCCM653__RLOOP__POWER_CORE/power_core__state_types.h>
+		#include <LCCM653__RLOOP__POWER_CORE/power_core__defines.h>
+		#include <LCCM653__RLOOP__POWER_CORE/power_core__eeprom_index.h>
+
 
 		//local fault flags
 		#include <LCCM653__RLOOP__POWER_CORE/power_core__fault_flags.h>
@@ -62,6 +65,19 @@
 
 			}sInit;
 
+			/** Temperature sensors (battery temp)*/
+			struct
+			{
+
+				/** Loaded from memory the number of configured sensors */
+				Luint8 u8NumSensors;
+
+				/** Pack memory CRC */
+				Luint16 u16PackMemCRC
+
+			}sTemp;
+
+			#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
 			/** DC/DC Converter control layer */
 			struct
 			{
@@ -82,7 +98,9 @@
 				Luint32 u32100MS_TimerCount;
 
 			}sDC;
+			#endif
 
+			#if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
 			/** Pi Comms Layer */
 			struct
 			{
@@ -94,7 +112,9 @@
 				Luint8 u8100MS_Timer;
 
 			}sPiComms;
+			#endif
 
+			#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
 			/** Charger Control */
 			struct
 			{
@@ -104,7 +124,7 @@
 
 
 			}sCharger;
-
+			#endif //C_LOCALDEF__LCCM653__ENABLE_CHARGER
 
 			/** ATA6870 interface */
 			#define NUM_CELLS_PER_MODULE    (6U)
@@ -123,6 +143,15 @@
 				}sDevice[C_LOCALDEF__LCCM650__NUM_DEVICES];
 
 			}sATA6870;
+
+
+			#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+			/** BMS Subsystem */
+			struct
+			{
+
+			}sBMS;
+			#endif
 
 			/** Win32 Functions*/
 #ifdef WIN32
@@ -257,6 +286,10 @@
 		void vPWRNODE_BATTTEMP__Process(void);
 		void vPWRNODE_BATTTEMP__Start_Search(void);
 		Luint8 u8PWRNODE_BATTTEMP__Search_IsBusy(void);
+
+			//memory system
+			void vPWRNODE_BATTTEMP_MEM__Init(void);
+			void vPWRNODE_BATTTEMP_MEM__Process(void);
 
 		//node temperature reading
 		void vPWRNODE_NODETEMP__Init(void);
