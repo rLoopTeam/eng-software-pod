@@ -147,16 +147,12 @@ void vATA6870__Process(void)
 			break;
 		case ATA6870_STATE__READ_CELL_VOLTAGES:
 			u8ATA6870__BulkRead();
-			sATA6870.eState = ATA6870_STATE__BALANCE;
-			break;
-
-		case ATA6870_STATE__BALANCE:
-			//process any balancer tasks.
-			vATA6870_BALANCE__Process();
 			sATA6870.eState = ATA6870_STATE__START_CONVERSION;
 			break;
-
 	}
+
+	//process any balancer tasks.
+	vATA6870_BALANCE__Process();
 
 
 }
