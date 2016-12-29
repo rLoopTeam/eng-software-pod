@@ -36,7 +36,7 @@
 		#define C_ATA6870__ADC_RES_V				(0.0015F)
 
 		//** Voltage thresholds for each module, CHANGE IF NEEDED*/
-		#define C_ATA6870_MIN_VOLTS					(3.0)
+		#define C_ATA6870_MIN_VOLTS					(3.5)
 		#define C_ATA6870_MAX_VOLTS					(4.3)
 
 		/** Balancer Stats */
@@ -44,8 +44,11 @@
 		{
 
 			/** not doing anything, waiting for a start command*/
-			BALANCE_STATE__IDLE = 0U
-
+			BALANCE_STATE__IDLE = 0U,
+			/** balance the module voltages */
+			BALANCE_STATE__BALANCE,
+			/** balancing has completed */
+			BALANCE_STATE__BALANCED
 
 		}E_ATA6870__BALANCE_STATE_T;
 
@@ -59,6 +62,7 @@
 			ATA6870_STATE__WAIT_CONVERSION,
 			ATA6870_STATE__READ_CELL_VOLTAGES,
 			ATA6870_STATE__INTERRUPT,
+			
 		}E_ATA6870_STATE_T;
 
 
@@ -143,7 +147,7 @@
 		void vATA6870_INT__Init(void);
 		void vATA6870_INT__ISR(Luint8 u8DeviceIndex);
 		
-		Luint8 uATA6870__u8VoltageError(Lfloat32 *pf32Voltages);
+		Luint8 u8ATA6870__VoltageError(Lfloat32 *pf32Voltages);
 
 	//safetys
 	#ifndef C_LOCALDEF__LCCM650__NUM_DEVICES
