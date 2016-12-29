@@ -2,6 +2,7 @@
 
 #include "../power_core.h"
 #if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
+#include <LCCM655__RLOOP__FCU_CORE/NETWORKING/fcu_core__net__packet_types.h>
 
 extern struct _strPWRNODE sPWRNODE;
 
@@ -87,12 +88,30 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 
 				break;
 
-/*
-			case NET_PKT__FCU_ACCEL__REQUEST_CAL_DATA:
-				//Host wants us to transmit the calibration data for the accelerometers system
-				sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__FCU_ACCEL__TX_CAL_DATA;
+			case NET_PKT__PWR_TEMP__REQ_CURRENT_TEMPS:
+				sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__PWR_TEMP__TX_CURRENT_TEMPS;
 				break;
-*/
+
+			case NET_PKT__PWR_TEMP__REQ_SENSOR_LOCATION:
+				sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__PWR_TEMP__TX_SENSOR_LOCATION_DATA;
+				break;
+
+			case NET_PKT__PWR_TEMP__REQ_ROMID_INDEX:
+				sPWRNODE.sUDPDiag.u32Block0 = u32Block[0];
+				sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__PWR_TEMP__TX_ROMID_INDEX;
+				break;
+
+			case NET_PKT__PWR_TEMP__SET_ROMID_INDEX:
+				#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
+					vPWRNODE_BATTEMP_MEM__Set_ROMID(u32Block[0], u32Block[1], u32Block[2]);
+				#endif
+				break;
+
+			case NET_PKT__PWR_TEMP__SET_USERDATA_INDEX:
+				#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
+					vPWRNODE_BATTEMP_MEM__Set_UserData(u32Block[0], u32Block[1], u32Block[2], u32Block[3]);
+				#endif
+				break;
 
 			default:
 				//do nothing

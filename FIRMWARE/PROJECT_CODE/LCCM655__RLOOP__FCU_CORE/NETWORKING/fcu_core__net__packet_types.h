@@ -102,6 +102,37 @@
 		/** Power Node data streaming */
 		NET_PKT__PWR_GEN__STREAMING_CONTROL = 0x3010U,
 
+
+		//////////////////////////////////////////////////////
+		//POWER: TEMPERATURE SYSTEM (0x3200)
+		//////////////////////////////////////////////////////
+
+		/** Request a temperature packet */
+		NET_PKT__PWR_TEMP__REQ_CURRENT_TEMPS = 0x3200U,
+
+		/** Send an entire temperature sensor packet */
+		NET_PKT__PWR_TEMP__TX_CURRENT_TEMPS = 0x3201U,
+
+		/** Host wants sensor loc data */
+		NET_PKT__PWR_TEMP__REQ_SENSOR_LOCATION = 0x3202U,
+
+		/** Send the location data */
+		NET_PKT__PWR_TEMP__TX_SENSOR_LOCATION_DATA = 0x3203U,
+
+		/** Request a ROMID based on an index */
+		NET_PKT__PWR_TEMP__REQ_ROMID_INDEX = 0x3204U,
+
+		/** Send the ROMID based on an index */
+		NET_PKT__PWR_TEMP__TX_ROMID_INDEX = 0x3205U,
+
+		/** Set the ROMID by sensor index */
+		NET_PKT__PWR_TEMP__SET_ROMID_INDEX = 0x3206U,
+
+		/** Set the User Data by Sensor Index*/
+		NET_PKT__PWR_TEMP__SET_USERDATA_INDEX = 0x3207U,
+
+
+
 		//////////////////////////////////////////////////////
 		//XILINX HYPERLOOP SIMULATION (0x5000)
 		//////////////////////////////////////////////////////
