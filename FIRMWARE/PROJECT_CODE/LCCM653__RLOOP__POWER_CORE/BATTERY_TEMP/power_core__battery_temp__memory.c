@@ -30,6 +30,13 @@ Lint16 s16PWRNODE_BATTEMP_MEM__Load(void);
 //the default battery packs
 extern const Luint8 u8FwdPack__Default[];
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		ECC33E2FE28D9D2779F71DF0AE2468D8
+ * @st_funcID		LCCM653R0.FILE.029.FUNC.001
+ */
 void vPWRNODE_BATTTEMP_MEM__Init(void)
 {
 
@@ -80,12 +87,26 @@ void vPWRNODE_BATTTEMP_MEM__Init(void)
 }
 
 //return the number of sensors
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		61B6DDBC6B2331B8A91A22BAE7D575C4
+ * @st_funcID		LCCM653R0.FILE.029.FUNC.002
+ */
 Luint16 u16PWRNODE_BATTTEMP_MEM__Get_NumSensors(void)
 {
 	return sPWRNODE.sTemp.u16NumSensors;
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		675C2F664A0027481072063B15FDCBE1
+ * @st_funcID		LCCM653R0.FILE.029.FUNC.003
+ */
 void vPWRNODE_BATTTEMP_MEM__Process(void)
 {
 
@@ -93,6 +114,16 @@ void vPWRNODE_BATTTEMP_MEM__Process(void)
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u32ROMID_Lower		## Desc ##
+ * @param[in]		u32ROMID_Upper		## Desc ##
+ * @param[in]		u16Index		## Desc ##
+ * @st_funcMD5		D7F42D40DB34F09AEA3ACFED2EED390E
+ * @st_funcID		LCCM653R0.FILE.029.FUNC.004
+ */
 void vPWRNODE_BATTEMP_MEM__Set_ROMID(Luint16 u16Index, Luint32 u32ROMID_Upper, Luint32 u32ROMID_Lower)
 {
 
@@ -100,6 +131,17 @@ void vPWRNODE_BATTEMP_MEM__Set_ROMID(Luint16 u16Index, Luint32 u32ROMID_Upper, L
 
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u8Resolution		## Desc ##
+ * @param[in]		u8BusID		## Desc ##
+ * @param[in]		UserIndex		## Desc ##
+ * @param[in]		u16Index		## Desc ##
+ * @st_funcMD5		A7987F0D7E4721A5389B8514028C9463
+ * @st_funcID		LCCM653R0.FILE.029.FUNC.005
+ */
 void vPWRNODE_BATTEMP_MEM__Set_UserData(Luint16 u16Index, Luint16 UserIndex, Luint8 u8BusID, Luint8 u8Resolution)
 {
 
@@ -108,6 +150,13 @@ void vPWRNODE_BATTEMP_MEM__Set_UserData(Luint16 u16Index, Luint16 UserIndex, Lui
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		EE6440D1A5AD7B2C555B3DE1D83E8197
+ * @st_funcID		LCCM653R0.FILE.029.FUNC.006
+ */
 Lint16 s16PWRNODE_BATTEMP_MEM__Save(void)
 {
 
@@ -118,6 +167,13 @@ Lint16 s16PWRNODE_BATTEMP_MEM__Save(void)
 }
 
 //load the sensor array data from memory
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		88966F4CCD3C418E659974B230D4817D
+ * @st_funcID		LCCM653R0.FILE.029.FUNC.007
+ */
 Lint16 s16PWRNODE_BATTEMP_MEM__Load(void)
 {
 

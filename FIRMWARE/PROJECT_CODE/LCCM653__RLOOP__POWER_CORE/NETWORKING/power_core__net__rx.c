@@ -33,7 +33,7 @@ void vPWRNODE_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16Des
  * @param[in]		ePacketType		## Desc ##
  * @param[in]		u16PayloadLength		## Desc ##
  * @param[in]		*pu8Payload		## Desc ##
- * @st_funcMD5		DBCD15F1783E9EDE9922A451109D7218
+ * @st_funcMD5		6B62E5DDB6D7BDC7180F3EED6DA76908
  * @st_funcID		LCCM653R0.FILE.018.FUNC.002
  */
 void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)

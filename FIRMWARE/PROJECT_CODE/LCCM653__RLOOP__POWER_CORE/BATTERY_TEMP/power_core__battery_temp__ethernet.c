@@ -25,6 +25,14 @@
 
 extern struct _strPWRNODE sPWRNODE;
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		ePacketType		## Desc ##
+ * @st_funcMD5		285D08C3FCC2B0B0F87EB0E5B7FAFB32
+ * @st_funcID		LCCM653R0.FILE.028.FUNC.001
+ */
 void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 {
 
@@ -141,6 +149,14 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u32Index		## Desc ##
+ * @st_funcMD5		ED610968B92B427A06555891B9679CDB
+ * @st_funcID		LCCM653R0.FILE.028.FUNC.002
+ */
 void vPWRNODE_BAATTEMP_ETH__Transmit_ROMID(Luint32 u32Index)
 {
 
