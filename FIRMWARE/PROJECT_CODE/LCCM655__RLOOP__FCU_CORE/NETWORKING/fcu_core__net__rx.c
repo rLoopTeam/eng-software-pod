@@ -156,6 +156,20 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				sFCU.sUDPDiag.eTxPacketType = NET_PKT__LASER_CONT__TX_LASER_DATA;
 				break;
 
+			case NET_PKT__FCU_BRAKES__ENABLE_DEV_MODE:
+				//set the brake system in development mode.
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+					vFCU_BRAKES__Enable_DevMode(u32Block[0], 0xABCD0987U);
+				#endif
+				break;
+
+			case NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW:
+				//move the brake system in development mode.
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+					vFCU_BRAKES__Dev_MoveMotor(u32Block[0], u32Block[1]);
+				#endif
+				break;
+
 			default:
 				//do nothing
 				break;

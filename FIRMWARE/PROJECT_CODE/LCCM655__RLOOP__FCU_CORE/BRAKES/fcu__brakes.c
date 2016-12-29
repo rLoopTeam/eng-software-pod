@@ -45,6 +45,8 @@ void vFCU_BRAKES__Init(void)
 
 	//init the state machine variables
 	sFCU.eBrakeStates = BRAKE_STATE__IDLE;
+	sFCU.sBrakesDev.u8DevMode = 0U;
+	sFCU.sBrakesDev.u32DevKey = 0U;
 
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
 	{
@@ -91,6 +93,7 @@ void vFCU_BRAKES__Process(void)
 
 		case BRAKE_STATE__IDLE:
 			//idle state, wait here until we are commanded to move via a chance state.
+
 			break;
 
 		case BRAKE_STATE__BEGIN_MOVE:
@@ -223,7 +226,67 @@ Lfloat32 f32FCU_BRAKES__Get_MLP_mm(E_FCU__BRAKE_INDEX_T eBrake)
 
 
 
+//permit brake development/testing mode
+//Key1 should be 0xABCD0987U
+void vFCU_BRAKES__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
+{
 
+	if(u32Key0 == 0x01293847U)
+	{
+		//activate mode
+		sFCU.sBrakesDev.u8DevMode = 1U;
+		sFCU.sBrakesDev.u32DevKey = u32Key1;
+	}
+	else
+	{
+		//disable mode
+		sFCU.sBrakesDev.u8DevMode = 0U;
+		sFCU.sBrakesDev.u32DevKey = 0U;
+	}
+
+
+
+}
+
+
+//huge caution, this can kill the magnets
+void vFCU_BRAKES__Dev_MoveMotor(Luint32 u32Index, Luint32 u32Position)
+{
+
+	if(sFCU.sBrakesDev.u8DevMode == 1U)
+	{
+		//check the safety key
+		if(sFCU.sBrakesDev.u32DevKey == 0xABCD0987U)
+		{
+
+			switch(u32Index)
+			{
+				case 0:
+					vFCU_BRAKES_STEP__Move(u32Position, 0U);
+					break;
+				case 1:
+					vFCU_BRAKES_STEP__Move(0U, u32Position);
+					break;
+				case 2:
+					vFCU_BRAKES_STEP__Move(u32Position, u32Position);
+					break;
+				default:
+					//do nothing.
+					break;
+			}//switch(u32Index)
+
+		}
+		else
+		{
+			//key wrong
+		}
+	}
+	else
+	{
+		//not enabled
+	}
+
+}
 
 
 //move the brakes to a distance in MM from the I Beam

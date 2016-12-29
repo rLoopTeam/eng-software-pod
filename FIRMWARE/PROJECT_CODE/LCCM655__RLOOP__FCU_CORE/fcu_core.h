@@ -77,10 +77,22 @@
 
 			}sFaults;
 
+			/** Brake Dev */
+			struct
+			{
+
+				/** Are we in develompent mode? */
+				Luint8 u8DevMode;
+
+				/** Key to enable develompent mode checks */
+				Luint32 u32DevKey;
+
+			}sBrakesDev;
 
 			/** Brake Substructure */
 			struct
 			{
+
 				/** Limit switch structure
 				 * There are two limit switches per brake assy
 				 */
@@ -710,6 +722,10 @@
 		Luint16 u16FCU_BRAKES__Get_ADC_Raw(E_FCU__BRAKE_INDEX_T eBrake);
 		Lfloat32 f32FCU_BRAKES__Get_IBeam_mm(E_FCU__BRAKE_INDEX_T eBrake);
 		Lfloat32 f32FCU_BRAKES__Get_MLP_mm(E_FCU__BRAKE_INDEX_T eBrake);
+
+			//dev specifics
+			void vFCU_BRAKES__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1);
+			void vFCU_BRAKES__Dev_MoveMotor(Luint32 u32Index, Luint32 u32Position);
 
 		//stepper drive
 		void vFCU_BRAKES_STEP__Init(void);
