@@ -354,7 +354,29 @@ Luint32 u32DS18B20__Get_DeviceAddx(void)
 	return (Luint32)&sDS18B20.sDevice[0];
 }
 
+Luint16 u162DS18B20__Get_UserIndex(Luint16 u16Index)
+{
+	return sDS18B20.sDevice[u16Index].u16UserIndex;
+}
 
+Luint8 u82DS18B20__Get_Resolution(Luint16 u16Index)
+{
+	return sDS18B20.sDevice[u16Index].u8Resolution;
+}
+
+Luint8 u82DS18B20__Get_BusIndex(Luint16 u16Index)
+{
+	return sDS18B20.sDevice[u16Index].u8ChannelIndex;
+}
+
+void vDS18B20__Get_ROMID(Luint16 u16Index, Luint8 *pu8Buffer)
+{
+	Luint8 u8Counter;
+	for(u8Counter = 0U; u8Counter < 8U; u8Counter++)
+	{
+		pu8Buffer[u8Counter] = sDS18B20.sDevice[u16Index].u8SerialNumber[u8Counter];
+	}
+}
 
 #if C_LOCALDEF__LCCM644__USE_10MS_ISR == 1U
 /***************************************************************************//**

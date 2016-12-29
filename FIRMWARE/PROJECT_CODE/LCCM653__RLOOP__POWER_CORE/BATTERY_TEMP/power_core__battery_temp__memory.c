@@ -25,7 +25,7 @@
 extern struct _strPWRNODE sPWRNODE;
 
 //locals
-Lint16 s16PWRNODE_BAATTEMP_MEM__Load(void);
+Lint16 s16PWRNODE_BATTEMP_MEM__Load(void);
 
 //the default battery packs
 extern const Luint8 u8FwdPack__Default[];
@@ -38,7 +38,7 @@ void vPWRNODE_BATTTEMP_MEM__Init(void)
 	Lint16 s16Return;
 
 	//first up, lets load (or default) our top level params
-	sPWRNODE.sTemp.u8NumSensors = 0U;
+	sPWRNODE.sTemp.u16NumSensors = 0U;
 
 	//check the storage CRC
 	u8Test = u8EEPARAM_CRC__Is_CRC_OK(	C_POWERCORE__EEPARAM_INDEX__BATTTEMP__NUM_SENSORS,
@@ -48,18 +48,18 @@ void vPWRNODE_BATTTEMP_MEM__Init(void)
 	if(u8Test == 1U)
 	{
 		//CRC was good
-		sPWRNODE.sTemp.u8NumSensors = u8EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__BATTTEMP__NUM_SENSORS);
+		sPWRNODE.sTemp.u16NumSensors = u16EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__BATTTEMP__NUM_SENSORS);
 		sPWRNODE.sTemp.u16PackMemCRC = u16EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__BATTTEMP__PACK_CRC);
 	}
 	else
 	{
 
 		//default the data
-		vEEPARAM__WriteU8(	C_POWERCORE__EEPARAM_INDEX__BATTTEMP__NUM_SENSORS,
+		vEEPARAM__WriteU16(	C_POWERCORE__EEPARAM_INDEX__BATTTEMP__NUM_SENSORS,
 							(C_PWRCORE__NUM_TEMP_SNSR_PER_6P * C_PWRCORE__NUM_6P_MODULES),
 							1U);
 		//reload it
-		sPWRNODE.sTemp.u8NumSensors = u8EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__BATTTEMP__NUM_SENSORS);
+		sPWRNODE.sTemp.u16NumSensors = u16EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__BATTTEMP__NUM_SENSORS);
 
 		//Pack CRC, just set to zero as it will fail later on
 		sPWRNODE.sTemp.u16PackMemCRC = 0U;
@@ -72,11 +72,17 @@ void vPWRNODE_BATTTEMP_MEM__Init(void)
 	}
 
 	//now load the memory
-	s16Return = s16PWRNODE_BAATTEMP_MEM__Load();
+	s16Return = s16PWRNODE_BATTEMP_MEM__Load();
 
 	//todo, check it loaded well and verify some sensors.
 
 
+}
+
+//return the number of sensors
+Luint16 u16PWRNODE_BATTTEMP_MEM__Get_NumSensors(void)
+{
+	return sPWRNODE.sTemp.u16NumSensors;
 }
 
 
@@ -87,8 +93,32 @@ void vPWRNODE_BATTTEMP_MEM__Process(void)
 }
 
 
+void vPWRNODE_BATTEMP_MEM__Set_ROMID(Luint16 u16Index, Luint32 u32ROMID_Upper, Luint32 u32ROMID_Lower)
+{
+
+	//set the ROMID
+
+}
+
+void vPWRNODE_BATTEMP_MEM__Set_UserData(Luint16 u16Index, Luint16 UserIndex, Luint8 u8BusID, Luint8 u8Resolution)
+{
+
+	//set the data
+
+}
+
+
+Lint16 s16PWRNODE_BATTEMP_MEM__Save(void)
+{
+
+	//save off
+
+	return 0;
+
+}
+
 //load the sensor array data from memory
-Lint16 s16PWRNODE_BAATTEMP_MEM__Load(void)
+Lint16 s16PWRNODE_BATTEMP_MEM__Load(void)
 {
 
 	Luint16 u16MemorySize;
@@ -100,7 +130,7 @@ Lint16 s16PWRNODE_BAATTEMP_MEM__Load(void)
 
 
 	//compute the size of the memory
-	u16MemorySize = (Luint16)sPWRNODE.sTemp.u8NumSensors;
+	u16MemorySize = sPWRNODE.sTemp.u16NumSensors;
 
 	//ROMID,etc
 	u16MemorySize *= 12U;
@@ -120,7 +150,7 @@ Lint16 s16PWRNODE_BAATTEMP_MEM__Load(void)
 		//CRC is good, load the data
 
 		//need to make sure we have enough space in the DS18B20 array
-		if(sPWRNODE.sTemp.u8NumSensors < C_LOCALDEF__LCCM644__MAX_DEVICES)
+		if(sPWRNODE.sTemp.u16NumSensors < C_LOCALDEF__LCCM644__MAX_DEVICES)
 		{
 			//we have room, do the load
 

@@ -1,3 +1,4 @@
+
 /**
  * @file		POWER_CORE.H
  * @brief		Main header file for the power node core functions
@@ -70,10 +71,10 @@
 			{
 
 				/** Loaded from memory the number of configured sensors */
-				Luint8 u8NumSensors;
+				Luint16 u16NumSensors;
 
 				/** Pack memory CRC */
-				Luint16 u16PackMemCRC
+				Luint16 u16PackMemCRC;
 
 			}sTemp;
 
@@ -195,6 +196,8 @@
 				/** If the user has enabled Tx streaming */
 				E_NET__PACKET_T eTxStreamingType;
 
+				/** A copy of block 0.*/
+				Luint32 u32Block0;
 
 			}sUDPDiag;
 
@@ -290,6 +293,13 @@
 			//memory system
 			void vPWRNODE_BATTTEMP_MEM__Init(void);
 			void vPWRNODE_BATTTEMP_MEM__Process(void);
+			Luint16 u16PWRNODE_BATTTEMP_MEM__Get_NumSensors(void);
+			void vPWRNODE_BATTEMP_MEM__Set_ROMID(Luint16 u16Index, Luint32 u32ROMID_Upper, Luint32 u32ROMID_Lower);
+			void vPWRNODE_BATTEMP_MEM__Set_UserData(Luint16 u16Index, Luint16 UserIndex, Luint8 u8BusID, Luint8 u8Resolution);
+
+			//eth
+			void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType);
+			void vPWRNODE_BAATTEMP_ETH__Transmit_ROMID(Luint32 u32Index);
 
 		//node temperature reading
 		void vPWRNODE_NODETEMP__Init(void);

@@ -131,6 +131,11 @@
 		void vDS18B20__Clear_NewDataAvail(void);
 		void vDS18B20__10MS_ISR(void);
 		Luint32 u32DS18B20__Get_DeviceAddx(void);
+		Luint16 u162DS18B20__Get_UserIndex(Luint16 u16Index);
+		Luint8 u82DS18B20__Get_Resolution(Luint16 u16Index);
+		Luint8 u82DS18B20__Get_BusIndex(Luint16 u16Index);
+		void vDS18B20__Get_ROMID(Luint16 u16Index, Luint8 *pu8Buffer);
+
 
 		//temperature
 		Lint16 s16DS18B20_TEMP__Read(Luint8 u8DSIndex);

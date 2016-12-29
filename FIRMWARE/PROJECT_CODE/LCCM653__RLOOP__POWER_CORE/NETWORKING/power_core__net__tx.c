@@ -26,11 +26,6 @@ extern struct _strPWRNODE sPWRNODE;
  * @brief
  * Init any network transmission stuff
  * 
- */
-/***************************************************************************//**
- * @brief
- * ToDo
- * 
  * @st_funcMD5		F22223ECE290EE71D79DD969F6F9BFD0
  * @st_funcID		LCCM653R0.FILE.019.FUNC.001
  */
@@ -86,22 +81,30 @@ void vPWRNODE_NET_TX__Process(void)
 		eType = sPWRNODE.sUDPDiag.eTxPacketType;
 	}
 
-/*
 	//detemrine the packet type
 	switch(eType)
 	{
-		case NET_PKT__FCU_ACCEL__TX_CAL_DATA:
-			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
-				vFCU_ACCEL_ETH__Transmit(eType);
+		case NET_PKT__PWR_TEMP__TX_CURRENT_TEMPS:
+			#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
+				vPWRNODE_BAATTEMP_ETH__Transmit(eType);
 			#endif
 
-				sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+			sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
 
-		case NET_PKT__FCU_ACCEL__TX_FULL_DATA:
-			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
-				vFCU_ACCEL_ETH__Transmit(eType);
+		case NET_PKT__PWR_TEMP__TX_SENSOR_LOCATION_DATA:
+			#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
+				vPWRNODE_BAATTEMP_ETH__Transmit(eType);
 			#endif
+
+			sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+			break;
+
+		case NET_PKT__PWR_TEMP__TX_ROMID_INDEX:
+			#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
+				vPWRNODE_BAATTEMP_ETH__Transmit_ROMID(sPWRNODE.sUDPDiag.u32Block0);
+			#endif
+
 			sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
 
@@ -110,7 +113,7 @@ void vPWRNODE_NET_TX__Process(void)
 			break;
 
 	}//switch(eType)
-*/
+
 
 }
 
