@@ -27,9 +27,9 @@ extern struct _strPWRNODE sPWRNODE;
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Transmit a general eth packet
  * 
- * @param[in]		ePacketType		## Desc ##
+ * @param[in]		ePacketType			Eth Type
  * @st_funcMD5		285D08C3FCC2B0B0F87EB0E5B7FAFB32
  * @st_funcID		LCCM653R0.FILE.028.FUNC.001
  */
@@ -151,9 +151,9 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Transmit a ROMID packet
  * 
- * @param[in]		u32Index		## Desc ##
+ * @param[in]		u32Index			Enumeration Index
  * @st_funcMD5		ED610968B92B427A06555891B9679CDB
  * @st_funcID		LCCM653R0.FILE.028.FUNC.002
  */

@@ -88,6 +88,15 @@
 		NET_PKT__LASER_CONT__TX_LASER_DATA = 0x1301U,
 
 
+		//////////////////////////////////////////////////////
+		//FCU: BRAKES (0x1400)
+		//////////////////////////////////////////////////////
+
+		/** Permit brake development mode */
+		NET_PKT__FCU_BRAKES__ENABLE_DEV_MODE = 0x1400U,
+
+		/** Perform a raw motor move */
+		NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW = 0x1401U,
 
 		//////////////////////////////////////////////////////
 		//POWER: GENERAL (0x3000)
