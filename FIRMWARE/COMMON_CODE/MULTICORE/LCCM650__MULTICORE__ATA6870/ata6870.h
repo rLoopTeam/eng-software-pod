@@ -46,7 +46,7 @@
 			/** not doing anything, waiting for a start command*/
 			BALANCE_STATE__IDLE = 0U,
 			/** balance the module voltages */
-			BALANCE_STATE__BALANCE
+			BALANCE_STATE__BALANCE,
 			/** balancing has completed */
 			BALANCE_STATE__BALANCED
 
