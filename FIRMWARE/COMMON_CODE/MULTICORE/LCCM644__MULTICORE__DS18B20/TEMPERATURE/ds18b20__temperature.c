@@ -39,7 +39,7 @@ static void vDS18B20_TEMP__Scratch_To_Temp(Luint8 u8DSIndex, const Luint8 *pu8Sc
  *					-ve = error
  * 
  * @param[in]		u8DSIndex		## Desc ##
- * @st_funcMD5		AA39BBEC8AC2F71F753F69608659B42B
+ * @st_funcMD5		A078A4525D85F13160DDAF5DF26FE1E2
  * @st_funcID		LCCM644R0.FILE.003.FUNC.006
  */
 Lint16 s16DS18B20_TEMP__Read(Luint8 u8DSIndex)
@@ -146,7 +146,7 @@ Lint16 s16DS18B20_TEMP__All_Request(Luint8 u8DSIndex, Luint8 u8Wait)
  * @param[in]		u8DSIndex				The addressed index of the device.
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		89A3015EC826C995418FFAA3AA6466BA
+ * @st_funcMD5		860D63E72330497D8ACB60F9EBF50D2D
  * @st_funcID		LCCM644R0.FILE.003.FUNC.004
  */
 Lint16 s16DS18B20_TEMP__Request(Luint8 u8DSIndex, Luint8 u8Wait)

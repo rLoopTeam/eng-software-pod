@@ -28,7 +28,7 @@ extern struct _strPWRNODE sPWRNODE;
  * @brief
  * Init the battery temperature measurement devices
  * 
- * @st_funcMD5		125710767486723A58326AAA59E627DA
+ * @st_funcMD5		B4A37D8CBBB7D8EAD99FDAF3BCE66FE1
  * @st_funcID		LCCM653R0.FILE.009.FUNC.001
  */
 void vPWRNODE_BATTTEMP__Init(void)
@@ -57,7 +57,7 @@ void vPWRNODE_BATTTEMP__Init(void)
  * @brief
  * Process any battery temp measurement tasks
  * 
- * @st_funcMD5		716F10371EC26421C99A1DD629ED9105
+ * @st_funcMD5		3F57051B802506D64F1E05DCB42FA82F
  * @st_funcID		LCCM653R0.FILE.009.FUNC.002
  */
 void vPWRNODE_BATTTEMP__Process(void)
@@ -82,7 +82,7 @@ void vPWRNODE_BATTTEMP__Process(void)
  * @brief
  * Start a search of any devices on the network
  * 
- * @st_funcMD5		44524ACD1CAC2160BEBA831938D2122E
+ * @st_funcMD5		2A3DCB75A179926AC66C8F2DE42ECA1D
  * @st_funcID		LCCM653R0.FILE.009.FUNC.003
  */
 void vPWRNODE_BATTTEMP__Start_Search(void)
@@ -100,7 +100,7 @@ void vPWRNODE_BATTTEMP__Start_Search(void)
  * 
  * @return			0 = not busy\n
  *					1 = busy
- * @st_funcMD5		CF96C635BC6184E9E3C82972F7EFA099
+ * @st_funcMD5		75BECBC52C9DD3932FDD4F1519D84A7B
  * @st_funcID		LCCM653R0.FILE.009.FUNC.004
  */
 Luint8 u8PWRNODE_BATTTEMP__Search_IsBusy(void)

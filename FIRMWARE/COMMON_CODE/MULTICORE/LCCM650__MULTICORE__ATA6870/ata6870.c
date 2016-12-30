@@ -36,7 +36,7 @@ static void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit);
  * @brief
  * Init any ATA6870 systems
  * 
- * @st_funcMD5		99D6BF2EA733AE85B32BE7F078646C43
+ * @st_funcMD5		DD75420783FCC074EFEE1B22E4564570
  * @st_funcID		LCCM650R0.FILE.000.FUNC.001
  */
 void vATA6870__Init(void)
@@ -116,7 +116,7 @@ void vATA6870__Init(void)
  * @brief
  * Process any ATA6870 tasks
  * 
- * @st_funcMD5		B36C2CF202BFF0A45AD77EE21E6F3822
+ * @st_funcMD5		CC6F99350533FEAE2044081BD632EF21
  * @st_funcID		LCCM650R0.FILE.000.FUNC.002
  */
 void vATA6870__Process(void)
@@ -205,6 +205,9 @@ void vATA6870__Process(void)
  * Start ATA6870N Conversion
  *
  * @st_funcMD5
+ * @param[in]		u8TempBit		## Desc ##
+ * @param[in]		u8VoltageMode		## Desc ##
+ * @st_funcMD5		E18136B88864804196F4404DF33A2CDE
  * @st_funcID
  */
 void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
@@ -266,7 +269,7 @@ void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
  * @brief
  * 10ms ISR
  *
- * @st_funcMD5		2EFF2F9513ECDACF63F2615A2C620299
+ * @st_funcMD5		EFCD04EB2C2B91C6325DB0C8D146E16B
  * @st_funcID		LCCM644R0.FILE.000.FUNC.004
  */
 void vATA6870__10MS_ISR(void)

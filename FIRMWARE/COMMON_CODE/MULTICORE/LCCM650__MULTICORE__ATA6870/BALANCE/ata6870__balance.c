@@ -36,7 +36,7 @@ static void vATA6870_BALANCE__Do(void);
  * @brief
  * Init any balancer systems
  * 
- * @st_funcMD5		A46B577F82793C959687DE3130CB78CD
+ * @st_funcMD5		71AFDB346C1B611F3C203CE6F4BACCA1
  * @st_funcID		LCCM650R0.FILE.012.FUNC.001
  */
 void vATA6870_BALANCE__Init(void)
@@ -63,7 +63,7 @@ void vATA6870_BALANCE__Init(void)
  * @brief
  * Start the balancing process.
  *
- * @st_funcMD5		0003B1996E14215C56A9FFF33E5D0590
+ * @st_funcMD5		461C224CAEE30E4668EF221BA446985D
  * @st_funcID		LCCM650R0.FILE.012.FUNC.002
  */
 void vATA6870_BALANCE__Start(void)
@@ -76,7 +76,7 @@ void vATA6870_BALANCE__Start(void)
  * @brief
  * Stop the blanacing process and terminate any discharging resistors
  * 
- * @st_funcMD5		61065840D03858CD5B16762899AED266
+ * @st_funcMD5		0FEC574EA48C801CCD0F4C9D113A53AA
  * @st_funcID		LCCM650R0.FILE.012.FUNC.003
  */
 void vATA6870_BALANCE__Stop(void)
@@ -106,7 +106,7 @@ void vATA6870_BALANCE__Stop(void)
  * 
  * @return			0 = Not busy\n
  *					1 = Busy
- * @st_funcMD5		6C722EE0914ABA34FBAEB989E8D06209
+ * @st_funcMD5		0C6AEF282147D3B4C0985DC3C7515D2E
  * @st_funcID		LCCM650R0.FILE.012.FUNC.004
  */
 Luint8 u8ATA6870_BALANCE__Is_Busy(void)
@@ -129,7 +129,7 @@ Luint8 u8ATA6870_BALANCE__Is_Busy(void)
  * @brief
  * Process the balancer state machine. Call this from main loop fast as possible.
  * 
- * @st_funcMD5		D30B7E456ED8751A1AF6618C581E75E6
+ * @st_funcMD5		173C6582E979E9DC904E68091ABF0A71
  * @st_funcID		LCCM650R0.FILE.012.FUNC.005
  */
 void vATA6870_BALANCE__Process(void)
@@ -203,6 +203,16 @@ void vATA6870_BALANCE__Process(void)
 }
 
 //return 1 if we are resistors on
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u8CellIndex		## Desc ##
+ * @param[in]		u8CellCounter		## Desc ##
+ * @param[in]		u8DeviceIndex		## Desc ##
+ * @st_funcMD5		A00A9DCBE0AF34E89F897ED43D57E81F
+ * @st_funcID		LCCM650R0.FILE.012.FUNC.006
+ */
 Luint8 u8ATA6870_BALANCE__Handle(Luint8 u8DeviceIndex, Luint8 u8CellCounter, Luint8 u8CellIndex)
 {
 	Luint8 u8Temp;
@@ -258,6 +268,13 @@ Luint8 u8ATA6870_BALANCE__Handle(Luint8 u8DeviceIndex, Luint8 u8CellCounter, Lui
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		D2C266693DEBB69953303D9FCEDB80E9
+ * @st_funcID		LCCM650R0.FILE.012.FUNC.007
+ */
 void vATA6870_BALANCE__Do(void)
 {
 

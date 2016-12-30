@@ -105,7 +105,7 @@ void vATA6870_LOWLEVEL__Reset(void)
  * @param[in]		*pu8Data				Pointer to the array of data to write
  * @param[in]		eRegister				The register type.
  * @param[in]		u8DeviceIndex			The ATA6870N device index on the bus.
- * @st_funcMD5		4637864D351E79A0ABF1372F5DBA550A
+ * @st_funcMD5		7048DDE8AD40E5D2EF88FD15233E859C
  * @st_funcID		LCCM650R0.FILE.005.FUNC.002
  */
 void vATA6870_LOWLEVEL__Reg_WriteU8(Luint8 u8DeviceIndex, ATA6870_REGS_T eRegister, Luint8 *pu8Data, Luint8 u8Length)
@@ -201,7 +201,7 @@ void vATA6870_LOWLEVEL__Reg_WriteU8(Luint8 u8DeviceIndex, ATA6870_REGS_T eRegist
  * @param[out]		*pu8Data				Pointer to the return data buffer
  * @param[in]		eRegister				The register to hit
  * @param[in]		u8DeviceIndex			The device in the chain.
- * @st_funcMD5		AEAD2F62CAC76236213F277D4C718361
+ * @st_funcMD5		AA80B12EE05101B24878CBEA3CDC34D7
  * @st_funcID		LCCM650R0.FILE.005.FUNC.006
  */
 void vATA6870_LOWLEVEL__Reg_ReadU8(Luint8 u8DeviceIndex, ATA6870_REGS_T eRegister, Luint8 *pu8Data, Luint8 u8Length)
@@ -292,7 +292,7 @@ void vATA6870_LOWLEVEL__Reg_ReadU8(Luint8 u8DeviceIndex, ATA6870_REGS_T eRegiste
  * 
  * @param[in]		*pu8CRC					The initial CRC and the returned CRC
  * @param[in]		u8DeviceIndex			The device index in the chain we want to communicate with.
- * @st_funcMD5		149F5B6BB5ACD08C3AB13E1429096332
+ * @st_funcMD5		E70039B823AADE9EDC66F03F56222AAB
  * @st_funcID		LCCM650R0.FILE.005.FUNC.004
  */
 Luint16 u16ATA6870_LOWLEVEL__Tx_DeviceID(Luint8 u8DeviceIndex, Luint8 *pu8CRC)
@@ -370,7 +370,7 @@ Luint16 u16ATA6870_LOWLEVEL__Tx_DeviceID(Luint8 u8DeviceIndex, Luint8 *pu8CRC)
  * @param[in]		u8Data					The new data value to add to the CRC.
  * @param[in]		u8InitialCRC			The initial CRC conditions.
  * @return			The new CRC
- * @st_funcMD5		BF1E1427911C29BED3835813AB683097
+ * @st_funcMD5		C63B72390C8571071FCB24F7F6810D19
  * @st_funcID		LCCM650R0.FILE.005.FUNC.005
  */
 Luint8 u8ATA6870_LOWLEVEL__CRC(Luint8 u8InitialCRC, Luint8 u8Data)

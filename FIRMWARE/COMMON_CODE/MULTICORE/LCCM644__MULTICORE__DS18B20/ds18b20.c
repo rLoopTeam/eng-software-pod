@@ -35,7 +35,7 @@ struct _strDS18B20 sDS18B20;
  * YOU MUST Either start the search process or manually load
  * ROMID values into the tables before doing anything with this module.
  *
- * @st_funcMD5		D45F6551874DD457C74126E5B2C5F6FC
+ * @st_funcMD5		58A844B1F30D1E70E52BE4907F4B8580
  * @st_funcID		LCCM644R0.FILE.000.FUNC.001
  */
 void vDS18B20__Init(void)
@@ -60,7 +60,7 @@ void vDS18B20__Init(void)
  * Process DS18B20 systems
  * Call from main program loop as quick as possible.
  * 
- * @st_funcMD5		EBE3ADDA6ABB2C232DB283BD4E188067
+ * @st_funcMD5		1DFA24E619029C3DE030E0D62E0DF25E
  * @st_funcID		LCCM644R0.FILE.000.FUNC.002
  */
 void vDS18B20__Process(void)
@@ -313,11 +313,25 @@ void vDS18B20__Process(void)
 
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		E782611D5C32A4F38153FEE200AC5AB5
+ * @st_funcID		LCCM644R0.FILE.000.FUNC.005
+ */
 Luint8 u8DS18B20__Is_NewDataAvail(void)
 {
 	return sDS18B20.u8NewData;
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		C2780A64BC9FD30831AB63C07B76C8BD
+ * @st_funcID		LCCM644R0.FILE.000.FUNC.006
+ */
 void vDS18B20__Clear_NewDataAvail(void)
 {
 	sDS18B20.u8NewData = 0U;
@@ -342,6 +356,14 @@ void vDS18B20__Start_TempRead(void)
 	}
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u16Index		## Desc ##
+ * @st_funcMD5		97C5027B4445BCB134628BA44BA4F120
+ * @st_funcID		LCCM644R0.FILE.000.FUNC.007
+ */
 Lfloat32 f32DS18B20__Get_Temperature_DegC(Luint16 u16Index)
 {
 	return sDS18B20.sTemp[u16Index].f32Temperature;
@@ -349,26 +371,66 @@ Lfloat32 f32DS18B20__Get_Temperature_DegC(Luint16 u16Index)
 
 
 //gets the device memory address
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		0003E6324F8E85F37E1E0C51290EFBFC
+ * @st_funcID		LCCM644R0.FILE.000.FUNC.008
+ */
 Luint32 u32DS18B20__Get_DeviceAddx(void)
 {
 	return (Luint32)&sDS18B20.sDevice[0];
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u16Index		## Desc ##
+ * @st_funcMD5		E10E42B3A39A5DF7BAA64554DC0E4E18
+ * @st_funcID		LCCM644R0.FILE.000.FUNC.009
+ */
 Luint16 u162DS18B20__Get_UserIndex(Luint16 u16Index)
 {
 	return sDS18B20.sDevice[u16Index].u16UserIndex;
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u16Index		## Desc ##
+ * @st_funcMD5		17F55FE90BED80086EE4414AD72D296F
+ * @st_funcID		LCCM644R0.FILE.000.FUNC.010
+ */
 Luint8 u82DS18B20__Get_Resolution(Luint16 u16Index)
 {
 	return sDS18B20.sDevice[u16Index].u8Resolution;
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u16Index		## Desc ##
+ * @st_funcMD5		CB7F6851D04986D920779A760C2C8587
+ * @st_funcID		LCCM644R0.FILE.000.FUNC.011
+ */
 Luint8 u82DS18B20__Get_BusIndex(Luint16 u16Index)
 {
 	return sDS18B20.sDevice[u16Index].u8ChannelIndex;
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		*pu8Buffer		## Desc ##
+ * @param[in]		u16Index		## Desc ##
+ * @st_funcMD5		26DABCECBA0A892082E5A2E8E7C1FB4F
+ * @st_funcID		LCCM644R0.FILE.000.FUNC.012
+ */
 void vDS18B20__Get_ROMID(Luint16 u16Index, Luint8 *pu8Buffer)
 {
 	Luint8 u8Counter;

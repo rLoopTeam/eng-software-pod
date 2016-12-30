@@ -51,7 +51,7 @@ void vPWRNODE__Init(void)
  * Process the power node states, this should be called as quick as possible from
  * the main program loop.
  * 
- * @st_funcMD5		740175141C8F930D0C0ADC1A40130460
+ * @st_funcMD5		B9441AAFF9912B49DF0E488ABD7E90D3
  * @st_funcID		LCCM653R0.FILE.000.FUNC.002
  */
 void vPWRNODE__Process(void)
