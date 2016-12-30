@@ -120,6 +120,16 @@
 			struct
 			{
 
+				/** Algo */
+				struct
+				{
+
+					/** Charger state machine */
+					E_PWR__CHARGER_STATE_T eState;
+
+				}sAlgo;
+
+
 				/** Charger Relay control state */
 				E_PWRNODE__CHG_RLY_STATES_T eRelayState;
 
@@ -252,6 +262,11 @@
 		void vPWRNODE_CHG_RELAY__Process(void);
 		void vPWRNODE_CHG_RELAY__On(void);
 		void vPWRNODE_CHG_RELAY__Off(void);
+
+		//charge algo
+		void vPWRNODE_CHG__Init(void);
+		void vPWRNODE_CHG__Process(void);
+		void vPWRNODE_CHG__Start(void);
 
 		//charger current and voltage measurement
 		void vPWRNODE_CHG_IV__Init(void);

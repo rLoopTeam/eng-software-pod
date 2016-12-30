@@ -47,6 +47,23 @@
 		}E_PWRNODE__CHG_RLY_STATES_T;
 
 
+		/** Charge Algo */
+		typedef enum
+		{
+
+			CHG_STATE__IDLE = 0U,
+
+			/** Start the charging process */
+			CHG_STATE__START,
+
+			/** Check the cell balance */
+			CHG_STATE__CHECK_BALANCE,
+
+			/** Close charge contactor relay */
+			CHG_STATE__CLOSE_CONTACTOR_RELAY,
+
+		}E_PWR__CHARGER_STATE_T;
+
 		/** Init states.
 		 * These enums are for the init states of the Power Node. As each subsystem is brought
 		 * online the states will be incremented.

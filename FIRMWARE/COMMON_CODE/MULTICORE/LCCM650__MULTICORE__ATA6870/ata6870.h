@@ -24,7 +24,7 @@
 		*******************************************************************************/
 		
 		/** Internal Vref Voltage */
-		#define C_ATA6870__VREF_V				(1.6667F)
+		#define C_ATA6870__VREF_V					(1.6667F)
 		
 		/** Burst transfer length, NEVER modify this */
 		#define C_ATA6870__BUSRT_LENGTH				(14U)
@@ -32,12 +32,19 @@
 		/** max number of monitored cells */
 		#define C_ATA6870__MAX_CELLS				(6U)
 		
+		/** The total number of cells managed by the ATA device */
+		#define C_ATA6870__TOTAL_CELLS				(C_LOCALDEF__LCCM650__NUM_DEVICES * C_ATA6870__MAX_CELLS)
+
+
 		/** Voltage input measurement resolution in VOLTS */
 		#define C_ATA6870__ADC_RES_V				(0.0015F)
 
-		//** Voltage thresholds for each module, CHANGE IF NEEDED*/
-		#define C_ATA6870_MIN_VOLTS					(3.5)
-		#define C_ATA6870_MAX_VOLTS					(4.3)
+		/** Voltage thresholds for each module, CHANGE IF NEEDED*/
+		#define C_ATA6870__MIN_VOLTS				(3.5)
+		#define C_ATA6870__MAX_VOLTS				(4.3)
+
+		/** mV Offset */
+		#define C_ATA6870__OFFSET_VOLTAGE 			(410.0F)
 
 		/** Balancer Stats */
 		typedef enum
@@ -45,8 +52,16 @@
 
 			/** not doing anything, waiting for a start command*/
 			BALANCE_STATE__IDLE = 0U,
-			/** balance the module voltages */
-			BALANCE_STATE__BALANCE,
+
+			/** Wait for a voltage update before starting balancing */
+			BALANCE_STATE__WAIT_VOLTAGE_UPDATE,
+
+			/** Start the balancing process */
+			BALANCE_STATE__START_BALANCING,
+
+			/** Check to see if we are balanced	 */
+			BALANCE_STATE__CHECK_BALANCED,
+
 			/** balancing has completed */
 			BALANCE_STATE__BALANCED
 
@@ -61,6 +76,9 @@
 			ATA6870_STATE__START_CONVERSION,
 			ATA6870_STATE__WAIT_CONVERSION,
 			ATA6870_STATE__READ_CELL_VOLTAGES,
+			ATA6870_STATE__SUM_CELL_VOLTAGES,
+			ATA6870_STATE__AVERAGE_CELL_VOLTAGES,
+
 			ATA6870_STATE__INTERRUPT,
 			
 		}E_ATA6870_STATE_T;
@@ -72,10 +90,24 @@
 		struct _str6870
 		{
 			E_ATA6870_STATE_T eState;
+
 			/** Balancing control state machine */
 			struct
 			{
+				/** The current balancing state */
 				E_ATA6870__BALANCE_STATE_T eState;
+
+				/** Total number of cells allowed to be balanced at any one time
+				 * this will reduce thermal load on the BMS boards.
+				 * NOTE: This value is the number of cells per ATA device, not in total.
+				 */
+				Luint8 u8MaxBalanceCells;
+
+				/** The state of the resistors so we don't flood the SPI */
+				Luint8 u8ResistorOn[C_ATA6870__TOTAL_CELLS];
+
+				/** The tolerance in volts betwen the average and considering a cell needing balancing */
+				Lfloat32 f32BalanceTolerance;
 
 			}sBalance;
 
@@ -96,8 +128,17 @@
 			/** NTC Temperature Reading **/
 			Lfloat32 f32NTCTemperatureReading[C_LOCALDEF__LCCM650__NUM_DEVICES];
 
-			/** Voltages of a battery pack **/
-			Lfloat32 f32Voltage[C_LOCALDEF__LCCM650__NUM_6P_MODULES];
+			/** Voltages of a complete battery pack **/
+			Lfloat32 f32Voltage[C_ATA6870__TOTAL_CELLS];
+
+			/** Total battery pack voltage */
+			Lfloat32 f32PackVoltage;
+
+			/** The average pack cell voltage */
+			Lfloat32 f32AverageCellVoltage;
+
+			/** The average has been updated, cleared in the balancer */
+			Luint8 u8AverageUpdated;
 
 			/** The count of 10ms ISR's*/
 			Luint32 u32ISR_Counter;
@@ -127,6 +168,10 @@
 
 		//cells
 		void vATA6870_CELL__Get_Voltages(Luint8 u8DeviceIndex, Lfloat32 *pf32Voltages, Lfloat32 *pF32Temperature);
+		Lint16 s16ATA6870_CELL__BulkRead_All(void);
+		void vATA6870_CELL__Average_CellVoltages(void);
+		void vATA6870_CELL__Sum_CellVoltages(void);
+		Lint16 s16ATA6870_CELL__Check_CellVoltageError(Lfloat32 *pf32Voltages);
 		
 		//device scanning
 		void vATA6870_SCAN__Start(void);
@@ -147,7 +192,7 @@
 		void vATA6870_INT__Init(void);
 		void vATA6870_INT__ISR(Luint8 u8DeviceIndex);
 		
-		Luint8 u8ATA6870__VoltageError(Lfloat32 *pf32Voltages);
+
 
 	//safetys
 	#ifndef C_LOCALDEF__LCCM650__NUM_DEVICES

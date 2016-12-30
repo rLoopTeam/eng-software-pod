@@ -158,8 +158,8 @@ void vPWRNODE__Process(void)
 
 			//do the charger too
 			#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
-				vPWRNODE_CHG_RELAY__Init();
-				vPWRNODE_CHG_IV__Init();
+
+				vPWRNODE_CHG__Init();
 			#endif
 
 			//move to next state
@@ -305,8 +305,8 @@ void vPWRNODE__Process(void)
 
 			//do the charger too
 			#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
-				vPWRNODE_CHG_RELAY__Process();
-				vPWRNODE_CHG_IV__Process();
+				vPWRNODE_CHG__Process();
+
 			#endif
 
 			//process any BMS tasks
