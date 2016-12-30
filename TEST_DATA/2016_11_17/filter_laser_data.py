@@ -18,6 +18,13 @@
 ###    - if you're stuck, ask on #eng-embed slack channel
 
 # -----------------
+# Constants/ macros in c equivalent 
+# -----------------
+KALMAN_INITIAL_ESTIMATE_IN_MILLIMETERS          = 30.0 # this can be anything --> used test weekend data
+KALMAN_INITIAL_ERROR_ESTIMATE_IN_MILLIMETERS    = 10.0 # this can be anything --> used test weekend data
+KALMAN_ERROR_IN_MEASUREMENT_IN_MILLIMETERS      = 30.0 # 50mm is a bad value, 20 is good, just took the diff
+
+# -----------------
 # Structures
 # -----------------
 
@@ -37,6 +44,20 @@ class strLaserSensor:
         self.f32_min_range_mm = 0.0
         self.f32_max_range_mm = 0.0
 
+class strKalmanFilter:
+    def __init__(self):
+
+        # The following two values will change every time we read sensor 
+        self.f32_current_estimate = KALMAN_INITIAL_ESTIMATE_IN_MILLIMETERS
+        self.f32_previous_estimate = 0
+        
+        self.f32_current_error_estimate = KALMAN_INITIAL_ERROR_ESTIMATE_IN_MILLIMETERS 
+        self.f32_previous_error_estimate = 0        
+ 
+        # Device or setup dependent, not expected to change
+        self.f32_error_in_measurement = KALMAN_ERROR_IN_MEASUREMENT_IN_MILLIMETERS
+        
+        self.kalman_gain = self.f32_current_error_estimate / (self.f32_current_error_estimate + self.f32_error_in_measurement)
 
 # -----------------
 # Functions
@@ -60,7 +81,64 @@ def process_laser_sensor(str_laser_sensor, f32_new_sample):
     
     return str_laser_sensor.f32_current_value
 
+def kalman_filter_init(kalman_filter):
+    """ Initialize the estimates and error estimates of the
+        kalman filter """
+    kalman_filter.f32_previous_estimate         =  KALMAN_INITIAL_ESTIMATE_IN_MILLIMETERS
+    kalman_filter.f32_previous_error_estimate   =  KALMAN_INITIAL_ERROR_ESTIMATE_IN_MILLIMETERS 
+
+def process_laser_sensor_kalman(kalman_filter, f32_current_measurement):
+    """
+    Use 1-D Kalman filter to get better estimate on sensor information
+
+    Filter explanation:
+    The algorithm works in a two-step process. In the prediction
+    step, the Kalman filter produces estimates of the current 
+    state variables, along with their uncertainties. Once the 
+    outcome of the next measurement (necessarily corrupted with 
+    some amount of error, including random noise) is observed, 
+    these estimates are updated using a weighted average, with 
+    more weight being given to estimates with higher certainty. 
+
+    Flow diagram: https://goo.gl/YooR9k
+                                                                ^-----> this is the predicted value of sampled data 
+                                                                |
+    Read sample (from sensor) --> Calculate kalman_gain --> Calculate current_estimate --> Calculate new_estimate_error
+            ^                                                                                           |
+            |-------------------Ready for next Sensor/sample data--------<------------------------------V
     
+    
+    Three main calculations that need to be done:
+    1) Find Kalman Gain (KG)
+    2) Find Current Estimate of the sensor output
+    3) Find new error/uncertainty in estimate
+    
+    kalman_gain = error_in_estimate / ( error_in_estimate + error_in_measurement )
+
+    current_estimate = previous_estimate + ( kalman_gain * ( current_measurement -  previous_estimate ) )
+    
+    error_in_estimate = ( 1 - kalman_gain ) * (previous_error_in_estimate)    
+    """ 
+ 
+    # Calculate the new kalman_gain used for this iteration
+    kalman_filter.kalman_gain = (kalman_filter.f32_previous_error_estimate 
+                                 / (kalman_filter.f32_previous_error_estimate + kalman_filter.f32_error_in_measurement)) 
+    
+    # Find the predicted sensor value
+    kalman_filter.f32_current_estimate = (kalman_filter.f32_previous_estimate 
+                                          + (kalman_filter.kalman_gain * (f32_current_measurement - kalman_filter.f32_previous_estimate)))
+    
+    # Update the error estimate based on the new kalman_gain found. This will 
+    # be used in predicting the next sample
+    kalman_filter.f32_current_error_estimate = (1 - kalman_filter.kalman_gain) * kalman_filter.f32_previous_error_estimate 
+
+    # Mark the calculated values as "previous". Will be used for predicting the
+    # value of next sampled data from sensor 
+    kalman_filter.f32_previous_error_estimate = kalman_filter.f32_current_error_estimate
+    kalman_filter.f32_previous_estimate       = kalman_filter.f32_current_estimate
+
+    return kalman_filter.f32_current_estimate
+
 # -----------------
 # Configuration
 # -----------------
@@ -70,6 +148,16 @@ def process_laser_sensor(str_laser_sensor, f32_new_sample):
 laser_l = strLaserSensor()
 laser_r = strLaserSensor()
 laser_aft = strLaserSensor()
+
+# Global kalman filter struct/object
+kalman_filter_l = strKalmanFilter()
+kalman_filter_r = strKalmanFilter()
+kalman_filter_aft = strKalmanFilter()
+
+kalman_filter_init(kalman_filter_l)
+kalman_filter_init(kalman_filter_r)
+kalman_filter_init(kalman_filter_aft)
+
 
 # Configure the laser sensors
 # @todo: how do we handle configuration/calibration values in the FCU? e.g. setting zeros during calibration, etc.
@@ -113,7 +201,6 @@ parser.add_argument('-i', '--input', help=".csv file to import", required=True)
 parser.add_argument('-o', '--output', help="output .csv file", required=False, default=None)
 args = parser.parse_args()
 input_file = args.input
-
 # Setup input file
 input_filename = args.input
 
@@ -141,10 +228,16 @@ def output_csv(input_filename, col_indices, writer=None):
 
             # Process the laser sensor samples and append the returned values to the row
             # Note: Just hard code the indices for now -- 
+            # Predict the sensor outputs using moving average
             cols.append( str(process_laser_sensor(laser_l, float(row[4]))) )
             cols.append( str(process_laser_sensor(laser_r, float(row[5]))) )
             cols.append( str(process_laser_sensor(laser_aft, float(row[6]))) )
             
+            # predict the same sensor outputs using kalman filter 
+            cols.append( str(process_laser_sensor_kalman(kalman_filter_l, float(row[4]))) )
+            cols.append( str(process_laser_sensor_kalman(kalman_filter_r, float(row[5]))) )
+            cols.append( str(process_laser_sensor_kalman(kalman_filter_aft, float(row[6]))) )
+ 
             # Write or print the csv row
             if writer is not None: 
                 writer.writerow(cols)
