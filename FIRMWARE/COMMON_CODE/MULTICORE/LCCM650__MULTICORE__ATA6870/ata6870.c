@@ -204,11 +204,8 @@ void vATA6870__Process(void)
  * @brief
  * Start ATA6870N Conversion
  *
- * @st_funcMD5
- * @param[in]		u8TempBit		## Desc ##
- * @param[in]		u8VoltageMode		## Desc ##
- * @st_funcMD5		E18136B88864804196F4404DF33A2CDE
- * @st_funcID
+ * @param[in]		u8TempBit				Enable temp measurement
+ * @param[in]		u8VoltageMode			Enable volt measurement
  */
 void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
 {
@@ -258,12 +255,6 @@ void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
 
 
 }
-
-
-
-
-
-
 
 /***************************************************************************//**
  * @brief

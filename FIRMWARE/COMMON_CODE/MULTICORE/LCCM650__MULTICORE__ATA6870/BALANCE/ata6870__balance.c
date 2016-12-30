@@ -202,14 +202,15 @@ void vATA6870_BALANCE__Process(void)
 
 }
 
-//return 1 if we are resistors on
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Handle the actual discharging
  * 
- * @param[in]		u8CellIndex		## Desc ##
- * @param[in]		u8CellCounter		## Desc ##
- * @param[in]		u8DeviceIndex		## Desc ##
+ * @param[in]		u8CellIndex				The cell in the stack to act on.
+ * @param[in]		u8CellCounter			Individual cell in the BMS
+ * @param[in]		u8DeviceIndex			ATA device index
+ * @return			return 1 if we are resistors on
  * @st_funcMD5		A00A9DCBE0AF34E89F897ED43D57E81F
  * @st_funcID		LCCM650R0.FILE.012.FUNC.006
  */
@@ -270,7 +271,7 @@ Luint8 u8ATA6870_BALANCE__Handle(Luint8 u8DeviceIndex, Luint8 u8CellCounter, Lui
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Do the balancing.
  * 
  * @st_funcMD5		D2C266693DEBB69953303D9FCEDB80E9
  * @st_funcID		LCCM650R0.FILE.012.FUNC.007
