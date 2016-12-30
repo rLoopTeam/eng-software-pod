@@ -113,7 +113,6 @@ ATA6870N - BATTERY MANAGEMENT DEVICE
 
 		/** number of devices in series */
 		#define C_LOCALDEF__LCCM650__NUM_DEVICES							(3U)
-		#define C_LOCALDEF__LCCM650__NUM_6P_MODULES							(C_LOCALDEF__LCCM650__NUM_DEVICES * C_ATA6870__MAX_CELLS)
 
 		/** Use checksum support on the ATA comms or not? */
 		#define C_LOCALDEF__LCCM650__ENABLE_CRC								(0U)
