@@ -33,11 +33,6 @@ extern struct _str6870 sATA6870;
 /***************************************************************************//**
  * @brief
  * bulk read voltages: 6 voltages, 1 temperature
- *
- */
-/***************************************************************************//**
- * @brief
- * ToDo
  * 
  * @st_funcMD5		9E83BF6A7C1E8046881758D51B0CFCFD
  * @st_funcID		LCCM650R0.FILE.011.FUNC.003
@@ -71,10 +66,10 @@ Lint16 s16ATA6870_CELL__BulkRead_All(void)
 	return s16Return;
 }
 
-//compute the sum of all voltages (= our pack voltage)
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Compute the sum of all voltages (= our pack voltage)
  * 
  * @st_funcMD5		C722B0B07CE53C27DEF8357D218011DA
  * @st_funcID		LCCM650R0.FILE.011.FUNC.004
@@ -101,10 +96,10 @@ void vATA6870_CELL__Sum_CellVoltages(void)
 	//todo: we may need to average this.
 }
 
-//take the average cell voltages
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Take the average cell voltages
  * 
  * @st_funcMD5		A17AE34A218A538C08AE40D5AD05A344
  * @st_funcID		LCCM650R0.FILE.011.FUNC.005
@@ -127,15 +122,17 @@ void vATA6870_CELL__Average_CellVoltages(void)
 }
 
 
-//*** check if a cell is above or below safe threshold ***//
-//TODO: if we use UNDER_VOLT function instead, be sure to implement
-//      an upper bound check as well for over voltage
-// Lfloat32 *f32Voltages					voltages array of size C_ATA6870__MAX_CELLS
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Check if a cell is above or below safe threshold
+ *
+ * @note
+ * if we use UNDER_VOLT function instead, be sure to implement
+ * an upper bound check as well for over voltage
  * 
- * @param[in]		*pf32Voltages		## Desc ##
+ * @param[in]		*pf32Voltages			voltages array of size C_ATA6870__MAX_CELLS
+ * @return			0 = Cell OK\n
+ * 					-ve = error
  * @st_funcMD5		7F85DF6A37F294D8B5FCB4BBE87CCDF6
  * @st_funcID		LCCM650R0.FILE.011.FUNC.006
  */
