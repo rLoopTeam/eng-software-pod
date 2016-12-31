@@ -28,7 +28,7 @@ extern struct _strPWRNODE sPWRNODE;
  * @brief
  * Init the battery management system
  * 
- * @st_funcMD5		C25517A5352BBA3E0ADB3482CBDE4749
+ * @st_funcMD5		268371831D4F2D7DA9286AD39ACB034D
  * @st_funcID		LCCM653R0.FILE.008.FUNC.001
  */
 void vPWRNODE_BMS__Init(void)
@@ -44,7 +44,7 @@ void vPWRNODE_BMS__Init(void)
  * @brief
  * Process any battery management system items
  * 
- * @st_funcMD5		9809D5F9775BE5E5A0B9636137B0DA65
+ * @st_funcMD5		15B2FAA1BAD482B0EC323B1CBE361248
  * @st_funcID		LCCM653R0.FILE.008.FUNC.002
  */
 void vPWRNODE_BMS__Process(void)

@@ -21,7 +21,7 @@
 
 extern struct _strFCU sFCU;
 
-
+#ifndef WIN32
 /***************************************************************************//**
  * @brief
  * UART Interrupt Notification
@@ -47,6 +47,8 @@ void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
 
 	}//switch(eChannel)
 }
+#endif
+
 
 /***************************************************************************//**
  * @brief
@@ -55,7 +57,7 @@ void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
  * @param[in]		u32Register				Reg values passed in
  * @param[in]		u32ProgramIndex			N2HET program index
  * @param[in]		eChannel				N2HET Channel
- * @st_funcMD5		DCBC25218EECC25BF54AAE6CB56BF7AB
+ * @st_funcMD5		BA3672C0F276685B06058BF6ECA514B1
  * @st_funcID		LCCM655R0.FILE.015.FUNC.002
  */
 void vRM4_N2HET_DYNAMIC__Notification(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32ProgramIndex, Luint32 u32Register)
@@ -93,15 +95,15 @@ void vRM4_N2HET_DYNAMIC__Notification(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32
 				//setup the contrast sensor programs
 				if(u32ProgramIndex == sFCU.sContrast.sSensors[LASER_CONT__FWD].u16N2HET_Index)
 				{
-					vFCU_LASERCONT__ISR(LASER_CONT__FWD);
+					vFCU_LASERCONT__ISR(LASER_CONT__FWD, u32Register);
 				}
 				if(u32ProgramIndex == sFCU.sContrast.sSensors[LASER_CONT__MID].u16N2HET_Index)
 				{
-					vFCU_LASERCONT__ISR(LASER_CONT__MID);
+					vFCU_LASERCONT__ISR(LASER_CONT__MID, u32Register);
 				}
 				if(u32ProgramIndex == sFCU.sContrast.sSensors[LASER_CONT__AFT].u16N2HET_Index)
 				{
-					vFCU_LASERCONT__ISR(LASER_CONT__AFT);
+					vFCU_LASERCONT__ISR(LASER_CONT__AFT, u32Register);
 				}
 			#endif
 

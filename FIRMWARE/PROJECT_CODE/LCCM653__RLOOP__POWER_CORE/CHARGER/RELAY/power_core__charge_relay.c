@@ -16,13 +16,20 @@
  * @ingroup POWER_NODE
  * @{ */
 
-#include "../power_core.h"
+#include "../../power_core.h"
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
 
 extern struct _strPWRNODE sPWRNODE;
 
 
+/***************************************************************************//**
+ * @brief
+ * Init the charge relay state
+ * 
+ * @st_funcMD5		6F451776DBE4DCAE500A358AB04D18A7
+ * @st_funcID		LCCM653R0.FILE.022.FUNC.001
+ */
 void vPWRNODE_CHG_RELAY__Init(void)
 {
 
@@ -31,12 +38,19 @@ void vPWRNODE_CHG_RELAY__Init(void)
 
 	//Setup the hardware pins
 	//GPIOA1
-	vRM4_GIO__Set_BitDirection(gioPORTA, 1U, GIO_DIRECTION__OUTPUT);
+	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 1U, GIO_DIRECTION__OUTPUT);
 
 	//set to OFF
-	vRM4_GIO__Set_Bit(gioPORTA, 1U, 0U);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 0U);
 }
 
+/***************************************************************************//**
+ * @brief
+ * Process the charge relay
+ * 
+ * @st_funcMD5		1C9F48BE1837BEFD9325D836ACCB6CFC
+ * @st_funcID		LCCM653R0.FILE.022.FUNC.002
+ */
 void vPWRNODE_CHG_RELAY__Process(void)
 {
 
@@ -52,23 +66,37 @@ void vPWRNODE_CHG_RELAY__Process(void)
 }
 
 
-//switch on the charger relay
+
+/***************************************************************************//**
+ * @brief
+ * switch on the charger relay
+ * 
+ * @st_funcMD5		A9BFD6505E8FC763D0B281BE62161696
+ * @st_funcID		LCCM653R0.FILE.022.FUNC.003
+ */
 void vPWRNODE_CHG_RELAY__On(void)
 {
 
 	//todo, change state
 
 	//for test week, toggle the pin.
-	vRM4_GIO__Set_Bit(gioPORTA, 1U, 1U);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 1U);
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		44A67B75C1052F8DCA9577FCCE0DE0E4
+ * @st_funcID		LCCM653R0.FILE.022.FUNC.004
+ */
 void vPWRNODE_CHG_RELAY__Off(void)
 {
 
 	//todo, change state
 
 	//for test week, toggle the pin.
-	vRM4_GIO__Set_Bit(gioPORTA, 1U, 0U);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 0U);
 }
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_CHARGER

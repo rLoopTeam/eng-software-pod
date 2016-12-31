@@ -1,3 +1,4 @@
+
 /**
  * @file		POWER_CORE.H
  * @brief		Main header file for the power node core functions
@@ -16,11 +17,14 @@
 		*******************************************************************************/
 		#include <LCCM653__RLOOP__POWER_CORE/PI_COMMS/power_core__pi_comms__types.h>
 		#include <LCCM653__RLOOP__POWER_CORE/power_core__state_types.h>
+		#include <LCCM653__RLOOP__POWER_CORE/power_core__defines.h>
+		#include <LCCM653__RLOOP__POWER_CORE/power_core__eeprom_index.h>
+
 
 		//local fault flags
 		#include <LCCM653__RLOOP__POWER_CORE/power_core__fault_flags.h>
 
-
+		#include <LCCM655__RLOOP__FCU_CORE/NETWORKING/fcu_core__net__packet_types.h>
 
 		//for software fault tree handling
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
@@ -62,6 +66,19 @@
 
 			}sInit;
 
+			/** Temperature sensors (battery temp)*/
+			struct
+			{
+
+				/** Loaded from memory the number of configured sensors */
+				Luint16 u16NumSensors;
+
+				/** Pack memory CRC */
+				Luint16 u16PackMemCRC;
+
+			}sTemp;
+
+			#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
 			/** DC/DC Converter control layer */
 			struct
 			{
@@ -82,7 +99,9 @@
 				Luint32 u32100MS_TimerCount;
 
 			}sDC;
+			#endif
 
+			#if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
 			/** Pi Comms Layer */
 			struct
 			{
@@ -94,17 +113,29 @@
 				Luint8 u8100MS_Timer;
 
 			}sPiComms;
+			#endif
 
+			#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
 			/** Charger Control */
 			struct
 			{
+
+				/** Algo */
+				struct
+				{
+
+					/** Charger state machine */
+					E_PWR__CHARGER_STATE_T eState;
+
+				}sAlgo;
+
 
 				/** Charger Relay control state */
 				E_PWRNODE__CHG_RLY_STATES_T eRelayState;
 
 
 			}sCharger;
-
+			#endif //C_LOCALDEF__LCCM653__ENABLE_CHARGER
 
 			/** ATA6870 interface */
 			#define NUM_CELLS_PER_MODULE    (6U)
@@ -124,6 +155,15 @@
 
 			}sATA6870;
 
+
+			#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+			/** BMS Subsystem */
+			struct
+			{
+
+			}sBMS;
+			#endif
+
 			/** Win32 Functions*/
 #ifdef WIN32
 			struct
@@ -134,6 +174,8 @@
 			}sWIN32;
 
 #endif
+
+			#if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
 			/** Ethernet comms structure */
 			struct
 			{
@@ -150,6 +192,26 @@
 				E_PWRNODE_NET__MAIN_STATES eMainState;
 
 			}sEthernet;
+
+			/** UDP diagnostics system */
+			struct
+			{
+
+				/** A flag to indicate 10ms has elapsed if we are using timed packets */
+				Luint8 u810MS_Flag;
+
+				/** The next packet type to transmit */
+				E_NET__PACKET_T eTxPacketType;
+
+				/** If the user has enabled Tx streaming */
+				E_NET__PACKET_T eTxStreamingType;
+
+				/** A copy of block 0.*/
+				Luint32 u32Block0;
+
+			}sUDPDiag;
+
+			#endif
 
 			//lower structure guarding
 			Luint32 u32Guard2;
@@ -177,6 +239,11 @@
 		void vPWRNODE_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPort);
 		void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault);
 
+			//transmit
+			void vPWRNODE_NET_TX__Init(void);
+			void vPWRNODE_NET_TX__Process(void);
+			void vPWRNODE_NET_TX__10MS_ISR(void);
+
 		//main application state machine
 		void vPWRNODE_SM__Init(void);
 		void vPWRNODE_SM__Process(void);
@@ -195,6 +262,15 @@
 		void vPWRNODE_CHG_RELAY__Process(void);
 		void vPWRNODE_CHG_RELAY__On(void);
 		void vPWRNODE_CHG_RELAY__Off(void);
+
+		//charge algo
+		void vPWRNODE_CHG__Init(void);
+		void vPWRNODE_CHG__Process(void);
+		void vPWRNODE_CHG__Start(void);
+
+		//charger current and voltage measurement
+		void vPWRNODE_CHG_IV__Init(void);
+		void vPWRNODE_CHG_IV__Process(void);
 
 		//BMS interface layer
 		void vPWRNODE_BMS__Init(void);
@@ -228,6 +304,17 @@
 		void vPWRNODE_BATTTEMP__Process(void);
 		void vPWRNODE_BATTTEMP__Start_Search(void);
 		Luint8 u8PWRNODE_BATTTEMP__Search_IsBusy(void);
+
+			//memory system
+			void vPWRNODE_BATTTEMP_MEM__Init(void);
+			void vPWRNODE_BATTTEMP_MEM__Process(void);
+			Luint16 u16PWRNODE_BATTTEMP_MEM__Get_NumSensors(void);
+			void vPWRNODE_BATTEMP_MEM__Set_ROMID(Luint16 u16Index, Luint32 u32ROMID_Upper, Luint32 u32ROMID_Lower);
+			void vPWRNODE_BATTEMP_MEM__Set_UserData(Luint16 u16Index, Luint16 UserIndex, Luint8 u8BusID, Luint8 u8Resolution);
+
+			//eth
+			void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType);
+			void vPWRNODE_BAATTEMP_ETH__Transmit_ROMID(Luint32 u32Index);
 
 		//node temperature reading
 		void vPWRNODE_NODETEMP__Init(void);

@@ -5,7 +5,14 @@
 
 extern struct _strPWRNODE sPWRNODE;
 
-//inits the ethernet networking
+
+/***************************************************************************//**
+ * @brief
+ * inits the ethernet networking
+ * 
+ * @st_funcMD5		18E86E7F8D41B538C27751E8FD3A806B
+ * @st_funcID		LCCM653R0.FILE.017.FUNC.001
+ */
 void vPWRNODE_NET__Init(void)
 {
 	sPWRNODE.sEthernet.u810MS_Timer = 0U;
@@ -37,6 +44,7 @@ void vPWRNODE_NET__Init(void)
 
 }
 
+
 /***************************************************************************//**
  * @brief
  * Process the EMAC link
@@ -45,6 +53,9 @@ void vPWRNODE_NET__Init(void)
  * This should be called from main program loop after power is stable
  * This also calls the EMAC link state machine which processes the EMAC link
  * and handles bringing the EMAC on line.
+ * 
+ * @st_funcMD5		4BED4883F8B9AC752817887EF35BAD19
+ * @st_funcID		LCCM653R0.FILE.017.FUNC.002
  */
 void vPWRNODE_NET__Process(void)
 {
@@ -105,9 +116,8 @@ void vPWRNODE_NET__Process(void)
 
 	}//switch(sPWRNODE.sEthernet.eMainState)
 
-
-
 }
+
 
 /***************************************************************************//**
  * @brief
@@ -115,6 +125,8 @@ void vPWRNODE_NET__Process(void)
  *
  * @return 			0 = link down\n
  * 					1 = link up.
+ * @st_funcMD5		F9B6430A56764B8EFA4ADD7E7755D25E
+ * @st_funcID		LCCM653R0.FILE.017.FUNC.003
  */
 Luint8 u8PWRNODE_NET__Is_LinkUp(void)
 {
@@ -125,10 +137,19 @@ Luint8 u8PWRNODE_NET__Is_LinkUp(void)
 #endif
 }
 
-//10ms ISR from system timer.
+
+/***************************************************************************//**
+ * @brief
+ * 10ms ISR from system timer.
+ * 
+ * @st_funcMD5		19DC91F4363CC4B4FD046C69BB79FBEE
+ * @st_funcID		LCCM653R0.FILE.017.FUNC.004
+ */
 void vPWRNODE_NET__10MS_ISR(void)
 {
 	sPWRNODE.sEthernet.u810MS_Timer = 1U;
+
+	vPWRNODE_NET_TX__10MS_ISR();
 }
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_ETHERNET

@@ -46,7 +46,7 @@ extern struct _str6870 sATA6870;
  * 
  * @param[in]		f32Value				The value in volts
  * @param[in]		u8DeviceIndex			The BMS device index
- * @st_funcMD5		65E4082BE59A5BDC1CE5DA84740EE690
+ * @st_funcMD5		55D7331698FC0591D7E6A991C482E80B
  * @st_funcID		LCCM650R0.FILE.009.FUNC.001
  */
 void vATA6870_UV__Set_UVTrip(Luint8 u8DeviceIndex, Lfloat32 f32Value)

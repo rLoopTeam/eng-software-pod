@@ -120,7 +120,7 @@
 		} E_AMC7812_DAC_STATES_T;
 
 
-		Luint8 u8DACOutputChannelAddr[NUM_DAC_CHANNELS];
+
 
 		/*******************************************************************************
 		Structures
@@ -169,8 +169,6 @@
 			Lfloat32 f32ScaleFactor;
 
 		};
-
-		struct _strAMC7812_DAC strAMC7812_DAC;
 
 
 

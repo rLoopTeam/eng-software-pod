@@ -76,9 +76,11 @@ void vFCU_MAINSM__Process(void)
 				vFCU_LASERCONT__Init();
 			#endif
 
+			//laser distance
 			#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
 				vFCU_LASERDIST__Process();
 			#endif
+
 			//init the brake systems
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 				vFCU_BRAKES__Init();
@@ -108,10 +110,6 @@ void vFCU_MAINSM__Process(void)
 			#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
 				vFCU_LASEROPTO__Init();
 			#endif
-
-			//laser distance
-
-			//laser contrast
 
 			//PiComms Layer
 			#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U

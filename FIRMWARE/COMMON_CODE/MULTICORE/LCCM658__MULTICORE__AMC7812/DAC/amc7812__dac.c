@@ -26,7 +26,7 @@
 #if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 
 extern struct _strAMC7812_DAC strAMC7812_DAC;
-
+extern Luint8 u8DACOutputChannelAddr[NUM_DAC_CHANNELS];
 
 /***************************************************************************//**
  * @brief
@@ -72,6 +72,7 @@ Luint16 vAMC7812_DAC__Process(void)
 	Lint16 s16Return;
 	Luint16 u16RegisterBitValues;
 	Luint16 u16DeviceIDAddr;
+	Lint16 s16Errf;
 
 	// initialize
 
@@ -92,7 +93,9 @@ Luint16 vAMC7812_DAC__Process(void)
 
 			// wait in case we came in from clocking out bad I2C data
 
+#ifndef WIN32
 			vRM4_DELAYS__Delay_mS(10U);
+#endif
 
 			// software reset
 
@@ -102,13 +105,15 @@ Luint16 vAMC7812_DAC__Process(void)
 			// Hardware reset
 
 			// first, set the pin direction
-
+#ifndef WIN32
 			vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, RM48_N2HET1_PIN__AMC7812_HW_RESET);
+#endif
 
 			// To reset the device, create a pulse:
 
 			// first check the value of the pin
 
+#ifndef WIN32
 			u8ReturnVal = u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, RM48_N2HET1_PIN__AMC7812_HW_RESET);
 
 			if(u8ReturnVal == 0U)
@@ -143,7 +148,7 @@ Luint16 vAMC7812_DAC__Process(void)
 
 			s16Return = s16AMC7812_I2C__ReadU16(C_LOCALDEF__LCCM658__BUS_ADDX, AMC7812_REG_ADR__DEV_ID, &u16DeviceIDAddr);
 
-			if (u8ReturnVal == 1U)
+			if(u8ReturnVal == 1U)
 			{
 				// Power-on reset successful
 				// set the power-down register
@@ -165,6 +170,16 @@ Luint16 vAMC7812_DAC__Process(void)
 				// set the power-down register
 
 				s16Return = s16AMC7812_I2C__WriteU16(C_LOCALDEF__LCCM658__BUS_ADDX, AMC7812_REG_ADR__PWR_DWN, u16RegisterBitValues);
+
+				s16Errf = 0;
+				if(s16Return < 0)
+				{
+					s16Errf = -1;
+				}
+				else
+				{
+					//
+				}
 
 				// set the DAC gain
 				// output voltage is GAIN * Vref,
@@ -188,6 +203,15 @@ Luint16 vAMC7812_DAC__Process(void)
 				}
 				s16Return = s16AMC7812_I2C__WriteU16(C_LOCALDEF__LCCM658__BUS_ADDX, AMC7812_DAC_REG__GAINS, u16RegisterBitValues);
 
+				if(s16Return < 0)
+				{
+					s16Errf = -1;
+				}
+				else
+				{
+					//
+				}
+
 				// Set the configuration mode
 
 				if(AMC7812_DAC_CONFIG_MODE_FLAG == 1U)
@@ -204,6 +228,15 @@ Luint16 vAMC7812_DAC__Process(void)
 				}
 				s16Return = s16AMC7812_I2C__WriteU16(C_LOCALDEF__LCCM658__BUS_ADDX, AMC7812_DAC_REG__CONFIG, u16RegisterBitValues);
 
+				if(s16Return < 0)
+				{
+					s16Errf = -1;
+				}
+				else
+				{
+					//
+				}
+
 				// Compute the output scale factor (DAC registers are 12-bit, so range is 0 to 2^12 = 4096)
 				// 	The DAC register value is Vreqd * Gain * Vref / 2^12
 
@@ -211,7 +244,7 @@ Luint16 vAMC7812_DAC__Process(void)
 
 			}	// end if (u8ReturnVal == 1U)
 
-			if (u8ReturnVal == 0U && s16Return >= 0U)
+			if(u8ReturnVal > 0U && s16Errf >= 0U)
 			{
 				// setup successful, change state
 
@@ -221,9 +254,11 @@ Luint16 vAMC7812_DAC__Process(void)
 			{
 				// setup failed, change state
 
+				s16Return = -1;
 				strAMC7812_DAC.eState = AMC7812_DAC_STATE__ERROR;
 
 			}
+#endif //WIN32
 			break;
 
 		case AMC7812_DAC_STATE__SET_VOLTAGE:

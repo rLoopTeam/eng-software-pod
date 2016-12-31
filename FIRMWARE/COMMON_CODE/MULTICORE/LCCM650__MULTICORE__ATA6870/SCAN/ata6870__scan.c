@@ -32,7 +32,7 @@ extern struct _str6870 sATA6870;
  * @brief
  * Scans the bus for devices
  * 
- * @st_funcMD5		96343991C433CB27E0A245629F759BD5
+ * @st_funcMD5		CA25143716A8DA7D9D9651F8A46D17E5
  * @st_funcID		LCCM650R0.FILE.007.FUNC.001
  */
 void vATA6870_SCAN__Start(void)

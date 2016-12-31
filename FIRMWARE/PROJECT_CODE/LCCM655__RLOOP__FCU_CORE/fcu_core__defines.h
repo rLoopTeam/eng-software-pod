@@ -33,6 +33,19 @@
 	/** number of lasers for the i-beam */
 	#define C_FCU__NUM_LASERS_IBEAM							(2U)
 
+	/** Total number of Laser OptoNCDT's*/
+	#define C_FCU__NUM_LASERS_OPTONCDT						(C_FCU__NUM_LASERS_GROUND + C_FCU__NUM_LASERS_IBEAM)
+
+	/** number of lasers for the constrast detection system */
+	#define C_FCU__NUM_LASERS_CONTRAST						(3U)
+
+
+	/** The max number of contrast laser stripes in the tube
+	 * 1 Mile Tube = 5280ft
+	 * Spacing = 100ft
+	 * Stripes = 53 + 10 + 5
+	 *  */
+	#define C_FCU__LASER_CONTRAST__MAX_STRIPES				(70U)
 
 
 #endif /* RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__DEFINES_H_ */

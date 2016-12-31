@@ -34,7 +34,7 @@ extern struct _str6870 sATA6870;
  * 
  * @param[in]		u8CellIndex				The specific cell index from 0 to 6
  * @param[in]		u8DeviceIndex			The BMS device index
- * @st_funcMD5		DB12A9B1E58AB28C4E786FAAF9689A77
+ * @st_funcMD5		F59776F8654983DB7210D16DA2C75DFE
  * @st_funcID		LCCM650R0.FILE.008.FUNC.001
  */
 void vATA6870_RES__TurnOn(Luint8 u8DeviceIndex, Luint8 u8CellIndex)
@@ -67,7 +67,7 @@ void vATA6870_RES__TurnOn(Luint8 u8DeviceIndex, Luint8 u8CellIndex)
  * 
  * @param[in]		u8CellIndex				The specific cell index from 0 to 6
  * @param[in]		u8DeviceIndex			The BMS device index
- * @st_funcMD5		5E59534CAF73A6A9FC09D0B164DCDA4A
+ * @st_funcMD5		CAC32654A9021593CFCB202AE04CA309
  * @st_funcID		LCCM650R0.FILE.008.FUNC.002
  */
 void vATA6870_RES__TurnOff(Luint8 u8DeviceIndex, Luint8 u8CellIndex)
@@ -100,7 +100,7 @@ void vATA6870_RES__TurnOff(Luint8 u8DeviceIndex, Luint8 u8CellIndex)
  * Turn off all resistors
  * 
  * @param[in]		u8DeviceIndex			The BMS device index
- * @st_funcMD5		E0486D18237104702DD1E0CF589B1632
+ * @st_funcMD5		11DAF5AAFB4EB61EA1B25C872B8C3CB2
  * @st_funcID		LCCM650R0.FILE.008.FUNC.003
  */
 void vATA6870_RES__TurnAllOff(Luint8 u8DeviceIndex)

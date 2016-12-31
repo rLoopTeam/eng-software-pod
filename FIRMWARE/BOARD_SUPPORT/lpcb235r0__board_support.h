@@ -163,6 +163,7 @@ RM4 PIN MUX SYSTEM
 /*******************************************************************************
 SCI / LIN Module
 *******************************************************************************/
+#ifndef WIN32
 	#define C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE == 1U
 
@@ -193,7 +194,10 @@ SCI / LIN Module
 	#else
 		#define DEBUG_PRINT(x)
 	#endif //C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE
-	
+#else
+	//supply own debug print on WIN32
+#endif
+
 /*******************************************************************************
 RM4 GIO MODULE
 *******************************************************************************/
@@ -825,15 +829,6 @@ RTI MODULE
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_CALLBACK	 				vSTEPDRIVE_TIMEBASE__ISR()
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_3_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
 
-		//These values need to be updated if the HALCoGen file is modified
-		#define GCLK_FREQ		 											(200)
-		#define HCLK_FREQ													(200)
-		#define VCLK1_FREQ													(100)
-		#define VCLK2_FREQ													(100)
-		#define VCLK3_FREQ													(100)
-		#define VCLKA1_FREQ	 												(100)
-		#define VCLKA4_FREQ	 												(100)
-
 		//Testing options
 		#define C_LOCALDEF__LCCM124__ENABLE_TEST_SPEC	 					(0U)
 
@@ -916,6 +911,7 @@ SC16IS741 - UART TO SPI MODULE
 		#define C_LOCALDEF__LCCM487__HAVE_COMMON_HW_RESET					(1U)
 
 		//HW reset tristate
+#ifndef WIN32
 		//Serial A, Serial B, ASI Serial
 		#define M_LOCALDEF__LCCM487__HW_RESET__TRIS(index)					{vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 1U); \
 																			 vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 2U); \
@@ -983,6 +979,24 @@ SC16IS741 - UART TO SPI MODULE
 		#define M_LOCALDEF__LCCM487__SPI__TX8_U8(u8Value)					u8RM4_SPI24__SendU8(SPI24_CHANNEL__2, SPI24_DATA_FORMAT__0, SPI24_CS__NONE, u8Value)
 		#define M_LOCALDEF__LCCM487__SPI__TX9_U8(u8Value)					u8RM4_SPI24__SendU8(SPI24_CHANNEL__2, SPI24_DATA_FORMAT__0, SPI24_CS__NONE, u8Value)
 		#define M_LOCALDEF__LCCM487__SPI__TX10_U8(u8Value)					u8RM4_SPI24__SendU8(SPI24_CHANNEL__2, SPI24_DATA_FORMAT__0, SPI24_CS__NONE, u8Value)
+#else
+		#define M_LOCALDEF__LCCM487__HW_RESET__TRIS(index)
+		#define M_LOCALDEF__LCCM487__HW_RESET__LATCH(value)
+		#define M_LOCALDEF__LCCM487__HW_CHIPSELECT__TRIS(index)
+		#define M_LOCALDEF__LCCM487__HW_CHIPSELECT__LATCH(index, value)
+		#define M_LOCALDEF__LCCM487__HW_INTERUPTPIN__TRIS(index)
+		#define M_LOCALDEF__LCCM487__SPI__TX0_U8(u8Value)
+		#define M_LOCALDEF__LCCM487__SPI__TX1_U8(u8Value)
+		#define M_LOCALDEF__LCCM487__SPI__TX2_U8(u8Value)
+		#define M_LOCALDEF__LCCM487__SPI__TX3_U8(u8Value)
+		#define M_LOCALDEF__LCCM487__SPI__TX4_U8(u8Value)
+		#define M_LOCALDEF__LCCM487__SPI__TX5_U8(u8Value)
+		#define M_LOCALDEF__LCCM487__SPI__TX6_U8(u8Value)
+		#define M_LOCALDEF__LCCM487__SPI__TX7_U8(u8Value)
+		#define M_LOCALDEF__LCCM487__SPI__TX8_U8(u8Value)
+		#define M_LOCALDEF__LCCM487__SPI__TX9_U8(u8Value)
+		#define M_LOCALDEF__LCCM487__SPI__TX10_U8(u8Value)
+#endif
 
 		//testing
 		#define C_LOCALDEF__LCCM487__ENABLE_TEST_SPEC						(0U)
@@ -1000,12 +1014,21 @@ EEPROM BASIC PARAMETERS
 	#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
 
 		//select your architecture
+#ifndef WIN32
 		#define C_LOCALDEF__LCCM188__USE_ON_PIC18							(0U)
 		#define C_LOCALDEF__LCCM188__USE_ON_PIC32							(0U)
 		#define C_LOCALDEF__LCCM188__USE_ON_DSPIC							(0U)
 		#define C_LOCALDEF__LCCM188__USE_ON_RM4 							(1U)
 		#define C_LOCALDEF__LCCM188__USE_ON_MSP430 							(0U)
 		#define C_LOCALDEF__LCCM188__USE_ON_WIN32 							(0U)
+#else
+		#define C_LOCALDEF__LCCM188__USE_ON_PIC18							(0U)
+		#define C_LOCALDEF__LCCM188__USE_ON_PIC32							(0U)
+		#define C_LOCALDEF__LCCM188__USE_ON_DSPIC							(0U)
+		#define C_LOCALDEF__LCCM188__USE_ON_RM4 							(0U)
+		#define C_LOCALDEF__LCCM188__USE_ON_MSP430 							(0U)
+		#define C_LOCALDEF__LCCM188__USE_ON_WIN32 							(1U)
+#endif
 
 		/** Use the EEPRARAMS module with an external FLASH */
 		#define C_LOCALDEF__LCCM188__USE_WITH_LCCM013						(0U)

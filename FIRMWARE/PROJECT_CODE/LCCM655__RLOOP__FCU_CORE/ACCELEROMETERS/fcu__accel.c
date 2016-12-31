@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the accel subsystem layer
  * 
- * @st_funcMD5		F190FD444F5B80EC7C484B263C288928
+ * @st_funcMD5		809972C08E10832306B77DABFAEAA1D2
  * @st_funcID		LCCM655R0.FILE.010.FUNC.001
  */
 void vFCU_ACCEL__Init(void)
@@ -43,6 +43,8 @@ void vFCU_ACCEL__Init(void)
 		sFCU.sAccel.sChannels[1].s16LastSample[u8Counter] = 0;
 	}
 
+#ifndef WIN32
+
 	//get some interrupts going for channel 0
 	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 6U, GIO_DIRECTION__INPUT);
 	vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOA_6);
@@ -50,7 +52,7 @@ void vFCU_ACCEL__Init(void)
 
 	//enable
 	vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_6);
-
+#endif //win32
 
 	//init the MMA devices
 	//device 0
@@ -72,6 +74,7 @@ void vFCU_ACCEL__Init(void)
 
 
 	#if C_LOCALDEF__LCCM418__NUM_DEVICES >= 2
+#ifndef WIN32
 		//get some interrupts going for channel 1
 		vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 7U, GIO_DIRECTION__INPUT);
 		vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOA_7);
@@ -79,7 +82,7 @@ void vFCU_ACCEL__Init(void)
 
 		//enable
 		vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_7);
-
+#endif
 
 		//device 1
 		vMMA8451__Init(1U);

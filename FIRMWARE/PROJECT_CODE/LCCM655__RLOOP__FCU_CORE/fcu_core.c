@@ -28,7 +28,7 @@ struct _strFCU sFCU;
  * @brief
  * Init the FCU. Call this first thing.
  * 
- * @st_funcMD5		2B87B49581828868F2B8726833317ADB
+ * @st_funcMD5		88020D6DBDEB162F14FFBCD41F36BD19
  * @st_funcID		LCCM655R0.FILE.000.FUNC.001
  */
 void vFCU__Init(void)
@@ -44,8 +44,6 @@ void vFCU__Init(void)
 	//setup the fault flags
 	vFCU_FAULTS__Init();
 
-	//setup the brakes
-	vFCU_BRAKES__Init();
 }
 
 
@@ -53,7 +51,7 @@ void vFCU__Init(void)
  * @brief
  * Process any FCU tasks.
  * 
- * @st_funcMD5		90BCA89C58F5B330129D0B7665BF02F0
+ * @st_funcMD5		AFF39BD1292A813ABE8E9D51BCCA9673
  * @st_funcID		LCCM655R0.FILE.000.FUNC.002
  */
 void vFCU__Process(void)
@@ -90,14 +88,17 @@ void vFCU__Process(void)
 			//first state after reset, handle some RM4 tasks
 
 			//setup flash memory access
+#ifndef WIN32
 			vRM4_FLASH__Init();
 
 			//int the RM4's EEPROM
 			vRM4_EEPROM__Init();
+#endif
 
 			//init the EEPROM Params
 			vEEPARAM__Init();
 
+#ifndef WIN32
 			//init the DMA
 			vRM4_DMA__Init();
 
@@ -106,7 +107,7 @@ void vFCU__Process(void)
 
 			//Setup the ADC
 			vRM4_ADC_USER__Init();
-
+#endif
 			//CPU load monitoring
 			vRM4_CPULOAD__Init();
 
@@ -116,6 +117,7 @@ void vFCU__Process(void)
 
 		case INIT_STATE__INIT_IO:
 
+#ifndef WIN32
 			//setup the N2HET's
 			vRM4_N2HET__Init(N2HET_CHANNEL__1, 0U, HR_PRESCALE__1, LR_PRESCALE__32);
 			vRM4_N2HET_PINS__Init(N2HET_CHANNEL__1);
@@ -166,7 +168,8 @@ void vFCU__Process(void)
 			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
 
 				//setup the contrast sensor programs
-				sFCU.sContrast.sSensors[LASER_CONT__FWD].u16N2HET_Index = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 6U, EDGE_TYPE__RISING, 1U);
+				//FWD laser on both edge triggeers.
+				sFCU.sContrast.sSensors[LASER_CONT__FWD].u16N2HET_Index = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 6U, EDGE_TYPE__BOTH, 1U);
 				sFCU.sContrast.sSensors[LASER_CONT__MID].u16N2HET_Index = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 7U, EDGE_TYPE__RISING, 1U);
 				sFCU.sContrast.sSensors[LASER_CONT__AFT].u16N2HET_Index = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 13U, EDGE_TYPE__RISING, 1U);
 			#endif
@@ -187,15 +190,18 @@ void vFCU__Process(void)
 				vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_0);
 				vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_1);
 			#endif
-
+#endif //win32
 			sFCU.eInitStates = INIT_STATE__INIT_COMMS;
 			break;
 
 		case INIT_STATE__INIT_COMMS:
 
+#ifndef WIN32
 			//setup UART, SCI2 = Pi Connection
-			vRM4_SCI__Init(SCI_CHANNEL__2);
-			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 57600U);
+			#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
+				vRM4_SCI__Init(SCI_CHANNEL__2);
+				vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 57600U);
+			#endif
 
 			//setup our SPI channels.
 			//ASI Interface
@@ -210,13 +216,14 @@ void vFCU__Process(void)
 			//I2C Channel
 			vRM4_I2C_USER__Init();
 
-
+#endif //win32
 			//init the I2C
 			sFCU.eInitStates = INIT_STATE__INIT_SPI_UARTS;
 			break;
 
 		case INIT_STATE__INIT_SPI_UARTS:
 
+#ifndef WIN32
 			//give us some interrupts going
 			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 2U, GIO_DIRECTION__INPUT);
 			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 3U, GIO_DIRECTION__INPUT);
@@ -288,6 +295,7 @@ void vFCU__Process(void)
 			//todo:
 			//setup the baud for the lasers only
 
+#endif //WIN32
 
 			//move state
 			sFCU.eInitStates = INIT_STATE__LOWER_SYSTEMS;
@@ -309,6 +317,7 @@ void vFCU__Process(void)
 
 		case INIT_STATE__START_TIMERS:
 
+#ifndef WIN32
 			//int the RTI
 			vRM4_RTI__Init();
 
@@ -324,6 +333,10 @@ void vFCU__Process(void)
 			vRM4_RTI__Start_Interrupts();
 			//Starts the counter zero
 			vRM4_RTI__Start_Counter(0U);
+			//counter 1 needed for 64bit timer.
+			vRM4_RTI__Start_Counter(1U);
+#endif //WIN32
+
 
 			//move state
 			sFCU.eInitStates = INIT_STATE__RUN;
@@ -337,8 +350,10 @@ void vFCU__Process(void)
 			//start of while entry point
 			vRM4_CPULOAD__While_Entry();
 
+#ifndef WIN32
 			//Handle the ADC conversions
 			vRM4_ADC_USER__Process();
+#endif //WIN32
 
 			//process networking
 			#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
@@ -361,7 +376,7 @@ void vFCU__Process(void)
  * @brief
  * 100ms timer
  * 
- * @st_funcMD5		29FA796863975C61E514D3ED94ED79CA
+ * @st_funcMD5		28BC0DFB0E9EBABFFDC7FBE98B4FBDD8
  * @st_funcID		LCCM655R0.FILE.000.FUNC.003
  */
 void vFCU__RTI_100MS_ISR(void)
@@ -377,7 +392,6 @@ void vFCU__RTI_100MS_ISR(void)
 	#endif
 
 	// Timer for throttle layer
-	// (added by @gsweriduk on 23 NOV 2016)
 	#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
 		vFCU_THROTTLE__100MS_ISR();
 	#endif

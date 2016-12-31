@@ -56,11 +56,19 @@
 				 */
 				Luint8 u8Resolution;
 
-				/** The last read temperature */
-				Lfloat32 f32Temperature;
+				/** A user defined index type to help with sensor ID */
+				Luint16 u16UserIndex;
 
 			}sDevice[C_LOCALDEF__LCCM644__MAX_DEVICES];
 
+
+			/** Temperature results */
+			struct
+			{
+				/** The last read temperature */
+				Lfloat32 f32Temperature;
+
+			}sTemp[C_LOCALDEF__LCCM644__MAX_DEVICES];
 
 			/** Enumeration results */
 			struct
@@ -122,6 +130,12 @@
 		Luint8 u8DS18B20__Is_NewDataAvail(void);
 		void vDS18B20__Clear_NewDataAvail(void);
 		void vDS18B20__10MS_ISR(void);
+		Luint32 u32DS18B20__Get_DeviceAddx(void);
+		Luint16 u162DS18B20__Get_UserIndex(Luint16 u16Index);
+		Luint8 u82DS18B20__Get_Resolution(Luint16 u16Index);
+		Luint8 u82DS18B20__Get_BusIndex(Luint16 u16Index);
+		void vDS18B20__Get_ROMID(Luint16 u16Index, Luint8 *pu8Buffer);
+
 
 		//temperature
 		Lint16 s16DS18B20_TEMP__Read(Luint8 u8DSIndex);

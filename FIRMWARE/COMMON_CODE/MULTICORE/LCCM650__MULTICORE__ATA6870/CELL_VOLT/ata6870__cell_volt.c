@@ -25,10 +25,148 @@
 #include "../ata6870.h"
 #if C_LOCALDEF__LCCM650__ENABLE_THIS_MODULE == 1U
 
-#define ATA6870_OFFSET_VOLTAGE 410
+
 
 //main structure
 extern struct _str6870 sATA6870;
+
+/***************************************************************************//**
+ * @brief
+ * bulk read voltages: 6 voltages, 1 temperature
+ * 
+ * @st_funcMD5		9E83BF6A7C1E8046881758D51B0CFCFD
+ * @st_funcID		LCCM650R0.FILE.011.FUNC.003
+ */
+Lint16 s16ATA6870_CELL__BulkRead_All(void)
+{
+	// volt mode = calibration or regular acquisition. 0 for calibration, 1 for regular.
+	// tempBit = temperature sensor to select. 1 for internal, 0 for external.
+
+	Lint16 s16Return;
+	// loop counter
+	Luint8 u8Counter;
+	// number of cell voltage readings
+	Luint8 u8VolCounter = 0U;
+
+
+	s16Return = 0U;
+
+	// read data
+	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
+	{
+		vATA6870_CELL__Get_Voltages(u8Counter, &sATA6870.f32Voltage[u8VolCounter], &sATA6870.f32NTCTemperatureReading[u8Counter]);
+
+		// move to next module
+		u8VolCounter += C_ATA6870__MAX_CELLS;
+	}
+
+	// check if any cells are dead or out of threshold
+	s16Return = s16ATA6870_CELL__Check_CellVoltageError(&sATA6870.f32Voltage[0]);
+
+	return s16Return;
+}
+
+
+/***************************************************************************//**
+ * @brief
+ * Compute the sum of all voltages (= our pack voltage)
+ * 
+ * @st_funcMD5		C722B0B07CE53C27DEF8357D218011DA
+ * @st_funcID		LCCM650R0.FILE.011.FUNC.004
+ */
+void vATA6870_CELL__Sum_CellVoltages(void)
+{
+	Luint8 u8Counter;
+	Luint8 u8Cell;
+	Lfloat32 f32Temp;
+
+	//clear initially:
+	f32Temp = 0.0F;
+
+	//go through each device
+	for(u8Counter = 0U; u8Counter < C_ATA6870__TOTAL_CELLS; u8Counter++)
+	{
+		f32Temp += sATA6870.f32Voltage[u8Counter];
+
+	}
+
+	//update
+	sATA6870.f32PackVoltage = f32Temp;
+
+	//todo: we may need to average this.
+}
+
+
+/***************************************************************************//**
+ * @brief
+ * Take the average cell voltages
+ * 
+ * @st_funcMD5		A17AE34A218A538C08AE40D5AD05A344
+ * @st_funcID		LCCM650R0.FILE.011.FUNC.005
+ */
+void vATA6870_CELL__Average_CellVoltages(void)
+{
+	Lfloat32 f32Temp;
+
+	//set initially:
+	f32Temp = sATA6870.f32PackVoltage;
+
+	f32Temp /= (Lfloat32)C_ATA6870__TOTAL_CELLS;
+
+	//update
+	sATA6870.f32AverageCellVoltage = f32Temp;
+
+	//needed for balancing
+	sATA6870.u8AverageUpdated = 1U;
+
+}
+
+
+/***************************************************************************//**
+ * @brief
+ * Check if a cell is above or below safe threshold
+ *
+ * @note
+ * if we use UNDER_VOLT function instead, be sure to implement
+ * an upper bound check as well for over voltage
+ * 
+ * @param[in]		*pf32Voltages			voltages array of size C_ATA6870__MAX_CELLS
+ * @return			0 = Cell OK\n
+ * 					-ve = error
+ * @st_funcMD5		7F85DF6A37F294D8B5FCB4BBE87CCDF6
+ * @st_funcID		LCCM650R0.FILE.011.FUNC.006
+ */
+Lint16 s16ATA6870_CELL__Check_CellVoltageError(Lfloat32 *pf32Voltages)
+{
+	Lint16 s16Return;
+	Luint8 u8Counter;
+
+	s16Return = 0;
+
+	// check each voltage is within threshold
+	for(u8Counter = 0U; u8Counter < C_ATA6870__MAX_CELLS; u8Counter++)
+	{
+		if (pf32Voltages[u8Counter] > C_ATA6870__MAX_VOLTS)
+		{
+			// log voltage error
+			// TODO: standardize error codes
+			s16Return = -1;
+		}
+		else if (pf32Voltages[u8Counter] < C_ATA6870__MIN_VOLTS)
+		{
+			// log voltage error
+			// TODO: standardize error codes
+			s16Return = -2;
+		}
+		else
+		{
+			// fall through
+		}
+	}
+
+	return s16Return;
+}
+
 
 /***************************************************************************//**
  * @brief
@@ -41,7 +179,7 @@ extern struct _str6870 sATA6870;
  * @param[out]		*pF32Temperature		The returned temperature reading from the NTC
  * @param[out]		*pf32Voltages			An array of 6 Cell voltages
  * @param[in]		u8DeviceIndex			The device index on the bus
- * @st_funcMD5		9BC1EB66852FF80D8FF3D84707D5C92E
+ * @st_funcMD5		EEE52897EC66ACC3E9A55AD2F3176D4F
  * @st_funcID		LCCM650R0.FILE.011.FUNC.002
  */
 void vATA6870_CELL__Get_Voltages(Luint8 u8DeviceIndex, Lfloat32 *pf32Voltages, Lfloat32 *pF32Temperature)
@@ -74,7 +212,7 @@ void vATA6870_CELL__Get_Voltages(Luint8 u8DeviceIndex, Lfloat32 *pf32Voltages, L
 	
 		//unpack
 		f32Temp = (Lfloat32)unT.u16;
-		f32Temp -= ATA6870_OFFSET_VOLTAGE; //pg.18, 5.5 Offset Voltage
+		f32Temp -= C_ATA6870__OFFSET_VOLTAGE; //pg.18, 5.5 Offset Voltage
 		f32Temp *= C_ATA6870__ADC_RES_V;
 		
 		//assign

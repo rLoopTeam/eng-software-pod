@@ -57,7 +57,7 @@ void vDS18B20_ADDX__Init(void)
  * THIS IS VERY SLOW.  Several hundred sensors can take minutes to search.
  * If this is a problem, use the state machine based search.
  *
- * @st_funcMD5		B6B772269813720C0DD21DAF118A59B6
+ * @st_funcMD5		03D56F57CC4B53C6E8DDFB5E41E53B27
  * @st_funcID		LCCM644R0.FILE.006.FUNC.001
  */
 Lint16 s16DS18B20_ADDX__Search(void)
@@ -100,7 +100,7 @@ Lint16 s16DS18B20_ADDX__Search(void)
 					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8Resolution = 0U;
 					
 					//set to our known max temp
-					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
+					sDS18B20.sTemp[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
 					//inc
 					sDS18B20.sEnum.u8NumDevices++;
 
@@ -134,7 +134,7 @@ Lint16 s16DS18B20_ADDX__Search(void)
 					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8Resolution = 0U;
 					
 					//set to our known max temp.
-					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
+					sDS18B20.sTemp[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
 
 					//inc
 					sDS18B20.sEnum.u8NumDevices++;
@@ -226,7 +226,7 @@ void vDS18B20_ADDX__SearchSM_Start(void)
  * @brief
  * State machine based search processing
  * 
- * @st_funcMD5		919A65C66B7AC9B46AE66ADE2BC12D20
+ * @st_funcMD5		43A0A3E0F1548582B19735246BA11219
  * @st_funcID		LCCM644R0.FILE.006.FUNC.004
  */
 void vDS18B20_ADDX__SearchSM_Process(void)
@@ -273,7 +273,7 @@ void vDS18B20_ADDX__SearchSM_Process(void)
 					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8Resolution = 0U;
 
 					//set to our known max temp
-					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
+					sDS18B20.sTemp[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
 					//inc
 					sDS18B20.sEnum.u8NumDevices++;
 					//protect
@@ -305,7 +305,7 @@ void vDS18B20_ADDX__SearchSM_Process(void)
 					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8Resolution = 0U;
 
 					//set to our known max temp.
-					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
+					sDS18B20.sTemp[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
 
 					//inc
 					sDS18B20.sEnum.u8NumDevices++;

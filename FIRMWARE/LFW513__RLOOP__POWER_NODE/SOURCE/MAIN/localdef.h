@@ -85,7 +85,7 @@ SAFETY UDP LAYER
 /*******************************************************************************
 RLOOP - PI COMMUNICATIONS MODULE
 *******************************************************************************/
-	#define C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE							(1U)
+	#define C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE							(0U)
 	#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
 
 		//arch
@@ -113,7 +113,6 @@ ATA6870N - BATTERY MANAGEMENT DEVICE
 
 		/** number of devices in series */
 		#define C_LOCALDEF__LCCM650__NUM_DEVICES							(3U)
-		#define C_LOCALDEF__LCCM650__NUM_6P_MODULES							(C_LOCALDEF__LCCM650__NUM_DEVICES * C_ATA6870__MAX_CELLS)
 
 		/** Use checksum support on the ATA comms or not? */
 		#define C_LOCALDEF__LCCM650__ENABLE_CRC								(0U)
@@ -296,7 +295,7 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__DC_CONVERTER__HEART_TIMER_MAX			(30U)
 
 		/** Enable the charger subsystem */
-		#define C_LOCALDEF__LCCM653__ENABLE_CHARGER							(0U)
+		#define C_LOCALDEF__LCCM653__ENABLE_CHARGER							(1U)
 
 		/** Enable Ethernet */
 		#define C_LOCALDEF__LCCM653__ENABLE_ETHERNET						(1U)

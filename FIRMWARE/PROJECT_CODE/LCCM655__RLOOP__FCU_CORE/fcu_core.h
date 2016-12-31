@@ -22,6 +22,7 @@
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/BRAKES/fcu__brakes__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/ACCELEROMETERS/fcu__accel__fault_flags.h>
+		#include <LCCM655__RLOOP__FCU_CORE/LASER_OPTO/fcu__laser_opto__fault_flags.h>
 
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_defines.h>
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_types.h>
@@ -76,10 +77,22 @@
 
 			}sFaults;
 
+			/** Brake Dev */
+			struct
+			{
+
+				/** Are we in develompent mode? */
+				Luint8 u8DevMode;
+
+				/** Key to enable develompent mode checks */
+				Luint32 u32DevKey;
+
+			}sBrakesDev;
 
 			/** Brake Substructure */
 			struct
 			{
+
 				/** Limit switch structure
 				 * There are two limit switches per brake assy
 				 */
@@ -262,6 +275,9 @@
 			/** Overall structure for the OPTONCDT laser interfaces */
 			struct
 			{
+				/** Global laser fault flags */
+				FAULT_TREE__PUBLIC_T sFaultFlags;
+
 				/** state machine for processing the OptoNCDT systems */
 				E_FCU_OPTOLASER__STATE_T eOptoNCDTState;
 
@@ -271,14 +287,20 @@
 				/** The opto NCDT laser interfaces */
 				struct
 				{
+					/** Individual laser fault flags */
+					FAULT_TREE__PUBLIC_T sFaultFlags;
+
 					/** RX byte state machine */
 					E_OPTONCDT__RX_STATE_T eRxState;
 
 					/** A new packet is available for distance processing */
 					Luint8 u8NewPacket;
 
+					/** A new packet is available and ready to be filtered */
+					Luint8 u8ReadyForFiltering;
+
 					/** Array to hold new bytes received */
-					Luint8 u8NewByteArray[3];
+					Luint8 u8NewByteArray[3U];
 
 					/** The most recent distance*/
 					Lfloat32 f32Distance;
@@ -289,7 +311,29 @@
 					/** is f32Distance equal to error value? */
 					Luint8 u8Error;
 
-				}sOptoLaser[C_LOCALDEF__LCCM655__NUM_LASER_OPTONCDT];
+
+					/** Diagnostic Counters */
+					struct
+					{
+
+						/** We have received an error code from the laser */
+						Luint32 u32ErrorCode;
+
+						/** First packet byte was not in the correct place */
+						Luint32 u32Byte1Wrong;
+
+					}sCounters;
+
+					/** Filtered data structure */
+					struct
+					{
+
+						/** The filtered height */
+						Lfloat32 f32FilteredValue;
+
+					}sFiltered;
+
+				}sOptoLaser[C_FCU__NUM_LASERS_OPTONCDT];
 
 			}sLaserOpto;
 
@@ -384,6 +428,33 @@
 			struct
 			{
 
+				/** Upper guard */
+				Luint32 u32Guard1;
+
+				/** Top level fault system */
+				FAULT_TREE__PUBLIC_T sFaultFlags;
+
+
+				/** Top level distance remaining in the run in mm */
+				Luint32 u32DistRemain_mm;
+
+				/** Distance elapsed between last stripe */
+				Luint32 u32DistLastStripe_mm;
+
+				/** Current velocity in mm/sec */
+				Luint32 u32CurrentVeloc_mms;
+
+				/** Velocity Calc Area */
+				struct
+				{
+
+					/** The current velocity in mm/sec */
+					Luint32 u32CurrentVeloc_mms;
+
+
+
+				}sVeloc;
+
 				/** Individual contrast senors */
 				struct
 				{
@@ -391,7 +462,54 @@
 					/** The N2HET program index */
 					Luint16 u16N2HET_Index;
 
+					/** Individual fault flags */
+					FAULT_TREE__PUBLIC_T sFaultFlags;
+
 				}sSensors[LASER_CONT__MAX];
+
+				/** a timing based list to store the rising and falling edges of each laser */
+				struct
+				{
+
+					/** Rising edge time stamp */
+					Luint64 u64RisingList[C_FCU__LASER_CONTRAST__MAX_STRIPES];
+
+					/** Falling edge time stamp */
+					Luint64 u64FallingList[C_FCU__LASER_CONTRAST__MAX_STRIPES];
+
+					/** list of time that has elapsed between sensor marks */
+					Luint64 u64ElapsedList_Rising[C_FCU__LASER_CONTRAST__MAX_STRIPES];
+
+					/** Rising edge count */
+					Luint16 u16RisingCount;
+
+					/** Falling edge count */
+					Luint16 u16FallingCount;
+
+					/** signalled by the rising edge that a new item is avail */
+					Luint8 u8NewRisingAvail;
+
+				}sTimingList[LASER_CONT__MAX];
+
+
+				/** The track database for each sensor */
+				struct
+				{
+					/** The distance remaining in the tube */
+					Luint32 u32DistanceRemain_mm[C_FCU__LASER_CONTRAST__MAX_STRIPES];
+
+					/** The current optical marker */
+					Luint8 u8ElapsedCount;
+
+					/** Distance Remaining - computed*/
+					Luint32 u32DistRemain;
+
+					/** Last Increment */
+					Luint32 u32LastIncrement;
+
+				}sTrackDatabase[LASER_CONT__MAX];
+
+				Luint32 u32Guard2;
 
 			}sContrast;
 			#endif
@@ -417,13 +535,22 @@
 				Luint8 u810MS_Flag;
 
 				/** The next packet type to transmit */
-				E_FCU_NET_PACKET_TYPES eTxPacketType;
+				E_NET__PACKET_T eTxPacketType;
 
 				/** If the user has enabled Tx streaming */
-				E_FCU_NET_PACKET_TYPES eTxStreamingType;
+				E_NET__PACKET_T eTxStreamingType;
 
 
 			}sUDPDiag;
+
+			/** SpaceX required transmission */
+			struct
+			{
+				/** A flag to indicate 10ms has elapsed if we are using timed packets */
+				Luint8 u8100MS_Flag;
+
+			}sSpaceX;
+
 			#endif
 
 			#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
@@ -515,22 +642,32 @@
 		//core
 		DLL_DECLARATION void vFCU__Init(void);
 		DLL_DECLARATION void vFCU__Process(void);
-		void vFCU__RTI_100MS_ISR(void);
-		void vFCU__RTI_10MS_ISR(void);
+		DLL_DECLARATION void vFCU__RTI_100MS_ISR(void);
+		DLL_DECLARATION void vFCU__RTI_10MS_ISR(void);
 
 		//flight controller
 		void vFCU_FLIGHTCTL__Init(void);
 		void vFCU_FLIGHTCTL__Process(void);
 
-		// Laser Orientation
-		void vFCU_FLIGHTCTL_LASERORIENT__Init(void);
-		void vFCU_FLIGHTCTL_LASERORIENT__Process(void);
-		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Roll(void);
-		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Pitch(void);
-		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Yaw(void);
-		Lfloat32 f32FCU_FLIGHTCTL_LASERORIENT__Get_Lateral(void);
-		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_TwistRoll(void);
-		Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_TwistPitch(void);
+			// Laser Orientation
+			void vFCU_FLIGHTCTL_LASERORIENT__Init(void);
+			void vFCU_FLIGHTCTL_LASERORIENT__Process(void);
+			Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Roll(void);
+			Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Pitch(void);
+			Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_Yaw(void);
+			Lfloat32 f32FCU_FLIGHTCTL_LASERORIENT__Get_Lateral(void);
+			Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_TwistRoll(void);
+			Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_TwistPitch(void);
+
+			//contrast sensor nav
+			void vFCU_FLIGHTCTL_CONTRASTNAV__Init(void);
+			void vFCU_FLIGHTCTL_CONTRASTNAV__Process(void);
+			Luint32 u32FCU_FLIGHTCTL_CONTRASTNAV__Get_Position_mm(void);
+			Luint8 u8FCU_FLIGHTCTL_CONTRASTNAV__Get_IsFault(void);
+			Luint32 u32FCU_FLIGHTCTL_CONTRASTNAV__Get_FaultFlags(void);
+
+			//brake profiler
+			Lint16 s16FCU_FLIGHTCTL_BRAKES__Brake_Lookup(Luint32 u32Veloc_mms, Luint32 u32DragForce_n, Luint32 *pu32IBDistance_um);
 
 		//network
 		void vFCU_NET__Init(void);
@@ -544,6 +681,11 @@
 			void vFCU_NET_TX__Process(void);
 			void vFCU_NET_TX__10MS_ISR(void);
 
+			//spaceX specific
+			void vFCU_NET_SPACEX_TX__Init(void);
+			void vFCU_NET_SPACEX_TX__Process(void);
+			void vFCU_NET_SPACEX_TX__100MS_ISR(void);
+
 		//fault handling layer
 		void vFCU_FAULTS__Init(void);
 		void vFCU_FAULTS__Process(void);
@@ -553,7 +695,33 @@
 		//laser contrast sensors
 		void vFCU_LASERCONT__Init(void);
 		void vFCU_LASERCONT__Process(void);
-		void vFCU_LASERCONT__ISR(E_FCU__LASER_CONT_INDEX_T eLaser);
+		void vFCU_LASERCONT__Reset(Luint32 u32Key);
+		void vFCU_LASERCONT__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Register);
+
+			//timing list
+			void vFCU_LASERCONT_TL__Init(void);
+			void vFCU_LASERCONT_TL__Process(void);
+			DLL_DECLARATION void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Register);
+			Luint8 u8FCU_LASERCONT_TL__Get_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser);
+			void vFCU_LASERCONT_TL__Clear_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser);
+			Luint64 u64FCU_LASERCONT_TL__Get_TimeDelta(E_FCU__LASER_CONT_INDEX_T eLaser);
+
+			//velocity
+			void vFCU_LASERCONT_VELOC__Init(void);
+			void vFCU_LASERCONT_VELOC__Process(void);
+			Luint32 u32FCU_LASERCONT_VELOC__Get_CurrentVeloc_mms(void);
+			void vFCU_LASERCONT_VELOC__Compute(Luint32 u32Distance, Luint64 u64TimeDelta);
+
+			//track database
+			void vFCU_LASERCONT_TRKDB__Init(void);
+			void vFCU_LASERCONT_TRKDB__Process(void);
+			void vFCU_LASERCONT_TRKDB__Inc_Marker(E_FCU__LASER_CONT_INDEX_T eLaser);
+			void vFCU_LASERCONT_TRKDB__Compute(E_FCU__LASER_CONT_INDEX_T eLaser);
+			Luint32 u32FCU_LASERCONT_TRKDB__Get_DistanceRemain_mm(E_FCU__LASER_CONT_INDEX_T eLaser);
+			Luint32 u32FCU_LASERCONT_TRKDB__Get_DistancePrevSeg_mm(E_FCU__LASER_CONT_INDEX_T eLaser);
+
+			//ethernet
+			void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
 		//Laser distance
 		void vFCU_LASERDIST__Init(void);
@@ -561,6 +729,8 @@
 		Lfloat32 f32FCU_LASERDIST__Get_Distance(void);
 		void vFCU_LASERDIST__100MS_ISR(void);
 
+			//eth
+			void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
 		//main state machine
 		void vFCU_MAINSM__Init(void);
@@ -576,9 +746,15 @@
 		//lasers for OptoNCDT interface
 		void vFCU_LASEROPTO__Init(void);
 		void vFCU_LASEROPTO__Process(void);
-		Lfloat32 f32FCU_LASEROPTO__Get_Distance(Luint8 u8LaserIndex);
-		Luint8 u8FCU_LASEROPTO__Get_Error(Luint8 u8LaserIndex);
+		Lfloat32 f32FCU_LASEROPTO__Get_Distance(E_FCU__LASER_OPTO__INDEX_T eLaser);
+		Luint8 u8FCU_LASEROPTO__Get_Error(E_FCU__LASER_OPTO__INDEX_T eLaser);
 		void vFCU_LASEROPTO__100MS_ISR(void);
+
+			//eth
+			void vFCU_LASEROPTO_ETH__Transmit(E_NET__PACKET_T ePacketType);
+
+			//filtering
+			void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser);
 
 
 		//pi comms
@@ -595,6 +771,10 @@
 		Luint16 u16FCU_BRAKES__Get_ADC_Raw(E_FCU__BRAKE_INDEX_T eBrake);
 		Lfloat32 f32FCU_BRAKES__Get_IBeam_mm(E_FCU__BRAKE_INDEX_T eBrake);
 		Lfloat32 f32FCU_BRAKES__Get_MLP_mm(E_FCU__BRAKE_INDEX_T eBrake);
+
+			//dev specifics
+			void vFCU_BRAKES__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1);
+			void vFCU_BRAKES__Dev_MoveMotor(Luint32 u32Index, Luint32 u32Position);
 
 		//stepper drive
 		void vFCU_BRAKES_STEP__Init(void);
@@ -622,7 +802,7 @@
 		void vFCU_ACCEL__Process(void);
 		Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis);
 		Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis);
-		void vFCU_ACCEL_ETH__Transmit(E_FCU_NET_PACKET_TYPES ePacketType);
+		void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
 		//Pusher interface
 		void vFCU_PUSHER__Init(void);
@@ -662,7 +842,15 @@
 			extern struct _strFCU sFCU;
 
 			DLL_DECLARATION void vLCCM655R0_TS_000(void);
-		#endif
+			DLL_DECLARATION void vLCCM655R0_TS_001(void);
+			DLL_DECLARATION void vLCCM655R0_TS_002(void);
+			DLL_DECLARATION void vLCCM655R0_TS_003(void);
+			DLL_DECLARATION void vLCCM655R0_TS_004(void);
+			DLL_DECLARATION void vLCCM655R0_TS_005(void);
+			DLL_DECLARATION void vLCCM655R0_TS_006(void);
+
+
+			#endif
 
 
 	#endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U

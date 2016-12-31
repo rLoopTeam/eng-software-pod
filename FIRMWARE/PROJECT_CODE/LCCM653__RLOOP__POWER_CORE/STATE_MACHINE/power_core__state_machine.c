@@ -29,7 +29,7 @@ Luint8 u8TestMsg[] = {0xD5, 0xD0, 0x00, 0x0D, 0xD5, 0xD3, 0x43, 0x00, 0x05, 0x40
  * @brief
  * Init any of the main application state machine items
  * 
- * @st_funcMD5		611B9683853891822BC9217033304AE8
+ * @st_funcMD5		A40323662C84BEFCABD28662D11DA6D2
  * @st_funcID		LCCM653R0.FILE.003.FUNC.001
  */
 void vPWRNODE_SM__Init(void)
@@ -40,7 +40,13 @@ void vPWRNODE_SM__Init(void)
 
 }
 
-//process
+/***************************************************************************//**
+ * @brief
+ * Process
+ * 
+ * @st_funcMD5		443BC873CD6125AEE96FD0085CCDBC8B
+ * @st_funcID		LCCM653R0.FILE.003.FUNC.002
+ */
 void vPWRNODE_SM__Process(void)
 {
 	Luint8 u8Counter;
@@ -61,7 +67,7 @@ void vPWRNODE_SM__Process(void)
 			//test a message into the Rx unit.
 			for(u8Counter = 0U; u8Counter < 17U; u8Counter++)
 			{
-				vPICOMMS_RX__Receive_Bytes(&u8TestMsg[u8Counter], 1);
+				//vPICOMMS_RX__Receive_Bytes(&u8TestMsg[u8Counter], 1);
 			}
 
 			sPWRNODE.eMainState = RUN_STATE__IDLE;

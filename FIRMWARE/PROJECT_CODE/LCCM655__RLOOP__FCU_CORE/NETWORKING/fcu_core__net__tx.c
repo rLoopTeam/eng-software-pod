@@ -26,7 +26,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init any network transmission stuff
  * 
- * @st_funcMD5		A045D43577055558C4337E5A72E5B4B6
+ * @st_funcMD5		94AA1680BB7A0F956864DDFB9C292C1F
  * @st_funcID		LCCM655R0.FILE.019.FUNC.001
  */
 void vFCU_NET_TX__Init(void)
@@ -35,8 +35,8 @@ void vFCU_NET_TX__Init(void)
 	sFCU.sUDPDiag.u810MS_Flag = 0U;
 
 	//set our default packet types
-	sFCU.sUDPDiag.eTxPacketType = FCU_PKT__NONE;
-	sFCU.sUDPDiag.eTxStreamingType = FCU_PKT__NONE;
+	sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+	sFCU.sUDPDiag.eTxStreamingType = NET_PKT__NONE;
 }
 
 
@@ -44,16 +44,16 @@ void vFCU_NET_TX__Init(void)
  * @brief
  * Process network transmission and do any transmission as required.
  * 
- * @st_funcMD5		195225AD0B954EDBA13250B3414B88AB
+ * @st_funcMD5		2BFE075A2689648599D1A7F394BE9692
  * @st_funcID		LCCM655R0.FILE.019.FUNC.002
  */
 void vFCU_NET_TX__Process(void)
 {
 	Luint8 u8Flag;
-	E_FCU_NET_PACKET_TYPES eType;
+	E_NET__PACKET_T eType;
 
 	//see if we have a streaming flag set
-	if(sFCU.sUDPDiag.eTxStreamingType != FCU_PKT__NONE)
+	if(sFCU.sUDPDiag.eTxStreamingType != NET_PKT__NONE)
 	{
 		//yes we do
 
@@ -69,7 +69,7 @@ void vFCU_NET_TX__Process(void)
 		else
 		{
 			//nope
-			eType = FCU_PKT__NONE;
+			eType = NET_PKT__NONE;
 		}
 
 
@@ -85,14 +85,40 @@ void vFCU_NET_TX__Process(void)
 	//detemrine the packet type
 	switch(eType)
 	{
-		case FCU_PKT__ACCEL__TX_CAL_DATA:
-			vFCU_ACCEL_ETH__Transmit(FCU_PKT__ACCEL__TX_CAL_DATA);
-			sFCU.sUDPDiag.eTxPacketType = FCU_PKT__NONE;
+		case NET_PKT__FCU_ACCEL__TX_CAL_DATA:
+			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
+				vFCU_ACCEL_ETH__Transmit(eType);
+			#endif
+
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
 
-		case FCU_PKT__ACCEL__TX_FULL_DATA:
-			vFCU_ACCEL_ETH__Transmit(FCU_PKT__ACCEL__TX_FULL_DATA);
-			sFCU.sUDPDiag.eTxPacketType = FCU_PKT__NONE;
+		case NET_PKT__FCU_ACCEL__TX_FULL_DATA:
+			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
+				vFCU_ACCEL_ETH__Transmit(eType);
+			#endif
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+			break;
+
+		case NET_PKT__LASER_OPTO__TX_LASER_DATA:
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
+				vFCU_LASEROPTO_ETH__Transmit(eType);
+			#endif
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+			break;
+
+		case NET_PKT__LASER_DIST__TX_LASER_DATA:
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
+				vFCU_LASERDIST_ETH__Transmit(eType);
+			#endif
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+			break;
+
+		case NET_PKT__LASER_CONT__TX_LASER_DATA:
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
+				vFCU_LASERCONT_ETH__Transmit(eType);
+			#endif
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
 
 		default:

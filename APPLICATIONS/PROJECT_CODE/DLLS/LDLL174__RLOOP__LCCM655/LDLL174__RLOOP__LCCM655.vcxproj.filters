@@ -55,6 +55,138 @@
     <Filter Include="LCCM655__RLOOP__FCU_CORE">
       <UniqueIdentifier>{7144dc5a-546a-48e3-a7a7-480405a5513e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\UNIT_TEST">
+      <UniqueIdentifier>{e855790a-7090-4314-9498-a1daa0c10de5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS">
+      <UniqueIdentifier>{b79b6c01-3c82-4b1d-ad57-300a5eb98f3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\BRAKES">
+      <UniqueIdentifier>{397e359a-016d-406d-8bf3-f0befab98b8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451">
+      <UniqueIdentifier>{5d47616f-225e-4979-8fd5-af2eb17b1e37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\FIFO">
+      <UniqueIdentifier>{be5d2f99-875f-4825-8654-84ffb575fc81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\FILTERING">
+      <UniqueIdentifier>{74c7c484-bc4c-4bea-b67c-4e424746b9ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\LOWLEVEL">
+      <UniqueIdentifier>{a92deb0b-d5f8-4146-ae4c-d8303011fa55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\MATH">
+      <UniqueIdentifier>{0c9046a2-1a06-4ad8-a30d-29321e4fba2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\READ">
+      <UniqueIdentifier>{b959f108-f212-4714-9b61-cc42afa6d743}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\ROC">
+      <UniqueIdentifier>{561f2420-fd41-444e-afa8-5fc1e46a1395}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\ZERO">
+      <UniqueIdentifier>{c1eb18c7-afcf-4a6a-9bb0-b8b98d465bbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM662__MULTICORE__DAQ">
+      <UniqueIdentifier>{b25e9b67-b28b-47f5-85d1-3e83de3988b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\APEND">
+      <UniqueIdentifier>{a4d0f052-1160-4326-b6b6-acbb5d7f39ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32">
+      <UniqueIdentifier>{31598a4c-185d-483c-88fb-b651a2fbc534}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\TRANSMIT">
+      <UniqueIdentifier>{5d82c62a-8675-46a5-9482-c4168029f33f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\THROTTLES">
+      <UniqueIdentifier>{945122ec-9a85-4d16-a5fd-dfd09e726af2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\PUSHER">
+      <UniqueIdentifier>{1c92c901-c776-4818-a78d-29d65e981fd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\NOTIFICATIONS">
+      <UniqueIdentifier>{1b4013a9-013a-45a3-b587-eaf3baaf7637}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\NETWORKING">
+      <UniqueIdentifier>{9c726570-1136-4794-8a42-0c7c2abf4b10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\NETWORKING\SPACEX">
+      <UniqueIdentifier>{126fc4a9-3d4b-466f-94a2-c780728f27fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\MAIN_SM">
+      <UniqueIdentifier>{0b8b7a0f-5ad4-479c-932b-24b236e98138}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\LASER_OPTO">
+      <UniqueIdentifier>{cf64920b-a927-4b10-aab9-5b567b15c061}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\LASER_DISTANCE">
+      <UniqueIdentifier>{5e5c6e6d-023f-4b46-aed8-443e17a4a6fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST">
+      <UniqueIdentifier>{87078815-1641-421c-9f82-f7465cbe6afe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TIMING_LIST">
+      <UniqueIdentifier>{ebe271cb-eb4e-4ba1-b80f-c09a55d525b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER">
+      <UniqueIdentifier>{41632fdd-3573-4a19-9db5-ca238168cea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\LASER_ORIENTATION">
+      <UniqueIdentifier>{0987dbe8-d545-4039-92e0-337b0896b9e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\CONTRAST_NAV">
+      <UniqueIdentifier>{c76ffd1c-b152-40d0-b74b-d6cb5a01f390}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BRAKE_PROFILE">
+      <UniqueIdentifier>{44f36fc6-a342-4b07-aabf-0fcb0227507d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\FAULTS">
+      <UniqueIdentifier>{6bba8fe3-4bca-4800-a359-cedf31427a94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\ASI_RS485">
+      <UniqueIdentifier>{6957ea54-bcca-4d7a-819d-b4892866164a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS">
+      <UniqueIdentifier>{13ff9100-18c9-43bc-bd17-a36b86551799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741">
+      <UniqueIdentifier>{7a5b5578-eaca-4ae6-bc75-ba7c7deb9f3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812">
+      <UniqueIdentifier>{a8ff73c2-3096-4dda-9e97-8f79e4689726}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RM4">
+      <UniqueIdentifier>{2ae5ec37-a849-440c-9691-3a3dc6e26533}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RM4\LCCM663__RM4__CPU_LOAD">
+      <UniqueIdentifier>{b5d36206-36ec-49d9-9380-7d61f24c5638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS">
+      <UniqueIdentifier>{1b2f7d9e-8d94-408c-a07f-b9f909e16dbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO">
+      <UniqueIdentifier>{e5f4c533-5ee7-41f7-b71f-83b72cf98cb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM528__MULTICORE__SAFE_UDP">
+      <UniqueIdentifier>{b457ec0a-d864-406e-9504-2e6b456f6052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM325__MULTICORE__802_3">
+      <UniqueIdentifier>{2362aa52-b916-4334-9642-f9dc50ab0fe0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FILTERING">
+      <UniqueIdentifier>{561eee60-1570-4744-a4d7-bb7069973af1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\VELOCITY">
+      <UniqueIdentifier>{0e4d4546-1f7a-4816-849a-b14f170a481c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TRACK_DATABASE">
+      <UniqueIdentifier>{294e9711-8cd4-45b0-a1a1-3babd79c75a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RM4\LCCM124__RM4__RTI">
+      <UniqueIdentifier>{49c322d8-9912-429b-a7fb-ba85628f2d3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
@@ -99,6 +231,285 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core.c">
       <Filter>LCCM655__RLOOP__FCU_CORE</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_000.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__mlp.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__stepper.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__switches.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM418__MULTICORE__MMA8451\mma8451.c">
+      <Filter>Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM418__MULTICORE__MMA8451\FIFO\mma8451__fifo.c">
+      <Filter>Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\FIFO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM418__MULTICORE__MMA8451\FILTERING\mma8451__filtering.c">
+      <Filter>Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\FILTERING</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM418__MULTICORE__MMA8451\LOWLEVEL\mma8451__lowlevel.c">
+      <Filter>Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\LOWLEVEL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM418__MULTICORE__MMA8451\MATH\mma8451__math.c">
+      <Filter>Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\MATH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM418__MULTICORE__MMA8451\READ\mma8451__read.c">
+      <Filter>Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\READ</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM418__MULTICORE__MMA8451\ROC\mma8451__roc.c">
+      <Filter>Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\ROC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM418__MULTICORE__MMA8451\ZERO\mma8451__zero.c">
+      <Filter>Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\ZERO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq.c">
+      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\APPEND\daq__append.c">
+      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\APEND</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32\daq__win32.c">
+      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32\daq__win32_main.c">
+      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\TRANSMIT\daq__transmit_template.c">
+      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\TRANSMIT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\THROTTLES\fcu__throttles.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\THROTTLES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\PUSHER\fcu__pusher.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\PUSHER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\NOTIFICATIONS\fcu_core__notifications.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\NOTIFICATIONS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\NETWORKING\fcu_core__net.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\NETWORKING</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\NETWORKING\fcu_core__net__rx.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\NETWORKING</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\NETWORKING\fcu_core__net__tx.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\NETWORKING</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\NETWORKING\SPACEX\fcu__net__spacex_tx.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\NETWORKING\SPACEX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\MAIN_SM\fcu__main_sm.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\MAIN_SM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\MAIN_SM\fcu__main_sm__auto_seq.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\MAIN_SM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_OPTO\fcu__laser_opto.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\LASER_OPTO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_DISTANCE\fcu__laser_distance.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\LASER_DISTANCE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\fcu__laser_cont.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TIMING_LIST\fcu__laser_cont__timing_list.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TIMING_LIST</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\fcu__flight_controller.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\LASER_ORIENTATION\fcu__laser_orientation.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\LASER_ORIENTATION</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\CONTRAST_NAV\fcu__flight_control__contrast_nav.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\CONTRAST_NAV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FAULTS\fcu_core__faults.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\FAULTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi_rs485.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi_rs485_mux.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\fcu__accel.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\fcu__accel__ethernet.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\BAUD\sc16__baud.c">
+      <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\FIFO\sc16__fifo.c">
+      <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\FLOW_CONTROL\sc16__flow_control.c">
+      <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\INTERRUPTS\sc16__interrupts.c">
+      <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\LOOPBACK\sc16__loopback.c">
+      <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\LOWLEVEL\sc16__lowlevel.c">
+      <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\REGISTERS\sc16__registers.c">
+      <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\sc16.c">
+      <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\ADC\amc7812__adc.c">
+      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\DAC\amc7812__dac.c">
+      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\GPIO\amc7812__gpio.c">
+      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\I2C\amc7812__i2c.c">
+      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\LOWLEVEL\amc7812__lowlevel.c">
+      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\WIN32\amc7812__win32.c">
+      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\amc7812.c">
+      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.c">
+      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS\WIN32\eeprom_params__win32.c">
+      <Filter>Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS\eeprom_params.c">
+      <Filter>Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS\eeprom_params__crc.c">
+      <Filter>Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO\software_fifo.c">
+      <Filter>Source Files\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\MESSAGES\safe_udp__messages.c">
+      <Filter>Source Files\MULTICORE\LCCM528__MULTICORE__SAFE_UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\RX\safe_udp__rx.c">
+      <Filter>Source Files\MULTICORE\LCCM528__MULTICORE__SAFE_UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\SEQUENCE\safe_udp__seq.c">
+      <Filter>Source Files\MULTICORE\LCCM528__MULTICORE__SAFE_UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\TX\safe_udp__tx.c">
+      <Filter>Source Files\MULTICORE\LCCM528__MULTICORE__SAFE_UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\VISION\safe_udp__vision_rx.c">
+      <Filter>Source Files\MULTICORE\LCCM528__MULTICORE__SAFE_UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\VISION\safe_udp__vision_tx.c">
+      <Filter>Source Files\MULTICORE\LCCM528__MULTICORE__SAFE_UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\WIN32\safe_udp__win32.c">
+      <Filter>Source Files\MULTICORE\LCCM528__MULTICORE__SAFE_UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\safe_udp.c">
+      <Filter>Source Files\MULTICORE\LCCM528__MULTICORE__SAFE_UDP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\BUFFER_DESCRIPTOR\eth__buffer_desc.c">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\DHCP_CLIENT\eth__dhcp_client.c">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\ETHERNET_II\eth__ethernet_ii.c">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\IP_V4\eth__ip_v4.c">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\LLDP\eth__lldp.c">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\RM4\eth__rm4.c">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\SNMP\eth__snmp.c">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\TCP_CLIENT\eth__tcp_client.c">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\UDP\eth__udp.c">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\WIN32\eth__win32.c">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\XILINX\eth__xilinx.c">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\eth.c">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\ARP\eth__arp.c">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FILTERING\numerical__average.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FILTERING</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_001.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_002.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_003.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_004.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_005.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\VELOCITY\fcu__laser_cont__veloc.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\VELOCITY</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TRACK_DATABASE\fcu__laser_cont__track_database.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TRACK_DATABASE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.c">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BRAKE_PROFILE\a34_brake_table.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BRAKE_PROFILE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BRAKE_PROFILE\fcu__flight_control__brake_profile.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BRAKE_PROFILE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_006.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h">
@@ -139,6 +550,117 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core__localdef.h">
       <Filter>LCCM655__RLOOP__FCU_CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__fault_flags.h">
+      <Filter>LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM418__MULTICORE__MMA8451\mma8541__fault_flags.h">
+      <Filter>Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM418__MULTICORE__MMA8451\mma8451.h">
+      <Filter>Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM418__MULTICORE__MMA8451\mma8451__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM418__MULTICORE__MMA8451\mma8451__register_defs.h">
+      <Filter>Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq.h">
+      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\THROTTLES\fcu__throttles.h">
+      <Filter>LCCM655__RLOOP__FCU_CORE\THROTTLES</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\NETWORKING\fcu_core__net__packet_types.h">
+      <Filter>LCCM655__RLOOP__FCU_CORE\NETWORKING</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi_defines.h">
+      <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi_types.h">
+      <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\fcu__accel__fault_flags.h">
+      <Filter>LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\sc16__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\sc16.h">
+      <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\sc16__fault_flags.h">
+      <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\amc7812__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\amc7812.h">
+      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.h">
+      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload__localdef.h">
+      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS\eeprom_params__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS\eeprom_params.h">
+      <Filter>Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO\software_fifo.h">
+      <Filter>Source Files\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO\software_fifo__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO\software_fifo__public.h">
+      <Filter>Source Files\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\safe_udp__types.h">
+      <Filter>Source Files\MULTICORE\LCCM528__MULTICORE__SAFE_UDP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\safe_udp.h">
+      <Filter>Source Files\MULTICORE\LCCM528__MULTICORE__SAFE_UDP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\safe_udp__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM528__MULTICORE__SAFE_UDP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\safe_udp__packet_types.h">
+      <Filter>Source Files\MULTICORE\LCCM528__MULTICORE__SAFE_UDP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\eth__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\eth.h">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\eth__fault_flags.h">
+      <Filter>Source Files\MULTICORE\LCCM325__MULTICORE__802_3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\fcu__laser_cont__fault_flags.h">
+      <Filter>LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__localdef.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__private.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__semistaticdef.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__staticdef.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
