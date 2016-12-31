@@ -5,23 +5,20 @@
 	/** ASI communication (modbus client) states */
 	typedef enum
 	{
-		/** Initial state */
-		ASI_COMM_STATE__INITIAL = 0u,
-
 		/** Idle state */
-		ASI_COMM_STATE__IDLE = 1u,
+		ASI_COMM_STATE__IDLE = 0u,
 
-		/** Transmit to all slaves */
-		ASI_COMM_STATE__BROADCAST_EMISSION = 2u,
+		/** Wait until slaves have time to process broadcast command */
+		ASI_COMM_STATE__WAIT_TURNAROUND_DELAY = 1u,
 
-		/** Transmit to a specific slave */
-		ASI_COMM_STATE__UNICAST_EMISSION = 3u,
+		/** Wait until hear back from slave after unicast command */
+		ASI_COMM_STATE__WAIT_REPLY = 2u,
 
 		/** Receive state */
-		ASI_COMM_STATE__RECEPTION = 4u,
+		ASI_COMM_STATE__PROCESS_REPLY = 3u,
 
-		/** Process reply or error */
-		ASI_COMM_STATE__CONTROL_AND_WAIT = 5u
+		/** Process error */
+		ASI_COMM_STATE__PROCESS_ERROR = 4u
 
 	} E_FCU_MODBUS__STATE_T;
 

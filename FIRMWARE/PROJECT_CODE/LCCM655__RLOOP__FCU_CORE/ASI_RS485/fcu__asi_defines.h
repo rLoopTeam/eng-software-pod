@@ -2,9 +2,19 @@
 #ifndef RLOOP_LCCM655__RLOOP__FCU_CORE_ASI_RS485_FCU__ASI_DEFINES_H_
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_ASI_RS485_FCU__ASI_DEFINES_H_
 
+	// number of ASI commands waiting in queue
+	#define C_ASI__COMMAND_QUEUE				(8)
+
+	// max modbus frame size
+	#define C_ASI__MAX_FRAME_SIZE				(256)
+
 	// modbus function codes
 	#define C_ASI__READ_INPUT_REGISTER			(0x04)
 	#define C_ASI__WRITE_SINGLE_REGISTER		(0x06)
+
+	// modbus timers in 10 ms units
+	#define C_ASI__MAX_TURNAROUND_DELAY			(15)
+	#define C_ASI__MAX_REPLYWAIT_DELAY			(100)
 
 
 	/** ASI command parameter register address */

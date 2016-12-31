@@ -452,6 +452,11 @@ void vFCU__RTI_10MS_ISR(void)
 		//tell the pusher interface about us.
 		vFCU_PUSHER__10MS_ISR();
 	#endif
+
+	#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
+		vFCU_ASI__10MS_ISR();
+	#endif
+
 }
 
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U

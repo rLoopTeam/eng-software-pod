@@ -24,6 +24,16 @@
 			E_UINT64 = 0X82
 		} E_VAR_TYPE;
 
+		/** variable type to set requested variable to ASI response */
+		typedef enum
+		{
+			E_NONE,
+			E_SLAVE_MISMATCH,
+			E_CRC_CHECK_FAILED,
+			E_REPLY_TIMEOUT_EXPIRED,
+			E_ERROR_RESPONSE
+		} E_ERR_TYPE;
+
 		/** ASI controller modbus read/write register command structure */
 		struct _strASICmd
 		{
@@ -35,15 +45,8 @@
 			Luint8 response[C_ASI__RW_FRAME_SIZE];	// assuming we always read only one register
 			void* destVar;
 			E_VAR_TYPE eDestVarType;
-		};
-
-		/** ASI controller modbus read register response structure */
-		struct _strASIReply
-		{
-			Luint8 fncCode;
-			Luint8 byteCount;
-			Luint8 inRegHi;
-			Luint8 inRegLo;
+			Lint8 retry;
+			E_ERR_TYPE eErrorType;
 		};
 
 

@@ -33,20 +33,11 @@ void vFCU_ASI__Init(void)
 {
 	memset(sFCU.sASIComms, 0, sizeof(sFCU.sASIComms));
 
-	// TODO: lower level SC16 and MCP23 init
 	// TODO: set baud rate
-	// 3.5CharTimer and 1.5CharTimer depend on baud rate (see pg 13 of Modbus over serial line spec)
-	// assume we will set baud rate > 19200 Bps
-	// TODO: get information on micro second timer counter
-	// TODO: implement 1.5CharTimer to detect incomplete frames
-	// assuming we have a global micro second counter that we can get with getCurMicroSecTimer()
-	// assuming we have vSC16_USER__Tx_Byte(), vSC16_USER__RxIsReady() and vSC16_USER__Rx_Byte()
-	sFCU.sASIComms.timeout_3_5_char = 1750; // in microsec
-	sFCU.sASIComms.timeout_1_5_char = 750; // in microsec
-	sFCU.sASIComms.timeout_response = 3000;  // this is application specific; TODO: check this value
 
-	// ensure first frame starts with silence interval
-	sFCU.sASIComms.timer_3_5_char_start =  getCurMicroSecTimer();
+	sFCU.sASIComms.u32ASI_turnaround_Counter = 0;
+	sFCU.sASIComms.u32ASI_replywait_Counter = 0;
+
 
 	// initialize all slaves
 	vFCU_ASI__Controller_Init();
@@ -60,129 +51,92 @@ void vFCU_ASI__Init(void)
  */
 void vFCU_ASI__Process(void)
 {
-	Luint8 byteIndex;
-	Luint8 bSent=0;
-	Luint8 bProcessedReply=0;
+	Luint8 u8Temp;
 
 	// modbus over serial line state machine
 	switch(sFCU.sASIComms.eMbState)
 	{
-		case ASI_COMM_STATE__INITIAL:
-			// wait for 3.5 char worth of silence time
-			if ((getCurMicroSecTimer() - sFCU.sASIComms.timer_3_5_char_start) > sFCU.sASIComms.timeout_3_5_char)
-			{
-				sFCU.sASIComms.eMbState = ASI_COMM_STATE__IDLE;
-			}
-			break;
-
 		case ASI_COMM_STATE__IDLE:
 			// see if we have a command to transmit in the queue
 			if (sFCU.sASIComms.qHead != sFCU.sASIComms.qTail)
 			{
+				// transmit
+				Luint8* pByte = sFCU.sASIComms.cmdQueue[sFCU.sASIComms.qTail].framedCmd;
+				vSC16__Tx_ByteArray(0, pByte, C_ASI__RW_FRAME_SIZE);
+
 				if (sFCU.sASIComms.cmdQueue[sFCU.sASIComms.qTail].u8SlaveAddress == 0)
 				{
-					// we have a broadcast command
-					sFCU.sASIComms.eMbState = ASI_COMM_STATE__BROADCAST_EMISSION;
+					// we have a broadcast command, start turn around timer
+					sFCU.sASIComms.u32ASI_turnaround_Counter  = 0;
+					sFCU.sASIComms.eMbState = ASI_COMM_STATE__WAIT_TURNAROUND_DELAY;
 				}
 				else
 				{
-					// we have a unicast command
-					sFCU.sASIComms.eMbState = ASI_COMM_STATE__UNICAST_EMISSION;
+					// we have a unicast command, start reply wait timer
+					sFCU.sASIComms.u32ASI_replywait_Counter = 0;
+					sFCU.sASIComms.eMbState = ASI_COMM_STATE__WAIT_REPLY;
 				}
 			}
 			break;
 
-		case ASI_COMM_STATE__BROADCAST_EMISSION:
-			if (bSent && (getCurMicroSecTimer() - sFCU.sASIComms.timer_turnaround_start) > sFCU.sASIComms.timeout_turnaround)
+		case ASI_COMM_STATE__WAIT_TURNAROUND_DELAY:
+			// sent broadcast, wait for slaves to process
+			if (sFCU.sASIComms.u32ASI_turnaround_Counter > C_ASI__MAX_TURNAROUND_DELAY)
 			{
-				bSent=0;
 				sFCU.sASIComms.eMbState = ASI_COMM_STATE__IDLE;
 			}
-			else if (!bSent)
+			break;
+
+		case ASI_COMM_STATE__WAIT_REPLY:
+			// see if we have a reply
+			u8Temp = u8SC16_USER__Get_ByteAvail(0);	//TODO: verify device number
+			if(u8Temp == 0U)
 			{
-				// start transmitting
-				Luint8* pByte = sFCU.sASIComms.cmdQueue[sFCU.sASIComms.qTail].framedCmd;
-				for (byteIndex=0; byteIndex < C_ASI__RW_FRAME_SIZE; byteIndex++)
+				// no response yet
+				// check to see if reply wait timer expired
+				if (sFCU.sASIComms.u32ASI_replywait_Counter > C_ASI_MAX_WAITREPLY_DELAY)
 				{
-					vFCU_ASI__RTU_Tx_Byte(pByte++);
+					sFCU.sASIComms.cmdQueue[sFCU.sASIComms.qTail].eErrorType = E_REPLY_TIMEOUT_EXPIRED;
+					sFCU.sASIComms.eMbState = ASI_COMM_STATE__PROCESS_ERROR;
 				}
-				bSent=1;
-				// done sending all bytes, start turn around timer
-				sFCU.sASIComms.timer_turnaround_start  = getCurMicroSecTimer();
 			}
 			else
 			{
-				// stay in this state until turnaround delay passes
-			}
-
-			break;
-
-		case ASI_COMM_STATE__UNICAST_EMISSION:
-			if (bSent && (getCurMicroSecTimer() - sFCU.sASIComms.timer_3_5_char_start) > sFCU.sASIComms.timeout_3_5_char)
-			{
-				bSent=0;
-				sFCU.sASIComms.eMbState = ASI_COMM_STATE__RECEPTION;
-			}
-			else if (!bSent)
-			{
-				// start transmitting
-				Luint8* pByte = sFCU.sASIComms.cmdQueue[sFCU.sASIComms.qTail].framedCmd;
-				for (byteIndex=0; byteIndex < C_ASI__RW_FRAME_SIZE; byteIndex++)
-				{
-					vFCU_ASI__RTU_Tx_Byte(pByte++);
-				}
-				bSent=1;
-				// done sending all bytes, start 3.5 char worth silence interval and response timer
-				sFCU.sASIComms.timer_3_5_char_start =  sFCU.sASIComms.timer_response_start  = getCurMicroSecTimer();
-			}
-			else
-			{
-				// stay in this state until silence interval passes
-			}
-
-			break;
-
-		case ASI_COMM_STATE__RECEPTION:
-			if ((getCurMicroSecTimer() - sFCU.sASIComms.timer_response_start) > sFCU.sASIComms.timeout_response)
-			{
-				// timed out waiting for response, message is left in queue, try sending again
-				sFCU.sASIComms.eMbState = ASI_COMM_STATE__IDLE;
-			}
-			else if (vFCU_ASI__RTU_RxIsReady())
-			{
-				// start receiveing
+				// receive the response
 				Luint8* pByte = sFCU.sASIComms.cmdQueue[sFCU.sASIComms.qTail].response;
 				for (byteIndex=0; byteIndex < C_ASI__RW_FRAME_SIZE; byteIndex++)
 				{
-					vFCU_ASI__RTU_Rx_Byte(pByte++);
+					*pByte++ = u8SC16_USER__Get_Byte(0); //TODO: verify device number, plus initialize device?
 				}
-				// done getting all bytes, start 3.5 silence interval
-				sFCU.sASIComms.timer_3_5_char_start =  getCurMicroSecTimer();
-				sFCU.sASIComms.eMbState = ASI_COMM_STATE__CONTROL_AND_WAIT;
+				sFCU.sASIComms.eMbState = ASI_COMM_STATE__PROCESS_REPLY;
 			}
 			break;
 
-		case ASI_COMM_STATE__CONTROL_AND_WAIT:
-			if (bProcessedReply && (getCurMicroSecTimer() - sFCU.sASIComms.timer_3_5_char_start) > sFCU.sASIComms.timeout_3_5_char)
+		case ASI_COMM_STATE__PROCESS_REPLY:
+			if (vFCU_ASI__ProcessReply(sFCU.sASIComms.qTail))
 			{
-				bProcessedReply=0;
-				sFCU.sASIComms.eMbState = ASI_COMM_STATE__IDLE;
-			}
-			else if (!bProcessedReply)
-			{
-				if (vFCU_ASI__ProcessReply())
-				{
-					// there was an error
-					sFCU.sASIComms.eMbState = ASI_COMM_STATE__IDLE;
-				}
-				else
-				{
-					bProcessedReply=1;
-				}
+				sFCU.sASIComms.eMbState = ASI_COMM_STATE__PROCESS_ERROR;
+
 			}
 			else
 			{
-				// stay in this state until silence interval passes
+				// done processing this command, ready for next command
+				sFCU.sASIComms.eMbState = ASI_COMM_STATE__IDLE;
+
+			}
+			break;
+
+		case ASI_COMM_STATE__PROCESS_ERROR:
+			if (!sFCU.sASIComms.cmdQueue[sFCU.sASIComms.qTail].retry)
+			{
+				// set retry and go to idle to process this again
+				sFCU.sASIComms.cmdQueue[sFCU.sASIComms.qTail].retry = 1;
+				sFCU.sASIComms.eMbState = ASI_COMM_STATE__IDLE
+			}
+			else
+			{
+				vFCU_ASI__ProcessError(sFCU.sASIComms.qTail);
+				sFCU.sASIComms.eMbState = ASI_COMM_STATE__IDLE;
 			}
 			break;
 	}
@@ -208,6 +162,9 @@ Lint8 vFCU_ASI__SendCommand(struct _strASICmd *sCmdParams)
 			// queue is backed up, can't send message
 			return -1;
 		}
+
+		// clear contents of this command queue slot
+		memset(sFCU.sASIComms.qHead, 0, sizeof(_strASICmd));
 
 		// build the frame of bytes to send for this command
 		vFCU_ASI__BuildCmdFrame(sCmdParams);
@@ -303,33 +260,42 @@ void vFCU_ASI__AddCRC(Luint8* data)
  * @brief
  * Process reply from ASI device
  *
- * @param[in]	sCmdParams		Command structure with read params
+ * @param[in]	pTail		Command being processed in command queue
  * @return			-1 = crc error
  * 					0 = success
  */
-Lint8 vFCU_ASI__ProcessReply(void)
+Lint8 vFCU_ASI__ProcessReply(struct _strASICmd *pTail)
 {
-	struct _strASICmd *pTail = &sFCU.sASIComms.cmdQueue[sFCU.sASIComms.qTail];
+	if (pTail)
+	{
+		// check CRC
+		if (vFCU_ASI__CheckCRC(pTail->response, C_ASI__RW_FRAME_SIZE))
+		{
+			pTail->eErrorType = E_CRC_CHECK_FAILED;
+			return -1;
+		}
+		// check return slave address vs sent slave address, they should match
+		if (pTail->framedCmd[0] != pTail->response[0])
+		{
+			pTail->eErrorType = E_SLAVE_MISMATCH;
+			return -1;
+		}
+		// check function code in response, if it's error reply, process error
+		if (pTail->response[2] & 0x80)
+		{
+			pTail->eErrorType = E_ERROR_RESPONSE;
+			return -1;
+		}
 
-	if (vFCU_ASI__CheckCRC(pTail->response, C_ASI__RW_FRAME_SIZE)) {
-		return -1;
-	}
-	// check function code in response, if it's error reply, process error
-	if (pTail->response[2] & 0x80)
-	{
-		vFCU_ASI__ProcessError(pTail);
-	}
-	else
-	{
 		vFCU_ASI__SetVar(pTail);
-	}
-	// TODO: check return slave address vs sent slave address, they should match
 
-	//adjust tail pointer
-	//pop the command out of the queue because it's done being processed
-	sFCU.sASIComms.qTail++;
-	if (sFCU.sASIComms.qTail == C_ASI__RW_FRAME_SIZE)
-		sFCU.sASIComms.qTail=0;	// rollover
+		//adjust tail pointer
+		//pop the command out of the queue because it's done being processed
+		sFCU.sASIComms.qTail++;
+		if (sFCU.sASIComms.qTail == C_ASI__RW_FRAME_SIZE)
+			sFCU.sASIComms.qTail=0;	// rollover
+
+	}
 
 	return 0;
 }
@@ -400,59 +366,64 @@ void vFCU_ASI__ProcessError(struct _strASICmd *pTail)
 {
 	if (pTail)
 	{
-		// TODO: log exception code: pTail->response[2];
+		// TODO: log error
+		if (pTail->eErrorType == E_ERROR_RESPONSE)
+		{
+			// TODO: add exception code: pTail->response[2] to error log
+		}
+		// set requesting variable to 0 to alert about error
+		vFCU_ASI__SetErr(sFCU.sASIComms.qTail);
+
+		//adjust tail pointer
+		//pop the command out of the queue because it's done being processed
+		sFCU.sASIComms.qTail++;
+		if (sFCU.sASIComms.qTail == C_ASI__RW_FRAME_SIZE)
+			sFCU.sASIComms.qTail=0;	// rollover
+	}
+
+}
+
+/***************************************************************************//**
+ * @brief
+ * Set variable with appropriate error from ASI device
+ *
+ * @param[in]	pTail		Command being processed in command queue
+ */
+void vFCU_ASI__SetErr(struct _strASICmd *pTail)
+{
+	if (pTail && pTail->destVar)
+	{
+		switch(pTail->eDestVarType)
+		{
+			case E_INT8:
+				*((Lint8*)pTail->destVar) = 0;
+				break;
+			case E_UINT8:
+				*((Luint8*)pTail->destVar) = 0;
+				break;
+			case E_INT16:
+				*((Lint16*)pTail->destVar) = 0;
+				break;
+			case E_UINT16:
+				*((Luint16*)pTail->destVar) = 0;
+				break;
+		}
 	}
 }
 
 
 /***************************************************************************//**
  * @brief
- * Build RTU packet for each byte and transmit using lower level driver
+ * 10MS ISR point
  *
- * @param[in]	pByte		Byte to transmit
  */
-void vFCU_ASI__RTU_Tx_Byte(Luint8* pByte)
+void vFCU_ASI__10MS_ISR(void)
 {
-	// TODO
-	// need to format byte as in p12 of Modbus over serial line documentation
-	// 11 bits per byte: add parity checking bit, start bit and stop bit
-	// start, 1, 2, 3, 4, 5, 6, 7, 8, parity, stop
-	// then call lower level driver function to transmit each bit
-	//
+	sFCU.sASIComms.u32ASI_turnaround_Counter++;
+	sFCU.sASIComms.u32ASI_replywait_Counter++;
 }
 
-/***************************************************************************//**
- * @brief
- * Receive RTU packet using lower level drive extract data byte
- *
- * @param[in]	pByte		Byte to receive
- */
-void vFCU_ASI__RTU_Rx_Byte(Luint8* pByte)
-{
-	// TODO
-	// call lower level driver function to receive rtu packet
-	// need to extract byte as in p12 of Modbus over serial line documentation
-	// 11 bits in packet: remove parity checking bit, start bit and stop bit
-	// start, 1, 2, 3, 4, 5, 6, 7, 8, parity, stop
 
-}
-
-/***************************************************************************//**
- * @brief
- * Check and see if we have a rtu packet to receive from a slave
- *
- * @return			1 = yes
- * 					0 = no
- */
-Luint8 vFCU_ASI__RTU_RxIsReady(void)
-{
-	Luint8 isReady=0;
-
-	// TODO
-	// call lower level driver function to figure this out
-
-	return isReady;
-}
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_ASI_RS485
 #ifndef C_LOCALDEF__LCCM655__ENABLE_ASI_RS485
