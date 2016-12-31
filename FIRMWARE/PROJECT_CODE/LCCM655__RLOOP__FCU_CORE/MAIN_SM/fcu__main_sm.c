@@ -91,6 +91,11 @@ void vFCU_MAINSM__Process(void)
 				vFCU_THROTTLE__Init();
 			#endif
 
+			//Init the AMC7812 DAC
+			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+				vAMC7812__Init();
+			#endif
+
 			//init the ASI RS485 interface
 			#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
 				vFCU_ASI__Init();
@@ -123,6 +128,10 @@ void vFCU_MAINSM__Process(void)
 
 		case RUN_STATE__STARTUP_MODE:
 			//run what we need to in startup mode, checkout sensors and other diagnostics
+
+			//xxxxxxxxxxxxxxxxxxxxxxxxTEMPORARY @gsweriduk 15DEC xxxxxxxxxxxxxxxxxxxxxxxx
+			sFCU.eRunState = RUN_STATE__AUTO_SEQUENCE_MODE;
+			//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 			break;
 
 		case RUN_STATE__AUTO_SEQUENCE_MODE:

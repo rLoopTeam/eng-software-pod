@@ -49,10 +49,10 @@ extern struct _strFCU sFCU;
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 //xxxxxxxxxxxxx  DUMMY VALUES - TO BE SENT BY GROUND STATION  xxxxxxxxxxxxxx
-#define GS_COMMAND_MODE						STATIC_HOVERING//SET_HEX_SPEED
+#define GS_COMMAND_MODE						SET_HEX_SPEED
 #define GS_COMMAND_UNITS					0U
 #define GS_THROTTLE_COMMAND					15000U
-#define GS_ENGINE_NUMBER					0U//6U
+#define GS_ENGINE_NUMBER					6U//0U
 #define GS_THROTTLE_RAMP_DURATION			3000U
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
@@ -116,6 +116,7 @@ void vFCU_THROTTLE__Process(void)
 	Lint16 s16Return;
 	//Luint16 u16ThrottleCommands[9];
 	static Luint8 u8Counter = 0U;
+	static Luint8 u8Counter2 = 0U;
 	Luint16 u16DoneFlag;
 
 	Luint16 u16Command;
@@ -147,7 +148,7 @@ void vFCU_THROTTLE__Process(void)
 		// set command variables
 
 		sFCU.sThrottle.u16ThrottleCommands[0] =   sFCU.sThrottle.u16rpmHEStaticHoveringSpeed;
-		sFCU.sThrottle.u8EngineNumber = ALL_HES;
+		sFCU.sThrottle.u8EngineNumber = 6U;//ALL_HES;//xxxxxxxxxxxxxxxxxxxxxTEMPORARYXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 		// change the state
 
@@ -248,12 +249,14 @@ void vFCU_THROTTLE__Process(void)
 
 		case THROTTLE_STATE__RAMP_COMMAND:
 
-			u8Counter++;
+			u8Counter2++;
 
 			// Check the timer state: the output command will increment every 100 milliseconds
 
 			if(sFCU.sThrottle.u8100MS_Timer == 1U)
 			{
+
+				u8Counter++;
 
 				// call ramp (currently set to command all HEs, can be set to a specific HE: change index of u16ThrottleCommand)
 
