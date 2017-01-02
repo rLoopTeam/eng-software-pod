@@ -144,6 +144,9 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 	#define C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 
+		//special needs for DAQ compile time
+		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__daq_settings.h>
+
 		/** Enable or disable the PiComms layer */
 		#define C_LOCALDEF__LCCM655__ENABLE_PI_COMMS						(0U)
 

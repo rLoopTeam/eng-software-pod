@@ -48,6 +48,9 @@ MMA8451 - 3 AXIS ACCELEROMETER
 		#define C_LOCALDEF__LCCM418__FORCE_INTERRUPT_DEV2					(0U)
 		#define C_LOCALDEF__LCCM418__FORCE_INTERRUPT_DEV3					(0U)
 		
+		//sensor G-Force range, 2,4,8
+		#define C_LOCALDEF__LCCM418__G_FORCE_RANGE							(8U)
+
 		//testing options
 		#define C_LOCALDEF__LCCM418__ENABLE_TEST_SPEC 						(0U)
 

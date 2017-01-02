@@ -18,6 +18,10 @@
 
 #include "../fcu_core.h"
 
+//http://confluence.rloop.org/display/SD/System+Parameters
+
+//http://confluence.rloop.org/display/SD/2.3.+Determine+Pod+Front+and+Rear+x+Position%2C+Speed+and+Acceleration+in+tube
+
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 
 //the structure

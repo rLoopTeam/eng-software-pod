@@ -15,6 +15,9 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 	#define C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 
+		//special needs for DAQ compile time
+		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__daq_settings.h>
+
 		/** Enable or disable the PiComms layer */
 		#define C_LOCALDEF__LCCM655__ENABLE_PI_COMMS						(1U)
 
@@ -58,7 +61,14 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 			//Contrast Sensor Navigation
 			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_CONTRAST_NAV				(1U)
 
+			//hover engine drag modelling
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_HE_DRAG					(1U)
 
+			//aero drag modelling
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_AERO_DRAG					(1U)
+
+			/** Allow us to control the gimbals and include in calculations */
+			#define C_LOCALDEF__LCCM655__ENABLE_GIMBAL_CONTROL					(1U)
 
 		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER			(20U)
 		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO				(21U)

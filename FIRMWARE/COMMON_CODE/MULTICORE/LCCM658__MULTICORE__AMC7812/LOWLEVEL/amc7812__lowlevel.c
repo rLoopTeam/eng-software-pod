@@ -37,9 +37,40 @@ extern struct _strAMC7812_DAC strAMC7812_DAC;
 void vAMC7812_LOWLEVEL__Init(void)
 {
 
+#ifndef WIN32
+	//reset line to output
+	C_LOCALDEF__LCCM658__NRESET__TRIS(0U);
 
+	//reset the device
+	vAMC7812_LOWLEVEL__Reset();
+#endif //WIN32
 }
 
+
+//generate the reset pulse
+void vAMC7812_LOWLEVEL__Reset(void)
+{
+#ifndef WIN32
+	//reset high
+	C_LOCALDEF__LCCM658__NRESET__LATCH(1U);
+
+	//delay
+	vRM4_DELAYS__Delay_uS(100U);
+
+	//reset
+	C_LOCALDEF__LCCM658__NRESET__LATCH(0U);
+
+	//reset low for a bit
+	vRM4_DELAYS__Delay_uS(100U);
+
+	//reset off.
+	C_LOCALDEF__LCCM658__NRESET__LATCH(1U);
+
+	//wait until ready
+	vRM4_DELAYS__Delay_uS(100U);
+
+#endif //win32
+}
 
 
 #endif //#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U

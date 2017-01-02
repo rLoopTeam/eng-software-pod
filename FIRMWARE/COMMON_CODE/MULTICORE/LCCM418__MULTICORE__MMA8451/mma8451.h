@@ -250,6 +250,14 @@
 	void vMMA8451_FIFO__Init(void);
 	void vMMA8451_FIFO__Read(void);
 	
+	#ifdef WIN32
+		DLL_DECLARATION void vMMA8451_WIN32__TriggerInterrupt(Luint8 u8DeviceIndex);
+		typedef void (__cdecl * pMMA8451_WIN32__ReadDataCallback_FuncType)(Luint8 u8DeviceIndex, Lint16 *ps16X, Lint16 *ps16Y, Lint16 *ps16Z);
+		DLL_DECLARATION void vMMA8451_WIN32__Set_ReadDataCallback(pMMA8451_WIN32__ReadDataCallback_FuncType pFunc);
+		void vMMA8451_WIN32__ReadData(Luint8 u8DeviceIndex, Lint16 *ps16X, Lint16 *ps16Y, Lint16 *ps16Z);
+
+	#endif
+	
 	#if C_LOCALDEF__LCCM418__ENABLE_TEST_SPEC == 1U
 		void vLCCM418_TS_001(void);
 	#endif

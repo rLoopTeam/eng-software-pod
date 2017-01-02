@@ -50,6 +50,17 @@ Public Class Form1
     Public Delegate Sub ETH_WIN32__TxCallbackDelegate(ByVal pu8Buffer As IntPtr, ByVal u16BufferLength As UInt16)
 
 
+    'mma8451
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Shared Sub vMMA8451_WIN32__Set_ReadDataCallback(ByVal callback As MulticastDelegate)
+    End Sub
+    <System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Delegate Sub MMA8451_WIN32__ReadDataCallbackDelegate(u8DeviceIndex As Byte, pu8X As IntPtr, pu8Y As IntPtr, pu8Z As IntPtr)
+
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Shared Sub vMMA8451_WIN32__TriggerInterrupt(u8DeviceIndex As Byte)
+    End Sub
+
 #End Region '#Region "WIN32/DEBUG"
 
 #Region "C CODE SPECIFICS"
@@ -127,6 +138,11 @@ Public Class Form1
     Private m_pETH_TX__Delegate As ETH_WIN32__TxCallbackDelegate
 
     ''' <summary>
+    ''' When the MMA8451 wants data from us
+    ''' </summary>
+    Private m_pMMA8451_ReadData__Delegate As MMA8451_WIN32__ReadDataCallbackDelegate
+
+    ''' <summary>
     ''' The thread to run our DLL in
     ''' </summary>
     ''' <remarks></remarks>
@@ -141,6 +157,21 @@ Public Class Form1
 
     Private m_pTimer10 As System.Timers.Timer
     Private m_pTimer100 As System.Timers.Timer
+
+    ''' <summary>
+    ''' Timer to handle accels.
+    ''' </summary>
+    Private m_pTimerAccel As System.Timers.Timer
+
+
+#Region "SENSOR SIM VALUES"
+
+    Private m_iAccel0_X As Integer
+    Private m_iAccel0_Y As Integer
+    Private m_iAccel0_Z As Integer
+
+
+#End Region '#Region "SENSOR SIM VALUES"
 
 #End Region '#Region "MEMBERS"
 
@@ -260,6 +291,9 @@ Public Class Form1
         Me.m_pETH_TX__Delegate = AddressOf Me.ETH_WIN32__TxCallback_Sub
         vETH_WIN32__Set_Ethernet_TxCallback(Me.m_pETH_TX__Delegate)
 
+        Me.m_pMMA8451_ReadData__Delegate = AddressOf Me.MMA8451_WIN32__ReadDataCallback_Sub
+        vMMA8451_WIN32__Set_ReadDataCallback(Me.m_pMMA8451_ReadData__Delegate)
+
         'do the threading
         Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
         Me.m_pMainThread.Name = "FCU THREAD"
@@ -324,6 +358,13 @@ Public Class Form1
         Dim pB As Button = CType(sender, Button)
 
         If pB.Text = "Start" Then
+
+            'setup the default values
+            Me.m_iAccel0_X = -100
+            Me.m_iAccel0_Y = 500
+            Me.m_iAccel0_Z = 1024
+
+
             'set the flag
             Me.m_bThreadRun = True
 
@@ -348,6 +389,10 @@ Public Class Form1
     End Sub
 
 #End Region '#Region "BUTTON HANDLERS"
+
+#Region "ACCEL SIMULATION"
+
+#End Region '#Region "ACCEL SIMULATION"
 
 #Region "THREADING"
     ''' <summary>
@@ -392,6 +437,12 @@ Public Class Form1
         AddHandler Me.m_pTimer100.Elapsed, AddressOf Me.Timers__T100_Tick
         Me.m_pTimer100.Start()
 
+        '100hz
+        Me.m_pTimerAccel = New System.Timers.Timer
+        Me.m_pTimerAccel.Interval = 10
+        AddHandler Me.m_pTimerAccel.Elapsed, AddressOf Me.Timers__Accel_Tick
+        Me.m_pTimerAccel.Start()
+
     End Sub
 
     ''' <summary>
@@ -413,6 +464,19 @@ Public Class Form1
     Private Sub Timers__T100_Tick(s As Object, e As System.Timers.ElapsedEventArgs)
         If Me.m_bThreadRun = True Then
             vFCU__RTI_100MS_ISR()
+        End If
+    End Sub
+
+
+    ''' <summary>
+    ''' 100ms timer
+    ''' </summary>
+    ''' <param name="s"></param>
+    ''' <param name="e"></param>
+    Private Sub Timers__Accel_Tick(s As Object, e As System.Timers.ElapsedEventArgs)
+        If Me.m_bThreadRun = True Then
+            vMMA8451_WIN32__TriggerInterrupt(0)
+            vMMA8451_WIN32__TriggerInterrupt(1)
         End If
     End Sub
 
@@ -639,6 +703,56 @@ Public Class Form1
 
     End Sub
 
+
+#End Region
+
+#Region "MMA8451"
+
+    ''' <summary>
+    ''' Callback when the MMA wants to read some new data
+    ''' </summary>
+    ''' <param name="u8DeviceIndex"></param>
+    ''' <param name="ps16X"></param>
+    ''' <param name="ps16Y"></param>
+    ''' <param name="ps16Z"></param>
+    Private Sub MMA8451_WIN32__ReadDataCallback_Sub(u8DeviceIndex As Byte, ps16X As IntPtr, ps16Y As IntPtr, ps16Z As IntPtr)
+
+        Dim iEthPort As Integer = 9100
+        Dim bArray(1500 - 1) As Byte
+        'SIL3.MemoryCopy.MemoryCopy.Copy_Memory(bArray, u8Buffer, CInt(u16BufferLength))
+
+        Dim xS16X As SIL3.Numerical.S16
+        Dim xS16Y As SIL3.Numerical.S16
+        Dim xS16Z As SIL3.Numerical.S16
+
+        If u8DeviceIndex = 0 Then
+            xS16X = New SIL3.Numerical.S16(Me.m_iAccel0_X)
+            xS16Y = New SIL3.Numerical.S16(Me.m_iAccel0_Y)
+            xS16Z = New SIL3.Numerical.S16(Me.m_iAccel0_Z)
+        Else
+            xS16X = New SIL3.Numerical.S16(-2002)
+            xS16Y = New SIL3.Numerical.S16(-5005)
+            xS16Z = New SIL3.Numerical.S16(4096)
+        End If
+
+        Me.m_iAccel0_X += 1
+        Me.m_iAccel0_Y += 1
+        Me.m_iAccel0_Z += 1
+
+        Dim bX(2 - 1) As Byte
+        xS16X.To__Array(bX, 0)
+
+        Dim bY(2 - 1) As Byte
+        xS16Y.To__Array(bY, 0)
+
+        Dim bZ(2 - 1) As Byte
+        xS16Z.To__Array(bZ, 0)
+
+        SIL3.MemoryCopy.MemoryCopy.Copy_Memory(ps16X, bX, 2)
+        SIL3.MemoryCopy.MemoryCopy.Copy_Memory(ps16Y, bY, 2)
+        SIL3.MemoryCopy.MemoryCopy.Copy_Memory(ps16Z, bZ, 2)
+
+    End Sub
 
 #End Region
 

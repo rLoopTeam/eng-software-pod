@@ -180,6 +180,7 @@
 		
 		//Lowlevel
 		void vAMC7812_LOWLEVEL__Init(void);
+		void vAMC7812_LOWLEVEL__Reset(void);
 
 		//I2C
 		void vAMC7812_I2C__Init(void);
