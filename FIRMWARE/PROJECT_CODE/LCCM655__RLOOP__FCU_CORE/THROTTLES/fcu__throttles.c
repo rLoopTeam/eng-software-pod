@@ -18,7 +18,7 @@
 
 #include "../fcu_core.h"
 
-#include <MULTICORE/LCCM658__MULTICORE__AMC7812/amc7812.h>
+//#include <MULTICORE/LCCM658__MULTICORE__AMC7812/amc7812.h>
 
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
@@ -69,6 +69,10 @@ static Luint16 u16InitThrottleCommand;
  */
 void vFCU_THROTTLE__Init(void)
 {
+
+	//configure dev mode
+	sFCU.sThrottle.sDevMode.u32SecurityKey = 0U;
+	sFCU.sThrottle.sDevMode.u8Enabled = 0U;
 
 	// initialize static variables
 
@@ -312,6 +316,27 @@ void vFCU_THROTTLE__Process(void)
 	}	// end of switch()
 
 }	// end of vFCU_THROTTLE__Process(...)
+
+
+
+//safetly switch on dev mode
+void vFCU_THROTTLE__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
+{
+
+	if(u32Key0 == 0x11223344U)
+	{
+		sFCU.sThrottle.sDevMode.u8Enabled = 1U;
+		sFCU.sThrottle.sDevMode.u32SecurityKey = 0x77558833U;
+	}
+	else
+	{
+		sFCU.sThrottle.sDevMode.u8Enabled = 0U;
+		sFCU.sThrottle.sDevMode.u32SecurityKey = 0U;
+	}
+
+}
+
+
 
 
 // --- Writes throttle commands for a constant value ---
@@ -597,13 +622,13 @@ Lint16 s16FCU_THROTTLE__Write_HEx_Throttle_Command_to_DAC(Luint16 u16ThrottleCom
 
 	// Define variables for AMC7812 DAC to set output
 
-	strAMC7812_DAC.u16Command = u16ThrottleCommand;
-	strAMC7812_DAC.u16MaxCommandValue = sFCU.sThrottle.u16HE_MAX_SPD;
-	strAMC7812_DAC.u16MinCommandValue = sFCU.sThrottle.u16HE_MIN_SPD;
+//LG	strAMC7812_DAC.u16Command = u16ThrottleCommand;
+//LG	strAMC7812_DAC.u16MaxCommandValue = sFCU.sThrottle.u16HE_MAX_SPD;
+//LG	strAMC7812_DAC.u16MinCommandValue = sFCU.sThrottle.u16HE_MIN_SPD;
 
 	// Set DAC data register for output (see schematic LPCB235 and file amc7812.h)
 
-	strAMC7812_DAC.u8DACRegAddr = u8DACOutputChannelAddr[u8EngineNumber - 1U];
+//LG	strAMC7812_DAC.u8DACRegAddr = u8DACOutputChannelAddr[u8EngineNumber - 1U];
 
 	s16Return = -1;
 

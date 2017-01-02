@@ -587,7 +587,7 @@
 			
 			/** Input data for throttle layer */
 			// (added by @gsweriduk on 23 NOV 2016)
-
+			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
 			struct strThrottleInterfaceData
 			{
 				// Ground Station command
@@ -631,8 +631,20 @@
 				// timer state
 				Luint8 u8100MS_Timer;
 
-			} sThrottle;
+				/** For development mode */
+				struct
+				{
 
+					/** Dev mode enabled */
+					Luint8 u8Enabled;
+
+					/** Dev mode security key, 0x77558833U */
+					Luint32 u32SecurityKey;
+
+				}sDevMode;
+
+			} sThrottle;
+			#endif //C_LOCALDEF__LCCM655__ENABLE_THROTTLE
 
 		};
 

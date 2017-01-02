@@ -50,7 +50,7 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 			break;
 
 		case NET_PKT__FCU_ACCEL__TX_CAL_DATA:
-			u16Length = C_FCU__NUM_ACCEL_CHIPS * 20U;
+			u16Length = C_FCU__NUM_ACCEL_CHIPS * 10U;
 			break;
 
 		default:
@@ -112,7 +112,7 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 			case NET_PKT__FCU_ACCEL__TX_CAL_DATA:
 
-				//20 bytes per device
+				//10 bytes per device
 				for(u8Device = 0U; u8Device < C_FCU__NUM_ACCEL_CHIPS; u8Device++)
 				{
 

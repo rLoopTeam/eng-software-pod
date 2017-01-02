@@ -25,11 +25,6 @@ extern struct _strFCU sFCU;
 /***************************************************************************//**
  * @brief
  * Create the database
- *
- */
-/***************************************************************************//**
- * @brief
- * ToDo
  * 
  * @st_funcMD5		65E439071E099A51CA8F717596933C37
  * @st_funcID		LCCM655R0.FILE.041.FUNC.001
@@ -122,7 +117,7 @@ void vFCU_LASERCONT_TRKDB__Init(void)
 
 /***************************************************************************//**
  * @brief
- *  Process track database systems
+ * Process track database systems
  * 
  * @st_funcMD5		59870A039EA6479C2E49ADD9A7F4EE73
  * @st_funcID		LCCM655R0.FILE.041.FUNC.002

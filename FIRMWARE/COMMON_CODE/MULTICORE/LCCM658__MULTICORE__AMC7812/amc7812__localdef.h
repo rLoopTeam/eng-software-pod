@@ -32,6 +32,11 @@ AMC7812
 		/** The number of main program loops to wait for conversion */
 		#define C_LOCALDEF__LCCM658__NUM_CONVERSION_LOOPS					(10000U)
 
+
+		//Reset pin
+		#define C_LOCALDEF__LCCM658__NRESET__TRIS(x)						{vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 18U);}
+		#define C_LOCALDEF__LCCM658__NRESET__LATCH(x)						{if(x == 0)vRM4_N2HET_PINS__Set_PinLow(N2HET_CHANNEL__1, 18U); else vRM4_N2HET_PINS__Set_PinHigh(N2HET_CHANNEL__1, 18U);}
+
 		/** Main include file */
 		#include <MULTICORE/LCCM658__MULTICORE__AMC7812/amc7812.h>
 	#endif //#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U

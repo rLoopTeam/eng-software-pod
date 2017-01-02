@@ -1,6 +1,6 @@
 /**
  * @file		FCU__LASER_CONT__VELOC.C
- * @brief		Velocity Calculator
+ * @brief		Velocity Calculator based on laser contrast sensor distance.
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
  */
