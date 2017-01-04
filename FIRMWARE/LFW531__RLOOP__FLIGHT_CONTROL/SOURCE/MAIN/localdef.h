@@ -2,7 +2,11 @@
 #define LOCALDEF_H_
 
 	//The PCB's main files
-	#include <../../../BOARD_SUPPORT/lpcb235r0__board_support.h>
+	#ifndef WIN32
+		#include <../../../BOARD_SUPPORT/lpcb235r0__board_support.h>
+	#else
+		#include <../BOARD_SUPPORT/lpcb235r0__board_support.h>
+	#endif
 
 
 /*******************************************************************************
@@ -65,7 +69,7 @@ SAFETY UDP LAYER
 		#define C_LOCALDEF__LCCM528__RX_CALLBACK(p,l,t,d,f)					vFCU_NET_RX__RxSafeUDP(p,l,t,d,f)
 
 		/** The one and only UDP port we can operate on */
-		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER					(9900U)
+		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER					(9100U)
 		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER2					(0U)
 
 		/** Vision over SafeUDP Options */
@@ -89,7 +93,7 @@ AMC7812
 
 		//I2C Bus Address
 		// See Table 8, p. 49 and p. 51, ACM7812 datasheet
-		#define C_LOCALDEF__LCCM658__BUS_ADDX								(0x61)
+		#define C_LOCALDEF__LCCM658__BUS_ADDX								(0xC2)
 
 		/** Num devices on the bus */
 		#define C_LOCALDEF__LCCM658__NUM_DEVICES							(1U)
@@ -103,6 +107,7 @@ AMC7812
 		//Reset pin
 		#define C_LOCALDEF__LCCM658__NRESET__TRIS(x)						{vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 18U);}
 		#define C_LOCALDEF__LCCM658__NRESET__LATCH(x)						{if(x == 0)vRM4_N2HET_PINS__Set_PinLow(N2HET_CHANNEL__1, 18U); else vRM4_N2HET_PINS__Set_PinHigh(N2HET_CHANNEL__1, 18U);}
+
 
 		/** Main include file */
 		#include <MULTICORE/LCCM658__MULTICORE__AMC7812/amc7812.h>
@@ -155,7 +160,6 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 
 		/** Enable the braking subsystems */
 		#define C_LOCALDEF__LCCM655__ENABLE_BRAKES							(1U)
-		#define C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES					(1U)
 
 		/** Enable the throttle control */
 		#define C_LOCALDEF__LCCM655__ENABLE_THROTTLE						(1U)
@@ -180,6 +184,17 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 
 			//Contrast Sensor Navigation
 			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_CONTRAST_NAV				(1U)
+
+			//hover engine drag modelling
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_HE_DRAG					(1U)
+
+			//aero drag modelling
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_AERO_DRAG					(1U)
+
+			/** Allow us to control the gimbals and include in calculations */
+			#define C_LOCALDEF__LCCM655__ENABLE_GIMBAL_CONTROL					(1U)
+
+
 
 		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER			(40U)
 		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO				(41U)
