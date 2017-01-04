@@ -30,11 +30,25 @@ print "Now let's try a callback..."
 
 #debug_printf_callback = ctypes.WINFUNCTYPE(None, ctypes.POINTER(ctypes.c_byte))  # Returns nothing, takes a byte*
 
-debug_printf_callback = ctypes.WINFUNCTYPE(None, ctypes.c_char_p)  # Returns nothing, takes a char*
+# -------
+
+def errcheck_callback(result, func, arguments):
+    print "ERRCHECK: {}, {}, {}".format(result, func.__name__, arguments)
+    
+# -------
+
+lib.vPWRNODE__Process.errcheck = errcheck_callback
+#vPWRNODE__Process.argtypes = []
+#vPWRNODE__Process.restype = None
+#vPWRNODE__Process.errcheck = errcheck_callback
+
+
+debug_printf_callback = ctypes.CFUNCTYPE(None, ctypes.c_char_p)  # Returns nothing, takes a char*
 
 vDEBUG_PRINTF_WIN32__Set_Callback = lib.vDEBUG_PRINTF_WIN32__Set_Callback
 vDEBUG_PRINTF_WIN32__Set_Callback.argtypes = [debug_printf_callback]
 vDEBUG_PRINTF_WIN32__Set_Callback.restype = None
+vDEBUG_PRINTF_WIN32__Set_Callback.errcheck = errcheck_callback
 
 # Define the python function that we'll use for the callback
 def debug_printf(val):
