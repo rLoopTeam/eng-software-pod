@@ -10,7 +10,7 @@ import pprint
 
 
 #dll_path = sys.argv[1]
-dll_path = "C:\\Users\\radams\\Documents\\rLoop\\code\\eng-software-pod\\APPLICATIONS\\PROJECT_CODE\\DLLS\\LDLL173__RLOOP__LCCM653\\bin\\Debug"
+dll_path = "..\\APPLICATIONS\\PROJECT_CODE\\DLLS\\LDLL173__RLOOP__LCCM653\\bin\\Debug"
 dll_name = "LDLL173__RLOOP__LCCM653.dll"
 dll_filename = os.path.join(dll_path, dll_name)
 print "DLL {} exists? {}".format(dll_filename, os.path.exists(dll_filename))
