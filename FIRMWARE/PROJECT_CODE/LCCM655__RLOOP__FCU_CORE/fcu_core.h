@@ -843,6 +843,7 @@
 		void vFCU_ASI__10MS_ISR(void);
 		void vFCU_ASI__Process(void);
 		Lint16 s16FCU_ASI__ReadMotorRpm(Luint8 u8ASIDevNum, Luint16 *u16Rpm);
+		Lint16 s16FCU_ASI__ReadMotorCurrent(Luint8 u8ASIDevNum, Luint16 *u16Current);
 		Lint16 s16FCU_ASI__ReadControllerTemperature(Luint8 u8ASIDevNum, Luint16 *u16Temp);
 		Lint16 s16FCU_ASI__SaveSettings(Luint8 u8ASIDevNum);
 		Lint16 s16FCU_ASI__GetFaults(Luint8 u8ASIDevNum, Luint16 *u16Faults);

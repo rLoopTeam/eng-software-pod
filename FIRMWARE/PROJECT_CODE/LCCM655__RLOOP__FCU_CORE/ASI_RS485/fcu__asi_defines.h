@@ -27,6 +27,7 @@
 	#define C_FCU_ASI__FAULTS								(258)
 	#define C_FCU_ASI__CONT_TEMP							(259)
 	#define C_FCU_ASI__TEMPERATURE							(261)
+	#define C_FCU_ASI__MOTOR_CURRENT						(262)
 	#define C_FCU_ASI__MOTOR_RPM							(263)
 	#define C_FCU_ASI__LAST_FAULT							(269)
 	#define C_FCU_ASI__RAW_SENSOR_TEMPERATURE				(273)
