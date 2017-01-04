@@ -344,6 +344,7 @@ begin
 	
 	--Process to keep time increments going.
 	--At 50MHZ, each time slice is 20ns.
+	--At 25MHZ, each time slice is 40ns.
 	P_TIMEBASE : process(hloop_clk_i, Bus2IP_Reset, s_control_run_on)
 	begin
 		if Bus2IP_Reset = '1' or s_control_run_on = '0' then
@@ -365,7 +366,7 @@ begin
 		elsif rising_edge(hloop_clk_i) then
 			--out system clock is 20ns, but increment the timer by 10ns as we want
 			--the timer in ns resolution
-			s_time_base_ns <= s_time_base_ns + 20;
+			s_time_base_ns <= s_time_base_ns + 40;
 			
 			--let VHDL sort out the multiplier
 			s_time_base_squared_ns <= s_time_base_ns * s_time_base_ns;
@@ -381,7 +382,7 @@ begin
 	end process;
 	
 	--do the actual computation
-	P_COMPUTE : process(hloop_clk_i, Bus2IP_Reset)
+	P_COMPUTE : process(Bus2IP_Clk, Bus2IP_Reset)
 	begin
 		if Bus2IP_Reset = '1' then
 		
@@ -394,7 +395,7 @@ begin
 			--initial states
 			s_sm_state <= ST_IDLE;
 			
-		elsif rising_edge(hloop_clk_i) then
+		elsif rising_edge(Bus2IP_Clk) then
 		
 		
 			case s_sm_state is
