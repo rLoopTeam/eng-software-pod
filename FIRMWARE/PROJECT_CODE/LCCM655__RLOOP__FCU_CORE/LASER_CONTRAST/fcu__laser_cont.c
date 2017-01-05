@@ -120,7 +120,7 @@ void vFCU_LASERCONT__Process(void)
 			vFCU_LASERCONT_TRKDB__Compute((E_FCU__LASER_CONT_INDEX_T)u8LaserCount);
 
 			//update our internal structure of either the dist remain, or a fault
-			sFCU.sContrast.u32DistRemain_mm = u32FCU_LASERCONT_TRKDB__Get_DistanceRemain_mm((E_FCU__LASER_CONT_INDEX_T)u8LaserCount);
+			sFCU.sContrast.u32DistRemain_mm = u32FCU_LASERCONT_TRKDB__Get_DistanceElapsed_mm((E_FCU__LASER_CONT_INDEX_T)u8LaserCount);
 
 			//get the distance covered in the last stripe:
 			//Note: This could be 0 when we are starting off before the first maker.

@@ -33,20 +33,24 @@ extern struct _strFCU sFCU;
 void vFCU_NET__Init(void)
 {
 	//SIL3 OUID
-	sFCU.sEthernet.u8MACAddx[0] = 0x00;
-	sFCU.sEthernet.u8MACAddx[1] = 0x26;
-	sFCU.sEthernet.u8MACAddx[2] = 0x80;
+	sFCU.sEthernet.u8MACAddx[0] = 0x00U;
+	sFCU.sEthernet.u8MACAddx[1] = 0x26U;
+	sFCU.sEthernet.u8MACAddx[2] = 0x80U;
 
 	//PCB MAC
-	sFCU.sEthernet.u8MACAddx[3] = 0x01;
-	sFCU.sEthernet.u8MACAddx[4] = 0x00;
-	sFCU.sEthernet.u8MACAddx[5] = 0x00;
+	sFCU.sEthernet.u8MACAddx[3] = 0x01U;
+	sFCU.sEthernet.u8MACAddx[4] = 0x00U;
+	sFCU.sEthernet.u8MACAddx[5] = 100U;
 
 	//IP
-	sFCU.sEthernet.u8IPAddx[0] = 192;
-	sFCU.sEthernet.u8IPAddx[1] = 168;
-	sFCU.sEthernet.u8IPAddx[2] = 0;
-	sFCU.sEthernet.u8IPAddx[3] = 100;
+	sFCU.sEthernet.u8IPAddx[0] = 192U;
+	sFCU.sEthernet.u8IPAddx[1] = 168U;
+#ifdef __LACHLANS__PC__
+	sFCU.sEthernet.u8IPAddx[2] = 1U;
+#else
+	sFCU.sEthernet.u8IPAddx[2] = 0U;
+#endif
+	sFCU.sEthernet.u8IPAddx[3] = 100U;
 
 	//init our systems
 	vFCU_NET_TX__Init();

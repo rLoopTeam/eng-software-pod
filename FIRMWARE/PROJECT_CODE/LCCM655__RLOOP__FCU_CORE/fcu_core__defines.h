@@ -43,9 +43,9 @@
 	/** The max number of contrast laser stripes in the tube
 	 * 1 Mile Tube = 5280ft
 	 * Spacing = 100ft
-	 * Stripes = 53 + 10 + 5
+	 * Stripes = 53 + 2 spare
 	 *  */
-	#define C_FCU__LASER_CONTRAST__MAX_STRIPES				(70U)
+	#define C_FCU__LASER_CONTRAST__MAX_STRIPES				(55U)
 
 
 #endif /* RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__DEFINES_H_ */

@@ -12,7 +12,7 @@
 
 
 	/** Accelerometer DAQ */
-	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS					(1U)
+	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS					(0U)
 	#if C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS == 1U
 
 		//define here the actual DAQ channel indexes
@@ -37,7 +37,22 @@
 
 	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_BRAKES					(0U)
 
-	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_LASER_CONTRAST			(0U)
+	/** Contrast Sensor Testing DAQ*/
+	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_LASER_CONTRAST			(1U)
+	#if C_FCU_DAQ_SET__ENABLE__DAQ_FOR_LASER_CONTRAST == 1U
+
+		//define here the actual DAQ channel indexes
+		#define C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__CPU_LOAD_U8				(0U)
+
+
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U8					(1U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S16					(6U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U16					(0U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S32					(0U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U32					(0U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__F32					(0U)
+	#endif
+
 
 	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_LASER_DISTANCE			(0U)
 

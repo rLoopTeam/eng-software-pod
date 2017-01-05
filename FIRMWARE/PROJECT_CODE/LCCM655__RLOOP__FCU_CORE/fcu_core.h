@@ -77,6 +77,8 @@
 
 			}sFaults;
 
+
+			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 			/** Brake Dev */
 			struct
 			{
@@ -88,6 +90,7 @@
 				Luint32 u32DevKey;
 
 			}sBrakesDev;
+
 
 			/** Brake Substructure */
 			struct
@@ -204,8 +207,9 @@
 				Luint8 u8BrakeSWErr;
 
 			}sBrakes[C_FCU__NUM_BRAKES];
+			#endif //C_LOCALDEF__LCCM655__ENABLE_BRAKES
 
-
+			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 			/** Accel subsystem */
 			struct
 			{
@@ -222,6 +226,7 @@
 				}sChannels[C_LOCALDEF__LCCM418__NUM_DEVICES];
 
 			}sAccel;
+			#endif //C_LOCALDEF__LCCM655__ENABLE_ACCEL
 
 			/** Pi Comms Layer */
 			struct
@@ -235,7 +240,7 @@
 
 			}sPiComms;
 
-
+			#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
 			/** Pusher Interface Layer */
 			struct
 			{
@@ -271,7 +276,10 @@
 				Luint32 u32Guard2;
 
 			}sPusher;
+			#endif //C_LOCALDEF__LCCM655__ENABLE_PUSHER
 
+
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
 			/** Overall structure for the OPTONCDT laser interfaces */
 			struct
 			{
@@ -336,6 +344,7 @@
 				}sOptoLaser[C_FCU__NUM_LASERS_OPTONCDT];
 
 			}sLaserOpto;
+			#endif //C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT
 
 			/** structure for the laser distance interface */
 			struct
@@ -495,14 +504,14 @@
 				/** The track database for each sensor */
 				struct
 				{
-					/** The distance remaining in the tube */
-					Luint32 u32DistanceRemain_mm[C_FCU__LASER_CONTRAST__MAX_STRIPES];
+					/** The distance elapsed in the tube */
+					Luint32 u32DistanceElapsed_mm[C_FCU__LASER_CONTRAST__MAX_STRIPES];
 
 					/** The current optical marker */
 					Luint8 u8ElapsedCount;
 
 					/** Distance Remaining - computed*/
-					Luint32 u32DistRemain;
+					Luint32 u32DistElapsed;
 
 					/** Last Increment */
 					Luint32 u32LastIncrement;
@@ -729,7 +738,7 @@
 			void vFCU_LASERCONT_TRKDB__Process(void);
 			void vFCU_LASERCONT_TRKDB__Inc_Marker(E_FCU__LASER_CONT_INDEX_T eLaser);
 			void vFCU_LASERCONT_TRKDB__Compute(E_FCU__LASER_CONT_INDEX_T eLaser);
-			Luint32 u32FCU_LASERCONT_TRKDB__Get_DistanceRemain_mm(E_FCU__LASER_CONT_INDEX_T eLaser);
+			Luint32 u32FCU_LASERCONT_TRKDB__Get_DistanceElapsed_mm(E_FCU__LASER_CONT_INDEX_T eLaser);
 			Luint32 u32FCU_LASERCONT_TRKDB__Get_DistancePrevSeg_mm(E_FCU__LASER_CONT_INDEX_T eLaser);
 
 			//ethernet

@@ -225,12 +225,7 @@ SCI / LIN Module
 /*******************************************************************************
 SafeTool Branch Analysis Support
 *******************************************************************************/
-/**
- * @defgroup LCCM517_LOCALDEF_CONSTANTS
- *
- * @{
-*/
-	#define C_LOCALDEF__LCCM517__ENABLE_THIS_MODULE							(1U)
+	#define C_LOCALDEF__LCCM517__ENABLE_THIS_MODULE							(0U)
 	#if C_LOCALDEF__LCCM517__ENABLE_THIS_MODULE == 1U
 
 		/** The maximum number of branch calls permissible, adjust as necessary
@@ -249,7 +244,6 @@ SafeTool Branch Analysis Support
 		//placeholder
 		#define SAFETOOL_BRANCH(stFuncID)
 	#endif //#if C_LOCALDEF__LCCM517__ENABLE_THIS_MODULE == 1U
-/** @} */
 	
 /*******************************************************************************
 SOFTWARE MULTIPURPOSE FAULT TREE HANDLER
@@ -264,6 +258,37 @@ SOFTWARE MULTIPURPOSE FAULT TREE HANDLER
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree.h>
 
 	#endif //C_LOCALDEF__LCCM284__ENABLE_THIS_MODULE
+
+
+/*******************************************************************************
+EMAC Module
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM254__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM254__ENABLE_THIS_MODULE == 1U
+
+		//on some dev boards we need to use RMII mode, not MII mode
+		#define C_LOCALDEF__LCCM254__ENABLE_RMII_MODE						(0U)
+
+		//set to 1 if you have an external reset pin to the EMAC
+		#define C_LOCALDEF__LCCM254__ENABLE_EXTERN_RESET					(0U)
+
+		#if C_LOCALDEF__LCCM254__ENABLE_EXTERN_RESET == 1U
+			#define C_LOCALDEF__LCCM254__NRESET_PIN__TRIS()						vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 0U)
+			#define C_LOCALDEF__LCCM254__NRESET_PIN__LATCH(x)					vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 0U, x)
+		#endif
+
+		//use LWIP or not
+		#define C_LOCALDEF__LCCM254__USE_WITH_LWIP							(0U)
+		#define C_LOCALDEF__LCCM254__USE_WITH_LCCM325						(1U)
+
+		//testing options
+		#define C_LOCALDEF__LCCM254__ENABLE_TEST_SPEC						(0U)
+		#define C_LOCALDEF__LCCM254__ENABLE_IO_PIN_TESTING					(0U)
+
+		//main include file
+		#include <RM4/LCCM254__RM4__EMAC/rm4_emac.h>
+
+	#endif //C_LOCALDEF__LCCM254__ENABLE_THIS_MODULE
 
 #endif //_RM4_HDK_BOARD_SUPPORT_H_
 
