@@ -85,7 +85,9 @@
 		NET_PKT__LASER_CONT__REQUEST_LASER_DATA = 0x1300U,
 
 		/** FCU to Host, return laser data */
-		NET_PKT__LASER_CONT__TX_LASER_DATA = 0x1301U,
+		NET_PKT__LASER_CONT__TX_LASER_DATA_0 = 0x1301U,
+		NET_PKT__LASER_CONT__TX_LASER_DATA_1 = 0x1302U,
+		NET_PKT__LASER_CONT__TX_LASER_DATA_2 = 0x1303U,
 
 
 		//////////////////////////////////////////////////////
@@ -97,6 +99,16 @@
 
 		/** Perform a raw motor move */
 		NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW = 0x1401U,
+
+
+		//////////////////////////////////////////////////////
+		//FCU: NAVIGATION (0x1600)
+		//////////////////////////////////////////////////////
+
+		/** Stream Navigation Progress Data */
+		NET_PKT__FCU_BRAKES__TX_NAV_PROGRESS = 0x1600U,
+
+
 
 		//////////////////////////////////////////////////////
 		//POWER: GENERAL (0x3000)
@@ -147,7 +159,11 @@
 		//////////////////////////////////////////////////////
 
 		/** simulation control on the ML507 board */
-		NET_PKT__XILINX_SIM__SIMULATION_CONTROL = 0x5000U
+		NET_PKT__XILINX_SIM__SIMULATION_CONTROL = 0x5000U,
+
+		/** Allow us to manually change the state of the laser pin.
+		 * Only works if the run is stopped */
+		NET_PKT__XILINX_SIM__MANUAL_LASER_CONTROL = 0x5001U
 
 
 	}E_NET__PACKET_T;

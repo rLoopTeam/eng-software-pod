@@ -92,11 +92,15 @@ void vFCU__Process(void)
 			vRM4_FLASH__Init();
 
 			//int the RM4's EEPROM
-			vRM4_EEPROM__Init();
+			#if C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE == 1U
+				vRM4_EEPROM__Init();
+			#endif
 #endif
 
 			//init the EEPROM Params
-			vEEPARAM__Init();
+			#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
+				vEEPARAM__Init();
+			#endif
 
 #ifndef WIN32
 			//init the DMA
@@ -106,7 +110,9 @@ void vFCU__Process(void)
 			vRM4_GIO__Init();
 
 			//Setup the ADC
-			vRM4_ADC_USER__Init();
+			#if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
+				vRM4_ADC_USER__Init();
+			#endif
 #endif
 			//CPU load monitoring
 			vRM4_CPULOAD__Init();
@@ -122,8 +128,10 @@ void vFCU__Process(void)
 			vRM4_N2HET__Init(N2HET_CHANNEL__1, 0U, HR_PRESCALE__1, LR_PRESCALE__32);
 			vRM4_N2HET_PINS__Init(N2HET_CHANNEL__1);
 
-			vRM4_N2HET__Init(N2HET_CHANNEL__2, 0U, HR_PRESCALE__1, LR_PRESCALE__32);
-			vRM4_N2HET_PINS__Init(N2HET_CHANNEL__2);
+			#if C_LOCALDEF__LCCM240__ENABLE_N2HET2 == 1U
+				vRM4_N2HET__Init(N2HET_CHANNEL__2, 0U, HR_PRESCALE__1, LR_PRESCALE__32);
+				vRM4_N2HET_PINS__Init(N2HET_CHANNEL__2);
+			#endif
 
 
 			//brakes outputs
@@ -156,11 +164,6 @@ void vFCU__Process(void)
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 				sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 9U, EDGE_TYPE__BOTH, 1U);
 				sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 22U, EDGE_TYPE__BOTH, 1U);
-				sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = 0U;
-				sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
-			#else
-				sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = 0U;
-				sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
 				sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u16N2HET_Prog = 0U;
 				sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u16N2HET_Prog = 0U;
 			#endif
@@ -203,18 +206,24 @@ void vFCU__Process(void)
 				vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 57600U);
 			#endif
 
-			//setup our SPI channels.
-			//ASI Interface
-			vRM4_MIBSPI135__Init(MIBSPI135_CHANNEL__1);
+			#if C_LOCALDEF__LCCM280__ENABLE_THIS_MODULE == 1U
+				//setup our SPI channels.
+				//ASI Interface
+				vRM4_MIBSPI135__Init(MIBSPI135_CHANNEL__1);
 
-			//Serial channel's A
-			vRM4_MIBSPI135__Init(MIBSPI135_CHANNEL__3);
+				//Serial channel's A
+				vRM4_MIBSPI135__Init(MIBSPI135_CHANNEL__3);
+			#endif
 
 			//serial subsystem B
-			vRM4_SPI24__Init(SPI24_CHANNEL__2);
+			#if C_LOCALDEF__LCCM108__ENABLE_THIS_MODULE == 1U
+				vRM4_SPI24__Init(SPI24_CHANNEL__2);
+			#endif
 
 			//I2C Channel
-			vRM4_I2C_USER__Init();
+			#if C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE == 1U
+				vRM4_I2C_USER__Init();
+			#endif
 
 #endif //win32
 			//init the I2C
@@ -224,6 +233,8 @@ void vFCU__Process(void)
 		case INIT_STATE__INIT_SPI_UARTS:
 
 #ifndef WIN32
+
+			#if C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE == 1U
 			//give us some interrupts going
 			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 2U, GIO_DIRECTION__INPUT);
 			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 3U, GIO_DIRECTION__INPUT);
@@ -291,6 +302,7 @@ void vFCU__Process(void)
 				//Rx Int
 				vSC16_INT__Enable_Rx_DataAvalibleInterupt(u8Counter, 1U);
 			}
+			#endif //#if C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE == 1U
 
 			//todo:
 			//setup the baud for the lasers only
@@ -351,8 +363,10 @@ void vFCU__Process(void)
 			vRM4_CPULOAD__While_Entry();
 
 #ifndef WIN32
+			#if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
 			//Handle the ADC conversions
 			vRM4_ADC_USER__Process();
+			#endif
 #endif //WIN32
 
 			//process networking

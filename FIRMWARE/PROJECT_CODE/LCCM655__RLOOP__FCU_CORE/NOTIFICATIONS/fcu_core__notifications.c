@@ -22,6 +22,9 @@
 extern struct _strFCU sFCU;
 
 #ifndef WIN32
+
+#if C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE == 1U
+
 /***************************************************************************//**
  * @brief
  * UART Interrupt Notification
@@ -45,9 +48,16 @@ void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
 			#endif
 			break;
 
+		default:
+			//no need
+			break;
+
 	}//switch(eChannel)
 }
-#endif
+
+#endif //C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE
+
+#endif //win32
 
 
 /***************************************************************************//**

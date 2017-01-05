@@ -32,7 +32,7 @@ void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	Luint8 u8BufferIndex;
 	Luint16 u16Length;
 	Luint8 u8Device;
-	Luint8 u8Counter;
+	//Luint8 u8Counter;
 	Luint8 u8Counter2;
 
 	pu8Buffer = 0;
@@ -40,10 +40,25 @@ void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	//setup length based on packet.
 	switch(ePacketType)
 	{
-		case NET_PKT__LASER_CONT__TX_LASER_DATA:
+		case NET_PKT__LASER_CONT__TX_LASER_DATA_0:
 			u16Length = 20U;
-			u16Length += (LASER_CONT__MAX * 2);
-			u16Length += (LASER_CONT__MAX * (4U + (C_FCU__LASER_CONTRAST__MAX_STRIPES * 16)));
+			u16Length += (/*C_FCU__NUM_LASERS_CONTRAST **/ 2);
+			u16Length += (/*C_FCU__NUM_LASERS_CONTRAST * */(4U + (C_FCU__LASER_CONTRAST__MAX_STRIPES * 16)));
+			u8Device = 0U;
+			break;
+
+		case NET_PKT__LASER_CONT__TX_LASER_DATA_1:
+			u16Length = 20U;
+			u16Length += (/*C_FCU__NUM_LASERS_CONTRAST **/ 2);
+			u16Length += (/*C_FCU__NUM_LASERS_CONTRAST * */(4U + (C_FCU__LASER_CONTRAST__MAX_STRIPES * 16)));
+			u8Device = 1U;
+			break;
+
+		case NET_PKT__LASER_CONT__TX_LASER_DATA_2:
+			u16Length = 20U;
+			u16Length += (/*C_FCU__NUM_LASERS_CONTRAST **/ 2);
+			u16Length += (/*C_FCU__NUM_LASERS_CONTRAST * */(4U + (C_FCU__LASER_CONTRAST__MAX_STRIPES * 16)));
+			u8Device = 2U;
 			break;
 
 
@@ -60,7 +75,9 @@ void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		//handle the packet
 		switch(ePacketType)
 		{
-			case NET_PKT__LASER_CONT__TX_LASER_DATA:
+			case NET_PKT__LASER_CONT__TX_LASER_DATA_0:
+			case NET_PKT__LASER_CONT__TX_LASER_DATA_1:
+			case NET_PKT__LASER_CONT__TX_LASER_DATA_2:
 
 
 				//fault flags from the upper level system
@@ -77,51 +94,36 @@ void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;
 
-				//go through each sensor
-				for(u8Counter = 0U; u8Counter < LASER_CONT__MAX; u8Counter++)
+				//send the fault flags
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sSensors[u8Device].sFaultFlags.u32Flags[0]);
+				pu8Buffer += 4U;
+
+
+				//Rising Edge Count
+				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sContrast.sTimingList[u8Device].u16RisingCount);
+				pu8Buffer+=2;
+
+				//Falling edge count
+				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sContrast.sTimingList[u8Device].u16FallingCount);
+				pu8Buffer+=2;
+
+				//send the timing list, rising
+				for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
 				{
 
-					//send the fault flags
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sSensors[u8Counter].sFaultFlags.u32Flags[0]);
-					pu8Buffer += 4U;
+					vNUMERICAL_CONVERT__Array_U64(pu8Buffer, sFCU.sContrast.sTimingList[u8Device].u64RisingList[u8Counter2]);
+					pu8Buffer+=8;
 
+				}//for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
 
-
-
-				}//for(u8Counter = 0U; u8Counter < LASER_CONT__MAX; u8Counter++)
-
-
-				//transport the timing list
-				for(u8Counter = 0U; u8Counter < LASER_CONT__MAX; u8Counter++)
+				//send the timing list, falling
+				for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
 				{
 
-					//Rising Edge Count
-					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sContrast.sTimingList[u8Counter].u16RisingCount);
-					pu8Buffer+=2;
+					vNUMERICAL_CONVERT__Array_U64(pu8Buffer, sFCU.sContrast.sTimingList[u8Device].u64FallingList[u8Counter2]);
+					pu8Buffer+=8;
 
-					//Falling edge count
-					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sContrast.sTimingList[u8Counter].u16FallingCount);
-					pu8Buffer+=2;
-
-					//send the timing list, rising
-					for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
-					{
-
-						vNUMERICAL_CONVERT__Array_U64(pu8Buffer, sFCU.sContrast.sTimingList[u8Counter].u64RisingList[u8Counter2]);
-						pu8Buffer+=8;
-
-					}//for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
-
-					//send the timing list, falling
-					for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
-					{
-
-						vNUMERICAL_CONVERT__Array_U64(pu8Buffer, sFCU.sContrast.sTimingList[u8Counter].u64FallingList[u8Counter2]);
-						pu8Buffer+=8;
-
-					}//for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
-
-				}//for(u8Counter = 0U; u8Counter < LASER_CONT__MAX; u8Counter++)
+				}//for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
 
 
 				break;

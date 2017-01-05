@@ -40,76 +40,77 @@ void vFCU_LASERCONT_TRKDB__Init(void)
 
 		//clear the elapsed maker counter
 		sFCU.sContrast.sTrackDatabase[u8LaserCount].u8ElapsedCount = 0U;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistRemain = 0U;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistElapsed = 0U;
 		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32LastIncrement = 0U;
+
+		//bit of safety here.
+#if C_FCU__LASER_CONTRAST__MAX_STRIPES != 55U
+	#error
+#endif
 
 		//setup
 		//todo: this is a hard coded hack, fix it.
-		//sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[0] = 6.48
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[0] = 1493520;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[1] = 1463040;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[2] = 1432560;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[3] = 1402080;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[4] = 1371600;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[5] = 1341120;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[6] = 1310640;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[7] = 1280160;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[8] = 1249680;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[9] = 1219200;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[10] = 1188720;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[11] = 1158240;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[12] = 1127760;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[13] = 1097280;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[14] = 1066800;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[15] = 1036320;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[16] = 1005840;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[17] = 975360;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[18] = 944880;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[19] = 914400;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[20] = 883920;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[21] = 853440;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[22] = 822960;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[23] = 792480;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[24] = 762000;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[25] = 731520;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[26] = 701040;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[27] = 670560;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[28] = 640080;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[29] = 609600;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[30] = 579120;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[31] = 548640;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[32] = 518160;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[33] = 487680;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[34] = 457200;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[35] = 426720;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[36] = 396240;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[37] = 365760;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[38] = 335280;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[39] = 304800;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[40] = 274320;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[41] = 274116;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[42] = 273913;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[43] = 273710;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[44] = 273507;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[45] = 273304;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[46] = 273100;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[47] = 272897;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[48] = 272694;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[49] = 272491;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[50] = 243840;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[51] = 213360;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[52] = 182880;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[53] = 152400;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[54] = 121920;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[55] = 121716;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[56] = 121513;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[57] = 121310;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[58] = 121107;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[59] = 91440;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[60] = 60960;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[61] = 30480;
-		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceRemain_mm[62] = 0;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[54] = 1249680;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[53] = 1219200;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[52] = 1188720;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[51] = 1158240;
+
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[50] = 1127760;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[49] = 1097280;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[48] = 1066800;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[47] = 1036320;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[46] = 1005840;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[45] = 975360;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[44] = 944880;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[43] = 914400;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[42] = 883920;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[41] = 853440;
+
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[40] = 822960;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[39] = 792480;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[38] = 762000;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[37] = 731520;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[36] = 701040;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[35] = 670560;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[34] = 640080;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[33] = 609600;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[32] = 579120;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[31] = 548640;
 		
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[30] = 518160;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[29] = 487680;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[28] = 457200;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[27] = 426720;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[26] = 396240;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[25] = 365760;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[24] = 335280;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[23] = 304800;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[22] = 274320;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[21] = 274116;
+
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[20] = 273913;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[19] = 273710;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[18] = 273507;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[17] = 273304;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[16] = 273100;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[15] = 272897;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[14] = 272694;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[13] = 272491;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[12] = 243840;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[11] = 213360;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[10] = 182880;
+
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[9] = 152400;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[7] = 121920;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[7] = 121716;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[6] = 121513;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[5] = 121310;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[4] = 121107;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[3] = 91440;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[2] = 60960;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[1] = 30480;
+		sFCU.sContrast.sTrackDatabase[u8LaserCount].u32DistanceElapsed_mm[0] = 0;
+
 		
 	}//for(u8LaserCount = 0U; u8LaserCount < (Luint8)LASER_CONT__MAX; u8LaserCount++)
 
@@ -175,11 +176,11 @@ void vFCU_LASERCONT_TRKDB__Compute(E_FCU__LASER_CONT_INDEX_T eLaser)
 			u8Index1 = sFCU.sContrast.sTrackDatabase[(Luint8)eLaser].u8ElapsedCount - 1U;
 
 
-			//based on the track DB the distance remaining is easy.
-			sFCU.sContrast.sTrackDatabase[(Luint8)eLaser].u32DistRemain = sFCU.sContrast.sTrackDatabase[(Luint8)eLaser].u32DistanceRemain_mm[u8Index];
+			//based on the track DB the distance elapsed is easy.
+			sFCU.sContrast.sTrackDatabase[(Luint8)eLaser].u32DistElapsed = sFCU.sContrast.sTrackDatabase[(Luint8)eLaser].u32DistanceElapsed_mm[u8Index];
 
 			//get the elapsed distance, only
-			sFCU.sContrast.sTrackDatabase[(Luint8)eLaser].u32LastIncrement = sFCU.sContrast.sTrackDatabase[(Luint8)eLaser].u32DistanceRemain_mm[u8Index1] - sFCU.sContrast.sTrackDatabase[(Luint8)eLaser].u32DistanceRemain_mm[u8Index];
+			sFCU.sContrast.sTrackDatabase[(Luint8)eLaser].u32LastIncrement = sFCU.sContrast.sTrackDatabase[(Luint8)eLaser].u32DistanceElapsed_mm[u8Index1] - sFCU.sContrast.sTrackDatabase[(Luint8)eLaser].u32DistanceElapsed_mm[u8Index];
 
 		}
 		else
@@ -201,15 +202,15 @@ void vFCU_LASERCONT_TRKDB__Compute(E_FCU__LASER_CONT_INDEX_T eLaser)
 
 /***************************************************************************//**
  * @brief
- * Return the distance remaining until the end of the track in mm
+ * Return the distance that has current elpased.
  * 
  * @param[in]		eLaser					Laser Index
  * @st_funcMD5		920489C576073B098EE9D6CD45F4AADA
  * @st_funcID		LCCM655R0.FILE.041.FUNC.005
  */
-Luint32 u32FCU_LASERCONT_TRKDB__Get_DistanceRemain_mm(E_FCU__LASER_CONT_INDEX_T eLaser)
+Luint32 u32FCU_LASERCONT_TRKDB__Get_DistanceElapsed_mm(E_FCU__LASER_CONT_INDEX_T eLaser)
 {
-	return sFCU.sContrast.sTrackDatabase[(Luint8)eLaser].u32DistRemain;
+	return sFCU.sContrast.sTrackDatabase[(Luint8)eLaser].u32DistElapsed;
 }
 
 

@@ -194,10 +194,12 @@ void vFCU_MAINSM__Process(void)
 	{
 
 		//process the SC16IS interface always
-		for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM487__NUM_DEVICES; u8Counter++)
-		{
-			vSC16__Process(u8Counter);
-		}
+		#if C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE == 1U
+			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM487__NUM_DEVICES; u8Counter++)
+			{
+				vSC16__Process(u8Counter);
+			}
+		#endif
 
 		#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
 			vFCU_LASEROPTO__Process();
@@ -208,7 +210,7 @@ void vFCU_MAINSM__Process(void)
 			vFCU_LASER_ORIENTATION__Process();
 		#endif
 
-		#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONT == 1U
+		#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
 			vFCU_LASERCONT__Process();
 		#endif
 
