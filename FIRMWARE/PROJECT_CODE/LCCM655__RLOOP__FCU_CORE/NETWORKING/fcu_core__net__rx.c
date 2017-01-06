@@ -153,7 +153,21 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 			case NET_PKT__LASER_CONT__REQUEST_LASER_DATA:
 				//transmit the laser contrast sub system
-				sFCU.sUDPDiag.eTxPacketType = NET_PKT__LASER_CONT__TX_LASER_DATA_0;
+				switch(u32Block[0])
+				{
+					case 0:
+						sFCU.sUDPDiag.eTxPacketType = NET_PKT__LASER_CONT__TX_LASER_DATA_0;
+						break;
+					case 1:
+						sFCU.sUDPDiag.eTxPacketType = NET_PKT__LASER_CONT__TX_LASER_DATA_1;
+						break;
+					case 2:
+						sFCU.sUDPDiag.eTxPacketType = NET_PKT__LASER_CONT__TX_LASER_DATA_2;
+						break;
+
+					default:
+						break;
+				}
 				break;
 
 			case NET_PKT__FCU_BRAKES__ENABLE_DEV_MODE:

@@ -41,23 +41,20 @@ void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__LASER_CONT__TX_LASER_DATA_0:
-			u16Length = 20U;
-			u16Length += (/*C_FCU__NUM_LASERS_CONTRAST **/ 2);
-			u16Length += (/*C_FCU__NUM_LASERS_CONTRAST * */(4U + (C_FCU__LASER_CONTRAST__MAX_STRIPES * 16)));
+			u16Length = 24U + 6U;
+			u16Length += (C_FCU__LASER_CONTRAST__MAX_STRIPES * 16U);
 			u8Device = 0U;
 			break;
 
 		case NET_PKT__LASER_CONT__TX_LASER_DATA_1:
-			u16Length = 20U;
-			u16Length += (/*C_FCU__NUM_LASERS_CONTRAST **/ 2);
-			u16Length += (/*C_FCU__NUM_LASERS_CONTRAST * */(4U + (C_FCU__LASER_CONTRAST__MAX_STRIPES * 16)));
+			u16Length = 24U + 6U;
+			u16Length += (C_FCU__LASER_CONTRAST__MAX_STRIPES * 16U);
 			u8Device = 1U;
 			break;
 
 		case NET_PKT__LASER_CONT__TX_LASER_DATA_2:
-			u16Length = 20U;
-			u16Length += (/*C_FCU__NUM_LASERS_CONTRAST **/ 2);
-			u16Length += (/*C_FCU__NUM_LASERS_CONTRAST * */(4U + (C_FCU__LASER_CONTRAST__MAX_STRIPES * 16)));
+			u16Length = 24U + 6U;
+			u16Length += (C_FCU__LASER_CONTRAST__MAX_STRIPES * 16U);
 			u8Device = 2U;
 			break;
 
@@ -106,6 +103,11 @@ void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				//Falling edge count
 				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sContrast.sTimingList[u8Device].u16FallingCount);
 				pu8Buffer+=2;
+
+				//max stripes
+				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, C_FCU__LASER_CONTRAST__MAX_STRIPES);
+				pu8Buffer+=2;
+
 
 				//send the timing list, rising
 				for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)

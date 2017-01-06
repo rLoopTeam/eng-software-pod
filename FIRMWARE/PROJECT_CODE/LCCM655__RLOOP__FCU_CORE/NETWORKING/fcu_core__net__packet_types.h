@@ -163,8 +163,10 @@
 
 		/** Allow us to manually change the state of the laser pin.
 		 * Only works if the run is stopped */
-		NET_PKT__XILINX_SIM__MANUAL_LASER_CONTROL = 0x5001U
+		NET_PKT__XILINX_SIM__MANUAL_LASER_CONTROL = 0x5001U,
 
+		/** Transmit a progress update to the host */
+		NET_PKT__XILINX_SIM__TX_PROGRESS_UPDATE = 0x5002U
 
 
 	}E_NET__PACKET_T;
