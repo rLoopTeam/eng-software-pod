@@ -77,6 +77,16 @@
 			}sTrack;
 			
 
+			/** Control params */
+			struct
+			{
+
+				/** Running 1 or 0 */
+				Luint8 u8RunStatus;
+
+			}sControl;
+
+
 			/** Ethernet handler */
 			struct
 			{
@@ -85,6 +95,9 @@
 
 				/** local IP */
 				Luint8 u8IPAddx[4];
+
+				/** The timer has incremented */
+				Luint8 u8TimerFlag;
 
 			}sEthernet;
 
@@ -96,6 +109,7 @@
 		*******************************************************************************/
 		void vSIMHLOOP__Init(void);
 		void vSIMHLOOP__Process(void);
+		void vSIMHLOOP__100MS_Timer(void);
 
 		//ethernet
 		void vSIMHLOOP_ETH__Init(void);
@@ -105,6 +119,7 @@
 		void vSIMHLOOP_LOWLEVEL__Init(void);
 		void vSIMHLOOP_LOWLEVEL__Set_Accel_GForce(Lfloat32 f32GForce);
 		void vSIMHLOOP_LOWLEVEL__Set_Max_Veloc(Luint32 u32Max);
+		void vSIMHLOOP_LOWLEVEL__ManualLaser_Control(Luint32 u32Laser, Luint32 u32Value);
 		void vSIMHLOOP_LOWLEVEL__Run_On(void);
 		void vSIMHLOOP_LOWLEVEL__Run_Off(void);
 

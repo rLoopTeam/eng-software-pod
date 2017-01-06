@@ -87,6 +87,36 @@ void vSIMHLOOP_LOWLEVEL__Set_Max_Veloc(Luint32 u32Max)
 }
 
 
+void vSIMHLOOP_LOWLEVEL__ManualLaser_Control(Luint32 u32Laser, Luint32 u32Value)
+{
+	Luint32 u32Reg;
+	Luint32 u32Mask;
+
+	//read the control register
+	u32Reg = XIo_In32(XPAR_LVHD087_SIM_HYPERLOOP_0_BASEADDR + 0x00U);
+
+	//modify
+	u32Mask = 0x00000002U;
+	//select our laser
+	u32Mask <<= u32Laser;
+
+	//switch on
+	if(u32Value == 1U)
+	{
+		u32Reg |= u32Mask;
+	}
+	else
+	{
+		//off
+		u32Mask ^= 0xFFFFFFFFU;
+		u32Reg &= u32Mask;
+	}
+
+	//write back
+	XIo_Out32(XPAR_LVHD087_SIM_HYPERLOOP_0_BASEADDR + 0x00U, u32Reg);
+
+}
+
 /***************************************************************************//**
  * @brief
  * Sets the run state machine to on
@@ -134,7 +164,7 @@ void vSIMHLOOP_LOWLEVEL__Run_Off(void)
 	//invert
 	u32Mask ^= 0xFFFFFFFFU;
 
-	//switch on
+	//switch off
 	u32Reg &= u32Mask;
 
 	//write back
