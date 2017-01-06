@@ -339,6 +339,9 @@
 						/** The filtered height */
 						Lfloat32 f32FilteredValue;
 
+						/** The previous value */
+						Lfloat32 f32PreviousValue;
+
 					}sFiltered;
 
 				}sOptoLaser[C_FCU__NUM_LASERS_OPTONCDT];
