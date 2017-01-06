@@ -89,7 +89,12 @@ void vFCU_ASI__Process(void)
 
 		case ASI_COMM_STATE__WAIT_REPLY:
 			// see if we have a reply
+#ifdef C_ASI__SW_TEST
+			// simulate a fake response
+			u8Temp = 1U;
+#else
 			u8Temp = u8SC16_USER__Get_ByteAvail(0);	//TODO: verify device number
+#endif
 			if(u8Temp == 0U)
 			{
 				// no response yet
@@ -104,10 +109,23 @@ void vFCU_ASI__Process(void)
 			{
 				// receive the response
 				Luint8* pByte = sFCU.sASIComms.cmdQueue[sFCU.sASIComms.qTail].response;
+#ifdef C_ASI__SW_TEST
+				// simulate a fake response
+				*pByte++ = sFCU.sASIComms.cmdQueue[sFCU.sASIComms.qTail].framedCmd[0];
+				*pByte++ = sFCU.sASIComms.cmdQueue[sFCU.sASIComms.qTail].framedCmd[1];
+				*pByte++ = 2;
+				*Luint16 val = 1750;
+				*pByte++ = val & 0xff00;
+				*pByte = val & 0x00ff;
+				vFCU_ASI__AddCRC(sFCU.sASIComms.cmdQueue[sFCU.sASIComms.qTail].response);
+#else
 				for (byteIndex=0; byteIndex < C_ASI__RW_FRAME_SIZE; byteIndex++)
 				{
 					*pByte++ = u8SC16_USER__Get_Byte(0); //TODO: verify device number, plus initialize device?
 				}
+
+#endif
+
 				sFCU.sASIComms.eMbState = ASI_COMM_STATE__PROCESS_REPLY;
 			}
 			break;

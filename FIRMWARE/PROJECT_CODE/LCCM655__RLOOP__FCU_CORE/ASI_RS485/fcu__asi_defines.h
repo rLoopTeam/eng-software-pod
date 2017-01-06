@@ -16,6 +16,8 @@
 	#define C_ASI__MAX_TURNAROUND_DELAY			(15)
 	#define C_ASI__MAX_REPLYWAIT_DELAY			(100)
 
+	// sw test: simulate low level response
+	#define C_ASI__SW_TEST
 
 	/** ASI command parameter register address */
 	// see ASI BAC object Dictionary document for more
