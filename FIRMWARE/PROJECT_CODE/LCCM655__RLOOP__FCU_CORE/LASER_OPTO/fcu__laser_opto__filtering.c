@@ -35,8 +35,8 @@ Lfloat32 f32MaxRange = 50.0F;
 	//exponential moving average filter
 
 	//reject values above 50 as this is what sensor indicates in case out of range
-	if (sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32Distance < f32MaxRange) {
-
+	if (sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32Distance < f32MaxRange) 
+	{
 	//  @see http://dsp.stackexchange.com/questions/20333/how-to-implement-a-moving-average-in-c-without-a-buffer
 
 	//Calculate the old sample influence
@@ -52,10 +52,10 @@ Lfloat32 f32MaxRange = 50.0F;
 	}
 
 	else
-
+	{
 	// assign unfiltered value in case it's above 50
 	sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32Distance;
-
+	}
 }
 
 
