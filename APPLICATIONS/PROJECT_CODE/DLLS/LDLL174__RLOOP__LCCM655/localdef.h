@@ -180,6 +180,8 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Ethernet Systems */
 		#define C_LOCALDEF__LCCM655__ENABLE_ETHERNET						(1U)
 
+		#define C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY				(0U)
+
 		/** Flight control specifics */
 		#define C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL					(1U)
 

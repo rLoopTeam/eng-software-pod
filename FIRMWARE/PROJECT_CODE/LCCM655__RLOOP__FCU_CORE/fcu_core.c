@@ -315,6 +315,11 @@ void vFCU__Process(void)
 
 		case INIT_STATE__LOWER_SYSTEMS:
 
+			//start DAQ
+			#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
+				vDAQ__Init();
+			#endif
+
 			//start the network
 			#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 				vFCU_NET__Init();
@@ -377,6 +382,11 @@ void vFCU__Process(void)
 			//process the main state machine
 			vFCU_MAINSM__Process();
 
+			//do the DAQ
+			#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
+				vDAQ__Process();
+			#endif
+
 			//end of while loop
 			vRM4_CPULOAD__While_Exit();
 
@@ -395,12 +405,17 @@ void vFCU__Process(void)
  */
 void vFCU__RTI_100MS_ISR(void)
 {
+	//picomms
 	#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
 		vFCU_PICOMMS__100MS_ISR();
 	#endif
+
+	//OptoNCDT Timer
 	#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
 		vFCU_LASEROPTO__100MS_ISR();
 	#endif
+
+	//Laser Distance System
 	#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
 		vFCU_LASERDIST__100MS_ISR();
 	#endif
@@ -409,6 +424,12 @@ void vFCU__RTI_100MS_ISR(void)
 	#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
 		vFCU_THROTTLE__100MS_ISR();
 	#endif
+
+	//ethernet timed packets
+	#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
+		vFCU_NET_TX__100MS_ISR();
+	#endif
+
 
 }
 

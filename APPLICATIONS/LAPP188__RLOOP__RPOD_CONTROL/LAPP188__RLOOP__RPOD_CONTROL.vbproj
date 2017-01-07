@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8E5C312D-1F81-4874-8923-540C8BB076BB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>LAPP188__RLOOP__RPOD_CONTROL.My.MyApplication</StartupObject>
+    <RootNamespace>LAPP188__RLOOP__RPOD_CONTROL</RootNamespace>
+    <AssemblyName>LAPP188__RLOOP__RPOD_CONTROL</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>LAPP188__RLOOP__RPOD_CONTROL.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>LAPP188__RLOOP__RPOD_CONTROL.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Divelements.SandGrid, Version=2.2.4.1, Culture=neutral, PublicKeyToken=75b7ec17dd7c14c3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\SANDGRID 2.2.4\Divelements.SandGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__progress_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__progress_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\ETHERNET\rpod__eth_interface.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\ETHERNET\rpod__eth_interface.vb</Link>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\ETHERNET\rpod__eth__defines.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\ETHERNET\rpod__eth__defines.vb</Link>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\BRAKES\rpod__panel_brakes__switches.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\BRAKES\rpod__panel_brakes__switches.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\BRAKES\rpod__panel_brakes__top.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\BRAKES\rpod__panel_brakes__top.vb</Link>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\ACCELEROMETERS\rpod__flight__accel.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\ACCELEROMETERS\rpod__flight__accel.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\CONTRAST\rpod__flight__contrast.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\CONTRAST\rpod__flight__contrast.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\rpod__flight__top.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\rpod__flight__top.vb</Link>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__network.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__network.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__top.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__top.vb</Link>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\XILINX_SIM\CONTRAST_NAV\rpod__xilinx_sim__contrast_nav.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\XILINX_SIM\CONTRAST_NAV\rpod__xilinx_sim__contrast_nav.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\XILINX_SIM\rpod__xilinx_sim__top.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\XILINX_SIM\rpod__xilinx_sim__top.vb</Link>
+    </Compile>
+    <Compile Include="Form1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM193__VBNET__SOFTWARE_CRC\software_crc.vb">
+      <Link>LCCM193__VBNET__SOFTWARE_CRC\software_crc.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM197__VBNET__CONVERSIONS\conversions__string.vb">
+      <Link>LCCM197__VBNET__CONVERSIONS\conversions__string.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM204__VBNET__NUMERICAL\numerical.vb">
+      <Link>LCCM204__VBNET__NUMERICAL\numerical.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM239__VBNET__IEEE802_3\ieee802.3__helpers.vb">
+      <Link>LCCM239__VBNET__IEEE802_3\ieee802.3__helpers.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM239__VBNET__IEEE802_3\ieee802_3__arp.vb">
+      <Link>LCCM239__VBNET__IEEE802_3\ieee802_3__arp.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM239__VBNET__IEEE802_3\ieee802_3__ethernet_frame.vb">
+      <Link>LCCM239__VBNET__IEEE802_3\ieee802_3__ethernet_frame.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM239__VBNET__IEEE802_3\ieee802_3__ip_layer__ipv4.vb">
+      <Link>LCCM239__VBNET__IEEE802_3\ieee802_3__ip_layer__ipv4.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM239__VBNET__IEEE802_3\ieee802_3__lldp.vb">
+      <Link>LCCM239__VBNET__IEEE802_3\ieee802_3__lldp.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM239__VBNET__IEEE802_3\ieee802_3__tcp.vb">
+      <Link>LCCM239__VBNET__IEEE802_3\ieee802_3__tcp.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM239__VBNET__IEEE802_3\ieee802_3__udp.vb">
+      <Link>LCCM239__VBNET__IEEE802_3\ieee802_3__udp.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM249__VBNET__ISO_DATETIME\iso_datetime.vb">
+      <Link>LCCM249__VBNET__ISO_DATETIME\iso_datetime.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM269__VBNET__MEMORY_COPY\memory_copy.vb">
+      <Link>LCCM269__VBNET__MEMORY_COPY\memory_copy.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM303__VBNET__WINDOWS_CORE\TIME\time_helper.vb">
+      <Link>LCCM303__VBNET__WINDOWS_CORE\TIME\time_helper.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM429__VBNET__FILE\file_support__binary_file.vb">
+      <Link>LCCM429__VBNET__FILE\file_support__binary_file.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM429__VBNET__FILE\file_support__csv.vb">
+      <Link>LCCM429__VBNET__FILE\file_support__csv.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM429__VBNET__FILE\file_support__file_dialogs.vb">
+      <Link>LCCM429__VBNET__FILE\file_support__file_dialogs.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM429__VBNET__FILE\file_support__file_helpers.vb">
+      <Link>LCCM429__VBNET__FILE\file_support__file_helpers.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM429__VBNET__FILE\file_support__one_line_file.vb">
+      <Link>LCCM429__VBNET__FILE\file_support__one_line_file.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM430__VBNET__GRAPHICS\graphics__conversions.vb">
+      <Link>LCCM430__VBNET__GRAPHICS\graphics__conversions.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM430__VBNET__GRAPHICS\graphics__embedded_icons.vb">
+      <Link>LCCM430__VBNET__GRAPHICS\graphics__embedded_icons.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__arraylist_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__arraylist_helper.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__button_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__button_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__checkbox_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__checkbox_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__checked_listbox_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__checked_listbox_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__combobox_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__combobox_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__combobox_helper_T.vb">
+      <Link>LCCM431__VBNET__APP\application_support__combobox_helper_T.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__contextmenustrip_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__contextmenustrip_helper.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__data_visualise.vb">
+      <Link>LCCM431__VBNET__APP\application_support__data_visualise.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__explorer_bar.vb">
+      <Link>LCCM431__VBNET__APP\application_support__explorer_bar.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__general_toolbox_panel.vb">
+      <Link>LCCM431__VBNET__APP\application_support__general_toolbox_panel.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__graphing.vb">
+      <Link>LCCM431__VBNET__APP\application_support__graphing.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__label_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__label_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__listview_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__listview_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__logging_box.vb">
+      <Link>LCCM431__VBNET__APP\application_support__logging_box.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__packet_listbox.vb">
+      <Link>LCCM431__VBNET__APP\application_support__packet_listbox.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__panel_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__panel_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__picturebox_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__picturebox_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__popup.vb">
+      <Link>LCCM431__VBNET__APP\application_support__popup.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__statusstrip_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__statusstrip_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__tabcontrol_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__tabcontrol_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__tab_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__tab_helper.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__textbox_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__textbox_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__textbox_helper_T.vb">
+      <Link>LCCM431__VBNET__APP\application_support__textbox_helper_T.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__themes.vb">
+      <Link>LCCM431__VBNET__APP\application_support__themes.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__tooltips_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__tooltips_helper.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__track_bar_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__track_bar_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__treeview_helper.vb">
+      <Link>LCCM431__VBNET__APP\application_support__treeview_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__visual_fade.vb">
+      <Link>LCCM431__VBNET__APP\application_support__visual_fade.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__wait_window.vb">
+      <Link>LCCM431__VBNET__APP\application_support__wait_window.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__wait_windowGUI.Designer.vb">
+      <Link>LCCM431__VBNET__APP\application_support__wait_windowGUI.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\application_support__wait_windowGUI.vb">
+      <Link>LCCM431__VBNET__APP\application_support__wait_windowGUI.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\RICH_TEXT\application_support__richtextbox_editor.Designer.vb">
+      <Link>LCCM431__VBNET__APP\RICHTEXT\application_support__richtextbox_editor.Designer.vb</Link>
+      <DependentUpon>application_support__richtextbox_editor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\RICH_TEXT\application_support__richtextbox_editor.vb">
+      <Link>LCCM431__VBNET__APP\RICHTEXT\application_support__richtextbox_editor.vb</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\RICH_TEXT\application_support__richtextbox_helper.vb">
+      <Link>LCCM431__VBNET__APP\RICHTEXT\application_support__richtextbox_helper.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\RICH_TEXT\application_support__richtextbox_printer.vb">
+      <Link>LCCM431__VBNET__APP\RICHTEXT\application_support__richtextbox_printer.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\RICH_TEXT\application_support__richtextbox_secure.vb">
+      <Link>LCCM431__VBNET__APP\RICHTEXT\application_support__richtextbox_secure.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\RICH_TEXT\application_support__richtext_editor_form.Designer.vb">
+      <Link>LCCM431__VBNET__APP\RICHTEXT\application_support__richtext_editor_form.Designer.vb</Link>
+      <DependentUpon>application_support__richtext_editor_form.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\RICH_TEXT\application_support__richtext_editor_form.vb">
+      <Link>LCCM431__VBNET__APP\RICHTEXT\application_support__richtext_editor_form.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\SANDGRID\application_support__sandgrid.vb">
+      <Link>LCCM431__VBNET__APP\SANDGRID\application_support__sandgrid.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\SANDGRID\sandgrid__cells.vb">
+      <Link>LCCM431__VBNET__APP\SANDGRID\sandgrid__cells.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\SANDGRID\sandgrid__cells__button.vb">
+      <Link>LCCM431__VBNET__APP\SANDGRID\sandgrid__cells__button.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\SANDGRID\sandgrid__cells__check.vb">
+      <Link>LCCM431__VBNET__APP\SANDGRID\sandgrid__cells__check.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\SANDGRID\sandgrid__cells__hyperlink.vb">
+      <Link>LCCM431__VBNET__APP\SANDGRID\sandgrid__cells__hyperlink.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\SANDGRID\sandgrid__cells__richtext.vb">
+      <Link>LCCM431__VBNET__APP\SANDGRID\sandgrid__cells__richtext.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\SANDGRID\sandgrid__columns.vb">
+      <Link>LCCM431__VBNET__APP\SANDGRID\sandgrid__columns.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\SANDGRID\sandgrid__columns__image.vb">
+      <Link>LCCM431__VBNET__APP\SANDGRID\sandgrid__columns__image.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\SANDGRID\sandgrid__columns__rtf.vb">
+      <Link>LCCM431__VBNET__APP\SANDGRID\sandgrid__columns__rtf.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\SANDGRID\sandgrid__editors__multiline.vb">
+      <Link>LCCM431__VBNET__APP\SANDGRID\sandgrid__editors__multiline.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\SANDGRID\sandgrid__editors__richtext.vb">
+      <Link>LCCM431__VBNET__APP\SANDGRID\sandgrid__editors__richtext.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\SANDGRID\sandgrid__rows.vb">
+      <Link>LCCM431__VBNET__APP\SANDGRID\sandgrid__rows.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM529__VBNET__SAFE_UDP\safe_udp.vb">
+      <Link>LCCM529__VBNET__SAFE_UDP\safe_udp.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM529__VBNET__SAFE_UDP\safe_udp__packet_formatter.vb">
+      <Link>LCCM529__VBNET__SAFE_UDP\safe_udp__packet_formatter.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM529__VBNET__SAFE_UDP\safe_udp__packet_if.vb">
+      <Link>LCCM529__VBNET__SAFE_UDP\safe_udp__packet_if.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM529__VBNET__SAFE_UDP\safe_udp__packet_types.vb">
+      <Link>LCCM529__VBNET__SAFE_UDP\safe_udp__packet_types.vb</Link>
+    </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LOCKIE\lockie__types.vb">
+      <Link>LOCKIE\lockie__types.vb</Link>
+    </Compile>
+    <Compile Include="Form1.Designer.vb">
+      <DependentUpon>Form1.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__directories.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LCCM661__RLOOP__RPOD_GUI\rpod__top.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="licenses.licx" />
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\COMMON_CODE\DLLS\LDLL094__COMMONCODE__SHARP_PCAP\LDLL094__COMMONCODE__SHARP_PCAP.csproj">
+      <Project>{24262e52-1304-4a25-8f73-a3b06e40592e}</Project>
+      <Name>LDLL094__COMMONCODE__SHARP_PCAP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\COMMON_CODE\DLLS\LDLL146__COMMONCODE__EXPLORER_BAR\LDLL146__COMMONCODE__EXPLORER_BAR.csproj">
+      <Project>{21ebf530-9bb8-4221-9dc4-aa2c93836971}</Project>
+      <Name>LDLL146__COMMONCODE__EXPLORER_BAR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\COMMON_CODE\DLLS\LDLL147__COMMONCODE__PACKET_DOTNET\LDLL147__COMMONCODE__PACKET_DOTNET.csproj">
+      <Project>{3527ca91-eb5b-4627-844b-844d0ec2d9e6}</Project>
+      <Name>LDLL147__COMMONCODE__PACKET_DOTNET</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\IODV_ICONS\bullet_square_green.png">
+      <Link>LCCM431__VBNET__APP\ICONS\bullet_square_green.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\IODV_ICONS\bullet_square_red.png">
+      <Link>LCCM431__VBNET__APP\ICONS\bullet_square_red.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\IODV_ICONS\bullet_square_yellow.png">
+      <Link>LCCM431__VBNET__APP\ICONS\bullet_square_yellow.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\IODV_ICONS\green_button_32x32.png">
+      <Link>LCCM431__VBNET__APP\ICONS\green_button_32x32.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\COMMON_CODE\VB.NET\LCCM431__VBNET__APP\IODV_ICONS\red_button_32x32.png">
+      <Link>LCCM431__VBNET__APP\ICONS\red_button_32x32.png</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

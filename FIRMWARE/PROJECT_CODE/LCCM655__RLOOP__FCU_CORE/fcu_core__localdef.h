@@ -18,8 +18,11 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		//special needs for DAQ compile time
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__daq_settings.h>
 
+		/** Data Acqusition System */
+		#define C_LOCALDEF__LCCM655__ENABLE_DAQ								(1U)
+
 		/** Enable or disable the PiComms layer */
-		#define C_LOCALDEF__LCCM655__ENABLE_PI_COMMS						(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_PI_COMMS						(0U)
 
 		/** Enable the OptoNCDT laser interface */
 		#define C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT					(1U)
@@ -48,6 +51,10 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 
 		/** Ethernet Systems */
 		#define C_LOCALDEF__LCCM655__ENABLE_ETHERNET						(1U)
+
+		/** SpaceX Telemetry Requirements Enable */
+		#define C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY				(1U)
+
 
 		/** Flight control specifics */
 		#define C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL					(1U)

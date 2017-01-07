@@ -27,6 +27,12 @@
 		/** Allow us to emulate pod sensor data */
 		NET_PKT__FCU_GEN__POD_EMULATION_CONTROL = 0x0002U,
 
+		/** Switch on or off DAQ streaming */
+		NET_PKT__FCU_GEN__DAQ_ENABLE = 0x00FEU,
+
+		/** Force a flush of the DAQ system */
+		NET_PKT__FCU_GEN__DAQ_FLUSH = 0x00FFU,
+
 		/** Flight control data streaming */
 		NET_PKT__FCU_GEN__STREAMING_CONTROL = 0x0100U,
 
@@ -152,6 +158,13 @@
 		/** Set the User Data by Sensor Index*/
 		NET_PKT__PWR_TEMP__SET_USERDATA_INDEX = 0x3207U,
 
+
+		//////////////////////////////////////////////////////
+		//DAQ (0x4000)
+		//////////////////////////////////////////////////////
+
+		/** Flight control DAQ offset */
+		NET_PKT__FCU_DAQ__OFFSET_INDEX = 0x4000U,
 
 
 		//////////////////////////////////////////////////////

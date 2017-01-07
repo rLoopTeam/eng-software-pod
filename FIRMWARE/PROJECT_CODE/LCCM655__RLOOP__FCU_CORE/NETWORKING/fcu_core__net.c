@@ -124,6 +124,11 @@ Luint8 u8FCU_NET__Is_LinkUp(void)
 #endif
 }
 
+//safetys
+#ifndef C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY
+	#error
+#endif
+
 #endif //C_LOCALDEF__LCCM655__ENABLE_ETHERNET
 #ifndef C_LOCALDEF__LCCM655__ENABLE_ETHERNET
 	#error

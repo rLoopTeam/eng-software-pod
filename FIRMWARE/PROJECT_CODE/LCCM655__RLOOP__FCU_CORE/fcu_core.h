@@ -444,25 +444,17 @@
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
 
-				/** Top level distance remaining in the run in mm */
-				Luint32 u32DistRemain_mm;
 
-				/** Distance elapsed between last stripe */
-				Luint32 u32DistLastStripe_mm;
 
-				/** Current velocity in mm/sec */
-				Luint32 u32CurrentVeloc_mms;
-
-				/** Velocity Calc Area */
+				/** The final computed values taking into account fault tolerance and
+				 * laser processing techiques */
 				struct
 				{
 
 					/** The current velocity in mm/sec */
 					Luint32 u32CurrentVeloc_mms;
 
-
-
-				}sVeloc;
+				}sComputed;
 
 				/** Individual contrast senors */
 				struct
@@ -473,6 +465,21 @@
 
 					/** Individual fault flags */
 					FAULT_TREE__PUBLIC_T sFaultFlags;
+
+					/** Top level distance remaining in the run in mm */
+					Luint32 u32DistElapsed_mm;
+
+					/** Distance elapsed between last stripe */
+					Luint32 u32DistLastStripe_mm;
+
+					/** Current velocity in mm/sec */
+					Luint32 u32CurrentVeloc_mms;
+
+					/** Current velocity in mm/sec */
+					Luint32 u32PreviousVeloc_mms;
+
+					/** Current acceleration */
+					Lint32 s32CurrentAccel_mmss;
 
 				}sSensors[LASER_CONT__MAX];
 
@@ -491,6 +498,9 @@
 
 					/** Rising edge count */
 					Luint16 u16RisingCount;
+
+					/** Can maintan a list of prev processed counts */
+					Luint16 u16PrevRisingCount;
 
 					/** Falling edge count */
 					Luint16 u16FallingCount;
@@ -701,6 +711,7 @@
 			void vFCU_NET_TX__Init(void);
 			void vFCU_NET_TX__Process(void);
 			void vFCU_NET_TX__10MS_ISR(void);
+			void vFCU_NET_TX__100MS_ISR(void);
 
 			//spaceX specific
 			void vFCU_NET_SPACEX_TX__Init(void);
@@ -725,13 +736,13 @@
 			DLL_DECLARATION void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Register);
 			Luint8 u8FCU_LASERCONT_TL__Get_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser);
 			void vFCU_LASERCONT_TL__Clear_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser);
-			Luint64 u64FCU_LASERCONT_TL__Get_TimeDelta(E_FCU__LASER_CONT_INDEX_T eLaser);
+			Luint64 u64FCU_LASERCONT_TL__Get_TimeDelta(E_FCU__LASER_CONT_INDEX_T eLaser, Luint16 u16CurrentIndex);
 
 			//velocity
 			void vFCU_LASERCONT_VELOC__Init(void);
 			void vFCU_LASERCONT_VELOC__Process(void);
 			Luint32 u32FCU_LASERCONT_VELOC__Get_CurrentVeloc_mms(void);
-			void vFCU_LASERCONT_VELOC__Compute(Luint32 u32Distance, Luint64 u64TimeDelta);
+			Luint32 u32FCU_LASERCONT_VELOC__Compute(Luint32 u32Distance, Luint64 u64TimeDelta);
 
 			//track database
 			void vFCU_LASERCONT_TRKDB__Init(void);

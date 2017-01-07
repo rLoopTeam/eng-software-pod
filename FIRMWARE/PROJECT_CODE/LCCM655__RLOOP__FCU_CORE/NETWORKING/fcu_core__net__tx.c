@@ -37,6 +37,10 @@ void vFCU_NET_TX__Init(void)
 	//set our default packet types
 	sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 	sFCU.sUDPDiag.eTxStreamingType = NET_PKT__NONE;
+
+	#if C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY == 1U
+		vFCU_NET_SPACEX_TX__Init();
+	#endif
 }
 
 
@@ -51,6 +55,11 @@ void vFCU_NET_TX__Process(void)
 {
 	Luint8 u8Flag;
 	E_NET__PACKET_T eType;
+
+	//Do we need a timed spaceX packet
+	#if C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY == 1U
+		vFCU_NET_SPACEX_TX__Process();
+	#endif
 
 	//see if we have a streaming flag set
 	if(sFCU.sUDPDiag.eTxStreamingType != NET_PKT__NONE)
@@ -145,6 +154,18 @@ void vFCU_NET_TX__10MS_ISR(void)
 {
 	sFCU.sUDPDiag.u810MS_Flag = 1U;
 }
+
+void vFCU_NET_TX__100MS_ISR(void)
+{
+	#if C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY == 1U
+		vFCU_NET_SPACEX_TX__100MS_ISR();
+	#endif
+}
+
+//safetys
+#ifndef C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY
+	#error
+#endif
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_ETHERNET
 /** @} */

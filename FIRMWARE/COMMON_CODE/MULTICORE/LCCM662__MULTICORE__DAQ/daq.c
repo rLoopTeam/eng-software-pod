@@ -120,6 +120,7 @@ void vDAQ__Init(void)
 	{
 		//clear the watermarks
 		sDAQ.u8WatermarkFlag[u16Counter] = 0U;
+		sDAQ.u8ForceFlushFlag[u16Counter] = 0U;
 		
 		#if C_LOCALDEF__LCCM662__ENABLE_USER_PAYLOAD_TYPES == 1U
 			sDAQ.u16User_PacketType[u16Counter] = 0U;
@@ -204,7 +205,8 @@ void vDAQ__Process(void)
 	
 		case DAQ_STATE__PROCESS_FILL:
 	
-			if(sDAQ.u8WatermarkFlag[sDAQ.u16ProcessPoint] == 1U)
+			//see if we are watermarked or need to flush
+			if((sDAQ.u8WatermarkFlag[sDAQ.u16ProcessPoint] == 1U) || (sDAQ.u8ForceFlushFlag[sDAQ.u16ProcessPoint] == 1U))
 			{
 				//get the buffer pointer.
 				pu8Temp = 0;
@@ -213,6 +215,17 @@ void vDAQ__Process(void)
 				{
 					//copy our length
 					u16Burst = (Luint16)sDAQ.sFIFO[sDAQ.u16ProcessPoint].uFIFO_FillLevel;
+
+					if(u16Burst == 0U)
+					{
+						//if we have nothing to burst, but have wanted a flush then clear the flag.
+						//The Tx function will return -ve if the burst is 0 anyhow.
+						sDAQ.u8ForceFlushFlag[sDAQ.u16ProcessPoint] = 0U;
+					}
+					else
+					{
+						//fall on.
+					}
 
 					//transmit notification
 					//we may fail here due to Eth interface currently processing something else, so come back and re-check
@@ -226,6 +239,7 @@ void vDAQ__Process(void)
 
 						//clear.
 						sDAQ.u8WatermarkFlag[sDAQ.u16ProcessPoint] = 0U;
+						sDAQ.u8ForceFlushFlag[sDAQ.u16ProcessPoint] = 0U;
 
 					}
 					else
@@ -275,6 +289,20 @@ void vDAQ__Process(void)
 	
 	}//switch(sDAQ.eMainState)
 
+}
+
+
+//this will force the DAQ to transmit what is in its buffers.
+//Useful for getting the last packet of data or flushing after a run.
+void vDAQ__ForceFlush(void)
+{
+	Luint16 u16Counter;
+
+	for(u16Counter = 0U; u16Counter < M_DAQ__NUM_CHANNELS; u16Counter++)
+	{
+		//foce it
+		sDAQ.u8ForceFlushFlag[u16Counter] = 1U;
+	}
 }
 
 #if C_LOCALDEF__LCCM662__ENABLE_USER_PAYLOAD_TYPES == 1U

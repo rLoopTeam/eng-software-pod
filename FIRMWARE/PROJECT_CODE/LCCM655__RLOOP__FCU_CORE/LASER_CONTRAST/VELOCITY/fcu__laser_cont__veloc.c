@@ -26,7 +26,7 @@ extern struct _strFCU sFCU;
 void vFCU_LASERCONT_VELOC__Init(void)
 {
 
-	sFCU.sContrast.sVeloc.u32CurrentVeloc_mms = 0U;;
+	//sFCU.sContrast.sVeloc.u32CurrentVeloc_mms = 0U;;
 
 }
 
@@ -41,11 +41,11 @@ void vFCU_LASERCONT_VELOC__Process(void)
 //get the result of the computation
 Luint32 u32FCU_LASERCONT_VELOC__Get_CurrentVeloc_mms(void)
 {
-	return sFCU.sContrast.sVeloc.u32CurrentVeloc_mms;	
+	return 0; //sFCU.sContrast.sVeloc.u32CurrentVeloc_mms;
 }
 
 //compute the veloc
-void vFCU_LASERCONT_VELOC__Compute(Luint32 u32Distance, Luint64 u64TimeDelta)
+Luint32 u32FCU_LASERCONT_VELOC__Compute(Luint32 u32Distance, Luint64 u64TimeDelta)
 {
 	Luint64 u64Temp;
 	Luint64 u64Temp2;
@@ -59,14 +59,28 @@ void vFCU_LASERCONT_VELOC__Compute(Luint32 u32Distance, Luint64 u64TimeDelta)
 
 	//compute the time
 	u64Temp2 = u64TimeDelta;
-	//convert to ns
-	//todo: we could technically shift to div by 2 here and reduce the size of the numerator
-	u64Temp2 *= 20U;
+
+	//safety
+	#if C_LOCALDEF__LCCM124__RTI_CLK_FREQ != 50U
+		#error
+	#else
+		//convert to ns
+		//todo: we could technically shift to div by 2 here and reduce the size of the numerator
+		u64Temp2 *= 20U;
+	#endif
 
 	//divide
-	u64Temp /= u64Temp2;
+	//math safety
+	if (u64Temp2 == 0U)
+	{
+		u64Temp = 0U;
+	}
+	else
+	{
+		u64Temp /= u64Temp2;
+	}
 
-	sFCU.sContrast.sVeloc.u32CurrentVeloc_mms = (Luint32)u64Temp;
+	return (Luint32)u64Temp;
 
 }
 
