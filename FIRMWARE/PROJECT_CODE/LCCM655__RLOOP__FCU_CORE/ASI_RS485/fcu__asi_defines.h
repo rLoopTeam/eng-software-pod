@@ -2,10 +2,22 @@
 #ifndef RLOOP_LCCM655__RLOOP__FCU_CORE_ASI_RS485_FCU__ASI_DEFINES_H_
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_ASI_RS485_FCU__ASI_DEFINES_H_
 
+	// number of ASI commands waiting in queue
+	#define C_ASI__COMMAND_QUEUE				(8)
+
+	// max modbus frame size
+	#define C_ASI__MAX_FRAME_SIZE				(256)
+
 	// modbus function codes
 	#define C_ASI__READ_INPUT_REGISTER			(0x04)
 	#define C_ASI__WRITE_SINGLE_REGISTER		(0x06)
 
+	// modbus timers in 10 ms units
+	#define C_ASI__MAX_TURNAROUND_DELAY			(15)
+	#define C_ASI__MAX_REPLYWAIT_DELAY			(100)
+
+	// sw test: simulate low level response
+	#define C_ASI__SW_TEST
 
 	/** ASI command parameter register address */
 	// see ASI BAC object Dictionary document for more
@@ -17,6 +29,7 @@
 	#define C_FCU_ASI__FAULTS								(258)
 	#define C_FCU_ASI__CONT_TEMP							(259)
 	#define C_FCU_ASI__TEMPERATURE							(261)
+	#define C_FCU_ASI__MOTOR_CURRENT						(262)
 	#define C_FCU_ASI__MOTOR_RPM							(263)
 	#define C_FCU_ASI__LAST_FAULT							(269)
 	#define C_FCU_ASI__RAW_SENSOR_TEMPERATURE				(273)

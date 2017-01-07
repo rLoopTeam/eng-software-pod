@@ -106,6 +106,31 @@ Lint16 s16FCU_ASI__ReadMotorRpm(Luint8 u8ASIDevNum, Luint16 *u16Rpm)
 
 /***************************************************************************//**
  * @brief
+ * Read motor rpm
+ *
+ * @param[in]		u8ASIDevNum		ASI controler device to communicate (1-8)
+ * @param[out]		u16Current		Parameter to store rpm
+ * @return			-1 = error
+ * 					0 = success
+ */
+Lint16 s16FCU_ASI__ReadMotorCurrent(Luint8 u8ASIDevNum, Luint16 *u16Current)
+{
+	Lint16 s16Return = 0;
+	struct _strASICmd sCmd;
+
+	memset(sCmd,0,sizeof(struct _strASICmd));
+	sCmd.u8SlaveAddress = u8ASIDevNum;
+	sCmd.fncCode = C_ASI__READ_INPUT_REGISTER;
+	sCmd.paramAddress = C_FCU_ASI__MOTOR_CURRENT;
+	sCmd.paramValue = 1;	// we just want to read one register
+	sCmd.destVar = (void*)u16Current;
+	sCmd.eDestVarType = E_UINT16;
+	s16Return=vFCU_ASI__SendCommand(&sCmd);
+	return s16Return;
+}
+
+/***************************************************************************//**
+ * @brief
  * Read controller's base plate temperature
  *
  * @param[in]		u8ASIDevNum		ASI controler device to communicate (1-8)

@@ -37,13 +37,6 @@
 		*******************************************************************************/
 		#define C_MLP__MAX_AVERAGE_SIZE				(8U)
 
-
-		// number of ASI commands waiting in queue
-		#define C_ASI__COMMAND_QUEUE				(8)
-
-		// max modbus frame size
-		#define C_ASI__MAX_FRAME_SIZE				(256)
-
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
@@ -592,14 +585,8 @@
 				Lint8 qTail;
 
 				/** a set of timers to control tx timeouts */
-				Luint64 timeout_3_5_char;
-				Luint64 timeout_1_5_char;
-				Luint64 timeout_response;
-				Luint64 timeout_turnaround;
-				Luint64 timer_3_5_char_start;
-				Luint64 timer_1_5_char_start;
-				Luint64 timer_response_start;
-				Luint64 timer_turnaround_start;
+				Luint32 u32ASI_turnaround_Counter;
+				Luint32 u32ASI_replywait_Counter;
 
 			}sASIComms;
 			#endif
@@ -853,6 +840,14 @@
 
 		//ASI interface
 		void vFCU_ASI__Init(void);
+		void vFCU_ASI__10MS_ISR(void);
+		void vFCU_ASI__Process(void);
+		Lint16 s16FCU_ASI__ReadMotorRpm(Luint8 u8ASIDevNum, Luint16 *u16Rpm);
+		Lint16 s16FCU_ASI__ReadMotorCurrent(Luint8 u8ASIDevNum, Luint16 *u16Current);
+		Lint16 s16FCU_ASI__ReadControllerTemperature(Luint8 u8ASIDevNum, Luint16 *u16Temp);
+		Lint16 s16FCU_ASI__SaveSettings(Luint8 u8ASIDevNum);
+		Lint16 s16FCU_ASI__GetFaults(Luint8 u8ASIDevNum, Luint16 *u16Faults);
+
 
 		//throttle layer
 		void vFCU_THROTTLE__Init(void);
