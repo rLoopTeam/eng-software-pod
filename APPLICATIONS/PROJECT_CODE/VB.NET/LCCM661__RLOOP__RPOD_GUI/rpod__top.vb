@@ -1,7 +1,7 @@
 Namespace SIL3.rLoop.rPodControl
 
     ''' <summary>
-    ''' Toolbox for rPod Controller
+    ''' Toolbox for rPod Controller Top level
     ''' </summary>
     ''' <remarks></remarks>
     Public Class Toolbox
