@@ -568,6 +568,9 @@
 				/** A flag to indicate 10ms has elapsed if we are using timed packets */
 				Luint8 u8100MS_Flag;
 
+				/** Test counter for telemetry */
+				Luint32 u32TestCounter;
+
 			}sSpaceX;
 
 			#endif

@@ -27,6 +27,7 @@ void vFCU_NET_SPACEX_TX__Init(void)
 {
 	//Clear the timer flag
 	sFCU.sSpaceX.u8100MS_Flag = 0U;
+	sFCU.sSpaceX.u32TestCounter = 0U;
 
 }
 
@@ -118,7 +119,7 @@ void vFCU_NET_SPACEX_TX__Process(void)
 				pu8Return += 4U;
 
 				//stripe_count 	UINT32 			Count of optical navigation stripes detected in the tube.
-				vNUMERICAL_CONVERT__Array_U32(pu8Return, 88888);
+				vNUMERICAL_CONVERT__Array_U32(pu8Return, sFCU.sSpaceX.u32TestCounter++);
 				pu8Return += 4U;
 
 				//send it our SpaceX required port

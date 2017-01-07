@@ -677,19 +677,19 @@ Public Class Form1
             If p802_IPV4.m_pU8Protocol.To__Uint8 = &H11 Then
 
                 Dim p802_UDP As New SIL3.IEEE802_3.UDP(p802_IPV4.m_bPayload, p802_IPV4.m_iPayloadLength)
-                If p802_UDP.m_pu16DestPort.To__Int = iEthPort Then
+                'If p802_UDP.m_pu16DestPort.To__Int = iEthPort Then
 
-                    Dim pStdUDP As New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", iEthPort)
-                    AddHandler pStdUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.UserEvent__UDPSafe__RxPacket
+                Dim pStdUDP As New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", p802_UDP.m_pu16DestPort.To__Int) 'iEthPort)
+                AddHandler pStdUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.UserEvent__UDPSafe__RxPacket
 
                     'retransmit
                     pStdUDP.UserEvent__NewUDP(p802_UDP, True)
 
 
 
-                    'Me.m_pSafeUDP.Tx__Safe_Array(
+                'Me.m_pSafeUDP.Tx__Safe_Array(
 
-                End If
+                'End If
 
             End If
 
