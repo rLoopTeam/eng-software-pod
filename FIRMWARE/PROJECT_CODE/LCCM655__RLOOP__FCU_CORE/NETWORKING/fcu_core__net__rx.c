@@ -97,6 +97,26 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 				break;
 
+			case NET_PKT__FCU_GEN__DAQ_ENABLE:
+				#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
+					if(u32Block[0] == 1U)
+					{
+						vDAQ__Streaming_On();
+					}
+					else
+					{
+						vDAQ__Streaming_Off();
+					}
+				#endif
+				break;
+
+			case NET_PKT__FCU_GEN__DAQ_FLUSH:
+				//tell the DAQ to flush.
+				#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
+					vDAQ__ForceFlush();
+				#endif
+				break;
+
 			case NET_PKT__FCU_GEN__STREAMING_CONTROL:
 				//if the host wants to stream data packets.
 				if(u32Block[0] == 1U)
