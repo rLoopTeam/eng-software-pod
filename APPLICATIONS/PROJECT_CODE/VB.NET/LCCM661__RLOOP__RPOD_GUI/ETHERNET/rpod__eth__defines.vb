@@ -7,6 +7,7 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
     Public Enum E_POD_CONTROL_POINTS
         POD_CTRL_PT__XILINX_SIM
         POD_CTRL_PT__FCU
+        POD_CTRL_PT__FCU_SPACEX_DIAG
         POD_CTRL_PT__POWER_A
         POD_CTRL_PT__POWER_B
         POD_CTRL_PT__LGU
@@ -30,6 +31,12 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
 
         '/** Allow us to emulate pod sensor data */
         NET_PKT__FCU_GEN__POD_EMULATION_CONTROL = &H2
+
+        '/** Switch on or off DAQ streaming */
+        NET_PKT__FCU_GEN__DAQ_ENABLE = &HFE
+
+        '/** Force a flush of the DAQ system */
+        NET_PKT__FCU_GEN__DAQ_FLUSH = &HFF
 
         '/** Flight control data streaming */
         NET_PKT__FCU_GEN__STREAMING_CONTROL = &H100
@@ -154,7 +161,12 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** Set the User Data by Sensor Index*/
         NET_PKT__PWR_TEMP__SET_USERDATA_INDEX = &H3207
 
+        '//////////////////////////////////////////////////////
+        '//DAQ (0x4000)
+        '//////////////////////////////////////////////////////
 
+        '/** Flight control DAQ offset */
+        NET_PKT__FCU_DAQ__OFFSET_INDEX = &H4000
 
         '//////////////////////////////////////////////////////
         '//XILINX HYPERLOOP SIMULATION (&h5000)

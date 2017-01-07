@@ -67,6 +67,9 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         ''' <param name="bCRC_OK"></param>
         ''' <param name="u32Sequence"></param>
         Public Event UserEvent__UDPSafe__RxPacketB(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16PacketType As UInt16, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
+
+        Public Event UserEvent__RxPacketA(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u8Array() As Byte, iLength As Integer)
+
 #End Region '#Region "EVENTS"
 
 #Region "ADD PORTS"
@@ -86,6 +89,7 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
             pY.iPort = iPort
 
             AddHandler pY.pSafeUDP.UserEvent__UDPSafe__RxPacketA, AddressOf Me.InernalEvent__UDPSafe__RxPacketA
+            AddHandler pY.pSafeUDP.UserEvent__NewPacketA, AddressOf Me.InternalEvent__RxPacketA
             'AddHandler pY.pSafeUDP.UserEvent__UDPSafe__RxPacket, Function(ePacketType, u16PayloadLength, u8Payload, u16CRC, bCRCOK, u32Seq) InernalEvent__UDPSafe__RxPacket(eEndpoint, ePacketType, u16PayloadLength, u8Payload, u16CRC, bCRCOK, u32Seq)
 
             'add to our list
@@ -120,6 +124,21 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
 #Region "RX HANDLERS"
 
         ''' <summary>
+        ''' New RAW packet
+        ''' </summary>
+        ''' <param name="iPort"></param>
+        ''' <param name="u8Array"></param>
+        ''' <param name="iLength"></param>
+        Private Sub InternalEvent__RxPacketA(iPort As Integer, u8Array() As Byte, iLength As Integer)
+            For Each pX As _strUDP_Endpoint In Me.m_lUDP
+                If pX.iPort = iPort Then
+                    RaiseEvent UserEvent__RxPacketA(pX.eEndpoint, u8Array, iLength)
+                End If
+            Next
+
+        End Sub
+
+        ''' <summary>
         '''  New packet has come in
         ''' </summary>
         ''' <param name="iPort"></param>
@@ -142,7 +161,8 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
 
         Private Sub InternalEvent__ARP__Packet(ByVal u8SenderHW() As Numerical.U8, ByVal u8SenderIP() As Numerical.U8, ByVal u16LFW As Numerical.U16, ByVal u8FWMajor As Numerical.U8, ByVal u8FWMinor As Numerical.U8)
         End Sub
-#End Region
+
+#End Region '#Region "RX HANDLERS"
 
 #Region "TX HANDLERS"
 

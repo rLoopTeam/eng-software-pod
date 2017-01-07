@@ -6,22 +6,6 @@ LAPP188__RLOOP__RPOD_CONTROL
 </name>
 </assembly>
 <members>
-<member name="T:LAPP188__RLOOP__RPOD_CONTROL.My.Resources.Resources">
-<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
-</member>
-<member name="P:LAPP188__RLOOP__RPOD_CONTROL.My.Resources.Resources.ResourceManager">
-<summary>
-  Returns the cached ResourceManager instance used by this class.
-</summary>
-</member>
-<member name="P:LAPP188__RLOOP__RPOD_CONTROL.My.Resources.Resources.Culture">
-<summary>
-  Overrides the current thread's CurrentUICulture property for all
-  resource lookups using this strongly typed resource class.
-</summary>
-</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ProgressHelper.Layout__BelowControl(System.Windows.Forms.Control@)">
  <summary>
  Places this object below another control
@@ -3652,6 +3636,294 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  <param name="sPath"></param>
  <remarks></remarks>
 </member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top">
+ <summary>
+ Top level DAQ module
+ </summary>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.S_DAQ__STREAM_LIST">
+ <summary>
+ The streaming control type
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.S_DAQ__STREAM_LIST.sHumanName">
+ <summary>
+ The human name for this stream, no commas because its in CSV
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.S_DAQ__STREAM_LIST.sIP">
+ <summary>
+ The IP Address
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.S_DAQ__STREAM_LIST.iPort">
+ <summary>
+ The UDP port to Rx data on
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.S_DAQ__STREAM_LIST.iStreamIndex">
+ <summary>
+ The actual stream index
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.S_DAQ__STREAM_LIST.eStreamType">
+ <summary>
+ The type of stream we are dealing with
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.m_pSafeUDP">
+ <summary>
+ SafetyUDP layer used for DAQ transport
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.m_bRun">
+ <summary>
+ A flag to say we are running
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.m_iIF_Setup">
+ <summary>
+ Are the IP interfaces setup yet?
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.m_sLogFilePath">
+ <summary>
+ Our CSV logging path.
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.m_lDAQ_Streams">
+ <summary>
+ A list of all registered DAQ streams
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.m_pCSV">
+ <summary>
+ The CSV writers.
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.m_bCSV">
+ <summary>
+ Are we running the CSV.
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.m_iPanelIndex">
+ <summary>
+ SS panel index
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.m_iRxCount">
+ <summary>
+ The count of recieved packets
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.m_bUseInternalUDP">
+ <summary>
+ Do we use and create our own internal UDP sockets, or does the 
+ user supply their own
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.#ctor(System.Boolean,LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.StatusStripHelper@)">
+ <summary>
+ New instance.
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.#ctor">
+ <summary>
+ Just a new blank DAQ handler
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.Destroy">
+ <summary>
+ Close down the DAQ module as needed
+ </summary>
+</member>
+<member name="E:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.PublicEvent__DAQ__New_U8">
+ <summary>
+ called when we get a new U8 daq stream in
+ </summary>
+ <param name="iStreamIndex"></param>
+ <param name="lU8"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.DAQ__Start(System.Boolean)">
+ <summary>
+ Start the DAQ running
+ </summary>
+ <param name="bUseInternalUDP">Use our internal UDP or not? If not user must put data in to the Rx function and no Tx occurs</param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.DAQ__Stop">
+ <summary>
+ Stop the DAQ in hardware. We will continue to Rx packets
+ due to FIFO fill levels.
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.DAQ__Set_LogFilePath(System.String)">
+ <summary>
+ Set the path that will be used to load .CSV files
+ </summary>
+ <param name="sPath"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.Register__DAQTypes(System.String,System.Int32,System.Int32,LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.E_DAQ__DATA_TYPES,System.String)">
+ <summary>
+ Set the DAQ types must match the hardware precisely
+ </summary>
+ <param name="sIPAddx"></param>
+ <param name="iPort"></param>
+ <param name="iStreamIndex"></param>
+ <param name="eType"></param>
+ <param name="sHumanName">Store a human name</param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.InternalEvent__UDP__UpdatePorts(System.String,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="sIPAddx"></param>
+ <param name="iPort"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.InernalEvent__UDPSafe__RxPacketA(LAPP188__RLOOP__RPOD_CONTROL.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Boolean,System.UInt32)">
+ <summary>
+ Just an internal handler for when we are using our internal UDP
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <param name="bCRCOK"></param>
+ <param name="u32Seq"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.InernalEvent__UDPSafe__RxPacket(System.UInt16,LAPP188__RLOOP__RPOD_CONTROL.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Boolean,System.UInt32)">
+ <summary>
+ Handle the reception of a UDPSafety Packet
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <param name="bCRCOK"></param>
+ <param name="u32Seq"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.InternalEvent__UDPSafe__TxControlPacket(LAPP188__RLOOP__RPOD_CONTROL.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T,System.UInt32,System.UInt32,System.UInt32,System.UInt32)">
+ <summary>
+ Transmit a UDPSafe control packet
+ </summary>
+ <param name="u16PacketType"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.InternalEvent__UDPSafe__TxArray(LAPP188__RLOOP__RPOD_CONTROL.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T,System.UInt16,System.Byte[]@)">
+ <summary>
+ Transmit a UDPSafe Array
+ </summary>
+ <param name="u16PacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="bData"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.Payload__U8FromArray(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@)">
+ <summary>
+ Convert a payload into a U8 list
+ </summary>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <returns></returns>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.DAQ.Top.Payload__F32FromArray(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@)">
+ <summary>
+ Convert a payload into a F32 list
+ </summary>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <returns></returns>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.EthInterface">
+ <summary>
+ Ethernet Interface
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.EthInterface._strUDP_Endpoint">
+ <summary>
+ Just a type so as we know what port to head out
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.EthInterface.m_lUDP">
+ <summary>
+ List of endpoints
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.EthInterface.#ctor">
+ <summary>
+ Create a new ethernet interface
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.EthInterface.Destroy">
+ <summary>
+ Called to kill all our lower systems
+ </summary>
+</member>
+<member name="E:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.EthInterface.UserEvent__UDPSafe__RxPacketB">
+ <summary>
+ Called when a new packet arives from the SafeUDP
+ </summary>
+ <param name="eEndpoint"></param>
+ <param name="u16PacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <param name="bCRC_OK"></param>
+ <param name="u32Sequence"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.EthInterface.Port__Add(System.String,System.Int32,LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS)">
+ <summary>
+ Add a new port to be monitored by the system
+ </summary>
+ <param name="sIP"></param>
+ <param name="iPort"></param>
+ <param name="eEndpoint"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.EthInterface.User__SafeUDP__Tx_X4(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS,System.UInt16,System.UInt32,System.UInt32,System.UInt32,System.UInt32)">
+ <summary>
+ Transmit out the Eth
+ </summary>
+ <param name="eEndpoint"></param>
+ <param name="u16Type"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.EthInterface.InternalEvent__RxPacketA(System.Int32,System.Byte[],System.Int32)">
+ <summary>
+ New RAW packet
+ </summary>
+ <param name="iPort"></param>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.EthInterface.InernalEvent__UDPSafe__RxPacketA(System.Int32,System.UInt16,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Boolean,System.UInt32)">
+ <summary>
+  New packet has come in
+ </summary>
+ <param name="iPort"></param>
+ <param name="u16PacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <param name="bCRCOK"></param>
+ <param name="u32Seq"></param>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS">
+ <summary>
+ Pod control end points
+ </summary>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T">
+ <summary>
+ Network packet defines
+ http://confluence.rloop.org/display/SD/Packet+Types
+ </summary>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Brakes.Switches">
  <summary>
  Brake Switch Monitoring
@@ -3728,7 +4000,7 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  <param name="sPanelText"></param>
  <remarks></remarks>
 </member>
-<member name="E:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers.UserEvent__SafeUDP__TxControlPacket">
+<member name="E:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers.UserEvent__SafeUDP__Tx_X4">
  <summary>
  Raised wehen we want to transmit a control packet
  </summary>
@@ -3739,20 +4011,7 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  <param name="u32Block3"></param>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers.InternalEvent__AFE_Status(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U32,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U32,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U32,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.S32,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.S32)">
- <summary>
- UDP packet from AFE
- </summary>
- <param name="u8Device"></param>
- <param name="u8Channel"></param>
- <param name="u32Flags"></param>
- <param name="u32StatusFlags"></param>
- <param name="u32SystemGain"></param>
- <param name="s32RawPressure"></param>
- <param name="s32PSIPressure"></param>
- <remarks></remarks>
-</member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers.InernalEvent__UDPSafe__RxPacket(LAPP188__RLOOP__RPOD_CONTROL.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte)">
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers.InernalEvent__UDPSafe__RxPacket(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS,LAPP188__RLOOP__RPOD_CONTROL.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte)">
  <summary>
  New UDP packet in
  </summary>
@@ -3815,6 +4074,72 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  <param name="e"></param>
  <remarks></remarks>
 </member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Contrast">
+ <summary>
+ Contrast sensor systems
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Contrast.C_NUM_ACCELS">
+ <summary>
+ Number of accels on the PCB
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Contrast.m_sLogDir">
+ <summary>
+ The logging directory
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Contrast.m_pCSV">
+ <summary>
+ Allows us to write CSV logs of the edges
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Contrast.m_pDAQ">
+ <summary>
+ Our DAQ Receiver
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Contrast.#ctor(System.String,System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Contrast.UserEvent__SafeUDP__Tx_X4">
+ <summary>
+ Raised wehen we want to transmit a control packet
+ </summary>
+ <param name="u16Type"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Contrast.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16)">
+ <summary>
+ New Packet In
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Contrast.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Contrast.btnRequest_L0__Click(System.Object,System.EventArgs)">
+ <summary>
+ Request laser0 contrast data
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top">
  <summary>
  Top level Flight Control
@@ -3833,12 +4158,38 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <remarks></remarks>
 </member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.m_pnlFlight__SpaceX">
+ <summary>
+ SpaceX required telemetry from the FCU
+ </summary>
+</member>
 <member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.m_pnlFlight__Accel">
  <summary>
  Accelerometer control panel
  </summary>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.#ctor(System.Windows.Forms.Form@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ExplorerBarHelper@)">
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.m_pnlFlight__Contrast">
+ <summary>
+ Contrast sensors
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.m_sLogDir">
+ <summary>
+ The logging directory
+ </summary>
+</member>
+<member name="E:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.UserEvent__SafeUDP__Tx_X4">
+ <summary>
+ Raise an event to transmit a new packet
+ </summary>
+ <param name="eEndpoint"></param>
+ <param name="u16Type"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.#ctor(System.Windows.Forms.Form@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ExplorerBarHelper@,System.String)">
  <summary>
  New instance
  </summary>
@@ -3857,6 +4208,91 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  Called when a link is clicked
  </summary>
  <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.InternalEvent__SafeUDP__Tx_X4(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS,System.UInt16,System.UInt32,System.UInt32,System.UInt32,System.UInt32)">
+ <summary>
+ Some lower module wants to transmit to to the eth
+ </summary>
+ <param name="eEndpoint"></param>
+ <param name="u16Type"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.InternalEvent__UDPSafe__RxPacketB(System.UInt16,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Boolean,System.UInt32)">
+ <summary>
+ New packet in from top layer
+ </summary>
+ <param name="u16PacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <param name="bCRC_OK"></param>
+ <param name="u32Sequence"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.InternalEvent__RxPacketA(System.Byte[],System.Int32)">
+ <summary>
+ Rx a eth packet
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX">
+ <summary>
+ SpaceX required packet
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX.m_sLogDir">
+ <summary>
+ The logging directory
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX.m_pCSV">
+ <summary>
+ Allows us to write CSV logs of the edges
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX.#ctor(System.String,System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX.UserEvent__SafeUDP__Tx_X4">
+ <summary>
+ Raised wehen we want to transmit a control packet
+ </summary>
+ <param name="u16Type"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX.InternalEvent__RxPacketA(System.Byte[],System.Int32)">
+ <summary>
+ Rx a normal packet
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16)">
+ <summary>
+ New Packet In
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
  <remarks></remarks>
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Settings.Network">
@@ -3936,9 +4372,156 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Settings.FilePaths.Get__DataLogDir">
+ <summary>
+ Return the data logging directory
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.ContrastNav">
+ <summary>
+ Contrast Navigation System
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.ContrastNav.m_iRxCount">
+ <summary>
+ Count of Rx Packets
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.ContrastNav.m_txtCount">
+ <summary>
+ Count of Packets
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.ContrastNav.m_txtStatus">
+ <summary>
+ The simulation status
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.ContrastNav.m_txtGForce">
+ <summary>
+ Simulation G-Force
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.ContrastNav.m_txtCRC">
+ <summary>
+ Last Rx CRC
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.ContrastNav.#ctor(System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.ContrastNav.UserEvent__SafeUDP__Tx_X4">
+ <summary>
+ Raised wehen we want to transmit a control packet
+ </summary>
+ <param name="u16Type"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.ContrastNav.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16)">
+ <summary>
+ New Packet In
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.ContrastNav.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.Top">
+ <summary>
+ Top level xilinx sim
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.Top.m_pExplorer">
+ <summary>
+ Our application explorer bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.Top.m_iBarIndex">
+ <summary>
+ The index of our category in the explorer bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.Top.m_pnlXilinx__ContrastNav">
+ <summary>
+ Accelerometer control panel
+ </summary>
+</member>
+<member name="E:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.Top.UserEvent__SafeUDP__Tx_X4">
+ <summary>
+ Raise an event to transmit a new packet
+ </summary>
+ <param name="eEndpoint"></param>
+ <param name="u16Type"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.Top.#ctor(System.Windows.Forms.Form@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ExplorerBarHelper@)">
+ <summary>
+ New instance
+ </summary>
+ <param name="pf"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.Top.Panel__HideShow(System.String)">
+ <summary>
+ How or hide this panel if our text matches
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.Top.LinkBar_LinkClick(System.String)">
+ <summary>
+ Called when a link is clicked
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.Top.InternalEvent__SafeUDP__Tx_X4(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS,System.UInt16,System.UInt32,System.UInt32,System.UInt32,System.UInt32)">
+ <summary>
+ Some lower module wants to transmit to to the eth
+ </summary>
+ <param name="eEndpoint"></param>
+ <param name="u16Type"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.Top.InternalEvent__UDPSafe__RxPacketB(System.UInt16,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Boolean,System.UInt32)">
+ <summary>
+ New packet in from top layer
+ </summary>
+ <param name="u16PacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <param name="bCRC_OK"></param>
+ <param name="u32Sequence"></param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox">
  <summary>
- Toolbox for ACPS (Active Crush Protection System)
+ Toolbox for rPod Controller
  </summary>
  <remarks></remarks>
 </member>
@@ -3959,6 +4542,16 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  The Flight Control Interface
  </summary>
  <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pnlXilinxSim">
+ <summary>
+ Xilinx simulation module
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pEth">
+ <summary>
+ The ethernet interface
+ </summary>
 </member>
 <member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pSS">
  <summary>
@@ -3991,6 +4584,29 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <param name="sText"></param>
  <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.InternalEvent__SafeUDP__Tx_X4(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS,System.UInt16,System.UInt32,System.UInt32,System.UInt32,System.UInt32)">
+ <summary>
+ Some lower module wants to transmit to to the eth
+ </summary>
+ <param name="eEndpoint"></param>
+ <param name="u16Type"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.InternalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS,System.UInt16,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Boolean,System.UInt32)">
+ <summary>
+ New Packet Rx'd
+ </summary>
+ <param name="eEndpoint"></param>
+ <param name="u16PacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <param name="bCRC_OK"></param>
+ <param name="u32Sequence"></param>
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.CRC.CRC8">
  <summary>
@@ -4805,6 +5421,13 @@ same as above, but padded to the correct length
  <returns></returns>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U64.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ New U64 from array
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U64.From__HexString(System.String)">
  <summary>
  Convert from a hex string to a U64
@@ -4821,6 +5444,12 @@ same as above, but padded to the correct length
  <param name="iByteNumber"></param>
  <returns></returns>
  <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U64.To__Uint64">
+ <summary>
+ Convert our Internal to uint64
+ </summary>
+ <returns></returns>
 </member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.F64.#ctor(System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
  <summary>
@@ -7227,6 +7856,26 @@ this will init our series
  </summary>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.SafeUDP.StdUDPLayer.ChooseAdapter__Show(System.String)">
+ <summary>
+ show the choose adapter dialog
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.SafeUDP.StdUDPLayer.btnChoose__Click(System.Object,System.EventArgs)">
+ <summary>
+ Handle the choose
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.SafeUDP.StdUDPLayer.#ctor(System.String,System.Int32,System.String,System.Boolean,System.Boolean)">
+ <summary>
+ Create a new instance, with an IP and a port for our machine
+ </summary>
+ <param name="sIPAddx"></param>
+ <param name="iPort"></param>
+ <remarks></remarks>
+</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.SafeUDP.StdUDPLayer.#ctor(System.String,System.Int32)">
  <summary>
  Create a new instance just with a port
@@ -7251,7 +7900,7 @@ this will init our series
  <summary>
  A new UDP packet arrives
  </summary>
- <param name="u16PacketType"></param>
+ <param name="ePacketType"></param>
  <param name="u16PayloadLength"></param>
  <param name="u8Payload"></param>
  <param name="u16CRC"></param>
@@ -7536,6 +8185,22 @@ this will init our series
  Do not change the method contents inside the source code editor. The Forms designer might
  not be able to load this method if it was changed manually.
  </summary>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:LAPP188__RLOOP__RPOD_CONTROL.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:LAPP188__RLOOP__RPOD_CONTROL.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
 </member>
 </members>
 </doc>

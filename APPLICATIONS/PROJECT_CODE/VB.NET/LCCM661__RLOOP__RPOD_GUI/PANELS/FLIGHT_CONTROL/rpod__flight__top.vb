@@ -20,6 +20,11 @@
         Private m_iBarIndex As Integer
 
         ''' <summary>
+        ''' SpaceX required telemetry from the FCU
+        ''' </summary>
+        Private m_pnlFlight__SpaceX As SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX
+
+        ''' <summary>
         ''' Accelerometer control panel
         ''' </summary>
         Private m_pnlFlight__Accel As SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers
@@ -75,11 +80,15 @@
             Me.m_pExplorer = pExplorer
 
             Me.m_iBarIndex = Me.m_pExplorer.Bar__Add("Flight Control")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "SpaceX Telemetry")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Accelerometers")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Contrast Sensors")
 
 
             'add the panels before the bar so as we have docking working well.
+            Me.m_pnlFlight__SpaceX = New SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX("SpaceX Telemetry", Me.m_sLogDir)
+            pf.Controls.Add(Me.m_pnlFlight__SpaceX)
+
             Me.m_pnlFlight__Accel = New SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers("Accelerometers")
             pf.Controls.Add(Me.m_pnlFlight__Accel)
 
@@ -88,6 +97,7 @@
 
 
             'setup the eth
+            AddHandler Me.m_pnlFlight__SpaceX.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__Accel.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__Contrast.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
 
@@ -104,6 +114,7 @@
         ''' <param name="sText"></param>
         ''' <remarks></remarks>
         Public Sub Panel__HideShow(sText As String)
+            Me.m_pnlFlight__SpaceX.Panel__HideShow(sText)
             Me.m_pnlFlight__Accel.Panel__HideShow(sText)
             Me.m_pnlFlight__Contrast.Panel__HideShow(sText)
         End Sub
@@ -116,6 +127,7 @@
         ''' <param name="sText"></param>
         ''' <remarks></remarks>
         Private Sub LinkBar_LinkClick(ByVal sText As String)
+            Me.m_pnlFlight__SpaceX.Panel__HideShow(sText)
             Me.m_pnlFlight__Accel.Panel__HideShow(sText)
             Me.m_pnlFlight__Contrast.Panel__HideShow(sText)
         End Sub
@@ -152,6 +164,16 @@
         Public Sub InternalEvent__UDPSafe__RxPacketB(u16PacketType As UInt16, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
             Me.m_pnlFlight__Contrast.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
         End Sub
+
+        ''' <summary>
+        ''' Rx a eth packet
+        ''' </summary>
+        ''' <param name="u8Array"></param>
+        ''' <param name="iLength"></param>
+        Public Sub InternalEvent__RxPacketA(u8Array() As Byte, iLength As Integer)
+            Me.m_pnlFlight__SpaceX.InternalEvent__RxPacketA(u8Array, iLength)
+        End Sub
+
 
 #End Region '#Region "ETHERNET RX"
 
