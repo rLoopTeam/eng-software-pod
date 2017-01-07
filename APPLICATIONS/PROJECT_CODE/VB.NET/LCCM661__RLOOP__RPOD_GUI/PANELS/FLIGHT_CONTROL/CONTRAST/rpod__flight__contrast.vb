@@ -26,9 +26,16 @@
         ''' </summary>
         Private m_sLogDir As String
 
-
+        ''' <summary>
+        ''' Allows us to write CSV logs of the edges
+        ''' </summary>
         Private m_pCSV As SIL3.FileSupport.CSV
 
+
+        ''' <summary>
+        ''' Our DAQ Receiver
+        ''' </summary>
+        Private m_pDAQ As SIL3.DAQ.Top
 
 #End Region '#Region "MEMBERS"
 
@@ -52,9 +59,26 @@
             If Me.m_pCSV.File__Exists = False Then
             End If
 
+            'create a DAQ
+            'do not pass in any info
+            Me.m_pDAQ = New SIL3.DAQ.Top()
+
+            'add the contrast DAQ items
+            Me.m_pDAQ.DAQ__Set_LogFilePath(Me.m_sLogDir)
+
+            'cpu load
+            Me.m_pDAQ.Register__DAQTypes(0, 0, 0, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U8, "CPU Load")
+            'rising count
+            Me.m_pDAQ.Register__DAQTypes(0, 0, 1, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U16, "Rising Edge Count")
+            'distance elapsed mm
+            Me.m_pDAQ.Register__DAQTypes(0, 0, 2, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__S32, "Current Accel mm/ss")
+            'last stripe distance mm
+            Me.m_pDAQ.Register__DAQTypes(0, 0, 3, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "Distance Elapsed mm")
+            'current velocity mm/s
+            Me.m_pDAQ.Register__DAQTypes(0, 0, 4, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "Velocity mms")
 
         End Sub
-#End Region '#Region "NEW"
+#End Region '#Region "New"
 
 #Region "EVENTS"
 
@@ -133,7 +157,7 @@
                     Dim lS As New List(Of String)
 
                     lS.Add("Laser 0 - Simulation Run")
-                    lS.Add("Date / Time: " & Now.ToString)
+                    lS.Add("Date / Time:  " & Now.ToString)
                     lS.Add("-------------------------------------------------------------")
                     lS.Add("Rising Edges: " & pU16RisingCount.To__Int.ToString)
                     lS.Add("Falling Edges: " & pU16FallingCount.To__Int.ToString)
@@ -199,6 +223,13 @@
                     Me.m_txtCount.Threadsafe__SetText(Me.m_iRxCount.ToString)
 
 
+                ElseIf ePacketType >= SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_DAQ__OFFSET_INDEX And ePacketType <= SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_DAQ__OFFSET_INDEX + 128 Then
+
+                    'DAQ packet
+                    'Pass off to the DAQ system
+                    Me.m_pDAQ.InernalEvent__UDPSafe__RxPacket(SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_DAQ__OFFSET_INDEX,
+                                                              ePacketType, u16PayloadLength, u8Payload, u16CRC, True, 0)
+
                 End If
             End If
 
@@ -217,6 +248,15 @@
             Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Contrast Laser Edge Data", MyBase.m_pInnerPanel)
             Dim btnRL0 As New SIL3.ApplicationSupport.ButtonHelper(100, "Req. Laser 0", AddressOf btnRequest_L0__Click)
             btnRL0.Layout__BelowControl(l0)
+
+            Dim btnEnableDAQ As New SIL3.ApplicationSupport.ButtonHelper(100, "Enable DAQ", AddressOf btnEnableDAQ__Click)
+            btnEnableDAQ.Layout__RightOfControl(btnRL0)
+            btnEnableDAQ.ToolTip__Set("Enable DAQ", "You must enable this BEFORE starting a FPGA sim otherwise the DAQ won't log")
+
+            Dim btnBurst As New SIL3.ApplicationSupport.ButtonHelper(100, "Burst DAQ", AddressOf btnBurstDAQ__Click)
+            btnBurst.Layout__RightOfControl(btnEnableDAQ)
+
+
             Dim btnRL1 As New SIL3.ApplicationSupport.ButtonHelper(100, "Req. Laser 1", AddressOf btnRequest_L1__Click)
             btnRL1.Layout__BelowControl(btnRL0)
             Dim btnRL2 As New SIL3.ApplicationSupport.ButtonHelper(100, "Req. Laser 2", AddressOf btnRequest_L2__Click)
@@ -231,6 +271,18 @@
 #End Region '#Region "PANEL LAYOUT"
 
 #Region "BUTTON HELPERS"
+
+        Private Sub btnEnableDAQ__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__DAQ_ENABLE,
+                                                 1, 0, 0, 0)
+        End Sub
+
+        Private Sub btnBurstDAQ__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__DAQ_FLUSH,
+                                                 0, 0, 0, 0)
+        End Sub
 
         ''' <summary>
         ''' Request laser0 contrast data

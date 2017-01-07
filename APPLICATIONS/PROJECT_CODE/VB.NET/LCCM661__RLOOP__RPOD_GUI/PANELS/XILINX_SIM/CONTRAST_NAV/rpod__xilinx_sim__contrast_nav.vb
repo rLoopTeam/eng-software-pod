@@ -150,42 +150,50 @@
 
         Private Sub btnStartRun__Click(s As Object, e As EventArgs)
 
+            'convert f32 value of the desired g-force
             Dim pF32 As New SIL3.Numerical.F32(CSng(Me.m_txtGForce.Text))
 
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__XILINX_SIM__SIMULATION_CONTROL,
                                                  1, pF32.Union__Uint32, 0, 0)
         End Sub
+
         Private Sub btnStopRun__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__XILINX_SIM__SIMULATION_CONTROL,
                                                  0, 0, 0, 0)
         End Sub
+
         Private Sub btnLaser0_On__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__XILINX_SIM__MANUAL_LASER_CONTROL,
                                                  0, 1, 0, 0)
         End Sub
+
         Private Sub btnLaser0_Off__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__XILINX_SIM__MANUAL_LASER_CONTROL,
                                                  0, 0, 0, 0)
         End Sub
+
         Private Sub btnLaser1_On__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__XILINX_SIM__MANUAL_LASER_CONTROL,
                                                  1, 1, 0, 0)
         End Sub
+
         Private Sub btnLaser1_Off__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__XILINX_SIM__MANUAL_LASER_CONTROL,
                                                  1, 0, 0, 0)
         End Sub
+
         Private Sub btnLaser2_On__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__XILINX_SIM__MANUAL_LASER_CONTROL,
                                                  2, 1, 0, 0)
         End Sub
+
         Private Sub btnLaser2_Off__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__XILINX_SIM__MANUAL_LASER_CONTROL,

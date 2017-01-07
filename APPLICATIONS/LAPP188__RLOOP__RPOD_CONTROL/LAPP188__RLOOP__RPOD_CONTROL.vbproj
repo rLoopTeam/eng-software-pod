@@ -80,6 +80,9 @@
       <Link>LCCM431__VBNET__APP\application_support__progress_helper.vb</Link>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="..\COMMON_CODE\VB.NET\LCCM664__VBNET__DAQ\daq__top.vb">
+      <Link>NewFolder1\daq__top.vb</Link>
+    </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\ETHERNET\rpod__eth_interface.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\ETHERNET\rpod__eth_interface.vb</Link>
     </Compile>
@@ -104,6 +107,10 @@
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\rpod__flight__top.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\rpod__flight__top.vb</Link>
     </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\SPACEX\rpod__flight__spacex.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\NewFolder1\rpod__flight__spacex.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__network.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__network.vb</Link>
       <SubType>Component</SubType>
@@ -117,6 +124,9 @@
     </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\XILINX_SIM\rpod__xilinx_sim__top.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\XILINX_SIM\rpod__xilinx_sim__top.vb</Link>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\rpod__top.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\rpod__top.vb</Link>
     </Compile>
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
@@ -381,7 +391,6 @@
     <Compile Include="LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__directories.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LCCM661__RLOOP__RPOD_GUI\rpod__top.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -408,7 +417,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
