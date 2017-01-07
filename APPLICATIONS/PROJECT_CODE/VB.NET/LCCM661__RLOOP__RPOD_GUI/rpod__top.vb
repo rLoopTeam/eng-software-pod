@@ -66,12 +66,22 @@ Namespace SIL3.rLoop.rPodControl
 
             'add our ports
             'http://confluence.rloop.org/display/SD/Communications
-            Me.m_pEth.Port__Add("192.168.1.100", 9100, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU)
-            Me.m_pEth.Port__Add("192.168.1.170", 9170, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM)
+
+            If MsgBox("Do you want to run this in loopback?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                Me.m_pEth.Port__Add("127.0.0.1", 9100, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU)
+                Me.m_pEth.Port__Add("127.0.0.1", 3000, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU_SPACEX_DIAG)
+                Me.m_pEth.Port__Add("127.0.0.1", 9170, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM)
+            Else
+                Me.m_pEth.Port__Add("192.168.1.100", 9100, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU)
+                Me.m_pEth.Port__Add("192.168.1.100", 3000, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU_SPACEX_DIAG)
+                Me.m_pEth.Port__Add("192.168.1.170", 9170, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM)
+
+            End If
+
 
             'rx handler
             AddHandler Me.m_pEth.UserEvent__UDPSafe__RxPacketB, AddressOf Me.InternalEvent__UDPSafe__RxPacketB
-
+            AddHandler Me.m_pEth.UserEvent__RxPacketA, AddressOf Me.InternalEvent__RxPacketA
 
         End Sub
 
@@ -182,6 +192,20 @@ Namespace SIL3.rLoop.rPodControl
             End Select
 
         End Sub
+
+        ''' <summary>
+        ''' Raw packet
+        ''' </summary>
+        ''' <param name="eEndpoint"></param>
+        ''' <param name="u8Array"></param>
+        ''' <param name="iLength"></param>
+        Private Sub InternalEvent__RxPacketA(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u8Array() As Byte, iLength As Integer)
+            Select Case eEndpoint
+                Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU_SPACEX_DIAG
+                    Me.m_pnlFlightControl.InternalEvent__RxPacketA(u8Array, iLength)
+            End Select
+        End Sub
+
 #End Region '#Region "ETHERNET RX"
 
     End Class

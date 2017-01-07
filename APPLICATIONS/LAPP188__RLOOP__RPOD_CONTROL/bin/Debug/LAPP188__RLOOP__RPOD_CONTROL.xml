@@ -6,6 +6,22 @@ LAPP188__RLOOP__RPOD_CONTROL
 </name>
 </assembly>
 <members>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:LAPP188__RLOOP__RPOD_CONTROL.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:LAPP188__RLOOP__RPOD_CONTROL.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ProgressHelper.Layout__BelowControl(System.Windows.Forms.Control@)">
  <summary>
  Places this object below another control
@@ -4140,6 +4156,50 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  <param name="s"></param>
  <param name="e"></param>
 </member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.OptoNCDT">
+ <summary>
+ OptoNCDT1320 Interface
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.OptoNCDT.m_sLogDir">
+ <summary>
+ The logging directory
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.OptoNCDT.#ctor(System.String,System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.OptoNCDT.UserEvent__SafeUDP__Tx_X4">
+ <summary>
+ Raised wehen we want to transmit a control packet
+ </summary>
+ <param name="u16Type"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.OptoNCDT.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16)">
+ <summary>
+ New Packet In
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.OptoNCDT.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top">
  <summary>
  Top level Flight Control
@@ -4171,6 +4231,11 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
 <member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.m_pnlFlight__Contrast">
  <summary>
  Contrast sensors
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.m_pnlFlight__OptoNCDT">
+ <summary>
+ Opto NCDT iF
  </summary>
 </member>
 <member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.m_sLogDir">
@@ -4521,7 +4586,7 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox">
  <summary>
- Toolbox for rPod Controller
+ Toolbox for rPod Controller Top level
  </summary>
  <remarks></remarks>
 </member>
@@ -4607,6 +4672,14 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  <param name="u16CRC"></param>
  <param name="bCRC_OK"></param>
  <param name="u32Sequence"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.InternalEvent__RxPacketA(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS,System.Byte[],System.Int32)">
+ <summary>
+ Raw packet
+ </summary>
+ <param name="eEndpoint"></param>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.CRC.CRC8">
  <summary>
@@ -8185,22 +8258,6 @@ this will init our series
  Do not change the method contents inside the source code editor. The Forms designer might
  not be able to load this method if it was changed manually.
  </summary>
-</member>
-<member name="T:LAPP188__RLOOP__RPOD_CONTROL.My.Resources.Resources">
-<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
-</member>
-<member name="P:LAPP188__RLOOP__RPOD_CONTROL.My.Resources.Resources.ResourceManager">
-<summary>
-  Returns the cached ResourceManager instance used by this class.
-</summary>
-</member>
-<member name="P:LAPP188__RLOOP__RPOD_CONTROL.My.Resources.Resources.Culture">
-<summary>
-  Overrides the current thread's CurrentUICulture property for all
-  resource lookups using this strongly typed resource class.
-</summary>
 </member>
 </members>
 </doc>

@@ -81,7 +81,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="..\COMMON_CODE\VB.NET\LCCM664__VBNET__DAQ\daq__top.vb">
-      <Link>NewFolder1\daq__top.vb</Link>
+      <Link>LCCM664__VBNET__DAQ\daq__top.vb</Link>
     </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\ETHERNET\rpod__eth_interface.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\ETHERNET\rpod__eth_interface.vb</Link>
@@ -104,11 +104,15 @@
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\CONTRAST\rpod__flight__contrast.vb</Link>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\OPTO_NCDT\rpod__flight__optoncdt.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\OPTONCDT\rpod__flight__optoncdt.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\rpod__flight__top.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\rpod__flight__top.vb</Link>
     </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\SPACEX\rpod__flight__spacex.vb">
-      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\NewFolder1\rpod__flight__spacex.vb</Link>
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\SPACEX\rpod__flight__spacex.vb</Link>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__network.vb">
