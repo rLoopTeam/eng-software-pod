@@ -40,7 +40,6 @@ void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	Luint8 u8BufferIndex;
 	Luint16 u16Length;
 	Luint8 u8Device;
-	//Luint8 u8Counter;
 	Luint8 u8Counter2;
 
 	pu8Buffer = 0;

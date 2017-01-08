@@ -40,6 +40,7 @@ void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser)
 
 
 	//todo: filter
+	sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32DistanceRAW;
 
 
 	//update this value:

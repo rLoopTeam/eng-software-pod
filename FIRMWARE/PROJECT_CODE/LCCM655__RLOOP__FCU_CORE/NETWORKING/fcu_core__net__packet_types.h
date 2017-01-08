@@ -112,13 +112,16 @@
 		/** Perform a raw motor move */
 		NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW = 0x1401U,
 
+		/** Send out the brake Tx data */
+		NET_PKT__FCU_BRAKES__TX_DATA = 0x1402U,
+
 
 		//////////////////////////////////////////////////////
 		//FCU: NAVIGATION (0x1600)
 		//////////////////////////////////////////////////////
 
 		/** Stream Navigation Progress Data */
-		NET_PKT__FCU_BRAKES__TX_NAV_PROGRESS = 0x1600U,
+		NET_PKT__FCU_NAV__TX_NAV_PROGRESS = 0x1600U,
 
 
 

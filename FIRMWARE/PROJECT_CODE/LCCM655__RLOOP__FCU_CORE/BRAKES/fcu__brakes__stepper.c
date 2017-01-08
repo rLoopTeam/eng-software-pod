@@ -101,7 +101,7 @@ void vFCU_BRAKES_STEP__Process(void)
  * @brief
  * Returns the current position of the lead screw for the brakes
  * 
- * @param[in]		eBrake		## Desc ##
+ * @param[in]		eBrake				The brake index
  * @st_funcMD5		3BF5E1F91C16F1F30165C47A35510773
  * @st_funcID		LCCM655R0.FILE.025.FUNC.003
  */

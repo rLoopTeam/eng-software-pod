@@ -138,7 +138,11 @@ E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_
 				case BRAKE_SW__EXTEND:
 					// pin 1 (1U) is mapped to BRAKE_SW_EXTEND SWITCH
 					// @TODO: Create a mapping of GIO PINS to respective LIMIT SWITCH
+#ifndef WIN32
 					u32Temp = u32RM4_GIO__Get_Bit(RM4_GIO__PORT_A, 1U);
+#else
+					u32Temp = 0U;
+#endif
 					if(u32Temp == 0U)
 					{
 						//switch open
@@ -154,7 +158,11 @@ E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_
 				case BRAKE_SW__RETRACT:
 					// pin 0 (0U) is mapped to BRAKE_SW_RETRACT SWITCH
 					// @TODO: Create a mapping of GIO PINS to respective LIMIT SWITCH
+#ifndef WIN32
 					u32Temp = u32RM4_GIO__Get_Bit(RM4_GIO__PORT_A, 0U);
+#else
+					u32Temp = 0U;
+#endif
 					if(u32Temp == 0U)
 					{
 						//switch open
@@ -179,7 +187,11 @@ E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_
 			switch(eSwitch)
 			{
 				case BRAKE_SW__EXTEND:
+#ifndef WIN32
 					u8Temp = u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, 9U);
+#else
+					u8Temp = 0U;
+#endif
 					if(u8Temp == 0U)
 					{
 						//switch open
@@ -193,7 +205,12 @@ E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_
 					break;
 
 				case BRAKE_SW__RETRACT:
+#ifndef WIN32
 					u8Temp = u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, 22U);
+#else
+					u8Temp = 0U;
+#endif
+
 					if(u8Temp == 0U)
 					{
 						//switch open

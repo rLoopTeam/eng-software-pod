@@ -86,10 +86,19 @@ Public Class Form1
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Private Shared Sub vFCU__RTI_100MS_ISR()
     End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vSTEPDRIVE_TIMEBASE__ISR()
+    End Sub
+
 
     'Laser Distance
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Private Shared Sub vFCU_LASERDIST_WIN32__Set_DistanceRaw(f32Value As Single)
+    End Sub
+
+    'laser optoncdt
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_LASEROPTO_WIN32__Set_DistanceRaw(u32Index As UInt32, f32Value As Single)
     End Sub
 
 
@@ -132,6 +141,8 @@ Public Class Form1
 
     Private m_txtLaserDist__ValueRaw As TextBox
 
+    Private m_txtLaserOpto() As TextBox
+
     ''' <summary>
     ''' The debug delegate
     ''' </summary>
@@ -159,6 +170,7 @@ Public Class Form1
 
     Private m_pSafeUDP As SIL3.SafeUDP.StdUDPLayer
 
+    Private m_pTimer1 As System.Timers.Timer
     Private m_pTimer10 As System.Timers.Timer
     Private m_pTimer100 As System.Timers.Timer
 
@@ -240,6 +252,40 @@ Public Class Form1
         AddHandler Me.m_txtLaserDist__ValueRaw.KeyDown, AddressOf Me.txtLaserDistanceRaw__KeyDown
 
 
+        Dim l2(6 - 1) As Label
+        ReDim Me.m_txtLaserOpto(6 - 1)
+        For iCounter As Integer = 0 To 6 - 1
+
+
+            If iCounter = 0 Then
+                l2(iCounter) = New Label
+                With l2(iCounter)
+                    .Location = New Point(10, Me.m_txtLaserDist__ValueRaw.Top + pB1.Height + 20)
+                    .Text = "OptoNCDT:" & iCounter.ToString & " - RAW"
+                    .AutoSize = True
+                End With
+            Else
+                l2(iCounter) = New Label
+                With l2(iCounter)
+                    .Location = New Point(Me.m_txtLaserOpto(iCounter - 1).Left + Me.m_txtLaserOpto(iCounter - 1).Width + 20, l2(iCounter - 1).Top)
+                    .Text = "OptoNCDT:" & iCounter.ToString & " - RAW"
+                    .AutoSize = True
+                End With
+            End If
+            pP.Controls.Add(l2(iCounter))
+
+            Me.m_txtLaserOpto(iCounter) = New TextBox
+            With Me.m_txtLaserOpto(iCounter)
+                .Location = New Point(l2(iCounter).Left, l2(iCounter).Top + l2(iCounter).Height + 0)
+                .Size = New Size(100, 24)
+                .Text = "0.0"
+                .Tag = iCounter.ToString
+            End With
+            pP.Controls.Add(Me.m_txtLaserOpto(iCounter))
+            AddHandler Me.m_txtLaserOpto(iCounter).KeyDown, AddressOf Me.txtLaserOptoRaw__KeyDown
+
+        Next ' For iCounter As Integer = 0 To 6 - 1
+
 
 
 
@@ -314,6 +360,29 @@ Public Class Form1
 #End Region '#Region "SYSTEM INIT"
 
 #Region "KEY PRESS HANDLERS"
+
+    Private Sub txtLaserOptoRaw__KeyDown(s As Object, e As KeyEventArgs)
+
+        'get our type
+        Dim pT As TextBox = CType(s, TextBox)
+        Dim iIndex As Integer = CInt(pT.Tag)
+
+        'handle enter key
+        If e.KeyCode = Keys.Enter Then
+            'check safety
+            If Me.m_bThreadRun = False Then
+                MsgBox("Warn: You must have thread running.")
+            Else
+                'convert string to float32 (single on WIN32)
+                Dim sValue As Single = Single.Parse(Me.m_txtLaserOpto(iIndex).Text)
+
+                'update the DLL
+                vFCU_LASEROPTO_WIN32__Set_DistanceRaw(iIndex, sValue)
+
+            End If
+        End If
+
+    End Sub
 
     Private Sub txtLaserDistanceRaw__KeyDown(s As Object, e As KeyEventArgs)
         'handle enter key
@@ -433,6 +502,13 @@ Public Class Form1
     ''' Start the timers.
     ''' </summary>
     Private Sub Timers__Setup()
+
+        'needed for stepper drive
+        Me.m_pTimer1 = New System.Timers.Timer
+        Me.m_pTimer1.Interval = 1
+        AddHandler Me.m_pTimer1.Elapsed, AddressOf Me.Timers__T1_Tick
+        Me.m_pTimer1.Start()
+
         Me.m_pTimer10 = New System.Timers.Timer
         Me.m_pTimer10.Interval = 10
         AddHandler Me.m_pTimer10.Elapsed, AddressOf Me.Timers__T10_Tick
@@ -449,6 +525,17 @@ Public Class Form1
         AddHandler Me.m_pTimerAccel.Elapsed, AddressOf Me.Timers__Accel_Tick
         Me.m_pTimerAccel.Start()
 
+    End Sub
+
+    ''' <summary>
+    ''' 10ms timer
+    ''' </summary>
+    ''' <param name="s"></param>
+    ''' <param name="e"></param>
+    Private Sub Timers__T1_Tick(s As Object, e As System.Timers.ElapsedEventArgs)
+        If Me.m_bThreadRun = True Then
+            vSTEPDRIVE_TIMEBASE__ISR()
+        End If
     End Sub
 
     ''' <summary>

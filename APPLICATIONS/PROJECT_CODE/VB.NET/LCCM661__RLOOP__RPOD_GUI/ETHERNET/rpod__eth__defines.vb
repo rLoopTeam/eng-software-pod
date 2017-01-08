@@ -116,13 +116,16 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** Perform a raw motor move */
         NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW = &H1401
 
+        '/** Send out the brake Tx data */
+        NET_PKT__FCU_BRAKES__TX_DATA = &H1402
+
 
         '//////////////////////////////////////////////////////
         '//FCU: NAVIGATION (0x1600)
         '//////////////////////////////////////////////////////
 
         '/** Stream Navigation Progress Data */
-        NET_PKT__FCU_BRAKES__TX_NAV_PROGRESS = &H1600
+        NET_PKT__FCU_NAV__TX_NAV_PROGRESS = &H1600
 
         '//////////////////////////////////////////////////////
         '//POWER: GENERAL (&h3000)

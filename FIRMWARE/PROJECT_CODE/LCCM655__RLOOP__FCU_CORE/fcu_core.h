@@ -89,6 +89,10 @@
 			struct
 			{
 
+				/** individual brake fault flags */
+				FAULT_TREE__PUBLIC_T sFaultFlags;
+
+
 				/** Limit switch structure
 				 * There are two limit switches per brake assy
 				 */
@@ -133,19 +137,19 @@
 					/** ADC value - Zero Value */
 					Lint32 s32ADC_Minus_Zero;
 
-					/** Percent of braking from 0.0 to 100.0*/
-					Lfloat32 f32BrakePosition_Percent;
+					/** Brake linear pos feedback*/
+					Lfloat32 f32BrakePosition_mm;
 
-					/** Average Counter	for MLP filter function				 */
+					/** Average Counter	for MLP filter function */
 					Luint16 u16AverageCounter;
 
-					/** Average Array for MLP filter function				 */
+					/** Average Array for MLP filter function */
 					Luint16 u16AverageArray[C_MLP__MAX_AVERAGE_SIZE];
 
-					/** Lowest MLP Value				 */
+					/** Lowest MLP Value*/
 					Luint16 lowest_value;
 
-					/** Highest MLP Value				 */
+					/** Highest MLP Value */
 					Luint16 highest_value;
 
 					#if C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES == 1U
@@ -194,8 +198,6 @@
 				}sCurrent;
 
 
-				/** individual brake fault flags */
-				FAULT_TREE__PUBLIC_T sFaultFlags;
 
 				Luint8 u8BrakeSWErr;
 
@@ -798,6 +800,7 @@
 		Lfloat32 f32FCU_LASEROPTO__Get_Distance(E_FCU__LASER_OPTO__INDEX_T eLaser);
 		Luint8 u8FCU_LASEROPTO__Get_Error(E_FCU__LASER_OPTO__INDEX_T eLaser);
 		void vFCU_LASEROPTO__100MS_ISR(void);
+		DLL_DECLARATION void vFCU_LASEROPTO_WIN32__Set_DistanceRaw(Luint32 u32Index, Lfloat32 f32Value);
 
 			//eth
 			void vFCU_LASEROPTO_ETH__Transmit(E_NET__PACKET_T ePacketType);
@@ -825,26 +828,29 @@
 			void vFCU_BRAKES__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1);
 			void vFCU_BRAKES__Dev_MoveMotor(Luint32 u32Index, Luint32 u32Position);
 
-		//stepper drive
-		void vFCU_BRAKES_STEP__Init(void);
-		void vFCU_BRAKES_STEP__Process(void);
-		void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos);
-		Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake);
+			//stepper drive
+			void vFCU_BRAKES_STEP__Init(void);
+			void vFCU_BRAKES_STEP__Process(void);
+			void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos);
+			Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake);
 
-		//brake switches
-		void vFCU_BRAKES_SW__Init(void);
-		void vFCU_BRAKES_SW__Process(void);
-		void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void);
-		void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void);
-		void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void);
-		void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void);
-		E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
-		Luint8 u8FCU_BRAKES_SW__Get_FaultFlag(E_FCU__BRAKE_INDEX_T eBrake);
+			//brake switches
+			void vFCU_BRAKES_SW__Init(void);
+			void vFCU_BRAKES_SW__Process(void);
+			void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void);
+			void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void);
+			void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void);
+			void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void);
+			E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
+			Luint8 u8FCU_BRAKES_SW__Get_FaultFlag(E_FCU__BRAKE_INDEX_T eBrake);
 
+			//brakes MLP sensor
+			void vFCU_BRAKES_MLP__Init(void);
+			void vFCU_BRAKES_MLP__Process(void);
 
-		//brakes MLP sensor
-		void vFCU_BRAKES_MLP__Init(void);
-		void vFCU_BRAKES_MLP__Process(void);
+			//eth
+			void vFCU_BRAKES_ETH__Init(void);
+			void vFCU_BRAKES_ETH__Process(E_NET__PACKET_T ePacketType);
 
 		//accelerometer layer
 		void vFCU_ACCEL__Init(void);
