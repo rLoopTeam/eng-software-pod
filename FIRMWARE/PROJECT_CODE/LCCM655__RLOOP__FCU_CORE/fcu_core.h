@@ -304,7 +304,7 @@
 					Luint8 u8NewByteArray[3U];
 
 					/** The most recent distance*/
-					Lfloat32 f32Distance;
+					Lfloat32 f32DistanceRAW;
 
 					/** New distance has been measured, other layer to clear it */
 					Luint8 u8NewDistanceAvail;
@@ -359,10 +359,28 @@
 				Luint8 u8NewByteArray[3];
 
 				/** The most recent distance*/
-				Lfloat32 f32Distance;
+				Lfloat32 f32DistanceRAW;
+
+				/** The final filtered distance*/
+				Lfloat32 f32DistanceFiltered;
 
 				/** New distance has been measured, other layer to clear it */
 				Luint8 u8NewDistanceAvail;
+
+				/** For emulation over UDP */
+				struct
+				{
+
+					/** Is the EMU enabled ?*/
+					Luint8 u8EmulationEnabled;
+
+					/** Special Key = 0x98984343 to prevent above flag being 1 */
+					Luint32 u32EmuKey;
+
+					/** Emulated Distance */
+					Lfloat32 f32Distance;
+
+				}sEmu;
 
 			}sLaserDist;
 
@@ -751,8 +769,17 @@
 		Lfloat32 f32FCU_LASERDIST__Get_Distance(void);
 		void vFCU_LASERDIST__100MS_ISR(void);
 
+		DLL_DECLARATION void vFCU_LASERDIST_WIN32__Set_DistanceRaw(Lfloat32 f32Value);
+
 			//eth
+			void vFCU_LASERDIST_ETH__Init(void);
 			void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType);
+			void vFCU_LASERDIST_ETH__Enable_EmulationMode(Luint32 u32Key, Luint32 u32Enable);
+			void vFCU_LASERDIST_ETH__Emulation_Injection(Lfloat32 f32Value);
+
+			//filtering
+			void vFCU_LASERDIST_FILT__Init(void);
+			void vFCU_LASERDIST_FILT__Process(void);
 
 		//main state machine
 		void vFCU_MAINSM__Init(void);

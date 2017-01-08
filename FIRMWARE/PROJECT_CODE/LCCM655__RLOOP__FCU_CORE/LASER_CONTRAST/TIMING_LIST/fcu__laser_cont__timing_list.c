@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the timing list
  * 
- * @st_funcMD5		B8F3BEDA21C0436C178D38187F87B646
+ * @st_funcMD5		9BA52F4C0FCD64FBCF621D2764E85A47
  * @st_funcID		LCCM655R0.FILE.042.FUNC.001
  */
 void vFCU_LASERCONT_TL__Init(void)
@@ -206,7 +206,7 @@ void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Registe
  * 
  * @param[in]		eLaser				The laser index
  * @param[in]		u16CurrentIndex		The current index to compare against
- * @st_funcMD5		9940CA9BC9719734DE3ABC97353DA6D0
+ * @st_funcMD5		A7C670C712B3C8EA0B5451ECAABE9577
  * @st_funcID		LCCM655R0.FILE.042.FUNC.006
  */
 Luint64 u64FCU_LASERCONT_TL__Get_TimeDelta(E_FCU__LASER_CONT_INDEX_T eLaser, Luint16 u16CurrentIndex)

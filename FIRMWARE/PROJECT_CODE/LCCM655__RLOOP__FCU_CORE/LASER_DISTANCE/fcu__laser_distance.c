@@ -31,11 +31,15 @@ void vFCU_LASERDIST__Process_Packet(void);
  * @brief
  * Init any of the laser distance items
  * 
- * @st_funcMD5		5460A1E482BCAA1EB7422B7279A9EBB2
+ * @st_funcMD5		CB16DEE2A7F5C05AABD3BA9584754C90
  * @st_funcID		LCCM655R0.FILE.033.FUNC.001
  */
 void vFCU_LASERDIST__Init(void)
 {
+
+	//setup eth systems if needed
+	vFCU_LASERDIST_ETH__Init();
+
 
 	sFCU.sLaserDist.eLaserState = LASERDIST_STATE__RESET;
 	sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_1;
@@ -43,8 +47,10 @@ void vFCU_LASERDIST__Init(void)
 	sFCU.sLaserDist.u8NewDistanceAvail = 0U;
 	sFCU.sLaserDist.u32LaserPOR_Counter = 0U;
 	//just set to some obscene distance
-	sFCU.sLaserDist.f32Distance = 88888.8F;
+	sFCU.sLaserDist.f32DistanceRAW = 88888.8F;
 
+	//setup the filtering
+	vFCU_LASERDIST_FILT__Init();
 
 }
 
@@ -52,7 +58,7 @@ void vFCU_LASERDIST__Init(void)
  * @brief
  * Process the laser distance system
  * 
- * @st_funcMD5		F25EE9036909B9D41BC3F505D556DAE8
+ * @st_funcMD5		AEC05101C2E4E0D6763EC30A6ED8FF7A
  * @st_funcID		LCCM655R0.FILE.033.FUNC.002
  */
 void vFCU_LASERDIST__Process(void)
@@ -61,6 +67,29 @@ void vFCU_LASERDIST__Process(void)
 	Luint8 u8Counter;
 	Luint8 u8Temp;
 	Luint8 u8BurstCount;
+
+
+
+
+
+	//check for emulation
+	if(sFCU.sLaserDist.sEmu.u8EmulationEnabled == 1U)
+	{
+		if(sFCU.sLaserDist.sEmu.u32EmuKey == 0x98984343U)
+		{
+			//assign
+			sFCU.sLaserDist.f32DistanceRAW = sFCU.sLaserDist.sEmu.f32Distance;
+		}
+		else
+		{
+			//fall on
+		}
+	}
+	else
+	{
+		//fall on
+	}
+
 
 	//handle the LASERDIST laser state
 	switch(sFCU.sLaserDist.eLaserState)
@@ -155,7 +184,14 @@ void vFCU_LASERDIST__Process(void)
 			sFCU.sLaserDist.eLaserState = LASERDIST_STATE__CHECK_NEW_DATA;
 			break;
 
+		default:
+			//fall on
+			break;
+
 	}//switch(sFCU.sLasers.eLaserState)
+
+	//process the laser distance filtering.
+	vFCU_LASERDIST_FILT__Process();
 
 }
 
@@ -163,12 +199,12 @@ void vFCU_LASERDIST__Process(void)
  * @brief
  * Return the current computed distance.
  * 
- * @st_funcMD5		CF507F43EE6F2A661AD1A8989A05000A
+ * @st_funcMD5		130FEC5285C1E938EA3350D14F3B468C
  * @st_funcID		LCCM655R0.FILE.033.FUNC.003
  */
 Lfloat32 f32FCU_LASERDIST__Get_Distance(void)
 {
-	return sFCU.sLaserDist.f32Distance;
+	return sFCU.sLaserDist.f32DistanceRAW;
 }
 
 //
@@ -297,6 +333,23 @@ void vFCU_LASERDIST__100MS_ISR(void)
 
 	sFCU.sLaserDist.u32LaserPOR_Counter++;
 }
+
+
+#ifdef WIN32
+/***************************************************************************//**
+ * @brief
+ * On win32, set the raw value only
+ * 
+ * @param[in]		f32Value				Raw value in laser units
+ * @st_funcMD5		7AFFF2A59E13949E9BFCA62BCED1FAA4
+ * @st_funcID		LCCM655R0.FILE.033.FUNC.007
+ */
+void vFCU_LASERDIST_WIN32__Set_DistanceRaw(Lfloat32 f32Value)
+{
+	sFCU.sLaserDist.f32DistanceRAW = f32Value;
+}
+
+#endif
 
 
 #endif

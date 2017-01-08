@@ -69,7 +69,7 @@ void vFCU_FLIGHTCTL_BRAKES__Process(void)
  * @param[out]		*pu32IBDistance_um			The computed i-beam dist
  * @param[in]		u32DragForce_n				Requested drag force in newtons
  * @param[in]		u32Veloc_mms				The current pod velocity in mm/sec
- * @st_funcMD5		089012DB9E50ADB55DD7B8479AB18A46
+ * @st_funcMD5		3A46A8C5ACB8F1DEE6D0AF081D21F985
  * @st_funcID		LCCM655R0.FILE.051.FUNC.003
  */
 Lint16 s16FCU_FLIGHTCTL_BRAKES__Brake_Lookup(Luint32 u32Veloc_mms, Luint32 u32DragForce_n, Luint32 *pu32IBDistance_um)

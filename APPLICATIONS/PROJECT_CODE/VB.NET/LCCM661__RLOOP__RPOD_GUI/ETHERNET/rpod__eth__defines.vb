@@ -86,6 +86,11 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** FCU to Host, return laser data */
         NET_PKT__LASER_DIST__TX_LASER_DATA = &H1201
 
+        '/** Enable emu mode, with key 0x01010202U for block 0, And 1 for block 1 */
+        NET_PKT__LASER_DIST__ENABLE_EMULATION_MODE = &H1202
+
+        '/** Inject a raw emulation value into the laser */
+        NET_PKT__LASER_DIST__RAW_EMULATION_VALUE = &H1203
 
 
         '//////////////////////////////////////////////////////

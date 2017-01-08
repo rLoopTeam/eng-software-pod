@@ -27,7 +27,7 @@ extern struct _strFCU sFCU;
  * Inits the ethernet networking
  * Sets our IP and MAC addresses for this hardware and starts up ethernet
  * 
- * @st_funcMD5		5B484F3455ED00A8B47E5F93BFBEC80E
+ * @st_funcMD5		2A8E34802AC9AAAC87736EE78F59E1F1
  * @st_funcID		LCCM655R0.FILE.016.FUNC.001
  */
 void vFCU_NET__Init(void)

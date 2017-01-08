@@ -27,7 +27,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the contrast laser system
  * 
- * @st_funcMD5		B837CE3E46C0AA67DAED296DC6F0615A
+ * @st_funcMD5		6519866F0DA194B73BA19A0A11646D81
  * @st_funcID		LCCM655R0.FILE.034.FUNC.001
  */
 void vFCU_LASERCONT__Init(void)
@@ -78,7 +78,7 @@ void vFCU_LASERCONT__Init(void)
  * @brief
  * Process the laser contrast system
  * 
- * @st_funcMD5		712B5116826D01B393140843AD1CB1A3
+ * @st_funcMD5		66AEB5F234B3C57BD45D1157B42A1E5B
  * @st_funcID		LCCM655R0.FILE.034.FUNC.002
  */
 void vFCU_LASERCONT__Process(void)
@@ -268,7 +268,7 @@ void vFCU_LASERCONT__Process(void)
  * PRIOR to any run.
  * 
  * @param[in]		u32Key				0xABCDABCDU
- * @st_funcMD5		9B7EF718A626E5BD6764A01761302CFF
+ * @st_funcMD5		F6F060589AB5BB11032BD32EEAFCCEA0
  * @st_funcID		LCCM655R0.FILE.034.FUNC.004
  */
 void vFCU_LASERCONT__Reset(Luint32 u32Key)

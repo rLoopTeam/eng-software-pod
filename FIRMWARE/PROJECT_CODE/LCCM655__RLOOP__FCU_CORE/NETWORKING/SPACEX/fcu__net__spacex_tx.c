@@ -22,7 +22,13 @@
 
 extern struct _strFCU sFCU;
 
-//init the spaceX timed network transmission process
+/***************************************************************************//**
+ * @brief
+ * Init the spaceX timed network transmission process
+ * 
+ * @st_funcMD5		E26089EA43BEAD5D8FCFEC4B17029C33
+ * @st_funcID		LCCM655R0.FILE.039.FUNC.001
+ */
 void vFCU_NET_SPACEX_TX__Init(void)
 {
 	//Clear the timer flag
@@ -32,9 +38,12 @@ void vFCU_NET_SPACEX_TX__Init(void)
 }
 
 
-//do the transmission
-
-/* Teams shall send a binary telemetry frame for SpaceX monitoring of the status of their pod. The frame
+/***************************************************************************//**
+ * @brief
+ * Do the transmission
+ *
+ * @note
+ * Teams shall send a binary telemetry frame for SpaceX monitoring of the status of their pod. The frame
  * shall be sent via UDP to IP 192.168.0.1, port 3000 at no greater than 10Hz, and must obey the following
  * format, where the type UINTx is an unsigned integer of x bits in length, and INTx is a twos-complement
  * signed integer of x bits in length. The first 5 fields are required; the latter five fields are optional. If a
@@ -51,9 +60,10 @@ void vFCU_NET_SPACEX_TX__Init(void)
  * battery_temperature INT32 		Battery temperature in tenths of a degree Celsius.
  * pod_temperature 	INT32 			Pod temperature in tenths of a degree Celsius.
  * stripe_count 	UINT32 			Count of optical navigation stripes detected in the tube.
- *
+ * 
+ * @st_funcMD5		1E6784E2B771F1C758670E96D9F5F364
+ * @st_funcID		LCCM655R0.FILE.039.FUNC.002
  */
-
 void vFCU_NET_SPACEX_TX__Process(void)
 {
 	Luint8 u8Test;
@@ -157,11 +167,11 @@ void vFCU_NET_SPACEX_TX__Process(void)
 
 /***************************************************************************//**
  * @brief
- * To be called from the 10ms timer routine
- * Sets a flag to allow this module to determine that 10ms has elapsed
- *
- * @st_funcMD5		3A00D72EA0E8E8896C26BBDFA0E4F006
- * @st_funcID		LCCM655R0.FILE.019.FUNC.003
+ * To be called from the 100ms timer routine
+ * Sets a flag to allow this module to determine that 100ms has elapsed
+ * 
+ * @st_funcMD5		D01FDA076F08496417237931291DDA01
+ * @st_funcID		LCCM655R0.FILE.039.FUNC.003
  */
 void vFCU_NET_SPACEX_TX__100MS_ISR(void)
 {

@@ -23,6 +23,13 @@
 extern struct _strFCU sFCU;
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		2248CD3745D2D329825B4B41A5F777E9
+ * @st_funcID		LCCM655R0.FILE.040.FUNC.001
+ */
 void vFCU_LASERCONT_VELOC__Init(void)
 {
 
@@ -32,6 +39,13 @@ void vFCU_LASERCONT_VELOC__Init(void)
 
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		A630BB7D8CB5F66027917286E6DE41BC
+ * @st_funcID		LCCM655R0.FILE.040.FUNC.002
+ */
 void vFCU_LASERCONT_VELOC__Process(void)
 {
 	//do nothing.
@@ -39,12 +53,28 @@ void vFCU_LASERCONT_VELOC__Process(void)
 }
 
 //get the result of the computation
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		50C036B4AF050E1193B9F57E0B5390FD
+ * @st_funcID		LCCM655R0.FILE.040.FUNC.003
+ */
 Luint32 u32FCU_LASERCONT_VELOC__Get_CurrentVeloc_mms(void)
 {
 	return 0; //sFCU.sContrast.sVeloc.u32CurrentVeloc_mms;
 }
 
 //compute the veloc
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u64TimeDelta		## Desc ##
+ * @param[in]		u32Distance		## Desc ##
+ * @st_funcMD5		ECF00834753BE38E259AC1C2C5F9310A
+ * @st_funcID		LCCM655R0.FILE.040.FUNC.004
+ */
 Luint32 u32FCU_LASERCONT_VELOC__Compute(Luint32 u32Distance, Luint64 u64TimeDelta)
 {
 	Luint64 u64Temp;

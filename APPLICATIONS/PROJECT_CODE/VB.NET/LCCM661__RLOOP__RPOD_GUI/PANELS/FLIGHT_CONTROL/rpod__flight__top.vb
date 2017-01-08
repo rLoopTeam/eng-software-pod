@@ -34,12 +34,15 @@
         ''' </summary>
         Private m_pnlFlight__Contrast As SIL3.rLoop.rPodControl.Panels.FlightControl.Contrast
 
-
         ''' <summary>
         ''' Opto NCDT iF
         ''' </summary>
         Private m_pnlFlight__OptoNCDT As SIL3.rLoop.rPodControl.Panels.FlightControl.OptoNCDT
 
+        ''' <summary>
+        ''' Laser distance sensor
+        ''' </summary>
+        Private m_pnlFlight__LaserDist As SIL3.rLoop.rPodControl.Panels.FlightControl.LaserDistance
 
         ''' <summary>
         ''' The logging directory
@@ -91,8 +94,12 @@
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Accelerometers")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Contrast Sensors")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "OptoNCDT Lasers")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Laser Distance")
 
             'add the panels before the bar so as we have docking working well.
+            Me.m_pnlFlight__SpaceX = New SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX("SpaceX Telemetry", Me.m_sLogDir)
+            pf.Controls.Add(Me.m_pnlFlight__SpaceX)
+
             Me.m_pnlFlight__SpaceX = New SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX("SpaceX Telemetry", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__SpaceX)
 
@@ -105,11 +112,16 @@
             Me.m_pnlFlight__OptoNCDT = New SIL3.rLoop.rPodControl.Panels.FlightControl.OptoNCDT("OptoNCDT Lasers", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__OptoNCDT)
 
+            Me.m_pnlFlight__LaserDist = New SIL3.rLoop.rPodControl.Panels.FlightControl.LaserDistance("Laser Distance", Me.m_sLogDir)
+            pf.Controls.Add(Me.m_pnlFlight__LaserDist)
+
+
             'setup the eth
             AddHandler Me.m_pnlFlight__SpaceX.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__Accel.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__Contrast.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__OptoNCDT.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
+            AddHandler Me.m_pnlFlight__LaserDist.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
 
             AddHandler Me.m_pExplorer.LinkClick, AddressOf Me.LinkBar_LinkClick
 
@@ -128,6 +140,7 @@
             Me.m_pnlFlight__Accel.Panel__HideShow(sText)
             Me.m_pnlFlight__Contrast.Panel__HideShow(sText)
             Me.m_pnlFlight__OptoNCDT.Panel__HideShow(sText)
+            Me.m_pnlFlight__LaserDist.Panel__HideShow(sText)
         End Sub
 #End Region '#Region "PANEL HELPERS"
 
@@ -142,6 +155,7 @@
             Me.m_pnlFlight__Accel.Panel__HideShow(sText)
             Me.m_pnlFlight__Contrast.Panel__HideShow(sText)
             Me.m_pnlFlight__OptoNCDT.Panel__HideShow(sText)
+            Me.m_pnlFlight__LaserDist.Panel__HideShow(sText)
         End Sub
 #End Region '#Region "EXPLORER BAR"
 
@@ -176,6 +190,7 @@
         Public Sub InternalEvent__UDPSafe__RxPacketB(u16PacketType As UInt16, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
             Me.m_pnlFlight__Contrast.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
             Me.m_pnlFlight__OptoNCDT.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
+            Me.m_pnlFlight__LaserDist.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
         End Sub
 
         ''' <summary>

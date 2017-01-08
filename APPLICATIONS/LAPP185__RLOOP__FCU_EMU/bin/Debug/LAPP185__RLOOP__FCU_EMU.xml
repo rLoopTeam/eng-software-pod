@@ -6,22 +6,6 @@ LAPP185__RLOOP__FCU_EMU
 </name>
 </assembly>
 <members>
-<member name="T:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources">
-<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
-</member>
-<member name="P:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources.ResourceManager">
-<summary>
-  Returns the cached ResourceManager instance used by this class.
-</summary>
-</member>
-<member name="P:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources.Culture">
-<summary>
-  Overrides the current thread's CurrentUICulture property for all
-  resource lookups using this strongly typed resource class.
-</summary>
-</member>
 <member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.CRC.CRC8">
  <summary>
  8 Bit CRC
@@ -5607,11 +5591,6 @@ adds a sub level node after one has already been added
  </summary>
  <remarks></remarks>
 </member>
-<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_txtNodeTemp">
- <summary>
- Our node temperature value
- </summary>
-</member>
 <member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_pDebug_Delegate">
  <summary>
  The debug delegate
@@ -5657,13 +5636,6 @@ adds a sub level node after one has already been added
  <summary>
  Setup anyting else on the system
  </summary>
-</member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.txtNodeTemp__KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
- <summary>
- Handles enter on the node temperature box
- </summary>
- <param name="s"></param>
- <param name="e"></param>
 </member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.Form1.btnTestCases__Click(System.Object,System.EventArgs)">
  <summary>
@@ -5740,6 +5712,24 @@ adds a sub level node after one has already been added
  <param name="sData"></param>
  <remarks></remarks>
 </member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.InternalEvent__NewPacket(System.Byte[],System.Int32)">
+ <summary>
+ Rx a new raw packet
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.InernalEvent__UDPSafe__RxPacket(LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T,LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16,System.Byte[]@,LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16,System.Boolean,System.UInt32)">
+ <summary>
+ RX a UDP safe packet and fake the eth-ii layer
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <param name="bCRCOK"></param>
+ <param name="u32Seq"></param>
+</member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.Form1.ETH_WIN32__TxCallback_Sub(System.IntPtr,System.UInt16)">
  <summary>
  Called when teh DLL wants to trasmit eth data.
@@ -5756,6 +5746,22 @@ adds a sub level node after one has already been added
  <param name="ps16X"></param>
  <param name="ps16Y"></param>
  <param name="ps16Z"></param>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
 </member>
 </members>
 </doc>

@@ -31,7 +31,7 @@ extern struct _strFCU sFCU;
  * 
  * @param[in]		u32Flags				Module Flags
  * @param[in]		eChannel				Uart Channel
- * @st_funcMD5		214EA4E2D995E0950A98A14AB765E2D1
+ * @st_funcMD5		3C31F5319C5E1CBF593DE22B061CB75E
  * @st_funcID		LCCM655R0.FILE.015.FUNC.001
  */
 void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)

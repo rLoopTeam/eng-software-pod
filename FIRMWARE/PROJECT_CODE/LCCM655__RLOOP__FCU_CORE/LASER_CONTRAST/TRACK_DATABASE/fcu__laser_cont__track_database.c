@@ -26,7 +26,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Create the database
  * 
- * @st_funcMD5		65E439071E099A51CA8F717596933C37
+ * @st_funcMD5		5BCA6D7C693A37A2E92E348B16F52B90
  * @st_funcID		LCCM655R0.FILE.041.FUNC.001
  */
 void vFCU_LASERCONT_TRKDB__Init(void)
@@ -156,7 +156,7 @@ void vFCU_LASERCONT_TRKDB__Inc_Marker(E_FCU__LASER_CONT_INDEX_T eLaser)
  * Should really only do this on a new marker, but for constatnt CPU loading can do repeateldy.
  * 
  * @param[in]		eLaser				Laser Index
- * @st_funcMD5		CE76F2125FC3C4A3CD8D538143B56B0F
+ * @st_funcMD5		FF8FA81B389EEB2F431E86CD917648DA
  * @st_funcID		LCCM655R0.FILE.041.FUNC.004
  */
 void vFCU_LASERCONT_TRKDB__Compute(E_FCU__LASER_CONT_INDEX_T eLaser)
@@ -205,7 +205,7 @@ void vFCU_LASERCONT_TRKDB__Compute(E_FCU__LASER_CONT_INDEX_T eLaser)
  * Return the distance that has current elpased.
  * 
  * @param[in]		eLaser					Laser Index
- * @st_funcMD5		920489C576073B098EE9D6CD45F4AADA
+ * @st_funcMD5		0F5DAA0273EF50CD102CD47026CF8B6C
  * @st_funcID		LCCM655R0.FILE.041.FUNC.005
  */
 Luint32 u32FCU_LASERCONT_TRKDB__Get_DistanceElapsed_mm(E_FCU__LASER_CONT_INDEX_T eLaser)

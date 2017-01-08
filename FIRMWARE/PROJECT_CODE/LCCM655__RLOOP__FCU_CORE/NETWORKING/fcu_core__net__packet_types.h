@@ -81,6 +81,12 @@
 		/** FCU to Host, return laser data */
 		NET_PKT__LASER_DIST__TX_LASER_DATA = 0x1201U,
 
+		/** Enable emu mode, with key 0x01010202U for block 0, and 1 for block 1 */
+		NET_PKT__LASER_DIST__ENABLE_EMULATION_MODE = 0x1202U,
+
+		/** Inject a raw emulation value into the laser */
+		NET_PKT__LASER_DIST__RAW_EMULATION_VALUE = 0x1203U,
+
 
 
 		//////////////////////////////////////////////////////

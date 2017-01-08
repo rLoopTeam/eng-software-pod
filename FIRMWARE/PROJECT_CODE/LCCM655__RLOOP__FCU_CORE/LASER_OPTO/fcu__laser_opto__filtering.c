@@ -24,6 +24,14 @@
 //the structure
 extern struct _strFCU sFCU;
 
+/***************************************************************************//**
+ * @brief
+ * Apply the laser opto filter
+ * 
+ * @param[in]		eLaser					The laser index
+ * @st_funcMD5		7DCDB9177226D0CD34BD32AF7F2BFE6B
+ * @st_funcID		LCCM655R0.FILE.057.FUNC.001
+ */
 void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser)
 {
 
@@ -35,7 +43,7 @@ void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser)
 
 
 	//update this value:
-	//sFCU.sLaserOpto.sOptoLaser[u8Counter].sFiltered.f32FilteredValue
+	//sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue
 
 
 }

@@ -160,7 +160,7 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		#define C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST					(1U)
 
 		/** Laser Distance Unit */
-		#define C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE					(0U)
+		#define C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE					(1U)
 
 		/** Enable accel subsystem */
 		#define C_LOCALDEF__LCCM655__ENABLE_ACCEL							(1U)
