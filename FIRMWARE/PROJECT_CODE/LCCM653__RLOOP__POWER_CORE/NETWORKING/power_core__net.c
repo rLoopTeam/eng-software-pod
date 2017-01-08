@@ -1,4 +1,20 @@
-//networking Rx
+/**
+ * @file		POWER_CORE__NET.C
+ * @brief		Power Networking
+ * @author		Lachlan Grogan
+ * @copyright	rLoop Inc.
+ */
+/**
+ * @addtogroup RLOOP
+ * @{ */
+/**
+ * @addtogroup POWER_NODE
+ * @ingroup RLOOP
+ * @{ */
+/**
+ * @addtogroup POWER_NODE__NETWORK
+ * @ingroup POWER_NODE
+ * @{ */
 
 #include "../power_core.h"
 #if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
@@ -153,3 +169,6 @@ void vPWRNODE_NET__10MS_ISR(void)
 }
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_ETHERNET
+/** @} */
+/** @} */
+/** @} */
