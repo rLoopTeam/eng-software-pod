@@ -87,6 +87,12 @@ Public Class Form1
     Private Shared Sub vFCU__RTI_100MS_ISR()
     End Sub
 
+    'Laser Distance
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_LASERDIST_WIN32__Set_DistanceRaw(f32Value As Single)
+    End Sub
+
+
     'Testing Area
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Private Shared Sub vLCCM655R0_TS_000()
@@ -123,10 +129,8 @@ Public Class Form1
     ''' <remarks></remarks>
     Private m_txtOutput As Windows.Forms.TextBox
 
-    ''' <summary>
-    ''' Our node temperature value
-    ''' </summary>
-    Private m_txtNodeTemp As TextBox
+
+    Private m_txtLaserDist__ValueRaw As TextBox
 
     ''' <summary>
     ''' The debug delegate
@@ -217,21 +221,26 @@ Public Class Form1
         pP.Controls.Add(pB2)
         AddHandler pB2.Click, AddressOf Me.btnTestCases__Click
 
+        'this area is going to get very messy due to absense of SIL3 libs.
+
         'create some input item.
         Dim l1 As New Label
         With l1
             .Location = New Point(10, pB1.Top + pB1.Height + 20)
-            .Text = "Some Input."
+            .Text = "LaserDist - RAW"
         End With
         pP.Controls.Add(l1)
-        Me.m_txtNodeTemp = New TextBox
-        With Me.m_txtNodeTemp
+        Me.m_txtLaserDist__ValueRaw = New TextBox
+        With Me.m_txtLaserDist__ValueRaw
             .Location = New Point(10, l1.Top + l1.Height + 0)
             .Size = New Size(100, 24)
-            .Text = "27.0"
+            .Text = "0.0"
         End With
-        pP.Controls.Add(Me.m_txtNodeTemp)
-        AddHandler Me.m_txtNodeTemp.KeyDown, AddressOf Me.txtNodeTemp__KeyDown
+        pP.Controls.Add(Me.m_txtLaserDist__ValueRaw)
+        AddHandler Me.m_txtLaserDist__ValueRaw.KeyDown, AddressOf Me.txtLaserDistanceRaw__KeyDown
+
+
+
 
 
         'create a logging box
@@ -305,12 +314,8 @@ Public Class Form1
 #End Region '#Region "SYSTEM INIT"
 
 #Region "KEY PRESS HANDLERS"
-    ''' <summary>
-    ''' Handles enter on the node temperature box
-    ''' </summary>
-    ''' <param name="s"></param>
-    ''' <param name="e"></param>
-    Private Sub txtNodeTemp__KeyDown(s As Object, e As KeyEventArgs)
+
+    Private Sub txtLaserDistanceRaw__KeyDown(s As Object, e As KeyEventArgs)
         'handle enter key
         If e.KeyCode = Keys.Enter Then
             'check safety
@@ -318,9 +323,10 @@ Public Class Form1
                 MsgBox("Warn: You must have thread running.")
             Else
                 'convert string to float32 (single on WIN32)
-                'todo, error checking
-                Dim sValue As Single = Single.Parse(Me.m_txtNodeTemp.Text)
+                Dim sValue As Single = Single.Parse(Me.m_txtLaserDist__ValueRaw.Text)
 
+                'update the DLL
+                vFCU_LASERDIST_WIN32__Set_DistanceRaw(sValue)
 
             End If
         End If
@@ -602,12 +608,28 @@ Public Class Form1
 #End Region '#Region "THREAD SAFETY"
 
 #Region "ETH RX"
+
+    ''' <summary>
+    ''' Rx a new raw packet
+    ''' </summary>
+    ''' <param name="u8Array"></param>
+    ''' <param name="iLength"></param>
     Public Sub InternalEvent__NewPacket(u8Array() As Byte, iLength As Integer)
         If Me.m_bThreadRun = True Then
             vETH_WIN32__Ethernet_Input(u8Array, iLength)
         End If
     End Sub
 
+
+    ''' <summary>
+    ''' RX a UDP safe packet and fake the eth-ii layer
+    ''' </summary>
+    ''' <param name="ePacketType"></param>
+    ''' <param name="u16PayloadLength"></param>
+    ''' <param name="u8Payload"></param>
+    ''' <param name="u16CRC"></param>
+    ''' <param name="bCRCOK"></param>
+    ''' <param name="u32Seq"></param>
     Public Sub InernalEvent__UDPSafe__RxPacket(ByVal ePacketType As SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRCOK As Boolean, ByVal u32Seq As UInt32)
         'MsgBox("packet")
 
@@ -665,9 +687,6 @@ Public Class Form1
         SIL3.MemoryCopy.MemoryCopy.Copy_Memory(bArray, u8Buffer, CInt(u16BufferLength))
 
 
-
-
-
         'pass the packet off to our 802.3 layers
         Dim p802 As New SIL3.IEEE802_3.EthernetFrame(bArray, CInt(u16BufferLength), False)
 
@@ -679,15 +698,12 @@ Public Class Form1
                 Dim p802_UDP As New SIL3.IEEE802_3.UDP(p802_IPV4.m_bPayload, p802_IPV4.m_iPayloadLength)
                 'If p802_UDP.m_pu16DestPort.To__Int = iEthPort Then
 
+                'if we are here, we assume we are on loopback
                 Dim pStdUDP As New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", p802_UDP.m_pu16DestPort.To__Int) 'iEthPort)
                 AddHandler pStdUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.UserEvent__UDPSafe__RxPacket
 
-                    'retransmit
-                    pStdUDP.UserEvent__NewUDP(p802_UDP, True)
-
-
-
-                'Me.m_pSafeUDP.Tx__Safe_Array(
+                'retransmit
+                pStdUDP.UserEvent__NewUDP(p802_UDP, True)
 
                 'End If
 
@@ -704,7 +720,7 @@ Public Class Form1
     End Sub
 
 
-#End Region
+#End Region '#Region "ETH RX"
 
 #Region "MMA8451"
 
@@ -754,6 +770,10 @@ Public Class Form1
 
     End Sub
 
-#End Region
+#End Region '#Region "MMA8451"
+
+#Region "FWD LASER"
+
+#End Region '#Region "FWD LASER"
 
 End Class

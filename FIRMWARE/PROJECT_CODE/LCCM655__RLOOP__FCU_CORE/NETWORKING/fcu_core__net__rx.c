@@ -50,13 +50,14 @@ void vFCU_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPor
  * @param[in]		ePacketType				SafeUDP packet Type
  * @param[in]		u16PayloadLength		Length of only the SafeUDP payload
  * @param[in]		*pu8Payload				Pointer to the payload bytes
- * @st_funcMD5		B60C07200ADBE561C1A9CD55076889FB
+ * @st_funcMD5		CBE75F53CC318A6D5962A3134A5C3046
  * @st_funcID		LCCM655R0.FILE.018.FUNC.002
  */
 void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)
 {
 
 	Luint32 u32Block[4];
+	Lfloat32 f32Block[4];
 
 	//make sure we are rx'ing on our port number
 	if(u16DestPort == C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER)
@@ -68,6 +69,11 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 		u32Block[1] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
 		u32Block[2] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
 		u32Block[3] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
+
+		f32Block[0] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload);
+		f32Block[1] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
+		f32Block[2] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
+		f32Block[3] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
 
 		//determine the type of packet that came in
 		switch((E_NET__PACKET_T)ePacketType)
@@ -169,6 +175,19 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 			case NET_PKT__LASER_DIST__REQUEST_LASER_DATA:
 				//transmit the laser distance data
 				sFCU.sUDPDiag.eTxPacketType = NET_PKT__LASER_DIST__TX_LASER_DATA;
+				break;
+
+			case NET_PKT__LASER_DIST__ENABLE_EMULATION_MODE:
+				#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
+					//switch on emu mode
+					vFCU_LASERDIST_ETH__Enable_EmulationMode(u32Block[0], u32Block[1]);
+				#endif
+				break;
+
+			case NET_PKT__LASER_DIST__RAW_EMULATION_VALUE:
+				#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
+					vFCU_LASERDIST_ETH__Emulation_Injection(f32Block[0]);
+				#endif
 				break;
 
 			case NET_PKT__LASER_CONT__REQUEST_LASER_DATA:

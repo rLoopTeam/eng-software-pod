@@ -24,6 +24,14 @@
 
 extern struct _strFCU sFCU;
 
+/***************************************************************************//**
+ * @brief
+ * Transmit a laser contrast eth packet
+ * 
+ * @param[in]		ePacketType				The packet type
+ * @st_funcMD5		79E78FDD1F6F2C9661AEAAEFAA7817B3
+ * @st_funcID		LCCM655R0.FILE.060.FUNC.001
+ */
 void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 {
 

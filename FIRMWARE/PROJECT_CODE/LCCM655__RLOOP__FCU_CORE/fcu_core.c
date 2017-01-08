@@ -44,6 +44,11 @@ void vFCU__Init(void)
 	//setup the fault flags
 	vFCU_FAULTS__Init();
 
+#ifdef WIN32
+	//for win32 DLL
+	DEBUG_PRINT("FCU - Init()");
+#endif
+
 }
 
 
@@ -51,7 +56,7 @@ void vFCU__Init(void)
  * @brief
  * Process any FCU tasks.
  * 
- * @st_funcMD5		AFF39BD1292A813ABE8E9D51BCCA9673
+ * @st_funcMD5		343E4DD5ACF982EE8C1B164E53C167E0
  * @st_funcID		LCCM655R0.FILE.000.FUNC.002
  */
 void vFCU__Process(void)
@@ -400,7 +405,7 @@ void vFCU__Process(void)
  * @brief
  * 100ms timer
  * 
- * @st_funcMD5		28BC0DFB0E9EBABFFDC7FBE98B4FBDD8
+ * @st_funcMD5		44A74B143826EC0B9DABCCEAEBEC7BA1
  * @st_funcID		LCCM655R0.FILE.000.FUNC.003
  */
 void vFCU__RTI_100MS_ISR(void)
@@ -438,7 +443,7 @@ void vFCU__RTI_100MS_ISR(void)
  * @brief
  * 10ms timer
  * 
- * @st_funcMD5		132920CE083F2C05C9100CBC35DA7876
+ * @st_funcMD5		30AB022FB83BA56C9739BFF4DEC05580
  * @st_funcID		LCCM655R0.FILE.000.FUNC.004
  */
 void vFCU__RTI_10MS_ISR(void)

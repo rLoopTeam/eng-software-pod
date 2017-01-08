@@ -24,6 +24,14 @@
 
 extern struct _strFCU sFCU;
 
+/***************************************************************************//**
+ * @brief
+ * Transmit the laser opto packet
+ * 
+ * @param[in]		ePacketType			The packet type
+ * @st_funcMD5		D48C04949DAE27BA171F3019620ED2B7
+ * @st_funcID		LCCM655R0.FILE.055.FUNC.001
+ */
 void vFCU_LASEROPTO_ETH__Transmit(E_NET__PACKET_T ePacketType)
 {
 
@@ -83,7 +91,7 @@ void vFCU_LASEROPTO_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer += 4U;
 
 					//Most Recent Laser Distance (RAW)
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].f32Distance);
+					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].f32DistanceRAW);
 					pu8Buffer += 4U;
 
 					//Filtered laser packet from filtering system

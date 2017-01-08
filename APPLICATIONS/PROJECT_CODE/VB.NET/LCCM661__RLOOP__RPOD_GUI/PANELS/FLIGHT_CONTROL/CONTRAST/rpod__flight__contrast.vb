@@ -8,10 +8,7 @@
         Inherits SIL3.ApplicationSupport.PanelTemplate
 
 #Region "CONSTANTS"
-        ''' <summary>
-        ''' Number of accels on the PCB
-        ''' </summary>
-        Private Const C_NUM_ACCELS As Integer = 2
+        Private Const C_NUM_CONTRAST_SENSORS As Integer = 3
 #End Region '#Region "CONSTANTS"
 
 #Region "MEMBERS"

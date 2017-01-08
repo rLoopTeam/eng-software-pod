@@ -24,6 +24,28 @@
 
 extern struct _strFCU sFCU;
 
+/***************************************************************************//**
+ * @brief
+ * Init Laser distance eth portion
+ * 
+ * @st_funcMD5		A53F7D42D7CCD995A438A1C6C5F45CC4
+ * @st_funcID		LCCM655R0.FILE.058.FUNC.001
+ */
+void vFCU_LASERDIST_ETH__Init(void)
+{
+	sFCU.sLaserDist.sEmu.u32EmuKey = 0U;
+	sFCU.sLaserDist.sEmu.u8EmulationEnabled = 0U;
+	sFCU.sLaserDist.sEmu.f32Distance = 0.0F;
+}
+
+/***************************************************************************//**
+ * @brief
+ * Transmith a laser distance eth packet
+ * 
+ * @param[in]		ePacketType				The packet type
+ * @st_funcMD5		979BD248550BCB4437A4E4332C2E7A31
+ * @st_funcID		LCCM655R0.FILE.058.FUNC.002
+ */
 void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
 {
 
@@ -39,7 +61,7 @@ void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__LASER_DIST__TX_LASER_DATA:
-			u16Length = 30U;
+			u16Length = 28U;
 			break;
 
 
@@ -63,6 +85,29 @@ void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;
 
+				//spare 0
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
+
+				//spare 1
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
+
+				//spare 2
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
+
+				//distance raw
+				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sLaserDist.f32DistanceRAW);
+				pu8Buffer += 4U;
+
+				//distance filtered
+				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sLaserDist.f32DistanceFiltered);
+				pu8Buffer += 4U;
+
+				//spare 3
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
 
 				break;
 
@@ -81,6 +126,55 @@ void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		//fault
 
 	}//else if(s16Return == 0)
+
+}
+
+/***************************************************************************//**
+ * @brief
+ * Via eth, inject some emulation value in
+ * 
+ * @param[in]		f32Value				The value in laser distance units
+ * @st_funcMD5		3FBE47EDCE814C80FCF4FA76AC2BAB6B
+ * @st_funcID		LCCM655R0.FILE.058.FUNC.003
+ */
+void vFCU_LASERDIST_ETH__Emulation_Injection(Lfloat32 f32Value)
+{
+	sFCU.sLaserDist.sEmu.f32Distance = f32Value;
+}
+
+/***************************************************************************//**
+ * @brief
+ * Enable emulation mode
+ * 
+ * @param[in]		u32Enable				1 = Enable
+ * @param[in]		u32Key				 	0x01010202
+ * @st_funcMD5		14B66A518C87DDDB5C890BF2B042B2C4
+ * @st_funcID		LCCM655R0.FILE.058.FUNC.004
+ */
+void vFCU_LASERDIST_ETH__Enable_EmulationMode(Luint32 u32Key, Luint32 u32Enable)
+{
+
+	if(u32Key == 0x01010202U)
+	{
+		if(u32Enable == 1U)
+		{
+			//we are good to go
+			sFCU.sLaserDist.sEmu.u32EmuKey = 0x98984343U;
+			sFCU.sLaserDist.sEmu.u8EmulationEnabled = 1U;
+		}
+		else
+		{
+			//disable
+			sFCU.sLaserDist.sEmu.u32EmuKey = 0U;
+			sFCU.sLaserDist.sEmu.u8EmulationEnabled = 0U;
+		}
+	}
+	else
+	{
+		//Wrong key, clear
+		sFCU.sLaserDist.sEmu.u32EmuKey = 0U;
+		sFCU.sLaserDist.sEmu.u8EmulationEnabled = 0U;
+	}
 
 }
 

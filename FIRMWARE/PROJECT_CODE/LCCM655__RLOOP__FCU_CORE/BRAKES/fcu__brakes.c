@@ -36,7 +36,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init any brakes variables, etc.
  * 
- * @st_funcMD5		2088D3136550B269EDF62A8D42B06F58
+ * @st_funcMD5		F6CE3AA056D2303BC48EC140E01279AC
  * @st_funcID		LCCM655R0.FILE.007.FUNC.001
  */
 void vFCU_BRAKES__Init(void)
@@ -72,7 +72,7 @@ void vFCU_BRAKES__Init(void)
  * @brief
  * Process any brakes tasks.
  * 
- * @st_funcMD5		9E344DE829A68B682D6D887FF18C2100
+ * @st_funcMD5		75C796A5A849FD25A9B5FCFFBB25E6E5
  * @st_funcID		LCCM655R0.FILE.007.FUNC.002
  */
 void vFCU_BRAKES__Process(void)
@@ -228,6 +228,15 @@ Lfloat32 f32FCU_BRAKES__Get_MLP_mm(E_FCU__BRAKE_INDEX_T eBrake)
 
 //permit brake development/testing mode
 //Key1 should be 0xABCD0987U
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u32Key1		## Desc ##
+ * @param[in]		u32Key0		## Desc ##
+ * @st_funcMD5		DD5AE64FE86CF4E1876898239A4D8937
+ * @st_funcID		LCCM655R0.FILE.007.FUNC.010
+ */
 void vFCU_BRAKES__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
 {
 
@@ -250,6 +259,15 @@ void vFCU_BRAKES__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
 
 
 //huge caution, this can kill the magnets
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u32Position		## Desc ##
+ * @param[in]		u32Index		## Desc ##
+ * @st_funcMD5		E0074F5868F10D2D16D8B94B032C1EA0
+ * @st_funcID		LCCM655R0.FILE.007.FUNC.011
+ */
 void vFCU_BRAKES__Dev_MoveMotor(Luint32 u32Index, Luint32 u32Position)
 {
 
