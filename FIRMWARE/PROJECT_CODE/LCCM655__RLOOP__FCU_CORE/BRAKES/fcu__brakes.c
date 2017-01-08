@@ -36,7 +36,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init any brakes variables, etc.
  * 
- * @st_funcMD5		F6CE3AA056D2303BC48EC140E01279AC
+ * @st_funcMD5		36B61445546BB80E644E28338E171CA6
  * @st_funcID		LCCM655R0.FILE.007.FUNC.001
  */
 void vFCU_BRAKES__Init(void)
@@ -44,18 +44,21 @@ void vFCU_BRAKES__Init(void)
 	Luint8 u8Counter;
 
 	//init the state machine variables
-	sFCU.eBrakeStates = BRAKE_STATE__IDLE;
-	sFCU.sBrakesDev.u8DevMode = 0U;
-	sFCU.sBrakesDev.u32DevKey = 0U;
+	sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__IDLE;
+
+	//setup the fault flags
+	vFAULTTREE__Init(&sFCU.sBrakesGlobal.sFaultFlags);
 
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
 	{
-		//setup the fault flags
-		vFAULTTREE__Init(&sFCU.sBrakes[u8Counter].sFaultFlags);
 
 		sFCU.sBrakes[u8Counter].sCurrent.f32ScrewPos_mm = 0.0F;
 		sFCU.sBrakes[u8Counter].sCurrent.f32IBeam_mm = 0.0F;
 		sFCU.sBrakes[u8Counter].sCurrent.f32MLP_mm = 0.0F;
+
+		sFCU.sBrakes[u8Counter].sTarget.f32IBeam_mm = 0.0F;
+		sFCU.sBrakes[u8Counter].sTarget.f32LeadScrew_mm = 0.0F;
+		sFCU.sBrakes[u8Counter].sTarget.u32LeadScrew_um = 0U;
 	}
 
 	//init the limit switches
@@ -76,12 +79,14 @@ void vFCU_BRAKES__Init(void)
  * @brief
  * Process any brakes tasks.
  * 
- * @st_funcMD5		75C796A5A849FD25A9B5FCFFBB25E6E5
+ * @st_funcMD5		2B7723055899DB3741AA61FDC9CD959E
  * @st_funcID		LCCM655R0.FILE.007.FUNC.002
  */
 void vFCU_BRAKES__Process(void)
 {
 	Luint8 u8Test;
+	Lfloat32 f32Temp;
+	Luint8 u8Counter;
 
 	//process the stepper driver if its active
 	vSTEPDRIVE__Process();
@@ -92,7 +97,7 @@ void vFCU_BRAKES__Process(void)
 	//process the switches
 	vFCU_BRAKES_SW__Process();
 
-	switch(sFCU.eBrakeStates)
+	switch(sFCU.sBrakesGlobal.eBrakeStates)
 	{
 
 		case BRAKE_STATE__IDLE:
@@ -105,8 +110,38 @@ void vFCU_BRAKES__Process(void)
 			//compare brake distances with known postion, limit switch postion and MLP position before moving.
 			//alert upper layer if movement not possible due to position sensor error
 
-			sFCU.eBrakeStates = BRAKE_STATE__MOVING;
+			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__MOVING;
 
+			break;
+
+		case BRAKE_STATE__COMPUTE:
+
+			//compute the planned move, take the I-beam request and translate into linear screw pos
+
+			//we compute for each brake side.
+			//While it seams redundant, we could apply some real-world hardware offets here
+			for(u8Counter = 0U; u8Counter < FCU_BRAKE__MAX_BRAKES; u8Counter++)
+			{
+				//get the target I-Beam distance
+				f32Temp = sFCU.sBrakes[u8Counter].sTarget.f32IBeam_mm;
+
+				//equation:
+				//screw_pos = tan(17) * ibeam_dist
+
+				//div by Tan(17)
+				f32Temp /= 0.305730681F;
+
+				//convert to a target distance
+				sFCU.sBrakes[u8Counter].sTarget.f32LeadScrew_mm = f32Temp;
+
+				//to microns
+				f32Temp *= 1000.0F;
+				sFCU.sBrakes[u8Counter].sTarget.u32LeadScrew_um = (Luint32)f32Temp;
+
+			}
+
+
+			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__MOVING;
 			break;
 
 		case BRAKE_STATE__MOVING:
@@ -131,7 +166,7 @@ void vFCU_BRAKES__Process(void)
 			else
 			{
 				//change state
-				sFCU.eBrakeStates = BRAKE_STATE__MOVE_STOPPED;
+				sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__MOVE_STOPPED;
 			}
 
 
@@ -229,138 +264,52 @@ Lfloat32 f32FCU_BRAKES__Get_MLP_mm(E_FCU__BRAKE_INDEX_T eBrake)
 }
 
 
-
-//permit brake development/testing mode
-//Key1 should be 0xABCD0987U
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Move the brakes to a distance in microns from the I Beam
+ *
+ * @note
+ * Approx distances are 25,000 um (fully open) to 0um (fully closed)
  * 
- * @param[in]		u32Key1		## Desc ##
- * @param[in]		u32Key0		## Desc ##
- * @st_funcMD5		DD5AE64FE86CF4E1876898239A4D8937
- * @st_funcID		LCCM655R0.FILE.007.FUNC.010
+ * @param[in]		u32Distance				The distance in microns
+ * @st_funcMD5		FA543AE33BA16782BD5C7D5911FA6E98
+ * @st_funcID		LCCM655R0.FILE.007.FUNC.008
  */
-void vFCU_BRAKES__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
+void vFCU_BRAKES__Move_IBeam_Distance_mm(Lfloat32 f32Distance)
 {
 
-	if(u32Key0 == 0x01293847U)
+	//stop upper layers interfering if we have development mode on
+	if((sFCU.sBrakesGlobal.sBrakesDev.u8DevMode != 1U) && (sFCU.sBrakesGlobal.sBrakesDev.u32DevKey != 0xABCD0987U))
 	{
-		//activate mode
-		sFCU.sBrakesDev.u8DevMode = 1U;
-		sFCU.sBrakesDev.u32DevKey = u32Key1;
-	}
-	else
-	{
-		//disable mode
-		sFCU.sBrakesDev.u8DevMode = 0U;
-		sFCU.sBrakesDev.u32DevKey = 0U;
-	}
+		//we know each brake has to move proportionally, they can't move independantly.
+
+		//tell the target distance for both brakes
+		sFCU.sBrakes[0].sTarget.f32IBeam_mm = f32Distance;
+		sFCU.sBrakes[1].sTarget.f32IBeam_mm = f32Distance;
 
 
-
-}
-
-
-//huge caution, this can kill the magnets
-/***************************************************************************//**
- * @brief
- * ToDo
- * 
- * @param[in]		u32Position		## Desc ##
- * @param[in]		u32Index		## Desc ##
- * @st_funcMD5		E0074F5868F10D2D16D8B94B032C1EA0
- * @st_funcID		LCCM655R0.FILE.007.FUNC.011
- */
-void vFCU_BRAKES__Dev_MoveMotor(Luint32 u32Index, Luint32 u32Position)
-{
-
-	if(sFCU.sBrakesDev.u8DevMode == 1U)
-	{
-		//check the safety key
-		if(sFCU.sBrakesDev.u32DevKey == 0xABCD0987U)
+		//change state
+		//Don't change state if we are not idle.
+		if(sFCU.sBrakesGlobal.eBrakeStates == BRAKE_STATE__IDLE)
 		{
-
-			switch(u32Index)
-			{
-				case 0:
-					vFCU_BRAKES_STEP__Move(u32Position, 0U);
-					break;
-				case 1:
-					vFCU_BRAKES_STEP__Move(0U, u32Position);
-					break;
-				case 2:
-					vFCU_BRAKES_STEP__Move(u32Position, u32Position);
-					break;
-				default:
-					//do nothing.
-					break;
-			}//switch(u32Index)
-
+			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__BEGIN_MOVE;
 		}
 		else
 		{
-			//key wrong
+			//brake move not possible yet
+			//todo: report back up the stack
 		}
+
 	}
 	else
 	{
-		//not enabled
+		//we are in development mode, don't allow the upper level system to move the brakes.
 	}
+
 
 }
 
 
-//move the brakes to a distance in MM from the I Beam
-//approx distances are 25mm (fully open) to 0mm (fully closed)
-//some calibration will be needed here.
-/***************************************************************************//**
- * @brief
- * ToDo
- * 
- * @param[in]		u32Distance		## Desc ##
- * @st_funcMD5		17768A6EF4640223240BC52B342622A4
- * @st_funcID		LCCM655R0.FILE.007.FUNC.008
- */
-void vFCU_BRAKES__Move_IBeam_Distance_mm(Luint32 u32Distance)
-{
-
-	//temp
-
-	//Tell the movement planner to go
-	vFCU_BRAKES_STEP__Move(2000, 2000);
-
-	//change state
-	sFCU.eBrakeStates = BRAKE_STATE__BEGIN_MOVE;
-}
-
-//move the brakes position by a certain percentage between 0-100%
-//approx distances are 25mm (fully open) to 0mm (fully closed)
-//some calibration will be needed here.
-/***************************************************************************//**
- * @brief
- * ToDo
- * 
- * @param[in]		eBrake					The brake index
- * @param[in]		f32Percent		## Desc ##
- * @st_funcMD5		661C17121624146AA0AB15490D2D66B9
- * @st_funcID		LCCM655R0.FILE.007.FUNC.009
- */
-void vFCU_BRAKES__Move_Percent_Position(Lfloat32 f32Percent, E_FCU__BRAKE_INDEX_T eBrake)
-{
-	if((f32Percent < 0) || (f32Percent > 100))
-	{
-		//do nothing
-	}
-	else
-	{
-		if(eBrake < FCU_BRAKE__MAX_BRAKES)
-		{
-			//set BrakePosition_Percent to value
-			sFCU.sBrakes[(Luint32)eBrake].sMLP.f32BrakePosition_mm = f32Percent;
-		}
-	}
-}
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_BRAKES
 #ifndef C_LOCALDEF__LCCM655__ENABLE_BRAKES

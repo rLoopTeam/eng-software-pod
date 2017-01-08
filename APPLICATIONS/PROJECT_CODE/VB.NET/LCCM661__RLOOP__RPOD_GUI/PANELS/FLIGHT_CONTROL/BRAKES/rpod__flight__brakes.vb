@@ -20,6 +20,10 @@
         Private m_txtFlags(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtSpares(C_NUM_BRAKES - 1, 5 - 1) As SIL3.ApplicationSupport.TextBoxHelper
 
+        Private m_txtTargetIBeam(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtTargetScrew_mm(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtTargetScrew_um(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
+
         'switches
         Private m_txtLimitsExtend_State(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtLimitsRetract_State(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
@@ -117,22 +121,27 @@
                     Dim iOffset As Integer = 0
 
                     Dim pU32Flags(C_NUM_BRAKES - 1) As SIL3.Numerical.U32
-                    Dim pU32Spare(C_NUM_BRAKES - 1, 5 - 1) As SIL3.Numerical.U32
+                    Dim pU32Spare(C_NUM_BRAKES - 1, 2 - 1) As SIL3.Numerical.U32
+
+                    Dim pF32TargetIBeam(C_NUM_BRAKES - 1) As SIL3.Numerical.F32
+                    Dim pF32TargetScrew_mm(C_NUM_BRAKES - 1) As SIL3.Numerical.F32
+                    Dim pS32TargetScrew_um(C_NUM_BRAKES - 1) As SIL3.Numerical.S32
 
                     For iCounter As Integer = 0 To C_NUM_BRAKES - 1
 
                         pU32Flags(iCounter) = New SIL3.Numerical.U32(u8Payload, iOffset)
                         iOffset += 4
 
+                        pF32TargetIBeam(iCounter) = New SIL3.Numerical.F32(u8Payload, iOffset)
+                        iOffset += 4
+                        pF32TargetScrew_mm(iCounter) = New SIL3.Numerical.F32(u8Payload, iOffset)
+                        iOffset += 4
+                        pS32TargetScrew_um(iCounter) = New SIL3.Numerical.S32(u8Payload, iOffset)
+                        iOffset += 4
+
                         pU32Spare(iCounter, 0) = New SIL3.Numerical.U32(u8Payload, iOffset)
                         iOffset += 4
                         pU32Spare(iCounter, 1) = New SIL3.Numerical.U32(u8Payload, iOffset)
-                        iOffset += 4
-                        pU32Spare(iCounter, 2) = New SIL3.Numerical.U32(u8Payload, iOffset)
-                        iOffset += 4
-                        pU32Spare(iCounter, 3) = New SIL3.Numerical.U32(u8Payload, iOffset)
-                        iOffset += 4
-                        pU32Spare(iCounter, 4) = New SIL3.Numerical.U32(u8Payload, iOffset)
                         iOffset += 4
 
                     Next
@@ -190,17 +199,17 @@
             l0(iDevice, 0) = New SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags " & Me.Layout__GetBrakeSide(iDevice), MyBase.m_pInnerPanel)
             Me.m_txtFlags(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 0))
 
-            l0(iDevice, 1) = New SIL3.ApplicationSupport.LabelHelper("Spare " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, 1) = New SIL3.ApplicationSupport.LabelHelper("Target IBeam " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, 1).Layout__AboveRightControl(l0(iDevice, 0), Me.m_txtFlags(iDevice))
-            Me.m_txtSpares(iDevice, 0) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 1))
+            Me.m_txtTargetIBeam(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 1))
 
-            l0(iDevice, 2) = New SIL3.ApplicationSupport.LabelHelper("Spare " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 2).Layout__AboveRightControl(l0(iDevice, 1), Me.m_txtSpares(iDevice, 0))
-            Me.m_txtSpares(iDevice, 1) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 2))
+            l0(iDevice, 2) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, 2).Layout__AboveRightControl(l0(iDevice, 1), Me.m_txtTargetIBeam(iDevice))
+            Me.m_txtTargetScrew_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 2))
 
-            l0(iDevice, 3) = New SIL3.ApplicationSupport.LabelHelper("Spare " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 3).Layout__AboveRightControl(l0(iDevice, 1), Me.m_txtSpares(iDevice, 1))
-            Me.m_txtSpares(iDevice, 2) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 3))
+            l0(iDevice, 3) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (um) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, 3).Layout__AboveRightControl(l0(iDevice, 1), Me.m_txtTargetScrew_mm(iDevice))
+            Me.m_txtTargetScrew_um(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 3))
 
 
             'switches
@@ -260,20 +269,20 @@
             iDevice = 1
             'general
             l0(iDevice, 0) = New SIL3.ApplicationSupport.LabelHelper("Fault Flags " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 0).Layout__AboveRightControl(l0(iDevice - 1, 0), Me.m_txtSpares(iDevice - 1, 2))
+            l0(iDevice, 0).Layout__AboveRightControl(l0(iDevice - 1, 0), Me.m_txtTargetScrew_um(iDevice - 1))
             Me.m_txtFlags(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 0))
 
-            l0(iDevice, 1) = New SIL3.ApplicationSupport.LabelHelper("Spare " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, 1) = New SIL3.ApplicationSupport.LabelHelper("Target IBeam " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, 1).Layout__AboveRightControl(l0(iDevice, 0), Me.m_txtFlags(iDevice))
-            Me.m_txtSpares(iDevice, 0) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 1))
+            Me.m_txtTargetIBeam(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 1))
 
-            l0(iDevice, 2) = New SIL3.ApplicationSupport.LabelHelper("Spare " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 2).Layout__AboveRightControl(l0(iDevice, 1), Me.m_txtSpares(iDevice, 0))
-            Me.m_txtSpares(iDevice, 1) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 2))
+            l0(iDevice, 2) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, 2).Layout__AboveRightControl(l0(iDevice, 1), Me.m_txtTargetIBeam(iDevice))
+            Me.m_txtTargetScrew_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 2))
 
-            l0(iDevice, 3) = New SIL3.ApplicationSupport.LabelHelper("Spare " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 3).Layout__AboveRightControl(l0(iDevice, 1), Me.m_txtSpares(iDevice, 1))
-            Me.m_txtSpares(iDevice, 2) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 3))
+            l0(iDevice, 3) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (um) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, 3).Layout__AboveRightControl(l0(iDevice, 1), Me.m_txtTargetScrew_mm(iDevice))
+            Me.m_txtTargetScrew_um(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 3))
 
             'switches
             l0(iDevice, 4) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext State " & Me.Layout__GetBrakeSide(iDevice))

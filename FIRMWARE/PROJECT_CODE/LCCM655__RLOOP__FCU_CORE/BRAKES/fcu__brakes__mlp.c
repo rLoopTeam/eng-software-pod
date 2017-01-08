@@ -35,7 +35,7 @@ static Lint16 s16FCU_BRAKES_MLP__Filter_ADC_Value(E_FCU__BRAKE_INDEX_T eBrake);
  * @brief
  * init the systems specifically to the MLP
  * 
- * @st_funcMD5		A4B3B673117DD0A42C704C2512DC604D
+ * @st_funcMD5		406A05A73431FBA4B331066CE7516415
  * @st_funcID		LCCM655R0.FILE.024.FUNC.001
  */
 void vFCU_BRAKES_MLP__Init(void)
@@ -120,10 +120,8 @@ void vFCU_BRAKES_MLP__Init(void)
 		sFCU.sBrakes[1].sMLP.f32SystemSpan = f32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN);
 
 		//set the flags for a general fault and cal data reload fault.
-		vFAULTTREE__Set_Flag(&sFCU.sBrakes[0].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sBrakes[0].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__03);
-		vFAULTTREE__Set_Flag(&sFCU.sBrakes[1].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sBrakes[1].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__03);
+		vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__00);
+		vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__03);
 
 
 
@@ -214,7 +212,7 @@ void vFCU_BRAKES_MLP__Process(void)
  *  Call this function to sample the ADC channel associated with the brake
  * 
  * @param[in]		eBrake				The brake index
- * @st_funcMD5		6C5FC47D0A1DFC4991301F047C4FB3B5
+ * @st_funcMD5		A63BA1E17C9CE1231B1453867963DF23
  * @st_funcID		LCCM655R0.FILE.024.FUNC.003
  */
 void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
@@ -354,7 +352,7 @@ Lint16 s16FCU_BRAKES_MLP__Filter_ADC_Value(E_FCU__BRAKE_INDEX_T eBrake)
  * Brake_Pos = (ADCValue - Zero) * Span
  * 
  * @param[in]		eBrake				The brake index
- * @st_funcMD5		C18091983749952AB5441691700A6A98
+ * @st_funcMD5		30F2A16DDC839D704891DC145917EA38
  * @st_funcID		LCCM655R0.FILE.024.FUNC.006
  */
 void vFCU_BRAKES_MLP__Apply_Span(E_FCU__BRAKE_INDEX_T eBrake)

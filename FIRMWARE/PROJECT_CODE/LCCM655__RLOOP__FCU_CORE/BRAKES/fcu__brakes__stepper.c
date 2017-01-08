@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the stepper interface
  * 
- * @st_funcMD5		789F80370F1D1EEB00F64DD61C585732
+ * @st_funcMD5		DFDB808AC487E960F7781F149387C964
  * @st_funcID		LCCM655R0.FILE.025.FUNC.001
  */
 void vFCU_BRAKES_STEP__Init(void)
@@ -74,10 +74,8 @@ void vFCU_BRAKES_STEP__Init(void)
 		sFCU.sBrakes[1].sMove.s32LinearAccel = s32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL);
 
 		//set the flags for a general fault and cal data reload fault.
-		vFAULTTREE__Set_Flag(&sFCU.sBrakes[0].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sBrakes[0].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__03);
-		vFAULTTREE__Set_Flag(&sFCU.sBrakes[1].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sBrakes[1].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__03);
+		vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__00);
+		vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__03);
 
 
 	}//else if(u8Test == 1U)

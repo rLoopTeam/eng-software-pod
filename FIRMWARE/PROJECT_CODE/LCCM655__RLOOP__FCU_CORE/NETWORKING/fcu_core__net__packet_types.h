@@ -115,6 +115,9 @@
 		/** Send out the brake Tx data */
 		NET_PKT__FCU_BRAKES__TX_DATA = 0x1402U,
 
+		/** Move the brakes relative to the I-Beam */
+		NET_PKT__FCU_BRAKES__MOVE_IBEAM = 0x1403U,
+
 
 		//////////////////////////////////////////////////////
 		//FCU: NAVIGATION (0x1600)

@@ -210,6 +210,9 @@
 			/** Beginning to move the brakes */
 			BRAKE_STATE__BEGIN_MOVE,
 
+			/** Compute the I_Beam distances */
+			BRAKE_STATE__COMPUTE,
+
 			/** The brakes are moving */
 			BRAKE_STATE__MOVING,
 

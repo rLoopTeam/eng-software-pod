@@ -453,6 +453,15 @@ void vFCU_LASEROPTO__100MS_ISR(void)
  *
  * @param[in]		f32Value				Raw value in laser units
  */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		f32Value		## Desc ##
+ * @param[in]		u32Index		## Desc ##
+ * @st_funcMD5		B2906B4ECE0EF676386C646951C577AE
+ * @st_funcID		LCCM655R0.FILE.021.FUNC.008
+ */
 void vFCU_LASEROPTO_WIN32__Set_DistanceRaw(Luint32 u32Index, Lfloat32 f32Value)
 {
 

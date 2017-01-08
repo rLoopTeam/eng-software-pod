@@ -28,7 +28,7 @@ struct _strFCU sFCU;
  * @brief
  * Init the FCU. Call this first thing.
  * 
- * @st_funcMD5		88020D6DBDEB162F14FFBCD41F36BD19
+ * @st_funcMD5		2C8E60FCEAD2D5CB34C0611CC751565F
  * @st_funcID		LCCM655R0.FILE.000.FUNC.001
  */
 void vFCU__Init(void)

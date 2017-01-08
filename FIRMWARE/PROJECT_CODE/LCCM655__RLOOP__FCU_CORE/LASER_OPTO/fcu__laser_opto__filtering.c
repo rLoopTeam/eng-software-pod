@@ -29,7 +29,7 @@ extern struct _strFCU sFCU;
  * Apply the laser opto filter
  * 
  * @param[in]		eLaser					The laser index
- * @st_funcMD5		7DCDB9177226D0CD34BD32AF7F2BFE6B
+ * @st_funcMD5		C70997489D8931606AB43304D6866B81
  * @st_funcID		LCCM655R0.FILE.057.FUNC.001
  */
 void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser)

@@ -50,7 +50,7 @@ void vFCU_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPor
  * @param[in]		ePacketType				SafeUDP packet Type
  * @param[in]		u16PayloadLength		Length of only the SafeUDP payload
  * @param[in]		*pu8Payload				Pointer to the payload bytes
- * @st_funcMD5		CBE75F53CC318A6D5962A3134A5C3046
+ * @st_funcMD5		7834B69508D0FE7BEE2303E51401D91F
  * @st_funcID		LCCM655R0.FILE.018.FUNC.002
  */
 void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)
@@ -212,15 +212,23 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 			case NET_PKT__FCU_BRAKES__ENABLE_DEV_MODE:
 				//set the brake system in development mode.
 				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-					vFCU_BRAKES__Enable_DevMode(u32Block[0], 0xABCD0987U);
+					vFCU_BRAKES_ETH__Enable_DevMode(u32Block[0], 0xABCD0987U);
 				#endif
 				break;
 
 			case NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW:
 				//move the brake system in development mode.
 				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-					vFCU_BRAKES__Dev_MoveMotor(u32Block[0], u32Block[1]);
+					vFCU_BRAKES_ETH__MoveMotor_RAW(u32Block[0], u32Block[1]);
 				#endif
+				break;
+
+			case NET_PKT__FCU_BRAKES__MOVE_IBEAM:
+				//move the brakes ref to the I-Bream
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+					vFCU_BRAKES_ETH__MoveMotor_IBeam(f32Block[0]);
+				#endif
+
 				break;
 
 			default:
