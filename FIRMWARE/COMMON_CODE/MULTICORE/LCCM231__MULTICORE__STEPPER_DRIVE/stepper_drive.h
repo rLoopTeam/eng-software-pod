@@ -392,8 +392,8 @@
 	void vSTEPDRIVE_TIMEBASE__Init(void);
 	void vSTEPDRIVE_TIMEBASE__Process(void);
 	void vSTEPDRIVE_TIMEBASE__Clear_Ticks(void);
-	#if C_LOCALDEF__LCCM231__USE_ON_RM4 == 1U
-		void vSTEPDRIVE_TIMEBASE__ISR(void);
+	#if C_LOCALDEF__LCCM231__USE_ON_RM4 == 1U || C_LOCALDEF__LCCM231__USE_ON_WIN32 == 1U
+		DLL_DECLARATION void vSTEPDRIVE_TIMEBASE__ISR(void);
 	#endif
 	
 	//limits

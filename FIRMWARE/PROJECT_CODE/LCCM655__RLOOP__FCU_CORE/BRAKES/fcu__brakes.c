@@ -50,6 +50,9 @@ void vFCU_BRAKES__Init(void)
 
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
 	{
+		//setup the fault flags
+		vFAULTTREE__Init(&sFCU.sBrakes[u8Counter].sFaultFlags);
+
 		sFCU.sBrakes[u8Counter].sCurrent.f32ScrewPos_mm = 0.0F;
 		sFCU.sBrakes[u8Counter].sCurrent.f32IBeam_mm = 0.0F;
 		sFCU.sBrakes[u8Counter].sCurrent.f32MLP_mm = 0.0F;
@@ -64,7 +67,8 @@ void vFCU_BRAKES__Init(void)
 	//init the stepper rotate module
 	vFCU_BRAKES_STEP__Init();
 
-
+	//any ethernet stuff as needed
+	vFCU_BRAKES_ETH__Init();
 
 }
 
@@ -353,7 +357,7 @@ void vFCU_BRAKES__Move_Percent_Position(Lfloat32 f32Percent, E_FCU__BRAKE_INDEX_
 		if(eBrake < FCU_BRAKE__MAX_BRAKES)
 		{
 			//set BrakePosition_Percent to value
-			sFCU.sBrakes[(Luint32)eBrake].sMLP.f32BrakePosition_Percent = f32Percent;
+			sFCU.sBrakes[(Luint32)eBrake].sMLP.f32BrakePosition_mm = f32Percent;
 		}
 	}
 }

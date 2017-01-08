@@ -49,10 +49,6 @@ void vFCU_BRAKES_MLP__Init(void)
 	//loop through each brake.
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
 	{
-
-		//setup the fault flags
-		vFAULTTREE__Init(&sFCU.sBrakes[u8Counter].sFaultFlags);
-
 		//clear the current ADC sample
 		sFCU.sBrakes[u8Counter].sMLP.u16ADC_Sample = 0U;
 
@@ -66,7 +62,7 @@ void vFCU_BRAKES_MLP__Init(void)
 		sFCU.sBrakes[u8Counter].sMLP.f32SystemSpan = 1.0F;
 
 		//brake pos.
-		sFCU.sBrakes[u8Counter].sMLP.f32BrakePosition_Percent = 0.0F;
+		sFCU.sBrakes[u8Counter].sMLP.f32BrakePosition_mm = 0.0F;
 
 		//set lowest mlp value to a high flag
 		sFCU.sBrakes[u8Counter].sMLP.lowest_value = 9999U;
@@ -133,8 +129,11 @@ void vFCU_BRAKES_MLP__Init(void)
 
 	}//else if(u8Test == 1U)
 
+#ifndef WIN32
 	//now that we are ready, start the conversions.
 	vRM4_ADC_USER__StartConversion();
+#endif
+
 }
 
 /***************************************************************************//**
@@ -223,7 +222,11 @@ void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
 	Luint8 u8New;
 
 	//check the ADC converter process
+#ifndef WIN32
 	u8New = u8RM4_ADC_USER__Is_NewDataAvailable();
+#else
+	u8New = 1U;
+#endif
 	if(u8New == 1U)
 	{
 
@@ -233,7 +236,11 @@ void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
 
 			case FCU_BRAKE__LEFT:
 				//read from the ADC channel 0
+#ifndef WIN32
 				sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample = u16RM4_ADC_USER__Get_RawData(0U);
+#else
+				sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample = 0U;
+#endif
 				if (sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample > sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.highest_value) {
 					sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.highest_value = sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample;
 				}
@@ -245,7 +252,11 @@ void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
 
 			case FCU_BRAKE__RIGHT:
 				//read from the ADC channel 1
+#ifndef WIN32
 				sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample = u16RM4_ADC_USER__Get_RawData(1U);
+#else
+				sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample = 0U;
+#endif	
 				if (sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample > sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.highest_value) {
 					sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.highest_value = sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample;
 				}
@@ -263,7 +274,9 @@ void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
 		}//switch(eBrake)
 
 		//taken the data now
+#ifndef WIN32
 		vRM4_ADC_USER__Clear_NewDataAvailable();
+#endif
 	}
 	else
 	{
@@ -359,7 +372,7 @@ void vFCU_BRAKES_MLP__Apply_Span(E_FCU__BRAKE_INDEX_T eBrake)
 		f32Temp *= sFCU.sBrakes[(Luint32)eBrake].sMLP.f32SystemSpan;
 
 		//assign
-		sFCU.sBrakes[(Luint32)eBrake].sMLP.f32BrakePosition_Percent = f32Temp;
+		sFCU.sBrakes[(Luint32)eBrake].sMLP.f32BrakePosition_mm = f32Temp;
 
 	}
 	else

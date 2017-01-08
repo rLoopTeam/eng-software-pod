@@ -5661,6 +5661,13 @@ adds a sub level node after one has already been added
  Start the timers.
  </summary>
 </member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Timers__T1_Tick(System.Object,System.Timers.ElapsedEventArgs)">
+ <summary>
+ 10ms timer
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Timers__T10_Tick(System.Object,System.Timers.ElapsedEventArgs)">
  <summary>
  10ms timer

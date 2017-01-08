@@ -446,6 +446,20 @@ void vFCU_LASEROPTO__100MS_ISR(void)
 }
 
 
+#ifdef WIN32
+/***************************************************************************//**
+ * @brief
+ * On win32, set the raw value only
+ *
+ * @param[in]		f32Value				Raw value in laser units
+ */
+void vFCU_LASEROPTO_WIN32__Set_DistanceRaw(Luint32 u32Index, Lfloat32 f32Value)
+{
+
+	sFCU.sLaserOpto.sOptoLaser[u32Index].f32DistanceRAW = f32Value;
+}
+
+#endif
 
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT

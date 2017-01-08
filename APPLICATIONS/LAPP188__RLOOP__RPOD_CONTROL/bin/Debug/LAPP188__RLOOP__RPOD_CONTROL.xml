@@ -3924,64 +3924,6 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  http://confluence.rloop.org/display/SD/Packet+Types
  </summary>
 </member>
-<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Brakes.Switches">
- <summary>
- Brake Switch Monitoring
- </summary>
- <remarks></remarks>
-</member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Brakes.Switches.#ctor(System.String)">
- <summary>
- New instance
- </summary>
- <param name="sPanelText"></param>
- <remarks></remarks>
-</member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Brakes.Switches.LayoutPanel">
- <summary>
- Create our layout prior to being shown
- </summary>
- <remarks></remarks>
-</member>
-<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Brakes.Top">
- <summary>
- Top level brakes panel
- </summary>
- <remarks></remarks>
-</member>
-<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Brakes.Top.m_pExplorer">
- <summary>
- Our application explorer bar
- </summary>
- <remarks></remarks>
-</member>
-<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Brakes.Top.m_iBarIndex">
- <summary>
- The index of our category in the explorer bar
- </summary>
- <remarks></remarks>
-</member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Brakes.Top.#ctor(System.Windows.Forms.Form@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ExplorerBarHelper@)">
- <summary>
- New instance
- </summary>
- <param name="pf"></param>
- <remarks></remarks>
-</member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Brakes.Top.Panel__HideShow(System.String)">
- <summary>
- How or hide this panel if our text matches
- </summary>
- <param name="sText"></param>
- <remarks></remarks>
-</member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Brakes.Top.LinkBar_LinkClick(System.String)">
- <summary>
- Called when a link is clicked
- </summary>
- <param name="sText"></param>
- <remarks></remarks>
-</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers">
  <summary>
  Accelerometer control and calibration
@@ -4072,6 +4014,67 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <param name="s"></param>
  <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes">
+ <summary>
+ Brakes Diagnostic System
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes.m_sLogDir">
+ <summary>
+ The logging directory
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes.m_pCSV">
+ <summary>
+ Allows us to write CSV logs of the edges
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes.m_pDAQ">
+ <summary>
+ Our DAQ Receiver
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes.#ctor(System.String,System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes.UserEvent__SafeUDP__Tx_X4">
+ <summary>
+ Raised wehen we want to transmit a control packet
+ </summary>
+ <param name="u16Type"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16)">
+ <summary>
+ New Packet In
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes.Layout__GetBrakeSide(System.Int32)">
+ <summary>
+ generates a L/R
+ </summary>
+ <param name="iIndex"></param>
+ <returns></returns>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
  <remarks></remarks>
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Contrast">
@@ -4274,6 +4277,11 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
 <member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.m_pnlFlight__LaserDist">
  <summary>
  Laser distance sensor
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.m_pnlFlight__Brakes">
+ <summary>
+ Brakes system
  </summary>
 </member>
 <member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Top.m_sLogDir">

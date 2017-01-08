@@ -1105,6 +1105,7 @@ STEP MOTOR DRIVER
 	#define C_LOCALDEF__LCCM231__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM231__ENABLE_THIS_MODULE == 1U
 
+#ifndef WIN32
 		//determine our architecture
 		#define C_LOCALDEF__LCCM231__USE_ON_PIC32							(0U)
 		#define C_LOCALDEF__LCCM231__USE_ON_RM4								(1U)
@@ -1117,6 +1118,23 @@ STEP MOTOR DRIVER
 		#define C_LOCALDEF__LCCM231__STEP_VIA_A4988							(0U)
 		#define C_LOCALDEF__LCCM231__STEP_VIA_GEKO							(1U)
 		#define C_LOCALDEF__LCCM231__STEP_VIA_WIN32							(0U)
+
+#else
+		//determine our architecture
+		#define C_LOCALDEF__LCCM231__USE_ON_PIC32							(0U)
+		#define C_LOCALDEF__LCCM231__USE_ON_RM4								(0U)
+		#define C_LOCALDEF__LCCM231__USE_ON_WIN32							(1U)
+
+		//use f64 if you need the precisions
+		#define C_LOCALDEF__LCCM231__USE_F64								(0U)
+
+		//determine the target
+		#define C_LOCALDEF__LCCM231__STEP_VIA_A4988							(0U)
+		#define C_LOCALDEF__LCCM231__STEP_VIA_GEKO							(0U)
+		#define C_LOCALDEF__LCCM231__STEP_VIA_WIN32							(1U)
+
+#endif
+
 
 
 		//value in seconds of the time base being used
@@ -1154,6 +1172,8 @@ STEP MOTOR DRIVER
 		#define C_LOCALDEF__LCCM231__PARAM_INDEX__HEADER					(11U)
 		#define C_LOCALDEF__LCCM231__PARAM_INDEX__CRC						(12U)
 
+
+#ifndef WIN32
 		//set to 1 if all of the driver chips are on the same reset line
 		//if not individual resets need to be provided for each device
 		#define C_LOCALDEF__LCCM231__ALL_RESETS_COMMON						(1U)
@@ -1169,6 +1189,7 @@ STEP MOTOR DRIVER
 		#define C_LOCALDEF__LCCM231__M1__PIN_PULSE__LATCH(x)				{vRM4_SPI24_PINS__Set_Pin(SPI24_CHANNEL__2, SPI24_PIN__ENA, x);}
 		#define C_LOCALDEF__LCCM231__M1__PIN_DIR__TRIS()					{vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 21U);}
 		#define C_LOCALDEF__LCCM231__M1__PIN_DIR__LATCH(x)					{vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 21U, x);}
+#endif //win32
 
 		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_DEFAULT_RESOLUTION        10
 		//Value in rev / square second
