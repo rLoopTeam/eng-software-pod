@@ -43,7 +43,7 @@ void vFCU_LASERDIST_ETH__Init(void)
  * Transmith a laser distance eth packet
  * 
  * @param[in]		ePacketType				The packet type
- * @st_funcMD5		979BD248550BCB4437A4E4332C2E7A31
+ * @st_funcMD5		6F7EDE1C5CBC08569FA17C9563330D2D
  * @st_funcID		LCCM655R0.FILE.058.FUNC.002
  */
 void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)

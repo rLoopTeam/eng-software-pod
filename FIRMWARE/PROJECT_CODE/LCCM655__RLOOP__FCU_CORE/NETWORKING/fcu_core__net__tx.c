@@ -48,7 +48,7 @@ void vFCU_NET_TX__Init(void)
  * @brief
  * Process network transmission and do any transmission as required.
  * 
- * @st_funcMD5		301D8493AA2F6119BF6CE754C3618E2D
+ * @st_funcMD5		3801C3165E5C1E5C9288237BA0F1E5FC
  * @st_funcID		LCCM655R0.FILE.019.FUNC.002
  */
 void vFCU_NET_TX__Process(void)
@@ -136,7 +136,7 @@ void vFCU_NET_TX__Process(void)
 
 		case NET_PKT__FCU_BRAKES__TX_DATA:
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-				vFCU_BRAKES_ETH__Process(eType);
+				vFCU_BRAKES_ETH__Transmit(eType);
 			#endif
 			break;
 

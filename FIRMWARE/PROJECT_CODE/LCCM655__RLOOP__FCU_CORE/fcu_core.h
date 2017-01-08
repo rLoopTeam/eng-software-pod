@@ -55,8 +55,6 @@
 			/** The init statemachine */
 			E_FCU__INIT_STATE_TYPES eInitStates;
 
-			/** The brakes state machine */
-			E_FCU_BRAKES__STATES_T eBrakeStates;
 
 			/** Fault handling subsystem */
 			struct
@@ -72,26 +70,35 @@
 
 
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-			/** Brake Dev */
+
+			/** Gloabl brakes system */
 			struct
 			{
-
-				/** Are we in develompent mode? */
-				Luint8 u8DevMode;
-
-				/** Key to enable develompent mode checks */
-				Luint32 u32DevKey;
-
-			}sBrakesDev;
-
-
-			/** Brake Substructure */
-			struct
-			{
-
 				/** individual brake fault flags */
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
+				/** The brakes state machine */
+				E_FCU_BRAKES__STATES_T eBrakeStates;
+
+
+				/** Brake Development mode */
+				struct
+				{
+
+					/** Are we in develompent mode? */
+					Luint8 u8DevMode;
+
+					/** Key to enable develompent mode checks */
+					Luint32 u32DevKey;
+
+				}sBrakesDev;
+
+			}sBrakesGlobal;
+
+
+			/** Brake(S) Substructure */
+			struct
+			{
 
 				/** Limit switch structure
 				 * There are two limit switches per brake assy
@@ -198,6 +205,19 @@
 				}sCurrent;
 
 
+				/** The target move position */
+				struct
+				{
+					/** The current targeted IBeam brake distance */
+					Lfloat32 f32IBeam_mm;
+
+					/** target lead screw position */
+					Lfloat32 f32LeadScrew_mm;
+
+					/** Microns for the planner */
+					Luint32 u32LeadScrew_um;
+
+				}sTarget;
 
 				Luint8 u8BrakeSWErr;
 
@@ -817,16 +837,13 @@
 		//brakes
 		void vFCU_BRAKES__Init(void);
 		void vFCU_BRAKES__Process(void);
-		void vFCU_BRAKES__Move_IBeam_Distance_mm(Luint32 u32Distance);
+		void vFCU_BRAKES__Move_IBeam_Distance_mm(Lfloat32 f32Distance);
 		Lfloat32 f32FCU_BRAKES__Get_ScrewPos(E_FCU__BRAKE_INDEX_T eBrake);
 		E_FCU__SWITCH_STATE_T eFCU_BRAKES__Get_SwtichState(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
 		Luint16 u16FCU_BRAKES__Get_ADC_Raw(E_FCU__BRAKE_INDEX_T eBrake);
 		Lfloat32 f32FCU_BRAKES__Get_IBeam_mm(E_FCU__BRAKE_INDEX_T eBrake);
 		Lfloat32 f32FCU_BRAKES__Get_MLP_mm(E_FCU__BRAKE_INDEX_T eBrake);
 
-			//dev specifics
-			void vFCU_BRAKES__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1);
-			void vFCU_BRAKES__Dev_MoveMotor(Luint32 u32Index, Luint32 u32Position);
 
 			//stepper drive
 			void vFCU_BRAKES_STEP__Init(void);
@@ -850,7 +867,11 @@
 
 			//eth
 			void vFCU_BRAKES_ETH__Init(void);
-			void vFCU_BRAKES_ETH__Process(E_NET__PACKET_T ePacketType);
+			void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType);
+			void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Luint32 u32Position);
+			void vFCU_BRAKES_ETH__MoveMotor_IBeam(Lfloat32 f32Value);
+			void vFCU_BRAKES_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1);
+
 
 		//accelerometer layer
 		void vFCU_ACCEL__Init(void);

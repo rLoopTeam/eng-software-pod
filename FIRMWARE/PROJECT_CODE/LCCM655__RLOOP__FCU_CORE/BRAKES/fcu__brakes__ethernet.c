@@ -26,19 +26,35 @@
 extern struct _strFCU sFCU;
 
 
+/***************************************************************************//**
+ * @brief
+ * Init the eth portion of the brakes system
+ * 
+ * @st_funcMD5		3F55F58A66BBC89F7D26261947D1B02E
+ * @st_funcID		LCCM655R0.FILE.066.FUNC.001
+ */
 void vFCU_BRAKES_ETH__Init(void)
 {
+	sFCU.sBrakesGlobal.sBrakesDev.u8DevMode = 0U;
+	sFCU.sBrakesGlobal.sBrakesDev.u32DevKey = 0U;
 
 }
 
 
-void vFCU_BRAKES_ETH__Process(E_NET__PACKET_T ePacketType)
+/***************************************************************************//**
+ * @brief
+ * Process any new eth packets (transmit)
+ * 
+ * @param[in]		ePacketType			The packet type
+ * @st_funcMD5		FB0CF1588BB680EA182940D2655E3159
+ * @st_funcID		LCCM655R0.FILE.066.FUNC.002
+ */
+void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 {
 	Lint16 s16Return;
 	Luint8 * pu8Buffer;
 	Luint8 u8BufferIndex;
 	Luint16 u16Length;
-	Luint8 u8Device;
 	Luint8 u8Counter;
 
 	pu8Buffer = 0;
@@ -68,16 +84,18 @@ void vFCU_BRAKES_ETH__Process(E_NET__PACKET_T ePacketType)
 				//for each brake
 				for(u8Counter = 0U; u8Counter < FCU_BRAKE__MAX_BRAKES; u8Counter++)
 				{
-					//fault flags (general)
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sBrakes[u8Counter].sFaultFlags.u32Flags[0]);
+					//fault flags (general, duplicated)
+					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sBrakesGlobal.sFaultFlags.u32Flags[0]);
 					pu8Buffer += 4U;
-					//spare
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+
+					vNUMERICAL_CONVERT__Array_F32(pu8Buffer,  sFCU.sBrakes[u8Counter].sTarget.f32IBeam_mm);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sTarget.f32LeadScrew_mm);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sBrakes[u8Counter].sTarget.u32LeadScrew_um);
 					pu8Buffer += 4U;
+
+					//spares
 					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
 					pu8Buffer += 4U;
 					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
@@ -135,6 +153,121 @@ void vFCU_BRAKES_ETH__Process(E_NET__PACKET_T ePacketType)
 
 }
 
+
+/***************************************************************************//**
+ * @brief
+ * Raw motor position movement
+ *
+ * @note
+ * Huge caution, this can kill the magnets
+ *
+ * @param[in]		u32Position				The new position in microns
+ * @param[in]		u32Index				The motor index
+ * @st_funcMD5		71622FBE47C415EB55B42BE035CCFBD8
+ * @st_funcID		LCCM655R0.FILE.066.FUNC.003
+ */
+void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Luint32 u32Position)
+{
+
+	if(sFCU.sBrakesGlobal.sBrakesDev.u8DevMode == 1U)
+	{
+		//check the safety key
+		if(sFCU.sBrakesGlobal.sBrakesDev.u32DevKey == 0xABCD0987U)
+		{
+
+			switch(u32Index)
+			{
+				case 0:
+					vFCU_BRAKES_STEP__Move(u32Position, 0U);
+					break;
+				case 1:
+					vFCU_BRAKES_STEP__Move(0U, u32Position);
+					break;
+				case 2:
+					vFCU_BRAKES_STEP__Move(u32Position, u32Position);
+					break;
+				default:
+					//do nothing.
+					break;
+			}//switch(u32Index)
+
+		}
+		else
+		{
+			//key wrong
+		}
+	}
+	else
+	{
+		//not enabled
+	}
+
+}
+
+/***************************************************************************//**
+ * @brief
+ * In development mode, move the brakes to an I-Beam distance
+ * 
+ * @param[in]		f32Value				The distance in mm
+ * @st_funcMD5		73FE0E25EFA8200BCFB6C8AF305BFF36
+ * @st_funcID		LCCM655R0.FILE.066.FUNC.004
+ */
+void vFCU_BRAKES_ETH__MoveMotor_IBeam(Lfloat32 f32Value)
+{
+
+	if(sFCU.sBrakesGlobal.sBrakesDev.u8DevMode == 1U)
+	{
+		//check the safety key
+		if(sFCU.sBrakesGlobal.sBrakesDev.u32DevKey == 0xABCD0987U)
+		{
+			sFCU.sBrakes[0].sTarget.f32IBeam_mm = f32Value;
+			sFCU.sBrakes[1].sTarget.f32IBeam_mm = f32Value;
+
+			//change state
+			//Note you can bugger things up easy because there are no checks here.
+			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__BEGIN_MOVE;
+
+		}
+		else
+		{
+			//key wrong
+		}
+	}
+	else
+	{
+		//not enabled
+	}
+
+}
+
+/***************************************************************************//**
+ * @brief
+ * Permit brake development/testing mode
+ *
+ * @param[in]		u32Key1				Key1 should be 0xABCD0987U
+ * @param[in]		u32Key0				Key0 shoul dbe 0x1293847
+ * @st_funcMD5		483A9F934DE9E882908E3DD1A86B9157
+ * @st_funcID		LCCM655R0.FILE.007.FUNC.010
+ */
+void vFCU_BRAKES_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
+{
+
+	if(u32Key0 == 0x01293847U)
+	{
+		//activate mode
+		sFCU.sBrakesGlobal.sBrakesDev.u8DevMode = 1U;
+		sFCU.sBrakesGlobal.sBrakesDev.u32DevKey = u32Key1;
+	}
+	else
+	{
+		//disable mode
+		sFCU.sBrakesGlobal.sBrakesDev.u8DevMode = 0U;
+		sFCU.sBrakesGlobal.sBrakesDev.u32DevKey = 0U;
+	}
+
+
+
+}
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_ETHERNET
 
