@@ -63,6 +63,8 @@ Change the build settings:
 
 	#include <RM4/LCCM364__RM4__FIRMWARE_VERSION/rm4_firmware_version.h>
 
+	#include <LCCM655__RLOOP__FCU_CORE/fcu_core__eeprom_layout.h>
+
 /*******************************************************************************
 RM4 CRC MODULE
 *******************************************************************************/
@@ -1155,7 +1157,7 @@ STEP MOTOR DRIVER
 		//enable text debugging
 		#define C_LOCALDEF__LCCM231__ENABLE_TEXT_DEBUG						(0U)
 
-
+#if 0
 		//this is the parameter layout
 		#define C_LOCALDEF__LCCM231__M0_MICROSTEP_RESOLUTION__PARAM_INDEX	(0U)
 		#define C_LOCALDEF__LCCM231__M0_MAX_ACCELERATION__PARAM_INDEX		(1U)
@@ -1171,7 +1173,7 @@ STEP MOTOR DRIVER
 
 		#define C_LOCALDEF__LCCM231__PARAM_INDEX__HEADER					(11U)
 		#define C_LOCALDEF__LCCM231__PARAM_INDEX__CRC						(12U)
-
+#endif //0
 
 #ifndef WIN32
 		//set to 1 if all of the driver chips are on the same reset line
@@ -1274,7 +1276,7 @@ MMA8451 - 3 AXIS ACCELEROMETER
 		#define C_LOCALDEF__LCCM418__DEV2__DATA_RATE_HZ						(50U)
 		#define C_LOCALDEF__LCCM418__DEV3__DATA_RATE_HZ						(50U)
 
-
+#if 0
 		//The parameter indexes
 		#define C_LOCALDEF__LCCM418__PARAM_INDEX__U32_HEADER				(20U)
 		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR0_X_ZERO		(21U)
@@ -1290,7 +1292,7 @@ MMA8451 - 3 AXIS ACCELEROMETER
 		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR3_Y_ZERO		(31U)
 		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR3_Z_ZERO		(32U)
 		#define C_LOCALDEF__LCCM418__PARAM_INDEX__U16_CRC					(33U)
-
+#endif //0
 
 		//I2C PORT DETAILS
 		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__TxByte(device, reg, byt)

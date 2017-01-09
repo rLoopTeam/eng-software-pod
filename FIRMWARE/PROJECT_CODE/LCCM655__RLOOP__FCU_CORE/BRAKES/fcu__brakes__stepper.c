@@ -57,10 +57,10 @@ void vFCU_BRAKES_STEP__Init(void)
 	else
 	{
 		//CRC is invalid
-		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC, 100U, 1U);
-		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_ACCEL, 100U, 1U);
-		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_VELOC, 100U, 1U);
-		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL, 100U, 0U);
+		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC, 1000U, 1U);
+		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_ACCEL, 10000U, 1U);
+		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_VELOC, 1000U, 1U);
+		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL, 10000U, 0U);
 
 		//redo the CRC;
 		vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC,
@@ -113,8 +113,8 @@ Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake)
  * @brief
  * Move the brakes as a pair to a position based on the lead screw distance
  * 
- * @param[in]		s32Brake1Pos		## Desc ##
- * @param[in]		s32Brake0Pos		## Desc ##
+ * @param[in]		s32Brake1Pos				Microns of brake pos R
+ * @param[in]		s32Brake0Pos				Microns on brake pos L
  * @st_funcMD5		2294887F0A4BEF2482FF3AE3F94AF8E4
  * @st_funcID		LCCM655R0.FILE.025.FUNC.004
  */
@@ -142,11 +142,12 @@ void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos)
 	s32Velocity[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc;
 	s32Velocity[1] = sFCU.sBrakes[1].sMove.s32LinearVeloc;
 
+	//note this must be larger than target accel / microns/revrate
 	s32Accel[0] = sFCU.sBrakes[0].sMove.s32LinearAccel;
 	s32Accel[1] = sFCU.sBrakes[1].sMove.s32LinearAccel;
 
 	//just a dummy task ID
-	u32TaskID = 1U;
+	u32TaskID = sFCU.sBrakesGlobal.u32MoveTaskID;
 
 	//clear the prev task if needed.
 	vSTEPDRIVE__Clear_TaskComplete();
@@ -157,6 +158,8 @@ void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos)
 
 	//check the return to see if we were able to move.
 
+	//int the task ID
+	sFCU.sBrakesGlobal.u32MoveTaskID++;
 
 }
 

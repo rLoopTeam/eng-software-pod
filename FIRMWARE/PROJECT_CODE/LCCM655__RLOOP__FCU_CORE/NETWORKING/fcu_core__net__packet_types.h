@@ -118,6 +118,15 @@
 		/** Move the brakes relative to the I-Beam */
 		NET_PKT__FCU_BRAKES__MOVE_IBEAM = 0x1403U,
 
+		/** Allow us to update the motor parameters */
+		NET_PKT__FCU_BRAKES__SET_MOTOR_PARAM = 0x1404U,
+
+		/** Host wants a motor param packet */
+		NET_PKT__FCU_BRAKES__REQ_MOTOR_PARAM = 0x1405U,
+
+		/** Transmit motor param packet to host */
+		NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM = 0x1406U,
+
 
 		//////////////////////////////////////////////////////
 		//FCU: NAVIGATION (0x1600)

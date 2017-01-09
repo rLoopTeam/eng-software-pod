@@ -49,6 +49,7 @@
         ''' </summary>
         Private m_pnlFlight__Brakes As SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes
 
+        Private m_pnlFlight__Stepper As SIL3.rLoop.rPodControl.Panels.FlightControl.Stepper
 
         ''' <summary>
         ''' The logging directory
@@ -102,6 +103,7 @@
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "OptoNCDT Lasers")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Laser Distance")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Brakes")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Stepper Motors")
 
             'add the panels before the bar so as we have docking working well.
             Me.m_pnlFlight__SpaceX = New SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX("SpaceX Telemetry", Me.m_sLogDir)
@@ -125,6 +127,9 @@
             Me.m_pnlFlight__Brakes = New SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes("Brakes", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__Brakes)
 
+            Me.m_pnlFlight__Stepper = New SIL3.rLoop.rPodControl.Panels.FlightControl.Stepper("Stepper Motors", Me.m_sLogDir)
+            pf.Controls.Add(Me.m_pnlFlight__Stepper)
+
             'setup the eth
             AddHandler Me.m_pnlFlight__SpaceX.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__Accel.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
@@ -132,6 +137,7 @@
             AddHandler Me.m_pnlFlight__OptoNCDT.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__LaserDist.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__Brakes.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
+            AddHandler Me.m_pnlFlight__Stepper.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
 
             AddHandler Me.m_pExplorer.LinkClick, AddressOf Me.LinkBar_LinkClick
 
@@ -152,6 +158,7 @@
             Me.m_pnlFlight__OptoNCDT.Panel__HideShow(sText)
             Me.m_pnlFlight__LaserDist.Panel__HideShow(sText)
             Me.m_pnlFlight__Brakes.Panel__HideShow(sText)
+            Me.m_pnlFlight__Stepper.Panel__HideShow(sText)
         End Sub
 #End Region '#Region "PANEL HELPERS"
 
@@ -168,6 +175,7 @@
             Me.m_pnlFlight__OptoNCDT.Panel__HideShow(sText)
             Me.m_pnlFlight__LaserDist.Panel__HideShow(sText)
             Me.m_pnlFlight__Brakes.Panel__HideShow(sText)
+            Me.m_pnlFlight__Stepper.Panel__HideShow(sText)
         End Sub
 #End Region '#Region "EXPLORER BAR"
 
@@ -204,6 +212,7 @@
             Me.m_pnlFlight__OptoNCDT.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
             Me.m_pnlFlight__LaserDist.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
             Me.m_pnlFlight__Brakes.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
+            Me.m_pnlFlight__Stepper.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
         End Sub
 
         ''' <summary>

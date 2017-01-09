@@ -93,6 +93,17 @@
 
 				}sBrakesDev;
 
+				/** just a global movement planner ID */
+				Luint32 u32MoveTaskID;
+
+				/** Claibration Systems */
+				struct
+				{
+					//Cal State
+					E_FCU_CAL_BRAKES__STATES_T eState;
+
+				}sCalibration;
+
 			}sBrakesGlobal;
 
 
@@ -872,6 +883,9 @@
 			void vFCU_BRAKES_ETH__MoveMotor_IBeam(Lfloat32 f32Value);
 			void vFCU_BRAKES_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1);
 
+			//calibration
+			void vFCU_BRAKES_CAL__Init(void);
+			void vFCU_BRAKES_CAL__Process(void);
 
 		//accelerometer layer
 		void vFCU_ACCEL__Init(void);

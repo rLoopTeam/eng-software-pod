@@ -6,6 +6,22 @@ LAPP185__RLOOP__FCU_EMU
 </name>
 </assembly>
 <members>
+<member name="T:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
 <member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.CRC.CRC8">
  <summary>
  8 Bit CRC
@@ -5754,21 +5770,14 @@ adds a sub level node after one has already been added
  <param name="ps16Y"></param>
  <param name="ps16Z"></param>
 </member>
-<member name="T:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources">
-<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
-</member>
-<member name="P:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources.ResourceManager">
-<summary>
-  Returns the cached ResourceManager instance used by this class.
-</summary>
-</member>
-<member name="P:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources.Culture">
-<summary>
-  Overrides the current thread's CurrentUICulture property for all
-  resource lookups using this strongly typed resource class.
-</summary>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.STEPDRIVE_WIN32__UpdatePostion(System.Byte,System.Byte,System.Byte,System.Int32)">
+ <summary>
+ Update from the stepper system with its new position
+ </summary>
+ <param name="u8MotorIndex"></param>
+ <param name="u8Step"></param>
+ <param name="u8Dir"></param>
+ <param name="s32Position"></param>
 </member>
 </members>
 </doc>

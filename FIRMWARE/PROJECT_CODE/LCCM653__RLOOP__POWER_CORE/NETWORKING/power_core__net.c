@@ -85,6 +85,9 @@ void vPWRNODE_NET__Process(void)
 	//process the ethernet layer.
 	vETHERNET__Process();
 
+
+
+
 	//hande our state machine for Tx
 	switch(sPWRNODE.sEthernet.eMainState)
 	{
@@ -97,6 +100,7 @@ void vPWRNODE_NET__Process(void)
 			u8Test = u8PWRNODE_NET__Is_LinkUp();
 			if(u8Test == 1U)
 			{
+
 				//link is up
 				sPWRNODE.sEthernet.eMainState = NET_STATE__WAIT_TIMER_TICK;
 			}
@@ -129,10 +133,28 @@ void vPWRNODE_NET__Process(void)
 			//wait for the next tick
 			sPWRNODE.sEthernet.eMainState = NET_STATE__WAIT_TIMER_TICK;
 			break;
+		default:
+			//fall on
+			break;
 
 	}//switch(sPWRNODE.sEthernet.eMainState)
 
+
+	//process any transmission
+	u8Test = u8PWRNODE_NET__Is_LinkUp();
+	if(u8Test == 1U)
+	{
+		vPWRNODE_NET_TX__Process();
+	}
+	else
+	{
+		//not ready yet.
+	}
+
 }
+
+
+
 
 
 /***************************************************************************//**

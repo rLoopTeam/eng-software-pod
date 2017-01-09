@@ -132,13 +132,18 @@ void vFCU_NET_TX__Process(void)
 
 		case NET_PKT__FCU_NAV__TX_NAV_PROGRESS:
 
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
 
 		case NET_PKT__FCU_BRAKES__TX_DATA:
+		case NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM:
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 				vFCU_BRAKES_ETH__Transmit(eType);
 			#endif
+				sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
+
+
 
 		default:
 			//do nothing
