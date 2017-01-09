@@ -225,7 +225,11 @@
 			/** A fault has occurred with the brake system */
 			BRAKE_STATE__FAULT,
 
-			BRAKE_STATE__TEST
+			BRAKE_STATE__TEST,
+
+			BRAKE_STATE__BEGIN_CAL,
+
+			BRAKE_STATE__WAIT_CAL_DONE
 
 		}E_FCU_BRAKES__STATES_T;
 
@@ -239,6 +243,14 @@
 			/** Start off and retract both motors */
 			BRAKE_CAL_STATE__RETRACT_MOTORS,
 
+			/** Wait for the motors to retract the brakes */
+			BRAKE_CAL_STATE__WAIT_RETRACT_MOTORS,
+
+			/** Release the zero end stops */
+			BRAKE_CAL_STATE__RELEASE_ZERO,
+
+			/** Cal is done */
+			BRAKE_CAL_STATE__COMPLETE
 
 		}E_FCU_CAL_BRAKES__STATES_T;
 

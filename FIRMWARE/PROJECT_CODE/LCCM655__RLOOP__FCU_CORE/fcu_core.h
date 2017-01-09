@@ -134,6 +134,10 @@
 					/** The current state of the switch */
 					E_FCU__SWITCH_STATE_T eSwitchState;
 
+					#ifdef WIN32
+						/** Allow us to inject swiches on WIN32 */
+						Luint8 u8InjectedValue;
+					#endif
 
 				}sLimits[BRAKE_SW__MAX_SWITCHES];
 
@@ -848,6 +852,7 @@
 		//brakes
 		void vFCU_BRAKES__Init(void);
 		void vFCU_BRAKES__Process(void);
+		void vFCU_BRAKES__Begin_Init(Luint32 u32Key);
 		void vFCU_BRAKES__Move_IBeam_Distance_mm(Lfloat32 f32Distance);
 		Lfloat32 f32FCU_BRAKES__Get_ScrewPos(E_FCU__BRAKE_INDEX_T eBrake);
 		E_FCU__SWITCH_STATE_T eFCU_BRAKES__Get_SwtichState(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
@@ -865,12 +870,15 @@
 			//brake switches
 			void vFCU_BRAKES_SW__Init(void);
 			void vFCU_BRAKES_SW__Process(void);
-			void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void);
-			void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void);
-			void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void);
-			void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void);
+			DLL_DECLARATION void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void);
+			DLL_DECLARATION void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void);
+			DLL_DECLARATION void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void);
+			DLL_DECLARATION void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void);
 			E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
 			Luint8 u8FCU_BRAKES_SW__Get_FaultFlag(E_FCU__BRAKE_INDEX_T eBrake);
+			#ifdef WIN32
+				DLL_DECLARATION void vFCU_BRAKES_SW_WIN32__Inject_SwitchState(Luint8 u8Brake, Luint8 u8ExtendRetract, Luint8 u8Value);
+			#endif
 
 			//brakes MLP sensor
 			void vFCU_BRAKES_MLP__Init(void);
@@ -886,6 +894,8 @@
 			//calibration
 			void vFCU_BRAKES_CAL__Init(void);
 			void vFCU_BRAKES_CAL__Process(void);
+			void vFCU_BRAKES_CAL__BeginCal(Luint32 u32Key);
+			Luint8 u8FCU_BRAKES_CAL__Is_Busy(void);
 
 		//accelerometer layer
 		void vFCU_ACCEL__Init(void);

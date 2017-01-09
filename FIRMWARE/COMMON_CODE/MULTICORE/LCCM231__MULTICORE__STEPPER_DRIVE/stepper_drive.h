@@ -535,6 +535,7 @@
 	#ifdef WIN32
 		DLL_DECLARATION void vSTEPDRIVE_WIN32__Set_UpdatePositionCallback(pSTEPDRIVE_WIN32__UpdatePosCallback_FuncType pFunc);
 		void vSTEPDRIVE_WIN32__UpdatePostion(Luint8 u8MotorIndex, Luint8 u8Step, Luint8 u8Dir, Lint32 s32Position);
+		DLL_DECLARATION void vSTEPDRIVE_WIN32__ForcePosition(Luint8 u8MotorIndex, Lint32 s32Position);
 	#endif
 
 	//safetys

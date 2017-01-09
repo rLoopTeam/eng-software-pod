@@ -286,6 +286,30 @@ void vFCU_BRAKES_ETH__MoveMotor_IBeam(Lfloat32 f32Value)
 
 }
 
+
+void vFCU_BRAKES_ETH__Start_Calibration(Luint32 u32Key)
+{
+
+	if(sFCU.sBrakesGlobal.sBrakesDev.u8DevMode == 1U)
+	{
+		//check the safety key
+		if(sFCU.sBrakesGlobal.sBrakesDev.u32DevKey == 0xABCD0987U)
+		{
+			//start the calibration process
+			vFCU_BRAKES_CAL__BeginCal(u32Key);
+		}
+		else
+		{
+			//key wrong
+		}
+	}
+	else
+	{
+		//not enabled
+	}
+
+}
+
 /***************************************************************************//**
  * @brief
  * Permit brake development/testing mode

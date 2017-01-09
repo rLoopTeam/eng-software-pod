@@ -269,6 +269,11 @@
                     Return "BRAKE_STATE__FAULT"
                 Case 7
                     Return "BRAKE_STATE__TEST"
+                Case 8
+                    Return "BRAKE_STATE__BEGIN_CAL"
+                Case 9
+                    Return "BRAKE_STATE__WAIT_CAL_DONE"
+
                 Case Else
                     Return "VB.NET ERROR"
 
@@ -477,9 +482,20 @@
             Dim btnOff As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream Off", AddressOf btnStreamOff__Click)
             btnOff.Layout__RightOfControl(btnOn)
 
+            Dim btnInit As New SIL3.ApplicationSupport.ButtonHelper(100, "Init Brakes", AddressOf btnInit__Click)
+            btnInit.Layout__RightOfControl(btnOff)
+            btnInit.ToolTip__Set("Brake Init", "This is required after reset")
+
+
             Dim btnDevEnable As New SIL3.ApplicationSupport.ButtonHelper(100, "Dev Enable", AddressOf btnDevEnable__Click)
-            btnDevEnable.Layout__RightOfControl(btnOff)
+            btnDevEnable.Layout__RightOfControl(btnInit)
             btnDevEnable.ToolTip__Set("Development Enable", "Use this to enable development mode before any manual brake commands can be sent.")
+
+            Dim btnCal As New SIL3.ApplicationSupport.ButtonHelper(100, "Calibrate", AddressOf btnCalibrate__Click)
+            btnCal.Layout__RightOfControl(btnDevEnable)
+            btnCal.ToolTip__Set("Calibration", "Calibrate the brakes (Only works in DEV mode)  CAUTION!")
+
+
 
             Dim l20 As New SIL3.ApplicationSupport.LabelHelper("Raw Move (um)")
             l20.Layout__BelowControl(btnOn)
@@ -558,6 +574,34 @@
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__MOVE_IBEAM,
                                                  f32Val.Union__Uint32, 0, 0, 0)
         End Sub
+
+        ''' <summary>
+        ''' Perform brakes cal
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnCalibrate__Click(s As Object, e As EventArgs)
+
+            If MsgBox("Warning:  Are you sure you want to run cal?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__START_CAL_MODE,
+                                                 &H112233, 0, 0, 0)
+
+            End If
+        End Sub
+
+        Private Sub btnInit__Click(s As Object, e As EventArgs)
+
+            If MsgBox("Warning:  Are you sure you want to Init?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__INIT,
+                                                 &H98765432L, 0, 0, 0)
+
+            End If
+        End Sub
+
 #End Region '#Region "BUTTON HELPERS"
 
     End Class

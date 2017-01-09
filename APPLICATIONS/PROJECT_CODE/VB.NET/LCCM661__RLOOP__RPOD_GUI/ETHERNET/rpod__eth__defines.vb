@@ -131,6 +131,10 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** Transmit motor param packet to host */
         NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM = &H1406
 
+        '/** Start the brakes cal mode, only works when in Dev mode */
+        NET_PKT__FCU_BRAKES__START_CAL_MODE = &H1407
+
+        NET_PKT__FCU_BRAKES__INIT = &H1408
 
         '//////////////////////////////////////////////////////
         '//FCU: NAVIGATION (0x1600)
