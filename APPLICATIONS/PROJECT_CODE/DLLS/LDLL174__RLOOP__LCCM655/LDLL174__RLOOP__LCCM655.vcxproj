@@ -107,6 +107,7 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\stepper_drive__axis_system.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\stepper_drive__single_step_sm.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\stepper_drive__time_base.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\WIN32\stepper_drive__win32.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\ZERO\stepper_drive__zero.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM325__MULTICORE__802_3\ARP\eth__arp.c" />
@@ -169,6 +170,7 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi_rs485.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi_rs485_mux.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__calibration.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__ethernet.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__mlp.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__stepper.c" />

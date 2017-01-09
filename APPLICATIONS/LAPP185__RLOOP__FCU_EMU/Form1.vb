@@ -56,10 +56,17 @@ Public Class Form1
     End Sub
     <System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Public Delegate Sub MMA8451_WIN32__ReadDataCallbackDelegate(u8DeviceIndex As Byte, pu8X As IntPtr, pu8Y As IntPtr, pu8Z As IntPtr)
-
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Public Shared Sub vMMA8451_WIN32__TriggerInterrupt(u8DeviceIndex As Byte)
     End Sub
+
+    'stepper system
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Shared Sub vSTEPDRIVE_WIN32__Set_UpdatePositionCallback(ByVal callback As MulticastDelegate)
+    End Sub
+    <System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Delegate Sub STEPDRIVE_WIN32__Set_UpdatePositionCallbackDelegate(u8MotorIndex As Byte, u8Step As Byte, u8Dir As Byte, s32Position As Int32)
+
 
 #End Region '#Region "WIN32/DEBUG"
 
@@ -157,6 +164,8 @@ Public Class Form1
     ''' </summary>
     Private m_pMMA8451_ReadData__Delegate As MMA8451_WIN32__ReadDataCallbackDelegate
 
+    Private m_pStepDrive_UpdatePos__Delegate As STEPDRIVE_WIN32__Set_UpdatePositionCallbackDelegate
+
     ''' <summary>
     ''' The thread to run our DLL in
     ''' </summary>
@@ -178,6 +187,9 @@ Public Class Form1
     ''' Timer to handle accels.
     ''' </summary>
     Private m_pTimerAccel As System.Timers.Timer
+
+    Private m_txtBrakeL_Pos As TextBox
+    Private m_txtBrakeR_Pos As TextBox
 
 
 #Region "SENSOR SIM VALUES"
@@ -287,7 +299,33 @@ Public Class Form1
         Next ' For iCounter As Integer = 0 To 6 - 1
 
 
+        Dim l3 As New Label
+        With l3
+            .Location = New Point(10, Me.m_txtLaserOpto(0).Top + Me.m_txtLaserOpto(0).Height + 20)
+            .Text = "Brake L Pos"
+        End With
+        pP.Controls.Add(l3)
+        Me.m_txtBrakeL_Pos = New TextBox
+        With Me.m_txtBrakeL_Pos
+            .Location = New Point(10, l3.Top + l3.Height + 0)
+            .Size = New Size(100, 24)
+            .Text = "0.0"
+        End With
+        pP.Controls.Add(Me.m_txtBrakeL_Pos)
 
+        Dim l4 As New Label
+        With l4
+            .Location = New Point(Me.m_txtBrakeL_Pos.Left + Me.m_txtBrakeL_Pos.Width + 20, l3.Top)
+            .Text = "Brake R Pos"
+        End With
+        pP.Controls.Add(l4)
+        Me.m_txtBrakeR_Pos = New TextBox
+        With Me.m_txtBrakeR_Pos
+            .Location = New Point(l4.Left, l4.Top + l4.Height + 0)
+            .Size = New Size(100, 24)
+            .Text = "0.0"
+        End With
+        pP.Controls.Add(Me.m_txtBrakeR_Pos)
 
         'create a logging box
         Me.m_txtOutput = New TextBox
@@ -348,6 +386,9 @@ Public Class Form1
 
         Me.m_pMMA8451_ReadData__Delegate = AddressOf Me.MMA8451_WIN32__ReadDataCallback_Sub
         vMMA8451_WIN32__Set_ReadDataCallback(Me.m_pMMA8451_ReadData__Delegate)
+
+        Me.m_pStepDrive_UpdatePos__Delegate = AddressOf Me.STEPDRIVE_WIN32__UpdatePostion
+        vSTEPDRIVE_WIN32__Set_UpdatePositionCallback(Me.m_pStepDrive_UpdatePos__Delegate)
 
         'do the threading
         Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
@@ -488,7 +529,12 @@ Public Class Form1
             'add here any things that need updating like pod sensor data
 
             'call process
-            vFCU__Process()
+            Try
+                vFCU__Process()
+
+            Catch ex As Exception
+                Console.Write(ex.ToString)
+            End Try
 
             'just wait a little bit
             Threading.Thread.Sleep(1)
@@ -838,9 +884,10 @@ Public Class Form1
             xS16Z = New SIL3.Numerical.S16(4096)
         End If
 
-        Me.m_iAccel0_X += 1
-        Me.m_iAccel0_Y += 1
-        Me.m_iAccel0_Z += 1
+        'this will result in an arith overflow if not careful.
+        'Me.m_iAccel0_X += 1
+        'Me.m_iAccel0_Y += 1
+        'Me.m_iAccel0_Z += 1
 
         Dim bX(2 - 1) As Byte
         xS16X.To__Array(bX, 0)
@@ -862,5 +909,27 @@ Public Class Form1
 #Region "FWD LASER"
 
 #End Region '#Region "FWD LASER"
+
+#Region "STEPPER"
+
+    ''' <summary>
+    ''' Update from the stepper system with its new position
+    ''' </summary>
+    ''' <param name="u8MotorIndex"></param>
+    ''' <param name="u8Step"></param>
+    ''' <param name="u8Dir"></param>
+    ''' <param name="s32Position"></param>
+    Private sub STEPDRIVE_WIN32__UpdatePostion(u8MotorIndex As byte, u8Step As Byte, u8Dir As byte,  s32Position As Int32)
+
+        Select Case u8MotorIndex
+            Case 0
+                Threadsafe__SetText(Me.m_txtBrakeL_Pos, s32Position.ToString)
+            Case 1
+                Threadsafe__SetText(Me.m_txtBrakeR_Pos, s32Position.ToString)
+
+        End Select
+
+    End Sub
+#End Region '#Region "STEPPER
 
 End Class

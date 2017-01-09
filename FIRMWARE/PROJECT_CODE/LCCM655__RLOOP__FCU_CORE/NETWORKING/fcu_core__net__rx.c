@@ -58,6 +58,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 	Luint32 u32Block[4];
 	Lfloat32 f32Block[4];
+	Lint32 s32Block[4];
 
 	//make sure we are rx'ing on our port number
 	if(u16DestPort == C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER)
@@ -74,6 +75,12 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 		f32Block[1] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
 		f32Block[2] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
 		f32Block[3] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
+
+		s32Block[0] = s32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload);
+		s32Block[1] = s32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
+		s32Block[2] = s32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
+		s32Block[3] = s32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
+
 
 		//determine the type of packet that came in
 		switch((E_NET__PACKET_T)ePacketType)
@@ -228,7 +235,52 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 					vFCU_BRAKES_ETH__MoveMotor_IBeam(f32Block[0]);
 				#endif
+				break;
 
+			case NET_PKT__FCU_BRAKES__SET_MOTOR_PARAM:
+
+				//Block 0 = Parameter Type
+				//Block 1 = Channel 0, 1
+				//Block 2 = Setting
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+				switch(u32Block[0])
+				{
+
+					case 0U:
+						//Max Acecl
+						vSTEPDRIVE_MEM__Set_MaxAngularAccel(u32Block[1], s32Block[2]);
+						break;
+
+					case 1U:
+						//microns/rev
+						vSTEPDRIVE_MEM__Set_PicoMeters_PerRev(u32Block[1], s32Block[2]);
+						break;
+
+					case 2U:
+						//maxRPM
+						vSTEPDRIVE_MEM__Set_MaxRPM(u32Block[1], s32Block[2]);
+						break;
+
+					case 3U:
+						//set microstep resolution
+						vSTEPDRIVE_MEM__Set_MicroStepResolution(u32Block[1], u32Block[2]);
+						break;
+
+					default:
+						//fall on
+						break;
+
+				}//switch(u32Block[0])
+
+				//once these have been updated, re-transmit
+				sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM;
+
+				#endif
+				break;
+
+			case NET_PKT__FCU_BRAKES__REQ_MOTOR_PARAM:
+				//transmit the motor data
+				sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM;
 				break;
 
 			default:

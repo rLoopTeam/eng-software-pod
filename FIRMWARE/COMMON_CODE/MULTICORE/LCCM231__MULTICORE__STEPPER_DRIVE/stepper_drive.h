@@ -122,6 +122,10 @@
 
 	}STEP_DRIVE__MOTOR_STATE_T;
 
+	#ifdef WIN32	
+		typedef void (__cdecl * pSTEPDRIVE_WIN32__UpdatePosCallback_FuncType)(Luint8 u8MotorIndex, Luint8 u8Step, Luint8 u8Dir, Lint32 s32Position);
+	#endif
+	
 	/*******************************************************************************
 	Structures
 	*******************************************************************************/
@@ -383,6 +387,14 @@
 			Luint8 u8Complete;
 		}sMoveComplete;
 
+		
+		#ifdef WIN32
+		struct
+		{
+			pSTEPDRIVE_WIN32__UpdatePosCallback_FuncType pCallback;
+		}sWIN32;
+		#endif
+		
 	}; //stepper
 
 	/*******************************************************************************
@@ -518,6 +530,11 @@
 	#if C_LOCALDEF__LCCM231__ENABLE_TEST_SPEC == 1U
 		void vLCCM231_TS_001(void);
 
+	#endif
+	
+	#ifdef WIN32
+		DLL_DECLARATION void vSTEPDRIVE_WIN32__Set_UpdatePositionCallback(pSTEPDRIVE_WIN32__UpdatePosCallback_FuncType pFunc);
+		void vSTEPDRIVE_WIN32__UpdatePostion(Luint8 u8MotorIndex, Luint8 u8Step, Luint8 u8Dir, Lint32 s32Position);
 	#endif
 
 	//safetys

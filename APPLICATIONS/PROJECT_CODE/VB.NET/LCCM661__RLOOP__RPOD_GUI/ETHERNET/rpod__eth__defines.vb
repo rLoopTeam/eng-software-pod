@@ -119,6 +119,18 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** Send out the brake Tx data */
         NET_PKT__FCU_BRAKES__TX_DATA = &H1402
 
+        '/** Move the brakes relative to the I-Beam */
+        NET_PKT__FCU_BRAKES__MOVE_IBEAM = &H1403
+
+        '/** Allow us to update the motor parameters */
+        NET_PKT__FCU_BRAKES__SET_MOTOR_PARAM = &H1404
+
+        '/** Host wants a motor param packet */
+        NET_PKT__FCU_BRAKES__REQ_MOTOR_PARAM = &H1405
+
+        '/** Transmit motor param packet to host */
+        NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM = &H1406
+
 
         '//////////////////////////////////////////////////////
         '//FCU: NAVIGATION (0x1600)

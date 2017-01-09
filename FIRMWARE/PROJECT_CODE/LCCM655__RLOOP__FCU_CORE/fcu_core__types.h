@@ -200,12 +200,15 @@
 
 	}E_FCU__INIT_STATE_TYPES;
 
-	/** Brakes states */
+		/** Brakes states */
 		typedef enum
 		{
 
+			/** Just come out of reset */
+			BRAKE_STATE__RESET = 0U,
+
 			/** We are in idle state */
-			BRAKE_STATE__IDLE = 0U,
+			BRAKE_STATE__IDLE,
 
 			/** Beginning to move the brakes */
 			BRAKE_STATE__BEGIN_MOVE,
@@ -225,6 +228,20 @@
 			BRAKE_STATE__TEST
 
 		}E_FCU_BRAKES__STATES_T;
+
+		/** Brake calibration states */
+		typedef enum
+		{
+
+			/** We are in idle state */
+			BRAKE_CAL_STATE__IDLE = 0U,
+
+			/** Start off and retract both motors */
+			BRAKE_CAL_STATE__RETRACT_MOTORS,
+
+
+		}E_FCU_CAL_BRAKES__STATES_T;
+
 
 
 		/** Pusher interlock state machine */

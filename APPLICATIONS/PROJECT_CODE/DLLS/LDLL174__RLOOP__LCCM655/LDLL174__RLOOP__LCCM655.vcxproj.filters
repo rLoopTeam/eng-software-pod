@@ -193,6 +193,9 @@
     <Filter Include="Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE">
       <UniqueIdentifier>{c2aa3ff0-611a-4315-8110-d1c6006bfbfb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\WIN32">
+      <UniqueIdentifier>{1559f28f-bdbd-4ad7-9dc9-19add45ded19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
@@ -575,6 +578,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__ethernet.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__calibration.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\WIN32\stepper_drive__win32.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\WIN32</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -63,7 +63,11 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__FCU_BRAKES__TX_DATA:
-			u16Length = 24U + 5U + 16U + 12U;
+			u16Length = (2U * (24U + 5U + 16U + 12U)) + 1U;
+			break;
+
+		case NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM:
+			u16Length = (20U * 2U) + 1U;
 			break;
 
 		default:
@@ -79,6 +83,37 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		//handle the packet
 		switch(ePacketType)
 		{
+
+			case NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM:
+				//transmit the stepper motor parameters
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32EEPARAM__Read(C_LOCALDEF__LCCM231__M0_MICROSTEP_RESOLUTION__PARAM_INDEX));
+				pu8Buffer += 4;
+				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, s32EEPARAM__Read(C_LOCALDEF__LCCM231__M0_MAX_ACCELERATION__PARAM_INDEX));
+				pu8Buffer += 4;
+				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, s32EEPARAM__Read(C_LOCALDEF__LCCM231__M0_MICRONS_PER_REVOLUTION__PARAM_INDEX));
+				pu8Buffer += 4;
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32EEPARAM__Read(C_LOCALDEF__LCCM231__M0_STEPS_PER_REVOLUTION__PARAM_INDEX));
+				pu8Buffer += 4;
+				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, s32EEPARAM__Read(C_LOCALDEF__LCCM231__M0_MAX_ANGULAR_VELOCITY__PARAM_INDEX));
+				pu8Buffer += 4;
+
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32EEPARAM__Read(C_LOCALDEF__LCCM231__M1_MICROSTEP_RESOLUTION__PARAM_INDEX));
+				pu8Buffer += 4;
+				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, s32EEPARAM__Read(C_LOCALDEF__LCCM231__M1_MAX_ACCELERATION__PARAM_INDEX));
+				pu8Buffer += 4;
+				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, s32EEPARAM__Read(C_LOCALDEF__LCCM231__M1_MICRONS_PER_REVOLUTION__PARAM_INDEX));
+				pu8Buffer += 4;
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32EEPARAM__Read(C_LOCALDEF__LCCM231__M1_STEPS_PER_REVOLUTION__PARAM_INDEX));
+				pu8Buffer += 4;
+				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, s32EEPARAM__Read(C_LOCALDEF__LCCM231__M1_MAX_ANGULAR_VELOCITY__PARAM_INDEX));
+				pu8Buffer += 4;
+
+				//timer
+				pu8Buffer[0] = C_LOCALDEF__LCCM124__RTI_COMPARE_2_PERIOD_US;
+				pu8Buffer += 1;
+
+				break;
+
 			case NET_PKT__FCU_BRAKES__TX_DATA:
 
 				//for each brake
@@ -130,8 +165,11 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer += 4U;
 
 
+				}//for(u8Counter = 0U; u8Counter < FCU_BRAKE__MAX_BRAKES; u8Counter++)
 
-				}//for(u8Counter = 0U; u8Counter < 2U; u8Counter++)
+
+				pu8Buffer[0] = (Luint8)sFCU.sBrakesGlobal.eBrakeStates;
+				pu8Buffer += 1U;
 
 				break;
 
@@ -174,6 +212,10 @@ void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Luint32 u32Position)
 		//check the safety key
 		if(sFCU.sBrakesGlobal.sBrakesDev.u32DevKey == 0xABCD0987U)
 		{
+
+			//make the last flag WELL known that we have modded something
+			vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 31U);
+
 
 			switch(u32Index)
 			{
@@ -220,6 +262,10 @@ void vFCU_BRAKES_ETH__MoveMotor_IBeam(Lfloat32 f32Value)
 		//check the safety key
 		if(sFCU.sBrakesGlobal.sBrakesDev.u32DevKey == 0xABCD0987U)
 		{
+
+			//make the last flag WELL known that we have modded something
+			vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 31U);
+
 			sFCU.sBrakes[0].sTarget.f32IBeam_mm = f32Value;
 			sFCU.sBrakes[1].sTarget.f32IBeam_mm = f32Value;
 
@@ -254,6 +300,10 @@ void vFCU_BRAKES_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
 
 	if(u32Key0 == 0x01293847U)
 	{
+
+		//make the last flag WELL known that we have modded something
+		vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 31U);
+
 		//activate mode
 		sFCU.sBrakesGlobal.sBrakesDev.u8DevMode = 1U;
 		sFCU.sBrakesGlobal.sBrakesDev.u32DevKey = u32Key1;

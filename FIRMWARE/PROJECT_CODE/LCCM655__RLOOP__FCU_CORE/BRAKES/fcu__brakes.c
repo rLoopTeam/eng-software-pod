@@ -8,6 +8,9 @@
  * If counting revolutions, every rotation of the ball screw moves the wedge 3 mm.
  * 0.9172 mm airgap increase per revolution.
  *
+ * @NOTE
+ * http://confluence.rloop.org/display/SD/5.+Control+Eddy+Brakes
+ *
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
  */
@@ -44,7 +47,8 @@ void vFCU_BRAKES__Init(void)
 	Luint8 u8Counter;
 
 	//init the state machine variables
-	sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__IDLE;
+	sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__RESET;
+	sFCU.sBrakesGlobal.u32MoveTaskID = 0U;
 
 	//setup the fault flags
 	vFAULTTREE__Init(&sFCU.sBrakesGlobal.sFaultFlags);
@@ -73,6 +77,9 @@ void vFCU_BRAKES__Init(void)
 	//any ethernet stuff as needed
 	vFCU_BRAKES_ETH__Init();
 
+	//setup the claibration system
+	vFCU_BRAKES_CAL__Init();
+
 }
 
 /***************************************************************************//**
@@ -97,8 +104,15 @@ void vFCU_BRAKES__Process(void)
 	//process the switches
 	vFCU_BRAKES_SW__Process();
 
+	//process any calibration tasks
+	vFCU_BRAKES_CAL__Process();
+
 	switch(sFCU.sBrakesGlobal.eBrakeStates)
 	{
+
+		case BRAKE_STATE__RESET:
+			//we have come out of reset, and now need to calibrate the brakes before they can be used.
+			break;
 
 		case BRAKE_STATE__IDLE:
 			//idle state, wait here until we are commanded to move via a chance state.
@@ -110,7 +124,7 @@ void vFCU_BRAKES__Process(void)
 			//compare brake distances with known postion, limit switch postion and MLP position before moving.
 			//alert upper layer if movement not possible due to position sensor error
 
-			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__MOVING;
+			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__COMPUTE;
 
 			break;
 
@@ -138,8 +152,10 @@ void vFCU_BRAKES__Process(void)
 				f32Temp *= 1000.0F;
 				sFCU.sBrakes[u8Counter].sTarget.u32LeadScrew_um = (Luint32)f32Temp;
 
-			}
+			}//for(u8Counter = 0U; u8Counter < FCU_BRAKE__MAX_BRAKES; u8Counter++)
 
+			//feed this to the stepper system
+			vFCU_BRAKES_STEP__Move(sFCU.sBrakes[0].sTarget.u32LeadScrew_um, sFCU.sBrakes[1].sTarget.u32LeadScrew_um);
 
 			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__MOVING;
 			break;
@@ -176,6 +192,7 @@ void vFCU_BRAKES__Process(void)
 			//once we have completed moving, switch to stop state
 
 			//once stopped go back to idle state
+			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__IDLE;
 			break;
 
 
@@ -184,13 +201,11 @@ void vFCU_BRAKES__Process(void)
 			//a fault has occurred
 			break;
 
-		case BRAKE_STATE__TEST:
-			//just LG test area.
-			vFCU_BRAKES__Move_IBeam_Distance_mm(500);
+		default:
+			//do nothing
 			break;
 
-
-	}
+	}//switch(sFCU.sBrakesGlobal.eBrakeStates)
 
 }
 
