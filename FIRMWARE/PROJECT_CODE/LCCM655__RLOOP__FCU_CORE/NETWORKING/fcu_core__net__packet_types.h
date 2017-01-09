@@ -127,6 +127,11 @@
 		/** Transmit motor param packet to host */
 		NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM = 0x1406U,
 
+		/** Start the brakes cal mode, only works when in Dev mode */
+		NET_PKT__FCU_BRAKES__START_CAL_MODE = 0x1407U,
+
+		/** Init the brake sub system once its out of reset */
+		NET_PKT__FCU_BRAKES__INIT = 0x1408U,
 
 		//////////////////////////////////////////////////////
 		//FCU: NAVIGATION (0x1600)

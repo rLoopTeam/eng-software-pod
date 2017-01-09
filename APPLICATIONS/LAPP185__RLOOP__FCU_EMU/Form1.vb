@@ -66,6 +66,9 @@ Public Class Form1
     End Sub
     <System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Public Delegate Sub STEPDRIVE_WIN32__Set_UpdatePositionCallbackDelegate(u8MotorIndex As Byte, u8Step As Byte, u8Dir As Byte, s32Position As Int32)
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Shared Sub vSTEPDRIVE_WIN32__ForcePosition(u8MotorIndex As Byte, s32Position As Int32)
+    End Sub
 
 
 #End Region '#Region "WIN32/DEBUG"
@@ -108,6 +111,22 @@ Public Class Form1
     Private Shared Sub vFCU_LASEROPTO_WIN32__Set_DistanceRaw(u32Index As UInt32, f32Value As Single)
     End Sub
 
+    'brake switches
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_BRAKES_SW_WIN32__Inject_SwitchState(u8Brake As Byte, u8ExtendRetract As Byte, u8Value As Byte)
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_BRAKES_SW__Left_SwitchExtend_ISR()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_BRAKES_SW__Left_SwitchRetract_ISR()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_BRAKES_SW__Right_SwitchExtend_ISR()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_BRAKES_SW__Right_SwitchRetract_ISR()
+    End Sub
 
     'Testing Area
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
@@ -522,6 +541,16 @@ Public Class Form1
         'needs to be done due to WIN32_ETH_Init
         vETH_WIN32__Set_Ethernet_TxCallback(Me.m_pETH_TX__Delegate)
 
+        'force the two motor positions to random so as we can simulate the cal process
+        vSTEPDRIVE_WIN32__ForcePosition(0, -34)
+        vSTEPDRIVE_WIN32__ForcePosition(1, 175)
+
+        'config the brake switches into some state
+        For iBrake As Integer = 0 To 2 - 1
+            For iSwitch As Integer = 0 To 2 - 1
+                vFCU_BRAKES_SW_WIN32__Inject_SwitchState(iBrake, iSwitch, 0)
+            Next
+        Next
 
         'stay here until thread abort
         While True
@@ -924,8 +953,38 @@ Public Class Form1
         Select Case u8MotorIndex
             Case 0
                 Threadsafe__SetText(Me.m_txtBrakeL_Pos, s32Position.ToString)
+
+                '75mm
+                If s32Position > 750000 Then
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(0, 1, 1)
+                    vFCU_BRAKES_SW__Left_SwitchExtend_ISR()
+                ElseIf s32Position < -300 Then
+                    'fake some cal limit
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(0, 0, 1)
+                    vFCU_BRAKES_SW__Left_SwitchRetract_ISR()
+                Else
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(0, 1, 0)
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(0, 0, 0)
+                End If
+
             Case 1
                 Threadsafe__SetText(Me.m_txtBrakeR_Pos, s32Position.ToString)
+
+                'make a simple little simulation model
+                'if the brake position is < 0 hit the limit swiches
+                '75mm
+                If s32Position > 750000 Then
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 1, 1)
+                    vFCU_BRAKES_SW__Right_SwitchExtend_ISR()
+                ElseIf s32Position < -120 Then
+                    'fake some cal limit
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 1, 1)
+                    vFCU_BRAKES_SW__Right_SwitchRetract_ISR()
+                Else
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 0, 0)
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 1, 0)
+                End If
+
 
         End Select
 

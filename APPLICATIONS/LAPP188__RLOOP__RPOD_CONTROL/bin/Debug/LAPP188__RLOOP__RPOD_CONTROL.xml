@@ -4107,6 +4107,13 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes.btnCalibrate__Click(System.Object,System.EventArgs)">
+ <summary>
+ Perform brakes cal
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Stepper">
  <summary>
  Stepper Motor Config

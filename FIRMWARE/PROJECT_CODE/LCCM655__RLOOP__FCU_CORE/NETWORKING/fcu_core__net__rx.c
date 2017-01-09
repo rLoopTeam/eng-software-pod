@@ -283,6 +283,18 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM;
 				break;
 
+			case NET_PKT__FCU_BRAKES__START_CAL_MODE:
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+					vFCU_BRAKES_CAL__BeginCal(u32Block[0]);
+				#endif
+				break;
+
+			case NET_PKT__FCU_BRAKES__INIT:
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+					vFCU_BRAKES__Begin_Init(u32Block[0]);
+				#endif
+				break;
+
 			default:
 				//do nothing
 				break;

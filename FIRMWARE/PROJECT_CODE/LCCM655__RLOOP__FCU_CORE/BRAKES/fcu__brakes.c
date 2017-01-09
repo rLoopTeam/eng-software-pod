@@ -112,7 +112,39 @@ void vFCU_BRAKES__Process(void)
 
 		case BRAKE_STATE__RESET:
 			//we have come out of reset, and now need to calibrate the brakes before they can be used.
+
+			//
 			break;
+
+		case BRAKE_STATE__BEGIN_CAL:
+			//being the calibration process
+			vFCU_BRAKES_CAL__BeginCal(0x00112233U);
+
+			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__WAIT_CAL_DONE;
+			break;
+
+		case BRAKE_STATE__WAIT_CAL_DONE:
+
+			//monitor the state
+			sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__LEFT);
+			sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__RIGHT);
+
+
+			u8Test = u8FCU_BRAKES_CAL__Is_Busy();
+			if(u8Test == 1U)
+			{
+				//still busy wait here
+			}
+			else
+			{
+				//done calibrating, move states
+				sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__IDLE;
+
+				//clear the cal in progress flag
+				vFAULTTREE__Clear_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 30U);
+			}
+			break;
+
 
 		case BRAKE_STATE__IDLE:
 			//idle state, wait here until we are commanded to move via a chance state.
@@ -206,6 +238,34 @@ void vFCU_BRAKES__Process(void)
 			break;
 
 	}//switch(sFCU.sBrakesGlobal.eBrakeStates)
+
+}
+
+
+//must start calibration
+//key = 0x98765432U
+void vFCU_BRAKES__Begin_Init(Luint32 u32Key)
+{
+
+	//can only cal from reset state
+	if(sFCU.sBrakesGlobal.eBrakeStates == BRAKE_STATE__RESET)
+	{
+		if(u32Key == 0x98765432U)
+		{
+			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__BEGIN_CAL;
+
+			//we should also set a flag
+			vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 30U);
+		}
+		else
+		{
+			//error wrong key
+		}
+	}
+	else
+	{
+		//error not in reset state
+	}
 
 }
 
