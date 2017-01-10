@@ -71,7 +71,7 @@ void vFCU_LASEROPTO__Init(void)
 
   }//for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
 
-		
+}		
 
 
 
