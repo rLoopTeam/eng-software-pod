@@ -1,4 +1,4 @@
-doxygen LCCM655.doxygen > dox.txt
+D:\LOCKIE\DESIGN\LDL\COMMON_CODE\DOXYGEN\DOXY_1_8_11\bin\doxygen.exe LCCM655.doxygen > dox.txt
 mkdir PDF
 cd PDF
 del *.pdf

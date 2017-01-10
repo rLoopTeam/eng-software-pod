@@ -1,13 +1,23 @@
 var searchData=
 [
+  ['brake_5fcal_5fstate_5f_5fapply_5fnew_5fzero',['BRAKE_CAL_STATE__APPLY_NEW_ZERO',['../fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591aa782e1f2de5b0e5c51bc55efb9af2c26',1,'fcu_core__types.h']]],
+  ['brake_5fcal_5fstate_5f_5fcomplete',['BRAKE_CAL_STATE__COMPLETE',['../fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591aeb84530f4d9c5f67db04fdaa9ea08189',1,'fcu_core__types.h']]],
+  ['brake_5fcal_5fstate_5f_5fextend_5fmotors',['BRAKE_CAL_STATE__EXTEND_MOTORS',['../fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591afca7c4d3cc672035964aaa1a10b5ce76',1,'fcu_core__types.h']]],
+  ['brake_5fcal_5fstate_5f_5fidle',['BRAKE_CAL_STATE__IDLE',['../fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591a3d75cb28d9570d55720a66707b4d1b93',1,'fcu_core__types.h']]],
+  ['brake_5fcal_5fstate_5f_5frelease_5fzero',['BRAKE_CAL_STATE__RELEASE_ZERO',['../fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591a466828f8f08254debec2959824eda822',1,'fcu_core__types.h']]],
+  ['brake_5fcal_5fstate_5f_5fwait_5fextend_5fmotors',['BRAKE_CAL_STATE__WAIT_EXTEND_MOTORS',['../fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591a859131b39e1a7ec83b65a12563366af5',1,'fcu_core__types.h']]],
+  ['brake_5fcal_5fstate_5f_5fwait_5fnew_5fzero',['BRAKE_CAL_STATE__WAIT_NEW_ZERO',['../fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591a5c1c3be31f82475c4ec81394a1a2cb24',1,'fcu_core__types.h']]],
+  ['brake_5fstate_5f_5fbegin_5fcal',['BRAKE_STATE__BEGIN_CAL',['../fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa729bb0b6ea24096df4905ac12ca1b5ce',1,'fcu_core__types.h']]],
   ['brake_5fstate_5f_5fbegin_5fmove',['BRAKE_STATE__BEGIN_MOVE',['../fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa203bcb75118e1d5c72c7e9e87ffa1e53',1,'fcu_core__types.h']]],
+  ['brake_5fstate_5f_5fcompute',['BRAKE_STATE__COMPUTE',['../fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa820022fe66a5439f43054c101cd3389d',1,'fcu_core__types.h']]],
   ['brake_5fstate_5f_5ffault',['BRAKE_STATE__FAULT',['../fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa1b2a5dd6747b938995da00974cf143ca',1,'fcu_core__types.h']]],
   ['brake_5fstate_5f_5fidle',['BRAKE_STATE__IDLE',['../fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa95344bae84d2598c05dea5a5c4e90d04',1,'fcu_core__types.h']]],
   ['brake_5fstate_5f_5fmove_5fstopped',['BRAKE_STATE__MOVE_STOPPED',['../fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa41e066d089c9cb2d89d700a9703c5802',1,'fcu_core__types.h']]],
   ['brake_5fstate_5f_5fmoving',['BRAKE_STATE__MOVING',['../fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa75547d91ab5373c9eae18dd9c4ecf4c3',1,'fcu_core__types.h']]],
+  ['brake_5fstate_5f_5freset',['BRAKE_STATE__RESET',['../fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa32c21a791141fbd6ebe0ad7b663db08f',1,'fcu_core__types.h']]],
   ['brake_5fstate_5f_5ftest',['BRAKE_STATE__TEST',['../fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa7e21c5de14cf32e576c935d9be2da537',1,'fcu_core__types.h']]],
+  ['brake_5fstate_5f_5fwait_5fcal_5fdone',['BRAKE_STATE__WAIT_CAL_DONE',['../fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aac603fc15d9995fdd3957a192944dccec',1,'fcu_core__types.h']]],
   ['brake_5fsw_5f_5fextend',['BRAKE_SW__EXTEND',['../fcu__core____enums_8h.html#ac31f471107a577664bc177153ab990b9a37871bb7ebd294a0dd3b9ee957530708',1,'fcu_core__enums.h']]],
   ['brake_5fsw_5f_5fmax_5fswitches',['BRAKE_SW__MAX_SWITCHES',['../fcu__core____enums_8h.html#ac31f471107a577664bc177153ab990b9a9887cf8d48c92a6052d346a86ace7821',1,'fcu_core__enums.h']]],
-  ['brake_5fsw_5f_5fretract',['BRAKE_SW__RETRACT',['../fcu__core____enums_8h.html#ac31f471107a577664bc177153ab990b9a820c05781e2854231cde5f2b0a4177bf',1,'fcu_core__enums.h']]],
-  ['bytecount',['byteCount',['../struct__str_a_s_i_reply.html#af11691873d07009ef02e68f95f99a768',1,'_strASIReply']]]
+  ['brake_5fsw_5f_5fretract',['BRAKE_SW__RETRACT',['../fcu__core____enums_8h.html#ac31f471107a577664bc177153ab990b9a820c05781e2854231cde5f2b0a4177bf',1,'fcu_core__enums.h']]]
 ];

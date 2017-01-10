@@ -91,6 +91,8 @@ $(document).ready(function(){initNavTree('group___f_c_u_____a_c_c_e_l_e_r_o_m_e_
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">FCU__ACCELEROMETER_ETHERNET<div class="ingroups"><a class="el" href="group___r_l_o_o_p.html">RLOOP</a> &raquo; <a class="el" href="group___f_c_u.html">FCU</a></div></div>  </div>
 </div><!--header-->
@@ -103,6 +105,57 @@ Collaboration diagram for FCU__ACCELEROMETER_ETHERNET:</div>
 <area shape="rect" id="node2" href="group___f_c_u.html" title="FCU" alt="" coords="5,13,53,39"/>
 </map>
 </td></tr></table></center>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga631bfe85e6778415219115fba9abca4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r___e_t_h_e_r_n_e_t.html#ga631bfe85e6778415219115fba9abca4b">vFCU_ACCEL_ETH__Transmit</a> (<a class="el" href="fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5ca">E_NET__PACKET_T</a> ePacketType)</td></tr>
+<tr class="memdesc:ga631bfe85e6778415219115fba9abca4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit acceleration data over ethernet.  <a href="#ga631bfe85e6778415219115fba9abca4b">More...</a><br /></td></tr>
+<tr class="separator:ga631bfe85e6778415219115fba9abca4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga631bfe85e6778415219115fba9abca4b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_ACCEL_ETH__Transmit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5ca">E_NET__PACKET_T</a>&#160;</td>
+          <td class="paramname"><em>ePacketType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transmit acceleration data over ethernet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u16PacketType</td><td>The type of packet to transmit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>AB416F610D4E76B752441C6F06EB605A </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.030.FUNC.001 </dd></dl>
+
+<p>References <a class="el" href="fcu__core____defines_8h.html#aa1d3bab74a6b1e86d69f64ed47524421">C_FCU__NUM_ACCEL_CHIPS</a>, <a class="el" href="fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa5c21a92faf3c796f9ab9ca8c48d6cc83">NET_PKT__FCU_ACCEL__TX_CAL_DATA</a>, and <a class="el" href="fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa3bb6eda3b4baac46dac93cf3838ddfd5">NET_PKT__FCU_ACCEL__TX_FULL_DATA</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____c_o_r_e___n_e_t___t_x.html#ga163243319b2bba005f0638dbfa06c2b6">vFCU_NET_TX__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r___e_t_h_e_r_n_e_t_ga631bfe85e6778415219115fba9abca4b_icgraph.png" border="0" usemap="#group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r___e_t_h_e_r_n_e_t_ga631bfe85e6778415219115fba9abca4b_icgraph" alt=""/></div>
+<map name="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r___e_t_h_e_r_n_e_t_ga631bfe85e6778415219115fba9abca4b_icgraph" id="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r___e_t_h_e_r_n_e_t_ga631bfe85e6778415219115fba9abca4b_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____c_o_r_e___n_e_t___t_x.html#ga163243319b2bba005f0638dbfa06c2b6" title="Process network transmission and do any transmission as required. " alt="" coords="252,5,420,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____c_o_r_e___n_e_t.html#ga5c521a84cd9ce0b8db27a7a779de58fe" title="Process the EMAC link. " alt="" coords="468,5,615,32"/>
+<area shape="rect" id="node4" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="663,5,777,32"/>
+</map>
+</div>
+</p>
+
+</div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->

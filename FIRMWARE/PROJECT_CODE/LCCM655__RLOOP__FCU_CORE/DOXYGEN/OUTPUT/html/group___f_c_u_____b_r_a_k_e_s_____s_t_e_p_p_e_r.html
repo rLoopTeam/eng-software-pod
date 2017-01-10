@@ -91,6 +91,9 @@ $(document).ready(function(){initNavTree('group___f_c_u_____b_r_a_k_e_s_____s_t_
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">FCU__BRAKES__STEPPER<div class="ingroups"><a class="el" href="group___r_l_o_o_p.html">RLOOP</a> &raquo; <a class="el" href="group___f_c_u.html">FCU</a></div></div>  </div>
 </div><!--header-->
@@ -103,6 +106,196 @@ Collaboration diagram for FCU__BRAKES__STEPPER:</div>
 <area shape="rect" id="node2" href="group___f_c_u.html" title="FCU" alt="" coords="5,5,53,32"/>
 </map>
 </td></tr></table></center>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gaf8dc3b1d27457687790369e8fc4b3c50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r.html#gaf8dc3b1d27457687790369e8fc4b3c50">vFCU_BRAKES_STEP__Init</a> (void)</td></tr>
+<tr class="memdesc:gaf8dc3b1d27457687790369e8fc4b3c50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init the stepper interface.  <a href="#gaf8dc3b1d27457687790369e8fc4b3c50">More...</a><br /></td></tr>
+<tr class="separator:gaf8dc3b1d27457687790369e8fc4b3c50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a4b69dffad9274e5893327e0e2670fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r.html#ga3a4b69dffad9274e5893327e0e2670fd">vFCU_BRAKES_STEP__Process</a> (void)</td></tr>
+<tr class="memdesc:ga3a4b69dffad9274e5893327e0e2670fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process any brake commands.  <a href="#ga3a4b69dffad9274e5893327e0e2670fd">More...</a><br /></td></tr>
+<tr class="separator:ga3a4b69dffad9274e5893327e0e2670fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga728f751db46be1f092899b66ace15300"><td class="memItemLeft" align="right" valign="top">Lint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r.html#ga728f751db46be1f092899b66ace15300">s32FCU_BRAKES__Get_CurrentPos</a> (<a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a> eBrake)</td></tr>
+<tr class="memdesc:ga728f751db46be1f092899b66ace15300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current position of the lead screw for the brakes.  <a href="#ga728f751db46be1f092899b66ace15300">More...</a><br /></td></tr>
+<tr class="separator:ga728f751db46be1f092899b66ace15300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga510f68abf08ae79fa310d381b864c120"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r.html#ga510f68abf08ae79fa310d381b864c120">vFCU_BRAKES_STEP__Move</a> (Lint32 s32Brake0Pos, Lint32 s32Brake1Pos)</td></tr>
+<tr class="memdesc:ga510f68abf08ae79fa310d381b864c120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the brakes as a pair to a position based on the lead screw distance.  <a href="#ga510f68abf08ae79fa310d381b864c120">More...</a><br /></td></tr>
+<tr class="separator:ga510f68abf08ae79fa310d381b864c120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:gacb2c3ba9e6006730b118d98d460b89c5"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__str_f_c_u.html">_strFCU</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a></td></tr>
+<tr class="separator:gacb2c3ba9e6006730b118d98d460b89c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga728f751db46be1f092899b66ace15300"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lint32 s32FCU_BRAKES__Get_CurrentPos </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a>&#160;</td>
+          <td class="paramname"><em>eBrake</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the current position of the lead screw for the brakes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">eBrake</td><td>The brake index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>3BF5E1F91C16F1F30165C47A35510773 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.025.FUNC.003 </dd></dl>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gaef79f34b59d1188532b2dfc7ce6a318f">vFCU_BRAKES__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r_ga728f751db46be1f092899b66ace15300_icgraph.png" border="0" usemap="#group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r_ga728f751db46be1f092899b66ace15300_icgraph" alt=""/></div>
+<map name="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r_ga728f751db46be1f092899b66ace15300_icgraph" id="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r_ga728f751db46be1f092899b66ace15300_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____b_r_a_k_e_s.html#gaef79f34b59d1188532b2dfc7ce6a318f" title="Process any brakes tasks. " alt="" coords="219,13,395,39"/>
+<area shape="rect" id="node3" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="443,13,617,39"/>
+<area shape="rect" id="node4" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="665,13,780,39"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="gaf8dc3b1d27457687790369e8fc4b3c50"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_BRAKES_STEP__Init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Init the stepper interface. </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>D30F783904FC50285A0DBBD96FACE951 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.025.FUNC.001 </dd></dl>
+
+<p>References <a class="el" href="fcu____brakes____fault__flags_8h.html#a935c88ef7b6d84b19fdcd957b185158d">C_LCCM655__BRAKES__FAULT_INDEX__00</a>, <a class="el" href="fcu____brakes____fault__flags_8h.html#af0eaab4b25fb2b413bcada85ea3f62a5">C_LCCM655__BRAKES__FAULT_INDEX__03</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#a837726b9917fb4fa0845205b27f7b9b0">C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_ACCEL</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#ade3463ec1a94ae7e91f2984bf09f0e93">C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#a9daee4425778de9db4d5099d0b41b54a">C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#a460d1a3d3ce26df82c7b0e477fec18f7">C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_VELOC</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#ae8038e2d5a65c8efe565603fb51a1e1e">C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP_CRC</a>, <a class="el" href="struct__str_f_c_u.html#a5301497f69acf79b1d4ac48c4ddc48bd">_strFCU::sBrakes</a>, <a class="el" href="struct__str_f_c_u.html#a66677f5638f56666f5188bd93b8abd49">_strFCU::sBrakesGlobal</a>, <a class="el" href="struct__str_f_c_u.html#ad5bd01c0c0913880e71513ce0f2a08e6">_strFCU::sFaultFlags</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#a95c9617cd263270863decac6438a265d">_strFCU::sMove</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gab24c028a2114a308c2136029398bb20f">vFCU_BRAKES__Init()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r_gaf8dc3b1d27457687790369e8fc4b3c50_icgraph.png" border="0" usemap="#group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r_gaf8dc3b1d27457687790369e8fc4b3c50_icgraph" alt=""/></div>
+<map name="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r_gaf8dc3b1d27457687790369e8fc4b3c50_icgraph" id="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r_gaf8dc3b1d27457687790369e8fc4b3c50_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____b_r_a_k_e_s.html#gab24c028a2114a308c2136029398bb20f" title="Init any brakes variables, etc. " alt="" coords="240,5,385,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="433,5,608,32"/>
+<area shape="rect" id="node4" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="656,5,771,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga510f68abf08ae79fa310d381b864c120"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_BRAKES_STEP__Move </td>
+          <td>(</td>
+          <td class="paramtype">Lint32&#160;</td>
+          <td class="paramname"><em>s32Brake0Pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Lint32&#160;</td>
+          <td class="paramname"><em>s32Brake1Pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Move the brakes as a pair to a position based on the lead screw distance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">s32Brake1Pos</td><td>Microns of brake pos R </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">s32Brake0Pos</td><td>Microns on brake pos L </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>3B43DC76587675958F6129042FEBF569 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.025.FUNC.004 </dd></dl>
+<p>Unique ID for each task </p>
+
+<p>References <a class="el" href="struct__str_f_c_u.html#a5301497f69acf79b1d4ac48c4ddc48bd">_strFCU::sBrakes</a>, <a class="el" href="struct__str_f_c_u.html#a66677f5638f56666f5188bd93b8abd49">_strFCU::sBrakesGlobal</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a95c9617cd263270863decac6438a265d">_strFCU::sMove</a>, and <a class="el" href="struct__str_f_c_u.html#ac0c3e3c1c7fb66333b6b60aa4798f657">_strFCU::u32MoveTaskID</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gaef79f34b59d1188532b2dfc7ce6a318f">vFCU_BRAKES__Process()</a>, and <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____e_t_h_e_r_n_e_t.html#ga64b533dd56ba852dfd441dccf5c914d3">vFCU_BRAKES_ETH__MoveMotor_RAW()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r_ga510f68abf08ae79fa310d381b864c120_icgraph.png" border="0" usemap="#group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r_ga510f68abf08ae79fa310d381b864c120_icgraph" alt=""/></div>
+<map name="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r_ga510f68abf08ae79fa310d381b864c120_icgraph" id="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r_ga510f68abf08ae79fa310d381b864c120_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____b_r_a_k_e_s.html#gaef79f34b59d1188532b2dfc7ce6a318f" title="Process any brakes tasks. " alt="" coords="295,5,471,32"/>
+<area shape="rect" id="node5" href="group___f_c_u_____b_r_a_k_e_s_____e_t_h_e_r_n_e_t.html#ga64b533dd56ba852dfd441dccf5c914d3" title="Raw motor position movement. " alt="" coords="252,56,513,83"/>
+<area shape="rect" id="node3" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="569,5,744,32"/>
+<area shape="rect" id="node4" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="800,5,915,32"/>
+<area shape="rect" id="node6" href="group___f_c_u_____c_o_r_e___n_e_t___r_x.html#gafeb5eef9f3c20aef6f1265aeab240ae2" title="Rx a SafetyUDP. " alt="" coords="561,56,752,83"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga3a4b69dffad9274e5893327e0e2670fd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_BRAKES_STEP__Process </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Process any brake commands. </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>792382B2C7B93024D59EDDDE0DBD345D </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.025.FUNC.002 </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="gacb2c3ba9e6006730b118d98d460b89c5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="struct__str_f_c_u.html">_strFCU</a> sFCU</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r.html#gaf8dc3b1d27457687790369e8fc4b3c50">vFCU_BRAKES_STEP__Init()</a>, and <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____s_t_e_p_p_e_r.html#ga510f68abf08ae79fa310d381b864c120">vFCU_BRAKES_STEP__Move()</a>.</p>
+
+</div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->

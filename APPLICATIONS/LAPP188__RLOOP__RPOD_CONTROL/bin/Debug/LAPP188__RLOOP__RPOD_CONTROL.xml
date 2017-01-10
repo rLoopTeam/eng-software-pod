@@ -4087,6 +4087,13 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  <param name="u8Val"></param>
  <returns></returns>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes.State__CalBrake(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8)">
+ <summary>
+ Return the cal state human name
+ </summary>
+ <param name="u8Val"></param>
+ <returns></returns>
+</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes.State__SwitchExtended(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8)">
  <summary>
  Convert switch state

@@ -1,13 +1,17 @@
 var searchData=
 [
-  ['eautoseqstate',['eAutoSeqState',['../struct__str_f_c_u.html#a5966a936be0d18949dca152ee835490c',1,'_strFCU']]],
-  ['ebrakestates',['eBrakeStates',['../struct__str_f_c_u.html#a358380f75933d68aa48c47167346fbf4',1,'_strFCU']]],
-  ['edestvartype',['eDestVarType',['../struct__str_a_s_i_cmd.html#a5e6a2cf4f484f7e7e23a16c99214225a',1,'_strASICmd']]],
-  ['einitstates',['eInitStates',['../struct__str_f_c_u.html#a3f614417d0c3eb6bb3a1bd23b0eaca1f',1,'_strFCU']]],
-  ['elaserstate',['eLaserState',['../struct__str_f_c_u.html#aad5fb073dd85593d4e21debac2a68a5f',1,'_strFCU']]],
-  ['eoptoncdtstate',['eOptoNCDTState',['../struct__str_f_c_u.html#a1539f81b70dcb8756f2c8fdb68d7fd87',1,'_strFCU']]],
-  ['erunstate',['eRunState',['../struct__str_f_c_u.html#a39405b1b15312de3857bc96c9b0d0a13',1,'_strFCU']]],
-  ['erxstate',['eRxState',['../struct__str_f_c_u.html#af82b7d78f1a3af83e3d53e90440b61a6',1,'_strFCU::eRxState()'],['../struct__str_f_c_u.html#a63373337b1a8ea93917955fbe31a9291',1,'_strFCU::eRxState()']]],
-  ['estate',['eState',['../struct__str_f_c_u.html#ab22b7ea6a7383bf698478e25fc7f24fc',1,'_strFCU::eState()'],['../struct__str_f_c_u.html#a30851e9dae700a917d322cc5906bffe2',1,'_strFCU::eState()']]],
-  ['eswitchstate',['eSwitchState',['../struct__str_f_c_u.html#a93f951f6860811191addb3793bd2ecc6',1,'_strFCU']]]
+  ['f32a34_5fbraketable',['f32A34_BrakeTable',['../a34__brake__table_8c.html#aaa1fefd5614de945b786d6a796e4243a',1,'a34_brake_table.c']]],
+  ['f32brakeposition_5fmm',['f32BrakePosition_mm',['../struct__str_f_c_u.html#a12c264f1137accfc801ed5ed9c59c4e2',1,'_strFCU']]],
+  ['f32distance',['f32Distance',['../struct__str_f_c_u.html#a6ec69975a6bf89c395a2ecd9aaf9a728',1,'_strFCU']]],
+  ['f32distancefiltered',['f32DistanceFiltered',['../struct__str_f_c_u.html#a40c91b301c9e94e5ce0f4a340aad9eb4',1,'_strFCU']]],
+  ['f32distanceraw',['f32DistanceRAW',['../struct__str_f_c_u.html#a0bc04b38a9bb299bfb7cc766d21a74f6',1,'_strFCU']]],
+  ['f32filteredvalue',['f32FilteredValue',['../struct__str_f_c_u.html#a2039ba22f9bc9adf0e8981f67e7dc674',1,'_strFCU']]],
+  ['f32ibeam_5fmm',['f32IBeam_mm',['../struct__str_f_c_u.html#a5f6ff45b253ad7aca5532fc5b9e411d3',1,'_strFCU']]],
+  ['f32lastg',['f32LastG',['../struct__str_f_c_u.html#a8f08d2b6527794c305f3049cbf16cd8e',1,'_strFCU']]],
+  ['f32leadscrew_5fmm',['f32LeadScrew_mm',['../struct__str_f_c_u.html#aa2338906fffab46cbbb3de855d17b5a3',1,'_strFCU']]],
+  ['f32mlp_5fmm',['f32MLP_mm',['../struct__str_f_c_u.html#ac39de84fcfa6501ad9633a4173011fc6',1,'_strFCU']]],
+  ['f32screwpos_5fmm',['f32ScrewPos_mm',['../struct__str_f_c_u.html#a2cd9730500ac07eb47344b39bd451f60',1,'_strFCU']]],
+  ['f32systemspan',['f32SystemSpan',['../struct__str_f_c_u.html#af475b22c45d29a6c7a5af849ca9a92a6',1,'_strFCU']]],
+  ['fnccode',['fncCode',['../struct__str_a_s_i_cmd.html#a4c64b0e1e670591e3888aa0d12b3620e',1,'_strASICmd']]],
+  ['framedcmd',['framedCmd',['../struct__str_a_s_i_cmd.html#ab53634fd5647e5a588d6c69d3ef54061',1,'_strASICmd']]]
 ];

@@ -10,6 +10,7 @@
  *
  * @NOTE
  * http://confluence.rloop.org/display/SD/5.+Control+Eddy+Brakes
+ * http://confluence.rloop.org/display/SD/Brake+Control
  *
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
@@ -39,7 +40,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init any brakes variables, etc.
  * 
- * @st_funcMD5		36B61445546BB80E644E28338E171CA6
+ * @st_funcMD5		3D9494F427A4EB2AE2B6114DF7D00A20
  * @st_funcID		LCCM655R0.FILE.007.FUNC.001
  */
 void vFCU_BRAKES__Init(void)
@@ -86,7 +87,7 @@ void vFCU_BRAKES__Init(void)
  * @brief
  * Process any brakes tasks.
  * 
- * @st_funcMD5		2B7723055899DB3741AA61FDC9CD959E
+ * @st_funcMD5		EDC5BB6DF3DEAFBBC82B5F0EC21A7137
  * @st_funcID		LCCM655R0.FILE.007.FUNC.002
  */
 void vFCU_BRAKES__Process(void)
@@ -177,6 +178,10 @@ void vFCU_BRAKES__Process(void)
 				//div by Tan(17)
 				f32Temp /= 0.305730681F;
 
+				//because our min brake gap is 2.5mm, and this should equal to 0mm lead screw, we
+				//need to subtract -2.5mm/tan(17)
+				f32Temp -= 8.1771F;
+
 				//convert to a target distance
 				sFCU.sBrakes[u8Counter].sTarget.f32LeadScrew_mm = f32Temp;
 
@@ -185,6 +190,9 @@ void vFCU_BRAKES__Process(void)
 				sFCU.sBrakes[u8Counter].sTarget.u32LeadScrew_um = (Luint32)f32Temp;
 
 			}//for(u8Counter = 0U; u8Counter < FCU_BRAKE__MAX_BRAKES; u8Counter++)
+
+			//clear the previous task flag
+			vSTEPDRIVE__Clear_TaskComplete();
 
 			//feed this to the stepper system
 			vFCU_BRAKES_STEP__Move(sFCU.sBrakes[0].sTarget.u32LeadScrew_um, sFCU.sBrakes[1].sTarget.u32LeadScrew_um);
@@ -242,8 +250,15 @@ void vFCU_BRAKES__Process(void)
 }
 
 
-//must start calibration
-//key = 0x98765432U
+/***************************************************************************//**
+ * @brief
+ * must start calibration from the ground station to put the brakes into a mode
+ * where they can be used.
+ * 
+ * @param[in]		u32Key				0x98765432U
+ * @st_funcMD5		EE29EBB23A41C03E43DD253219CFD50C
+ * @st_funcID		LCCM655R0.FILE.007.FUNC.009
+ */
 void vFCU_BRAKES__Begin_Init(Luint32 u32Key)
 {
 
@@ -347,7 +362,7 @@ Lfloat32 f32FCU_BRAKES__Get_MLP_mm(E_FCU__BRAKE_INDEX_T eBrake)
  * Approx distances are 25,000 um (fully open) to 0um (fully closed)
  * 
  * @param[in]		u32Distance				The distance in microns
- * @st_funcMD5		FA543AE33BA16782BD5C7D5911FA6E98
+ * @st_funcMD5		609D069BE1337B6F02723640B571D4A9
  * @st_funcID		LCCM655R0.FILE.007.FUNC.008
  */
 void vFCU_BRAKES__Move_IBeam_Distance_mm(Lfloat32 f32Distance)
@@ -358,9 +373,31 @@ void vFCU_BRAKES__Move_IBeam_Distance_mm(Lfloat32 f32Distance)
 	{
 		//we know each brake has to move proportionally, they can't move independantly.
 
-		//tell the target distance for both brakes
-		sFCU.sBrakes[0].sTarget.f32IBeam_mm = f32Distance;
-		sFCU.sBrakes[1].sTarget.f32IBeam_mm = f32Distance;
+		//remember here our min brake distance is 2.500mm, if we go lower than this
+		if(f32Distance < C_FCU__BRAKES__MIN_IBEAM_DIST_MM)
+		{
+			//tell the target distance for both brakes
+			sFCU.sBrakes[0].sTarget.f32IBeam_mm = C_FCU__BRAKES__MIN_IBEAM_DIST_MM;
+			sFCU.sBrakes[1].sTarget.f32IBeam_mm = C_FCU__BRAKES__MIN_IBEAM_DIST_MM;
+
+		}
+		else
+		{
+			if(f32Distance > C_FCU__BRAKES__MAX_IBEAM_DIST_MM)
+			{
+				//tell the target distance for both brakes
+				sFCU.sBrakes[0].sTarget.f32IBeam_mm = C_FCU__BRAKES__MAX_IBEAM_DIST_MM;
+				sFCU.sBrakes[1].sTarget.f32IBeam_mm = C_FCU__BRAKES__MAX_IBEAM_DIST_MM;
+
+			}
+			else
+			{
+				//tell the target distance for both brakes
+				sFCU.sBrakes[0].sTarget.f32IBeam_mm = f32Distance;
+				sFCU.sBrakes[1].sTarget.f32IBeam_mm = f32Distance;
+			}
+		}
+
 
 
 		//change state

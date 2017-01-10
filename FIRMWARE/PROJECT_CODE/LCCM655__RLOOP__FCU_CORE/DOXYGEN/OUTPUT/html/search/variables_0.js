@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bytecount',['byteCount',['../struct__str_a_s_i_reply.html#af11691873d07009ef02e68f95f99a768',1,'_strASIReply']]]
+  ['destvar',['destVar',['../struct__str_a_s_i_cmd.html#a57b271992d13e20281bbda5560650187',1,'_strASICmd']]]
 ];

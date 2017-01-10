@@ -48,4 +48,10 @@
 	#define C_FCU__LASER_CONTRAST__MAX_STRIPES				(55U)
 
 
+	/** Min brakes I-Beam Distance */
+	#define C_FCU__BRAKES__MIN_IBEAM_DIST_MM				(2.5F)
+
+	#define C_FCU__BRAKES__MAX_IBEAM_DIST_MM				(22.0F)
+
+
 #endif /* RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__DEFINES_H_ */

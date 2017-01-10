@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports SIL3.LDLL178__COMMON_CODE__MICRO_TMER
 ''' <summary>
 ''' Basic framework for rLoop Flight Control Emulation
 ''' Lachlan Grogan - SafetyLok
@@ -128,6 +129,12 @@ Public Class Form1
     Private Shared Sub vFCU_BRAKES_SW__Right_SwitchRetract_ISR()
     End Sub
 
+    'MLP
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_BRAKES_MLP_WIN32__ForceADC(u8Brake As Byte, u16Value As UInt16)
+    End Sub
+
+
     'Testing Area
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Private Shared Sub vLCCM655R0_TS_000()
@@ -198,9 +205,14 @@ Public Class Form1
 
     Private m_pSafeUDP As SIL3.SafeUDP.StdUDPLayer
 
-    Private m_pTimer1 As System.Timers.Timer
-    Private m_pTimer10 As System.Timers.Timer
-    Private m_pTimer100 As System.Timers.Timer
+    'Private m_pTimer50u As System.Timers.Timer
+    Private m_pTimer10m As System.Timers.Timer
+    Private m_pTimer100m As System.Timers.Timer
+    Private m_pTimer50u As MicroTimer
+    'Private m_pTimer10m As MicroTimer
+    'Private m_pTimer100m As MicroTimer
+
+
 
     ''' <summary>
     ''' Timer to handle accels.
@@ -210,13 +222,14 @@ Public Class Form1
     Private m_txtBrakeL_Pos As TextBox
     Private m_txtBrakeR_Pos As TextBox
 
-
 #Region "SENSOR SIM VALUES"
 
     Private m_iAccel0_X As Integer
     Private m_iAccel0_Y As Integer
     Private m_iAccel0_Z As Integer
 
+    Private m_iL_MLP As Integer
+    Private m_iR_MLP As Integer
 
 #End Region '#Region "SENSOR SIM VALUES"
 
@@ -372,8 +385,8 @@ Public Class Form1
         'kill the threads
         Me.m_pMainThread.Abort()
 
-        Me.m_pTimer10.Stop()
-        Me.m_pTimer100.Stop()
+        Me.m_pTimer10m.Stop()
+        Me.m_pTimer100m.Stop()
 
         If Not Me.m_pSafeUDP Is Nothing Then
             Me.m_pSafeUDP.Destroy()
@@ -390,7 +403,7 @@ Public Class Form1
     ''' </summary>
     Private Sub Setup_System()
 
-        Me.m_pSafeUDP = New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", 9100, "ETH EMU", False, False)
+        Me.m_pSafeUDP = New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", 9100, "FCU_ETH_EMU", True, True)
         AddHandler Me.m_pSafeUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.InernalEvent__UDPSafe__RxPacket
         AddHandler Me.m_pSafeUDP.UserEvent__NewPacket, AddressOf Me.InternalEvent__NewPacket
 
@@ -545,6 +558,9 @@ Public Class Form1
         vSTEPDRIVE_WIN32__ForcePosition(0, -34)
         vSTEPDRIVE_WIN32__ForcePosition(1, 175)
 
+        vFCU_BRAKES_MLP_WIN32__ForceADC(0, 0)
+        vFCU_BRAKES_MLP_WIN32__ForceADC(1, 0)
+
         'config the brake switches into some state
         For iBrake As Integer = 0 To 2 - 1
             For iSwitch As Integer = 0 To 2 - 1
@@ -579,35 +595,50 @@ Public Class Form1
     Private Sub Timers__Setup()
 
         'needed for stepper drive
-        Me.m_pTimer1 = New System.Timers.Timer
-        Me.m_pTimer1.Interval = 1
-        AddHandler Me.m_pTimer1.Elapsed, AddressOf Me.Timers__T1_Tick
-        Me.m_pTimer1.Start()
+        'Me.m_pTimer50u = New System.Timers.Timer
+        'Me.m_pTimer50u.Interval = 2
+        'AddHandler Me.m_pTimer50u.Elapsed, AddressOf Me.Timers__T50u_Tick
+        'Me.m_pTimer50u.Start()
 
-        Me.m_pTimer10 = New System.Timers.Timer
-        Me.m_pTimer10.Interval = 10
-        AddHandler Me.m_pTimer10.Elapsed, AddressOf Me.Timers__T10_Tick
-        Me.m_pTimer10.Start()
+        Me.m_pTimer10m = New System.Timers.Timer
+        Me.m_pTimer10m.Interval = 10
+        AddHandler Me.m_pTimer10m.Elapsed, AddressOf Me.Timers__T10_Tick
+        Me.m_pTimer10m.Start()
 
-        Me.m_pTimer100 = New System.Timers.Timer
-        Me.m_pTimer100.Interval = 100
-        AddHandler Me.m_pTimer100.Elapsed, AddressOf Me.Timers__T100_Tick
-        Me.m_pTimer100.Start()
+        Me.m_pTimer100m = New System.Timers.Timer
+        Me.m_pTimer100m.Interval = 100
+        AddHandler Me.m_pTimer100m.Elapsed, AddressOf Me.Timers__T100_Tick
+        Me.m_pTimer100m.Start()
+
+        Me.m_pTimer50u = New MicroTimer
+        Me.m_pTimer50u.Interval = 500
+        AddHandler Me.m_pTimer50u.MicroTimerElapsed, AddressOf Me.Timers__T50u_Tick
+        Me.m_pTimer50u.Start()
+
+        'Me.m_pTimer10m = New MicroTimer
+        'Me.m_pTimer10m.Interval = 10 * 1000
+        'AddHandler Me.m_pTimer10m.MicroTimerElapsed, AddressOf Me.Timers__T10_Tick
+        'Me.m_pTimer10m.Start()
+
+        'Me.m_pTimer100m = New MicroTimer
+        'Me.m_pTimer100m.Interval = 100 * 1000
+        'AddHandler Me.m_pTimer100m.MicroTimerElapsed, AddressOf Me.Timers__T100_Tick
+        'Me.m_pTimer100m.Start()
 
         '100hz
         Me.m_pTimerAccel = New System.Timers.Timer
-        Me.m_pTimerAccel.Interval = 10
+        Me.m_pTimerAccel.Interval = 100
         AddHandler Me.m_pTimerAccel.Elapsed, AddressOf Me.Timers__Accel_Tick
         Me.m_pTimerAccel.Start()
 
     End Sub
 
     ''' <summary>
-    ''' 10ms timer
+    ''' 50us timer
     ''' </summary>
     ''' <param name="s"></param>
     ''' <param name="e"></param>
-    Private Sub Timers__T1_Tick(s As Object, e As System.Timers.ElapsedEventArgs)
+    Private Sub Timers__T50u_Tick(s As Object, e As MicroTimerEventArgs) 'System.Timers.ElapsedEventArgs)
         If Me.m_bThreadRun = True Then
             vSTEPDRIVE_TIMEBASE__ISR()
         End If
@@ -954,6 +985,26 @@ Public Class Form1
             Case 0
                 Threadsafe__SetText(Me.m_txtBrakeL_Pos, s32Position.ToString)
 
+                'compute the MLP value
+                '0 = 2^12 is the ADC range
+
+                Dim sMLP As Single = s32Position + 7500
+
+                'convert to mm
+                sMLP /= 1000.0
+                'convert to percent
+                sMLP /= 75.0
+                'down to 75% of that again to add some head room
+                sMLP *= 0.75
+                'add 10% for the bottom bit
+                'sMLP += 0.1
+                'conver to ADC values
+                sMLP *= (2 ^ 12)
+
+
+                Me.m_iL_MLP = CInt(sMLP)
+                vFCU_BRAKES_MLP_WIN32__ForceADC(0, CUShort(sMLP))
+
                 '75mm
                 If s32Position > 750000 Then
                     vFCU_BRAKES_SW_WIN32__Inject_SwitchState(0, 1, 1)
@@ -978,7 +1029,7 @@ Public Class Form1
                     vFCU_BRAKES_SW__Right_SwitchExtend_ISR()
                 ElseIf s32Position < -120 Then
                     'fake some cal limit
-                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 1, 1)
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 0, 1)
                     vFCU_BRAKES_SW__Right_SwitchRetract_ISR()
                 Else
                     vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 0, 0)

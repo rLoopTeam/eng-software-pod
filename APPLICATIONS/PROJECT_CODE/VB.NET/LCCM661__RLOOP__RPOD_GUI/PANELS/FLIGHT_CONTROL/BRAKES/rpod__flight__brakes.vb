@@ -44,6 +44,7 @@
 
 
         Private m_txtBrakeState As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtBrakeCalState As SIL3.ApplicationSupport.TextBoxHelper
 
         Private m_txtDevRawMove As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtDevIBeamMove As SIL3.ApplicationSupport.TextBoxHelper
@@ -145,6 +146,7 @@
                     Dim ps32Step_CurrentPos(C_NUM_BRAKES - 1) As SIL3.Numerical.S32
 
                     Dim pu8BrakeState As SIL3.Numerical.U8
+                    Dim pu8BrakeCalState As SIL3.Numerical.U8
 
                     For iCounter As Integer = 0 To C_NUM_BRAKES - 1
 
@@ -202,11 +204,21 @@
 
                     pu8BrakeState = New SIL3.Numerical.U8(u8Payload, iOffset)
                     iOffset += 1
+                    pu8BrakeCalState = New SIL3.Numerical.U8(u8Payload, iOffset)
+                    iOffset += 1
 
 
                     'update the GUI
                     For iCounter As Integer = 0 To C_NUM_BRAKES - 1
                         Me.m_txtFlags(iCounter).Threadsafe__SetText(pU32Flags(iCounter).To_String)
+
+                        If pU32Flags(iCounter).To__Uint32 = 0 Then
+                            Me.m_txtFlags(iCounter).BackColor = Color.LightGreen
+                        Else
+                            Me.m_txtFlags(iCounter).BackColor = Color.PaleVioletRed
+                        End If
+
+
                         Me.m_txtTargetIBeam(iCounter).Threadsafe__SetText(pF32TargetIBeam(iCounter).To__Float32.ToString("0.000"))
                         Me.m_txtTargetScrew_mm(iCounter).Threadsafe__SetText(pF32TargetScrew_mm(iCounter).To__Float32.ToString("0.000"))
                         Me.m_txtTargetScrew_um(iCounter).Threadsafe__SetText(pS32TargetScrew_um(iCounter).To__Int.ToString)
@@ -235,6 +247,7 @@
 
                     'brake state
                     Me.m_txtBrakeState.Threadsafe__SetText(State__Brake(pu8BrakeState))
+                    Me.m_txtBrakeCalState.Threadsafe__SetText(State__CalBrake(pu8BrakeCalState))
 
                     Me.m_iRxCount += 1
                     Me.m_txtCount.Threadsafe__SetText(Me.m_iRxCount.ToString)
@@ -282,6 +295,35 @@
 
         End Function
 
+
+
+        ''' <summary>
+        ''' Return the cal state human name
+        ''' </summary>
+        ''' <param name="u8Val"></param>
+        ''' <returns></returns>
+        Private Function State__CalBrake(u8Val As Numerical.U8) As String
+
+            Select Case u8Val.To__Int
+                Case 0
+                    Return "BRAKE_CAL_STATE__IDLE"
+                Case 1
+                    Return "BRAKE_CAL_STATE__EXTEND_MOTORS"
+                Case 2
+                    Return "BRAKE_CAL_STATE__WAIT_EXTEND_MOTORS"
+                Case 3
+                    Return "BRAKE_CAL_STATE__RELEASE_ZERO"
+                Case 4
+                    Return "BRAKE_CAL_STATE__APPLY_NEW_ZERO"
+                Case 5
+                    Return "BRAKE_CAL_STATE__WAIT_NEW_ZERO"
+                Case 6
+                    Return "BRAKE_CAL_STATE__COMPLETE"
+                Case Else
+                    Return "VB.NET ERROR"
+            End Select
+
+        End Function
 
         ''' <summary>
         ''' Convert switch state
@@ -386,7 +428,9 @@
 
             'stepper
             l0(iDevice, 12) = New SIL3.ApplicationSupport.LabelHelper("Stepper Veloc " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 12).Layout__BelowControl(Me.m_txtMLP_ADC(iDevice))
+            l0(iDevice, 12).Location = New System.Drawing.Point(Me.m_txtMLP_ADC(iDevice).Location.X, Me.m_txtMLP_ADC(iDevice).Location.Y + Me.m_txtMLP_ADC(iDevice).Size.Height + 50)
+            Me.m_pInnerPanel.Controls.Add(l0(iDevice, 12))
+            'l0(iDevice, 12).Layout__BelowControl(Me.m_txtMLP_ADC(iDevice))
             Me.m_txtStep_Veloc(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 12))
 
             l0(iDevice, 13) = New SIL3.ApplicationSupport.LabelHelper("Stepper Accel " & Me.Layout__GetBrakeSide(iDevice))
@@ -456,7 +500,9 @@
 
             'stepper
             l0(iDevice, 12) = New SIL3.ApplicationSupport.LabelHelper("Stepper Veloc " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 12).Layout__BelowControl(Me.m_txtMLP_ADC(iDevice))
+            l0(iDevice, 12).Location = New System.Drawing.Point(Me.m_txtMLP_ADC(iDevice).Location.X, Me.m_txtMLP_ADC(iDevice).Location.Y + Me.m_txtMLP_ADC(iDevice).Size.Height + 50)
+            Me.m_pInnerPanel.Controls.Add(l0(iDevice, 12))
+            'l0(iDevice, 12).Layout__BelowControl(Me.m_txtMLP_ADC(iDevice))
             Me.m_txtStep_Veloc(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 12))
 
             l0(iDevice, 13) = New SIL3.ApplicationSupport.LabelHelper("Stepper Accel " & Me.Layout__GetBrakeSide(iDevice))
@@ -471,6 +517,10 @@
             Dim l10 As New SIL3.ApplicationSupport.LabelHelper("Brakes State")
             l10.Layout__BelowControl(Me.m_txtStep_Veloc(0))
             Me.m_txtBrakeState = New SIL3.ApplicationSupport.TextBoxHelper(200, l10)
+            Dim l100 As New SIL3.ApplicationSupport.LabelHelper("Calibration State")
+            l100.Layout__AboveRightControl(l10, Me.m_txtBrakeState)
+            Me.m_txtBrakeCalState = New SIL3.ApplicationSupport.TextBoxHelper(200, l100)
+
 
             Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
             l11.Layout__BelowControl(Me.m_txtBrakeState)
@@ -513,6 +563,20 @@
             Me.m_txtDevIBeamMove = New SIL3.ApplicationSupport.TextBoxHelper(100, l21)
             Dim btnMoveIBeam As New SIL3.ApplicationSupport.ButtonHelper(100, "Move", AddressOf btnMoveIBeam__Click)
             btnMoveIBeam.Layout__RightOfControl(Me.m_txtDevIBeamMove)
+
+
+            'add the MLP buttons
+            'Me.m_txtMLP_ADCZero(iDevice)
+            Dim btnMLP_L_Zero As New SIL3.ApplicationSupport.ButtonHelper(100, "ADC Zero", AddressOf Me.btnMLP_L_ZERO__Click)
+            btnMLP_L_Zero.Layout__BelowControl(Me.m_txtMLP_ADCZero(0))
+            Dim btnMLP_R_Zero As New SIL3.ApplicationSupport.ButtonHelper(100, "ADC Zero", AddressOf Me.btnMLP_R_ZERO__Click)
+            btnMLP_R_Zero.Layout__BelowControl(Me.m_txtMLP_ADCZero(1))
+
+            Dim btnMLP_L_Span As New SIL3.ApplicationSupport.ButtonHelper(100, "ADC Span", AddressOf Me.btnMLP_L_SPAN__Click)
+            btnMLP_L_Span.Layout__RightOfControl(btnMLP_L_Zero)
+            Dim btnMLP_R_Span As New SIL3.ApplicationSupport.ButtonHelper(100, "ADC Span", AddressOf Me.btnMLP_R_SPAN__Click)
+            btnMLP_R_Span.Layout__RightOfControl(btnMLP_R_Zero)
+
 
         End Sub
 
@@ -598,6 +662,51 @@
                 RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__INIT,
                                                  &H98765432L, 0, 0, 0)
+
+            End If
+        End Sub
+
+
+        Private Sub btnMLP_L_ZERO__Click(s As Object, e As EventArgs)
+
+            If MsgBox("Warning: Really zero LEFT MLP ADC?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__MLP_ZEROSPAN,
+                                                 &H55660123L, 0, 0, 0)
+
+            End If
+        End Sub
+
+        Private Sub btnMLP_R_ZERO__Click(s As Object, e As EventArgs)
+
+            If MsgBox("Warning: Really zero RIGHT MLP ADC?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__MLP_ZEROSPAN,
+                                                 &H55660123L, 1, 0, 0)
+
+            End If
+        End Sub
+
+        Private Sub btnMLP_L_SPAN__Click(s As Object, e As EventArgs)
+
+            If MsgBox("Warning: Really Span LEFT MLP ADC?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__MLP_ZEROSPAN,
+                                                 &H55660123L, 0, 1, 0)
+
+            End If
+        End Sub
+
+        Private Sub btnMLP_R_SPAN__Click(s As Object, e As EventArgs)
+
+            If MsgBox("Warning: Really Span RIGHT MLP ADC?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__MLP_ZEROSPAN,
+                                                 &H55660123L, 1, 1, 0)
 
             End If
         End Sub

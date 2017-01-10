@@ -23,12 +23,25 @@ var fcu__core____types_8h =
       [ "RUN_STATE__FLIGHT_ABORT", "fcu__core____types_8h.html#ad51c0bedd8ff2f532e6e314b01f579cca6a7fa0038e069057a5623b9d755332e8", null ]
     ] ],
     [ "E_FCU_BRAKES__STATES_T", "fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413a", [
+      [ "BRAKE_STATE__RESET", "fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa32c21a791141fbd6ebe0ad7b663db08f", null ],
       [ "BRAKE_STATE__IDLE", "fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa95344bae84d2598c05dea5a5c4e90d04", null ],
       [ "BRAKE_STATE__BEGIN_MOVE", "fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa203bcb75118e1d5c72c7e9e87ffa1e53", null ],
+      [ "BRAKE_STATE__COMPUTE", "fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa820022fe66a5439f43054c101cd3389d", null ],
       [ "BRAKE_STATE__MOVING", "fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa75547d91ab5373c9eae18dd9c4ecf4c3", null ],
       [ "BRAKE_STATE__MOVE_STOPPED", "fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa41e066d089c9cb2d89d700a9703c5802", null ],
       [ "BRAKE_STATE__FAULT", "fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa1b2a5dd6747b938995da00974cf143ca", null ],
-      [ "BRAKE_STATE__TEST", "fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa7e21c5de14cf32e576c935d9be2da537", null ]
+      [ "BRAKE_STATE__TEST", "fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa7e21c5de14cf32e576c935d9be2da537", null ],
+      [ "BRAKE_STATE__BEGIN_CAL", "fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa729bb0b6ea24096df4905ac12ca1b5ce", null ],
+      [ "BRAKE_STATE__WAIT_CAL_DONE", "fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aac603fc15d9995fdd3957a192944dccec", null ]
+    ] ],
+    [ "E_FCU_CAL_BRAKES__STATES_T", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591", [
+      [ "BRAKE_CAL_STATE__IDLE", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591a3d75cb28d9570d55720a66707b4d1b93", null ],
+      [ "BRAKE_CAL_STATE__EXTEND_MOTORS", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591afca7c4d3cc672035964aaa1a10b5ce76", null ],
+      [ "BRAKE_CAL_STATE__WAIT_EXTEND_MOTORS", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591a859131b39e1a7ec83b65a12563366af5", null ],
+      [ "BRAKE_CAL_STATE__RELEASE_ZERO", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591a466828f8f08254debec2959824eda822", null ],
+      [ "BRAKE_CAL_STATE__APPLY_NEW_ZERO", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591aa782e1f2de5b0e5c51bc55efb9af2c26", null ],
+      [ "BRAKE_CAL_STATE__WAIT_NEW_ZERO", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591a5c1c3be31f82475c4ec81394a1a2cb24", null ],
+      [ "BRAKE_CAL_STATE__COMPLETE", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591aeb84530f4d9c5f67db04fdaa9ea08189", null ]
     ] ],
     [ "E_FCU_LASERDIST__STATE_T", "fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259", [
       [ "LASERDIST_STATE__RESET", "fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a014fa685d3f6e77008693c46ded9722c", null ],
@@ -39,12 +52,11 @@ var fcu__core____types_8h =
       [ "LASERDIST_STATE__CHECK_NEW_PACKET", "fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a068f96bd8649f86c35f1993ec4f1e981", null ]
     ] ],
     [ "E_FCU_MODBUS__STATE_T", "fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5", [
-      [ "ASI_COMM_STATE__INITIAL", "fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5a8c118a797e966efcc9d2c1a37a918ddc", null ],
       [ "ASI_COMM_STATE__IDLE", "fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5abe6ac7a6a569ce619a556bf71b9cd70c", null ],
-      [ "ASI_COMM_STATE__BROADCAST_EMISSION", "fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5a0160f472bde78e8f1791133f0816bd8f", null ],
-      [ "ASI_COMM_STATE__UNICAST_EMISSION", "fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5acff94d72d71db73acc54cef0748e01f2", null ],
-      [ "ASI_COMM_STATE__RECEPTION", "fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5a8cf3b68ba375b638199eec02aa6840dd", null ],
-      [ "ASI_COMM_STATE__CONTROL_AND_WAIT", "fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5a2c049bac377e4d2ab09fb020c8e83fff", null ]
+      [ "ASI_COMM_STATE__WAIT_TURNAROUND_DELAY", "fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5a9667f9fe1bc7646d748c093c768f1dec", null ],
+      [ "ASI_COMM_STATE__WAIT_REPLY", "fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5a2e3594b54ea0dbbaabe33d41a194ddcf", null ],
+      [ "ASI_COMM_STATE__PROCESS_REPLY", "fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5a751174b7a46627f8c8891ff08aee05af", null ],
+      [ "ASI_COMM_STATE__PROCESS_ERROR", "fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5a340ec9f35a8a3f9d1813016ff9b59f3f", null ]
     ] ],
     [ "E_FCU_OPTOLASER__STATE_T", "fcu__core____types_8h.html#a728afd2ed544e2628728e73ebe7cc232", [
       [ "OPTOLASER_STATE__RESET", "fcu__core____types_8h.html#a728afd2ed544e2628728e73ebe7cc232ab483acb1c91758a6666d79b5a7240894", null ],
@@ -52,7 +64,8 @@ var fcu__core____types_8h =
       [ "OPTOLASER_STATE__INIT_LASER", "fcu__core____types_8h.html#a728afd2ed544e2628728e73ebe7cc232a164c4bb6bb53879e5e1abc88dcab0d65", null ],
       [ "OPTOLASER_STATE__WAIT_INIT_DONE", "fcu__core____types_8h.html#a728afd2ed544e2628728e73ebe7cc232acc55d2bf48f8e053a1a908d721f977af", null ],
       [ "OPTOLASER_STATE__CHECK_NEW_DATA", "fcu__core____types_8h.html#a728afd2ed544e2628728e73ebe7cc232a991b1664d80a86ee2eb36ec832c5626e", null ],
-      [ "OPTOLASER_STATE__CHECK_NEW_PACKET", "fcu__core____types_8h.html#a728afd2ed544e2628728e73ebe7cc232a73b5e724aa9217a913ac64443c83a6d6", null ]
+      [ "OPTOLASER_STATE__CHECK_NEW_PACKET", "fcu__core____types_8h.html#a728afd2ed544e2628728e73ebe7cc232a73b5e724aa9217a913ac64443c83a6d6", null ],
+      [ "OPTOLASER_STATE__FILTER_PACKET", "fcu__core____types_8h.html#a728afd2ed544e2628728e73ebe7cc232a72d757df1936931ef6fe9403e4ee8d4a", null ]
     ] ],
     [ "E_FCU_PUSHER__STATES_T", "fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03", [
       [ "PUSH_STATE__IDLE", "fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03a8e457a1d0c9cc38bb3c09c4cabd366b3", null ],
