@@ -136,6 +136,8 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
 
         NET_PKT__FCU_BRAKES__INIT = &H1408
 
+        NET_PKT__FCU_BRAKES__MLP_ZEROSPAN = &H1409
+
         '//////////////////////////////////////////////////////
         '//FCU: NAVIGATION (0x1600)
         '//////////////////////////////////////////////////////

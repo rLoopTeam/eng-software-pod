@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the stepper interface
  * 
- * @st_funcMD5		DFDB808AC487E960F7781F149387C964
+ * @st_funcMD5		D30F783904FC50285A0DBBD96FACE951
  * @st_funcID		LCCM655R0.FILE.025.FUNC.001
  */
 void vFCU_BRAKES_STEP__Init(void)
@@ -115,7 +115,7 @@ Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake)
  * 
  * @param[in]		s32Brake1Pos				Microns of brake pos R
  * @param[in]		s32Brake0Pos				Microns on brake pos L
- * @st_funcMD5		2294887F0A4BEF2482FF3AE3F94AF8E4
+ * @st_funcMD5		3B43DC76587675958F6129042FEBF569
  * @st_funcID		LCCM655R0.FILE.025.FUNC.004
  */
 void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos)

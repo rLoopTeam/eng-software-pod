@@ -1,6 +1,14 @@
 var searchData=
 [
-  ['sw_5fstate_5f_5fclosed',['SW_STATE__CLOSED',['../fcu__core____enums_8h.html#a6f20fe18350cd3140c493b063ab9d88dacc512e949337c7d4f27ae86ddff430cc',1,'fcu_core__enums.h']]],
-  ['sw_5fstate_5f_5fopen',['SW_STATE__OPEN',['../fcu__core____enums_8h.html#a6f20fe18350cd3140c493b063ab9d88daa4991a1c8de8beb958810499803c9beb',1,'fcu_core__enums.h']]],
-  ['sw_5fstate_5f_5funknown',['SW_STATE__UNKNOWN',['../fcu__core____enums_8h.html#a6f20fe18350cd3140c493b063ab9d88da5a9ae6828584de79fdb88d35086669ca',1,'fcu_core__enums.h']]]
+  ['picom_5fstate_5f_5fassemble_5fbuffer',['PICOM_STATE__ASSEMBLE_BUFFER',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a0308f964e5afe3927b527020177a4103',1,'fcu__pi_comms__types.h']]],
+  ['picom_5fstate_5f_5fidle',['PICOM_STATE__IDLE',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a35990985ccd1627faf2073fc65d8bc17',1,'fcu__pi_comms__types.h']]],
+  ['picom_5fstate_5f_5fsetup_5fframe',['PICOM_STATE__SETUP_FRAME',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a907476e700bc0892be7a020f5529746e',1,'fcu__pi_comms__types.h']]],
+  ['picom_5fstate_5f_5fstart_5fdma',['PICOM_STATE__START_DMA',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a931f57e1d71b96d80a9ad2e4bc2cbc6d',1,'fcu__pi_comms__types.h']]],
+  ['picom_5fstate_5f_5fwait_5fdma',['PICOM_STATE__WAIT_DMA',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a3eab3bfd04e4a3cd89e3bdd921231792',1,'fcu__pi_comms__types.h']]],
+  ['push_5fstate_5f_5fcheck_5fdisagree',['PUSH_STATE__CHECK_DISAGREE',['../fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03ab2b4d47bd2409fdbcf43c81fddde1f97',1,'fcu_core__types.h']]],
+  ['push_5fstate_5f_5fdetermine_5fpusher_5fstate',['PUSH_STATE__DETERMINE_PUSHER_STATE',['../fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03a831fdd97a0ac888672dd0f0a040e8199',1,'fcu_core__types.h']]],
+  ['push_5fstate_5f_5fidle',['PUSH_STATE__IDLE',['../fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03a8e457a1d0c9cc38bb3c09c4cabd366b3',1,'fcu_core__types.h']]],
+  ['push_5fstate_5f_5fsample_5fswitches',['PUSH_STATE__SAMPLE_SWITCHES',['../fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03ad859dfe30032870d4ba2d40b58853dd6',1,'fcu_core__types.h']]],
+  ['push_5fstate_5f_5fwait_5fsw_5fstable',['PUSH_STATE__WAIT_SW_STABLE',['../fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03a44f17c9da998e44fae22103415510fdd',1,'fcu_core__types.h']]],
+  ['pusher_5finterlock_5fmode',['PUSHER_INTERLOCK_MODE',['../fcu__core____enums_8h.html#a1560f192dd5dd63e42c06f8953f56a25aedac8ad3d1b41eebc6372e26405f4db6',1,'fcu_core__enums.h']]]
 ];

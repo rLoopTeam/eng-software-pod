@@ -133,6 +133,10 @@
 		/** Init the brake sub system once its out of reset */
 		NET_PKT__FCU_BRAKES__INIT = 0x1408U,
 
+		/** perform a zero/span on the MLP */
+		NET_PKT__FCU_BRAKES__MLP_ZEROSPAN = 0x1409U,
+
+
 		//////////////////////////////////////////////////////
 		//FCU: NAVIGATION (0x1600)
 		//////////////////////////////////////////////////////

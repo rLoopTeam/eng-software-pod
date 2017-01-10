@@ -1,23 +1,10 @@
 var searchData=
 [
-  ['laser_5fcont_5f_5faft',['LASER_CONT__AFT',['../fcu__core____enums_8h.html#aca56f900b11ab5b05c97d4618bbe321eac1ea595de25bb8d3f84560fc2dff349c',1,'fcu_core__enums.h']]],
-  ['laser_5fcont_5f_5ffwd',['LASER_CONT__FWD',['../fcu__core____enums_8h.html#aca56f900b11ab5b05c97d4618bbe321eaddc978956934df26d06933a6b7b27fef',1,'fcu_core__enums.h']]],
-  ['laser_5fcont_5f_5fmax',['LASER_CONT__MAX',['../fcu__core____enums_8h.html#aca56f900b11ab5b05c97d4618bbe321ea2e7f55bfe1e21b710f7b811c52327b61',1,'fcu_core__enums.h']]],
-  ['laser_5fcont_5f_5fmid',['LASER_CONT__MID',['../fcu__core____enums_8h.html#aca56f900b11ab5b05c97d4618bbe321eadf24bb2b06c8aa2a002b13c3ef77c31b',1,'fcu_core__enums.h']]],
-  ['laser_5forientation_5fstate_5f_5ferror',['LASER_ORIENTATION_STATE__ERROR',['../fcu__core____types_8h.html#af675a18996429db6c59658dd210e1f45afd4842a8c5527cf962308d12d529173a',1,'fcu_core__types.h']]],
-  ['laser_5forientation_5fstate_5f_5fget_5flaser_5fdata',['LASER_ORIENTATION_STATE__GET_LASER_DATA',['../fcu__core____types_8h.html#af675a18996429db6c59658dd210e1f45a78c926cfe44556266406a2b1762b3645',1,'fcu_core__types.h']]],
-  ['laser_5forientation_5fstate_5f_5fidle',['LASER_ORIENTATION_STATE__IDLE',['../fcu__core____types_8h.html#af675a18996429db6c59658dd210e1f45ab2aff0ea40c3e879a4acb46d95a3ffad',1,'fcu_core__types.h']]],
-  ['laser_5forientation_5fstate_5f_5finit',['LASER_ORIENTATION_STATE__INIT',['../fcu__core____types_8h.html#af675a18996429db6c59658dd210e1f45a93f348c1863203527a9814b2e10ef3a6',1,'fcu_core__types.h']]],
-  ['laser_5forientation_5fstate_5f_5frecalculate_5fpitch_5froll_5ftwist',['LASER_ORIENTATION_STATE__RECALCULATE_PITCH_ROLL_TWIST',['../fcu__core____types_8h.html#af675a18996429db6c59658dd210e1f45aa02b4c2bbab7878ff574a31b758e68b7',1,'fcu_core__types.h']]],
-  ['laser_5forientation_5fstate_5f_5frecalculate_5fyaw_5fand_5flateral',['LASER_ORIENTATION_STATE__RECALCULATE_YAW_AND_LATERAL',['../fcu__core____types_8h.html#af675a18996429db6c59658dd210e1f45a87ba616d1719489e744a5e0179627753',1,'fcu_core__types.h']]],
-  ['laser_5forientation_5fstate_5f_5fwait_5floops',['LASER_ORIENTATION_STATE__WAIT_LOOPS',['../fcu__core____types_8h.html#af675a18996429db6c59658dd210e1f45a2d7d30a05427c188a912aa532013f21e',1,'fcu_core__types.h']]],
-  ['laserdist_5frx_5f_5fbyte_5f1',['LASERDIST_RX__BYTE_1',['../fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0aa6bee8cb6f835c754b8d57a7283532ad',1,'fcu_core__types.h']]],
-  ['laserdist_5frx_5f_5fbyte_5f2',['LASERDIST_RX__BYTE_2',['../fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0a2ed116656d19254a99a92ee7b2a73b70',1,'fcu_core__types.h']]],
-  ['laserdist_5frx_5f_5fbyte_5f3',['LASERDIST_RX__BYTE_3',['../fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0a449cb63017b64ce97cff9306cbac4677',1,'fcu_core__types.h']]],
-  ['laserdist_5fstate_5f_5fcheck_5fnew_5fdata',['LASERDIST_STATE__CHECK_NEW_DATA',['../fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a775b7b034ee2615d1ddfad3e2602ae01',1,'fcu_core__types.h']]],
-  ['laserdist_5fstate_5f_5fcheck_5fnew_5fpacket',['LASERDIST_STATE__CHECK_NEW_PACKET',['../fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a068f96bd8649f86c35f1993ec4f1e981',1,'fcu_core__types.h']]],
-  ['laserdist_5fstate_5f_5finit_5flaser',['LASERDIST_STATE__INIT_LASER',['../fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a607e8e1f26b099044349beefecae9877',1,'fcu_core__types.h']]],
-  ['laserdist_5fstate_5f_5freset',['LASERDIST_STATE__RESET',['../fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a014fa685d3f6e77008693c46ded9722c',1,'fcu_core__types.h']]],
-  ['laserdist_5fstate_5f_5fwait_5finit_5fdone',['LASERDIST_STATE__WAIT_INIT_DONE',['../fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259ac0bccc71ea6e67b6e16a82d14e54b93d',1,'fcu_core__types.h']]],
-  ['laserdist_5fstate_5f_5fwait_5flaser_5freset',['LASERDIST_STATE__WAIT_LASER_RESET',['../fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a6b001066622c3d7c4d2570a4bfee7604',1,'fcu_core__types.h']]]
+  ['init_5fstate_5f_5finit_5fcomms',['INIT_STATE__INIT_COMMS',['../fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4ca9177cb10a4db04a151060f3cf1e1e988',1,'fcu_core__types.h']]],
+  ['init_5fstate_5f_5finit_5fio',['INIT_STATE__INIT_IO',['../fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4ca76e657837b6984fa167a7332559e1ea5',1,'fcu_core__types.h']]],
+  ['init_5fstate_5f_5finit_5fspi_5fuarts',['INIT_STATE__INIT_SPI_UARTS',['../fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caf2f2c5a22525fc2f3b9d1cb007092ada',1,'fcu_core__types.h']]],
+  ['init_5fstate_5f_5flower_5fsystems',['INIT_STATE__LOWER_SYSTEMS',['../fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caf335a6ffa959d5ae290f518d61bcacae',1,'fcu_core__types.h']]],
+  ['init_5fstate_5f_5freset',['INIT_STATE__RESET',['../fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4cac5516a83ea1335e7d16e4ec104fc6c31',1,'fcu_core__types.h']]],
+  ['init_5fstate_5f_5frun',['INIT_STATE__RUN',['../fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caaf2061203d5df58c1953055d1df17093',1,'fcu_core__types.h']]],
+  ['init_5fstate_5f_5fstart_5ftimers',['INIT_STATE__START_TIMERS',['../fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caceb3d7dc07525718c3d8df84a6057a32',1,'fcu_core__types.h']]]
 ];

@@ -212,7 +212,7 @@ void vFCU_BRAKES_MLP__Process(void)
  *  Call this function to sample the ADC channel associated with the brake
  * 
  * @param[in]		eBrake				The brake index
- * @st_funcMD5		A63BA1E17C9CE1231B1453867963DF23
+ * @st_funcMD5		81505D816993B47546A93DE2D5FF56AE
  * @st_funcID		LCCM655R0.FILE.024.FUNC.003
  */
 void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
@@ -237,7 +237,7 @@ void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
 #ifndef WIN32
 				sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample = u16RM4_ADC_USER__Get_RawData(0U);
 #else
-				sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample = 0U;
+				sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample = sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.sWin32.u16ADC_Sample;
 #endif
 				if (sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample > sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.highest_value) {
 					sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.highest_value = sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample;
@@ -253,7 +253,7 @@ void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
 #ifndef WIN32
 				sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample = u16RM4_ADC_USER__Get_RawData(1U);
 #else
-				sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample = 0U;
+				sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample = sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.sWin32.u16ADC_Sample;
 #endif	
 				if (sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample > sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.highest_value) {
 					sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.highest_value = sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample;
@@ -411,6 +411,153 @@ void vFCU_BRAKES_MLP__Apply_Zero(E_FCU__BRAKE_INDEX_T eBrake)
 		//error
 	}
 }
+
+
+/***************************************************************************//**
+ * @brief
+ * compute live calibration zero
+ * 
+ * @param[in]		eBrake				The brake channel.
+ * @param[in]		u32Key				0x11112222U
+ * @st_funcMD5		45386F94C0417E4653974BA16A98646C
+ * @st_funcID		LCCM655R0.FILE.024.FUNC.008
+ */
+void vFCU_BRAKES_MLP__ComputeCalibration_Zero(Luint32 u32Key, E_FCU__BRAKE_INDEX_T eBrake)
+{
+	if (u32Key == 0x11112222U)
+	{
+		switch (eBrake)
+		{
+			case FCU_BRAKE__LEFT:
+
+				//save	
+				vEEPARAM__WriteU16(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO, sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_FilteredSample, 1U);
+
+				//redo the CRC;
+				vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER,
+														C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN,
+														C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_CRC);
+
+				//1. Reload the structures.
+				sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Zero = u16EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO);
+
+
+				break;
+
+			case FCU_BRAKE__RIGHT:
+				//save	
+				vEEPARAM__WriteU16(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_ZERO, sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_FilteredSample, 1U);
+
+				//redo the CRC;
+				vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER,
+														C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN,
+														C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_CRC);
+
+				//1. Reload the structures.
+				sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_Zero = u16EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_ZERO);
+				break;
+
+			default:
+				//do nothing
+				break;
+		}
+
+	}
+	else
+	{
+		//something went wrong
+	}
+}
+
+
+/***************************************************************************//**
+ * @brief
+ * Compute the calibration span value from the current brake pos
+ * 
+ * @param[in]		eBrake				The brake channel
+ * @param[in]		u32Key				0x33334444U
+ * @st_funcMD5		AA133F10248B752876733A4737ADC5A3
+ * @st_funcID		LCCM655R0.FILE.024.FUNC.009
+ */
+void vFCU_BRAKES_MLP__ComputeCalibration_Span(Luint32 u32Key, E_FCU__BRAKE_INDEX_T eBrake)
+{
+	Lfloat32 f32Temp;
+
+	if (u32Key == 0x33334444U)
+	{
+		switch (eBrake)
+		{
+			case FCU_BRAKE__LEFT:
+
+				//current screw pos
+				f32Temp = (Lfloat32)sFCU.sBrakes[(Luint8)eBrake].sMove.s32currentPos;
+				//to mm
+				f32Temp /= 1000.0F;
+				f32Temp /= (Lfloat32)sFCU.sBrakes[(Luint32)eBrake].sMLP.s32ADC_Minus_Zero;
+
+				//save	
+				vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_SPAN, f32Temp, 1U);
+
+				//redo the CRC;
+				vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER,
+														C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN,
+														C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_CRC);
+
+				//1. Reload the structures.
+				sFCU.sBrakes[(Luint32)eBrake].sMLP.f32SystemSpan = f32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_SPAN);
+
+
+				break;
+
+			case FCU_BRAKE__RIGHT:
+				//current screw pos
+				f32Temp = (Lfloat32)sFCU.sBrakes[(Luint8)eBrake].sMove.s32currentPos;
+				//to mm
+				f32Temp /= 1000.0F;
+				f32Temp /= (Lfloat32)sFCU.sBrakes[(Luint32)eBrake].sMLP.s32ADC_Minus_Zero;
+
+				//save	
+				vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN, f32Temp, 1U);
+
+				//redo the CRC;
+				vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER,
+														C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN,
+														C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_CRC);
+
+				//1. Reload the structures.
+				sFCU.sBrakes[(Luint32)eBrake].sMLP.f32SystemSpan = f32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN);
+
+				break;
+
+			default:
+				//do nothing
+				break;
+		}
+
+	}
+	else
+	{
+		//something went wrong
+	}
+}
+
+#ifdef WIN32
+
+/***************************************************************************//**
+ * @brief
+ * On win32 fake the ADC values
+ * 
+ * @param[in]		u16Value				New ADC 2 ^ 12 max
+ * @param[in]		u8Brake					Brake channel
+ * @st_funcMD5		FE9BBEF7B50192E25F21E2048DF1AAC7
+ * @st_funcID		LCCM655R0.FILE.024.FUNC.010
+ */
+void vFCU_BRAKES_MLP_WIN32__ForceADC(Luint8 u8Brake, Luint16 u16Value)
+{
+	sFCU.sBrakes[u8Brake].sMLP.sWin32.u16ADC_Sample = u16Value;
+}
+
+#endif
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_BRAKES
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U

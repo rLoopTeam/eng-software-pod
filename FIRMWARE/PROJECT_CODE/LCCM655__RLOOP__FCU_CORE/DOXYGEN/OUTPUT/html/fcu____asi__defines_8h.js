@@ -1,6 +1,11 @@
 var fcu____asi__defines_8h =
 [
+    [ "C_ASI__COMMAND_QUEUE", "fcu____asi__defines_8h.html#aa1f993add374ece8bcef7c9674a5edea", null ],
+    [ "C_ASI__MAX_FRAME_SIZE", "fcu____asi__defines_8h.html#aa239eb36a75131bcff08466b6ac5a780", null ],
+    [ "C_ASI__MAX_REPLYWAIT_DELAY", "fcu____asi__defines_8h.html#aa2999ff828073e4f42694014ec9969a2", null ],
+    [ "C_ASI__MAX_TURNAROUND_DELAY", "fcu____asi__defines_8h.html#a7ac62bf75e5e0fd3a283a09cff930dce", null ],
     [ "C_ASI__READ_INPUT_REGISTER", "fcu____asi__defines_8h.html#ab6fdcab176726a12dad1dfd6517aebaa", null ],
+    [ "C_ASI__SW_TEST", "fcu____asi__defines_8h.html#a00eed3f3cba9450cbed43bf3021f9d0d", null ],
     [ "C_ASI__WRITE_SINGLE_REGISTER", "fcu____asi__defines_8h.html#a454ed761453d586d5d0a4d6d62640d18", null ],
     [ "C_FCU_ASI__BRIDGE_OPEN_CIRCUIT", "fcu____asi__defines_8h.html#aa29be81f9ab18325d8fa2a0ba3dbe7af", null ],
     [ "C_FCU_ASI__BRIDGE_TURN_ON_TEST", "fcu____asi__defines_8h.html#a65d83a55b80bf735708f962cc45f5ad1", null ],
@@ -21,6 +26,7 @@ var fcu____asi__defines_8h =
     [ "C_FCU_ASI__INSTANTANEOUS_PHASE_CURRENT", "fcu____asi__defines_8h.html#a643bb1f60c3105ba7a9e367dd40e3223", null ],
     [ "C_FCU_ASI__INTERNAL_ERROR", "fcu____asi__defines_8h.html#a927b8666b1599c5c753799420c671557", null ],
     [ "C_FCU_ASI__LAST_FAULT", "fcu____asi__defines_8h.html#a366bf5807b0c61d3f2dd92fb2fc26c97", null ],
+    [ "C_FCU_ASI__MOTOR_CURRENT", "fcu____asi__defines_8h.html#aaa51bdaed443fed8b07f9399205aa8f5", null ],
     [ "C_FCU_ASI__MOTOR_RPM", "fcu____asi__defines_8h.html#a07cfe01dd54c8610159cb79e0dc6d979", null ],
     [ "C_FCU_ASI__MOTOR_TEMPERATURE", "fcu____asi__defines_8h.html#a77eb8ccbd506fcef59403ec02c4f0470", null ],
     [ "C_FCU_ASI__OVER_TEMP_THRESHOLD", "fcu____asi__defines_8h.html#a4b710e9e075482b4f36a65b851f2f25f", null ],

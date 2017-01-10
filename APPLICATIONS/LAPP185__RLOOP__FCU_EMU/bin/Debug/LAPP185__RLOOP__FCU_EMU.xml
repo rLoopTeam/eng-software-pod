@@ -5677,9 +5677,9 @@ adds a sub level node after one has already been added
  Start the timers.
  </summary>
 </member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Timers__T1_Tick(System.Object,System.Timers.ElapsedEventArgs)">
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Timers__T50u_Tick(System.Object,SIL3.LDLL178__COMMON_CODE__MICRO_TMER.MicroTimerEventArgs)">
  <summary>
- 10ms timer
+ 50us timer
  </summary>
  <param name="s"></param>
  <param name="e"></param>

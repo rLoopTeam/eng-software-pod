@@ -179,6 +179,16 @@
 						Luint32 zero_count;
 					#endif
 
+
+					#ifdef WIN32
+					struct
+					{
+						/** The ADC sample for WIN32 emulation */
+						Luint16 u16ADC_Sample;
+
+					}sWin32;
+					#endif
+
 					/** Temporary use; identify when startup sequence has ended and mlp won't return 0. */
 					Luint8 u8Running;
 				}sMLP;
@@ -883,6 +893,11 @@
 			//brakes MLP sensor
 			void vFCU_BRAKES_MLP__Init(void);
 			void vFCU_BRAKES_MLP__Process(void);
+			#ifdef WIN32
+				DLL_DECLARATION void vFCU_BRAKES_MLP_WIN32__ForceADC(Luint8 u8Brake, Luint16 u16Value);
+			#endif
+			void vFCU_BRAKES_MLP__ComputeCalibration_Zero(Luint32 u32Key, E_FCU__BRAKE_INDEX_T eBrake);
+			void vFCU_BRAKES_MLP__ComputeCalibration_Span(Luint32 u32Key, E_FCU__BRAKE_INDEX_T eBrake);
 
 			//eth
 			void vFCU_BRAKES_ETH__Init(void);
@@ -890,6 +905,7 @@
 			void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Luint32 u32Position);
 			void vFCU_BRAKES_ETH__MoveMotor_IBeam(Lfloat32 f32Value);
 			void vFCU_BRAKES_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1);
+			void vFCU_BRAKES_ETH__MLP_ZeroSpan(Luint32 u32Key0, Luint32 u32Brake, Luint32 u32Function);
 
 			//calibration
 			void vFCU_BRAKES_CAL__Init(void);

@@ -46,7 +46,7 @@ void vFCU_BRAKES_ETH__Init(void)
  * Process any new eth packets (transmit)
  * 
  * @param[in]		ePacketType			The packet type
- * @st_funcMD5		FB0CF1588BB680EA182940D2655E3159
+ * @st_funcMD5		D5DA6935BF00141E3F4D6C28FE5B72D2
  * @st_funcID		LCCM655R0.FILE.066.FUNC.002
  */
 void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
@@ -63,7 +63,7 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__FCU_BRAKES__TX_DATA:
-			u16Length = (2U * (24U + 5U + 16U + 12U)) + 1U;
+			u16Length = (2U * (24U + 5U + 16U + 12U)) + 2U;
 			break;
 
 		case NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM:
@@ -171,6 +171,9 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer[0] = (Luint8)sFCU.sBrakesGlobal.eBrakeStates;
 				pu8Buffer += 1U;
 
+				pu8Buffer[0] = (Luint8)sFCU.sBrakesGlobal.sCalibration.eState;
+				pu8Buffer += 1U;
+
 				break;
 
 			default:
@@ -201,7 +204,7 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
  *
  * @param[in]		u32Position				The new position in microns
  * @param[in]		u32Index				The motor index
- * @st_funcMD5		71622FBE47C415EB55B42BE035CCFBD8
+ * @st_funcMD5		E7ACE5E6A14B23D4226EA1541323229E
  * @st_funcID		LCCM655R0.FILE.066.FUNC.003
  */
 void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Luint32 u32Position)
@@ -251,7 +254,7 @@ void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Luint32 u32Position)
  * In development mode, move the brakes to an I-Beam distance
  * 
  * @param[in]		f32Value				The distance in mm
- * @st_funcMD5		73FE0E25EFA8200BCFB6C8AF305BFF36
+ * @st_funcMD5		AC4FDC65FD7852EEDDD124550F52B0FA
  * @st_funcID		LCCM655R0.FILE.066.FUNC.004
  */
 void vFCU_BRAKES_ETH__MoveMotor_IBeam(Lfloat32 f32Value)
@@ -266,8 +269,29 @@ void vFCU_BRAKES_ETH__MoveMotor_IBeam(Lfloat32 f32Value)
 			//make the last flag WELL known that we have modded something
 			vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 31U);
 
-			sFCU.sBrakes[0].sTarget.f32IBeam_mm = f32Value;
-			sFCU.sBrakes[1].sTarget.f32IBeam_mm = f32Value;
+			//remember here our min brake distance is 2.500mm, if we go lower than this
+			if(f32Value < C_FCU__BRAKES__MIN_IBEAM_DIST_MM)
+			{
+				//tell the target distance for both brakes
+				sFCU.sBrakes[0].sTarget.f32IBeam_mm = C_FCU__BRAKES__MIN_IBEAM_DIST_MM;
+				sFCU.sBrakes[1].sTarget.f32IBeam_mm = C_FCU__BRAKES__MIN_IBEAM_DIST_MM;
+			}
+			else
+			{
+				if(f32Value > C_FCU__BRAKES__MAX_IBEAM_DIST_MM)
+				{
+					//tell the target distance for both brakes
+					sFCU.sBrakes[0].sTarget.f32IBeam_mm = C_FCU__BRAKES__MAX_IBEAM_DIST_MM;
+					sFCU.sBrakes[1].sTarget.f32IBeam_mm = C_FCU__BRAKES__MAX_IBEAM_DIST_MM;
+
+				}
+				else
+				{
+					//tell the target distance for both brakes
+					sFCU.sBrakes[0].sTarget.f32IBeam_mm = f32Value;
+					sFCU.sBrakes[1].sTarget.f32IBeam_mm = f32Value;
+				}
+			}
 
 			//change state
 			//Note you can bugger things up easy because there are no checks here.
@@ -287,6 +311,14 @@ void vFCU_BRAKES_ETH__MoveMotor_IBeam(Lfloat32 f32Value)
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * Start the calibration mode of the brakes manually
+ * 
+ * @param[in]		u32Key				Input Key
+ * @st_funcMD5		4DA1A1D8D5E8FA762D3C7B6F399093AC
+ * @st_funcID		LCCM655R0.FILE.066.FUNC.011
+ */
 void vFCU_BRAKES_ETH__Start_Calibration(Luint32 u32Key)
 {
 
@@ -312,11 +344,47 @@ void vFCU_BRAKES_ETH__Start_Calibration(Luint32 u32Key)
 
 /***************************************************************************//**
  * @brief
+ * Perform a MLP zero or span
+ * 
+ * @param[in]		u32Function				0 = 0, 1 = span
+ * @param[in]		u32Brake				Brake Channel
+ * @param[in]		u32Key0					0x55660123U
+ * @st_funcMD5		F7CBF5117B8E442BBD599BE76CAAC534
+ * @st_funcID		LCCM655R0.FILE.066.FUNC.012
+ */
+void vFCU_BRAKES_ETH__MLP_ZeroSpan(Luint32 u32Key0, Luint32 u32Brake, Luint32 u32Function)
+{
+	//safety key
+	if (u32Key0 == 0x55660123U)
+	{
+		if (u32Function == 0U)
+		{
+			//set zero
+			vFCU_BRAKES_MLP__ComputeCalibration_Zero(0x11112222U, (E_FCU__BRAKE_INDEX_T)u32Brake);
+		}
+		else if (u32Function == 1U)
+		{
+			//set span
+			vFCU_BRAKES_MLP__ComputeCalibration_Span(0x33334444U, (E_FCU__BRAKE_INDEX_T)u32Brake);
+		}
+		else
+		{
+			//some error
+		}
+	}
+	else
+	{
+
+	}
+}
+
+/***************************************************************************//**
+ * @brief
  * Permit brake development/testing mode
  *
  * @param[in]		u32Key1				Key1 should be 0xABCD0987U
  * @param[in]		u32Key0				Key0 shoul dbe 0x1293847
- * @st_funcMD5		483A9F934DE9E882908E3DD1A86B9157
+ * @st_funcMD5		F21BB83DD999BFB06DE4C3D53889D9E6
  * @st_funcID		LCCM655R0.FILE.007.FUNC.010
  */
 void vFCU_BRAKES_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)

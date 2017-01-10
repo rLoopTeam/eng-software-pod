@@ -344,6 +344,10 @@
       <Project>{3527ca91-eb5b-4627-844b-844d0ec2d9e6}</Project>
       <Name>LDLL147__COMMONCODE__PACKET_DOTNET</Name>
     </ProjectReference>
+    <ProjectReference Include="..\COMMON_CODE\DLLS\LDLL178__COMMON_CODE__MICRO_TMER\LDLL178__COMMON_CODE__MICRO_TMER.csproj">
+      <Project>{6ec6f8ac-9340-4b47-b3b1-87f78e301355}</Project>
+      <Name>LDLL178__COMMON_CODE__MICRO_TMER</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

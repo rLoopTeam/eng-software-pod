@@ -241,13 +241,21 @@
 			BRAKE_CAL_STATE__IDLE = 0U,
 
 			/** Start off and retract both motors */
-			BRAKE_CAL_STATE__RETRACT_MOTORS,
+			BRAKE_CAL_STATE__EXTEND_MOTORS,
 
 			/** Wait for the motors to retract the brakes */
-			BRAKE_CAL_STATE__WAIT_RETRACT_MOTORS,
+			BRAKE_CAL_STATE__WAIT_EXTEND_MOTORS,
 
 			/** Release the zero end stops */
 			BRAKE_CAL_STATE__RELEASE_ZERO,
+
+			/** Due to the nature of the switches, we may not be symetrical, so
+			 apply a little zero here.
+			 */
+			BRAKE_CAL_STATE__APPLY_NEW_ZERO,
+
+			/** Wait until the new zero is done */
+			BRAKE_CAL_STATE__WAIT_NEW_ZERO,
 
 			/** Cal is done */
 			BRAKE_CAL_STATE__COMPLETE

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['efcu_5fbrakes_5f_5fget_5fswtichstate',['eFCU_BRAKES__Get_SwtichState',['../fcu__core_8h.html#ae9a0152416e52b50598a5341942a8eae',1,'fcu_core.h']]],
-  ['efcu_5fbrakes_5fsw_5f_5fget_5fswitch',['eFCU_BRAKES_SW__Get_Switch',['../fcu__core_8h.html#aa814aaa139fe3b46521510fdb19f2db2',1,'fcu_core.h']]]
+  ['efcu_5fbrakes_5f_5fget_5fswtichstate',['eFCU_BRAKES__Get_SwtichState',['../group___f_c_u_____b_r_a_k_e_s.html#gae9a0152416e52b50598a5341942a8eae',1,'eFCU_BRAKES__Get_SwtichState(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch):&#160;fcu__brakes.c'],['../group___f_c_u_____b_r_a_k_e_s.html#gae9a0152416e52b50598a5341942a8eae',1,'eFCU_BRAKES__Get_SwtichState(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch):&#160;fcu__brakes.c']]],
+  ['efcu_5fbrakes_5fsw_5f_5fget_5fswitch',['eFCU_BRAKES_SW__Get_Switch',['../group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#gaa814aaa139fe3b46521510fdb19f2db2',1,'eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch):&#160;fcu__brakes__switches.c'],['../group___f_c_u_____b_r_a_k_e_s_____s_w_i_t_c_h_e_s.html#gaa814aaa139fe3b46521510fdb19f2db2',1,'eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch):&#160;fcu__brakes__switches.c']]]
 ];

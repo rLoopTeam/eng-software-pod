@@ -29,11 +29,15 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the brake switches modules
  * 
- * @st_funcMD5		BADA00E37708032B41CF323DF1117D6D
+ * @st_funcMD5		F6743C5D24C6F1A8B21D48171565088E
  * @st_funcID		LCCM655R0.FILE.008.FUNC.001
  */
 void vFCU_BRAKES_SW__Init(void)
 {
+
+	Luint8 u8Brake;
+	Luint8 u8Switch;
+
 	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 0U;
 	sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].u8EdgeSeen = 0U;
 	sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 0U;
@@ -53,14 +57,24 @@ void vFCU_BRAKES_SW__Init(void)
 		sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeenCnt = 0U;
 	#endif
 
-	//TODO: set flag if interrupt was seen
+	//during power on, its a really good idea to check our switch state
+	for(u8Brake = 0U; u8Brake < (Luint8)FCU_BRAKE__MAX_BRAKES; u8Brake++)
+	{
+		for(u8Switch = 0U; u8Switch < (Luint8)BRAKE_SW__MAX_SWITCHES; u8Switch++)
+		{
+			//read and save the switch status
+			sFCU.sBrakes[(Luint8)u8Brake].sLimits[(Luint8)u8Switch].eSwitchState = eFCU_BRAKES_SW__Get_Switch((E_FCU__BRAKE_INDEX_T)u8Brake, (E_FCU__BRAKE_LIMSW_INDEX_T)u8Switch);
+
+		}//for(u8Switch = 0U; u8Switch < (Luint8)BRAKE_SW__MAX_SWITCHES; u8Switch++)
+
+	}//for(u8Brake = 0U; u8Brake < (Luint8)FCU_BRAKE__MAX_BRAKES; u8Brake++)
 }
 
 /***************************************************************************//**
  * @brief
  * Process the brake swtich tasks
  * 
- * @st_funcMD5		24FC7CAFDEFC3718FA50379B661CA39A
+ * @st_funcMD5		80D83DD333C80661C9CFB02740D2B094
  * @st_funcID		LCCM655R0.FILE.008.FUNC.002
  */
 void vFCU_BRAKES_SW__Process(void)
@@ -127,7 +141,7 @@ Luint8 u8FCU_BRAKES_SW__Get_FaultFlag(E_FCU__BRAKE_INDEX_T eBrake)
  * @param[in] 			eBrake			The brake, left or right
  * @param[in]			eSwitch			The extend or retract switch
  * @return				Open, Closed or Unknown
- * @st_funcMD5		35288AEFA9B337C44CC77F84EEB00C4C
+ * @st_funcMD5		3C8ABC20E7D6C00B0AC1BFE2AF5CAC9F
  * @st_funcID		LCCM655R0.FILE.008.FUNC.004
  */
 E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch)
@@ -328,6 +342,16 @@ void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void)
 }
 
 #ifdef WIN32
+/***************************************************************************//**
+ * @brief
+ * Inject the swtich state into the brakes
+ * 
+ * @param[in]		u8Value					0 = open, 1 = closed
+ * @param[in]		u8ExtendRetract			0 = extend, 1 = retract
+ * @param[in]		u8Brake					Brake chanenl
+ * @st_funcMD5		4B4ECE68F44F81D7C3EBC97B89FACEA5
+ * @st_funcID		LCCM655R0.FILE.008.FUNC.009
+ */
 void vFCU_BRAKES_SW_WIN32__Inject_SwitchState(Luint8 u8Brake, Luint8 u8ExtendRetract, Luint8 u8Value)
 {
 	//no index checking on win32
