@@ -170,7 +170,7 @@ void vPWRNODE_BAATTEMP_ETH__Transmit_ROMID(Luint32 u32Index)
 	pu8Buffer = 0;
 
 	//setup length based on packet.
-	u16Length = 24U;
+	u16Length = 12U;
 
 
 	//pre-comit
