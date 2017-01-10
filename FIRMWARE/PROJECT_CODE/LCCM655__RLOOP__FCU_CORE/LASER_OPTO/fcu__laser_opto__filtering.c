@@ -27,15 +27,14 @@ extern struct _strFCU sFCU;
 void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser)
 {
 
-Lfloat32 f32FilterAlpha = 0.008F;
+Lfloat32 f32FilterAlpha = 0.01F;
 Lfloat32 f32NewSampleInfluence = 0.0F;
 Lfloat32 f32OldSampleInfluence = 0.0F
-Lfloat32 f32MaxRange = 50.0F;
 
 	//exponential moving average filter
 
-	//reject values above 50 as this is what sensor indicates in case out of range
-	if (sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32Distance < f32MaxRange) 
+	//reject current value which differ by more than 5 mm from the previous value
+	if abs(sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32Distance - sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32PreviousValue) < 5
 	{
 	//  @see http://dsp.stackexchange.com/questions/20333/how-to-implement-a-moving-average-in-c-without-a-buffer
 
@@ -46,18 +45,17 @@ Lfloat32 f32MaxRange = 50.0F;
 	//Update the current value
 	sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue = f32OldSampleInfluence + f32NewSampleInfluence;
 
-	// Store old sample 
- 	sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32PreviousValue = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32Distance;
+	// Remember the current value for next iteration
+ 	sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32PreviousValue = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue;
 	
 	}
 
 	else
 	{
-	// assign unfiltered value in case it's above 50
-	sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32Distance;
+	// set current filtered value to the previous filtered value in case the differential is higher than 5
+	sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32PreviousValue;
 	}
 }
-
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT
 
