@@ -75,15 +75,24 @@
 
 		}SC16__REGS__T;
 
+		#ifdef WIN32
+			typedef void (__cdecl * pSC16IS_WIN32_TxData_Callback_FuncType)(Luint8 u8DeviceIndex, Luint8 *pu8Data, Luint8 u8Length);
+		#endif
+		
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
 		struct _strSC16
 		{
+			
 
 			/** the multiple devices */
 			struct
 			{
+				#ifdef WIN32
+					pSC16IS_WIN32_TxData_Callback_FuncType pTxCallback;
+				#endif
+				
 				//the fault flags for this module
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
@@ -234,7 +243,10 @@
 		void vSC16_LOWLEVEL__FIFO_Write(Luint8 u8DeviceIndex, Luint8 *u8Data, Luint8 u8DataLength);
 		void vSC16_LOWLEVEL__FIFO_Read(Luint8 u8DeviceIndex);
 
-
+		#ifdef WIN32
+			DLL_DECLARATION vSC16IS_WIN32__Set_TxData_Callback(Luint8 u8DeviceIndex, pSC16IS_WIN32_TxData_Callback_FuncType pFunc);
+			void vSC16IS_WIN32__TxData(Luint8 u8DeviceIndex, Luint8 *pu8Data, Luint8 u8Length);
+		#endif
 
 		//testing
 		#if C_LOCALDEF__LCCM487__ENABLE_TEST_SPEC == 1U

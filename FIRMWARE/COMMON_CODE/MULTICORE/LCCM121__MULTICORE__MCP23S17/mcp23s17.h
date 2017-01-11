@@ -18,10 +18,15 @@
 	#include <localdef.h>
 	#if C_LOCALDEF__LCCM121__ENABLE_THIS_MODULE == 1U
 
+		/*******************************************************************************
+		Includes
+		*******************************************************************************/
 		#include <MULTICORE/LCCM121__MULTICORE__MCP23S17/mcp23s17__private.h>
 		#include <MULTICORE/LCCM121__MULTICORE__MCP23S17/mcp23s17__fault_flags.h>
 
-		//core
+		/*******************************************************************************
+		Function Protos
+		*******************************************************************************/
 		void vMCP23S17__Init(Luint8 u8DeviceIndex);
 		Luint32 u32MCP23S17__Get_FaultFlags(Luint8 u8DeviceIndex);
 		void vMCP23S17__Set_Pin_High(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
@@ -32,6 +37,7 @@
 		void vMCP23S17__Set_PinPolarity_Opposite(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
 		void vMCP23S17__Set_PinPolarity_Same(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
 		void vMCP23S17__EnablePullups(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Mask);
+		void vMCP23S17__Set_Port(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Value);
 		Luint8 u8MCP23S17__Read_PortA(Luint8 u8DeviceIndex);
 		Luint8 u8MCP23S17__Read_Input(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
 		Luint8 u8MCP23S17__Read_PortB(Luint8 u8DeviceIndex);

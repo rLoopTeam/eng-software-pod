@@ -650,10 +650,10 @@
 				struct _strASICmd cmdQueue[C_ASI__COMMAND_QUEUE];
 
 				/** command queue head index*/
-				Lint8 qHead;
+				Luint8 u8Queue_HeadIndex;
 
 				/** command queue tail index*/
-				Lint8 qTail;
+				Luint8 u8Queue_TailIndex;
 
 				/** a set of timers to control tx timeouts */
 				Luint32 u32ASI_turnaround_Counter;
@@ -948,12 +948,28 @@
 		void vFCU_ASI__Init(void);
 		void vFCU_ASI__10MS_ISR(void);
 		void vFCU_ASI__Process(void);
-		Lint16 s16FCU_ASI__ReadMotorRpm(Luint8 u8ASIDevNum, Luint16 *u16Rpm);
-		Lint16 s16FCU_ASI__ReadMotorCurrent(Luint8 u8ASIDevNum, Luint16 *u16Current);
-		Lint16 s16FCU_ASI__ReadControllerTemperature(Luint8 u8ASIDevNum, Luint16 *u16Temp);
-		Lint16 s16FCU_ASI__SaveSettings(Luint8 u8ASIDevNum);
-		Lint16 s16FCU_ASI__GetFaults(Luint8 u8ASIDevNum, Luint16 *u16Faults);
+		Lint16 s16FCU_ASI__SendCommand(struct _strASICmd *sCmdParams);
+		void vFCU_ASI__MemSet(Luint8 *pu8Buffer, Luint8 u8Value, Luint32 u32Count);
+		void vFCU_ASI__SetVar(struct _strASICmd *pTail);
 
+			//CRC
+			void vFCU_ASI_CRC__AddCRC(Luint8 *pu8Data);
+			Luint16 u16FCU_ASI_CRC__ComputeCRC(Luint8 *pu8Data, Luint16 u16DataLen);
+			Lint16 s16FCU_ASI_CRC__CheckCRC(Luint8 *pu8Data, Luint8 u8DataLen);
+
+			//controller layer
+			Lint16 s16FCU_ASI_CTRL__Init(void);
+			Lint16 s16FCU_ASI_CTRL__ReadMotorRpm(Luint8 u8ASIDevNum, Luint16 *pu16Rpm);
+			Lint16 s16FCU_ASI_CTRL__ReadMotorCurrent(Luint8 u8ASIDevNum, Luint16 *pu16Current);
+			Lint16 s16FCU_ASI_CTRL__ReadControllerTemperature(Luint8 u8ASIDevNum, Luint16 *pu16Temp);
+			Lint16 s16FCU_ASI_CTRL__SaveSettings(Luint8 u8ASIDevNum);
+			Lint16 s16FCU_ASI_CTRL__GetFaults(Luint8 u8ASIDevNum, Luint16 *pu16Faults);
+			Lint16 s16FCU_ASI_CTRL__ProcessReply(struct _strASICmd *pTail);
+
+			//mux
+			void vFCU_ASI_MUX__Init(void);
+			void vFCU_ASI_MUX__Process(void);
+			void vFCU_ASI_MUX__SelectChannel(Luint8 u8ChannelIndex);
 
 		//throttle layer
 		void vFCU_THROTTLE__Init(void);
