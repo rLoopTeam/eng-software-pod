@@ -24,6 +24,14 @@
 //the structure
 extern struct _strFCU sFCU;
 
+/***************************************************************************//**
+ * @brief
+ * Apply the laser opto filter
+ * 
+ * @param[in]		eLaser					The laser index
+ * @st_funcMD5		C70997489D8931606AB43304D6866B81
+ * @st_funcID		LCCM655R0.FILE.057.FUNC.001
+ */
 void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser)
 {
 
@@ -49,7 +57,6 @@ Lfloat32 f32OldSampleInfluence = 0.0F
  	sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32PreviousValue = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue;
 	
 	}
-
 	else
 	{
 	// set current filtered value to the previous filtered value in case the differential is higher than 5

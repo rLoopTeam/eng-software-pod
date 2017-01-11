@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the timing list
  * 
- * @st_funcMD5		B8F3BEDA21C0436C178D38187F87B646
+ * @st_funcMD5		9BA52F4C0FCD64FBCF621D2764E85A47
  * @st_funcID		LCCM655R0.FILE.042.FUNC.001
  */
 void vFCU_LASERCONT_TL__Init(void)
@@ -50,6 +50,7 @@ void vFCU_LASERCONT_TL__Init(void)
 
 		//clear the counts
 		sFCU.sContrast.sTimingList[u8LaserCount].u16RisingCount = 0U;
+		sFCU.sContrast.sTimingList[u8LaserCount].u16PrevRisingCount = 0U;
 		sFCU.sContrast.sTimingList[u8LaserCount].u16FallingCount = 0U;
 		sFCU.sContrast.sTimingList[u8LaserCount].u8NewRisingAvail = 0U;
 
@@ -204,24 +205,26 @@ void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Registe
  * can only use used if new rising edge avail = 1 and there is suitable rising data
  * 
  * @param[in]		eLaser				The laser index
- * @st_funcMD5		9940CA9BC9719734DE3ABC97353DA6D0
+ * @param[in]		u16CurrentIndex		The current index to compare against
+ * @st_funcMD5		A7C670C712B3C8EA0B5451ECAABE9577
  * @st_funcID		LCCM655R0.FILE.042.FUNC.006
  */
-Luint64 u64FCU_LASERCONT_TL__Get_TimeDelta(E_FCU__LASER_CONT_INDEX_T eLaser)
+Luint64 u64FCU_LASERCONT_TL__Get_TimeDelta(E_FCU__LASER_CONT_INDEX_T eLaser, Luint16 u16CurrentIndex)
 {
 	Luint64 u64Return;
-	Luint8 u8Index0;
-	Luint8 u8Index1;
+	Luint16 u16Index0;
+	Luint16 u16Index1;
 
-	if(sFCU.sContrast.sTimingList[(Luint8)eLaser].u16RisingCount > 1)
+	//can only do if we have AT LEAST one spot
+	if(u16CurrentIndex >= 1U)
 	{
 
 		//compute the indexes
-		u8Index0 = sFCU.sContrast.sTimingList[(Luint8)eLaser].u16RisingCount - 1U;
-		u8Index1 = sFCU.sContrast.sTimingList[(Luint8)eLaser].u16RisingCount - 2U;
+		u16Index0 = u16CurrentIndex;
+		u16Index1 = u16CurrentIndex - 1U;
 
-		u64Return = sFCU.sContrast.sTimingList[(Luint8)eLaser].u64RisingList[u8Index0];
-		u64Return -= sFCU.sContrast.sTimingList[(Luint8)eLaser].u64RisingList[u8Index1];
+		u64Return = sFCU.sContrast.sTimingList[(Luint8)eLaser].u64RisingList[u16Index0];
+		u64Return -= sFCU.sContrast.sTimingList[(Luint8)eLaser].u64RisingList[u16Index1];
 	}
 	else
 	{

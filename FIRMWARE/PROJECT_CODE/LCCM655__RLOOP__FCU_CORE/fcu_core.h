@@ -37,13 +37,6 @@
 		*******************************************************************************/
 		#define C_MLP__MAX_AVERAGE_SIZE				(8U)
 
-
-		// number of ASI commands waiting in queue
-		#define C_ASI__COMMAND_QUEUE				(8)
-
-		// max modbus frame size
-		#define C_ASI__MAX_FRAME_SIZE				(256)
-
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
@@ -62,8 +55,6 @@
 			/** The init statemachine */
 			E_FCU__INIT_STATE_TYPES eInitStates;
 
-			/** The brakes state machine */
-			E_FCU_BRAKES__STATES_T eBrakeStates;
 
 			/** Fault handling subsystem */
 			struct
@@ -79,20 +70,47 @@
 
 
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-			/** Brake Dev */
+
+			/** Gloabl brakes system */
 			struct
 			{
+				/** individual brake fault flags */
+				FAULT_TREE__PUBLIC_T sFaultFlags;
 
-				/** Are we in develompent mode? */
-				Luint8 u8DevMode;
-
-				/** Key to enable develompent mode checks */
-				Luint32 u32DevKey;
-
-			}sBrakesDev;
+				/** The brakes state machine */
+				E_FCU_BRAKES__STATES_T eBrakeStates;
 
 
-			/** Brake Substructure */
+				/** Brake Development mode */
+				struct
+				{
+
+					/** Are we in develompent mode? */
+					Luint8 u8DevMode;
+
+					/** Key to enable develompent mode checks */
+					Luint32 u32DevKey;
+
+				}sBrakesDev;
+
+				/** just a global movement planner ID */
+				Luint32 u32MoveTaskID;
+
+				/** Claibration Systems */
+				struct
+				{
+					//Cal State
+					E_FCU_CAL_BRAKES__STATES_T eState;
+
+				}sCalibration;
+
+				/** 100ms tick */
+				Luint8 u8Timer_100ms;
+
+			}sBrakesGlobal;
+
+
+			/** Brake(S) Substructure */
 			struct
 			{
 
@@ -119,6 +137,10 @@
 					/** The current state of the switch */
 					E_FCU__SWITCH_STATE_T eSwitchState;
 
+					#ifdef WIN32
+						/** Allow us to inject swiches on WIN32 */
+						Luint8 u8InjectedValue;
+					#endif
 
 				}sLimits[BRAKE_SW__MAX_SWITCHES];
 
@@ -140,24 +162,34 @@
 					/** ADC value - Zero Value */
 					Lint32 s32ADC_Minus_Zero;
 
-					/** Percent of braking from 0.0 to 100.0*/
-					Lfloat32 f32BrakePosition_Percent;
+					/** Brake linear pos feedback*/
+					Lfloat32 f32BrakePosition_mm;
 
-					/** Average Counter	for MLP filter function				 */
+					/** Average Counter	for MLP filter function */
 					Luint16 u16AverageCounter;
 
-					/** Average Array for MLP filter function				 */
+					/** Average Array for MLP filter function */
 					Luint16 u16AverageArray[C_MLP__MAX_AVERAGE_SIZE];
 
-					/** Lowest MLP Value				 */
+					/** Lowest MLP Value*/
 					Luint16 lowest_value;
 
-					/** Highest MLP Value				 */
+					/** Highest MLP Value */
 					Luint16 highest_value;
 
 					#if C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES == 1U
 						/** Debug how many times we get a zero */
 						Luint32 zero_count;
+					#endif
+
+
+					#ifdef WIN32
+					struct
+					{
+						/** The ADC sample for WIN32 emulation */
+						Luint16 u16ADC_Sample;
+
+					}sWin32;
 					#endif
 
 					/** Temporary use; identify when startup sequence has ended and mlp won't return 0. */
@@ -201,8 +233,19 @@
 				}sCurrent;
 
 
-				/** individual brake fault flags */
-				FAULT_TREE__PUBLIC_T sFaultFlags;
+				/** The target move position */
+				struct
+				{
+					/** The current targeted IBeam brake distance */
+					Lfloat32 f32IBeam_mm;
+
+					/** target lead screw position */
+					Lfloat32 f32LeadScrew_mm;
+
+					/** Microns for the planner */
+					Luint32 u32LeadScrew_um;
+
+				}sTarget;
 
 				Luint8 u8BrakeSWErr;
 
@@ -311,7 +354,7 @@
 					Luint8 u8NewByteArray[3U];
 
 					/** The most recent distance*/
-					Lfloat32 f32Distance;
+					Lfloat32 f32DistanceRAW;
 
 					/** New distance has been measured, other layer to clear it */
 					Luint8 u8NewDistanceAvail;
@@ -369,10 +412,28 @@
 				Luint8 u8NewByteArray[3];
 
 				/** The most recent distance*/
-				Lfloat32 f32Distance;
+				Lfloat32 f32DistanceRAW;
+
+				/** The final filtered distance*/
+				Lfloat32 f32DistanceFiltered;
 
 				/** New distance has been measured, other layer to clear it */
 				Luint8 u8NewDistanceAvail;
+
+				/** For emulation over UDP */
+				struct
+				{
+
+					/** Is the EMU enabled ?*/
+					Luint8 u8EmulationEnabled;
+
+					/** Special Key = 0x98984343 to prevent above flag being 1 */
+					Luint32 u32EmuKey;
+
+					/** Emulated Distance */
+					Lfloat32 f32Distance;
+
+				}sEmu;
 
 			}sLaserDist;
 
@@ -447,25 +508,17 @@
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
 
-				/** Top level distance remaining in the run in mm */
-				Luint32 u32DistRemain_mm;
 
-				/** Distance elapsed between last stripe */
-				Luint32 u32DistLastStripe_mm;
 
-				/** Current velocity in mm/sec */
-				Luint32 u32CurrentVeloc_mms;
-
-				/** Velocity Calc Area */
+				/** The final computed values taking into account fault tolerance and
+				 * laser processing techiques */
 				struct
 				{
 
 					/** The current velocity in mm/sec */
 					Luint32 u32CurrentVeloc_mms;
 
-
-
-				}sVeloc;
+				}sComputed;
 
 				/** Individual contrast senors */
 				struct
@@ -476,6 +529,21 @@
 
 					/** Individual fault flags */
 					FAULT_TREE__PUBLIC_T sFaultFlags;
+
+					/** Top level distance remaining in the run in mm */
+					Luint32 u32DistElapsed_mm;
+
+					/** Distance elapsed between last stripe */
+					Luint32 u32DistLastStripe_mm;
+
+					/** Current velocity in mm/sec */
+					Luint32 u32CurrentVeloc_mms;
+
+					/** Current velocity in mm/sec */
+					Luint32 u32PreviousVeloc_mms;
+
+					/** Current acceleration */
+					Lint32 s32CurrentAccel_mmss;
 
 				}sSensors[LASER_CONT__MAX];
 
@@ -494,6 +562,9 @@
 
 					/** Rising edge count */
 					Luint16 u16RisingCount;
+
+					/** Can maintan a list of prev processed counts */
+					Luint16 u16PrevRisingCount;
 
 					/** Falling edge count */
 					Luint16 u16FallingCount;
@@ -561,6 +632,9 @@
 				/** A flag to indicate 10ms has elapsed if we are using timed packets */
 				Luint8 u8100MS_Flag;
 
+				/** Test counter for telemetry */
+				Luint32 u32TestCounter;
+
 			}sSpaceX;
 
 			#endif
@@ -582,14 +656,8 @@
 				Lint8 qTail;
 
 				/** a set of timers to control tx timeouts */
-				Luint64 timeout_3_5_char;
-				Luint64 timeout_1_5_char;
-				Luint64 timeout_response;
-				Luint64 timeout_turnaround;
-				Luint64 timer_3_5_char_start;
-				Luint64 timer_1_5_char_start;
-				Luint64 timer_response_start;
-				Luint64 timer_turnaround_start;
+				Luint32 u32ASI_turnaround_Counter;
+				Luint32 u32ASI_replywait_Counter;
 
 			}sASIComms;
 			#endif
@@ -704,6 +772,7 @@
 			void vFCU_NET_TX__Init(void);
 			void vFCU_NET_TX__Process(void);
 			void vFCU_NET_TX__10MS_ISR(void);
+			void vFCU_NET_TX__100MS_ISR(void);
 
 			//spaceX specific
 			void vFCU_NET_SPACEX_TX__Init(void);
@@ -728,13 +797,13 @@
 			DLL_DECLARATION void vFCU_LASERCONT_TL__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Register);
 			Luint8 u8FCU_LASERCONT_TL__Get_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser);
 			void vFCU_LASERCONT_TL__Clear_NewRisingAvail(E_FCU__LASER_CONT_INDEX_T eLaser);
-			Luint64 u64FCU_LASERCONT_TL__Get_TimeDelta(E_FCU__LASER_CONT_INDEX_T eLaser);
+			Luint64 u64FCU_LASERCONT_TL__Get_TimeDelta(E_FCU__LASER_CONT_INDEX_T eLaser, Luint16 u16CurrentIndex);
 
 			//velocity
 			void vFCU_LASERCONT_VELOC__Init(void);
 			void vFCU_LASERCONT_VELOC__Process(void);
 			Luint32 u32FCU_LASERCONT_VELOC__Get_CurrentVeloc_mms(void);
-			void vFCU_LASERCONT_VELOC__Compute(Luint32 u32Distance, Luint64 u64TimeDelta);
+			Luint32 u32FCU_LASERCONT_VELOC__Compute(Luint32 u32Distance, Luint64 u64TimeDelta);
 
 			//track database
 			void vFCU_LASERCONT_TRKDB__Init(void);
@@ -753,8 +822,17 @@
 		Lfloat32 f32FCU_LASERDIST__Get_Distance(void);
 		void vFCU_LASERDIST__100MS_ISR(void);
 
+		DLL_DECLARATION void vFCU_LASERDIST_WIN32__Set_DistanceRaw(Lfloat32 f32Value);
+
 			//eth
+			void vFCU_LASERDIST_ETH__Init(void);
 			void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType);
+			void vFCU_LASERDIST_ETH__Enable_EmulationMode(Luint32 u32Key, Luint32 u32Enable);
+			void vFCU_LASERDIST_ETH__Emulation_Injection(Lfloat32 f32Value);
+
+			//filtering
+			void vFCU_LASERDIST_FILT__Init(void);
+			void vFCU_LASERDIST_FILT__Process(void);
 
 		//main state machine
 		void vFCU_MAINSM__Init(void);
@@ -773,6 +851,7 @@
 		Lfloat32 f32FCU_LASEROPTO__Get_Distance(E_FCU__LASER_OPTO__INDEX_T eLaser);
 		Luint8 u8FCU_LASEROPTO__Get_Error(E_FCU__LASER_OPTO__INDEX_T eLaser);
 		void vFCU_LASEROPTO__100MS_ISR(void);
+		DLL_DECLARATION void vFCU_LASEROPTO_WIN32__Set_DistanceRaw(Luint32 u32Index, Lfloat32 f32Value);
 
 			//eth
 			void vFCU_LASEROPTO_ETH__Transmit(E_NET__PACKET_T ePacketType);
@@ -789,37 +868,62 @@
 		//brakes
 		void vFCU_BRAKES__Init(void);
 		void vFCU_BRAKES__Process(void);
-		void vFCU_BRAKES__Move_IBeam_Distance_mm(Luint32 u32Distance);
+		void vFCU_BRAKES__Begin_Init(Luint32 u32Key);
+		void vFCU_BRAKES__Move_IBeam_Distance_mm(Lfloat32 f32Distance);
+		void vFCU_BRAKES__100MS_ISR(void);
 		Lfloat32 f32FCU_BRAKES__Get_ScrewPos(E_FCU__BRAKE_INDEX_T eBrake);
 		E_FCU__SWITCH_STATE_T eFCU_BRAKES__Get_SwtichState(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
 		Luint16 u16FCU_BRAKES__Get_ADC_Raw(E_FCU__BRAKE_INDEX_T eBrake);
 		Lfloat32 f32FCU_BRAKES__Get_IBeam_mm(E_FCU__BRAKE_INDEX_T eBrake);
 		Lfloat32 f32FCU_BRAKES__Get_MLP_mm(E_FCU__BRAKE_INDEX_T eBrake);
 
-			//dev specifics
-			void vFCU_BRAKES__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1);
-			void vFCU_BRAKES__Dev_MoveMotor(Luint32 u32Index, Luint32 u32Position);
 
-		//stepper drive
-		void vFCU_BRAKES_STEP__Init(void);
-		void vFCU_BRAKES_STEP__Process(void);
-		void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos);
-		Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake);
+			//stepper drive
+			void vFCU_BRAKES_STEP__Init(void);
+			void vFCU_BRAKES_STEP__Process(void);
+			void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos);
+			Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake);
 
-		//brake switches
-		void vFCU_BRAKES_SW__Init(void);
-		void vFCU_BRAKES_SW__Process(void);
-		void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void);
-		void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void);
-		void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void);
-		void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void);
-		E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
-		Luint8 u8FCU_BRAKES_SW__Get_FaultFlag(E_FCU__BRAKE_INDEX_T eBrake);
+			//brake switches
+			void vFCU_BRAKES_SW__Init(void);
+			void vFCU_BRAKES_SW__Process(void);
+			DLL_DECLARATION void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void);
+			DLL_DECLARATION void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void);
+			DLL_DECLARATION void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void);
+			DLL_DECLARATION void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void);
+			E_FCU__SWITCH_STATE_T eFCU_BRAKES_SW__Get_Switch(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
+			Luint8 u8FCU_BRAKES_SW__Get_FaultFlag(E_FCU__BRAKE_INDEX_T eBrake);
+			#ifdef WIN32
+				DLL_DECLARATION void vFCU_BRAKES_SW_WIN32__Inject_SwitchState(Luint8 u8Brake, Luint8 u8ExtendRetract, Luint8 u8Value);
+			#endif
 
+			//brakes MLP sensor
+			void vFCU_BRAKES_MLP__Init(void);
+			void vFCU_BRAKES_MLP__Process(void);
+			#ifdef WIN32
+				DLL_DECLARATION void vFCU_BRAKES_MLP_WIN32__ForceADC(Luint8 u8Brake, Luint16 u16Value);
+			#endif
+			void vFCU_BRAKES_MLP__ComputeCalibration_Zero(Luint32 u32Key, E_FCU__BRAKE_INDEX_T eBrake);
+			void vFCU_BRAKES_MLP__ComputeCalibration_Span(Luint32 u32Key, E_FCU__BRAKE_INDEX_T eBrake);
 
-		//brakes MLP sensor
-		void vFCU_BRAKES_MLP__Init(void);
-		void vFCU_BRAKES_MLP__Process(void);
+			//eth
+			void vFCU_BRAKES_ETH__Init(void);
+			void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType);
+			void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Luint32 u32Position);
+			void vFCU_BRAKES_ETH__MoveMotor_IBeam(Lfloat32 f32Value);
+			void vFCU_BRAKES_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1);
+			void vFCU_BRAKES_ETH__MLP_ZeroSpan(Luint32 u32Key0, Luint32 u32Brake, Luint32 u32Function);
+
+			//calibration
+			void vFCU_BRAKES_CAL__Init(void);
+			void vFCU_BRAKES_CAL__Process(void);
+			void vFCU_BRAKES_CAL__BeginCal(Luint32 u32Key);
+			Luint8 u8FCU_BRAKES_CAL__Is_Busy(void);
+
+			//WDT
+			void vFCU_BRAKES_WDT__Init(void);
+			void vFCU_BRAKES_WDT__Pet_Start(void);
+			void vFCU_BRAKES_WDT__Pet_End(void);
 
 		//accelerometer layer
 		void vFCU_ACCEL__Init(void);
@@ -842,6 +946,14 @@
 
 		//ASI interface
 		void vFCU_ASI__Init(void);
+		void vFCU_ASI__10MS_ISR(void);
+		void vFCU_ASI__Process(void);
+		Lint16 s16FCU_ASI__ReadMotorRpm(Luint8 u8ASIDevNum, Luint16 *u16Rpm);
+		Lint16 s16FCU_ASI__ReadMotorCurrent(Luint8 u8ASIDevNum, Luint16 *u16Current);
+		Lint16 s16FCU_ASI__ReadControllerTemperature(Luint8 u8ASIDevNum, Luint16 *u16Temp);
+		Lint16 s16FCU_ASI__SaveSettings(Luint8 u8ASIDevNum);
+		Lint16 s16FCU_ASI__GetFaults(Luint8 u8ASIDevNum, Luint16 *u16Faults);
+
 
 		//throttle layer
 		void vFCU_THROTTLE__Init(void);

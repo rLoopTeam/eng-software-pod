@@ -18,8 +18,11 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		//special needs for DAQ compile time
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__daq_settings.h>
 
+		/** Data Acqusition System */
+		#define C_LOCALDEF__LCCM655__ENABLE_DAQ								(1U)
+
 		/** Enable or disable the PiComms layer */
-		#define C_LOCALDEF__LCCM655__ENABLE_PI_COMMS						(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_PI_COMMS						(0U)
 
 		/** Enable the OptoNCDT laser interface */
 		#define C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT					(1U)
@@ -49,6 +52,10 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Ethernet Systems */
 		#define C_LOCALDEF__LCCM655__ENABLE_ETHERNET						(1U)
 
+		/** SpaceX Telemetry Requirements Enable */
+		#define C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY				(1U)
+
+
 		/** Flight control specifics */
 		#define C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL					(1U)
 
@@ -70,18 +77,6 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 			/** Allow us to control the gimbals and include in calculations */
 			#define C_LOCALDEF__LCCM655__ENABLE_GIMBAL_CONTROL					(1U)
 
-		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER			(20U)
-		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO				(21U)
-		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_SPAN				(22U)
-		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_ZERO				(23U)
-		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN				(24U)
-		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_CRC				(25U)
-
-		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC				(26U)
-		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_ACCEL				(27U)
-		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_VELOC				(28U)
-		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL				(29U)
-		#define C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP_CRC					(30U)
 
 		/** ADC Sample Limits */
 		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__LOWER_BOUND					(300U)

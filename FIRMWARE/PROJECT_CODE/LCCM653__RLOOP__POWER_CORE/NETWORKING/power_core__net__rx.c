@@ -1,38 +1,55 @@
-//networking Rx
+/**
+ * @file		POWER_CORE__NET__RX.C
+ * @brief		Network Rx portion of the power core
+ * @author		Lachlan Grogan
+ * @copyright	rLoop Inc.
+ */
+/**
+ * @addtogroup RLOOP
+ * @{ */
+/**
+ * @addtogroup POWER_NODE
+ * @ingroup RLOOP
+ * @{ */
+/**
+ * @addtogroup POWER_NODE__NETWORK__RX
+ * @ingroup POWER_NODE
+ * @{ */
 
 #include "../power_core.h"
+
 #if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
 #include <LCCM655__RLOOP__FCU_CORE/NETWORKING/fcu_core__net__packet_types.h>
 
 extern struct _strPWRNODE sPWRNODE;
 
-//rx a standard UDP packet
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Rx a standard UDP packet
  * 
- * @param[in]		u16DestPort		## Desc ##
- * @param[in]		u16Length		## Desc ##
- * @param[in]		*pu8Buffer		## Desc ##
+ * @param[in]		u16DestPort			The desination UDP port
+ * @param[in]		u16Length			The UDP Length
+ * @param[in]		*pu8Buffer			Pointer to the UDP packet data
  * @st_funcMD5		54B96758BB5EA2CBA78EBC1004396A94
  * @st_funcID		LCCM653R0.FILE.018.FUNC.001
  */
 void vPWRNODE_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPort)
 {
-
+	//pass to safety udp processor
+	vSAFE_UDP_RX__UDPPacket(pu8Buffer,u16Length, u16DestPort);
 }
 
 
-//rx a SafetyUDP
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Rx a SafetyUDP
  * 
- * @param[in]		u16Fault		## Desc ##
- * @param[in]		u16DestPort		## Desc ##
- * @param[in]		ePacketType		## Desc ##
- * @param[in]		u16PayloadLength		## Desc ##
- * @param[in]		*pu8Payload		## Desc ##
+ * @param[in]		u16Fault				Fault details (if any)
+ * @param[in]		u16DestPort				The destination port in the UDP packet
+ * @param[in]		ePacketType				SafeUDP Packet Type
+ * @param[in]		u16PayloadLength		SafeUDP Payload Length
+ * @param[in]		*pu8Payload				Pointer to SafeUDP Payload
  * @st_funcMD5		6B62E5DDB6D7BDC7180F3EED6DA76908
  * @st_funcID		LCCM653R0.FILE.018.FUNC.002
  */
@@ -128,3 +145,7 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_ETHERNET
+/** @} */
+/** @} */
+/** @} */
+

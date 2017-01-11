@@ -190,6 +190,12 @@
     <Filter Include="Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\WIN32">
       <UniqueIdentifier>{1a25c68d-be44-4184-9035-c945dcbfca7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE">
+      <UniqueIdentifier>{c2aa3ff0-611a-4315-8110-d1c6006bfbfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\WIN32">
+      <UniqueIdentifier>{1559f28f-bdbd-4ad7-9dc9-19add45ded19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
@@ -528,6 +534,57 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM418__MULTICORE__MMA8451\WIN32\mma8451__win32.c">
       <Filter>Source Files\MULTICORE\LCCM418__MULTICORE__MMA8451\WIN32</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_DISTANCE\fcu__laser_distance__filtering.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\LASER_DISTANCE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\stepper_drive__time_base.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\A4988\stepper_drive__a4988.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\BUFFER_CONTROL\stepper_drive__buffer.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\GEKO\stepper_drive__geko.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\HOME\stepper_drive__home.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\JERK\stepper_drive__jerk.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\LIMITS\stepper_drive__limits.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\MEMORY\stepper_drive__memory.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\ZERO\stepper_drive__zero.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\stepper_drive.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\stepper_drive__acceleration_profile_sm.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\stepper_drive__axis_system.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\stepper_drive__single_step_sm.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__ethernet.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__calibration.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\WIN32\stepper_drive__win32.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\WIN32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h">
@@ -682,6 +739,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_OPTO\fcu__laser_opto__fault_flags.h">
       <Filter>LCCM655__RLOOP__FCU_CORE\LASER_OPTO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\stepper_drive.h">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\stepper_drive__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

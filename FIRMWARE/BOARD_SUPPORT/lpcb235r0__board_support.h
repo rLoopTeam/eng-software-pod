@@ -63,6 +63,8 @@ Change the build settings:
 
 	#include <RM4/LCCM364__RM4__FIRMWARE_VERSION/rm4_firmware_version.h>
 
+	#include <LCCM655__RLOOP__FCU_CORE/fcu_core__eeprom_layout.h>
+
 /*******************************************************************************
 RM4 CRC MODULE
 *******************************************************************************/
@@ -1105,6 +1107,7 @@ STEP MOTOR DRIVER
 	#define C_LOCALDEF__LCCM231__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM231__ENABLE_THIS_MODULE == 1U
 
+#ifndef WIN32
 		//determine our architecture
 		#define C_LOCALDEF__LCCM231__USE_ON_PIC32							(0U)
 		#define C_LOCALDEF__LCCM231__USE_ON_RM4								(1U)
@@ -1117,6 +1120,23 @@ STEP MOTOR DRIVER
 		#define C_LOCALDEF__LCCM231__STEP_VIA_A4988							(0U)
 		#define C_LOCALDEF__LCCM231__STEP_VIA_GEKO							(1U)
 		#define C_LOCALDEF__LCCM231__STEP_VIA_WIN32							(0U)
+
+#else
+		//determine our architecture
+		#define C_LOCALDEF__LCCM231__USE_ON_PIC32							(0U)
+		#define C_LOCALDEF__LCCM231__USE_ON_RM4								(0U)
+		#define C_LOCALDEF__LCCM231__USE_ON_WIN32							(1U)
+
+		//use f64 if you need the precisions
+		#define C_LOCALDEF__LCCM231__USE_F64								(0U)
+
+		//determine the target
+		#define C_LOCALDEF__LCCM231__STEP_VIA_A4988							(0U)
+		#define C_LOCALDEF__LCCM231__STEP_VIA_GEKO							(0U)
+		#define C_LOCALDEF__LCCM231__STEP_VIA_WIN32							(1U)
+
+#endif
+
 
 
 		//value in seconds of the time base being used
@@ -1137,7 +1157,7 @@ STEP MOTOR DRIVER
 		//enable text debugging
 		#define C_LOCALDEF__LCCM231__ENABLE_TEXT_DEBUG						(0U)
 
-
+#if 0
 		//this is the parameter layout
 		#define C_LOCALDEF__LCCM231__M0_MICROSTEP_RESOLUTION__PARAM_INDEX	(0U)
 		#define C_LOCALDEF__LCCM231__M0_MAX_ACCELERATION__PARAM_INDEX		(1U)
@@ -1153,7 +1173,9 @@ STEP MOTOR DRIVER
 
 		#define C_LOCALDEF__LCCM231__PARAM_INDEX__HEADER					(11U)
 		#define C_LOCALDEF__LCCM231__PARAM_INDEX__CRC						(12U)
+#endif //0
 
+#ifndef WIN32
 		//set to 1 if all of the driver chips are on the same reset line
 		//if not individual resets need to be provided for each device
 		#define C_LOCALDEF__LCCM231__ALL_RESETS_COMMON						(1U)
@@ -1169,23 +1191,24 @@ STEP MOTOR DRIVER
 		#define C_LOCALDEF__LCCM231__M1__PIN_PULSE__LATCH(x)				{vRM4_SPI24_PINS__Set_Pin(SPI24_CHANNEL__2, SPI24_PIN__ENA, x);}
 		#define C_LOCALDEF__LCCM231__M1__PIN_DIR__TRIS()					{vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 21U);}
 		#define C_LOCALDEF__LCCM231__M1__PIN_DIR__LATCH(x)					{vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 21U, x);}
+#endif //win32
 
-		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_DEFAULT_RESOLUTION        10
+		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_DEFAULT_RESOLUTION        2
 		//Value in rev / square second
 		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MAX_ACCELERATION 			100
 		//Value in mm / rev
-		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MILIMITERS_PER_REVOLUTION 10
+		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MILIMITERS_PER_REVOLUTION 3
 		//number of steps per revolution [Integer]
 		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_STEPS_PER_REVOLUTION 		200
 		//Value in RPMs [Integer]
 		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MAX_ANGULAR_VELOCITY 		100
 
 
-		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_DEFAULT_RESOLUTION        10
+		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_DEFAULT_RESOLUTION        2
 		//Value in rev / square second
 		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MAX_ACCELERATION 			100
 		//Value in mm / rev
-		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MILIMITERS_PER_REVOLUTION 10
+		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MILIMITERS_PER_REVOLUTION 3
 		//number of steps per revolution [Integer]
 		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_STEPS_PER_REVOLUTION 		200
 		//Value in RPMs [Integer]
@@ -1253,7 +1276,7 @@ MMA8451 - 3 AXIS ACCELEROMETER
 		#define C_LOCALDEF__LCCM418__DEV2__DATA_RATE_HZ						(50U)
 		#define C_LOCALDEF__LCCM418__DEV3__DATA_RATE_HZ						(50U)
 
-
+#if 0
 		//The parameter indexes
 		#define C_LOCALDEF__LCCM418__PARAM_INDEX__U32_HEADER				(20U)
 		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR0_X_ZERO		(21U)
@@ -1269,7 +1292,7 @@ MMA8451 - 3 AXIS ACCELEROMETER
 		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR3_Y_ZERO		(31U)
 		#define C_LOCALDEF__LCCM418__PARAM_INDEX__S16_SENSOR3_Z_ZERO		(32U)
 		#define C_LOCALDEF__LCCM418__PARAM_INDEX__U16_CRC					(33U)
-
+#endif //0
 
 		//I2C PORT DETAILS
 		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__TxByte(device, reg, byt)

@@ -85,7 +85,7 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				{
 
 					//temp in deg C
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32DS18B20__Get_Temperature_DegC(u16Temp));
+					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32DS18B20__Get_Temperature_DegC(u16Device));
 					pu8Buffer += 4U;
 
 
@@ -111,15 +111,15 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				{
 
 					//user location
-					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, u162DS18B20__Get_UserIndex(u16Temp));
+					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, u162DS18B20__Get_UserIndex(u16Device));
 					pu8Buffer += 2U;
 
 					//resolution
-					pu8Buffer[0] = u82DS18B20__Get_Resolution(u16Temp);
+					pu8Buffer[0] = u82DS18B20__Get_Resolution(u16Device);
 					pu8Buffer += 1U;
 
 					//bus index
-					pu8Buffer[0] = u82DS18B20__Get_BusIndex(u16Temp);
+					pu8Buffer[0] = u82DS18B20__Get_BusIndex(u16Device);
 					pu8Buffer += 1U;
 
 
@@ -170,7 +170,7 @@ void vPWRNODE_BAATTEMP_ETH__Transmit_ROMID(Luint32 u32Index)
 	pu8Buffer = 0;
 
 	//setup length based on packet.
-	u16Length = 24U;
+	u16Length = 12U;
 
 
 	//pre-comit

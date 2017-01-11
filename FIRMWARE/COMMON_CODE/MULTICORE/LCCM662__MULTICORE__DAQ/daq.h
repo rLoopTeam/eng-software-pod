@@ -128,6 +128,9 @@
 			
 			/** Watermark Fill Flag */
 			Luint8 u8WatermarkFlag[M_DAQ__NUM_CHANNELS];
+
+			/** Force a flush */
+			Luint8 u8ForceFlushFlag[M_DAQ__NUM_CHANNELS];
 		
 			/** Watermark Fill Level */
 			Luint16 u16WatermarkLevel[M_DAQ__NUM_CHANNELS];
@@ -172,6 +175,7 @@
 		*******************************************************************************/
 		void vDAQ__Init(void);
 		void vDAQ__Process(void);
+		void vDAQ__ForceFlush(void);
 		Luint32 u32DAQ__Get_SystemTimer(void);
 		DLL_DECLARATION Luint16 u16DAQ__Get_FIFO_Level(Luint16 u16Index);
 		DLL_DECLARATION Luint16 u16DAQ__Get_FIFO_Max(Luint16 u16Index);

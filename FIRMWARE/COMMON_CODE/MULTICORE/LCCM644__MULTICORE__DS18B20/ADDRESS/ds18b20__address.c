@@ -451,6 +451,13 @@ Luint8 u8DS18B20_ADDX__Get_NumEnumerated(void)
 	return sDS18B20.sEnum.u8NumDevices;
 }
 
+
+//if you are manually loading up addresses, set this to 1 after the manual load.
+void vDS18B20_ADDX__Set_SearchComplete(void)
+{
+	sDS18B20.sSearch.u8SearchCompleted = 1U;
+}
+
 /***************************************************************************//**
  * @brief
  * Checks to see if the search state machine is busy or not

@@ -5,23 +5,20 @@
 	/** ASI communication (modbus client) states */
 	typedef enum
 	{
-		/** Initial state */
-		ASI_COMM_STATE__INITIAL = 0u,
-
 		/** Idle state */
-		ASI_COMM_STATE__IDLE = 1u,
+		ASI_COMM_STATE__IDLE = 0u,
 
-		/** Transmit to all slaves */
-		ASI_COMM_STATE__BROADCAST_EMISSION = 2u,
+		/** Wait until slaves have time to process broadcast command */
+		ASI_COMM_STATE__WAIT_TURNAROUND_DELAY = 1u,
 
-		/** Transmit to a specific slave */
-		ASI_COMM_STATE__UNICAST_EMISSION = 3u,
+		/** Wait until hear back from slave after unicast command */
+		ASI_COMM_STATE__WAIT_REPLY = 2u,
 
 		/** Receive state */
-		ASI_COMM_STATE__RECEPTION = 4u,
+		ASI_COMM_STATE__PROCESS_REPLY = 3u,
 
-		/** Process reply or error */
-		ASI_COMM_STATE__CONTROL_AND_WAIT = 5u
+		/** Process error */
+		ASI_COMM_STATE__PROCESS_ERROR = 4u
 
 	} E_FCU_MODBUS__STATE_T;
 
@@ -203,15 +200,21 @@
 
 	}E_FCU__INIT_STATE_TYPES;
 
-	/** Brakes states */
+		/** Brakes states */
 		typedef enum
 		{
 
+			/** Just come out of reset */
+			BRAKE_STATE__RESET = 0U,
+
 			/** We are in idle state */
-			BRAKE_STATE__IDLE = 0U,
+			BRAKE_STATE__IDLE,
 
 			/** Beginning to move the brakes */
 			BRAKE_STATE__BEGIN_MOVE,
+
+			/** Compute the I_Beam distances */
+			BRAKE_STATE__COMPUTE,
 
 			/** The brakes are moving */
 			BRAKE_STATE__MOVING,
@@ -222,9 +225,43 @@
 			/** A fault has occurred with the brake system */
 			BRAKE_STATE__FAULT,
 
-			BRAKE_STATE__TEST
+			BRAKE_STATE__TEST,
+
+			BRAKE_STATE__BEGIN_CAL,
+
+			BRAKE_STATE__WAIT_CAL_DONE
 
 		}E_FCU_BRAKES__STATES_T;
+
+		/** Brake calibration states */
+		typedef enum
+		{
+
+			/** We are in idle state */
+			BRAKE_CAL_STATE__IDLE = 0U,
+
+			/** Start off and retract both motors */
+			BRAKE_CAL_STATE__EXTEND_MOTORS,
+
+			/** Wait for the motors to retract the brakes */
+			BRAKE_CAL_STATE__WAIT_EXTEND_MOTORS,
+
+			/** Release the zero end stops */
+			BRAKE_CAL_STATE__RELEASE_ZERO,
+
+			/** Due to the nature of the switches, we may not be symetrical, so
+			 apply a little zero here.
+			 */
+			BRAKE_CAL_STATE__APPLY_NEW_ZERO,
+
+			/** Wait until the new zero is done */
+			BRAKE_CAL_STATE__WAIT_NEW_ZERO,
+
+			/** Cal is done */
+			BRAKE_CAL_STATE__COMPLETE
+
+		}E_FCU_CAL_BRAKES__STATES_T;
+
 
 
 		/** Pusher interlock state machine */

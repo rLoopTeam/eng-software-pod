@@ -50,13 +50,15 @@ void vFCU_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPor
  * @param[in]		ePacketType				SafeUDP packet Type
  * @param[in]		u16PayloadLength		Length of only the SafeUDP payload
  * @param[in]		*pu8Payload				Pointer to the payload bytes
- * @st_funcMD5		B60C07200ADBE561C1A9CD55076889FB
+ * @st_funcMD5		B86FA7AC7E660312CE2D039237E6562A
  * @st_funcID		LCCM655R0.FILE.018.FUNC.002
  */
 void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)
 {
 
 	Luint32 u32Block[4];
+	Lfloat32 f32Block[4];
+	Lint32 s32Block[4];
 
 	//make sure we are rx'ing on our port number
 	if(u16DestPort == C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER)
@@ -68,6 +70,17 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 		u32Block[1] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
 		u32Block[2] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
 		u32Block[3] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
+
+		f32Block[0] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload);
+		f32Block[1] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
+		f32Block[2] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
+		f32Block[3] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
+
+		s32Block[0] = s32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload);
+		s32Block[1] = s32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
+		s32Block[2] = s32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
+		s32Block[3] = s32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
+
 
 		//determine the type of packet that came in
 		switch((E_NET__PACKET_T)ePacketType)
@@ -95,6 +108,26 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 			case NET_PKT__FCU_GEN__POD_EMULATION_CONTROL:
 
+				break;
+
+			case NET_PKT__FCU_GEN__DAQ_ENABLE:
+				#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
+					if(u32Block[0] == 1U)
+					{
+						vDAQ__Streaming_On();
+					}
+					else
+					{
+						vDAQ__Streaming_Off();
+					}
+				#endif
+				break;
+
+			case NET_PKT__FCU_GEN__DAQ_FLUSH:
+				//tell the DAQ to flush.
+				#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
+					vDAQ__ForceFlush();
+				#endif
 				break;
 
 			case NET_PKT__FCU_GEN__STREAMING_CONTROL:
@@ -151,6 +184,19 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				sFCU.sUDPDiag.eTxPacketType = NET_PKT__LASER_DIST__TX_LASER_DATA;
 				break;
 
+			case NET_PKT__LASER_DIST__ENABLE_EMULATION_MODE:
+				#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
+					//switch on emu mode
+					vFCU_LASERDIST_ETH__Enable_EmulationMode(u32Block[0], u32Block[1]);
+				#endif
+				break;
+
+			case NET_PKT__LASER_DIST__RAW_EMULATION_VALUE:
+				#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
+					vFCU_LASERDIST_ETH__Emulation_Injection(f32Block[0]);
+				#endif
+				break;
+
 			case NET_PKT__LASER_CONT__REQUEST_LASER_DATA:
 				//transmit the laser contrast sub system
 				switch(u32Block[0])
@@ -173,14 +219,85 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 			case NET_PKT__FCU_BRAKES__ENABLE_DEV_MODE:
 				//set the brake system in development mode.
 				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-					vFCU_BRAKES__Enable_DevMode(u32Block[0], 0xABCD0987U);
+					vFCU_BRAKES_ETH__Enable_DevMode(u32Block[0], 0xABCD0987U);
 				#endif
 				break;
 
 			case NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW:
 				//move the brake system in development mode.
 				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-					vFCU_BRAKES__Dev_MoveMotor(u32Block[0], u32Block[1]);
+					vFCU_BRAKES_ETH__MoveMotor_RAW(u32Block[0], u32Block[1]);
+				#endif
+				break;
+
+			case NET_PKT__FCU_BRAKES__MOVE_IBEAM:
+				//move the brakes ref to the I-Bream
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+					vFCU_BRAKES_ETH__MoveMotor_IBeam(f32Block[0]);
+				#endif
+				break;
+
+			case NET_PKT__FCU_BRAKES__SET_MOTOR_PARAM:
+
+				//Block 0 = Parameter Type
+				//Block 1 = Channel 0, 1
+				//Block 2 = Setting
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+				switch(u32Block[0])
+				{
+
+					case 0U:
+						//Max Acecl
+						vSTEPDRIVE_MEM__Set_MaxAngularAccel(u32Block[1], s32Block[2]);
+						break;
+
+					case 1U:
+						//microns/rev
+						vSTEPDRIVE_MEM__Set_PicoMeters_PerRev(u32Block[1], s32Block[2]);
+						break;
+
+					case 2U:
+						//maxRPM
+						vSTEPDRIVE_MEM__Set_MaxRPM(u32Block[1], s32Block[2]);
+						break;
+
+					case 3U:
+						//set microstep resolution
+						vSTEPDRIVE_MEM__Set_MicroStepResolution(u32Block[1], u32Block[2]);
+						break;
+
+					default:
+						//fall on
+						break;
+
+				}//switch(u32Block[0])
+
+				//once these have been updated, re-transmit
+				sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM;
+
+				#endif
+				break;
+
+			case NET_PKT__FCU_BRAKES__REQ_MOTOR_PARAM:
+				//transmit the motor data
+				sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM;
+				break;
+
+			case NET_PKT__FCU_BRAKES__START_CAL_MODE:
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+					vFCU_BRAKES_CAL__BeginCal(u32Block[0]);
+				#endif
+				break;
+
+			case NET_PKT__FCU_BRAKES__INIT:
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+					vFCU_BRAKES__Begin_Init(u32Block[0]);
+				#endif
+				break;
+
+			case NET_PKT__FCU_BRAKES__MLP_ZEROSPAN:
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+					vFCU_BRAKES_ETH__MLP_ZeroSpan(u32Block[0], u32Block[1], u32Block[2]);
 				#endif
 				break;
 

@@ -1,4 +1,20 @@
-//networking Rx
+/**
+ * @file		POWER_CORE__NET.C
+ * @brief		Power Networking
+ * @author		Lachlan Grogan
+ * @copyright	rLoop Inc.
+ */
+/**
+ * @addtogroup RLOOP
+ * @{ */
+/**
+ * @addtogroup POWER_NODE
+ * @ingroup RLOOP
+ * @{ */
+/**
+ * @addtogroup POWER_NODE__NETWORK
+ * @ingroup POWER_NODE
+ * @{ */
 
 #include "../power_core.h"
 #if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
@@ -69,6 +85,9 @@ void vPWRNODE_NET__Process(void)
 	//process the ethernet layer.
 	vETHERNET__Process();
 
+
+
+
 	//hande our state machine for Tx
 	switch(sPWRNODE.sEthernet.eMainState)
 	{
@@ -81,6 +100,7 @@ void vPWRNODE_NET__Process(void)
 			u8Test = u8PWRNODE_NET__Is_LinkUp();
 			if(u8Test == 1U)
 			{
+
 				//link is up
 				sPWRNODE.sEthernet.eMainState = NET_STATE__WAIT_TIMER_TICK;
 			}
@@ -113,10 +133,28 @@ void vPWRNODE_NET__Process(void)
 			//wait for the next tick
 			sPWRNODE.sEthernet.eMainState = NET_STATE__WAIT_TIMER_TICK;
 			break;
+		default:
+			//fall on
+			break;
 
 	}//switch(sPWRNODE.sEthernet.eMainState)
 
+
+	//process any transmission
+	u8Test = u8PWRNODE_NET__Is_LinkUp();
+	if(u8Test == 1U)
+	{
+		vPWRNODE_NET_TX__Process();
+	}
+	else
+	{
+		//not ready yet.
+	}
+
 }
+
+
+
 
 
 /***************************************************************************//**
@@ -153,3 +191,6 @@ void vPWRNODE_NET__10MS_ISR(void)
 }
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_ETHERNET
+/** @} */
+/** @} */
+/** @} */

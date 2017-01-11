@@ -26,7 +26,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init any network transmission stuff
  * 
- * @st_funcMD5		94AA1680BB7A0F956864DDFB9C292C1F
+ * @st_funcMD5		ABD3145988312367E93F1F22D96F7A42
  * @st_funcID		LCCM655R0.FILE.019.FUNC.001
  */
 void vFCU_NET_TX__Init(void)
@@ -37,6 +37,10 @@ void vFCU_NET_TX__Init(void)
 	//set our default packet types
 	sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 	sFCU.sUDPDiag.eTxStreamingType = NET_PKT__NONE;
+
+	#if C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY == 1U
+		vFCU_NET_SPACEX_TX__Init();
+	#endif
 }
 
 
@@ -44,13 +48,18 @@ void vFCU_NET_TX__Init(void)
  * @brief
  * Process network transmission and do any transmission as required.
  * 
- * @st_funcMD5		2BFE075A2689648599D1A7F394BE9692
+ * @st_funcMD5		CC51B5F1A0B55EC4C0976DE4FB083F76
  * @st_funcID		LCCM655R0.FILE.019.FUNC.002
  */
 void vFCU_NET_TX__Process(void)
 {
 	Luint8 u8Flag;
 	E_NET__PACKET_T eType;
+
+	//Do we need a timed spaceX packet
+	#if C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY == 1U
+		vFCU_NET_SPACEX_TX__Process();
+	#endif
 
 	//see if we have a streaming flag set
 	if(sFCU.sUDPDiag.eTxStreamingType != NET_PKT__NONE)
@@ -121,9 +130,20 @@ void vFCU_NET_TX__Process(void)
 			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
 
-		case NET_PKT__FCU_BRAKES__TX_NAV_PROGRESS:
+		case NET_PKT__FCU_NAV__TX_NAV_PROGRESS:
 
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
+
+		case NET_PKT__FCU_BRAKES__TX_DATA:
+		case NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM:
+			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+				vFCU_BRAKES_ETH__Transmit(eType);
+			#endif
+				sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+			break;
+
+
 
 		default:
 			//do nothing
@@ -145,6 +165,25 @@ void vFCU_NET_TX__10MS_ISR(void)
 {
 	sFCU.sUDPDiag.u810MS_Flag = 1U;
 }
+
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		EAD22CC59DC6AF2FAD5C3B84720BB133
+ * @st_funcID		LCCM655R0.FILE.019.FUNC.004
+ */
+void vFCU_NET_TX__100MS_ISR(void)
+{
+	#if C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY == 1U
+		vFCU_NET_SPACEX_TX__100MS_ISR();
+	#endif
+}
+
+//safetys
+#ifndef C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY
+	#error
+#endif
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_ETHERNET
 /** @} */

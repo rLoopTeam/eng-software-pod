@@ -27,6 +27,12 @@
 		/** Allow us to emulate pod sensor data */
 		NET_PKT__FCU_GEN__POD_EMULATION_CONTROL = 0x0002U,
 
+		/** Switch on or off DAQ streaming */
+		NET_PKT__FCU_GEN__DAQ_ENABLE = 0x00FEU,
+
+		/** Force a flush of the DAQ system */
+		NET_PKT__FCU_GEN__DAQ_FLUSH = 0x00FFU,
+
 		/** Flight control data streaming */
 		NET_PKT__FCU_GEN__STREAMING_CONTROL = 0x0100U,
 
@@ -75,6 +81,12 @@
 		/** FCU to Host, return laser data */
 		NET_PKT__LASER_DIST__TX_LASER_DATA = 0x1201U,
 
+		/** Enable emu mode, with key 0x01010202U for block 0, and 1 for block 1 */
+		NET_PKT__LASER_DIST__ENABLE_EMULATION_MODE = 0x1202U,
+
+		/** Inject a raw emulation value into the laser */
+		NET_PKT__LASER_DIST__RAW_EMULATION_VALUE = 0x1203U,
+
 
 
 		//////////////////////////////////////////////////////
@@ -100,13 +112,37 @@
 		/** Perform a raw motor move */
 		NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW = 0x1401U,
 
+		/** Send out the brake Tx data */
+		NET_PKT__FCU_BRAKES__TX_DATA = 0x1402U,
+
+		/** Move the brakes relative to the I-Beam */
+		NET_PKT__FCU_BRAKES__MOVE_IBEAM = 0x1403U,
+
+		/** Allow us to update the motor parameters */
+		NET_PKT__FCU_BRAKES__SET_MOTOR_PARAM = 0x1404U,
+
+		/** Host wants a motor param packet */
+		NET_PKT__FCU_BRAKES__REQ_MOTOR_PARAM = 0x1405U,
+
+		/** Transmit motor param packet to host */
+		NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM = 0x1406U,
+
+		/** Start the brakes cal mode, only works when in Dev mode */
+		NET_PKT__FCU_BRAKES__START_CAL_MODE = 0x1407U,
+
+		/** Init the brake sub system once its out of reset */
+		NET_PKT__FCU_BRAKES__INIT = 0x1408U,
+
+		/** perform a zero/span on the MLP */
+		NET_PKT__FCU_BRAKES__MLP_ZEROSPAN = 0x1409U,
+
 
 		//////////////////////////////////////////////////////
 		//FCU: NAVIGATION (0x1600)
 		//////////////////////////////////////////////////////
 
 		/** Stream Navigation Progress Data */
-		NET_PKT__FCU_BRAKES__TX_NAV_PROGRESS = 0x1600U,
+		NET_PKT__FCU_NAV__TX_NAV_PROGRESS = 0x1600U,
 
 
 
@@ -152,6 +188,13 @@
 		/** Set the User Data by Sensor Index*/
 		NET_PKT__PWR_TEMP__SET_USERDATA_INDEX = 0x3207U,
 
+
+		//////////////////////////////////////////////////////
+		//DAQ (0x4000)
+		//////////////////////////////////////////////////////
+
+		/** Flight control DAQ offset */
+		NET_PKT__FCU_DAQ__OFFSET_INDEX = 0x4000U,
 
 
 		//////////////////////////////////////////////////////

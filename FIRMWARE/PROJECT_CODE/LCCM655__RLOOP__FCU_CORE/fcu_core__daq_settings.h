@@ -42,14 +42,28 @@
 	#if C_FCU_DAQ_SET__ENABLE__DAQ_FOR_LASER_CONTRAST == 1U
 
 		//define here the actual DAQ channel indexes
-		#define C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__CPU_LOAD_U8				(0U)
+		#define C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__CPU_LOAD_U8					(0U)
+
+		//count of rising edges
+		#define C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_RISING_EDGE_COUNT_U16		(1U)
+
+		//distance between the last stripe
+		#define C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_CURRENT_ACCEL_S32			(2U)
+
+		//total distance that has elapsed in this run
+		#define C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_DISTANCE_ELAPSED_U32		(3U)
+
+		//current instant velocity based on previous stripe
+		#define C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_CURRENT_VELOCITY_U32		(4U)
 
 
+
+		//Setup the channels
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U8					(1U)
-		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S16					(6U)
-		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U16					(0U)
-		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S32					(0U)
-		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U32					(0U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S16					(0U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U16					(1U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S32					(1U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U32					(2U)
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__F32					(0U)
 	#endif
 

@@ -28,7 +28,7 @@ struct _strFCU sFCU;
  * @brief
  * Init the FCU. Call this first thing.
  * 
- * @st_funcMD5		88020D6DBDEB162F14FFBCD41F36BD19
+ * @st_funcMD5		2C8E60FCEAD2D5CB34C0611CC751565F
  * @st_funcID		LCCM655R0.FILE.000.FUNC.001
  */
 void vFCU__Init(void)
@@ -44,6 +44,11 @@ void vFCU__Init(void)
 	//setup the fault flags
 	vFCU_FAULTS__Init();
 
+#ifdef WIN32
+	//for win32 DLL
+	DEBUG_PRINT("FCU - Init()");
+#endif
+
 }
 
 
@@ -51,7 +56,7 @@ void vFCU__Init(void)
  * @brief
  * Process any FCU tasks.
  * 
- * @st_funcMD5		AFF39BD1292A813ABE8E9D51BCCA9673
+ * @st_funcMD5		343E4DD5ACF982EE8C1B164E53C167E0
  * @st_funcID		LCCM655R0.FILE.000.FUNC.002
  */
 void vFCU__Process(void)
@@ -315,6 +320,11 @@ void vFCU__Process(void)
 
 		case INIT_STATE__LOWER_SYSTEMS:
 
+			//start DAQ
+			#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
+				vDAQ__Init();
+			#endif
+
 			//start the network
 			#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 				vFCU_NET__Init();
@@ -377,6 +387,11 @@ void vFCU__Process(void)
 			//process the main state machine
 			vFCU_MAINSM__Process();
 
+			//do the DAQ
+			#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
+				vDAQ__Process();
+			#endif
+
 			//end of while loop
 			vRM4_CPULOAD__While_Exit();
 
@@ -390,17 +405,22 @@ void vFCU__Process(void)
  * @brief
  * 100ms timer
  * 
- * @st_funcMD5		28BC0DFB0E9EBABFFDC7FBE98B4FBDD8
+ * @st_funcMD5		3093E3F03BB1527B1C3760FFBE291CEA
  * @st_funcID		LCCM655R0.FILE.000.FUNC.003
  */
 void vFCU__RTI_100MS_ISR(void)
 {
+	//picomms
 	#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
 		vFCU_PICOMMS__100MS_ISR();
 	#endif
+
+	//OptoNCDT Timer
 	#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
 		vFCU_LASEROPTO__100MS_ISR();
 	#endif
+
+	//Laser Distance System
 	#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
 		vFCU_LASERDIST__100MS_ISR();
 	#endif
@@ -410,6 +430,16 @@ void vFCU__RTI_100MS_ISR(void)
 		vFCU_THROTTLE__100MS_ISR();
 	#endif
 
+	//ethernet timed packets
+	#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
+		vFCU_NET_TX__100MS_ISR();
+	#endif
+
+	//brakes timed processes
+	#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
+		vFCU_BRAKES__100MS_ISR();
+	#endif
+
 }
 
 
@@ -417,7 +447,7 @@ void vFCU__RTI_100MS_ISR(void)
  * @brief
  * 10ms timer
  * 
- * @st_funcMD5		132920CE083F2C05C9100CBC35DA7876
+ * @st_funcMD5		30AB022FB83BA56C9739BFF4DEC05580
  * @st_funcID		LCCM655R0.FILE.000.FUNC.004
  */
 void vFCU__RTI_10MS_ISR(void)
@@ -431,6 +461,11 @@ void vFCU__RTI_10MS_ISR(void)
 		//tell the pusher interface about us.
 		vFCU_PUSHER__10MS_ISR();
 	#endif
+
+	#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
+		vFCU_ASI__10MS_ISR();
+	#endif
+
 }
 
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U

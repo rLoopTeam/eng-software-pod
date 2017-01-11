@@ -91,6 +91,9 @@ $(document).ready(function(){initNavTree('group___f_c_u_____b_r_a_k_e_s_____m_l_
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">FCU__BRAKES__MLP<div class="ingroups"><a class="el" href="group___r_l_o_o_p.html">RLOOP</a> &raquo; <a class="el" href="group___f_c_u.html">FCU</a></div></div>  </div>
 </div><!--header-->
@@ -103,6 +106,508 @@ Collaboration diagram for FCU__BRAKES__MLP:</div>
 <area shape="rect" id="node2" href="group___f_c_u.html" title="FCU" alt="" coords="5,5,53,32"/>
 </map>
 </td></tr></table></center>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga873a1630d656ff60ac9709e06bd34737"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga873a1630d656ff60ac9709e06bd34737">vFCU_BRAKES_MLP__Sample_ADC</a> (<a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a> eBrake)</td></tr>
+<tr class="memdesc:ga873a1630d656ff60ac9709e06bd34737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function to sample the ADC channel associated with the brake.  <a href="#ga873a1630d656ff60ac9709e06bd34737">More...</a><br /></td></tr>
+<tr class="separator:ga873a1630d656ff60ac9709e06bd34737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7b4ee709fe869bd7e059dcca34ac129c"><td class="memItemLeft" align="right" valign="top">static Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga7b4ee709fe869bd7e059dcca34ac129c">s16FCU_BRAKES_MLP__Check_ADC_Limits</a> (<a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a> eBrake)</td></tr>
+<tr class="memdesc:ga7b4ee709fe869bd7e059dcca34ac129c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the limits of the ADC data.  <a href="#ga7b4ee709fe869bd7e059dcca34ac129c">More...</a><br /></td></tr>
+<tr class="separator:ga7b4ee709fe869bd7e059dcca34ac129c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e3494a55c82522ed5cae67701811b48"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga0e3494a55c82522ed5cae67701811b48">vFCU_BRAKES_MLP__Apply_Zero</a> (<a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a> eBrake)</td></tr>
+<tr class="memdesc:ga0e3494a55c82522ed5cae67701811b48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the zero value to the ADC sample.  <a href="#ga0e3494a55c82522ed5cae67701811b48">More...</a><br /></td></tr>
+<tr class="separator:ga0e3494a55c82522ed5cae67701811b48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaf0197dd335402dfa3b1fc8e490524c0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gaaf0197dd335402dfa3b1fc8e490524c0">vFCU_BRAKES_MLP__Apply_Span</a> (<a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a> eBrake)</td></tr>
+<tr class="memdesc:gaaf0197dd335402dfa3b1fc8e490524c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the system span value.  <a href="#gaaf0197dd335402dfa3b1fc8e490524c0">More...</a><br /></td></tr>
+<tr class="separator:gaaf0197dd335402dfa3b1fc8e490524c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9b70f870c9f01b5abacceb4d403829bd"><td class="memItemLeft" align="right" valign="top">static Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga9b70f870c9f01b5abacceb4d403829bd">s16FCU_BRAKES_MLP__Filter_ADC_Value</a> (<a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a> eBrake)</td></tr>
+<tr class="memdesc:ga9b70f870c9f01b5abacceb4d403829bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filtering the MLP sensor value.  <a href="#ga9b70f870c9f01b5abacceb4d403829bd">More...</a><br /></td></tr>
+<tr class="separator:ga9b70f870c9f01b5abacceb4d403829bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1288e77d6dab0e995698538fc1d0391e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga1288e77d6dab0e995698538fc1d0391e">vFCU_BRAKES_MLP__Init</a> (void)</td></tr>
+<tr class="memdesc:ga1288e77d6dab0e995698538fc1d0391e"><td class="mdescLeft">&#160;</td><td class="mdescRight">init the systems specifically to the MLP  <a href="#ga1288e77d6dab0e995698538fc1d0391e">More...</a><br /></td></tr>
+<tr class="separator:ga1288e77d6dab0e995698538fc1d0391e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab7eab11277750558fae8c1cbcf2059d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gab7eab11277750558fae8c1cbcf2059d0">vFCU_BRAKES_MLP__Process</a> (void)</td></tr>
+<tr class="memdesc:gab7eab11277750558fae8c1cbcf2059d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">resample the MLP sensors  <a href="#gab7eab11277750558fae8c1cbcf2059d0">More...</a><br /></td></tr>
+<tr class="separator:gab7eab11277750558fae8c1cbcf2059d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga223c4a817b18577f925b92641fd6cec7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga223c4a817b18577f925b92641fd6cec7">vFCU_BRAKES_MLP__ComputeCalibration_Zero</a> (Luint32 u32Key, <a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a> eBrake)</td></tr>
+<tr class="memdesc:ga223c4a817b18577f925b92641fd6cec7"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute live calibration zero  <a href="#ga223c4a817b18577f925b92641fd6cec7">More...</a><br /></td></tr>
+<tr class="separator:ga223c4a817b18577f925b92641fd6cec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6018e3b9c17373c4987078560b0eb52c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga6018e3b9c17373c4987078560b0eb52c">vFCU_BRAKES_MLP__ComputeCalibration_Span</a> (Luint32 u32Key, <a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a> eBrake)</td></tr>
+<tr class="memdesc:ga6018e3b9c17373c4987078560b0eb52c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the calibration span value from the current brake pos.  <a href="#ga6018e3b9c17373c4987078560b0eb52c">More...</a><br /></td></tr>
+<tr class="separator:ga6018e3b9c17373c4987078560b0eb52c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:gacb2c3ba9e6006730b118d98d460b89c5"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__str_f_c_u.html">_strFCU</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a></td></tr>
+<tr class="separator:gacb2c3ba9e6006730b118d98d460b89c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga7b4ee709fe869bd7e059dcca34ac129c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lint16 s16FCU_BRAKES_MLP__Check_ADC_Limits </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a>&#160;</td>
+          <td class="paramname"><em>eBrake</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check the limits of the ADC data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">eBrake</td><td>The brake index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>-1 = Error, limits out of range<br />
+ 0 = success </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>BE00FC48D260311DF0578D1DA2E875DB </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.024.FUNC.004 </dd></dl>
+
+<p>References <a class="el" href="struct__str_f_c_u.html#a5301497f69acf79b1d4ac48c4ddc48bd">_strFCU::sBrakes</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#aa930cac09304cea64b2afa5a46b71b84">_strFCU::sMLP</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gab7eab11277750558fae8c1cbcf2059d0">vFCU_BRAKES_MLP__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga7b4ee709fe869bd7e059dcca34ac129c_icgraph.png" border="0" usemap="#group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga7b4ee709fe869bd7e059dcca34ac129c_icgraph" alt=""/></div>
+<map name="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga7b4ee709fe869bd7e059dcca34ac129c_icgraph" id="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga7b4ee709fe869bd7e059dcca34ac129c_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gab7eab11277750558fae8c1cbcf2059d0" title="resample the MLP sensors " alt="" coords="224,13,435,39"/>
+<area shape="rect" id="node3" href="group___f_c_u_____b_r_a_k_e_s.html#gaef79f34b59d1188532b2dfc7ce6a318f" title="Process any brakes tasks. " alt="" coords="483,13,659,39"/>
+<area shape="rect" id="node4" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="707,13,881,39"/>
+<area shape="rect" id="node5" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="929,13,1044,39"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga9b70f870c9f01b5abacceb4d403829bd"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lint16 s16FCU_BRAKES_MLP__Filter_ADC_Value </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a>&#160;</td>
+          <td class="paramname"><em>eBrake</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Filtering the MLP sensor value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">eBrake</td><td>The brake index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Filtered Value </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>5026035D4C7154FA483D9F60FA67916B </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.024.FUNC.005 </dd></dl>
+
+<p>References <a class="el" href="fcu__core_8h.html#a50f917bc6849f2efc56d644c32ee7020">C_MLP__MAX_AVERAGE_SIZE</a>, <a class="el" href="struct__str_f_c_u.html#a5301497f69acf79b1d4ac48c4ddc48bd">_strFCU::sBrakes</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#aa930cac09304cea64b2afa5a46b71b84">_strFCU::sMLP</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gab7eab11277750558fae8c1cbcf2059d0">vFCU_BRAKES_MLP__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga9b70f870c9f01b5abacceb4d403829bd_icgraph.png" border="0" usemap="#group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga9b70f870c9f01b5abacceb4d403829bd_icgraph" alt=""/></div>
+<map name="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga9b70f870c9f01b5abacceb4d403829bd_icgraph" id="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga9b70f870c9f01b5abacceb4d403829bd_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gab7eab11277750558fae8c1cbcf2059d0" title="resample the MLP sensors " alt="" coords="224,13,435,39"/>
+<area shape="rect" id="node3" href="group___f_c_u_____b_r_a_k_e_s.html#gaef79f34b59d1188532b2dfc7ce6a318f" title="Process any brakes tasks. " alt="" coords="483,13,659,39"/>
+<area shape="rect" id="node4" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="707,13,881,39"/>
+<area shape="rect" id="node5" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="929,13,1044,39"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="gaaf0197dd335402dfa3b1fc8e490524c0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_BRAKES_MLP__Apply_Span </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a>&#160;</td>
+          <td class="paramname"><em>eBrake</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Apply the system span value. </p>
+<dl class="section user"><dt>Example:</dt><dd>Brake_Pos = (ADCValue - Zero) * Span</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">eBrake</td><td>The brake index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>30F2A16DDC839D704891DC145917EA38 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.024.FUNC.006 </dd></dl>
+
+<p>References <a class="el" href="fcu__core____defines_8h.html#ac8ba75a349a1ef80c0996365feed04be">C_FCU__NUM_BRAKES</a>, <a class="el" href="struct__str_f_c_u.html#a5301497f69acf79b1d4ac48c4ddc48bd">_strFCU::sBrakes</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#aa930cac09304cea64b2afa5a46b71b84">_strFCU::sMLP</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gab7eab11277750558fae8c1cbcf2059d0">vFCU_BRAKES_MLP__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____b_r_a_k_e_s_____m_l_p_gaaf0197dd335402dfa3b1fc8e490524c0_icgraph.png" border="0" usemap="#group___f_c_u_____b_r_a_k_e_s_____m_l_p_gaaf0197dd335402dfa3b1fc8e490524c0_icgraph" alt=""/></div>
+<map name="group___f_c_u_____b_r_a_k_e_s_____m_l_p_gaaf0197dd335402dfa3b1fc8e490524c0_icgraph" id="group___f_c_u_____b_r_a_k_e_s_____m_l_p_gaaf0197dd335402dfa3b1fc8e490524c0_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gab7eab11277750558fae8c1cbcf2059d0" title="resample the MLP sensors " alt="" coords="285,5,496,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____b_r_a_k_e_s.html#gaef79f34b59d1188532b2dfc7ce6a318f" title="Process any brakes tasks. " alt="" coords="544,5,720,32"/>
+<area shape="rect" id="node4" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="768,5,943,32"/>
+<area shape="rect" id="node5" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="991,5,1105,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga0e3494a55c82522ed5cae67701811b48"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_BRAKES_MLP__Apply_Zero </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a>&#160;</td>
+          <td class="paramname"><em>eBrake</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Apply the zero value to the ADC sample. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">eBrake</td><td>The brake index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>91B14636179F6DEA07A2A6B2DD7B2C37 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.024.FUNC.007 </dd></dl>
+
+<p>References <a class="el" href="fcu__core____defines_8h.html#ac8ba75a349a1ef80c0996365feed04be">C_FCU__NUM_BRAKES</a>, <a class="el" href="struct__str_f_c_u.html#a5301497f69acf79b1d4ac48c4ddc48bd">_strFCU::sBrakes</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#aa930cac09304cea64b2afa5a46b71b84">_strFCU::sMLP</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gab7eab11277750558fae8c1cbcf2059d0">vFCU_BRAKES_MLP__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga0e3494a55c82522ed5cae67701811b48_icgraph.png" border="0" usemap="#group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga0e3494a55c82522ed5cae67701811b48_icgraph" alt=""/></div>
+<map name="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga0e3494a55c82522ed5cae67701811b48_icgraph" id="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga0e3494a55c82522ed5cae67701811b48_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gab7eab11277750558fae8c1cbcf2059d0" title="resample the MLP sensors " alt="" coords="280,5,491,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____b_r_a_k_e_s.html#gaef79f34b59d1188532b2dfc7ce6a318f" title="Process any brakes tasks. " alt="" coords="539,5,715,32"/>
+<area shape="rect" id="node4" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="763,5,937,32"/>
+<area shape="rect" id="node5" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="985,5,1100,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga6018e3b9c17373c4987078560b0eb52c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_BRAKES_MLP__ComputeCalibration_Span </td>
+          <td>(</td>
+          <td class="paramtype">Luint32&#160;</td>
+          <td class="paramname"><em>u32Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a>&#160;</td>
+          <td class="paramname"><em>eBrake</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute the calibration span value from the current brake pos. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">eBrake</td><td>The brake channel </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u32Key</td><td>0x33334444U </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>AA133F10248B752876733A4737ADC5A3 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.024.FUNC.009 </dd></dl>
+
+<p>References <a class="el" href="fcu__core____eeprom__layout_8h.html#a4fec80e3e4fbfc23ea38aa5d2d278fdd">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_SPAN</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#a04d495a7bc90e5afe2fdd4998ba277ec">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#a8fef693e12f1e540e7113235725d4a1a">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_CRC</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#afc67004d2df173a4deab4e5e78613b8d">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER</a>, <a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7ba7285821a8733fd55fdb059d6b24b9612">FCU_BRAKE__LEFT</a>, <a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7bac3c1da45459f5e310a186fa25daaedfe">FCU_BRAKE__RIGHT</a>, <a class="el" href="struct__str_f_c_u.html#a5301497f69acf79b1d4ac48c4ddc48bd">_strFCU::sBrakes</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#aa930cac09304cea64b2afa5a46b71b84">_strFCU::sMLP</a>, and <a class="el" href="struct__str_f_c_u.html#a95c9617cd263270863decac6438a265d">_strFCU::sMove</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____e_t_h_e_r_n_e_t.html#ga6d05429381b461b33d07af3159c39bb4">vFCU_BRAKES_ETH__MLP_ZeroSpan()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga6018e3b9c17373c4987078560b0eb52c_icgraph.png" border="0" usemap="#group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga6018e3b9c17373c4987078560b0eb52c_icgraph" alt=""/></div>
+<map name="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga6018e3b9c17373c4987078560b0eb52c_icgraph" id="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga6018e3b9c17373c4987078560b0eb52c_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____b_r_a_k_e_s_____e_t_h_e_r_n_e_t.html#ga6d05429381b461b33d07af3159c39bb4" title="Perform a MLP zero or span. " alt="" coords="268,5,455,47"/>
+<area shape="rect" id="node3" href="group___f_c_u_____c_o_r_e___n_e_t___r_x.html#gafeb5eef9f3c20aef6f1265aeab240ae2" title="Rx a SafetyUDP. " alt="" coords="503,13,693,39"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga223c4a817b18577f925b92641fd6cec7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_BRAKES_MLP__ComputeCalibration_Zero </td>
+          <td>(</td>
+          <td class="paramtype">Luint32&#160;</td>
+          <td class="paramname"><em>u32Key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a>&#160;</td>
+          <td class="paramname"><em>eBrake</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>compute live calibration zero </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">eBrake</td><td>The brake channel. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u32Key</td><td>0x11112222U </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>45386F94C0417E4653974BA16A98646C </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.024.FUNC.008 </dd></dl>
+
+<p>References <a class="el" href="fcu__core____eeprom__layout_8h.html#a99dfcafd22c12079c4b7f78d813d73e6">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#a04d495a7bc90e5afe2fdd4998ba277ec">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#a7145953ebf21267db523daf347f06e9d">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_ZERO</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#a8fef693e12f1e540e7113235725d4a1a">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_CRC</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#afc67004d2df173a4deab4e5e78613b8d">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER</a>, <a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7ba7285821a8733fd55fdb059d6b24b9612">FCU_BRAKE__LEFT</a>, <a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7bac3c1da45459f5e310a186fa25daaedfe">FCU_BRAKE__RIGHT</a>, <a class="el" href="struct__str_f_c_u.html#a5301497f69acf79b1d4ac48c4ddc48bd">_strFCU::sBrakes</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#aa930cac09304cea64b2afa5a46b71b84">_strFCU::sMLP</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____e_t_h_e_r_n_e_t.html#ga6d05429381b461b33d07af3159c39bb4">vFCU_BRAKES_ETH__MLP_ZeroSpan()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga223c4a817b18577f925b92641fd6cec7_icgraph.png" border="0" usemap="#group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga223c4a817b18577f925b92641fd6cec7_icgraph" alt=""/></div>
+<map name="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga223c4a817b18577f925b92641fd6cec7_icgraph" id="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga223c4a817b18577f925b92641fd6cec7_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____b_r_a_k_e_s_____e_t_h_e_r_n_e_t.html#ga6d05429381b461b33d07af3159c39bb4" title="Perform a MLP zero or span. " alt="" coords="268,5,455,47"/>
+<area shape="rect" id="node3" href="group___f_c_u_____c_o_r_e___n_e_t___r_x.html#gafeb5eef9f3c20aef6f1265aeab240ae2" title="Rx a SafetyUDP. " alt="" coords="503,13,693,39"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga1288e77d6dab0e995698538fc1d0391e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_BRAKES_MLP__Init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>init the systems specifically to the MLP </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>406A05A73431FBA4B331066CE7516415 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.024.FUNC.001 </dd></dl>
+
+<p>References <a class="el" href="fcu__core____defines_8h.html#ac8ba75a349a1ef80c0996365feed04be">C_FCU__NUM_BRAKES</a>, <a class="el" href="fcu____brakes____fault__flags_8h.html#a935c88ef7b6d84b19fdcd957b185158d">C_LCCM655__BRAKES__FAULT_INDEX__00</a>, <a class="el" href="fcu____brakes____fault__flags_8h.html#af0eaab4b25fb2b413bcada85ea3f62a5">C_LCCM655__BRAKES__FAULT_INDEX__03</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#a4fec80e3e4fbfc23ea38aa5d2d278fdd">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_SPAN</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#a99dfcafd22c12079c4b7f78d813d73e6">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#a04d495a7bc90e5afe2fdd4998ba277ec">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#a7145953ebf21267db523daf347f06e9d">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_ZERO</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#a8fef693e12f1e540e7113235725d4a1a">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_CRC</a>, <a class="el" href="fcu__core____eeprom__layout_8h.html#afc67004d2df173a4deab4e5e78613b8d">C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER</a>, <a class="el" href="struct__str_f_c_u.html#a5301497f69acf79b1d4ac48c4ddc48bd">_strFCU::sBrakes</a>, <a class="el" href="struct__str_f_c_u.html#a66677f5638f56666f5188bd93b8abd49">_strFCU::sBrakesGlobal</a>, <a class="el" href="struct__str_f_c_u.html#ad5bd01c0c0913880e71513ce0f2a08e6">_strFCU::sFaultFlags</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#aa930cac09304cea64b2afa5a46b71b84">_strFCU::sMLP</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gab24c028a2114a308c2136029398bb20f">vFCU_BRAKES__Init()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga1288e77d6dab0e995698538fc1d0391e_icgraph.png" border="0" usemap="#group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga1288e77d6dab0e995698538fc1d0391e_icgraph" alt=""/></div>
+<map name="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga1288e77d6dab0e995698538fc1d0391e_icgraph" id="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga1288e77d6dab0e995698538fc1d0391e_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____b_r_a_k_e_s.html#gab24c028a2114a308c2136029398bb20f" title="Init any brakes variables, etc. " alt="" coords="232,5,377,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="425,5,600,32"/>
+<area shape="rect" id="node4" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="648,5,763,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="gab7eab11277750558fae8c1cbcf2059d0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_BRAKES_MLP__Process </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>resample the MLP sensors </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>B0CAF27A0006C9DD7D4CD5096CE28252 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.024.FUNC.002 </dd></dl>
+
+<p>References <a class="el" href="fcu__core____defines_8h.html#ac8ba75a349a1ef80c0996365feed04be">C_FCU__NUM_BRAKES</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga7b4ee709fe869bd7e059dcca34ac129c">s16FCU_BRAKES_MLP__Check_ADC_Limits()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga9b70f870c9f01b5abacceb4d403829bd">s16FCU_BRAKES_MLP__Filter_ADC_Value()</a>, <a class="el" href="struct__str_f_c_u.html#a5301497f69acf79b1d4ac48c4ddc48bd">_strFCU::sBrakes</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#aa930cac09304cea64b2afa5a46b71b84">_strFCU::sMLP</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gaaf0197dd335402dfa3b1fc8e490524c0">vFCU_BRAKES_MLP__Apply_Span()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga0e3494a55c82522ed5cae67701811b48">vFCU_BRAKES_MLP__Apply_Zero()</a>, and <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga873a1630d656ff60ac9709e06bd34737">vFCU_BRAKES_MLP__Sample_ADC()</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#gaef79f34b59d1188532b2dfc7ce6a318f">vFCU_BRAKES__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____b_r_a_k_e_s_____m_l_p_gab7eab11277750558fae8c1cbcf2059d0_cgraph.png" border="0" usemap="#group___f_c_u_____b_r_a_k_e_s_____m_l_p_gab7eab11277750558fae8c1cbcf2059d0_cgraph" alt=""/></div>
+<map name="group___f_c_u_____b_r_a_k_e_s_____m_l_p_gab7eab11277750558fae8c1cbcf2059d0_cgraph" id="group___f_c_u_____b_r_a_k_e_s_____m_l_p_gab7eab11277750558fae8c1cbcf2059d0_cgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga7b4ee709fe869bd7e059dcca34ac129c" title="Check the limits of the ADC data. " alt="" coords="299,5,469,47"/>
+<area shape="rect" id="node3" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga9b70f870c9f01b5abacceb4d403829bd" title="Filtering the MLP sensor value. " alt="" coords="299,71,469,112"/>
+<area shape="rect" id="node4" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gaaf0197dd335402dfa3b1fc8e490524c0" title="Apply the system span value. " alt="" coords="268,137,500,163"/>
+<area shape="rect" id="node5" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga0e3494a55c82522ed5cae67701811b48" title="Apply the zero value to the ADC sample. " alt="" coords="271,187,497,214"/>
+<area shape="rect" id="node6" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga873a1630d656ff60ac9709e06bd34737" title="Call this function to sample the ADC channel associated with the brake. " alt="" coords="264,238,504,265"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____b_r_a_k_e_s_____m_l_p_gab7eab11277750558fae8c1cbcf2059d0_icgraph.png" border="0" usemap="#group___f_c_u_____b_r_a_k_e_s_____m_l_p_gab7eab11277750558fae8c1cbcf2059d0_icgraph" alt=""/></div>
+<map name="group___f_c_u_____b_r_a_k_e_s_____m_l_p_gab7eab11277750558fae8c1cbcf2059d0_icgraph" id="group___f_c_u_____b_r_a_k_e_s_____m_l_p_gab7eab11277750558fae8c1cbcf2059d0_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____b_r_a_k_e_s.html#gaef79f34b59d1188532b2dfc7ce6a318f" title="Process any brakes tasks. " alt="" coords="264,5,440,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="488,5,663,32"/>
+<area shape="rect" id="node4" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="711,5,825,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga873a1630d656ff60ac9709e06bd34737"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_BRAKES_MLP__Sample_ADC </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7b">E_FCU__BRAKE_INDEX_T</a>&#160;</td>
+          <td class="paramname"><em>eBrake</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Call this function to sample the ADC channel associated with the brake. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">eBrake</td><td>The brake index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>81505D816993B47546A93DE2D5FF56AE </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.024.FUNC.003 </dd></dl>
+
+<p>References <a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7ba7285821a8733fd55fdb059d6b24b9612">FCU_BRAKE__LEFT</a>, <a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7bac3c1da45459f5e310a186fa25daaedfe">FCU_BRAKE__RIGHT</a>, <a class="el" href="struct__str_f_c_u.html#a5301497f69acf79b1d4ac48c4ddc48bd">_strFCU::sBrakes</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#aa930cac09304cea64b2afa5a46b71b84">_strFCU::sMLP</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gab7eab11277750558fae8c1cbcf2059d0">vFCU_BRAKES_MLP__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga873a1630d656ff60ac9709e06bd34737_icgraph.png" border="0" usemap="#group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga873a1630d656ff60ac9709e06bd34737_icgraph" alt=""/></div>
+<map name="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga873a1630d656ff60ac9709e06bd34737_icgraph" id="group___f_c_u_____b_r_a_k_e_s_____m_l_p_ga873a1630d656ff60ac9709e06bd34737_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gab7eab11277750558fae8c1cbcf2059d0" title="resample the MLP sensors " alt="" coords="293,5,504,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____b_r_a_k_e_s.html#gaef79f34b59d1188532b2dfc7ce6a318f" title="Process any brakes tasks. " alt="" coords="552,5,728,32"/>
+<area shape="rect" id="node4" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="776,5,951,32"/>
+<area shape="rect" id="node5" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="999,5,1113,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="gacb2c3ba9e6006730b118d98d460b89c5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="struct__str_f_c_u.html">_strFCU</a> sFCU</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga7b4ee709fe869bd7e059dcca34ac129c">s16FCU_BRAKES_MLP__Check_ADC_Limits()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga9b70f870c9f01b5abacceb4d403829bd">s16FCU_BRAKES_MLP__Filter_ADC_Value()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gaaf0197dd335402dfa3b1fc8e490524c0">vFCU_BRAKES_MLP__Apply_Span()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga0e3494a55c82522ed5cae67701811b48">vFCU_BRAKES_MLP__Apply_Zero()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga6018e3b9c17373c4987078560b0eb52c">vFCU_BRAKES_MLP__ComputeCalibration_Span()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga223c4a817b18577f925b92641fd6cec7">vFCU_BRAKES_MLP__ComputeCalibration_Zero()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga1288e77d6dab0e995698538fc1d0391e">vFCU_BRAKES_MLP__Init()</a>, <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gab7eab11277750558fae8c1cbcf2059d0">vFCU_BRAKES_MLP__Process()</a>, and <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga873a1630d656ff60ac9709e06bd34737">vFCU_BRAKES_MLP__Sample_ADC()</a>.</p>
+
+</div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->

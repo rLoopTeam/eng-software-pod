@@ -44,6 +44,19 @@
         SAFE_UDP__LCCM662__DAQ_DATA_PACKET_END = 0x1290U,
 
 		////////////////////////////////////////////////
+		// LCCM659
+        // 0x1300 - 0x13FF
+		////////////////////////////////////////////////
+
+		/** Streaming control, Block0: = 0,1 */
+        SAFE_UDP__LCCM659__ENABLE_ETH_STREAMING = 0x1300U,
+
+		/** Device to Host, transmit a streaming data packet */
+        SAFE_UDP__LCCM659__TX_STREAM_DATA = 0x1301U,
+
+
+
+		////////////////////////////////////////////////
 		// LCCM293 - CNC MACHINE - XYZ
 		// 0x2100 - 0x21FF
 		////////////////////////////////////////////////
@@ -444,6 +457,9 @@
 		SAFE_UDP__LCCM528__SAFEUDP_IMGTX__IMAGE_DATA = 0xC001,
 
 		SAFE_UDP__LCCM528__SAFEUDP_VISION__IMAGE_DATA = 0xC002
+
+
+
 
 
 	}SAFE_UDP__PACKET_T;

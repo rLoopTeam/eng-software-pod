@@ -41,7 +41,7 @@ void vLCCM655R0_TS_004_TCASE_001(void)
 
 	//Call the target function
 	eLaser = LASER_CONT__FWD;
-	u32Test = u32FCU_LASERCONT_TRKDB__Get_DistanceRemain_mm(eLaser);
+	u32Test = u32FCU_LASERCONT_TRKDB__Get_DistanceElapsed_mm(eLaser);
 
 	//distance remain in mm.
 	if(u32Test == 1493520)

@@ -23,15 +23,29 @@
 extern struct _strFCU sFCU;
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		2248CD3745D2D329825B4B41A5F777E9
+ * @st_funcID		LCCM655R0.FILE.040.FUNC.001
+ */
 void vFCU_LASERCONT_VELOC__Init(void)
 {
 
-	sFCU.sContrast.sVeloc.u32CurrentVeloc_mms = 0U;;
+	//sFCU.sContrast.sVeloc.u32CurrentVeloc_mms = 0U;;
 
 }
 
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		A630BB7D8CB5F66027917286E6DE41BC
+ * @st_funcID		LCCM655R0.FILE.040.FUNC.002
+ */
 void vFCU_LASERCONT_VELOC__Process(void)
 {
 	//do nothing.
@@ -39,13 +53,29 @@ void vFCU_LASERCONT_VELOC__Process(void)
 }
 
 //get the result of the computation
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		50C036B4AF050E1193B9F57E0B5390FD
+ * @st_funcID		LCCM655R0.FILE.040.FUNC.003
+ */
 Luint32 u32FCU_LASERCONT_VELOC__Get_CurrentVeloc_mms(void)
 {
-	return sFCU.sContrast.sVeloc.u32CurrentVeloc_mms;	
+	return 0; //sFCU.sContrast.sVeloc.u32CurrentVeloc_mms;
 }
 
 //compute the veloc
-void vFCU_LASERCONT_VELOC__Compute(Luint32 u32Distance, Luint64 u64TimeDelta)
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u64TimeDelta		## Desc ##
+ * @param[in]		u32Distance		## Desc ##
+ * @st_funcMD5		ECF00834753BE38E259AC1C2C5F9310A
+ * @st_funcID		LCCM655R0.FILE.040.FUNC.004
+ */
+Luint32 u32FCU_LASERCONT_VELOC__Compute(Luint32 u32Distance, Luint64 u64TimeDelta)
 {
 	Luint64 u64Temp;
 	Luint64 u64Temp2;
@@ -59,14 +89,28 @@ void vFCU_LASERCONT_VELOC__Compute(Luint32 u32Distance, Luint64 u64TimeDelta)
 
 	//compute the time
 	u64Temp2 = u64TimeDelta;
-	//convert to ns
-	//todo: we could technically shift to div by 2 here and reduce the size of the numerator
-	u64Temp2 *= 20U;
+
+	//safety
+	#if C_LOCALDEF__LCCM124__RTI_CLK_FREQ != 50U
+		#error
+	#else
+		//convert to ns
+		//todo: we could technically shift to div by 2 here and reduce the size of the numerator
+		u64Temp2 *= 20U;
+	#endif
 
 	//divide
-	u64Temp /= u64Temp2;
+	//math safety
+	if (u64Temp2 == 0U)
+	{
+		u64Temp = 0U;
+	}
+	else
+	{
+		u64Temp /= u64Temp2;
+	}
 
-	sFCU.sContrast.sVeloc.u32CurrentVeloc_mms = (Luint32)u64Temp;
+	return (Luint32)u64Temp;
 
 }
 

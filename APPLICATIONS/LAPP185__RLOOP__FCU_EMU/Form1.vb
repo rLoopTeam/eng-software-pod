@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports SIL3.LDLL178__COMMON_CODE__MICRO_TMER
 ''' <summary>
 ''' Basic framework for rLoop Flight Control Emulation
 ''' Lachlan Grogan - SafetyLok
@@ -56,10 +57,20 @@ Public Class Form1
     End Sub
     <System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Public Delegate Sub MMA8451_WIN32__ReadDataCallbackDelegate(u8DeviceIndex As Byte, pu8X As IntPtr, pu8Y As IntPtr, pu8Z As IntPtr)
-
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Public Shared Sub vMMA8451_WIN32__TriggerInterrupt(u8DeviceIndex As Byte)
     End Sub
+
+    'stepper system
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Shared Sub vSTEPDRIVE_WIN32__Set_UpdatePositionCallback(ByVal callback As MulticastDelegate)
+    End Sub
+    <System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Delegate Sub STEPDRIVE_WIN32__Set_UpdatePositionCallbackDelegate(u8MotorIndex As Byte, u8Step As Byte, u8Dir As Byte, s32Position As Int32)
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Shared Sub vSTEPDRIVE_WIN32__ForcePosition(u8MotorIndex As Byte, s32Position As Int32)
+    End Sub
+
 
 #End Region '#Region "WIN32/DEBUG"
 
@@ -86,6 +97,43 @@ Public Class Form1
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Private Shared Sub vFCU__RTI_100MS_ISR()
     End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vSTEPDRIVE_TIMEBASE__ISR()
+    End Sub
+
+
+    'Laser Distance
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_LASERDIST_WIN32__Set_DistanceRaw(f32Value As Single)
+    End Sub
+
+    'laser optoncdt
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_LASEROPTO_WIN32__Set_DistanceRaw(u32Index As UInt32, f32Value As Single)
+    End Sub
+
+    'brake switches
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_BRAKES_SW_WIN32__Inject_SwitchState(u8Brake As Byte, u8ExtendRetract As Byte, u8Value As Byte)
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_BRAKES_SW__Left_SwitchExtend_ISR()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_BRAKES_SW__Left_SwitchRetract_ISR()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_BRAKES_SW__Right_SwitchExtend_ISR()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_BRAKES_SW__Right_SwitchRetract_ISR()
+    End Sub
+
+    'MLP
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vFCU_BRAKES_MLP_WIN32__ForceADC(u8Brake As Byte, u16Value As UInt16)
+    End Sub
+
 
     'Testing Area
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
@@ -123,10 +171,10 @@ Public Class Form1
     ''' <remarks></remarks>
     Private m_txtOutput As Windows.Forms.TextBox
 
-    ''' <summary>
-    ''' Our node temperature value
-    ''' </summary>
-    Private m_txtNodeTemp As TextBox
+
+    Private m_txtLaserDist__ValueRaw As TextBox
+
+    Private m_txtLaserOpto() As TextBox
 
     ''' <summary>
     ''' The debug delegate
@@ -142,6 +190,8 @@ Public Class Form1
     ''' </summary>
     Private m_pMMA8451_ReadData__Delegate As MMA8451_WIN32__ReadDataCallbackDelegate
 
+    Private m_pStepDrive_UpdatePos__Delegate As STEPDRIVE_WIN32__Set_UpdatePositionCallbackDelegate
+
     ''' <summary>
     ''' The thread to run our DLL in
     ''' </summary>
@@ -155,14 +205,22 @@ Public Class Form1
 
     Private m_pSafeUDP As SIL3.SafeUDP.StdUDPLayer
 
-    Private m_pTimer10 As System.Timers.Timer
-    Private m_pTimer100 As System.Timers.Timer
+    'Private m_pTimer50u As System.Timers.Timer
+    Private m_pTimer10m As System.Timers.Timer
+    Private m_pTimer100m As System.Timers.Timer
+    Private m_pTimer50u As MicroTimer
+    'Private m_pTimer10m As MicroTimer
+    'Private m_pTimer100m As MicroTimer
+
+
 
     ''' <summary>
     ''' Timer to handle accels.
     ''' </summary>
     Private m_pTimerAccel As System.Timers.Timer
 
+    Private m_txtBrakeL_Pos As TextBox
+    Private m_txtBrakeR_Pos As TextBox
 
 #Region "SENSOR SIM VALUES"
 
@@ -170,6 +228,8 @@ Public Class Form1
     Private m_iAccel0_Y As Integer
     Private m_iAccel0_Z As Integer
 
+    Private m_iL_MLP As Integer
+    Private m_iR_MLP As Integer
 
 #End Region '#Region "SENSOR SIM VALUES"
 
@@ -217,22 +277,87 @@ Public Class Form1
         pP.Controls.Add(pB2)
         AddHandler pB2.Click, AddressOf Me.btnTestCases__Click
 
+        'this area is going to get very messy due to absense of SIL3 libs.
+
         'create some input item.
         Dim l1 As New Label
         With l1
             .Location = New Point(10, pB1.Top + pB1.Height + 20)
-            .Text = "Some Input."
+            .Text = "LaserDist - RAW"
         End With
         pP.Controls.Add(l1)
-        Me.m_txtNodeTemp = New TextBox
-        With Me.m_txtNodeTemp
+        Me.m_txtLaserDist__ValueRaw = New TextBox
+        With Me.m_txtLaserDist__ValueRaw
             .Location = New Point(10, l1.Top + l1.Height + 0)
             .Size = New Size(100, 24)
-            .Text = "27.0"
+            .Text = "0.0"
         End With
-        pP.Controls.Add(Me.m_txtNodeTemp)
-        AddHandler Me.m_txtNodeTemp.KeyDown, AddressOf Me.txtNodeTemp__KeyDown
+        pP.Controls.Add(Me.m_txtLaserDist__ValueRaw)
+        AddHandler Me.m_txtLaserDist__ValueRaw.KeyDown, AddressOf Me.txtLaserDistanceRaw__KeyDown
 
+
+        Dim l2(6 - 1) As Label
+        ReDim Me.m_txtLaserOpto(6 - 1)
+        For iCounter As Integer = 0 To 6 - 1
+
+
+            If iCounter = 0 Then
+                l2(iCounter) = New Label
+                With l2(iCounter)
+                    .Location = New Point(10, Me.m_txtLaserDist__ValueRaw.Top + pB1.Height + 20)
+                    .Text = "OptoNCDT:" & iCounter.ToString & " - RAW"
+                    .AutoSize = True
+                End With
+            Else
+                l2(iCounter) = New Label
+                With l2(iCounter)
+                    .Location = New Point(Me.m_txtLaserOpto(iCounter - 1).Left + Me.m_txtLaserOpto(iCounter - 1).Width + 20, l2(iCounter - 1).Top)
+                    .Text = "OptoNCDT:" & iCounter.ToString & " - RAW"
+                    .AutoSize = True
+                End With
+            End If
+            pP.Controls.Add(l2(iCounter))
+
+            Me.m_txtLaserOpto(iCounter) = New TextBox
+            With Me.m_txtLaserOpto(iCounter)
+                .Location = New Point(l2(iCounter).Left, l2(iCounter).Top + l2(iCounter).Height + 0)
+                .Size = New Size(100, 24)
+                .Text = "0.0"
+                .Tag = iCounter.ToString
+            End With
+            pP.Controls.Add(Me.m_txtLaserOpto(iCounter))
+            AddHandler Me.m_txtLaserOpto(iCounter).KeyDown, AddressOf Me.txtLaserOptoRaw__KeyDown
+
+        Next ' For iCounter As Integer = 0 To 6 - 1
+
+
+        Dim l3 As New Label
+        With l3
+            .Location = New Point(10, Me.m_txtLaserOpto(0).Top + Me.m_txtLaserOpto(0).Height + 20)
+            .Text = "Brake L Pos"
+        End With
+        pP.Controls.Add(l3)
+        Me.m_txtBrakeL_Pos = New TextBox
+        With Me.m_txtBrakeL_Pos
+            .Location = New Point(10, l3.Top + l3.Height + 0)
+            .Size = New Size(100, 24)
+            .Text = "0.0"
+        End With
+        pP.Controls.Add(Me.m_txtBrakeL_Pos)
+
+        Dim l4 As New Label
+        With l4
+            .Location = New Point(Me.m_txtBrakeL_Pos.Left + Me.m_txtBrakeL_Pos.Width + 20, l3.Top)
+            .Text = "Brake R Pos"
+        End With
+        pP.Controls.Add(l4)
+        Me.m_txtBrakeR_Pos = New TextBox
+        With Me.m_txtBrakeR_Pos
+            .Location = New Point(l4.Left, l4.Top + l4.Height + 0)
+            .Size = New Size(100, 24)
+            .Text = "0.0"
+        End With
+        pP.Controls.Add(Me.m_txtBrakeR_Pos)
 
         'create a logging box
         Me.m_txtOutput = New TextBox
@@ -260,8 +385,8 @@ Public Class Form1
         'kill the threads
         Me.m_pMainThread.Abort()
 
-        Me.m_pTimer10.Stop()
-        Me.m_pTimer100.Stop()
+        Me.m_pTimer10m.Stop()
+        Me.m_pTimer100m.Stop()
 
         If Not Me.m_pSafeUDP Is Nothing Then
             Me.m_pSafeUDP.Destroy()
@@ -278,7 +403,7 @@ Public Class Form1
     ''' </summary>
     Private Sub Setup_System()
 
-        Me.m_pSafeUDP = New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", 9100, "ETH EMU", False, False)
+        Me.m_pSafeUDP = New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", 9100, "FCU_ETH_EMU", True, True)
         AddHandler Me.m_pSafeUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.InernalEvent__UDPSafe__RxPacket
         AddHandler Me.m_pSafeUDP.UserEvent__NewPacket, AddressOf Me.InternalEvent__NewPacket
 
@@ -294,6 +419,9 @@ Public Class Form1
         Me.m_pMMA8451_ReadData__Delegate = AddressOf Me.MMA8451_WIN32__ReadDataCallback_Sub
         vMMA8451_WIN32__Set_ReadDataCallback(Me.m_pMMA8451_ReadData__Delegate)
 
+        Me.m_pStepDrive_UpdatePos__Delegate = AddressOf Me.STEPDRIVE_WIN32__UpdatePostion
+        vSTEPDRIVE_WIN32__Set_UpdatePositionCallback(Me.m_pStepDrive_UpdatePos__Delegate)
+
         'do the threading
         Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
         Me.m_pMainThread.Name = "FCU THREAD"
@@ -305,12 +433,13 @@ Public Class Form1
 #End Region '#Region "SYSTEM INIT"
 
 #Region "KEY PRESS HANDLERS"
-    ''' <summary>
-    ''' Handles enter on the node temperature box
-    ''' </summary>
-    ''' <param name="s"></param>
-    ''' <param name="e"></param>
-    Private Sub txtNodeTemp__KeyDown(s As Object, e As KeyEventArgs)
+
+    Private Sub txtLaserOptoRaw__KeyDown(s As Object, e As KeyEventArgs)
+
+        'get our type
+        Dim pT As TextBox = CType(s, TextBox)
+        Dim iIndex As Integer = CInt(pT.Tag)
+
         'handle enter key
         If e.KeyCode = Keys.Enter Then
             'check safety
@@ -318,9 +447,28 @@ Public Class Form1
                 MsgBox("Warn: You must have thread running.")
             Else
                 'convert string to float32 (single on WIN32)
-                'todo, error checking
-                Dim sValue As Single = Single.Parse(Me.m_txtNodeTemp.Text)
+                Dim sValue As Single = Single.Parse(Me.m_txtLaserOpto(iIndex).Text)
 
+                'update the DLL
+                vFCU_LASEROPTO_WIN32__Set_DistanceRaw(iIndex, sValue)
+
+            End If
+        End If
+
+    End Sub
+
+    Private Sub txtLaserDistanceRaw__KeyDown(s As Object, e As KeyEventArgs)
+        'handle enter key
+        If e.KeyCode = Keys.Enter Then
+            'check safety
+            If Me.m_bThreadRun = False Then
+                MsgBox("Warn: You must have thread running.")
+            Else
+                'convert string to float32 (single on WIN32)
+                Dim sValue As Single = Single.Parse(Me.m_txtLaserDist__ValueRaw.Text)
+
+                'update the DLL
+                vFCU_LASERDIST_WIN32__Set_DistanceRaw(sValue)
 
             End If
         End If
@@ -341,10 +489,10 @@ Public Class Form1
 
         'track contrast database
         'vLCCM655R0_TS_001()
-        'vLCCM655R0_TS_003()
+        vLCCM655R0_TS_003()
 
         'brake lookup
-        vLCCM655R0_TS_006()
+        'vLCCM655R0_TS_006()
     End Sub
 
     ''' <summary>
@@ -406,6 +554,19 @@ Public Class Form1
         'needs to be done due to WIN32_ETH_Init
         vETH_WIN32__Set_Ethernet_TxCallback(Me.m_pETH_TX__Delegate)
 
+        'force the two motor positions to random so as we can simulate the cal process
+        vSTEPDRIVE_WIN32__ForcePosition(0, -34)
+        vSTEPDRIVE_WIN32__ForcePosition(1, 175)
+
+        vFCU_BRAKES_MLP_WIN32__ForceADC(0, 0)
+        vFCU_BRAKES_MLP_WIN32__ForceADC(1, 0)
+
+        'config the brake switches into some state
+        For iBrake As Integer = 0 To 2 - 1
+            For iSwitch As Integer = 0 To 2 - 1
+                vFCU_BRAKES_SW_WIN32__Inject_SwitchState(iBrake, iSwitch, 0)
+            Next
+        Next
 
         'stay here until thread abort
         While True
@@ -413,7 +574,12 @@ Public Class Form1
             'add here any things that need updating like pod sensor data
 
             'call process
-            vFCU__Process()
+            Try
+                vFCU__Process()
+
+            Catch ex As Exception
+                Console.Write(ex.ToString)
+            End Try
 
             'just wait a little bit
             Threading.Thread.Sleep(1)
@@ -427,22 +593,55 @@ Public Class Form1
     ''' Start the timers.
     ''' </summary>
     Private Sub Timers__Setup()
-        Me.m_pTimer10 = New System.Timers.Timer
-        Me.m_pTimer10.Interval = 10
-        AddHandler Me.m_pTimer10.Elapsed, AddressOf Me.Timers__T10_Tick
-        Me.m_pTimer10.Start()
 
-        Me.m_pTimer100 = New System.Timers.Timer
-        Me.m_pTimer100.Interval = 100
-        AddHandler Me.m_pTimer100.Elapsed, AddressOf Me.Timers__T100_Tick
-        Me.m_pTimer100.Start()
+        'needed for stepper drive
+        'Me.m_pTimer50u = New System.Timers.Timer
+        'Me.m_pTimer50u.Interval = 2
+        'AddHandler Me.m_pTimer50u.Elapsed, AddressOf Me.Timers__T50u_Tick
+        'Me.m_pTimer50u.Start()
+
+        Me.m_pTimer10m = New System.Timers.Timer
+        Me.m_pTimer10m.Interval = 10
+        AddHandler Me.m_pTimer10m.Elapsed, AddressOf Me.Timers__T10_Tick
+        Me.m_pTimer10m.Start()
+
+        Me.m_pTimer100m = New System.Timers.Timer
+        Me.m_pTimer100m.Interval = 100
+        AddHandler Me.m_pTimer100m.Elapsed, AddressOf Me.Timers__T100_Tick
+        Me.m_pTimer100m.Start()
+
+        Me.m_pTimer50u = New MicroTimer
+        Me.m_pTimer50u.Interval = 500
+        AddHandler Me.m_pTimer50u.MicroTimerElapsed, AddressOf Me.Timers__T50u_Tick
+        Me.m_pTimer50u.Start()
+
+        'Me.m_pTimer10m = New MicroTimer
+        'Me.m_pTimer10m.Interval = 10 * 1000
+        'AddHandler Me.m_pTimer10m.MicroTimerElapsed, AddressOf Me.Timers__T10_Tick
+        'Me.m_pTimer10m.Start()
+
+        'Me.m_pTimer100m = New MicroTimer
+        'Me.m_pTimer100m.Interval = 100 * 1000
+        'AddHandler Me.m_pTimer100m.MicroTimerElapsed, AddressOf Me.Timers__T100_Tick
+        'Me.m_pTimer100m.Start()
 
         '100hz
         Me.m_pTimerAccel = New System.Timers.Timer
-        Me.m_pTimerAccel.Interval = 10
+        Me.m_pTimerAccel.Interval = 100
         AddHandler Me.m_pTimerAccel.Elapsed, AddressOf Me.Timers__Accel_Tick
         Me.m_pTimerAccel.Start()
 
+    End Sub
+
+    ''' <summary>
+    ''' 50us timer
+    ''' </summary>
+    ''' <param name="s"></param>
+    ''' <param name="e"></param>
+    Private Sub Timers__T50u_Tick(s As Object, e As MicroTimerEventArgs) 'System.Timers.ElapsedEventArgs)
+        If Me.m_bThreadRun = True Then
+            vSTEPDRIVE_TIMEBASE__ISR()
+        End If
     End Sub
 
     ''' <summary>
@@ -602,12 +801,28 @@ Public Class Form1
 #End Region '#Region "THREAD SAFETY"
 
 #Region "ETH RX"
+
+    ''' <summary>
+    ''' Rx a new raw packet
+    ''' </summary>
+    ''' <param name="u8Array"></param>
+    ''' <param name="iLength"></param>
     Public Sub InternalEvent__NewPacket(u8Array() As Byte, iLength As Integer)
         If Me.m_bThreadRun = True Then
             vETH_WIN32__Ethernet_Input(u8Array, iLength)
         End If
     End Sub
 
+
+    ''' <summary>
+    ''' RX a UDP safe packet and fake the eth-ii layer
+    ''' </summary>
+    ''' <param name="ePacketType"></param>
+    ''' <param name="u16PayloadLength"></param>
+    ''' <param name="u8Payload"></param>
+    ''' <param name="u16CRC"></param>
+    ''' <param name="bCRCOK"></param>
+    ''' <param name="u32Seq"></param>
     Public Sub InernalEvent__UDPSafe__RxPacket(ByVal ePacketType As SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRCOK As Boolean, ByVal u32Seq As UInt32)
         'MsgBox("packet")
 
@@ -665,9 +880,6 @@ Public Class Form1
         SIL3.MemoryCopy.MemoryCopy.Copy_Memory(bArray, u8Buffer, CInt(u16BufferLength))
 
 
-
-
-
         'pass the packet off to our 802.3 layers
         Dim p802 As New SIL3.IEEE802_3.EthernetFrame(bArray, CInt(u16BufferLength), False)
 
@@ -677,19 +889,16 @@ Public Class Form1
             If p802_IPV4.m_pU8Protocol.To__Uint8 = &H11 Then
 
                 Dim p802_UDP As New SIL3.IEEE802_3.UDP(p802_IPV4.m_bPayload, p802_IPV4.m_iPayloadLength)
-                If p802_UDP.m_pu16DestPort.To__Int = iEthPort Then
+                'If p802_UDP.m_pu16DestPort.To__Int = iEthPort Then
 
-                    Dim pStdUDP As New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", iEthPort)
-                    AddHandler pStdUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.UserEvent__UDPSafe__RxPacket
+                'if we are here, we assume we are on loopback
+                Dim pStdUDP As New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", p802_UDP.m_pu16DestPort.To__Int) 'iEthPort)
+                AddHandler pStdUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.UserEvent__UDPSafe__RxPacket
 
-                    'retransmit
-                    pStdUDP.UserEvent__NewUDP(p802_UDP, True)
+                'retransmit
+                pStdUDP.UserEvent__NewUDP(p802_UDP, True)
 
-
-
-                    'Me.m_pSafeUDP.Tx__Safe_Array(
-
-                End If
+                'End If
 
             End If
 
@@ -704,7 +913,7 @@ Public Class Form1
     End Sub
 
 
-#End Region
+#End Region '#Region "ETH RX"
 
 #Region "MMA8451"
 
@@ -735,9 +944,10 @@ Public Class Form1
             xS16Z = New SIL3.Numerical.S16(4096)
         End If
 
-        Me.m_iAccel0_X += 1
-        Me.m_iAccel0_Y += 1
-        Me.m_iAccel0_Z += 1
+        'this will result in an arith overflow if not careful.
+        'Me.m_iAccel0_X += 1
+        'Me.m_iAccel0_Y += 1
+        'Me.m_iAccel0_Z += 1
 
         Dim bX(2 - 1) As Byte
         xS16X.To__Array(bX, 0)
@@ -754,6 +964,82 @@ Public Class Form1
 
     End Sub
 
-#End Region
+#End Region '#Region "MMA8451"
+
+#Region "FWD LASER"
+
+#End Region '#Region "FWD LASER"
+
+#Region "STEPPER"
+
+    ''' <summary>
+    ''' Update from the stepper system with its new position
+    ''' </summary>
+    ''' <param name="u8MotorIndex"></param>
+    ''' <param name="u8Step"></param>
+    ''' <param name="u8Dir"></param>
+    ''' <param name="s32Position"></param>
+    Private sub STEPDRIVE_WIN32__UpdatePostion(u8MotorIndex As byte, u8Step As Byte, u8Dir As byte,  s32Position As Int32)
+
+        Select Case u8MotorIndex
+            Case 0
+                Threadsafe__SetText(Me.m_txtBrakeL_Pos, s32Position.ToString)
+
+                'compute the MLP value
+                '0 = 2^12 is the ADC range
+
+                Dim sMLP As Single = s32Position + 7500
+
+                'convert to mm
+                sMLP /= 1000.0
+                'convert to percent
+                sMLP /= 75.0
+                'down to 75% of that again to add some head room
+                sMLP *= 0.75
+                'add 10% for the bottom bit
+                'sMLP += 0.1
+                'conver to ADC values
+                sMLP *= (2 ^ 12)
+
+
+                Me.m_iL_MLP = CInt(sMLP)
+                vFCU_BRAKES_MLP_WIN32__ForceADC(0, CUShort(sMLP))
+
+                '75mm
+                If s32Position > 750000 Then
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(0, 1, 1)
+                    vFCU_BRAKES_SW__Left_SwitchExtend_ISR()
+                ElseIf s32Position < -300 Then
+                    'fake some cal limit
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(0, 0, 1)
+                    vFCU_BRAKES_SW__Left_SwitchRetract_ISR()
+                Else
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(0, 1, 0)
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(0, 0, 0)
+                End If
+
+            Case 1
+                Threadsafe__SetText(Me.m_txtBrakeR_Pos, s32Position.ToString)
+
+                'make a simple little simulation model
+                'if the brake position is < 0 hit the limit swiches
+                '75mm
+                If s32Position > 750000 Then
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 1, 1)
+                    vFCU_BRAKES_SW__Right_SwitchExtend_ISR()
+                ElseIf s32Position < -120 Then
+                    'fake some cal limit
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 0, 1)
+                    vFCU_BRAKES_SW__Right_SwitchRetract_ISR()
+                Else
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 0, 0)
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 1, 0)
+                End If
+
+
+        End Select
+
+    End Sub
+#End Region '#Region "STEPPER
 
 End Class

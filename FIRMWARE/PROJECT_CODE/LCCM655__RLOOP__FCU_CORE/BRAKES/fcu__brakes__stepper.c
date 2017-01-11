@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the stepper interface
  * 
- * @st_funcMD5		789F80370F1D1EEB00F64DD61C585732
+ * @st_funcMD5		D30F783904FC50285A0DBBD96FACE951
  * @st_funcID		LCCM655R0.FILE.025.FUNC.001
  */
 void vFCU_BRAKES_STEP__Init(void)
@@ -57,10 +57,10 @@ void vFCU_BRAKES_STEP__Init(void)
 	else
 	{
 		//CRC is invalid
-		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC, 100U, 1U);
-		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_ACCEL, 100U, 1U);
-		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_VELOC, 100U, 1U);
-		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL, 100U, 0U);
+		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC, 1000U, 1U);
+		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_ACCEL, 10000U, 1U);
+		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_VELOC, 1000U, 1U);
+		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL, 10000U, 0U);
 
 		//redo the CRC;
 		vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC,
@@ -74,10 +74,8 @@ void vFCU_BRAKES_STEP__Init(void)
 		sFCU.sBrakes[1].sMove.s32LinearAccel = s32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL);
 
 		//set the flags for a general fault and cal data reload fault.
-		vFAULTTREE__Set_Flag(&sFCU.sBrakes[0].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sBrakes[0].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__03);
-		vFAULTTREE__Set_Flag(&sFCU.sBrakes[1].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sBrakes[1].sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__03);
+		vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__00);
+		vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, C_LCCM655__BRAKES__FAULT_INDEX__03);
 
 
 	}//else if(u8Test == 1U)
@@ -101,7 +99,7 @@ void vFCU_BRAKES_STEP__Process(void)
  * @brief
  * Returns the current position of the lead screw for the brakes
  * 
- * @param[in]		eBrake		## Desc ##
+ * @param[in]		eBrake				The brake index
  * @st_funcMD5		3BF5E1F91C16F1F30165C47A35510773
  * @st_funcID		LCCM655R0.FILE.025.FUNC.003
  */
@@ -115,9 +113,9 @@ Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake)
  * @brief
  * Move the brakes as a pair to a position based on the lead screw distance
  * 
- * @param[in]		s32Brake1Pos		## Desc ##
- * @param[in]		s32Brake0Pos		## Desc ##
- * @st_funcMD5		2294887F0A4BEF2482FF3AE3F94AF8E4
+ * @param[in]		s32Brake1Pos				Microns of brake pos R
+ * @param[in]		s32Brake0Pos				Microns on brake pos L
+ * @st_funcMD5		3B43DC76587675958F6129042FEBF569
  * @st_funcID		LCCM655R0.FILE.025.FUNC.004
  */
 void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos)
@@ -144,11 +142,12 @@ void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos)
 	s32Velocity[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc;
 	s32Velocity[1] = sFCU.sBrakes[1].sMove.s32LinearVeloc;
 
+	//note this must be larger than target accel / microns/revrate
 	s32Accel[0] = sFCU.sBrakes[0].sMove.s32LinearAccel;
 	s32Accel[1] = sFCU.sBrakes[1].sMove.s32LinearAccel;
 
 	//just a dummy task ID
-	u32TaskID = 1U;
+	u32TaskID = sFCU.sBrakesGlobal.u32MoveTaskID;
 
 	//clear the prev task if needed.
 	vSTEPDRIVE__Clear_TaskComplete();
@@ -159,6 +158,8 @@ void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos)
 
 	//check the return to see if we were able to move.
 
+	//int the task ID
+	sFCU.sBrakesGlobal.u32MoveTaskID++;
 
 }
 

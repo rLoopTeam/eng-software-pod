@@ -1,0 +1,5783 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+LAPP185__RLOOP__FCU_EMU
+</name>
+</assembly>
+<members>
+<member name="T:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:LAPP185__RLOOP__FCU_EMU.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.CRC.CRC8">
+ <summary>
+ 8 Bit CRC
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.CRC.Crc8X">
+ <summary>
+ CRC8
+ Usage:
+ byte crc = Crc8.ComputeChecksum( 1, 2, 3 );
+ byte check = Crc8.ComputeChecksum( 1, 2, 3, crc );
+ // here check should equal 0 to show that the checksum is accurate
+ if ( check != 0 ) {
+    Console.WriteLine( "Error in the checksum" );
+}
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.CRC.CRC16_CCITT_TABLE">
+ <summary>
+ Table based CRC16 CCITT implementation
+ Using Poly 0x1021
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.CRC.CRC16_CCITT_TABLE.ComputeCRC(System.Byte[],System.Int32)">
+ <summary>
+ Compute the CCITT16 CRC using Poly 0x1021
+ </summary>
+ <param name="data"></param>
+ <param name="iLength"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.CRC.CRC16__CCITT__DONT_USE">
+ <summary>
+ This is the CCITT CRC 16 polynomial X^16  + X^12  + X^5 + 1
+ This works out to be 0x1021, but the way the algorithm works
+ lets us use 0x8408 (the reverse of the bit pattern). The high
+ bit is always assumed to be set, thus we only use 16 bits to
+ represent the 17 bit value.
+ NOTE: THIS SEEMS TO PRODUCE STRANGE RESULTS.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.CRC.Crc16Ccitt.ComputeChecksum(System.Byte[],System.Int32)">
+ <summary>
+ Compute the CRC over a length
+ </summary>
+ <param name="bytes"></param>
+ <param name="iLength"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.Conversions.StringConversions">
+ <summary>
+helpers for strings
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Conversions.StringConversions.String__Split(System.String,System.Int32)">
+ <summary>
+ Splits a string based on a fixed length
+ </summary>
+ <param name="strOrig"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Conversions.StringConversions.ShortenPathString(System.String,System.Int32,System.Drawing.Font)">
+ <summary>
+1. Shorten a string that contains a file path with ellipsis
+It is common to see file paths shortened by having an ellipsis in the middle, like so
+c:\records\data\jon...\report_xyz.pdf
+ </summary>
+ <param name="pathString" ></param>
+ <param name="targetWidth" ></param>
+ <param name="targetFont" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Conversions.StringConversions.ShortenStringWithEllipsis(System.String,System.Int32,System.Drawing.Font)">
+ <summary>
+In this example we use the MeasureText method of the TextRenderer object to
+build an appropriately sized string. The path, as a string, is passed in along
+with the width and font so that the correct sizing can be determined.
+The PathEllipsis tell the routine to place the ellipsis in the middle of a validly constructed path string.
+The limitation of this routine and the underlying TextRenderer method is that it
+only works with a properly constructed path/filename and not with other strings.
+ </summary>
+ <param name="targetString" ></param>
+ <param name="targetWidth" ></param>
+ <param name="targetFont" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Conversions.StringConversions.ReverseString(System.String)">
+ <summary>
+ Reverses a String
+ </summary>
+ <param name="targetString" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Conversions.StringConversions.Find_Position_In_String(System.Char,System.String)">
+ <summary>
+finds the pos of a char in a string, returns -1 if not found
+ </summary>
+ <param name="sChar" ></param>
+ <param name="sString" ></param>
+ <returns>Integer</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Conversions.StringConversions.Convert_String_To_ASCIIByteArray(System.String@,System.Byte[]@)">
+ <summary>
+converts a string such as "Lockie" to a byte array whcih is the same length as the string
+no safety checking is performed here
+ </summary>
+ <param name="sString" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Conversions.StringConversions.Convert_String_To_ASCIIByteArray_Pad(System.String@,System.Byte[]@,System.Byte,System.Int32)">
+ <summary>
+ Converts a string to a byte array and then pads out the remainder of the string to a specified length
+ </summary>
+ <param name="sString"></param>
+ <param name="u8Array"></param>
+ <param name="bPadByte"></param>
+ <param name="iTotalLength"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Conversions.StringConversions.Convert_ByteArrayASCII_ToString(System.Byte[],System.Int32,System.Int32)">
+ <summary>
+this will convert an array of bytes to a string
+please only use ascii chars
+ </summary>
+ <param name="iArrayLength" ></param>
+ <param name="iStartPos" ></param>
+ <returns>Byte</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Conversions.StringConversions.Convert_ByteArrayASCII_ToPrintableString(System.Byte[],System.Int32,System.Int32)">
+ <summary>
+ converts the data into a printable string, else pads with 0x...
+ </summary>
+ <param name="pByteArray"></param>
+ <param name="iArrayLength"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Conversions.StringConversions.PadString(System.String,System.Int32,System.Char)">
+ <summary>
+this function will pad a string with a padding character to the desired length
+if the string is too long it will be clipped
+ </summary>
+ <param name="sString" ></param>
+ <param name="iPadLength" ></param>
+ <param name="cPadCharacter" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Conversions.StringConversions.Convert_ASCIICharacter_To_Byte(System.Char)">
+ <summary>
+ pass in A
+ it will return H30
+ </summary>
+ <param name="sChar" ></param>
+ <returns>Byte</returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Conversions">
+ <summary>
+ Conversions class
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ Create a new U8 from an array, 
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.#ctor(System.Byte)">
+ <summary>
+ New instance from a U8 value
+ </summary>
+ <param name="u8Value"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.#ctor(System.Char)">
+ <summary>
+ Convert to a U8 from a Char
+ </summary>
+ <param name="cvalue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.#ctor">
+ <summary>
+ Simple blank instance
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.Update(System.Byte)">
+ <summary>
+ Just update our internal structure
+ </summary>
+ <param name="u8Value"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.From__FormattedHex(System.String)">
+ <summary>
+ Load a hex string like 0xAB
+ </summary>
+ <param name="sValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.From__HexString(System.String,System.Int32)">
+ <summary>
+ Converts AA to 0xAA
+ </summary>
+ <param name="sString"></param>
+ <param name="iStartPosInString"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.From__Int(System.Int32)">
+ <summary>
+ From an integer
+ Caution on limited data range
+ </summary>
+ <param name="iValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.To__Uint8">
+ <summary>
+ Convert to an U8
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.To__Boolean">
+ <summary>
+ Convert to a boolean where 0 = false
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.To__Array(System.Byte[]@,System.Int32)">
+ <summary>
+ Convert to an array, based on a start position
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPosition"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.To__Uint32">
+ <summary>
+ Convert to an U32
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.To__Int">
+ <summary>
+ Convert to an integer
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.To_String(System.Boolean)">
+ <summary>
+ Convert to a formatted hex string
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.To__ASCII(System.Boolean,System.String)">
+ <summary>
+ converts a byte to an ascii character
+ example byte= 0x30, char = '0'
+ </summary>
+ <param name="bSuppressNonPrintable" ></param>
+ <param name="bSuppressString" ></param>
+ <returns>Char</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.Convert_ASCIICharacter_To_Byte(System.Char)">
+ <summary>
+ pass in A
+ it will return H30
+ </summary>
+ <param name="sChar" ></param>
+ <returns>Byte</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.Flag(System.Byte)">
+ <summary>
+ see if a particular flag is set
+ Returns true if the flag is set
+ Pass in the flag such as 0x80
+ </summary>
+ <param name="bValue"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.Flag__Index(System.Int32)">
+ <summary>
+ Checks to see if a flag at an index is set
+ </summary>
+ <param name="iFlagIndex"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.Shift__Right(System.Int32)">
+ <summary>
+ Performs a right shift
+ </summary>
+ <param name="iPlaces"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.Shift__Left(System.Int32)">
+ <summary>
+ Left Shift
+ </summary>
+ <param name="iPlaces"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.Logical__And(System.Byte)">
+ <summary>
+ Perform a logical and
+ </summary>
+ <param name="andValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.Logical__Or(System.Byte)">
+ <summary>
+ Perform logical OR
+ </summary>
+ <param name="orValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.Logical__XOr(System.Byte)">
+ <summary>
+ Perform a logical X-OR
+ </summary>
+ <param name="xorValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.Array__To_FormattedHexString(System.Byte[],System.Int32,System.Int32,System.Boolean,System.String)">
+ <summary>
+converts a byte array to a hex string array
+pass in start and len of your byte array for max flexibillity
+example
+byte array = 0x41, 0x57, 0x63
+string = 0x415763
+ </summary>
+ <param name="iStart" ></param>
+ <param name="iLength" ></param>
+ <param name="bAppend0x" ></param>
+ <param name="sInsertChars" ></param>
+ <returns>Byte</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.Array__To_FormattedHexString_Reversed(System.Byte[],System.Int32,System.Int32,System.Boolean,System.String)">
+ <summary>
+ Convert an array to a formatted hex string in reverse
+ </summary>
+ <param name="bByteArray"></param>
+ <param name="iStart"></param>
+ <param name="iLength"></param>
+ <param name="bAppend0x"></param>
+ <param name="sInsertChars"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.Array__To_FormattedHexString_Padded(System.Byte[],System.Int32,System.Int32,System.Boolean)">
+ <summary>
+same as above, but padded to the correct length
+ </summary>
+ <param name="iStart" ></param>
+ <param name="iLength" ></param>
+ <param name="bAppend0x" ></param>
+ <returns>Byte</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.Bit__Set(System.Int32)">
+ <summary>
+ Se a particular bit in the byte
+ </summary>
+ <param name="iBitIndex"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.#ctor">
+ <summary>
+ New simple instance
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.#ctor(System.Byte,System.Byte)">
+ <summary>
+ New instance with dual bytes
+ </summary>
+ <param name="b1"></param>
+ <param name="b0"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ Create a new U16 from an array, 
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.#ctor(System.UInt16)">
+ <summary>
+ New instance from a U16 value
+ </summary>
+ <param name="u16Value"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.To__Uint16">
+ <summary>
+ Convert to an U16
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.Update(System.UInt16)">
+ <summary>
+ Allows updating of the original value
+ </summary>
+ <param name="u16Value"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.To__Array(System.Byte[]@,System.Int32)">
+ <summary>
+ Convert to an array, based on a start position
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPosition"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.From__FormattedHex(System.String)">
+ <summary>
+ Load a hex string like 0xABCD
+ </summary>
+ <param name="sValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.From__HexString(System.String,System.Int32)">
+ <summary>
+ Convert from a hex string such as AB12 to 0xAB12
+ </summary>
+ <param name="sString"></param>
+ <param name="iStartPosInString"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.To__Int">
+ <summary>
+ Convert to an integer
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.To__Uint32">
+ <summary>
+ Convert to a U32
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.To_String">
+ <summary>
+ Convert to a formatted hex string
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.Get__Flag(System.UInt16)">
+ <summary>
+ see if a particular flag is set
+ Returns true if the flag is set
+ </summary>
+ <param name="u16Value"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.Get__Bit(System.Int32)">
+ <summary>
+ Returns the bit in a particular position
+ </summary>
+ <param name="iBitNumber"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.Get__Bits(System.Int32,System.Int32)">
+ <summary>
+ Returns the bits in a particular position
+ The value is returned right shifted.
+ </summary>
+ <param name="iBitStart">Highest bit position</param>
+ <param name="iLength"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.ShiftRight(System.Int32)">
+ <summary>
+ Performs a right shift
+ </summary>
+ <param name="iPlaces"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.Logical__And(System.UInt16)">
+ <summary>
+ Perform a logical and
+ </summary>
+ <param name="andValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.Logical__Or(System.UInt16)">
+ <summary>
+ Perform logical OR
+ </summary>
+ <param name="orValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.Add(System.Byte)">
+ <summary>
+ Add a byte on
+ </summary>
+ <param name="bValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.S16.#ctor(System.Byte,System.Byte)">
+ <summary>
+ New instance with dual bytes
+ </summary>
+ <param name="b1"></param>
+ <param name="b0"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.S16.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ Create a new U16 from an array, 
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.S16.#ctor(System.Int16)">
+ <summary>
+ New instance from a S16 value
+ </summary>
+ <param name="s16Value"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.S16.To_String(System.Boolean)">
+ <summary>
+ Convert to a formatted hex string
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.S16.To__Array(System.Byte[]@,System.Int32)">
+ <summary>
+ Convert to an array, based on a start position
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPosition"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.S16.To__Int16">
+ <summary>
+ Convert to an S16
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.S16.To__Int">
+ <summary>
+ Convert to a integr
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U32.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ Create a new instance from an array
+ With an array, the MSB is stored in 0+start pos of the array
+ Therefore the function below looks like it contains a fault, however
+ it is accurate.
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U32.#ctor(System.Byte,System.Byte,System.Byte,System.Byte)">
+ <summary>
+ New from 4 bytes
+ When supplying raw bytes, the user is expected to ensure
+ the byte order is correct, if in doubt, use the array based function above.
+ This can be useful for casting say a byte to a U32 by suppling the byte
+ in the lower b0 nibble.
+ </summary>
+ <param name="b3"></param>
+ <param name="b2"></param>
+ <param name="b1"></param>
+ <param name="b0"></param>
+ <remarks>Use this for odd ordered data streams</remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U32.#ctor(System.UInt32)">
+ <summary>
+ Create a new instance from a u32 value 
+ </summary>
+ <param name="u32Value">If you want to input the value like 0xABCD1234, do it as ABCD1234UI</param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U32.Update(System.UInt32)">
+ <summary>
+ Allows updating of the original value
+ </summary>
+ <param name="u32Value"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U32.From__FormattedHex(System.String)">
+ <summary>
+ Update from a formatted hex string
+ </summary>
+ <param name="sValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U32.To__Array(System.Byte[]@,System.Int32)">
+ <summary>
+ Convert the U32 to an array
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPosition"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U32.To_String(System.Boolean)">
+ <summary>
+ Convert to a formatted hex string
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U32.Flag(System.UInt32)">
+ <summary>
+ see if a particular flag is set
+ Returns true if the flag is set
+ </summary>
+ <param name="u32Value"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U32.Flag__Index(System.Int32)">
+ <summary>
+ Checks to see if a flag at an index is set
+ </summary>
+ <param name="iFlagIndex"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U32.Shift__Right(System.Int32)">
+ <summary>
+ Performs a right shift
+ </summary>
+ <param name="iPlaces"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U32.ClearBit(System.UInt32)">
+ <summary>
+ Clears a bit
+ </summary>
+ <param name="u32BitIndex"></param>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.S32.m_bData0">
+ <summary>
+ LL Byte
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.S32.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ Create a new instance from an array
+ With an array, the MSB is stored in 0+start pos of the array
+ Therefore the function below looks like it contains a fault, however
+ it is accurate.
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.S32.#ctor(System.Byte,System.Byte,System.Byte,System.Byte)">
+ <summary>
+ New from 4 bytes
+ When supplying raw bytes, the user is expected to ensure
+ the byte order is correct, if in doubt, use the array based function above.
+ This can be useful for casting say a byte to a U32 by suppling the byte
+ in the lower b0 nibble.
+ </summary>
+ <param name="b3"></param>
+ <param name="b2"></param>
+ <param name="b1"></param>
+ <param name="b0"></param>
+ <remarks>Use this for odd ordered data streams</remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.S32.#ctor(System.Int32)">
+ <summary>
+ Create a new instance from a s32 value If you want to input the value like 0xABCD1234, do it as ABCD1234UI
+ </summary>
+ <param name="s32Value"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.S32.Union__Uint32">
+ <summary>
+ union the array to a u32
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.S32.To__Array(System.Byte[]@,System.Int32)">
+ <summary>
+ Convert to an array
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPosition"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.S32.To_String">
+ <summary>
+ Convert to a formatted hex string
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F32.#ctor(System.Byte,System.Byte,System.Byte,System.Byte)">
+ <summary>
+ New instance from raw bytes.
+ </summary>
+ <param name="b3"></param>
+ <param name="b2"></param>
+ <param name="b1"></param>
+ <param name="b0"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F32.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ Create a new instance from an array
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F32.#ctor(System.Single)">
+ <summary>
+ New instance with a single as the base
+ </summary>
+ <param name="f32Value"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F32.Union__Uint32">
+ <summary>
+ union the array to a u32
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F32.To__Float32">
+ <summary>
+ Return the float32 value
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F32.To__Array(System.Byte[]@,System.Int32)">
+ <summary>
+ Convert to an array
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPosition"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F32.To_String(System.Boolean)">
+ <summary>
+ Convert to a formatted hex string
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F32.Swap_SingleWIN32_To_SinglePPC405(System.Single)">
+ <summary>
+ Converts a single in win32 to a single for PPC405
+ Changes byte ordering
+ </summary>
+ <param name="sSingleWin"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F32.Round(System.Int32)">
+ <summary>
+ Performs rounding
+ </summary>
+ <param name="nPlaces"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U64.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ New U64 from array
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U64.From__HexString(System.String)">
+ <summary>
+ Convert from a hex string to a U64
+ </summary>
+ <param name="sValue"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U64.Get__Byte(System.Int64,System.Int32)">
+ <summary>
+ Gets a byte at a position
+ </summary>
+ <param name="sValue"></param>
+ <param name="iByteNumber"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U64.To__Uint64">
+ <summary>
+ Convert our Internal to uint64
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F64.#ctor(System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+ <summary>
+ New instance from raw bytes.
+ </summary>
+ <param name="b7"></param>
+ <param name="b6"></param>
+ <param name="b5"></param>
+ <param name="b4"></param>
+ <param name="b3"></param>
+ <param name="b2"></param>
+ <param name="b1"></param>
+ <param name="b0"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F64.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ Create a new instance from an array
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F64.#ctor(System.Double)">
+ <summary>
+ New instance with a single as the base
+ </summary>
+ <param name="f32Value"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F64.To__Double64">
+ <summary>
+ Return the f64 value
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F64.To__Array(System.Byte[]@,System.Int32)">
+ <summary>
+ Convert to an array
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPosition"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.F64.Round(System.Int32)">
+ <summary>
+ Performs rounding
+ </summary>
+ <param name="nPlaces"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Scientific.FromEngineering(System.String)">
+ <summary>
+ From  "2.70000000000000E+0002" to 270.0
+ </summary>
+ <param name="sVal"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Scientific.ToEngineering(System.Single)">
+ <summary>
+ Converts to scientific, pass in 0.01, return e-2
+ </summary>
+ <param name="sValue"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Triangles">
+ <summary>
+ Triangles conversions class
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Triangles.ThetaDegrees__From_OppAdj(System.Single,System.Single)">
+ <summary>
+ Returns the angle theta (in degrees) based on a opposite and adjacent side of a triangle
+ A positive return value represents a counterclockwise angle from the x-axis; 
+ a negative return value represents a clockwise angle.
+ </summary>
+ <param name="sngOpposite"></param>
+ <param name="sngAdjacent"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig">
+ <summary>
+special conversion helpers for math functions
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.clsMath_3DPoint">
+ <summary>
+simple 3D point
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.clsMath_3DPoint.Gen_String">
+ <summary>
+generate a string "(X,Y,Z)
+ </summary>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.clsMath_SphericalPoint">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.clsMath_SphericalPoint.Gen_String_Degrees">
+ <summary>
+generates R.Z.T in degrees
+ </summary>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.NormaliseAngle_To_LockieCoordinateSystem(System.Double)">
+ <summary>
+when we have an angle pointing to 12-oclock this is called 0°.  The angle
+then rotates clockwise and this is a positive angle increase
+this function will normalise any angle, up to 360 degrees
+the idea behind this is that our trig functions only take in positive angles up to 90°.
+ </summary>
+ <param name="dAngle" ></param>
+ <returns>Double</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.ReturnQuadrant_FromAngle(System.Double)">
+ <summary>
+returns the quadrant of the current angle.
+all angles go from 0° (Vertical / 12 oclock position) and rotate clock wise.
+ </summary>
+ <param name="dAngle" ></param>
+ <returns>eQuadrants</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.DegreesToRadians(System.Double)">
+ <summary>
+ converts degrees to radians
+ </summary>
+ <param name="dDegrees" ></param>
+ <returns>Double</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.RadiansToDegrees(System.Double)">
+ <summary>
+ converts radians to degrees.
+ </summary>
+ <param name="dRadians" ></param>
+ <returns>Double</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.DegreesToRadians(System.Single)">
+ <summary>
+ converts degrees to radians
+ </summary>
+ <param name="sngDegrees" ></param>
+ <returns>Single</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.RadiansToDegrees(System.Single)">
+ <summary>
+ converts radians to degrees.
+ </summary>
+ <param name="sngRadians" ></param>
+ <returns>Single</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.CalculateLineAngle_InRadians(System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+pass in (x,y) (x,y)
+will return the angle of the line in radians
+ </summary>
+ <param name="dStartX" ></param>
+ <param name="dStartY" ></param>
+ <param name="dEndX" ></param>
+ <param name="dEndY" ></param>
+ <returns>Double</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.CalculateLineLength(System.Double,System.Double,System.Double,System.Double)">
+ <summary>
+function returns the length of a line between two points
+assume right angle triangle
+ </summary>
+ <param name="dStartX" ></param>
+ <param name="dStartY" ></param>
+ <param name="dEndX" ></param>
+ <param name="dEndY" ></param>
+ <returns>Double</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.Calculate_AdjacentLength_HypAngleDegrees(System.Double,System.Double)">
+ <summary>
+basic triangle function to return the length of the adjacent (X direction) based on
+the length of the hypotenuse and the angle between the hyp and the adj
+(Hypotenuse)- Hard to draw
+                 |
+                 | (Opposite)
+(°)--------------|
+(Adjacent)
+we assume that we are dealing with a right angle between ADJ and OPP)
+ </summary>
+ <param name="dAngleDegrees" ></param>
+ <param name="dHypotenuseLength" ></param>
+ <returns>Double</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.Calculate_AdjacentLength_HypAngleRadians(System.Double,System.Double)">
+ <summary>
+same as above but in radians
+formula = cos(a)= adj/hyp
+ </summary>
+ <param name="dAngleRadians" ></param>
+ <param name="dHypotenuseLength" ></param>
+ <returns>Double</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.Calculate_OppositeLength_HypAngleDegrees(System.Double,System.Double)">
+ <summary>
+basic triangle function to return the length of the opposite (Y Direction)
+the length of the hypotenuse and the angle between the hyp and the adj
+(Hypotenuse)- Hard to draw
+                 |
+                 | (Opposite)
+(°)--------------|
+(Adjacent)
+we assume that we are dealing with a right angle between ADJ and OPP)
+ </summary>
+ <param name="dAngleDegrees" ></param>
+ <param name="dHypotenuseLength" ></param>
+ <returns>Double</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.Calculate_OppositeLength_HypAngleRadians(System.Double,System.Double)">
+ <summary>
+sin(angle) = opp/hyp
+ </summary>
+ <param name="dAngleRadians" ></param>
+ <param name="dHypotenuseLength" ></param>
+ <returns>Double</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.Convert_SphericalCoordinatesDegrees_To_3DCartesianPoint(System.Double,System.Double,System.Double)">
+ <summary>
+function to generate a 3d point from spherical coordinates
+r - the radial distance
+zenith is the rotation around the z-axis
+azimuth is angle from the z,y ground plane.
+ </summary>
+ <param name="dRadialLength" ></param>
+ <param name="dZenithAngleDegrees" ></param>
+ <param name="dAzimuthAngleDegrees" ></param>
+ <returns>clsMath_3DPoint</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.Convert_SphericalCoordinatesRadians_To_3DCartesianPoint(System.Double,System.Double,System.Double)">
+ <summary>
+ 
+ </summary>
+ <param name="dRadialLength" ></param>
+ <param name="dZenithAngleDegrees" ></param>
+ <param name="dAzimuthAngleDegrees" ></param>
+ <returns>clsMath_3DPoint</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.Covert_3DCartesianPoint_To_SphericalCoordinatesDegrees(System.Double,System.Double,System.Double)">
+ <summary>
+takes and X,Y,Z and converts to a R,Z,T spherical point
+ </summary>
+ <param name="dX" ></param>
+ <param name="dY" ></param>
+ <param name="dZ" ></param>
+ <returns>clsMath_SphericalPoint</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.Covert_3DCartesianPoint_To_SphericalCoordinatesDegrees(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Trig.clsMath_3DPoint)">
+ <summary>
+ 
+ </summary>
+ <param name="p3D" ></param>
+ <returns>clsMath_SphericalPoint</returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointsF32">
+ <summary>
+ List of F32Points
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointsF32.Shift__Points(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32)">
+ <summary>
+ Shift all points in our internal array by a value
+ </summary>
+ <param name="ptShift"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointsF32.Min_Distance(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32)">
+ <summary>
+ Workes out which point in the list is closest to a given point and
+ returns the index of that item
+ </summary>
+ <param name="ptX"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointsF32.Min_DistanceX">
+ <summary>
+ Get the minimum X point
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointsF32.Max_Distance(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32)">
+ <summary>
+ Workes out which point in the list is furtherest to a given point and
+ returns the index of that item
+ </summary>
+ <param name="ptX"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointsF32.Centroid">
+ <summary>
+ compute the centroid of our points
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointsF32.Bounding_Box">
+ <summary>
+ Calculate the bounding box
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32">
+ <summary>
+ Float32 point class
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32.bFlag">
+ <summary>
+ A optional flag that we can use in our application.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32.Point__ScaleX(System.Single)">
+ <summary>
+ Scales an X point
+ </summary>
+ <param name="f32ScaleValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32.Point__ScaleY(System.Single)">
+ <summary>
+ Scales a Y point
+ </summary>
+ <param name="f32ScaleValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32.Point__RotateF(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32,System.Double)">
+ <summary>
+ Rotate our point by an angle based on an origin
+ </summary>
+ <param name="origin"></param>
+ <param name="radAngle"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32.CheckTolerance(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32,System.Single)">
+ <summary>
+ Checks the tolerance between two points.
+ </summary>
+ <param name="ptOther"></param>
+ <param name="sngDist"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32.Average(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32)">
+ <summary>
+ Average our point with another point and return the average
+ </summary>
+ <param name="ptOther"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32.To__PointF">
+ <summary>
+ Convert to system.draw.pointF
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32.Translate(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32)">
+ <summary>
+ Translate our internal value by the offset and then return the result
+ </summary>
+ <param name="ptOffset"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32.Distance_To(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32)">
+ <summary>
+ Compute the distance from us to another point.
+ </summary>
+ <param name="ptOther"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Point3DF32">
+ <summary>
+ Float32 3D point class
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Point3DF32.Point__ScaleX(System.Single)">
+ <summary>
+ Scales an X point
+ </summary>
+ <param name="f32ScaleValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Point3DF32.Point__ScaleY(System.Single)">
+ <summary>
+ Scales a Y point
+ </summary>
+ <param name="f32ScaleValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.Point3DF32.Point__ScaleZ(System.Single)">
+ <summary>
+ Scales a Z point
+ </summary>
+ <param name="f32ScaleValue"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64">
+ <summary>
+ Float64 (double) point class
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64.bFlag">
+ <summary>
+ A optional flag that we can use in our application.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64.Point__ScaleX(System.Double)">
+ <summary>
+ Scales an X point
+ </summary>
+ <param name="f32ScaleValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64.Point__ScaleY(System.Double)">
+ <summary>
+ Scales a Y point
+ </summary>
+ <param name="f32ScaleValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64.Point__RotateF(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64,System.Double)">
+ <summary>
+ Rotate our point by an angle based on an origin
+ </summary>
+ <param name="origin"></param>
+ <param name="radAngle"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64.CheckTolerance(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64,System.Double)">
+ <summary>
+ Checks the tolerance between two points.
+ </summary>
+ <param name="ptOther"></param>
+ <param name="sngDist"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64.Average(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64)">
+ <summary>
+ Average our point with another point and return the average
+ </summary>
+ <param name="ptOther"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64.To__PointF">
+ <summary>
+ Convert to system.draw.pointF
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64.Translate(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64)">
+ <summary>
+ Translate our internal value by the offset and then return the result
+ </summary>
+ <param name="ptOffset"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64.Distance_To(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64)">
+ <summary>
+ Compute the distance from us to another point.
+ </summary>
+ <param name="ptOther"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.RectangleF32">
+ <summary>
+ Single Precision rectangle class
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.RectangleF32.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32,System.Single,System.Single)">
+ <summary>
+ Create a new rectangle from a center point and W,H
+ </summary>
+ <param name="ptCenter"></param>
+ <param name="sngWidth"></param>
+ <param name="sngHeight"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.RectangleF32.Contains(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.RectangleF32)">
+ <summary>
+ see if our rect contains anothe rect
+ </summary>
+ <param name="pOtherRect"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.RectangleF32.Center">
+ <summary>
+ get the center point
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.RectangleF32.Get__Area">
+ <summary>
+ Return the area of the rectangle
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.RectangleF64">
+ <summary>
+ Double Precision rectangle class
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.RectangleF64.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF64,System.Double,System.Double)">
+ <summary>
+ Create a new rectangle from a center point and W,H
+ </summary>
+ <param name="ptCenter"></param>
+ <param name="sngWidth"></param>
+ <param name="sngHeight"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.RectangleF64.Center">
+ <summary>
+ get the center point
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.ARP">
+ <summary>
+ Address Resolution Protocol
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.ARP.m_bFrame">
+ <summary>
+ A local copy of our byte array
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.ARP.m_iFrameLength">
+ <summary>
+ The length of our entire TCP Frame
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.ARP.#ctor">
+ <summary>
+ Create a blank new instance
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.ARP.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ Create a new instance and pass in the frame off the MAC IC
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iArrayLength"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.ARP.Process_Frame(System.Int32)">
+ <summary>
+ Process the ipV4 Frame
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.ARP.UDP__Send(System.String,System.Int32)">
+ <summary>
+ Send our UDP packet out an IP port
+ </summary>
+ <param name="sIPAddx"></param>
+ <param name="iPort"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.EthernetFrame">
+ <summary>
+ Ethernet frame straight off the wire
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.EthernetFrame.m_u8Array">
+ <summary>
+ A local copy of our byte array
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.EthernetFrame.#ctor(System.Byte[]@,System.Int32,System.Boolean)">
+ <summary>
+ Create a new instance and pass in the frame off the MAC IC
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iArrayLength"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.EthernetFrame.ProcessPacket(System.Int32,System.Boolean)">
+ <summary>
+ Process the packet
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.EthernetFrame.Format_PacketList">
+ <summary>
+ Create our packet list packet
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.EthernetFrame.IEEE802_3_ByteArray_To_StringAddress(System.Byte[],System.Int32)">
+ <summary>
+ Convert IEE802.3 to byte array
+ </summary>
+ <param name="sData"></param>
+ <param name="iStartOffset"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.IPLayer.IPV4">
+ <summary>
+ IPV4
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.IPLayer.IPV4.m_bFrame">
+ <summary>
+ A local copy of our byte array
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.IPLayer.IPV4.m_iVersion">
+ <summary>
+ The version, should be 4 for IPV4
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.IPLayer.IPV4.m_iInternetHeaderLen">
+ <summary>
+ The IHL Field
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.IPLayer.IPV4.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ Create a new instance and pass in the frame off the MAC IC
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iArrayLength"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.IPLayer.IPV4.Process_Frame(System.Int32)">
+ <summary>
+ Process the ipV4 Frame
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.IPLayer.IPV4.Format_PacketList">
+ <summary>
+ Create our packet list packet
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.LLDP">
+ <summary>
+ Link Layer Discovery Protocol
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.LLDP.m_bFrame">
+ <summary>
+ A local copy of our byte array
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.LLDP.m_iFrameLength">
+ <summary>
+ The length of our entire TCP Frame
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.LLDP.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ Create a new instance and pass in the frame off the MAC IC
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iArrayLength"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.LLDP.Process_Frame(System.Int32)">
+ <summary>
+ Process an incomming frame.
+ </summary>
+ <param name="iArrayLen"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.TCPLayer.TCP">
+ <summary>
+ TCP
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.TCPLayer.TCP.m_bFrame">
+ <summary>
+ A local copy of our byte array
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.TCPLayer.TCP.m_iFrameLength">
+ <summary>
+ The length of our entire TCP Frame
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.TCPLayer.TCP.m_u32SeqNumber">
+ <summary>
+ Packet SEQ number
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.TCPLayer.TCP.m_u32AckNumber">
+ <summary>
+ Packet ACK number
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.TCPLayer.TCP.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ Create a new instance and pass in the frame off the MAC IC
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iArrayLength"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.TCPLayer.TCP.Process_Frame(System.Int32)">
+ <summary>
+ Process the ipV4 Frame
+ 'http://en.wikipedia.org/wiki/Transmission_Control_Protocol
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.TCPLayer.TCP.Format_PacketList">
+ <summary>
+ Create our packet list packet
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.UDP">
+ <summary>
+ UDP
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.UDP.m_bFrame">
+ <summary>
+ A local copy of our byte array
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.UDP.m_iFrameLength">
+ <summary>
+ The length of our entire TCP Frame
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.UDP.#ctor">
+ <summary>
+ Create a blank new instance
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.UDP.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ Create a new instance and pass in the frame off the MAC IC
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iArrayLength"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.UDP.Process_Frame(System.Int32)">
+ <summary>
+ Process the ipV4 Frame
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.UDP.Set__PackFrame">
+ <summary>
+ Pack the frame with our data
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.UDP.UDP__Send(System.String,System.Int32)">
+ <summary>
+ Send our UDP packet out an IP port
+ </summary>
+ <param name="sIPAddx"></param>
+ <param name="iPort"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.UDP.Format_PacketList">
+ <summary>
+ Create our packet list packet
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ISO_DateTime">
+ <summary>
+ ISO Standard Date and Time Conversions
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ISO_DateTime.Now__Get_DateTime">
+ <summary>
+ Gets the date and the time now.
+ 2009-12-06 11:45:28
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ISO_DateTime.Now__Get_Date">
+ <summary>
+ Returns only the date in ISO format
+ 2009-12-06
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ISO_DateTime.Now__Get_Time">
+ <summary>
+ Returns only the time in ISO format
+ 11:45:28
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileWriter">
+ <summary>
+ Binary file writing class
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileWriter.#ctor(System.String,System.IO.FileMode)">
+ <summary>
+ 
+ </summary>
+ <param name="sFileName" ></param>
+ <param name="sMode" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileWriter.Close">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileWriter.WriteNextByte(System.Byte)">
+ <summary>
+once you are writing data to the file, you can continue writing data.
+ </summary>
+ <param name="bByte" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileWriter.Write__Next_U16(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16)">
+ <summary>
+ Write the next U16 in sequence to the end of the file.
+ </summary>
+ <param name="u16"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileWriter.WriteNextShort(System.Int16)">
+ <summary>
+ 
+ </summary>
+ <param name="bByte" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileWriter.WriteByte(System.Byte,System.Int32)">
+ <summary>
+writes a byte at a given position in the file.
+ </summary>
+ <param name="bByte" ></param>
+ <param name="iFilePosition" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileWriter.WriteShort(System.Int16,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="bByte" ></param>
+ <param name="iFilePosition" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileWriter.WriteBytes(System.Byte[]@,System.Int32,System.Int32)">
+ <summary>
+writes bytes to the file
+ </summary>
+ <param name="iFilePosition" ></param>
+ <param name="iLength" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileWriter.WriteNextBytes(System.Byte[]@,System.Int32)">
+ <summary>
+writes the next set of bytes without a seek
+ </summary>
+ <param name="iLength" ></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileReader">
+ <summary>
+this class provides functionality for reading and writing to a binary file
+including any conversions as necessary
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileReader.GetFileSize">
+ <summary>
+ Retruns the length of the file
+ </summary>
+ <returns>Long</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileReader.#ctor(System.String,System.IO.FileMode)">
+ <summary>
+ 
+ </summary>
+ <param name="sFileName" ></param>
+ <param name="sMode" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileReader.Close">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileReader.GetByteAtPosition(System.Int64)">
+ <summary>
+returns a byte at a single position in the file
+if we run past the end of the file, then we will just return 0 rather than
+crashing. Its up to the programmer to sort this out.
+ </summary>
+ <param name="lPosition" ></param>
+ <returns>Byte</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileReader.Seek(System.Int64)">
+ <summary>
+just a wrapper
+ </summary>
+ <param name="lPosition" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileReader.GetNextByte">
+ <summary>
+ 
+ </summary>
+ <returns>Byte</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileReader.GetNextInt16">
+ <summary>
+ 
+ </summary>
+ <returns>Int16</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileReader.GetNextUInt16">
+ <summary>
+ 
+ </summary>
+ <returns>UInt16</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileReader.GetNextByteArray(System.Int32)">
+ <summary>
+does not do a seek, just keeps reading bytes from where we left off from
+ </summary>
+ <param name="iLength" ></param>
+ <returns>Byte</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileReader.Get_AllBytes">
+ <summary>
+ Returns all of the bytes in the file
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.BinaryFileReader.GetByteArrayAtPosition(System.Int64,System.Int32)">
+ <summary>
+gets an array of bytes at a position in file
+ </summary>
+ <param name="lPosition" ></param>
+ <param name="iLength" ></param>
+ <returns>Byte</returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV">
+ <summary>
+ Handles CSV read / writes
+ Each row contains an al of items which are in that row
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.#ctor(System.String,System.String,System.Boolean,System.Boolean)">
+ <summary>
+new instance of the class, with a read
+pass in the del char too
+ </summary>
+ <param name="sFileName" ></param>
+ <param name="sDelimeter" ></param>
+ <param name="bTabDelimeter" ></param>
+ <param name="bFile__Read" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Column__Append(System.String,System.String,System.Boolean)">
+ <summary>
+ Appends a column to the end of the file
+ useful for growing the data
+ </summary>
+ <param name="sColumnName" ></param>
+ <param name="sDefaultValue" ></param>
+ <param name="bReWriteCSV" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Column__Insert(System.String,System.String,System.Int32,System.Boolean)">
+ <summary>
+ Inserts a col
+ </summary>
+ <param name="sColumnName"></param>
+ <param name="sDefaultValue"></param>
+ <param name="iPosition"></param>
+ <param name="bReWriteCSV"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Column__Delete(System.String,System.Boolean)">
+ <summary>
+ Deletes a column from the arraylist and optionally re-writes the CSV file
+ </summary>
+ <param name="sColumnName"></param>
+ <param name="bReWriteCSV"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.GetCellContents(System.String,System.Int32)">
+ <summary>
+returns the contents of a cell out
+find the column index
+ </summary>
+ <param name="sColName" ></param>
+ <param name="iRowIndex" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Cell__SetContents(System.String,System.Int32,System.String,System.Boolean)">
+ <summary>
+find the column index
+ </summary>
+ <param name="sColName" ></param>
+ <param name="iRowIndex" ></param>
+ <param name="sValue" ></param>
+ <param name="bReWriteFile" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.File__Exists">
+ <summary>
+ 
+ </summary>
+ <returns>Boolean</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.File__Delete">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Header__GetIndexDict">
+ <summary>
+ Return a dictionary of all header names and their column index
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Header__SearchIndex(System.String)">
+ <summary>
+ Search a header for a string and return the index of the header
+ </summary>
+ <param name="sString"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Clear_Header_Items">
+ <summary>
+clears all the items in the header
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Header__Add(System.String)">
+ <summary>
+adds a new header item
+ </summary>
+ <param name="sValue" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Header__Add(System.Collections.Generic.List{System.String})">
+ <summary>
+ Add by a list of strings
+ </summary>
+ <param name="lValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Header__Add(System.String[])">
+ <summary>
+ Adds many items to a header base don a string array
+ </summary>
+ <param name="sItems"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Header__Save">
+ <summary>
+ Writes the header to the file
+ By writing it to the file we have the ability clear the file.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.ReWrite_CSV(System.String)">
+ <summary>
+ This will re-write the entire file to disk
+ The file is stored in the Array list, so any changes to the arraylist will be 
+ reflected here.
+ </summary>
+ <param name="sNewFileName" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Generate_CSV_Line(System.Int32)">
+ <summary>
+generates a CSV line for write, based on row index
+ </summary>
+ <param name="iRowIndex" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Write_CSV_Line(System.String[])">
+ <summary>
+ Writes a bank of strings to a line
+ </summary>
+ <param name="sEntires">The entires that have to be separated by a comma</param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Write_CSV_Line(System.String)">
+ <summary>
+ Writes a CSV line to the end of the file
+ You will need to reread the file file after this operation.
+ </summary>
+ <param name="sLine" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Delete_CSV_Line(System.String)">
+ <summary>
+ 
+ </summary>
+ <param name="sLine" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.File__Read">
+ <summary>
+reads the file.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileSaveAs">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileSaveAs.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.Boolean,System.String)">
+ <summary>
+ 
+ </summary>
+ <param name="bSaveLastUsed" ></param>
+ <param name="sUniqueKey" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileSaveAs.Set_LastUsed_Path(System.String)">
+ <summary>
+ Sets the initial directory to a specific path.
+ </summary>
+ <param name="sPath" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileSaveAs.Set_TargetFileName(System.String)">
+ <summary>
+ sets the target file name for auto-save style features
+ </summary>
+ <param name="sFile" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileSaveAs.Filter_AddItems(System.String,System.String)">
+ <summary>
+add items to the filter
+don't include the dot
+ </summary>
+ <param name="sItemName" ></param>
+ <param name="sExtension" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileSaveAs.ShowDialog">
+ <summary>
+ shows the dialog, and returns the file name, else returns ""
+ </summary>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FolderChoose">
+ <summary>
+ This class provides a folder choose mechanism
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FolderChoose.#ctor">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FolderChoose.ShowDialog(System.String)">
+ <summary>
+ 
+ </summary>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileChoose">
+ <summary>
+helper for our file choose dialog
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileChoose.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.Boolean,System.String)">
+ <summary>
+ 
+ </summary>
+ <param name="bSaveLastUsed" ></param>
+ <param name="sUniqueKey" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileChoose.Filter_AddItems(System.String,System.String)">
+ <summary>
+add items to the filter
+don't include the dot
+ </summary>
+ <param name="sItemName" ></param>
+ <param name="sExtension" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileChoose.Set_LastUsed_Path(System.String)">
+ <summary>
+ 
+ </summary>
+ <param name="sPath" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileChoose.ShowDialog">
+ <summary>
+ shows the dialog, and returns the file name, else returns ""
+ </summary>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileChooseMultiple">
+ <summary>
+helper for our file choose dialog
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileChooseMultiple.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.Boolean,System.String)">
+ <summary>
+ 
+ </summary>
+ <param name="bSaveLastUsed" ></param>
+ <param name="sUniqueKey" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileChooseMultiple.Filter_AddItems(System.String,System.String)">
+ <summary>
+add items to the filter
+don't include the dot
+ </summary>
+ <param name="sItemName" ></param>
+ <param name="sExtension" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileChooseMultiple.Set_LastUsed_Path(System.String)">
+ <summary>
+ 
+ </summary>
+ <param name="sPath" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileChooseMultiple.ShowDialog">
+ <summary>
+ shows the dialog, and returns the file name, else returns ""
+ </summary>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.Removable_Storage_Choose">
+ <summary>
+ Selects disks that are marked as removable storage
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.Removable_Storage_Choose.ShowDialog">
+ <summary>
+ Shows the dialog and returns the string letter of the selected drive
+ If no drive is selected, then a blank is returned.
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers">
+ <summary>
+ Generic Collection of wrappers for file support
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Disk__Set_VolumeLabel(System.String,System.String)">
+ <summary>
+ Sets the volume label
+ </summary>
+ <param name="DriveLetter"></param>
+ <param name="NewDriveVolume"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Disk__List_RemovableStorage">
+ <summary>
+ Gets a list of all removable storage
+ Returns in the format of X:\ [Vol Label]
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__Read(System.String)">
+ <summary>
+ Reads a file and returns a string
+ </summary>
+ <param name="sFileName"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__WriteLines(System.String,System.Collections.Generic.List{System.String}@)">
+ <summary>
+ Write a list of lines out to a file
+ </summary>
+ <param name="sFileName"></param>
+ <param name="lLines"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__SearchReplaceContents(System.Collections.Generic.List{System.String},System.String,System.String,System.String)">
+ <summary>
+ Searches and replaces the contents of a file, except when the file matches some set of exclusions
+ </summary>
+ <param name="sFile"></param>
+ <param name="sMatch"></param>
+ <param name="sReplace"></param>
+ <param name="sExclusionExtension"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__SearchReplaceContents(System.String,System.String,System.String)">
+ <summary>
+ Searches a file and replaces the contents of the file if the contents match
+ </summary>
+ <param name="sFile"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__SearchReplaceContents__StartByLines(System.String,System.String,System.String)">
+ <summary>
+ Replaces only lines in a file.
+ </summary>
+ <param name="sFile"></param>
+ <param name="sMatch"></param>
+ <param name="sReplace"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__InsertLine(System.String,System.String,System.Int32)">
+ <summary>
+ Inserts a line of text into a file
+ </summary>
+ <param name="sFile"></param>
+ <param name="sLine"></param>
+ <param name="iPosition"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__Size(System.String)">
+ <summary>
+ Returns the size of a file in bytes
+ </summary>
+ <param name="sFile" ></param>
+ <returns>Long</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__Clear_ReadOnly(System.String)">
+ <summary>
+Clears the read only flag from a file
+ </summary>
+ <param name="sFileName" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__IsASCII(System.String)">
+ <summary>
+this will check to see if the file starts with binary data or is pure ascii.
+we will take 8 characters and if they are all ascii then return true
+ </summary>
+ <param name="sFileName" ></param>
+ <returns>Boolean</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.WriteArrayLines_IntoFile(System.String,System.Collections.ArrayList@)">
+ <summary>
+ Writes an array of strings to a file
+ </summary>
+ <param name="sFileName"></param>
+ <param name="pArray"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__Size(System.String)">
+ <summary>
+Returns the size of the folder in bytes
+ </summary>
+ <param name="sPath" ></param>
+ <returns>Long</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Launch_Folder_Explorer(System.String)">
+ <summary>
+this will launch the explorer at a particular path
+ </summary>
+ <param name="sPath" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Path__ToList(System.String)">
+ <summary>
+ Convert a file path to a list of strings
+ </summary>
+ <param name="sPath"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Path__FromList(System.Collections.Generic.List{System.String})">
+ <summary>
+ Creates a path from a list of strings, appends a \ at the end
+ </summary>
+ <param name="lPath"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__ReadLines_IntoArrayList(System.String)">
+ <summary>
+this will read all the lines in a file (say a text file) into an array list
+the file should be a text file.. not a binary file
+ </summary>
+ <param name="sFileName" ></param>
+ <returns>ArrayList</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__ReadLine_IfContains(System.String,System.String)">
+ <summary>
+ Returns the first instance of a file line that meets a contains criteria.
+ </summary>
+ <param name="sFileName"></param>
+ <param name="sContain"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.AssemblePath_FromArrayList(System.Collections.ArrayList)">
+ <summary>
+Pass in an arraylist of names and we will re-assemble a directory string from it
+ </summary>
+ <param name="pList" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.GetAllDirectoryNames_InPathString_IntoArrayList(System.String)">
+ <summary>
+ Returns all the names in a path string into an array list
+ For Example:
+ We mite have c:\alpha\beta\gamma
+ We will return an AL with Alpha, beta, gamma
+ </summary>
+ <param name="sPath" ></param>
+ <returns>ArrayList</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Concat_FilePath_And_RelativeFilePosition(System.String,System.String)">
+ <summary>
+cool function
+we mite have a path as c:\temp\alpha
+we mite have a file such as ..\beta\a.txt
+out output is c:\temp\beta\a.txt
+we handle the ..'s etc.
+ </summary>
+ <param name="sPath" ></param>
+ <param name="sFile" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Path__ReversePathString(System.String)">
+ <summary>
+special function that reverses the \'s in a path to /'s.  This is useful
+for scripts that rely on /'s
+ </summary>
+ <param name="sPath" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.GetPath_FromFileNameString(System.String)">
+ <summary>
+if we have c:\temp\a.txt, we return c:\temp
+ </summary>
+ <param name="sPath" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__GetName_FromPath(System.String)">
+ <summary>
+returns the file name from a path
+ </summary>
+ <param name="sPath" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.GetFileName_WithoutExtension_FromPathString(System.String)">
+ <summary>
+gets the file name out of the path, but without an extension
+ </summary>
+ <param name="sPath" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.GetFileName_AndPath_WithoutExtension_FromPathString(System.String)">
+ <summary>
+if you pass in c:\temp\01.bmp
+you get back c:\temp\01
+ </summary>
+ <param name="sPath" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.TruncateFileName_DOS(System.String)">
+ <summary>
+pass in c:\temp\temp\123456789.bmp
+returns 12345678.bmp
+ </summary>
+ <param name="sPath" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.saGetDirectoryList(System.String)">
+ <summary>
+Gets the directory list into a string array
+you will return an array of path names here, not the individual file names
+ </summary>
+ <param name="sPath" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.GetDirectoryList_InFolder(System.String)">
+ <summary>
+ Returns an array list of all directories in a folder
+ This function will return all the paths (ie.e C:\ALPHA\B)
+ </summary>
+ <param name="sFolder" ></param>
+ <returns>ArrayList</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.saGetDirectoryList_WithoutPath(System.String)">
+ <summary>
+gets a list of directories from a parth, but does not put the path name in the string
+ </summary>
+ <param name="sPath" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.alGetFileList(System.String)">
+ <summary>
+ Gets a list of files in a path
+ Returns an array list
+ </summary>
+ <param name="sPath" ></param>
+ <returns>ArrayList</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.saGetFileList(System.String)">
+ <summary>
+ Returns a string array of files on a path.
+ </summary>
+ <param name="sPath" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.GetTempDirectoryPath">
+ <summary>
+returns path to temp dir
+ </summary>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.GetRandomTempFileName">
+ <summary>
+gens a random temp file
+ </summary>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.GetUsersApplicationDataFolder_ForLockieSafety">
+ <summary>
+ Returns with a \ at the end
+ </summary>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__Rename(System.Collections.Generic.List{System.String},System.String,System.String)">
+ <summary>
+ Renames files based on a list fo files where the file name starts with the match expression.
+ The file is renamed to the replace expression.
+ </summary>
+ <param name="sList"></param>
+ <param name="sMatchExpression"></param>
+ <param name="sReplaceExpression"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__Rename(System.Collections.Generic.List{System.String},System.String,System.String)">
+ <summary>
+ Rename a folder
+ </summary>
+ <param name="sList"></param>
+ <param name="sMatchExpression"></param>
+ <param name="sReplaceExpression"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__ListFileNames_Recursive(System.String)">
+ <summary>
+ List only the file names in the directory and recursive dirs
+ </summary>
+ <param name="sPath"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__ListAllFiles_Recursive(System.String)">
+ <summary>
+ Lists all the files in a folder with recusion.
+ The list contains the full PATH name
+ </summary>
+ <param name="sPath"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__ListAllFolders_Recursive(System.String)">
+ <summary>
+ 
+ </summary>
+ <param name="sPath"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(System.String,System.Boolean)">
+ <summary>
+ checks if the folder exists
+ warns the user and makes if no
+ ok so our directory exists, check for the folder for "Altium_PCB"
+ </summary>
+ <param name="sPath" ></param>
+ <param name="bHideMessageBox" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__Exists(System.String)">
+ <summary>
+check to see if a folder exists.
+ </summary>
+ <param name="sPath" ></param>
+ <returns>Boolean</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder_Make(System.String)">
+ <summary>
+ Makes a folder
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__Copy(System.String,System.String,System.Boolean)">
+ <summary>
+ Copies a folder and its sub folders.
+ </summary>
+ <param name="SourcePath"></param>
+ <param name="DestPath"></param>
+ <param name="Overwrite"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__Delete(System.String)">
+ <summary>
+ Deletes a folder
+ </summary>
+ <param name="sPath" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__Rename(System.String,System.String,System.Boolean)">
+ <summary>
+ Renames a folder.
+ </summary>
+ <param name="sOldName"></param>
+ <param name="sNewName"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__Empty(System.String)">
+ <summary>
+ Returns true if the folder is empty
+ </summary>
+ <param name="sPath"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__Exists(System.String)">
+ <summary>
+Checks to see if a file exists in a path
+ </summary>
+ <param name="sPath" ></param>
+ <returns>Boolean</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__Make(System.String)">
+ <summary>
+Makes a directory
+ </summary>
+ <param name="sPath" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__Delete(System.String)">
+ <summary>
+ Deletes a file
+ </summary>
+ <param name="sFile" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__Copy(System.String,System.String,System.Boolean)">
+ <summary>
+copys a file from the source to the dest paths
+ </summary>
+ <param name="sSource" ></param>
+ <param name="sDest" ></param>
+ <param name="bOverwrite" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__Extension(System.String)">
+ <summary>
+ Returns the extension of a file
+ Example c:/ABC.TXT returns TXT
+ </summary>
+ <param name="sPath" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__Move(System.String,System.String)">
+ <summary>
+ Moves a file from source to dest.
+ </summary>
+ <param name="sSource"></param>
+ <param name="sDest"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File_Make(System.String)">
+ <summary>
+Makes a new file
+ </summary>
+ <param name="sPath" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.File__Is_ReadOnly(System.String)">
+ <summary>
+returns true if the file is read only.
+ </summary>
+ <param name="sFileName" ></param>
+ <returns>Boolean</returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.OneLineFile">
+ <summary>
+ Purpose is to just create a one line file on disc somewhere
+ that allows us to save information such as the last selected dialog box path.
+ It is an all-in-one wrapper aimed at creating quick and easy files
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.OneLineFile.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.String)">
+ <summary>
+set true to use our application data path
+ </summary>
+ <param name="eLockieType" ></param>
+ <param name="sFileName" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.OneLineFile.File__Exists">
+ <summary>
+ Sees if the file exists
+ </summary>
+ <returns>Boolean</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.OneLineFile.GetOneLine">
+ <summary>
+gets the one line from the file
+ </summary>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.OneLineFile.SaveOneLine(System.String)">
+ <summary>
+ Saves the one line
+ </summary>
+ <param name="sLine" ></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.GraphicsX.Graphics_Conversions">
+ <summary>
+converts between file formats
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.GraphicsX.Graphics_Conversions.Convert_PNG_To_BMP(System.String,System.String)">
+ <summary>
+converts a PNG to a bitmap file
+ </summary>
+ <param name="sPNGFileName" ></param>
+ <param name="sBitmapFileName" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.GraphicsX.Graphics_Conversions.Convert_24BitBPM_To_YCrCb422(System.String)">
+ <summary>
+ Takes a 24 bit bitmap and converts it into 3 separate files.  Once the files
+ are done (saved as .dat) files, the data is then converted into 3 output bitmaps (8 bit)
+ showing each of the YCrCb channels.
+ </summary>
+ <param name="sBitmapFile"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.Graphics.EmbeddedIconManager">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Graphics.EmbeddedIconManager.FetchIcon(System.String)">
+ <summary>
+ 
+ </summary>
+ <param name="sName" ></param>
+ <returns>System</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Graphics.EmbeddedIconManager.FetchIcon_WithExtension(System.String,System.String)">
+ <summary>
+ 
+ </summary>
+ <param name="sName" ></param>
+ <param name="sExt" ></param>
+ <returns>System</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Graphics.EmbeddedIconManager.FetchIcon_WithExtension_SpecifyProductName(System.String,System.String,System.String)">
+ <summary>
+this function has been tested for use with An Autodesk Inventor AddIN Server
+ </summary>
+ <param name="sName" ></param>
+ <param name="sExt" ></param>
+ <param name="sProductName" ></param>
+ <returns>System</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Graphics.EmbeddedIconManager.FetchImage_WithExtension_SpecifyProductName(System.String,System.String,System.String)">
+ <summary>
+ 
+ </summary>
+ <param name="sName" ></param>
+ <param name="sExt" ></param>
+ <param name="sRootspaceName" ></param>
+ <returns>System</returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Graphics.EmbeddedIconManager.FetchImage(System.String)">
+ <summary>
+ Fetches an embedded image, should be a .png.
+ </summary>
+ <param name="sName" ></param>
+ <returns>System</returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ButtonHelper">
+ <summary>
+ A helper function for our buttons
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ButtonHelper.m_bToolTipOn">
+ <summary>
+ This is set to true if we load a tip
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ButtonHelper.pToolTip">
+ <summary>
+ The tool tip
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ButtonHelper.m_sToolTipText">
+ <summary>
+ The tool tip text.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ButtonHelper.#ctor(System.Int32,System.Int32,System.Int32,System.String,System.Windows.Forms.Control@,System.EventHandler@)">
+ <summary>
+ Creates a button layout with many options
+ </summary>
+ <param name="iXPos"></param>
+ <param name="iYPos"></param>
+ <param name="iWidth"></param>
+ <param name="sText"></param>
+ <param name="pContainer"></param>
+ <param name="pOnClickHandler"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ButtonHelper.#ctor(System.Int32,System.String,System.EventHandler@)">
+ <summary>
+ Create a new instance with no options
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ButtonHelper.Layout__RightOfControl(System.Windows.Forms.Control@)">
+ <summary>
+ Places this control to the right of anothe rcontrol
+ </summary>
+ <param name="pRightControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ButtonHelper.Layout__BelowControl(System.Windows.Forms.Control@)">
+ <summary>
+ Places this object below another control
+ </summary>
+ <param name="pAboveControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ButtonHelper.ToolTip__Set(System.String,System.String)">
+ <summary>
+ Set the text for a tool tip
+ </summary>
+ <param name="sTitle"></param>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ButtonHelper.Fade__Green">
+ <summary>
+ Fade a button to green to tell the user we have completed a task
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CheckBoxHelper">
+ <summary>
+ A helper function for our CheckBoxes
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CheckBoxHelper.m_bToolTipOn">
+ <summary>
+ This is set to true if we load a tip
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CheckBoxHelper.pToolTip">
+ <summary>
+ The tool tip
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CheckBoxHelper.#ctor(System.String,System.String,System.String)">
+ <summary>
+ Create a new instance with no options
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CheckBoxHelper.#ctor(System.String,System.Windows.Forms.Control@,System.String,System.String)">
+ <summary>
+ New instance and layout below a control
+ </summary>
+ <param name="sText"></param>
+ <param name="pBelowControl"></param>
+ <param name="sToolTipTitle"></param>
+ <param name="sToolTip"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CheckBoxHelper.#ctor(System.Int32,System.Int32,System.String,System.Windows.Forms.Control@)">
+ <summary>
+ Create a new instance with a location
+ </summary>
+ <param name="iXPos"></param>
+ <param name="iYPos"></param>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CheckBoxHelper.Layout__RightOfControl(System.Windows.Forms.Control@)">
+ <summary>
+ Places this control to the right of anothe rcontrol
+ </summary>
+ <param name="pRightControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CheckBoxHelper.Layout__BelowControl(System.Windows.Forms.Control@,System.Boolean)">
+ <summary>
+ Places this object below another control
+ </summary>
+ <param name="pAboveControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CheckBoxHelper.Threadsafe__SetChecked(System.Boolean)">
+ <summary>
+ Sets the value in a thread safe mannor
+ </summary>
+ <param name="bData" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CheckBoxHelper.SetToolTip(System.String,System.String)">
+ <summary>
+ Set the text for a tool tip
+ </summary>
+ <param name="sTitle"></param>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CheckBoxHelper.Persist__Set(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.String)">
+ <summary>
+ Enable persistance between application closures.
+ </summary>
+ <param name="eLockieType"></param>
+ <param name="sName"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper">
+ <summary>
+ A helper function for our comboBoxes
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.m_bDirty">
+ <summary>
+ Have we changed
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.#ctor(System.Int32)">
+ <summary>
+ Create a new instance with no options
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.#ctor(System.Int32,System.Windows.Forms.Control)">
+ <summary>
+ Creates a new instance with a width and a control above
+ </summary>
+ <param name="iWidth"></param>
+ <param name="pBelowControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.Layout__BelowControl(System.Windows.Forms.Control@)">
+ <summary>
+ Place this combo box below another control
+ </summary>
+ <param name="pAboveControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.Threadsafe__AddItem(System.Collections.Generic.List{System.String}@)">
+ <summary>
+ Adds a list of strings to a combo
+ </summary>
+ <param name="pList"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.Threadsafe__AddItem(System.String[]@)">
+ <summary>
+ Add a list of strings
+ </summary>
+ <param name="pString"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.Threadsafe__SetSelectedIndex(System.Int32,System.Boolean)">
+ <summary>
+ Sets the selected index without affecting the dirty flag.
+ Set the ignore flag if you want to prevent the change occurring if the
+ value in the box is the same
+ </summary>
+ <param name="iValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.SetSelectedIndex__ToLast">
+ <summary>
+ Sets the last item as the index
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.WndProc(System.Windows.Forms.Message@)">
+ <summary>
+ 
+ </summary>
+ <param name="m"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.SetSelectedIndex__FromString(System.String,System.Boolean)">
+ <summary>
+ Attempts to set the index of the list box based on a string value (string match)
+ </summary>
+ <param name="sValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.Enable_AutoComplete">
+ <summary>
+ Switches on auto-complete
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.SearchAsType__Enable">
+ <summary>
+ Enable search as you type
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.Persist__Set(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.String)">
+ <summary>
+ Enable persistance between application closures.
+ </summary>
+ <param name="eLockieType"></param>
+ <param name="sName"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.History__Set(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.String)">
+ <summary>
+ Enable History
+ </summary>
+ <param name="eLockieType"></param>
+ <param name="sName"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper_T`1.#ctor(System.Int32)">
+ <summary>
+ Create a new instance with no options
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper_T`1.#ctor(System.Int32,System.Windows.Forms.Control)">
+ <summary>
+ Creates a new instance with a width and a control above
+ </summary>
+ <param name="iWidth"></param>
+ <param name="pBelowControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper_T`1.DataType__ValueSetIndex(`0)">
+ <summary>
+ sets our text
+ </summary>
+ <param name="Value"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CMSHelper">
+ <summary>
+ Context Menu Strip Helper
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CMSHelper.m_CMS">
+ <summary>
+ Our top level context menu strip
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CMSHelper.eCMS_Type.TEXT">
+ <summary>
+ A text box
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CMSHelper.eCMS_Type.COMBOBOX">
+ <summary>
+ A combo Box
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CMSHelper.eCMS_Type.SEPARATOR">
+ <summary>
+ A separator
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CMSHelper.#ctor">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CMSHelper.AddItem(System.String,System.String,LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CMSHelper.eCMS_Type,System.String,System.EventHandler)">
+ <summary>
+ Adds a new item
+ The next step is to link the item.
+ </summary>
+ <param name="sKey"></param>
+ <param name="sText"></param>
+ <param name="eType"></param>
+ <param name="sImageName"></param>
+ <param name="pHandler"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CMSHelper.Build">
+ <summary>
+ Builds the menu items into the context menu strip
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CMSHelper.SetParent(System.String,System.String)">
+ <summary>
+ Links a item to a parent
+ </summary>
+ <param name="sParentKey"></param>
+ <param name="sItemKey"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise">
+ <summary>
+ This class is a basic I/O data visualisation for such things as on/off signals
+ and basic variables.   It is a series of group boxes which auto-stack and size
+ depending on the application.  Each box can have a unique key and data type to be displayed.
+ The number of columns can also be set.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._eIDOV_ButtonTypes">
+ <summary>
+ The different types of buttons that we can have
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._eIDOV_BoxTypes.BOX_TYPE_ON_OFF_INDICATOR">
+ <summary>
+ Basic On/Off Indicator
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._eIDOV_BoxTypes.BOX_TYPE_VARIABLE_VALUE">
+ <summary>
+ This type holds a text box and a variable value
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._eIDOV_BoxTypes.BOX_TYPE_ENTER_VALUE">
+ <summary>
+ This box type allows the user to enter a value
+ Pressing enter, or tripping the switch causes an update event to the upper application
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._eIDOV_BoxTypes.BOX_COMBO_SELECT">
+ <summary>
+ A box that has a set of combo items 0=A, 1=B, etc.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_ColumnHeader">
+ <summary>
+ This is the column header holder
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_ColumnHeader.sText">
+ <summary>
+ The text of the column header
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_ColumnHeader.sName">
+ <summary>
+ The name of the column
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_ColumnHeader.iRowStart">
+ <summary>
+ The row in which the header starts
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_ColumnHeader.iHeadingYOffset">
+ <summary>
+ This is the Y-Offset of where the heading is
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_ColumnHeader.iColStart">
+ <summary>
+ The column in which the header starts
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_ColumnHeader.iNumBoxesInColumn">
+ <summary>
+ The number of boxes that have been added to the column
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_BoxTracking.iColumn">
+ <summary>
+ The column that the box is in
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_BoxTracking.iIndex">
+ <summary>
+ The index of the box in the column
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_BoxTracking.eBoxType">
+ <summary>
+ The type of box in the column
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_BoxTracking.sGBTagString">
+ <summary>
+ This is the tag string of the actual group box within 
+ the windows form, it allows us to search and replace.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_ButtonBox">
+ <summary>
+ The button style box
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_ButtonBox.sButtonName">
+ <summary>
+ The same name as the button group box
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_ButtonBox.sButtonKey">
+ <summary>
+ This the the unique key for each button
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._strIDOV_ButtonBox.bButtonType">
+ <summary>
+ The actual type of the button
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.m_alCols">
+ <summary>
+ The arrray of column structures
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.m_alButtons">
+ <summary>
+ the buttons
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.m_pICON">
+ <summary>
+ The embedded icon manager to handle our graphics
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.m_alVertSep">
+ <summary>
+ Any vertical separators
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.ButtonClick">
+ <summary>
+ This event is raised when a button on a form is clicked
+ (only for push buttons, not toggle buttons)
+ </summary>
+ <param name="sButtonKey"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.CheckChanged">
+ <summary>
+ Called when a check box value is changed.
+ </summary>
+ <param name="sCheckKey"></param>
+ <param name="bChecked"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.BoxValue_EnterPressed">
+ <summary>
+ Event is raised when a value box (that is not read only) has the enter key
+ pressed.
+ </summary>
+ <param name="sBoxText"></param>
+ <param name="sBoxValue"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.ComboBox__SelectedIndexChanged">
+ <summary>
+ Called when a combo box changes its index
+ </summary>
+ <param name="sComboName"></param>
+ <param name="sNewValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.#ctor(System.Windows.Forms.Control@)">
+ <summary>
+ Creates a new instance of the class
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.pGB_Resize(System.Object,System.EventArgs)">
+ <summary>
+ Handles our upper layer GB resize
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Button_Add(System.Int32,LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._eIDOV_ButtonTypes,System.String,System.String,System.Boolean)">
+ <summary>
+ Adds a new button type
+ </summary>
+ <param name="iColIndex"></param>
+ <param name="eButtonType"></param>
+ <param name="sKey">This is the unique KEY NAME</param>
+ <param name="sNameText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.CheckBox_Changed(System.Object,System.EventArgs)">
+ <summary>
+ Handles a check box change event
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.PushButton_MouseClick(System.Object,System.EventArgs)">
+ <summary>
+ Handles a button mouse click
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.PushButton_MouseDown(System.Object,System.Windows.Forms.MouseEventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Button_SetValue(System.Int32,System.Int32,System.Boolean)">
+ <summary>
+ Sets the value of a button (used for check boxes)
+ </summary>
+ <param name="iColIndex"></param>
+ <param name="iRowIndex"></param>
+ <param name="bValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Button_ReturnCheckValue(System.Int32,System.Int32)">
+ <summary>
+ Returns a check buttons valuve
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Graph_Add(System.Int32,LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._eIODV_GraphTypes,System.String)">
+ <summary>
+ Adds a new graph object.
+ Graph's take up two widths and 8 heights
+ </summary>
+ <param name="iColIndex"></param>
+ <param name="eGraphType"></param>
+ <param name="sNameText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Box_SetValue(System.Int32,System.Int32,System.Boolean)">
+ <summary>
+ Sets the value for a box type
+ </summary>
+ <param name="bValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Box_SetValue(System.String,System.Boolean)">
+ <summary>
+ sets a box value based on its name.
+ </summary>
+ <param name="sBoxName"></param>
+ <param name="bValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Box_ToggleValue(System.Int32,System.Int32)">
+ <summary>
+ Used for changing the value of an indicator
+ </summary>
+ <param name="iColIndex"></param>
+ <param name="iRowIndex"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Box_Combo__AddItem(System.Int32,System.Int32,System.String)">
+ <summary>
+ Adds an item to a combo box
+ </summary>
+ <param name="iColIndex"></param>
+ <param name="iRowIndex"></param>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Box_SetValue(System.Int32,System.Int32,System.String,System.Boolean)">
+ <summary>
+ 
+ </summary>
+ <param name="iColIndex"></param>
+ <param name="iRowIndex"></param>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Box_SetValue(System.String,System.String,System.Boolean)">
+ <summary>
+ sets a value based on the box name
+ </summary>
+ <param name="sBoxName"></param>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Box_AppendValue(System.Int32,System.Int32,System.String)">
+ <summary>
+ Append text to the text boxes / mutli-line box
+ </summary>
+ <param name="iColIndex"></param>
+ <param name="iRowIndex"></param>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Box_ReturnValue(System.Int32,System.Int32)">
+ <summary>
+ Returns the valuve from a box
+ </summary>
+ <param name="iColIndex"></param>
+ <param name="iRowIndex"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Box_Add(System.Int32,LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise._eIDOV_BoxTypes,System.String,System.String,System.Boolean,System.String,System.Int32)">
+ <summary>
+ Adds a box to a column
+ </summary>
+ <param name="iColIndex"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Box_Combo__Return_SelectedIndex(System.Int32,System.Int32)">
+ <summary>
+ Returns the index of a combo box item.
+ </summary>
+ <param name="iColIndex"></param>
+ <param name="iRowIndex"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.txtEnterValue_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+ <summary>
+ Called when a text box enter value has a key pressed
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Column_Add(System.String,System.String,System.Int32,System.Int32)">
+ <summary>
+ Creates a new column
+ </summary>
+ <param name="sColName"></param>
+ <param name="sColHeadingText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.Add_VerticalSeparator(System.Int32)">
+ <summary>
+ Adds a vertical separator (line) below a row (the last row)
+ Supply the number of rows down
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.IOData_Visualise.ComboBox_SelectedIndexChanged(System.Object,System.EventArgs)">
+ <summary>
+ Handles any index changes
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PanelTemplate">
+ <summary>
+ General Panel for use with toolbox applications.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PanelTemplate.m_sText">
+ <summary>
+ Our text name
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PanelTemplate.m_bLayout">
+ <summary>
+ Has the layout been compelted?
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PanelTemplate.m_pTopPanel">
+ <summary>
+ The top panel is where our label is held.
+ We can use it for adding various controls if needed.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PanelTemplate.m_lblTop">
+ <summary>
+ The lable that appears at the top
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PanelTemplate.m_pInnerPanel">
+ <summary>
+ our inner panel
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PanelTemplate.#ctor(System.String)">
+ <summary>
+ Create a new instance.
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PanelTemplate.Panel__Hide">
+ <summary>
+ Hide the panel
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PanelTemplate.Panel__Show">
+ <summary>
+ Call to show the panel
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PanelTemplate.Panel__HideShow(System.String)">
+ <summary>
+ How or hide this panel if our text matches
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PanelTemplate.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PanelTemplate.Panel__Shown">
+ <summary>
+ Called when the panel state changes from hidden to shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LabelHelper">
+ <summary>
+ A helper function for our labels.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LabelHelper.#ctor(System.String)">
+ <summary>
+ Create a new instance with no options
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LabelHelper.#ctor(System.String,System.Windows.Forms.Control@)">
+ <summary>
+ New instance and layout below a control
+ </summary>
+ <param name="sText"></param>
+ <param name="pBelowControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LabelHelper.#ctor(System.String,System.Windows.Forms.Control@,System.Windows.Forms.Control@)">
+ <summary>
+ New instance and layout above-right of a control
+ </summary>
+ <param name="sText"></param>
+ <param name="pAboveControl"></param>
+ <param name="pRightControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LabelHelper.#ctor(System.Int32,System.Int32,System.String,System.Windows.Forms.Control@)">
+ <summary>
+ Quick access to create a new instance
+ Only valid for placing at an abs location.
+ </summary>
+ <param name="xPos"></param>
+ <param name="yPos"></param>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LabelHelper.Layout__AboveRightControl(System.Windows.Forms.Control@,System.Windows.Forms.Control@)">
+ <summary>
+ Places the label above right of a control
+ </summary>
+ <param name="pAboveControl">The control (i.e. label) that is used for y location</param>
+ <param name="pRightControl">The control (i.e. text box) that is used for x location</param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LabelHelper.Layout__BelowControl(System.Windows.Forms.Control@)">
+ <summary>
+ Places this object below another control
+ </summary>
+ <param name="pAboveControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LabelHelper.Threadsafe__SetText(System.String)">
+ <summary>
+ Sets the text in a thread safe mannor
+ </summary>
+ <param name="sData" ></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewHelper">
+ <summary>
+ Our unique list view helper class
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewHelper.#ctor">
+ <summary>
+ Creates a new instance, pass in a lV
+ Set the LV up giving it size, etc before passing in
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewHelper.Clear">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewHelper.Insert_ListView_Item(System.String,System.Int32)">
+ <summary>
+ Safely Inserts an item into position 0 of the list view
+ Pass in -1 for max items to display all, or pass in max to clip!.
+ </summary>
+ <param name="sData" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewHelper.Width_Resize_Handler(System.Windows.Forms.GroupBox@)">
+ <summary>
+ Call this to autosize to a group box
+ </summary>
+ <param name="pGB"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewHelper.GB_Resize(System.Object,System.EventArgs)">
+ <summary>
+ Handles the resizing of the group boxes
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewDoubleBuffered">
+ <summary>
+ Double buffered list view handler which prevents flickering during update
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewDoubleBuffered.ColumnBackcolor">
+ <summary>
+ 
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewDoubleBuffered.ColumnSelect(System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="nColumn"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewDoubleBuffered._ListView_ColumnClick(System.Object,System.Windows.Forms.ColumnClickEventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewDoubleBuffered._ListView_ColumnWidthChanged(System.Object,System.Windows.Forms.ColumnWidthChangedEventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewDoubleBuffered._ListView_ColumnWidthChanging(System.Object,System.Windows.Forms.ColumnWidthChangingEventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="P:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewDoubleBuffered.OwnerListItem">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewDoubleBuffered.Timer1_Tick(System.Object,System.EventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="sender" ></param>
+ <param name="e" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewDoubleBuffered.Bound(System.Windows.Forms.ListView)">
+ <summary>
+ 
+ </summary>
+ <param name="Owner" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewDoubleBuffered.OnScroll">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewDoubleBuffered.WndProc(System.Windows.Forms.Message@)">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewDoubleBuffered.#ctor">
+ <summary>
+ Creates a new instance
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ListViewDoubleBuffered.Finalize">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LoggingBox">
+ <summary>
+ Implements a basic logging box with errors, warnings and severites
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LoggingBox.#ctor(System.Windows.Forms.Control@)">
+ <summary>
+ create a new instance and pass in the group box that we are going to use
+ </summary>
+ <param name="pControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LoggingBox.Dispose">
+ <summary>
+ Call this to dispose of this app
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LoggingBox.ThreadTick">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LoggingBox.AddText(System.String,LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LoggingBox.eSeverity)">
+ <summary>
+ adds text to the box, with severity if necessary
+ </summary>
+ <param name="sText"></param>
+ <param name="eSev"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox">
+ <summary>
+ A list box for packet data such as network traffic.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.eFieldType.FRAME_NUMBER">
+ <summary>
+ The frame number, use integer value
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.eFieldType.ARRIVAL_TIME">
+ <summary>
+ For the time in uS
+ Also use the delta value
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.eFieldType.FRAME_LENGTH">
+ <summary>
+ The length of the frame (in bytes)
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.sFieldEntry.eFieldType">
+ <summary>
+ The field type
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.sGenericFieldEntry">
+ <summary>
+ A generic field entry.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.sGenericFieldEntry.sFieldHeading">
+ <summary>
+ The heading to display.. If you want it over 2 lines, put in a newline
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.sGenericFieldEntry.sDataValue">
+ <summary>
+ The formatted data value to display
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.sGenericFieldEntry.iFieldWidth">
+ <summary>
+ The width of the field
+ -1 = auto width
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.sGenericFieldEntry.pBackColour">
+ <summary>
+ The colour of the background.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.sField">
+ <summary>
+ A field, which contains a list of entries (or generics)
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.ThreadSafe__AddItem(System.Object@)">
+ <summary>
+ Adds an item in a thread safe mannor
+ </summary>
+ <param name="pItem"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.ThreadSafe__RemoveItem(System.Int32@)">
+ <summary>
+ Remove an item based on its index.
+ Remove 0 to remove the most recently added item.
+ </summary>
+ <param name="iIndex"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.OnMeasureItem(System.Windows.Forms.MeasureItemEventArgs)">
+ <summary>
+ Measure Item
+ Determine the height of the list item
+ </summary>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.OnDrawItem(System.Windows.Forms.DrawItemEventArgs)">
+ <summary>
+ Handle any drawing items
+ </summary>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PacketListbox.Add__Generic(System.Int32,System.Drawing.Color,System.String,System.String)">
+ <summary>
+ Quickly add a generic item to the list (single item only)
+ </summary>
+ <param name="iWidth"></param>
+ <param name="pColour"></param>
+ <param name="sData"></param>
+ <param name="sHeading"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PanelHelper">
+ <summary>
+ A helper function for our panels
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PanelHelper.#ctor(System.Windows.Forms.Control@,LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.Themes.eTheme)">
+ <summary>
+ New instance of our panel helper.
+ </summary>
+ <param name="pContainer">Set to nothing to delay adding the control</param>
+ <param name="eTheme"></param>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper">
+ <summary>
+ A helper function for our Pictureboxes
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.m_bDirty">
+ <summary>
+ If our pic box has changed (say from a paste/ drag drop)
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.m_bEnableZoom">
+ <summary>
+ Set to enable zooming.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.m_sScale">
+ <summary>
+ Our current scale of the picture box
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.m_sScale__TranslateWorld">
+ <summary>
+ The direction to translate the X and Y in
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.m_sScale__TranslatePic">
+ <summary>
+ The picture box x and y translation applied
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.UserEvent__Before_OnPaint">
+ <summary>
+ Raised before a paint occurs
+ </summary>
+ <param name="pe"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.UserEvent__After_OnPaint">
+ <summary>
+ Raised after painting has occurred
+ </summary>
+ <param name="pe"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.#ctor">
+ <summary>
+ Basic new instance
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.#ctor(System.Int32,System.Int32)">
+ <summary>
+ Create a new pix box with size
+ </summary>
+ <param name="iWidth"></param>
+ <param name="iHeight"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Forms.Control)">
+ <summary>
+ 
+ </summary>
+ <param name="iX"></param>
+ <param name="iY"></param>
+ <param name="iWidth"></param>
+ <param name="iHeight"></param>
+ <param name="pParent"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Create_ContextMenu">
+ <summary>
+ create our CM
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Image__LoadFromArray(System.Byte[]@)">
+ <summary>
+ Loads an image from an array
+ </summary>
+ <param name="u8Array"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Image__Load(System.String)">
+ <summary>
+ Load an image from a file
+ </summary>
+ <param name="sFileName"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.pCM_SaveAsC(System.Object,System.EventArgs)">
+ <summary>
+ Save as a C array
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.pCM_SaveAsBitmap(System.Object,System.EventArgs)">
+ <summary>
+ Save a bitmap
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.File__SaveBMP(System.String)">
+ <summary>
+ Saves the current image as a bitmap
+ </summary>
+ <param name="sFilePath"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.pCM_SaveAsPNG(System.Object,System.EventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Enable_DragDrop">
+ <summary>
+ Switches drag/drop support on
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Layout__RightOfControl(System.Windows.Forms.Control@)">
+ <summary>
+ Places this control to the right of anothe rcontrol
+ </summary>
+ <param name="pRightControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Layout__BelowControl(System.Windows.Forms.Control@)">
+ <summary>
+ Places this object below another control
+ </summary>
+ <param name="pAboveControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.pCM_Paste(System.Object,System.EventArgs)">
+ <summary>
+ Handles the context menu paste
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.pCM_CopyToClipboard(System.Object,System.EventArgs)">
+ <summary>
+ Copy the image to a clipboard
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Clipboard__Copy">
+ <summary>
+ Copy the current image to the clipboard
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.pCM_ClearImage(System.Object,System.EventArgs)">
+ <summary>
+ Erase the image
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="P:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Dirty">
+ <summary>
+ Gets/Sets if the image in the box has changed.
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Convert_To__Array(System.Drawing.Imaging.ImageFormat)">
+ <summary>
+ Converts to a bitmap file and then returns the array of bitmap data
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.LoadImage_FromInternalResource(System.String)">
+ <summary>
+ Loads an image from an embedded resource
+ </summary>
+ <param name="sName"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.PictureBox__MouseWheel(System.Object,System.Windows.Forms.MouseEventArgs)">
+ <summary>
+ Handles the mouse wheel
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.PictureBox__MouseEnter(System.Object,System.EventArgs)">
+ <summary>
+ On mouse enter
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.PictureBox__MouseMove(System.Object,System.Windows.Forms.MouseEventArgs)">
+ <summary>
+ Called when the mouse has been moved.
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.PictureBox__MouseDown(System.Object,System.Windows.Forms.MouseEventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.PictureBox__MouseUp(System.Object,System.Windows.Forms.MouseEventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Zoom__Enable">
+ <summary>
+ Enable zoom support
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Image">
+ <summary>
+ we want to hook when client's set the image to reset the zoom level to unzoomed
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.OnMouseEnter(System.EventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.PictureBox__KeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.PictureBox__KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.PictureBox__KeyUp(System.Object,System.Windows.Forms.KeyEventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.pCM_ViewFullScreen(System.Object,System.EventArgs)">
+ <summary>
+ Allows the picture box to be shown full screen.
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Scale__Setup">
+ <summary>
+ Setup the scaling system
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Scale__Use(System.Boolean)">
+ <summary>
+ Enable the scaling system
+ </summary>
+ <param name="bFlipXAxis">Flip the X-Axis to put 0,0 in the bottom right corner of the 
+ picture box, not the bottom lenft</param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Scale__PicturePoint_To_WorldPoint(System.Drawing.Point,System.Boolean)">
+ <summary>
+ For a point in the picture box, convert it to a world point
+ </summary>
+ <param name="pMouse"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Scale__WorldPoint(System.Drawing.PointF)">
+ <summary>
+ Scales a point in world units
+ Does not perform translation.
+ </summary>
+ <param name="sIn"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Scale__WorldPoint_to_PicPoint(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32)">
+ <summary>
+ Convert a world pointF to a picture box point
+ </summary>
+ <param name="sIn"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Scale__WorldPoint_to_PicPointF(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.PointF32)">
+ <summary>
+ World pointF to pic pointF
+ </summary>
+ <param name="sIn"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Scale__WorldRect_to_PicRect(System.Drawing.RectangleF)">
+ <summary>
+ World rectangleF to picturebox rectangle F
+ </summary>
+ <param name="sIn"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.OnPaint(System.Windows.Forms.PaintEventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="pe"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Threadsafe__Refresh">
+ <summary>
+ Safely refresh the image
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.RegionSelect__Set(System.Int32,System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Force a region selection
+ </summary>
+ <param name="x"></param>
+ <param name="y"></param>
+ <param name="width"></param>
+ <param name="height"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.RegionSelect__Enable">
+ <summary>
+ Allow region selection
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.PictureBoxHelper.Pixel__GetPixel(System.Int32,System.Int32)">
+ <summary>
+ Slow way of getting a pixel at a point.
+ </summary>
+ <param name="x"></param>
+ <param name="y"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.Popup.Popup.#ctor(System.String,System.Int32)">
+ <summary>
+ Show the popup
+ </summary>
+ <param name="sMessageText"></param>
+ <param name="iDisplayTime">in mS</param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.Popup.Popup.UpdateText(System.String)">
+ <summary>
+ Updates the text in real time
+ </summary>
+ <param name="sValue"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ProgressHelper.Layout__BelowControl(System.Windows.Forms.Control@)">
+ <summary>
+ Places this object below another control
+ </summary>
+ <param name="pAboveControl"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.StatusStripHelper">
+ <summary>
+ Creates an easier to use status strip
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.StatusStripHelper.#ctor(System.Windows.Forms.Form@)">
+ <summary>
+ Create a new instance
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.StatusStripHelper.Set_Label_BackColor(System.Int32,System.Drawing.Color)">
+ <summary>
+ sets the back colour of a label in a thread safe way
+ </summary>
+ <param name="iLabelIndex"></param>
+ <param name="pCol"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.StatusStripHelper.Panel__Add(System.String)">
+ <summary>
+ Adds a new label to the status strip
+ Returns with the panel index
+ </summary>
+ <param name="sLabelText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.StatusStripHelper.Panel__SetText(System.Int32,System.String)">
+ <summary>
+ Sets a Panels's text in a cross thread safe manor
+ </summary>
+ <param name="iPanelIndex" ></param>
+ <param name="sData" ></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TabHelper">
+ <summary>
+ Our tab helper provides basic function for tabbed applications.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TabHelper.m_tcParent">
+ <summary>
+ A ref to the parent tab control
+ This is used for show/hide functions
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TabHelper.m_bVisible">
+ <summary>
+ If we are visible.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TabHelper.m_tpMain">
+ <summary>
+ Our main tab page which is added to the parent tab control
+ </summary>
+ <remarks>We add a tab page to our top level control, this page is the "primary" page</remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TabHelper.m_pPanel">
+ <summary>
+ This is a panel that can reside within our tab page if necessary
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TabHelper.m_iTabIndex">
+ <summary>
+ Our tab index in the main tab control
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TabHelper.m_sToolTip">
+ <summary>
+ The tool tip if fitted.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TabHelper.m_bHasBeenActivated">
+ <summary>
+ This is set to true on the first time the tab has been activated.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TabHelper.#ctor(System.Windows.Forms.TabControl@)">
+ <summary>
+ When creating a new instance, ref our parent tab.
+ </summary>
+ <param name="pParentTabControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TabHelper.#ctor(System.Windows.Forms.TabControl@,System.String,System.Boolean)">
+ <summary>
+ create a new instance and set up the tab page at the same time
+ </summary>
+ <param name="pParentTabControl"></param>
+ <param name="sPageText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TabHelper.Show">
+ <summary>
+ Shows the tab page by adding it if necessary
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TabHelper.ActivateMyTab">
+ <summary>
+ Causes the tab to be activated
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TabHelper.ToolTip__Add(System.String,System.String)">
+ <summary>
+ Adds a tool tip.
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper">
+ <summary>
+ Super Helper Function for a text box
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.m_bDisableColouring">
+ <summary>
+ If set to true, we will not use coloring
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.m_bToolTipOn">
+ <summary>
+ This is set to true if we load a tip
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.pToolTip">
+ <summary>
+ The tool tip
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.m_bDirty">
+ <summary>
+ If our text has changed and we are dirty
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.#ctor(System.Int32)">
+ <summary>
+ Create a new text box and pass in the width
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.#ctor(System.Int32,System.Windows.Forms.Control,System.String,System.String)">
+ <summary>
+ We can opt to layout below a control if we want to.
+ </summary>
+ <param name="iWidth"></param>
+ <param name="pBelowControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.#ctor(System.Int32,System.Int32,System.Boolean)">
+ <summary>
+ Create a new text box and pass in the width
+ If you also pass in the height then we use multiline mode
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.SetToolTip(System.String,System.String)">
+ <summary>
+ Set the text for a tool tip
+ </summary>
+ <param name="sTitle"></param>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.InternalEvent__KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+ <summary>
+ Handles key down.
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.SetTextCallback">
+ <summary>
+ Callback for set text
+ </summary>
+ <param name="sData"></param>
+ <param name="bDirty"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.Threadsafe__SetText(System.String,System.Boolean)">
+ <summary>
+ Sets text on the control in a threasafe mannor
+ </summary>
+ <param name="sData">The string to set</param>
+ <param name="bDirty">FALSE = Do not change the box colour, keep it white</param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.Threadsafe__AppendText(System.String)">
+ <summary>
+ Append text in a threadsafe mannor
+ </summary>
+ <param name="sData"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.Threadsafe__AppendLine(System.String)">
+ <summary>
+ Append a line 
+ </summary>
+ <param name="sData"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.Layout__BelowControl(System.Windows.Forms.Control@)">
+ <summary>
+ Layout below a control
+ </summary>
+ <param name="pAboveControl"></param>
+ <remarks></remarks>
+</member>
+<member name="P:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.Text">
+ <summary>
+ 
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.OnTextChanged(System.EventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="P:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.Dirty">
+ <summary>
+ Returns true if the text has changed.
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.Get__Lines">
+ <summary>
+ Returns the lines of text from a box
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.Persist__Set(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.String)">
+ <summary>
+ Enable persistance between application closures.
+ </summary>
+ <param name="eLockieType"></param>
+ <param name="sName"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.Persist__Save">
+ <summary>
+ Forces a save using persist.
+ Use this after manually loading data in if you need!
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.Fade__Colour(System.Drawing.Color)">
+ <summary>
+ Fade a button to green to tell the user we have completed a task
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_T`1.#ctor(System.Int32)">
+ <summary>
+ Create a new text box and pass in the width
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_T`1.#ctor(System.Int32,System.Windows.Forms.Control,System.String,System.String)">
+ <summary>
+ We can opt to layout below a control if we want to.
+ </summary>
+ <param name="iWidth"></param>
+ <param name="pBelowControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_T`1.#ctor(System.Int32,System.Int32,System.Boolean)">
+ <summary>
+ Create a new text box and pass in the width
+ If you also pass in the height then we use multiline mode
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_T`1.InternalEvent__KeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
+ <summary>
+ Handle the key press to check our validation.
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_T`1.DataType__ValueSet(`0,System.String)">
+ <summary>
+ sets our text
+ </summary>
+ <param name="Value"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_T`1.DataType__ValueGet">
+ <summary>
+ Get the data type value.
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.Themes">
+ <summary>
+ Theme support
+ </summary>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ToolTipX">
+ <summary>
+class to create and manage a "hover over" tool tip, including multi-line versions
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ToolTipX.#ctor(System.Windows.Forms.Button@,System.String,System.String)">
+ <summary>
+when we create a new item pass our button and text
+ </summary>
+ <param name="pButton" ></param>
+ <param name="pText" ></param>
+ <param name="sTitle" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ToolTipX.#ctor(System.Windows.Forms.CheckBox@,System.String,System.String)">
+ <summary>
+ 
+ </summary>
+ <param name="pCheckbox" ></param>
+ <param name="pText" ></param>
+ <param name="sTitle" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ToolTipX.SetupToolTip(System.String,System.String)">
+ <summary>
+new instance
+ </summary>
+ <param name="sText" ></param>
+ <param name="sTitle" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ToolTipX.#ctor(System.Windows.Forms.PictureBox@,System.String,System.String)">
+ <summary>
+when we create a new item pass our pixbox and text
+ </summary>
+ <param name="pPic" ></param>
+ <param name="pText" ></param>
+ <param name="sTitle" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ToolTipX.pButton_MouseOver(System.Object,System.EventArgs)">
+ <summary>
+handler
+ </summary>
+ <param name="sender" ></param>
+ <param name="e" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ToolTipX.pPic_MouseOver(System.Object,System.EventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="sender" ></param>
+ <param name="e" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ToolTipX.pCheckBox_MouseOver(System.Object,System.EventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="sender" ></param>
+ <param name="e" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ToolTipX.SplitToolTip(System.String)">
+ <summary>
+ 
+ </summary>
+ <param name="strOrig" ></param>
+ <returns>String</returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TrackBarHelper">
+ <summary>
+ Super Helper Function for a track Bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TrackBarHelper.Layout__RightOfControl(System.Windows.Forms.Control@)">
+ <summary>
+ Places this control to the right of anothe rcontrol
+ </summary>
+ <param name="pRightControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TrackBarHelper.Layout__BelowControl(System.Windows.Forms.Control@)">
+ <summary>
+ Places this object below another control
+ </summary>
+ <param name="pAboveControl"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeViewDoubleBuffered">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeViewDoubleBuffered.#ctor">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeView_Helper_V2">
+ <summary>
+ 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeView_Helper_V2.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeViewDoubleBuffered@)">
+ <summary>
+new, pass in the treeview reference
+ </summary>
+ <param name="pTV" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeView_Helper_V2.SelectNode_BasedOnPath(System.String)">
+ <summary>
+allows us to programatically select a node based on the path string.
+ </summary>
+ <param name="sPath" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeView_Helper_V2.SetNodeValue_BasedOnPath(System.String,System.String)">
+ <summary>
+sets a value (changes the text of the node)
+ </summary>
+ <param name="sPath" ></param>
+ <param name="sValue" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeView_Helper_V2.SetNode_ToolTip_BasedOnPath(System.String,System.String)">
+ <summary>
+lets strip off our path
+ </summary>
+ <param name="sPath" ></param>
+ <param name="sValue" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeView_Helper_V2.AddNode(System.String,System.String,System.String,System.Boolean,System.Windows.Forms.ContextMenu@,System.Windows.Forms.ContextMenuStrip@)">
+ <summary>
+adds a node to the tree.  If the path is "TOP_LEVEL" then we are adding a top level node
+otherwise add nodes based on a path string.
+for example, we have our standard tree:
+Harness(s)                 -> Path = "TOP_LEVEL"
+   Harness: 1              -> Path = "TOP_LEVEL\keyHarness1"
+       Component(s)        -> Path = "TOP_LEVEL\keyHarness1\keyComponents"
+           Component: 1    -> Path = "TOP_LEVEL\keyHarness1\KeyComponents\keyComponent1"
+               Type = XX   -> Path = "TOP_LEVEL\keyHarness1\KeyComponents\keyComponent1\keyType"
+if you want the node expanded, then show visible
+key is optional if you are on a top level
+ </summary>
+ <param name="sNodeName" ></param>
+ <param name="sNodeKey" ></param>
+ <param name="sPath" ></param>
+ <param name="bEnsureVisible" ></param>
+ <param name="pContextMenu" ></param>
+ <param name="pContextMenuStrip" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeView_Helper_V2.StripNodePath(System.String)">
+ <summary>
+strips a node path off into an array of strings
+ </summary>
+ <param name="sPath" ></param>
+ <returns>ArrayList</returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeViewHelper">
+ <summary>
+this is a helper which assists in the rapid creation of tree views
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeViewHelper.#ctor(System.Windows.Forms.GroupBox@,System.Windows.Forms.ImageList@)">
+ <summary>
+called when a new instance of the class is created,
+pass in gb where your tree view will reside.
+ </summary>
+ <param name="pGB" ></param>
+ <param name="pIL" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeViewHelper.#ctor(System.Windows.Forms.GroupBox@,System.Windows.Forms.ImageList@,System.Int32,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="pGB" ></param>
+ <param name="pIL" ></param>
+ <param name="xPos" ></param>
+ <param name="yPos" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeViewHelper.AddTopLevelNode(System.String,System.String,System.Int32)">
+ <summary>
+adds a top level now, where all other nodes will be under this one
+ </summary>
+ <param name="sNodeKey" ></param>
+ <param name="sNodeText" ></param>
+ <param name="iImageIndex" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeViewHelper.AddSubLevelNode(System.String,System.String,System.Int32)">
+ <summary>
+adds a sub level node
+ </summary>
+ <param name="sParentNodeKey" ></param>
+ <param name="sNodeText" ></param>
+ <param name="iImageIndex" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TreeViewHelper.AddSubLevelNode_Continue(System.String,System.String,System.Int32)">
+ <summary>
+adds a sub level node after one has already been added
+ </summary>
+ <param name="sParentNodeKey" ></param>
+ <param name="sNodeText" ></param>
+ <param name="iImageIndex" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.VisualFade.FadeColor(System.Object,System.String,System.Drawing.Color,System.Drawing.Color,System.Int32,System.Int32,LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.VisualFade.DoneFading)">
+ <summary>
+  Fades a color property from one color to another
+ </summary>
+ <param name="container">The object that contains the color property</param>
+ <param name="colorProperty">The name of the color property to change</param>
+ <param name="startColor">The color to start the fade with</param>
+ <param name="endColor">The color to end the fade with</param>
+ <param name="steps">The number of steps to take to fade from the start color to the end color</param>
+ <param name="delay">The delay in milliseconds between each step in the fade.</param>
+ <param name="callback">A function to be called when the fade completes</param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.VisualFade.FadeColor(System.Object,System.String,System.Drawing.Color,System.Drawing.Color,System.Int32,System.Drawing.Color,System.Int32,System.Int32,LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.VisualFade.DoneFading)">
+ <summary>
+  Fades a color property from one color to another, and then to yet another
+ </summary>
+ <param name="container">The object that contains the color property</param>
+ <param name="colorProperty">The name of the color property to change</param>
+ <param name="startColor">The color to start the fade with</param>
+ <param name="middleColor">The color to fade to first</param>
+ <param name="middleSteps">The number of steps to take in fading to the first color</param>
+ <param name="endcolor">The last color to fade to</param>
+ <param name="endSteps">The number of steps to take in fading to the last color</param>
+ <param name="delay">The delay between each step in the fade</param>
+ <param name="callback">A function that will be called after the fading has completed</param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.VisualFade.FadeColor(System.Object,System.String,System.Drawing.Color,System.Collections.Generic.IEnumerable{LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.VisualFade.ColorStep},System.Int32,LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.VisualFade.DoneFading)">
+ <summary>
+  Fades a color property to various colors
+ </summary>
+ <param name="container">The object that contains the color property</param>
+ <param name="colorProperty">The name of the color property to change</param>
+ <param name="startColor">The color to start the fade with</param>
+ <param name="colorSteps">A list of steps in fading the color - an enumerable list of colors and the steps to get to that color</param>
+ <param name="delay">The delay between each step in fading the color</param>
+ <param name="callBack">A method to call when the fading has completed</param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.VisualFade.BackgroundWorker_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
+ <summary>
+  The work that the background worker does in fading the color
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.VisualFade.BackgroundWorker_ProgressChanged(System.Object,System.ComponentModel.ProgressChangedEventArgs)">
+ <summary>
+  Calls to this method are marshalled back to the original thread, so here is where we actually change the color.
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.VisualFade.BackgroundWorker_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
+ <summary>
+  This is raised when the background method completes.
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.VisualFade.GeneratheashCode(System.Object,System.String)">
+ <summary>
+  Generates a hashcode for an object and its color that are in the process of fading
+ </summary>
+ <param name="container">The object whose color property needs to be faded</param>
+ <param name="colorProperty">The string name of the property to fade</param>
+ <returns>A unique string representing the object and it's color property</returns>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.VisualFade.ColorFaderInformation">
+ <summary>
+  A simple class for storing information a backgroundWorker needs to perform the fading.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.VisualFade.ColorStep">
+ <summary>
+  A simple class needed to represent a single step in the fading process
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.WaitWindowEventArgs">
+ <summary>
+ Provides data for the WaitWindow events.
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.WaitWindowEventArgs.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.WaitWindow,System.Collections.Generic.List{System.Object})">
+ <summary>
+ Initialises a new intance of the WaitWindowEventArgs class.
+ </summary>
+ <param name="GUI">The associated WaitWindow instance.</param>
+ <param name="args">A list of arguments to be passed.</param>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.WaitWindow">
+ <summary>
+ Displays a window telling the user to wait while a process is executing.
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.WaitWindow.Show(System.EventHandler{LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.WaitWindowEventArgs})">
+ <summary>
+ Shows a wait window with the text 'Please wait...' while executing the passed method.
+ </summary>
+ <param name="workerMethod">Pointer to the method to execute while displaying the wait window.</param>
+ <returns>The result argument from the worker method.</returns>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.WaitWindow.Show(System.EventHandler{LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.WaitWindowEventArgs},System.String)">
+ <summary>
+ Shows a wait window with the specified text while executing the passed method.
+ </summary>
+ <param name="workerMethod">Pointer to the method to execute while displaying the wait window.</param>
+ <param name="message">The text to display.</param>
+ <returns>The result argument from the worker method.</returns>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.WaitWindow.Show(System.EventHandler{LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.WaitWindowEventArgs},System.String,System.Object[])">
+ <summary>
+ Shows a wait window with the specified text while executing the passed method.
+ </summary>
+ <param name="workerMethod">Pointer to the method to execute while displaying the wait window.</param>
+ <param name="message">The text to display.</param>
+ <param name="args">Arguments to pass to the worker method.</param>
+ <returns>The result argument from the worker method.</returns>
+</member>
+<member name="P:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.WaitWindow.Message">
+ <summary>
+ Updates the message displayed in the wait window.
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.WaitWindow.Cancel">
+ <summary>
+ Cancels the work and exits the wait windows immediately
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextEditor__Control.LoadFile(System.String)">
+ <summary>
+ 
+ </summary>
+ <param name="fName"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextEditor__Control.Load__RTF(System.String)">
+ <summary>
+ Load RTF directly into the control
+ </summary>
+ <param name="sRTF"></param>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper">
+ <summary>
+ Super Helper Function for a text box
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.m_bDisableColouring">
+ <summary>
+ If set to true, we will not use coloring
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.m_bToolTipOn">
+ <summary>
+ This is set to true if we load a tip
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.pToolTip">
+ <summary>
+ The tool tip
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.m_bDirty">
+ <summary>
+ If our text has changed and we are dirty
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.#ctor(System.Int32,System.Int32)">
+ <summary>
+ Create a new text box and pass in the width
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.#ctor(System.Int32,System.Int32,System.Windows.Forms.Control)">
+ <summary>
+ We can opt to layout below a control if we want to.
+ </summary>
+ <param name="iWidth"></param>
+ <param name="pBelowControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.#ctor(System.Int32,System.Int32,System.Boolean)">
+ <summary>
+ Create a new text box and pass in the width
+ If you also pass in the height then we use multiline mode
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.SetToolTip(System.String,System.String)">
+ <summary>
+ Set the text for a tool tip
+ </summary>
+ <param name="sTitle"></param>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.SetText(System.String)">
+ <summary>
+ Sets the text in a thread safe mannor
+ </summary>
+ <param name="sData" ></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.SetTextRTF(System.String)">
+ <summary>
+ Sets the RTF in a thread safe mannor
+ </summary>
+ <param name="sData"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.AppendText_Safe(System.String)">
+ <summary>
+ 
+ </summary>
+ <param name="sData"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.Append__RTF(System.String,System.Boolean,System.Boolean)">
+ <summary>
+ Appends some RTF
+ </summary>
+ <param name="sText"></param>
+ <param name="bBold"></param>
+ <param name="bItalic"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.Layout__BelowControl(System.Windows.Forms.Control@)">
+ <summary>
+ Layout below a control
+ </summary>
+ <param name="pAboveControl"></param>
+ <remarks></remarks>
+</member>
+<member name="P:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.Dirty">
+ <summary>
+ Returns true if the text has changed.
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.IsInputKey(System.Windows.Forms.Keys)">
+ <summary>
+ Override the enter so as we can work with multilines.
+ </summary>
+ <param name="keyData"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.Set__RichTextBoxText(System.String)">
+ <summary>
+ Set the text
+ </summary>
+ <param name="text"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBoxHelper.Get__Image(System.Drawing.Size)">
+ <summary>
+ Gets the rtf image from a rtf control where the value is passed in.
+ </summary>
+ <param name="pSize"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBox_Secure.Load__Encrypted(System.String)">
+ <summary>
+ Load a file from an encrypted source
+ </summary>
+ <param name="sFileName"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBox_Secure.EncryptStringAES(System.String,System.String)">
+ <summary>
+ Encrypt the given string using AES.  The string can be decrypted using 
+ DecryptStringAES().  The sharedSecret parameters must match.
+ </summary>
+ <param name="plainText">The text to encrypt.</param>
+ <param name="sharedSecret">A password used to generate a key for encryption.</param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.RichTextBox_Secure.DecryptStringAES(System.String,System.String)">
+ <summary>
+ Decrypt the given string.  Assumes the string was encrypted using 
+ EncryptStringAES(), using an identical sharedSecret.
+ </summary>
+ <param name="cipherText">The text to decrypt.</param>
+ <param name="sharedSecret">A password used to generate a key for decryption.</param>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer">
+ <summary>
+ Standard UDP I/O Layer
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.m_pCap">
+ <summary>
+ The capture interface
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.m_iPort">
+ <summary>
+ Our network port
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.m_sIP">
+ <summary>
+ Our IP addx of the machine
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.m_pUDPOut">
+ <summary>
+ UDP for sending
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.m_sPortName">
+ <summary>
+ Port name for debugging
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.m_u32LastSeq">
+ <summary>
+ The last sequence number
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.ChooseAdapter__Show(System.String)">
+ <summary>
+ show the choose adapter dialog
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.btnChoose__Click(System.Object,System.EventArgs)">
+ <summary>
+ Handle the choose
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.#ctor(System.String,System.Int32,System.String,System.Boolean,System.Boolean)">
+ <summary>
+ Create a new instance, with an IP and a port for our machine
+ </summary>
+ <param name="sIPAddx"></param>
+ <param name="iPort"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.#ctor(System.String,System.Int32)">
+ <summary>
+ Create a new instance just with a port
+ </summary>
+ <param name="iPort"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.Destroy">
+ <summary>
+ Call this to clean up our interfaces
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.Update__Ports(System.String,System.Int32)">
+ <summary>
+ Update our details.
+ </summary>
+ <param name="sIPAddx"></param>
+ <param name="iPort"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.UserEvent__UDPSafe__RxPacket">
+ <summary>
+ A new UDP packet arrives
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.UserEvent__ARP__Packet">
+ <summary>
+ Reception of a new ARP packet
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.UserEvent__NewARP(LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.ARP)">
+ <summary>
+ New ARP packet
+ </summary>
+ <param name="pARP"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.UserEvent__NewUDP(LAPP185__RLOOP__FCU_EMU.SIL3.IEEE802_3.UDP,System.Boolean)">
+ <summary>
+ New UDP packet from the network capture
+ </summary>
+ <param name="pUDP"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.Tx__Safe_ControlPacket(LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T,System.UInt32,System.UInt32,System.UInt32,System.UInt32)">
+ <summary>
+ Transmit a standard 4 block control packet
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.Tx__Safe_Array(LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T,System.UInt16,System.Byte[]@)">
+ <summary>
+ Transmit an array
+ The standard UDP array type is
+ u16PacketType
+ u32DataLength
+ u8Payload()
+ u16CRC
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="bData"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.Process_Packet(LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketFormatter@)">
+ <summary>
+ Process a packet, check for issues.
+ </summary>
+ <param name="pFormat"></param>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketFormatter">
+ <summary>
+ UDP packet formatter
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketFormatter.m_ePacketType">
+ <summary>
+ Our packet type
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketFormatter.m_u16PayloadLength">
+ <summary>
+ The length of the payload
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketFormatter.m_u32Sequence">
+ <summary>
+ The sequence number
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketFormatter.m_u8Payload">
+ <summary>
+ The actual payload
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketFormatter.m_u16CRC">
+ <summary>
+ The CRC across the packet
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketFormatter.#ctor">
+ <summary>
+ New instance
+ </summary>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface">
+ <summary>
+ Packet capture interface.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.m_BackgroundThreadStop">
+ <summary>
+ When true the background thread will terminate
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.m_QueueLock">
+ <summary>
+ Object that is used to prevent two threads from accessing
+ PacketQueue at the same time
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.m_PacketQueue">
+ <summary>
+ The queue that the callback thread puts packets in. Accessed by
+ the background thread when QueueLock is held
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.m_device">
+ <summary>
+ The packet capture device
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.m_backgroundThread">
+ <summary>
+ The background worker thread.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.m_iPacketCount">
+ <summary>
+ The count of packets
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.m_iPortNumber">
+ <summary>
+ Our port number
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.m_sPortName">
+ <summary>
+ Human id for debugging
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.m_bThreadRun">
+ <summary>
+ Should we run the Rx thread
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.m_pRxThread">
+ <summary>
+ The Rx thread
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.#ctor(System.Int32,System.String)">
+ <summary>
+ Create a new instance, plus a port number to listen to
+ </summary>
+ <param name="iPort"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.#ctor(System.Int32)">
+ <summary>
+ Just a raw new instance, allows us to use internal functions.
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.Destroy">
+ <summary>
+ Shutdown and dispose
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.Get__DeviceList">
+ <summary>
+ Returns a list of all devices we can use.
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.StartCapture(System.Int32,System.Boolean)">
+ <summary>
+ Start a capture on an interface
+ </summary>
+ <param name="itemIndex"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.UserEvent__NewPacket">
+ <summary>
+ Raised when a new packet is ready for processing.
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.UserEvent__NewUDP">
+ <summary>
+ When a new UDP packet comes in
+ </summary>
+ <param name="pUDP"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.UserEvent__NewARP">
+ <summary>
+ A new ARP packet arrived
+ </summary>
+ <param name="pUDP"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.UserEvent__NewLLDP">
+ <summary>
+ New LLDP Packet in
+ </summary>
+ <param name="pUDP"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.Process_Rx(LDLL094__COMMONCODE__SHARP_PCAP.RawCapture)">
+ <summary>
+ Process a raw packet.
+ </summary>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.device_OnPacketArrival(System.Object,LDLL094__COMMONCODE__SHARP_PCAP.CaptureEventArgs)">
+ <summary>
+ On a packet arrival
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketCap_Interface.RxThread">
+ <summary>
+ Receive thread
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType.USER_SUPPLIED_PATH">
+ <summary>
+ Some direct user supplied path
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType.SIL3">
+ <summary>
+ Documents and Settings\Application Data\SIL3 Pty Ltd\
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType.SIL3__APP_PATH">
+ <summary>
+ Documents and Settings\Application Data\SIL3 Pty Ltd\(Application Path)
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.WaitWindowGUI">
+ <summary>
+ The dialogue displayed by a WaitWindow instance.
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.WaitWindowGUI.components">
+ <summary>
+ Designer variable used to keep track of non-visual components.
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.WaitWindowGUI.Dispose(System.Boolean)">
+ <summary>
+ Disposes resources used by the form.
+ </summary>
+ <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.WaitWindowGUI.InitializeComponent">
+ <summary>
+ This method is required for Windows Forms designer support.
+ Do not change the method contents inside the source code editor. The Forms designer might
+ not be able to load this method if it was changed manually.
+ </summary>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.Form1">
+ <summary>
+ Basic framework for rLoop Flight Control Emulation
+ Lachlan Grogan - SafetyLok
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.C_DLL_NAME">
+ <summary>
+ The name of our DLL, could be a bit better done with relative paths
+ </summary>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.Form1.DEBUG_PRINTF__CallbackDelegate">
+ <summary>
+ The delegate sub for win32 debug (text) c
+ </summary>
+ <param name="pu8String"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.vDEBUG_PRINTF_WIN32__Set_Callback(System.MulticastDelegate)">
+ <summary>
+ The debugger callback
+ </summary>
+ <param name="callback"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.vFCU__Init">
+ <summary>
+ The Init function from the power node
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.vFCU__Process">
+ <summary>
+ the process function from the power node
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_txtOutput">
+ <summary>
+ Our output text box used for serial debugging
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_pDebug_Delegate">
+ <summary>
+ The debug delegate
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_pMMA8451_ReadData__Delegate">
+ <summary>
+ When the MMA8451 wants data from us
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_pMainThread">
+ <summary>
+ The thread to run our DLL in
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_bThreadRun">
+ <summary>
+ Global flag to indicate the thread is running
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_pTimerAccel">
+ <summary>
+ Timer to handle accels.
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Form1_Load(System.Object,System.EventArgs)">
+ <summary>
+ Create the form
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Form1_Closing(System.Object,System.ComponentModel.CancelEventArgs)">
+ <summary>
+ Handles an intentional shutdown
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Setup_System">
+ <summary>
+ Setup anyting else on the system
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.btnTestCases__Click(System.Object,System.EventArgs)">
+ <summary>
+ Run the test cases
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.btnStart__Click(System.Object,System.EventArgs)">
+ <summary>
+ Called to start/stop
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Thread__Main">
+ <summary>
+ This is the same as Main() in C
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Timers__Setup">
+ <summary>
+ Start the timers.
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Timers__T50u_Tick(System.Object,SIL3.LDLL178__COMMON_CODE__MICRO_TMER.MicroTimerEventArgs)">
+ <summary>
+ 50us timer
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Timers__T10_Tick(System.Object,System.Timers.ElapsedEventArgs)">
+ <summary>
+ 10ms timer
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Timers__T100_Tick(System.Object,System.Timers.ElapsedEventArgs)">
+ <summary>
+ 100ms timer
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Timers__Accel_Tick(System.Object,System.Timers.ElapsedEventArgs)">
+ <summary>
+ 100ms timer
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.DEBUG_PRINTF_WIN32_Callback(System.IntPtr)">
+ <summary>
+ Called when the debug layer wants to print a string
+ </summary>
+ <param name="pu8String"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Convert_ByteArrayASCII_ToString(System.Byte[],System.Int32,System.Int32)">
+ <summary>
+ Helper function to convert a byte array into a string.
+ </summary>
+ <param name="pByteArray"></param>
+ <param name="iArrayLength"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Threadsafe__SetText(System.Windows.Forms.TextBox@,System.String)">
+ <summary>
+ Sets text on the control in a threasafe mannor
+ </summary>
+ <param name="sData">The string to set</param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Threadsafe__AppendText(System.Windows.Forms.TextBox@,System.String)">
+ <summary>
+ Append text in a threadsafe mannor
+ </summary>
+ <param name="sData"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.InternalEvent__NewPacket(System.Byte[],System.Int32)">
+ <summary>
+ Rx a new raw packet
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.InernalEvent__UDPSafe__RxPacket(LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T,LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16,System.Byte[]@,LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16,System.Boolean,System.UInt32)">
+ <summary>
+ RX a UDP safe packet and fake the eth-ii layer
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <param name="bCRCOK"></param>
+ <param name="u32Seq"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.ETH_WIN32__TxCallback_Sub(System.IntPtr,System.UInt16)">
+ <summary>
+ Called when teh DLL wants to trasmit eth data.
+ </summary>
+ <param name="u8Buffer"></param>
+ <param name="u16BufferLength"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.MMA8451_WIN32__ReadDataCallback_Sub(System.Byte,System.IntPtr,System.IntPtr,System.IntPtr)">
+ <summary>
+ Callback when the MMA wants to read some new data
+ </summary>
+ <param name="u8DeviceIndex"></param>
+ <param name="ps16X"></param>
+ <param name="ps16Y"></param>
+ <param name="ps16Z"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.STEPDRIVE_WIN32__UpdatePostion(System.Byte,System.Byte,System.Byte,System.Int32)">
+ <summary>
+ Update from the stepper system with its new position
+ </summary>
+ <param name="u8MotorIndex"></param>
+ <param name="u8Step"></param>
+ <param name="u8Dir"></param>
+ <param name="s32Position"></param>
+</member>
+</members>
+</doc>

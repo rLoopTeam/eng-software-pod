@@ -8,6 +8,10 @@
  * If counting revolutions, every rotation of the ball screw moves the wedge 3 mm.
  * 0.9172 mm airgap increase per revolution.
  *
+ * @NOTE
+ * http://confluence.rloop.org/display/SD/5.+Control+Eddy+Brakes
+ * http://confluence.rloop.org/display/SD/Brake+Control
+ *
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
  */
@@ -36,7 +40,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init any brakes variables, etc.
  * 
- * @st_funcMD5		2088D3136550B269EDF62A8D42B06F58
+ * @st_funcMD5		5365FE6C1140E5A501525B2F171D7CEB
  * @st_funcID		LCCM655R0.FILE.007.FUNC.001
  */
 void vFCU_BRAKES__Init(void)
@@ -44,15 +48,23 @@ void vFCU_BRAKES__Init(void)
 	Luint8 u8Counter;
 
 	//init the state machine variables
-	sFCU.eBrakeStates = BRAKE_STATE__IDLE;
-	sFCU.sBrakesDev.u8DevMode = 0U;
-	sFCU.sBrakesDev.u32DevKey = 0U;
+	sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__RESET;
+	sFCU.sBrakesGlobal.u32MoveTaskID = 0U;
+	sFCU.sBrakesGlobal.u8Timer_100ms = 0U;
+
+	//setup the fault flags
+	vFAULTTREE__Init(&sFCU.sBrakesGlobal.sFaultFlags);
 
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
 	{
+
 		sFCU.sBrakes[u8Counter].sCurrent.f32ScrewPos_mm = 0.0F;
 		sFCU.sBrakes[u8Counter].sCurrent.f32IBeam_mm = 0.0F;
 		sFCU.sBrakes[u8Counter].sCurrent.f32MLP_mm = 0.0F;
+
+		sFCU.sBrakes[u8Counter].sTarget.f32IBeam_mm = 0.0F;
+		sFCU.sBrakes[u8Counter].sTarget.f32LeadScrew_mm = 0.0F;
+		sFCU.sBrakes[u8Counter].sTarget.u32LeadScrew_um = 0U;
 	}
 
 	//init the limit switches
@@ -64,7 +76,14 @@ void vFCU_BRAKES__Init(void)
 	//init the stepper rotate module
 	vFCU_BRAKES_STEP__Init();
 
+	//any ethernet stuff as needed
+	vFCU_BRAKES_ETH__Init();
 
+	//setup the claibration system
+	vFCU_BRAKES_CAL__Init();
+
+	//brakes watchdog
+	vFCU_BRAKES_WDT__Init();
 
 }
 
@@ -72,12 +91,14 @@ void vFCU_BRAKES__Init(void)
  * @brief
  * Process any brakes tasks.
  * 
- * @st_funcMD5		9E344DE829A68B682D6D887FF18C2100
+ * @st_funcMD5		B5E70586985FC845E4378BEB7040BB32
  * @st_funcID		LCCM655R0.FILE.007.FUNC.002
  */
 void vFCU_BRAKES__Process(void)
 {
 	Luint8 u8Test;
+	Lfloat32 f32Temp;
+	Luint8 u8Counter;
 
 	//process the stepper driver if its active
 	vSTEPDRIVE__Process();
@@ -88,8 +109,47 @@ void vFCU_BRAKES__Process(void)
 	//process the switches
 	vFCU_BRAKES_SW__Process();
 
-	switch(sFCU.eBrakeStates)
+	//process any calibration tasks
+	vFCU_BRAKES_CAL__Process();
+
+	switch(sFCU.sBrakesGlobal.eBrakeStates)
 	{
+
+		case BRAKE_STATE__RESET:
+			//we have come out of reset, and now need to calibrate the brakes before they can be used.
+
+			//
+			break;
+
+		case BRAKE_STATE__BEGIN_CAL:
+			//being the calibration process
+			vFCU_BRAKES_CAL__BeginCal(0x00112233U);
+
+			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__WAIT_CAL_DONE;
+			break;
+
+		case BRAKE_STATE__WAIT_CAL_DONE:
+
+			//monitor the state
+			sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__LEFT);
+			sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__RIGHT);
+
+
+			u8Test = u8FCU_BRAKES_CAL__Is_Busy();
+			if(u8Test == 1U)
+			{
+				//still busy wait here
+			}
+			else
+			{
+				//done calibrating, move states
+				sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__IDLE;
+
+				//clear the cal in progress flag
+				vFAULTTREE__Clear_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 30U);
+			}
+			break;
+
 
 		case BRAKE_STATE__IDLE:
 			//idle state, wait here until we are commanded to move via a chance state.
@@ -101,8 +161,47 @@ void vFCU_BRAKES__Process(void)
 			//compare brake distances with known postion, limit switch postion and MLP position before moving.
 			//alert upper layer if movement not possible due to position sensor error
 
-			sFCU.eBrakeStates = BRAKE_STATE__MOVING;
+			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__COMPUTE;
 
+			break;
+
+		case BRAKE_STATE__COMPUTE:
+
+			//compute the planned move, take the I-beam request and translate into linear screw pos
+
+			//we compute for each brake side.
+			//While it seams redundant, we could apply some real-world hardware offets here
+			for(u8Counter = 0U; u8Counter < FCU_BRAKE__MAX_BRAKES; u8Counter++)
+			{
+				//get the target I-Beam distance
+				f32Temp = sFCU.sBrakes[u8Counter].sTarget.f32IBeam_mm;
+
+				//equation:
+				//screw_pos = tan(17) * ibeam_dist
+
+				//div by Tan(17)
+				f32Temp /= 0.305730681F;
+
+				//because our min brake gap is 2.5mm, and this should equal to 0mm lead screw, we
+				//need to subtract -2.5mm/tan(17)
+				f32Temp -= 8.1771F;
+
+				//convert to a target distance
+				sFCU.sBrakes[u8Counter].sTarget.f32LeadScrew_mm = f32Temp;
+
+				//to microns
+				f32Temp *= 1000.0F;
+				sFCU.sBrakes[u8Counter].sTarget.u32LeadScrew_um = (Luint32)f32Temp;
+
+			}//for(u8Counter = 0U; u8Counter < FCU_BRAKE__MAX_BRAKES; u8Counter++)
+
+			//clear the previous task flag
+			vSTEPDRIVE__Clear_TaskComplete();
+
+			//feed this to the stepper system
+			vFCU_BRAKES_STEP__Move(sFCU.sBrakes[0].sTarget.u32LeadScrew_um, sFCU.sBrakes[1].sTarget.u32LeadScrew_um);
+
+			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__MOVING;
 			break;
 
 		case BRAKE_STATE__MOVING:
@@ -127,7 +226,7 @@ void vFCU_BRAKES__Process(void)
 			else
 			{
 				//change state
-				sFCU.eBrakeStates = BRAKE_STATE__MOVE_STOPPED;
+				sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__MOVE_STOPPED;
 			}
 
 
@@ -137,6 +236,7 @@ void vFCU_BRAKES__Process(void)
 			//once we have completed moving, switch to stop state
 
 			//once stopped go back to idle state
+			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__IDLE;
 			break;
 
 
@@ -145,12 +245,66 @@ void vFCU_BRAKES__Process(void)
 			//a fault has occurred
 			break;
 
-		case BRAKE_STATE__TEST:
-			//just LG test area.
-			vFCU_BRAKES__Move_IBeam_Distance_mm(500);
+		default:
+			//do nothing
 			break;
 
+	}//switch(sFCU.sBrakesGlobal.eBrakeStates)
 
+
+	//handle WDT tasks
+	if(sFCU.sBrakesGlobal.u8Timer_100ms == 2)
+	{
+		//watchdog start
+		vFCU_BRAKES_WDT__Pet_Start();
+
+	}
+	else if(sFCU.sBrakesGlobal.u8Timer_100ms >= 4)
+	{
+
+		//watchdog end
+		vFCU_BRAKES_WDT__Pet_End();
+
+		sFCU.sBrakesGlobal.u8Timer_100ms = 0U;
+	}
+	else
+	{
+		//fall on
+	}
+
+}
+
+
+/***************************************************************************//**
+ * @brief
+ * must start calibration from the ground station to put the brakes into a mode
+ * where they can be used.
+ * 
+ * @param[in]		u32Key				0x98765432U
+ * @st_funcMD5		EE29EBB23A41C03E43DD253219CFD50C
+ * @st_funcID		LCCM655R0.FILE.007.FUNC.009
+ */
+void vFCU_BRAKES__Begin_Init(Luint32 u32Key)
+{
+
+	//can only cal from reset state
+	if(sFCU.sBrakesGlobal.eBrakeStates == BRAKE_STATE__RESET)
+	{
+		if(u32Key == 0x98765432U)
+		{
+			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__BEGIN_CAL;
+
+			//we should also set a flag
+			vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 30U);
+		}
+		else
+		{
+			//error wrong key
+		}
+	}
+	else
+	{
+		//error not in reset state
 	}
 
 }
@@ -225,120 +379,86 @@ Lfloat32 f32FCU_BRAKES__Get_MLP_mm(E_FCU__BRAKE_INDEX_T eBrake)
 }
 
 
-
-//permit brake development/testing mode
-//Key1 should be 0xABCD0987U
-void vFCU_BRAKES__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
+/***************************************************************************//**
+ * @brief
+ * Move the brakes to a distance in microns from the I Beam
+ *
+ * @note
+ * Approx distances are 25,000 um (fully open) to 0um (fully closed)
+ * 
+ * @param[in]		u32Distance				The distance in microns
+ * @st_funcMD5		609D069BE1337B6F02723640B571D4A9
+ * @st_funcID		LCCM655R0.FILE.007.FUNC.008
+ */
+void vFCU_BRAKES__Move_IBeam_Distance_mm(Lfloat32 f32Distance)
 {
 
-	if(u32Key0 == 0x01293847U)
+	//stop upper layers interfering if we have development mode on
+	if((sFCU.sBrakesGlobal.sBrakesDev.u8DevMode != 1U) && (sFCU.sBrakesGlobal.sBrakesDev.u32DevKey != 0xABCD0987U))
 	{
-		//activate mode
-		sFCU.sBrakesDev.u8DevMode = 1U;
-		sFCU.sBrakesDev.u32DevKey = u32Key1;
-	}
-	else
-	{
-		//disable mode
-		sFCU.sBrakesDev.u8DevMode = 0U;
-		sFCU.sBrakesDev.u32DevKey = 0U;
-	}
+		//we know each brake has to move proportionally, they can't move independantly.
 
-
-
-}
-
-
-//huge caution, this can kill the magnets
-void vFCU_BRAKES__Dev_MoveMotor(Luint32 u32Index, Luint32 u32Position)
-{
-
-	if(sFCU.sBrakesDev.u8DevMode == 1U)
-	{
-		//check the safety key
-		if(sFCU.sBrakesDev.u32DevKey == 0xABCD0987U)
+		//remember here our min brake distance is 2.500mm, if we go lower than this
+		if(f32Distance < C_FCU__BRAKES__MIN_IBEAM_DIST_MM)
 		{
-
-			switch(u32Index)
-			{
-				case 0:
-					vFCU_BRAKES_STEP__Move(u32Position, 0U);
-					break;
-				case 1:
-					vFCU_BRAKES_STEP__Move(0U, u32Position);
-					break;
-				case 2:
-					vFCU_BRAKES_STEP__Move(u32Position, u32Position);
-					break;
-				default:
-					//do nothing.
-					break;
-			}//switch(u32Index)
+			//tell the target distance for both brakes
+			sFCU.sBrakes[0].sTarget.f32IBeam_mm = C_FCU__BRAKES__MIN_IBEAM_DIST_MM;
+			sFCU.sBrakes[1].sTarget.f32IBeam_mm = C_FCU__BRAKES__MIN_IBEAM_DIST_MM;
 
 		}
 		else
 		{
-			//key wrong
+			if(f32Distance > C_FCU__BRAKES__MAX_IBEAM_DIST_MM)
+			{
+				//tell the target distance for both brakes
+				sFCU.sBrakes[0].sTarget.f32IBeam_mm = C_FCU__BRAKES__MAX_IBEAM_DIST_MM;
+				sFCU.sBrakes[1].sTarget.f32IBeam_mm = C_FCU__BRAKES__MAX_IBEAM_DIST_MM;
+
+			}
+			else
+			{
+				//tell the target distance for both brakes
+				sFCU.sBrakes[0].sTarget.f32IBeam_mm = f32Distance;
+				sFCU.sBrakes[1].sTarget.f32IBeam_mm = f32Distance;
+			}
 		}
-	}
-	else
-	{
-		//not enabled
-	}
-
-}
 
 
-//move the brakes to a distance in MM from the I Beam
-//approx distances are 25mm (fully open) to 0mm (fully closed)
-//some calibration will be needed here.
-/***************************************************************************//**
- * @brief
- * ToDo
- * 
- * @param[in]		u32Distance		## Desc ##
- * @st_funcMD5		17768A6EF4640223240BC52B342622A4
- * @st_funcID		LCCM655R0.FILE.007.FUNC.008
- */
-void vFCU_BRAKES__Move_IBeam_Distance_mm(Luint32 u32Distance)
-{
 
-	//temp
-
-	//Tell the movement planner to go
-	vFCU_BRAKES_STEP__Move(2000, 2000);
-
-	//change state
-	sFCU.eBrakeStates = BRAKE_STATE__BEGIN_MOVE;
-}
-
-//move the brakes position by a certain percentage between 0-100%
-//approx distances are 25mm (fully open) to 0mm (fully closed)
-//some calibration will be needed here.
-/***************************************************************************//**
- * @brief
- * ToDo
- * 
- * @param[in]		eBrake					The brake index
- * @param[in]		f32Percent		## Desc ##
- * @st_funcMD5		661C17121624146AA0AB15490D2D66B9
- * @st_funcID		LCCM655R0.FILE.007.FUNC.009
- */
-void vFCU_BRAKES__Move_Percent_Position(Lfloat32 f32Percent, E_FCU__BRAKE_INDEX_T eBrake)
-{
-	if((f32Percent < 0) || (f32Percent > 100))
-	{
-		//do nothing
-	}
-	else
-	{
-		if(eBrake < FCU_BRAKE__MAX_BRAKES)
+		//change state
+		//Don't change state if we are not idle.
+		if(sFCU.sBrakesGlobal.eBrakeStates == BRAKE_STATE__IDLE)
 		{
-			//set BrakePosition_Percent to value
-			sFCU.sBrakes[(Luint32)eBrake].sMLP.f32BrakePosition_Percent = f32Percent;
+			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__BEGIN_MOVE;
 		}
+		else
+		{
+			//brake move not possible yet
+			//todo: report back up the stack
+		}
+
 	}
+	else
+	{
+		//we are in development mode, don't allow the upper level system to move the brakes.
+	}
+
+
 }
+
+/***************************************************************************//**
+ * @brief
+ * 100ms timer input
+ * 
+ * @st_funcMD5		49FEC7B1A6D39C29B063D402AE617167
+ * @st_funcID		LCCM655R0.FILE.007.FUNC.010
+ */
+void vFCU_BRAKES__100MS_ISR(void)
+{
+
+	sFCU.sBrakesGlobal.u8Timer_100ms++;
+}
+
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_BRAKES
 #ifndef C_LOCALDEF__LCCM655__ENABLE_BRAKES
