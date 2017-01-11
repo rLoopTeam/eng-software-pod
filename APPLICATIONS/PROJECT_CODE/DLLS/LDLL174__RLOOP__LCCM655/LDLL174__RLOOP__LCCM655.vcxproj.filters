@@ -196,6 +196,12 @@
     <Filter Include="Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\WIN32">
       <UniqueIdentifier>{1559f28f-bdbd-4ad7-9dc9-19add45ded19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741\WIN32">
+      <UniqueIdentifier>{1f7fd608-5614-4eec-9788-f96253523a7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM121__MULTICORE__MCP23S17">
+      <UniqueIdentifier>{267a275e-9247-420b-a8cc-620539aaddf8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
@@ -346,12 +352,6 @@
       <Filter>LCCM655__RLOOP__FCU_CORE\FAULTS</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi.c">
-      <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi_rs485.c">
-      <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi_rs485_mux.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\fcu__accel.c">
@@ -585,6 +585,30 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\WIN32\stepper_drive__win32.c">
       <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\WIN32</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\WIN32\sc16is__win32.c">
+      <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741\WIN32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi__controller_if.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi__crc.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi__mux.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM121__MULTICORE__MCP23S17\INTERRUPTS\mcp23s17__interrupts.c">
+      <Filter>Source Files\MULTICORE\LCCM121__MULTICORE__MCP23S17</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM121__MULTICORE__MCP23S17\LOWLEVEL\mcp23s17__lowlevel.c">
+      <Filter>Source Files\MULTICORE\LCCM121__MULTICORE__MCP23S17</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM121__MULTICORE__MCP23S17\mcp23s17.c">
+      <Filter>Source Files\MULTICORE\LCCM121__MULTICORE__MCP23S17</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__watchdog.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h">
@@ -745,6 +769,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\stepper_drive__localdef.h">
       <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM121__MULTICORE__MCP23S17\mcp23s17__private.h">
+      <Filter>Source Files\MULTICORE\LCCM121__MULTICORE__MCP23S17</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM121__MULTICORE__MCP23S17\mcp23s17.h">
+      <Filter>Source Files\MULTICORE\LCCM121__MULTICORE__MCP23S17</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM121__MULTICORE__MCP23S17\mcp23s17__fault_flags.h">
+      <Filter>Source Files\MULTICORE\LCCM121__MULTICORE__MCP23S17</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM121__MULTICORE__MCP23S17\mcp23s17__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM121__MULTICORE__MCP23S17</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

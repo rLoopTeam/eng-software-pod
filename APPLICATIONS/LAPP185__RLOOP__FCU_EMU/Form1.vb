@@ -72,6 +72,14 @@ Public Class Form1
     End Sub
 
 
+    'SC16 UARTS
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Shared Sub vSC16IS_WIN32__Set_TxData_Callback(u8DeviceIndex As Byte, ByVal callback As MulticastDelegate)
+    End Sub
+    <System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Delegate Sub SC16IS_WIN32__Set_TxData_CallbackDelegate(u8DeviceIndex As Byte, pu8Data As IntPtr, u8Length As Byte)
+
+
 #End Region '#Region "WIN32/DEBUG"
 
 #Region "C CODE SPECIFICS"
@@ -135,6 +143,8 @@ Public Class Form1
     End Sub
 
 
+
+
     'Testing Area
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Private Shared Sub vLCCM655R0_TS_000()
@@ -190,7 +200,15 @@ Public Class Form1
     ''' </summary>
     Private m_pMMA8451_ReadData__Delegate As MMA8451_WIN32__ReadDataCallbackDelegate
 
+
     Private m_pStepDrive_UpdatePos__Delegate As STEPDRIVE_WIN32__Set_UpdatePositionCallbackDelegate
+
+    ''' <summary>
+    ''' When the SC16 subsystem wants to transmit
+    ''' </summary>
+    Private m_pSC16_TxData__Delegate As SC16IS_WIN32__Set_TxData_CallbackDelegate
+
+
 
     ''' <summary>
     ''' The thread to run our DLL in
@@ -422,6 +440,9 @@ Public Class Form1
         Me.m_pStepDrive_UpdatePos__Delegate = AddressOf Me.STEPDRIVE_WIN32__UpdatePostion
         vSTEPDRIVE_WIN32__Set_UpdatePositionCallback(Me.m_pStepDrive_UpdatePos__Delegate)
 
+        Me.m_pSC16_TxData__Delegate = AddressOf SC16IS_WIN32__TxData
+        vSC16IS_WIN32__Set_TxData_Callback(0, Me.m_pSC16_TxData__Delegate)
+
         'do the threading
         Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
         Me.m_pMainThread.Name = "FCU THREAD"
@@ -553,6 +574,8 @@ Public Class Form1
 
         'needs to be done due to WIN32_ETH_Init
         vETH_WIN32__Set_Ethernet_TxCallback(Me.m_pETH_TX__Delegate)
+
+
 
         'force the two motor positions to random so as we can simulate the cal process
         vSTEPDRIVE_WIN32__ForcePosition(0, -34)
@@ -1041,5 +1064,12 @@ Public Class Form1
 
     End Sub
 #End Region '#Region "STEPPER
+
+#Region "SC16IS"
+
+    Private Sub SC16IS_WIN32__TxData(u8DeviceIndex As Byte, pu8Data As IntPtr, u8Length As Byte)
+    End Sub
+
+#End Region
 
 End Class

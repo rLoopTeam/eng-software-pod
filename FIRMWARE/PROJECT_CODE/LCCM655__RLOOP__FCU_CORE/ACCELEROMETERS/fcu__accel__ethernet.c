@@ -22,6 +22,10 @@
 #if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 
+void vFCU_ACCEL_ETH__Init(void)
+{
+
+}
 
 /***************************************************************************//**
  * @brief

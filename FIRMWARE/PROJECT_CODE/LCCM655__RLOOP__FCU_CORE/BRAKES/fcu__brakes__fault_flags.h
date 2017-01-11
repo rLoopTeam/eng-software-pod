@@ -50,5 +50,17 @@
 #define C_LCCM655__BRAKES__FAULT_INDEX__03				0x00000003U
 #define C_LCCM655__BRAKES__FAULT_INDEX_MASK__03			0x00000008U
 
+/*
+ * @fault_index
+ * 04
+ * 
+ * @brief
+ * DEVELOPMENT MODE ENABLE 
+ * 
+ * Dev mode is enabled.  Some functions may be unavailable. 
+*/
+#define C_LCCM655__BRAKES__FAULT_INDEX__04				0x00000004U
+#define C_LCCM655__BRAKES__FAULT_INDEX_MASK__04			0x00000010U
+
 #endif //#ifndef _LCCM655__FAULT_FLAGS_H_
 

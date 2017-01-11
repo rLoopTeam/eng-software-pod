@@ -138,13 +138,32 @@
 
 
 		//////////////////////////////////////////////////////
+		//FCU: THROTTLES (0x1500)
+		//////////////////////////////////////////////////////
+
+		/** Request from the host to send the Throttle data */
+		NET_PKT__FCU_THROTTLE__REQUEST_DATA = 0x1500U,
+
+		/** FCU to Host, return Throttle data */
+		NET_PKT__FCU_THROTTLE__TX_DATA = 0x1501U,
+
+
+		//////////////////////////////////////////////////////
 		//FCU: NAVIGATION (0x1600)
 		//////////////////////////////////////////////////////
 
 		/** Stream Navigation Progress Data */
 		NET_PKT__FCU_NAV__TX_NAV_PROGRESS = 0x1600U,
 
+		//////////////////////////////////////////////////////
+		//FCU: ASI LAYER (0x1700)
+		//////////////////////////////////////////////////////
 
+		/** Request from the host to send the ASI data */
+		NET_PKT__FCU_ASI__REQUEST_ASI_DATA = 0x1700U,
+
+		/** FCU to Host, return ASI data */
+		NET_PKT__FCU_ASI__TX_ASI_DATA = 0x1701U,
 
 		//////////////////////////////////////////////////////
 		//POWER: GENERAL (0x3000)

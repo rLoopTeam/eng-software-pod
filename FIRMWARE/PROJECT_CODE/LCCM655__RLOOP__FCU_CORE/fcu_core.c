@@ -56,7 +56,7 @@ void vFCU__Init(void)
  * @brief
  * Process any FCU tasks.
  * 
- * @st_funcMD5		343E4DD5ACF982EE8C1B164E53C167E0
+ * @st_funcMD5		0720F114B671FD3FB736EC97495EBC9F
  * @st_funcID		LCCM655R0.FILE.000.FUNC.002
  */
 void vFCU__Process(void)

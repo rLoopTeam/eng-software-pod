@@ -32,7 +32,7 @@ extern struct _strFCU sFCU;
  * @param[in]		u16DataLen				Length of data
  * @param[in]		*pu8Data				framedParameter
  * @return			The returned CRC
- * @st_funcMD5		9A841197FA8165F75C8A8D248C281818
+ * @st_funcMD5		05528F06BBCE33A1BDD3D45F7ADDEA6E
  * @st_funcID		LCCM655R0.FILE.071.FUNC.001
  */
 Luint16 u16FCU_ASI_CRC__ComputeCRC(Luint8 *pu8Data, Luint16 u16DataLen)
@@ -88,7 +88,7 @@ Luint16 u16FCU_ASI_CRC__ComputeCRC(Luint8 *pu8Data, Luint16 u16DataLen)
  * Add CRC to modbus command frame
  * 
  * @param[in]		*pu8Data				framedParameter
- * @st_funcMD5		9D5F4CFED7D02B9566530D1F05EC671D
+ * @st_funcMD5		8ACCAE552F9F545DBB5F8093372A0D04
  * @st_funcID		LCCM655R0.FILE.071.FUNC.002
  */
 void vFCU_ASI_CRC__AddCRC(Luint8 *pu8Data)
@@ -118,6 +118,15 @@ void vFCU_ASI_CRC__AddCRC(Luint8 *pu8Data)
  * @param[in]	rData		Response Data
  * @return			-1 = error
  * 					0 = success
+ */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u8DataLen		## Desc ##
+ * @param[in]		*pu8Data		## Desc ##
+ * @st_funcMD5		3B9AF9CEEF213072301C15272C0EBDFC
+ * @st_funcID		LCCM655R0.FILE.071.FUNC.003
  */
 Lint16 s16FCU_ASI_CRC__CheckCRC(Luint8 *pu8Data, Luint8 u8DataLen)
 {

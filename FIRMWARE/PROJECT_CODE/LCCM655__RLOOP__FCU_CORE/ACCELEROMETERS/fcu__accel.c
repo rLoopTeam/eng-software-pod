@@ -36,6 +36,8 @@ void vFCU_ACCEL__Init(void)
 	Luint32 u32Temp;
 	Luint8 u8Counter;
 
+	vFCU_ACCEL_ETH__Init();
+
 	//init vars
 	for(u8Counter = 0U; u8Counter < 3U; u8Counter++)
 	{
