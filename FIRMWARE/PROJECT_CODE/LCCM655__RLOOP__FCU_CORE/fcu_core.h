@@ -646,14 +646,8 @@
 				/** the modbus state */
 				E_FCU_MODBUS__STATE_T eMbState;
 
-				/** a circular queue of modbus commands to ASI devices */
-				struct _strASICmd cmdQueue[C_ASI__COMMAND_QUEUE];
-
-				/** command queue head index*/
-				Luint8 u8Queue_HeadIndex;
-
-				/** command queue tail index*/
-				Luint8 u8Queue_TailIndex;
+				struct _strASICmd cmd;
+				Lint8 cmdToProcess;
 
 				/** a set of timers to control tx timeouts */
 				Luint32 u32ASI_turnaround_Counter;
