@@ -154,6 +154,7 @@
 		void vDS18B20_ADDX__SearchSM_Start(void);
 		Luint8 u8DS18B20_ADDX__SearchSM_IsBusy(void);
 		Luint8 u8DS18B20_ADDX__Get_NumEnumerated(void);
+		void vDS18B20_ADDX__Set_SearchComplete(void);
 		Lint16 s16DS18B20_ADDX__Upload_Addx(Luint8 u8Index, Luint8 u8Channel, Luint8 *pu8Addx);
 
 		//scratchpad

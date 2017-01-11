@@ -405,7 +405,7 @@ void vFCU__Process(void)
  * @brief
  * 100ms timer
  * 
- * @st_funcMD5		44A74B143826EC0B9DABCCEAEBEC7BA1
+ * @st_funcMD5		3093E3F03BB1527B1C3760FFBE291CEA
  * @st_funcID		LCCM655R0.FILE.000.FUNC.003
  */
 void vFCU__RTI_100MS_ISR(void)
@@ -435,6 +435,10 @@ void vFCU__RTI_100MS_ISR(void)
 		vFCU_NET_TX__100MS_ISR();
 	#endif
 
+	//brakes timed processes
+	#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
+		vFCU_BRAKES__100MS_ISR();
+	#endif
 
 }
 

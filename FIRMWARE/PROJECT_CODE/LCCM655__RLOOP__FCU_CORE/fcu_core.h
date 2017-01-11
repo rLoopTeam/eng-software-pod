@@ -104,6 +104,9 @@
 
 				}sCalibration;
 
+				/** 100ms tick */
+				Luint8 u8Timer_100ms;
+
 			}sBrakesGlobal;
 
 
@@ -864,6 +867,7 @@
 		void vFCU_BRAKES__Process(void);
 		void vFCU_BRAKES__Begin_Init(Luint32 u32Key);
 		void vFCU_BRAKES__Move_IBeam_Distance_mm(Lfloat32 f32Distance);
+		void vFCU_BRAKES__100MS_ISR(void);
 		Lfloat32 f32FCU_BRAKES__Get_ScrewPos(E_FCU__BRAKE_INDEX_T eBrake);
 		E_FCU__SWITCH_STATE_T eFCU_BRAKES__Get_SwtichState(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
 		Luint16 u16FCU_BRAKES__Get_ADC_Raw(E_FCU__BRAKE_INDEX_T eBrake);
@@ -912,6 +916,11 @@
 			void vFCU_BRAKES_CAL__Process(void);
 			void vFCU_BRAKES_CAL__BeginCal(Luint32 u32Key);
 			Luint8 u8FCU_BRAKES_CAL__Is_Busy(void);
+
+			//WDT
+			void vFCU_BRAKES_WDT__Init(void);
+			void vFCU_BRAKES_WDT__Pet_Start(void);
+			void vFCU_BRAKES_WDT__Pet_End(void);
 
 		//accelerometer layer
 		void vFCU_ACCEL__Init(void);
