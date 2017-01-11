@@ -26,14 +26,15 @@
  * @brief
  * Init the watchdog pin
  * 
- * @st_funcMD5		CE3CF555446926C5FEC7670E78072FCA
+ * @st_funcMD5		C60A4D2832D296DE3D697E6008F6532D
  * @st_funcID		LCCM655R0.FILE.069.FUNC.001
  */
 void vFCU_BRAKES_WDT__Init(void)
 {
-
+#ifndef WIN32
 	//SPI3:NCS3
 	vRM4_MIBSPI135_PINS__Set_OutputDirection(MIBSPI135_CHANNEL__3, MIBSPI135_PIN__CS3);
+#endif
 
 }
 
@@ -42,28 +43,28 @@ void vFCU_BRAKES_WDT__Init(void)
  * @brief
  * Start of the petting process
  * 
- * @st_funcMD5		06EC541EE114671B78787568B6D30E01
+ * @st_funcMD5		A4903EF69EFB23039E39E2A01AE2604E
  * @st_funcID		LCCM655R0.FILE.069.FUNC.002
  */
 void vFCU_BRAKES_WDT__Pet_Start(void)
 {
-
+#ifndef WIN32
 	vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__3, MIBSPI135_PIN__CS3, 0x01U);
-
+#endif
 }
 
 /***************************************************************************//**
  * @brief
  * End the petting process.
  * 
- * @st_funcMD5		B3C341631B7A1B6B14A4AFCAF4D56A35
+ * @st_funcMD5		2ACFE93C017C08196F693ADB4A665736
  * @st_funcID		LCCM655R0.FILE.069.FUNC.003
  */
 void vFCU_BRAKES_WDT__Pet_End(void)
 {
-
+#ifndef WIN32
 	vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__3, MIBSPI135_PIN__CS3, 0x00U);
-
+#endif
 }
 
 

@@ -29,6 +29,7 @@ extern struct _strFCU sFCU;
 void vFCU_ASI__BuildCmdFrame(struct _strASICmd *sCmdParams);
 Lint16 s16FCU_ASI__ProcessError(struct _strASICmd *pTail);
 void vFCU_ASI__SetErr(struct _strASICmd *pTail);
+void vFCU_ASI__MemCopy(Luint8 *pu8Dest, const Luint8 *cpu8Source, Luint32 u32Length);
 
 
 /***************************************************************************//**
@@ -43,6 +44,8 @@ void vFCU_ASI__Init(void)
 	//configure the multiplexer
 	vFCU_ASI_MUX__Init();
 
+	//eth layer
+	vFCU_ASI_ETH__Init();
 
 	vFCU_ASI__MemSet((Luint8 *)&sFCU.sASIComms, 0, (Luint32)sizeof(sFCU.sASIComms));
 
@@ -214,13 +217,13 @@ Lint16 s16FCU_ASI__SendCommand(struct _strASICmd *sCmdParams)
 		else
 		{
 			// clear contents of this command queue slot
-			vFCU_ASI__MemSet((Luint8 *)sFCU.sASIComms.u8Queue_HeadIndex, 0U, (Luint32)sizeof(struct _strASICmd));
+			vFCU_ASI__MemSet((Luint8 *)&sFCU.sASIComms.cmdQueue[sFCU.sASIComms.u8Queue_HeadIndex], 0U, (Luint32)sizeof(struct _strASICmd));
 
 			// build the frame of bytes to send for this command
 			vFCU_ASI__BuildCmdFrame(sCmdParams);
 
 			// add command to next available slot in command queue
-			memcpy(pHead, sCmdParams, sizeof(struct _strASICmd));
+			vFCU_ASI__MemCopy((Luint8*)pHead, (Luint8*)&sCmdParams, (Luint32)sizeof(struct _strASICmd));
 
 			// adjust head pointer
 			sFCU.sASIComms.u8Queue_HeadIndex++;
@@ -399,6 +402,17 @@ void vFCU_ASI__MemSet(Luint8 *pu8Buffer, Luint8 u8Value, Luint32 u32Count)
 	{
 		pu8Buffer[u32Counter] = u8Value;
 	}
+
+}
+
+ 
+void vFCU_ASI__MemCopy(Luint8 *pu8Dest, const Luint8 *cpu8Source, Luint32 u32Length)
+{
+	Luint32 u32Counter;
+	for(u32Counter = 0; u32Counter < u32Length; u32Counter++)
+	{
+		pu8Dest[u32Counter] = cpu8Source[u32Counter];	
+	} 
 
 }
 

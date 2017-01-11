@@ -930,7 +930,11 @@
 		void vFCU_ACCEL__Process(void);
 		Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis);
 		Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis);
-		void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType);
+
+			//eth
+			void vFCU_ACCEL_ETH__Init(void);
+			void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType);
+
 
 		//Pusher interface
 		void vFCU_PUSHER__Init(void);
@@ -971,6 +975,10 @@
 			void vFCU_ASI_MUX__Process(void);
 			void vFCU_ASI_MUX__SelectChannel(Luint8 u8ChannelIndex);
 
+			//eth
+			void vFCU_ASI_ETH__Init(void);
+			void vFCU_ASI_ETH__Transmit(E_NET__PACKET_T ePacketType);
+
 		//throttle layer
 		void vFCU_THROTTLE__Init(void);
 		void vFCU_THROTTLE__Process(void);
@@ -981,6 +989,10 @@
 		Lint16 s16FCU_THROTTLE__Hold(void);
 		void vFCU_THROTTLE__100MS_ISR(void);
 		void vFCU_THROTTLE__GetGroundStationStructValues(void);
+
+			//eth
+			void vFCU_THROTTLE_ETH__Init(void);
+			void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
 		// AMC7812 DAC
 

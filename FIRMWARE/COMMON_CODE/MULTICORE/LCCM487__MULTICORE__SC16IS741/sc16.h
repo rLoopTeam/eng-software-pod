@@ -244,7 +244,7 @@
 		void vSC16_LOWLEVEL__FIFO_Read(Luint8 u8DeviceIndex);
 
 		#ifdef WIN32
-			DLL_DECLARATION vSC16IS_WIN32__Set_TxData_Callback(Luint8 u8DeviceIndex, pSC16IS_WIN32_TxData_Callback_FuncType pFunc);
+			DLL_DECLARATION void vSC16IS_WIN32__Set_TxData_Callback(Luint8 u8DeviceIndex, pSC16IS_WIN32_TxData_Callback_FuncType pFunc);
 			void vSC16IS_WIN32__TxData(Luint8 u8DeviceIndex, Luint8 *pu8Data, Luint8 u8Length);
 		#endif
 

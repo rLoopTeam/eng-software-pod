@@ -5618,6 +5618,11 @@ adds a sub level node after one has already been added
  When the MMA8451 wants data from us
  </summary>
 </member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_pSC16_TxData__Delegate">
+ <summary>
+ When the SC16 subsystem wants to transmit
+ </summary>
+</member>
 <member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_pMainThread">
  <summary>
  The thread to run our DLL in
