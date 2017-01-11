@@ -40,7 +40,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init any brakes variables, etc.
  * 
- * @st_funcMD5		3D9494F427A4EB2AE2B6114DF7D00A20
+ * @st_funcMD5		5365FE6C1140E5A501525B2F171D7CEB
  * @st_funcID		LCCM655R0.FILE.007.FUNC.001
  */
 void vFCU_BRAKES__Init(void)
@@ -50,6 +50,7 @@ void vFCU_BRAKES__Init(void)
 	//init the state machine variables
 	sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__RESET;
 	sFCU.sBrakesGlobal.u32MoveTaskID = 0U;
+	sFCU.sBrakesGlobal.u8Timer_100ms = 0U;
 
 	//setup the fault flags
 	vFAULTTREE__Init(&sFCU.sBrakesGlobal.sFaultFlags);
@@ -81,13 +82,16 @@ void vFCU_BRAKES__Init(void)
 	//setup the claibration system
 	vFCU_BRAKES_CAL__Init();
 
+	//brakes watchdog
+	vFCU_BRAKES_WDT__Init();
+
 }
 
 /***************************************************************************//**
  * @brief
  * Process any brakes tasks.
  * 
- * @st_funcMD5		EDC5BB6DF3DEAFBBC82B5F0EC21A7137
+ * @st_funcMD5		B5E70586985FC845E4378BEB7040BB32
  * @st_funcID		LCCM655R0.FILE.007.FUNC.002
  */
 void vFCU_BRAKES__Process(void)
@@ -246,6 +250,27 @@ void vFCU_BRAKES__Process(void)
 			break;
 
 	}//switch(sFCU.sBrakesGlobal.eBrakeStates)
+
+
+	//handle WDT tasks
+	if(sFCU.sBrakesGlobal.u8Timer_100ms == 2)
+	{
+		//watchdog start
+		vFCU_BRAKES_WDT__Pet_Start();
+
+	}
+	else if(sFCU.sBrakesGlobal.u8Timer_100ms >= 4)
+	{
+
+		//watchdog end
+		vFCU_BRAKES_WDT__Pet_End();
+
+		sFCU.sBrakesGlobal.u8Timer_100ms = 0U;
+	}
+	else
+	{
+		//fall on
+	}
 
 }
 
@@ -421,6 +446,18 @@ void vFCU_BRAKES__Move_IBeam_Distance_mm(Lfloat32 f32Distance)
 
 }
 
+/***************************************************************************//**
+ * @brief
+ * 100ms timer input
+ * 
+ * @st_funcMD5		49FEC7B1A6D39C29B063D402AE617167
+ * @st_funcID		LCCM655R0.FILE.007.FUNC.010
+ */
+void vFCU_BRAKES__100MS_ISR(void)
+{
+
+	sFCU.sBrakesGlobal.u8Timer_100ms++;
+}
 
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_BRAKES
