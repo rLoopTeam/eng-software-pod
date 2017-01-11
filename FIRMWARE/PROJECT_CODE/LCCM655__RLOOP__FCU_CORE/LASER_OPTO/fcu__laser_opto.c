@@ -60,7 +60,7 @@ void vFCU_LASEROPTO__Init(void)
 		//just set to some obscene distance
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].f32DistanceRAW = 99999.9F;
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].sFiltered.f32FilteredValue = 0.0F;
-		sFCU.sLaserOpto.sOptoLaser[u8Counter].sFiltered.f32PreviousValue = sFCU.sLaserOpto.sOptoLaser[u8Counter].f32Distance;
+		sFCU.sLaserOpto.sOptoLaser[u8Counter].sFiltered.f32PreviousValue = 0.0F;
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].u8Error = 0U;
 
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32ErrorCode = 0U;
