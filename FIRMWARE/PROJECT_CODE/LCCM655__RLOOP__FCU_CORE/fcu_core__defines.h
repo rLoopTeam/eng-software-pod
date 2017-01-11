@@ -4,8 +4,8 @@
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
  */
-#ifndef RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__DEFINES_H_
-#define RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__DEFINES_H_
+#ifndef _FCU_CORE__DEFINES_H_
+#define _FCU_CORE__DEFINES_H_
 
 
 	/** the number of brake actuators in the system */
@@ -39,6 +39,8 @@
 	/** number of lasers for the constrast detection system */
 	#define C_FCU__NUM_LASERS_CONTRAST						(3U)
 
+	/** The SC16 device index for the ASI interface*/
+	#define C_FCU__SC16_ASI_INDEX							(7U)
 
 	/** The max number of contrast laser stripes in the tube
 	 * 1 Mile Tube = 5280ft
@@ -54,4 +56,4 @@
 	#define C_FCU__BRAKES__MAX_IBEAM_DIST_MM				(22.0F)
 
 
-#endif /* RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__DEFINES_H_ */
+#endif /* _FCU_CORE__DEFINES_H_ */

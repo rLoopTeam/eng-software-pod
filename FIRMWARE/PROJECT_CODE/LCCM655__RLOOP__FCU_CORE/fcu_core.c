@@ -249,6 +249,7 @@ void vFCU__Process(void)
 			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 3U, GIO_DIRECTION__INPUT);
 			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 6U, GIO_DIRECTION__INPUT);
 			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 0U, GIO_DIRECTION__INPUT);
+			//ASI
 			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 7U, GIO_DIRECTION__INPUT);
 
 
@@ -261,6 +262,7 @@ void vFCU__Process(void)
 			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOB_3);
 			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOB_6);
 			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOB_0);
+			//ASI
 			vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__FALLING, GIO_ISR_PIN__GIOB_7);
 
 
@@ -273,6 +275,7 @@ void vFCU__Process(void)
 			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOB_3);
 			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOB_6);
 			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOB_0);
+			//ASI
 			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOB_7);
 
 
@@ -285,9 +288,21 @@ void vFCU__Process(void)
 				//check the fault tree
 
 				//configure for our baud if we are good
-				vSC16_BAUD__Set_BaudRate(u8Counter, 1U, 19200U, 1U);
+				if(u8Counter == C_FCU__SC16_ASI_INDEX)
+				{
+					//ASI IF
+					vSC16_BAUD__Set_BaudRate(u8Counter, 1U, 9600U, 1U);
 
-				//8bits, no parity
+				}
+				else
+				{
+					//optoNCDT's
+					vSC16_BAUD__Set_BaudRate(u8Counter, 1U, 19200U, 1U);
+
+				}
+
+
+				//8bits, noparity
 				vSC16_BAUD__Set_Wordlength(u8Counter, 8U);
 				vSC16_FLOWCONTROL__Enable_Parity(u8Counter, 0U);
 

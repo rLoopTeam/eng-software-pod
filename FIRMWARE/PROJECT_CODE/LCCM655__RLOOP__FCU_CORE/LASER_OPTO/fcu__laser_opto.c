@@ -40,7 +40,7 @@ static void vFCU_LASEROPTO__Append_Byte(E_FCU__LASER_OPTO__INDEX_T eLaser, Luint
  * @brief
  * Init any variables
  * 
- * @st_funcMD5		C8863391D7D920355EEC1BF1DC57FFBD
+ * @st_funcMD5		275DF44B14084F7D934217BB273DC9F5
  * @st_funcID		LCCM655R0.FILE.021.FUNC.001
  */
 void vFCU_LASEROPTO__Init(void)
