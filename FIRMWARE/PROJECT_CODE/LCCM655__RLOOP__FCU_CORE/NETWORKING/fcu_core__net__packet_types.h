@@ -36,6 +36,10 @@
 		/** Flight control data streaming */
 		NET_PKT__FCU_GEN__STREAMING_CONTROL = 0x0100U,
 
+		/** Transmit the mission data */
+		NET_PKT__FCU_GEN__TX_MISSION_DATA = 0x0200U,
+
+
 		//////////////////////////////////////////////////////
 		//FCU: ACCEL (0x1000)
 		//////////////////////////////////////////////////////

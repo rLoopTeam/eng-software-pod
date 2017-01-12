@@ -346,7 +346,7 @@ void vFCU__Process(void)
 			#endif
 
 			//get our main SM operational
-			vFCU_MAINSM__Init();
+			vFCU_FCTL_MAINSM__Init();
 
 			sFCU.eInitStates = INIT_STATE__START_TIMERS;
 			break;
@@ -400,7 +400,7 @@ void vFCU__Process(void)
 			#endif
 
 			//process the main state machine
-			vFCU_MAINSM__Process();
+			vFCU_FCTL_MAINSM__Process();
 
 			//do the DAQ
 			#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U

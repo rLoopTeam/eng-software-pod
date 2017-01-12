@@ -41,6 +41,9 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** Flight control data streaming */
         NET_PKT__FCU_GEN__STREAMING_CONTROL = &H100
 
+        '/** Mission control data */
+        NET_PKT__FCU_GEN__TX_MISSION_DATA = &H200
+
         '//////////////////////////////////////////////////////
         '//FCU: ACCEL (&h1000)
         '//////////////////////////////////////////////////////

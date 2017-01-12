@@ -141,6 +141,7 @@
             pf.Controls.Add(Me.m_pnlFlight__Stepper)
 
             'setup the eth
+            AddHandler Me.m_pnlFlight__Mission.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__SpaceX.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__Accel.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__Contrast.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4

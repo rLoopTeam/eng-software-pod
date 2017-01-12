@@ -1,5 +1,5 @@
 /**
- * @file		FCU__MAIN_SM.C
+ * @file		FCU__FCTL__MAIN_SM.C
  * @brief		Main state machine for the flight control unit
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
@@ -12,7 +12,7 @@
  * @ingroup RLOOP
  * @{ */
 /**
- * @addtogroup FCU__MAIN_SM
+ * @addtogroup FCU__FCTL__MAIN_SM
  * @ingroup FCU
  * @{ */
 
@@ -30,7 +30,7 @@ extern struct _strFCU sFCU;
  * @st_funcMD5		5224534176289DBD9FF1B39936308C7E
  * @st_funcID		LCCM655R0.FILE.020.FUNC.001
  */
-void vFCU_MAINSM__Init(void)
+void vFCU_FCTL_MAINSM__Init(void)
 {
 	sFCU.eMissionPhase = MISSION_PHASE__RESET;
 
@@ -47,7 +47,7 @@ void vFCU_MAINSM__Init(void)
  * @st_funcMD5		2C23D1564E9845C3BED5E00B06C0BBB3
  * @st_funcID		LCCM655R0.FILE.020.FUNC.002
  */
-void vFCU_MAINSM__Process(void)
+void vFCU_FCTL_MAINSM__Process(void)
 {
 	Luint8 u8Counter;
 	Luint8 u8Test;

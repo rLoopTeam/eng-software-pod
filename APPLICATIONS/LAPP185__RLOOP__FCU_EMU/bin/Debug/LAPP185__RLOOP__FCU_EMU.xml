@@ -5572,6 +5572,16 @@ adds a sub level node after one has already been added
  Lachlan Grogan - SafetyLok
  </summary>
 </member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.C_NUM__SC16IS">
+ <summary>
+ SC16 UARTS
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.C_NUM__ASI">
+ <summary>
+ Number of ASI controllers
+ </summary>
+</member>
 <member name="F:LAPP185__RLOOP__FCU_EMU.Form1.C_DLL_NAME">
  <summary>
  The name of our DLL, could be a bit better done with relative paths
@@ -5599,6 +5609,11 @@ adds a sub level node after one has already been added
 <member name="M:LAPP185__RLOOP__FCU_EMU.Form1.vFCU__Process">
  <summary>
  the process function from the power node
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_pASI">
+ <summary>
+ A list of ASI controllers
  </summary>
 </member>
 <member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_txtOutput">
