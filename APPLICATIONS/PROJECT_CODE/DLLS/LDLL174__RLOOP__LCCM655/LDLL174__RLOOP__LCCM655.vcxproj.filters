@@ -115,9 +115,6 @@
     <Filter Include="LCCM655__RLOOP__FCU_CORE\NETWORKING\SPACEX">
       <UniqueIdentifier>{126fc4a9-3d4b-466f-94a2-c780728f27fb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LCCM655__RLOOP__FCU_CORE\MAIN_SM">
-      <UniqueIdentifier>{0b8b7a0f-5ad4-479c-932b-24b236e98138}</UniqueIdentifier>
-    </Filter>
     <Filter Include="LCCM655__RLOOP__FCU_CORE\LASER_OPTO">
       <UniqueIdentifier>{cf64920b-a927-4b10-aab9-5b567b15c061}</UniqueIdentifier>
     </Filter>
@@ -201,6 +198,21 @@
     </Filter>
     <Filter Include="Source Files\MULTICORE\LCCM121__MULTICORE__MCP23S17">
       <UniqueIdentifier>{267a275e-9247-420b-a8cc-620539aaddf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\MAIN_SM">
+      <UniqueIdentifier>{0b8b7a0f-5ad4-479c-932b-24b236e98138}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\CONTROLLER">
+      <UniqueIdentifier>{ba0f745c-b572-4acc-90b1-60f262c5ad05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\ETHERNET">
+      <UniqueIdentifier>{25394466-ab3a-4e0b-90fc-98fb53c00a31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\NewFilter1">
+      <UniqueIdentifier>{6b4895b7-afd9-4f8f-a49e-b7bce54cc808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\AUTO_SEQUENCE">
+      <UniqueIdentifier>{ea3d452c-871c-4b77-9e3e-8504b0d13353}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -321,12 +333,6 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\NETWORKING\SPACEX\fcu__net__spacex_tx.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\NETWORKING\SPACEX</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\MAIN_SM\fcu__main_sm.c">
-      <Filter>LCCM655__RLOOP__FCU_CORE\MAIN_SM</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\MAIN_SM\fcu__main_sm__auto_seq.c">
-      <Filter>LCCM655__RLOOP__FCU_CORE\MAIN_SM</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_OPTO\fcu__laser_opto.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\LASER_OPTO</Filter>
     </ClCompile>
@@ -338,9 +344,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TIMING_LIST\fcu__laser_cont__timing_list.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TIMING_LIST</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\fcu__flight_controller.c">
-      <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\LASER_ORIENTATION\fcu__laser_orientation.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\LASER_ORIENTATION</Filter>
@@ -611,6 +614,18 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi__ethernet.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\CONTROLLER\fcu__flight_controller.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\CONTROLLER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\ETHERNET\fcu__fctl__ethernet.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\ETHERNET</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\MAIN_SM\fcu__fctl__main_sm.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\MAIN_SM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\AUTO_SEQUENCE\fcu__main_sm__auto_seq.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\AUTO_SEQUENCE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

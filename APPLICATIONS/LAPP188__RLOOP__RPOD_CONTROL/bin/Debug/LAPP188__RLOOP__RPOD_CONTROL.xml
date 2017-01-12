@@ -4341,6 +4341,20 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.btnPodSafed__Click(System.Object,System.EventArgs)">
+ <summary>
+ Transmit our pod safed command to power nodes, kills all power
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.btnPodStop__Click(System.Object,System.EventArgs)">
+ <summary>
+ Do the pod stop command
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.OptoNCDT">
  <summary>
  OptoNCDT1320 Interface

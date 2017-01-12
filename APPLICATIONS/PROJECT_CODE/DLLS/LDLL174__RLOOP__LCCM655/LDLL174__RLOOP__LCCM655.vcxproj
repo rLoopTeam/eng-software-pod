@@ -184,11 +184,14 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__watchdog.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FAULTS\fcu_core__faults.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\AUTO_SEQUENCE\fcu__main_sm__auto_seq.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BRAKE_PROFILE\a34_brake_table.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BRAKE_PROFILE\fcu__flight_control__brake_profile.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\CONTRAST_NAV\fcu__flight_control__contrast_nav.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\fcu__flight_controller.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\CONTROLLER\fcu__flight_controller.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\ETHERNET\fcu__fctl__ethernet.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\LASER_ORIENTATION\fcu__laser_orientation.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\MAIN_SM\fcu__fctl__main_sm.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\fcu__laser_cont.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\fcu__laser_cont__ethernet.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TIMING_LIST\fcu__laser_cont__timing_list.c" />
@@ -200,8 +203,6 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_OPTO\fcu__laser_opto.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_OPTO\fcu__laser_opto__ethernet.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_OPTO\fcu__laser_opto__filtering.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\MAIN_SM\fcu__main_sm.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\MAIN_SM\fcu__main_sm__auto_seq.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\NETWORKING\fcu_core__net.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\NETWORKING\fcu_core__net__rx.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\NETWORKING\fcu_core__net__tx.c" />

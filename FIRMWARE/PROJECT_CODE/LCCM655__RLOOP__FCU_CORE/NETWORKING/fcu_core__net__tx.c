@@ -94,6 +94,15 @@ void vFCU_NET_TX__Process(void)
 	//detemrine the packet type
 	switch(eType)
 	{
+		case NET_PKT__FCU_GEN__TX_MISSION_DATA:
+			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
+				#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
+					vFCU_FCTL_ETH__Transmit(eType);
+				#endif
+			#endif
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+			break;
+
 		case NET_PKT__FCU_ACCEL__TX_CAL_DATA:
 			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 				vFCU_ACCEL_ETH__Transmit(eType);

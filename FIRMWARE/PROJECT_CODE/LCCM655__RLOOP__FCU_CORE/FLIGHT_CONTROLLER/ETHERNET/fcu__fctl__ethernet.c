@@ -43,8 +43,8 @@ void vFCU_FCTL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	//setup length based on packet.
 	switch(ePacketType)
 	{
-		case NET_PKT__FCU_ASI__TX_ASI_DATA:
-			u16Length = 24U;
+		case NET_PKT__FCU_GEN__TX_MISSION_DATA:
+			u16Length = 6U;
 			break;
 
 
@@ -61,12 +61,15 @@ void vFCU_FCTL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		//handle the packet
 		switch(ePacketType)
 		{
-			case NET_PKT__FCU_ASI__TX_ASI_DATA:
+			case NET_PKT__FCU_GEN__TX_MISSION_DATA:
 
-
-				//fault flags
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				//top level fault flags
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32FCU_FAULTS__Get_FaultFlags());
 				pu8Buffer += 4U;
+
+				//mission state
+				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, (Luint16)sFCU.eMissionPhase);
+				pu8Buffer += 2U;
 
 				break;
 

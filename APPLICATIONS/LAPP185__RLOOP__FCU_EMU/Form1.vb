@@ -7,10 +7,16 @@ Imports SIL3.LDLL178__COMMON_CODE__MICRO_TMER
 Public Class Form1
 
 #Region "CONSTANTS"
+
+    ''' <summary>
+    ''' SC16 UARTS
+    ''' </summary>
+    Private Const C_NUM__SC16IS As Integer = 8
+
     ''' <summary>
     ''' Number of ASI controllers
     ''' </summary>
-    Private Const C_NUM_ASI As Integer = 8
+    Private Const C_NUM__ASI As Integer = 8
 
 #End Region '#Region "CONSTANTS"
 
@@ -437,8 +443,8 @@ Public Class Form1
     Private Sub Setup_System()
 
         'create our ASI's
-        ReDim Me.m_pASI(C_NUM_ASI)
-        For iCounter As Integer = 0 To C_NUM_ASI - 1
+        ReDim Me.m_pASI(C_NUM__ASI)
+        For iCounter As Integer = 0 To C_NUM__ASI - 1
             Me.m_pASI(iCounter) = New ASIController()
         Next
 
@@ -463,7 +469,10 @@ Public Class Form1
         vSTEPDRIVE_WIN32__Set_UpdatePositionCallback(Me.m_pStepDrive_UpdatePos__Delegate)
 
         Me.m_pSC16_TxData__Delegate = AddressOf SC16IS_WIN32__TxData
-        vSC16IS_WIN32__Set_TxData_Callback(0, Me.m_pSC16_TxData__Delegate)
+        For iCounter As Integer = 0 To C_NUM__SC16IS - 1
+            vSC16IS_WIN32__Set_TxData_Callback(iCounter, Me.m_pSC16_TxData__Delegate)
+        Next
+
 
         'do the threading
         Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
@@ -596,6 +605,7 @@ Public Class Form1
 
         'needs to be done due to WIN32_ETH_Init
         vETH_WIN32__Set_Ethernet_TxCallback(Me.m_pETH_TX__Delegate)
+
 
 
 

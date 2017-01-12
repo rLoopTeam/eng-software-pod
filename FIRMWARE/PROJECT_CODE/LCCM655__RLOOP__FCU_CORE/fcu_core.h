@@ -735,8 +735,8 @@
 
 
 		//main state machine
-		void vFCU_MAINSM__Init(void);
-		void vFCU_MAINSM__Process(void);
+		void vFCU_FCTL_MAINSM__Init(void);
+		void vFCU_FCTL_MAINSM__Process(void);
 
 			//auto sequence
 			void vFCU_MAINSM_AUTO__Init(void);
