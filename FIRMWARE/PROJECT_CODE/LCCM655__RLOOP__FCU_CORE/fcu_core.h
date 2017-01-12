@@ -46,8 +46,10 @@
 			/** Structure guard 1*/
 			Luint32 u32Guard1;
 
-			/** The main state machine for run mode */
-			E_FCU__RUN_STATE_T eRunState;
+			/** The mission phases
+			 * http://confluence.rloop.org/display/SD/1.+Determine+Mission+Phases+and+Operating+States
+			 * */
+			E_FCU__RUN_STATE_T eMissionPhase;
 
 			/** Auto sequence state machine */
 			E_FCU__AUTO_SEQUENCE_STATE_T eAutoSeqState;
@@ -731,9 +733,25 @@
 		DLL_DECLARATION void vFCU__RTI_100MS_ISR(void);
 		DLL_DECLARATION void vFCU__RTI_10MS_ISR(void);
 
-		//flight controller
-		void vFCU_FLIGHTCTL__Init(void);
-		void vFCU_FLIGHTCTL__Process(void);
+
+		//main state machine
+		void vFCU_MAINSM__Init(void);
+		void vFCU_MAINSM__Process(void);
+
+			//auto sequence
+			void vFCU_MAINSM_AUTO__Init(void);
+			void vFCU_MAINSM_AUTO__Process(void);
+			Luint8 u8FCU_MAINSM_AUTO__Is_Busy(void);
+			Luint8 u8FCU_MAINSM_AUTO__Is_Abort(void);
+
+			//ethernet
+			void vFCU_FCTL_ETH__Init(void);
+			void vFCU_FCTL_ETH__Transmit(E_NET__PACKET_T ePacketType);
+
+			//flight controller
+			void vFCU_FLIGHTCTL__Init(void);
+			void vFCU_FLIGHTCTL__Process(void);
+
 
 			// Laser Orientation
 			void vFCU_FLIGHTCTL_LASERORIENT__Init(void);
@@ -754,6 +772,9 @@
 
 			//brake profiler
 			Lint16 s16FCU_FLIGHTCTL_BRAKES__Brake_Lookup(Luint32 u32Veloc_mms, Luint32 u32DragForce_n, Luint32 *pu32IBDistance_um);
+
+
+
 
 		//network
 		void vFCU_NET__Init(void);
@@ -828,15 +849,7 @@
 			void vFCU_LASERDIST_FILT__Init(void);
 			void vFCU_LASERDIST_FILT__Process(void);
 
-		//main state machine
-		void vFCU_MAINSM__Init(void);
-		void vFCU_MAINSM__Process(void);
 
-			//auto sequence
-			void vFCU_MAINSM_AUTO__Init(void);
-			void vFCU_MAINSM_AUTO__Process(void);
-			Luint8 u8FCU_MAINSM_AUTO__Is_Busy(void);
-			Luint8 u8FCU_MAINSM_AUTO__Is_Abort(void);
 
 
 		//lasers for OptoNCDT interface

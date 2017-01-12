@@ -16,7 +16,7 @@
  * @ingroup FCU
  * @{ */
 
-#include "../fcu_core.h"
+#include "../../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 
@@ -32,7 +32,7 @@ extern struct _strFCU sFCU;
  */
 void vFCU_MAINSM__Init(void)
 {
-	sFCU.eRunState = RUN_STATE__RESET;
+	sFCU.eMissionPhase = MISSION_PHASE__RESET;
 
 	//init the auto sequence
 	vFCU_MAINSM_AUTO__Init();
@@ -53,17 +53,11 @@ void vFCU_MAINSM__Process(void)
 	Luint8 u8Test;
 
 	//hande the state machine.
-	switch(sFCU.eRunState)
+	switch(sFCU.eMissionPhase)
 	{
 
-		case RUN_STATE__RESET:
+		case MISSION_PHASE__RESET:
 			//we have just come out of reset here.
-
-			//change state.
-			sFCU.eRunState = RUN_STATE__INIT_SYSTEMS;
-			break;
-
-		case RUN_STATE__INIT_SYSTEMS:
 			//init our rPod specific systems
 
 			//pusher
@@ -122,26 +116,26 @@ void vFCU_MAINSM__Process(void)
 			#endif
 
 			//put the flight computer into startup mode now that everything has been initted.
-			sFCU.eRunState = RUN_STATE__STARTUP_MODE;
+			sFCU.eMissionPhase = MISSION_PHASE__TEST_PHASE;
 
 			break;
 
-		case RUN_STATE__STARTUP_MODE:
+		case MISSION_PHASE__TEST_PHASE:
 			//run what we need to in startup mode, checkout sensors and other diagnostics
 
 			//xxxxxxxxxxxxxxxxxxxxxxxxTEMPORARY @gsweriduk 15DEC xxxxxxxxxxxxxxxxxxxxxxxx
-			sFCU.eRunState = RUN_STATE__AUTO_SEQUENCE_MODE;
+			sFCU.eMissionPhase = MISSION_PHASE__AUTO_SEQUENCE_MODE;
 			//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 			break;
 
-		case RUN_STATE__AUTO_SEQUENCE_MODE:
+		case MISSION_PHASE__AUTO_SEQUENCE_MODE:
 			//in this mode we are performing an auto-sequence
 
 			//see if we have an auto sequence abort
 			u8Test = u8FCU_MAINSM_AUTO__Is_Abort();
 			if(u8Test == 1U)
 			{
-				sFCU.eRunState = RUN_STATE__FLIGHT_ABORT;
+				sFCU.eMissionPhase = RUN_STATE__FLIGHT_ABORT;
 			}
 			else
 			{
@@ -153,13 +147,22 @@ void vFCU_MAINSM__Process(void)
 				else
 				{
 					//not busy and not abort, move to flight
-					sFCU.eRunState = RUN_STATE__FLIGHT_MODE;
+					sFCU.eMissionPhase = MISSION_PHASE__FLIGHT_MODE;
 				}
 
 			}
 			break;
 
-		case RUN_STATE__FLIGHT_MODE:
+
+		case MISSION_PHASE__PRE_RUN_PHASE:
+
+			break;
+
+		case MISSION_PHASE__PUSH_INTERLOCK_PHASE:
+
+			break;
+
+		case MISSION_PHASE__FLIGHT_MODE:
 			//this is the flight mode controller
 			//if we are in this state, we are ready for flight
 
@@ -167,15 +170,7 @@ void vFCU_MAINSM__Process(void)
 				vFCU_FLIGHTCTL__Process();
 			#endif
 
-			// process the AMC7812
-			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
-				vAMC7812__Process();
-			#endif
 
-			// process the throttles
-			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
-				vFCU_THROTTLE__Process();
-			#endif
 
 			break;
 
@@ -190,7 +185,7 @@ void vFCU_MAINSM__Process(void)
 	}//switch(sFCU.eRunState)
 
 	//always process these items after we have been initted
-	if(sFCU.eRunState > RUN_STATE__INIT_SYSTEMS)
+	if(sFCU.eMissionPhase > MISSION_PHASE__RESET)
 	{
 
 		//process the SC16IS interface always
@@ -199,6 +194,13 @@ void vFCU_MAINSM__Process(void)
 			{
 				vSC16__Process(u8Counter);
 			}
+		#endif
+
+		// process the AMC7812
+		// process the throttles
+		#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+			vFCU_THROTTLE__Process();
+			vAMC7812__Process();
 		#endif
 
 		#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
