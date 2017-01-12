@@ -241,13 +241,13 @@ void vFCU_ASI__BuildCmdFrame(struct _strASICmd *pCmd)
 {
 	if (pCmd)
 	{
-		pCmd->framedCmd[0]=pCmd->u8SlaveAddress;
-		pCmd->framedCmd[1]=pCmd->fncCode;
-		pCmd->framedCmd[2]=(Luint8)(pCmd->paramAddress >> 8);				// register address Hi
-		pCmd->framedCmd[3]=(Luint8)(pCmd->paramAddress & 0x00FF);	 		// register address Lo
-		pCmd->framedCmd[4]=(Luint8)(pCmd->paramValue >> 8);  				// register value Hi
-		pCmd->framedCmd[5]=(Luint8)(pCmd->paramValue & 0x00FF);				// register value Lo
-		vFCU_ASI_CRC__AddCRC(pCmd->framedCmd);
+		sCmdParams->framedCmd[0]=sCmdParams->u8SlaveAddress;
+		sCmdParams->framedCmd[1]=sCmdParams->u8FunctionCode;
+		sCmdParams->framedCmd[2]=(Luint8)(sCmdParams->u16ParamAddx >> 8);				// register address Hi
+		sCmdParams->framedCmd[3]=(Luint8)(sCmdParams->u16ParamAddx & 0x00FF);	 		// register address Lo
+		sCmdParams->framedCmd[4]=(Luint8)(sCmdParams->u16ParamValue >> 8);  				// register value Hi
+		sCmdParams->framedCmd[5]=(Luint8)(sCmdParams->u16ParamValue & 0x00FF);				// register value Lo
+		vFCU_ASI_CRC__AddCRC(sCmdParams->framedCmd);
 	}
 }
 

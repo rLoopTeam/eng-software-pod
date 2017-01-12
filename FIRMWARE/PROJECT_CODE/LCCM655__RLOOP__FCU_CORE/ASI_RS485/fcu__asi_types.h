@@ -38,9 +38,14 @@
 		struct _strASICmd
 		{
 			Luint8 u8SlaveAddress;
-			Luint8 fncCode;			// C_ASI__READ_INPUT_REGISTER or C_ASI__WRITE_SINGLE_REGISTER
-			Luint16 paramAddress;
-			Luint16 paramValue;		// for reading, this is num of registers to read, set to 1
+
+			// C_ASI__READ_INPUT_REGISTER or C_ASI__WRITE_SINGLE_REGISTER
+			Luint8 u8FunctionCode;
+
+
+			Luint16 u16ParamAddx;
+
+			Luint16 u16ParamValue;		// for reading, this is num of registers to read, set to 1
 			Luint8 framedCmd[C_ASI__RW_FRAME_SIZE];
 			Luint8 response[C_ASI__RW_FRAME_SIZE];	// assuming we always read only one register
 			void* destVar;

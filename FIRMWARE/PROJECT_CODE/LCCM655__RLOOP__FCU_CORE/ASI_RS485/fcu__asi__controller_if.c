@@ -44,11 +44,11 @@ Lint16 s16FCU_ASI_CTRL__Init(void)
 	vFCU_ASI__MemSet((Luint8 *)&sCmd, 0, (Luint32)sizeof(struct _strASICmd));
 	// Common for all these init commands
 	sCmd.u8SlaveAddress = 0;
-	sCmd.fncCode = C_ASI__WRITE_SINGLE_REGISTER;
+	sCmd.u8FunctionCode = C_ASI__WRITE_SINGLE_REGISTER;
 
 	// set command control source as serial network
-	sCmd.paramAddress = C_FCU_ASI__COMMAND_SOURCE;
-	sCmd.paramValue = 0;	// sets to serial
+	sCmd.u16ParamAddx = C_FCU_ASI__COMMAND_SOURCE;
+	sCmd.u16ParamValue = 0;	// sets to serial
 	if ((i16Return = s16FCU_ASI__SendCommand(&sCmd)) != 0)
 	{
 		// report an error
@@ -56,22 +56,22 @@ Lint16 s16FCU_ASI_CTRL__Init(void)
 	}
 
 	// set temperature thresholds
-	sCmd.paramAddress = C_FCU_ASI__OVER_TEMP_THRESHOLD;
-	sCmd.paramValue = 0;	// TODO: what value?
+	sCmd.u16ParamAddx = C_FCU_ASI__OVER_TEMP_THRESHOLD;
+	sCmd.u16ParamValue = 0;	// TODO: what value?
 	if ((i16Return = s16FCU_ASI__SendCommand(&sCmd)) != 0)
 	{
 		// report an error
 		return i16Return;
 	}
-	sCmd.paramAddress = C_FCU_ASI__FOLDBACK_STARING_TEMP;
-	sCmd.paramValue = 0;	// TODO: what value?
+	sCmd.u16ParamAddx = C_FCU_ASI__FOLDBACK_STARING_TEMP;
+	sCmd.u16ParamValue = 0;	// TODO: what value?
 	if ((i16Return = s16FCU_ASI__SendCommand(&sCmd)) != 0)
 	{
 		// report an error
 		return i16Return;
 	}
-	sCmd.paramAddress = C_FCU_ASI__FOLDBACK_END_TEMP;
-	sCmd.paramValue = 0;	// TODO: what value?
+	sCmd.u16ParamAddx = C_FCU_ASI__FOLDBACK_END_TEMP;
+	sCmd.u16ParamValue = 0;	// TODO: what value?
 	if ((i16Return = s16FCU_ASI__SendCommand(&sCmd)) != 0)
 	{
 		// report an error
@@ -96,14 +96,18 @@ Lint16 s16FCU_ASI_CTRL__ReadMotorRpm(Luint8 u8ASIDevNum, Luint16 *u16Rpm)
 	Lint16 s16Return = 0;
 	struct _strASICmd sCmd;
 
+	//clear the command
 	vFCU_ASI__MemSet((Luint8*)&sCmd, 0, (Luint32)sizeof(struct _strASICmd));
+
 	sCmd.u8SlaveAddress = u8ASIDevNum;
-	sCmd.fncCode = C_ASI__READ_INPUT_REGISTER;
-	sCmd.paramAddress = C_FCU_ASI__MOTOR_RPM;
-	sCmd.paramValue = 1;	// we just want to read one register
+	sCmd.u8FunctionCode = C_ASI__READ_INPUT_REGISTER;
+	sCmd.u16ParamAddx = C_FCU_ASI__MOTOR_RPM;
+	sCmd.u16ParamValue = 1;	// we just want to read one register
 	sCmd.destVar = (void*)u16Rpm;
 	sCmd.eDestVarType = E_UINT16;
-	s16Return=s16FCU_ASI__SendCommand(&sCmd);
+
+	s16Return = s16FCU_ASI__SendCommand(&sCmd);
+
 	return s16Return;
 }
 
@@ -123,9 +127,9 @@ Lint16 s16FCU_ASI_CTRL__ReadMotorCurrent(Luint8 u8ASIDevNum, Luint16 *u16Current
 
 	vFCU_ASI__MemSet((Luint8*)&sCmd, 0, (Luint32)sizeof(struct _strASICmd));
 	sCmd.u8SlaveAddress = u8ASIDevNum;
-	sCmd.fncCode = C_ASI__READ_INPUT_REGISTER;
-	sCmd.paramAddress = C_FCU_ASI__MOTOR_CURRENT;
-	sCmd.paramValue = 1;	// we just want to read one register
+	sCmd.u8FunctionCode = C_ASI__READ_INPUT_REGISTER;
+	sCmd.u16ParamAddx = C_FCU_ASI__MOTOR_CURRENT;
+	sCmd.u16ParamValue = 1;	// we just want to read one register
 	sCmd.destVar = (void*)u16Current;
 	sCmd.eDestVarType = E_UINT16;
 	s16Return=s16FCU_ASI__SendCommand(&sCmd);
@@ -148,9 +152,9 @@ Lint16 s16FCU_ASI_CTRL__ReadControllerTemperature(Luint8 u8ASIDevNum, Luint16 *u
 
 	vFCU_ASI__MemSet((Luint8*)&sCmd, 0, (Luint32)sizeof(struct _strASICmd));
 	sCmd.u8SlaveAddress = u8ASIDevNum;
-	sCmd.fncCode = C_ASI__READ_INPUT_REGISTER;
-	sCmd.paramAddress = C_FCU_ASI__CONT_TEMP;
-	sCmd.paramValue = 1;	// we just want to read one register
+	sCmd.u8FunctionCode = C_ASI__READ_INPUT_REGISTER;
+	sCmd.u16ParamAddx = C_FCU_ASI__CONT_TEMP;
+	sCmd.u16ParamValue = 1;	// we just want to read one register
 	sCmd.destVar = (void*)u16Temp;
 	sCmd.eDestVarType = E_UINT16;
 	s16Return = s16FCU_ASI__SendCommand(&sCmd);
@@ -174,9 +178,9 @@ Lint16 s16FCU_ASI_CTRL__SaveSettings(Luint8 u8ASIDevNum)
 
 	vFCU_ASI__MemSet((Luint8*)&sCmd, 0, (Luint32)sizeof(struct _strASICmd));
 	sCmd.u8SlaveAddress = u8ASIDevNum;
-	sCmd.fncCode = C_ASI__WRITE_SINGLE_REGISTER;
-	sCmd.paramAddress = C_FCU_ASI__SAVE_SETTINGS;
-	sCmd.paramValue = 32767;
+	sCmd.u8FunctionCode = C_ASI__WRITE_SINGLE_REGISTER;
+	sCmd.u16ParamAddx = C_FCU_ASI__SAVE_SETTINGS;
+	sCmd.u16ParamValue = 32767;
 	s16Return = s16FCU_ASI__SendCommand(&sCmd);
 	return s16Return;
 }
@@ -197,9 +201,9 @@ Lint16 s16FCU_ASI_CTRL__GetFaults(Luint8 u8ASIDevNum, Luint16 *u16Faults)
 
 	vFCU_ASI__MemSet((Luint8*)&sCmd, 0, (Luint32)sizeof(struct _strASICmd));
 	sCmd.u8SlaveAddress = u8ASIDevNum;
-	sCmd.fncCode = C_ASI__READ_INPUT_REGISTER;
-	sCmd.paramAddress = C_FCU_ASI__FAULTS;
-	sCmd.paramValue = 1;	// we just want to read one register
+	sCmd.u8FunctionCode = C_ASI__READ_INPUT_REGISTER;
+	sCmd.u16ParamAddx = C_FCU_ASI__FAULTS;
+	sCmd.u16ParamValue = 1;	// we just want to read one register
 	sCmd.destVar = (void*)u16Faults;
 	sCmd.eDestVarType = E_UINT16;
 

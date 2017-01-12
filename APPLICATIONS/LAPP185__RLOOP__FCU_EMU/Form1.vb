@@ -1073,3 +1073,30 @@ Public Class Form1
 #End Region
 
 End Class
+
+
+Public Class ASIController
+
+#Region "MEMBERS"
+    Private m_iRxCount As Integer
+    Private m_bRxArray() As Byte
+#End Region
+
+#Region "NEW"
+    Public Sub New()
+        ReDim Me.m_bRxArray(7 - 1)
+    End Sub
+#End Region
+
+#Region "RX"
+
+    Public Sub Byte_In(u8Value As Byte)
+        Me.m_bRxArray(Me.m_iRxCount) = u8Value
+        Me.m_iRxCount += 1
+
+
+    End Sub
+
+#End Region
+
+End Class
