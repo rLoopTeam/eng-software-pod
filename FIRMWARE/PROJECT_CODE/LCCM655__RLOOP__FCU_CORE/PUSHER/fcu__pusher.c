@@ -26,12 +26,7 @@ extern struct _strFCU sFCU;
 
 /***************************************************************************//**
  * @brief
- * Init any variables
- *
- */
-/***************************************************************************//**
- * @brief
- * ToDo
+ * Init any variables for the pusher system
  * 
  * @st_funcMD5		A209581104A0AEE6C3F06C95D1B77B7C
  * @st_funcID		LCCM655R0.FILE.012.FUNC.001
@@ -56,11 +51,6 @@ void vFCU_PUSHER__Init(void)
 /***************************************************************************//**
  * @brief
  * Process any pusher interface tasks
- * 
- */
-/***************************************************************************//**
- * @brief
- * ToDo
  * 
  * @st_funcMD5		8E34704E4F1C7C92744F7538476CE733
  * @st_funcID		LCCM655R0.FILE.012.FUNC.002
@@ -221,11 +211,6 @@ void vFCU_PUSHER__Process(void)
 /***************************************************************************//**
  * @brief
  * Called from the N2HET notifications that an edge has occurred on Interlock A
- *
- */
-/***************************************************************************//**
- * @brief
- * ToDo
  * 
  * @st_funcMD5		F532E783C3D9B9BC924CFEFB16029DC8
  * @st_funcID		LCCM655R0.FILE.012.FUNC.003
@@ -241,11 +226,6 @@ void vFCU_PUSHER__InterlockA_ISR(void)
 /***************************************************************************//**
  * @brief
  * Called from the N2HET notifications that an edge has occurred on Interlock B
- *
- */
-/***************************************************************************//**
- * @brief
- * ToDo
  * 
  * @st_funcMD5		F66C164179E4FC4101AE1B9F280DA709
  * @st_funcID		LCCM655R0.FILE.012.FUNC.004
@@ -262,9 +242,9 @@ void vFCU_PUSHER__InterlockB_ISR(void)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Get a pusher switch state
  * 
- * @param[in]		u8Switch		## Desc ##
+ * @param[in]		u8Switch			Switch index
  * @st_funcMD5		06E52713C8F3CF4DECF9DB0F2411A42E
  * @st_funcID		LCCM655R0.FILE.012.FUNC.005
  */
@@ -275,7 +255,7 @@ Luint8 u8FCU_PUSHER__Get_Switch(Luint8 u8Switch)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Get the total pusher state
  * 
  * @st_funcMD5		F51AB362F5D574A9114B7915B833FF9F
  * @st_funcID		LCCM655R0.FILE.012.FUNC.006
@@ -291,11 +271,6 @@ Luint8 u8FCU_PUSHER__Get_PusherState(void)
  *
  * @return		0 = switch open\n
  * 				1 = switch closed.
- *
- */
-/***************************************************************************//**
- * @brief
- * ToDo
  * 
  * @st_funcMD5		DFF6CAA5AA89911B5F17F526CA8D8101
  * @st_funcID		LCCM655R0.FILE.012.FUNC.007
@@ -305,7 +280,11 @@ Luint8 u8FCU_PUSHER__Get_InterlockA(void)
 	Luint8 u8Return;
 
 	//read
+#ifndef WIN32
 	u8Return = u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, 4U);
+#else
+	u8Return = 0U;
+#endif
 
 	//todo
 	//mapping
@@ -319,11 +298,6 @@ Luint8 u8FCU_PUSHER__Get_InterlockA(void)
  *
  * @return		0 = switch open\n
  * 				1 = switch closed.
- *
- */
-/***************************************************************************//**
- * @brief
- * ToDo
  * 
  * @st_funcMD5		24628908E0C4D8F42F98E903E5F91DE7
  * @st_funcID		LCCM655R0.FILE.012.FUNC.008
@@ -333,7 +307,11 @@ Luint8 u8FCU_PUSHER__Get_InterlockB(void)
 	Luint8 u8Return;
 
 	//read
+#ifndef WIN32
 	u8Return = u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, 5U);
+#else
+	u8Return = 0U;
+#endif
 
 	//todo
 	//mapping
@@ -342,15 +320,11 @@ Luint8 u8FCU_PUSHER__Get_InterlockB(void)
 }
 #endif //C_LOCALDEF__LCCM655__ENABLE_PUSHER
 
+
 /***************************************************************************//**
  * @brief
  * 10ms interrupt function, coming from FCU Core indicating that a new
  * 10mS event has occurred.
- *
- */
-/***************************************************************************//**
- * @brief
- * ToDo
  * 
  * @st_funcMD5		D970044779CEE3EA4596DB4D7FFBA79F
  * @st_funcID		LCCM655R0.FILE.012.FUNC.009

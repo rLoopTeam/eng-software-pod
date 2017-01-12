@@ -33,6 +33,7 @@ void vFCU_NET_TX__Init(void)
 {
 	//Clear the timer flag
 	sFCU.sUDPDiag.u810MS_Flag = 0U;
+	sFCU.sUDPDiag.u8250MS_Flag = 0U;
 
 	//set our default packet types
 	sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
@@ -66,19 +67,33 @@ void vFCU_NET_TX__Process(void)
 	{
 		//yes we do
 
-		//do we have a timer flag?
-		if(sFCU.sUDPDiag.u810MS_Flag == 1U)
+		//every 250ms broadcast our faults
+		if(sFCU.sUDPDiag.u8250MS_Flag > 25U)
 		{
-			//set it
-			eType = sFCU.sUDPDiag.eTxStreamingType;
+			eType = NET_PKT__FCU_GEN__TX_ALL_FAULT_FLAGS;
 
-			//clear the flag now
-			sFCU.sUDPDiag.u810MS_Flag = 0U;
+			//clear now
+			sFCU.sUDPDiag.u8250MS_Flag = 0U;
+
 		}
 		else
 		{
-			//nope
-			eType = NET_PKT__NONE;
+
+			//do we have a timer flag?
+			if(sFCU.sUDPDiag.u810MS_Flag == 1U)
+			{
+				//set it
+				eType = sFCU.sUDPDiag.eTxStreamingType;
+
+				//clear the flag now
+				sFCU.sUDPDiag.u810MS_Flag = 0U;
+			}
+			else
+			{
+				//nope
+				eType = NET_PKT__NONE;
+			}
+
 		}
 
 
@@ -99,6 +114,13 @@ void vFCU_NET_TX__Process(void)
 				#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 					vFCU_FCTL_ETH__Transmit(eType);
 				#endif
+			#endif
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+			break;
+
+		case NET_PKT__FCU_GEN__TX_ALL_FAULT_FLAGS:
+			#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
+				vFCU_FAULTS_ETH__Transmit(eType);
 			#endif
 			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
@@ -173,6 +195,7 @@ void vFCU_NET_TX__Process(void)
 void vFCU_NET_TX__10MS_ISR(void)
 {
 	sFCU.sUDPDiag.u810MS_Flag = 1U;
+	sFCU.sUDPDiag.u8250MS_Flag++;
 }
 
 /***************************************************************************//**

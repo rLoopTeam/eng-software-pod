@@ -60,53 +60,56 @@
         ''' <param name="u16PacketLength"></param>
         ''' <param name="u8Array"></param>
         ''' <remarks></remarks>
-        Public Sub InernalEvent__UDPSafe__RxPacket(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, ByVal ePacketType As SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PacketLength As Numerical.U16, ByRef u8Array() As Byte, ByVal u16CRC As Numerical.U16, ByVal u8CRCOK As Byte)
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PacketLength As Numerical.U16, ByRef u8Array() As Byte, ByVal u16CRC As Numerical.U16)
 
-            'FCU_PKT__TX_ACCEL_CAL_DATA
-            If ePacketType = &H1001 Then
+            If MyBase.m_bLayout = True Then
 
-                Dim u32StatusFlags(C_NUM_ACCELS - 1) As Numerical.U32
-                Dim s16X_Raw(C_NUM_ACCELS - 1) As Numerical.S16
-                Dim s16Y_Raw(C_NUM_ACCELS - 1) As Numerical.S16
-                Dim s16Z_Raw(C_NUM_ACCELS - 1) As Numerical.S16
+                '
+                If ePacketType = SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_ACCEL__TX_CAL_DATA Then
 
-                Dim iDevice As Integer = 0
-                Dim iOffset As Integer = 0
+                    Dim u32StatusFlags(C_NUM_ACCELS - 1) As Numerical.U32
+                    Dim s16X_Raw(C_NUM_ACCELS - 1) As Numerical.S16
+                    Dim s16Y_Raw(C_NUM_ACCELS - 1) As Numerical.S16
+                    Dim s16Z_Raw(C_NUM_ACCELS - 1) As Numerical.S16
 
-
-                'split our packet
-                For iDevice = 0 To C_NUM_ACCELS - 1
+                    Dim iDevice As Integer = 0
+                    Dim iOffset As Integer = 0
 
 
-                    u32StatusFlags(iDevice) = New Numerical.U32(u8Array, iOffset)
-                    iOffset += 4
-
-                    s16X_Raw(iDevice) = New Numerical.S16(u8Array, iOffset)
-                    iOffset += 2
-
-                    s16Y_Raw(iDevice) = New Numerical.S16(u8Array, iOffset)
-                    iOffset += 2
-
-                    s16Z_Raw(iDevice) = New Numerical.S16(u8Array, iOffset)
-                    iOffset += 2
-
-                    'update
-                    Me.m_txtStatusFlags(iDevice).Threadsafe__SetText(u32StatusFlags(iDevice).To_String)
-                    Me.m_txtX_Raw(iDevice).Threadsafe__SetText(s16X_Raw(iDevice).To__Int.ToString)
-                    Me.m_txtY_Raw(iDevice).Threadsafe__SetText(s16Y_Raw(iDevice).To__Int.ToString)
-                    Me.m_txtZ_Raw(iDevice).Threadsafe__SetText(s16Z_Raw(iDevice).To__Int.ToString)
-
-                Next
-
-                'crc
-                Me.m_txtCRC.Threadsafe__SetText(u16CRC.To_String)
-
-                iOffset = 0
-
-                Me.m_iCount += 1
-                Me.m_txtCount.Threadsafe__SetText(Me.m_iCount.ToString)
+                    'split our packet
+                    For iDevice = 0 To C_NUM_ACCELS - 1
 
 
+                        u32StatusFlags(iDevice) = New Numerical.U32(u8Array, iOffset)
+                        iOffset += 4
+
+                        s16X_Raw(iDevice) = New Numerical.S16(u8Array, iOffset)
+                        iOffset += 2
+
+                        s16Y_Raw(iDevice) = New Numerical.S16(u8Array, iOffset)
+                        iOffset += 2
+
+                        s16Z_Raw(iDevice) = New Numerical.S16(u8Array, iOffset)
+                        iOffset += 2
+
+                        'update
+                        Me.m_txtStatusFlags(iDevice).Threadsafe__SetText(u32StatusFlags(iDevice).To_String)
+                        Me.m_txtX_Raw(iDevice).Threadsafe__SetText(s16X_Raw(iDevice).To__Int.ToString)
+                        Me.m_txtY_Raw(iDevice).Threadsafe__SetText(s16Y_Raw(iDevice).To__Int.ToString)
+                        Me.m_txtZ_Raw(iDevice).Threadsafe__SetText(s16Z_Raw(iDevice).To__Int.ToString)
+
+                    Next
+
+                    'crc
+                    Me.m_txtCRC.Threadsafe__SetText(u16CRC.To_String)
+
+                    iOffset = 0
+
+                    Me.m_iCount += 1
+                    Me.m_txtCount.Threadsafe__SetText(Me.m_iCount.ToString)
+
+
+                End If
             End If
 
         End Sub

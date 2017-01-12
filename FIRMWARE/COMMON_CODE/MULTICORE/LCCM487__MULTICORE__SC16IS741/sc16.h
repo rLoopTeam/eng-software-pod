@@ -185,7 +185,7 @@
 		void vSC16__Init(Luint8 u8DeviceIndex);
 		void vSC16__Process(Luint8 u8DeviceIndex);
 		Luint8 u8SC16__Get_NewDataAvalible(Luint8 u8DeviceIndex);
-		Luint8 u8SC16__Get_ErrorFlagStatus(Luint8 u8DeviceIndex);
+		Luint32 u32SC16__Get_FaultFlags(Luint8 u8DeviceIndex);
 		void vSC16__Clear_ErrorFlagStatus(Luint8 u8DeviceIndex);
 		void vSC16__Clear_NewDataAvalible(Luint8 u8DeviceIndex);
 		void vSC16__Clear_Rx_Byetes(Luint8 u8DeviceIndex);

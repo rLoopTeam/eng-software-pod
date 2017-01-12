@@ -39,6 +39,8 @@
 		/** Transmit the mission data */
 		NET_PKT__FCU_GEN__TX_MISSION_DATA = 0x0200U,
 
+		/** All system fault flags */
+		NET_PKT__FCU_GEN__TX_ALL_FAULT_FLAGS = 0x0300U,
 
 		//////////////////////////////////////////////////////
 		//FCU: ACCEL (0x1000)

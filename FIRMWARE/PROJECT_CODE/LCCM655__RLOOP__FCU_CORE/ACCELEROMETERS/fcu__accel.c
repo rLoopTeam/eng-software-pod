@@ -36,6 +36,9 @@ void vFCU_ACCEL__Init(void)
 	Luint32 u32Temp;
 	Luint8 u8Counter;
 
+	//accel subsystem
+	vFAULTTREE__Init(&sFCU.sAccel.sFaultFlags);
+
 	vFCU_ACCEL_ETH__Init();
 
 	//init vars
@@ -66,8 +69,8 @@ void vFCU_ACCEL__Init(void)
 	{
 		//we had a fault with sensor 0
 		//we have a fault, so propergate the fault to our internal fault flags
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sAccel, C_LCCM655__ACCEL__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sAccel, C_LCCM655__ACCEL__FAULT_INDEX__01);
+		vFAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__00);
+		vFAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__01);
 	}
 	else
 	{
@@ -95,8 +98,8 @@ void vFCU_ACCEL__Init(void)
 		{
 			//we had a fault with sensor 1
 			//we have a fault, so propergate the fault to our internal fault flags
-			vFAULTTREE__Set_Flag(&sFCU.sFaults.sAccel, C_LCCM655__ACCEL__FAULT_INDEX__00);
-			vFAULTTREE__Set_Flag(&sFCU.sFaults.sAccel, C_LCCM655__ACCEL__FAULT_INDEX__01);
+			vFAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__00);
+			vFAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__01);
 		}
 		else
 		{
@@ -128,8 +131,8 @@ void vFCU_ACCEL__Process(void)
 	if(u32Temp0 != 0x00000000U)
 	{
 		//we had a fault with sensor 0
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sAccel, C_LCCM655__ACCEL__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sAccel, C_LCCM655__ACCEL__FAULT_INDEX__01);
+		vFAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__00);
+		vFAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__01);
 	}
 	else
 	{
@@ -145,8 +148,8 @@ void vFCU_ACCEL__Process(void)
 	if(u32Temp1 != 0x00000000U)
 	{
 		//we had a fault with sensor 0
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sAccel, C_LCCM655__ACCEL__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sAccel, C_LCCM655__ACCEL__FAULT_INDEX__01);
+		vFAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__00);
+		vFAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__01);
 	}
 	else
 	{

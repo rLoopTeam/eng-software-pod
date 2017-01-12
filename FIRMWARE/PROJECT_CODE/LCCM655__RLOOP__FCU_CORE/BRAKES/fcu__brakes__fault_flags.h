@@ -1,5 +1,5 @@
-#ifndef _LCCM655__00__FAULT_FLAGS_H_
-#define _LCCM655__00__FAULT_FLAGS_H_
+#ifndef _LCCM655__02__FAULT_FLAGS_H_
+#define _LCCM655__02__FAULT_FLAGS_H_
 /*
  * @fault_index
  * 00
