@@ -24,6 +24,9 @@
         ''' </summary>
         Private m_pnlFlight__SpaceX As SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX
 
+        Private m_pnlFlight__Mission As SIL3.rLoop.rPodControl.Panels.FlightControl.Mission
+
+
         ''' <summary>
         ''' Accelerometer control panel
         ''' </summary>
@@ -97,15 +100,22 @@
             Me.m_pExplorer = pExplorer
 
             Me.m_iBarIndex = Me.m_pExplorer.Bar__Add("Flight Control")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Mission")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "SpaceX Telemetry")
+
+            Me.m_iBarIndex = Me.m_pExplorer.Bar__Add("Flight Subsystems")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Stepper Motors")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Brakes")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Accelerometers")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Contrast Sensors")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "OptoNCDT Lasers")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Laser Distance")
-            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Brakes")
-            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Stepper Motors")
+
 
             'add the panels before the bar so as we have docking working well.
+            Me.m_pnlFlight__Mission = New SIL3.rLoop.rPodControl.Panels.FlightControl.Mission("Mission", Me.m_sLogDir)
+            pf.Controls.Add(Me.m_pnlFlight__Mission)
+
             Me.m_pnlFlight__SpaceX = New SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX("SpaceX Telemetry", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__SpaceX)
 
@@ -152,6 +162,7 @@
         ''' <param name="sText"></param>
         ''' <remarks></remarks>
         Public Sub Panel__HideShow(sText As String)
+            Me.m_pnlFlight__Mission.Panel__HideShow(sText)
             Me.m_pnlFlight__SpaceX.Panel__HideShow(sText)
             Me.m_pnlFlight__Accel.Panel__HideShow(sText)
             Me.m_pnlFlight__Contrast.Panel__HideShow(sText)
@@ -169,6 +180,7 @@
         ''' <param name="sText"></param>
         ''' <remarks></remarks>
         Private Sub LinkBar_LinkClick(ByVal sText As String)
+            Me.m_pnlFlight__Mission.Panel__HideShow(sText)
             Me.m_pnlFlight__SpaceX.Panel__HideShow(sText)
             Me.m_pnlFlight__Accel.Panel__HideShow(sText)
             Me.m_pnlFlight__Contrast.Panel__HideShow(sText)
@@ -208,6 +220,7 @@
         ''' <param name="bCRC_OK"></param>
         ''' <param name="u32Sequence"></param>
         Public Sub InternalEvent__UDPSafe__RxPacketB(u16PacketType As UInt16, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
+            Me.m_pnlFlight__Mission.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
             Me.m_pnlFlight__Contrast.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
             Me.m_pnlFlight__OptoNCDT.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
             Me.m_pnlFlight__LaserDist.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
