@@ -609,6 +609,9 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__watchdog.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi__ethernet.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h">

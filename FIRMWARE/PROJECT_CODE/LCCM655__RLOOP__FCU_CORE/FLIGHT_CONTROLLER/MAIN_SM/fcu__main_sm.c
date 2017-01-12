@@ -78,7 +78,7 @@ void vFCU_MAINSM__Process(void)
 
 			//laser distance
 			#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
-				vFCU_LASERDIST__Process();
+				vFCU_LASERDIST__Init();
 			#endif
 
 			//init the brake systems

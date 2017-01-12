@@ -6,6 +6,14 @@ Imports SIL3.LDLL178__COMMON_CODE__MICRO_TMER
 ''' </summary>
 Public Class Form1
 
+#Region "CONSTANTS"
+    ''' <summary>
+    ''' Number of ASI controllers
+    ''' </summary>
+    Private Const C_NUM_ASI As Integer = 8
+
+#End Region '#Region "CONSTANTS"
+
 #Region "DLL HANDLING"
 
 
@@ -175,6 +183,13 @@ Public Class Form1
 #End Region '#Region "DLL HANDLING"
 
 #Region "MEMBERS"
+
+
+    ''' <summary>
+    ''' A list of ASI controllers
+    ''' </summary>
+    Private m_pASI() As ASIController
+
     ''' <summary>
     ''' Our output text box used for serial debugging
     ''' </summary>
@@ -420,6 +435,13 @@ Public Class Form1
     ''' Setup anyting else on the system
     ''' </summary>
     Private Sub Setup_System()
+
+        'create our ASI's
+        ReDim Me.m_pASI(C_NUM_ASI)
+        For iCounter As Integer = 0 To C_NUM_ASI - 1
+            Me.m_pASI(iCounter) = New ASIController()
+        Next
+
 
         Me.m_pSafeUDP = New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", 9100, "FCU_ETH_EMU", True, True)
         AddHandler Me.m_pSafeUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.InernalEvent__UDPSafe__RxPacket
@@ -1002,7 +1024,7 @@ Public Class Form1
     ''' <param name="u8Step"></param>
     ''' <param name="u8Dir"></param>
     ''' <param name="s32Position"></param>
-    Private sub STEPDRIVE_WIN32__UpdatePostion(u8MotorIndex As byte, u8Step As Byte, u8Dir As byte,  s32Position As Int32)
+    Private Sub STEPDRIVE_WIN32__UpdatePostion(u8MotorIndex As Byte, u8Step As Byte, u8Dir As Byte, s32Position As Int32)
 
         Select Case u8MotorIndex
             Case 0
@@ -1067,12 +1089,46 @@ Public Class Form1
 
 #Region "SC16IS"
 
+    ''' <summary>
+    ''' Called when a SC16IS wants to transmit
+    ''' </summary>
+    ''' <param name="u8DeviceIndex"></param>
+    ''' <param name="pu8Data"></param>
+    ''' <param name="u8Length"></param>
     Private Sub SC16IS_WIN32__TxData(u8DeviceIndex As Byte, pu8Data As IntPtr, u8Length As Byte)
+
+        Dim pu8Array() As Byte
+        ReDim pu8Array(u8Length - 1)
+
+        SIL3.MemoryCopy.MemoryCopy.Copy_Memory(pu8Array, pu8Data, CInt(u8Length))
+
+        Select Case u8DeviceIndex
+            Case 0
+                'OptoNCDT
+            Case 1
+                'OptoNCDT
+            Case 2
+                'OptoNCDT
+            Case 3
+                'OptoNCDT
+            Case 4
+                'OptoNCDT
+            Case 5
+                'OptoNCDT
+
+            Case 6
+                'Fwd Laser
+            Case 7
+                'ASI Controller Network
+
+        End Select
     End Sub
 
 #End Region
 
 End Class
+
+
 
 
 Public Class ASIController
