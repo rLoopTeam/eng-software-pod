@@ -2,9 +2,6 @@
 #ifndef RLOOP_LCCM655__RLOOP__FCU_CORE_ASI_RS485_FCU__ASI_DEFINES_H_
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_ASI_RS485_FCU__ASI_DEFINES_H_
 
-	// number of ASI commands waiting in queue
-	#define C_ASI__COMMAND_QUEUE				(8)
-
 	// max modbus frame size
 	#define C_ASI__MAX_FRAME_SIZE				(256)
 

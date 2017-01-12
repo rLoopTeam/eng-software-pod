@@ -219,52 +219,39 @@ Lint16 s16FCU_ASI_CTRL__GetFaults(Luint8 u8ASIDevNum, Luint16 *u16Faults)
  * @brief
  * Process reply from ASI device
  *
- * @param[in]	pTail		Command being processed in command queue
+ * @param[in]	pCmd		Command being processed in command queue
  * @return			-1 = crc error
  * 					0 = success
  */
-Lint16 s16FCU_ASI_CTRL__ProcessReply(struct _strASICmd *pTail)
+Lint16 s16FCU_ASI_CTRL__ProcessReply(struct _strASICmd *pCmd)
 {
 	Lint16 s16Return;
 
-	if (pTail)
+	if (pCmd)
 	{
 		// check CRC
-		s16Return = s16FCU_ASI_CRC__CheckCRC(pTail->response, C_ASI__RW_FRAME_SIZE);
+		s16Return = s16FCU_ASI_CRC__CheckCRC(pCmd->response, C_ASI__RW_FRAME_SIZE);
 		if(s16Return < 0)
 		{
-			pTail->eErrorType = E_CRC_CHECK_FAILED;
+			pCmd->eErrorType = E_CRC_CHECK_FAILED;
 			return -1;
 		}
 		else
 		{
 			// check return slave address vs sent slave address, they should match
-			if (pTail->framedCmd[0] != pTail->response[0])
+			if (pCmd->framedCmd[0] != pCmd->response[0])
 			{
-				pTail->eErrorType = E_SLAVE_MISMATCH;
+				pCmd->eErrorType = E_SLAVE_MISMATCH;
 				return -1;
 			}
 			// check function code in response, if it's error reply, process error
-			if (pTail->response[2] & 0x80)
+			if (pCmd->response[1] & 0x80)
 			{
-				pTail->eErrorType = E_ERROR_RESPONSE;
+				pCmd->eErrorType = E_ERROR_RESPONSE;
 				return -1;
 			}
 
-			vFCU_ASI__SetVar(pTail);
-
-			//adjust tail pointer
-			//pop the command out of the queue because it's done being processed
-			sFCU.sASIComms.u8Queue_TailIndex++;
-			if (sFCU.sASIComms.u8Queue_TailIndex == C_ASI__RW_FRAME_SIZE)
-			{
-				sFCU.sASIComms.u8Queue_TailIndex=0;	// rollover
-			}
-			else
-			{
-				//fall on.
-			}
-
+			vFCU_ASI__SetVar(pCmd);
 		}
 
 

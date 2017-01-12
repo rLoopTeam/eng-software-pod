@@ -50,7 +50,6 @@
 			Luint8 response[C_ASI__RW_FRAME_SIZE];	// assuming we always read only one register
 			void* destVar;
 			E_VAR_TYPE eDestVarType;
-			Lint8 retry;
 			E_ERR_TYPE eErrorType;
 		};
 
