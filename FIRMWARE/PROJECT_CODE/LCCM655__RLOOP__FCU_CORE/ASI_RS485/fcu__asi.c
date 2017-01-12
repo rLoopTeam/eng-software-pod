@@ -47,6 +47,7 @@ void vFCU_ASI__Init(void)
 	//eth layer
 	vFCU_ASI_ETH__Init();
 
+	//todo: check we need this.
 	vFCU_ASI__MemSet((Luint8 *)&sFCU.sASIComms, 0, (Luint32)sizeof(sFCU.sASIComms));
 
 	//Note:
@@ -79,13 +80,13 @@ void vFCU_ASI__Process(void)
 	switch(sFCU.sASIComms.eMbState)
 	{
 		case ASI_COMM_STATE__IDLE:
+
 			// see if we have a command to transmit in the queue
-			if (sFCU.sASIComms.cmdToProcess)
+			if(sFCU.sASIComms.cmdToProcess)
 			{
 				// transmit
-				Luint8* pByte = sFCU.sASIComms.cmd.framedCmd;
+				vSC16__Tx_ByteArray(C_FCU__SC16_ASI_INDEX, (Luint8*)&sFCU.sASIComms.cmd.framedCmd, C_ASI__RW_FRAME_SIZE);
 
-				vSC16__Tx_ByteArray(C_FCU__SC16_ASI_INDEX, pByte, C_ASI__RW_FRAME_SIZE);
 
 				if (sFCU.sASIComms.cmd.u8SlaveAddress == 0)
 				{
@@ -241,13 +242,13 @@ void vFCU_ASI__BuildCmdFrame(struct _strASICmd *pCmd)
 {
 	if (pCmd)
 	{
-		sCmdParams->framedCmd[0]=sCmdParams->u8SlaveAddress;
-		sCmdParams->framedCmd[1]=sCmdParams->u8FunctionCode;
-		sCmdParams->framedCmd[2]=(Luint8)(sCmdParams->u16ParamAddx >> 8);				// register address Hi
-		sCmdParams->framedCmd[3]=(Luint8)(sCmdParams->u16ParamAddx & 0x00FF);	 		// register address Lo
-		sCmdParams->framedCmd[4]=(Luint8)(sCmdParams->u16ParamValue >> 8);  				// register value Hi
-		sCmdParams->framedCmd[5]=(Luint8)(sCmdParams->u16ParamValue & 0x00FF);				// register value Lo
-		vFCU_ASI_CRC__AddCRC(sCmdParams->framedCmd);
+		pCmd->framedCmd[0]=pCmd->u8SlaveAddress;
+		pCmd->framedCmd[1]=pCmd->u8FunctionCode;
+		pCmd->framedCmd[2]=(Luint8)(pCmd->u16ParamAddx >> 8);				// register address Hi
+		pCmd->framedCmd[3]=(Luint8)(pCmd->u16ParamAddx & 0x00FF);	 		// register address Lo
+		pCmd->framedCmd[4]=(Luint8)(pCmd->u16ParamValue >> 8);  				// register value Hi
+		pCmd->framedCmd[5]=(Luint8)(pCmd->u16ParamValue & 0x00FF);				// register value Lo
+		vFCU_ASI_CRC__AddCRC(pCmd->framedCmd);
 	}
 }
 

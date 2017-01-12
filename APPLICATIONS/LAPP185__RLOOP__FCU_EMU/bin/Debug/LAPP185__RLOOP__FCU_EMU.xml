@@ -5784,5 +5784,13 @@ adds a sub level node after one has already been added
  <param name="u8Dir"></param>
  <param name="s32Position"></param>
 </member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.SC16IS_WIN32__TxData(System.Byte,System.IntPtr,System.Byte)">
+ <summary>
+ Called when a SC16IS wants to transmit
+ </summary>
+ <param name="u8DeviceIndex"></param>
+ <param name="pu8Data"></param>
+ <param name="u8Length"></param>
+</member>
 </members>
 </doc>
