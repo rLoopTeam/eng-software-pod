@@ -100,6 +100,11 @@ void vFCU_FCTL_MAINSM__Process(void)
 				vFCU_ACCEL__Init();
 			#endif
 
+			//setup the throttles
+			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+				vFCU_THROTTLE__Init();
+			#endif
+
 			//laser opto's
 			#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
 				vFCU_LASEROPTO__Init();

@@ -160,13 +160,13 @@ void vFCU_ACCEL__Process(void)
 	if(u32Temp0 == 0U)
 	{
 		//no faults on sensor 0, safe to process accel data
-		sFCU.sAccel.sChannels[0].s16LastSample[0] = s16MMA8451_FILTERING__Get_Average(0U, AXIS_X);
-		sFCU.sAccel.sChannels[0].s16LastSample[1] = s16MMA8451_FILTERING__Get_Average(0U, AXIS_Y);
-		sFCU.sAccel.sChannels[0].s16LastSample[2] = s16MMA8451_FILTERING__Get_Average(0U, AXIS_Z);
+		sFCU.sAccel.sChannels[0].s16LastSample[MMA8451_AXIS__X] = s16MMA8451_FILTERING__Get_Average(0U, MMA8451_AXIS__X);
+		sFCU.sAccel.sChannels[0].s16LastSample[MMA8451_AXIS__Y] = s16MMA8451_FILTERING__Get_Average(0U, MMA8451_AXIS__Y);
+		sFCU.sAccel.sChannels[0].s16LastSample[MMA8451_AXIS__Z] = s16MMA8451_FILTERING__Get_Average(0U, MMA8451_AXIS__Z);
 
-		sFCU.sAccel.sChannels[0].f32LastG[0] = f32MMA8451_MATH__Get_GForce(0U, AXIS_X);
-		sFCU.sAccel.sChannels[0].f32LastG[1] = f32MMA8451_MATH__Get_GForce(0U, AXIS_Y);
-		sFCU.sAccel.sChannels[0].f32LastG[2] = f32MMA8451_MATH__Get_GForce(0U, AXIS_Z);
+		sFCU.sAccel.sChannels[0].f32LastG[MMA8451_AXIS__X] = f32MMA8451_MATH__Get_GForce(0U, MMA8451_AXIS__X);
+		sFCU.sAccel.sChannels[0].f32LastG[MMA8451_AXIS__Y] = f32MMA8451_MATH__Get_GForce(0U, MMA8451_AXIS__Y);
+		sFCU.sAccel.sChannels[0].f32LastG[MMA8451_AXIS__Z] = f32MMA8451_MATH__Get_GForce(0U, MMA8451_AXIS__Z);
 
 
 	}
@@ -179,14 +179,14 @@ void vFCU_ACCEL__Process(void)
 	if(u32Temp1 == 0U)
 	{
 		//no faults on sensor 1, safe to process accel data
-		sFCU.sAccel.sChannels[1].s16LastSample[0] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_X);
-		sFCU.sAccel.sChannels[1].s16LastSample[1] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_Y);
-		sFCU.sAccel.sChannels[1].s16LastSample[2] = s16MMA8451_FILTERING__Get_Average(1U, AXIS_Z);
+		sFCU.sAccel.sChannels[1].s16LastSample[MMA8451_AXIS__X] = s16MMA8451_FILTERING__Get_Average(1U, MMA8451_AXIS__X);
+		sFCU.sAccel.sChannels[1].s16LastSample[MMA8451_AXIS__Y] = s16MMA8451_FILTERING__Get_Average(1U, MMA8451_AXIS__Y);
+		sFCU.sAccel.sChannels[1].s16LastSample[MMA8451_AXIS__Z] = s16MMA8451_FILTERING__Get_Average(1U, MMA8451_AXIS__Z);
 
 
-		sFCU.sAccel.sChannels[1].f32LastG[0] = f32MMA8451_MATH__Get_GForce(1U, AXIS_X);
-		sFCU.sAccel.sChannels[1].f32LastG[1] = f32MMA8451_MATH__Get_GForce(1U, AXIS_Y);
-		sFCU.sAccel.sChannels[1].f32LastG[2] = f32MMA8451_MATH__Get_GForce(1U, AXIS_Z);
+		sFCU.sAccel.sChannels[1].f32LastG[MMA8451_AXIS__X] = f32MMA8451_MATH__Get_GForce(1U, MMA8451_AXIS__X);
+		sFCU.sAccel.sChannels[1].f32LastG[MMA8451_AXIS__Y] = f32MMA8451_MATH__Get_GForce(1U, MMA8451_AXIS__Y);
+		sFCU.sAccel.sChannels[1].f32LastG[MMA8451_AXIS__Z] = f32MMA8451_MATH__Get_GForce(1U, MMA8451_AXIS__Z);
 
 	}
 	else

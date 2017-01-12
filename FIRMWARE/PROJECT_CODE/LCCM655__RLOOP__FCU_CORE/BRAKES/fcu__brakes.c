@@ -253,13 +253,13 @@ void vFCU_BRAKES__Process(void)
 
 
 	//handle WDT tasks
-	if(sFCU.sBrakesGlobal.u8Timer_100ms == 2)
+	if(sFCU.sBrakesGlobal.u8Timer_100ms == 2U)
 	{
 		//watchdog start
 		vFCU_BRAKES_WDT__Pet_Start();
 
 	}
-	else if(sFCU.sBrakesGlobal.u8Timer_100ms >= 4)
+	else if(sFCU.sBrakesGlobal.u8Timer_100ms >= 4U)
 	{
 
 		//watchdog end

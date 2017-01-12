@@ -454,7 +454,7 @@ void vFCU__RTI_100MS_ISR(void)
 	#endif
 
 	//brakes timed processes
-	#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
+	#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 		vFCU_BRAKES__100MS_ISR();
 	#endif
 

@@ -80,27 +80,27 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer += 4U;
 
 					//X Raw
-					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, AXIS_X));
+					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__X));
 					pu8Buffer += 2U;
 
 					//Y Raw
-					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, AXIS_Y));
+					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__Y));
 					pu8Buffer += 2U;
 
 					//Z Raw
-					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, AXIS_Z));
+					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__Z));
 					pu8Buffer += 2U;
 
 					//X Accel
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, AXIS_X));
+					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__X));
 					pu8Buffer += 4U;
 
 					//Y Accel
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, AXIS_Y));
+					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__Y));
 					pu8Buffer += 4U;
 
 					//Z Accel
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, AXIS_Z));
+					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__Z));
 					pu8Buffer += 4U;
 
 					//Pitch
@@ -125,15 +125,15 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer += 4U;
 
 					//X Raw
-					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, AXIS_X));
+					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__X));
 					pu8Buffer += 2U;
 
 					//Y Raw
-					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, AXIS_Y));
+					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__Y));
 					pu8Buffer += 2U;
 
 					//Z Raw
-					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, AXIS_Z));
+					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__Z));
 					pu8Buffer += 2U;
 
 				}

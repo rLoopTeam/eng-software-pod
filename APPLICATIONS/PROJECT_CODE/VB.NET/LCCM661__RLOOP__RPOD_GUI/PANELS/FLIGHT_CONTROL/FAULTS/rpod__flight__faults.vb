@@ -8,7 +8,7 @@
         Inherits SIL3.ApplicationSupport.PanelTemplate
 
 #Region "CONSTANTS"
-        Private Const C_NUM__FAULT_FLAGS As Integer = 12
+        Private Const C_NUM__FAULT_FLAGS As Integer = 23 + 8 + 6
 #End Region '#Region "CONSTANTS"
 
 #Region "MEMBERS"
@@ -134,7 +134,6 @@
 
             'do the SC16IS devices
             For iCounter As Integer = 0 To 8 - 1
-
                 l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("SC16:" & iCounter & " Faults")
 
                 If iCounter = 0 Then
@@ -146,6 +145,88 @@
                 iIndex += 1
             Next
 
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("ASI Faults")
+            l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 8))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
+
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Brakes Faults")
+            l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
+
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("DAQ Faults")
+            l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
+
+
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Laser Contrast")
+            l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 3))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
+
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Contrast:0 Faults")
+            l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
+
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Contrast:1 Faults")
+            l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Contrast:2 Faults")
+            l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
+
+
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("OptoNCDT Module")
+            l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 4))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
+
+
+            'do the OptoNCDT's devices
+            For iCounter As Integer = 0 To 6 - 1
+                l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("NCDT:" & iCounter & " Faults")
+                l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
+                Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+                iIndex += 1
+            Next
+
+
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Laser Distance")
+            l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 7))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
+
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Networking")
+            l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
+
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Pusher Faults")
+            l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
+
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Throttles Faults")
+            l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
+
+            For iCounter As Integer = 0 To 7 - 1
+                l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Spare:" & iCounter & " Faults")
+
+                If iCounter = 0 Then
+                    l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 4))
+                Else
+                    l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
+                End If
+                Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+                iIndex += 1
+            Next
 
         End Sub
 

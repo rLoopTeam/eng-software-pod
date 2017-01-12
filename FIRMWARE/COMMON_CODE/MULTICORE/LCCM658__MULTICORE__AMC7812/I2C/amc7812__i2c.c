@@ -36,7 +36,7 @@ extern struct _strAMC7812_DAC strAMC7812_DAC;
  */
 void vAMC7812_I2C__Init(void)
 {
-
+	//nothing here
 
 }
 
@@ -112,8 +112,6 @@ Lint16 s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luin
 	s16Return = -1;
 	s16Return = s16RM4_I2C_USER__TxByteArray(u8DeviceAddx, u8RegisterAddx, &u8Array[0], u8ArrayLength);
 
-	//pu8ArrayPtr = &u8Array[0];
-	//s16Return = s16RM4_I2C_USER__TxByteArray(u8DeviceAddx, u8RegisterAddx, pu8ArrayPtr, u8ArrayLength);
 
 #else
 	//fake on win32

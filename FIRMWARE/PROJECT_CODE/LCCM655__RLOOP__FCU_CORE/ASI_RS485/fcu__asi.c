@@ -43,6 +43,9 @@ void vFCU_ASI__Init(void)
 
 	vFAULTTREE__Init(&sFCU.sASIComms.sFaultFlags);
 
+	sFCU.sASIComms.u32Guard1 = 0xABCDABCDU;
+	sFCU.sASIComms.u32Guard2 = 0x11223344U;
+
 	//configure the multiplexer
 	vFCU_ASI_MUX__Init();
 
@@ -74,6 +77,15 @@ void vFCU_ASI__Process(void)
 	Luint8 u8Temp;
 	Luint8 u8ByteIndex;
 	Lint16 s16Return;
+
+	if(sFCU.sASIComms.u32Guard1 != 0xABCDABCDU)
+	{
+
+	}
+	if(sFCU.sASIComms.u32Guard2 != 0x11223344U)
+	{
+
+	}
 
 	//handle the mux
 	vFCU_ASI_MUX__Process();
