@@ -140,26 +140,21 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags", MyBase.m_pInnerPanel)
-            Me.m_txtFlags = New SIL3.ApplicationSupport.TextBoxHelper(100, l0)
-
-            Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Distance Raw")
-            l1.Layout__BelowControl(Me.m_txtFlags)
-            Me.m_txtDistRAW = New SIL3.ApplicationSupport.TextBoxHelper(100, l1)
-
-            Dim l2 As New SIL3.ApplicationSupport.LabelHelper("Distance Filtered")
-            l2.Layout__AboveRightControl(l1, Me.m_txtDistRAW)
-            Me.m_txtDistFilt = New SIL3.ApplicationSupport.TextBoxHelper(100, l2)
-
-            Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
-            l11.Layout__BelowControl(m_txtDistRAW)
-            Me.m_txtCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l11)
-
+            Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Streaming Control", MyBase.m_pInnerPanel)
             Dim btnOn As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
-            btnOn.Layout__BelowControl(Me.m_txtCount)
-
+            btnOn.Layout__BelowControl(l0)
             Dim btnOff As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream Off", AddressOf btnStreamOff__Click)
             btnOff.Layout__RightOfControl(btnOn)
+
+
+            Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Fault Flags")
+            Me.m_txtFlags = New SIL3.ApplicationSupport.TextBoxHelper(100, l1)
+
+
+            Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
+            l11.Layout__BelowControl(m_txtFlags)
+            Me.m_txtCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l11)
+
 
 
         End Sub

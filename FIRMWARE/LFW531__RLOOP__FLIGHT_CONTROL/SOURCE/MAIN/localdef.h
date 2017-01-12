@@ -171,7 +171,7 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		#define C_LOCALDEF__LCCM655__ENABLE_ASI_RS485						(1U)
 
 		/** Enable the pusher detection system */
-		#define C_LOCALDEF__LCCM655__ENABLE_PUSHER							(0U)
+		#define C_LOCALDEF__LCCM655__ENABLE_PUSHER							(1U)
 
 		/** Ethernet Systems */
 		#define C_LOCALDEF__LCCM655__ENABLE_ETHERNET						(1U)

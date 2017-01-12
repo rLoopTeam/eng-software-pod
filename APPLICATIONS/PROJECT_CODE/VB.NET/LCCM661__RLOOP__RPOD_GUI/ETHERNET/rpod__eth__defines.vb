@@ -44,6 +44,9 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** Mission control data */
         NET_PKT__FCU_GEN__TX_MISSION_DATA = &H200
 
+        '/** All system fault flags */
+        NET_PKT__FCU_GEN__TX_ALL_FAULT_FLAGS = &H0300
+
         '//////////////////////////////////////////////////////
         '//FCU: ACCEL (&h1000)
         '//////////////////////////////////////////////////////

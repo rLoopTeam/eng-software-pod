@@ -1197,7 +1197,7 @@ STEP MOTOR DRIVER
 		//Value in rev / square second
 		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MAX_ACCELERATION 			100
 		//Value in mm / rev
-		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MILIMITERS_PER_REVOLUTION 3
+		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MILIMITERS_PER_REVOLUTION 4
 		//number of steps per revolution [Integer]
 		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_STEPS_PER_REVOLUTION 		200
 		//Value in RPMs [Integer]
@@ -1208,7 +1208,7 @@ STEP MOTOR DRIVER
 		//Value in rev / square second
 		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MAX_ACCELERATION 			100
 		//Value in mm / rev
-		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MILIMITERS_PER_REVOLUTION 3
+		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MILIMITERS_PER_REVOLUTION 4
 		//number of steps per revolution [Integer]
 		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_STEPS_PER_REVOLUTION 		200
 		//Value in RPMs [Integer]

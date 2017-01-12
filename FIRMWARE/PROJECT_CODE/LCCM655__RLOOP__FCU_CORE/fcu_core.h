@@ -19,6 +19,7 @@
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__enums.h>
 		#include <LCCM655__RLOOP__FCU_CORE/PI_COMMS/fcu__pi_comms__types.h>
 
+		#include <LCCM655__RLOOP__FCU_CORE/FAULTS/fcu__faults__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/BRAKES/fcu__brakes__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/ACCELEROMETERS/fcu__accel__fault_flags.h>
@@ -63,10 +64,6 @@
 			{
 				/** top level fault tree subsystem for the flight controller */
 				FAULT_TREE__PUBLIC_T sTopLevel;
-
-				/** Accel subsystem faults */
-				FAULT_TREE__PUBLIC_T sAccel;
-
 
 			}sFaults;
 
@@ -258,6 +255,8 @@
 			/** Accel subsystem */
 			struct
 			{
+				/** Accel subsystem faults */
+				FAULT_TREE__PUBLIC_T sFaultFlags;
 
 				/** individual accel channels */
 				struct
@@ -619,6 +618,9 @@
 				/** A flag to indicate 10ms has elapsed if we are using timed packets */
 				Luint8 u810MS_Flag;
 
+				/** 250ms timer for our fault data */
+				Luint8 u8250MS_Flag;
+
 				/** The next packet type to transmit */
 				E_NET__PACKET_T eTxPacketType;
 
@@ -645,6 +647,9 @@
 			/** ASI Comms Layer */
 			struct
 			{
+				/** ASI Subsystemfaults */
+				FAULT_TREE__PUBLIC_T sFaultFlags;
+
 				/** the modbus state */
 				E_FCU_MODBUS__STATE_T eMbState;
 
@@ -799,6 +804,10 @@
 		void vFCU_FAULTS__Process(void);
 		Luint8 u8FCU_FAULTS__Get_IsFault(void);
 		Luint32 u32FCU_FAULTS__Get_FaultFlags(void);
+
+			//ethernet
+			void vFCU_FAULTS_ETH__Init(void);
+			void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
 		//laser contrast sensors
 		void vFCU_LASERCONT__Init(void);

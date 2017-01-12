@@ -407,6 +407,9 @@ void vFCU__Process(void)
 				vDAQ__Process();
 			#endif
 
+			//update any system fault flags.
+			vFCU_FAULTS__Process();
+
 			//end of while loop
 			vRM4_CPULOAD__While_Exit();
 

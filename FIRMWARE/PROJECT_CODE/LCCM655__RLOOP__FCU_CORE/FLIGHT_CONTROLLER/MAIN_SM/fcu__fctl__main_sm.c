@@ -124,7 +124,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			//run what we need to in startup mode, checkout sensors and other diagnostics
 
 			//xxxxxxxxxxxxxxxxxxxxxxxxTEMPORARY @gsweriduk 15DEC xxxxxxxxxxxxxxxxxxxxxxxx
-			sFCU.eMissionPhase = MISSION_PHASE__AUTO_SEQUENCE_MODE;
+			//sFCU.eMissionPhase = MISSION_PHASE__AUTO_SEQUENCE_MODE;
 			//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 			break;
 
@@ -221,7 +221,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		#endif
 
 		#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
-			vFCU_PUSHER__Pusher();
+			vFCU_PUSHER__Process();
 		#endif
 
 		//process the brakes.
@@ -250,6 +250,12 @@ void vFCU_FCTL_MAINSM__Process(void)
 		//do nothing.
 	}
 
+
+}
+
+//allows us to enter pre-run phase from ethernet
+void vFCU_FCTL_MAINSM__EnterPreRun_Phase(Luint32 u32Key)
+{
 
 }
 

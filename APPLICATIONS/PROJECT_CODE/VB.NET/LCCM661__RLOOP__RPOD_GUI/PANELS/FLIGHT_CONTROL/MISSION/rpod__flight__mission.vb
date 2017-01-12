@@ -153,8 +153,6 @@
             btnPodSafe.Layout__RightOfControl(btnPodStop)
 
 
-
-
             Dim l00 As New SIL3.ApplicationSupport.LabelHelper("Fault Flags", btnOn)
             Me.m_txtFlags = New SIL3.ApplicationSupport.TextBoxHelper(100, l00)
             Me.m_txtFlags.ReadOnly = True
@@ -164,13 +162,6 @@
             Me.m_txtMissionPhase = New SIL3.ApplicationSupport.TextBoxHelper(100, l1)
             Me.m_txtMissionPhase.Width = Me.m_txtMissionPhase.Width * 2
             Me.m_txtMissionPhase.ReadOnly = True
-
-            'Dim l2 As New SIL3.ApplicationSupport.LabelHelper("Distance Filtered")
-            'l2.Layout__AboveRightControl(l1, Me.m_txtDistRAW)
-            'Me.m_txtDistFilt = New SIL3.ApplicationSupport.TextBoxHelper(100, l2)
-
-
-
 
 
         End Sub

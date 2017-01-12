@@ -41,6 +41,8 @@ void vFCU_ASI__Init(void)
 {
 	Lint16 s16Return;
 
+	vFAULTTREE__Init(&sFCU.sASIComms.sFaultFlags);
+
 	//configure the multiplexer
 	vFCU_ASI_MUX__Init();
 

@@ -36,9 +36,8 @@ void vFCU_FAULTS__Init(void)
 	//init the fault tree module.
 	vFAULTTREE__Init(&sFCU.sFaults.sTopLevel);
 
-	//accel subsystem
-	vFAULTTREE__Init(&sFCU.sFaults.sAccel);
-
+	//any eth stuff we need
+	vFCU_FAULTS_ETH__Init();
 }
 
 
@@ -55,10 +54,55 @@ void vFCU_FAULTS__Process(void)
 
 	//check the subsystem layers for faults.
 
-	//check the brakes layer
+	//accel subsystem
+	if(sFCU.sAccel.sFaultFlags.u8FaultFlag == 1U)
+	{
+		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__00);
+	}
+	else
+	{
+		//fall on
+	}
 
+	//ASI Subsystem
+	if(sFCU.sASIComms.sFaultFlags.u8FaultFlag == 1U)
+	{
+		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__01);
+	}
+	else
+	{
+		//fall on
+	}
 
+	//brakes
+	if(sFCU.sBrakesGlobal.sFaultFlags.u8FaultFlag == 1U)
+	{
+		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__02);
+	}
+	else
+	{
+		//fall on
+	}
 
+	//daq
+	if(0)
+	{
+		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__03);
+	}
+	else
+	{
+		//fall on
+	}
+
+	//flight controller
+	if(0)
+	{
+		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__04);
+	}
+	else
+	{
+		//fall on
+	}
 
 }
 
