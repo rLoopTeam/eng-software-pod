@@ -125,9 +125,12 @@
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "ASI Controllers")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Brakes")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Stepper Motors")
-            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Contrast Sensors")
-            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "OptoNCDT Lasers")
-            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Laser Distance")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Lasers - Ccontrast")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Lasers - OptoNCDT")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Lasers - Distance")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Throttles")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Pusher")
+
 
 
             'add the panels before the bar so as we have docking working well.
@@ -147,13 +150,13 @@
             pf.Controls.Add(Me.m_pnlFlight__ASI)
 
 
-            Me.m_pnlFlight__Contrast = New SIL3.rLoop.rPodControl.Panels.FlightControl.Contrast("Contrast Sensors", Me.m_sLogDir)
+            Me.m_pnlFlight__Contrast = New SIL3.rLoop.rPodControl.Panels.FlightControl.Contrast("Lasers - Ccontrast", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__Contrast)
 
-            Me.m_pnlFlight__OptoNCDT = New SIL3.rLoop.rPodControl.Panels.FlightControl.OptoNCDT("OptoNCDT Lasers", Me.m_sLogDir)
+            Me.m_pnlFlight__OptoNCDT = New SIL3.rLoop.rPodControl.Panels.FlightControl.OptoNCDT("Lasers - OptoNCDT", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__OptoNCDT)
 
-            Me.m_pnlFlight__LaserDist = New SIL3.rLoop.rPodControl.Panels.FlightControl.LaserDistance("Laser Distance", Me.m_sLogDir)
+            Me.m_pnlFlight__LaserDist = New SIL3.rLoop.rPodControl.Panels.FlightControl.LaserDistance("Lasers - Distance", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__LaserDist)
 
             Me.m_pnlFlight__Brakes = New SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes("Brakes", Me.m_sLogDir)

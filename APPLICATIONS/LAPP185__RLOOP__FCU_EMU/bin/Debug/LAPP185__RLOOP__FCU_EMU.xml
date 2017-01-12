@@ -4491,6 +4491,23 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  <param name="iWidth"></param>
  <remarks></remarks>
 </member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags.CreateButton">
+ <summary>
+ Create the little popout button
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags.Flags__Add(System.String)">
+ <summary>
+ Add the fault flags.
+ </summary>
+ <param name="sValue"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags.OnResize(System.EventArgs)">
+ <summary>
+ Handle the text box resize
+ </summary>
+ <param name="e"></param>
+</member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags.Flags__Update(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U32@,System.Boolean)">
  <summary>
  Update the flags and append our text box

@@ -40,7 +40,7 @@ void vAMC7812__Init(void)
 	//init lowlevel
 	vAMC7812_LOWLEVEL__Init();
 	
-	//init I2C
+	//init I2C Layer
 	vAMC7812_I2C__Init();
 	
 	//Setup any GPIO

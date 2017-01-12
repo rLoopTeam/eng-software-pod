@@ -43,7 +43,7 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__FCU_GEN__TX_ALL_FAULT_FLAGS:
-			u16Length = ((4U + C_LOCALDEF__LCCM487__NUM_DEVICES) * 4U);
+			u16Length = ((23U + C_LOCALDEF__LCCM487__NUM_DEVICES + C_FCU__NUM_LASERS_OPTONCDT) * 4U);
 			break;
 
 
@@ -84,7 +84,74 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 				}
 
+				//ASI
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sASIComms.sFaultFlags.u32Flags[0]);
+				pu8Buffer += 4U;
 
+				//Brakes
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sBrakesGlobal.sFaultFlags.u32Flags[0]);
+				pu8Buffer += 4U;
+
+				//DAQ
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
+
+				//laser contrast sensors
+				//Top Level
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sFaultFlags.u32Flags[0]);
+				pu8Buffer += 4U;
+
+				//each sensor
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sSensors[0].sFaultFlags.u32Flags[0]);
+				pu8Buffer += 4U;
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sSensors[1].sFaultFlags.u32Flags[0]);
+				pu8Buffer += 4U;
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sSensors[2].sFaultFlags.u32Flags[0]);
+				pu8Buffer += 4U;
+
+				//laser distance
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
+
+				//optos, top level
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sFaultFlags.u32Flags[0]);
+				pu8Buffer += 4U;
+
+				for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+				{
+					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Counter].sFaultFlags.u32Flags[0]);
+					pu8Buffer += 4U;
+
+				}
+
+				//10
+				//networking
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
+
+				//pusher
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
+
+				//throttles
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
+
+				//spares
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				pu8Buffer += 4U;
 
 
 				break;

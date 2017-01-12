@@ -32,6 +32,7 @@
 
 		//for software fault tree handling
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
+		#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8451__types.h>
 
 		/*******************************************************************************
 		Defines
@@ -262,10 +263,10 @@
 				struct
 				{
 					/** most recent recorded sample from the Accel in raw units */
-					Lint16 s16LastSample[3];
+					Lint16 s16LastSample[MMA8451_AXIS__MAX];
 
 					/** Last sample of the G-Force*/
-					Lfloat32 f32LastG[3];
+					Lfloat32 f32LastG[MMA8451_AXIS__MAX];
 
 				}sChannels[C_LOCALDEF__LCCM418__NUM_DEVICES];
 
@@ -509,8 +510,6 @@
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
 
-
-
 				/** The final computed values taking into account fault tolerance and
 				 * laser processing techiques */
 				struct
@@ -548,6 +547,9 @@
 
 				}sSensors[LASER_CONT__MAX];
 
+
+				Luint32 u32Guard2;
+
 				/** a timing based list to store the rising and falling edges of each laser */
 				struct
 				{
@@ -575,6 +577,7 @@
 
 				}sTimingList[LASER_CONT__MAX];
 
+				Luint32 u32Guard3;
 
 				/** The track database for each sensor */
 				struct
@@ -593,7 +596,7 @@
 
 				}sTrackDatabase[LASER_CONT__MAX];
 
-				Luint32 u32Guard2;
+				Luint32 u32Guard4;
 
 			}sContrast;
 			#endif
@@ -647,6 +650,8 @@
 			/** ASI Comms Layer */
 			struct
 			{
+				Luint32 u32Guard1;
+
 				/** ASI Subsystemfaults */
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
@@ -659,6 +664,8 @@
 				/** a set of timers to control tx timeouts */
 				Luint32 u32ASI_turnaround_Counter;
 				Luint32 u32ASI_replywait_Counter;
+
+				Luint32 u32Guard2;
 
 			}sASIComms;
 			#endif

@@ -28,26 +28,28 @@
 	*****************************************************************************/
 	#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8451__register_defs.h>
 	#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8541__fault_flags.h>
+	#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8451__types.h>
 	#include <multicore/lccm284__multicore__fault_tree/fault_tree__public.h>
 
-	//our axis
-	typedef enum
-	{
-		AXIS_X = 0U,
-		AXIS_Y = 1U,
-		AXIS_Z = 2U
 
-	}MMA8451__AXIS_E;
 
 	//in 14 bit, 8g mode we have 1G = 
 	//2^14 = 16K/16 = 1024
-	#define C_MMA8451__ONE_G_VALUE	1024
+	#if C_LOCALDEF__LCCM418__G_FORCE_RANGE == 8U
+		#define C_MMA8451__ONE_G_VALUE	1024U
+	#elif C_LOCALDEF__LCCM418__G_FORCE_RANGE == 4U
+		#define C_MMA8451__ONE_G_VALUE	2048U
+	#elif C_LOCALDEF__LCCM418__G_FORCE_RANGE == 2U
+			#define C_MMA8451__ONE_G_VALUE	4096U
+	#else
+		#error
+	#endif
 	
 	//The minimum +/- value for next cal state transition
-	#define C_MMA8451__MIN_CAL_WINDOW		2
+	#define C_MMA8451__MIN_CAL_WINDOW		2U
 
 
-	#define C_MMA8451__MAGIC_HEADER_VALUE		0xABCD0123
+	#define C_MMA8451__MAGIC_HEADER_VALUE		0xABCD0123U
 
 	/** Main MMA8451 structure */
 	struct strMMA8451
@@ -76,7 +78,7 @@
 		struct
 		{
 			Lint16 s16;
-		}sFirstRead[3];
+		}sFirstRead[MMA8451_AXIS__MAX];
 		
 		/** These are the sensor offsets which are the calibrated parameters to offset each sensors channel correctly. */
 		struct
@@ -91,7 +93,7 @@
 			}unT;
 			/*lint +e960*/
 			
-		}sSensorOffset[3];
+		}sSensorOffset[MMA8451_AXIS__MAX];
 		
 		/** When we have calibration in progress, we need to have theses states */
 		struct
@@ -153,7 +155,7 @@
 					/** the actual average value, in this mode just used as raw sample. */
 					Lint16 s16Average;
 
-				}sAverage[3U];
+				}sAverage[MMA8451_AXIS__MAX];
 			#endif
 			/** The computed G-Forces */
 			struct

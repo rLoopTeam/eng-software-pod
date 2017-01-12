@@ -27,8 +27,7 @@
 //the structure
 extern struct _strFCU sFCU;
 
-// number of hover engines
-#define NUM_HOVER_ENGINES		8U
+
 
 // throttle command tolerance
 #define u16THROTTLE_TOL			0U
@@ -210,7 +209,7 @@ void vFCU_THROTTLE__Process(void)
 
 			//reset the device
 
-			vFCU_THROTTLE__Init();
+			//vFCU_THROTTLE__Init();
 
 			// set the throttle state to idle
 
@@ -317,6 +316,12 @@ void vFCU_THROTTLE__Process(void)
 
 }	// end of vFCU_THROTTLE__Process(...)
 
+
+void vFCU_THROTTLE__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, Luint8 u8RampType)
+{
+
+
+}
 
 
 //safetly switch on dev mode
@@ -588,7 +593,7 @@ Lint16 s16FCU_THROTTLE__Write_All_HE_Throttle_Commands_to_DAC(Luint16 u16Throttl
 
 	// loop through engine numbers 1 to 8 and call the write function
 
-	for(u8EngineNumberCtr = 1; u8EngineNumberCtr <= NUM_HOVER_ENGINES; u8EngineNumberCtr++)
+	for(u8EngineNumberCtr = 1; u8EngineNumberCtr <= C_FCU__NUM_HOVER_ENGINES; u8EngineNumberCtr++)
 	{
 		s16DACReturn = s16FCU_THROTTLE__Write_HEx_Throttle_Command_to_DAC(u16ThrottleCommand, u8EngineNumberCtr);
 

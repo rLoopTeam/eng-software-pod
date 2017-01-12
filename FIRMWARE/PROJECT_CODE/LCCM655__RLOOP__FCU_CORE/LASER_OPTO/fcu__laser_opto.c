@@ -347,8 +347,8 @@ void vFCU_LASEROPTO__Process_Packet(E_FCU__LASER_OPTO__INDEX_T eLaser)
  * data output is not possible, a run-time error will be output. Use the command GETOUTINFO_RS422 to query
  * for data selection and output sequence.
  * 
- * @param[in]		u8Value		## Desc ##
- * @param[in]		u8LaserIndex		## Desc ##
+ * @param[in]		u8Value					New byte value
+ * @param[in]		u8LaserIndex			The laser index.
  * @st_funcMD5		DA0F12390988943896FBFA359E063324
  * @st_funcID		LCCM655R0.FILE.021.FUNC.005
  */

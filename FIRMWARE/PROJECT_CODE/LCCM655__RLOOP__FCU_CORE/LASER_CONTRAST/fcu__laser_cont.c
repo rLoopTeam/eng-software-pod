@@ -36,6 +36,8 @@ void vFCU_LASERCONT__Init(void)
 
 	sFCU.sContrast.u32Guard1 = 0xAB12AB34U;
 	sFCU.sContrast.u32Guard2 = 0x76540987U;
+	sFCU.sContrast.u32Guard3 = 0x00112233U;
+	sFCU.sContrast.u32Guard4 = 0x34343434U;
 
 
 	//init the fault system for top level
@@ -96,6 +98,15 @@ void vFCU_LASERCONT__Process(void)
 	{
 		//error
 	}
+	if(sFCU.sContrast.u32Guard3 != 0x00112233U)
+	{
+		//error
+	}
+	if(sFCU.sContrast.u32Guard4 != 0x34343434U)
+	{
+		//error
+	}
+
 
 	//process the timing list.
 	vFCU_LASERCONT_TL__Process();
