@@ -25,7 +25,7 @@
 extern struct _strFCU sFCU;
 
 //locals
-static void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake);
+static void vFCU_BRAKES_MLP__Sample_ADC(void);
 static Lint16 s16FCU_BRAKES_MLP__Check_ADC_Limits(E_FCU__BRAKE_INDEX_T eBrake);
 static void vFCU_BRAKES_MLP__Apply_Zero(E_FCU__BRAKE_INDEX_T eBrake);
 static void vFCU_BRAKES_MLP__Apply_Span(E_FCU__BRAKE_INDEX_T eBrake);
@@ -145,25 +145,14 @@ void vFCU_BRAKES_MLP__Process(void)
 	Lint16 s16Limit;
 	Lint16 s16Return;
 
+	//Update the ADC:
+	//new data may or not be available.
+	vFCU_BRAKES_MLP__Sample_ADC();
+
 	//loop through each brake.
+	//always do the processing.
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
 	{
-		//Update the ADC:
-		vFCU_BRAKES_MLP__Sample_ADC((E_FCU__BRAKE_INDEX_T)u8Counter);
-
-		// sometimes sample hits 0 but isn't a real value, throw it out
-		if (sFCU.sBrakes[(Luint32)u8Counter].sMLP.u16ADC_Sample == 0U && sFCU.sBrakes[(Luint32)u8Counter].sMLP.u8Running == 0U)
-		{
-			#if C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES == 1U
-				sFCU.sBrakes[(Luint32)u8Counter].sMLP.zero_count++;
-			#endif
-			continue;
-		}
-		else
-		{
-			// start up time ended
-			sFCU.sBrakes[(Luint32)u8Counter].sMLP.u8Running = 1U;
-		}
 
 		//check the limits
 		s16Limit = s16FCU_BRAKES_MLP__Check_ADC_Limits((E_FCU__BRAKE_INDEX_T)u8Counter);
@@ -197,9 +186,11 @@ void vFCU_BRAKES_MLP__Process(void)
 		{
 			//todo:
 			//something bad happened with the ADC,
+			//this may only be that we were below the limit during power up
 		}
 
-	}
+
+	}//for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
 
 
 }
@@ -213,9 +204,10 @@ void vFCU_BRAKES_MLP__Process(void)
  * @st_funcMD5		81505D816993B47546A93DE2D5FF56AE
  * @st_funcID		LCCM655R0.FILE.024.FUNC.003
  */
-void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
+void vFCU_BRAKES_MLP__Sample_ADC(void)
 {
 	Luint8 u8New;
+	Luint8 u8Counter;
 
 	//check the ADC converter process
 #ifndef WIN32
@@ -226,48 +218,52 @@ void vFCU_BRAKES_MLP__Sample_ADC(E_FCU__BRAKE_INDEX_T eBrake)
 	if(u8New == 1U)
 	{
 
-		//determine the brake index
-		switch(eBrake)
+		for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
 		{
+			//determine the brake index
+			switch(eBrake)
+			{
 
-			case FCU_BRAKE__LEFT:
-				//read from the ADC channel 0
-#ifndef WIN32
-				sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample = u16RM4_ADC_USER__Get_RawData(0U);
-#else
-				sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample = sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.sWin32.u16ADC_Sample;
-#endif
-				if (sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample > sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.highest_value) {
-					sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.highest_value = sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample;
-				}
-				// sometimes sample hits 0 but isn't a real value, throw it out
-				if (sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample < sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.lowest_value && sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample != 0U) {
-					sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.lowest_value = sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample;
-				}
-				break;
+				case FCU_BRAKE__LEFT:
+					//read from the ADC channel 0
+	#ifndef WIN32
+					sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample = u16RM4_ADC_USER__Get_RawData(0U);
+	#else
+					sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample = sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.sWin32.u16ADC_Sample;
+	#endif
+					if (sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample > sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.highest_value) {
+						sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.highest_value = sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample;
+					}
+					// sometimes sample hits 0 but isn't a real value, throw it out
+					if (sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample < sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.lowest_value && sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample != 0U) {
+						sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.lowest_value = sFCU.sBrakes[(Luint32)FCU_BRAKE__LEFT].sMLP.u16ADC_Sample;
+					}
+					break;
 
-			case FCU_BRAKE__RIGHT:
-				//read from the ADC channel 1
-#ifndef WIN32
-				sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample = u16RM4_ADC_USER__Get_RawData(1U);
-#else
-				sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample = sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.sWin32.u16ADC_Sample;
-#endif	
-				if (sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample > sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.highest_value) {
-					sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.highest_value = sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample;
-				}
-				// sometimes sample hits 0 but isn't a real value, throw it out
-				if (sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample < sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.lowest_value && sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample != 0U) {
-					sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.lowest_value = sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample;
-				}
-				break;
+				case FCU_BRAKE__RIGHT:
+					//read from the ADC channel 1
+	#ifndef WIN32
+					sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample = u16RM4_ADC_USER__Get_RawData(1U);
+	#else
+					sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample = sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.sWin32.u16ADC_Sample;
+	#endif
+					if (sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample > sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.highest_value) {
+						sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.highest_value = sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample;
+					}
+					// sometimes sample hits 0 but isn't a real value, throw it out
+					if (sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample < sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.lowest_value && sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample != 0U) {
+						sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.lowest_value = sFCU.sBrakes[(Luint32)FCU_BRAKE__RIGHT].sMLP.u16ADC_Sample;
+					}
+					break;
 
 
-			default:
-				//todo, log the error.
-				break;
+				default:
+					//todo, log the error.
+					break;
 
-		}//switch(eBrake)
+			}//switch(eBrake)
+
+		}//for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
 
 		//taken the data now
 #ifndef WIN32
