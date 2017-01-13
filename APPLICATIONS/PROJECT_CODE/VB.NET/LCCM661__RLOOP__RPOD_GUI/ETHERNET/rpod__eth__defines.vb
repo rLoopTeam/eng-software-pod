@@ -144,6 +144,23 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
 
         NET_PKT__FCU_BRAKES__MLP_ZEROSPAN = &H1409
 
+
+        '//////////////////////////////////////////////////////
+        '//FCU: THROTTLES (0x1500)
+        '//////////////////////////////////////////////////////
+
+        '/** Switch on Throttles dev mode */
+        NET_PKT__FCU_THROTTLE__ENABLE_DEV_MODE = &H1500
+
+        '/** Set the raw throttle value */
+        NET_PKT__FCU_THROTTLE__SET_RAW_THROTTLE = &H1501
+
+        '/** Request from the host to send the Throttle data */
+        NET_PKT__FCU_THROTTLE__REQUEST_DATA = &H1502
+
+        '/** FCU to Host, return Throttle data */
+        NET_PKT__FCU_THROTTLE__TX_DATA = &H1503
+
         '//////////////////////////////////////////////////////
         '//FCU: NAVIGATION (0x1600)
         '//////////////////////////////////////////////////////

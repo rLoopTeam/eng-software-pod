@@ -633,6 +633,9 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\PUSHER\fcu__pusher__ethernet.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\PUSHER</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\THROTTLES\fcu__throttles__ethernet.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\THROTTLES</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h">

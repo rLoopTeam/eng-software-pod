@@ -96,9 +96,10 @@ void vAMC7812__Process(void)
 
 			//out of POR reset we want to do a software reset.
 
-
+#ifndef WIN32
 			//wait a little bit incase we came in from clocking out bad I2C data.
 			vRM4_DELAYS__Delay_mS(10U);
+#endif
 
 			//AMC7812 must be reset after power up
 			s16Return = s16AMC7812_I2C__TxCommand(C_LOCALDEF__LCCM658__BUS_ADDX, AMC7812_DAC_REG__SW_RESET);

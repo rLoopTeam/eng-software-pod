@@ -132,6 +132,10 @@
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\SPACEX\rpod__flight__spacex.vb</Link>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\THROTTLE\rpod__flight__throttle.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\THROTTLE\rpod__flight__throttle.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__network.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__network.vb</Link>
       <SubType>Component</SubType>
