@@ -78,9 +78,11 @@ void vFCU_FLIGHTCTL_LASERORIENT__Init(void)
 	sFCU.sFlightControl.sOrient.sGroundLasers[2].f32Position[3] = {888, -888, 888}; // ground laser 3 position {x,y,z}
 	sFCU.sFlightControl.sOrient.sGroundLasers[3].f32Position[3] = {888,888,888}; // ground laser 4 position {x,y,z}
 
-	//todo: change to a 2 dim array, but for now i'll leave as is to not get biebered
 	// I-Beam laser positions
-	//	todo: following laser installation, need to measure the distance between the ibeam lasers and the pod centerline (mount should be orthogonal)
+
+	//todo: following laser installation, need to measure the distance between the ibeam lasers and the pod centerline (mount should be orthogonal)
+	//todo: change to a 2 dim array, but for now i'll leave as is to not get biebered
+
 	sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Position[3] = {888, 888, 0};  // i-beam laser 1 position {x,y,z} //todo: first index of this array should have the x separation of the lasers - to be measured on pod
 	sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Position[3] = {0, 888, 0};  // i-beam laser 2 position {x,y,z}
 
@@ -121,15 +123,6 @@ void vFCU_FLIGHTCTL_LASERORIENT__Init(void)
 	sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[4] = {0,0,0,0}; // 2nd ground plane coefficients; compare to latter to get twist parameters
 
 	sFCU.sFlightControl.sOrient.eState = LASER_ORIENTATION_STATE__INIT;
-
-	// values to be measured on pod
-
-	// read from eeprom
-
-	// f32X = x_distance_between_ibeam_lasers 
-	// y_distance_between_ibeam_0_and_pod_center
-	// y_distance_between_ibeam_1_and_pod_center
-
 
 }
 
