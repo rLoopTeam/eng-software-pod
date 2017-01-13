@@ -221,7 +221,7 @@ void vFCU_BRAKES_MLP__Sample_ADC(void)
 		for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
 		{
 			//determine the brake index
-			switch(eBrake)
+			switch(u8Counter)
 			{
 
 				case FCU_BRAKE__LEFT:
