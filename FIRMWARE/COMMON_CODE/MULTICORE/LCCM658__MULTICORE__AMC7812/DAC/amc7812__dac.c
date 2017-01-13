@@ -311,6 +311,9 @@ void vAMC7182_DAC__DAC_UpdateVoltage(Luint8 u8Channel, Lfloat32 f32Voltage)
 		//calc the new voltage
 		//The device is 0-5V = 0 - 2^12
 		f32Temp = f32Voltage;
+		//to mV
+		f32Temp *= 1000.0F;
+		//Scale
 		f32Temp *= C_AMC8172__DAC_SCALING_VALUE;
 
 		//check the limits of the math

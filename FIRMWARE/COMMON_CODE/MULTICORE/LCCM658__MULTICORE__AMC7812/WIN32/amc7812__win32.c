@@ -24,9 +24,10 @@
 
 #include "../amc7812.h"
 #if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
+#ifdef WIN32
 
 
-
+#endif //win32
 
 #endif //#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 //safetys

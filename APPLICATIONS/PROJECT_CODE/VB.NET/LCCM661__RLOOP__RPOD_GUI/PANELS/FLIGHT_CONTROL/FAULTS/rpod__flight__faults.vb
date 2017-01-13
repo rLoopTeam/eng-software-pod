@@ -211,12 +211,17 @@
             Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Throttles Faults")
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("AMC7812 Faults")
             l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
             Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
-            For iCounter As Integer = 0 To 7 - 1
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Throttle Faults")
+            l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
+
+            For iCounter As Integer = 0 To 7 - 1 - 1
                 l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Spare:" & iCounter & " Faults")
 
                 If iCounter = 0 Then

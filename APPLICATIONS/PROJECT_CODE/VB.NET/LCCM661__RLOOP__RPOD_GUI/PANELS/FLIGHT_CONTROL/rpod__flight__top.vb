@@ -71,6 +71,11 @@
         Private m_pnlFlight__ASI As SIL3.rLoop.rPodControl.Panels.FlightControl.ASI
 
         ''' <summary>
+        ''' Throttles page
+        ''' </summary>
+        Private m_pnlFlight__Throttle As SIL3.rLoop.rPodControl.Panels.FlightControl.Throttle
+
+        ''' <summary>
         ''' The logging directory
         ''' </summary>
         Private m_sLogDir As String
@@ -128,7 +133,7 @@
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Lasers - Ccontrast")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Lasers - OptoNCDT")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Lasers - Distance")
-            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Throttles")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Throttle")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Pusher")
 
 
@@ -165,6 +170,9 @@
             Me.m_pnlFlight__Stepper = New SIL3.rLoop.rPodControl.Panels.FlightControl.Stepper("Stepper Motors", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__Stepper)
 
+            Me.m_pnlFlight__Throttle = New SIL3.rLoop.rPodControl.Panels.FlightControl.Throttle("Throttle", Me.m_sLogDir)
+            pf.Controls.Add(Me.m_pnlFlight__Throttle)
+
             'setup the eth
             AddHandler Me.m_pnlFlight__Mission.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__SpaceX.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
@@ -176,6 +184,7 @@
             AddHandler Me.m_pnlFlight__LaserDist.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__Brakes.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__Stepper.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
+            AddHandler Me.m_pnlFlight__Throttle.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
 
             AddHandler Me.m_pExplorer.LinkClick, AddressOf Me.LinkBar_LinkClick
 
@@ -200,6 +209,7 @@
             Me.m_pnlFlight__LaserDist.Panel__HideShow(sText)
             Me.m_pnlFlight__Brakes.Panel__HideShow(sText)
             Me.m_pnlFlight__Stepper.Panel__HideShow(sText)
+            Me.m_pnlFlight__Throttle.Panel__HideShow(sText)
         End Sub
 #End Region '#Region "PANEL HELPERS"
 
@@ -220,6 +230,7 @@
             Me.m_pnlFlight__LaserDist.Panel__HideShow(sText)
             Me.m_pnlFlight__Brakes.Panel__HideShow(sText)
             Me.m_pnlFlight__Stepper.Panel__HideShow(sText)
+            Me.m_pnlFlight__Throttle.Panel__HideShow(sText)
         End Sub
 #End Region '#Region "EXPLORER BAR"
 
@@ -263,6 +274,7 @@
             Me.m_pnlFlight__LaserDist.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
             Me.m_pnlFlight__Brakes.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
             Me.m_pnlFlight__Stepper.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
+            Me.m_pnlFlight__Throttle.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
         End Sub
 
         ''' <summary>

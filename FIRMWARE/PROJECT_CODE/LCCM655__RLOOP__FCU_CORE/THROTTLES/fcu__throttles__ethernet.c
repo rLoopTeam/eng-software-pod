@@ -51,7 +51,7 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	Luint8 * pu8Buffer;
 	Luint8 u8BufferIndex;
 	Luint16 u16Length;
-	Luint8 u8Device;
+	Luint8 u8Counter;
 
 	pu8Buffer = 0;
 
@@ -59,7 +59,8 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__FCU_THROTTLE__TX_DATA:
-			u16Length = 24U;
+			u16Length = 8U;
+			u16Length += (6U * C_FCU__NUM_HOVER_ENGINES);
 			break;
 
 
@@ -79,9 +80,35 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 			case NET_PKT__FCU_THROTTLE__TX_DATA:
 
 
-				//fault flags
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				//throttle fault flags
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sThrottle.sFaultFlags.u32Flags[0]);
 				pu8Buffer += 4U;
+
+				//AMC Flags
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32AMC7812__Get_FaultFlags());
+				pu8Buffer += 4U;
+
+				//Requested RPM
+				for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
+				{
+					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, 0U);
+					pu8Buffer += 2U;
+				}
+
+				//Current RPM
+				for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
+				{
+					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, 0U);
+					pu8Buffer += 2U;
+				}
+
+				//see if we can feed back ASI data?
+				for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
+				{
+					//ASI RPM
+					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, 0U);
+					pu8Buffer += 2U;
+				}
 
 				break;
 

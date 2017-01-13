@@ -174,6 +174,12 @@ void vFCU_NET_TX__Process(void)
 				sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
 
+		case NET_PKT__FCU_THROTTLE__TX_DATA:
+			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+				vFCU_THROTTLE_ETH__Transmit(eType);
+			#endif
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+			break;
 
 
 		default:

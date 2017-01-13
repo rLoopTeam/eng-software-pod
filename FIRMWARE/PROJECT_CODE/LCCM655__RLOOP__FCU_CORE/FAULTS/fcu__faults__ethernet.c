@@ -138,8 +138,13 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 
 				//Throttle Subsystem
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sThrottle.sFaultFlags.u32Flags[0]);
-				pu8Buffer += 4U;
+				#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sThrottle.sFaultFlags.u32Flags[0]);
+					pu8Buffer += 4U;
+				#else
+					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+					pu8Buffer += 4U;
+				#endif
 
 				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;
