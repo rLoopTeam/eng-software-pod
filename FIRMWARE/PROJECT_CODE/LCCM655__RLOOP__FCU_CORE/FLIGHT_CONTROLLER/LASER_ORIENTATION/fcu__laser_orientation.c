@@ -73,25 +73,27 @@ void vFCU_FLIGHTCTL_LASERORIENT__Init(void)
 	//Ground Facing Laser Positions
 	 // Laser.f32Position[LASER_ORIENT__Z] is the reading when pod is sitting flat
   	   // (historic def: For the laser positions Z should be the reading when the HDK is sitting flat on the 4 hover engines)
-	sFCU.sFlightControl.sOrient.sGroundLasers[0].f32Position[3] = {8, 185, 35}; // ground laser 1 position {x,y,z}
-	sFCU.sFlightControl.sOrient.sGroundLasers[1].f32Position[3] = {-112, 18, 35}; // ground laser 2 position {x,y,z}
-	sFCU.sFlightControl.sOrient.sGroundLasers[2].f32Position[3] = {121, -53, 35}; // ground laser 3 position {x,y,z}
-	sFCU.sFlightControl.sOrient.sGroundLasers[3].f32Position[3] = {}; // ground laser 4 position {x,y,z}
+	sFCU.sFlightControl.sOrient.sGroundLasers[0].f32Position[3] = {888, 888, 888}; // ground laser 1 position {x,y,z}
+	sFCU.sFlightControl.sOrient.sGroundLasers[1].f32Position[3] = {-888, 888, 888}; // ground laser 2 position {x,y,z}
+	sFCU.sFlightControl.sOrient.sGroundLasers[2].f32Position[3] = {888, -888, 888}; // ground laser 3 position {x,y,z}
+	sFCU.sFlightControl.sOrient.sGroundLasers[3].f32Position[3] = {888,888,888}; // ground laser 4 position {x,y,z}
 
+	//todo: change to a 2 dim array, but for now i'll leave as is to not get biebered
 	// I-Beam laser positions
-	sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Position[3] = {25, 0, 35};  // i-beam laser 1 position {x,y,z}
-	sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Position[3] = {25, 100, 35};  //i-beam laser 2 position {x,y,z}
+	//	todo: following laser installation, need to measure the distance between the ibeam lasers and the pod centerline (mount should be orthogonal)
+	sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Position[3] = {888, 888, 0};  // i-beam laser 1 position {x,y,z} //todo: first index of this array should have the x separation of the lasers - to be measured on pod
+	sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Position[3] = {0, 888, 0};  // i-beam laser 2 position {x,y,z}
 
 	//Hover Engine Positions {x,y,z} (from top view)
-	sFCU.sFlightControl.sOrient.sHoverEngines[0].f32Position[3] = {61, 130, 0}; // Forward Top Left {x,y,z}
-	sFCU.sFlightControl.sOrient.sHoverEngines[1].f32Position[3] = {62, 129, 0}; // Forward Top Right {x,y,z}
-	sFCU.sFlightControl.sOrient.sHoverEngines[2].f32Position[3] = {62, 126, 0}; // Forward Bottom Right {x,y,z}
-	sFCU.sFlightControl.sOrient.sHoverEngines[3].f32Position[3] = {60, 128, 0}; // Forward Bottom Left {x,y,z}
+	sFCU.sFlightControl.sOrient.sHoverEngines[0].f32Position[3] = {888, 888, 888}; // Forward Top Left {x,y,z}
+	sFCU.sFlightControl.sOrient.sHoverEngines[1].f32Position[3] = {888, 888, 888}; // Forward Top Right {x,y,z}
+	sFCU.sFlightControl.sOrient.sHoverEngines[2].f32Position[3] = {888, 888, 888}; // Forward Bottom Right {x,y,z}
+	sFCU.sFlightControl.sOrient.sHoverEngines[3].f32Position[3] = {888, 888, 888}; // Forward Bottom Left {x,y,z}
 
-	sFCU.sFlightControl.sOrient.sHoverEngines[4].f32Position[3] = {0, 0, 0}; // Rear Top Left {x,y,z}
-	sFCU.sFlightControl.sOrient.sHoverEngines[5].f32Position[3] = {0, 0, 0}; // Rear Top Right {x,y,z}
-	sFCU.sFlightControl.sOrient.sHoverEngines[6].f32Position[3] = {0, 0, 0}; // Rear Bottom Right {x,y,z}
-	sFCU.sFlightControl.sOrient.sHoverEngines[7].f32Position[3] = {0, 0, 0}; // Rear Bottom Left {x,y,z}
+	sFCU.sFlightControl.sOrient.sHoverEngines[4].f32Position[3] = {888, 888, 888}; // Rear Top Left {x,y,z}
+	sFCU.sFlightControl.sOrient.sHoverEngines[5].f32Position[3] = {888, 888, 888}; // Rear Top Right {x,y,z}
+	sFCU.sFlightControl.sOrient.sHoverEngines[6].f32Position[3] = {888, 888, 888}; // Rear Bottom Right {x,y,z}
+	sFCU.sFlightControl.sOrient.sHoverEngines[7].f32Position[3] = {888, 888, 888}; // Rear Bottom Left {x,y,z}
 
 	Luint8 u8Counter = 0U;
 	// Init measurements and error states to zero
@@ -119,6 +121,15 @@ void vFCU_FLIGHTCTL_LASERORIENT__Init(void)
 	sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[4] = {0,0,0,0}; // 2nd ground plane coefficients; compare to latter to get twist parameters
 
 	sFCU.sFlightControl.sOrient.eState = LASER_ORIENTATION_STATE__INIT;
+
+	// values to be measured on pod
+
+	// read from eeprom
+
+	// f32X = x_distance_between_ibeam_lasers 
+	// y_distance_between_ibeam_0_and_pod_center
+	// y_distance_between_ibeam_1_and_pod_center
+
 
 }
 
@@ -256,9 +267,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__Process(void)
 			/** Calculate as many of the pods orientation parameters as possible based on the number of operational lasers */
 			if(u8OperationalCount == 2U)
 			{
-				vFCU_FLIGHTCTL_LASERORIENT__CalcYaw();
-
-				vFCU_FLIGHTCTL_LASERORIENT__CalcLateral();
+				vFCU_FLIGHTCTL_LASERORIENT__CalcYaw_and_Lateral();
 
 			}
 			else if(u8OperationalCount == 1U)
@@ -387,30 +396,30 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalculateGroundPlane(Luint8 u8A, Luint8 u8B, Lu
 }
 
 
-/** Calculate the pod's yaw */
-void vFCU_FLIGHTCTL_LASERORIENT__CalcYaw(void)
+/** Calculate the pod's yaw and lateral translation */
+
+// see documentation: http://confluence.rloop.org/display/SD/2.1.+Determine+Pod+Yaw+and+Lateral+Position+in+Tube
+
+void vFCU_FLIGHTCTL_LASERORIENT__CalcYaw_and_Lateral(void)
 {
-  Lfloat32 f32SDif = (Lfloat32)(sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Measurement - sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Measurement);
 
-  Lfloat32 f32DTan = f32SDif / ((Lfloat32)(sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Position[LASER_ORIENT__Z] - sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Position[LASER_ORIENT__Z]));
+	Lfloat32 f32Y, f32Y0, f32Y1, f32BeamThickness, f32LaserSeparation_X;
 
-  sFCU.sFlightControl.sOrient.s16Yaw = (Lint16)(f32NUMERICAL_Atan(f32DTan) * 10000);  // TODO: Trig
-  // value expressed according to the rloop system variable
-  // http://confluence.rloop.org/display/SD/System+Variables
+	f32BeamThickness = 0; // todo: probably not proper to define here...
+
+	f32Y0 = sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Measurement - sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Position[1];
+	f32Y1 = sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Measurement - sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Position[1];
+	f32Y = f32Y0 + f32Y1;
+
+	f32LaserSeparation_X = sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Position[0] - sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Position[0];
+
+	sFCU.sFlightControl.sOrient.s16Yaw = (Lint16)(2 * f32NUMERICAL_Atan((f32LaserSeparation_X - sqrt(f32LaserSeparation_X * f32LaserSeparation_X + f32Y * f32Y - f32BeamThickness * f32BeamThickness)) / (f32BeamThickness - f32Y))); //todo: why is there a *10000 in old code?
+
+	sFCU.sFlightControl.sOrient.f32Lateral = (f32Y0 - f32Y1) * f32NUMERICAL_Cosine(sFCU.sFlightControl.sOrient.s16Yaw) / 2;
+
 }
 
 
-/** Calculate the pod's lateral translation */
-void vFCU_FLIGHTCTL_LASERORIENT__CalcLateral(void) 
-{
-  Lfloat32 f32XDif = (Lfloat32)(sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Position[LASER_ORIENT__Z] - sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Position[LASER_ORIENT__Z]);
-
-  Lfloat32 f32Coef =
-      ((Lfloat32)(sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Position[LASER_ORIENT__Z]) / f32XDif * sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Measurement) -
-      ((Lfloat32)(sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Position[LASER_ORIENT__Z]) / f32XDif * sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Measurement);
-
-  sFCU.sFlightControl.sOrient.f32Lateral = f32Coef* f32NUMERICAL_Cosine((Lfloat32)(sFCU.sFlightControl.sOrient.s16Yaw) / 10000.0);  // TODO: Trig
-}
 
 
 /****************************************************************************/
