@@ -45,6 +45,8 @@ void vFCU_PUSHER__Init(void)
 	sFCU.sPusher.u32Guard2 = 0x01020304U;
 
 	sFCU.sPusher.eState = PUSH_STATE__IDLE;
+
+	vFAULTTREE__Init(&sFCU.sPusher.sFaultFlags);
 }
 
 

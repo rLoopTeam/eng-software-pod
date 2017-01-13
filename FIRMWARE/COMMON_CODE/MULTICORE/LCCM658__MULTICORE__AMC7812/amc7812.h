@@ -17,12 +17,31 @@
 	#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 
 		/*******************************************************************************
+		Includes
+		*******************************************************************************/
+		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
+		#include <MULTICORE/LCCM658__MULTICORE__AMC7812/amc7812__fault_flags.h>
+
+		/*******************************************************************************
 		Defines
 		*******************************************************************************/
 
-		#define DAC_OUT_MAX_MVOLTS 		5000		// DAC output voltage limit
-		#define DAC_OUT_MIN_MVOLTS 		0		// DAC output voltage limit
-		#define NUM_DAC_CHANNELS		(12U)
+		/** DAC output voltage limit*/
+		#define DAC_OUT_MAX_MVOLTS 		5000
+		/** DAC output voltage min */
+		#define DAC_OUT_MIN_MVOLTS 		0
+
+		/** Num of DAC channels in the device */
+		#define NUM_DAC_CHANNELS					(12U)
+
+		/** DAC reference supply */
+		#define C_AMC8172__DAC_VREF_VOLTS			(5.0F)
+
+		/** Total precision of the DAC */
+		#define C_AMC8172__DAC_PRECISION			(4096.0F)
+
+		/** Multiply volts by thsi value to get DAC units*/
+		#define C_AMC8172__DAC_SCALING_VALUE		(C_AMC8172__DAC_VREF_VOLTS / C_AMC8172__DAC_PRECISION)
 
 		// AMC7812 external control pins driven by RM48 N2HET1 and GIOA pins
 
@@ -90,34 +109,24 @@
 		} E_AMC7812_DAC_DATA_REG_ADDRESSES;
 
 
-		// States for the AMC7812 DAC state machine
-
+		/** States for the AMC7812 main state machine */
 		typedef enum
 		{
 
-			// do nothing
-			AMC7812_DAC_STATE__IDLE = 0U,
+			/** Rest state out of power up */
+			AMC7812_STATE__RESET = 0U,
 
-			// We are in an error condition
-			AMC7812_DAC_STATE__ERROR,
+			/** Idle, waiting for a command */
+			AMC7812_STATE__IDLE,
 
-			// init the device, force a reset
-			AMC7812_DAC_STATE__INIT_DEVICE,
+			/** Update the DAC Settings */
+			AMC7812_STATE__UPDATE_DAC,
 
-			// Read the constants from the device
-			AMC7812_DAC_STATE__START,
+			/** Some fault has occurred with the DAC
+			 * Stay in this state until its fixed */
+			AMC7812_STATE__FAULT,
 
-			// Waiting for the start of a conversion
-			AMC7812_DAC_STATE__WAITING,
-
-			// Issue the conversion command
-			AMC7812_DAC_STATE__SET_VOLTAGE,
-
-			// Wait for a number of processing loops to expire
-			AMC7812_DAC_STATE__WAIT_LOOPS,
-
-
-		} E_AMC7812_DAC_STATES_T;
+		}E_AMC7812__MNAIN_STATES_T;
 
 
 
@@ -126,12 +135,31 @@
 		Structures
 		*******************************************************************************/
 
-		struct _strAMC7812_DAC
+		/** Main DAC structure */
+		struct _strAMC7812
 		{
 
-			// the current state
+			/** The current state */
+			E_AMC7812__MNAIN_STATES_T eState;
 
-			E_AMC7812_DAC_STATES_T eState;
+			/** Top level fault handling structure */
+			FAULT_TREE__PUBLIC_T sFaultTree;
+
+			/** DAC Specific Structure */
+			struct
+			{
+
+				/** The requested output values for each DAC channel */
+				Luint16 u16DAC_OutputValue[NUM_DAC_CHANNELS];
+
+				/** Indicate that a new DAC value has been latched */
+				Luint8 u8NewValueLatched[NUM_DAC_CHANNELS];
+
+				/** For round robbin updates */
+				Luint8 u8UpdatePos;
+
+			}sDAC;
+#if 0
 
 			// counter for the number of main program loops
 
@@ -167,7 +195,7 @@
 			// DAC output scale factor
 
 			Lfloat32 f32ScaleFactor;
-
+#endif //0
 		};
 
 
@@ -177,6 +205,8 @@
 		*******************************************************************************/
 		void vAMC7812__Init(void);
 		void vAMC7812__Process(void);
+		void vAMC7182__DAC_SetVoltage(Luint8 u8Channel, Lfloat32 f32Voltage);
+		Luint32 u32AMC7812__Get_FaultFlags(void);
 		
 		//Lowlevel
 		void vAMC7812_LOWLEVEL__Init(void);
@@ -193,17 +223,16 @@
 		
 		//DAC
 		void vAMC7812_DAC__Init(void);
-		Luint16 vAMC7812_DAC__Process(void);
-		Lint16 s16AMC7812_DAC__SetPinVoltage(void);
+		void vAMC7812_DAC__Process(void);
+		void vAMC7182_DAC__DAC_UpdateVoltage(Luint8 u8Channel, Lfloat32 f32Voltage);
 
-		
 		//ADC
 		void vAMC7812_ADC__Init(void);
+		void vAMC7812_ADC__Process(void);
 		
 		//setup the GPIO
 		void vAMC7812_GPIO__Init(void);
 		void vAMC7812_GPIO__Process(void);
-		void vAMC7812_GPIO__Test(void);
 		
 	#endif //#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 	//safetys

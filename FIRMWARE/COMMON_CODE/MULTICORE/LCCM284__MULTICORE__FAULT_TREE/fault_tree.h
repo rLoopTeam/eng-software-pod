@@ -22,16 +22,19 @@
 		#error
 	#endif
 	#if C_LOCALDEF__LCCM284__ENABLE_THIS_MODULE == 1U
-
-		//Public types.
+		/*******************************************************************************
+		Includes
+		*******************************************************************************/
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
 
 
-		//function protos
-		void vFAULTTREE__Init(FAULT_TREE__PUBLIC_T * pFaultTree);
-		void vFAULTTREE__Set_Flag(FAULT_TREE__PUBLIC_T * pFaultTree, Luint32 u32FlagIndex);
-		void vFAULTTREE__Clear_Flag(FAULT_TREE__PUBLIC_T * pFaultTree, Luint32 u32FlagIndex);
-		Luint8 u8FAULTTREE__Get_Fault(const FAULT_TREE__PUBLIC_T * pFaultTree, Luint32 u32FlagIndex);
+		/*******************************************************************************
+		Function Protos
+		*******************************************************************************/
+		void vFAULTTREE__Init(FAULT_TREE__PUBLIC_T *pFaultTree);
+		void vFAULTTREE__Set_Flag(FAULT_TREE__PUBLIC_T *pFaultTree, Luint32 u32FlagIndex);
+		void vFAULTTREE__Clear_Flag(FAULT_TREE__PUBLIC_T *pFaultTree, Luint32 u32FlagIndex);
+		Luint8 u8FAULTTREE__Get_Fault(const FAULT_TREE__PUBLIC_T *pFaultTree, Luint32 u32FlagIndex);
 		
 
 		//testing
