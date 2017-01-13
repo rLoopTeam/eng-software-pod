@@ -85,11 +85,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 				vFCU_THROTTLE__Init();
 			#endif
 
-			//Init the AMC7812 DAC
-			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
-				vAMC7812__Init();
-			#endif
-
 			//init the ASI RS485 interface
 			#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
 				vFCU_ASI__Init();
@@ -98,11 +93,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			//init the acclerometer system
 			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 				vFCU_ACCEL__Init();
-			#endif
-
-			//setup the throttles
-			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
-				vFCU_THROTTLE__Init();
 			#endif
 
 			//laser opto's

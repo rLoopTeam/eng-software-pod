@@ -301,6 +301,23 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				#endif
 				break;
 
+
+			case NET_PKT__FCU_THROTTLE__ENABLE_DEV_MODE:
+				#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+					vFCU_THROTTLE_ETH__Enable_DevMode(u32Block[0], 0x77558833U);
+				#endif
+				break;
+
+			case NET_PKT__FCU_THROTTLE__SET_RAW_THROTTLE:
+				#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+					vFCU_THROTTLE_ETH__Set_Throttle((Luint8)u32Block[0], (Luint16)u32Block[1], (Luint8)u32Block[2]);
+				#endif
+				break;
+
+			case NET_PKT__FCU_THROTTLE__REQUEST_DATA:
+				sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_THROTTLE__TX_DATA;
+				break;
+
 			default:
 				//do nothing
 				break;

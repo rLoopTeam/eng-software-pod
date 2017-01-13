@@ -18,9 +18,6 @@
 
 #include "../fcu_core.h"
 
-//#include <MULTICORE/LCCM658__MULTICORE__AMC7812/amc7812.h>
-
-
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
 
@@ -69,12 +66,16 @@ static Luint16 u16InitThrottleCommand;
 void vFCU_THROTTLE__Init(void)
 {
 
+	//init the AMC devices
+	vAMC7812__Init();
+
 	//configure dev mode
 	sFCU.sThrottle.sDevMode.u32SecurityKey = 0U;
 	sFCU.sThrottle.sDevMode.u8Enabled = 0U;
 
 	vFAULTTREE__Init(&sFCU.sThrottle.sFaultFlags);
 
+#if 0
 	// initialize static variables
 
 	u16LastThrottleSetPoint = 0U;
@@ -104,6 +105,7 @@ void vFCU_THROTTLE__Init(void)
 	sFCU.sThrottle.u16maxRunModeStandbySpeed = HOVER_ENGINE_STANDBY_SPEED;
 
 	sFCU.sThrottle.u16throttleStartRampDuration = GS_THROTTLE_RAMP_DURATION;
+#endif //0
 
 }
 
@@ -113,7 +115,6 @@ void vFCU_THROTTLE__Init(void)
  * Process any Throttle tasks
  * 
  */
-// REQUIRED INPUTS: sFCU.sThrottle
 void vFCU_THROTTLE__Process(void)
 {
 #if 0
@@ -327,22 +328,7 @@ void vFCU_THROTTLE__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, Luint8 u8
 }
 
 
-//safetly switch on dev mode
-void vFCU_THROTTLE__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
-{
 
-	if(u32Key0 == 0x11223344U)
-	{
-		sFCU.sThrottle.sDevMode.u8Enabled = 1U;
-		sFCU.sThrottle.sDevMode.u32SecurityKey = 0x77558833U;
-	}
-	else
-	{
-		sFCU.sThrottle.sDevMode.u8Enabled = 0U;
-		sFCU.sThrottle.sDevMode.u32SecurityKey = 0U;
-	}
-
-}
 
 
 #if 0

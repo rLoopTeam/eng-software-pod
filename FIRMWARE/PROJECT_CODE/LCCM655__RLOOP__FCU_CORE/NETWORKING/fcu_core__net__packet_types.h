@@ -147,11 +147,17 @@
 		//FCU: THROTTLES (0x1500)
 		//////////////////////////////////////////////////////
 
+		/** Switch on Throttles dev mode */
+		NET_PKT__FCU_THROTTLE__ENABLE_DEV_MODE = 0x1500U,
+
+		/** Set the raw throttle value */
+		NET_PKT__FCU_THROTTLE__SET_RAW_THROTTLE = 0x1501U,
+
 		/** Request from the host to send the Throttle data */
-		NET_PKT__FCU_THROTTLE__REQUEST_DATA = 0x1500U,
+		NET_PKT__FCU_THROTTLE__REQUEST_DATA = 0x1502U,
 
 		/** FCU to Host, return Throttle data */
-		NET_PKT__FCU_THROTTLE__TX_DATA = 0x1501U,
+		NET_PKT__FCU_THROTTLE__TX_DATA = 0x1503U,
 
 
 		//////////////////////////////////////////////////////
