@@ -256,9 +256,9 @@ void vFCU_FLIGHTCTL_LASERORIENT__Process(void)
 			/** Calculate as many of the pods orientation parameters as possible based on the number of operational lasers */
 			if(u8OperationalCount == 2U)
 			{
-				vFCU_FLIGHTCTL_LASERORIENT__RecalcYaw();
+				vFCU_FLIGHTCTL_LASERORIENT__CalcYaw();
 
-				vFCU_FLIGHTCTL_LASERORIENT__RecalcLateral();
+				vFCU_FLIGHTCTL_LASERORIENT__CalcLateral();
 
 			}
 			else if(u8OperationalCount == 1U)
