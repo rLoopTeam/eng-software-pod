@@ -1011,17 +1011,13 @@
 		//throttle layer
 		void vFCU_THROTTLE__Init(void);
 		void vFCU_THROTTLE__Process(void);
-		Lint16 s16FCU_THROTTLE__Step_Command(void);
-		Lint16 s16FCU_THROTTLE__Ramp_Command(void);
-		Lint16 s16FCU_THROTTLE__Write_HEx_Throttle_Command_to_DAC(Luint16 u16ThrottleCommand, Luint8 u8EngineNumber);
-		Lint16 s16FCU_THROTTLE__Write_All_HE_Throttle_Commands_to_DAC(Luint16 u16ThrottleCommand);
-		Lint16 s16FCU_THROTTLE__Hold(void);
 		void vFCU_THROTTLE__100MS_ISR(void);
-		void vFCU_THROTTLE__GetGroundStationStructValues(void);
 
 			//eth
 			void vFCU_THROTTLE_ETH__Init(void);
 			void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType);
+			void vFCU_THROTTLE_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1);
+			void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, Luint8 u8RampType);
 
 		// AMC7812 DAC
 

@@ -19,7 +19,7 @@
 #include "../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
-#if C_LOCALDEF__LCCM655__ENABLE_THROTTLES == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 
 extern struct _strFCU sFCU;
@@ -58,7 +58,7 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	//setup length based on packet.
 	switch(ePacketType)
 	{
-		case NET_PKT__FCU_ASI__TX_ASI_DATA:
+		case NET_PKT__FCU_THROTTLE__TX_DATA:
 			u16Length = 24U;
 			break;
 
@@ -76,7 +76,7 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		//handle the packet
 		switch(ePacketType)
 		{
-			case NET_PKT__FCU_ASI__TX_ASI_DATA:
+			case NET_PKT__FCU_THROTTLE__TX_DATA:
 
 
 				//fault flags
@@ -105,6 +105,31 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 }
 
+
+//safetly switch on dev mode
+//Key1 = 0x77558833U
+void vFCU_THROTTLE_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
+{
+
+	if(u32Key0 == 0x11223344U)
+	{
+		sFCU.sThrottle.sDevMode.u8Enabled = 1U;
+		sFCU.sThrottle.sDevMode.u32SecurityKey = u32Key1;
+	}
+	else
+	{
+		sFCU.sThrottle.sDevMode.u8Enabled = 0U;
+		sFCU.sThrottle.sDevMode.u32SecurityKey = 0U;
+	}
+
+}
+
+
+void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, Luint8 u8RampType)
+{
+
+
+}
 
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_ETHERNET
