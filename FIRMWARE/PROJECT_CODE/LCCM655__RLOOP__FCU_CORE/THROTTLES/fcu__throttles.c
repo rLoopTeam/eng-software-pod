@@ -73,6 +73,8 @@ void vFCU_THROTTLE__Init(void)
 	sFCU.sThrottle.sDevMode.u32SecurityKey = 0U;
 	sFCU.sThrottle.sDevMode.u8Enabled = 0U;
 
+	vFAULTTREE__Init(&sFCU.sThrottle.sFaultFlags);
+
 	// initialize static variables
 
 	u16LastThrottleSetPoint = 0U;
@@ -114,7 +116,7 @@ void vFCU_THROTTLE__Init(void)
 // REQUIRED INPUTS: sFCU.sThrottle
 void vFCU_THROTTLE__Process(void)
 {
-
+#if 0
 	// variable declarations
 	Lint16 s16Return;
 	//Luint16 u16ThrottleCommands[9];
@@ -313,6 +315,7 @@ void vFCU_THROTTLE__Process(void)
 			break;
 
 	}	// end of switch()
+#endif //0
 
 }	// end of vFCU_THROTTLE__Process(...)
 
@@ -342,7 +345,7 @@ void vFCU_THROTTLE__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
 }
 
 
-
+#if 0
 
 // --- Writes throttle commands for a constant value ---
 
@@ -435,9 +438,10 @@ Lint16 s16FCU_THROTTLE__Step_Command(void)
 	return s16Return;
 
 }	// end of s16THROTTLE__Step_Command()
+#endif //0
 
 
-
+#if 0
 // --- Writes throttle command for a ramp function ---
 // Ramps up from the last commanded throttle value to u16ThrottleSetPoint over the duration contained in sFCU.sThrottle
 
@@ -567,9 +571,10 @@ Lint16 s16FCU_THROTTLE__Ramp_Command(void)
 	return s16Return;
 
 }	// end of s16THROTTLE__Ramp_Command(...)
+#endif //0
 
 
-
+#if 0
 
 // --- Write throttle commands for all HEs to the DAC  ---
 //   Normal return value is 0; returns the highest engine number of the writes that failed */
@@ -612,10 +617,10 @@ Lint16 s16FCU_THROTTLE__Write_All_HE_Throttle_Commands_to_DAC(Luint16 u16Throttl
 	return s16Return;
 
 }	// end of s16THROTTLE__Write_All_HE_Throttle_Commands_to_DAC(...)
+#endif //0
 
 
-
-
+#if 0
 
 // --- Write throttle command (in RPM) for HEx to the AMC7812 DAC over i2c ---
 
@@ -647,7 +652,9 @@ Lint16 s16FCU_THROTTLE__Write_HEx_Throttle_Command_to_DAC(Luint16 u16ThrottleCom
 
 }	// end of s16THROTTLE__Write_HEx_Throttle_Command_to_DAC(...)
 
+#endif //0
 
+#if 0
 
 // --- Hold function ---
 // May or may not be needed depending on whether the command has to be written to the DAC again at each update
@@ -659,7 +666,7 @@ Lint16 s16FCU_THROTTLE__Hold(void)
 
 	return s16Return;
 }
-
+#endif
 
 // Timer function, returns after 100 milliseconds
 
@@ -671,7 +678,7 @@ void vFCU_THROTTLE__100MS_ISR(void)
 
 }
 
-
+#if 0
 void vFCU_THROTTLE__GetGroundStationStructValues(void)
 {
 	// DUMMY FUNCTION FOR TEST PURPOSES
@@ -682,7 +689,7 @@ void vFCU_THROTTLE__GetGroundStationStructValues(void)
 	sFCU.sThrottle.u8EngineNumber = GS_ENGINE_NUMBER;
 
 }
-
+#endif //00
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_THROTTLE
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THROTTLE

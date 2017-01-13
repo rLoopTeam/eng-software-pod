@@ -292,6 +292,9 @@
 				/** Guard variable 1*/
 				Luint32 u32Guard1;
 
+				/** Pusher Fault Flags */
+				FAULT_TREE__PUBLIC_T sFaultFlags;
+
 				/** The pusher subsystem state machine */
 				E_FCU_PUSHER__STATES_T eState;
 
@@ -674,10 +677,13 @@
 			Luint32 u32Guard2;
 			
 			/** Input data for throttle layer */
-			// (added by @gsweriduk on 23 NOV 2016)
 			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
 			struct strThrottleInterfaceData
 			{
+
+				/** Throttle fault flags */
+				FAULT_TREE__PUBLIC_T sFaultFlags;
+
 				// Ground Station command
 				E_GS_COMMANDS eGS_Command;
 

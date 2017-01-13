@@ -78,7 +78,6 @@ Lint16 s16FCU_FLIGHTCTL_BRAKES__Brake_Lookup(Luint32 u32Veloc_mms, Luint32 u32Dr
 	Luint32 u32Veloc_ms;
 	Lint16 s16Return;
 	Luint32 u32LookupIndex;
-	Lfloat32 *pf32Data;
 	Lfloat32 f32DragPow3;
 	Lfloat32 f32DragPow2;
 	Lfloat32 f32Result;

@@ -42,9 +42,7 @@ void vFCU_BRAKES_MLP__Init(void)
 {
 
 	Luint8 u8Counter;
-	Luint32 u32Header;
 	Luint8 u8Test;
-
 
 	//loop through each brake.
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)

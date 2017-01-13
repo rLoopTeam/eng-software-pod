@@ -25,8 +25,7 @@
 #include "../amc7812.h"
 #if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 
-extern struct _strAMC7812_DAC strAMC7812_DAC;
-extern Luint8 u8DACOutputChannelAddr[NUM_DAC_CHANNELS];
+extern struct _strAMC7812 sAMC;
 
 /***************************************************************************//**
  * @brief
@@ -37,7 +36,19 @@ extern Luint8 u8DACOutputChannelAddr[NUM_DAC_CHANNELS];
  */
 void vAMC7812_DAC__Init(void)
 {
+	Luint8 u8Counter;
 
+	//clear the DAC chanels
+	for(u8Counter = 0U; u8Counter < NUM_DAC_CHANNELS; u8Counter++)
+	{
+		sAMC.sDAC.u16DAC_OutputValue[u8Counter] = 0U;
+		sAMC.sDAC.u8NewValueLatched[u8Counter] = 0U;
+	}
+	sAMC.sDAC.u8UpdatePos = 0U;
+
+
+
+#if 0
 	// structure init
 	strAMC7812_DAC.eState = AMC7812_DAC_STATE__INIT_DEVICE;
 	strAMC7812_DAC.u32LoopCounter = 0U;
@@ -60,12 +71,16 @@ void vAMC7812_DAC__Init(void)
 	u8DACOutputChannelAddr[10] = AMC7812_REG_ADR__DAC_10_DATA;
 	u8DACOutputChannelAddr[11] = AMC7812_REG_ADR__DAC_11_DATA;
 //
+#endif //0
+
 }
 
 
-Luint16 vAMC7812_DAC__Process(void)
+void vAMC7812_DAC__Process(void)
 {
 
+
+#if 0
 	// declarations
 
 	Luint8 u8ReturnVal;
@@ -82,7 +97,7 @@ Luint16 vAMC7812_DAC__Process(void)
 
 	switch(strAMC7812_DAC.eState)
 	{
-		case AMC7812_DAC_STATE__IDLE:
+		case AMC7812_STATE__IDLE:
 
 			s16Return = 0;
 			break;
@@ -248,7 +263,7 @@ Luint16 vAMC7812_DAC__Process(void)
 			{
 				// setup successful, change state
 
-				strAMC7812_DAC.eState = AMC7812_DAC_STATE__IDLE;
+				strAMC7812_DAC.eState = AMC7812_STATE__IDLE;
 			}
 			else
 			{
@@ -277,12 +292,63 @@ Luint16 vAMC7812_DAC__Process(void)
 
 	return s16Return;
 
-}	// end vAMC7812_DAC__Process(void)
+#endif //0
 
+}
+
+
+
+//update our internal voltage
+void vAMC7182_DAC__DAC_UpdateVoltage(Luint8 u8Channel, Lfloat32 f32Voltage)
+{
+	Lfloat32 f32Temp;
+	Luint16 u16Temp;
+
+	//make sure we are in range
+	if(u8Channel < NUM_DAC_CHANNELS)
+	{
+
+		//calc the new voltage
+		//The device is 0-5V = 0 - 2^12
+		f32Temp = f32Voltage;
+		f32Temp *= C_AMC8172__DAC_SCALING_VALUE;
+
+		//check the limits of the math
+		if(f32Temp < 0)
+		{
+			u16Temp = 0U;
+		}
+		else
+		{
+			//make sure we are not too large (causing a roll over)
+			if(f32Temp > 4095.0F)
+			{
+				u16Temp = 4095U;
+			}
+			else
+			{
+				//assign
+				u16Temp = (Luint16)f32Temp;
+			}
+
+		}
+
+		//update and flag it
+		sAMC.sDAC.u16DAC_OutputValue[u8Channel] = u16Temp;
+		sAMC.sDAC.u8NewValueLatched[u8Channel] = 1U;
+
+	}
+	else
+	{
+		//error
+		vFAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__00);
+		vFAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__01);
+	}
+}
 
 
 //--- Set the voltage of the specified pin for the given command and conversion factor (to millivolts) ---//
-
+#if 0
 Lint16 s16AMC7812_DAC__SetPinVoltage(void)
 {
 	// declarations
@@ -361,7 +427,7 @@ Lint16 s16AMC7812_DAC__SetPinVoltage(void)
 	{
 		// successful, change state
 
-		strAMC7812_DAC.eState = AMC7812_DAC_STATE__IDLE;
+		strAMC7812_DAC.eState = AMC7812_STATE__IDLE;
 	}
 	else
 	{
@@ -372,7 +438,7 @@ Lint16 s16AMC7812_DAC__SetPinVoltage(void)
 
 	return s16Return;
 }
-
+#endif //0
 
 
 #endif //#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U

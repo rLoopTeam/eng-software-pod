@@ -25,7 +25,7 @@
 #include "../amc7812.h"
 #if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 
-extern struct _strAMC7812_DAC strAMC7812_DAC;
+extern struct _strAMC7812 sAMC;
 
 #define LOOP_COUNTER_LIMIT		(10000000U)
 
@@ -47,6 +47,7 @@ void vAMC7812_GPIO__Init(void)
 void vAMC7812_GPIO__Process( void )
 {
 
+#if 0
 	// declarations
 
 	Luint8 u8GPIOState;
@@ -60,11 +61,13 @@ void vAMC7812_GPIO__Process( void )
 			break;
 
 	}
+#endif //0
+
 }
 
 
 
-
+#if 0
 void vAMC7812_GPIO__Test( void )
 {
 	// declarations
@@ -113,6 +116,7 @@ void vAMC7812_GPIO__Test( void )
 	s16Return = s16AMC7812_I2C__WriteU16(C_LOCALDEF__LCCM658__BUS_ADDX, u8GPIO_Addr, u16GPIO_BitField);
 
 }
+#endif
 
 
 #endif //#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
