@@ -350,7 +350,11 @@ Lfloat32 f32FCU_FLIGHTCTL_LASERORIENT__PointToPlaneDistance(Lfloat32 f32Position
 void vFCU_FLIGHTCTL_LASERORIENT__CalcRoll(void)
 {
 	//Normal vector of the other plane
-	Lfloat32 f32vec1x = 1, f32vec1y = 0, f32vec1z = 0;
+	Lfloat32 f32vec1x, f32vec1y, f32vec1z;
+
+	f32vec1x = 1;
+	f32vec1y = 0;
+	f32vec1z = 0;
 
 	//Angle between two planes
 	sFCU.sFlightControl.sOrient.s16Roll = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((double)((f32vec1x * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C]) / sqrt((double)(sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig; todo kill use of double; todo swap out sqrt
@@ -361,7 +365,11 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalcRoll(void)
 void vFCU_FLIGHTCTL_LASERORIENT__CalcPitch(void)
 {
 	//Normal vector of the other plane
-	Lfloat32 f32vec1x = 0, f32vec1y = 1, f32vec1z = 0;
+	Lfloat32 f32vec1x, f32vec1y, f32vec1z;
+
+	f32vec1x = 0;
+	f32vec1y = 1;
+	f32vec1z = 0;
 
 	//Angle between two planes
 	sFCU.sFlightControl.sOrient.s16Pitch = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((double)((f32vec1x * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C]) / sqrt((double)(sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig; todo kill use of double; todo swap out sqrt
@@ -372,7 +380,11 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalcPitch(void)
 void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistRoll(void)
 {
 	//Normal vector of the other plane
-	Lfloat32 f32vec1x = 1, f32vec1y = 0, f32vec1z = 0;
+	Lfloat32 f32vec1x, f32vec1y, f32vec1z;
+
+	f32vec1x = 1;
+	f32vec1y = 0;
+	f32vec1z = 0;
 
 	//Angle between two planes
 	sFCU.sFlightControl.sOrient.s16TwistRoll = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((double)((f32vec1x * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C]) / sqrt((double)(sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig; todo kill use of double; todo swap out sqrt
@@ -385,7 +397,11 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistRoll(void)
 void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistPitch(void)
 {
 	//Normal vector of the other plane
-	Lfloat32 f32vec1x = 0, f32vec1y = 1, f32vec1z = 0;
+	Lfloat32 f32vec1x, f32vec1y, f32vec1z;
+
+	f32vec1x = 0;
+	f32vec1y = 1;
+	f32vec1z = 0;
 
 	//Angle between two planes
 	sFCU.sFlightControl.sOrient.s16TwistPitch = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((double)((f32vec1x * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C]) / sqrt((double)(sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig; todo kill use of double; todo swap out sqrt
