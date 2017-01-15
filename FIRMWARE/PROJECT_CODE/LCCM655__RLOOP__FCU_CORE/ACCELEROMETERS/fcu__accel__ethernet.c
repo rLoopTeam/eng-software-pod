@@ -12,7 +12,7 @@
  * @ingroup RLOOP
  * @{ */
 /**
- * @addtogroup FCU__ACCELEROMETER_ETHERNET
+ * @addtogroup FCU__ACCEL__ETHERNET
  * @ingroup FCU
  * @{ */
 
@@ -22,6 +22,13 @@
 #if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 
+/***************************************************************************//**
+ * @brief
+ * Init the eth portion
+ * 
+ * @st_funcMD5		DFD2C95E0ADE8C13D321AAD24CC70B80
+ * @st_funcID		LCCM655R0.FILE.030.FUNC.002
+ */
 void vFCU_ACCEL_ETH__Init(void)
 {
 
@@ -32,7 +39,7 @@ void vFCU_ACCEL_ETH__Init(void)
  * Transmit acceleration data over ethernet
  *
  * @param[in]		u16PacketType			The type of packet to transmit
- * @st_funcMD5		AB416F610D4E76B752441C6F06EB605A
+ * @st_funcMD5		046162A3C842B5C1A2E1B398C25E8C1C
  * @st_funcID		LCCM655R0.FILE.030.FUNC.001
  */
 void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)

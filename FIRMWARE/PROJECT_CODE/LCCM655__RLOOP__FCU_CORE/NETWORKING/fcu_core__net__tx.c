@@ -26,7 +26,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init any network transmission stuff
  * 
- * @st_funcMD5		ABD3145988312367E93F1F22D96F7A42
+ * @st_funcMD5		3020F529A976A8387FE2B8C35E80C91D
  * @st_funcID		LCCM655R0.FILE.019.FUNC.001
  */
 void vFCU_NET_TX__Init(void)
@@ -49,7 +49,7 @@ void vFCU_NET_TX__Init(void)
  * @brief
  * Process network transmission and do any transmission as required.
  * 
- * @st_funcMD5		CC51B5F1A0B55EC4C0976DE4FB083F76
+ * @st_funcMD5		37C4BC3B2C7CC19B1CE1E6EFAAF8E3D4
  * @st_funcID		LCCM655R0.FILE.019.FUNC.002
  */
 void vFCU_NET_TX__Process(void)
@@ -195,7 +195,7 @@ void vFCU_NET_TX__Process(void)
  * To be called from the 10ms timer routine
  * Sets a flag to allow this module to determine that 10ms has elapsed
  * 
- * @st_funcMD5		3A00D72EA0E8E8896C26BBDFA0E4F006
+ * @st_funcMD5		122D15F22532184854938AF8E7E5104D
  * @st_funcID		LCCM655R0.FILE.019.FUNC.003
  */
 void vFCU_NET_TX__10MS_ISR(void)

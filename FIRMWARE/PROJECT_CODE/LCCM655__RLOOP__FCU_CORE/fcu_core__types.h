@@ -2,6 +2,17 @@
 #ifndef RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__TYPES_H_
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__TYPES_H_
 
+	/** Throttle control types */
+	typedef enum
+	{
+		/** Step response */
+		THROTTLE_TYPE__STEP = 0U,
+
+		/** Ramp type response */
+		THROTTLE_TYPE__RAMP = 1U
+
+	}E_THROTTLE_CTRL_T;
+
 	/** ASI communication (modbus client) states */
 	typedef enum
 	{
@@ -22,6 +33,26 @@
 
 	} E_FCU_MODBUS__STATE_T;
 
+	/** Scanning states for ASI */
+	typedef enum
+	{
+		/** We are doing nothing */
+		ASI_STATE__IDLE = 0U,
+
+		/** Set the MUX to the device we want to read */
+		ASI_STATE__CONFIG_MUX,
+
+		/** Issue a command to the ASI */
+		ASI_STATE__ISSUE_COMMAND,
+
+		/** Wait until the recent issued command is complete */
+		ASI_STATE__WAIT_COMMAND_COMPLETE,
+
+
+		/** Change to the next scanning address */
+		ASI_STATE__INC_SCAN_INDEX
+
+	}E_FCU__ASI_STATE_T;
 
 
 	/** Mission Phase Types */

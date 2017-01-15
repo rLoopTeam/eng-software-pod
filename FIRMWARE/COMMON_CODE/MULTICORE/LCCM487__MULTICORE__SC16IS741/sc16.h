@@ -130,15 +130,15 @@
 				//test varible
 				Luint16 u16test;
 
-
+				/** Raw SPI Rx */
 				struct
 				{
 
-					//the FIFO
+					/** The software FIFO to manage reception */
 					SOFTWARE_FIFO__USER_T	sSPIFIFO;
 
+					/** Rx'd characters */
 					Luint8 u8Character[C_SC16__MAX_RAW_SPI_FIFO_DEPTH];
-
 
 				}sRawSPI_FIFO;
 
@@ -246,6 +246,7 @@
 		#ifdef WIN32
 			DLL_DECLARATION void vSC16IS_WIN32__Set_TxData_Callback(Luint8 u8DeviceIndex, pSC16IS_WIN32_TxData_Callback_FuncType pFunc);
 			void vSC16IS_WIN32__TxData(Luint8 u8DeviceIndex, Luint8 *pu8Data, Luint8 u8Length);
+			DLL_DECLARATION void vSC16IS_WIN32__InjectData(Luint8 u8DeviceIndex, Luint8 *pu8Data, Luint8 u8Length);
 		#endif
 
 		//testing

@@ -234,6 +234,12 @@
 		void vAMC7812_GPIO__Init(void);
 		void vAMC7812_GPIO__Process(void);
 		
+		#ifdef WIN32
+			typedef void (__cdecl * pAMC7812_WIN32__DACVoltsCallback_FuncType)(Luint8 u8Channel, Lfloat32 f32Volts);
+			DLL_DECLARATION void vAMC7812_WIN32__Set_DACVoltsCallback(pAMC7812_WIN32__DACVoltsCallback_FuncType pFunc);
+			void vAMC7182_WIN32__DAC_SetVolage(Luint8 u8Channel, Lfloat32 f32Volts);
+		#endif
+
 	#endif //#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 	//safetys
 	#ifndef C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE

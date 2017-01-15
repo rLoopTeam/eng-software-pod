@@ -92,6 +92,16 @@ Public Class Form1
     End Sub
     <System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Public Delegate Sub SC16IS_WIN32__Set_TxData_CallbackDelegate(u8DeviceIndex As Byte, pu8Data As IntPtr, u8Length As Byte)
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Shared Sub vSC16IS_WIN32__InjectData(u8DeviceIndex As Byte, pu8Data() As Byte, u8Length As Byte)
+    End Sub
+
+    'AMC7812 for HE Thrott
+    <System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Delegate Sub AMC7812_WIN32__Set_DACVoltsCallbackDelegate(u8Channel As Byte, f32Volts As Single)
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Shared Sub vAMC7812_WIN32__Set_DACVoltsCallback(ByVal callback As MulticastDelegate)
+    End Sub
 
 
 #End Region '#Region "WIN32/DEBUG"
@@ -156,8 +166,13 @@ Public Class Form1
     Private Shared Sub vFCU_BRAKES_MLP_WIN32__ForceADC(u8Brake As Byte, u16Value As UInt16)
     End Sub
 
-
-
+    'ASI
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Function u8FCU_ASI_MUX_WIN32__Get() As Byte
+    End Function
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Function u16FCU_ASI_CRC__ComputeCRC(pu8Data() As Byte, u16DataLen As UInt16) As UInt16
+    End Function
 
     'Testing Area
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
@@ -229,7 +244,10 @@ Public Class Form1
     ''' </summary>
     Private m_pSC16_TxData__Delegate As SC16IS_WIN32__Set_TxData_CallbackDelegate
 
-
+    ''' <summary>
+    ''' When the DAC voltage is updated.
+    ''' </summary>
+    Private m_pAMC7812_DACVolts__Delegate As AMC7812_WIN32__Set_DACVoltsCallbackDelegate
 
     ''' <summary>
     ''' The thread to run our DLL in
@@ -260,6 +278,7 @@ Public Class Form1
 
     Private m_txtBrakeL_Pos As TextBox
     Private m_txtBrakeR_Pos As TextBox
+    Private m_txtASI_Volts() As TextBox
 
 #Region "SENSOR SIM VALUES"
 
@@ -338,8 +357,6 @@ Public Class Form1
         Dim l2(6 - 1) As Label
         ReDim Me.m_txtLaserOpto(6 - 1)
         For iCounter As Integer = 0 To 6 - 1
-
-
             If iCounter = 0 Then
                 l2(iCounter) = New Label
                 With l2(iCounter)
@@ -398,6 +415,40 @@ Public Class Form1
         End With
         pP.Controls.Add(Me.m_txtBrakeR_Pos)
 
+
+        Dim l5(C_NUM__ASI - 1) As Label
+        ReDim Me.m_txtASI_Volts(C_NUM__ASI - 1)
+        For iCounter As Integer = 0 To 6 - 1
+            If iCounter = 0 Then
+                l5(iCounter) = New Label
+                With l5(iCounter)
+                    .Location = New Point(10, Me.m_txtBrakeL_Pos.Top + pB1.Height + 20)
+                    .Text = "ASI:" & iCounter.ToString & " - Volts"
+                    .AutoSize = True
+                End With
+            Else
+                l5(iCounter) = New Label
+                With l5(iCounter)
+                    .Location = New Point(Me.m_txtASI_Volts(iCounter - 1).Left + Me.m_txtASI_Volts(iCounter - 1).Width + 20, l5(iCounter - 1).Top)
+                    .Text = "ASI:" & iCounter.ToString & " - Volts"
+                    .AutoSize = True
+                End With
+            End If
+            pP.Controls.Add(l5(iCounter))
+
+            Me.m_txtASI_Volts(iCounter) = New TextBox
+            With Me.m_txtASI_Volts(iCounter)
+                .Location = New Point(l5(iCounter).Left, l5(iCounter).Top + l5(iCounter).Height + 0)
+                .Size = New Size(100, 24)
+                .Text = "0.0"
+                .Tag = iCounter.ToString
+            End With
+            pP.Controls.Add(Me.m_txtASI_Volts(iCounter))
+
+        Next ' For iCounter As Integer = 0 To 6 - 1
+
+
+
         'create a logging box
         Me.m_txtOutput = New TextBox
         With Me.m_txtOutput
@@ -446,6 +497,7 @@ Public Class Form1
         ReDim Me.m_pASI(C_NUM__ASI)
         For iCounter As Integer = 0 To C_NUM__ASI - 1
             Me.m_pASI(iCounter) = New ASIController()
+            AddHandler Me.m_pASI(iCounter).Tx_RS485, AddressOf Me.ASI_Tx_RS485
         Next
 
 
@@ -473,6 +525,8 @@ Public Class Form1
             vSC16IS_WIN32__Set_TxData_Callback(iCounter, Me.m_pSC16_TxData__Delegate)
         Next
 
+        Me.m_pAMC7812_DACVolts__Delegate = AddressOf Me.AMC7182_DAC__SetVolts
+        vAMC7812_WIN32__Set_DACVoltsCallback(Me.m_pAMC7812_DACVolts__Delegate)
 
         'do the threading
         Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
@@ -1051,9 +1105,7 @@ Public Class Form1
                 sMLP /= 75.0
                 'down to 75% of that again to add some head room
                 sMLP *= 0.75
-                'add 10% for the bottom bit
-                'sMLP += 0.1
-                'conver to ADC values
+                'convert to ADC values
                 sMLP *= (2 ^ 12)
 
 
@@ -1130,39 +1182,192 @@ Public Class Form1
                 'Fwd Laser
             Case 7
                 'ASI Controller Network
+                'determine what ASI was configured last
+                Dim iIndex As Integer = u8FCU_ASI_MUX_WIN32__Get()
+
+                'copy bytes into that ASI
+                For iCounter As Integer = 0 To u8Length - 1
+                    Me.m_pASI(iIndex).Byte_In(pu8Array(iCounter))
+                Next
 
         End Select
     End Sub
 
-#End Region
+#End Region '#Region "SC16IS"
+
+#Region "AMC7812 DAC"
+    ''' <summary>
+    ''' The DAC has updated us with its volts
+    ''' </summary>
+    ''' <param name="u8Channel"></param>
+    ''' <param name="f32Value"></param>
+    Private Sub AMC7182_DAC__SetVolts(u8Channel As Byte, f32Value As Single)
+        'tell our ASI about it.
+        Me.m_pASI(u8Channel).Voltage__Update(f32Value)
+        Me.Threadsafe__SetText(Me.m_txtASI_Volts(u8Channel), f32Value.ToString("0.000"))
+    End Sub
+
+#End Region '#Region "AMC7812 DAC"
+
+#Region "ASI"
+    ''' <summary>
+    ''' ASI wants to transmit
+    ''' </summary>
+    ''' <param name="u8Array"></param>
+    ''' <param name="iLength"></param>
+    Private Sub ASI_Tx_RS485(u8Array() As Byte, iLength As Integer)
+
+        'Inject into SC16
+        vSC16IS_WIN32__InjectData(7, u8Array, iLength)
+    End Sub
+#End Region '#Region "ASI"
 
 End Class
 
 
 
-
+''' <summary>
+''' Mock ASI controller interface
+''' </summary>
 Public Class ASIController
 
+#Region "DLL"
+    Private Const C_DLL_NAME As String = "..\..\..\PROJECT_CODE\DLLS\LDLL174__RLOOP__LCCM655\bin\Debug\LDLL174__RLOOP__LCCM655.dll"
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Function u16FCU_ASI_CRC__ComputeCRC(pu8Data() As Byte, u16DataLen As UInt16) As UInt16
+    End Function
+
+#End Region '#Region "DLL"
+
 #Region "MEMBERS"
+
+    ''' <summary>
+    ''' The count of Rx Bytes
+    ''' </summary>
     Private m_iRxCount As Integer
+
+    ''' <summary>
+    ''' Holding array for Rx bytes
+    ''' </summary>
     Private m_bRxArray() As Byte
-#End Region
+
+    ''' <summary>
+    ''' Transmit return array
+    ''' </summary>
+    Private m_bTxArray() As Byte
+
+    ''' <summary>
+    ''' Our internal voltage which is the RPM
+    ''' </summary>
+    Private m_f32Volts As Single
+
+    ''' <summary>
+    ''' The fault register
+    ''' </summary>
+    Private m_u16Reg__Faults As SIL3.Numerical.U16
+
+#End Region '#Region "MEMBERS"
 
 #Region "NEW"
+
+    ''' <summary>
+    ''' New instance
+    ''' </summary>
     Public Sub New()
-        ReDim Me.m_bRxArray(7 - 1)
+        'init
+        ReDim Me.m_bRxArray(8 - 1)
+        ReDim Me.m_bTxArray(7 - 1)
+
+        'set some values
+        Me.m_u16Reg__Faults = New SIL3.Numerical.U16(0)
     End Sub
-#End Region
+
+#End Region '#Region "NEW"
+
+#Region "EVENTS"
+
+    ''' <summary>
+    ''' Called when we want to Tx a packet
+    ''' </summary>
+    ''' <param name="u8Array"></param>
+    ''' <param name="iLength"></param>
+    Public Event Tx_RS485(u8Array() As Byte, iLength As Integer)
+#End Region '#Region "EVENTS"
 
 #Region "RX"
-
+    ''' <summary>
+    ''' Rx some new byte of data for the ASI
+    ''' </summary>
+    ''' <param name="u8Value"></param>
     Public Sub Byte_In(u8Value As Byte)
         Me.m_bRxArray(Me.m_iRxCount) = u8Value
         Me.m_iRxCount += 1
 
+        'handle the processing
+        If Me.m_iRxCount = 8 Then
+
+            'do the processing
+            Select Case m_bRxArray(0)
+                Case &H1
+                    'slave addx 01
+
+                    Select Case m_bRxArray(1)
+                        Case &H3
+                            'read holding registers
+
+                            'reg addx h,l
+                            Dim u16Reg As New SIL3.Numerical.U16(Me.m_bRxArray(2), Me.m_bRxArray(3))
+
+                            'num regs, hl,
+                            Dim u16Num As New SIL3.Numerical.U16(Me.m_bRxArray(4), Me.m_bRxArray(5))
+                            'crc h,l
+                            Dim u16CRC As New SIL3.Numerical.U16(Me.m_bRxArray(6), Me.m_bRxArray(7))
+
+                            Select Case u16Reg.To__Int
+                                Case &H102
+                                    'faults
+
+                                    'gen our return array
+                                    'id
+                                    Me.m_bTxArray(0) = Me.m_bRxArray(0)
+                                    'read holding regs
+                                    Me.m_bTxArray(1) = 3
+                                    'num *2
+                                    Me.m_bTxArray(2) = 1 * 2
+                                    'reg value
+                                    Me.m_u16Reg__Faults.To__Array(Me.m_bTxArray, 3)
+                                    'crc
+                                    Dim u16Temp As UInt16
+                                    u16Temp = u16FCU_ASI_CRC__ComputeCRC(Me.m_bTxArray, 7 - 2)
+
+                                    Dim pu16 As New SIL3.Numerical.U16(u16Temp)
+                                    pu16.To__Array(Me.m_bTxArray, 5)
+
+                                    'transmit it
+                                    RaiseEvent Tx_RS485(Me.m_bTxArray, 7)
+                            End Select
+
+                    End Select
+
+            End Select
+
+            'done with it now
+            Me.m_iRxCount = 0
+        End If
 
     End Sub
 
-#End Region
+#End Region '#Region "RX"
+
+#Region "VOLTAGE / THROTTLE"
+    ''' <summary>
+    ''' Update our voltage.
+    ''' </summary>
+    ''' <param name="f32Voltage"></param>
+    Public Sub Voltage__Update(f32Voltage As Single)
+        Me.m_f32Volts = f32Voltage
+    End Sub
+
+#End Region '#Region "VOLTAGE / THROTTLE"
 
 End Class

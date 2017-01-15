@@ -32,39 +32,39 @@ extern struct _strFCU sFCU;
  * @param[in]		u16DataLen				Length of data
  * @param[in]		*pu8Data				framedParameter
  * @return			The returned CRC
- * @st_funcMD5		05528F06BBCE33A1BDD3D45F7ADDEA6E
+ * @st_funcMD5		1A886073C42670B6EB758BA78DF610D9
  * @st_funcID		LCCM655R0.FILE.071.FUNC.001
  */
 Luint16 u16FCU_ASI_CRC__ComputeCRC(Luint8 *pu8Data, Luint16 u16DataLen)
 {
 	Luint16 u16CRC;
-	Luint16 u16TempCRC;
-	Luint8 u8TempLSB;
 	Luint8 u8Flag;
 	Luint16 u16ByteIndex;
 	Luint8 u8BitIndex;
+
+	//CRC-16 (Modbus)	0x4B37
 
 	//init
 	u16CRC = 0xFFFFU;
 
 	if(pu8Data != 0x00000000)
 	{
-		for(u16ByteIndex = 0; u16ByteIndex < u16DataLen - 2U; u16ByteIndex++)
+		for(u16ByteIndex = 0; u16ByteIndex < u16DataLen; u16ByteIndex++)
 		{
-			u8TempLSB = 0x00FF & u16CRC;
 
-			u16CRC = u8TempLSB ^ pu8Data[u16ByteIndex];
+			u16CRC ^= (Luint16)pu8Data[u16ByteIndex];
 
-			for(u8BitIndex = 0; u8BitIndex < 8U; u8BitIndex++)
+			for(u8BitIndex = 8U; u8BitIndex != 0U; u8BitIndex--)
 			{
-				u16TempCRC = u16CRC;
+				//get the LSB
+				u8Flag = (Luint8)(u16CRC & 0x0001U);
 
-				u8Flag = u16TempCRC & 0x0001U;
-
+				//do the shift anyhow
 				u16CRC = u16CRC >> 1U;
 
 				if(u8Flag != 0x00U)
 				{
+					//if the bit ise set, XOR 0xA001
 					u16CRC = u16CRC ^ 0xA001U;
 				}
 				else
@@ -88,7 +88,7 @@ Luint16 u16FCU_ASI_CRC__ComputeCRC(Luint8 *pu8Data, Luint16 u16DataLen)
  * Add CRC to modbus command frame
  * 
  * @param[in]		*pu8Data				framedParameter
- * @st_funcMD5		8ACCAE552F9F545DBB5F8093372A0D04
+ * @st_funcMD5		4D34D4511E1A72D73DC7388166186BAF
  * @st_funcID		LCCM655R0.FILE.071.FUNC.002
  */
 void vFCU_ASI_CRC__AddCRC(Luint8 *pu8Data)
@@ -97,7 +97,8 @@ void vFCU_ASI_CRC__AddCRC(Luint8 *pu8Data)
 
 	if(pu8Data != 0x00000000U)
 	{
-		u16CRC = u16FCU_ASI_CRC__ComputeCRC(pu8Data, C_ASI__RW_FRAME_SIZE);
+		//only compute the CRC over the 6 bytes
+		u16CRC = u16FCU_ASI_CRC__ComputeCRC(pu8Data, C_ASI__RW_FRAME_SIZE - 2U);
 
 		// lower crc byte
 		pu8Data[6]= (Luint8)(u16CRC & 0x00FFU);
@@ -115,16 +116,10 @@ void vFCU_ASI_CRC__AddCRC(Luint8 *pu8Data)
  * @brief
  * Check CRC from ASI device response
  *
- * @param[in]	rData		Response Data
- * @return			-1 = error
+ * @param[in]		u8DataLen				Length of data
+ * @param[in]		*pu8Data				Pointer to payload
+ * @return			-1 = error\n
  * 					0 = success
- */
-/***************************************************************************//**
- * @brief
- * ToDo
- * 
- * @param[in]		u8DataLen		## Desc ##
- * @param[in]		*pu8Data		## Desc ##
  * @st_funcMD5		3B9AF9CEEF213072301C15272C0EBDFC
  * @st_funcID		LCCM655R0.FILE.071.FUNC.003
  */
@@ -132,8 +127,6 @@ Lint16 s16FCU_ASI_CRC__CheckCRC(Luint8 *pu8Data, Luint8 u8DataLen)
 {
 	Luint16 u16CRC;
 	Lint16 s16Return;
-
-
 
 	if(pu8Data != 0x00000000U)
 	{

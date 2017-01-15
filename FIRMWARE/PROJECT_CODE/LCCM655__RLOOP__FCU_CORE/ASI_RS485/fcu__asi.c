@@ -30,6 +30,8 @@ void vFCU_ASI__BuildCmdFrame(struct _strASICmd *pCmd);
 Lint16 s16FCU_ASI__ProcessError(struct _strASICmd *pCmd);
 void vFCU_ASI__SetErr(struct _strASICmd *pCmd);
 void vFCU_ASI__MemCopy(Luint8 *pu8Dest, const Luint8 *cpu8Source, Luint32 u32Length);
+Lint16 s16FCU_ASI__SendCommand(void);
+Lint16 s16FCU_ASI__ProcessReply(void);
 
 
 /***************************************************************************//**
@@ -41,10 +43,16 @@ void vFCU_ASI__Init(void)
 {
 	Lint16 s16Return;
 
-	vFAULTTREE__Init(&sFCU.sASIComms.sFaultFlags);
+	vFAULTTREE__Init(&sFCU.sASI.sFaultFlags);
 
-	sFCU.sASIComms.u32Guard1 = 0xABCDABCDU;
-	sFCU.sASIComms.u32Guard2 = 0x11223344U;
+	sFCU.sASI.u32Guard1 = 0xABCDABCDU;
+	sFCU.sASI.u32Guard2 = 0x11223344U;
+
+	sFCU.sASI.eMainState = ASI_STATE__IDLE;
+	sFCU.sASI.u8ScanIndex = 0U;
+	sFCU.sASI.u810MS_Timer = 0U;
+	sFCU.sASI.u8NewCommandToSend = 0U;
+	sFCU.sASI.u8RxCount = 0U;
 
 	//configure the multiplexer
 	vFCU_ASI_MUX__Init();
@@ -52,18 +60,16 @@ void vFCU_ASI__Init(void)
 	//eth layer
 	vFCU_ASI_ETH__Init();
 
-	//todo: check we need this.
-	vFCU_ASI__MemSet((Luint8 *)&sFCU.sASIComms, 0, (Luint32)sizeof(sFCU.sASIComms));
 
 	//Note:
 	//SC16's are already configured here with correct baud rate./
 
-	sFCU.sASIComms.u32ASI_turnaround_Counter = 0;
-	sFCU.sASIComms.u32ASI_replywait_Counter = 0;
+	sFCU.sASI.u32ASI_turnaround_Counter = 0;
+	sFCU.sASI.u32ASI_replywait_Counter = 0;
 
 
 	// initialize all slaves
-	s16Return = s16FCU_ASI_CTRL__Init();
+	//s16Return = s16FCU_ASI_CTRL__Init();
 }
 
 
@@ -78,11 +84,11 @@ void vFCU_ASI__Process(void)
 	Luint8 u8ByteIndex;
 	Lint16 s16Return;
 
-	if(sFCU.sASIComms.u32Guard1 != 0xABCDABCDU)
+	if(sFCU.sASI.u32Guard1 != 0xABCDABCDU)
 	{
 
 	}
-	if(sFCU.sASIComms.u32Guard2 != 0x11223344U)
+	if(sFCU.sASI.u32Guard2 != 0x11223344U)
 	{
 
 	}
@@ -90,39 +96,109 @@ void vFCU_ASI__Process(void)
 	//handle the mux
 	vFCU_ASI_MUX__Process();
 
+	//handle the main state machine
+	switch(sFCU.sASI.eMainState)
+	{
+		case ASI_STATE__IDLE:
+
+			if(sFCU.sASI.u810MS_Timer > 5U)
+			{
+				//change to send a command
+				sFCU.sASI.eMainState = ASI_STATE__CONFIG_MUX;
+
+				//clear the timer
+				sFCU.sASI.u810MS_Timer = 0U;
+			}
+			else
+			{
+				//stay in state
+			}
+
+			break;
+
+		case ASI_STATE__CONFIG_MUX:
+			//setup the channel mux to our current channel
+			vFCU_ASI_MUX__SelectChannel(sFCU.sASI.u8ScanIndex);
+
+			//start issuing commands
+			sFCU.sASI.eMainState = ASI_STATE__ISSUE_COMMAND;
+			break;
+
+		case ASI_STATE__ISSUE_COMMAND:
+
+			//format the command
+			sFCU.sASI.sCurrentCommand.u8SlaveAddress = C_ASI__DEFAULT_SLAVE_ADDX;
+			sFCU.sASI.sCurrentCommand.eFunctionCode = FUNCTION_CODE__READ_HOLDING_REGS;
+			sFCU.sASI.sCurrentCommand.eObjectType = C_FCU_ASI__FAULTS;
+			sFCU.sASI.sCurrentCommand.u16ParamValue = 1;	// we just want to read one register
+			sFCU.sASI.sCurrentCommand.eDestVarType = E_UINT16;
+
+			s16Return = s16FCU_ASI__SendCommand();
+			sFCU.sASI.eMainState = ASI_STATE__WAIT_COMMAND_COMPLETE;
+			break;
+
+		case ASI_STATE__WAIT_COMMAND_COMPLETE:
+
+			break;
+
+		case ASI_STATE__INC_SCAN_INDEX:
+
+			if(sFCU.sASI.u8ScanIndex < C_FCU__NUM_HOVER_ENGINES - 1)
+			{
+				//move to the next scan index
+				sFCU.sASI.u8ScanIndex++;
+			}
+			else
+			{
+				//clear it
+				sFCU.sASI.u8ScanIndex = 0U;
+			}
+			break;
+
+		default:
+			//issues
+			break;
+	}
+
 	// modbus over serial line state machine
-	switch(sFCU.sASIComms.eMbState)
+	switch(sFCU.sASI.eModBusState)
 	{
 		case ASI_COMM_STATE__IDLE:
 
 			// see if we have a command to transmit in the queue
-			if(sFCU.sASIComms.cmdToProcess)
+			if(sFCU.sASI.u8NewCommandToSend == 1U)
 			{
-				// transmit
-				vSC16__Tx_ByteArray(C_FCU__SC16_ASI_INDEX, (Luint8*)&sFCU.sASIComms.cmd.framedCmd, C_ASI__RW_FRAME_SIZE);
+				//transmit, the command is small so can burst out in one hit.
+				vSC16__Tx_ByteArray(C_FCU__SC16_ASI_INDEX, (Luint8*)&sFCU.sASI.sCurrentCommand.framedCmd, C_ASI__RW_FRAME_SIZE);
 
+				//clear the Rx count
+				sFCU.sASI.u8RxCount = 0U;
 
-				if (sFCU.sASIComms.cmd.u8SlaveAddress == 0)
+				if (sFCU.sASI.sCurrentCommand.u8SlaveAddress == 0)
 				{
 					// we have a broadcast command, start turn around timer
-					sFCU.sASIComms.u32ASI_turnaround_Counter  = 0;
-					sFCU.sASIComms.eMbState = ASI_COMM_STATE__WAIT_TURNAROUND_DELAY;
+					sFCU.sASI.u32ASI_turnaround_Counter  = 0;
+					sFCU.sASI.eModBusState = ASI_COMM_STATE__WAIT_TURNAROUND_DELAY;
 				}
 				else
 				{
 					// we have a unicast command, start reply wait timer
-					sFCU.sASIComms.u32ASI_replywait_Counter = 0;
-					sFCU.sASIComms.eMbState = ASI_COMM_STATE__WAIT_REPLY;
+					sFCU.sASI.u32ASI_replywait_Counter = 0;
+					sFCU.sASI.eModBusState = ASI_COMM_STATE__WAIT_REPLY;
 				}
+			}
+			else
+			{
+				//wait here
 			}
 			break;
 
 		case ASI_COMM_STATE__WAIT_TURNAROUND_DELAY:
 			// sent broadcast, wait for slaves to process
-			if (sFCU.sASIComms.u32ASI_turnaround_Counter > C_ASI__MAX_TURNAROUND_DELAY)
+			if (sFCU.sASI.u32ASI_turnaround_Counter > C_ASI__MAX_TURNAROUND_DELAY)
 			{
-				sFCU.sASIComms.cmdToProcess = 0;
-				sFCU.sASIComms.eMbState = ASI_COMM_STATE__IDLE;
+				sFCU.sASI.u8NewCommandToSend = 0;
+				sFCU.sASI.eModBusState = ASI_COMM_STATE__IDLE;
 			}
 			else
 			{
@@ -131,72 +207,64 @@ void vFCU_ASI__Process(void)
 			break;
 
 		case ASI_COMM_STATE__WAIT_REPLY:
+
 			// see if we have a reply
-#ifdef C_ASI__SW_TEST
-			// simulate a fake response
-			u8Temp = 1U;
-#else
 			u8Temp = u8SC16_USER__Get_ByteAvail(C_FCU__SC16_ASI_INDEX);
-#endif
 			if(u8Temp == 0U)
 			{
 				// no response yet
 				// check to see if reply wait timer expired
-				if (sFCU.sASIComms.u32ASI_replywait_Counter > C_ASI__MAX_REPLYWAIT_DELAY)
+				if(sFCU.sASI.u32ASI_replywait_Counter > C_ASI__MAX_REPLYWAIT_DELAY)
 				{
-					sFCU.sASIComms.cmd.eErrorType = E_REPLY_TIMEOUT_EXPIRED;
-					sFCU.sASIComms.eMbState = ASI_COMM_STATE__PROCESS_ERROR;
+					sFCU.sASI.sCurrentCommand.eErrorType = E_REPLY_TIMEOUT_EXPIRED;
+					sFCU.sASI.eModBusState = ASI_COMM_STATE__PROCESS_ERROR;
 				}
 				else
 				{
-
+					//stay in state
 				}
 			}
 			else
 			{
-				// receive the response
-				Luint8* pByte = sFCU.sASIComms.cmd.response;
-#ifdef C_ASI__SW_TEST
-				// simulate a fake response
-				*pByte++ = sFCU.sASIComms.cmd.framedCmd[0];
-				*pByte++ = sFCU.sASIComms.cmd.framedCmd[1];
-				*pByte++ = 2;
-				*Luint16 val = 1750;
-				*pByte++ = val & 0xff00;
-				*pByte = val & 0x00ff;
-				vFCU_ASI_CRC__AddCRC(sFCU.sASIComms.cmd.response);
-#else
-				for (u8ByteIndex=0; u8ByteIndex < C_ASI__RW_FRAME_SIZE; u8ByteIndex++)
+				//we do have at-least one byte, but lets only clock in each byte at a time.
+				sFCU.sASI.sCurrentCommand.u8Response[sFCU.sASI.u8RxCount] = u8SC16_USER__Get_Byte(C_FCU__SC16_ASI_INDEX);
+
+				//inc
+				sFCU.sASI.u8RxCount ++;
+
+				//check range
+				if(sFCU.sASI.u8RxCount >= 7U)
 				{
-					*pByte++ = u8SC16_USER__Get_Byte(C_FCU__SC16_ASI_INDEX);
+					sFCU.sASI.eModBusState = ASI_COMM_STATE__PROCESS_REPLY;
 				}
-
-#endif
-
-				sFCU.sASIComms.eMbState = ASI_COMM_STATE__PROCESS_REPLY;
+				else
+				{
+					//stay in state
+				}
 			}
 			break;
 
 		case ASI_COMM_STATE__PROCESS_REPLY:
-			s16Return = s16FCU_ASI_CTRL__ProcessReply(&sFCU.sASIComms.cmd);
+			s16Return = s16FCU_ASI__ProcessReply();
 			if(s16Return < 0)
 			{
-				sFCU.sASIComms.eMbState = ASI_COMM_STATE__PROCESS_ERROR;
+				sFCU.sASI.eModBusState = ASI_COMM_STATE__PROCESS_ERROR;
 
 			}
 			else
 			{
 				// done processing this command, ready for next command
-				sFCU.sASIComms.cmdToProcess = 0;
-				sFCU.sASIComms.eMbState = ASI_COMM_STATE__IDLE;
+				sFCU.sASI.u8NewCommandToSend = 0;
+				sFCU.sASI.eModBusState = ASI_COMM_STATE__IDLE;
 
 			}
+
 			break;
 
 		case ASI_COMM_STATE__PROCESS_ERROR:
-			s16FCU_ASI__ProcessError(&sFCU.sASIComms.cmd);
-			sFCU.sASIComms.cmdToProcess = 0;
-			sFCU.sASIComms.eMbState = ASI_COMM_STATE__IDLE;
+			s16FCU_ASI__ProcessError(&sFCU.sASI.sCurrentCommand);
+			sFCU.sASI.u8NewCommandToSend = 0;
+			sFCU.sASI.eModBusState = ASI_COMM_STATE__IDLE;
 			break;
 	}
 
@@ -210,38 +278,24 @@ void vFCU_ASI__Process(void)
  * @return			-1 = error
  * 					0 = success
  */
-Lint16 s16FCU_ASI__SendCommand(struct _strASICmd *pCmd)
+Lint16 s16FCU_ASI__SendCommand(void)
 {
 	Lint16 s16Return;
 
-	if(pCmd != 0x00000000U)
+	if(sFCU.sASI.u8NewCommandToSend == 1U)
 	{
-		if (sFCU.sASIComms.cmdToProcess)
-		{
-			// still processing another command, can't send message
-			s16Return = -1;
-		}
-		else
-		{
-			// clear contents of cmd
-			vFCU_ASI__MemSet((Luint8 *)&sFCU.sASIComms.cmd, 0U, (Luint32)sizeof(struct _strASICmd));
-
-			// build the frame of bytes to send for this command
-			vFCU_ASI__BuildCmdFrame(pCmd);
-
-			// add command to next available slot in command queue
-			vFCU_ASI__MemCopy((Luint8*)&sFCU.sASIComms.cmd, (Luint8*)&pCmd, (Luint32)sizeof(struct _strASICmd));
-
-			sFCU.sASIComms.cmdToProcess = 1;
-			s16Return = 0;
-		}
-
+		// still processing another command, can't send message
+		s16Return = -1;
 	}
 	else
 	{
-		s16Return = -2;
-	}
+		// build the frame of bytes to send for this command
+		vFCU_ASI__BuildCmdFrame(&sFCU.sASI.sCurrentCommand);
 
+		sFCU.sASI.u8NewCommandToSend = 1;
+		s16Return = 0;
+	}
+	
 	return s16Return;
 }
 
@@ -254,54 +308,21 @@ Lint16 s16FCU_ASI__SendCommand(struct _strASICmd *pCmd)
  */
 void vFCU_ASI__BuildCmdFrame(struct _strASICmd *pCmd)
 {
-	if (pCmd)
-	{
-		pCmd->framedCmd[0]=pCmd->u8SlaveAddress;
-		pCmd->framedCmd[1]=pCmd->u8FunctionCode;
-		pCmd->framedCmd[2]=(Luint8)(pCmd->u16ParamAddx >> 8);				// register address Hi
-		pCmd->framedCmd[3]=(Luint8)(pCmd->u16ParamAddx & 0x00FF);	 		// register address Lo
-		pCmd->framedCmd[4]=(Luint8)(pCmd->u16ParamValue >> 8);  				// register value Hi
-		pCmd->framedCmd[5]=(Luint8)(pCmd->u16ParamValue & 0x00FF);				// register value Lo
-		vFCU_ASI_CRC__AddCRC(pCmd->framedCmd);
-	}
+	Luint16 u16Object;
+
+	//type convert
+	u16Object = (Luint16)pCmd->eObjectType;
+
+	pCmd->framedCmd[0] = pCmd->u8SlaveAddress;
+	pCmd->framedCmd[1] = (Luint8)pCmd->eFunctionCode;
+	pCmd->framedCmd[2] = (Luint8)(u16Object >> 8);				// register address Hi
+	pCmd->framedCmd[3] = (Luint8)(u16Object & 0x00FF);	 		// register address Lo
+	pCmd->framedCmd[4] = (Luint8)(pCmd->u16ParamValue >> 8);  				// register value Hi
+	pCmd->framedCmd[5] = (Luint8)(pCmd->u16ParamValue & 0x00FF);				// register value Lo
+
+	//compute the CRC
+	vFCU_ASI_CRC__AddCRC(pCmd->framedCmd);
 }
-
-
-
-
-
-
-/***************************************************************************//**
- * @brief
- * Set variable with response from ASI device
- *
- * @param[in]	pCmd		Command being processed
- */
-void vFCU_ASI__SetVar(struct _strASICmd *pCmd)
-{
-	if (pCmd && pCmd->destVar)
-	{
-		switch(pCmd->eDestVarType)
-		{
-			case E_INT8:
-				*((Lint8*)pCmd->destVar) = (Lint8)(pCmd->response[4]);
-				break;
-			case E_UINT8:
-				*((Luint8*)pCmd->destVar) = (Luint8)(pCmd->response[4]);
-				break;
-			case E_INT16:
-				*((Lint16*)pCmd->destVar) = (Lint16)(((Luint16)pCmd->response[3] << 8) | pCmd->response[4]);
-				break;
-			case E_UINT16:
-				*((Luint16*)pCmd->destVar) = ((Luint16)pCmd->response[3] << 8) | pCmd->response[4];
-				break;
-			default:
-				//fall on.
-				break;
-		}
-	}
-}
-
 
 /***************************************************************************//**
  * @brief
@@ -325,7 +346,7 @@ Lint16 s16FCU_ASI__ProcessError(struct _strASICmd *pCmd)
 		else
 		{
 			// set requesting variable to 0 to alert about error
-			vFCU_ASI__SetErr(&sFCU.sASIComms.cmd);
+			vFCU_ASI__SetErr(&sFCU.sASI.sCurrentCommand);
 
 		}
 
@@ -348,6 +369,7 @@ Lint16 s16FCU_ASI__ProcessError(struct _strASICmd *pCmd)
  */
 void vFCU_ASI__SetErr(struct _strASICmd *pCmd)
 {
+#if 0
 	if (pCmd && pCmd->destVar)
 	{
 		switch(pCmd->eDestVarType)
@@ -366,6 +388,7 @@ void vFCU_ASI__SetErr(struct _strASICmd *pCmd)
 				break;
 		}
 	}
+#endif
 }
 
 
@@ -376,8 +399,9 @@ void vFCU_ASI__SetErr(struct _strASICmd *pCmd)
  */
 void vFCU_ASI__10MS_ISR(void)
 {
-	sFCU.sASIComms.u32ASI_turnaround_Counter++;
-	sFCU.sASIComms.u32ASI_replywait_Counter++;
+	sFCU.sASI.u810MS_Timer++;
+	sFCU.sASI.u32ASI_turnaround_Counter++;
+	sFCU.sASI.u32ASI_replywait_Counter++;
 }
 
 void vFCU_ASI__MemSet(Luint8 *pu8Buffer, Luint8 u8Value, Luint32 u32Count)
@@ -399,6 +423,76 @@ void vFCU_ASI__MemCopy(Luint8 *pu8Dest, const Luint8 *cpu8Source, Luint32 u32Len
 		pu8Dest[u32Counter] = cpu8Source[u32Counter];	
 	} 
 
+}
+
+
+/***************************************************************************//**
+ * @brief
+ * Process reply from ASI device
+ *
+ * @param[in]	pCmd		Command being processed in command queue
+ * @return			-1 = crc error
+ * 					0 = success
+ */
+Lint16 s16FCU_ASI__ProcessReply(void)
+{
+	Lint16 s16Return;
+
+	// check CRC
+	s16Return = s16FCU_ASI_CRC__CheckCRC(&sFCU.sASI.sCurrentCommand.u8Response[0], 7U- 2U);
+	if(s16Return < 0)
+	{
+		sFCU.sASI.sCurrentCommand.eErrorType = E_CRC_CHECK_FAILED;
+		s16Return = -1;
+	}
+	else
+	{
+		// check return slave address vs sent slave address, they should match
+		if(sFCU.sASI.sCurrentCommand.framedCmd[0] != sFCU.sASI.sCurrentCommand.u8Response[0])
+		{
+			sFCU.sASI.sCurrentCommand.eErrorType = E_SLAVE_MISMATCH;
+			s16Return = -2;
+		}
+		else
+		{
+			// check function code in response, if it's error reply, process error
+			if((sFCU.sASI.sCurrentCommand.u8Response[1] & 0x80U) == 0x80U)
+			{
+				sFCU.sASI.sCurrentCommand.eErrorType = E_ERROR_RESPONSE;
+				s16Return = -3;
+			}
+			else
+			{
+				//get the variable
+				switch(sFCU.sASI.sCurrentCommand.eDestVarType)
+				{
+					case E_INT8:
+						sFCU.sASI.sCurrentCommand.unDestVar.s8[0] = (Lint8)(sFCU.sASI.sCurrentCommand.u8Response[4]);
+						break;
+
+					case E_UINT8:
+						sFCU.sASI.sCurrentCommand.unDestVar.u8[0] = (Luint8)(sFCU.sASI.sCurrentCommand.u8Response[4]);
+						break;
+
+					case E_INT16:
+						sFCU.sASI.sCurrentCommand.unDestVar.s16[0] = (Lint16)(((Luint16)sFCU.sASI.sCurrentCommand.u8Response[3] << 8) | (Luint16)sFCU.sASI.sCurrentCommand.u8Response[4]);
+						break;
+
+					case E_UINT16:
+						sFCU.sASI.sCurrentCommand.unDestVar.u16[0] = ((Luint16)sFCU.sASI.sCurrentCommand.u8Response[3] << 8) | (Luint16)sFCU.sASI.sCurrentCommand.u8Response[4];
+						break;
+
+					default:
+						//fall on.
+						break;
+				}//switch(sFCU.sASI.sCurrentCommand.eDestVarType)
+			}
+
+		}
+
+	}
+
+	return s16Return;
 }
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_ASI_RS485

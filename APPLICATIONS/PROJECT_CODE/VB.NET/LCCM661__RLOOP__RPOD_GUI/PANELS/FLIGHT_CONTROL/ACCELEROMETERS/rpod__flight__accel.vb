@@ -12,13 +12,14 @@
         ''' Number of accels on the PCB
         ''' </summary>
         Private Const C_NUM_ACCELS As Integer = 2
-#End Region
+
+#End Region '#Region "CONSTANTS"
 
 #Region "MEMBERS"
 
         Private m_iCount As Integer
         Private m_txtCount As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtStatusFlags(C_NUM_ACCELS - 1) As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtStatusFlags(C_NUM_ACCELS - 1) As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
         Private m_txtX_Raw(C_NUM_ACCELS - 1) As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtY_Raw(C_NUM_ACCELS - 1) As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtZ_Raw(C_NUM_ACCELS - 1) As SIL3.ApplicationSupport.TextBoxHelper
@@ -93,7 +94,7 @@
                         iOffset += 2
 
                         'update
-                        Me.m_txtStatusFlags(iDevice).Threadsafe__SetText(u32StatusFlags(iDevice).To_String)
+                        Me.m_txtStatusFlags(iDevice).Flags__Update(u32StatusFlags(iDevice), True)
                         Me.m_txtX_Raw(iDevice).Threadsafe__SetText(s16X_Raw(iDevice).To__Int.ToString)
                         Me.m_txtY_Raw(iDevice).Threadsafe__SetText(s16Y_Raw(iDevice).To__Int.ToString)
                         Me.m_txtZ_Raw(iDevice).Threadsafe__SetText(s16Z_Raw(iDevice).To__Int.ToString)
@@ -135,7 +136,7 @@
             Dim iIndex As Integer = 0
             Dim l0 As New SIL3.ApplicationSupport.LabelHelper("Accel 0 Status Flags")
             l0.Layout__BelowControl(btnRequest)
-            Me.m_txtStatusFlags(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0)
+            Me.m_txtStatusFlags(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0)
             Dim l1 As New SIL3.ApplicationSupport.LabelHelper("X Raw")
             l1.Layout__AboveRightControl(l0, Me.m_txtStatusFlags(iIndex))
             Me.m_txtX_Raw(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper(80, l1)
@@ -160,7 +161,7 @@
 
             iIndex += 1
             Dim l10 As New SIL3.ApplicationSupport.LabelHelper("Accel 1 Status Flags", Me.m_txtStatusFlags(iIndex - 1))
-            Me.m_txtStatusFlags(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper(100, l10)
+            Me.m_txtStatusFlags(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l10)
             Dim l11 As New SIL3.ApplicationSupport.LabelHelper("X Raw")
             l11.Layout__AboveRightControl(l10, Me.m_txtStatusFlags(iIndex))
             Me.m_txtX_Raw(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper(80, l11)
@@ -203,7 +204,7 @@
         ''' <remarks></remarks>
         Private Sub btnRequest__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_ACCEL__TX_CAL_DATA,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_ACCEL__REQUEST_CAL_DATA,
                                                  0, 0, 0, 0)
         End Sub
 
@@ -275,17 +276,6 @@
         ''' <remarks></remarks>
         Private Sub btnStream__Click(s As Object, e As EventArgs)
 
-            Dim oB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
-
-            If oB.Text = "Stream" Then
-                'start streaming
-                'RaiseEvent UserEvent__USB_UDP__TxControlPacket(SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T.SAFE_UDP__LCCM312__ECU__ENABLE_TIMED_PACKET, SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T.SAFE_UDP__LCCM312__ECU__ACCEL_REQUEST_CAL_DATA, 0, 0, 0)
-                oB.Text = "Stop Stream"
-            Else
-                'stop streaming
-                'RaiseEvent UserEvent__USB_UDP__TxControlPacket(SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T.SAFE_UDP__LCCM312__ECU__ENABLE_TIMED_PACKET, 0, 0, 0, 0)
-                oB.Text = "Stream"
-            End If
 
 
         End Sub

@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init any variables for the pusher system
  * 
- * @st_funcMD5		A209581104A0AEE6C3F06C95D1B77B7C
+ * @st_funcMD5		12848C0549F9D85CFC04FE5FCF752AC7
  * @st_funcID		LCCM655R0.FILE.012.FUNC.001
  */
 void vFCU_PUSHER__Init(void)
@@ -274,7 +274,7 @@ Luint8 u8FCU_PUSHER__Get_PusherState(void)
  * @return		0 = switch open\n
  * 				1 = switch closed.
  * 
- * @st_funcMD5		DFF6CAA5AA89911B5F17F526CA8D8101
+ * @st_funcMD5		7F1CA2D799181F98607158FCA01EC0C1
  * @st_funcID		LCCM655R0.FILE.012.FUNC.007
  */
 Luint8 u8FCU_PUSHER__Get_InterlockA(void)
@@ -301,7 +301,7 @@ Luint8 u8FCU_PUSHER__Get_InterlockA(void)
  * @return		0 = switch open\n
  * 				1 = switch closed.
  * 
- * @st_funcMD5		24628908E0C4D8F42F98E903E5F91DE7
+ * @st_funcMD5		C22C0173C59CD8B44B0F76CB010AF54D
  * @st_funcID		LCCM655R0.FILE.012.FUNC.008
  */
 Luint8 u8FCU_PUSHER__Get_InterlockB(void)

@@ -1,13 +1,19 @@
 
-#ifndef RLOOP_LCCM655__RLOOP__FCU_CORE_ASI_RS485_FCU__ASI_DEFINES_H_
-#define RLOOP_LCCM655__RLOOP__FCU_CORE_ASI_RS485_FCU__ASI_DEFINES_H_
+#ifndef _FCU__ASI_DEFINES_H_
+#define _FCU__ASI_DEFINES_H_
+
+	/** Always use this because we are using a mux */
+	#define C_ASI__DEFAULT_SLAVE_ADDX			(1U)
 
 	// max modbus frame size
 	#define C_ASI__MAX_FRAME_SIZE				(256)
 
+
+
+
 	// modbus function codes
-	#define C_ASI__READ_INPUT_REGISTER			(0x04)
-	#define C_ASI__WRITE_SINGLE_REGISTER		(0x06)
+	//#define C_ASI__READ_INPUT_REGISTER			(0x04)
+	//#define C_ASI__WRITE_SINGLE_REGISTER		(0x06)
 
 	// modbus timers in 10 ms units
 	#define C_ASI__MAX_TURNAROUND_DELAY			(15)
@@ -16,21 +22,6 @@
 	// sw test: simulate low level response
 	//#define C_ASI__SW_TEST
 
-	/** ASI command parameter register address */
-	// see ASI BAC object Dictionary document for more
-	#define C_FCU_ASI__OVER_TEMP_THRESHOLD					(90)
-	#define C_FCU_ASI__FOLDBACK_STARING_TEMP				(91)
-	#define C_FCU_ASI__FOLDBACK_END_TEMP					(92)
-	#define C_FCU_ASI__COMMAND_SOURCE						(208)
-	#define C_FCU_ASI__CONTROLLER_STATUS					(257)
-	#define C_FCU_ASI__FAULTS								(258)
-	#define C_FCU_ASI__CONT_TEMP							(259)
-	#define C_FCU_ASI__TEMPERATURE							(261)
-	#define C_FCU_ASI__MOTOR_CURRENT						(262)
-	#define C_FCU_ASI__MOTOR_RPM							(263)
-	#define C_FCU_ASI__LAST_FAULT							(269)
-	#define C_FCU_ASI__RAW_SENSOR_TEMPERATURE				(273)
-	#define C_FCU_ASI__SAVE_SETTINGS						(511)
 
 	/** ASI controller faults bit array*/
 	#define C_FCU_ASI__CONTROLLER_OVER_VOLTAGE				(OX0001)
@@ -50,4 +41,4 @@
 	#define C_FCU_ASI__BRIDGE_TURN_ON_TEST					(OX4000)
 	#define C_FCU_ASI__FAST_DC_VOLTAGE						(OX8000)
 
-#endif /* RLOOP_LCCM655__RLOOP__FCU_CORE_ASI_RS485_FCU__ASI_DEFINES_H_ */
+#endif /* _FCU__ASI_DEFINES_H_ */

@@ -16,8 +16,7 @@
         Private m_iRxCount As Integer
         Private m_txtCount As SIL3.ApplicationSupport.TextBoxHelper
 
-
-        Private m_txtFlags(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtFlags(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
         Private m_txtSpares(C_NUM_BRAKES - 1, 5 - 1) As SIL3.ApplicationSupport.TextBoxHelper
 
         Private m_txtTargetIBeam(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
@@ -25,8 +24,8 @@
         Private m_txtTargetScrew_um(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
 
         'switches
-        Private m_txtLimitsExtend_State(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtLimitsRetract_State(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLimitsExtend_State(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
+        Private m_txtLimitsRetract_State(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
         Private m_txtLimitsExtend_EdgeSeen(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtLimitsRetract_EdgeSeen(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
 
@@ -43,8 +42,8 @@
         Private m_txtStep_CurrentPos(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
 
 
-        Private m_txtBrakeState As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtBrakeCalState As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtBrakeState As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
+        Private m_txtBrakeCalState As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
 
         Private m_txtDevRawMove As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtDevIBeamMove As SIL3.ApplicationSupport.TextBoxHelper
@@ -210,13 +209,7 @@
 
                     'update the GUI
                     For iCounter As Integer = 0 To C_NUM_BRAKES - 1
-                        Me.m_txtFlags(iCounter).Threadsafe__SetText(pU32Flags(iCounter).To_String)
-
-                        If pU32Flags(iCounter).To__Uint32 = 0 Then
-                            Me.m_txtFlags(iCounter).BackColor = Color.LightGreen
-                        Else
-                            Me.m_txtFlags(iCounter).BackColor = Color.PaleVioletRed
-                        End If
+                        Me.m_txtFlags(iCounter).Flags__Update(pU32Flags(iCounter), True)
 
 
                         Me.m_txtTargetIBeam(iCounter).Threadsafe__SetText(pF32TargetIBeam(iCounter).To__Float32.ToString("0.000"))
@@ -225,8 +218,8 @@
                         'Me.m_txtSpares(iCounter, 3).Threadsafe__SetText(pU32Spare(iCounter, 3).To_String)
                         'Me.m_txtSpares(iCounter, 4).Threadsafe__SetText(pU32Spare(iCounter, 4).To_String)
 
-                        Me.m_txtLimitsExtend_State(iCounter).Threadsafe__SetText(State__SwitchExtended(pu8LimitsExtend_State(iCounter)))
-                        Me.m_txtLimitsRetract_State(iCounter).Threadsafe__SetText(State__SwitchExtended(pu8LimitsRetract_State(iCounter)))
+                        Me.m_txtLimitsExtend_State(iCounter).Value__Update(pu8LimitsExtend_State(iCounter).To__Int)
+                        Me.m_txtLimitsRetract_State(iCounter).Value__Update(pu8LimitsRetract_State(iCounter).To__Int)
                         Me.m_txtLimitsExtend_EdgeSeen(iCounter).Threadsafe__SetText(pu8LimitsExtend_EdgeSeen(iCounter).To_String)
                         Me.m_txtLimitsRetract_EdgeSeen(iCounter).Threadsafe__SetText(pu8LimitsRetract_EdgeSeen(iCounter).To_String)
 
@@ -246,8 +239,8 @@
                     Next
 
                     'brake state
-                    Me.m_txtBrakeState.Threadsafe__SetText(State__Brake(pu8BrakeState))
-                    Me.m_txtBrakeCalState.Threadsafe__SetText(State__CalBrake(pu8BrakeCalState))
+                    Me.m_txtBrakeState.Value__Update(pu8BrakeState.To__Int)
+                    Me.m_txtBrakeCalState.Value__Update(pu8BrakeCalState.To__Int)
 
                     Me.m_iRxCount += 1
                     Me.m_txtCount.Threadsafe__SetText(Me.m_iRxCount.ToString)
@@ -258,72 +251,9 @@
 
         End Sub
 
-        ''' <summary>
-        ''' return the brakes states
-        ''' </summary>
-        ''' <param name="u8Val"></param>
-        ''' <returns></returns>
-        Private Function State__Brake(u8Val As Numerical.U8) As String
-
-            Select Case u8Val.To__Int
-                Case 0
-                    Return "BRAKE_STATE__RESET"
-                Case 1
-                    Return "BRAKE_STATE__IDLE"
-                Case 2
-                    Return "BRAKE_STATE__BEGIN_MOVE"
-                Case 3
-                    Return "BRAKE_STATE__COMPUTE"
-                Case 4
-                    Return "BRAKE_STATE__MOVING"
-                Case 5
-                    Return "BRAKE_STATE__MOVE_STOPPED"
-                Case 6
-                    Return "BRAKE_STATE__FAULT"
-                Case 7
-                    Return "BRAKE_STATE__TEST"
-                Case 8
-                    Return "BRAKE_STATE__BEGIN_CAL"
-                Case 9
-                    Return "BRAKE_STATE__WAIT_CAL_DONE"
-
-                Case Else
-                    Return "VB.NET ERROR"
-
-
-            End Select
-
-        End Function
 
 
 
-        ''' <summary>
-        ''' Return the cal state human name
-        ''' </summary>
-        ''' <param name="u8Val"></param>
-        ''' <returns></returns>
-        Private Function State__CalBrake(u8Val As Numerical.U8) As String
-
-            Select Case u8Val.To__Int
-                Case 0
-                    Return "BRAKE_CAL_STATE__IDLE"
-                Case 1
-                    Return "BRAKE_CAL_STATE__EXTEND_MOTORS"
-                Case 2
-                    Return "BRAKE_CAL_STATE__WAIT_EXTEND_MOTORS"
-                Case 3
-                    Return "BRAKE_CAL_STATE__RELEASE_ZERO"
-                Case 4
-                    Return "BRAKE_CAL_STATE__APPLY_NEW_ZERO"
-                Case 5
-                    Return "BRAKE_CAL_STATE__WAIT_NEW_ZERO"
-                Case 6
-                    Return "BRAKE_CAL_STATE__COMPLETE"
-                Case Else
-                    Return "VB.NET ERROR"
-            End Select
-
-        End Function
 
         ''' <summary>
         ''' Convert switch state
@@ -374,7 +304,7 @@
 
             'general
             l0(iDevice, 0) = New SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags " & Me.Layout__GetBrakeSide(iDevice), MyBase.m_pInnerPanel)
-            Me.m_txtFlags(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 0))
+            Me.m_txtFlags(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iDevice, 0))
 
             l0(iDevice, 1) = New SIL3.ApplicationSupport.LabelHelper("Target IBeam " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, 1).Layout__AboveRightControl(l0(iDevice, 0), Me.m_txtFlags(iDevice))
@@ -392,11 +322,11 @@
             'switches
             l0(iDevice, 4) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext State " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, 4).Layout__BelowControl(Me.m_txtFlags(iDevice))
-            Me.m_txtLimitsExtend_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 4))
+            Me.m_txtLimitsExtend_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, 4))
 
             l0(iDevice, 5) = New SIL3.ApplicationSupport.LabelHelper("Sw Retract State " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, 5).Layout__AboveRightControl(l0(iDevice, 4), Me.m_txtLimitsExtend_State(iDevice))
-            Me.m_txtLimitsRetract_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 5))
+            Me.m_txtLimitsRetract_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, 5))
 
 
             l0(iDevice, 6) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext Edge " & Me.Layout__GetBrakeSide(iDevice))
@@ -449,7 +379,7 @@
             'general
             l0(iDevice, 0) = New SIL3.ApplicationSupport.LabelHelper("Fault Flags " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, 0).Layout__AboveRightControl(l0(iDevice - 1, 0), Me.m_txtTargetScrew_um(iDevice - 1))
-            Me.m_txtFlags(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 0))
+            Me.m_txtFlags(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iDevice, 0))
 
             l0(iDevice, 1) = New SIL3.ApplicationSupport.LabelHelper("Target IBeam " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, 1).Layout__AboveRightControl(l0(iDevice, 0), Me.m_txtFlags(iDevice))
@@ -466,11 +396,11 @@
             'switches
             l0(iDevice, 4) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext State " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, 4).Layout__BelowControl(Me.m_txtFlags(iDevice))
-            Me.m_txtLimitsExtend_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 4))
+            Me.m_txtLimitsExtend_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, 4))
 
             l0(iDevice, 5) = New SIL3.ApplicationSupport.LabelHelper("Sw Retract State " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, 5).Layout__AboveRightControl(l0(iDevice, 4), Me.m_txtLimitsExtend_State(iDevice))
-            Me.m_txtLimitsRetract_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 5))
+            Me.m_txtLimitsRetract_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, 5))
 
 
             l0(iDevice, 6) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext Edge " & Me.Layout__GetBrakeSide(iDevice))
@@ -516,10 +446,40 @@
 
             Dim l10 As New SIL3.ApplicationSupport.LabelHelper("Brakes State")
             l10.Layout__BelowControl(Me.m_txtStep_Veloc(0))
-            Me.m_txtBrakeState = New SIL3.ApplicationSupport.TextBoxHelper(200, l10)
+            Me.m_txtBrakeState = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l10)
             Dim l100 As New SIL3.ApplicationSupport.LabelHelper("Calibration State")
             l100.Layout__AboveRightControl(l10, Me.m_txtBrakeState)
-            Me.m_txtBrakeCalState = New SIL3.ApplicationSupport.TextBoxHelper(200, l100)
+            Me.m_txtBrakeCalState = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l100)
+
+
+            Me.m_txtBrakeState.States__Add("BRAKE_STATE__RESET")
+            Me.m_txtBrakeState.States__Add("BRAKE_STATE__IDLE")
+            Me.m_txtBrakeState.States__Add("BRAKE_STATE__BEGIN_MOVE")
+            Me.m_txtBrakeState.States__Add("BRAKE_STATE__COMPUTE")
+            Me.m_txtBrakeState.States__Add("BRAKE_STATE__MOVING")
+            Me.m_txtBrakeState.States__Add("BRAKE_STATE__MOVE_STOPPED")
+            Me.m_txtBrakeState.States__Add("BRAKE_STATE__FAULT")
+            Me.m_txtBrakeState.States__Add("BRAKE_STATE__TEST")
+            Me.m_txtBrakeState.States__Add("BRAKE_STATE__BEGIN_CAL")
+            Me.m_txtBrakeState.States__Add("BRAKE_STATE__WAIT_CAL_DONE")
+
+
+            Me.m_txtBrakeCalState.States__Add("BRAKE_CAL_STATE__IDLE")
+            Me.m_txtBrakeCalState.States__Add("BRAKE_CAL_STATE__EXTEND_MOTORS")
+            Me.m_txtBrakeCalState.States__Add("BRAKE_CAL_STATE__WAIT_EXTEND_MOTORS")
+            Me.m_txtBrakeCalState.States__Add("BRAKE_CAL_STATE__RELEASE_ZERO")
+            Me.m_txtBrakeCalState.States__Add("BRAKE_CAL_STATE__APPLY_NEW_ZERO")
+            Me.m_txtBrakeCalState.States__Add("BRAKE_CAL_STATE__WAIT_NEW_ZERO")
+            Me.m_txtBrakeCalState.States__Add("BRAKE_CAL_STATE__COMPLETE")
+
+            For iCounter As Integer = 0 To C_NUM_BRAKES - 1
+                Me.m_txtLimitsExtend_State(iCounter).States__Add("UNKNOWN")
+                Me.m_txtLimitsExtend_State(iCounter).States__Add("CLOSED")
+                Me.m_txtLimitsExtend_State(iCounter).States__Add("OPEN")
+                Me.m_txtLimitsRetract_State(iCounter).States__Add("UNKNOWN")
+                Me.m_txtLimitsRetract_State(iCounter).States__Add("CLOSED")
+                Me.m_txtLimitsRetract_State(iCounter).States__Add("OPEN")
+            Next
 
 
             Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")

@@ -208,11 +208,17 @@
     <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\ETHERNET">
       <UniqueIdentifier>{25394466-ab3a-4e0b-90fc-98fb53c00a31}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\NewFilter1">
-      <UniqueIdentifier>{6b4895b7-afd9-4f8f-a49e-b7bce54cc808}</UniqueIdentifier>
-    </Filter>
     <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\AUTO_SEQUENCE">
       <UniqueIdentifier>{ea3d452c-871c-4b77-9e3e-8504b0d13353}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812\WIN32">
+      <UniqueIdentifier>{3855bb5f-087e-4ea8-abe1-6d18111198af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812\DAC">
+      <UniqueIdentifier>{941e27e8-b9b5-4db8-8a93-19b0f5f53667}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812\ADC">
+      <UniqueIdentifier>{d5ed7a32-8f12-4431-afcf-f8f96ba4d1e7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -387,12 +393,6 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\sc16.c">
       <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\ADC\amc7812__adc.c">
-      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\DAC\amc7812__dac.c">
-      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\GPIO\amc7812__gpio.c">
       <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
     </ClCompile>
@@ -400,9 +400,6 @@
       <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\LOWLEVEL\amc7812__lowlevel.c">
-      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\WIN32\amc7812__win32.c">
       <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\amc7812.c">
@@ -591,9 +588,6 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\WIN32\sc16is__win32.c">
       <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741\WIN32</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi__controller_if.c">
-      <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi__crc.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
     </ClCompile>
@@ -635,6 +629,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\THROTTLES\fcu__throttles__ethernet.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\THROTTLES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\WIN32\amc7812__win32.c">
+      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812\WIN32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\ADC\amc7812__adc.c">
+      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812\ADC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\DAC\amc7812__dac.c">
+      <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812\DAC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

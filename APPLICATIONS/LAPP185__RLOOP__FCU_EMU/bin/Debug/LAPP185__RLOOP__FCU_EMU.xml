@@ -4463,6 +4463,57 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  <param name="sText"></param>
  <remarks></remarks>
 </member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay">
+ <summary>
+ An extension of the text box to display states based on a input variable
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.m_lStates">
+ <summary>
+ States are in order from 0
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.#ctor(System.Int32)">
+ <summary>
+ Create a new text box and pass in the width
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.#ctor(System.Int32,System.Windows.Forms.Control,System.String,System.String)">
+ <summary>
+ We can opt to layout below a control if we want to.
+ </summary>
+ <param name="iWidth"></param>
+ <param name="pBelowControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.#ctor(System.Int32,System.Int32,System.Boolean)">
+ <summary>
+ Create a new text box and pass in the width
+ If you also pass in the height then we use multiline mode
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.States__Add(System.String)">
+ <summary>
+ Add a new state
+ </summary>
+ <param name="sValue"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.States__Add(System.String[])">
+ <summary>
+ Add states based on string array
+ </summary>
+ <param name="lValue"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.Value__Update(System.Int32)">
+ <summary>
+ Update the state display based on some new states
+ </summary>
+ <param name="iValue"></param>
+</member>
 <member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags">
  <summary>
  A text box specifically to display fault flags
@@ -5689,6 +5740,11 @@ adds a sub level node after one has already been added
  When the SC16 subsystem wants to transmit
  </summary>
 </member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_pAMC7812_DACVolts__Delegate">
+ <summary>
+ When the DAC voltage is updated.
+ </summary>
+</member>
 <member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_pMainThread">
  <summary>
  The thread to run our DLL in
@@ -5857,6 +5913,74 @@ adds a sub level node after one has already been added
  <param name="u8DeviceIndex"></param>
  <param name="pu8Data"></param>
  <param name="u8Length"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.AMC7182_DAC__SetVolts(System.Byte,System.Single)">
+ <summary>
+ The DAC has updated us with its volts
+ </summary>
+ <param name="u8Channel"></param>
+ <param name="f32Value"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.ASI_Tx_RS485(System.Byte[],System.Int32)">
+ <summary>
+ ASI wants to transmit
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.ASIController">
+ <summary>
+ Mock ASI controller interface
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.ASIController.m_iRxCount">
+ <summary>
+ The count of Rx Bytes
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.ASIController.m_bRxArray">
+ <summary>
+ Holding array for Rx bytes
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.ASIController.m_bTxArray">
+ <summary>
+ Transmit return array
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.ASIController.m_f32Volts">
+ <summary>
+ Our internal voltage which is the RPM
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.ASIController.m_u16Reg__Faults">
+ <summary>
+ The fault register
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.ASIController.#ctor">
+ <summary>
+ New instance
+ </summary>
+</member>
+<member name="E:LAPP185__RLOOP__FCU_EMU.ASIController.Tx_RS485">
+ <summary>
+ Called when we want to Tx a packet
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.ASIController.Byte_In(System.Byte)">
+ <summary>
+ Rx some new byte of data for the ASI
+ </summary>
+ <param name="u8Value"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.ASIController.Voltage__Update(System.Single)">
+ <summary>
+ Update our voltage.
+ </summary>
+ <param name="f32Voltage"></param>
 </member>
 </members>
 </doc>
