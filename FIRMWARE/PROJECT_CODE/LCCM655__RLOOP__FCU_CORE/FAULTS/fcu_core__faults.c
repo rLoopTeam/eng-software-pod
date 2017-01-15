@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the fault processing system
  * 
- * @st_funcMD5		A90C065A837545DA2DDABFF3642666D9
+ * @st_funcMD5		5CF11A5E121D877F3D2EE0529551224C
  * @st_funcID		LCCM655R0.FILE.022.FUNC.001
  */
 void vFCU_FAULTS__Init(void)
@@ -46,7 +46,7 @@ void vFCU_FAULTS__Init(void)
  * @brief
  * Process any faults
  * 
- * @st_funcMD5		FEA2B8A4105CFE7859CE5B11B1A35CDD
+ * @st_funcMD5		BF2420870949587CB67641D07D3954DC
  * @st_funcID		LCCM655R0.FILE.022.FUNC.002
  */
 void vFCU_FAULTS__Process(void)
@@ -65,7 +65,7 @@ void vFCU_FAULTS__Process(void)
 	}
 
 	//ASI Subsystem
-	if(sFCU.sASIComms.sFaultFlags.u8FaultFlag == 1U)
+	if(sFCU.sASI.sFaultFlags.u8FaultFlag == 1U)
 	{
 		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__01);
 	}

@@ -29,7 +29,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the multiplexer
  * 
- * @st_funcMD5		6B8A45FE3D8E2D389766DAF910F9E450
+ * @st_funcMD5		E700FA5BEB4A6F0ADA945455A48569E7
  * @st_funcID		LCCM655R0.FILE.070.FUNC.001
  */
 void vFCU_ASI_MUX__Init(void)
@@ -48,6 +48,9 @@ void vFCU_ASI_MUX__Init(void)
 	vMCP23S17__Set_Port(0, MCP23S17_PORT__A, 0x00U);
 	vMCP23S17__Set_Port(0, MCP23S17_PORT__B, 0xFFU);
 
+#ifdef WIN32
+	sFCU.sASI.u8MuxChannel = 0U;
+#endif
 
 }
 
@@ -69,7 +72,7 @@ void vFCU_ASI_MUX__Process(void)
  * Selet the correct channel for the mux
  * 
  * @param[in]		u8ChannelIndex			The channel index
- * @st_funcMD5		C6A02E67BB44F8C4BFA001D5F649A8EE
+ * @st_funcMD5		EB7B3402EC920445295809F30788558B
  * @st_funcID		LCCM655R0.FILE.070.FUNC.003
  */
 void vFCU_ASI_MUX__SelectChannel(Luint8 u8ChannelIndex)
@@ -90,9 +93,27 @@ void vFCU_ASI_MUX__SelectChannel(Luint8 u8ChannelIndex)
 
 	vMCP23S17__Set_Port(0, MCP23S17_PORT__A, u8MaskA);
 	vMCP23S17__Set_Port(0, MCP23S17_PORT__B, u8MaskB);
+
+#ifdef WIN32
+	sFCU.sASI.u8MuxChannel = u8ChannelIndex;
+#endif
 }
 
+#ifdef WIN32
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		1EACC82B84035C7ED121A9C581DDABFF
+ * @st_funcID		LCCM655R0.FILE.070.FUNC.004
+ */
+Luint8 u8FCU_ASI_MUX_WIN32__Get(void)
+{
+	return sFCU.sASI.u8MuxChannel;
+}
+
+#endif
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_ASI_RS485
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U

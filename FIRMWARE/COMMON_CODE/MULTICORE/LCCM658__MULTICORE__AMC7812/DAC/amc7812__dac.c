@@ -316,6 +316,10 @@ void vAMC7182_DAC__DAC_UpdateVoltage(Luint8 u8Channel, Lfloat32 f32Voltage)
 		//Scale
 		f32Temp *= C_AMC8172__DAC_SCALING_VALUE;
 
+#ifdef WIN32
+		vAMC7182_WIN32__DAC_SetVolage(u8Channel, f32Temp);
+#endif
+
 		//check the limits of the math
 		if(f32Temp < 0)
 		{

@@ -16,7 +16,7 @@
         Private m_iRxCount As Integer
         Private m_txtCount As SIL3.ApplicationSupport.TextBoxHelper
 
-        Private m_txtFlags As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtFlags As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
         Private m_txtDistRAW As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtDistFilt As SIL3.ApplicationSupport.TextBoxHelper
 
@@ -116,7 +116,7 @@
 
 
                     'update the GUI
-                    Me.m_txtFlags.Threadsafe__SetText(pU3lags.To_String)
+                    Me.m_txtFlags.Flags__Update(pU3lags, True)
                     Me.m_txtDistRAW.Threadsafe__SetText(pF32DistRaw.To__Float32.ToString("0.000"))
                     Me.m_txtDistFilt.Threadsafe__SetText(pF32DistFiltered.To__Float32.ToString("0.000"))
 
@@ -141,7 +141,7 @@
         Public Overrides Sub LayoutPanel()
 
             Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags", MyBase.m_pInnerPanel)
-            Me.m_txtFlags = New SIL3.ApplicationSupport.TextBoxHelper(100, l0)
+            Me.m_txtFlags = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0)
 
             Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Distance Raw")
             l1.Layout__BelowControl(Me.m_txtFlags)

@@ -91,7 +91,7 @@ void vFCU_BRAKES__Init(void)
  * @brief
  * Process any brakes tasks.
  * 
- * @st_funcMD5		B5E70586985FC845E4378BEB7040BB32
+ * @st_funcMD5		4685D605141B18C8E55D1490ABB0DC0C
  * @st_funcID		LCCM655R0.FILE.007.FUNC.002
  */
 void vFCU_BRAKES__Process(void)

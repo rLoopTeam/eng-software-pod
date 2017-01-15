@@ -8,7 +8,7 @@
         Inherits SIL3.ApplicationSupport.PanelTemplate
 
 #Region "CONSTANTS"
-
+        Private Const C_NUM_ASI_CONTROLLERS As Integer = 8
 #End Region '#Region "CONSTANTS"
 
 #Region "MEMBERS"
@@ -16,7 +16,7 @@
         Private m_iRxCount As Integer
         Private m_txtCount As SIL3.ApplicationSupport.TextBoxHelper
 
-        Private m_txtFlags As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtFlags As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
         Private m_txtDistRAW As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtDistFilt As SIL3.ApplicationSupport.TextBoxHelper
 
@@ -148,7 +148,7 @@
 
 
             Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Fault Flags")
-            Me.m_txtFlags = New SIL3.ApplicationSupport.TextBoxHelper(100, l1)
+            Me.m_txtFlags = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l1)
 
 
             Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")

@@ -23,11 +23,26 @@
 
 extern struct _strFCU sFCU;
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		4806FF242973B11F8CD8DECBD90C9BD0
+ * @st_funcID		LCCM655R0.FILE.078.FUNC.001
+ */
 void vFCU_FAULTS_ETH__Init(void)
 {
 
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		ePacketType		## Desc ##
+ * @st_funcMD5		ED9883E4B933BF58ADB435687B8D8D5F
+ * @st_funcID		LCCM655R0.FILE.078.FUNC.002
+ */
 void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 {
 
@@ -85,7 +100,7 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				}
 
 				//ASI
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sASIComms.sFaultFlags.u32Flags[0]);
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sASI.sFaultFlags.u32Flags[0]);
 				pu8Buffer += 4U;
 
 				//Brakes

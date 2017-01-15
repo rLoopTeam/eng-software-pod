@@ -16,8 +16,8 @@
         Private m_iRxCount As Integer
         Private m_txtRxCount As SIL3.ApplicationSupport.TextBoxHelper
 
-        Private m_txtFlags As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtMissionPhase As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtFlags As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
+        Private m_txtMissionPhase As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
         Private m_txtDistFilt As SIL3.ApplicationSupport.TextBoxHelper
 
         ''' <summary>
@@ -87,8 +87,8 @@
 
 
                     'update the GUI
-                    Me.m_txtFlags.Threadsafe__SetText(pU32Flags.To_String)
-                    Me.m_txtMissionPhase.Threadsafe__SetText(MissionPhase__ToString(pU16MissionPahse.To__Int))
+                    Me.m_txtFlags.Flags__Update(pU32Flags, True)
+                    Me.m_txtMissionPhase.Value__Update(pU16MissionPahse.To__Int)
 
 
                     Me.m_iRxCount += 1
@@ -100,24 +100,6 @@
 
         End Sub
 
-
-        Private Function MissionPhase__ToString(iIndex As Integer) As String
-            Select Case iIndex
-                Case 0
-                    Return "MISSION_PHASE__RESET"
-                Case 1
-                    Return "MISSION_PHASE__TEST_PHASE"
-                Case 2
-                    Return "MISSION_PHASE__PRE_RUN_PHASE"
-                Case 3
-                    Return "MISSION_PHASE__PUSH_INTERLOCK_PHASE"
-                Case 4
-                    Return "MISSION_PHASE__FLIGHT_MODE"
-                Case Else
-                    Return "VB.NET ERROR"
-
-            End Select
-        End Function
 
 #End Region '#Region "EVENTS"
 
@@ -154,14 +136,20 @@
 
 
             Dim l00 As New SIL3.ApplicationSupport.LabelHelper("Fault Flags", btnOn)
-            Me.m_txtFlags = New SIL3.ApplicationSupport.TextBoxHelper(100, l00)
+            Me.m_txtFlags = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l00)
             Me.m_txtFlags.ReadOnly = True
 
             Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Mission State")
             l1.Layout__AboveRightControl(l00, Me.m_txtFlags)
-            Me.m_txtMissionPhase = New SIL3.ApplicationSupport.TextBoxHelper(100, l1)
-            Me.m_txtMissionPhase.Width = Me.m_txtMissionPhase.Width * 2
+            Me.m_txtMissionPhase = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l1)
             Me.m_txtMissionPhase.ReadOnly = True
+
+
+            Me.m_txtMissionPhase.States__Add("MISSION_PHASE__RESET")
+            Me.m_txtMissionPhase.States__Add("MISSION_PHASE__TEST_PHASE")
+            Me.m_txtMissionPhase.States__Add("MISSION_PHASE__PRE_RUN_PHASE")
+            Me.m_txtMissionPhase.States__Add("MISSION_PHASE__PUSH_INTERLOCK_PHASE")
+            Me.m_txtMissionPhase.States__Add("MISSION_PHASE__FLIGHT_MODE")
 
 
         End Sub

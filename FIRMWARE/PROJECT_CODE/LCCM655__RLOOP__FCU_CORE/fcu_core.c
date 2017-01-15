@@ -56,7 +56,7 @@ void vFCU__Init(void)
  * @brief
  * Process any FCU tasks.
  * 
- * @st_funcMD5		0720F114B671FD3FB736EC97495EBC9F
+ * @st_funcMD5		869D34BB860A54333C4C58BCE5B3921F
  * @st_funcID		LCCM655R0.FILE.000.FUNC.002
  */
 void vFCU__Process(void)
@@ -237,9 +237,8 @@ void vFCU__Process(void)
 
 		case INIT_STATE__INIT_SPI_UARTS:
 
-#ifndef WIN32
-
 			#if C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE == 1U
+#ifndef WIN32
 			//give us some interrupts going
 			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 2U, GIO_DIRECTION__INPUT);
 			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 3U, GIO_DIRECTION__INPUT);
@@ -277,7 +276,7 @@ void vFCU__Process(void)
 			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOB_0);
 			//ASI
 			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOB_7);
-
+#endif //WIN32
 
 			//init all 7 of our uarts
 			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM487__NUM_DEVICES; u8Counter++)
@@ -317,6 +316,8 @@ void vFCU__Process(void)
 				vSC16_FIFO__Reset_Tx_FIFO(u8Counter, 1U);
 
 				//set the Rx trig level to prevent software overhead.
+				//todo: this will have problems with some devices that are waiting on a reply
+				//such as the ASI system
 				vSC16_FLOWCONTROL__Set_RxTrigger_Level(u8Counter, 16U);
 
 				//Rx Int
@@ -327,7 +328,7 @@ void vFCU__Process(void)
 			//todo:
 			//setup the baud for the lasers only
 
-#endif //WIN32
+
 
 			//move state
 			sFCU.eInitStates = INIT_STATE__LOWER_SYSTEMS;
@@ -423,7 +424,7 @@ void vFCU__Process(void)
  * @brief
  * 100ms timer
  * 
- * @st_funcMD5		3093E3F03BB1527B1C3760FFBE291CEA
+ * @st_funcMD5		0FE8488E162E134A02F492DE0BD5FC2C
  * @st_funcID		LCCM655R0.FILE.000.FUNC.003
  */
 void vFCU__RTI_100MS_ISR(void)

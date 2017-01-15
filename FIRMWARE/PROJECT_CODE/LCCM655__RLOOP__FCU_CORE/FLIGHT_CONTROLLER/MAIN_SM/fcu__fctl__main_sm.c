@@ -66,7 +66,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			#endif
 
 			//laser contrast sensors
-			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONT == 1U
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
 				vFCU_LASERCONT__Init();
 			#endif
 
@@ -227,6 +227,11 @@ void vFCU_FCTL_MAINSM__Process(void)
 		//process the accel channels
 		#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 			vFCU_ACCEL__Process();
+		#endif
+
+		//ASI RS485 interface
+		#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
+			vFCU_ASI__Process();
 		#endif
 
 		//process any Pi Comms

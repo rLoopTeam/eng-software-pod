@@ -41,7 +41,7 @@ void vFCU_THROTTLE_ETH__Init(void)
  * Send a throttle eth packet
  * 
  * @param[in]		ePacketType				Packet Type
- * @st_funcMD5		A4CFC93349CAA75AE865E8DA5B587D50
+ * @st_funcMD5		2E572263EF697DB1F6C4A1DAF679B5C0
  * @st_funcID		LCCM655R0.FILE.073.FUNC.002
  */
 void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
@@ -59,7 +59,7 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__FCU_THROTTLE__TX_DATA:
-			u16Length = 8U;
+			u16Length = 8U + 2U;
 			u16Length += (6U * C_FCU__NUM_HOVER_ENGINES);
 			break;
 
@@ -91,14 +91,14 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				//Requested RPM
 				for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
 				{
-					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, 0U);
+					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sThrottle.u16RequestedRPM[u8Counter]);
 					pu8Buffer += 2U;
 				}
 
 				//Current RPM
 				for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
 				{
-					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, 0U);
+					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sThrottle.u16CurrentRPM[u8Counter]);
 					pu8Buffer += 2U;
 				}
 
@@ -109,6 +109,14 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, 0U);
 					pu8Buffer += 2U;
 				}
+
+				//state machine
+				pu8Buffer[0] = (Luint8)sFCU.sThrottle.eState;
+				pu8Buffer += 1U;
+
+				//current index
+				pu8Buffer[0] = sFCU.sThrottle.u8RunIndex;
+				pu8Buffer += 1U;
 
 				break;
 
@@ -133,8 +141,15 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 }
 
 
-//safetly switch on dev mode
-//Key1 = 0x77558833U
+/***************************************************************************//**
+ * @brief
+ * safely switch on dev mode
+ * 
+ * @param[in]		u32Key1				0x77558833U
+ * @param[in]		u32Key0				0x11223344U
+ * @st_funcMD5		56200DBE406D716414B25D3E50E01130
+ * @st_funcID		LCCM655R0.FILE.073.FUNC.003
+ */
 void vFCU_THROTTLE_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
 {
 
@@ -142,6 +157,9 @@ void vFCU_THROTTLE_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
 	{
 		sFCU.sThrottle.sDevMode.u8Enabled = 1U;
 		sFCU.sThrottle.sDevMode.u32SecurityKey = u32Key1;
+
+		//put throttles in run mode
+		vFCU_THROTTLE__Enable_Run();
 	}
 	else
 	{
@@ -152,9 +170,60 @@ void vFCU_THROTTLE_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
 }
 
 
-void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, Luint8 u8RampType)
+/***************************************************************************//**
+ * @brief
+ * Manually set the throttle via the Ethernet
+ * 
+ * @param[in]		eRampType				The type of throttle ramp
+ * @param[in]		u16RPM					Required RPM
+ * @param[in]		u8EngineIndex			0-7 or 8 for all HE's
+ * @st_funcMD5		BB2011B91C798224E1C974D5299AE804
+ * @st_funcID		LCCM655R0.FILE.073.FUNC.004
+ */
+void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THROTTLE_CTRL_T eRampType)
 {
+	Luint8 u8Counter;
 
+	//only do in dev mode
+	if(sFCU.sThrottle.sDevMode.u8Enabled == 1U)
+	{
+		if(sFCU.sThrottle.sDevMode.u32SecurityKey == 0x77558833U)
+		{
+			//command the requested throttle
+			if (u8EngineIndex < C_FCU__NUM_HOVER_ENGINES)
+			{
+				sFCU.sThrottle.u16RequestedRPM[u8EngineIndex] = u16RPM;
+				sFCU.sThrottle.eRequestedMode[u8EngineIndex] = eRampType;
+			}
+			else
+			{
+				if (u8EngineIndex == C_FCU__NUM_HOVER_ENGINES)
+				{
+					//do all HE's
+					for (u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
+					{
+						sFCU.sThrottle.u16RequestedRPM[u8Counter] = u16RPM;
+						sFCU.sThrottle.eRequestedMode[u8Counter] = eRampType;
+
+					}//for (u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
+				}
+				else
+				{
+					//not for us
+				}
+			}
+			
+
+		}
+		else
+		{
+
+		}
+	}
+	else
+	{
+
+	}
 
 }
 

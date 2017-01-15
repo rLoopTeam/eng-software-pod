@@ -24,6 +24,7 @@
 		#include <LCCM655__RLOOP__FCU_CORE/BRAKES/fcu__brakes__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/ACCELEROMETERS/fcu__accel__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/LASER_OPTO/fcu__laser_opto__fault_flags.h>
+		#include <LCCM655__RLOOP__FCU_CORE/THROTTLES/fcu__throttles__fault_flags.h>
 
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_defines.h>
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_types.h>
@@ -655,22 +656,41 @@
 			{
 				Luint32 u32Guard1;
 
+				/** The main state machine */
+				E_FCU__ASI_STATE_T eMainState;
+
+				/** When scanning our HE's, maintain the scan index */
+				Luint8 u8ScanIndex;
+
+				/** 10ms timer used for scanning */
+				Luint8 u810MS_Timer;
+
 				/** ASI Subsystemfaults */
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
 				/** the modbus state */
-				E_FCU_MODBUS__STATE_T eMbState;
+				E_FCU_MODBUS__STATE_T eModBusState;
 
-				struct _strASICmd cmd;
-				Lint8 cmdToProcess;
+				struct _strASICmd sCurrentCommand;
+
+				/** The Rx Counter Position */
+				Luint8 u8RxCount;
+
+				/** The user has prepared a new command to send*/
+				Luint8 u8NewCommandToSend;
 
 				/** a set of timers to control tx timeouts */
 				Luint32 u32ASI_turnaround_Counter;
 				Luint32 u32ASI_replywait_Counter;
 
+				#ifdef WIN32
+					/** On win32 generate save the mux */
+					Luint8 u8MuxChannel;
+				#endif
+
 				Luint32 u32Guard2;
 
-			}sASIComms;
+			}sASI;
 			#endif
 
 			/** Structure guard 2*/
@@ -681,49 +701,26 @@
 			struct strThrottleInterfaceData
 			{
 
+				/* State Variable*/
+				E_THROTTLE_STATES_T eState;
+
 				/** Throttle fault flags */
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
-				// Ground Station command
-				E_GS_COMMANDS eGS_Command;
+				/** The requested RPM of each HE */
+				Luint16 u16RequestedRPM[C_FCU__NUM_HOVER_ENGINES];
 
-				// Flight Control Unit mode
-				E_FCU_MODES eFCU_Mode;
+				/** The requested ramp or step mode */
+				E_THROTTLE_CTRL_T eRequestedMode[C_FCU__NUM_HOVER_ENGINES];
 
-				// throttle command units (0 for RPM*10, 1 for Percent), needs to be sent by GS
-				Luint8 u8CommandUnits;
+				/** The current (actually set RPM) */
+				Luint16 u16CurrentRPM[C_FCU__NUM_HOVER_ENGINES];
 
-				// speeds of HE1 to HE8
-				Luint16 u16HE_Speeds[8];
+				/** A 100ms timer for each ramp increment */
+				Luint8 u8100ms_Timer[C_FCU__NUM_HOVER_ENGINES];
 
-				// duration of ramp command *** ASSUMING throttleStartRampDuration IS IN UNITS of MILLISECONDS ***
-				Luint16 u16throttleStartRampDuration;
-
-				// maximum speed of HEs in RPM*10
-				Luint16 u16HE_MAX_SPD;
-
-				// minimum speed of HEs in RPM*10
-				Luint16 u16HE_MIN_SPD;
-
-				// HE speeds for static hover
-				Luint16 u16rpmHEStaticHoveringSpeed;
-
-				// HE speeds for standby mode
-				Luint16 u16maxRunModeStandbySpeed;
-
-				// Throttle command values:
-				// use [0] to command all HEs, use [1] - [8] for commands to individual HEs
-				Luint16 u16ThrottleCommands[9];
-
-				// Number of the HE being given a command:
-				// A value of 0 signifies all HEs, 1 - 8 indicates a specific HE
-				Luint8 u8EngineNumber;
-
-				// state variable
-				E_THROTTLE_STATES_T eState;
-
-				// timer state
-				Luint8 u8100MS_Timer;
+				/** During run keep an index of the last servied HE */
+				Luint8 u8RunIndex;
 
 				/** For development mode */
 				struct
@@ -981,16 +978,16 @@
 		void vFCU_ASI__Init(void);
 		void vFCU_ASI__10MS_ISR(void);
 		void vFCU_ASI__Process(void);
-		Lint16 s16FCU_ASI__SendCommand(struct _strASICmd *sCmdParams);
 		void vFCU_ASI__MemSet(Luint8 *pu8Buffer, Luint8 u8Value, Luint32 u32Count);
-		void vFCU_ASI__SetVar(struct _strASICmd *pTail);
+
 
 			//CRC
 			void vFCU_ASI_CRC__AddCRC(Luint8 *pu8Data);
-			Luint16 u16FCU_ASI_CRC__ComputeCRC(Luint8 *pu8Data, Luint16 u16DataLen);
+			DLL_DECLARATION Luint16 u16FCU_ASI_CRC__ComputeCRC(Luint8 *pu8Data, Luint16 u16DataLen);
 			Lint16 s16FCU_ASI_CRC__CheckCRC(Luint8 *pu8Data, Luint8 u8DataLen);
 
 			//controller layer
+			#if 0
 			Lint16 s16FCU_ASI_CTRL__Init(void);
 			Lint16 s16FCU_ASI_CTRL__ReadMotorRpm(Luint8 u8ASIDevNum, Luint16 *pu16Rpm);
 			Lint16 s16FCU_ASI_CTRL__ReadMotorCurrent(Luint8 u8ASIDevNum, Luint16 *pu16Current);
@@ -998,11 +995,13 @@
 			Lint16 s16FCU_ASI_CTRL__SaveSettings(Luint8 u8ASIDevNum);
 			Lint16 s16FCU_ASI_CTRL__GetFaults(Luint8 u8ASIDevNum, Luint16 *pu16Faults);
 			Lint16 s16FCU_ASI_CTRL__ProcessReply(struct _strASICmd *pTail);
+			#endif //0
 
 			//mux
 			void vFCU_ASI_MUX__Init(void);
 			void vFCU_ASI_MUX__Process(void);
 			void vFCU_ASI_MUX__SelectChannel(Luint8 u8ChannelIndex);
+			DLL_DECLARATION Luint8 u8FCU_ASI_MUX_WIN32__Get(void);
 
 			//eth
 			void vFCU_ASI_ETH__Init(void);
@@ -1012,17 +1011,14 @@
 		void vFCU_THROTTLE__Init(void);
 		void vFCU_THROTTLE__Process(void);
 		void vFCU_THROTTLE__100MS_ISR(void);
+		void vFCU_THROTTLE__Enable_Run(void);
+		void vFCU_THROTTLE__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THROTTLE_CTRL_T eRampType);
 
 			//eth
 			void vFCU_THROTTLE_ETH__Init(void);
 			void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType);
 			void vFCU_THROTTLE_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1);
-			void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, Luint8 u8RampType);
-
-		// AMC7812 DAC
-
-		void vAMC7812__Process(void);
-		void vAMC7812__Init(void);
+			void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THROTTLE_CTRL_T eRampType);
 
 
 		#if C_LOCALDEF__LCCM655__ENABLE_TEST_SPEC == 1U

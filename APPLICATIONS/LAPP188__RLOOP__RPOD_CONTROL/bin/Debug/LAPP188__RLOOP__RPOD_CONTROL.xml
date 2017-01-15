@@ -1841,6 +1841,57 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="sText"></param>
  <remarks></remarks>
 </member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay">
+ <summary>
+ An extension of the text box to display states based on a input variable
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.m_lStates">
+ <summary>
+ States are in order from 0
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.#ctor(System.Int32)">
+ <summary>
+ Create a new text box and pass in the width
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.#ctor(System.Int32,System.Windows.Forms.Control,System.String,System.String)">
+ <summary>
+ We can opt to layout below a control if we want to.
+ </summary>
+ <param name="iWidth"></param>
+ <param name="pBelowControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.#ctor(System.Int32,System.Int32,System.Boolean)">
+ <summary>
+ Create a new text box and pass in the width
+ If you also pass in the height then we use multiline mode
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.States__Add(System.String)">
+ <summary>
+ Add a new state
+ </summary>
+ <param name="sValue"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.States__Add(System.String[])">
+ <summary>
+ Add states based on string array
+ </summary>
+ <param name="lValue"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.Value__Update(System.Int32)">
+ <summary>
+ Update the state display based on some new states
+ </summary>
+ <param name="iValue"></param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags">
  <summary>
  A text box specifically to display fault flags
@@ -4185,20 +4236,6 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  <param name="u8Payload"></param>
  <param name="u16CRC"></param>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes.State__Brake(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8)">
- <summary>
- return the brakes states
- </summary>
- <param name="u8Val"></param>
- <returns></returns>
-</member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes.State__CalBrake(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8)">
- <summary>
- Return the cal state human name
- </summary>
- <param name="u8Val"></param>
- <returns></returns>
-</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes.State__SwitchExtended(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8)">
  <summary>
  Convert switch state
@@ -4794,9 +4831,30 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Throttle.btnRequest_L0__Click(System.Object,System.EventArgs)">
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Throttle.btnStreamOn__Click(System.Object,System.EventArgs)">
  <summary>
- Request laser0 contrast data
+ Switch on streaming
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Throttle.btnStreamOff__Clock(System.Object,System.EventArgs)">
+ <summary>
+ Switch off streaming
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Throttle.btnRequest__Click(System.Object,System.EventArgs)">
+ <summary>
+ Request one packet
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Throttle.btnEnableDev__Click(System.Object,System.EventArgs)">
+ <summary>
+ Switch on throttles dev mode.
  </summary>
  <param name="s"></param>
  <param name="e"></param>

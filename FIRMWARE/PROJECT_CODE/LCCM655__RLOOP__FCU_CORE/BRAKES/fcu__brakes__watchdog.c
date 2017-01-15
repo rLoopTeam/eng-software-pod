@@ -26,7 +26,7 @@
  * @brief
  * Init the watchdog pin
  * 
- * @st_funcMD5		C60A4D2832D296DE3D697E6008F6532D
+ * @st_funcMD5		2A6A849F0C0A65507AE323B59ED254B5
  * @st_funcID		LCCM655R0.FILE.069.FUNC.001
  */
 void vFCU_BRAKES_WDT__Init(void)
@@ -43,7 +43,7 @@ void vFCU_BRAKES_WDT__Init(void)
  * @brief
  * Start of the petting process
  * 
- * @st_funcMD5		A4903EF69EFB23039E39E2A01AE2604E
+ * @st_funcMD5		52C02FF2376AF87C4369251C7EE571F1
  * @st_funcID		LCCM655R0.FILE.069.FUNC.002
  */
 void vFCU_BRAKES_WDT__Pet_Start(void)
@@ -57,7 +57,7 @@ void vFCU_BRAKES_WDT__Pet_Start(void)
  * @brief
  * End the petting process.
  * 
- * @st_funcMD5		2ACFE93C017C08196F693ADB4A665736
+ * @st_funcMD5		22F611F2F8924BE1EB7A40847B2A08AF
  * @st_funcID		LCCM655R0.FILE.069.FUNC.003
  */
 void vFCU_BRAKES_WDT__Pet_End(void)

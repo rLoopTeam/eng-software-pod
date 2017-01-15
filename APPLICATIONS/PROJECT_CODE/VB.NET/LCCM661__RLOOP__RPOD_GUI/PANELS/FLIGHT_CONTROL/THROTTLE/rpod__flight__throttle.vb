@@ -22,6 +22,12 @@
         Private m_txtActRPM(C_NUM__THROTTLES - 1) As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtASIRPM(C_NUM__THROTTLES - 1) As SIL3.ApplicationSupport.TextBoxHelper
 
+        Private m_cboHE As SIL3.ApplicationSupport.ComboBoxHelper
+        Private m_cboMode As SIL3.ApplicationSupport.ComboBoxHelper
+        Private m_txtSetRPM As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtState As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
+        Private m_txtIndex As SIL3.ApplicationSupport.TextBoxHelper
+
         ''' <summary>
         ''' The logging directory
         ''' </summary>
@@ -89,16 +95,33 @@
                     Dim pU16RPM((C_NUM__THROTTLES * 3) - 1) As SIL3.Numerical.U16
                     For iCounter As Integer = 0 To (C_NUM__THROTTLES * 3) - 1
                         pU16RPM(iCounter) = New SIL3.Numerical.U16(u8Payload, iOffset)
-                        iOffset += 1
+                        iOffset += 2
                     Next
+
+                    Dim pU8State As New SIL3.Numerical.U8(u8Payload, iOffset)
+                    iOffset += 1
+                    Me.m_txtState.Value__Update(pU8State.To__Int)
+
+                    Dim pU8Index As New SIL3.Numerical.U8(u8Payload, iOffset)
+                    iOffset += 1
+                    Me.m_txtIndex.Threadsafe__SetText(pU8Index.To__Int.ToString)
+
 
                     Dim iCounter2 As Integer = 0
                     For iCounter As Integer = 0 To (C_NUM__THROTTLES) - 1
+                        Dim sPrev As String = Me.m_txtReqRPM(iCounter).Text
                         Me.m_txtReqRPM(iCounter).Threadsafe__SetText(pU16RPM(iCounter2).To__Int.ToString)
+                        If Me.m_txtReqRPM(iCounter).Text <> sPrev Then
+                            Me.m_txtReqRPM(iCounter).Fade__Colour(Color.Blue)
+                        End If
                         iCounter2 += 1
                     Next
                     For iCounter As Integer = 0 To (C_NUM__THROTTLES) - 1
+                        Dim sPrev As String = Me.m_txtActRPM(iCounter).Text
                         Me.m_txtActRPM(iCounter).Threadsafe__SetText(pU16RPM(iCounter2).To__Int.ToString)
+                        If Me.m_txtActRPM(iCounter).Text <> sPrev Then
+                            Me.m_txtActRPM(iCounter).Fade__Colour(Color.Blue)
+                        End If
                         iCounter2 += 1
                     Next
                     For iCounter As Integer = 0 To (C_NUM__THROTTLES) - 1
@@ -108,6 +131,9 @@
 
                     Me.m_txtThrottleFlags.Flags__Update(pU32UpperFaultFlags, True)
                     Me.m_txtAMC7812Flags.Flags__Update(pU32AMCFaultFlags, True)
+
+                    Me.m_iRxCount += 1
+                    Me.m_txtRxCount.Threadsafe__SetText(Me.m_iRxCount.ToString)
 
                 End If
             End If
@@ -125,7 +151,7 @@
         Public Overrides Sub LayoutPanel()
 
             Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Controls", MyBase.m_pInnerPanel)
-            Dim btnRequest As New SIL3.ApplicationSupport.ButtonHelper(100, "Request", AddressOf btnRequest_L0__Click)
+            Dim btnRequest As New SIL3.ApplicationSupport.ButtonHelper(100, "Request", AddressOf btnRequest__Click)
             btnRequest.Layout__BelowControl(l0)
             Dim btnStreamOn As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
             btnStreamOn.Layout__RightOfControl(btnRequest)
@@ -143,12 +169,30 @@
             l11.Layout__AboveRightControl(l10, Me.m_txtThrottleFlags)
             Me.m_txtAMC7812Flags = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l11)
 
+            Dim l10a As New SIL3.ApplicationSupport.LabelHelper("Throtte State")
+            l10a.Layout__BelowControl(Me.m_txtThrottleFlags)
+            Me.m_txtState = New ApplicationSupport.TextBoxHelper_StateDisplay(200, l10a)
+
+            'add the states
+            Me.m_txtState.States__Add("THROTTLE_STATE__IDLE")
+            Me.m_txtState.States__Add("THROTTLE_STATE__RUN")
+            Me.m_txtState.States__Add("THROTTLE_STATE__STEP")
+            Me.m_txtState.States__Add("THROTTLE_STATE__RAMP_UP")
+            Me.m_txtState.States__Add("THROTTLE_STATE__RAMP_DOWN")
+            Me.m_txtState.States__Add("THROTTLE_STATE__INC_INDEX")
+            Me.m_txtState.States__Add("THROTTLE_STATE__ERROR")
+
+            Dim l10b As New SIL3.ApplicationSupport.LabelHelper("Run Index")
+            l10b.Layout__AboveRightControl(l10a, Me.m_txtState)
+            Me.m_txtIndex = New ApplicationSupport.TextBoxHelper(100, l10b)
+
+
             Dim la(C_NUM__THROTTLES) As SIL3.ApplicationSupport.LabelHelper
 
             For iCounter As Integer = 0 To C_NUM__THROTTLES - 1
                 la(iCounter) = New SIL3.ApplicationSupport.LabelHelper("Requested RPM:" & iCounter.ToString)
                 If iCounter = 0 Then
-                    la(iCounter).Layout__BelowControl(Me.m_txtThrottleFlags)
+                    la(iCounter).Layout__BelowControl(Me.m_txtState)
                 Else
                     la(iCounter).Layout__AboveRightControl(la(iCounter - 1), Me.m_txtReqRPM(iCounter - 1))
                 End If
@@ -181,18 +225,59 @@
                 Me.m_txtASIRPM(iCounter) = New ApplicationSupport.TextBoxHelper(100, lc(iCounter))
             Next
 
+            Dim btnEnableDev As New SIL3.ApplicationSupport.ButtonHelper(100, "Enable Dev", AddressOf Me.btnEnableDev__Click)
+            btnEnableDev.Layout__BelowControl(Me.m_txtASIRPM(0))
+            btnEnableDev.ToolTip__Set("Enable Development Mode", "You need Dev mode enabled to manually adjust throttles")
+
+            Dim l90 As New SIL3.ApplicationSupport.LabelHelper("Throttle Index")
+            l90.Layout__BelowControl(btnEnableDev)
+            Me.m_cboHE = New SIL3.ApplicationSupport.ComboBoxHelper(100)
+            Me.m_cboHE.Layout__BelowControl(l90)
+            For iCounter As Integer = 0 To C_NUM__THROTTLES - 1
+                Me.m_cboHE.Threadsafe__AddItem(iCounter.ToString)
+            Next
+            Me.m_cboHE.Threadsafe__AddItem("ALL")
+            Me.m_cboHE.Threadsafe__SetSelectedIndex(0)
+
+            Dim l91 As New SIL3.ApplicationSupport.LabelHelper("Throttle Mode")
+            l91.Layout__AboveRightControl(l90, Me.m_cboHE)
+            Me.m_cboMode = New SIL3.ApplicationSupport.ComboBoxHelper(100, l91)
+            Me.m_cboMode.Threadsafe__AddItem("STEP")
+            Me.m_cboMode.Threadsafe__AddItem("RAMP")
+            Me.m_cboMode.Threadsafe__SetSelectedIndex(0)
+
+            Dim l92 As New SIL3.ApplicationSupport.LabelHelper("Target RPM")
+            l92.Layout__AboveRightControl(l91, Me.m_cboMode)
+            Me.m_txtSetRPM = New ApplicationSupport.TextBoxHelper(100, l92)
+            Me.m_txtSetRPM.Threadsafe__SetText("0")
+
+            Dim btnChange As New SIL3.ApplicationSupport.ButtonHelper(100, "Change", AddressOf Me.btnChange__Click)
+            btnChange.Layout__RightOfControl(Me.m_txtSetRPM)
+
+
         End Sub
 
 #End Region '#Region "PANEL LAYOUT"
 
 #Region "BUTTON HELPERS"
 
+        ''' <summary>
+        ''' Switch on streaming
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
         Private Sub btnStreamOn__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__STREAMING_CONTROL,
                                                  1, SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_THROTTLE__TX_DATA, 0, 0)
         End Sub
 
+
+        ''' <summary>
+        ''' Switch off streaming
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
         Private Sub btnStreamOff__Clock(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__STREAMING_CONTROL,
@@ -200,24 +285,42 @@
         End Sub
 
         ''' <summary>
-        ''' Request laser0 contrast data
+        ''' Request one packet
         ''' </summary>
         ''' <param name="s"></param>
         ''' <param name="e"></param>
-        Private Sub btnRequest_L0__Click(s As Object, e As EventArgs)
+        Private Sub btnRequest__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LASER_CONT__REQUEST_LASER_DATA,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_THROTTLE__REQUEST_DATA,
                                                  0, 0, 0, 0)
         End Sub
-        Private Sub btnRequest_L1__Click(s As Object, e As EventArgs)
+
+
+        ''' <summary>
+        ''' Switch on throttles dev mode.
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnEnableDev__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LASER_CONT__REQUEST_LASER_DATA,
-                                                 1, 0, 0, 0)
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_THROTTLE__ENABLE_DEV_MODE,
+                                                 &H11223344L, 0, 0, 0)
         End Sub
-        Private Sub btnRequest_L2__Click(s As Object, e As EventArgs)
+
+
+        Private Sub btnChange__Click(s As Object, e As EventArgs)
+
+            Dim iHE As Integer = Me.m_cboHE.SelectedIndex
+            If iHE < 0 Then
+                MsgBox("Error: Invalid HE Index")
+                Exit Sub
+            End If
+
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LASER_CONT__REQUEST_LASER_DATA,
-                                                 2, 0, 0, 0)
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_THROTTLE__SET_RAW_THROTTLE,
+                                                 iHE,
+                                                 UInt32.Parse(Me.m_txtSetRPM.Text),
+                                                 Me.m_cboMode.SelectedIndex, 0)
         End Sub
 
 

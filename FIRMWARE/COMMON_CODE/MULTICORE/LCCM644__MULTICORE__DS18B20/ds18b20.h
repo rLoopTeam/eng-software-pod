@@ -182,6 +182,10 @@
 		#ifndef C_LOCALDEF__LCCM644__MAX_1WIRE_CHANNELS
 			#error
 		#endif
+		#if C_LOCALDEF__LCCM644__MAX_DEVICES > 254
+			//due to data types, limited
+			#error
+		#endif
 
 	#endif /*#if C_LOCALDEF__LCCM644__ENABLE_THIS_MODULE == 1U*/
 	/*safetys*/

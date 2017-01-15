@@ -22,9 +22,9 @@
         ''' </summary>
         Private m_sLogDir As String
 
-        Private m_txtModuleFlags As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtModuleFlags As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
 
-        Private m_txtLaser_Flags() As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLaser_Flags() As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
         Private m_txtLaser_ErrorCount() As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtLaser_Byte1Count() As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtLaser_LaserRaw() As SIL3.ApplicationSupport.TextBoxHelper
@@ -119,9 +119,9 @@
                     Next
 
                     'gui update
-                    Me.m_txtModuleFlags.Threadsafe__SetText(pU32Module.To_String)
+                    Me.m_txtModuleFlags.Flags__Update(pU32Module, True)
                     For iCounter As Integer = 0 To C_NUM_LASERS - 1
-                        Me.m_txtLaser_Flags(iCounter).Threadsafe__SetText(pU32_LaserFlags(iCounter).To_String)
+                        Me.m_txtLaser_Flags(iCounter).Flags__Update(pU32_LaserFlags(iCounter), True)
                         Me.m_txtLaser_ErrorCount(iCounter).Threadsafe__SetText(pU32_LaserErrorCount(iCounter).To_String)
                         Me.m_txtLaser_Byte1Count(iCounter).Threadsafe__SetText(pU32_LaserByte1(iCounter).To_String)
                         Me.m_txtLaser_LaserRaw(iCounter).Threadsafe__SetText(pF32_LaserRaw(iCounter).To__Float32.ToString("0.0000"))
@@ -149,7 +149,7 @@
         Public Overrides Sub LayoutPanel()
 
             Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Module Flags", MyBase.m_pInnerPanel)
-            Me.m_txtModuleFlags = New SIL3.ApplicationSupport.TextBoxHelper(100, l0)
+            Me.m_txtModuleFlags = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0)
 
             ReDim Me.m_txtLaser_Flags(C_NUM_LASERS - 1)
             ReDim Me.m_txtLaser_ErrorCount(C_NUM_LASERS - 1)
@@ -177,7 +177,7 @@
                 la3(iCounter) = New SIL3.ApplicationSupport.LabelHelper("Laser Raw")
                 la4(iCounter) = New SIL3.ApplicationSupport.LabelHelper("Laser Filtered")
 
-                Me.m_txtLaser_Flags(iCounter) = New SIL3.ApplicationSupport.TextBoxHelper(100, la0(iCounter))
+                Me.m_txtLaser_Flags(iCounter) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, la0(iCounter))
                 la1(iCounter).Layout__AboveRightControl(la0(iCounter), Me.m_txtLaser_Flags(iCounter))
                 Me.m_txtLaser_ErrorCount(iCounter) = New SIL3.ApplicationSupport.TextBoxHelper(100, la1(iCounter))
                 la2(iCounter).Layout__AboveRightControl(la0(iCounter), Me.m_txtLaser_ErrorCount(iCounter))

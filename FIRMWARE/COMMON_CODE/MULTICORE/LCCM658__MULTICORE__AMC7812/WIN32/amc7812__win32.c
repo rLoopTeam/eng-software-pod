@@ -26,6 +26,17 @@
 #if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 #ifdef WIN32
 
+pAMC7812_WIN32__DACVoltsCallback_FuncType m_pAMC7812_WIN32__DACVolts;
+
+void vAMC7812_WIN32__Set_DACVoltsCallback(pAMC7812_WIN32__DACVoltsCallback_FuncType pFunc)
+{
+	 m_pAMC7812_WIN32__DACVolts = pFunc;
+}
+
+void vAMC7182_WIN32__DAC_SetVolage(Luint8 u8Channel, Lfloat32 f32Volts)
+{
+	m_pAMC7812_WIN32__DACVolts(u8Channel, f32Volts);
+}
 
 #endif //win32
 

@@ -24,11 +24,26 @@
 
 extern struct _strFCU sFCU;
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		28391E45A0FE140F795717C331017DDF
+ * @st_funcID		LCCM655R0.FILE.077.FUNC.001
+ */
 void vFCU_FCTL_ETH__Init(void)
 {
 
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		ePacketType		## Desc ##
+ * @st_funcMD5		602081C434EB3CDBD00C0ED2BFE3232D
+ * @st_funcID		LCCM655R0.FILE.077.FUNC.002
+ */
 void vFCU_FCTL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 {
 

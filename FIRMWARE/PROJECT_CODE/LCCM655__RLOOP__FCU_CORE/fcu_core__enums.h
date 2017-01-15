@@ -113,38 +113,29 @@
 	} E_FCU_MODES;
 
 	/** State types for the THROTTLE state machine */
-	// (added by @gsweriduk on 25 NOV 2016)
-
 	typedef enum
 	{
 
-		// do nothing
+		/** Waiting here */
 		THROTTLE_STATE__IDLE = 0U,
 
-		// an error was encountered
+		/** Run mode, allow the HE's to throttle up */
+		THROTTLE_STATE__RUN,
+
+		/** Step command(s) to the HEs */
+		THROTTLE_STATE__STEP,
+
+		/** Ramp command(s) to the HEs */
+		THROTTLE_STATE__RAMP_UP,
+
+		/** Ramp command(s) to the HEs */
+		THROTTLE_STATE__RAMP_DOWN,
+
+		/** Mode to the next scanning index */
+		THROTTLE_STATE__INC_INDEX,
+
+		/** an error was encountered */
 		THROTTLE_STATE__ERROR,
-
-		// init the device, force a reset
-		THROTTLE_STATE__INIT,
-
-		// Ramp command(s) to the HEs
-		THROTTLE_STATE__RAMP_COMMAND,
-
-		// Step command(s) to the HEs
-		THROTTLE_STATE__STEP_COMMAND,
-
-		// Write throttle command(s) to the DAC, substate of RAMP and STEP
-		THROTTLE_STATE__WRITE_TO_DAC,
-
-		// Waiting for the start of a conversion, substate of I/O
-		THROTTLE_STATE__WAITING,
-
-		// Issue the conversion command, substate of I/O
-		//THROTTLE_STATE__BEGIN_SAMPLE,
-
-		//  No change since last command was given
-		THROTTLE_STATE__HOLD
-
 
 	} E_THROTTLE_STATES_T;
 
