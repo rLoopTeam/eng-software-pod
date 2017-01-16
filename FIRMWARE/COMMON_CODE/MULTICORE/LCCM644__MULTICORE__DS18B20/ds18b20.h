@@ -28,6 +28,9 @@
 		/*******************************************************************************
 		Defines
 		*******************************************************************************/
+		#define C_DS18B20__ROMID_SIZE												(8U)
+
+		#define C_DS18B20__SCRATCHPAD_SIZE											(9U)
 
 		/*******************************************************************************
 		Structures
@@ -42,7 +45,7 @@
 			struct
 			{
 				/** The device ROM serial number */
-				Luint8 u8SerialNumber[8U];
+				Luint8 u8SerialNumber[C_DS18B20__ROMID_SIZE];
 
 				/** We can support more than a single 1-wire per system, indeed if using the
 				 * DS2482 we can support up to 4 one wires.  In this case our sensor could be assigned
@@ -75,7 +78,7 @@
 			{
 
 				/** the number of devices we have addresses for */
-				Luint8 u8NumDevices;
+				Luint16 u16NumDevices;
 
 			}sEnum;
 
@@ -99,15 +102,15 @@
 
 			}sSearch;
 
-			//Temporaray scratch pad, save stack
-			Luint8 u8TempScratch[9U];
+			/**Temporaray scratch pad, save stack */
+			Luint8 u8TempScratch[C_DS18B20__SCRATCHPAD_SIZE];
 
 
 			/** Main state machine */
 			E_DS18B20__MAIN_STATES eMainState;
 
 			/** A counter used by the main SM to track progress */
-			Luint8 u8MainStateCounter;
+			Luint16 u16MainStateCounter;
 
 			/** The count of 10ms ISR's*/
 			Luint32 u32ISR_Counter;
@@ -126,23 +129,23 @@
 		*******************************************************************************/
 		void vDS18B20__Init(void);
 		void vDS18B20__Process(void);
-		Lfloat32 f32DS18B20__Get_Temperature_DegC(Luint16 u16Index);
+		Lfloat32 f32DS18B20__Get_Temperature_DegC(Luint16 u16SensorIndex);
 		Luint8 u8DS18B20__Is_NewDataAvail(void);
 		void vDS18B20__Clear_NewDataAvail(void);
 		void vDS18B20__10MS_ISR(void);
 		Luint32 u32DS18B20__Get_DeviceAddx(void);
-		Luint16 u162DS18B20__Get_UserIndex(Luint16 u16Index);
-		Luint8 u82DS18B20__Get_Resolution(Luint16 u16Index);
-		Luint8 u82DS18B20__Get_BusIndex(Luint16 u16Index);
-		void vDS18B20__Get_ROMID(Luint16 u16Index, Luint8 *pu8Buffer);
+		Luint16 u162DS18B20__Get_UserIndex(Luint16 u16SensorIndex);
+		Luint8 u82DS18B20__Get_Resolution(Luint16 u16SensorIndex);
+		Luint8 u82DS18B20__Get_BusIndex(Luint16 u16SensorIndex);
+		void vDS18B20__Get_ROMID(Luint16 u16SensorIndex, Luint8 *pu8Buffer);
 
 
 		//temperature
-		Lint16 s16DS18B20_TEMP__Read(Luint8 u8DSIndex);
-		Lint16 s16DS18B20_TEMP__Request(Luint8 u8DSIndex, Luint8 u8Wait);
-		Lint16 s16DS18B20_TEMP__All_Request(Luint8 u8DSIndex, Luint8 u8Wait);
-		Lint16 s16DS18B20_TEMP__Set_Resolution(Luint8 u8DSIndex, Luint8 u8Resolution);
-		Lint16 s16DS18B20_TEMP__Get_Resolution(Luint8 u8DSIndex, Luint8 *pu8Resolution);
+		Lint16 s16DS18B20_TEMP__Read(Luint16 u16SensorIndex);
+		Lint16 s16DS18B20_TEMP__Request(Luint16 u16SensorIndex, Luint8 u8Wait);
+		Lint16 s16DS18B20_TEMP__All_Request(Luint16 u16SensorIndex, Luint8 u8Wait);
+		Lint16 s16DS18B20_TEMP__Set_Resolution(Luint16 u16SensorIndex, Luint8 u8Resolution);
+		Lint16 s16DS18B20_TEMP__Get_Resolution(Luint16 u16SensorIndex, Luint8 *pu8Resolution);
 
 		//alarms
 		void vDS18B20_ALARMS__Init(void);
@@ -153,23 +156,23 @@
 		void vDS18B20_ADDX__SearchSM_Process(void);
 		void vDS18B20_ADDX__SearchSM_Start(void);
 		Luint8 u8DS18B20_ADDX__SearchSM_IsBusy(void);
-		Luint8 u8DS18B20_ADDX__Get_NumEnumerated(void);
+		Luint16 u16DS18B20_ADDX__Get_NumEnumerated(void);
 		void vDS18B20_ADDX__Set_SearchComplete(void);
-		Lint16 s16DS18B20_ADDX__Upload_Addx(Luint8 u8Index, Luint8 u8Channel, Luint8 *pu8Addx);
+		Lint16 s16DS18B20_ADDX__Upload_Addx(Luint16 u16SensorIndex, Luint8 u8ChannelIndex, Luint8 *pu8Addx);
 
 		//scratchpad
 		Luint8 u8DS18B20_SCRATCH__Compute_CRC(Luint8 *pu8Scratch);
-		Lint16 s16DS18B20_SCRATCH__Read(Luint8 u8DSIndex, Luint8 *pu8Scratch);
-		Lint16 s16DS18B20_SCRATCH__Write(Luint8 u8DSIndex, const Luint8 *pu8Scratch);
+		Lint16 s16DS18B20_SCRATCH__Read(Luint16 u16SensorIndex, Luint8 *pu8Scratch);
+		Lint16 s16DS18B20_SCRATCH__Write(Luint16 u16SensorIndex, const Luint8 *pu8Scratch);
 
 		//wire interface
-		Lint16 s16DS18B20_1WIRE__Generate_Reset(Luint8 u8DeviceIndex);
-		Lint16 s16DS18B20_1WIRE__SelectDevice(Luint8 u8DeviceIndex, Luint8 *pu8Addx);
-		Lint16 s16DS18B20_1WIRE__WriteByte(Luint8 u8DeviceIndex, Luint8 u8Byte);
-		Lint16 s16DS18B20_1WIRE__ReadByte(Luint8 u8DeviceIndex, Luint8 *pu8Byte);
-		Lint16 s16DS18B20_1WIRE__Skip(Luint8 u8DeviceIndex);
-		Lint16 s16DS18B20_SEARCH__SearchFirstDevice(Luint8 u8DeviceIndex, Luint8 *pu8Addx);
-		Lint16 s16DS18B20_SEARCH__SearchNextDevice(Luint8 u8DeviceIndex, Luint8 *pu8Addx);
+		Lint16 s16DS18B20_1WIRE__Generate_Reset(Luint8 u8ChannelIndex);
+		Lint16 s16DS18B20_1WIRE__SelectDevice(Luint8 u8ChannelIndex, Luint8 *pu8Addx);
+		Lint16 s16DS18B20_1WIRE__WriteByte(Luint8 u8ChannelIndex, Luint8 u8Byte);
+		Lint16 s16DS18B20_1WIRE__ReadByte(Luint8 u8ChannelIndex, Luint8 *pu8Byte);
+		Lint16 s16DS18B20_1WIRE__Skip(Luint8 u8ChannelIndex);
+		Lint16 s16DS18B20_SEARCH__SearchFirstDevice(Luint8 u8ChannelIndex, Luint8 *pu8Addx);
+		Lint16 s16DS18B20_SEARCH__SearchNextDevice(Luint8 u8ChannelIndex, Luint8 *pu8Addx);
 		
 		//delay interface
 		void vDS18B20_DELAYS__Delay_uS(Luint32 u32Value);
@@ -182,7 +185,7 @@
 		#ifndef C_LOCALDEF__LCCM644__MAX_1WIRE_CHANNELS
 			#error
 		#endif
-		#if C_LOCALDEF__LCCM644__MAX_DEVICES > 254
+		#if C_LOCALDEF__LCCM644__MAX_DEVICES > 1000
 			//due to data types, limited
 			#error
 		#endif

@@ -42,7 +42,7 @@ void vDS18B20__Init(void)
 {
 
 	//setup
-	sDS18B20.sEnum.u8NumDevices = 0U;
+	sDS18B20.sEnum.u16NumDevices = 0U;
 	sDS18B20.u8NewData = 0U;
 	//setup the vars
 	sDS18B20.u32Guard1 = 0x11223344;
@@ -90,11 +90,11 @@ void vDS18B20__Process(void)
 			if(sDS18B20.sSearch.u8SearchCompleted == 1U)
 			{
 
-				if(sDS18B20.sEnum.u8NumDevices > 0U)
+				if(sDS18B20.sEnum.u16NumDevices > 0U)
 				{
 
 					//clear our device counter now.
-					sDS18B20.u8MainStateCounter = 0U;
+					sDS18B20.u16MainStateCounter = 0U;
 
 					//setup the resolutions
 					//todo: could change to configure resoltution, BUT ONLY ONCE.
@@ -125,7 +125,7 @@ void vDS18B20__Process(void)
 			 */
 
 			//configure the resolution
-			s16Return = s16DS18B20_TEMP__Set_Resolution(sDS18B20.u8MainStateCounter, C_LOCALDEF__LCCM644__RESOLUTION_SETTING);
+			s16Return = s16DS18B20_TEMP__Set_Resolution(sDS18B20.u16MainStateCounter, C_LOCALDEF__LCCM644__RESOLUTION_SETTING);
 			if(s16Return >= 0)
 			{
 				//res was set good.
@@ -136,11 +136,11 @@ void vDS18B20__Process(void)
 			}
 
 
-			sDS18B20.u8MainStateCounter++;
-			if(sDS18B20.u8MainStateCounter >= sDS18B20.sEnum.u8NumDevices)
+			sDS18B20.u16MainStateCounter++;
+			if(sDS18B20.u16MainStateCounter >= sDS18B20.sEnum.u16NumDevices)
 			{
 				//move on and read-back the resolution.
-				sDS18B20.u8MainStateCounter = 0U;
+				sDS18B20.u16MainStateCounter = 0U;
 				sDS18B20.eMainState = DS18B20_STATE__READ_RESOLUTION;
 			}
 			else
@@ -155,7 +155,7 @@ void vDS18B20__Process(void)
 
 
 			//configure the resolution
-			s16Return = s16DS18B20_TEMP__Get_Resolution(sDS18B20.u8MainStateCounter, &sDS18B20.sDevice[sDS18B20.u8MainStateCounter].u8Resolution);
+			s16Return = s16DS18B20_TEMP__Get_Resolution(sDS18B20.u16MainStateCounter, &sDS18B20.sDevice[sDS18B20.u16MainStateCounter].u8Resolution);
 			if(s16Return >= 0)
 			{
 				//res get was set good.
@@ -169,8 +169,8 @@ void vDS18B20__Process(void)
 			}
 
 
-			sDS18B20.u8MainStateCounter++;
-			if(sDS18B20.u8MainStateCounter >= sDS18B20.sEnum.u8NumDevices)
+			sDS18B20.u16MainStateCounter++;
+			if(sDS18B20.u16MainStateCounter >= sDS18B20.sEnum.u16NumDevices)
 			{
 				sDS18B20.eMainState = DS18B20_STATE__START_CONVERT_ALL;
 			}
@@ -208,7 +208,7 @@ void vDS18B20__Process(void)
 				sDS18B20.u32ISR_Counter = 0U;
 
 				//clear our device counter now.
-				sDS18B20.u8MainStateCounter = 0U;
+				sDS18B20.u16MainStateCounter = 0U;
 
 				//just jump to reading the sensors are we are not using ISR's to count time.
 				sDS18B20.eMainState = DS18B20_STATE__READ_SENSORS;
@@ -218,7 +218,7 @@ void vDS18B20__Process(void)
 				sDS18B20.u32ISR_Counter = 0U;
 
 				//clear our device counter now.
-				sDS18B20.u8MainStateCounter = 0U;
+				sDS18B20.u16MainStateCounter = 0U;
 
 				//change state
 				sDS18B20.eMainState = DS18B20_STATE__WAIT_CONVERT;
@@ -277,7 +277,7 @@ void vDS18B20__Process(void)
 
 
 			//get the temp data from each sensor
-			s16Return = s16DS18B20_TEMP__Read(sDS18B20.u8MainStateCounter);
+			s16Return = s16DS18B20_TEMP__Read(sDS18B20.u16MainStateCounter);
 			if(s16Return >= 0)
 			{
 				//all good.
@@ -288,8 +288,8 @@ void vDS18B20__Process(void)
 			}
 
 
-			sDS18B20.u8MainStateCounter++;
-			if(sDS18B20.u8MainStateCounter >= sDS18B20.sEnum.u8NumDevices)
+			sDS18B20.u16MainStateCounter++;
+			if(sDS18B20.u16MainStateCounter >= sDS18B20.sEnum.u16NumDevices)
 			{
 				sDS18B20.eMainState = DS18B20_STATE__READ_DONE;
 			}
@@ -360,13 +360,13 @@ void vDS18B20__Start_TempRead(void)
  * @brief
  * Get the last measured temperature
  * 
- * @param[in]		u16Index				Sensor index
+ * @param[in]		u16SensorIndex				Sensor index
  * @st_funcMD5		97C5027B4445BCB134628BA44BA4F120
  * @st_funcID		LCCM644R0.FILE.000.FUNC.007
  */
-Lfloat32 f32DS18B20__Get_Temperature_DegC(Luint16 u16Index)
+Lfloat32 f32DS18B20__Get_Temperature_DegC(Luint16 u16SensorIndex)
 {
-	return sDS18B20.sTemp[u16Index].f32Temperature;
+	return sDS18B20.sTemp[u16SensorIndex].f32Temperature;
 }
 
 
@@ -386,39 +386,39 @@ Luint32 u32DS18B20__Get_DeviceAddx(void)
  * @brief
  * Get the user variable index
  * 
- * @param[in]		u16Index			Sensor Index
+ * @param[in]		u16SensorIndex			Sensor Index
  * @st_funcMD5		E10E42B3A39A5DF7BAA64554DC0E4E18
  * @st_funcID		LCCM644R0.FILE.000.FUNC.009
  */
-Luint16 u162DS18B20__Get_UserIndex(Luint16 u16Index)
+Luint16 u162DS18B20__Get_UserIndex(Luint16 u16SensorIndex)
 {
-	return sDS18B20.sDevice[u16Index].u16UserIndex;
+	return sDS18B20.sDevice[u16SensorIndex].u16UserIndex;
 }
 
 /***************************************************************************//**
  * @brief
  * Get the sensor resolution
  * 
- * @param[in]		u16Index			Sensor index
+ * @param[in]		u16SensorIndex			Sensor index
  * @st_funcMD5		17F55FE90BED80086EE4414AD72D296F
  * @st_funcID		LCCM644R0.FILE.000.FUNC.010
  */
-Luint8 u82DS18B20__Get_Resolution(Luint16 u16Index)
+Luint8 u82DS18B20__Get_Resolution(Luint16 u16SensorIndex)
 {
-	return sDS18B20.sDevice[u16Index].u8Resolution;
+	return sDS18B20.sDevice[u16SensorIndex].u8Resolution;
 }
 
 /***************************************************************************//**
  * @brief
  * Get the BUS index that the sensor is located on
  * 
- * @param[in]		u16Index			Sensor index
+ * @param[in]		u16SensorIndex			Sensor index
  * @st_funcMD5		CB7F6851D04986D920779A760C2C8587
  * @st_funcID		LCCM644R0.FILE.000.FUNC.011
  */
-Luint8 u82DS18B20__Get_BusIndex(Luint16 u16Index)
+Luint8 u82DS18B20__Get_BusIndex(Luint16 u16SensorIndex)
 {
-	return sDS18B20.sDevice[u16Index].u8ChannelIndex;
+	return sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex;
 }
 
 /***************************************************************************//**
@@ -426,16 +426,16 @@ Luint8 u82DS18B20__Get_BusIndex(Luint16 u16Index)
  * Return the ROMID
  * 
  * @param[in]		*pu8Buffer				Pointer to buffer to hold the ROM ID
- * @param[in]		u16Index				Sensor index in its array
+ * @param[in]		u16SensorIndex				Sensor index in its array
  * @st_funcMD5		26DABCECBA0A892082E5A2E8E7C1FB4F
  * @st_funcID		LCCM644R0.FILE.000.FUNC.012
  */
-void vDS18B20__Get_ROMID(Luint16 u16Index, Luint8 *pu8Buffer)
+void vDS18B20__Get_ROMID(Luint16 u16SensorIndex, Luint8 *pu8Buffer)
 {
 	Luint8 u8Counter;
-	for(u8Counter = 0U; u8Counter < 8U; u8Counter++)
+	for(u8Counter = 0U; u8Counter < C_DS18B20__ROMID_SIZE; u8Counter++)
 	{
-		pu8Buffer[u8Counter] = sDS18B20.sDevice[u16Index].u8SerialNumber[u8Counter];
+		pu8Buffer[u8Counter] = sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[u8Counter];
 	}
 }
 

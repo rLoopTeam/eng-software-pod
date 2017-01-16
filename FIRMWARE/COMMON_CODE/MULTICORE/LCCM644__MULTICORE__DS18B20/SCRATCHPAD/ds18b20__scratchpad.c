@@ -32,44 +32,44 @@ extern struct _strDS18B20 sDS18B20;
  * Write to the scratch pad, and then commit to the device
  * 
  * @param[in]		*pu8Scratch				Buffer holding scratchpad data
- * @param[in]		u8DSIndex				Address index
+ * @param[in]		u16SensorIndex				Address index
  * @return			0 = success\n
  * 					-ve = error
  * @st_funcMD5		0F8658952A33463C9CEB88D97FF1A6EE
  * @st_funcID		LCCM644R0.FILE.004.FUNC.002
  */
-Lint16 s16DS18B20_SCRATCH__Write(Luint8 u8DSIndex, const Luint8 *pu8Scratch)
+Lint16 s16DS18B20_SCRATCH__Write(Luint16 u16SensorIndex, const Luint8 *pu8Scratch)
 {
 	Lint16 s16Return;
 
 	//reset the one-wire
-	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex);
+	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex);
 	if(s16Return >= 0)
 	{
 		//select the correct device
-		s16Return = s16DS18B20_1WIRE__SelectDevice(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex, &sDS18B20.sDevice[u8DSIndex].u8SerialNumber[0]);
+		s16Return = s16DS18B20_1WIRE__SelectDevice(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex, &sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[0]);
 		if(s16Return >= 0)
 		{
 
 			//select the WRITE scratchpad = 0x4E
-			s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex, 0x4EU);
+			s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex, 0x4EU);
 			if(s16Return >= 0)
 			{
 
 				//we can only write some parts of the scratchpad
 				//Temp Alarm - High
-				s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex, pu8Scratch[2U]);
+				s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex, pu8Scratch[2U]);
 				//Temp Alarm - Low
-				s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex, pu8Scratch[3U]);
+				s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex, pu8Scratch[3U]);
 
 				//generate the reset
-				s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex);
+				s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex);
 
 				//select the device again
-				s16Return = s16DS18B20_1WIRE__SelectDevice(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex, &sDS18B20.sDevice[u8DSIndex].u8SerialNumber[0]);
+				s16Return = s16DS18B20_1WIRE__SelectDevice(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex, &sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[0]);
 
 				//issue a copy command 0x48
-				s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex, 0x48U);
+				s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex, 0x48U);
 
 				//must wait for 10ms
 				vDS18B20_DELAYS__Delay_mS(10U);
@@ -96,7 +96,7 @@ Lint16 s16DS18B20_SCRATCH__Write(Luint8 u8DSIndex, const Luint8 *pu8Scratch)
 	}
 
 	//reset again
-	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex);
+	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex);
 
 	return s16Return;
 }
@@ -124,13 +124,13 @@ Lint16 s16DS18B20_SCRATCH__Write(Luint8 u8DSIndex, const Luint8 *pu8Scratch)
  * 8: 	SCRATCHPAD_CRC
  *
  * @param[in]		*pu8Scratch				Pointer to return scratchpad memory.
- * @param[in]		u8DSIndex				The index of the DS2482 device ROM serial number
+ * @param[in]		u16SensorIndex				The index of the DS2482 device ROM serial number
  * @return			0 = success\n
  * 					-ve = error
  * @st_funcMD5		F5C21A2413EB188C980C35D9929417EC
  * @st_funcID		LCCM644R0.FILE.004.FUNC.001
  */
-Lint16 s16DS18B20_SCRATCH__Read(Luint8 u8DSIndex, Luint8 *pu8Scratch)
+Lint16 s16DS18B20_SCRATCH__Read(Luint16 u16SensorIndex, Luint8 *pu8Scratch)
 {
 
 	Lint16 s16Return;
@@ -138,23 +138,23 @@ Lint16 s16DS18B20_SCRATCH__Read(Luint8 u8DSIndex, Luint8 *pu8Scratch)
 	Luint8 u8CRC;
 
 	//reset the one-wire
-	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex);
+	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex);
 	if(s16Return >= 0)
 	{
 		//select the correct device
-		s16Return = s16DS18B20_1WIRE__SelectDevice(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex, &sDS18B20.sDevice[u8DSIndex].u8SerialNumber[0]);
+		s16Return = s16DS18B20_1WIRE__SelectDevice(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex, &sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[0]);
 		if(s16Return >= 0)
 		{
 
 			//select the read scratchpad = 0xBE
-			s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex, 0xBEU);
+			s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex, 0xBEU);
 			if(s16Return >= 0)
 			{
 
 				//read the scratchpad
-				for(u8Counter = 0U; u8Counter < 9U; u8Counter++)
+				for(u8Counter = 0U; u8Counter < C_DS18B20__SCRATCHPAD_SIZE; u8Counter++)
 				{
-					s16Return = s16DS18B20_1WIRE__ReadByte(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex, &pu8Scratch[u8Counter]);
+					s16Return = s16DS18B20_1WIRE__ReadByte(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex, &pu8Scratch[u8Counter]);
 					if(s16Return < 0)
 					{
 
@@ -186,7 +186,7 @@ Lint16 s16DS18B20_SCRATCH__Read(Luint8 u8DSIndex, Luint8 *pu8Scratch)
 	}
 
 	//reset again
-	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex);
+	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex);
 	if(s16Return >= 0)
 	{
 
