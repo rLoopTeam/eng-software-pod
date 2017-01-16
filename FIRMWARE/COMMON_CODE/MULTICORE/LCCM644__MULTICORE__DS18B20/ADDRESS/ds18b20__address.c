@@ -64,14 +64,14 @@ Lint16 s16DS18B20_ADDX__Search(void)
 {
 
 	Luint8 u8ChannelCounter;
-	Luint8 u8DeviceCounter;
+	Luint16 u16DeviceCounter;
 	Lint16 s16Return;
-	Luint8 u8Counter;
+	Luint16 u16Counter;
 	Luint8 u8FirstSearched;
 	Luint8 u8Flag;
 
 	//setup
-	sDS18B20.sEnum.u8NumDevices = 0U;
+	sDS18B20.sEnum.u16NumDevices = 0U;
 
 	//flag to indicat that we have already searched for the first device.
 	u8FirstSearched = 0U;
@@ -82,7 +82,7 @@ Lint16 s16DS18B20_ADDX__Search(void)
 	{
 
 		//handle the max devices the user has allocated space for
-		for(u8DeviceCounter = 0U; u8DeviceCounter < C_LOCALDEF__LCCM644__MAX_DEVICES; u8DeviceCounter++)
+		for(u16DeviceCounter = 0U; u16DeviceCounter < C_LOCALDEF__LCCM644__MAX_DEVICES; u16DeviceCounter++)
 		{
 			//see if we have not searched our fist device
 			if(u8FirstSearched == 0U)
@@ -91,28 +91,28 @@ Lint16 s16DS18B20_ADDX__Search(void)
 				u8FirstSearched = 1U;
 
 				//search for the first device on a channel
-				s16Return = s16DS18B20_SEARCH__SearchFirstDevice(u8ChannelCounter, &sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8SerialNumber[0]);
+				s16Return = s16DS18B20_SEARCH__SearchFirstDevice(u8ChannelCounter, &sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8SerialNumber[0]);
 				if(s16Return > 0)
 				{
 					//we have found a device
 					//set the channel index we are on
-					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8ChannelIndex = u8ChannelCounter;
-					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8Resolution = 0U;
+					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8ChannelIndex = u8ChannelCounter;
+					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8Resolution = 0U;
 					
 					//set to our known max temp
-					sDS18B20.sTemp[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
+					sDS18B20.sTemp[sDS18B20.sEnum.u16NumDevices].f32Temperature = 127.0F;
 					//inc
-					sDS18B20.sEnum.u8NumDevices++;
+					sDS18B20.sEnum.u16NumDevices++;
 
 					//protect
-					if(sDS18B20.sEnum.u8NumDevices < C_LOCALDEF__LCCM644__MAX_DEVICES)
+					if(sDS18B20.sEnum.u16NumDevices < C_LOCALDEF__LCCM644__MAX_DEVICES)
 					{
 						//fall on
 					}
 					else
 					{
 						//limit
-						sDS18B20.sEnum.u8NumDevices = C_LOCALDEF__LCCM644__MAX_DEVICES - 1U;
+						sDS18B20.sEnum.u16NumDevices = C_LOCALDEF__LCCM644__MAX_DEVICES - 1U;
 					}
 
 				}
@@ -126,28 +126,28 @@ Lint16 s16DS18B20_ADDX__Search(void)
 			else
 			{
 				//search for other devices
-				s16Return = s16DS18B20_SEARCH__SearchNextDevice(u8ChannelCounter, &sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8SerialNumber[0]);
+				s16Return = s16DS18B20_SEARCH__SearchNextDevice(u8ChannelCounter, &sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8SerialNumber[0]);
 				if(s16Return > 0)
 				{
 					//set the channel index we are on
-					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8ChannelIndex = u8ChannelCounter;
-					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8Resolution = 0U;
+					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8ChannelIndex = u8ChannelCounter;
+					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8Resolution = 0U;
 					
 					//set to our known max temp.
-					sDS18B20.sTemp[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
+					sDS18B20.sTemp[sDS18B20.sEnum.u16NumDevices].f32Temperature = 127.0F;
 
 					//inc
-					sDS18B20.sEnum.u8NumDevices++;
+					sDS18B20.sEnum.u16NumDevices++;
 
 					//protect
-					if(sDS18B20.sEnum.u8NumDevices < C_LOCALDEF__LCCM644__MAX_DEVICES)
+					if(sDS18B20.sEnum.u16NumDevices < C_LOCALDEF__LCCM644__MAX_DEVICES)
 					{
 						//fall on
 					}
 					else
 					{
 						//limit
-						sDS18B20.sEnum.u8NumDevices = C_LOCALDEF__LCCM644__MAX_DEVICES - 1U;
+						sDS18B20.sEnum.u16NumDevices = C_LOCALDEF__LCCM644__MAX_DEVICES - 1U;
 					}
 				}
 				else
@@ -179,10 +179,10 @@ Lint16 s16DS18B20_ADDX__Search(void)
 
 
 	//we must find the resolutions of the devices, do this now
-	for(u8Counter = 0U; u8Counter < sDS18B20.sEnum.u8NumDevices; u8Counter++)
+	for(u16Counter = 0U; u16Counter < sDS18B20.sEnum.u16NumDevices; u16Counter++)
 	{
 
-		s16Return = s16DS18B20_TEMP__Get_Resolution(u8Counter, &sDS18B20.sDevice[u8Counter].u8Resolution);
+		s16Return = s16DS18B20_TEMP__Get_Resolution(u16Counter, &sDS18B20.sDevice[u16Counter].u8Resolution);
 		if(s16Return >= 0)
 		{
 			//all good
@@ -248,7 +248,7 @@ void vDS18B20_ADDX__SearchSM_Process(void)
 			sDS18B20.sSearch.u8FirstSearched = 0U;
 
 			//clear the enumerated devices
-			sDS18B20.sEnum.u8NumDevices = 0U;
+			sDS18B20.sEnum.u16NumDevices = 0U;
 
 			//move state
 			sDS18B20.sSearch.sSearchState = SEARCH_STATE__RUN;
@@ -262,29 +262,29 @@ void vDS18B20_ADDX__SearchSM_Process(void)
 				sDS18B20.sSearch.u8FirstSearched  = 1U;
 
 				//search for the first device on a channel
-				s16Return = s16DS18B20_SEARCH__SearchFirstDevice(sDS18B20.sSearch.u8WireChannelCounter, &sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8SerialNumber[0]);
+				s16Return = s16DS18B20_SEARCH__SearchFirstDevice(sDS18B20.sSearch.u8WireChannelCounter, &sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8SerialNumber[0]);
 				if(s16Return > 0)
 				{
 					u8Flag = 0U;
 
 					//we have found a device
 					//set the channel index we are on
-					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8ChannelIndex = sDS18B20.sSearch.u8WireChannelCounter;
-					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8Resolution = 0U;
+					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8ChannelIndex = sDS18B20.sSearch.u8WireChannelCounter;
+					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8Resolution = 0U;
 
 					//set to our known max temp
-					sDS18B20.sTemp[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
+					sDS18B20.sTemp[sDS18B20.sEnum.u16NumDevices].f32Temperature = 127.0F;
 					//inc
-					sDS18B20.sEnum.u8NumDevices++;
+					sDS18B20.sEnum.u16NumDevices++;
 					//protect
-					if(sDS18B20.sEnum.u8NumDevices < C_LOCALDEF__LCCM644__MAX_DEVICES)
+					if(sDS18B20.sEnum.u16NumDevices < C_LOCALDEF__LCCM644__MAX_DEVICES)
 					{
 						//fall on
 					}
 					else
 					{
 						//limit
-						sDS18B20.sEnum.u8NumDevices = C_LOCALDEF__LCCM644__MAX_DEVICES - 1U;
+						sDS18B20.sEnum.u16NumDevices = C_LOCALDEF__LCCM644__MAX_DEVICES - 1U;
 					}
 
 				}
@@ -297,28 +297,28 @@ void vDS18B20_ADDX__SearchSM_Process(void)
 			else
 			{
 				//search for other devices
-				s16Return = s16DS18B20_SEARCH__SearchNextDevice(sDS18B20.sSearch.u8WireChannelCounter, &sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8SerialNumber[0]);
+				s16Return = s16DS18B20_SEARCH__SearchNextDevice(sDS18B20.sSearch.u8WireChannelCounter, &sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8SerialNumber[0]);
 				if(s16Return > 0)
 				{
 					//set the channel index we are on
-					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8ChannelIndex = sDS18B20.sSearch.u8WireChannelCounter;
-					sDS18B20.sDevice[sDS18B20.sEnum.u8NumDevices].u8Resolution = 0U;
+					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8ChannelIndex = sDS18B20.sSearch.u8WireChannelCounter;
+					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8Resolution = 0U;
 
 					//set to our known max temp.
-					sDS18B20.sTemp[sDS18B20.sEnum.u8NumDevices].f32Temperature = 127.0F;
+					sDS18B20.sTemp[sDS18B20.sEnum.u16NumDevices].f32Temperature = 127.0F;
 
 					//inc
-					sDS18B20.sEnum.u8NumDevices++;
+					sDS18B20.sEnum.u16NumDevices++;
 
 					//protect
-					if(sDS18B20.sEnum.u8NumDevices < C_LOCALDEF__LCCM644__MAX_DEVICES)
+					if(sDS18B20.sEnum.u16NumDevices < C_LOCALDEF__LCCM644__MAX_DEVICES)
 					{
 						//fall on
 					}
 					else
 					{
 						//limit
-						sDS18B20.sEnum.u8NumDevices = C_LOCALDEF__LCCM644__MAX_DEVICES - 1U;
+						sDS18B20.sEnum.u16NumDevices = C_LOCALDEF__LCCM644__MAX_DEVICES - 1U;
 					}
 
 					u8Flag = 0U;
@@ -392,36 +392,36 @@ void vDS18B20_ADDX__SearchSM_Process(void)
  * Will set the maximum enumerated index as +1 from the last supplied index
  * 
  * @param[in]		*pu8Addx				Pointer to the ROM ID
- * @param[in]		u8Channel				The 1-wire channel (0 ro 1)
- * @param[in]		u8Index					The index in the device table.
+ * @param[in]		u8ChannelIndex				The 1-wire channel (0 ro 1)
+ * @param[in]		u16SensorIndex					The index in the device table.
  * @return			0 = success\n
  *					-ve = error
  * @st_funcMD5		C5F366E226D6FBF235ACD5DE610D696C
  * @st_funcID		LCCM644R0.FILE.006.FUNC.006
  */
-Lint16 s16DS18B20_ADDX__Upload_Addx(Luint8 u8Index, Luint8 u8Channel, Luint8 *pu8Addx)
+Lint16 s16DS18B20_ADDX__Upload_Addx(Luint16 u16SensorIndex, Luint8 u8ChannelIndex, Luint8 *pu8Addx)
 {
 	Lint16 s16Return;
 
-	if(u8Index < C_LOCALDEF__LCCM644__MAX_DEVICES)
+	if(u16SensorIndex < C_LOCALDEF__LCCM644__MAX_DEVICES)
 	{
 
 		//addx was in range, save addx data.
 		//Do this manually
-		sDS18B20.sDevice[u8Index].u8SerialNumber[0] = pu8Addx[0];
-		sDS18B20.sDevice[u8Index].u8SerialNumber[1] = pu8Addx[1];
-		sDS18B20.sDevice[u8Index].u8SerialNumber[2] = pu8Addx[2];
-		sDS18B20.sDevice[u8Index].u8SerialNumber[3] = pu8Addx[3];
-		sDS18B20.sDevice[u8Index].u8SerialNumber[4] = pu8Addx[4];
-		sDS18B20.sDevice[u8Index].u8SerialNumber[5] = pu8Addx[5];
-		sDS18B20.sDevice[u8Index].u8SerialNumber[6] = pu8Addx[6];
-		sDS18B20.sDevice[u8Index].u8SerialNumber[7] = pu8Addx[7];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[0] = pu8Addx[0];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[1] = pu8Addx[1];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[2] = pu8Addx[2];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[3] = pu8Addx[3];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[4] = pu8Addx[4];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[5] = pu8Addx[5];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[6] = pu8Addx[6];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[7] = pu8Addx[7];
 
-		sDS18B20.sDevice[u8Index].u8ChannelIndex = u8Channel;
+		sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex = u8ChannelIndex;
 
 		//set the num devices to the max index.
 		//expected that user updates in order
-		sDS18B20.sEnum.u8NumDevices = u8Index + 1U;
+		sDS18B20.sEnum.u16NumDevices = u16SensorIndex + 1U;
 
 		//good
 		s16Return = 0;
@@ -446,9 +446,9 @@ Lint16 s16DS18B20_ADDX__Upload_Addx(Luint8 u8Index, Luint8 u8Channel, Luint8 *pu
  * @st_funcMD5		78A160EF3A561E598B4CEED556011A47
  * @st_funcID		LCCM644R0.FILE.006.FUNC.007
  */
-Luint8 u8DS18B20_ADDX__Get_NumEnumerated(void)
+Luint16 u16DS18B20_ADDX__Get_NumEnumerated(void)
 {
-	return sDS18B20.sEnum.u8NumDevices;
+	return sDS18B20.sEnum.u16NumDevices;
 }
 
 

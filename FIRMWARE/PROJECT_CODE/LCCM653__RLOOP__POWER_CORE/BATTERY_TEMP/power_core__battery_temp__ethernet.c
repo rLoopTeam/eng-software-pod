@@ -81,6 +81,7 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, 0U);
 				pu8Buffer += 2U;
 
+				//1080 bytes here!
 				for(u16Device = 0U; u16Device < u16Temp; u16Device++)
 				{
 

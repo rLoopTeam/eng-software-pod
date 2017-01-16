@@ -28,32 +28,30 @@
 extern struct _strDS18B20 sDS18B20;
 
 //locals
-static void vDS18B20_TEMP__Scratch_To_Temp(Luint8 u8DSIndex, const Luint8 *pu8Scratch, Lfloat32 *pf32Temp);
+static void vDS18B20_TEMP__Scratch_To_Temp(Luint16 u16SensorIndex, const Luint8 *pu8Scratch, Lfloat32 *pf32Temp);
 
 /***************************************************************************//**
  * @brief
  * Read the temperature from a device ONCE the conversion is complete
  *
- * @param[in]		u8DSIndex				The address index
+ * @param[in]		u16SensorIndex				The sensor index
  * @return			0 = success\n
  *					-ve = error
- * 
- * @param[in]		u8DSIndex		## Desc ##
  * @st_funcMD5		A078A4525D85F13160DDAF5DF26FE1E2
  * @st_funcID		LCCM644R0.FILE.003.FUNC.006
  */
-Lint16 s16DS18B20_TEMP__Read(Luint8 u8DSIndex)
+Lint16 s16DS18B20_TEMP__Read(Luint16 u16SensorIndex)
 {
 	/*lint -e934*/
 	//Note 934: Taking address of near auto variable [MISRA 2004 Rule 1.2]
 	Lint16 s16Return;
 
 	//read the scratch
-	s16Return = s16DS18B20_SCRATCH__Read(u8DSIndex, &sDS18B20.u8TempScratch[0]);
+	s16Return = s16DS18B20_SCRATCH__Read(u16SensorIndex, &sDS18B20.u8TempScratch[0]);
 	if(s16Return >= 0)
 	{
 		//convert scratch RAM to a temperature
-		vDS18B20_TEMP__Scratch_To_Temp(u8DSIndex, &sDS18B20.u8TempScratch[0], &sDS18B20.sTemp[u8DSIndex].f32Temperature);
+		vDS18B20_TEMP__Scratch_To_Temp(u16SensorIndex, &sDS18B20.u8TempScratch[0], &sDS18B20.sTemp[u16SensorIndex].f32Temperature);
 
 	}
 	else
@@ -72,13 +70,13 @@ Lint16 s16DS18B20_TEMP__Read(Luint8 u8DSIndex)
  * This is most useful for starting thousands of sensors to convert.
  * 
  * @param[in]		u8Wait					Set to 1 to wait the desired conversion time.
- * @param[in]		u8DSIndex				The address index
+ * @param[in]		u16SensorIndex				The sensor index
  * @return			0 = success\n
  *					-ve = error
  * @st_funcMD5		2A3FA2AC34982FD9EA9455F9CB0482D1
  * @st_funcID		LCCM644R0.FILE.003.FUNC.003
  */
-Lint16 s16DS18B20_TEMP__All_Request(Luint8 u8DSIndex, Luint8 u8Wait)
+Lint16 s16DS18B20_TEMP__All_Request(Luint16 u16SensorIndex, Luint8 u8Wait)
 {
 	/*lint -e934*/
 	//Note 934: Taking address of near auto variable [MISRA 2004 Rule 1.2]
@@ -86,19 +84,19 @@ Lint16 s16DS18B20_TEMP__All_Request(Luint8 u8DSIndex, Luint8 u8Wait)
 	Lint16 s16Return;
 
 	//generate a reset on the wire
-	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex);
+	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex);
 
 	//issue the skip command, no serial number needed.
-	s16Return =  s16DS18B20_1WIRE__Skip(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex);
+	s16Return =  s16DS18B20_1WIRE__Skip(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex);
 
 	//start the convert
-	s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex, 0x44U);
+	s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex, 0x44U);
 
 	//wait for conversion?
 	if(u8Wait == 1U)
 	{
 
-		switch(sDS18B20.sDevice[u8DSIndex].u8Resolution)
+		switch(sDS18B20.sDevice[u16SensorIndex].u8Resolution)
 		{
 			case 9:
 				vDS18B20_DELAYS__Delay_mS(94U);
@@ -143,29 +141,29 @@ Lint16 s16DS18B20_TEMP__All_Request(Luint8 u8DSIndex, Luint8 u8Wait)
  * If successful the temperature will be updated in the memory structure
  * 
  * @param[in]		u8Wait					Set this to 1 to wait the required time for conversion
- * @param[in]		u8DSIndex				The addressed index of the device.
+ * @param[in]		u16SensorIndex				The addressed index of the device.
  * @return			0 = success\n
  *					-ve = error
  * @st_funcMD5		860D63E72330497D8ACB60F9EBF50D2D
  * @st_funcID		LCCM644R0.FILE.003.FUNC.004
  */
-Lint16 s16DS18B20_TEMP__Request(Luint8 u8DSIndex, Luint8 u8Wait)
+Lint16 s16DS18B20_TEMP__Request(Luint16 u16SensorIndex, Luint8 u8Wait)
 {
 	/*lint -e934*/
 	//Note 934: Taking address of near auto variable [MISRA 2004 Rule 1.2]
 	Lint16 s16Return;
 
 	//reset the one-wire
-	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex);
+	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex);
 	if(s16Return >= 0)
 	{
 		//select the correct device
-		s16Return = s16DS18B20_1WIRE__SelectDevice(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex, &sDS18B20.sDevice[u8DSIndex].u8SerialNumber[0]);
+		s16Return = s16DS18B20_1WIRE__SelectDevice(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex, &sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[0]);
 		if(s16Return >= 0)
 		{
 
 			//select to start the conversion and put value into scratchpad
-			s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex, 0x44U);
+			s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex, 0x44U);
 			if(s16Return >= 0)
 			{
 
@@ -173,7 +171,7 @@ Lint16 s16DS18B20_TEMP__Request(Luint8 u8DSIndex, Luint8 u8Wait)
 				if(u8Wait == 1U)
 				{
 
-					switch(sDS18B20.sDevice[u8DSIndex].u8Resolution)
+					switch(sDS18B20.sDevice[u16SensorIndex].u8Resolution)
 					{
 						case 9:
 							vDS18B20_DELAYS__Delay_mS(94U);
@@ -197,10 +195,10 @@ Lint16 s16DS18B20_TEMP__Request(Luint8 u8DSIndex, Luint8 u8Wait)
 
 
 					//read the scratch
-					s16Return = s16DS18B20_SCRATCH__Read(u8DSIndex, &sDS18B20.u8TempScratch[0]);
+					s16Return = s16DS18B20_SCRATCH__Read(u16SensorIndex, &sDS18B20.u8TempScratch[0]);
 
 					//convert scratch to temp
-					vDS18B20_TEMP__Scratch_To_Temp(u8DSIndex, &sDS18B20.u8TempScratch[0], &sDS18B20.sTemp[u8DSIndex].f32Temperature);
+					vDS18B20_TEMP__Scratch_To_Temp(u16SensorIndex, &sDS18B20.u8TempScratch[0], &sDS18B20.sTemp[u16SensorIndex].f32Temperature);
 
 					//success code
 					s16Return = 0;
@@ -230,7 +228,7 @@ Lint16 s16DS18B20_TEMP__Request(Luint8 u8DSIndex, Luint8 u8Wait)
 	}
 
 	//reset again
-	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u8DSIndex].u8ChannelIndex);
+	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex);
 
 	return s16Return;
 	/*lint +e934*/
@@ -247,11 +245,11 @@ Lint16 s16DS18B20_TEMP__Request(Luint8 u8DSIndex, Luint8 u8Wait)
  * 
  * @param[out]		*pf32Temp				Pointer to return temperature value
  * @param[in]		*pu8Scratch				Pointer to scratchpad memory
- * @param[in]		u8DSIndex				Index of the device so as we know our resoltion
+ * @param[in]		u16SensorIndex				Index of the device so as we know our resoltion
  * @st_funcMD5		65DE1541B347FC9CA29984F03A7B741D
  * @st_funcID		LCCM644R0.FILE.003.FUNC.005
  */
-void vDS18B20_TEMP__Scratch_To_Temp(Luint8 u8DSIndex, const Luint8 *pu8Scratch, Lfloat32 *pf32Temp)
+void vDS18B20_TEMP__Scratch_To_Temp(Luint16 u16SensorIndex, const Luint8 *pu8Scratch, Lfloat32 *pf32Temp)
 {
 	/*lint -e960*/
 	//Note 960: Violates MISRA 2004 Required Rule 18.4, unions shall not be used
@@ -280,7 +278,7 @@ void vDS18B20_TEMP__Scratch_To_Temp(Luint8 u8DSIndex, const Luint8 *pu8Scratch, 
 	u16WholeCelcius = unT.u16;
 
 	//essentially the temp is in 1/16th of a degree for 12 but.
-	switch(sDS18B20.sDevice[u8DSIndex].u8Resolution)
+	switch(sDS18B20.sDevice[u16SensorIndex].u8Resolution)
 	{
 		case 12U:
 
@@ -365,7 +363,7 @@ void vDS18B20_TEMP__Scratch_To_Temp(Luint8 u8DSIndex, const Luint8 *pu8Scratch, 
 			//set to 128C indicating a problem
 			*pf32Temp = 128.0F;
 			break;
-	}//switch(&sDS18B20.sDevice[u8DSIndex].u8Resolution)
+	}//switch(&sDS18B20.sDevice[u16SensorIndex].u8Resolution)
 
 
 	//noting to return, already updated.
@@ -377,13 +375,13 @@ void vDS18B20_TEMP__Scratch_To_Temp(Luint8 u8DSIndex, const Luint8 *pu8Scratch, 
  * Gets the current resolution by reading the scratchpad memory
  * 
  * @param[out]		*pu8Resolution			Returned resolution value
- * @param[in]		u8DSIndex				Already enumerated address ID
+ * @param[in]		u16SensorIndex				Already enumerated address ID
  * @return			0 = success\n
  *					-ve = error
  * @st_funcMD5		79132391B133E345569932CFFF9C4316
  * @st_funcID		LCCM644R0.FILE.003.FUNC.002
  */
-Lint16 s16DS18B20_TEMP__Get_Resolution(Luint8 u8DSIndex, Luint8 *pu8Resolution)
+Lint16 s16DS18B20_TEMP__Get_Resolution(Luint16 u16SensorIndex, Luint8 *pu8Resolution)
 {
 	/*lint -e934*/
 	//Note 934: Taking address of near auto variable [MISRA 2004 Rule 1.2]
@@ -391,7 +389,7 @@ Lint16 s16DS18B20_TEMP__Get_Resolution(Luint8 u8DSIndex, Luint8 *pu8Resolution)
 	Lint16 s16Return;
 
 	//read the scratch
-	s16Return = s16DS18B20_SCRATCH__Read(u8DSIndex, &sDS18B20.u8TempScratch[0]);
+	s16Return = s16DS18B20_SCRATCH__Read(u16SensorIndex, &sDS18B20.u8TempScratch[0]);
 
 	//determine from the scratchpad
 	switch(sDS18B20.u8TempScratch[4U])
@@ -427,13 +425,13 @@ Lint16 s16DS18B20_TEMP__Get_Resolution(Luint8 u8DSIndex, Luint8 *pu8Resolution)
  * Set the temperature resolution
  * 
  * @param[in]		u8Resolution			New Res: 12,11,10 or 9 bit
- * @param[in]		u8DSIndex				Device index address
+ * @param[in]		u16SensorIndex				Device index address
  * @return			0 = success\n
  *					-ve = error
  * @st_funcMD5		AA30E950FFA1C69214EC088D9D467661
  * @st_funcID		LCCM644R0.FILE.003.FUNC.001
  */
-Lint16 s16DS18B20_TEMP__Set_Resolution(Luint8 u8DSIndex, Luint8 u8Resolution)
+Lint16 s16DS18B20_TEMP__Set_Resolution(Luint16 u16SensorIndex, Luint8 u8Resolution)
 {
 	/*lint -e934*/
 	//Note 934: Taking address of near auto variable [MISRA 2004 Rule 1.2]
@@ -441,7 +439,7 @@ Lint16 s16DS18B20_TEMP__Set_Resolution(Luint8 u8DSIndex, Luint8 u8Resolution)
 	Luint8 u8CRC;
 
 	//read the scratch
-	s16Return = s16DS18B20_SCRATCH__Read(u8DSIndex, &sDS18B20.u8TempScratch[0]);
+	s16Return = s16DS18B20_SCRATCH__Read(u16SensorIndex, &sDS18B20.u8TempScratch[0]);
 
 	//check CRC
 	u8CRC = u8DS18B20_SCRATCH__Compute_CRC(&sDS18B20.u8TempScratch[0]);
@@ -474,7 +472,7 @@ Lint16 s16DS18B20_TEMP__Set_Resolution(Luint8 u8DSIndex, Luint8 u8Resolution)
 		}//switch(u8Resolution)
 
 		//update the scratchpad
-		s16Return = s16DS18B20_SCRATCH__Write(u8DSIndex, &sDS18B20.u8TempScratch[0]);
+		s16Return = s16DS18B20_SCRATCH__Write(u16SensorIndex, &sDS18B20.u8TempScratch[0]);
 	}
 	else
 	{
