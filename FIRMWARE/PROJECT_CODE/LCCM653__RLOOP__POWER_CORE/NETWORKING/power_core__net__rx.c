@@ -30,7 +30,7 @@ extern struct _strPWRNODE sPWRNODE;
  * @param[in]		u16DestPort			The desination UDP port
  * @param[in]		u16Length			The UDP Length
  * @param[in]		*pu8Buffer			Pointer to the UDP packet data
- * @st_funcMD5		54B96758BB5EA2CBA78EBC1004396A94
+ * @st_funcMD5		7474DC6F85CD0C2610EA3ED9A058AC33
  * @st_funcID		LCCM653R0.FILE.018.FUNC.001
  */
 void vPWRNODE_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPort)
@@ -50,7 +50,7 @@ void vPWRNODE_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16Des
  * @param[in]		ePacketType				SafeUDP Packet Type
  * @param[in]		u16PayloadLength		SafeUDP Payload Length
  * @param[in]		*pu8Payload				Pointer to SafeUDP Payload
- * @st_funcMD5		6B62E5DDB6D7BDC7180F3EED6DA76908
+ * @st_funcMD5		BC8E7717BD3A9B8E05E1579A247F394A
  * @st_funcID		LCCM653R0.FILE.018.FUNC.002
  */
 void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)
@@ -88,6 +88,27 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 
 			case NET_PKT__PWR_GEN__POD_EMULATION_CONTROL:
 
+				break;
+
+
+			case NET_PKT__PWR_GEN__CHARGER_CONTROL:
+				//handle the charger
+				if(u32Block[0] == 0x11229988U)
+				{
+					//see if we want to enable charging.
+					if(u32Block[1] == 0x01)
+					{
+						vPWRNODE_SM__Enable_ChargingState();
+					}
+					else
+					{
+						vPWRNODE_SM__Stop_ChargingState();
+					}
+				}
+				else
+				{
+					vPWRNODE_SM__Stop_ChargingState();
+				}
 				break;
 
 			case NET_PKT__PWR_GEN__STREAMING_CONTROL:

@@ -1,4 +1,4 @@
-//Forward pack default configuration
+//AFT pack default configuration
 
 #include "../power_core.h"
 //https://docs.google.com/spreadsheets/d/1buZjyQRxRDtQHxGwqnknch265qBxqOecV305UWF6D5U/edit#gid=0
@@ -9,7 +9,7 @@ u8ChannelIndex;
 u8Resolution;
 u16UserIndex;
 */
-const Luint8 u8FwdPack__Default[] = {
+const Luint8 u8AftPack__Default[] = {
 
 /*Serial: 3506*/
 0x28, 0xFF, 0x70, 0xF7, 0xA0, 0x16, 0x03, 0x80, 0x00, 11, 0x0000,

@@ -171,7 +171,9 @@
 		Lint16 s16ATA6870_CELL__BulkRead_All(void);
 		void vATA6870_CELL__Average_CellVoltages(void);
 		void vATA6870_CELL__Sum_CellVoltages(void);
+		Lfloat32 f32ATA6870_CELL__Get_PackVoltage(void);
 		Lint16 s16ATA6870_CELL__Check_CellVoltageError(Lfloat32 *pf32Voltages);
+		Lfloat32 f32ATA6870_CELL__Get_HighestVoltage(void);
 		
 		//device scanning
 		void vATA6870_SCAN__Start(void);

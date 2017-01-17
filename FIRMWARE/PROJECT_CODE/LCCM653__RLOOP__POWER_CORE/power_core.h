@@ -70,11 +70,23 @@
 			struct
 			{
 
+				/** Temp sensor processing states */
+				E_BATT_TEMP__STATE_T eState;
+
 				/** Loaded from memory the number of configured sensors */
 				Luint16 u16NumSensors;
 
 				/** Pack memory CRC */
 				Luint16 u16PackMemCRC;
+
+				/** Highest Temp */
+				Lfloat32 f32HighestTemp;
+
+				/** Average Temp */
+				Lfloat32 f32AverageTemp;
+
+				/** Is any new data available? */
+				Luint8 u8NewTempAvail;
 
 			}sTemp;
 
@@ -247,6 +259,8 @@
 		//main application state machine
 		void vPWRNODE_SM__Init(void);
 		void vPWRNODE_SM__Process(void);
+		void vPWRNODE_SM__Enable_ChargingState(void);
+		void vPWRNODE_SM__Stop_ChargingState(void);
 
 		//DC/DC converter system
 		void vPWRNODE_DC__Init(void);
@@ -267,6 +281,8 @@
 		void vPWRNODE_CHG__Init(void);
 		void vPWRNODE_CHG__Process(void);
 		void vPWRNODE_CHG__Start(void);
+		Luint8 u8PWRNODE_CHG__Is_Busy(void);
+		void vPWRNODE_CHG__Abort(void);
 
 		//charger current and voltage measurement
 		void vPWRNODE_CHG_IV__Init(void);
@@ -275,6 +291,10 @@
 		//BMS interface layer
 		void vPWRNODE_BMS__Init(void);
 		void vPWRNODE_BMS__Process(void);
+		Lfloat32 f32PWRNODE_BMS__Cell_Get_HighestVoltage(void);
+		Lfloat32 f32PWRNODE_BMS__Get_PackVoltage(void);
+		Luint8 u8PWRNODE_BMS__Balance_IsBusy(void);
+		void vPWRNODE_BMS__Balance_Start(void);
 
 		//pi comms interface
 		void vPWRNODE_PICOMMS__Init(void);
@@ -302,8 +322,7 @@
 		//battery temperature system
 		void vPWRNODE_BATTTEMP__Init(void);
 		void vPWRNODE_BATTTEMP__Process(void);
-		void vPWRNODE_BATTTEMP__Start_Search(void);
-		Luint8 u8PWRNODE_BATTTEMP__Search_IsBusy(void);
+		Luint8 u8PWR_BATTTEMP__Is_Avail(void);
 
 			//memory system
 			void vPWRNODE_BATTTEMP_MEM__Init(void);

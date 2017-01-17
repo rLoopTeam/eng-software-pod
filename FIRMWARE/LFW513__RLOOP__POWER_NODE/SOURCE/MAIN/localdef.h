@@ -274,10 +274,13 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__ENABLE_PI_COMMS						(0U)
 
 		/** Enable the battery temperature measurement system */
-		#define C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP						(0U)
+		#define C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP						(1U)
+
+		/** Enable or disable battery temp search */
+		#define C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP_SEARCH				(0U)
 
 		/** Enable the BMS Subsystem */
-		#define C_LOCALDEF__LCCM653__ENABLE_BMS								(0U)
+		#define C_LOCALDEF__LCCM653__ENABLE_BMS								(1U)
 
 		/** Enable the PV temp system using TSYS01 */
 		#define C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP						(0U)

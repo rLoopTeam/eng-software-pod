@@ -70,7 +70,7 @@ void vPWRNODE_NET__Init(void)
  * This also calls the EMAC link state machine which processes the EMAC link
  * and handles bringing the EMAC on line.
  * 
- * @st_funcMD5		4BED4883F8B9AC752817887EF35BAD19
+ * @st_funcMD5		AE749014AEE93F473972E0F6DDFC391C
  * @st_funcID		LCCM653R0.FILE.017.FUNC.002
  */
 void vPWRNODE_NET__Process(void)

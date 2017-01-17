@@ -369,6 +369,11 @@ Lfloat32 f32DS18B20__Get_Temperature_DegC(Luint16 u16SensorIndex)
 	return sDS18B20.sTemp[u16SensorIndex].f32Temperature;
 }
 
+//returns the number of enumerated sensors found
+Luint16 u16DS18B20__Get_NumEnum_Sensors(void)
+{
+	return sDS18B20.sEnum.u16NumDevices;
+}
 
 /***************************************************************************//**
  * @brief

@@ -96,6 +96,11 @@ void vATA6870_CELL__Sum_CellVoltages(void)
 	//todo: we may need to average this.
 }
 
+//returns the entire pack voltage
+Lfloat32 f32ATA6870_CELL__Get_PackVoltage(void)
+{
+	return sATA6870.f32PackVoltage;
+}
 
 /***************************************************************************//**
  * @brief
@@ -165,6 +170,43 @@ Lint16 s16ATA6870_CELL__Check_CellVoltageError(Lfloat32 *pf32Voltages)
 	}
 
 	return s16Return;
+}
+
+
+//returns the highest cell voltage
+Lfloat32 f32ATA6870_CELL__Get_HighestVoltage(void)
+{
+	Lfloat32 f32Max;
+	Luint8 u8CellCounter;
+	Luint8 u8CellIndex;
+	Luint8 u8DeviceCounter;
+
+	f32Max = 0.0F;
+	// for each ATA6870 device
+	for(u8DeviceCounter = 0U; u8DeviceCounter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8DeviceCounter++)
+	{
+
+		for(u8CellCounter = 0U; u8CellCounter < C_ATA6870__MAX_CELLS; u8CellCounter++)
+		{
+			//calc the current index
+			u8CellIndex = (u8DeviceCounter * C_ATA6870__MAX_CELLS) + u8CellCounter;
+
+			//simply choose the highest cell.
+			if(sATA6870.f32Voltage[u8CellIndex] > f32Max)
+			{
+				//record it.
+				f32Max = sATA6870.f32Voltage[u8CellIndex];
+			}
+			else
+			{
+				//keep sorting
+			}
+
+		}//for(u8CellCounter = 0U; u8CellCounter < C_ATA6870__MAX_CELLS; u8CellCounter++)
+
+	}//for(u8DeviceCounter = 0U; u8DeviceCounter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8DeviceCounter++)
+
+	return f32Max;
 }
 
 

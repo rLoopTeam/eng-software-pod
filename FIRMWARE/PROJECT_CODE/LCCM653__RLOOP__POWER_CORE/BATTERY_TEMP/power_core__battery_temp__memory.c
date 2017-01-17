@@ -34,7 +34,7 @@ extern const Luint8 u8FwdPack__Default[];
  * @brief
  * Init the memory system. Check the CRC's and load the pack data if needed.
  * 
- * @st_funcMD5		ECC33E2FE28D9D2779F71DF0AE2468D8
+ * @st_funcMD5		C7CA8EDC3B6B18471A4DDFF2BEBCFF18
  * @st_funcID		LCCM653R0.FILE.029.FUNC.001
  */
 void vPWRNODE_BATTTEMP_MEM__Init(void)
@@ -78,8 +78,7 @@ void vPWRNODE_BATTTEMP_MEM__Init(void)
 
 	}
 
-	//now load the memory
-	s16Return = s16PWRNODE_BATTEMP_MEM__Load();
+
 
 	//todo, check it loaded well and verify some sensors.
 

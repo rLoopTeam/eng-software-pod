@@ -22,8 +22,6 @@
 
 extern struct _strPWRNODE sPWRNODE;
 
-Luint8 u8TestMsg[] = {0xD5, 0xD0, 0x00, 0x0D, 0xD5, 0xD3, 0x43, 0x00, 0x05, 0x40, 0x49, 0x0F, 0xD0, 0xD5, 0xD8, 0x9E, 0x00};
-
 
 /***************************************************************************//**
  * @brief
@@ -44,37 +42,89 @@ void vPWRNODE_SM__Init(void)
  * @brief
  * Process
  * 
- * @st_funcMD5		443BC873CD6125AEE96FD0085CCDBC8B
+ * @st_funcMD5		CBFBEEF04FB99B08A430376E00D99348
  * @st_funcID		LCCM653R0.FILE.003.FUNC.002
  */
 void vPWRNODE_SM__Process(void)
 {
-	Luint8 u8Counter;
+	Luint8 u8Test;
 
 	switch(sPWRNODE.eMainState)
 	{
 		case RUN_STATE__RESET:
 			//we have just reset
-			sPWRNODE.eMainState = RUN_STATE__TEST;
+			sPWRNODE.eMainState = RUN_STATE__IDLE;
 			break;
 
 		case RUN_STATE__IDLE:
+			//We sit in idle state waiting to transition to charge state */
+			break;
 
+
+		case RUN_STATE__CHARGE_START:
+
+			//start the charger
+			vPWRNODE_CHG__Start();
+
+			sPWRNODE.eMainState = RUN_STATE__CHARGE_PROCESS;
+			break;
+
+		case RUN_STATE__CHARGE_PROCESS:
+			u8Test = u8PWRNODE_CHG__Is_Busy();
+			if(u8Test == 1U)
+			{
+				//stay in state
+			}
+			else
+			{
+				//move back to idle
+				sPWRNODE.eMainState = RUN_STATE__IDLE;
+			}
+			break;
+
+		case RUN_STATE__CHARGE_STOP:
+			//abort the charging
+			vPWRNODE_CHG__Abort();
+
+			//go back to idle.
+			sPWRNODE.eMainState = RUN_STATE__IDLE;
 			break;
 
 		case RUN_STATE__TEST:
 
-			//test a message into the Rx unit.
-			for(u8Counter = 0U; u8Counter < 17U; u8Counter++)
-			{
-				//vPICOMMS_RX__Receive_Bytes(&u8TestMsg[u8Counter], 1);
-			}
-
-			sPWRNODE.eMainState = RUN_STATE__IDLE;
 			break;
 
 	}//switch(sPWRNODE.eMainState)
 
+}
+
+
+//call this to configure charging state.
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		A4102DAE2BA37B460B55A31632AE4AC5
+ * @st_funcID		LCCM653R0.FILE.003.FUNC.003
+ */
+void vPWRNODE_SM__Enable_ChargingState(void)
+{
+
+	sPWRNODE.eMainState = RUN_STATE__CHARGE_START;
+
+}
+
+//stop charging immediate
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		CD45124CCD72755256E22880758DBE25
+ * @st_funcID		LCCM653R0.FILE.003.FUNC.004
+ */
+void vPWRNODE_SM__Stop_ChargingState(void)
+{
+	sPWRNODE.eMainState = RUN_STATE__CHARGE_STOP;
 }
 
 
