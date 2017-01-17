@@ -5,8 +5,30 @@
  *      Author: Lachlan
  */
 
-#ifndef RLOOP_LCCM653__RLOOP__POWER_CORE_POWER_CORE__STATE_TYPES_H_
-#define RLOOP_LCCM653__RLOOP__POWER_CORE_POWER_CORE__STATE_TYPES_H_
+#ifndef _POWER__STATE_TYPES_H_
+#define _POWER__STATE_TYPES_H_
+
+		/** Battery Temp Sensor Scan/load states */
+		typedef enum
+		{
+
+			/** Do nothing */
+			BATT_TEMP_STATE__IDLE = 0U,
+
+			/** Load the temp sensor defaults from memory */
+			BATT_TEMP_STATE__LOAD_DEFAULTS,
+
+			/** If we are not loading from memory start a scan */
+			BATT_TEMP_STATE__START_SCAN,
+
+			/** Wait for the scanning to finish */
+			BATT_TEMP_STATE__WAIT_SCAN,
+
+			/** Running with the temp system */
+			BATT_TEMP_STATE__RUN
+
+		}E_BATT_TEMP__STATE_T;
+
 
 		/** Networking States*/
 		typedef enum
@@ -33,6 +55,15 @@
 
 			RUN_STATE__IDLE,
 
+			/** Start the charging state */
+			RUN_STATE__CHARGE_START,
+
+			/** process the battery charger system */
+			RUN_STATE__CHARGE_PROCESS,
+
+			/** Cleanup the charging process*/
+			RUN_STATE__CHARGE_STOP,
+
 			RUN_STATE__TEST,
 
 		}E_PWRNODE__RUN_STATES;
@@ -56,11 +87,28 @@
 			/** Start the charging process */
 			CHG_STATE__START,
 
-			/** Check the cell balance */
-			CHG_STATE__CHECK_BALANCE,
+			/** Start balancing */
+			CHG_STATE__START_BALANCE,
+
+			/** Check the temperature state of the pack */
+			CHG_STATE__CHECK_PACK_TEMP,
+
+
+			/** Run the balancer*/
+			CHG_STATE__RUN_BALANCER,
 
 			/** Close charge contactor relay */
 			CHG_STATE__CLOSE_CONTACTOR_RELAY,
+
+			/** Check the amount of current flowing in the charger circuit */
+			CHG_STATE__CHECK_CHG_CURRENT,
+
+			/** Check the cell voltages during charging */
+			CHG_STATE__CHECK_CELL_V_DURING_CHG,
+
+			/** Abort charging due to some condition */
+			CHG_STATE__ABORT
+
 
 		}E_PWR__CHARGER_STATE_T;
 
@@ -82,12 +130,6 @@
 
 			/** Init the 1 wire network and I2C <> 1 Wire devices */
 			INIT_STATE__CELL_TEMP_START,
-
-			/** Run the network search */
-			INIT_STATE__CELL_TEMP_SEARCH,
-
-			/** Done with the 1-wire searching */
-			INIT_STATE__CELL_TEMP_SEARCH_DONE,
 
 			/** Init the DC/DC converter layer */
 			INIT_STATE__DC_CONVERTER,
@@ -130,4 +172,4 @@
 
 
 
-#endif /* RLOOP_LCCM653__RLOOP__POWER_CORE_POWER_CORE__STATE_TYPES_H_ */
+#endif /* _POWER__STATE_TYPES_H_ */

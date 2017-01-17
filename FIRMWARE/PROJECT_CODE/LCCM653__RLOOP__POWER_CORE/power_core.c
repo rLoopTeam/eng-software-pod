@@ -51,7 +51,7 @@ void vPWRNODE__Init(void)
  * Process the power node states, this should be called as quick as possible from
  * the main program loop.
  * 
- * @st_funcMD5		B9441AAFF9912B49DF0E488ABD7E90D3
+ * @st_funcMD5		D87D0D684CF1560EB40560019D6342DE
  * @st_funcID		LCCM653R0.FILE.000.FUNC.002
  */
 void vPWRNODE__Process(void)
@@ -174,48 +174,9 @@ void vPWRNODE__Process(void)
 				//start the battery temp system
 				vPWRNODE_BATTTEMP__Init();
 
-				//start a search
-				vPWRNODE_BATTTEMP__Start_Search();
 			#endif
 
-			//start searching for temp sensors
-			sPWRNODE.sInit.eState = INIT_STATE__CELL_TEMP_SEARCH;
-			break;
-
-
-		case INIT_STATE__CELL_TEMP_SEARCH:
-			#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
-				//process the search
-				vPWRNODE_BATTTEMP__Process();
-
-				//check the satate
-				u8Test = u8PWRNODE_BATTTEMP__Search_IsBusy();
-				if(u8Test == 1U)
-				{
-					//stay in the search state
-					//ToDo: Update Timeout
-				}
-				else
-				{
-					//change state
-					sPWRNODE.sInit.eState = INIT_STATE__CELL_TEMP_SEARCH_DONE;
-				}
-			#else
-				//if we don't have batt temp enabled, move states
-				sPWRNODE.sInit.eState = INIT_STATE__CELL_TEMP_SEARCH_DONE;
-			#endif
-
-			break;
-
-
-		case INIT_STATE__CELL_TEMP_SEARCH_DONE:
-			#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
-			//done searching 1-wire interface,
-
-			//todo, handle any results from the search
-			#endif
-
-			//next get the BMS going
+			//Start the BMS
 			sPWRNODE.sInit.eState = INIT_STATE__BMS;
 			break;
 
@@ -288,8 +249,6 @@ void vPWRNODE__Process(void)
 
 			//process any ADC averaging.
 			vRM4_ADC_USER__Process();
-
-
 
 			//normal run state
 			#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U

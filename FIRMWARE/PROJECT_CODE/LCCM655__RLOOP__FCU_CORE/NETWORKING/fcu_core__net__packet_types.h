@@ -190,6 +190,9 @@
 		/** Power Node data streaming */
 		NET_PKT__PWR_GEN__STREAMING_CONTROL = 0x3010U,
 
+		/** Charger Control */
+		NET_PKT__PWR_GEN__CHARGER_CONTROL = 0x3020U,
+
 
 		//////////////////////////////////////////////////////
 		//POWER: TEMPERATURE SYSTEM (0x3200)

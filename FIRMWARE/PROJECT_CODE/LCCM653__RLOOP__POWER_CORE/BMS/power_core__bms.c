@@ -55,6 +55,58 @@ void vPWRNODE_BMS__Process(void)
 #endif
 }
 
+//get the highest cell voltage
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		CCDA9D0AA2A185CC2B0AED32C6C65C05
+ * @st_funcID		LCCM653R0.FILE.008.FUNC.003
+ */
+Lfloat32 f32PWRNODE_BMS__Cell_Get_HighestVoltage(void)
+{
+	return f32ATA6870_CELL__Get_HighestVoltage();
+}
+
+//returns the entire pack voltage
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		1FEB2A9DBECB7ED0651F480855A300D6
+ * @st_funcID		LCCM653R0.FILE.008.FUNC.004
+ */
+Lfloat32 f32PWRNODE_BMS__Get_PackVoltage(void)
+{
+	return f32ATA6870_CELL__Get_PackVoltage();
+}
+
+//start the balance process.
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		A4A94DAE9A680CCCF72DBE546F52ED5F
+ * @st_funcID		LCCM653R0.FILE.008.FUNC.005
+ */
+void vPWRNODE_BMS__Balance_Start(void)
+{
+	vATA6870_BALANCE__Start();
+}
+
+//is the balancer busy?
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		4B308ED45EA0D643CDA7B851220C95A7
+ * @st_funcID		LCCM653R0.FILE.008.FUNC.006
+ */
+Luint8 u8PWRNODE_BMS__Balance_IsBusy(void)
+{
+	return u8ATA6870_BALANCE__Is_Busy();
+}
+
 #endif //C_LOCALDEF__LCCM653__ENABLE_BMS
 
 #endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U

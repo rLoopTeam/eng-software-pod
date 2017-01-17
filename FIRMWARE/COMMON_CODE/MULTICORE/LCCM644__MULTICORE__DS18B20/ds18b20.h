@@ -130,6 +130,7 @@
 		void vDS18B20__Init(void);
 		void vDS18B20__Process(void);
 		Lfloat32 f32DS18B20__Get_Temperature_DegC(Luint16 u16SensorIndex);
+		Luint16 u16DS18B20__Get_NumEnum_Sensors(void);
 		Luint8 u8DS18B20__Is_NewDataAvail(void);
 		void vDS18B20__Clear_NewDataAvail(void);
 		void vDS18B20__10MS_ISR(void);
