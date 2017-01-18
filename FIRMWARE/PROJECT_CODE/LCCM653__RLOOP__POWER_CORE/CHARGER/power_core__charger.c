@@ -220,7 +220,7 @@ void vPWRNODE_CHG__Process(void)
  * @brief
  * start charging
  * 
- * @st_funcMD5		7AFD50D8CFBCCFF5F06FA21BD5B4A6B3
+ * @st_funcMD5		7B8FDF8B87B406209DF4C40EDC35480D
  * @st_funcID		LCCM653R0.FILE.030.FUNC.003
  */
 void vPWRNODE_CHG__Start(void)

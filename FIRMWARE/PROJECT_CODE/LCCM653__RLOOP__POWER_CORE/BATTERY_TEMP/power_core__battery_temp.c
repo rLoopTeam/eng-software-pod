@@ -28,7 +28,7 @@ extern struct _strPWRNODE sPWRNODE;
  * @brief
  * Init the battery temperature measurement devices
  * 
- * @st_funcMD5		A834B1E3BF8DCFCA403E55DC242A8222
+ * @st_funcMD5		E7E42F602AADF453C701FEB849218FA4
  * @st_funcID		LCCM653R0.FILE.009.FUNC.001
  */
 void vPWRNODE_BATTTEMP__Init(void)
@@ -38,6 +38,7 @@ void vPWRNODE_BATTTEMP__Init(void)
 	sPWRNODE.sTemp.f32HighestTemp = 0.0F;
 	sPWRNODE.sTemp.f32AverageTemp = 0.0F;
 	sPWRNODE.sTemp.u8NewTempAvail = 0U;
+	sPWRNODE.sTemp.u16HighestSensorIndex = 0U;
 	sPWRNODE.sTemp.eState = BATT_TEMP_STATE__IDLE;
 
 #ifndef WIN32
@@ -64,7 +65,7 @@ void vPWRNODE_BATTTEMP__Init(void)
  * @brief
  * Process any battery temp measurement tasks
  * 
- * @st_funcMD5		3A9C53473397F96A3E1527DF96355B39
+ * @st_funcMD5		CBFDB100C5B760B922B9B973A0D61CC3
  * @st_funcID		LCCM653R0.FILE.009.FUNC.002
  */
 void vPWRNODE_BATTTEMP__Process(void)
@@ -141,11 +142,12 @@ void vPWRNODE_BATTTEMP__Process(void)
 			//clear the vars
 			f32High = 0.0F;
 			f32Sum = 0.0F;
-
 			//do we have any new updates from the DS18B20 subsystem?
 			u8Test = u8DS18B20__Is_NewDataAvail();
 			if(u8Test == 1U)
 			{
+				//clear the hghest index as it will be recomputed belwo
+				sPWRNODE.sTemp.u16HighestSensorIndex = 0U;
 
 				//get the number of sensors in the pack
 				u16NumSensors = u16DS18B20__Get_NumEnum_Sensors();
@@ -165,6 +167,7 @@ void vPWRNODE_BATTTEMP__Process(void)
 						{
 							//this sensor value is > than the last higest reading, save it
 							f32High = f32Temp;
+							sPWRNODE.sTemp.u16HighestSensorIndex = u16Counter;
 
 						}
 						else

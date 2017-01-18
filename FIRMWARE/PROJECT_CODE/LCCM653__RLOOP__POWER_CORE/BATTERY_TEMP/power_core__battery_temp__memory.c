@@ -24,8 +24,7 @@
 
 extern struct _strPWRNODE sPWRNODE;
 
-//locals
-Lint16 s16PWRNODE_BATTEMP_MEM__Load(void);
+
 
 //the default battery packs
 extern const Luint8 u8FwdPack__Default[];

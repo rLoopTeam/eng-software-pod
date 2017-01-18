@@ -66,7 +66,7 @@ SAFETY UDP LAYER
 		#define C_LOCALDEF__LCCM528__RX_CALLBACK(p,l,t,d,f)					vPWRNODE_NET_RX__RxSafeUDP(p,l,t,d,f)
 
 		/** The one and only UDP port we can operate on */
-		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER					(9900U)
+		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER					(9110U)
 		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER2					(0U)
 
 		/** Vision over SafeUDP Options */
@@ -283,13 +283,13 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__ENABLE_BMS								(1U)
 
 		/** Enable the PV temp system using TSYS01 */
-		#define C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP						(0U)
+		#define C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP						(1U)
 
 		/** Node pressure using MS5607 */
-		#define C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS						(0U)
+		#define C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS						(1U)
 
 		/** Enable the DC/DC converter subsystem */
-		#define C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER					(0U)
+		#define C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER					(1U)
 		//when the DC/DC is enabled we can implement a timeout timer from
 		//heartbeat (or any GS comms)
 		#define C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER__HEART_TIMEOUT		(0U)

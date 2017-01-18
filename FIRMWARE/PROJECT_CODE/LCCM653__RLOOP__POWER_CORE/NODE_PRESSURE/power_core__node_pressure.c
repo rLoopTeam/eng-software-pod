@@ -38,14 +38,10 @@ void vPWRNODE_NODEPRESS__Init(void)
 	#endif
 }
 
+
 /***************************************************************************//**
  * @brief
  * Process the node pressure layer
- *
- */
-/***************************************************************************//**
- * @brief
- * ToDo
  * 
  * @st_funcMD5		14FC06472F5A34E8DC409148E0A8E283
  * @st_funcID		LCCM653R0.FILE.006.FUNC.002
@@ -64,7 +60,7 @@ void vPWRNODE_NODEPRESS__Process(void)
  * @brief
  * Return the node pressure in Bar
  *
- * @return		The most recent pressure sample. 
+ * @return			The most recent pressure sample.
  * @st_funcMD5		70C54965EA46ECDD79FCC81F477BA2B4
  * @st_funcID		LCCM653R0.FILE.006.FUNC.003
  */
