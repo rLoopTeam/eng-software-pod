@@ -51,6 +51,8 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	Luint8 u8BufferIndex;
 	Luint16 u16Length;
 	Luint8 u8Device;
+	Luint8 u8i1;
+	Luint8 u8i2
 
 	pu8Buffer = 0;
 
@@ -58,7 +60,7 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__PWR_BMS__TX_BMS_STATUS:
-			u16Length = 42U;
+			u16Length = 42U + C_LOCALDEF__LCCM650__NUM_DEVICES * NUM_CELLS_PER_MODULE * 4;
 			break;
 
 		default:
@@ -85,7 +87,7 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 1U;
 
 				//charger state
-				pu8Buffer[0] = (Luint8)sPWRNODE.sCharger.sAlgo.eState;
+				//pu8Buffer[0] = (Luint8)sPWRNODE.sCharger.sAlgo.eState;
 				pu8Buffer += 1U;
 
 				//num sensors
@@ -129,6 +131,13 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_NODETEMP__Get_DegC());
 				pu8Buffer += 4U;
 
+				for(u8i1 = 0;u8i1<C_LOCALDEF__LCCM650__NUM_DEVICES;u8i1++){
+					for(u8i2 = 0;u8i2<NUM_CELLS_PER_MODULE;u8i2++){
+						//Module voltage
+						vNUMERICAL_CONRET__ARRAY_F32(pu8Buffer, sPWRNODE.sATA6870.sDevice[u8i1].pf32Voltages[u8i2]);
+						pu8Buffer += 4U;
+					}
+				}
 
 
 				break;
