@@ -87,7 +87,7 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 1U;
 
 				//charger state
-				//pu8Buffer[0] = (Luint8)sPWRNODE.sCharger.sAlgo.eState;
+				pu8Buffer[0] = (Luint8)sPWRNODE.sCharger.sAlgo.eState;
 				pu8Buffer += 1U;
 
 				//num sensors
