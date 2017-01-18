@@ -38,6 +38,8 @@
 	#define C_PWRCORE__6P_LOC16_MASK						(0x11U)
 	#define C_PWRCORE__6P_LOC17_MASK						(0x12U)
 
+	#define C_PWRCORE__BMS_TEMP_MASK						(0x20U)
+
 
 	#define C_PWRCORE__6P_CELL0_MASK						(0x01U)
 	#define C_PWRCORE__6P_CELL1_MASK						(0x02U)

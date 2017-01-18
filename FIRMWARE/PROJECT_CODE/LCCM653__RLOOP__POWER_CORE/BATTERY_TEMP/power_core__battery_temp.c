@@ -78,6 +78,7 @@ void vPWRNODE_BATTTEMP__Process(void)
 	Lfloat32 f32Temp;
 	Lfloat32 f32Sum;
 	Lint16 s16Return;
+	Luint16 u16Mask;
 
 #ifndef WIN32
 	//process any search tasks
@@ -172,8 +173,12 @@ void vPWRNODE_BATTTEMP__Process(void)
 					//make sure the sensors belong to us.
 					u16User = u162DS18B20__Get_UserIndex(u16Counter);
 
+					//0x2000 onwards is our BMS sensors
+					u16Mask = C_PWRCORE__BMS_TEMP_MASK;
+					u16Mask <<= 8U;
+
 					//make sure they are in our user group
-					if((u16User & 0x0001) == 0x0001)
+					if((u16User & 0xFF00) != u16Mask)
 					{
 
 						//compute the highest
