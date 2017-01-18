@@ -120,80 +120,73 @@ void vFCU_ACCEL__Init(void)
  */
 void vFCU_ACCEL__Process(void)
 {
-	Luint32 u32Temp0;
-	Luint32 u32Temp1;
+	Luint32 u32Temp[2];
+	Luint8 u8Test;
+	Luint8 u8Counter;
+	MMA8451__AXIS_E eTargetAxis;
+	Lfloat32 f32Axis_To_ms;
+	Lint32 s32Temp;
 
-	//process device 0
-	vMMA8451__Process(0U);
+	//depending on the orientation of the hardware
+	eTargetAxis = MMA8451_AXIS__Y;
 
-	//after processing check for any fault flags
-	u32Temp0 = u32MMA8451__Get_FaultFlags(0U);
-	if(u32Temp0 != 0x00000000U)
+	//we have an axis in the range of +/- C_LOCALDEF__LCCM418__G_FORCE_RANGE
+
+
+
+	//loop through each device
+	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Counter++)
 	{
-		//we had a fault with sensor 0
-		vFAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__01);
-	}
-	else
-	{
-		//do nothing
-	}
 
-	#if C_LOCALDEF__LCCM418__NUM_DEVICES >= 2U
-	//do sensor 1
-	vMMA8451__Process(1U);
+		//process the device
+		vMMA8451__Process(u8Counter);
 
-	//after processing check for any fault flags
-	u32Temp1 = u32MMA8451__Get_FaultFlags(0U);
-	if(u32Temp1 != 0x00000000U)
-	{
-		//we had a fault with sensor 0
-		vFAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__01);
-	}
-	else
-	{
-		//do nothing
-	}
-	#endif
+		u32Temp[u8Counter] = u32MMA8451__Get_FaultFlags(u8Counter);
+		if(u32Temp[u8Counter] != 0x00000000U)
+		{
+			//we had a fault with sensor 0
+			vFAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__00);
+			vFAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__01);
+		}
+		else
+		{
+			//no faults, good to process
+			u8Test = u8MMA8451__Get_NewSampleReady(u8Counter);
+			if(u8Test == 1U)
+			{
+				//no faults on sensor 0, safe to process accel data
+				sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__X] = s16MMA8451_FILTERING__Get_Average(u8Counter, MMA8451_AXIS__X);
+				sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Y] = s16MMA8451_FILTERING__Get_Average(u8Counter, MMA8451_AXIS__Y);
+				sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Z] = s16MMA8451_FILTERING__Get_Average(u8Counter, MMA8451_AXIS__Z);
 
-	if(u32Temp0 == 0U)
-	{
-		//no faults on sensor 0, safe to process accel data
-		sFCU.sAccel.sChannels[0].s16LastSample[MMA8451_AXIS__X] = s16MMA8451_FILTERING__Get_Average(0U, MMA8451_AXIS__X);
-		sFCU.sAccel.sChannels[0].s16LastSample[MMA8451_AXIS__Y] = s16MMA8451_FILTERING__Get_Average(0U, MMA8451_AXIS__Y);
-		sFCU.sAccel.sChannels[0].s16LastSample[MMA8451_AXIS__Z] = s16MMA8451_FILTERING__Get_Average(0U, MMA8451_AXIS__Z);
+				#if C_LOCALDEF__LCCM418__ENABLE_G_FORCE == 1U
+					sFCU.sAccel.sChannels[u8Counter].f32LastG[MMA8451_AXIS__X] = f32MMA8451_MATH__Get_GForce(u8Counter, MMA8451_AXIS__X);
+					sFCU.sAccel.sChannels[u8Counter].f32LastG[MMA8451_AXIS__Y] = f32MMA8451_MATH__Get_GForce(u8Counter, MMA8451_AXIS__Y);
+					sFCU.sAccel.sChannels[u8Counter].f32LastG[MMA8451_AXIS__Z] = f32MMA8451_MATH__Get_GForce(u8Counter, MMA8451_AXIS__Z);
+				#endif
 
-		sFCU.sAccel.sChannels[0].f32LastG[MMA8451_AXIS__X] = f32MMA8451_MATH__Get_GForce(0U, MMA8451_AXIS__X);
-		sFCU.sAccel.sChannels[0].f32LastG[MMA8451_AXIS__Y] = f32MMA8451_MATH__Get_GForce(0U, MMA8451_AXIS__Y);
-		sFCU.sAccel.sChannels[0].f32LastG[MMA8451_AXIS__Z] = f32MMA8451_MATH__Get_GForce(0U, MMA8451_AXIS__Z);
+				//Convert into m/s
+				s32Temp = sFCU.sAccel.sChannels[u8Counter].s16LastSample[(Luint8)eTargetAxis];
 
+				//9.80665 * 1000 (mm/sec)
+				s32Temp *= 9807;
 
-	}
-	else
-	{
-		//lost accel data on this sensor
-	}
+				//assign
+				sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mms = s32Temp;
 
-	#if C_LOCALDEF__LCCM418__NUM_DEVICES >= 2U
-	if(u32Temp1 == 0U)
-	{
-		//no faults on sensor 1, safe to process accel data
-		sFCU.sAccel.sChannels[1].s16LastSample[MMA8451_AXIS__X] = s16MMA8451_FILTERING__Get_Average(1U, MMA8451_AXIS__X);
-		sFCU.sAccel.sChannels[1].s16LastSample[MMA8451_AXIS__Y] = s16MMA8451_FILTERING__Get_Average(1U, MMA8451_AXIS__Y);
-		sFCU.sAccel.sChannels[1].s16LastSample[MMA8451_AXIS__Z] = s16MMA8451_FILTERING__Get_Average(1U, MMA8451_AXIS__Z);
+				//at this point here we have raw acceleration units updating every 1/freq
+
+			}
+			else
+			{
+				//no new sample avail yet
+			}
+		}
+
+	}//for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Counter++)
 
 
-		sFCU.sAccel.sChannels[1].f32LastG[MMA8451_AXIS__X] = f32MMA8451_MATH__Get_GForce(1U, MMA8451_AXIS__X);
-		sFCU.sAccel.sChannels[1].f32LastG[MMA8451_AXIS__Y] = f32MMA8451_MATH__Get_GForce(1U, MMA8451_AXIS__Y);
-		sFCU.sAccel.sChannels[1].f32LastG[MMA8451_AXIS__Z] = f32MMA8451_MATH__Get_GForce(1U, MMA8451_AXIS__Z);
 
-	}
-	else
-	{
-		//lost accel data on this sensor
-	}
-	#endif
 
 }
 
@@ -215,6 +208,7 @@ Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis)
 	return sFCU.sAccel.sChannels[u8Index].s16LastSample[u8Axis];
 }
 
+
 /***************************************************************************//**
  * @brief
  * Get the last G-Force calculated value
@@ -227,8 +221,17 @@ Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis)
  */
 Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis)
 {
-	return sFCU.sAccel.sChannels[u8Index].f32LastG[u8Axis];
+	#if C_LOCALDEF__LCCM418__ENABLE_G_FORCE == 1U
+		return sFCU.sAccel.sChannels[u8Index].f32LastG[u8Axis];
+	#else
+		return 0.0F;
+	#endif
 }
+
+//make sure both sensors are in the same range
+#if C_LOCALDEF__LCCM418__DEV0__DATA_RATE_HZ != C_LOCALDEF__LCCM418__DEV1__DATA_RATE_HZ
+	#error
+#endif
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_ACCEL
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U

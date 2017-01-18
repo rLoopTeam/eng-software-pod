@@ -57,6 +57,9 @@
 		/** The fault tree for each channel */
 		FAULT_TREE__PUBLIC_T sFaultFlags;
 
+		/** New sample avail for the top level to process */
+		Luint8 u8NewSampleReady;
+
 		/** IO Port Flags */
 		struct
 		{
@@ -205,6 +208,8 @@
 	void vMMA8451__ISR(Luint8 u8DeviceIndex);
 	Luint32 u32MMA8451__Get_FaultFlags(Luint8 u8DeviceIndex);
 	Luint8 u8MMA8451__Get_IsFault(Luint8 u8DeviceIndex);
+	Luint8 u8MMA8451__Get_NewSampleReady(Luint8 u8DeviceIndex);
+	void vMMA8451__Clear_NewSampleReady(Luint8 u8DeviceIndex);
 
 	//ROC
 	void vMMA8451_ROC__Process_ROC(Luint8 u8DeviceIndex, Lfloat32 f32DifferenceTime);

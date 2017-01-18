@@ -1263,7 +1263,7 @@ MMA8451 - 3 AXIS ACCELEROMETER
 
 		//enable rate of change calculations
 		#define C_LOCALDEF__LCCM418__ENABLE_ROC								(0U)
-		#define C_LOCALDEF__LCCM418__ENABLE_G_FORCE							(1U)
+		#define C_LOCALDEF__LCCM418__ENABLE_G_FORCE							(0U)
 
 		//the number of samples for the averaging
 		#define C_LOCALDEF__LCCM418__USER_AVERAGE_MAX_SAMPLES				(0U)

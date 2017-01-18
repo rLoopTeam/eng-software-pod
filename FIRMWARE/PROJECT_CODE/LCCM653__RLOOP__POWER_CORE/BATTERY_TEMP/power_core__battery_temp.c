@@ -108,6 +108,18 @@ void vPWRNODE_BATTTEMP__Process(void)
 			//todo:
 			//Check the result
 
+			//setup the resolution
+			sPWRNODE.sTemp.eState = BATT_TEMP_STATE__CONFIGURE_RESOLUTION;
+			break;
+
+		case BATT_TEMP_STATE__CONFIGURE_RESOLUTION:
+
+			//if we have loaded, configure the devices resolution
+			//This has been implemented in the DS18B20 stack now, so as soon as the sensors are loaded
+			//and ScanComplete is set, the DS18B20 will configure the resolutions per the localdef setting.
+			//vDS18B20__Start_ConfigureResolution();
+
+			sPWRNODE.sTemp.eState = BATT_TEMP_STATE__START_SCAN;
 			break;
 
 		case BATT_TEMP_STATE__START_SCAN:
@@ -116,6 +128,9 @@ void vPWRNODE_BATTTEMP__Process(void)
 			//start the search state machine
 			vDS18B20_ADDX__SearchSM_Start();
 #endif
+
+			//wait for the scan
+			sPWRNODE.sTemp.eState = BATT_TEMP_STATE__WAIT_SCAN;
 			break;
 
 		case BATT_TEMP_STATE__WAIT_SCAN:
