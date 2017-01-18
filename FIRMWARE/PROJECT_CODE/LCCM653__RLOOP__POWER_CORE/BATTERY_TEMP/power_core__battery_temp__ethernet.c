@@ -45,16 +45,18 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 	pu8Buffer = 0;
 
+	u16Temp = u16PWRNODE_BATTTEMP_MEM__Get_NumSensors();
+
 	//setup length based on packet.
 	switch(ePacketType)
 	{
 		case NET_PKT__PWR_TEMP__TX_CURRENT_TEMPS:
 			//length will be updated a bit later.
-			u16Length = 8U;
+			u16Length = 4U + (u16Temp * 4U);
 			break;
 
 		case NET_PKT__PWR_TEMP__TX_SENSOR_LOCATION_DATA:
-			u16Length = 8U;
+			u16Length = 4U + (u16Temp * 4U);
 			break;
 
 		default:
@@ -73,7 +75,6 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 			case NET_PKT__PWR_TEMP__TX_CURRENT_TEMPS:
 
 				//number of temp sensors
-				u16Temp = u16PWRNODE_BATTTEMP_MEM__Get_NumSensors();
 				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, u16Temp);
 				pu8Buffer += 2U;
 
@@ -91,9 +92,6 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 
 				}//for(u16Device = 0U; u16Device < u16Temp; u16Device++)
-
-				//update the length
-				u16Length = 4U + (u16Temp * 4U);
 				break;
 
 			case NET_PKT__PWR_TEMP__TX_SENSOR_LOCATION_DATA:
@@ -126,9 +124,7 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 				}//for(u16Device = 0U; u16Device < u16Temp; u16Device++)
 
-				//update the length
-				u16Length = 4U + (u16Temp * 4U);
-				break;
+			break;
 
 
 			default:
