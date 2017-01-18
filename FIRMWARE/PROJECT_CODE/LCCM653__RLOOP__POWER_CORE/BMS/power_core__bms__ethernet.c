@@ -134,7 +134,7 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				for(u8i1 = 0;u8i1<C_LOCALDEF__LCCM650__NUM_DEVICES;u8i1++){
 					for(u8i2 = 0;u8i2<NUM_CELLS_PER_MODULE;u8i2++){
 						//Module voltage
-						vNUMERICAL_CONRET__ARRAY_F32(pu8Buffer, sPWRNODE.sATA6870.sDevice[u8i1].pf32Voltages[u8i2]);
+						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sATA6870.sDevice[u8i1].pf32Voltages[u8i2]);
 						pu8Buffer += 4U;
 					}
 				}
