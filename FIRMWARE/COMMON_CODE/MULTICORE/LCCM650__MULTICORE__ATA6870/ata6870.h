@@ -157,6 +157,7 @@
 		void vATA6870_BALANCE__Stop(void);
 		Luint8 u8ATA6870_BALANCE__Is_Busy(void);
 		void vATA6870_BALANCE__Process(void);
+		void vATA6870_BALANCE__Manual(Luint8 u8CellIndex, Luint8 u8Enable);
 
 		//lowlevel
 		void vATA6870_LOWLEVEL__Init(void);

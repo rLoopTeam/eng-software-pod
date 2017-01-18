@@ -193,6 +193,11 @@
 		/** Charger Control */
 		NET_PKT__PWR_GEN__CHARGER_CONTROL = 0x3020U,
 
+		/** Manually Balance */
+		NET_PKT__PWR_GEN__MANUAL_BALANCE_CONTROL = 0x3021U,
+
+		/** Latch */
+		NET_PKT__PWR_GEN__LATCH = 0x3030U,
 
 		//////////////////////////////////////////////////////
 		//POWER: TEMPERATURE SYSTEM (0x3200)

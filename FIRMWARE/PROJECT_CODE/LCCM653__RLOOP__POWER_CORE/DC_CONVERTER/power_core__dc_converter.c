@@ -43,13 +43,14 @@ void vPWRNODE_DC__Init(void)
 	sPWRNODE.sDC.u8100MS_Tick = 0U;
 	sPWRNODE.sDC.u32100MS_TimerCount = 0U;
 
+#ifndef WIN32
 	//Setup the hardware pins (DC_WATCHDOG Signal)
 	//GPIOA0
 	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 0U, GIO_DIRECTION__OUTPUT);
 
-	//set to ON
-	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 1U);
-
+	//set to OFF
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 0U);
+#endif
 }
 
 /***************************************************************************//**
@@ -68,6 +69,15 @@ void vPWRNODE_DC__Process(void)
 
 		case DC_STATE__RESET:
 			//just come out of reset
+
+
+			break;
+
+		case DC_STATE__LATCH_COMMAND:
+			// we must not do anything yet until the GS has latched us
+
+			//now we can set to on
+			vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 1U);
 
 			sPWRNODE.sDC.eState = DC_STATE__CHECK_WDT_PET;
 			break;
@@ -141,24 +151,39 @@ void vPWRNODE_DC__Process(void)
 
 }
 
+void vPWRNODE_DC__Latch(Luint32 u32Key)
+{
+
+	if(u32Key == 0xABAB1122U)
+	{
+		if(sPWRNODE.sDC.eState == DC_STATE__RESET)
+		{
+			sPWRNODE.sDC.eState = DC_STATE__LATCH_COMMAND;
+		}
+		else
+		{
+			//wrong state, don't latch
+		}
+	}
+	else
+	{
+		//wrong key
+	}
+
+}
+
 /***************************************************************************//**
  * @brief
  * To implement pod safe, first we need to unlock the function with a separate command
  * This will provent spurious safes.
  *
  * @param[in]		u32UnlockKey			The key, should be ABCD1298
- */
-/***************************************************************************//**
- * @brief
- * ToDo
- * 
- * @param[in]		u32UnlockKey		## Desc ##
  * @st_funcMD5		13855F3831AD134B745053EB8442E3B7
  * @st_funcID		LCCM653R0.FILE.021.FUNC.003
  */
 void vPWRNODE_DC__Pod_Safe_Unlock(Luint32 u32UnlockKey)
 {
-	if(u32UnlockKey == 0xABCD1298)
+	if(u32UnlockKey == 0xABCD1298U)
 	{
 		//OK to unlock
 		sPWRNODE.sDC.u8Unlock = 1U;
@@ -196,7 +221,7 @@ void vPWRNODE_DC__Pet_GS_Message(Luint32 u32Key)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Get the DC/DC converter's timer count
  * 
  * @st_funcMD5		04BE188F4A4B4B9C88B952F3C988059E
  * @st_funcID		LCCM653R0.FILE.021.FUNC.005

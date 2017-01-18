@@ -109,6 +109,9 @@
 			/** Check the cell voltages during charging */
 			CHG_STATE__CHECK_CELL_V_DURING_CHG,
 
+			/** Manual balance control via the GS */
+			CHG_STATE__MANUAL_BALANCING,
+
 			/** Abort charging due to some condition */
 			CHG_STATE__ABORT
 
@@ -161,6 +164,9 @@
 
 			/** DC/DC has just come out of reset */
 			DC_STATE__RESET = 0U,
+
+			/** Once powered must latch on */
+			DC_STATE__LATCH_COMMAND,
 
 			/** check the WDT needs petting */
 			DC_STATE__CHECK_WDT_PET,

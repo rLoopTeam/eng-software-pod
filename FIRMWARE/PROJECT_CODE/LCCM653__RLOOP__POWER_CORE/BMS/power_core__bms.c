@@ -38,6 +38,7 @@ void vPWRNODE_BMS__Init(void)
 	vATA6870__Init();
 #endif
 
+	//setup any ethernet systems.
 	vPWR_BMS_ETH__Init();
 
 }
@@ -71,7 +72,7 @@ Lfloat32 f32PWRNODE_BMS__Cell_Get_HighestVoltage(void)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Returns the last computed lowest cell voltage.
  * 
  * @st_funcMD5		71C954368FC27625363D95A446DA7B32
  * @st_funcID		LCCM653R0.FILE.008.FUNC.007
@@ -118,6 +119,19 @@ Luint8 u8PWRNODE_BMS__Balance_IsBusy(void)
 {
 	return u8ATA6870_BALANCE__Is_Busy();
 }
+
+
+//stop balance immediate
+void vPWRNODE_BMS__Balance_Stop(void)
+{
+	vATA6870_BALANCE__Stop();
+}
+
+void vPWRNODE_BMS__Balance_Manual(Luint8 u8CellIndex, Luint8 u8Enable)
+{
+	vATA6870_BALANCE__Manual(u8CellIndex, u8Enable);
+}
+
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_BMS
 

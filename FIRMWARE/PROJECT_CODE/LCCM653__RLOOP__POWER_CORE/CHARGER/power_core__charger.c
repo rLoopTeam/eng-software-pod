@@ -199,6 +199,10 @@ void vPWRNODE_CHG__Process(void)
 			sPWRNODE.sCharger.sAlgo.eState = CHG_STATE__START;
 			break;
 
+		case CHG_STATE__MANUAL_BALANCING:
+			//in this state the GS wants to maually balance.
+			break;
+
 		case CHG_STATE__ABORT:
 
 			//immediate off
@@ -214,6 +218,24 @@ void vPWRNODE_CHG__Process(void)
 
 	}//switch(sPWRNODE.sCharger.sAlgo.eState)
 
+}
+
+
+void vPWRNODE_GHG__Start_ManualBalance(void)
+{
+	if(sPWRNODE.sCharger.sAlgo.eState == CHG_STATE__IDLE)
+	{
+		sPWRNODE.sCharger.sAlgo.eState = CHG_STATE__MANUAL_BALANCING;
+	}
+	else
+	{
+		//need to be idle
+	}
+}
+
+void vPWRNODE_GHG__Stop_ManualBalance(void)
+{
+	sPWRNODE.sCharger.sAlgo.eState = CHG_STATE__IDLE;
 }
 
 /***************************************************************************//**

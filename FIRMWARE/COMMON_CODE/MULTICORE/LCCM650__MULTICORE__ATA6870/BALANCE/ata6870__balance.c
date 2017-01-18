@@ -203,6 +203,65 @@ void vATA6870_BALANCE__Process(void)
 }
 
 
+//manually balance a cell
+void vATA6870_BALANCE__Manual(Luint8 u8CellIndex, Luint8 u8Enable)
+{
+	Luint8 u8DeviceCounter;
+	Luint8 u8CellCounter;
+	Luint8 u8CellTest;
+
+	//this is the quickest way at this time of the night.
+	for(u8DeviceCounter = 0U; u8DeviceCounter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8DeviceCounter++)
+	{
+		for(u8CellCounter = 0U; u8CellCounter < C_ATA6870__MAX_CELLS; u8CellCounter++)
+		{
+			u8CellTest = (u8DeviceCounter * C_ATA6870__MAX_CELLS) + u8CellCounter;
+			if(u8CellIndex == u8CellTest)
+			{
+				if(u8Enable == 1U)
+				{
+					if(sATA6870.sBalance.u8ResistorOn[u8CellIndex] == 0U)
+					{
+						//turn on this resistor
+						vATA6870_RES__TurnOn(u8DeviceCounter, u8CellCounter);
+
+						//update the flag
+						sATA6870.sBalance.u8ResistorOn[u8CellIndex] = 1U;
+					}
+					else
+					{
+						//res was already set on.
+					}
+				}
+				else
+				{
+					if(sATA6870.sBalance.u8ResistorOn[u8CellIndex] == 1U)
+					{
+						// cell has reached the setpoint, turn off discharge
+						vATA6870_RES__TurnOff(u8DeviceCounter, u8CellCounter);
+
+						//update the flag
+						sATA6870.sBalance.u8ResistorOn[u8CellIndex] = 0U;
+					}
+					else
+					{
+						//cell was alredy off
+					}
+				}
+
+			}//if(u8CellIndex == u8CellTest)
+			else
+			{
+				//not our cell
+
+			}//else if(u8CellIndex == u8CellTest)
+
+		}//for(u8CellCounter = 0U; u8CellCounter < C_ATA6870__MAX_CELLS; u8CellCounter++)
+
+	}//for(u8DeviceCounter = 0U; u8DeviceCounter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8DeviceCounter++)
+
+}
+
 /***************************************************************************//**
  * @brief
  * Handle the actual discharging
@@ -256,6 +315,10 @@ Luint8 u8ATA6870_BALANCE__Handle(Luint8 u8DeviceIndex, Luint8 u8CellCounter, Lui
 
 				//update the flag
 				sATA6870.sBalance.u8ResistorOn[u8CellIndex] = 0U;
+			}
+			else
+			{
+				//cell was alredy off
 			}
 
 		}

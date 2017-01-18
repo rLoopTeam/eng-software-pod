@@ -126,6 +126,60 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 
 				break;
 
+			case NET_PKT__PWR_GEN__MANUAL_BALANCE_CONTROL:
+
+				//check our key
+				if(u32Block[0] == 0x34566543U)
+				{
+					//check our enable bit
+					if(u32Block[1] == 1U)
+					{
+						vPWRNODE_GHG__Start_ManualBalance();
+
+						//apply
+						vPWRNODE_BMS__Balance_Manual((Luint8)u32Block[2], (Luint8)u32Block[3]);
+
+					}
+					else
+					{
+						//abort
+						vPWRNODE_GHG__Stop_ManualBalance();
+						vPWRNODE_BMS__Balance_Stop();
+					}
+				}
+				else
+				{
+					//abort
+					vPWRNODE_GHG__Stop_ManualBalance();
+					vPWRNODE_BMS__Balance_Stop();
+				}
+				break;
+
+			case NET_PKT__PWR_GEN__LATCH:
+
+				if(u32Block[0] == 0xABCD1245U)
+				{
+					if(u32Block[1] == 0U)
+					{
+						//Power Node A
+						vPWRNODE_DC__Latch(0xABAB1122U);
+					}
+					else if(u32Block[1] == 1U)
+					{
+						//Power Node B
+						vPWRNODE_DC__Latch(0xABAB1122U);
+					}
+					else
+					{
+						//not valid
+					}
+				}
+				else
+				{
+					//invalid
+				}
+				break;
+
 			case NET_PKT__PWR_TEMP__REQ_CURRENT_TEMPS:
 				sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__PWR_TEMP__TX_CURRENT_TEMPS;
 				break;
@@ -154,6 +208,9 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 			case NET_PKT__PWR_BMS__REQ_BMS:
 				sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__PWR_BMS__TX_BMS_STATUS;
 				break;
+
+
+
 
 			default:
 				//do nothing

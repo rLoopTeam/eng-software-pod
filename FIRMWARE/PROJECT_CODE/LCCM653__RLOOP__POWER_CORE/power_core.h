@@ -273,6 +273,7 @@
 		void vPWRNODE_DC__Pod_Safe_Unlock(Luint32 u32UnlockKey);
 		void vPWRNODE_DC__Pod_Safe_Go(void);
 		void vPWRNODE_DC__100MS_ISR(void);
+		void vPWRNODE_DC__Latch(Luint32 u32Key);
 
 		//charger relay
 		void vPWRNODE_CHG_RELAY__Init(void);
@@ -286,6 +287,8 @@
 		void vPWRNODE_CHG__Start(void);
 		Luint8 u8PWRNODE_CHG__Is_Busy(void);
 		void vPWRNODE_CHG__Abort(void);
+		void vPWRNODE_GHG__Start_ManualBalance(void);
+		void vPWRNODE_GHG__Stop_ManualBalance(void);
 
 		//charger current and voltage measurement
 		void vPWRNODE_CHG_IV__Init(void);
@@ -299,6 +302,8 @@
 		Lfloat32 f32PWRNODE_BMS__Get_PackVoltage(void);
 		Luint8 u8PWRNODE_BMS__Balance_IsBusy(void);
 		void vPWRNODE_BMS__Balance_Start(void);
+		void vPWRNODE_BMS__Balance_Stop(void);
+		void vPWRNODE_BMS__Balance_Manual(Luint8 u8CellIndex, Luint8 u8Enable);
 
 			//eth
 			void vPWR_BMS_ETH__Init(void);
