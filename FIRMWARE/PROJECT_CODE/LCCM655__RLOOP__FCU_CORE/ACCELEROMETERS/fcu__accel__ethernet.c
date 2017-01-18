@@ -98,25 +98,39 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__Z));
 					pu8Buffer += 2U;
 
-					//X Accel
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__X));
-					pu8Buffer += 4U;
 
-					//Y Accel
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__Y));
-					pu8Buffer += 4U;
+					#if C_LOCALDEF__LCCM418__ENABLE_G_FORCE == 1U
+						//X Accel
+						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__X));
+						pu8Buffer += 4U;
 
-					//Z Accel
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__Z));
-					pu8Buffer += 4U;
+						//Y Accel
+						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__Y));
+						pu8Buffer += 4U;
 
-					//Pitch
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_PitchAngle(u8Device));
-					pu8Buffer += 4U;
+						//Z Accel
+						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__Z));
+						pu8Buffer += 4U;
 
-					//Roll
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_RollAngle(u8Device));
-					pu8Buffer += 4U;
+						//Pitch
+						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_PitchAngle(u8Device));
+						pu8Buffer += 4U;
+
+						//Roll
+						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_RollAngle(u8Device));
+						pu8Buffer += 4U;
+					#else
+						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, 0.0F);
+						pu8Buffer += 4U;
+						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, 0.0F);
+						pu8Buffer += 4U;
+						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, 0.0F);
+						pu8Buffer += 4U;
+						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, 0.0F);
+						pu8Buffer += 4U;
+						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, 0.0F);
+						pu8Buffer += 4U;
+					#endif
 
 				}//for(u8Device = 0; u8Device < 3; u8Device++)
 				break;

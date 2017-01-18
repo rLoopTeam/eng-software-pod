@@ -139,7 +139,8 @@
 		Luint8 u82DS18B20__Get_Resolution(Luint16 u16SensorIndex);
 		Luint8 u82DS18B20__Get_BusIndex(Luint16 u16SensorIndex);
 		void vDS18B20__Get_ROMID(Luint16 u16SensorIndex, Luint8 *pu8Buffer);
-
+		void vDS18B20__Start_ConfigureResolution(void);
+		void vDS18B20__Start_TempRead(void);
 
 		//temperature
 		Lint16 s16DS18B20_TEMP__Read(Luint16 u16SensorIndex);

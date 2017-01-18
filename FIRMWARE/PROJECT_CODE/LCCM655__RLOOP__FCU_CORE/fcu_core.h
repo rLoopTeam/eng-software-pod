@@ -266,8 +266,13 @@
 					/** most recent recorded sample from the Accel in raw units */
 					Lint16 s16LastSample[MMA8451_AXIS__MAX];
 
-					/** Last sample of the G-Force*/
-					Lfloat32 f32LastG[MMA8451_AXIS__MAX];
+					#if C_LOCALDEF__LCCM418__ENABLE_G_FORCE == 1U
+						/** Last sample of the G-Force*/
+						Lfloat32 f32LastG[MMA8451_AXIS__MAX];
+					#endif
+
+					/** The current acceleration in mm/sec based on the last sample */
+					Lint32 s32CurrentAccel_mms;
 
 				}sChannels[C_LOCALDEF__LCCM418__NUM_DEVICES];
 

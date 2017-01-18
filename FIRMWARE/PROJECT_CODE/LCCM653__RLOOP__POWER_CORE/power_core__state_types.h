@@ -18,6 +18,9 @@
 			/** Load the temp sensor defaults from memory */
 			BATT_TEMP_STATE__LOAD_DEFAULTS,
 
+			/** Configure the sensor resolution after the memory load */
+			BATT_TEMP_STATE__CONFIGURE_RESOLUTION,
+
 			/** If we are not loading from memory start a scan */
 			BATT_TEMP_STATE__START_SCAN,
 

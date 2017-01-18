@@ -51,6 +51,7 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	Luint8 u8BufferIndex;
 	Luint16 u16Length;
 	Luint8 u8Device;
+	Luint8 u8Counter;
 
 	pu8Buffer = 0;
 
@@ -59,6 +60,8 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	{
 		case NET_PKT__PWR_BMS__TX_BMS_STATUS:
 			u16Length = 42U;
+			u16Length +=  (C_LOCALDEF__LCCM650__NUM_DEVICES * NUM_CELLS_PER_MODULE * 4U);
+
 			break;
 
 		default:
@@ -129,6 +132,16 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_NODETEMP__Get_DegC());
 				pu8Buffer += 4U;
 
+				//cell volts
+				for(u8Device = 0; u8Device < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Device++)
+				{
+					for(u8Counter = 0; u8Counter < NUM_CELLS_PER_MODULE; u8Counter++)
+					{
+						//Cell voltage
+						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sATA6870.sDevice[u8Device].pf32Voltages[u8Counter]);
+						pu8Buffer += 4U;
+					}
+				}
 
 
 				break;

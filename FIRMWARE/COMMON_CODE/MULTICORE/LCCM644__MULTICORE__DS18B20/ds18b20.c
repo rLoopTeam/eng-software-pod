@@ -98,7 +98,7 @@ void vDS18B20__Process(void)
 
 					//setup the resolutions
 					//todo: could change to configure resoltution, BUT ONLY ONCE.
-					sDS18B20.eMainState = DS18B20_STATE__READ_RESOLUTION;
+					sDS18B20.eMainState = DS18B20_STATE__CONFIGURE_RESOLUTION; //DS18B20_STATE__READ_RESOLUTION;
 				}
 				else
 				{
@@ -349,6 +349,26 @@ void vDS18B20__Start_TempRead(void)
 	if(sDS18B20.eMainState == DS18B20_STATE__IDLE)
 	{
 		sDS18B20.eMainState = DS18B20_STATE__START_CONVERT_ALL;
+	}
+	else
+	{
+		//do not allow the state change
+	}
+}
+
+//setup the resolutions
+void vDS18B20__Start_ConfigureResolution(void)
+{
+	if(sDS18B20.eMainState == DS18B20_STATE__IDLE)
+	{
+		if(sDS18B20.sSearch.u8SearchCompleted == 1U)
+		{
+			sDS18B20.eMainState = DS18B20_STATE__CONFIGURE_RESOLUTION;
+		}
+		else
+		{
+			//cant start yet
+		}
 	}
 	else
 	{
