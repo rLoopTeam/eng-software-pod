@@ -52,7 +52,7 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	Luint16 u16Length;
 	Luint8 u8Device;
 	Luint8 u8i1;
-	Luint8 u8i2
+	Luint8 u8i2;
 
 	pu8Buffer = 0;
 
