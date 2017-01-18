@@ -82,6 +82,9 @@
 				/** Highest Temp */
 				Lfloat32 f32HighestTemp;
 
+				/** The index of the highest temperature sensor */
+				Luint16 u16HighestSensorIndex;
+
 				/** Average Temp */
 				Lfloat32 f32AverageTemp;
 
@@ -292,9 +295,16 @@
 		void vPWRNODE_BMS__Init(void);
 		void vPWRNODE_BMS__Process(void);
 		Lfloat32 f32PWRNODE_BMS__Cell_Get_HighestVoltage(void);
+		Lfloat32 f32PWRNODE_BMS__Cell_Get_LowestVoltage(void);
 		Lfloat32 f32PWRNODE_BMS__Get_PackVoltage(void);
 		Luint8 u8PWRNODE_BMS__Balance_IsBusy(void);
 		void vPWRNODE_BMS__Balance_Start(void);
+
+			//eth
+			void vPWR_BMS_ETH__Init(void);
+			void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType);
+
+
 
 		//pi comms interface
 		void vPWRNODE_PICOMMS__Init(void);
@@ -327,6 +337,7 @@
 			//memory system
 			void vPWRNODE_BATTTEMP_MEM__Init(void);
 			void vPWRNODE_BATTTEMP_MEM__Process(void);
+			Lint16 s16PWRNODE_BATTEMP_MEM__Load(void);
 			Luint16 u16PWRNODE_BATTTEMP_MEM__Get_NumSensors(void);
 			void vPWRNODE_BATTEMP_MEM__Set_ROMID(Luint16 u16Index, Luint32 u32ROMID_Upper, Luint32 u32ROMID_Lower);
 			void vPWRNODE_BATTEMP_MEM__Set_UserData(Luint16 u16Index, Luint16 UserIndex, Luint8 u8BusID, Luint8 u8Resolution);

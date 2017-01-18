@@ -50,7 +50,7 @@ void vPWRNODE_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16Des
  * @param[in]		ePacketType				SafeUDP Packet Type
  * @param[in]		u16PayloadLength		SafeUDP Payload Length
  * @param[in]		*pu8Payload				Pointer to SafeUDP Payload
- * @st_funcMD5		BC8E7717BD3A9B8E05E1579A247F394A
+ * @st_funcMD5		AD548DCA137258A5308B46F94D254866
  * @st_funcID		LCCM653R0.FILE.018.FUNC.002
  */
 void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)
@@ -149,6 +149,10 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 				#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
 					vPWRNODE_BATTEMP_MEM__Set_UserData(u32Block[0], u32Block[1], u32Block[2], u32Block[3]);
 				#endif
+				break;
+
+			case NET_PKT__PWR_BMS__REQ_BMS:
+				sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__PWR_BMS__TX_BMS_STATUS;
 				break;
 
 			default:

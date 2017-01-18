@@ -209,6 +209,40 @@ Lfloat32 f32ATA6870_CELL__Get_HighestVoltage(void)
 	return f32Max;
 }
 
+Lfloat32 f32ATA6870_CELL__Get_LowestVoltage(void)
+{
+	Lfloat32 f32Min;
+	Luint8 u8CellCounter;
+	Luint8 u8CellIndex;
+	Luint8 u8DeviceCounter;
+
+	f32Min = 100.0F;
+	// for each ATA6870 device
+	for(u8DeviceCounter = 0U; u8DeviceCounter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8DeviceCounter++)
+	{
+
+		for(u8CellCounter = 0U; u8CellCounter < C_ATA6870__MAX_CELLS; u8CellCounter++)
+		{
+			//calc the current index
+			u8CellIndex = (u8DeviceCounter * C_ATA6870__MAX_CELLS) + u8CellCounter;
+
+			//simply choose the lowest cell.
+			if(sATA6870.f32Voltage[u8CellIndex] < f32Min)
+			{
+				//record it.
+				f32Min = sATA6870.f32Voltage[u8CellIndex];
+			}
+			else
+			{
+				//keep sorting
+			}
+
+		}//for(u8CellCounter = 0U; u8CellCounter < C_ATA6870__MAX_CELLS; u8CellCounter++)
+
+	}//for(u8DeviceCounter = 0U; u8DeviceCounter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8DeviceCounter++)
+
+	return f32Min;
+}
 
 /***************************************************************************//**
  * @brief
