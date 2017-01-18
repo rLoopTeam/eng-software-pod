@@ -271,8 +271,20 @@
 						Lfloat32 f32LastG[MMA8451_AXIS__MAX];
 					#endif
 
-					/** The current acceleration in mm/sec based on the last sample */
-					Lint32 s32CurrentAccel_mms;
+					/** The current acceleration in mm/sec^2 based on the last sample */
+					Lint32 s32CurrentAccel_mmss;
+
+					/** The computed current velocity in mm/sec*/
+					Lint32 s32CurrentVeloc_mms;
+
+					/** The previous veloc has just been calculated in the last time period */
+					Lint32 s32PrevVeloc_mms;
+
+					/** Current displacement */
+					Luint32 s32CurrentDisplacement_mm;
+
+					/** Previous displacement */
+					Luint32 s32PrevDisplacement_mm;
 
 				}sChannels[C_LOCALDEF__LCCM418__NUM_DEVICES];
 
@@ -961,6 +973,9 @@
 		void vFCU_ACCEL__Process(void);
 		Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis);
 		Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis);
+		DLL_DECLARATION Lint32 s32FCU_ACCELL__Get_CurrentAccel_mmss(Luint8 u8Channel);
+		DLL_DECLARATION Lint32 s32FCU_ACCELL__Get_CurrentVeloc_mms(Luint8 u8Channel);
+		DLL_DECLARATION Lint32 s32FCU_ACCELL__Get_CurrentDisplacement_mm(Luint8 u8Channel);
 
 			//eth
 			void vFCU_ACCEL_ETH__Init(void);

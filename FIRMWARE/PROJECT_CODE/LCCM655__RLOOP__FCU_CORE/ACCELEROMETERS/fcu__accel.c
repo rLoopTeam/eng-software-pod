@@ -35,6 +35,7 @@ void vFCU_ACCEL__Init(void)
 {
 	Luint32 u32Temp;
 	Luint8 u8Counter;
+	Luint8 u8Device;
 
 	//accel subsystem
 	vFAULTTREE__Init(&sFCU.sAccel.sFaultFlags);
@@ -42,11 +43,25 @@ void vFCU_ACCEL__Init(void)
 	vFCU_ACCEL_ETH__Init();
 
 	//init vars
-	for(u8Counter = 0U; u8Counter < 3U; u8Counter++)
+	for(u8Device = 0U; u8Device < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Device++)
 	{
-		sFCU.sAccel.sChannels[0].s16LastSample[u8Counter] = 0;
-		sFCU.sAccel.sChannels[1].s16LastSample[u8Counter] = 0;
-	}
+		for(u8Counter = 0U; u8Counter < MMA8451_AXIS__MAX; u8Counter++)
+		{
+			sFCU.sAccel.sChannels[u8Device].s16LastSample[u8Counter] = 0;
+
+		}//for(u8Counter = 0U; u8Counter < 3U; u8Counter++)
+
+		//clear the computed varaiables.
+		sFCU.sAccel.sChannels[u8Device].s32CurrentAccel_mmss = 0;
+		sFCU.sAccel.sChannels[u8Device].s32CurrentVeloc_mms = 0;
+		sFCU.sAccel.sChannels[u8Device].s32PrevVeloc_mms = 0;
+		sFCU.sAccel.sChannels[u8Device].s32CurrentDisplacement_mm = 0;
+		sFCU.sAccel.sChannels[u8Device].s32PrevDisplacement_mm = 0;
+
+
+	}//for(u8Device = 0U; u8Device < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Device++)
+
+
 
 #ifndef WIN32
 
@@ -168,13 +183,39 @@ void vFCU_ACCEL__Process(void)
 				//Convert into m/s
 				s32Temp = sFCU.sAccel.sChannels[u8Counter].s16LastSample[(Luint8)eTargetAxis];
 
+				//todo:
+				//Filter
+
+				//todo
+				//pitch angle offset in data.
+
 				//9.80665 * 1000 (mm/sec)
 				s32Temp *= 9807;
 
 				//assign
-				sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mms = s32Temp;
+				sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mmss = s32Temp;
 
 				//at this point here we have raw acceleration units updating every 1/freq
+
+				//convert to mm/100th's (or what-ever the data rate is)
+				//This is the same as a*t
+				s32Temp /= (Lint32)C_LOCALDEF__LCCM418__DEV0__DATA_RATE_HZ;
+
+				//v = u + at
+				//where u = prev sample and t = time slice
+				s32Temp += sFCU.sAccel.sChannels[u8Counter].s32PrevVeloc_mms;
+
+				//assign
+				sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms = s32Temp;
+
+				//assing prev (u)
+				sFCU.sAccel.sChannels[u8Counter].s32PrevVeloc_mms = sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms;
+
+				//compute poition
+				//pos = posPrev + T * veloc
+
+
+
 
 			}
 			else
@@ -188,6 +229,23 @@ void vFCU_ACCEL__Process(void)
 
 
 
+}
+
+//return the current velocity as most recently computed in mm/sec
+Lint32 s32FCU_ACCELL__Get_CurrentAccel_mmss(Luint8 u8Channel)
+{
+	return sFCU.sAccel.sChannels[u8Channel].s32CurrentAccel_mmss;
+}
+
+//return the current velocity as most recently computed in mm/sec
+Lint32 s32FCU_ACCELL__Get_CurrentVeloc_mms(Luint8 u8Channel)
+{
+	return sFCU.sAccel.sChannels[u8Channel].s32CurrentVeloc_mms;
+}
+
+Lint32 s32FCU_ACCELL__Get_CurrentDisplacement_mm(Luint8 u8Channel)
+{
+	return sFCU.sAccel.sChannels[u8Channel].s32CurrentDisplacement_mm;
 }
 
 /***************************************************************************//**
