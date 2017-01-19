@@ -145,6 +145,12 @@
 				}sAlgo;
 
 
+				/** Configurable Parameters */
+				Lfloat32 f32MaxHighestCell;
+				Lfloat32 f32MaxPackVoltage;
+				Lfloat32 f32MinPackVoltage;
+				Lfloat32 f32MaxCellTemp;
+
 				/** Charger Relay control state */
 				E_PWRNODE__CHG_RLY_STATES_T eRelayState;
 

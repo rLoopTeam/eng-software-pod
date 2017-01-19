@@ -15,6 +15,15 @@
 		/** IDLE */
 		LGU_COMMS_STATE__IDLE = 0U,
 
+		/** beign a transmission */
+		LGU_COMMS_STATE__TX_BEGIN,
+
+		/** process the transmision */
+		LGU_COMMS_STATE__TX_PROCESS,
+
+		/** process the new Rx packet*/
+		LGU_COMMS_STATE__PROCESS_RX
+
 	}E_LGU_COMMS_STATE_T;
 
 

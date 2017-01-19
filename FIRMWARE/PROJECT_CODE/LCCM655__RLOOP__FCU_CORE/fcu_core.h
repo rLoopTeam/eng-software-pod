@@ -28,6 +28,7 @@
 
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_defines.h>
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_types.h>
+		#include <LCCM655__RLOOP__FCU_CORE/LGU_COMMS/fcu__lgu_comms__types.h>
 
 		#include <LCCM655__RLOOP__FCU_CORE/NETWORKING/fcu_core__net__packet_types.h>
 
@@ -758,6 +759,50 @@
 				/** The communication state between FCU and LGU*/
 				E_LGU_COMMS_STATE_T eCommsState;
 
+
+				/** The tx and rx messages */
+				struct
+				{
+
+					/** Header byte = 0x55*/
+					Luint8 u8Header;
+
+					/** The command type */
+					union
+					{
+						Luint16 u16;
+						Luint8 u8[2];
+					}unCommand;
+
+					/** 32bit value */
+					union
+					{
+						Luint32 u32;
+						Lint32 s32;
+						Lfloat32 f32;
+						Luint8 u8[4];
+					}unValue;
+
+					/** The CRC */
+					Luint8 u8CRC;
+
+					/** 0xAA */
+					Luint8 u8Footer;
+
+				}sTxMessage, sRxMessage;
+
+				/** Is a Tx In progress */
+				Luint8 u8TxRequest;
+
+				/** The count of transmission bytes */
+				Luint8 u8TxCounter;
+
+				/** Count of Rx Bytes */
+				Luint8 u8RxCounter;
+
+				/** New Rx packet avail */
+				Luint8 u8RxAvail;
+
 			}sLGU;
 			#endif //C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM
 
@@ -1059,6 +1104,15 @@
 		void vFCU_LGU__Init(void);
 		void vFCU_LGU__Process(void);
 		void vFCU_LGU__Rx_Byte(Luint8 u8Value);
+		Lint16 s16FCU_LGU__Tx_MessageU32(E_FCU_LGU_COMM_TYPES_T eType, Luint32 u32Value);
+
+		//geometry
+		void vFCU_GEOM__Init(void);
+		void vFCU_GEOM__Process(void);
+
+			//eth
+			void vFCU_GEOM_ETH__Init(void);
+			void vFCU_GEOM_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
 
 		#if C_LOCALDEF__LCCM655__ENABLE_TEST_SPEC == 1U

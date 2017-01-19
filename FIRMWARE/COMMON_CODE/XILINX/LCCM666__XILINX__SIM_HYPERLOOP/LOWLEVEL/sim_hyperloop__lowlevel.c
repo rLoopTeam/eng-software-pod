@@ -55,7 +55,7 @@ void vSIMHLOOP_LOWLEVEL__Set_Accel_GForce(Lfloat32 f32GForce)
 	f32Temp = f32GForce;
 
 	//convert to accel
-	f32Temp *= 9.8F;
+	f32Temp *= 9.80665F;
 
 	//convert to mm
 	f32Temp *= 1000.0F;

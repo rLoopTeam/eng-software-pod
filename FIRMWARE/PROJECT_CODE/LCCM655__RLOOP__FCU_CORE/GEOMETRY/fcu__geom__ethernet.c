@@ -1,6 +1,6 @@
 /**
- * @file		FCU__ASI__ETHERNET.C
- * @brief		Ethernet UDP layer for ASI interface
+ * @file		FCU__GEOM__ETHERNET.C
+ * @brief		Geometry interface over ethernet.
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
  */
@@ -12,39 +12,24 @@
  * @ingroup RLOOP
  * @{ */
 /**
- * @addtogroup FCU__ASI__ETHERNET
+ * @addtogroup FCU__GEOM__ETHERNET
  * @ingroup FCU
  * @{ */
 
 #include "../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
-#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 
 extern struct _strFCU sFCU;
 
-/***************************************************************************//**
- * @brief
- * Init ASI ethernet interface
- * 
- * @st_funcMD5		FEFE127F7FF6EBDE796C21A3E09A0D0C
- * @st_funcID		LCCM655R0.FILE.074.FUNC.001
- */
-void vFCU_ASI_ETH__Init(void)
+
+void vFCU_GEOM_ETH__Init(void)
 {
 
 }
 
-/***************************************************************************//**
- * @brief
- * Do the ASI eth transmission
- * 
- * @param[in]		ePacketType				Packet Type
- * @st_funcMD5		83113C0895F1F7105CCD5AAA800911B8
- * @st_funcID		LCCM655R0.FILE.074.FUNC.002
- */
-void vFCU_ASI_ETH__Transmit(E_NET__PACKET_T ePacketType)
+void vFCU_GEOM_ETH__Transmit(E_NET__PACKET_T ePacketType)
 {
 
 	Lint16 s16Return;
@@ -107,7 +92,6 @@ void vFCU_ASI_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_ETHERNET
-#endif //C_LOCALDEF__LCCM655__ENABLE_ASI_RS485
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 //safetys
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
