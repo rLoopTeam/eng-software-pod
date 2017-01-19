@@ -1,6 +1,10 @@
 /**
  * @file		FCU__LASER_DISTANCE.C
  * @brief		Forward looking laser distance
+ *
+ * @note
+ * https://drive.google.com/drive/folders/0B-Gl6KhA0fayOENvbWQtOU0tNWc
+ *
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
  */
@@ -67,7 +71,7 @@ void vFCU_LASERDIST__Process(void)
 	Luint8 u8Counter;
 	Luint8 u8Temp;
 	Luint8 u8BurstCount;
-
+	Luint8 u8Array[4];
 
 
 
@@ -108,19 +112,24 @@ void vFCU_LASERDIST__Process(void)
 			//wait here until the lasers are out of rest.
 			if(sFCU.sLaserDist.u32LaserPOR_Counter > 50U)
 			{
-				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__INIT_LASER;
+				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__INIT_LASER_TURNON;
 			}
 			else
 			{
 				//stay in state
 			}
-
-
 			break;
 
-		case LASERDIST_STATE__INIT_LASER:
+		case LASERDIST_STATE__INIT_LASER_TURNON:
 
-			//just fall on here, the laser does not need any commands sent to it.
+			//tell the laser to turn on
+			u8Array[0] = 0x1BU;
+			u8Array[1] = 0x4FU;
+			u8Array[2] = 0x31U;
+			u8Array[3] = 0x0DU;
+
+			//send it.
+			vSC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
 
 			sFCU.sLaserDist.eLaserState = LASERDIST_STATE__WAIT_INIT_DONE;
 			break;
@@ -141,7 +150,7 @@ void vFCU_LASERDIST__Process(void)
 			{
 
 				//see if there is at least one byte of data avail in the FIFO's
-				u8Temp = u8SC16_USER__Get_ByteAvail(9U);
+				u8Temp = u8SC16_USER__Get_ByteAvail(C_FCU__SC16_FWD_LASER_INDEX);
 				if(u8Temp == 0U)
 				{
 					//no new data
@@ -151,7 +160,7 @@ void vFCU_LASERDIST__Process(void)
 					//yep some new laser data avail, what to do with it?
 
 					//get the byte and send it off for processing if we have enough data
-					u8Temp = u8SC16_USER__Get_Byte(9U);
+					u8Temp = u8SC16_USER__Get_Byte(C_FCU__SC16_FWD_LASER_INDEX);
 
 					//process the byte.
 					vFCU_LASERDIST__Append_Byte(u8Temp);

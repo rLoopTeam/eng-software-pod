@@ -146,6 +146,7 @@
 		Lint16 s16DS18B20_TEMP__Read(Luint16 u16SensorIndex);
 		Lint16 s16DS18B20_TEMP__Request(Luint16 u16SensorIndex, Luint8 u8Wait);
 		Lint16 s16DS18B20_TEMP__All_Request(Luint16 u16SensorIndex, Luint8 u8Wait);
+		Lint16 s16DS18B20_TEMP__All_Request_ByChannel(Luint8 u8ChannelIndex, Luint8 u8Wait);
 		Lint16 s16DS18B20_TEMP__Set_Resolution(Luint16 u16SensorIndex, Luint8 u8Resolution);
 		Lint16 s16DS18B20_TEMP__Get_Resolution(Luint16 u16SensorIndex, Luint8 *pu8Resolution);
 

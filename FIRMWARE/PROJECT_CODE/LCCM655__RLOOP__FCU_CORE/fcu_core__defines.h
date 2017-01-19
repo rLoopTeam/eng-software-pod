@@ -39,6 +39,18 @@
 	/** number of lasers for the constrast detection system */
 	#define C_FCU__NUM_LASERS_CONTRAST						(3U)
 
+	//Opto NCDT indexes
+	#define C_FCU__SC16_OPTO_FL_INDEX						(0U)
+	#define C_FCU__SC16_OPTO_FR_INDEX						(1U)
+	#define C_FCU__SC16_OPTO_RL_INDEX						(2U)
+	#define C_FCU__SC16_OPTO_RR_INDEX						(3U)
+	#define C_FCU__SC16_OPTO_YAWF_INDEX						(4U)
+	#define C_FCU__SC16_OPTO_YAWR_INDEX						(5U)
+
+	//fwd looking laser
+	#define C_FCU__SC16_FWD_LASER_INDEX						(6U)
+
+
 	/** The SC16 device index for the ASI interface*/
 	#define C_FCU__SC16_ASI_INDEX							(7U)
 

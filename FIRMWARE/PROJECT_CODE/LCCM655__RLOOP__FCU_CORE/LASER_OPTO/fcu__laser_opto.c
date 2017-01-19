@@ -119,7 +119,7 @@ void vFCU_LASEROPTO__Process(void)
 
 			//sucks but we have had to set the profile called rLoop into each sensor
 			//put the lasers into RS422 mode.
-			for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+			for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
 			{
 				//send the command
 				vSC16__Tx_ByteArray(u8Counter, (Luint8*)"\r\nOUTPUT RS422\r\n", 16U);
@@ -144,7 +144,7 @@ void vFCU_LASEROPTO__Process(void)
 			{
 
 				//check if any new laser data is available on the bus.
-				for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+				for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
 				{
 					//see if there is at least one byte of data avail in the FIFO's
 					u8Temp = u8SC16_USER__Get_ByteAvail(u8Counter);
@@ -173,7 +173,7 @@ void vFCU_LASEROPTO__Process(void)
 		case OPTOLASER_STATE__CHECK_NEW_PACKET:
 
 			//check the packet state of each laser
-			for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+			for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
 			{
 				if(sFCU.sLaserOpto.sOptoLaser[u8Counter].u8NewPacket == 1U)
 				{
@@ -200,7 +200,7 @@ void vFCU_LASEROPTO__Process(void)
 		case OPTOLASER_STATE__FILTER_PACKET:
 
 			//check the packet state of each laser
-			for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+			for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
 			{
 				if(sFCU.sLaserOpto.sOptoLaser[u8Counter].u8ReadyForFiltering == 1U)
 				{
@@ -455,13 +455,7 @@ void vFCU_LASEROPTO__100MS_ISR(void)
  * On win32, set the raw value only
  *
  * @param[in]		f32Value				Raw value in laser units
- */
-/***************************************************************************//**
- * @brief
- * ToDo
- * 
- * @param[in]		f32Value		## Desc ##
- * @param[in]		u32Index		## Desc ##
+ * @param[in]		u32Index				The laser index
  * @st_funcMD5		B2906B4ECE0EF676386C646951C577AE
  * @st_funcID		LCCM655R0.FILE.021.FUNC.008
  */

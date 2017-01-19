@@ -125,6 +125,10 @@
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\OPTONCDT\rpod__flight__optoncdt.vb</Link>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\PUSHER\rpod__flight__pusher.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\PUSHER\rpod__flight__pusher.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\rpod__flight__top.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\rpod__flight__top.vb</Link>
     </Compile>

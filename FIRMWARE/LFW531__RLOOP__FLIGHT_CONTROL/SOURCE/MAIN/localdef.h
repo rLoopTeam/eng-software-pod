@@ -179,6 +179,9 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** SpaceX Telemetry Requirements Enable */
 		#define C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY				(1U)
 
+		/** Serial comms to and from the LGU */
+		#define C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM						(1U)
+
 		/** Flight control specifics */
 		#define C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL					(1U)
 

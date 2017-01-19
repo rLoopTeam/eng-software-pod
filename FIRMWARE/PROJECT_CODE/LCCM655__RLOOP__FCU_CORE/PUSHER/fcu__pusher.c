@@ -28,14 +28,14 @@ extern struct _strFCU sFCU;
  * @brief
  * Init any variables for the pusher system
  * 
- * @st_funcMD5		12848C0549F9D85CFC04FE5FCF752AC7
+ * @st_funcMD5		7C79C686EA715C75414C8A1DC69E9CCD
  * @st_funcID		LCCM655R0.FILE.012.FUNC.001
  */
 void vFCU_PUSHER__Init(void)
 {
 
 	//init
-	sFCU.sPusher.u8Pusher_Status = 0U;;
+	sFCU.sPusher.u8Pusher_Status = 0U;
 	sFCU.sPusher.sSwitches[0].u8EdgeFlag = 0U;
 	sFCU.sPusher.sSwitches[1].u8EdgeFlag = 0U;
 	sFCU.sPusher.sSwitches[0].u8SwitchState = 0U;
@@ -47,6 +47,10 @@ void vFCU_PUSHER__Init(void)
 	sFCU.sPusher.eState = PUSH_STATE__IDLE;
 
 	vFAULTTREE__Init(&sFCU.sPusher.sFaultFlags);
+
+	//setup ethernet
+	vFCU_PUSHER_ETH__Init();
+
 }
 
 

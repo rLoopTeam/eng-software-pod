@@ -178,6 +178,17 @@
 		NET_PKT__FCU_ASI__TX_ASI_DATA = 0x1701U,
 
 		//////////////////////////////////////////////////////
+		//FCU: PUSHER (0x1800)
+		//////////////////////////////////////////////////////
+
+		/** Request from the host to send the pusher data */
+		NET_PKT__FCU_ASI__REQUEST_PUSHER_DATA = 0x1800U,
+
+		/** FCU to Host, return pusher data */
+		NET_PKT__FCU_ASI__TX_PUSHER_DATA = 0x1801U,
+
+
+		//////////////////////////////////////////////////////
 		//POWER: GENERAL (0x3000)
 		//////////////////////////////////////////////////////
 

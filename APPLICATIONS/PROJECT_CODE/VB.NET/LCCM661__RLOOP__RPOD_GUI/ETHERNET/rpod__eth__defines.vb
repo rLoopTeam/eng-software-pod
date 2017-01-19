@@ -168,6 +168,28 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** Stream Navigation Progress Data */
         NET_PKT__FCU_NAV__TX_NAV_PROGRESS = &H1600
 
+
+        '//////////////////////////////////////////////////////
+        '//FCU: ASI LAYER(0x1700)
+        '//////////////////////////////////////////////////////
+
+        '/** Request from the host to send the ASI data */
+        NET_PKT__FCU_ASI__REQUEST_ASI_DATA = &H1700
+
+        '/** FCU to Host, return ASI data */
+        NET_PKT__FCU_ASI__TX_ASI_DATA = &H1701
+
+        '//////////////////////////////////////////////////////
+        '//FCU: PUSHER (0x1800)
+        '//////////////////////////////////////////////////////
+
+        '/** Request from the host to send the pusher data */
+        NET_PKT__FCU_ASI__REQUEST_PUSHER_DATA = &H1800
+
+        '/** FCU to Host, return pusher data */
+        NET_PKT__FCU_ASI__TX_PUSHER_DATA = &H1801
+
+
         '//////////////////////////////////////////////////////
         '//POWER: GENERAL (&h3000)
         '//////////////////////////////////////////////////////
@@ -180,6 +202,15 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
 
         '/** Power Node data streaming */
         NET_PKT__PWR_GEN__STREAMING_CONTROL = &H3010
+
+        '/** Charger Control */
+        NET_PKT__PWR_GEN__CHARGER_CONTROL = &H3020
+
+        '/** Manually Balance */
+        NET_PKT__PWR_GEN__MANUAL_BALANCE_CONTROL = &H3021
+
+        '/** Latch */
+        NET_PKT__PWR_GEN__LATCH = &H3030
 
 
         '//////////////////////////////////////////////////////

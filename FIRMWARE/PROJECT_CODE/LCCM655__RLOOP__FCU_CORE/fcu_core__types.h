@@ -144,8 +144,8 @@
 		/** we need to wait until the lasers power up before issuing a command*/
 		LASERDIST_STATE__WAIT_LASER_RESET,
 
-		/** configure the laser into RS422 mode */
-		LASERDIST_STATE__INIT_LASER,
+		/** configure the laser to turn on */
+		LASERDIST_STATE__INIT_LASER_TURNON,
 
 		/** Wait until the laser has been initted */
 		LASERDIST_STATE__WAIT_INIT_DONE,

@@ -76,6 +76,11 @@
         Private m_pnlFlight__Throttle As SIL3.rLoop.rPodControl.Panels.FlightControl.Throttle
 
         ''' <summary>
+        ''' Pusher interface
+        ''' </summary>
+        Private m_pnlFlight__Pusher As SIL3.rLoop.rPodControl.Panels.FlightControl.Pusher
+
+        ''' <summary>
         ''' The logging directory
         ''' </summary>
         Private m_sLogDir As String
@@ -173,6 +178,9 @@
             Me.m_pnlFlight__Throttle = New SIL3.rLoop.rPodControl.Panels.FlightControl.Throttle("Throttle", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__Throttle)
 
+            Me.m_pnlFlight__Pusher = New SIL3.rLoop.rPodControl.Panels.FlightControl.Pusher("Pusher", Me.m_sLogDir)
+            pf.Controls.Add(Me.m_pnlFlight__Pusher)
+
             'setup the eth
             AddHandler Me.m_pnlFlight__Mission.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__SpaceX.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
@@ -185,6 +193,7 @@
             AddHandler Me.m_pnlFlight__Brakes.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__Stepper.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__Throttle.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
+            AddHandler Me.m_pnlFlight__Pusher.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
 
             AddHandler Me.m_pExplorer.LinkClick, AddressOf Me.LinkBar_LinkClick
 
@@ -210,6 +219,7 @@
             Me.m_pnlFlight__Brakes.Panel__HideShow(sText)
             Me.m_pnlFlight__Stepper.Panel__HideShow(sText)
             Me.m_pnlFlight__Throttle.Panel__HideShow(sText)
+            Me.m_pnlFlight__Pusher.Panel__HideShow(sText)
         End Sub
 #End Region '#Region "PANEL HELPERS"
 
@@ -231,6 +241,7 @@
             Me.m_pnlFlight__Brakes.Panel__HideShow(sText)
             Me.m_pnlFlight__Stepper.Panel__HideShow(sText)
             Me.m_pnlFlight__Throttle.Panel__HideShow(sText)
+            Me.m_pnlFlight__Pusher.Panel__HideShow(sText)
         End Sub
 #End Region '#Region "EXPLORER BAR"
 
@@ -275,6 +286,7 @@
             Me.m_pnlFlight__Brakes.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
             Me.m_pnlFlight__Stepper.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
             Me.m_pnlFlight__Throttle.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
+            Me.m_pnlFlight__Pusher.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
         End Sub
 
         ''' <summary>
