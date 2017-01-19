@@ -53,7 +53,7 @@ void vATA6870__Init(void)
 	}
 	for(u8Counter = 0U; u8Counter < C_ATA6870__TOTAL_CELLS; u8Counter++)
 	{
-		sATA6870.f32Voltage[u8Counter] = 0;
+		sATA6870.f32Voltage[u8Counter] = 0.0F;
 	}
 
 	sATA6870.eState = ATA6870_STATE__INIT_DEVICE;

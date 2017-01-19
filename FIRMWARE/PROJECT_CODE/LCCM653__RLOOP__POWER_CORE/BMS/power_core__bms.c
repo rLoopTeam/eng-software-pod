@@ -33,6 +33,7 @@ extern struct _strPWRNODE sPWRNODE;
  */
 void vPWRNODE_BMS__Init(void)
 {
+
 #ifndef WIN32
 	//init the ATA6870 driver
 	vATA6870__Init();

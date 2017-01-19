@@ -153,7 +153,8 @@
 			#endif //C_LOCALDEF__LCCM653__ENABLE_CHARGER
 
 			/** ATA6870 interface */
-			#define NUM_CELLS_PER_MODULE    (6U)
+//			#define NUM_CELLS_PER_MODULE    (6U)
+/*
 			struct
 			{
 
@@ -169,13 +170,13 @@
 				}sDevice[C_LOCALDEF__LCCM650__NUM_DEVICES];
 
 			}sATA6870;
-
+*/
 
 			#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
 			/** BMS Subsystem */
 			struct
 			{
-
+				Luint8 u8Dummy;
 			}sBMS;
 			#endif
 
