@@ -44,7 +44,7 @@
 		#define C_ATA6870__MAX_VOLTS				(4.3)
 
 		/** mV Offset */
-		#define C_ATA6870__OFFSET_VOLTAGE 			(410.0F)
+		#define C_ATA6870__OFFSET_VOLTAGE 			(365.0F)
 
 		/** Max ATA devices on any one bus */
 		#define C_ATA6870__MAX_BUS_DEVICES			(16U)

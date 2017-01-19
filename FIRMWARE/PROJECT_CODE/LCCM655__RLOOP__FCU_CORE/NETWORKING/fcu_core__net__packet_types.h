@@ -248,6 +248,9 @@
 		/** Send BMS status */
 		NET_PKT__PWR_BMS__TX_BMS_STATUS = 0x3401U,
 
+		/** Setup the charger values */
+		NET_PKT__PWR_BMS__SET_CHG_VALUES = 0x3402U,
+
 		//////////////////////////////////////////////////////
 		//DAQ (0x4000)
 		//////////////////////////////////////////////////////

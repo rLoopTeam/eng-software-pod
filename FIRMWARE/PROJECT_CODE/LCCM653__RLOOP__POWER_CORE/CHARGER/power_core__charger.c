@@ -33,6 +33,8 @@ extern struct _strPWRNODE sPWRNODE;
  */
 void vPWRNODE_CHG__Init(void)
 {
+	Luint16 u16CRC;
+	Luint8 u8Test;
 
 	//set to idle.
 	sPWRNODE.sCharger.sAlgo.eState = CHG_STATE__IDLE;
@@ -42,6 +44,43 @@ void vPWRNODE_CHG__Init(void)
 
 	//setup the current and voltage measurement
 	vPWRNODE_CHG_IV__Init();
+
+	//check the storage CRC
+	u8Test = u8EEPARAM_CRC__Is_CRC_OK(	C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_VOLT,
+										C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_TEMP,
+										C_POWERCORE__EEPARAM_INDEX__CHARGER__CRC);
+
+	if(u8Test == 1U)
+	{
+		//CRC was good
+		sPWRNODE.sCharger.f32MaxHighestCell = f32EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_VOLT);
+		sPWRNODE.sCharger.f32MaxPackVoltage = f32EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_PACK_VOLT);
+		sPWRNODE.sCharger.f32MinPackVoltage = f32EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MIN_PACK_VOLT);
+		sPWRNODE.sCharger.f32MaxCellTemp = f32EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_TEMP);
+
+	}
+	else
+	{
+
+		//default the data
+		vEEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_VOLT, 4.1F, 1U);
+		vEEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_PACK_VOLT, 75.6F, 1U);
+		vEEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MIN_PACK_VOLT, 45.1F, 1U);
+		vEEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_TEMP, 40.0F, C_LOCALDEF__LCCM188_IMMEDIATE_WRITE);
+
+
+		sPWRNODE.sCharger.f32MaxHighestCell = f32EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_VOLT);
+		sPWRNODE.sCharger.f32MaxPackVoltage = f32EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_PACK_VOLT);
+		sPWRNODE.sCharger.f32MinPackVoltage = f32EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MIN_PACK_VOLT);
+		sPWRNODE.sCharger.f32MaxCellTemp = f32EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_TEMP);
+
+		//update our CRC
+		vEEPARAM_CRC__Calculate_And_Store_CRC(	C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_VOLT,
+												C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_TEMP,
+												C_POWERCORE__EEPARAM_INDEX__CHARGER__CRC);
+
+	}
+
 
 }
 
@@ -87,7 +126,7 @@ void vPWRNODE_CHG__Process(void)
 			//If any cell is below 2.5V, throw an error and do not charge
 
 			f32Temp = f32PWRNODE_BMS__Cell_Get_HighestVoltage();
-			if(f32Temp > 4.1F)
+			if(f32Temp > sPWRNODE.sCharger.f32MaxHighestCell)
 			{
 				//run the balancer
 				sPWRNODE.sCharger.sAlgo.eState = CHG_STATE__START_BALANCE;
@@ -97,7 +136,7 @@ void vPWRNODE_CHG__Process(void)
 				//check other pack conditions
 				// 4.1 * 18 = 73.8
 				f32Temp = f32PWRNODE_BMS__Get_PackVoltage();
-				if(f32Temp > 73.7F)
+				if(f32Temp > sPWRNODE.sCharger.f32MaxPackVoltage)
 				{
 					//our pack is charged, back to idle
 					sPWRNODE.sCharger.sAlgo.eState = CHG_STATE__ABORT;
@@ -105,7 +144,7 @@ void vPWRNODE_CHG__Process(void)
 				else
 				{
 					//2.5 * 18 = 45.0
-					if(f32Temp < 45.1F)
+					if(f32Temp < sPWRNODE.sCharger.f32MinPackVoltage)
 					{
 						//too low to charge
 						sPWRNODE.sCharger.sAlgo.eState = CHG_STATE__ABORT;
@@ -125,10 +164,12 @@ void vPWRNODE_CHG__Process(void)
 			//Check that the battery temperatures are all below 40C.
 			//If this is ever exceeded, stop charging. This is done autonomously,
 			//but should additionally be checked by operator.
+#if 0
 			if(sPWRNODE.sTemp.u8NewTempAvail == 1U)
 			{
+#endif //0
 				//check the temp ranges
-				if(sPWRNODE.sTemp.f32HighestTemp < 40.0F)
+				if(sPWRNODE.sTemp.f32HighestTemp < sPWRNODE.sCharger.f32MaxCellTemp)
 				{
 					//we are good to start charging
 					sPWRNODE.sCharger.sAlgo.eState = CHG_STATE__CLOSE_CONTACTOR_RELAY;
@@ -141,11 +182,13 @@ void vPWRNODE_CHG__Process(void)
 
 				//clear the flag, we are done
 				sPWRNODE.sTemp.u8NewTempAvail = 0U;
+#if 0
 			}
 			else
 			{
 				//stay in state, no new temp avail yet
 			}
+#endif //0
 			break;
 
 		case CHG_STATE__START_BALANCE:

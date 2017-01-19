@@ -57,6 +57,7 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 {
 
 	Luint32 u32Block[4];
+	Lfloat32 f32Block[4];
 
 	//make sure we are rx'ing on our port number
 	if(u16DestPort == C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER)
@@ -68,6 +69,11 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 		u32Block[1] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
 		u32Block[2] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
 		u32Block[3] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
+
+		f32Block[0] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload);
+		f32Block[1] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
+		f32Block[2] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
+		f32Block[3] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
 
 		//determine the type of packet that came in
 		switch((E_NET__PACKET_T)ePacketType)
@@ -209,6 +215,33 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 				sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__PWR_BMS__TX_BMS_STATUS;
 				break;
 
+			case NET_PKT__PWR_BMS__SET_CHG_VALUES:
+				switch(u32Block[0])
+				{
+					case 1U:
+						vEEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_VOLT, f32Block[1], C_LOCALDEF__LCCM188_IMMEDIATE_WRITE);
+						sPWRNODE.sCharger.f32MaxHighestCell = f32EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_VOLT);
+						break;
+
+					case 2U:
+						vEEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_PACK_VOLT, f32Block[1], C_LOCALDEF__LCCM188_IMMEDIATE_WRITE);
+						sPWRNODE.sCharger.f32MaxPackVoltage = f32EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_PACK_VOLT);
+						break;
+
+					case 3U:
+						vEEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MIN_PACK_VOLT, f32Block[1], C_LOCALDEF__LCCM188_IMMEDIATE_WRITE);
+						sPWRNODE.sCharger.f32MinPackVoltage = f32EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MIN_PACK_VOLT);
+						break;
+
+					case 4U:
+						vEEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_TEMP, f32Block[1], C_LOCALDEF__LCCM188_IMMEDIATE_WRITE);
+						sPWRNODE.sCharger.f32MaxCellTemp = f32EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_TEMP);
+						break;
+
+					default:
+						break;
+				}//switch(u32Block[0])
+				break;
 
 
 

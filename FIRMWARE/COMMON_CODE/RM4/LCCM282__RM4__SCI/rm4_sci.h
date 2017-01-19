@@ -18,7 +18,10 @@
 	/*lint -e537*/
 	#include <localdef.h>
 	#if C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE == 1U
-	
+
+	/*****************************************************************************
+	Includes
+	*****************************************************************************/
 	#include <RM4/LCCM282__RM4__SCI/rm4_sci__private.h>
 
 	#if C_LOCALDEF__LCCM282__ENABLE_DMA == 1U
@@ -27,8 +30,6 @@
 
 	//There are two SCI channels, one is SCI1 (wich uses the SCI Pins) and the
 	//other is SCI2 which shares the LIN pins
-	/*****************************************************************************
-	*****************************************************************************/
 	typedef enum
 	{
 		#if C_LOCALDEF__LCCM282__ENABLE_SCI_1 == 1U
@@ -98,7 +99,9 @@
 	};
 
 
-	//function protos
+	/*****************************************************************************
+	Function Prototypes
+	*****************************************************************************/
 	void vRM4_SCI__Init(RM4_SCI__CHANNEL_T eChannel);
 	void vRM4_SCI__Set_Baudrate(RM4_SCI__CHANNEL_T eChannel, Luint32 baud);
 

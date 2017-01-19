@@ -51,14 +51,16 @@ void vSIMHLOOP__Init(void)
 	//set the accel to allow us to capture 10ms of timing on modelsim
 	//this means to hit the first optical marker, we need to cover 30.5m in 0.01s
 	//g = 62,244.89G
-	vSIMHLOOP_LOWLEVEL__Set_Accel_GForce(2); //62244.89796F);
+	vSIMHLOOP_LOWLEVEL__Set_Accel_GForce(200.0); //62244.89796F);
 
 	//for this example we have a veloc of 61x10^9)
 	//and we would want to change to coast mode AFTER we have passed the second marker.
 	vSIMHLOOP_LOWLEVEL__Set_Max_Veloc(71/*61*/);
 
 	//start
-	//vSIMHLOOP_LOWLEVEL__Run_On();
+#ifdef __SIM__MODELSIM__
+		vSIMHLOOP_LOWLEVEL__Run_On();
+#endif
 
 }
 
