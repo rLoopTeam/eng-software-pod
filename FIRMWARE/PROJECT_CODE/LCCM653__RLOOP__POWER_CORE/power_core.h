@@ -362,6 +362,10 @@
 		void vPWRNODE_NODEPRESS__Process(void);
 		Lfloat32 f32PWRNODE_NODEPRESS__Get_Pressure_Bar(void);
 
+		//PV repress system
+		void vPWR_PVPRESS__Init(void);
+		void vPWR_PVPRESS__Process(void);
+
 #ifdef WIN32
 		void vPWRNODE_WIN32__Init(void);
 		DLL_DECLARATION void vPWRNODE_WIN32__Set_NodeTemperature(Lfloat32 f32Temperature);

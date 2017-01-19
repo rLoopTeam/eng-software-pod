@@ -70,43 +70,16 @@ void vATA6870__Init(void)
 	//init the blancer subsystem
 	vATA6870_BALANCE__Init();
 	
+	//star the scanner
+	vATA6870_SCAN__Init();
+
 	//switch on
 	vATA6870_LOWLEVEL__PowerOn();
 
 	//delay a bit for things to settle
 	vRM4_DELAYS__Delay_mS(100U);
 
-	//setup and get the basic BMS pods operational
-	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
-	{
 
-		//setup the control register with CRC or not
-		#if C_LOCALDEF__LCCM650__ENABLE_CRC == 1U
-			u8Temp = 0x10U;
-		#else
-			u8Temp = 0x00U;
-		#endif
-		vATA6870_LOWLEVEL__Reg_WriteU8(u8Counter, ATA6870_REG__CONTROL, &u8Temp, 1U);
-
-		//setup the interupts
-		//Only do the important onces for now
-		//TODO do we need to mask undervoltage?
-		u8Temp = 0x16U;
-		vATA6870_LOWLEVEL__Reg_WriteU8(u8Counter, ATA6870_REG__IRQ_MASK, &u8Temp, 1U);
-
-		//Other house keeping issues:
-		//Todo
-		//1. Check under voltage issues
-		//2. Check comms actually works.
-
-	}
-
-	//u8Temp = 0x01U;
-	//vATA6870_LOWLEVEL__Reg_WriteU8(0U, ATA6870_REG__OPERATION, &u8Temp, 1U);
-
-
-	//make sure we have our devices
-	vATA6870_SCAN__Start();
 
 	/*lint +e934*/ 
 
@@ -123,6 +96,8 @@ void vATA6870__Process(void)
 {
 
 	Lint16 s16Return;
+	Luint8 u8Counter;
+	Luint8 u8Temp;
 
 	//handle the state machine
 	switch(sATA6870.eState)
@@ -132,6 +107,39 @@ void vATA6870__Process(void)
 			break;
 
 		case ATA6870_STATE__INIT_DEVICE:
+
+			//setup and get the basic BMS pods operational
+			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
+			{
+
+				//setup the control register with CRC or not
+				#if C_LOCALDEF__LCCM650__ENABLE_CRC == 1U
+					u8Temp = 0x10U;
+				#else
+					u8Temp = 0x00U;
+				#endif
+				vATA6870_LOWLEVEL__Reg_WriteU8(u8Counter, ATA6870_REG__CONTROL, &u8Temp, 1U);
+
+				//setup the interupts
+				//Only do the important onces for now
+				//TODO do we need to mask undervoltage?
+				u8Temp = 0x16U;
+				vATA6870_LOWLEVEL__Reg_WriteU8(u8Counter, ATA6870_REG__IRQ_MASK, &u8Temp, 1U);
+
+				//Other house keeping issues:
+				//Todo
+				//1. Check under voltage issues
+				//2. Check comms actually works.
+
+			}
+
+			//u8Temp = 0x01U;
+			//vATA6870_LOWLEVEL__Reg_WriteU8(0U, ATA6870_REG__OPERATION, &u8Temp, 1U);
+
+
+			//make sure we have our devices
+			vATA6870_SCAN__Start();
+
 			sATA6870.eState = ATA6870_STATE__START_CONVERSION;
 			break;
 

@@ -46,6 +46,9 @@
 		/** mV Offset */
 		#define C_ATA6870__OFFSET_VOLTAGE 			(410.0F)
 
+		/** Max ATA devices on any one bus */
+		#define C_ATA6870__MAX_BUS_DEVICES			(16U)
+
 		/** Balancer Stats */
 		typedef enum
 		{
@@ -90,6 +93,9 @@
 		struct _str6870
 		{
 			E_ATA6870_STATE_T eState;
+
+			/** A list of all revision ID's found on each bus */
+			Luint8 u8RevID[C_ATA6870__MAX_BUS_DEVICES];
 
 			/** Balancing control state machine */
 			struct
@@ -179,6 +185,7 @@
 		
 		//device scanning
 		void vATA6870_SCAN__Start(void);
+		void vATA6870_SCAN__Init(void);
 
 		//resisotr control
 		void vATA6870_RES__TurnOn(Luint8 u8DeviceIndex, Luint8 u8CellIndex);

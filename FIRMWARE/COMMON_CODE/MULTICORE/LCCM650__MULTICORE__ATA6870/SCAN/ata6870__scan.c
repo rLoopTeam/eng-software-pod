@@ -28,6 +28,17 @@
 //main structure
 extern struct _str6870 sATA6870;
 
+void vATA6870_SCAN__Init(void)
+{
+	Luint8 u8Counter;
+
+	//reset the rev ID's
+	for(u8Counter = 0U; u8Counter < C_ATA6870__MAX_BUS_DEVICES; u8Counter++)
+	{
+		sATA6870.u8RevID[u8Counter] = 0x00U;
+	}
+}
+
 /***************************************************************************//**
  * @brief
  * Scans the bus for devices
@@ -50,7 +61,9 @@ void vATA6870_SCAN__Start(void)
 	{
 
 		//read the device
-		vATA6870_LOWLEVEL__Reg_ReadU8(u8Counter, ATA6870_REG__REV_ID, &u8Temp, 1U);
+		vATA6870_LOWLEVEL__Reg_ReadU8(u8Counter, ATA6870_REG__REV_ID, &sATA6870.u8RevID[u8Counter], 1U);
+
+		u8Temp = sATA6870.u8RevID[u8Counter];
 
 		//get the revision ID
 		u8RevID = u8Temp;
