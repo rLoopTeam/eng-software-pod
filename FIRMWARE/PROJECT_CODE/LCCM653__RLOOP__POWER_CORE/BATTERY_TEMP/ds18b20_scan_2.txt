@@ -1,0 +1,319 @@
+Scanned 15																									
+Bus 0x10 ID 0x28, 0xFF, 0x90, 0xB5, 0xA0, 0x16, 0x04, 0x3E, Temp 23.5000																									
+Bus 0x10 ID 0x28, 0xFF, 0xB0, 0xDF, 0xA0, 0x16, 0x05, 0x13, Temp 34.9375																									
+Bus 0x10 ID 0x28, 0xFF, 0xD8, 0x8E, 0xA0, 0x16, 0x03, 0xB6, Temp 35.0625																									
+Bus 0x10 ID 0x28, 0xFF, 0x44, 0xF2, 0xA0, 0x16, 0x05, 0x47, Temp 24.1250																									
+Bus 0x10 ID 0x28, 0xFF, 0x22, 0xB7, 0xA0, 0x16, 0x04, 0xF5, Temp 23.3750																									
+Bus 0x10 ID 0x28, 0xFF, 0x0A, 0xBD, 0xA0, 0x16, 0x04, 0x28, Temp 23.5000																									
+Bus 0x10 ID 0x28, 0xFF, 0x7A, 0xA6, 0xA0, 0x16, 0x03, 0x6A, Temp 23.4375																									
+Bus 0x10 ID 0x28, 0xFF, 0x06, 0xC2, 0xA0, 0x16, 0x04, 0x3B, Temp 23.5000																									
+Bus 0x10 ID 0x28, 0xFF, 0x3E, 0xA9, 0xA0, 0x16, 0x03, 0x06, Temp 23.5000																									
+Bus 0x10 ID 0x28, 0xFF, 0x21, 0x73, 0xA0, 0x16, 0x03, 0x0F, Temp 23.1875																									
+Bus 0x10 ID 0x28, 0xFF, 0xAD, 0xAB, 0xA0, 0x16, 0x03, 0xF8, Temp 23.5000																									
+Bus 0x10 ID 0x28, 0xFF, 0xED, 0x86, 0xA0, 0x16, 0x04, 0x7F, Temp 24.0625																									
+Bus 0x10 ID 0x28, 0xFF, 0xE3, 0x87, 0xA0, 0x16, 0x05, 0x0C, Temp 23.4375																									
+Bus 0x10 ID 0x28, 0xFF, 0x4B, 0xB7, 0xA0, 0x16, 0x03, 0x94, Temp 34.8125																									
+Bus 0x10 ID 0x28, 0xFF, 0x6B, 0xF4, 0xA0, 0x16, 0x05, 0xD9, Temp 24.0000																									
+Serial: 1A0E																									
+Hottest Three: D88E , B0DF , 4BB7																									
+SUCCESS!!																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 FF 20 95 A0 16 03 82 Temp 21.9375																									
+Bus 0x10 ID 28 FF 10 D8 A0 16 05 A6 Temp 22.0000																									
+Bus 0x10 ID 28 FF B0 68 A0 16 04 5A Temp 21.8750																									
+Bus 0x10 ID 28 FF 70 CC A0 16 04 DF Temp 22.4375																									
+Bus 0x10 ID 28 FF 44 F1 A0 16 05 CF Temp 42.5625																									
+Bus 0x10 ID 28 FF BA A1 A0 16 03 CE Temp 21.8750																									
+Bus 0x10 ID 28 FF C6 8B A0 16 04 6A Temp 22.3750																									
+Bus 0x10 ID 28 FF D6 B7 A0 16 03 CF Temp 22.5625																									
+Bus 0x10 ID 28 FF 19 B5 A0 16 04 06 Temp 22.5625																									
+Bus 0x10 ID 28 FF 85 68 A0 16 04 0C Temp 73.9375																									
+Bus 0x10 ID 28 FF 25 F3 A0 16 05 14 Temp 22.3750																									
+Bus 0x10 ID 28 FF CD F2 A0 16 05 7F Temp 22.1250																									
+Bus 0x10 ID 28 FF C3 CE A0 16 03 5A Temp 22.3125																									
+Bus 0x10 ID 28 FF 9B E7 A0 16 03 12 Temp 22.4375																									
+Bus 0x10 ID 28 FF 17 DB A0 16 05 7F Temp 34.7500																									
+Serial: 08E8																									
+Hottest Three: 8568 , 44F1 , 17DB																									
+SUCCESS!!																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 FF 30 D8 A0 16 05 5E Temp 22.3750																									
+Bus 0x10 ID 28 FF 5C 8A A0 16 04 EF Temp 22.7500																									
+Bus 0x10 ID 28 FF C2 F3 A0 16 05 9F Temp 22.3125																									
+Bus 0x10 ID 28 FF F6 D9 A0 16 05 6F Temp 28.4375																									
+Bus 0x10 ID 28 FF 1E 68 A0 16 04 CB Temp 22.3125																									
+Bus 0x10 ID 28 FF 89 A6 A0 16 03 82 Temp 22.6875																									
+Bus 0x10 ID 28 FF 95 86 A0 16 04 2C Temp 22.3750																									
+Bus 0x10 ID 28 FF 55 CA A0 16 04 FC Temp 22.3750																									
+Bus 0x10 ID 28 FF ED B9 A0 16 04 AD Temp 29.1250																									
+Bus 0x10 ID 28 FF C3 B4 A0 16 04 6A Temp 22.5625																									
+Bus 0x10 ID 28 FF 23 B8 A0 16 04 A2 Temp 22.1875																									
+Bus 0x10 ID 28 FF EB 67 A0 16 04 25 Temp 28.5625																									
+Bus 0x10 ID 28 FF 5B BE A0 16 04 F8 Temp 22.9375																									
+Bus 0x10 ID 28 FF FB 8C A0 16 05 DA Temp 22.4375																									
+Bus 0x10 ID 28 FF 5F C7 A0 16 03 5F Temp 22.2500																									
+Serial: 8351																									
+Hottest Three: EDB9 , EB67 , F6D9																									
+SUCCESS!!																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 FF 68 B9 A0 16 03 37 Temp 22.0625																									
+Bus 0x10 ID 28 FF 38 B5 A0 16 04 33 Temp 22.0625																									
+Bus 0x10 ID 28 FF F8 9E A0 16 03 76 Temp 22.0000																									
+Bus 0x10 ID 28 FF 4C F2 A0 16 05 79 Temp 22.0625																									
+Bus 0x10 ID 28 FF 82 EE A0 16 05 D3 Temp 27.4375																									
+Bus 0x10 ID 28 FF 16 F5 A0 16 05 D7 Temp 22.0625																									
+Bus 0x10 ID 28 FF 96 A3 A0 16 03 10 Temp 21.9375																									
+Bus 0x10 ID 28 FF 9E 80 A0 16 05 0B Temp 28.3125																									
+Bus 0x10 ID 28 FF 71 9C A0 16 04 CA Temp 22.2500																									
+Bus 0x10 ID 28 FF 9D BE A0 16 04 46 Temp 21.9375																									
+Bus 0x10 ID 28 FF C7 BA A0 16 03 E3 Temp 21.8750																									
+Bus 0x10 ID 28 FF 27 89 A0 16 03 F9 Temp 22.0625																									
+Bus 0x10 ID 28 FF A7 B8 A0 16 04 76 Temp 21.9375																									
+Bus 0x10 ID 28 FF 0F F4 A0 16 05 D7 Temp 28.4375																									
+Bus 0x10 ID 28 FF 3F B8 A0 16 03 7C Temp 22.0625																									
+Serial: B760																									
+Hottest Three: 0FF4 , 9E80 , 82EE																									
+SUCCESS!!																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 FF B0 AE A0 16 03 E9 Temp 22.1250																									
+Bus 0x10 ID 28 FF F0 D2 A0 16 03 BA Temp 29.1875																									
+Bus 0x10 ID 28 FF B8 F0 A0 16 05 C7 Temp 22.1250																									
+Bus 0x10 ID 28 FF 04 D3 A0 16 05 51 Temp 22.1875																									
+Bus 0x10 ID 28 FF B4 C8 A0 16 03 6F Temp 22.0000																									
+Bus 0x10 ID 28 FF 0C A6 A0 16 03 9B Temp 22.1250																									
+Bus 0x10 ID 28 FF EC E1 A0 16 05 FA Temp 31.3125																									
+Bus 0x10 ID 28 FF 4A 87 A0 16 05 CC Temp 22.1250																									
+Bus 0x10 ID 28 FF E1 CB A0 16 04 23 Temp 31.1875																									
+Bus 0x10 ID 28 FF 91 E5 A0 16 05 75 Temp 22.0625																									
+Bus 0x10 ID 28 FF B1 8F A0 16 04 58 Temp 22.3125																									
+Bus 0x10 ID 28 FF 43 B7 A0 16 03 AA Temp 21.9375																									
+Bus 0x10 ID 28 FF A3 EE A0 16 05 E6 Temp 21.9375																									
+Bus 0x10 ID 28 FF 73 EE A0 16 05 B8 Temp 21.7500																									
+Bus 0x10 ID 28 FF 07 E2 A0 16 05 D8 Temp 22.0000																									
+Serial: B514																									
+Hottest Three: ECE1 , E1CB , F0D2																									
+SUCCESS!!																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 FF E8 8A A0 16 05 E1 Temp 28.5000																									
+Bus 0x10 ID 28 FF DC 93 A0 16 03 0C Temp 22.0625																									
+Bus 0x10 ID 28 FF 22 EF A0 16 05 6F Temp 22.1250																									
+Bus 0x10 ID 28 FF 2A 8D A0 16 05 C6 Temp 22.1875																									
+Bus 0x10 ID 28 FF 6A 94 A0 16 04 DA Temp 22.0625																									
+Bus 0x10 ID 28 FF 46 CA A0 16 04 CE Temp 21.8750																									
+Bus 0x10 ID 28 FF 41 ED A0 16 03 EA Temp 22.0625																									
+Bus 0x10 ID 28 FF 19 8C A0 16 05 83 Temp 22.0000																									
+Bus 0x10 ID 28 FF 99 8A A0 16 04 1F Temp 22.1250																									
+Bus 0x10 ID 28 FF 4D B8 A0 16 03 92 Temp 28.1875																									
+Bus 0x10 ID 28 FF A3 D7 A0 16 05 3D Temp 21.9375																									
+Bus 0x10 ID 28 FF EB 89 A0 16 05 27 Temp 22.0625																									
+Bus 0x10 ID 28 FF 87 C9 A0 16 03 2A Temp 28.8125																									
+Bus 0x10 ID 28 FF 57 73 A0 16 04 7D Temp 21.7500																									
+Bus 0x10 ID 28 FF 77 F3 A0 16 05 02 Temp 22.1250																									
+Serial: 3523																									
+Hottest Three: 87C9 , E88A , 4DB8																									
+SUCCESS!!																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 FF 38 AB A0 16 03 9D Temp 21.5625																									
+Bus 0x10 ID 28 FF 38 DB A0 16 05 E8 Temp 21.5625																									
+Bus 0x10 ID 28 FF A4 B7 A0 16 03 21 Temp 26.9375																									
+Bus 0x10 ID 28 FF 4C DE A0 16 05 1B Temp 21.6250																									
+Bus 0x10 ID 28 FF CC F7 A0 16 03 EE Temp 21.5000																									
+Bus 0x10 ID 28 FF 7C F2 A0 16 05 FD Temp 27.4375																									
+Bus 0x10 ID 28 FF 16 97 A0 16 04 1E Temp 21.0625																									
+Bus 0x10 ID 28 FF 96 D2 A0 16 05 EA Temp 27.1875																									
+Bus 0x10 ID 28 FF 56 88 A0 16 04 55 Temp 21.7500																									
+Bus 0x10 ID 28 FF 76 94 A0 16 04 87 Temp 21.8750																									
+Bus 0x10 ID 28 FF 61 A9 A0 16 03 FC Temp 21.6250																									
+Bus 0x10 ID 28 FF 99 85 A0 16 04 85 Temp 21.6250																									
+Bus 0x10 ID 28 FF 4D EE A0 16 03 43 Temp 21.5625																									
+Bus 0x10 ID 28 FF 67 83 A0 16 04 88 Temp 21.7500																									
+Bus 0x10 ID 28 FF 9F 7E A0 16 04 FC Temp 21.8750																									
+Serial: 24F0																									
+Hottest Three: 7CF2 , 96D2 , A4B7																									
+SUCCESS!!																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 FF 40 7B A0 16 03 CF Temp 21.1875																									
+Bus 0x10 ID 28 FF C0 EF A0 16 05 36 Temp 21.0625																									
+Bus 0x10 ID 28 FF B0 E6 A0 16 03 15 Temp 21.6250																									
+Bus 0x10 ID 28 FF BC 82 A0 16 04 29 Temp 21.3125																									
+Bus 0x10 ID 28 FF FC CE A0 16 03 B1 Temp 26.3125																									
+Bus 0x10 ID 28 FF 2A 99 A0 16 03 2D Temp 21.3125																									
+Bus 0x10 ID 28 FF FA 76 A0 16 03 A0 Temp 21.2500																									
+Bus 0x10 ID 28 FF AE 74 A0 16 03 2D Temp 26.3125																									
+Bus 0x10 ID 28 FF FE 90 A0 16 04 7C Temp 21.3125																									
+Bus 0x10 ID 28 FF FE B4 A0 16 04 02 Temp 21.5000																									
+Bus 0x10 ID 28 FF 69 BB A0 16 03 FD Temp 21.1875																									
+Bus 0x10 ID 28 FF 7D AC A0 16 03 20 Temp 21.8125																									
+Bus 0x10 ID 28 FF 83 71 A0 16 03 B8 Temp 26.1875																									
+Bus 0x10 ID 28 FF EB 8A A0 16 04 F1 Temp 21.5625																									
+Bus 0x10 ID 28 FF 1F 80 A0 16 03 D0 Temp 21.4375																									
+Serial: 05B2																									
+Hottest Three: AE74 , FCCE , 8371																									
+SUCCESS!!																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 FF 00 BA A0 16 04 13 Temp 21.6250																									
+Bus 0x10 ID 28 FF C8 CC A0 16 04 AE Temp 21.8750																									
+Bus 0x10 ID 28 FF EC 8C A0 16 05 F7 Temp 21.5625																									
+Bus 0x10 ID 28 FF 2A EB A0 16 03 82 Temp 24.6875																									
+Bus 0x10 ID 28 FF DA F3 A0 16 05 DD Temp 22.3125																									
+Bus 0x10 ID 28 FF D6 B9 A0 16 03 DA Temp 21.3125																									
+Bus 0x10 ID 28 FF 2E A1 A0 16 03 66 Temp 21.7500																									
+Bus 0x10 ID 28 FF 75 82 A0 16 05 A6 Temp 25.8750																									
+Bus 0x10 ID 28 FF 2D DE A0 16 05 C7 Temp 20.7500																									
+Bus 0x10 ID 28 FF C7 94 A0 16 04 05 Temp 21.3750																									
+Bus 0x10 ID 28 FF C7 91 A0 16 04 84 Temp 22.8750																									
+Bus 0x10 ID 28 FF 67 89 A0 16 05 CD Temp 25.5625																									
+Bus 0x10 ID 28 FF E7 CC A0 16 04 39 Temp 21.7500																									
+Bus 0x10 ID 28 FF 57 AC A0 16 03 65 Temp 21.7500																									
+Bus 0x10 ID 28 FF 77 F3 A0 16 03 DF Temp 21.5000																									
+Serial: DD48																									
+Hottest Three: 7582 , 6789 , 2AEB																									
+SUCCESS!!																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 FF 90 F5 A0 16 03 5D Temp 24.0625																									
+Bus 0x10 ID 28 FF 48 8D A0 16 05 54 Temp 22.5625																									
+Bus 0x10 ID 28 FF CC 65 84 16 05 DF Temp 25.1250																									
+Bus 0x10 ID 28 FF BA EE A0 16 05 69 Temp 20.7500																									
+Bus 0x10 ID 28 FF 7A 7E A0 16 03 77 Temp 24.9375																									
+Bus 0x10 ID 28 FF C6 A0 A0 16 03 0D Temp 35.4375																									
+Bus 0x10 ID 28 FF 66 DC A0 16 05 59 Temp 21.3125																									
+Bus 0x10 ID 28 FF BE 7C A0 16 04 CE Temp 23.0625																									
+Bus 0x10 ID 28 FF 65 BB A0 16 03 DC Temp 20.9375																									
+Bus 0x10 ID 28 FF 5D 71 A0 16 03 44 Temp 21.1250																									
+Bus 0x10 ID 28 FF 7D A0 A0 16 03 32 Temp 23.3125																									
+Bus 0x10 ID 28 FF 13 80 A0 16 04 72 Temp 24.3750																									
+Bus 0x10 ID 28 FF 2B AB A0 16 05 72 Temp 56.5000																									
+Bus 0x10 ID 28 FF AB EE A0 16 05 D8 Temp 25.5000																									
+Bus 0x10 ID 28 FF 3F BA A0 16 04 F8 Temp 82.6875																									
+Serial: 2410																									
+Hottest Three: 3FBA , 2BAB , C6A0																									
+SUCCESS!!																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 FF 00 D8 A0 16 05 DA Temp 20.6875																									
+Bus 0x10 ID 28 FF 80 A2 A0 16 03 7F Temp 21.9375																									
+Bus 0x10 ID 28 FF B0 A6 A0 16 03 F5 Temp 25.3125																									
+Bus 0x10 ID 28 FF 68 CF A0 16 03 96 Temp 24.9375																									
+Bus 0x10 ID 28 FF FC C9 A0 16 04 B4 Temp 23.3750																									
+Bus 0x10 ID 28 FF 32 85 A0 16 04 C6 Temp 20.8125																									
+Bus 0x10 ID 28 FF FA EA A0 16 03 53 Temp 26.3125																									
+Bus 0x10 ID 28 FF 06 BD A0 16 03 8A Temp 20.3750																									
+Bus 0x10 ID 28 FF 81 B9 A0 16 03 1E Temp 61.4375																									
+Bus 0x10 ID 28 FF C9 97 A0 16 04 2F Temp 116.8125																									
+Bus 0x10 ID 28 FF A9 BC A0 16 03 59 Temp 22.3750																									
+Bus 0x10 ID 28 FF 79 A3 A0 16 03 A5 Temp 20.6875																									
+Bus 0x10 ID 28 FF 03 CA A0 16 04 F5 Temp 127.9375																									
+Bus 0x10 ID 28 FF A7 F4 A0 16 05 DA Temp 20.6875																									
+Bus 0x10 ID 28 FF AF CB A0 16 04 68 Temp 20.6250																									
+Serial: B9E3																									
+Hottest Three: 03CA , C997 , 81B9																									
+SUCCESS!!																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 EE 86 35 1E 16 01 1C Temp 17.8125																									
+Bus 0x10 ID 28 FF 88 E7 A0 16 03 20 Temp 17.3750																									
+Bus 0x10 ID 28 FF 48 DC A0 16 05 03 Temp 17.0625																									
+Bus 0x10 ID 28 FF 74 8A A0 16 04 29 Temp 55.6250																									
+Bus 0x10 ID 28 FF BC B4 A0 16 04 68 Temp 17.5625																									
+Bus 0x10 ID 28 FF 72 F0 A0 16 05 58 Temp 17.3125																									
+Bus 0x10 ID 28 FF 36 6E A0 16 04 04 Temp 19.5625																									
+Bus 0x10 ID 28 FF EE C6 A0 16 03 52 Temp 21.5625																									
+Bus 0x10 ID 28 FF 21 91 A0 16 05 9C Temp 17.3750																									
+Bus 0x10 ID 28 FF 2D 8C A0 16 05 18 Temp 18.1875																									
+Bus 0x10 ID 28 FF DD 8D A0 16 05 31 Temp 55.6875																									
+Bus 0x10 ID 28 FF 5B BD A0 16 03 F3 Temp 17.5625																									
+Bus 0x10 ID 28 FF A7 AE A0 16 03 C4 Temp 71.0625																									
+Bus 0x10 ID 28 FF 17 F5 A0 16 05 1A Temp 17.1875																									
+Bus 0x10 ID 28 FF AF DC A0 16 05 88 Temp 17.5000																									
+Serial: 6067																									
+Hottest Three: A7AE , DD8D , 748A																									
+SUCCESS!!																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 EE F0 6C 1B 16 02 71 Temp 32.3750																									
+Bus 0x10 ID 28 EE 48 3B 1E 16 01 89 Temp 20.5625																									
+Bus 0x10 ID 28 EE 32 6E 1B 16 02 D7 Temp 20.9375																									
+Bus 0x10 ID 28 EE 66 2F 1E 16 01 E5 Temp 32.9375																									
+Bus 0x10 ID 28 EE FE 2D 1E 16 01 6B Temp 19.1875																									
+Bus 0x10 ID 28 EE 53 36 1E 16 01 18 Temp 23.8125																									
+Bus 0x10 ID 28 EE 8B 2F 1E 16 01 D3 Temp 28.3750																									
+Bus 0x10 ID 28 EE DB 26 1E 16 01 D5 Temp 20.0000																									
+Bus 0x10 ID 28 FF D0 83 A0 16 04 96 Temp 18.0625																									
+Bus 0x10 ID 28 FF 38 BC A0 16 03 23 Temp 53.1875																									
+Bus 0x10 ID 28 FF F4 BB A0 16 03 A6 Temp 18.3750																									
+Bus 0x10 ID 28 FF 96 D4 A0 16 03 3E Temp 61.2500																									
+Bus 0x10 ID 28 FF 2D 99 A0 16 04 FF Temp 18.1875																									
+Bus 0x10 ID 28 FF F7 BB A0 16 03 E8 Temp 19.3125																									
+Bus 0x10 ID 28 FF 0F D2 A0 16 03 73 Temp 68.1875																									
+Serial: 4B0E																									
+"Hottest Three: 0FD2 , 96D4 , 38BC
+SUCCESS!!"																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 FF 30 8E A0 16 05 8F Temp 18.9375																									
+Bus 0x10 ID 28 FF C8 7F A0 16 05 E9 Temp 19.3750																									
+Bus 0x10 ID 28 FF 34 67 A0 16 04 14 Temp 19.3125																									
+Bus 0x10 ID 28 FF 02 DE A0 16 05 50 Temp 19.3125																									
+Bus 0x10 ID 28 FF 06 DE A0 16 05 4F Temp 38.0625																									
+Bus 0x10 ID 28 FF 66 F0 A0 16 05 3B Temp 18.5000																									
+Bus 0x10 ID 28 FF E6 F0 A0 16 05 F0 Temp 18.9375																									
+Bus 0x10 ID 28 FF 16 E5 A0 16 05 EF Temp 71.4375																									
+Bus 0x10 ID 28 FF B1 8D A0 16 05 01 Temp 19.0000																									
+Bus 0x10 ID 28 FF E9 8F A0 16 03 70 Temp 53.6875																									
+Bus 0x10 ID 28 FF 0D E6 A0 16 05 6B Temp 18.7500																									
+Bus 0x10 ID 28 FF 4D B7 A0 16 04 8B Temp 19.1875																									
+Bus 0x10 ID 28 FF CD 85 A0 16 04 0F Temp 20.0625																									
+Bus 0x10 ID 28 FF 8B F2 A0 16 05 0A Temp 19.0000																									
+Bus 0x10 ID 28 FF 5B BB A0 16 03 FA Temp 18.7500																									
+Serial: 2E32																									
+Hottest Three: 16E5 , E98F , 06DE																									
+SUCCESS!!																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 FF 20 DB A0 16 05 AA Temp 19.9375																									
+Bus 0x10 ID 28 FF E4 E1 A0 16 05 C4 Temp 19.0625																									
+Bus 0x10 ID 28 FF 9A DA A0 16 05 D7 Temp 20.7500																									
+Bus 0x10 ID 28 FF 66 84 A0 16 04 C3 Temp 21.5625																									
+Bus 0x10 ID 28 FF 2E 98 A0 16 03 BD Temp 20.3750																									
+Bus 0x10 ID 28 FF AE E9 A0 16 03 51 Temp 45.8125																									
+Bus 0x10 ID 28 FF 6E B2 A0 16 04 BC Temp 18.6875																									
+Bus 0x10 ID 28 FF 21 8B A0 16 04 E1 Temp 52.7500																									
+Bus 0x10 ID 28 FF 69 F4 A0 16 05 5A Temp 22.2500																									
+Bus 0x10 ID 28 FF 85 98 A0 16 04 7D Temp 18.3750																									
+Bus 0x10 ID 28 FF E5 E5 A0 16 05 07 Temp 18.6875																									
+Bus 0x10 ID 28 FF E5 B7 A0 16 03 05 Temp 18.5000																									
+Bus 0x10 ID 28 FF 63 80 A0 16 04 1F Temp 18.1875																									
+Bus 0x10 ID 28 FF E7 B6 A0 16 03 09 Temp 18.3125																									
+Bus 0x10 ID 28 FF 77 BB A0 16 03 23 Temp 46.9375																									
+Serial: EB07																									
+Hottest Three: 218B , 77BB , AEE9																									
+SUCCESS!!																									
+																									
+Scanned 15																									
+Bus 0x10 ID 28 FF 48 DB A0 16 05 85 Temp 20.2500																									
+Bus 0x10 ID 28 FF E4 F4 A0 16 05 7D Temp 57.2500																									
+Bus 0x10 ID 28 FF 42 CB A0 16 03 DD Temp 58.3125																									
+Bus 0x10 ID 28 FF D2 84 A0 16 04 93 Temp 19.4375																									
+Bus 0x10 ID 28 FF B2 A5 A0 16 05 23 Temp 20.3125																									
+Bus 0x10 ID 28 FF 76 EE A0 16 05 6A Temp 20.0000																									
+Bus 0x10 ID 28 FF BE 84 A0 16 04 A3 Temp 19.6250																									
+Bus 0x10 ID 28 FF 51 B2 A0 16 04 57 Temp 19.4375																									
+Bus 0x10 ID 28 FF 99 94 A0 16 04 32 Temp 19.6250																									
+Bus 0x10 ID 28 FF 95 CB A0 16 04 51 Temp 21.0625																									
+Bus 0x10 ID 28 FF E3 8B A0 16 04 40 Temp 24.0000																									
+Bus 0x10 ID 28 FF BB F0 A0 16 03 54 Temp 21.1250																									
+Bus 0x10 ID 28 FF BB 85 A0 16 04 FE Temp 31.8750																									
+Bus 0x10 ID 28 FF 2F AE A0 16 05 EC Temp 20.1875																									
+Bus 0x10 ID 28 FF 9F F0 A0 16 05 6E Temp 56.3125																									
+Serial: C300																									
+Hottest Three: 42CB , E4F4 , 9FF0																									
+SUCCESS!!																						
