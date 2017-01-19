@@ -1218,12 +1218,21 @@ Public Class Form1
     Private Sub ASI_Tx_RS485(u8Array() As Byte, iLength As Integer)
 
         'Inject into SC16
+        'channel 7 is the RS485
         vSC16IS_WIN32__InjectData(7, u8Array, iLength)
+
     End Sub
 #End Region '#Region "ASI"
 
 End Class
 
+
+''' <summary>
+''' Just a Fake CM30 laser
+''' </summary>
+Public Class CM30Laser
+
+End Class
 
 
 ''' <summary>

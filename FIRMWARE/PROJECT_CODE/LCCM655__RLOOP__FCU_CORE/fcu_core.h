@@ -710,9 +710,6 @@
 			}sASI;
 			#endif
 
-			/** Structure guard 2*/
-			Luint32 u32Guard2;
-			
 			/** Input data for throttle layer */
 			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
 			struct strThrottleInterfaceData
@@ -753,6 +750,20 @@
 
 			} sThrottle;
 			#endif //C_LOCALDEF__LCCM655__ENABLE_THROTTLE
+
+
+			#if C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM == 1U
+			struct
+			{
+				/** The communication state between FCU and LGU*/
+				E_LGU_COMMS_STATE_T eCommsState;
+
+			}sLGU;
+			#endif //C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM
+
+			/** Structure guard 2*/
+			Luint32 u32Guard2;
+
 
 		};
 
@@ -1043,6 +1054,11 @@
 			void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType);
 			void vFCU_THROTTLE_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1);
 			void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THROTTLE_CTRL_T eRampType);
+
+		//landing gear
+		void vFCU_LGU__Init(void);
+		void vFCU_LGU__Process(void);
+		void vFCU_LGU__Rx_Byte(Luint8 u8Value);
 
 
 		#if C_LOCALDEF__LCCM655__ENABLE_TEST_SPEC == 1U

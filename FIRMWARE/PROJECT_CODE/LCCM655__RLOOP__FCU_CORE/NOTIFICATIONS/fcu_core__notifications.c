@@ -31,7 +31,7 @@ extern struct _strFCU sFCU;
  * 
  * @param[in]		u32Flags				Module Flags
  * @param[in]		eChannel				Uart Channel
- * @st_funcMD5		3C31F5319C5E1CBF593DE22B061CB75E
+ * @st_funcMD5		304EF02D7BF62A3119548420F15F2222
  * @st_funcID		LCCM655R0.FILE.015.FUNC.001
  */
 void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
@@ -46,6 +46,12 @@ void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
 			#if C_LOCALDEF__LCCM656__ENABLE_RX == 1U
 				vPICOMMS_RX__Receive_Bytes(&u8Array[0], 1);
 			#endif
+
+			//send our byte to the LGU comms system
+			#if C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM == 1U
+				vFCU_LGU__Rx_Byte(u8Array[0]);
+			#endif
+
 			break;
 
 		default:

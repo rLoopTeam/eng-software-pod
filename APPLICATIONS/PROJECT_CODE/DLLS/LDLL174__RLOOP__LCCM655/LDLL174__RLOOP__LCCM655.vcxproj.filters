@@ -220,6 +220,9 @@
     <Filter Include="Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812\ADC">
       <UniqueIdentifier>{d5ed7a32-8f12-4431-afcf-f8f96ba4d1e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\LGU">
+      <UniqueIdentifier>{e8ea368e-db84-4e34-9263-5b746eb20c26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
@@ -638,6 +641,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\DAC\amc7812__dac.c">
       <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812\DAC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LGU_COMMS\fcu__lgu_comms.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\LGU</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

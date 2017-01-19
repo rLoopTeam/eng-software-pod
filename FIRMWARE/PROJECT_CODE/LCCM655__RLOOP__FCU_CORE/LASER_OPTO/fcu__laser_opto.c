@@ -79,7 +79,7 @@ void vFCU_LASEROPTO__Init(void)
  * @brief
  * Process any laser opto tasks
  * 
- * @st_funcMD5		0EE3230BF0D6F8A798BB4ABA4E8AEF39
+ * @st_funcMD5		64CE185AAAF228A5697E5F6E4B2D0629
  * @st_funcID		LCCM655R0.FILE.021.FUNC.002
  */
 void vFCU_LASEROPTO__Process(void)
