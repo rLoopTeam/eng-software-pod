@@ -110,6 +110,11 @@ void vFCU_FCTL_MAINSM__Process(void)
 				vFCU_FLIGHTCTL__Init();
 			#endif
 
+			//start the LGU interface
+			#if C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM == 1U
+				vFCU_LGU__Init();
+			#endif
+
 			//put the flight computer into startup mode now that everything has been initted.
 			sFCU.eMissionPhase = MISSION_PHASE__TEST_PHASE;
 
@@ -237,6 +242,11 @@ void vFCU_FCTL_MAINSM__Process(void)
 		//process any Pi Comms
 		#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
 			vFCU_PICOMMS__Process();
+		#endif
+
+		//start the LGU interface
+		#if C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM == 1U
+			vFCU_LGU__Process();
 		#endif
 
 		//process auto-sequence control

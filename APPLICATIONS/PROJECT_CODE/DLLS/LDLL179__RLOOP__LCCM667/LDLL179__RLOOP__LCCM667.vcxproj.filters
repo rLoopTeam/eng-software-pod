@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE">
+      <UniqueIdentifier>{d8c58b0b-74d9-4e06-b8d9-edf6e5ec80f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE">
+      <UniqueIdentifier>{c9887278-0829-43fb-8bd9-033aa9d4b621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL">
+      <UniqueIdentifier>{8fa762c9-90bc-41ff-9d4a-e8d0ae10e4b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TOLERANCE">
+      <UniqueIdentifier>{dcfb3320-5e10-4612-ae00-093e8daea281}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\POINTS">
+      <UniqueIdentifier>{f9f5b573-5be5-4157-b58c-a9e6171e38e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\LINEAR">
+      <UniqueIdentifier>{edcf044b-4ec4-4119-8a7c-b59ff528d7e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG">
+      <UniqueIdentifier>{bf92317c-c729-4d13-904a-2b86c4c0d17e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\ABS">
+      <UniqueIdentifier>{62edcc3c-1ee0-4595-a067-2f2432bca793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\CIRCLE">
+      <UniqueIdentifier>{4cd55d1b-b5ea-4e4e-9931-71a9dbb34cbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FLOAT">
+      <UniqueIdentifier>{d87aa8b0-fa80-424b-82d5-7597ae5d08b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC">
+      <UniqueIdentifier>{e07c70fb-b9a7-48d8-9f4a-8811d5e0cb69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WIN32">
+      <UniqueIdentifier>{f317ff19-95a5-48d7-8bae-537bfb6a701c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WIN32\DEBUG_PRINTF">
+      <UniqueIdentifier>{70d4ba12-3067-4f39-87a5-770373bae769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RM4">
+      <UniqueIdentifier>{2ae5ec37-a849-440c-9691-3a3dc6e26533}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RM4\LCCM663__RM4__CPU_LOAD">
+      <UniqueIdentifier>{b5d36206-36ec-49d9-9380-7d61f24c5638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS">
+      <UniqueIdentifier>{1b2f7d9e-8d94-408c-a07f-b9f909e16dbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO">
+      <UniqueIdentifier>{e5f4c533-5ee7-41f7-b71f-83b72cf98cb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FILTERING">
+      <UniqueIdentifier>{561eee60-1570-4744-a4d7-bb7069973af1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RM4\LCCM124__RM4__RTI">
+      <UniqueIdentifier>{49c322d8-9912-429b-a7fb-ba85628f2d3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM667__RLOOP__LGU">
+      <UniqueIdentifier>{f4ad3fa5-56e3-4c22-a324-c20685bea680}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM667__RLOOP__LGU\WIN32">
+      <UniqueIdentifier>{c6792839-f89c-4fa0-98f3-d59543620774}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM667__RLOOP__LGU\SERIAL_COMMS">
+      <UniqueIdentifier>{e227a621-1b1f-45f0-b134-595783e3ed11}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC\software_crc.c">
+      <Filter>Source Files\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TOLERANCE\numerical__tolerance.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TOLERANCE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c">
+      <Filter>Source Files\WIN32\DEBUG_PRINTF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\LINEAR\numerical__linear.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\LINEAR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\POINTS\numerical__points.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\POINTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree.c">
+      <Filter>Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG_TABLES\numerical__cosine.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG_TABLES\numerical__sine.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG_TABLES\numerical__atan.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\ABS\numerical__abs.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\ABS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\CIRCLE\numerical__circle.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\CIRCLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FLOAT\numerical__float.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FLOAT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.c">
+      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS\WIN32\eeprom_params__win32.c">
+      <Filter>Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS\eeprom_params.c">
+      <Filter>Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS\eeprom_params__crc.c">
+      <Filter>Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO\software_fifo.c">
+      <Filter>Source Files\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FILTERING\numerical__average.c">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FILTERING</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.c">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\lgu.c">
+      <Filter>LCCM667__RLOOP__LGU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\WIN32\lgu__win32.c">
+      <Filter>LCCM667__RLOOP__LGU\WIN32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\SERIAL_COMMS\lgu__serial_comms.c">
+      <Filter>LCCM667__RLOOP__LGU\SERIAL_COMMS</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
+    </ClInclude>
+    <ClInclude Include="localdef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC\software_crc.h">
+      <Filter>Source Files\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h">
+      <Filter>Source Files\WIN32\DEBUG_PRINTF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical__structs.h">
+      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree.h">
+      <Filter>Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree__public.h">
+      <Filter>Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC\software_crc__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.h">
+      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload__localdef.h">
+      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS\eeprom_params__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS\eeprom_params.h">
+      <Filter>Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO\software_fifo.h">
+      <Filter>Source Files\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO\software_fifo__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO\software_fifo__public.h">
+      <Filter>Source Files\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__localdef.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__private.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__semistaticdef.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__staticdef.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\lgu.h">
+      <Filter>LCCM667__RLOOP__LGU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\lgu__localdef.h">
+      <Filter>LCCM667__RLOOP__LGU</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

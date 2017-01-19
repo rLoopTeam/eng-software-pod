@@ -8,6 +8,16 @@
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__ENUMS_H_
 
 
+	/** For transmitting to the LGU*/
+	typedef enum
+	{
+
+		/** IDLE */
+		LGU_COMMS_STATE__IDLE = 0U,
+
+	}E_LGU_COMMS_STATE_T;
+
+
 	/** OptoNCDT Laser Positions
 	 *  must be in order from A0:2, B0:2
 	 *  */

@@ -62,7 +62,7 @@ void vFCU_LASERDIST__Init(void)
  * @brief
  * Process the laser distance system
  * 
- * @st_funcMD5		AEC05101C2E4E0D6763EC30A6ED8FF7A
+ * @st_funcMD5		36297D2EDE06DBA5285970E47A1EC16B
  * @st_funcID		LCCM655R0.FILE.033.FUNC.002
  */
 void vFCU_LASERDIST__Process(void)
