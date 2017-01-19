@@ -76,64 +76,65 @@ Lint16 s16DS18B20_TEMP__Read(Luint16 u16SensorIndex)
  * @st_funcMD5		2A3FA2AC34982FD9EA9455F9CB0482D1
  * @st_funcID		LCCM644R0.FILE.003.FUNC.003
  */
-Lint16 s16DS18B20_TEMP__All_Request(Luint16 u16SensorIndex, Luint8 u8Wait)
+Lint16 s16DS18B20_TEMP__All_Request(Luint16 u16BusIndex, Luint8 u8Wait)
 {
-	/*lint -e934*/
-	//Note 934: Taking address of near auto variable [MISRA 2004 Rule 1.2]
-	
-	Lint16 s16Return;
+    /*lint -e934*/
+    //Note 934: Taking address of near auto variable [MISRA 2004 Rule 1.2]
 
-	//generate a reset on the wire
-	s16Return = s16DS18B20_1WIRE__Generate_Reset(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex);
+    Lint16 s16Return;
 
-	//issue the skip command, no serial number needed.
-	s16Return =  s16DS18B20_1WIRE__Skip(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex);
+    //generate a reset on the wire
+    s16Return = s16DS18B20_1WIRE__Generate_Reset(u16BusIndex);
 
-	//start the convert
-	s16Return = s16DS18B20_1WIRE__WriteByte(sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex, 0x44U);
+    //issue the skip command, no serial number needed.
+    s16Return =  s16DS18B20_1WIRE__Skip(u16BusIndex);
 
-	//wait for conversion?
-	if(u8Wait == 1U)
-	{
+    //start the convert
+    s16Return = s16DS18B20_1WIRE__WriteByte(u16BusIndex, 0x44U);
 
-		switch(sDS18B20.sDevice[u16SensorIndex].u8Resolution)
-		{
-			case 9:
-				vDS18B20_DELAYS__Delay_mS(94U);
-				break;
-			case 10:
-				vDS18B20_DELAYS__Delay_mS(188U);
-				break;
-			case 11:
-				vDS18B20_DELAYS__Delay_mS(375U);
-				break;
-			case 12:
-				vDS18B20_DELAYS__Delay_mS(750U);
-				break;
-			default:
-				//not sure what to do here?
-				break;
+    //wait for conversion?
+    if(u8Wait == 1U)
+    {
+        //TODO: Use the defines in stead of a random bus index
+        /*
+        switch(sDS18B20.sDevice[0].u8Resolution)
+        {
+            case 9:
+                vDS18B20_DELAYS__Delay_mS(94U);
+                break;
+            case 10:
+                vDS18B20_DELAYS__Delay_mS(188U);
+                break;
+            case 11:
+                vDS18B20_DELAYS__Delay_mS(375U);
+                break;
+            case 12:
+                vDS18B20_DELAYS__Delay_mS(750U);
+                break;
+            default:
+                //not sure what to do here?
+                break;
 
-		}//switch(sDS18B20.sDevice[u8DSIndex].u8Resolution)
+        }//switch(sDS18B20.sDevice[u8DSIndex].u8Resolution)
+        */
 
-		//now that we have waited, the user can read it
+        //now that we have waited, the user can read it
 
-		s16Return = 0;
+        s16Return = 0;
 
-	}
-	else
-	{
-		//exit
-	}
+    }
+    else
+    {
+        //exit
+    }
 
-	//at this point here, either we are ready to read, or we have an error
+    //at this point here, either we are ready to read, or we have an error
 
-	return s16Return;
-	
-	/*lint +e934*/
-	
+    return s16Return;
+
+    /*lint +e934*/
+
 }
-
 
 Lint16 s16DS18B20_TEMP__All_Request_ByChannel(Luint8 u8ChannelIndex, Luint8 u8Wait)
 {
