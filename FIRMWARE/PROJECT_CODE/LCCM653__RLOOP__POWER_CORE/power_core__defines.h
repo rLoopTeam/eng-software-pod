@@ -40,6 +40,9 @@
 
 	#define C_PWRCORE__BMS_TEMP_MASK						(0x20U)
 
+	#define C_PWRCORE__BMS_BOARD0_MASK						(0x01U)
+	#define C_PWRCORE__BMS_BOARD1_MASK						(0x02U)
+	#define C_PWRCORE__BMS_BOARD2_MASK						(0x03U)
 
 	#define C_PWRCORE__6P_CELL0_MASK						(0x01U)
 	#define C_PWRCORE__6P_CELL1_MASK						(0x02U)
