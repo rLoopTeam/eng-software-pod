@@ -20,7 +20,11 @@
 
 #if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
 #include <LCCM655__RLOOP__FCU_CORE/NETWORKING/fcu_core__net__packet_types.h>
+
 extern struct _strPWRNODE sPWRNODE;
+
+//needed right now.
+extern struct _str6870 sATA6870;
 
 /***************************************************************************//**
  * @brief
@@ -39,7 +43,7 @@ void vPWR_BMS_ETH__Init(void)
  * @brief
  * Tx an eth packet
  * 
- * @param[in]		ePacketType		## Desc ##
+ * @param[in]		ePacketType				The packet type.
  * @st_funcMD5		85992BC7984E5F9DF42F02F1180C432E
  * @st_funcID		LCCM653R0.FILE.032.FUNC.002
  */
@@ -60,8 +64,8 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	{
 		case NET_PKT__PWR_BMS__TX_BMS_STATUS:
 			u16Length = 42U;
-			u16Length +=  (C_LOCALDEF__LCCM650__NUM_DEVICES * NUM_CELLS_PER_MODULE * 4U);
-
+			u16Length +=  (C_LOCALDEF__LCCM650__NUM_DEVICES * C_ATA6870__MAX_CELLS * 4U);
+			u16Length += C_ATA6870__MAX_BUS_DEVICES;
 			break;
 
 		default:
@@ -135,14 +139,20 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				//cell volts
 				for(u8Device = 0; u8Device < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Device++)
 				{
-					for(u8Counter = 0; u8Counter < NUM_CELLS_PER_MODULE; u8Counter++)
+					for(u8Counter = 0; u8Counter < C_ATA6870__MAX_CELLS; u8Counter++)
 					{
 						//Cell voltage
-						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sATA6870.sDevice[u8Device].pf32Voltages[u8Counter]);
+						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sATA6870.f32Voltage[(u8Device * C_ATA6870__MAX_CELLS) + u8Counter]);
 						pu8Buffer += 4U;
 					}
 				}
 
+				//BMS ID
+				for(u8Counter = 0U; u8Counter < C_ATA6870__MAX_BUS_DEVICES; u8Counter++)
+				{
+					pu8Buffer[0] = sATA6870.u8RevID[u8Counter];
+					pu8Buffer += 1U;
+				}
 
 				break;
 
