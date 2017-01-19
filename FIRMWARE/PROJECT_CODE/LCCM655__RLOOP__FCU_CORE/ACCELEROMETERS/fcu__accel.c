@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the accel subsystem layer
  * 
- * @st_funcMD5		FACCCB3DAD15199709B7E1B164BD97ED
+ * @st_funcMD5		FF815825A74DAC44085A81F0CECC0114
  * @st_funcID		LCCM655R0.FILE.010.FUNC.001
  */
 void vFCU_ACCEL__Init(void)
@@ -130,7 +130,7 @@ void vFCU_ACCEL__Init(void)
  * Process the accel's
  * Call as fast as possible from the main loop
  * 
- * @st_funcMD5		1DD9CF4557947CCDE419370D041845C3
+ * @st_funcMD5		32AF30A5DE9FF77DA3FE2CB76032CF71
  * @st_funcID		LCCM655R0.FILE.010.FUNC.002
  */
 void vFCU_ACCEL__Process(void)
@@ -232,17 +232,41 @@ void vFCU_ACCEL__Process(void)
 }
 
 //return the current velocity as most recently computed in mm/sec
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u8Channel		## Desc ##
+ * @st_funcMD5		191B8EC70FB8DA0FCE32BB03F443D0D3
+ * @st_funcID		LCCM655R0.FILE.010.FUNC.005
+ */
 Lint32 s32FCU_ACCELL__Get_CurrentAccel_mmss(Luint8 u8Channel)
 {
 	return sFCU.sAccel.sChannels[u8Channel].s32CurrentAccel_mmss;
 }
 
 //return the current velocity as most recently computed in mm/sec
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u8Channel		## Desc ##
+ * @st_funcMD5		1157DBB2F10EFDDEA1EEE276145B8F66
+ * @st_funcID		LCCM655R0.FILE.010.FUNC.006
+ */
 Lint32 s32FCU_ACCELL__Get_CurrentVeloc_mms(Luint8 u8Channel)
 {
 	return sFCU.sAccel.sChannels[u8Channel].s32CurrentVeloc_mms;
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u8Channel		## Desc ##
+ * @st_funcMD5		5B659BF07323FD3334B5C7C0E93D8AAD
+ * @st_funcID		LCCM655R0.FILE.010.FUNC.007
+ */
 Lint32 s32FCU_ACCELL__Get_CurrentDisplacement_mm(Luint8 u8Channel)
 {
 	return sFCU.sAccel.sChannels[u8Channel].s32CurrentDisplacement_mm;
@@ -274,7 +298,7 @@ Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis)
  * @param[in]		u8Axis					The axis index
  * @param[in]		u8Index					The accel device index
  * @return			The F32 last computed G-Force from each sensor
- * @st_funcMD5		A1292B6EC9CD5190837BCF3CF23D23F6
+ * @st_funcMD5		D4DC470315C624685712D0F05788CC8C
  * @st_funcID		LCCM655R0.FILE.010.FUNC.004
  */
 Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis)

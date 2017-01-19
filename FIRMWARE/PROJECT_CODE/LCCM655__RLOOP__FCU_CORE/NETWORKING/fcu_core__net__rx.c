@@ -50,7 +50,7 @@ void vFCU_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPor
  * @param[in]		ePacketType				SafeUDP packet Type
  * @param[in]		u16PayloadLength		Length of only the SafeUDP payload
  * @param[in]		*pu8Payload				Pointer to the payload bytes
- * @st_funcMD5		C67770FFC02ED8A0D8650E160F72155B
+ * @st_funcMD5		E00D3EC11B8F5D177569A25E9C9C882D
  * @st_funcID		LCCM655R0.FILE.018.FUNC.002
  */
 void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)
@@ -316,6 +316,10 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 			case NET_PKT__FCU_THROTTLE__REQUEST_DATA:
 				sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_THROTTLE__TX_DATA;
+				break;
+
+			case NET_PKT__FCU_ASI__REQUEST_PUSHER_DATA:
+				sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_ASI__TX_PUSHER_DATA;
 				break;
 
 			default:

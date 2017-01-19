@@ -39,7 +39,7 @@ void vFCU_ACCEL_ETH__Init(void)
  * Transmit acceleration data over ethernet
  *
  * @param[in]		u16PacketType			The type of packet to transmit
- * @st_funcMD5		046162A3C842B5C1A2E1B398C25E8C1C
+ * @st_funcMD5		6C25F3B173E5EE8B1B698CC5BA7F2515
  * @st_funcID		LCCM655R0.FILE.030.FUNC.001
  */
 void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)

@@ -993,6 +993,10 @@
 		Luint8 u8FCU_PUSHER__Get_Switch(Luint8 u8Switch);
 		Luint8 u8FCU_PUSHER__Get_PusherState(void);
 
+			//eth
+			void vFCU_PUSHER_ETH__Init(void);
+			void vFCU_PUSHER_ETH__Transmit(E_NET__PACKET_T ePacketType);
+
 
 		//ASI interface
 		void vFCU_ASI__Init(void);

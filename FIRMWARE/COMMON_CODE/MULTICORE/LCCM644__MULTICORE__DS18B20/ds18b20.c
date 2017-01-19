@@ -66,6 +66,7 @@ void vDS18B20__Init(void)
 void vDS18B20__Process(void)
 {
 	Lint16 s16Return;
+	Luint8 u8Counter;
 
 	//if need be process the search functions
 	vDS18B20_ADDX__SearchSM_Process();
@@ -189,9 +190,15 @@ void vDS18B20__Process(void)
 			//one BUS. IF we have devices on multiple busses we need to also do a request all on the
 			//second bus too.
 			#if C_LOCALDEF__LCCM644__USE_10MS_ISR == 0U
-				s16Return = s16DS18B20_TEMP__All_Request(0U, 1U);
+			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM644__MAX_1WIRE_CHANNELS; u8Counter++)
+			{
+				s16Return = s16DS18B20_TEMP__All_Request_ByChannel(u8Counter, 1U);
+			}
 			#else
-				s16Return = s16DS18B20_TEMP__All_Request(0U, 0U);
+			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM644__MAX_1WIRE_CHANNELS; u8Counter++)
+			{
+				s16Return = s16DS18B20_TEMP__All_Request_ByChannel(u8Counter, 0U);
+			}
 			#endif
 			if(s16Return >= 0)
 			{
