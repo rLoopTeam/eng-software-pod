@@ -164,10 +164,15 @@ void vPWRNODE_CHG__Process(void)
 			//Check that the battery temperatures are all below 40C.
 			//If this is ever exceeded, stop charging. This is done autonomously,
 			//but should additionally be checked by operator.
+<<<<<<< HEAD
 #if 0
 			if(sPWRNODE.sTemp.u8NewTempAvail == 1U)
 			{
 #endif //0
+=======
+			//if(sPWRNODE.sTemp.u8NewTempAvail == 1U)
+			//{
+>>>>>>> charge test changes 01.19.17
 				//check the temp ranges
 				if(sPWRNODE.sTemp.f32HighestTemp < sPWRNODE.sCharger.f32MaxCellTemp)
 				{
@@ -182,6 +187,7 @@ void vPWRNODE_CHG__Process(void)
 
 				//clear the flag, we are done
 				sPWRNODE.sTemp.u8NewTempAvail = 0U;
+<<<<<<< HEAD
 #if 0
 			}
 			else
@@ -189,6 +195,13 @@ void vPWRNODE_CHG__Process(void)
 				//stay in state, no new temp avail yet
 			}
 #endif //0
+=======
+			//}
+			//else
+			//{
+			//	//stay in state, no new temp avail yet
+			//}
+>>>>>>> charge test changes 01.19.17
 			break;
 
 		case CHG_STATE__START_BALANCE:
