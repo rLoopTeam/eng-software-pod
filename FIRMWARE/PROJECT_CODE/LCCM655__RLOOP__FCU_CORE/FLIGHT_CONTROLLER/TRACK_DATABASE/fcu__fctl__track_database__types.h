@@ -26,7 +26,10 @@
 	/** Define the size of the blob, but compare this to the actual sizeof*/
 	#define C_FCTL_TRACKDB__BLOB_SIZE			 ((((8U + C_FCTL_TRACKDB__MAX_CONTRAST_STRIPES + C_FCTL_TRACKDB__HEADER_SPARE_WORDS) + (6U + C_FCTL_TRACKDB__MAX_SETPOINTS + C_FCTL_TRACKDB__MAX_SETPOINTS + C_FCTL_TRACKDB__PROFILE_SPARE_WORDS)) * 4U) + 2U)
 
-	/** List of all track databases */
+	/** List of all track databases
+	 * SHOULD MAKE A MULTIPLE OF 16 BYTES for better eeprom layout
+	 *
+	 * */
 	struct _strTrackDatabases
 	{
 
