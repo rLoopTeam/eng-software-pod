@@ -25,7 +25,7 @@ extern struct _strFCU sFCU;
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Init eth portion of fault flags transmit
  * 
  * @st_funcMD5		4806FF242973B11F8CD8DECBD90C9BD0
  * @st_funcID		LCCM655R0.FILE.078.FUNC.001
@@ -37,9 +37,9 @@ void vFCU_FAULTS_ETH__Init(void)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Transmit a faults eth packet
  * 
- * @param[in]		ePacketType		## Desc ##
+ * @param[in]		ePacketType				Type
  * @st_funcMD5		ED9883E4B933BF58ADB435687B8D8D5F
  * @st_funcID		LCCM655R0.FILE.078.FUNC.002
  */
@@ -169,10 +169,21 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;
+
+
+				//Flight control system
 				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
-				pu8Buffer += 4U;
+
+				#if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
+					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sFlightControl.sTrackDB.sFaultFlags.u32Flags[0]);
+					pu8Buffer += 4U;
+				#else
+					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+					pu8Buffer += 4U;
+				#endif
+
+
 
 
 				break;

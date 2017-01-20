@@ -31,6 +31,19 @@
 		#define C_LOCALDEF__LCCM188_DELAYED_WRITE								1U
 		#define C_LOCALDEF__LCCM188_IMMEDIATE_WRITE								0U
 
+		/** Write delay types */
+		typedef enum
+		{
+
+			/** Write immedate */
+			DELAY_T__IMMEDIATE_WRITE = 0U,
+
+			/** Write delayed */
+			DELAY_T__DELAYED_WRITE = 1U
+
+		}E_EEPROM_PARAMS__DELAY_T;
+
+
 		#ifndef C_LOCALDEF__LCCM188__USE_WITH_LCCM013
 			#error
 		#endif

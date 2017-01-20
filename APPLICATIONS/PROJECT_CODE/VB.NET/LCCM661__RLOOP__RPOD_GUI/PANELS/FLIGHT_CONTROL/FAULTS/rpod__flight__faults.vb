@@ -221,17 +221,28 @@
             Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
-            For iCounter As Integer = 0 To 7 - 1 - 1
+            For iCounter As Integer = 0 To 4 - 1
                 l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Spare:" & iCounter & " Faults")
 
                 If iCounter = 0 Then
-                    l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 4))
+                    l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 5))
                 Else
                     l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
                 End If
                 Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
                 iIndex += 1
             Next
+
+            'flight controller
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Flight Control - Top")
+            l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 4))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
+
+            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Track Database")
+            l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
+            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            iIndex += 1
 
         End Sub
 

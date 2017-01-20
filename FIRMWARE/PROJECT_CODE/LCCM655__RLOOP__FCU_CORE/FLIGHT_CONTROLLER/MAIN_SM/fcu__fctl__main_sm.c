@@ -107,7 +107,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 			//finally init the flight controller
 			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
-				vFCU_FLIGHTCTL__Init();
+				vFCU_FCTL__Init();
 			#endif
 
 			//start the LGU interface
@@ -167,7 +167,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			//if we are in this state, we are ready for flight
 
 			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
-				vFCU_FLIGHTCTL__Process();
+				vFCU_FCTL__Process();
 			#endif
 
 

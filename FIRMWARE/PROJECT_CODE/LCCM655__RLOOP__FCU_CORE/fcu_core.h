@@ -515,6 +515,21 @@
 					Luint8 u8Dummy;
 				#endif
 
+
+				#if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
+				/** Track database structure */
+				struct
+				{
+					/** Track DB fault flags system */
+					FAULT_TREE__PUBLIC_T sFaultFlags;
+
+
+				}sTrackDB;
+				#endif //#if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
+
+
+
+
 			}sFlightControl;
 
 
@@ -822,9 +837,21 @@
 		DLL_DECLARATION void vFCU__RTI_10MS_ISR(void);
 
 
-		//main state machine
-		void vFCU_FCTL_MAINSM__Init(void);
-		void vFCU_FCTL_MAINSM__Process(void);
+		//flight controller
+		void vFCU_FCTL__Init(void);
+		void vFCU_FCTL__Process(void);
+
+			//main state machine
+			void vFCU_FCTL_MAINSM__Init(void);
+			void vFCU_FCTL_MAINSM__Process(void);
+
+			//track DB
+			void vFCU_FCTL_TRACKDB__Init(void);
+			void vFCU_FCTL_TRACKDB__Process(void);
+
+				//mem
+				void vFCU_FCTL_TRACKDB_MEM__Init(void);
+				void vFCU_FCTL_TRACKDB_MEM__Process(void);
 
 			//auto sequence
 			void vFCU_MAINSM_AUTO__Init(void);
@@ -835,10 +862,6 @@
 			//ethernet
 			void vFCU_FCTL_ETH__Init(void);
 			void vFCU_FCTL_ETH__Transmit(E_NET__PACKET_T ePacketType);
-
-			//flight controller
-			void vFCU_FLIGHTCTL__Init(void);
-			void vFCU_FLIGHTCTL__Process(void);
 
 
 			// Laser Orientation

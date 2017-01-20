@@ -50,6 +50,9 @@ EEPROM BASIC PARAMETERS
 		#define C_LOCALDEF__LCCM188__DISABLE__F32							(0U)
 		#define C_LOCALDEF__LCCM188__DISABLE__MAC							(0U)
 	
+		/** Specialised enabled */
+		#define C_LOCALDEF__LCCM188__ENABLE_VECTORS							(0U)
+
 		/** Testing options */
 		#define C_LOCALDEF__LCCM188__ENABLE_TEST_SPEC						(0U)
 

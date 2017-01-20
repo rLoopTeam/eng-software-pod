@@ -66,6 +66,7 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 			u16Length = 42U;
 			u16Length +=  (C_LOCALDEF__LCCM650__NUM_DEVICES * C_ATA6870__MAX_CELLS * 4U);
 			u16Length += C_ATA6870__MAX_BUS_DEVICES;
+			u16Length += 4U;
 			break;
 
 		default:
@@ -153,6 +154,10 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer[0] = sATA6870.u8RevID[u8Counter];
 					pu8Buffer += 1U;
 				}
+
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32PWRNODE_BMS__Get_VoltsUpdateCount());
+				pu8Buffer += 4U;
+
 
 				break;
 

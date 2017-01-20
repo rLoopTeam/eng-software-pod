@@ -133,6 +133,11 @@ void vPWRNODE_BMS__Balance_Manual(Luint8 u8CellIndex, Luint8 u8Enable)
 	vATA6870_BALANCE__Manual(u8CellIndex, u8Enable);
 }
 
+Luint32 u32PWRNODE_BMS__Get_VoltsUpdateCount(void)
+{
+	return u32ATA6870__Get_VoltsUpdateCount();
+}
+
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_BMS
 
