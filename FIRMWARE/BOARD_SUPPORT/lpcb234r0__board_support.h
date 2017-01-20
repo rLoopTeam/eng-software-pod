@@ -669,10 +669,10 @@ ADC Module
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN5						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN6						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN7						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN8						(1U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN9						(1U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN10						(1U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN11						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN8						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN9						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN10						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN11						(1U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN12						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN13						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN14						(0U)
@@ -691,7 +691,7 @@ ADC Module
 		 * structure to reduce the complexity of finding our result
 		 * Value can be from 1 to 24
 		 */
-		#define C_LOCALDEF__LCCM414__NUM_CONNECTED_DEVICES					(3U)
+		#define C_LOCALDEF__LCCM414__NUM_CONNECTED_DEVICES					(1U)
 
 		/** For each device we determine the location of the device within our strucrture
 		 * You must configure an index from 0 to NUM_CONNECTED_DEVICES - 1
@@ -707,8 +707,8 @@ ADC Module
 		#define C_LOCALDEF__LCCM414__ADC1_IN6__INDEX						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1_IN7__INDEX						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1_IN8__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN9__INDEX						(1U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN10__INDEX						(2U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN9__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN10__INDEX						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1_IN11__INDEX						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1_IN12__INDEX						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1_IN13__INDEX						(0U)
