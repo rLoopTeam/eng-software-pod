@@ -77,7 +77,6 @@ Lint16 s16ATA6870_CELL__BulkRead_All(void)
 void vATA6870_CELL__Sum_CellVoltages(void)
 {
 	Luint8 u8Counter;
-	Luint8 u8Cell;
 	Lfloat32 f32Temp;
 
 	//clear initially:
@@ -86,14 +85,17 @@ void vATA6870_CELL__Sum_CellVoltages(void)
 	//go through each device
 	for(u8Counter = 0U; u8Counter < C_ATA6870__TOTAL_CELLS; u8Counter++)
 	{
-		f32Temp += sATA6870.f32Voltage[u8Counter];
+		#if C_LOCALDEF__LCCM650__AVERAGE_WINDOW == 0U
+			f32Temp += sATA6870.f32Voltage[u8Counter];
+		#else
+			f32Temp += sATA6870.f32FiltVoltage[u8Counter];
+		#endif
 
 	}
 
 	//update
 	sATA6870.f32PackVoltage = f32Temp;
 
-	//todo: we may need to average this.
 }
 
 //returns the entire pack voltage
@@ -291,6 +293,15 @@ void vATA6870_CELL__Get_Voltages(Luint8 u8DeviceIndex, Lfloat32 *pf32Voltages, L
 		f32Temp -= C_ATA6870__OFFSET_VOLTAGE; //pg.18, 5.5 Offset Voltage
 		f32Temp *= C_ATA6870__ADC_RES_V;
 		
+		/* Standard Procedure without Offset Adjustment
+		 * With increasing input voltages the failure caused by the ADC can be ignored.
+		 * In this case the battery cell voltage can be calculated by the following equation:
+		 * VIn = 4V × [adc[VMBATi+1-VMBATi) – 0.1 × 212) / [3031 – 0.1 × 212)
+		 * The following simplification can be done with less than 1mV rounding error:
+		 * VIn = 1.52656 × 10-3 × [adc[VMBATi+1-VMBATi) – 410)
+		 *
+		 */
+
 		//assign
 		pf32Voltages[u8Counter] = f32Temp;
 		

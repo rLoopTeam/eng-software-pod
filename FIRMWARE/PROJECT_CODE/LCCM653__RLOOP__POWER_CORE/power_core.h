@@ -311,6 +311,7 @@
 		void vPWRNODE_BMS__Balance_Start(void);
 		void vPWRNODE_BMS__Balance_Stop(void);
 		void vPWRNODE_BMS__Balance_Manual(Luint8 u8CellIndex, Luint8 u8Enable);
+		Luint32 u32PWRNODE_BMS__Get_VoltsUpdateCount(void);
 
 			//eth
 			void vPWR_BMS_ETH__Init(void);

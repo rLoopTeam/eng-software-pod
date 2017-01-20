@@ -28,6 +28,9 @@ ATA6870N - BATTERY MANAGEMENT DEVICE
 		/** Use checksum support on the ATA comms or not? */
 		#define C_LOCALDEF__LCCM650__ENABLE_CRC								(0U)
 
+		/** Average window, set to 0 for averaging off */
+		#define C_LOCALDEF__LCCM650__AVERAGE_WINDOW							(16U)
+
 		//setup for functions
 		#define M_LOCALDEF__LCCM650__NCS_TRIS(dir)							{}
 		#define M_LOCALDEF__LCCM650__NCS_LATCH(val)							{}

@@ -31,7 +31,7 @@ extern struct _strFCU sFCU;
  * @st_funcMD5		FED0062F6B73B20B0F3C694DC29503FB
  * @st_funcID		LCCM655R0.FILE.035.FUNC.001
  */
-void vFCU_FLIGHTCTL__Init(void)
+void vFCU_FCTL__Init(void)
 {
 
 	#if C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION == 1U
@@ -44,6 +44,10 @@ void vFCU_FLIGHTCTL__Init(void)
 		vFCU_FLIGHTCTL_CONTRASTNAV__Init();
 	#endif
 
+	#if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
+		vFCU_FCTL_TRACKDB__Init();
+	#endif
+
 }
 
 
@@ -54,7 +58,7 @@ void vFCU_FLIGHTCTL__Init(void)
  * @st_funcMD5		2111AE504D0BAC2BA86A479BB729D51D
  * @st_funcID		LCCM655R0.FILE.035.FUNC.002
  */
-void vFCU_FLIGHTCTL__Process(void)
+void vFCU_FCTL__Process(void)
 {
 
 	#if C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION == 1U
@@ -63,6 +67,10 @@ void vFCU_FLIGHTCTL__Process(void)
 
 	#if C_LOCALDEF__LCCM655__ENABLE_FCTL_CONTRAST_NAV == 1U
 		vFCU_FLIGHTCTL_CONTRASTNAV__Process();
+	#endif
+
+	#if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
+		vFCU_FCTL_TRACKDB__Process();
 	#endif
 
 }

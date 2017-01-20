@@ -44,17 +44,34 @@ void vATA6870__Init(void)
 	//Taking address of near auto variable, reviewed
 	/*lint -e934*/ 
 	Luint8 u8Counter;
+	Luint8 u8Counter2;
 	Luint8 u8Temp;
+
+	sATA6870.u32VoltsUpdateCount = 0U;
 
 	//Init NTC Temp reading and Voltages
 	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
 	{
 		sATA6870.f32NTCTemperatureReading[u8Counter] = 0;
 	}
+
+	//clear cell specifics
 	for(u8Counter = 0U; u8Counter < C_ATA6870__TOTAL_CELLS; u8Counter++)
 	{
 		sATA6870.f32Voltage[u8Counter] = 0.0F;
+
+		#if C_LOCALDEF__LCCM650__AVERAGE_WINDOW > 0
+			sATA6870.f32FiltVoltage[u8Counter] = 0.0F;
+			sATA6870.u16AverageCounter[u8Counter] = 0U;
+
+			for(u8Counter2 = 0U; u8Counter2 < C_LOCALDEF__LCCM650__AVERAGE_WINDOW; u8Counter2++)
+			{
+				sATA6870.f32VoltagesBuffer[u8Counter][u8Counter2] = 0.0F;
+			}
+
+		#endif //C_LOCALDEF__LCCM650__AVERAGE_WINDOW
 	}
+
 
 	sATA6870.eState = ATA6870_STATE__INIT_DEVICE;
 	sATA6870.f32AverageCellVoltage = 0.0F;
@@ -131,7 +148,7 @@ void vATA6870__Process(void)
 				//1. Check under voltage issues
 				//2. Check comms actually works.
 
-			}
+			}//for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
 
 			//u8Temp = 0x01U;
 			//vATA6870_LOWLEVEL__Reg_WriteU8(0U, ATA6870_REG__OPERATION, &u8Temp, 1U);
@@ -158,7 +175,7 @@ void vATA6870__Process(void)
 		case ATA6870_STATE__WAIT_CONVERSION:
 
 			// 8.2ms conversion time according to datasheet
-			if(sATA6870.u32ISR_Counter > 1U)
+			if(sATA6870.u32ISR_Counter > 2U)
 			{
 				//go and read the voltages now
 				sATA6870.eState = ATA6870_STATE__READ_CELL_VOLTAGES;
@@ -173,8 +190,40 @@ void vATA6870__Process(void)
 			//do a read of all volts and temps in the device
 			s16Return = s16ATA6870_CELL__BulkRead_All();
 
-			//go an create the sum of all voltages.
-			sATA6870.eState = ATA6870_STATE__SUM_CELL_VOLTAGES;
+			//clear the filtering channel.
+			sATA6870.u16FilteringChannel = 0U;
+
+			sATA6870.eState = ATA6870_STATE__RUN_FILTERING;
+			break;
+
+
+		case ATA6870_STATE__RUN_FILTERING:
+
+			//run the filtering if we are enabled.
+
+			#if C_LOCALDEF__LCCM650__AVERAGE_WINDOW > 0U
+
+				//do the filtering
+				sATA6870.f32FiltVoltage[sATA6870.u16FilteringChannel] = f32NUMERICAL_FILTERING__Add_F32(sATA6870.f32Voltage[sATA6870.u16FilteringChannel],
+																									&sATA6870.u16AverageCounter[sATA6870.u16FilteringChannel],
+																									C_LOCALDEF__LCCM650__AVERAGE_WINDOW,
+																									&sATA6870.f32VoltagesBuffer[sATA6870.u16FilteringChannel][0]);
+				if(sATA6870.u16FilteringChannel < (C_ATA6870__TOTAL_CELLS - 1))
+				{
+					sATA6870.u16FilteringChannel++;
+				}
+				else
+				{
+					//go an create the sum of all voltages.
+					sATA6870.eState = ATA6870_STATE__SUM_CELL_VOLTAGES;
+				}
+
+			#else
+				//go an create the sum of all voltages.
+				sATA6870.eState = ATA6870_STATE__SUM_CELL_VOLTAGES;
+			#endif
+
+
 			break;
 
 		case ATA6870_STATE__SUM_CELL_VOLTAGES:
@@ -190,6 +239,9 @@ void vATA6870__Process(void)
 
 			//create the average.
 			vATA6870_CELL__Average_CellVoltages();
+
+			//inc the counter
+			sATA6870.u32VoltsUpdateCount++;
 
 			//go back and do another conversion
 			sATA6870.eState = ATA6870_STATE__START_CONVERSION;
@@ -262,6 +314,11 @@ void vATA6870__StartConversion(Luint8 u8VoltageMode, Luint8 u8TempBit)
 	}//for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Counter++)
 
 
+}
+
+Luint32 u32ATA6870__Get_VoltsUpdateCount(void)
+{
+	return sATA6870.u32VoltsUpdateCount;
 }
 
 /***************************************************************************//**

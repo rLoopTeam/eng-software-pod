@@ -199,6 +199,12 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 			//Contrast Sensor Navigation
 			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_CONTRAST_NAV				(1U)
 
+			/** Allow us to control the gimbals and include in calculations */
+			#define C_LOCALDEF__LCCM655__ENABLE_GIMBAL_CONTROL					(1U)
+
+			/** Track Database */
+			#define C_LOCALDEF__LCCM655__ENABLE_TRACK_DB						(1U)
+
 		/** ADC Sample Limits */
 		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__LOWER_BOUND				(300U)
 		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__UPPER_BOUND				(3000U)

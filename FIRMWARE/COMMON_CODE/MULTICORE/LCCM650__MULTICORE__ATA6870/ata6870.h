@@ -37,14 +37,15 @@
 
 
 		/** Voltage input measurement resolution in VOLTS */
-		#define C_ATA6870__ADC_RES_V				(0.0015F)
+		#define C_ATA6870__ADC_RES_V				(0.00152656F)
 
 		/** Voltage thresholds for each module, CHANGE IF NEEDED*/
 		#define C_ATA6870__MIN_VOLTS				(3.5)
 		#define C_ATA6870__MAX_VOLTS				(4.3)
 
-		/** mV Offset */
-		#define C_ATA6870__OFFSET_VOLTAGE 			(365.0F)
+		/** mV Offset
+		 * CONSIDER: Do not change this*/
+		#define C_ATA6870__OFFSET_VOLTAGE 			(410.0F)
 
 		/** Max ATA devices on any one bus */
 		#define C_ATA6870__MAX_BUS_DEVICES			(16U)
@@ -79,6 +80,8 @@
 			ATA6870_STATE__START_CONVERSION,
 			ATA6870_STATE__WAIT_CONVERSION,
 			ATA6870_STATE__READ_CELL_VOLTAGES,
+			ATA6870_STATE__RUN_FILTERING,
+
 			ATA6870_STATE__SUM_CELL_VOLTAGES,
 			ATA6870_STATE__AVERAGE_CELL_VOLTAGES,
 
@@ -134,8 +137,30 @@
 			/** NTC Temperature Reading **/
 			Lfloat32 f32NTCTemperatureReading[C_LOCALDEF__LCCM650__NUM_DEVICES];
 
+
 			/** Voltages of a complete battery pack **/
 			Lfloat32 f32Voltage[C_ATA6870__TOTAL_CELLS];
+
+			#if C_LOCALDEF__LCCM650__AVERAGE_WINDOW > 0U
+
+				/** buffers of the filtered voltages */
+				Lfloat32 f32VoltagesBuffer[C_ATA6870__TOTAL_CELLS][C_LOCALDEF__LCCM650__AVERAGE_WINDOW];
+
+				/** The filter position */
+				Luint16 u16AverageCounter[C_ATA6870__TOTAL_CELLS];
+
+				/** The filtered voltage */
+				Lfloat32 f32FiltVoltage[C_ATA6870__TOTAL_CELLS];
+
+			#else
+
+			#endif
+
+			/** just a counter for the number of times the volts have been re-read*/
+			Luint32 u32VoltsUpdateCount;
+
+			/** Current filtering channel */
+			Luint16 u16FilteringChannel;
 
 			/** Total battery pack voltage */
 			Lfloat32 f32PackVoltage;
@@ -156,6 +181,7 @@
 		void vATA6870__Init(void);
 		void vATA6870__Process(void);
 		void vATA6870__10MS_ISR(void);
+		Luint32 u32ATA6870__Get_VoltsUpdateCount(void);
 		
 		//balance control
 		void vATA6870_BALANCE__Init(void);
