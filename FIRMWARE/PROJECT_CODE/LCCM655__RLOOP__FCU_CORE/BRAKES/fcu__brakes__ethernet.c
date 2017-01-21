@@ -63,7 +63,7 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__FCU_BRAKES__TX_DATA:
-			u16Length = (2U * (24U + 5U + 16U + 12U)) + 2U;
+			u16Length = (2U * (36U + 5U + 16U + 12U)) + 2U;
 			break;
 
 		case NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM:
