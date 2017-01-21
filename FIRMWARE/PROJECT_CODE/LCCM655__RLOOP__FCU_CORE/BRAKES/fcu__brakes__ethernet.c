@@ -123,11 +123,18 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sBrakesGlobal.sFaultFlags.u32Flags[0]);
 					pu8Buffer += 4U;
 
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer,  sFCU.sBrakes[u8Counter].sTarget.f32IBeam_mm);
+					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sTarget.f32IBeam_mm);
 					pu8Buffer += 4U;
 					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sTarget.f32LeadScrew_mm);
 					pu8Buffer += 4U;
 					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sBrakes[u8Counter].sTarget.u32LeadScrew_um);
+					pu8Buffer += 4U;
+
+					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sCurrent.f32IBeam_mm);
+					pu8Buffer += 4U;
+					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sCurrent.f32ScrewPos_mm);
+					pu8Buffer += 4U;
+					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sCurrent.f32MLP_mm);
 					pu8Buffer += 4U;
 
 					//spares
