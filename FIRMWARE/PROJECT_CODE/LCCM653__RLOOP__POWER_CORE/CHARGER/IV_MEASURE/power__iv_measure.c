@@ -20,6 +20,8 @@
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
 
+#define ADCREFERENCEVOLTAGE				(3.3F)
+
 extern struct _strPWRNODE sPWRNODE;
 
 
@@ -47,6 +49,9 @@ void vPWRNODE_CHG_IV__Init(void)
 void vPWRNODE_CHG_IV__Process(void)
 {
 	Luint8 u8New;
+	Lfloat32 f32ADC_REF;
+	Lfloat32 f32ADC_Sample;
+
 
 	//Sample the ADC channels if new data is available
 	u8New = u8RM4_ADC_USER__Is_NewDataAvailable();
@@ -57,7 +62,12 @@ void vPWRNODE_CHG_IV__Process(void)
 		// * CHARGE CURRENT		INPUT			AD1:08
 		// * BATTERY VOLTAGE		INPUT			AD1:09
 		// * CHARGE VOLTAGE		INPUT			AD1:10
-		u16RM4_ADC_USER__Get_RawData(0U);
+		f32ADC_Sample = u16RM4_ADC_USER__Get_RawData(0U);
+		f32ADC_REF = u16RM4_ADC_USER__Get_RawData(1U);
+
+		//Convert ADC to current reading
+		sPWRNODE.sHASS600.f32HASS_CurrentReading = (f32ADC_Sample - f32ADC_REF) * (ADCREFERENCEVOLTAGE/4096) * 600/0.625F;
+
 
 		//todo
 		//scale the data correctly for each sensor
