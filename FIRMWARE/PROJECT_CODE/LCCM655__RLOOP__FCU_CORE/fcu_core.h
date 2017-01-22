@@ -1044,6 +1044,7 @@
 		void vFCU_BRAKES__Begin_Init(Luint32 u32Key);
 		void vFCU_BRAKES__Move_IBeam_Distance_mm(Lfloat32 f32Distance);
 		void vFCU_BRAKES__100MS_ISR(void);
+		void vFCU_BRAKES__10MS_ISR(void);
 		Lfloat32 f32FCU_BRAKES__Get_ScrewPos(E_FCU__BRAKE_INDEX_T eBrake);
 		E_FCU__SWITCH_STATE_T eFCU_BRAKES__Get_SwtichState(E_FCU__BRAKE_INDEX_T eBrake, E_FCU__BRAKE_LIMSW_INDEX_T eSwitch);
 		Luint16 u16FCU_BRAKES__Get_ADC_Raw(E_FCU__BRAKE_INDEX_T eBrake);

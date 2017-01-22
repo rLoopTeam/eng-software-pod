@@ -485,6 +485,10 @@ void vFCU__RTI_10MS_ISR(void)
 		vFCU_ASI__10MS_ISR();
 	#endif
 
+	#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+		vFCU_BRAKES__10MS_ISR();
+	#endif
+
 }
 
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U

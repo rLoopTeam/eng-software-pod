@@ -58,7 +58,7 @@ void vFCU_ACCEL__Init(void)
 		sFCU.sAccel.sChannels[u8Device].s32CurrentDisplacement_mm = 0;
 		sFCU.sAccel.sChannels[u8Device].s32PrevDisplacement_mm = 0;
 
-
+		//clear the filtering.
 		sFCU.sAccel.sChannels[u8Device].u16FilterCounter = 0U;
 		for(u8Counter = 0U; u8Counter < C_FCU__ACCEL_FILTER_WINDOW; u8Counter++)
 		{

@@ -12,7 +12,7 @@
 
 
 	/** Accelerometer DAQ */
-	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS							(1U)
+	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS							(0U)
 	#if C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS == 1U
 
 		//define here the actual DAQ channel indexes
@@ -38,11 +38,33 @@
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S32					(6U)
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U32					(0U)
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__F32					(0U)
-	#endif
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U64					(0U)
+
+	#endif //#if C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS == 1U
 
 
 
-	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_BRAKES							(0U)
+	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_BRAKES							(1U)
+	#if C_FCU_DAQ_SET__ENABLE__DAQ_FOR_BRAKES == 1U
+
+		//configured DAQ channels
+		#define C_FCU_DAQ_SET__DAQ_FOR_BRAKES__CPU_LOAD_U8					(0U)
+
+		#define C_FCU_DAQ_SET__DAQ_FOR_BRAKES__LEFT_CURRENTPOS_S32			(1U)
+		#define C_FCU_DAQ_SET__DAQ_FOR_BRAKES__RIGHT_CURRENTPOS_S32			(2U)
+
+		#define C_FCU_DAQ_SET__DAQ_FOR_BRAKES__LEFT_TARGET_U32				(3U)
+		#define C_FCU_DAQ_SET__DAQ_FOR_BRAKES__RIGHT_TARGET_U32				(4U)
+
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U8					(1U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S16					(0U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U16					(0U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S32					(2U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U32					(2U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__F32					(0U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U64					(0U)
+
+	#endif //C_FCU_DAQ_SET__ENABLE__DAQ_FOR_BRAKES
 
 	/** Contrast Sensor Testing DAQ*/
 	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_LASER_CONTRAST						(0U)
@@ -72,6 +94,8 @@
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S32					(1U)
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U32					(2U)
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__F32					(0U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U64					(0U)
+
 	#endif
 
 
@@ -102,6 +126,7 @@ MULTIPURPOSE DAQ MODULE
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S32					(1U)
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U32					(1U)
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__F32					(1U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U64					(0U)
 */
 		/** Maximum length of DAQ data for each channel in 4 byte blocks
 		* WARNING: Value must be divisible by 4 and will be aligned.*/
