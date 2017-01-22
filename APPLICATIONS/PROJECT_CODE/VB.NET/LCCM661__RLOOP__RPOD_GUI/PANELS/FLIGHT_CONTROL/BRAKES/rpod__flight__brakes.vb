@@ -19,9 +19,14 @@
         Private m_txtFlags(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
         Private m_txtSpares(C_NUM_BRAKES - 1, 5 - 1) As SIL3.ApplicationSupport.TextBoxHelper
 
-        Private m_txtTargetIBeam(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtTargetScrew_mm(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtTargetScrew_um(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtTargetIBeam(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtTargetScrew_mm(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtTargetScrew_um(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_U32
+
+        Private m_txtCurrentIBeam(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtCurrentScrew_mm(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtCurrentMLP_mm(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
+
 
         'switches
         Private m_txtLimitsExtend_State(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
@@ -76,7 +81,7 @@
             MyBase.New(sPanelText)
 
             Me.m_sLogDir = sLog
-            Me.m_sLogDir = Me.m_sLogDir & "LASER_DIST\"
+            Me.m_sLogDir = Me.m_sLogDir & "BRAKES\"
 
             'check our folder
             SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir, True)
@@ -86,6 +91,10 @@
             'If Me.m_pCSV.File__Exists = False Then
             'End If
 
+            Me.m_pDAQ = New SIL3.DAQ.Top()
+
+            'add the contrast DAQ items
+            Me.m_pDAQ.DAQ__Set_LogFilePath(Me.m_sLogDir)
 
         End Sub
 #End Region '#Region "New"
@@ -122,10 +131,9 @@
 
                     Dim iOffset As Integer = 0
 
-                    Dim pU32Flags(C_NUM_BRAKES - 1) As SIL3.Numerical.U32
                     Dim pU32Spare(C_NUM_BRAKES - 1, 2 - 1) As SIL3.Numerical.U32
 
-                    Dim pF32TargetIBeam(C_NUM_BRAKES - 1) As SIL3.Numerical.F32
+
                     Dim pF32TargetScrew_mm(C_NUM_BRAKES - 1) As SIL3.Numerical.F32
                     Dim pS32TargetScrew_um(C_NUM_BRAKES - 1) As SIL3.Numerical.S32
 
@@ -149,20 +157,20 @@
 
                     For iCounter As Integer = 0 To C_NUM_BRAKES - 1
 
-                        pU32Flags(iCounter) = New SIL3.Numerical.U32(u8Payload, iOffset)
-                        iOffset += 4
+                        iOffset += Me.m_txtFlags(iCounter).Flags__Update(u8Payload, iOffset, True)
+                        'targets
+                        iOffset += Me.m_txtTargetIBeam(iCounter).Value__Update(u8Payload, iOffset)
+                        iOffset += Me.m_txtTargetScrew_mm(iCounter).Value__Update(u8Payload, iOffset)
+                        iOffset += Me.m_txtTargetScrew_um(iCounter).Value__Update(u8Payload, iOffset)
 
-                        pF32TargetIBeam(iCounter) = New SIL3.Numerical.F32(u8Payload, iOffset)
-                        iOffset += 4
-                        pF32TargetScrew_mm(iCounter) = New SIL3.Numerical.F32(u8Payload, iOffset)
-                        iOffset += 4
-                        pS32TargetScrew_um(iCounter) = New SIL3.Numerical.S32(u8Payload, iOffset)
-                        iOffset += 4
+                        'current pos
+                        iOffset += Me.m_txtCurrentIBeam(iCounter).Value__Update(u8Payload, iOffset)
+                        iOffset += Me.m_txtCurrentScrew_mm(iCounter).Value__Update(u8Payload, iOffset)
+                        iOffset += Me.m_txtCurrentMLP_mm(iCounter).Value__Update(u8Payload, iOffset)
 
-                        pU32Spare(iCounter, 0) = New SIL3.Numerical.U32(u8Payload, iOffset)
-                        iOffset += 4
-                        pU32Spare(iCounter, 1) = New SIL3.Numerical.U32(u8Payload, iOffset)
-                        iOffset += 4
+                        'spares
+                        iOffset += 8
+
 
                         'switches
                         pu8LimitsExtend_State(iCounter) = New SIL3.Numerical.U8(u8Payload, iOffset)
@@ -209,12 +217,9 @@
 
                     'update the GUI
                     For iCounter As Integer = 0 To C_NUM_BRAKES - 1
-                        Me.m_txtFlags(iCounter).Flags__Update(pU32Flags(iCounter), True)
 
 
-                        Me.m_txtTargetIBeam(iCounter).Threadsafe__SetText(pF32TargetIBeam(iCounter).To__Float32.ToString("0.000"))
-                        Me.m_txtTargetScrew_mm(iCounter).Threadsafe__SetText(pF32TargetScrew_mm(iCounter).To__Float32.ToString("0.000"))
-                        Me.m_txtTargetScrew_um(iCounter).Threadsafe__SetText(pS32TargetScrew_um(iCounter).To__Int.ToString)
+
                         'Me.m_txtSpares(iCounter, 3).Threadsafe__SetText(pU32Spare(iCounter, 3).To_String)
                         'Me.m_txtSpares(iCounter, 4).Threadsafe__SetText(pU32Spare(iCounter, 4).To_String)
 
@@ -245,6 +250,15 @@
                     Me.m_iRxCount += 1
                     Me.m_txtCount.Threadsafe__SetText(Me.m_iRxCount.ToString)
 
+                ElseIf ePacketType >= SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_DAQ__OFFSET_INDEX And ePacketType <= SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_DAQ__OFFSET_INDEX + 128 Then
+
+                    'DAQ packet
+                    'Pass off to the DAQ system
+                    Me.m_pDAQ.InernalEvent__UDPSafe__RxPacket(SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_DAQ__OFFSET_INDEX,
+                                                              ePacketType, u16PayloadLength, u8Payload, u16CRC, True, 0)
+
+                    Me.m_iRxCount += 1
+                    Me.m_txtCount.Threadsafe__SetText(Me.m_iRxCount.ToString)
 
                 End If
             End If
@@ -301,148 +315,206 @@
             Dim l0(C_NUM_BRAKES - 1, 20) As SIL3.ApplicationSupport.LabelHelper
 
             Dim iDevice As Integer = 0
+            Dim iIndex As Integer = 0
 
             'general
-            l0(iDevice, 0) = New SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags " & Me.Layout__GetBrakeSide(iDevice), MyBase.m_pInnerPanel)
-            Me.m_txtFlags(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iDevice, 0))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags " & Me.Layout__GetBrakeSide(iDevice), MyBase.m_pInnerPanel)
+            Me.m_txtFlags(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 1) = New SIL3.ApplicationSupport.LabelHelper("Target IBeam " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 1).Layout__AboveRightControl(l0(iDevice, 0), Me.m_txtFlags(iDevice))
-            Me.m_txtTargetIBeam(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 1))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Target IBeam " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtFlags(iDevice))
+            Me.m_txtTargetIBeam(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 2) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 2).Layout__AboveRightControl(l0(iDevice, 1), Me.m_txtTargetIBeam(iDevice))
-            Me.m_txtTargetScrew_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 2))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtTargetIBeam(iDevice))
+            Me.m_txtTargetScrew_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 3) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (um) " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 3).Layout__AboveRightControl(l0(iDevice, 1), Me.m_txtTargetScrew_mm(iDevice))
-            Me.m_txtTargetScrew_um(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 3))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (um) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtTargetScrew_mm(iDevice))
+            Me.m_txtTargetScrew_um(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_U32(100, l0(iDevice, iIndex))
+            iIndex += 1
+
+            'current
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Curr. IBeam (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtFlags(iDevice))
+            Me.m_txtCurrentIBeam(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            iIndex += 1
+
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Curr. Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtCurrentIBeam(iDevice))
+            Me.m_txtCurrentScrew_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            iIndex += 1
+
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Curr. MLP (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtCurrentScrew_mm(iDevice))
+            Me.m_txtCurrentMLP_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            iIndex += 1
 
 
             'switches
-            l0(iDevice, 4) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext State " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 4).Layout__BelowControl(Me.m_txtFlags(iDevice))
-            Me.m_txtLimitsExtend_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, 4))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext State " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtCurrentIBeam(iDevice))
+            Me.m_txtLimitsExtend_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 5) = New SIL3.ApplicationSupport.LabelHelper("Sw Retract State " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 5).Layout__AboveRightControl(l0(iDevice, 4), Me.m_txtLimitsExtend_State(iDevice))
-            Me.m_txtLimitsRetract_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, 5))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Retract State " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtLimitsExtend_State(iDevice))
+            Me.m_txtLimitsRetract_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, iIndex))
+            iIndex += 1
 
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext Edge " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtLimitsExtend_State(iDevice))
+            Me.m_txtLimitsExtend_EdgeSeen(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 6) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext Edge " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 6).Layout__BelowControl(Me.m_txtLimitsExtend_State(iDevice))
-            Me.m_txtLimitsExtend_EdgeSeen(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 6))
-
-            l0(iDevice, 7) = New SIL3.ApplicationSupport.LabelHelper("Sw Retract Edge " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 7).Layout__AboveRightControl(l0(iDevice, 6), Me.m_txtLimitsExtend_EdgeSeen(iDevice))
-            Me.m_txtLimitsRetract_EdgeSeen(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 7))
-
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Retract Edge " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtLimitsExtend_EdgeSeen(iDevice))
+            Me.m_txtLimitsRetract_EdgeSeen(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
             'mlp
-            l0(iDevice, 8) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 8).Layout__BelowControl(Me.m_txtLimitsExtend_EdgeSeen(iDevice))
-            Me.m_txtMLP_ADC(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 8))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtLimitsExtend_EdgeSeen(iDevice))
+            Me.m_txtMLP_ADC(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 9) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC Zero " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 9).Layout__AboveRightControl(l0(iDevice, 8), Me.m_txtMLP_ADC(iDevice))
-            Me.m_txtMLP_ADCZero(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 9))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC Zero " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtMLP_ADC(iDevice))
+            Me.m_txtMLP_ADCZero(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 10) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC Span " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 10).Layout__AboveRightControl(l0(iDevice, 8), Me.m_txtMLP_ADCZero(iDevice))
-            Me.m_txtMLP_ADCSpan(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 10))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC Span " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtMLP_ADCZero(iDevice))
+            Me.m_txtMLP_ADCSpan(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 11) = New SIL3.ApplicationSupport.LabelHelper("MLP Position(mm) " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 11).Layout__AboveRightControl(l0(iDevice, 10), Me.m_txtMLP_ADCSpan(iDevice))
-            Me.m_txtMLP_Position_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 11))
-
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP Position(mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtMLP_ADCSpan(iDevice))
+            Me.m_txtMLP_Position_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
             'stepper
-            l0(iDevice, 12) = New SIL3.ApplicationSupport.LabelHelper("Stepper Veloc " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 12).Location = New System.Drawing.Point(Me.m_txtMLP_ADC(iDevice).Location.X, Me.m_txtMLP_ADC(iDevice).Location.Y + Me.m_txtMLP_ADC(iDevice).Size.Height + 50)
-            Me.m_pInnerPanel.Controls.Add(l0(iDevice, 12))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Veloc " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Location = New System.Drawing.Point(Me.m_txtMLP_ADC(iDevice).Location.X, Me.m_txtMLP_ADC(iDevice).Location.Y + Me.m_txtMLP_ADC(iDevice).Size.Height + 50)
+            Me.m_pInnerPanel.Controls.Add(l0(iDevice, iIndex))
             'l0(iDevice, 12).Layout__BelowControl(Me.m_txtMLP_ADC(iDevice))
-            Me.m_txtStep_Veloc(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 12))
+            Me.m_txtStep_Veloc(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 13) = New SIL3.ApplicationSupport.LabelHelper("Stepper Accel " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 13).Layout__AboveRightControl(l0(iDevice, 12), Me.m_txtStep_Veloc(iDevice))
-            Me.m_txtStep_Accel(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 13))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Accel " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtStep_Veloc(iDevice))
+            Me.m_txtStep_Accel(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 14) = New SIL3.ApplicationSupport.LabelHelper("Stepper Pos " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 14).Layout__AboveRightControl(l0(iDevice, 12), Me.m_txtStep_Accel(iDevice))
-            Me.m_txtStep_CurrentPos(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 14))
-
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Pos " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtStep_Accel(iDevice))
+            Me.m_txtStep_CurrentPos(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
 
 
 
             iDevice = 1
+            iIndex = 0
             'general
-            l0(iDevice, 0) = New SIL3.ApplicationSupport.LabelHelper("Fault Flags " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 0).Layout__AboveRightControl(l0(iDevice - 1, 0), Me.m_txtTargetScrew_um(iDevice - 1))
-            Me.m_txtFlags(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iDevice, 0))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Fault Flags " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice - 1, 0), Me.m_txtTargetScrew_um(iDevice - 1))
+            Me.m_txtFlags(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 1) = New SIL3.ApplicationSupport.LabelHelper("Target IBeam " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 1).Layout__AboveRightControl(l0(iDevice, 0), Me.m_txtFlags(iDevice))
-            Me.m_txtTargetIBeam(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 1))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Target IBeam " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtFlags(iDevice))
+            Me.m_txtTargetIBeam(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 2) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 2).Layout__AboveRightControl(l0(iDevice, 1), Me.m_txtTargetIBeam(iDevice))
-            Me.m_txtTargetScrew_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 2))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtTargetIBeam(iDevice))
+            Me.m_txtTargetScrew_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 3) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (um) " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 3).Layout__AboveRightControl(l0(iDevice, 1), Me.m_txtTargetScrew_mm(iDevice))
-            Me.m_txtTargetScrew_um(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 3))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (um) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtTargetScrew_mm(iDevice))
+            Me.m_txtTargetScrew_um(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_U32(100, l0(iDevice, iIndex))
+            iIndex += 1
+
+            'current
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Curr. IBeam (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtFlags(iDevice))
+            Me.m_txtCurrentIBeam(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            iIndex += 1
+
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Curr. Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtCurrentIBeam(iDevice))
+            Me.m_txtCurrentScrew_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            iIndex += 1
+
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Curr. MLP (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtCurrentScrew_mm(iDevice))
+            Me.m_txtCurrentMLP_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            iIndex += 1
 
             'switches
-            l0(iDevice, 4) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext State " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 4).Layout__BelowControl(Me.m_txtFlags(iDevice))
-            Me.m_txtLimitsExtend_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, 4))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext State " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtCurrentIBeam(iDevice))
+            Me.m_txtLimitsExtend_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 5) = New SIL3.ApplicationSupport.LabelHelper("Sw Retract State " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 5).Layout__AboveRightControl(l0(iDevice, 4), Me.m_txtLimitsExtend_State(iDevice))
-            Me.m_txtLimitsRetract_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, 5))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Retract State " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtLimitsExtend_State(iDevice))
+            Me.m_txtLimitsRetract_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, iIndex))
+            iIndex += 1
 
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext Edge " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtLimitsExtend_State(iDevice))
+            Me.m_txtLimitsExtend_EdgeSeen(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 6) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext Edge " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 6).Layout__BelowControl(Me.m_txtLimitsExtend_State(iDevice))
-            Me.m_txtLimitsExtend_EdgeSeen(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 6))
-
-            l0(iDevice, 7) = New SIL3.ApplicationSupport.LabelHelper("Sw Retract Edge " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 7).Layout__AboveRightControl(l0(iDevice, 6), Me.m_txtLimitsExtend_EdgeSeen(iDevice))
-            Me.m_txtLimitsRetract_EdgeSeen(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 7))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Retract Edge " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtLimitsExtend_EdgeSeen(iDevice))
+            Me.m_txtLimitsRetract_EdgeSeen(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
             'mlp
-            l0(iDevice, 8) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 8).Layout__BelowControl(Me.m_txtLimitsExtend_EdgeSeen(iDevice))
-            Me.m_txtMLP_ADC(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 8))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtLimitsExtend_EdgeSeen(iDevice))
+            Me.m_txtMLP_ADC(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 9) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC Zero " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 9).Layout__AboveRightControl(l0(iDevice, 8), Me.m_txtMLP_ADC(iDevice))
-            Me.m_txtMLP_ADCZero(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 9))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC Zero " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtMLP_ADC(iDevice))
+            Me.m_txtMLP_ADCZero(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 10) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC Span " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 10).Layout__AboveRightControl(l0(iDevice, 8), Me.m_txtMLP_ADCZero(iDevice))
-            Me.m_txtMLP_ADCSpan(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 10))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC Span " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtMLP_ADCZero(iDevice))
+            Me.m_txtMLP_ADCSpan(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 11) = New SIL3.ApplicationSupport.LabelHelper("MLP Position(mm) " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 11).Layout__AboveRightControl(l0(iDevice, 10), Me.m_txtMLP_ADCSpan(iDevice))
-            Me.m_txtMLP_Position_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 11))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP Position(mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtMLP_ADCSpan(iDevice))
+            Me.m_txtMLP_Position_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
             'stepper
-            l0(iDevice, 12) = New SIL3.ApplicationSupport.LabelHelper("Stepper Veloc " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 12).Location = New System.Drawing.Point(Me.m_txtMLP_ADC(iDevice).Location.X, Me.m_txtMLP_ADC(iDevice).Location.Y + Me.m_txtMLP_ADC(iDevice).Size.Height + 50)
-            Me.m_pInnerPanel.Controls.Add(l0(iDevice, 12))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Veloc " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Location = New System.Drawing.Point(Me.m_txtMLP_ADC(iDevice).Location.X, Me.m_txtMLP_ADC(iDevice).Location.Y + Me.m_txtMLP_ADC(iDevice).Size.Height + 50)
+            Me.m_pInnerPanel.Controls.Add(l0(iDevice, iIndex))
             'l0(iDevice, 12).Layout__BelowControl(Me.m_txtMLP_ADC(iDevice))
-            Me.m_txtStep_Veloc(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 12))
+            Me.m_txtStep_Veloc(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 13) = New SIL3.ApplicationSupport.LabelHelper("Stepper Accel " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 13).Layout__AboveRightControl(l0(iDevice, 12), Me.m_txtStep_Veloc(iDevice))
-            Me.m_txtStep_Accel(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 13))
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Accel " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtStep_Veloc(iDevice))
+            Me.m_txtStep_Accel(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
-            l0(iDevice, 14) = New SIL3.ApplicationSupport.LabelHelper("Stepper Pos " & Me.Layout__GetBrakeSide(iDevice))
-            l0(iDevice, 14).Layout__AboveRightControl(l0(iDevice, 12), Me.m_txtStep_Accel(iDevice))
-            Me.m_txtStep_CurrentPos(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, 14))
-
+            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Pos " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtStep_Accel(iDevice))
+            Me.m_txtStep_CurrentPos(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
 
             Dim l10 As New SIL3.ApplicationSupport.LabelHelper("Brakes State")
             l10.Layout__BelowControl(Me.m_txtStep_Veloc(0))
@@ -487,18 +559,18 @@
             Me.m_txtCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l11)
 
             Dim btnOn As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
-            btnOn.Layout__BelowControl(Me.m_txtCount)
+            btnOn.Layout__RightOfControl(Me.m_txtCount)
 
-            Dim btnOff As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream Off", AddressOf btnStreamOff__Click)
-            btnOff.Layout__RightOfControl(btnOn)
+            Dim btnDAQ As New SIL3.ApplicationSupport.ButtonHelper(100, "Enable DAQ", AddressOf btnDAQ__Click)
+            btnDAQ.Layout__RightOfControl(btnOn)
 
             Dim btnInit As New SIL3.ApplicationSupport.ButtonHelper(100, "Init Brakes", AddressOf btnInit__Click)
-            btnInit.Layout__RightOfControl(btnOff)
+            btnInit.Layout__BelowControl(Me.m_txtCount)
             btnInit.ToolTip__Set("Brake Init", "This is required after reset")
 
 
             Dim btnDevEnable As New SIL3.ApplicationSupport.ButtonHelper(100, "Dev Enable", AddressOf btnDevEnable__Click)
-            btnDevEnable.Layout__RightOfControl(btnInit)
+            btnDevEnable.Layout__BelowControl(btnInit)
             btnDevEnable.ToolTip__Set("Development Enable", "Use this to enable development mode before any manual brake commands can be sent.")
 
             Dim btnCal As New SIL3.ApplicationSupport.ButtonHelper(100, "Calibrate", AddressOf btnCalibrate__Click)
@@ -508,7 +580,7 @@
 
 
             Dim l20 As New SIL3.ApplicationSupport.LabelHelper("Raw Move (um)")
-            l20.Layout__BelowControl(btnOn)
+            l20.Layout__BelowControl(btnDevEnable)
             Me.m_txtDevRawMove = New SIL3.ApplicationSupport.TextBoxHelper(100, l20)
 
             Dim btnMoveLeftDev As New SIL3.ApplicationSupport.ButtonHelper(100, "Move Left", AddressOf btnMoveLeftDev__Click)
@@ -538,24 +610,105 @@
             btnMLP_R_Span.Layout__RightOfControl(btnMLP_R_Zero)
 
 
+            For iDevice = 0 To C_NUM_BRAKES - 1
+                Me.m_txtFlags(iDevice).Flags__Add("GENERAL")
+                Me.m_txtFlags(iDevice).Flags__Add("MLP_RANGE_LIMIT_LOW")
+                Me.m_txtFlags(iDevice).Flags__Add("MLP_RANGE_LIMIT_HIGH")
+                Me.m_txtFlags(iDevice).Flags__Add("CALIBRATION DATA RELOAD")
+                Me.m_txtFlags(iDevice).Flags__Add("DEVELOPMENT MODE ENABLE")
+                Me.m_txtFlags(iDevice).Flags__Add("")
+                Me.m_txtFlags(iDevice).Flags__Add("")
+                Me.m_txtFlags(iDevice).Flags__Add("")
+                Me.m_txtFlags(iDevice).Flags__Add("")
+                Me.m_txtFlags(iDevice).Flags__Add("")
+                Me.m_txtFlags(iDevice).Flags__Add("")
+                Me.m_txtFlags(iDevice).Flags__Add("")
+                Me.m_txtFlags(iDevice).Flags__Add("")
+
+            Next
+
         End Sub
 
 #End Region '#Region "PANEL LAYOUT"
 
 #Region "BUTTON HELPERS"
 
+        ''' <summary>
+        ''' Enable streaming
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
         Private Sub btnStreamOn__Click(s As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+
+            Dim pSB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
+
+            If pSB.Text = "Stream On" Then
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__STREAMING_CONTROL,
                                                  1, SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__TX_DATA, 0, 0)
-        End Sub
 
-        Private Sub btnStreamOff__Click(s As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                pSB.Text = "Stream Off"
+            Else
+
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__STREAMING_CONTROL,
                                                  0, SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__TX_DATA, 0, 0)
+                pSB.Text = "Stream On"
+            End If
+
+
         End Sub
 
+        ''' <summary>
+        ''' Enable DAQ
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnDAQ__Click(s As Object, e As EventArgs)
+
+
+            Dim pSB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
+
+            If pSB.Text = "Enable DAQ" Then
+
+                'clear any types
+                Me.m_pDAQ.DAQTypes__Clear()
+
+                'configure the DAQ
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 0, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U8, "CPU Load", 100)
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 1, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__S32, "LEFT_POS", 100)
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 2, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__S32, "RIGHT_POS", 100)
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 1, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "LEFT_TARGET", 100)
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 2, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "RIGHT_TARGET", 100)
+
+                'switch on the DAQ
+                Me.m_pDAQ.DAQ__Start(False)
+
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__DAQ_ENABLE,
+                                                 1, 0, 0, 0)
+
+                pSB.Text = "Disable DAQ"
+            Else
+                'stopping will also flush
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__DAQ_ENABLE,
+                                                 0, 0, 0, 0)
+
+
+                'the DAQ will be flished here.
+
+                pSB.Text = "Enable DAQ"
+            End If
+
+
+        End Sub
+
+        ''' <summary>
+        ''' Enable development mode
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
         Private Sub btnDevEnable__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__ENABLE_DEV_MODE,

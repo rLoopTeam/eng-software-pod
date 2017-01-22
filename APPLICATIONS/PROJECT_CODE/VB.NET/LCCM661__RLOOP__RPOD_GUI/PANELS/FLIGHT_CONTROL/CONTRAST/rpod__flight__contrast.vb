@@ -63,16 +63,7 @@
             'add the contrast DAQ items
             Me.m_pDAQ.DAQ__Set_LogFilePath(Me.m_sLogDir)
 
-            'cpu load
-            Me.m_pDAQ.DAQTypes__Register(0, 0, 0, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U8, "CPU Load", 0)
-            'rising count
-            Me.m_pDAQ.DAQTypes__Register(0, 0, 1, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U16, "Rising Edge Count", 0)
-            'distance elapsed mm
-            Me.m_pDAQ.DAQTypes__Register(0, 0, 2, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__S32, "Current Accel mm/ss", 0)
-            'last stripe distance mm
-            Me.m_pDAQ.DAQTypes__Register(0, 0, 3, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "Distance Elapsed mm", 0)
-            'current velocity mm/s
-            Me.m_pDAQ.DAQTypes__Register(0, 0, 4, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "Velocity mms", 0)
+
 
         End Sub
 #End Region '#Region "New"
@@ -250,9 +241,6 @@
             btnEnableDAQ.Layout__RightOfControl(btnRL0)
             btnEnableDAQ.ToolTip__Set("Enable DAQ", "You must enable this BEFORE starting a FPGA sim otherwise the DAQ won't log")
 
-            Dim btnBurst As New SIL3.ApplicationSupport.ButtonHelper(100, "Burst DAQ", AddressOf btnBurstDAQ__Click)
-            btnBurst.Layout__RightOfControl(btnEnableDAQ)
-
 
             Dim btnRL1 As New SIL3.ApplicationSupport.ButtonHelper(100, "Req. Laser 1", AddressOf btnRequest_L1__Click)
             btnRL1.Layout__BelowControl(btnRL0)
@@ -269,17 +257,52 @@
 
 #Region "BUTTON HELPERS"
 
+        ''' <summary>
+        ''' Enable or disable DAQ
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
         Private Sub btnEnableDAQ__Click(s As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__DAQ_ENABLE,
-                                                 1, 0, 0, 0)
+
+            Dim pSB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
+
+            If pSB.Text = "Enable DAQ" Then
+
+                'clear any types
+                Me.m_pDAQ.DAQTypes__Clear()
+
+                'reset
+                'cpu load
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 0, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U8, "CPU Load", 0)
+                'rising count
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 1, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U16, "Rising Edge Count", 0)
+                'distance elapsed mm
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 2, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__S32, "Current Accel mm/ss", 0)
+                'last stripe distance mm
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 3, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "Distance Elapsed mm", 0)
+                'current velocity mm/s
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 4, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "Velocity mms", 0)
+
+
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                     SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__DAQ_ENABLE,
+                                                     1, 0, 0, 0)
+
+                pSB.Text = "Stop DAQ"
+            Else
+
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                     SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__DAQ_ENABLE,
+                                                     0, 0, 0, 0)
+
+                pSB.Text = "Enable DAQ"
+            End If
+
+
+
+
         End Sub
 
-        Private Sub btnBurstDAQ__Click(s As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__DAQ_FLUSH,
-                                                 0, 0, 0, 0)
-        End Sub
 
         ''' <summary>
         ''' Request laser0 contrast data

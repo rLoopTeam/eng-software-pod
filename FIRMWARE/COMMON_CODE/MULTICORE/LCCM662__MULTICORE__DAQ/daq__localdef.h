@@ -30,7 +30,8 @@ MULTIPURPOSE DAQ MODULE
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S32					(1U)
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U32					(1U)
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__F32					(1U)
-		
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U64					(1U)
+
 		/** Maximum length of DAQ data for each channel in 4 byte blocks
 		* WARNING: Value must be divisible by 4 and will be aligned.*/
 		#define C_LOCALDEF__LCCM662__MAX_DAQ_BUFFER_BLOCKS					(128U)
