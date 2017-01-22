@@ -91,6 +91,16 @@
 		
 	}sNUM_f32Vector_3D;
 
+
+	typedef struct tsNUM_s32Vector_3D
+	{
+
+		Lint32 s32X;
+		Lint32 s32Y;
+		Lint32 s32Z;
+
+	}sNUM_s32Vector_3D;
+
 	//3D Vector
 	typedef struct tsNUM_f64Vector_3D
 	{

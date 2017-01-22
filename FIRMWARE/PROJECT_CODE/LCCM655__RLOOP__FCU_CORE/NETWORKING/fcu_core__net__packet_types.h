@@ -161,11 +161,30 @@
 
 
 		//////////////////////////////////////////////////////
-		//FCU: NAVIGATION (0x1600)
+		//FCU: FLIGHT (0x1600)
 		//////////////////////////////////////////////////////
 
 		/** Stream Navigation Progress Data */
 		NET_PKT__FCU_NAV__TX_NAV_PROGRESS = 0x1600U,
+
+		/** Host to send the FCU a track database packet */
+		NET_PKT__FCU_FLT__TX_TRACK_DB_CHUNK = 0x1601U,
+
+		/** FCU to ACK track DB chunk upload */
+		NET_PKT__FCU_FLT__ACK_TRACK_DB_CHUNK = 0x1602U,
+
+		/** Select track database */
+		NET_PKT__FCU_FLT__SELECT_TRACK_DB = 0x1603U,
+
+		/** Request the geometry data */
+		NET_PKT__FCU_FLT__REQUEST_GEOM_DATA = 0x1604U,
+
+		/** FCU to host to tx geom data */
+		NET_PKT__FCU_FLT__TX_GEOM_DATA = 0x1605U,
+
+		/** Host to set a GEOM parameter */
+		NET_PKT__FCU_FLT__SET_GEOM_DATA = 0x1606U,
+
 
 		//////////////////////////////////////////////////////
 		//FCU: ASI LAYER (0x1700)

@@ -2502,7 +2502,7 @@ gets a list of directories from a parth, but does not put the path name in the s
  <returns>ArrayList</returns>
  <remarks></remarks>
 </member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.saGetFileList(System.String)">
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__GetFileList(System.String)">
  <summary>
  Returns a string array of files on a path.
  </summary>
@@ -5927,6 +5927,11 @@ adds a sub level node after one has already been added
  </summary>
  <param name="u8Array"></param>
  <param name="iLength"></param>
+</member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.CM30Laser">
+ <summary>
+ Just a Fake CM30 laser
+ </summary>
 </member>
 <member name="T:LAPP185__RLOOP__FCU_EMU.ASIController">
  <summary>

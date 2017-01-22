@@ -226,6 +226,9 @@
     <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE">
       <UniqueIdentifier>{a8681542-0e8c-48c7-b72b-8455ba4bcce7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\GEOMETRY">
+      <UniqueIdentifier>{18e2cbf9-98c3-42fb-b7f1-598d722062a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
@@ -653,6 +656,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE\fcu__fctl__track_database__mem.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE\fcu__fctl__track_database__win32.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\GEOMETRY\fcu__geom.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\GEOMETRY</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\GEOMETRY\fcu__geom__ethernet.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\GEOMETRY</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

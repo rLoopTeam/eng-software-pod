@@ -20,6 +20,9 @@
         Private m_txtMissionPhase As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
         Private m_txtDistFilt As SIL3.ApplicationSupport.TextBoxHelper
 
+        Private m_cboSelectTrackDB As SIL3.ApplicationSupport.ComboBoxHelper
+        Private m_txtCurrentTrackDB As SIL3.ApplicationSupport.TextBoxHelper
+
         ''' <summary>
         ''' The logging directory
         ''' </summary>
@@ -152,18 +155,58 @@
             Me.m_txtMissionPhase.States__Add("MISSION_PHASE__FLIGHT_MODE")
 
 
+            Dim l2 As New SIL3.ApplicationSupport.LabelHelper("Select Track DB")
+            l2.Layout__BelowControl(Me.m_txtFlags)
+            Me.m_cboSelectTrackDB = New SIL3.ApplicationSupport.ComboBoxHelper(100, l2)
+
+            For iCounter As Integer = 0 To 8 - 1
+                Me.m_cboSelectTrackDB.Threadsafe__AddItem(iCounter.ToString)
+            Next
+            Me.m_cboSelectTrackDB.Threadsafe__SetSelectedIndex(0)
+
+            Dim l3 As New SIL3.ApplicationSupport.LabelHelper("Current Track DB")
+            l3.Layout__AboveRightControl(l2, Me.m_cboSelectTrackDB)
+            Me.m_txtCurrentTrackDB = New SIL3.ApplicationSupport.TextBoxHelper(100, l3)
+
+            Dim btnChangeTrackDB As New SIL3.ApplicationSupport.ButtonHelper(100, "Change DB", AddressOf Me.btnChangeTrackDB__Click)
+            btnChangeTrackDB.Layout__RightOfControl(Me.m_txtCurrentTrackDB)
+
         End Sub
 
 #End Region '#Region "PANEL LAYOUT"
 
 #Region "BUTTON HELPERS"
 
+        ''' <summary>
+        ''' Change the current track database
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnChangeTrackDB__Click(s As Object, e As EventArgs)
+            Dim u32Index As UInt32 = Me.m_cboSelectTrackDB.SelectedIndex
+            If MsgBox("Warn: You are about to change the track ID to: " & u32Index.ToString & " Continue?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_FLT__SELECT_TRACK_DB,
+                                                 &H11223344, u32Index, 0, 0)
+            End If
+        End Sub
+
+        ''' <summary>
+        ''' Enable mission streaming
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
         Private Sub btnStreamOn__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__STREAMING_CONTROL,
                                                  1, SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__TX_MISSION_DATA, 0, 0)
         End Sub
 
+        ''' <summary>
+        ''' Disable mission streaming
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
         Private Sub btnStreamOff__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__STREAMING_CONTROL,
@@ -179,7 +222,7 @@
         ''' <param name="e"></param>
         Private Sub btnPodSafed__Click(s As Object, e As EventArgs)
 
-            If MsgBox("Warning: This will Electrically Safe the pod" & Environment.NewLine & "All power will be lost, Continue?", MsgBoxStyle.OkCancel, "Pod Safe Command") = MsgBoxResult.Ok Then
+            If MsgBox("Warning: This will Safe the pod" & Environment.NewLine & "All power will be lost, Continue?", MsgBoxStyle.OkCancel, "Pod Safe Command") = MsgBoxResult.Ok Then
                 RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__POWER_A,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__PWR_GEN__POD_SAFE_COMMAND,
                                                  &H76543210L, 0, 0, 0)

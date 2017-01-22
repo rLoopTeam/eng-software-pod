@@ -28,6 +28,9 @@
 	
 	#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
 
+		#include <MULTICORE/LCCM118__MULTICORE__NUMERICAL/numerical.h>
+		#include <MULTICORE/LCCM118__MULTICORE__NUMERICAL/numerical__structs.h>
+
 		#define C_LOCALDEF__LCCM188_DELAYED_WRITE								1U
 		#define C_LOCALDEF__LCCM188_IMMEDIATE_WRITE								0U
 
@@ -200,6 +203,13 @@
 	void vEEPARAM__WriteU32(Luint16 u16Index, Luint32 u32Value, Luint8 u8Delayed);
 	void vEEPARAM__WriteS32(Luint16 u16Index, Lint32 s32Value, Luint8 u8Delayed);
 	void vEEPARAM__WriteF32(Luint16 u16Index, Lfloat32 f32Value, Luint8 u8Delayed);
+
+	#if C_LOCALDEF__LCCM188__ENABLE_VECTORS == 1U
+		void vEEPARAM__Write_VS32(Luint16 u16Index, sNUM_s32Vector_3D *pvs32Value, E_EEPROM_PARAMS__DELAY_T eDelay);
+		void vs32EEPARAM__Read(Luint16 u16Index, sNUM_s32Vector_3D *pvs32Value);
+		void vEEPARAM__Write_VF32(Luint16 u16Index, sNUM_f32Vector_3D *pvf32Value, E_EEPROM_PARAMS__DELAY_T eDelay);
+		void vf32EEPARAM__Read(Luint16 u16Index, sNUM_f32Vector_3D *pvf32Value);
+	#endif
 
 	//MAC
 	void vEEPARAM__Read_MAC8(Luint16 u16Index, Luint8 * pu8MAC);
