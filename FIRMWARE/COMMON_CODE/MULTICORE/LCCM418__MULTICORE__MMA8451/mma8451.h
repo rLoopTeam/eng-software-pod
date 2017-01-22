@@ -220,7 +220,7 @@
 		void vMMA8451_FILTERING__Init(Luint8 u8DeviceIndex);
 		void vMMA8451_FILTERING__Add(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis, Lint16 s16Value);
 	#endif
-	Lint16 s16MMA8451_FILTERING__Get_Average(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis);
+	DLL_DECLARATION Lint16 s16MMA8451_FILTERING__Get_Average(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis);
 
 	//read	
 	Lint16 s16MMA8451_READ__ReadXYZ(Luint8 u8DeviceIndex);

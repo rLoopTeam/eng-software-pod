@@ -59,6 +59,13 @@ void vFCU_ACCEL__Init(void)
 		sFCU.sAccel.sChannels[u8Device].s32PrevDisplacement_mm = 0;
 
 
+		sFCU.sAccel.sChannels[u8Device].u16FilterCounter = 0U;
+		for(u8Counter = 0U; u8Counter < C_FCU__ACCEL_FILTER_WINDOW; u8Counter++)
+		{
+			sFCU.sAccel.sChannels[u8Device].s16FilterValues[u8Counter] = 0;
+		}
+		sFCU.sAccel.sChannels[u8Device].s16FilteredResult = 0;
+
 	}//for(u8Device = 0U; u8Device < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Device++)
 
 
@@ -139,14 +146,22 @@ void vFCU_ACCEL__Process(void)
 	Luint8 u8Test;
 	Luint8 u8Counter;
 	MMA8451__AXIS_E eTargetAxis;
-	Lfloat32 f32Axis_To_ms;
+	Lint32 s32Axis_To_ms;
 	Lint32 s32Temp;
 
 	//depending on the orientation of the hardware
 	eTargetAxis = MMA8451_AXIS__Y;
 
 	//we have an axis in the range of +/- C_LOCALDEF__LCCM418__G_FORCE_RANGE
-
+	#if C_LOCALDEF__LCCM418__G_FORCE_RANGE == 2U
+		s32Axis_To_ms = 4096;
+	#elif C_LOCALDEF__LCCM418__G_FORCE_RANGE == 4U
+		s32Axis_To_ms = 2048;
+	#elif C_LOCALDEF__LCCM418__G_FORCE_RANGE == 8U
+		s32Axis_To_ms = 1024;
+	#else
+		#error
+	#endif
 
 
 	//loop through each device
@@ -180,17 +195,25 @@ void vFCU_ACCEL__Process(void)
 					sFCU.sAccel.sChannels[u8Counter].f32LastG[MMA8451_AXIS__Z] = f32MMA8451_MATH__Get_GForce(u8Counter, MMA8451_AXIS__Z);
 				#endif
 
-				//Convert into m/s
-				s32Temp = sFCU.sAccel.sChannels[u8Counter].s16LastSample[(Luint8)eTargetAxis];
 
-				//todo:
-				//Filter
+				//Filter, I will just use a very basic filter here until someone gives me a more advanced one
+				sFCU.sAccel.sChannels[u8Counter].s16FilteredResult = s16NUMERICAL_FILTERING__Add_S16(sFCU.sAccel.sChannels[u8Counter].s16LastSample[(Luint8)eTargetAxis],
+																									&sFCU.sAccel.sChannels[u8Counter].u16FilterCounter,
+																									C_FCU__ACCEL_FILTER_WINDOW,
+																									&sFCU.sAccel.sChannels[u8Counter].s16FilterValues[0]);
+
+				//Convert into m/s
+				//s32Temp = sFCU.sAccel.sChannels[u8Counter].s16LastSample[(Luint8)eTargetAxis];
+				s32Temp = sFCU.sAccel.sChannels[u8Counter].s16FilteredResult;
 
 				//todo
 				//pitch angle offset in data.
 
 				//9.80665 * 1000 (mm/sec)
 				s32Temp *= 9807;
+
+				//take out the accel scale
+				s32Temp /= s32Axis_To_ms;
 
 				//assign
 				sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mmss = s32Temp;
@@ -213,10 +236,43 @@ void vFCU_ACCEL__Process(void)
 
 				//compute poition
 				//pos = posPrev + T * veloc
+				sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm = sFCU.sAccel.sChannels[u8Counter].s32PrevDisplacement_mm + sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms;
 
+				//update the previous
+				sFCU.sAccel.sChannels[u8Counter].s32PrevDisplacement_mm = sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm;
 
+				//handle the Daq
+				#if C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS == 1U
+				switch(u8Counter)
+				{
+					case 0:
+						vDAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0X_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__X]);
+						vDAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0Y_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Y]);
+						vDAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0Z_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Z]);
 
+						vDAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_ACCEL_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mmss);
+						vDAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_VELOC_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms);
+						vDAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_DISP_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm);
+						break;
 
+					case 1:
+						vDAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1X_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__X]);
+						vDAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1Y_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Y]);
+						vDAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1Z_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Z]);
+
+						vDAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_ACCEL_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mmss);
+						vDAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_VELOC_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms);
+						vDAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_DISP_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm);
+						break;
+
+					default:
+						//fall on
+						break;
+				}
+				#endif
+
+				//done with the sample now
+				vMMA8451__Clear_NewSampleReady(u8Counter);
 			}
 			else
 			{
@@ -226,17 +282,14 @@ void vFCU_ACCEL__Process(void)
 
 	}//for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Counter++)
 
-
-
-
 }
 
-//return the current velocity as most recently computed in mm/sec
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Return the current velocity as most recently computed in mm/sec
  * 
- * @param[in]		u8Channel		## Desc ##
+ * @param[in]		u8Channel				Accel Channel
  * @st_funcMD5		191B8EC70FB8DA0FCE32BB03F443D0D3
  * @st_funcID		LCCM655R0.FILE.010.FUNC.005
  */
@@ -245,12 +298,12 @@ Lint32 s32FCU_ACCELL__Get_CurrentAccel_mmss(Luint8 u8Channel)
 	return sFCU.sAccel.sChannels[u8Channel].s32CurrentAccel_mmss;
 }
 
-//return the current velocity as most recently computed in mm/sec
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Return the current velocity as most recently computed in mm/sec
  * 
- * @param[in]		u8Channel		## Desc ##
+ * @param[in]		u8Channel				Accel Channel
  * @st_funcMD5		1157DBB2F10EFDDEA1EEE276145B8F66
  * @st_funcID		LCCM655R0.FILE.010.FUNC.006
  */
@@ -261,9 +314,9 @@ Lint32 s32FCU_ACCELL__Get_CurrentVeloc_mms(Luint8 u8Channel)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Return the current displacement
  * 
- * @param[in]		u8Channel		## Desc ##
+ * @param[in]		u8Channel				Accel channel
  * @st_funcMD5		5B659BF07323FD3334B5C7C0E93D8AAD
  * @st_funcID		LCCM655R0.FILE.010.FUNC.007
  */
@@ -312,6 +365,10 @@ Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis)
 
 //make sure both sensors are in the same range
 #if C_LOCALDEF__LCCM418__DEV0__DATA_RATE_HZ != C_LOCALDEF__LCCM418__DEV1__DATA_RATE_HZ
+	#error
+#endif
+
+#ifndef C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS
 	#error
 #endif
 

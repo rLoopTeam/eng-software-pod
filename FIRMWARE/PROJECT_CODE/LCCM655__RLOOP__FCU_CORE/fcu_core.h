@@ -267,6 +267,11 @@
 					/** most recent recorded sample from the Accel in raw units */
 					Lint16 s16LastSample[MMA8451_AXIS__MAX];
 
+					/** do some filtering on our target axis */
+					Luint16 u16FilterCounter;
+					Lint16 s16FilterValues[C_FCU__ACCEL_FILTER_WINDOW];
+					Lint16 s16FilteredResult;
+
 					#if C_LOCALDEF__LCCM418__ENABLE_G_FORCE == 1U
 						/** Last sample of the G-Force*/
 						Lfloat32 f32LastG[MMA8451_AXIS__MAX];
@@ -286,6 +291,8 @@
 
 					/** Previous displacement */
 					Luint32 s32PrevDisplacement_mm;
+
+
 
 				}sChannels[C_LOCALDEF__LCCM418__NUM_DEVICES];
 

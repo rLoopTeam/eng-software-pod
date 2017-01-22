@@ -118,7 +118,11 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					}
 					else
 					{
+						//switch off the DAQ
 						vDAQ__Streaming_Off();
+
+						//flush out whats left
+						vDAQ__ForceFlush();
 					}
 				#endif
 				break;

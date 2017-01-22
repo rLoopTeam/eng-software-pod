@@ -162,7 +162,7 @@
             Me.m_pnlFlight__FaultFlags = New SIL3.rLoop.rPodControl.Panels.FlightControl.Faults("Fault Flags", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__FaultFlags)
 
-            Me.m_pnlFlight__Accel = New SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers("Accelerometers")
+            Me.m_pnlFlight__Accel = New SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers("Accelerometers", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__Accel)
 
             Me.m_pnlFlight__ASI = New SIL3.rLoop.rPodControl.Panels.FlightControl.ASI("ASI Controllers", Me.m_sLogDir)

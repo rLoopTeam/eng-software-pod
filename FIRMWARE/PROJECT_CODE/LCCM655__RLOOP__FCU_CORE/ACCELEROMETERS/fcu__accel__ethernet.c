@@ -22,6 +22,8 @@
 #if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 
+extern struct _strFCU sFCU;
+
 /***************************************************************************//**
  * @brief
  * Init the eth portion
@@ -57,7 +59,7 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__FCU_ACCEL__TX_FULL_DATA:
-			u16Length = C_FCU__NUM_ACCEL_CHIPS * 30U;
+			u16Length = C_FCU__NUM_ACCEL_CHIPS * 50U;
 			break;
 
 		case NET_PKT__FCU_ACCEL__TX_CAL_DATA:
@@ -132,7 +134,25 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 						pu8Buffer += 4U;
 					#endif
 
-				}//for(u8Device = 0; u8Device < 3; u8Device++)
+					//FCU computed specifics
+					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32CurrentAccel_mmss);
+					pu8Buffer += 4U;
+
+					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32CurrentVeloc_mms);
+					pu8Buffer += 4U;
+
+					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32PrevVeloc_mms);
+					pu8Buffer += 4U;
+
+					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32CurrentDisplacement_mm);
+					pu8Buffer += 4U;
+
+					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32PrevDisplacement_mm);
+					pu8Buffer += 4U;
+
+
+
+				}//for(u8Device = 0U; u8Device < C_FCU__NUM_ACCEL_CHIPS; u8Device++)
 				break;
 
 			case NET_PKT__FCU_ACCEL__TX_CAL_DATA:

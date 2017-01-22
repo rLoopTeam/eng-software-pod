@@ -97,9 +97,6 @@
     <Filter Include="Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32">
       <UniqueIdentifier>{31598a4c-185d-483c-88fb-b651a2fbc534}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\TRANSMIT">
-      <UniqueIdentifier>{5d82c62a-8675-46a5-9482-c4168029f33f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="LCCM655__RLOOP__FCU_CORE\THROTTLES">
       <UniqueIdentifier>{945122ec-9a85-4d16-a5fd-dfd09e726af2}</UniqueIdentifier>
     </Filter>
@@ -229,6 +226,9 @@
     <Filter Include="LCCM655__RLOOP__FCU_CORE\GEOMETRY">
       <UniqueIdentifier>{18e2cbf9-98c3-42fb-b7f1-598d722062a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\DAQ">
+      <UniqueIdentifier>{64dfe888-22fb-4760-9f1a-d10922bb2708}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
@@ -323,9 +323,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32\daq__win32_main.c">
       <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\TRANSMIT\daq__transmit_template.c">
-      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\TRANSMIT</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\THROTTLES\fcu__throttles.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\THROTTLES</Filter>
@@ -665,6 +662,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\GEOMETRY\fcu__geom__ethernet.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\GEOMETRY</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\DAQ\daq__transmit_template.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\DAQ</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
