@@ -36,14 +36,17 @@ void vFCU_GEOM_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	Luint8 * pu8Buffer;
 	Luint8 u8BufferIndex;
 	Luint16 u16Length;
+	Luint8 u8Counter;
 
 	pu8Buffer = 0;
 
 	//setup length based on packet.
 	switch(ePacketType)
 	{
-		case NET_PKT__FCU_ASI__TX_ASI_DATA:
-			u16Length = 24U;
+		case NET_PKT__FCU_FLT__TX_GEOM_DATA:
+			u16Length = 4U;
+			u16Length += (C_FCU__GEOM__NUM_ITEMS_F32 * 3U);
+			u16Length += (C_FCU__GEOM__NUM_ITEMS_S32 * 3U);
 			break;
 
 
@@ -60,12 +63,32 @@ void vFCU_GEOM_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		//handle the packet
 		switch(ePacketType)
 		{
-			case NET_PKT__FCU_ASI__TX_ASI_DATA:
+			case NET_PKT__FCU_FLT__TX_GEOM_DATA:
 
 
 				//fault flags
 				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;
+
+				for(u8Counter = 0U; u8Counter < C_FCU__GEOM__NUM_ITEMS_F32; u8Counter++)
+				{
+					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sFlightControl.sGeom.vf32Geom[u8Counter].f32X);
+					pu8Buffer += 4U;
+					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sFlightControl.sGeom.vf32Geom[u8Counter].f32Y);
+					pu8Buffer += 4U;
+					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sFlightControl.sGeom.vf32Geom[u8Counter].f32Z);
+					pu8Buffer += 4U;
+				}
+
+				for(u8Counter = 0U; u8Counter < C_FCU__GEOM__NUM_ITEMS_S32; u8Counter++)
+				{
+					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sFlightControl.sGeom.vs32Geom[u8Counter].s32X);
+					pu8Buffer += 4U;
+					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sFlightControl.sGeom.vs32Geom[u8Counter].s32Y);
+					pu8Buffer += 4U;
+					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sFlightControl.sGeom.vs32Geom[u8Counter].s32Z);
+					pu8Buffer += 4U;
+				}
 
 				break;
 

@@ -68,4 +68,8 @@
 	#define C_FCU__BRAKES__MAX_IBEAM_DIST_MM				(22.0F)
 
 
+	/** Number of geometry items */
+	#define C_FCU__GEOM__NUM_ITEMS_F32						(8U)
+	#define C_FCU__GEOM__NUM_ITEMS_S32						(8U)
+
 #endif /* _FCU_CORE__DEFINES_H_ */

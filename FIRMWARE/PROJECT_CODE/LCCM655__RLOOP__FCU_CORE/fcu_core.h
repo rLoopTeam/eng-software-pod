@@ -523,11 +523,24 @@
 					/** Track DB fault flags system */
 					FAULT_TREE__PUBLIC_T sFaultFlags;
 
+					/** The current selected track DB, defaults to 0 and user
+					 * must set from GS
+					 */
+					Luint32 u32CurrentDB;
 
 				}sTrackDB;
 				#endif //#if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
 
+				/** Geometry */
+				struct
+				{
+					/** F32 Geom Items */
+					struct tsNUM_f32Vector_3D vf32Geom[C_FCU__GEOM__NUM_ITEMS_F32];
 
+					/** S32 Geom Items */
+					struct tsNUM_s32Vector_3D vs32Geom[C_FCU__GEOM__NUM_ITEMS_S32];
+
+				}sGeom;
 
 
 			}sFlightControl;
@@ -848,10 +861,41 @@
 			//track DB
 			void vFCU_FCTL_TRACKDB__Init(void);
 			void vFCU_FCTL_TRACKDB__Process(void);
+			void vFCU_FCTL_TRACKDB__Set_CurrentDB(Luint32 u32Key, Luint32 u32TrackID);
+			DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_CurrentDB(void);
 
 				//mem
 				void vFCU_FCTL_TRACKDB_MEM__Init(void);
 				void vFCU_FCTL_TRACKDB_MEM__Process(void);
+				void vFCU_FCTL_TRACKDB_MEM__UploadChunk(Luint32 u32TrackID, Luint32 u32ChunkIndex, Luint32 u32Length, Luint8 *pu8Buffer);
+
+				//win32
+				void vFCU_FCTL_TRACKDB_WIN32__Init(void);
+				void vFCU_FCTL_TRACKDB_WIN32__Process(void);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Clear_Array(void);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Get_Array(Luint8 *pu8ByteArray);
+				DLL_DECLARATION Luint16 u16FCU_FCTL_TRACKDB_WIN32__Get_StructureSize(void);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Array(Luint8 *pu8ByteArray);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Header(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_DataLength(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_TrackID(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_TrackStartXPos(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_TrackEndXPos(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_LRF_StartXPos(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_NumStripes(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(Luint32 u32Index, Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_HeaderSpare(Luint32 u32Index, Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Footer(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontStartPos(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontEndPos(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PodFrontTargetXPos(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_NumSetpoints(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointPosX(Luint32 u32Index, Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointVelocityX(Luint32 u32Index, Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_Spare(Luint32 u32Index, Luint32 u32Value);
+				DLL_DECLARATION Luint16 u16FCTL_TRAKDB_WIN32__ComputeCRC(void);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_CRC(Luint16 u16Value);
+
 
 			//auto sequence
 			void vFCU_MAINSM_AUTO__Init(void);
