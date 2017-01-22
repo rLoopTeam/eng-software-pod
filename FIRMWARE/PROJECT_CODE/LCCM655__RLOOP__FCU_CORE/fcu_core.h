@@ -667,6 +667,9 @@
 				/** If the user has enabled Tx streaming */
 				E_NET__PACKET_T eTxStreamingType;
 
+				/** Last round robin packet sent **/
+				E_NET__PACKET_T eTxStreamingRoundRobbinLast;
+
 
 			}sUDPDiag;
 

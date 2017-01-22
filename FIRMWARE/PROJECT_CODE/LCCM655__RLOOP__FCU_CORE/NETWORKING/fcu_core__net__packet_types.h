@@ -42,6 +42,9 @@
 		/** All system fault flags */
 		NET_PKT__FCU_GEN__TX_ALL_FAULT_FLAGS = 0x0300U,
 
+		/** All system round robbin streaming */
+		NET_PKT__FCU_GEN__TX_ROUND_ROBBIN = 0x0400U,
+
 		//////////////////////////////////////////////////////
 		//FCU: ACCEL (0x1000)
 		//////////////////////////////////////////////////////
