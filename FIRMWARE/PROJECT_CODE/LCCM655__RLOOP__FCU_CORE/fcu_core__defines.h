@@ -11,9 +11,11 @@
 	/** the number of brake actuators in the system */
 	#define C_FCU__NUM_BRAKES								(2U)
 
-
 	/** 2 Accel devices on the PCB - DO NOT CHANGE */
 	#define C_FCU__NUM_ACCEL_CHIPS							(2U)
+
+		/** Accel filtering window */
+		#define C_FCU__ACCEL_FILTER_WINDOW					(8U)
 
 	/** Hover Engines */
 	#define C_FCU__NUM_HOVER_ENGINES						(8U)

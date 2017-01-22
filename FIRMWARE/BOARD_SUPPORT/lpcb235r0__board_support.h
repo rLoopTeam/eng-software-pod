@@ -1241,7 +1241,11 @@ MMA8451 - 3 AXIS ACCELEROMETER
 		#define C_LOCALDEF__LCCM418__DELAY_US(x)							vRM4_DELAYS__Delay_uS(x)
 
 		/** The max number of process loops without seeing an interrupt before we raise a flag. */
+#ifndef WIN32
 		#define C_LOCALDEF__LCCM418__MAX_INTERRUPT_LOST_COUNT				(2000000U)
+#else
+		#define C_LOCALDEF__LCCM418__MAX_INTERRUPT_LOST_COUNT				(200000000U)
+#endif
 
 		/** set to 1 to use interrupts, not polling method */
 		#define C_LOCALDEF__LCCM418__USE_INTERRUPT_DEV0						(1U)

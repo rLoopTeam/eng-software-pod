@@ -64,15 +64,15 @@
             Me.m_pDAQ.DAQ__Set_LogFilePath(Me.m_sLogDir)
 
             'cpu load
-            Me.m_pDAQ.Register__DAQTypes(0, 0, 0, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U8, "CPU Load")
+            Me.m_pDAQ.DAQTypes__Register(0, 0, 0, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U8, "CPU Load", 0)
             'rising count
-            Me.m_pDAQ.Register__DAQTypes(0, 0, 1, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U16, "Rising Edge Count")
+            Me.m_pDAQ.DAQTypes__Register(0, 0, 1, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U16, "Rising Edge Count", 0)
             'distance elapsed mm
-            Me.m_pDAQ.Register__DAQTypes(0, 0, 2, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__S32, "Current Accel mm/ss")
+            Me.m_pDAQ.DAQTypes__Register(0, 0, 2, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__S32, "Current Accel mm/ss", 0)
             'last stripe distance mm
-            Me.m_pDAQ.Register__DAQTypes(0, 0, 3, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "Distance Elapsed mm")
+            Me.m_pDAQ.DAQTypes__Register(0, 0, 3, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "Distance Elapsed mm", 0)
             'current velocity mm/s
-            Me.m_pDAQ.Register__DAQTypes(0, 0, 4, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "Velocity mms")
+            Me.m_pDAQ.DAQTypes__Register(0, 0, 4, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "Velocity mms", 0)
 
         End Sub
 #End Region '#Region "New"

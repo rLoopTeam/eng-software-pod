@@ -1048,9 +1048,9 @@ Public Class Form1
             xS16Y = New SIL3.Numerical.S16(Me.m_iAccel0_Y)
             xS16Z = New SIL3.Numerical.S16(Me.m_iAccel0_Z)
         Else
-            xS16X = New SIL3.Numerical.S16(-2002)
-            xS16Y = New SIL3.Numerical.S16(-5005)
-            xS16Z = New SIL3.Numerical.S16(4096)
+            xS16X = New SIL3.Numerical.S16(0)
+            xS16Y = New SIL3.Numerical.S16(2048)
+            xS16Z = New SIL3.Numerical.S16(0)
         End If
 
         'this will result in an arith overflow if not careful.
