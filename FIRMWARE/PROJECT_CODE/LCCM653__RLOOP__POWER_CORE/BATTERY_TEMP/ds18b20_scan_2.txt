@@ -359,3 +359,53 @@ Bus 0x10 ID 28 FF 1F 27 B3 16 05 8C Temp 26.3125
 Serial: C681
 Hottest Three: 07C4 , 61F0 , CCB6
 SUCCESS!!
+
+////// Not accurate, needs to rescan to get the 3 cell sensors for the following modules, but have to do for now/////
+
+scan
+execute scan
+scan started
+Scanned 15
+Bus 0x10 ID 28 FF 28 8C A0 16 04 94 Temp 19.6250
+Bus 0x10 ID 28 FF 68 8D A0 16 05 AC Temp 19.2500
+Bus 0x10 ID 28 FF 18 DA A0 16 05 9F Temp 19.5000
+Bus 0x10 ID 28 FF 4A 9A A0 16 03 B4 Temp 19.5000
+Bus 0x10 ID 28 FF CA 8B A0 16 05 15 Temp 19.6250
+Bus 0x10 ID 28 FF 26 8E A0 16 05 6F Temp 19.6250
+Bus 0x10 ID 28 FF 3E E4 A0 16 05 A6 Temp 19.7500
+Bus 0x10 ID 28 FF 71 A8 A0 16 03 0F Temp 19.6250
+Bus 0x10 ID 28 FF 35 D4 A0 16 05 9E Temp 19.3750
+Bus 0x10 ID 28 FF CB B4 A0 16 04 54 Temp 19.5000
+Bus 0x10 ID 28 FF 6B F5 A0 16 05 56 Temp 19.5000
+Bus 0x10 ID 28 FF EB C9 A0 16 04 99 Temp 19.7500
+Bus 0x10 ID 28 FF 3B B9 A0 16 04 6F Temp 19.3750
+Bus 0x10 ID 28 FF 47 D0 A0 16 05 7E Temp 19.3750
+Bus 0x10 ID 28 FF 57 BC A0 16 03 5D Temp 19.7500
+Serial: 8DF3
+Hottest Three: 3EE4 , 57BC , EBC9
+SUCCESS!!
+
+>scan
+execute scan
+scan started
+Scanned 15
+Bus 0x10 ID 28 EE F0 6C 1B 16 02 71 Temp 19.6250
+Bus 0x10 ID 28 EE 48 3B 1E 16 01 89 Temp 19.7500
+Bus 0x10 ID 28 EE 32 6E 1B 16 02 D7 Temp 19.6250
+Bus 0x10 ID 28 EE 66 2F 1E 16 01 E5 Temp 19.6250
+Bus 0x10 ID 28 EE FE 2D 1E 16 01 6B Temp 19.6250
+Bus 0x10 ID 28 EE 53 36 1E 16 01 18 Temp 19.6250
+Bus 0x10 ID 28 EE 8B 2F 1E 16 01 D3 Temp 19.7500
+Bus 0x10 ID 28 EE DB 26 1E 16 01 D5 Temp 19.8750
+Bus 0x10 ID 28 FF D0 83 A0 16 04 96 Temp 19.7500
+Bus 0x10 ID 28 FF 38 BC A0 16 03 23 Temp 19.5000
+Bus 0x10 ID 28 FF F4 BB A0 16 03 A6 Temp 19.6250
+Bus 0x10 ID 28 FF 96 D4 A0 16 03 3E Temp 19.2500
+Bus 0x10 ID 28 FF 2D 99 A0 16 04 FF Temp 19.8750
+Bus 0x10 ID 28 FF F7 BB A0 16 03 E8 Temp 19.6250
+Bus 0x10 ID 28 FF 0F D2 A0 16 03 73 Temp 19.6250
+Serial: 4B0E
+Hottest Three: DB26 , 2D99 , 8B2F
+SUCCESS!!
+
+////// End: Not accurate, needs to rescan to get the 3 cell sensors for the following modules, but have to do for now/////
