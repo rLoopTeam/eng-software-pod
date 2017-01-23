@@ -23,6 +23,7 @@
 
 		//local fault flags
 		#include <LCCM653__RLOOP__POWER_CORE/power_core__fault_flags.h>
+		#include <LCCM653__RLOOP__POWER_CORE/CHARGER/IV_MEASURE/power__iv_measure__fault_flags.h>
 
 		#include <LCCM655__RLOOP__FCU_CORE/NETWORKING/fcu_core__net__packet_types.h>
 
@@ -198,9 +199,14 @@
 			/** LEM HASS 600-S Current Transducer **/
 			struct
 			{
-				/** Current Reading after converted from ADC */
+				/** Current Reading after converted from Voltage */
 				Lfloat32 f32HASS_CurrentReading;
 
+				/** Voltage Reading at Init **/
+				Lfloat32 f32HASS_VoltageOffSet;
+
+				/** Current Transducer Fault Flag */
+				FAULT_TREE__PUBLIC_T sFaultFlags;
 
 			}sHASS600;
 
