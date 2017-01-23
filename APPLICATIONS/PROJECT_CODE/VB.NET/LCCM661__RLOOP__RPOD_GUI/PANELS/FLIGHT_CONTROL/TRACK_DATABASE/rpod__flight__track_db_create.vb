@@ -53,6 +53,15 @@
         Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(u32Index As UInt32, u32Value As UInt32)
         End Sub
         <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_EnableAccels(u32Value As UInt32)
+        End Sub
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_EnableLRF(u32Value As UInt32)
+        End Sub
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_EnableContrast(u32Value As UInt32)
+        End Sub
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
         Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_HeaderSpare(u32Index As UInt32, u32Value As UInt32)
         End Sub
         <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
@@ -92,8 +101,7 @@
 
 #Region "CONSTANTS"
 
-        Private Const C_FCTL_TRACKDB__HEADER_SPARE_WORDS As Integer = 16 + 4
-
+        Private Const C_FCTL_TRACKDB__HEADER_SPARE_WORDS As Integer = 16
         Private Const C_FCTL_TRACKDB__PROFILE_SPARE_WORDS As Integer = 16
 
         '/** Total number of track databases stored in memory */
@@ -118,6 +126,12 @@
         Private m_txtTrack_EndXPos As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtLRF_BeginXPos As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtNumStripes As SIL3.ApplicationSupport.TextBoxHelper
+
+        Private m_chkEnableAccels As SIL3.ApplicationSupport.CheckBoxHelper
+        Private m_chkEnableLRF As SIL3.ApplicationSupport.CheckBoxHelper
+        Private m_chkEnableContrast As SIL3.ApplicationSupport.CheckBoxHelper
+
+
 
         ''' <summary>
         ''' The database directory
@@ -174,6 +188,11 @@
                     Me.m_pCSV.Header__Add("TRACK_END_XPOS_MM")
                     Me.m_pCSV.Header__Add("LRF_START_POS_MM")
                     Me.m_pCSV.Header__Add("NUM_STRIPES")
+
+                    Me.m_pCSV.Header__Add("ENABLE_ACCELS")
+                    Me.m_pCSV.Header__Add("ENABLE_LRF")
+                    Me.m_pCSV.Header__Add("ENABLE_CONTRAST")
+
 
                     For iCounter As Integer = 0 To C_FCTL_TRACKDB__HEADER_SPARE_WORDS - 1
                         Me.m_pCSV.Header__Add("SPARE_" & iCounter.ToString("00"))
@@ -330,6 +349,14 @@
             l6.Layout__BelowControl(Me.m_txtTrackID)
             Me.m_txtNumStripes = New SIL3.ApplicationSupport.TextBoxHelper(100, l6)
 
+            Me.m_chkEnableAccels = New SIL3.ApplicationSupport.CheckBoxHelper("Enable Accels")
+            Me.m_chkEnableAccels.Layout__BelowControl(Me.m_txtNumStripes)
+
+            Me.m_chkEnableLRF = New SIL3.ApplicationSupport.CheckBoxHelper("Enable LRF")
+            Me.m_chkEnableLRF.Layout__RightOfControl(Me.m_chkEnableAccels)
+
+            Me.m_chkEnableContrast = New SIL3.ApplicationSupport.CheckBoxHelper("Enable Contrast")
+            Me.m_chkEnableContrast.Layout__RightOfControl(Me.m_chkEnableLRF)
 
             Dim btnSave As New SIL3.ApplicationSupport.ButtonHelper(100, "Save", AddressOf Me.btnSave__Click)
             btnSave.Layout__RightOfControl(Me.m_txtLRF_BeginXPos)
@@ -372,6 +399,24 @@
                 Me.m_txtNumStripes.Dirty = False
             End If
 
+            If Me.m_chkEnableAccels.Checked = True Then
+                Me.m_pCSV.Cell__SetContents("ENABLE_ACCELS", Me.m_iCurrentIndex, "1", True)
+            Else
+                Me.m_pCSV.Cell__SetContents("ENABLE_ACCELS", Me.m_iCurrentIndex, "0", True)
+            End If
+
+            If Me.m_chkEnableLRF.Checked = True Then
+                Me.m_pCSV.Cell__SetContents("ENABLE_LRF", Me.m_iCurrentIndex, "1", True)
+            Else
+                Me.m_pCSV.Cell__SetContents("ENABLE_LRF", Me.m_iCurrentIndex, "0", True)
+            End If
+
+            If Me.m_chkEnableContrast.Checked = True Then
+                Me.m_pCSV.Cell__SetContents("ENABLE_CONTRAST", Me.m_iCurrentIndex, "1", True)
+            Else
+                Me.m_pCSV.Cell__SetContents("ENABLE_CONTRAST", Me.m_iCurrentIndex, "0", True)
+            End If
+
         End Sub
 
         ''' <summary>
@@ -392,6 +437,21 @@
             Me.m_txtLRF_BeginXPos.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(5).ToString)
             Me.m_txtNumStripes.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(6).ToString)
 
+            If CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(7).ToString) = 1 Then
+                Me.m_chkEnableAccels.Checked = True
+            Else
+                Me.m_chkEnableAccels.Checked = False
+            End If
+            If CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(8).ToString) = 1 Then
+                Me.m_chkEnableLRF.Checked = True
+            Else
+                Me.m_chkEnableLRF.Checked = False
+            End If
+            If CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(9).ToString) = 1 Then
+                Me.m_chkEnableContrast.Checked = True
+            Else
+                Me.m_chkEnableContrast.Checked = False
+            End If
 
         End Sub
 
@@ -447,6 +507,10 @@
             For u32Counter As UInt32 = 0 To iNumStripes - 1
                 vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(u32Counter, u32Counter * 10)
             Next
+
+            vFCU_FCTL_TRACKDB_WIN32__Set_EnableAccels(1)
+            vFCU_FCTL_TRACKDB_WIN32__Set_EnableLRF(1)
+            vFCU_FCTL_TRACKDB_WIN32__Set_EnableContrast(1)
 
             For u32Counter As UInt32 = 0 To C_FCTL_TRACKDB__HEADER_SPARE_WORDS - 1
                 vFCU_FCTL_TRACKDB_WIN32__Set_HeaderSpare(u32Counter, 0)

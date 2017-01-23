@@ -20,7 +20,7 @@
 	#define C_FCTL_TRACKDB__MAX_SETPOINTS								(1024U)
 
 	/** Header spare words are requred to bring the packet size up */
-	#define C_FCTL_TRACKDB__HEADER_SPARE_WORDS							(16U + 3U)
+	#define C_FCTL_TRACKDB__HEADER_SPARE_WORDS							(16U)
 
 	#define C_FCTL_TRACKDB__PROFILE_SPARE_WORDS							(16U)
 
@@ -88,6 +88,15 @@
 			/**8 List of stripes beginning x position in tube. Called "stripes location table" in FCU spec 2.3 */
 			//Luint32 u32StripeBeginningXPosition_mm[C_FCTL_TRACKDB__MAX_CONTRAST_STRIPES];
 			Luint8 u8StripeBeginningXPosition_mm[C_FCTL_TRACKDB__MAX_CONTRAST_STRIPES][4];
+
+			/** Enable Accels on the current track */
+			Luint8 u8EnableAccels[4];
+
+			/** Enable laser range on the current track */
+			Luint8 u8EnableLRF[4];
+
+			/** Enable contrast sensor on current track */
+			Luint8 u8EnableContrast[4];
 
 			/** Spare Data */
 			Luint8 u8SpareData[C_FCTL_TRACKDB__HEADER_SPARE_WORDS][4];
