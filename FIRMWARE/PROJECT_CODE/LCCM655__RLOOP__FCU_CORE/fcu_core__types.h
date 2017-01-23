@@ -17,19 +17,19 @@
 	typedef enum
 	{
 		/** Idle state */
-		ASI_COMM_STATE__IDLE = 0u,
+		ASI_COMM_STATE__IDLE = 0U,
 
 		/** Wait until slaves have time to process broadcast command */
-		ASI_COMM_STATE__WAIT_TURNAROUND_DELAY = 1u,
+		ASI_COMM_STATE__WAIT_TURNAROUND_DELAY,
 
 		/** Wait until hear back from slave after unicast command */
-		ASI_COMM_STATE__WAIT_REPLY = 2u,
+		ASI_COMM_STATE__WAIT_REPLY,
 
 		/** Receive state */
-		ASI_COMM_STATE__PROCESS_REPLY = 3u,
+		ASI_COMM_STATE__PROCESS_REPLY,
 
 		/** Process error */
-		ASI_COMM_STATE__PROCESS_ERROR = 4u
+		ASI_COMM_STATE__PROCESS_ERROR
 
 	} E_FCU_MODBUS__STATE_T;
 

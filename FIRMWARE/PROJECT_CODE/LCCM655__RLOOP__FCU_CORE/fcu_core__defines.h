@@ -56,6 +56,9 @@
 	/** The SC16 device index for the ASI interface*/
 	#define C_FCU__SC16_ASI_INDEX							(7U)
 
+	/** max number of commands in the round robbin list */
+	#define C_FCU__ASI_COMMAND_LIST_MAX						(4U)
+
 	/** The max number of contrast laser stripes in the tube
 	 * 1 Mile Tube = 5280ft
 	 * Spacing = 100ft

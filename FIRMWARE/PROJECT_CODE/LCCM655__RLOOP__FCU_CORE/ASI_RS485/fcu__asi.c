@@ -42,6 +42,7 @@ Lint16 s16FCU_ASI__ProcessReply(void);
 void vFCU_ASI__Init(void)
 {
 	Lint16 s16Return;
+	Luint8 u8Counter;
 
 	vFAULTTREE__Init(&sFCU.sASI.sFaultFlags);
 
@@ -67,9 +68,22 @@ void vFCU_ASI__Init(void)
 	sFCU.sASI.u32ASI_turnaround_Counter = 0;
 	sFCU.sASI.u32ASI_replywait_Counter = 0;
 
+	//setup the command list
+	sFCU.sASI.eCommandList[0] = C_FCU_ASI__MOTOR_RPM;
+	sFCU.sASI.eCommandList[1] = C_FCU_ASI__MOTOR_CURRENT;
+	sFCU.sASI.eCommandList[2] = C_FCU_ASI__CONT_TEMP;
+	sFCU.sASI.eCommandList[3] = C_FCU_ASI__FAULTS;
+	sFCU.sASI.u8CommandListIndex = 0U;
 
-	// initialize all slaves
-	//s16Return = s16FCU_ASI_CTRL__Init();
+	//clear our holding data
+	for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
+	{
+		sFCU.sASI.sHolding[u8Counter].u16Faults = 0U;
+		sFCU.sASI.sHolding[u8Counter].f32TempC = 0.0F;
+		sFCU.sASI.sHolding[u8Counter].f32MotorCurrentA = 0.0F;
+		sFCU.sASI.sHolding[u8Counter].u16RPM = 0U;
+	}
+
 }
 
 
@@ -129,7 +143,7 @@ void vFCU_ASI__Process(void)
 			//format the command
 			sFCU.sASI.sCurrentCommand.u8SlaveAddress = C_ASI__DEFAULT_SLAVE_ADDX;
 			sFCU.sASI.sCurrentCommand.eFunctionCode = FUNCTION_CODE__READ_HOLDING_REGS;
-			sFCU.sASI.sCurrentCommand.eObjectType = C_FCU_ASI__FAULTS;
+			sFCU.sASI.sCurrentCommand.eObjectType = sFCU.sASI.eCommandList[sFCU.sASI.u8CommandListIndex]; // C_FCU_ASI__FAULTS;
 			sFCU.sASI.sCurrentCommand.u16ParamValue = 1;	// we just want to read one register
 			sFCU.sASI.sCurrentCommand.eDestVarType = E_UINT16;
 
@@ -139,6 +153,16 @@ void vFCU_ASI__Process(void)
 
 		case ASI_STATE__WAIT_COMMAND_COMPLETE:
 
+			//we need to wait here and if we don't get a new packet, timeout
+			if(sFCU.sASI.eModBusState == ASI_COMM_STATE__IDLE)
+			{
+				//move on
+				sFCU.sASI.eMainState = ASI_STATE__INC_SCAN_INDEX;
+			}
+			else
+			{
+				//stay here and check timeout
+			}
 			break;
 
 		case ASI_STATE__INC_SCAN_INDEX:
@@ -152,7 +176,20 @@ void vFCU_ASI__Process(void)
 			{
 				//clear it
 				sFCU.sASI.u8ScanIndex = 0U;
+
+				//inc the command index
+				sFCU.sASI.u8CommandListIndex++;
+				if(sFCU.sASI.u8CommandListIndex >= C_FCU__ASI_COMMAND_LIST_MAX)
+				{
+					sFCU.sASI.u8CommandListIndex = 0U;
+				}
+				else
+				{
+					//fall on
+				}
+
 			}
+			sFCU.sASI.eMainState = ASI_STATE__IDLE;
 			break;
 
 		default:
@@ -480,7 +517,29 @@ Lint16 s16FCU_ASI__ProcessReply(void)
 
 					case E_UINT16:
 						sFCU.sASI.sCurrentCommand.unDestVar.u16[0] = ((Luint16)sFCU.sASI.sCurrentCommand.u8Response[3] << 8) | (Luint16)sFCU.sASI.sCurrentCommand.u8Response[4];
-						break;
+
+						switch(sFCU.sASI.sCurrentCommand.eObjectType)
+						{
+							case C_FCU_ASI__FAULTS:
+								sFCU.sASI.sHolding[sFCU.sASI.u8ScanIndex].u16Faults = sFCU.sASI.sCurrentCommand.unDestVar.u16[0];
+								break;
+							case C_FCU_ASI__CONT_TEMP:
+								sFCU.sASI.sHolding[sFCU.sASI.u8ScanIndex].f32TempC = (Lfloat32)sFCU.sASI.sCurrentCommand.unDestVar.u16[0];
+								break;
+							case C_FCU_ASI__TEMPERATURE:
+								break;
+							case C_FCU_ASI__MOTOR_CURRENT:
+								sFCU.sASI.sHolding[sFCU.sASI.u8ScanIndex].f32MotorCurrentA = (Lfloat32)sFCU.sASI.sCurrentCommand.unDestVar.u16[0];
+								break;
+							case C_FCU_ASI__MOTOR_RPM:
+								sFCU.sASI.sHolding[sFCU.sASI.u8ScanIndex].u16RPM = sFCU.sASI.sCurrentCommand.unDestVar.u16[0];
+								break;
+							default:
+								break;
+
+						}//switch(sFCU.sASI.sCurrentCommand.eObjectType)
+
+					break;
 
 					default:
 						//fall on.

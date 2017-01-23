@@ -1841,6 +1841,76 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="sText"></param>
  <remarks></remarks>
 </member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U8">
+ <summary>
+ U8 based helper
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U8.#ctor(System.Int32)">
+ <summary>
+ Create a new text box and pass in the width
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U8.#ctor(System.Int32,System.Windows.Forms.Control,System.String,System.String)">
+ <summary>
+ We can opt to layout below a control if we want to.
+ </summary>
+ <param name="iWidth"></param>
+ <param name="pBelowControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U8.#ctor(System.Int32,System.Int32,System.Boolean)">
+ <summary>
+ Create a new text box and pass in the width
+ If you also pass in the height then we use multiline mode
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U8.List__Add(System.String,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8)">
+ <summary>
+ Add a list item
+ </summary>
+ <param name="sName"></param>
+ <param name="sValue"></param>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U16">
+ <summary>
+ U16 based helper
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U16.#ctor(System.Int32)">
+ <summary>
+ Create a new text box and pass in the width
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U16.#ctor(System.Int32,System.Windows.Forms.Control,System.String,System.String)">
+ <summary>
+ We can opt to layout below a control if we want to.
+ </summary>
+ <param name="iWidth"></param>
+ <param name="pBelowControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U16.#ctor(System.Int32,System.Int32,System.Boolean)">
+ <summary>
+ Create a new text box and pass in the width
+ If you also pass in the height then we use multiline mode
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U16.List__Add(System.String,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16)">
+ <summary>
+ Add a list item
+ </summary>
+ <param name="sName"></param>
+ <param name="sValue"></param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_S32">
  <summary>
  S32 based helper
@@ -4294,16 +4364,6 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
 <member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.ASI.m_sLogDir">
  <summary>
  The logging directory
- </summary>
-</member>
-<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.ASI.m_pCSV">
- <summary>
- Allows us to write CSV logs of the edges
- </summary>
-</member>
-<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.ASI.m_pDAQ">
- <summary>
- Our DAQ Receiver
  </summary>
 </member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.ASI.#ctor(System.String,System.String)">
