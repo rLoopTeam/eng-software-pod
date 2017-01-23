@@ -188,6 +188,11 @@ void vFCU_NET_TX__Process(void)
 			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
 
+		case NET_PKT__FCU_ASI__TX_ASI_DATA:
+			vFCU_ASI_ETH__Transmit(eType);
+			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
+			break;
+
 		default:
 			//do nothing
 			break;

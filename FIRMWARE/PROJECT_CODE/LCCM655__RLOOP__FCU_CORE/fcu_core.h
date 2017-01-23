@@ -709,6 +709,23 @@
 			{
 				Luint32 u32Guard1;
 
+				/** the real time scan holding values */
+				struct
+				{
+					/** fault flags */
+					Luint16 u16Faults;
+
+					/** Temp in deg C*/
+					Lfloat32 f32TempC;
+
+					/** Motor Current */
+					Lfloat32 f32MotorCurrentA;
+
+					/** Current RPM */
+					Luint16 u16RPM;
+
+				}sHolding[C_FCU__NUM_HOVER_ENGINES];
+
 				/** The main state machine */
 				E_FCU__ASI_STATE_T eMainState;
 
@@ -740,6 +757,13 @@
 					/** On win32 generate save the mux */
 					Luint8 u8MuxChannel;
 				#endif
+
+				/** List of commands to send in round robbin*/
+				E_FCU_ASI_BAC_OBJECT_TYPES__T eCommandList[C_FCU__ASI_COMMAND_LIST_MAX];
+
+				/** Keep track of the command */
+				Luint8 u8CommandListIndex;
+
 
 				Luint32 u32Guard2;
 

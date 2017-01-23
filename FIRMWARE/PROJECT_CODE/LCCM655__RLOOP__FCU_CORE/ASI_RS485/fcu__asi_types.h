@@ -39,7 +39,7 @@
 		/** variable type to set requested variable to ASI response */
 		typedef enum
 		{
-			E_NONE,
+			E_NONE = 0U,
 			E_SLAVE_MISMATCH,
 			E_CRC_CHECK_FAILED,
 			E_REPLY_TIMEOUT_EXPIRED,
