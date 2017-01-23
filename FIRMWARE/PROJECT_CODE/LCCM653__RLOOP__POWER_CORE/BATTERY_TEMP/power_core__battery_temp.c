@@ -39,6 +39,7 @@ void vPWRNODE_BATTTEMP__Init(void)
 	sPWRNODE.sTemp.f32AverageTemp = 0.0F;
 	sPWRNODE.sTemp.u8NewTempAvail = 0U;
 	sPWRNODE.sTemp.u16HighestSensorIndex = 0U;
+	sPWRNODE.sTemp.u32TempScanCount = 0U;
 	sPWRNODE.sTemp.eState = BATT_TEMP_STATE__IDLE;
 
 #ifndef WIN32
@@ -223,6 +224,9 @@ void vPWRNODE_BATTTEMP__Process(void)
 				sPWRNODE.sTemp.f32HighestTemp = f32High;
 				sPWRNODE.sTemp.f32AverageTemp = f32Sum;
 				sPWRNODE.sTemp.u8NewTempAvail = 1U;
+
+				//Inc the scan count
+				sPWRNODE.sTemp.u32TempScanCount++;
 
 				//done with the new data now
 				vDS18B20__Clear_NewDataAvail();
