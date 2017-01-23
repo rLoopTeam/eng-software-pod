@@ -229,6 +229,9 @@
 		/** Latch */
 		NET_PKT__PWR_GEN__LATCH = 0x3030U,
 
+		/** Power node personality */
+		NET_PKT__PWR_GEN__POWER_PERSONALITY = 0x3031U,
+
 		//////////////////////////////////////////////////////
 		//POWER: TEMPERATURE SYSTEM (0x3200)
 		//////////////////////////////////////////////////////

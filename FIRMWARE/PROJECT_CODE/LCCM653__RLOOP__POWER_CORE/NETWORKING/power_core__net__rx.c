@@ -58,9 +58,11 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 
 	Luint32 u32Block[4];
 	Lfloat32 f32Block[4];
+	Luint16 u16Port;
+
 
 	//make sure we are rx'ing on our port number
-	if(u16DestPort == C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER)
+	if(u16DestPort == sPWRNODE.u16EthPort)
 	{
 
 		//blocks are good for putting into functions
@@ -174,6 +176,42 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 					{
 						//Power Node B
 						vPWRNODE_DC__Latch(0xABAB1122U);
+					}
+					else
+					{
+						//not valid
+					}
+				}
+				else
+				{
+					//invalid
+				}
+				break;
+
+			case NET_PKT__PWR_GEN__POWER_PERSONALITY:
+				if(u32Block[0] == 0x11223344U)
+				{
+					if(u32Block[1] == 0U)
+					{
+						//Power Node A
+						vEEPARAM__WriteU32(C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_A, (Luint32)PWRNODE_TYPE__PACK_A, DELAY_T__DELAYED_WRITE);
+						vEEPARAM__WriteU32(C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_B, (Luint32)PWRNODE_TYPE__PACK_A, DELAY_T__IMMEDIATE_WRITE);
+
+						vEEPARAM_CRC__Calculate_And_Store_CRC(	C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_A,
+																C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_B,
+																C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_CRC);
+						sPWRNODE.ePersonality = PWRNODE_TYPE__PACK_A;
+					}
+					else if(u32Block[1] == 1U)
+					{
+						//Power Node B
+						vEEPARAM__WriteU32(C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_A, (Luint32)PWRNODE_TYPE__PACK_B, DELAY_T__DELAYED_WRITE);
+						vEEPARAM__WriteU32(C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_B, (Luint32)PWRNODE_TYPE__PACK_B, DELAY_T__IMMEDIATE_WRITE);
+
+						vEEPARAM_CRC__Calculate_And_Store_CRC(	C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_A,
+																C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_B,
+																C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_CRC);
+						sPWRNODE.ePersonality = PWRNODE_TYPE__PACK_B;
 					}
 					else
 					{

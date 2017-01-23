@@ -67,7 +67,7 @@ SAFETY UDP LAYER
 
 		/** The one and only UDP port we can operate on */
 		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER					(9110U)
-		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER2					(0U)
+		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER2					(9111U)
 
 		/** Vision over SafeUDP Options */
 		#define C_LOCALDEF__LCCM528__VISION__ENABLE_TX						(0U)

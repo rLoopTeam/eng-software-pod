@@ -58,6 +58,7 @@ void vPWRNODE__Process(void)
 {
 
 	Luint8 u8Test;
+	Luint32 u32Test;
 
 	//handle the init states here
 	/**
@@ -87,6 +88,59 @@ void vPWRNODE__Process(void)
 
 			//setup flash memory access
 			vRM4_FLASH__Init();
+
+			//int the RM4's EEPROM
+			#if C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE == 1U
+				vRM4_EEPROM__Init();
+			#endif
+
+			//init the EEPROM Params
+			#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
+				vEEPARAM__Init();
+			#endif
+
+			//not an ideal place, but we need our personality
+			u8Test = u8EEPARAM_CRC__Is_CRC_OK(	C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_A,
+												C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_B,
+												C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_CRC);
+			if(u8Test == 1U)
+			{
+				//we are good
+				u32Test = u32EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_A);
+				if(u32Test < (Luint32)PWRNODE_TYPE__PACK_MAX)
+				{
+					//Set the new personality
+					sPWRNODE.ePersonality = (E_PWRNODE_TYPE_T)u32Test;
+				}
+				else
+				{
+					//default
+					sPWRNODE.ePersonality = PWRNODE_TYPE__PACK_A;
+				}
+
+
+			}
+			else
+			{
+				//reload
+				vEEPARAM__WriteU32(C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_A, (Luint32)PWRNODE_TYPE__PACK_A, DELAY_T__DELAYED_WRITE);
+				vEEPARAM__WriteU32(C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_B, (Luint32)PWRNODE_TYPE__PACK_A, DELAY_T__IMMEDIATE_WRITE);
+
+				vEEPARAM_CRC__Calculate_And_Store_CRC(	C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_A,
+														C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_B,
+														C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_CRC);
+				sPWRNODE.ePersonality = PWRNODE_TYPE__PACK_A;
+			}
+
+			if(sPWRNODE.ePersonality == PWRNODE_TYPE__PACK_B)
+			{
+				sPWRNODE.u16EthPort = 9111U;
+			}
+			else
+			{
+				sPWRNODE.u16EthPort = 9110U;
+			}
+
 
 			//DMA
 			vRM4_DMA__Init();

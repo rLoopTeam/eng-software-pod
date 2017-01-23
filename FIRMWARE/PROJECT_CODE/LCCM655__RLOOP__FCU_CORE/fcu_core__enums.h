@@ -8,6 +8,7 @@
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__ENUMS_H_
 
 
+
 	/** For transmitting to the LGU*/
 	typedef enum
 	{

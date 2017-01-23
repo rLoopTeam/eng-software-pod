@@ -8,6 +8,17 @@
 #ifndef _POWER__STATE_TYPES_H_
 #define _POWER__STATE_TYPES_H_
 
+	/** Pack A or B */
+	typedef enum
+	{
+		PWRNODE_TYPE__PACK_A = 0U,
+
+		PWRNODE_TYPE__PACK_B,
+
+		PWRNODE_TYPE__PACK_MAX
+
+	}E_PWRNODE_TYPE_T;
+
 		/** Battery Temp Sensor Scan/load states */
 		typedef enum
 		{
