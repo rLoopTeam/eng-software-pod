@@ -169,7 +169,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			//if we are in this state, we are ready for flight
 
 			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
-				vFCU_FCTL__Process();
+				//(LG)vFCU_FCTL__Process();
 			#endif
 
 
@@ -189,6 +189,8 @@ void vFCU_FCTL_MAINSM__Process(void)
 	//always process these items after we have been initted
 	if(sFCU.eMissionPhase > MISSION_PHASE__RESET)
 	{
+		//LG
+		vFCU_FCTL__Process();
 
 		//process the SC16IS interface always
 		#if C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE == 1U

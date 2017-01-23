@@ -119,6 +119,26 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
 
         End Sub
 
+        ''' <summary>
+        ''' 3x Blocks and a array
+        ''' </summary>
+        ''' <param name="eEndpoint"></param>
+        ''' <param name="u16Type"></param>
+        ''' <param name="u32Block0"></param>
+        ''' <param name="u32Block1"></param>
+        ''' <param name="u32Block2"></param>
+        ''' <param name="pu8Array"></param>
+        ''' <param name="iArrayLength"></param>
+        Public Sub User__SafeUDP__Tx_X3_Array(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16Type As UInt16, u32Block0 As UInt32, u32Block1 As UInt32, u32Block2 As UInt32, pu8Array() As Byte, iArrayLength As Integer)
+
+            For Each pX As _strUDP_Endpoint In Me.m_lUDP
+                If pX.eEndpoint = eEndpoint Then
+                    pX.pSafeUDP.Tx__Safe_ControlPacket_X3_Array(u16Type, u32Block0, u32Block1, u32Block2, pu8Array, iArrayLength)
+                End If
+            Next
+
+        End Sub
+
 #End Region
 
 #Region "RX HANDLERS"

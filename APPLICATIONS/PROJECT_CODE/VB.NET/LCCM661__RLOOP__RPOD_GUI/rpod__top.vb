@@ -67,14 +67,14 @@ Namespace SIL3.rLoop.rPodControl
             'add our ports
             'http://confluence.rloop.org/display/SD/Communications
 
-            If MsgBox("Do you want to run this in loopback?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If MsgBox("Do you want to run this in loopback?" & Environment.NewLine & "Else it will run on .0.x hardware", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 Me.m_pEth.Port__Add("127.0.0.1", 9100, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU)
                 Me.m_pEth.Port__Add("127.0.0.1", 3000, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU_SPACEX_DIAG)
                 Me.m_pEth.Port__Add("127.0.0.1", 9170, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM)
             Else
-                Me.m_pEth.Port__Add("192.168.1.100", 9100, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU)
-                Me.m_pEth.Port__Add("192.168.1.100", 3000, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU_SPACEX_DIAG)
-                Me.m_pEth.Port__Add("192.168.1.170", 9170, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM)
+                Me.m_pEth.Port__Add("192.168.0.100", 9100, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU)
+                Me.m_pEth.Port__Add("192.168.0.100", 3000, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU_SPACEX_DIAG)
+                Me.m_pEth.Port__Add("192.168.0.170", 9170, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM)
 
             End If
 
@@ -124,6 +124,7 @@ Namespace SIL3.rLoop.rPodControl
 
             Me.m_pnlFlightControl = New SIL3.rLoop.rPodControl.Panels.FlightControl.Top(pForm, Me.m_pExplorer, Me.m_pnlSettings.Get__DataLogDir)
             AddHandler Me.m_pnlFlightControl.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
+            AddHandler Me.m_pnlFlightControl.UserEvent__SafeUDP__Tx_X3_Array, AddressOf Me.InternalEvent__SafeUDP__Tx_X3_Array
 
 
             Me.m_pnlXilinxSim = New SIL3.rLoop.rPodControl.Panels.XilinxSim.Top(pForm, Me.m_pExplorer)
@@ -166,6 +167,21 @@ Namespace SIL3.rLoop.rPodControl
         ''' <param name="u32Block3"></param>
         Public Sub InternalEvent__SafeUDP__Tx_X4(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16Type As UInt16, u32Block0 As UInt32, u32Block1 As UInt32, u32Block2 As UInt32, u32Block3 As UInt32)
             Me.m_pEth.User__SafeUDP__Tx_X4(eEndpoint, u16Type, u32Block0, u32Block1, u32Block2, u32Block3)
+        End Sub
+
+        ''' <summary>
+        ''' 3x Blocks and a array
+        ''' </summary>
+        ''' <param name="eEndpoint"></param>
+        ''' <param name="u16Type"></param>
+        ''' <param name="u32Block0"></param>
+        ''' <param name="u32Block1"></param>
+        ''' <param name="u32Block2"></param>
+        ''' <param name="pu8Array"></param>
+        ''' <param name="iArrayLength"></param>
+        Private Sub InternalEvent__SafeUDP__Tx_X3_Array(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16Type As UInt16, u32Block0 As UInt32, u32Block1 As UInt32, u32Block2 As UInt32, pu8Array() As Byte, iArrayLength As Integer)
+            Me.m_pEth.User__SafeUDP__Tx_X3_Array(eEndpoint, u16Type, u32Block0, u32Block1, u32Block2, pu8Array, iArrayLength)
+
         End Sub
 
 #End Region '#Region "ETHERNET TX"

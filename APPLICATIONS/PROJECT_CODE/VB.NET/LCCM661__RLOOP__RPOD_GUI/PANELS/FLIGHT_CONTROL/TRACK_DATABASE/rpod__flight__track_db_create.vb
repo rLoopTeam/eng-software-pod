@@ -112,6 +112,13 @@
 
         Private m_sLogDir As String
 
+        Private m_txtTrackID As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtTrackHumanName As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtTrack_StartXPos As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtTrack_EndXPos As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLRF_BeginXPos As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtNumStripes As SIL3.ApplicationSupport.TextBoxHelper
+
         ''' <summary>
         ''' The database directory
         ''' </summary>
@@ -287,7 +294,7 @@
             'fill
             For iCounter As Integer = 0 To Me.m_pCSV.m_alRows.Count - 1
                 Dim pAL As ArrayList = Me.m_pCSV.m_alRows(iCounter)
-                Me.m_cboDatabase.Threadsafe__AddItem("INDEX = " & pAL.Item(0).ToString & " DESCRIPTION = " & pAL.Item(1).ToString & " LAST EDIT = " & pAL.Item(2).ToString)
+                Me.m_cboDatabase.Threadsafe__AddItem("INDEX = " & pAL.Item(0).ToString & " [DESCRIPTION = " & pAL.Item(1).ToString & "]")
             Next
 
             Me.m_cboDatabase.Threadsafe__SetSelectedIndex(0)
@@ -298,11 +305,74 @@
             Dim btnGenBinary As New SIL3.ApplicationSupport.ButtonHelper(100, "Gen Binary", AddressOf Me.btnGenBinary__Click)
             btnGenBinary.Layout__BelowControl(Me.m_cboDatabase)
 
+            Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Track ID")
+            l1.Layout__BelowControl(btnGenBinary)
+            Me.m_txtTrackID = New SIL3.ApplicationSupport.TextBoxHelper(100, l1)
+            Me.m_txtTrackID.ReadOnly = True
+
+            Dim l2 As New SIL3.ApplicationSupport.LabelHelper("Track Human Name")
+            l2.Layout__AboveRightControl(l1, Me.m_txtTrackID)
+            Me.m_txtTrackHumanName = New SIL3.ApplicationSupport.TextBoxHelper(200, l2)
+
+            Dim l3 As New SIL3.ApplicationSupport.LabelHelper("Start XPos (mm)")
+            l3.Layout__AboveRightControl(l2, Me.m_txtTrackHumanName)
+            Me.m_txtTrack_StartXPos = New SIL3.ApplicationSupport.TextBoxHelper(100, l3)
+
+            Dim l4 As New SIL3.ApplicationSupport.LabelHelper("End XPos (mm)")
+            l4.Layout__AboveRightControl(l3, Me.m_txtTrack_StartXPos)
+            Me.m_txtTrack_EndXPos = New SIL3.ApplicationSupport.TextBoxHelper(100, l4)
+
+            Dim l5 As New SIL3.ApplicationSupport.LabelHelper("LRF Start X (mm)")
+            l5.Layout__AboveRightControl(l4, Me.m_txtTrack_EndXPos)
+            Me.m_txtLRF_BeginXPos = New SIL3.ApplicationSupport.TextBoxHelper(100, l5)
+
+            Dim l6 As New SIL3.ApplicationSupport.LabelHelper("Num Stripes")
+            l6.Layout__BelowControl(Me.m_txtTrackID)
+            Me.m_txtNumStripes = New SIL3.ApplicationSupport.TextBoxHelper(100, l6)
+
+
+            Dim btnSave As New SIL3.ApplicationSupport.ButtonHelper(100, "Save", AddressOf Me.btnSave__Click)
+            btnSave.Layout__RightOfControl(Me.m_txtLRF_BeginXPos)
+
         End Sub
 
 #End Region '#Region "PANEL LAYOUT"
 
 #Region "BUTTON HELPERS"
+
+        ''' <summary>
+        ''' Save the current edited page
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnSave__Click(s As Object, e As EventArgs)
+
+            If Me.m_txtTrackHumanName.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("TRACK_HUMAN_NAME", Me.m_iCurrentIndex, Me.m_txtTrackHumanName.Text, True)
+                Me.m_txtTrackHumanName.Dirty = False
+            End If
+
+            If Me.m_txtTrack_StartXPos.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("TRACK_START_XPOS_MM", Me.m_iCurrentIndex, Me.m_txtTrack_StartXPos.Text, True)
+                Me.m_txtTrack_StartXPos.Dirty = False
+            End If
+
+            If Me.m_txtTrack_EndXPos.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("TRACK_END_XPOS_MM", Me.m_iCurrentIndex, Me.m_txtTrack_EndXPos.Text, True)
+                Me.m_txtTrack_EndXPos.Dirty = False
+            End If
+
+            If Me.m_txtLRF_BeginXPos.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("LRF_START_POS_MM", Me.m_iCurrentIndex, Me.m_txtLRF_BeginXPos.Text, True)
+                Me.m_txtLRF_BeginXPos.Dirty = False
+            End If
+
+            If Me.m_txtNumStripes.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("NUM_STRIPES", Me.m_iCurrentIndex, Me.m_txtNumStripes.Text, True)
+                Me.m_txtNumStripes.Dirty = False
+            End If
+
+        End Sub
 
         ''' <summary>
         ''' Choose the database
@@ -315,6 +385,12 @@
             Me.m_iCurrentIndex = Me.m_cboDatabase.SelectedIndex
 
             'see if the points file exists
+            Me.m_txtTrackID.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(0).ToString)
+            Me.m_txtTrackHumanName.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(1).ToString)
+            Me.m_txtTrack_StartXPos.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(3).ToString)
+            Me.m_txtTrack_EndXPos.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(4).ToString)
+            Me.m_txtLRF_BeginXPos.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(5).ToString)
+            Me.m_txtNumStripes.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(6).ToString)
 
 
         End Sub
@@ -363,11 +439,11 @@
 
             vFCU_FCTL_TRACKDB_WIN32__Set_DataLength(32)
             vFCU_FCTL_TRACKDB_WIN32__Set_TrackID(iIndex)
-            vFCU_FCTL_TRACKDB_WIN32__Set_TrackStartXPos(0)
-            vFCU_FCTL_TRACKDB_WIN32__Set_TrackEndXPos(1260)
-            vFCU_FCTL_TRACKDB_WIN32__Set_LRF_StartXPos(0)
+            vFCU_FCTL_TRACKDB_WIN32__Set_TrackStartXPos(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(3).ToString))
+            vFCU_FCTL_TRACKDB_WIN32__Set_TrackEndXPos(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(4).ToString))
+            vFCU_FCTL_TRACKDB_WIN32__Set_LRF_StartXPos(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(5).ToString))
+            vFCU_FCTL_TRACKDB_WIN32__Set_NumStripes(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(6).ToString))
 
-            vFCU_FCTL_TRACKDB_WIN32__Set_NumStripes(iNumStripes)
             For u32Counter As UInt32 = 0 To iNumStripes - 1
                 vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(u32Counter, u32Counter * 10)
             Next

@@ -104,6 +104,7 @@
         ''' <param name="u32Block2"></param>
         ''' <param name="u32Block3"></param>
         Public Event UserEvent__SafeUDP__Tx_X4(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16Type As UInt16, u32Block0 As UInt32, u32Block1 As UInt32, u32Block2 As UInt32, u32Block3 As UInt32)
+        Public Event UserEvent__SafeUDP__Tx_X3_Array(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16Type As UInt16, u32Block0 As UInt32, u32Block1 As UInt32, u32Block2 As UInt32, pu8Array() As Byte, iArrayLength As Integer)
 
 #End Region '#Region "EVENTS"
 
@@ -216,7 +217,8 @@
 
             AddHandler Me.m_pnlFlight__TrackDB_Create.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__TrackDB_Monitor.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
-	
+            AddHandler Me.m_pnlFlight__TrackDB_Monitor.UserEvent__SafeUDP__Tx_X3_Array, AddressOf Me.InternalEvent__SafeUDP__Tx_X3_Array
+
             AddHandler Me.m_pExplorer.LinkClick, AddressOf Me.LinkBar_LinkClick
 
         End Sub
@@ -289,6 +291,13 @@
         Private Sub InternalEvent__SafeUDP__Tx_X4(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16Type As UInt16, u32Block0 As UInt32, u32Block1 As UInt32, u32Block2 As UInt32, u32Block3 As UInt32)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(eEndpoint, u16Type, u32Block0, u32Block1, u32Block2, u32Block3)
         End Sub
+
+
+        Private Sub InternalEvent__SafeUDP__Tx_X3_Array(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16Type As UInt16, u32Block0 As UInt32, u32Block1 As UInt32, u32Block2 As UInt32, pu8Array() As Byte, iArrayLength As Integer)
+            RaiseEvent UserEvent__SafeUDP__Tx_X3_Array(eEndpoint, u16Type, u32Block0, u32Block1, u32Block2, pu8Array, iArrayLength)
+        End Sub
+
+
 
 #End Region '#Region "ETHERNET TX"
 
