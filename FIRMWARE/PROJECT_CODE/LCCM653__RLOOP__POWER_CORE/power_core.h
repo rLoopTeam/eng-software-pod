@@ -195,6 +195,15 @@
 			}sBMS;
 			#endif
 
+			/** LEM HASS 600-S Current Transducer **/
+			struct
+			{
+				/** Current Reading after converted from ADC */
+				Lfloat32 f32HASS_CurrentReading;
+
+
+			}sHASS600;
+
 			/** Win32 Functions*/
 #ifdef WIN32
 			struct
