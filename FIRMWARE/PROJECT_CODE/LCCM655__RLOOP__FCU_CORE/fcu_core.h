@@ -915,6 +915,9 @@
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_LRF_StartXPos(Luint32 u32Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_NumStripes(Luint32 u32Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(Luint32 u32Index, Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_EnableAccels(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_EnableLRF(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_EnableContrast(Luint32 u32Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_HeaderSpare(Luint32 u32Index, Luint32 u32Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Footer(Luint32 u32Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontStartPos(Luint32 u32Value);

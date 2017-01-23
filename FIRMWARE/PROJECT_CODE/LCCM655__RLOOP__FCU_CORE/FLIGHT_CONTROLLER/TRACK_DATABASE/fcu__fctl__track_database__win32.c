@@ -153,6 +153,22 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(Luint32 u32Index, Luint32 u32Valu
 	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8StripeBeginningXPosition_mm[u32Index][0], u32Value);
 }
 
+//Enable accels for use on the track
+void vFCU_FCTL_TRACKDB_WIN32__Set_EnableAccels(Luint32 u32Value)
+{
+	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8EnableAccels[0], u32Value);
+}
+void vFCU_FCTL_TRACKDB_WIN32__Set_EnableLRF(Luint32 u32Value)
+{
+	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8EnableLRF[0], u32Value);
+}
+void vFCU_FCTL_TRACKDB_WIN32__Set_EnableContrast(Luint32 u32Value)
+{
+	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8EnableContrast[0], u32Value);
+}
+
+
+
 void vFCU_FCTL_TRACKDB_WIN32__Set_HeaderSpare(Luint32 u32Index, Luint32 u32Value)
 {
 	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8SpareData[u32Index][0], u32Value);

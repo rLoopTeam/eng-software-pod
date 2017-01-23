@@ -36,7 +36,13 @@ void vFCU_FCTL_TRACKDB__Init(void)
 {
 
 	//init some vars
-	sFCU.sFlightControl.sTrackDB.u32CurrentDB = 0U;
+	sFCU.sFlightControl.sTrackDB.u32CurrentDB = u32EEPARAM__Read(C_LOCALDEF__LCCM655__FCTL_TRACKDB___CURRENT_DB);
+	if(sFCU.sFlightControl.sTrackDB.u32CurrentDB >= C_FCTL_TRACKDB__MAX_MEM_DATABASES)
+	{
+		//reset to zero
+		//don't bother updating EEPROM as we can do this later.
+		sFCU.sFlightControl.sTrackDB.u32CurrentDB = 0U;
+	}
 
 	vFAULTTREE__Init(&sFCU.sFlightControl.sTrackDB.sFaultFlags);
 
@@ -76,10 +82,23 @@ void vFCU_FCTL_TRACKDB__Set_CurrentDB(Luint32 u32Key, Luint32 u32TrackID)
 {
 	if(u32Key == 0x11223344U)
 	{
-		sFCU.sFlightControl.sTrackDB.u32CurrentDB = u32TrackID;
+		//check
+		if(u32TrackID < C_FCTL_TRACKDB__MAX_MEM_DATABASES)
+		{
+			sFCU.sFlightControl.sTrackDB.u32CurrentDB = u32TrackID;
 
-		//reinit the track database memory
-		vFCU_FCTL_TRACKDB_MEM__Init();
+			//update the EEPROM
+			vEEPARAM__WriteU32(C_LOCALDEF__LCCM655__FCTL_TRACKDB___CURRENT_DB, sFCU.sFlightControl.sTrackDB.u32CurrentDB, DELAY_T__IMMEDIATE_WRITE);
+
+			//reinit the track database memory
+			vFCU_FCTL_TRACKDB_MEM__Init();
+		}
+		else
+		{
+			//big issue, can't set
+		}
+
+
 	}
 	else
 	{
