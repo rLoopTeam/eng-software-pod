@@ -97,6 +97,9 @@
 				/** Is any new data available? */
 				Luint8 u8NewTempAvail;
 
+				/** Counter of number if times the temp sensor was scanned */
+				Luint32 u32TempScanCount;
+
 			}sTemp;
 
 			#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
