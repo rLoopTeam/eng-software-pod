@@ -58,7 +58,34 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 
 	Luint32 u32Block[4];
 	Lfloat32 f32Block[4];
-	Luint16 u16Port;
+
+
+	//hard coded hack for podsafe
+	if((u16DestPort == 9110U) || (u16DestPort == 9111U))
+	{
+		if(ePacketType == NET_PKT__PWR_GEN__POD_SAFE_COMMAND)
+		{
+			u32Block[0] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload);
+			if(u32Block[0] == 0x75643210U)
+			{
+				//Safe the pod
+				vPWRNODE_DC__Pod_Safe_Unlock(0xABCD1298U);
+				vPWRNODE_DC__Pod_Safe_Go();
+			}
+			else
+			{
+				//maybe should log this error.
+			}
+		}
+		else
+		{
+			//fall on, another packet type
+		}
+	}
+	else
+	{
+		//fall on.
+	}
 
 
 	//make sure we are rx'ing on our port number
@@ -83,19 +110,11 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 
 
 			case NET_PKT__PWR_GEN__POD_SAFE_COMMAND:
-				if(u32Block[0] == 0x75643210U)
-				{
-					//Safe the pod
-
-				}
-				else
-				{
-					//maybe should log this error.
-				}
+				//already done above
 				break;
 
 			case NET_PKT__PWR_GEN__POD_EMULATION_CONTROL:
-
+				//not implemented yet.
 				break;
 
 
@@ -104,7 +123,7 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 				if(u32Block[0] == 0x11229988U)
 				{
 					//see if we want to enable charging.
-					if(u32Block[1] == 0x01)
+					if(u32Block[1] == 1U)
 					{
 						vPWRNODE_SM__Enable_ChargingState();
 					}
@@ -164,7 +183,7 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 				break;
 
 			case NET_PKT__PWR_GEN__LATCH:
-
+				//latch the power on.
 				if(u32Block[0] == 0xABCD1245U)
 				{
 					if(u32Block[1] == 0U)
@@ -189,6 +208,8 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 				break;
 
 			case NET_PKT__PWR_GEN__POWER_PERSONALITY:
+
+				//personality key
 				if(u32Block[0] == 0x11223344U)
 				{
 					if(u32Block[1] == 0U)
