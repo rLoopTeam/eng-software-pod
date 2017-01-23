@@ -45,6 +45,12 @@
 			//upper structure guarding
 			Luint32 u32Guard1;
 
+			/** The personality */
+			E_PWRNODE_TYPE_T ePersonality;
+
+			/** The ethernet port that we are transmitting from*/
+			Luint16 u16EthPort;
+
 			/** main state machine */
 			E_PWRNODE__RUN_STATES eMainState;
 

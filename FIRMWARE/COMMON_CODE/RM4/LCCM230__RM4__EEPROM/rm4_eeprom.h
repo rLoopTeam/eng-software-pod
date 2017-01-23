@@ -49,13 +49,14 @@
 
 	#if C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE == 1U
 
+		/*****************************************************************************
+		Includes
+		*****************************************************************************/
 		#include <MULTICORE/lccm284__multicore__fault_tree/fault_tree__public.h>
 		//fault flags file.
 		#include <RM4/LCCM230__RM4__EEPROM/rm4_eeprom__fault_flags.h>
 
 
-		/*****************************************************************************
-		*****************************************************************************/
 		/** EEPROM Structure */
 		typedef struct
 		{
@@ -74,7 +75,9 @@
 
 		}RM4_EEPROM__T;
 
-		//function protos
+		/*****************************************************************************
+		Function proto's
+		*****************************************************************************/
 		void vRM4_EEPROM__Init(void);
 		Luint32 u32RM4_EEPROM__Read(Luint32 u32AddxOffset);
 		Lint32 s32RM4_EEPROM__Read(Luint32 u32AddxOffset);
