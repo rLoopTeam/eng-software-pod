@@ -30,6 +30,8 @@ extern struct _strFCU sFCU;
 //The current working track database
 struct _strTrackDatabase sTrackDB;
 
+Luint32 u32FCU_FCTL_TRACKDB__Get_Current_TrackEndPosX_mm(void);
+
 void vFCU_FCTL_TRACKDB__Init(void)
 {
 
@@ -54,11 +56,18 @@ void vFCU_FCTL_TRACKDB__Init(void)
 
 void vFCU_FCTL_TRACKDB__Process(void)
 {
+	Luint32 u32Test;
+
 	vFCU_FCTL_TRACKDB_MEM__Process();
 
 #ifdef WIN32
 	vFCU_FCTL_TRACKDB_WIN32__Process();
 #endif
+
+	u32Test = u32FCU_FCTL_TRACKDB__Get_Current_TrackEndPosX_mm();
+
+	u32Test = 0U;
+
 }
 
 
@@ -83,6 +92,12 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_CurrentDB(void)
 	return sFCU.sFlightControl.sTrackDB.u32CurrentDB;
 
 }
+
+Luint32 u32FCU_FCTL_TRACKDB__Get_Current_TrackEndPosX_mm(void)
+{
+	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8TrackEndXPosition_mm[0]);
+}
+
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_TRACK_DB
 #ifndef C_LOCALDEF__LCCM655__ENABLE_TRACK_DB

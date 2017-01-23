@@ -21,7 +21,7 @@
         Private m_txtDistFilt As SIL3.ApplicationSupport.TextBoxHelper
 
         Private m_cboSelectTrackDB As SIL3.ApplicationSupport.ComboBoxHelper
-        Private m_txtCurrentTrackDB As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtCurrentTrackDB As SIL3.ApplicationSupport.TextBoxHelper_U8
 
         ''' <summary>
         ''' The logging directory
@@ -82,17 +82,11 @@
 
                     Dim iOffset As Integer = 0
 
-                    Dim pU32Flags As New SIL3.Numerical.U32(u8Payload, iOffset)
-                    iOffset += 4
-                    Dim pU16MissionPahse As New SIL3.Numerical.U16(u8Payload, iOffset)
-                    iOffset += 2
-
-
-
                     'update the GUI
-                    Me.m_txtFlags.Flags__Update(pU32Flags, True)
-                    Me.m_txtMissionPhase.Value__Update(pU16MissionPahse.To__Int)
-
+                    iOffset += Me.m_txtFlags.Flags__Update(u8Payload, iOffset, True)
+                    Me.m_txtMissionPhase.Value__Update(New SIL3.Numerical.U16(u8Payload, iOffset).To__Int)
+                    iOffset += 2
+                    iOffset += Me.m_txtCurrentTrackDB.Value__Update(u8Payload, iOffset)
 
                     Me.m_iRxCount += 1
                     Me.m_txtRxCount.Threadsafe__SetText(Me.m_iRxCount.ToString)
@@ -117,11 +111,9 @@
             Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Streaming Control", MyBase.m_pInnerPanel)
             Dim btnOn As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
             btnOn.Layout__BelowControl(l0)
-            Dim btnOff As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream Off", AddressOf btnStreamOff__Click)
-            btnOff.Layout__RightOfControl(btnOn)
 
             Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
-            l11.Layout__AboveRightControl(l0, btnOff)
+            l11.Layout__AboveRightControl(l0, btnOn)
             Me.m_txtRxCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l11)
             Me.m_txtRxCount.ReadOnly = True
 
@@ -129,25 +121,28 @@
             l110.Layout__AboveRightControl(l11, Me.m_txtRxCount)
             Dim btnEnterPreRun As New SIL3.ApplicationSupport.ButtonHelper(100, "Enter Pre-Run", Nothing)
             btnEnterPreRun.Layout__BelowControl(l110)
-            btnEnterPreRun.BackColor = Color.Orange
+            'btnEnterPreRun.BackColor = Color.Orange
             Dim btnFlightAbort As New SIL3.ApplicationSupport.ButtonHelper(100, "Flight Abort", Nothing)
             btnFlightAbort.Layout__RightOfControl(btnEnterPreRun)
             Dim btnPodStop As New SIL3.ApplicationSupport.ButtonHelper(100, "Pod Stop", AddressOf Me.btnPodStop__Click)
             btnPodStop.Layout__RightOfControl(btnFlightAbort)
-            Dim btnPodSafe As New SIL3.ApplicationSupport.ButtonHelper(100, "Pod Safed", AddressOf Me.btnPodSafed__Click)
+            Dim btnPodSafe As New SIL3.ApplicationSupport.ButtonHelper(100, "Pod Safe", AddressOf Me.btnPodSafed__Click)
             btnPodSafe.Layout__RightOfControl(btnPodStop)
 
 
             Dim l00 As New SIL3.ApplicationSupport.LabelHelper("Fault Flags", btnOn)
             Me.m_txtFlags = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l00)
-            Me.m_txtFlags.ReadOnly = True
+            Me.m_txtFlags.Flags__Add("ACCEL SUBSYSTEM")
+            Me.m_txtFlags.Flags__Add("ASI SUBSYSTEM")
+            Me.m_txtFlags.Flags__Add("BRAKES SUBSYSTEM")
+            Me.m_txtFlags.Flags__Add("DAQ SUBSYSTEM")
+
+
 
             Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Mission State")
             l1.Layout__AboveRightControl(l00, Me.m_txtFlags)
             Me.m_txtMissionPhase = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l1)
             Me.m_txtMissionPhase.ReadOnly = True
-
-
             Me.m_txtMissionPhase.States__Add("MISSION_PHASE__RESET")
             Me.m_txtMissionPhase.States__Add("MISSION_PHASE__TEST_PHASE")
             Me.m_txtMissionPhase.States__Add("MISSION_PHASE__PRE_RUN_PHASE")
@@ -166,7 +161,7 @@
 
             Dim l3 As New SIL3.ApplicationSupport.LabelHelper("Current Track DB")
             l3.Layout__AboveRightControl(l2, Me.m_cboSelectTrackDB)
-            Me.m_txtCurrentTrackDB = New SIL3.ApplicationSupport.TextBoxHelper(100, l3)
+            Me.m_txtCurrentTrackDB = New SIL3.ApplicationSupport.TextBoxHelper_U8(100, l3)
 
             Dim btnChangeTrackDB As New SIL3.ApplicationSupport.ButtonHelper(100, "Change DB", AddressOf Me.btnChangeTrackDB__Click)
             btnChangeTrackDB.Layout__RightOfControl(Me.m_txtCurrentTrackDB)
@@ -197,21 +192,22 @@
         ''' <param name="s"></param>
         ''' <param name="e"></param>
         Private Sub btnStreamOn__Click(s As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+            Dim pSB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
+
+            If pSB.Text = "Stream On" Then
+                pSB.Text = "Stream Off"
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__STREAMING_CONTROL,
                                                  1, SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__TX_MISSION_DATA, 0, 0)
-        End Sub
-
-        ''' <summary>
-        ''' Disable mission streaming
-        ''' </summary>
-        ''' <param name="s"></param>
-        ''' <param name="e"></param>
-        Private Sub btnStreamOff__Click(s As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+            Else
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__STREAMING_CONTROL,
                                                  0, SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__TX_MISSION_DATA, 0, 0)
+                pSB.Text = "Stream On"
+            End If
+
         End Sub
+
 
 
 
@@ -239,6 +235,17 @@
         Private Sub btnPodStop__Click(s As Object, e As EventArgs)
 
             If MsgBox("Warning: This will STOP the pod, Brakes Activated!" & Environment.NewLine & "Continue?", MsgBoxStyle.OkCancel, "Pod Safe Command") = MsgBoxResult.Ok Then
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__POWER_A,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_STOP_COMMAND,
+                                                 &H1234ABCDL, 0, 0, 0)
+
+            End If
+
+        End Sub
+
+        Private Sub btnChangeState_Test__Click(s As Object, e As EventArgs)
+
+            If MsgBox("Warning: This will put the pod into TEST_STATE!" & Environment.NewLine & "Continue?", MsgBoxStyle.OkCancel, "Pod Safe Command") = MsgBoxResult.Ok Then
                 RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__POWER_A,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_STOP_COMMAND,
                                                  &H1234ABCDL, 0, 0, 0)

@@ -1962,7 +1962,8 @@ find the column index
 </member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.CSV.Cell__SetContents(System.String,System.Int32,System.String,System.Boolean)">
  <summary>
-find the column index
+ Sets the contents of a cell, and if needed, rewrites the CSV
+ This function is used for editing csv's.
  </summary>
  <param name="sColName" ></param>
  <param name="iRowIndex" ></param>
