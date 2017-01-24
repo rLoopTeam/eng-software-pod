@@ -11,6 +11,7 @@ void vPWR_PVPRESS__Init(void)
 	sPWRNODE.sRePress.eState = REPRESS_STATE__RESET;
 	sPWRNODE.sRePress.u32100MS_Count = 0U;
 	sPWRNODE.sRePress.eSolState = REPRESS_SOL_STATE__OFF;
+	sPWRNODE.sRePress.f32Press = 0.0F;
 
 	//configure N2HET PIN
 	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 0U);
@@ -24,7 +25,6 @@ void vPWR_PVPRESS__Init(void)
 void vPWR_PVPRESS__Process(void)
 {
 	Luint8 u8Test;
-	Lfloat32 f32Press;
 
 	//main state machine
 	switch(sPWRNODE.sRePress.eState)
@@ -35,7 +35,6 @@ void vPWR_PVPRESS__Process(void)
 
 		case REPRESS_STATE__IDLE:
 			//in this state we are only getting to here once we have been enabled
-			f32Press = 0.0F;
 			sPWRNODE.sRePress.eState = REPRESS_STATE__CHECK_PRESS_SNSR;
 			break;
 
@@ -52,7 +51,7 @@ void vPWR_PVPRESS__Process(void)
 			{
 				//ok use the sensor, all good
 				//but we need to make sure we have valid pressure
-				f32Press = f32PWRNODE_NODEPRESS__Get_Pressure_Bar();
+				sPWRNODE.sRePress.f32Press = f32PWRNODE_NODEPRESS__Get_Pressure_Bar();
 
 				//process our pressure
 				sPWRNODE.sRePress.eState = REPRESS_STATE__PROCESS_PRESS;
@@ -61,7 +60,7 @@ void vPWR_PVPRESS__Process(void)
 
 		case REPRESS_STATE__PROCESS_PRESS:
 			//ok work out what to do:
-			if(f32Press < 0.6F)
+			if(sPWRNODE.sRePress.f32Press < 0.6F)
 			{
 				//less than 0.6bar, repress.
 				sPWRNODE.sRePress.eSolState = REPRESS_SOL_STATE__ON;
@@ -69,7 +68,7 @@ void vPWR_PVPRESS__Process(void)
 			else
 			{
 				//above 0.6 bar + hyster, if we are already on then we need off
-				if(f32Press > 0.9F)
+				if(sPWRNODE.sRePress.f32Press > 0.9F)
 				{
 					//done off
 					sPWRNODE.sRePress.eSolState = REPRESS_SOL_STATE__OFF;
