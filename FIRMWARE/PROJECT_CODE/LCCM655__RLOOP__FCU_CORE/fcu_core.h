@@ -550,6 +550,21 @@
 				}sGeom;
 
 
+				/** Accel, Veloc and Displacement blender system */
+				struct
+				{
+
+					/** The current working values we are using for flight */
+					struct
+					{
+						Lint32 s32Accel_mmss;
+						Lint32 s32Veloc_mms;
+						Lint32 s32Disp_mm;
+
+					}sWorking;
+
+				}sBlender;
+
 			}sFlightControl;
 
 
@@ -888,6 +903,22 @@
 			//main state machine
 			void vFCU_FCTL_MAINSM__Init(void);
 			void vFCU_FCTL_MAINSM__Process(void);
+
+			//blender
+			void vFCU_FCTL_BLENDER__Init(void);
+			void vFCU_FCTL_BLENDER__Process(void);
+			Lint32 s32FCU_FCTL_BLENDER__Get_Accel_mmss(void);
+			Lint32 s32FCU_FCTL_BLENDER__Get_Veloc_mms(void);
+			Lint32 s32FCU_FCTL_BLENDER__Get_Displacement_mm(void);
+			void vFCU_FCTL_BLENDER__Veloc_UpdateFrom_Accel(Luint8 u8Channel, Luint32 u32Veloc_mms);
+			void vFCU_FCTL_BLENDER__Veloc_UpdateFrom_LRF(Luint8 u8Channel, Luint32 u32Veloc_mms);
+			void vFCU_FCTL_BLENDER__Veloc_UpdateFrom_Contrast(Luint8 u8Channel, Luint32 u32Veloc_mms);
+			void vFCU_FCTL_BLENDER__Accel_UpdateFrom_Accel(Luint8 u8Channel, Luint32 u32Accel_mmss);
+			void vFCU_FCTL_BLENDER__Accel_UpdateFrom_LRF(Luint8 u8Channel, Luint32 u32Accel_mmss);
+			void vFCU_FCTL_BLENDER__Accel_UpdateFrom_Contrast(Luint8 u8Channel, Luint32 u32Accel_mmss);
+			void vFCU_FCTL_BLENDER__Displacement_UpdateFrom_Accel(Luint8 u8Channel, Luint32 u32Disp_mm);
+			void vFCU_FCTL_BLENDER__Displacement_UpdateFrom_LRF(Luint8 u8Channel, Luint32 u32Disp_mm);
+			void vFCU_FCTL_BLENDER__Displacement_UpdateFrom_Contrast(Luint8 u8Channel, Luint32 u32Disp_mm);
 
 			//track DB
 			void vFCU_FCTL_TRACKDB__Init(void);

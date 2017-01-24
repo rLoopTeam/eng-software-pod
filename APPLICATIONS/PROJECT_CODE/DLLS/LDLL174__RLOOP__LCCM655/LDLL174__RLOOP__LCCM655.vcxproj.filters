@@ -229,6 +229,9 @@
     <Filter Include="LCCM655__RLOOP__FCU_CORE\DAQ">
       <UniqueIdentifier>{64dfe888-22fb-4760-9f1a-d10922bb2708}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BLENDER">
+      <UniqueIdentifier>{d94d6efb-24e8-4ea5-82fa-7ca58999a665}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
@@ -665,6 +668,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\DAQ\daq__transmit_template.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\DAQ</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BLENDER\fcu__flight__blender.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BLENDER</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

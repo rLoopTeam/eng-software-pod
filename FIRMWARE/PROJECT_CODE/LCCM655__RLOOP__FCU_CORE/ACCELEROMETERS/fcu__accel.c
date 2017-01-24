@@ -271,6 +271,11 @@ void vFCU_ACCEL__Process(void)
 				}
 				#endif
 
+				//give the flight layer some data
+				vFCU_FCTL_BLENDER__Accel_UpdateFrom_Accel(u8Counter, sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mmss);
+				vFCU_FCTL_BLENDER__Veloc_UpdateFrom_Accel(u8Counter, sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms);
+				vFCU_FCTL_BLENDER__Displacement_UpdateFrom_Accel(u8Counter, sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm);
+
 				//done with the sample now
 				vMMA8451__Clear_NewSampleReady(u8Counter);
 			}
