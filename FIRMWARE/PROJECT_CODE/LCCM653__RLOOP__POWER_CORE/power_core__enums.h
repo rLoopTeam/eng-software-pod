@@ -22,7 +22,7 @@ typedef enum
 
 	/** The solenoid is on */
 	POWER_COOLING__HOVER_ON
-}E_PWR__COOLING_HOVERENGINES_STATE_T;
+}E_PWR__COOLING_HOVESOLENOID_STATE_T;
 
 /** Eddy Brakes Coolinig System Enums **/
 typedef enum
@@ -38,7 +38,7 @@ typedef enum
 
 	/** The solenoid is on */
 	POWER_COOLING__EDDY_ON
-}E_PWR__COOLING_EDDYBRAKES_STATE_T;
+}E_PWR__COOLING_EDDYSOLENOID_STATE_T;
 
 /** Cooling System Status**/
 typedef enum

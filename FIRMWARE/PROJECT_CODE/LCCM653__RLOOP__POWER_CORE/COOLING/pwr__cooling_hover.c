@@ -13,7 +13,14 @@ extern struct _strPWRNODE sPWRNODE;
 
 void vPWR_COOLING_HOVER__Init(void)
 {
+	Luint8 u8Counter;
 
+	for(u8Counter = 0U; u8Counter < (Luint8)POWER_COOLING__MAX_HOVERENG; u8Counter++)
+	{
+		sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature = 0.0F;
+		sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eState = COOLING_STATE__NORMAL;
+		sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eHoverSolenoidState = POWER_COOLING__HOVER_OFF;
+	}
 }
 
 void vPWR_COOLING_HOVER__Process(void)

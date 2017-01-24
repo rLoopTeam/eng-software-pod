@@ -219,7 +219,7 @@
 				{
 					Lfloat32 f32Temperature;
 					E_PWRNODE__COOLING_STATES eState;
-					E_PWR__COOLING_HOVERENGINES_STATE_T eHoverCoolingState;
+					E_PWR__COOLING_HOVESOLENOID_STATE_T eHoverSolenoidState;
 				}sHoverEngineCoolingSystem[POWER_COOLING__MAX_HOVERENG];
 
 				/** Eddy Brake Cooling Subsystem **/
@@ -227,7 +227,7 @@
 				{
 					Lfloat32 f32Temperature;
 					E_PWRNODE__COOLING_STATES eState;
-					E_PWR__COOLING_EDDYBRAKES_STATE_T eEddyCoolingState;
+					E_PWR__COOLING_EDDYSOLENOID_STATE_T eEddySolenoidState;
 				}sEddyBrakeCoolingSystem[POWER_COOLING__MAX_EDDYBRAKES];
 
 				/** Cooling System Main State Mainchine */

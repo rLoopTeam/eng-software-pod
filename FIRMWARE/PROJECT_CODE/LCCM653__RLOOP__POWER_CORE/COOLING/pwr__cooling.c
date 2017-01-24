@@ -13,6 +13,10 @@ extern struct _strPWRNODE sPWRNODE;
 
 void vPWR_COOLING__Init(void)
 {
+	//Init
+	sPWRNODE.sCooling.eMainState = COOLING_STATE__RESET;
+	sPWRNODE.sCooling.u32100MS_Count = 0U;
+
 	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 4U); 		//Brake
 	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 8U); 		//Hover Engine Pair #1
 	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 16U);		//Hover Engine Pair #2
