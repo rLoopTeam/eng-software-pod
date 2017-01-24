@@ -44,6 +44,9 @@ void vPWR_COOLING_HOVER__Process(void)
 		case COOLING_STATE__CRITICAL:
 			//Valve OPEN completely for T > T critical -> delivered mass flow rate/HE maximum at around 4.5 g/s
 			break;
+		case COOLING_STATE__EMERGENCY:
+			//ENGINE SHUT DOWN
+			break;
 		default:
 			//do nothing
 			break;
