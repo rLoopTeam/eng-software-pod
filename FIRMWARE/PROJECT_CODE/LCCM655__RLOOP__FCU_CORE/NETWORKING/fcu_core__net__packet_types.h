@@ -8,6 +8,11 @@
 #ifndef __NET__PACKET_TYPES_H_
 #define __NET__PACKET_TYPES_H_
 
+
+	#define C_RLOOP_NET__FCU__PORT						(9100U)
+	#define C_RLOOP_NET__POWER_A__PORT					(9110U)
+	#define C_RLOOP_NET__POWER_B__PORT					(9111U)
+
 	/** rLoop UDP network packet types
 	* http://confluence.rloop.org/display/SD/Packet+Types
 	*/

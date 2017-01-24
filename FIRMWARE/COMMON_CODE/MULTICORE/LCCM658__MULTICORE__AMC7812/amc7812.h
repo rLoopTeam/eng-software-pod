@@ -116,6 +116,10 @@
 			/** Rest state out of power up */
 			AMC7812_STATE__RESET = 0U,
 
+			/** Configure the DAC to suit our needs.
+			 * Do this after reset */
+			AMC7812_STATE__CONFIGURE_DAC,
+
 			/** Idle, waiting for a command */
 			AMC7812_STATE__IDLE,
 
@@ -207,6 +211,7 @@
 		void vAMC7812__Process(void);
 		void vAMC7182__DAC_SetVoltage(Luint8 u8Channel, Lfloat32 f32Voltage);
 		Luint32 u32AMC7812__Get_FaultFlags(void);
+		E_AMC7812__MNAIN_STATES_T eAMC7812__Get_State(void);
 		
 		//Lowlevel
 		void vAMC7812_LOWLEVEL__Init(void);

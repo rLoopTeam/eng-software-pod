@@ -100,8 +100,8 @@ void vFCU_GEOM_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 		//send it
 		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length,
-							C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER,
-							C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER);
+				C_RLOOP_NET__FCU__PORT,
+				C_RLOOP_NET__FCU__PORT);
 
 	}//if(s16Return == 0)
 	else
