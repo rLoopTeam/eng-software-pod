@@ -235,6 +235,9 @@
 		/** Power node repress system */
 		NET_PKT__PWR_GEN__PV_REPRESS = 0x3040U,
 
+		/** Power node cooling system */
+		NET_PKT__PWR_GEN__COOLING = 0x3041U,
+
 		//////////////////////////////////////////////////////
 		//POWER: TEMPERATURE SYSTEM (0x3200)
 		//////////////////////////////////////////////////////
