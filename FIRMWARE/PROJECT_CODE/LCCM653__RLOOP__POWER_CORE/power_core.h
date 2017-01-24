@@ -299,6 +299,9 @@
 				/** Count of 100ms */
 				Luint32 u32100MS_Count;
 
+				/** Pressure Value */
+				Lfloat32 f32Press;
+
 			}sRePress;
 
 			//lower structure guarding
