@@ -117,7 +117,7 @@ void vPWR_COOLING__Solennoid_TurnAllOff(void)
 	vRM4_N2HET_PINS__Set_PinLow(N2HET_CHANNEL__1, 23U);
 }
 
-//to be called from GS to enable the repress system as its dangerous
+//to be called from GS to enable the cooling system as its dangerous
 void vPWR_COOLING__Enable(Luint32 u32Value)
 {
 	if(u32Value == 1U)
