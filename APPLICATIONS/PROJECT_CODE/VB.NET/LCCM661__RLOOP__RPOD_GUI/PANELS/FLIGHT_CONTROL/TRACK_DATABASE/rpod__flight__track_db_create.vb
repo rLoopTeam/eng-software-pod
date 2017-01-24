@@ -508,9 +508,9 @@
                 vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(u32Counter, u32Counter * 10)
             Next
 
-            vFCU_FCTL_TRACKDB_WIN32__Set_EnableAccels(1)
-            vFCU_FCTL_TRACKDB_WIN32__Set_EnableLRF(1)
-            vFCU_FCTL_TRACKDB_WIN32__Set_EnableContrast(1)
+            vFCU_FCTL_TRACKDB_WIN32__Set_EnableAccels(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(7).ToString))
+            vFCU_FCTL_TRACKDB_WIN32__Set_EnableLRF(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(8).ToString))
+            vFCU_FCTL_TRACKDB_WIN32__Set_EnableContrast(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(9).ToString))
 
             For u32Counter As UInt32 = 0 To C_FCTL_TRACKDB__HEADER_SPARE_WORDS - 1
                 vFCU_FCTL_TRACKDB_WIN32__Set_HeaderSpare(u32Counter, 0)

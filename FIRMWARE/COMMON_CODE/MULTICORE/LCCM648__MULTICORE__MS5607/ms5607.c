@@ -55,6 +55,7 @@ void vMS5607__Process(void)
 		case MS5607_STATE__IDLE:
 			//do nothing,
 			break;
+
 		case MS5607_STATE__INIT_DEVICE:
 			//reset the device
 			s16Return = s16MS5607_I2C__TxCommand(C_LOCALDEF__LCCM648__BUS_ADDX, MS5607_CMD__RESET);
@@ -72,6 +73,7 @@ void vMS5607__Process(void)
 			}
 
 			break;
+
 		case MS5607_STATE__READ_CALIBRATION:
 			s16Return = s16MS5607__GetCalibrationContants(&sMS5607.u16Coefficients[0]);
 
@@ -267,6 +269,23 @@ void vMS5607__Process(void)
 
 			break;
 	}
+
+}
+
+Luint8 u8MS5607__Get_IsFault(void)
+{
+	Luint8 u8Return;
+
+	if(sMS5607.eState == MS5607_STATE__ERROR)
+	{
+		u8Return = 1U;
+	}
+	else
+	{
+		u8Return = 0U;
+	}
+
+	return u8Return;
 
 }
 

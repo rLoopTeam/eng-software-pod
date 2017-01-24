@@ -51,6 +51,9 @@ RLOOP - POWER NODE CORE
 		/** Enable Pressure Vesel Repress System */
 		#define C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS						(1U)
 
+		/** Enable HE Cooling System */
+		#define C_LOCALDEF__LCCM653__ENABLE_COOLING							(1U)
+
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM653__ENABLE_TEST_SPEC						(0U)
