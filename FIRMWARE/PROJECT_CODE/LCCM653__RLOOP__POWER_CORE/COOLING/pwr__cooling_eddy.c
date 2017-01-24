@@ -55,6 +55,9 @@ void vPWR_COOLING_EDDY__Process(void)
 		case COOLING_STATE__CRITICAL:
 			//Valve OPEN completely for T > T critical -> delivered mass flow rate/HE maximum at around 4.5 g/s
 			break;
+		case COOLING_STATE__EMERGENCY:
+			//TODO Need to confirm the action is to APPLY BRAKES?
+			break;
 		default:
 			//do nothing
 			break;
