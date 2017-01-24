@@ -44,10 +44,13 @@ void vPWR_COOLING__Process(void)
 	case COOLING_STATE__CHECK_TEMPERATURES:
 		//TODO check temperatures
 		//UPDATE Cooling System Status
-			//COOLING_STATE__NORMAL,
-			//COOLING_STATE__WARNING,
-			//COOLING_STATE__CRITICAL,
-			//COOLING_STATE__CONTINUOUS
+			//Hover Engines:
+				//COOLING_STATE__NORMAL,
+				//COOLING_STATE__WARNING, T warning: 75C
+				//COOLING_STATE__CRITICAL, T critical: 95C
+				//COOLING_STATE__EMERGENCY T off: 105C
+			//Eddy Brakes:
+				//TODO
 		sPWRNODE.sCooling.eMainState = COOLING_STATE__PROCESS_TEMPERATURES;
 		break;
 	case COOLING_STATE__PROCESS_TEMPERATURES:
