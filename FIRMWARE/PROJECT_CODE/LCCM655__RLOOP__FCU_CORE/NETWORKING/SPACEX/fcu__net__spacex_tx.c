@@ -74,6 +74,7 @@ void vFCU_NET_SPACEX_TX__Process(void)
 	Lint16 s16Return;
 	Luint32 u32Buffer;
 	Luint8 *pu8Return;
+	Lint32 s32Temp;
 
 	//do we have a timer flag?
 	if(sFCU.sSpaceX.u8100MS_Flag == 1U)
@@ -104,15 +105,24 @@ void vFCU_NET_SPACEX_TX__Process(void)
 				pu8Return += u8FCU_NET_SPACEX_TX__GeneratePodStatus();
 
 				//acceleration 	INT32 			Acceleration in centimeters per second squared. Required.
-				vNUMERICAL_CONVERT__Array_S32(pu8Return, 1111);
+				s32Temp = s32FCU_FCTL_BLENDER__Get_Accel_mmss();
+				//convert to cm/ss
+				s32Temp /= 10;
+				vNUMERICAL_CONVERT__Array_S32(pu8Return, s32Temp);
 				pu8Return += 4U;
 
 				//position 		INT32 			Velocity in centimeters per second. Required.
-				vNUMERICAL_CONVERT__Array_S32(pu8Return, 22222);
+				s32Temp = s32FCU_FCTL_BLENDER__Get_Veloc_mms();
+				//convert to cm/ss
+				s32Temp /= 10;
+				vNUMERICAL_CONVERT__Array_S32(pu8Return, s32Temp);
 				pu8Return += 4U;
 
 				//velocity 		INT32 			Position in centimeters. Required.
-				vNUMERICAL_CONVERT__Array_S32(pu8Return, 33333);
+				s32Temp = s32FCU_FCTL_BLENDER__Get_Displacement_mm();
+				//convert to cm/ss
+				s32Temp /= 10;
+				vNUMERICAL_CONVERT__Array_S32(pu8Return, s32Temp);
 				pu8Return += 4U;
 
 				//battery_voltage 	INT32 			Battery voltage in millivolts.
