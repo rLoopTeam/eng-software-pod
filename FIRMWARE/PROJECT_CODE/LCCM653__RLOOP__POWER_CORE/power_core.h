@@ -19,6 +19,7 @@
 		#include <LCCM653__RLOOP__POWER_CORE/power_core__state_types.h>
 		#include <LCCM653__RLOOP__POWER_CORE/power_core__defines.h>
 		#include <LCCM653__RLOOP__POWER_CORE/power_core__eeprom_index.h>
+		#include <LCCM653__RLOOP__POWER_CORE/power_core__enums.h>
 
 
 		//local fault flags
@@ -209,6 +210,32 @@
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
 			}sHASS600;
+
+			/** Cooling System **/
+			struct
+			{
+				/** Hover Engine Cooling Subsystem **/
+				struct
+				{
+					Lfloat32 f32Temperature;
+					E_PWRNODE__COOLING_STATES eState;
+					E_PWR__COOLING_HOVERENGINES_STATE_T eHoverCoolingState;
+				}sHoverEngineCoolingSystem[POWER_COOLING__MAX_HOVERENG];
+
+				/** Eddy Brake Cooling Subsystem **/
+				struct
+				{
+					Lfloat32 f32Temperature;
+					E_PWRNODE__COOLING_STATES eState;
+					E_PWR__COOLING_EDDYBRAKES_STATE_T eEddyCoolingState;
+				}sEddyBrakeCoolingSystem[POWER_COOLING__MAX_EDDYBRAKES];
+
+				/** Cooling System Main State Mainchine */
+				E_PWRNODE__COOLING_T eMainState;
+
+				/** Count of 100ms */
+				Luint32 u32100MS_Count;
+			}sCooling;
 
 			/** Win32 Functions*/
 #ifdef WIN32
@@ -418,6 +445,19 @@
 		//cooling system
 		void vPWR_COOLING__Init(void);
 		void vPWR_COOLING__Process(void);
+		void vPWR_COOLING__100MS_ISR(void);
+		void vPWR_COOLING__Enable(Luint32 u32Value);
+		void vPWR_COOLING__Solennoid_TurnAllOff(void);
+		void vPWR_COOLING__Solennoid_TurnOff(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32PinNumber);
+		void vPWR_COOLING__Solennoid_TurnOn(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32PinNumber);
+
+		//cooling hover subsystem
+		void vPWR_COOLING_HOVER__Init(void);
+		void vPWR_COOLING_HOVER__Process(void);
+
+		//cooling eddy subsystem
+		void vPWR_COOLING_EDDY__Init(void);
+		void vPWR_COOLING_EDDY__Process(void);
 
 #ifdef WIN32
 		void vPWRNODE_WIN32__Init(void);
