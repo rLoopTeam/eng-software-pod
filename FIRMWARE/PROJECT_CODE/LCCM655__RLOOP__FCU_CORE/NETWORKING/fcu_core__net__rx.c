@@ -61,7 +61,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 	Lint32 s32Block[4];
 
 	//make sure we are rx'ing on our port number
-	if(u16DestPort == C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER)
+	if(u16DestPort == C_RLOOP_NET__FCU__PORT)
 	{
 
 		//blocks are good for putting into functions
@@ -111,6 +111,8 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				break;
 
 			case NET_PKT__FCU_GEN__DAQ_ENABLE:
+
+				//configure the DAQ streaming
 				#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
 					if(u32Block[0] == 1U)
 					{
@@ -353,8 +355,24 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 	}
 	else
 	{
-		//not for us
+		if(u16DestPort == C_RLOOP_NET__POWER_A__PORT)
+		{
+
+		}
+		else
+		{
+			if(u16DestPort == C_RLOOP_NET__POWER_B__PORT)
+			{
+
+			}
+			else
+			{
+
+			}
+		}
 	}
+
+
 }
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_ETHERNET

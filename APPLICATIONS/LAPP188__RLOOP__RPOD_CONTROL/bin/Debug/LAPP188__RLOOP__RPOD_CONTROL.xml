@@ -5203,13 +5203,6 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  <param name="s"></param>
  <param name="e"></param>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Throttle.btnStreamOff__Clock(System.Object,System.EventArgs)">
- <summary>
- Switch off streaming
- </summary>
- <param name="s"></param>
- <param name="e"></param>
-</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Throttle.btnRequest__Click(System.Object,System.EventArgs)">
  <summary>
  Request one packet

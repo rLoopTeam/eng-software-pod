@@ -61,6 +61,7 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		case NET_PKT__FCU_THROTTLE__TX_DATA:
 			u16Length = 8U + 2U;
 			u16Length += (6U * C_FCU__NUM_HOVER_ENGINES);
+			u16Length += 1U;
 			break;
 
 
@@ -118,6 +119,10 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer[0] = sFCU.sThrottle.u8RunIndex;
 				pu8Buffer += 1U;
 
+				//amc state
+				pu8Buffer[0] = (Luint8)eAMC7812__Get_State();
+				pu8Buffer += 1U;
+
 				break;
 
 			default:
@@ -128,8 +133,8 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 		//send it
 		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length,
-							C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER,
-							C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER);
+				C_RLOOP_NET__FCU__PORT,
+				C_RLOOP_NET__FCU__PORT);
 
 	}//if(s16Return == 0)
 	else

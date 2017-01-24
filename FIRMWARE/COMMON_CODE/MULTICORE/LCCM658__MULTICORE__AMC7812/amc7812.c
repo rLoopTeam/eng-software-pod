@@ -73,6 +73,8 @@ void vAMC7812__Process(void)
 	Luint8 u8Counter;
 	Luint8 u8Temp;
 	Lint16 s16Return;
+	Luint16 u16DeviceID;
+	Luint16 u16Temp;
 
 #if 0
 	Luint8 u8EngineNumber = 0;
@@ -107,15 +109,63 @@ void vAMC7812__Process(void)
 			{
 				//success
 				//change state
-				sAMC.eState = AMC7812_STATE__IDLE;
+				sAMC.eState = AMC7812_STATE__CONFIGURE_DAC;
 			}
 			else
 			{
+				vFAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__00);
+				vFAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__02);
+
 				//read error, handle state.
 				sAMC.eState = AMC7812_STATE__FAULT;
 
 			}
 
+			break;
+
+		case AMC7812_STATE__CONFIGURE_DAC:
+
+			//setup the DAC
+			//get a sample of the device ID, great for debugging
+			s16Return = s16AMC7812_I2C__ReadU16(C_LOCALDEF__LCCM658__BUS_ADDX, AMC7812_REG_ADR__DEV_ID, &u16DeviceID);
+			if(s16Return >= 0)
+			{
+				//good
+
+				u16Temp = 0x0000;
+
+				// set the bits high to activate the DAC pins 0 to 7 (bits 1 - 8)
+				u16Temp |= (0x00FFU << 4U);
+
+				// also set the PREF bit (bit 13) high because we are using the internal voltage reference
+				u16Temp |= (1U << 13U);
+
+				// final value should be 0x21FE (for all pins: u16RegisterBitValues = 0x3FFE)
+				// set the power-down register
+				s16Return = s16AMC7812_I2C__WriteU16(C_LOCALDEF__LCCM658__BUS_ADDX, AMC7812_REG_ADR__PWR_DWN, u16Temp);
+
+
+				//set all the gains to 2.0
+				u16Temp = 0x0000U;
+				s16Return = s16AMC7812_I2C__WriteU16(C_LOCALDEF__LCCM658__BUS_ADDX, AMC7812_DAC_REG__GAINS, u16Temp);
+
+				//async load so as we can set all the channels individually
+				u16Temp = 0x0000U;
+				s16Return = s16AMC7812_I2C__WriteU16(C_LOCALDEF__LCCM658__BUS_ADDX, AMC7812_DAC_REG__CONFIG, u16Temp);
+
+
+			}
+			else
+			{
+				vFAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__00);
+				vFAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__02);
+
+				//big problem
+				sAMC.eState = AMC7812_STATE__FAULT;
+			}
+
+
+			sAMC.eState = AMC7812_STATE__IDLE;
 			break;
 
 		case AMC7812_STATE__IDLE:
@@ -181,6 +231,7 @@ void vAMC7812__Process(void)
 
 		case AMC7812_STATE__FAULT:
 			//some error has happened
+
 			break;
 
 		default:
@@ -190,6 +241,11 @@ void vAMC7812__Process(void)
 	} //switch(sAMC.eState)
 
 
+}
+
+E_AMC7812__MNAIN_STATES_T eAMC7812__Get_State(void)
+{
+	return sAMC.eState;
 }
 
 Luint32 u32AMC7812__Get_FaultFlags(void)
@@ -215,30 +271,6 @@ void vAMC7182__DAC_SetVoltage(Luint8 u8Channel, Lfloat32 f32Voltage)
 
 
 }
-
-
-#if 0
-// ACM7812 DAC control commands
-
-Lint16 s16AMC7812__DAC_Control( Luint8 u8Input )
-{
-
-	// ACM7812 DAC control signals:
-
-	// DAC CLR0 (low clears DAC, high is normal)
-
-	// DAC CLR1 (low clears DAC, high is normal)
-
-	// DAC RESET (low resets hardware)
-
-	// DAC DAV (data available - low when conversion ends)
-
-	// DAC CNVT (conversion trigger - falling edge starts sampling)
-
-	return 0;
-}
-
-#endif //0
 
 #endif //#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 //safetys

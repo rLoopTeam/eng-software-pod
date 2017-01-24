@@ -69,7 +69,7 @@ SAFETY UDP LAYER
 		#define C_LOCALDEF__LCCM528__RX_CALLBACK(p,l,t,d,f)					vFCU_NET_RX__RxSafeUDP(p,l,t,d,f)
 
 		/** The one and only UDP port we can operate on */
-		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER					(9100U)
+		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER					(0U)
 		#define C_LOCALDEF__LCCM528__ETHERNET_PORT_NUMBER2					(0U)
 
 		/** Vision over SafeUDP Options */

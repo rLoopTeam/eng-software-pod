@@ -25,7 +25,8 @@
         Private m_cboHE As SIL3.ApplicationSupport.ComboBoxHelper
         Private m_cboMode As SIL3.ApplicationSupport.ComboBoxHelper
         Private m_txtSetRPM As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtState As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
+        Private m_txtThrottleState As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
+        Private m_txtAMC7812State As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
         Private m_txtIndex As SIL3.ApplicationSupport.TextBoxHelper
 
         ''' <summary>
@@ -86,11 +87,9 @@
                 If ePacketType = SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_THROTTLE__TX_DATA Then
 
                     Dim iOffset As Integer = 0
-                    Dim pU32UpperFaultFlags As New SIL3.Numerical.U32(u8Payload, iOffset)
-                    iOffset += 4
+                    iOffset += Me.m_txtThrottleFlags.Flags__Update(u8Payload, iOffset, True)
+                    iOffset += Me.m_txtAMC7812Flags.Flags__Update(u8Payload, iOffset, True)
 
-                    Dim pU32AMCFaultFlags As New SIL3.Numerical.U32(u8Payload, iOffset)
-                    iOffset += 4
 
                     Dim pU16RPM((C_NUM__THROTTLES * 3) - 1) As SIL3.Numerical.U16
                     For iCounter As Integer = 0 To (C_NUM__THROTTLES * 3) - 1
@@ -100,11 +99,14 @@
 
                     Dim pU8State As New SIL3.Numerical.U8(u8Payload, iOffset)
                     iOffset += 1
-                    Me.m_txtState.Value__Update(pU8State.To__Int)
+                    Me.m_txtThrottleState.Value__Update(pU8State.To__Int)
 
                     Dim pU8Index As New SIL3.Numerical.U8(u8Payload, iOffset)
                     iOffset += 1
                     Me.m_txtIndex.Threadsafe__SetText(pU8Index.To__Int.ToString)
+
+                    Me.m_txtAMC7812State.Value__Update(u8Payload(iOffset))
+                    iOffset += 1
 
 
                     Dim iCounter2 As Integer = 0
@@ -129,8 +131,8 @@
                         iCounter2 += 1
                     Next
 
-                    Me.m_txtThrottleFlags.Flags__Update(pU32UpperFaultFlags, True)
-                    Me.m_txtAMC7812Flags.Flags__Update(pU32AMCFaultFlags, True)
+
+
 
                     Me.m_iRxCount += 1
                     Me.m_txtRxCount.Threadsafe__SetText(Me.m_iRxCount.ToString)
@@ -155,44 +157,64 @@
             btnRequest.Layout__BelowControl(l0)
             Dim btnStreamOn As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
             btnStreamOn.Layout__RightOfControl(btnRequest)
-            Dim btnStreamOff As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream Off", AddressOf btnStreamOff__Clock)
-            btnStreamOff.Layout__RightOfControl(btnStreamOn)
-
             Dim l110 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
-            l110.Layout__AboveRightControl(l0, btnStreamOff)
+            l110.Layout__AboveRightControl(l0, btnStreamOn)
             Me.m_txtRxCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l110)
 
             Dim l10 As New SIL3.ApplicationSupport.LabelHelper("Module Flags")
             l10.Layout__BelowControl(btnRequest)
             Me.m_txtThrottleFlags = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l10)
+
+            Me.m_txtThrottleFlags.Flags__Add("GENERAL")
+            Me.m_txtThrottleFlags.Flags__Add("AMC7812 FAULT")
+            Me.m_txtThrottleFlags.Flags__Add("INDEXING FAULT")
+            Me.m_txtThrottleFlags.Flags__Add("THROTTLE NOT IN RUN MODE")
+            Me.m_txtThrottleFlags.Flags__Add("DEV MODE ENABLED")
+
+
             Dim l11 As New SIL3.ApplicationSupport.LabelHelper("AMC7812 Flags")
             l11.Layout__AboveRightControl(l10, Me.m_txtThrottleFlags)
             Me.m_txtAMC7812Flags = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l11)
+            Me.m_txtThrottleFlags.Flags__Add("GENERAL")
+            Me.m_txtThrottleFlags.Flags__Add("DAC INDEXING FAULT ")
+            Me.m_txtThrottleFlags.Flags__Add("I2C FAULT")
+
+
 
             Dim l10a As New SIL3.ApplicationSupport.LabelHelper("Throtte State")
             l10a.Layout__BelowControl(Me.m_txtThrottleFlags)
-            Me.m_txtState = New ApplicationSupport.TextBoxHelper_StateDisplay(200, l10a)
+            Me.m_txtThrottleState = New ApplicationSupport.TextBoxHelper_StateDisplay(200, l10a)
 
             'add the states
-            Me.m_txtState.States__Add("THROTTLE_STATE__IDLE")
-            Me.m_txtState.States__Add("THROTTLE_STATE__RUN")
-            Me.m_txtState.States__Add("THROTTLE_STATE__STEP")
-            Me.m_txtState.States__Add("THROTTLE_STATE__RAMP_UP")
-            Me.m_txtState.States__Add("THROTTLE_STATE__RAMP_DOWN")
-            Me.m_txtState.States__Add("THROTTLE_STATE__INC_INDEX")
-            Me.m_txtState.States__Add("THROTTLE_STATE__ERROR")
+            Me.m_txtThrottleState.States__Add("THROTTLE_STATE__IDLE")
+            Me.m_txtThrottleState.States__Add("THROTTLE_STATE__RUN")
+            Me.m_txtThrottleState.States__Add("THROTTLE_STATE__STEP")
+            Me.m_txtThrottleState.States__Add("THROTTLE_STATE__RAMP_UP")
+            Me.m_txtThrottleState.States__Add("THROTTLE_STATE__RAMP_DOWN")
+            Me.m_txtThrottleState.States__Add("THROTTLE_STATE__INC_INDEX")
+            Me.m_txtThrottleState.States__Add("THROTTLE_STATE__ERROR")
 
             Dim l10b As New SIL3.ApplicationSupport.LabelHelper("Run Index")
-            l10b.Layout__AboveRightControl(l10a, Me.m_txtState)
+            l10b.Layout__AboveRightControl(l10a, Me.m_txtThrottleState)
             Me.m_txtIndex = New ApplicationSupport.TextBoxHelper(100, l10b)
 
+            Dim l10c As New SIL3.ApplicationSupport.LabelHelper("AMC7812 State")
+            l10c.Layout__AboveRightControl(l10b, Me.m_txtIndex)
+            Me.m_txtAMC7812State = New ApplicationSupport.TextBoxHelper_StateDisplay(200, l10c)
+
+            'add the AMC7812 states
+            Me.m_txtAMC7812State.States__Add("AMC7812_STATE__RESET")
+            Me.m_txtAMC7812State.States__Add("AMC7812_STATE__CONFIGURE_DAC")
+            Me.m_txtAMC7812State.States__Add("AMC7812_STATE__IDLE")
+            Me.m_txtAMC7812State.States__Add("AMC7812_STATE__UPDATE_DAC")
+            Me.m_txtAMC7812State.States__Add("AMC7812_STATE__FAULT")
 
             Dim la(C_NUM__THROTTLES) As SIL3.ApplicationSupport.LabelHelper
 
             For iCounter As Integer = 0 To C_NUM__THROTTLES - 1
                 la(iCounter) = New SIL3.ApplicationSupport.LabelHelper("Requested RPM:" & iCounter.ToString)
                 If iCounter = 0 Then
-                    la(iCounter).Layout__BelowControl(Me.m_txtState)
+                    la(iCounter).Layout__BelowControl(Me.m_txtThrottleState)
                 Else
                     la(iCounter).Layout__AboveRightControl(la(iCounter - 1), Me.m_txtReqRPM(iCounter - 1))
                 End If
@@ -267,22 +289,25 @@
         ''' <param name="s"></param>
         ''' <param name="e"></param>
         Private Sub btnStreamOn__Click(s As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+            Dim pSB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
+
+            If pSB.Text = "Stream On" Then
+                pSB.Text = "Stream Off"
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__STREAMING_CONTROL,
                                                  1, SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_THROTTLE__TX_DATA, 0, 0)
-        End Sub
-
-
-        ''' <summary>
-        ''' Switch off streaming
-        ''' </summary>
-        ''' <param name="s"></param>
-        ''' <param name="e"></param>
-        Private Sub btnStreamOff__Clock(s As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+            Else
+                pSB.Text = "Stream On"
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__STREAMING_CONTROL,
-                                                 0, 0, 0, 0)
+                                                 0, SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_THROTTLE__TX_DATA, 0, 0)
+
+            End If
+
         End Sub
+
+
+
 
         ''' <summary>
         ''' Request one packet
