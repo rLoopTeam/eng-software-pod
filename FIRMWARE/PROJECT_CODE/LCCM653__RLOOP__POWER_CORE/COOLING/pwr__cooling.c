@@ -1,16 +1,131 @@
+/**
+ * @NOTE
+ * http://confluence.rloop.org/display/SD/8.+Control+Cooling+System
+ * http://confluence.rloop.org/display/SD/Thermal
+ * http://confluence.rloop.org/display/SD/7.+Control+Hover+Engines
+ */
+
 #include "../power_core.h"
+
+extern struct _strPWRNODE sPWRNODE;
 
 #if C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS == 1U
 
 void vPWR_COOLING__Init(void)
 {
+	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 4U); 		//Brake
+	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 8U); 		//Hover Engine Pair #1
+	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 16U);		//Hover Engine Pair #2
+	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 22U);		//Hover Engine Pair #3
+	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 23U);		//Hover Engine Pair #4
 
+	//Init Cooling System
+	vPWR_COOLING_EDDY__Init();
+	vPWR_COOLING_HOVER__Init();
 }
 
 
 void vPWR_COOLING__Process(void)
 {
+	//main state machine
+	switch(sPWRNODE.sCooling.eMainState)
+	{
+	case COOLING_STATE__RESET:
+		//do nothing here
+		break;
+	case COOLING_STATE__IDLE:
+		//in this state we are only getting to here once we have been enabled
+		sPWRNODE.sCooling.eMainState = COOLING_STATE__CHECK_TEMPERATURES;
+		break;
+	case COOLING_STATE__CHECK_TEMPERATURES:
+		//TODO check temperatures
+		//UPDATE Cooling System Status
+			//COOLING_STATE__NORMAL,
+			//COOLING_STATE__WARNING,
+			//COOLING_STATE__CRITICAL,
+			//COOLING_STATE__CONTINUOUS
+		sPWRNODE.sCooling.eMainState = COOLING_STATE__PROCESS_TEMPERATURES;
+		break;
+	case COOLING_STATE__PROCESS_TEMPERATURES:
+		//Process Cooling System
+		vPWR_COOLING_EDDY__Process();		//TODO need switch case statement in process function to handle NORMAL, WANRING, CRITICAL, CONTINUOUS statuses
+		vPWR_COOLING_HOVER__Process();		//TODO need switch case statement in process function to handle NORMAL, WANRING, CRITICAL, CONTINUOUS statuses
+		sPWRNODE.sCooling.eMainState = COOLING_STATE__CHECK_TEMPERATURES;
+		break;
+	case COOLING_STATE__FAULT:
+		//stay here in fault
+		vPWR_COOLING__Solennoid_TurnAllOff();
+		break;
+	default:
+		//do nothing
+		break;
 
+	}//switch(sPWRNODE.sCooling.eMainState)
+}
+
+/***************************************************************************//**
+ * @brief
+ * Set Solenoid ON
+ *
+ * @param[in]	N2HET Pin Index
+ * @st_funcMD5
+ * @st_funcID
+ */
+void vPWR_COOLING__Solennoid_TurnOn(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32PinNumber)
+{
+	vRM4_N2HET_PINS__Set_PinHigh(eChannel, u32PinNumber);
+}
+
+/***************************************************************************//**
+ * @brief
+ * Set Solenoid OFF
+ *
+ * @param[in]		N2HET Pin Index
+ * @st_funcMD5
+ * @st_funcID
+ */
+void vPWR_COOLING__Solennoid_TurnOff(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32PinNumber)
+{
+	vRM4_N2HET_PINS__Set_PinLow(eChannel, u32PinNumber);
+}
+
+/***************************************************************************//**
+ * @brief
+ * Set ALL Solenoid OFF
+ *
+ * @param[in]
+ * @st_funcMD5
+ * @st_funcID
+ */
+void vPWR_COOLING__Solennoid_TurnAllOff(void)
+{
+	vRM4_N2HET_PINS__Set_PinLow(N2HET_CHANNEL__1, 4U);
+	vRM4_N2HET_PINS__Set_PinLow(N2HET_CHANNEL__1, 8U);
+	vRM4_N2HET_PINS__Set_PinLow(N2HET_CHANNEL__1, 16U);
+	vRM4_N2HET_PINS__Set_PinLow(N2HET_CHANNEL__1, 22U);
+	vRM4_N2HET_PINS__Set_PinLow(N2HET_CHANNEL__1, 23U);
+}
+
+//to be called from GS to enable the repress system as its dangerous
+void vPWR_COOLING__Enable(Luint32 u32Value)
+{
+	if(u32Value == 1U)
+	{
+		//go from reset to idle.
+		sPWRNODE.sCooling.eMainState = COOLING_STATE__IDLE;
+	}
+	else
+	{
+		//off
+		sPWRNODE.sCooling.eMainState = COOLING_STATE__IDLE;
+	}
+
+}
+
+//100ms interrupt
+void vPWR_COOLING__100MS_ISR(void)
+{
+	sPWRNODE.sCooling.u32100MS_Count++;
 }
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS

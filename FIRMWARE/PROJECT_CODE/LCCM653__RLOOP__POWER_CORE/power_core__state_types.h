@@ -29,6 +29,25 @@
 
 	}E_PWRNODE__REPRESS_T;
 
+	/** Cooling system */
+	typedef enum
+	{
+		/** Do nothing */
+		COOLING_STATE__RESET = 0U,
+
+		/** Idle Phase, once we have been enabled */
+		COOLING_STATE__IDLE,
+
+		/** Check the thermocouple temperature */
+		COOLING_STATE__CHECK_TEMPERATURES,
+
+		/** Process the temperature */
+		COOLING_STATE__PROCESS_TEMPERATURES,
+
+		/** Fault condition */
+		COOLING_STATE__FAULT
+	}E_PWRNODE__COOLING_T;
+
 
 	/** Solenoid State */
 	typedef enum
@@ -73,7 +92,6 @@
 			BATT_TEMP_STATE__RUN
 
 		}E_BATT_TEMP__STATE_T;
-
 
 		/** Networking States*/
 		typedef enum
