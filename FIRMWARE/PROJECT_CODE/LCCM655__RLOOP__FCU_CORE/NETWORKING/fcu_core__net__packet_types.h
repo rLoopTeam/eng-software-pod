@@ -232,6 +232,9 @@
 		/** Power node personality */
 		NET_PKT__PWR_GEN__POWER_PERSONALITY = 0x3031U,
 
+		/** Power node repress system */
+		NET_PKT__PWR_GEN__PV_REPRESS = 0x3040U,
+
 		//////////////////////////////////////////////////////
 		//POWER: TEMPERATURE SYSTEM (0x3200)
 		//////////////////////////////////////////////////////

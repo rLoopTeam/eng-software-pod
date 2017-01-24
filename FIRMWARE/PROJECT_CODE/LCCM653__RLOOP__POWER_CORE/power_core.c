@@ -289,6 +289,20 @@ void vPWRNODE__Process(void)
 			vRM4_ADC_USER__StartConversion();
 
 			//move state
+			sPWRNODE.sInit.eState = INIT_STATE__START_LOW_SYSTEM;
+			break;
+
+		case INIT_STATE__START_LOW_SYSTEM:
+
+			#if C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS == 1U
+				vPWR_PVPRESS__Init();
+			#endif
+
+			#if C_LOCALDEF__LCCM653__ENABLE_COOLING == 1U
+				vPWR_COOLING__Init();
+			#endif
+
+			//move state
 			sPWRNODE.sInit.eState = INIT_STATE__RUN;
 			break;
 
@@ -341,6 +355,14 @@ void vPWRNODE__Process(void)
 				vPWRNODE_NODEPRESS__Process();
 			#endif
 
+			#if C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS == 1U
+				vPWR_PVPRESS__Process();
+			#endif
+
+			#if C_LOCALDEF__LCCM653__ENABLE_COOLING == 1U
+				vPWR_COOLING__Process();
+			#endif
+
 			//process the main state machine
 			vPWRNODE_SM__Process();
 
@@ -387,6 +409,10 @@ void vPWRNODE__RTI_100MS_ISR(void)
 	#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
 		//tell the DC/DC converter about us for pod safe command.
 		vPWRNODE_DC__100MS_ISR();
+	#endif
+
+	#if C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS == 1U
+		vPWR_PVPRESS__100MS_ISR();
 	#endif
 
 }

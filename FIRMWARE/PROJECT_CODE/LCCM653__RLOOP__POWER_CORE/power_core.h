@@ -259,6 +259,21 @@
 
 			#endif
 
+			/** PV Repress System */
+			struct
+			{
+
+				/** Repress state machine */
+				E_PWRNODE__REPRESS_T eState;
+
+				/** The solenoid state */
+				E_PWRNODE_REPRESS_SOL_STATE eSolState;
+
+				/** Count of 100ms */
+				Luint32 u32100MS_Count;
+
+			}sRePress;
+
 			//lower structure guarding
 			Luint32 u32Guard2;
 
@@ -397,6 +412,8 @@
 		//PV repress system
 		void vPWR_PVPRESS__Init(void);
 		void vPWR_PVPRESS__Process(void);
+		void vPWR_PVPRESS__100MS_ISR(void);
+		void vPWR_PVPRESS__Enable(Luint32 u32Value);
 
 		//cooling system
 		void vPWR_COOLING__Init(void);

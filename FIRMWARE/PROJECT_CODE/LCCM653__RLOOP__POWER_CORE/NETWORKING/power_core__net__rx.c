@@ -207,6 +207,12 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 				}
 				break;
 
+			case NET_PKT__PWR_GEN__PV_REPRESS:
+				#if C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS == 1U
+					vPWR_PVPRESS__Enable(u32Block[0]);
+				#endif
+				break;
+
 			case NET_PKT__PWR_GEN__POWER_PERSONALITY:
 
 				//personality key

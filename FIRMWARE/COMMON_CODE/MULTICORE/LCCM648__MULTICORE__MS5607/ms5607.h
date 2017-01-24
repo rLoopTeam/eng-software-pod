@@ -145,6 +145,7 @@
 		*******************************************************************************/
         void vMS5607__Init(void);
         void vMS5607__Process(void);
+        Luint8 u8MS5607__Get_IsFault(void);
 
         void vMS5607__GetCalibrationData(void);
 

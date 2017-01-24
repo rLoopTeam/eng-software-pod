@@ -893,7 +893,20 @@
 			void vFCU_FCTL_TRACKDB__Init(void);
 			void vFCU_FCTL_TRACKDB__Process(void);
 			void vFCU_FCTL_TRACKDB__Set_CurrentDB(Luint32 u32Key, Luint32 u32TrackID);
-			DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_CurrentDB(void);
+
+
+				//get functions
+				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_CurrentDB(void);
+				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_TrackID(void);
+				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_TrackStartPosX_mm(void);
+				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_Current_TrackEndPosX_mm(void);
+				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_LRF_StartPosX_mm(void);
+				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_NumStripes(void);
+				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_StripeStartPosX_mm(Luint32 u32StripeIndex);
+				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_EnableLRF(void);
+				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_EnableAccels(void);
+				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_EnableContrast(void);
+				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_GetFooter(void);
 
 				//mem
 				void vFCU_FCTL_TRACKDB_MEM__Init(void);

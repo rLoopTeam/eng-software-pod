@@ -106,15 +106,65 @@ void vFCU_FCTL_TRACKDB__Set_CurrentDB(Luint32 u32Key, Luint32 u32TrackID)
 	}
 }
 
+//the current EEPROM config of the track database
 Luint32 u32FCU_FCTL_TRACKDB__Get_CurrentDB(void)
 {
 	return sFCU.sFlightControl.sTrackDB.u32CurrentDB;
 
 }
 
+//the track ID stored with each entry, should match current DB
+Luint32 u32FCU_FCTL_TRACKDB__Get_TrackID(void)
+{
+	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8TrackID[0]);
+}
+
+Luint32 u32FCU_FCTL_TRACKDB__Get_TrackStartPosX_mm(void)
+{
+	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8TrackBeginningXPosition_mm[0]);
+}
+
 Luint32 u32FCU_FCTL_TRACKDB__Get_Current_TrackEndPosX_mm(void)
 {
 	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8TrackEndXPosition_mm[0]);
+}
+
+Luint32 u32FCU_FCTL_TRACKDB__Get_LRF_StartPosX_mm(void)
+{
+	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8LRFAreaBeginningXPosition_mm[0]);
+}
+
+Luint32 u32FCU_FCTL_TRACKDB__Get_NumStripes(void)
+{
+	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8NumberOfStripes[0]);
+}
+
+Luint32 u32FCU_FCTL_TRACKDB__Get_StripeStartPosX_mm(Luint32 u32StripeIndex)
+{
+	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8StripeBeginningXPosition_mm[u32StripeIndex][0]);
+}
+
+//enable LRF for track
+Luint32 u32FCU_FCTL_TRACKDB__Get_EnableLRF(void)
+{
+	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8EnableLRF[0]);
+}
+
+//enable accels for track DB
+Luint32 u32FCU_FCTL_TRACKDB__Get_EnableAccels(void)
+{
+	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8EnableAccels[0]);
+}
+
+Luint32 u32FCU_FCTL_TRACKDB__Get_EnableContrast(void)
+{
+	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8EnableContrast[0]);
+}
+
+//get the footer, a really easy way of checking if things are good
+Luint32 u32FCU_FCTL_TRACKDB__Get_GetFooter(void)
+{
+	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8Footer[0]);
 }
 
 
