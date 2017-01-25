@@ -296,10 +296,10 @@
 		//////////////////////////////////////////////////////
 		//POWER: CURRENT SENSOR (0x3800)
 		//////////////////////////////////////////////////////
-		/** Request a Cooling System packet */
+		/** Request a Current Reading packet */
 		NET_PKT__PWR_CURRENT__REQ_CURRENT = 0x3800U,
 
-		/** Send COOLING status */
+		/** Send Current Reading */
 		NET_PKT__PWR_CURRENT__TX_CURRENT_STATUS = 0x3801U,
 
 		//////////////////////////////////////////////////////
