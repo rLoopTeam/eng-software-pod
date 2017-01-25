@@ -1225,6 +1225,21 @@ STEP MOTOR DRIVER
 
 	#endif
 
+
+/*******************************************************************************
+SOFTWARE I2C LIBRARY
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
+
+		/** I2C Freq*/
+		#define C_LOCALDEF__LCCM668__I2C_FREQ_H								(100000U)
+
+		/** Main include file */
+		#include <MULTICORE/LCCM668__MULTICORE__SOFT_I2C/soft_i2c.h>
+
+	#endif //#if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
+
 /*******************************************************************************
 MMA8451 - 3 AXIS ACCELEROMETER
 *******************************************************************************/
@@ -1236,7 +1251,11 @@ MMA8451 - 3 AXIS ACCELEROMETER
 		//Define the number of MMA8451's that are on the I2C Chain (MAX = 2)
 		//Limit if 2 is due to addx pin limit
 		//for 4 devices, two chains will be used, the second for device 2,3
+#if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
+		#define C_LOCALDEF__LCCM418__NUM_DEVICES							(1U)
+#else
 		#define C_LOCALDEF__LCCM418__NUM_DEVICES							(2U)
+#endif
 
 		#define C_LOCALDEF__LCCM418__DELAY_US(x)							vRM4_DELAYS__Delay_uS(x)
 
@@ -1276,12 +1295,19 @@ MMA8451 - 3 AXIS ACCELEROMETER
 		#define C_LOCALDEF__LCCM418__USER_AVERAGE_MAX_SAMPLES				(0U)
 		#define C_LOCALDEF__LCCM418__ROC_AVERAGE_MAX_SAMPLES				(0U)
 
+#if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
 		//define the data rate required
 		//Valid Values are: 800, 400, 200, 100, 50, 12, 6, 1
+		#define C_LOCALDEF__LCCM418__DEV0__DATA_RATE_HZ						(12U)
+		#define C_LOCALDEF__LCCM418__DEV1__DATA_RATE_HZ						(12U)
+		#define C_LOCALDEF__LCCM418__DEV2__DATA_RATE_HZ						(50U)
+		#define C_LOCALDEF__LCCM418__DEV3__DATA_RATE_HZ						(50U)
+#else
 		#define C_LOCALDEF__LCCM418__DEV0__DATA_RATE_HZ						(100U)
 		#define C_LOCALDEF__LCCM418__DEV1__DATA_RATE_HZ						(100U)
 		#define C_LOCALDEF__LCCM418__DEV2__DATA_RATE_HZ						(50U)
 		#define C_LOCALDEF__LCCM418__DEV3__DATA_RATE_HZ						(50U)
+#endif
 
 #if 0
 		//The parameter indexes
@@ -1301,7 +1327,16 @@ MMA8451 - 3 AXIS ACCELEROMETER
 		#define C_LOCALDEF__LCCM418__PARAM_INDEX__U16_CRC					(33U)
 #endif //0
 
+#if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
 		//I2C PORT DETAILS
+		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16SOFT_I2C_USER__TxByte(device, reg, byt)
+		#define C_LOCALDEF__LCCM418__I2C0_RX_BYTE(device, reg, ptrByte)			s16SOFT_I2C_USER__RxByte(device, reg, ptrByte)
+		#define C_LOCALDEF__LCCM418__I2C0_RX_ARRAY(device, reg, pArray, len) 	s16SOFT_I2C_USER__RxByteArray(device, reg, pArray, len)
+
+		#define C_LOCALDEF__LCCM418__I2C1_TX_BYTE(device, reg, byt) 			s16SOFT_I2C_USER__TxByte(device, reg, byt)
+		#define C_LOCALDEF__LCCM418__I2C1_RX_BYTE(device, reg, ptrByte)			s16SOFT_I2C_USER__RxByte(device, reg, ptrByte)
+		#define C_LOCALDEF__LCCM418__I2C1_RX_ARRAY(device, reg, pArray, len) 	s16SOFT_I2C_USER__RxByteArray(device, reg, pArray, len)
+#else
 		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__TxByte(device, reg, byt)
 		#define C_LOCALDEF__LCCM418__I2C0_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__RxByte(device, reg, ptrByte)
 		#define C_LOCALDEF__LCCM418__I2C0_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__RxByteArray(device, reg, pArray, len)
@@ -1309,7 +1344,7 @@ MMA8451 - 3 AXIS ACCELEROMETER
 		#define C_LOCALDEF__LCCM418__I2C1_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__TxByte(device, reg, byt)
 		#define C_LOCALDEF__LCCM418__I2C1_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__RxByte(device, reg, ptrByte)
 		#define C_LOCALDEF__LCCM418__I2C1_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__RxByteArray(device, reg, pArray, len)
-
+#endif
 		//main include file
 		#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8451.h>
 	#endif //C_LOCALDEF__LCCM418__ENABLE_THIS_MODULE
