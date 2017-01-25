@@ -126,14 +126,19 @@ void vDS18B20__Process(void)
 			 */
 
 			//configure the resolution
-			s16Return = s16DS18B20_TEMP__Set_Resolution(sDS18B20.u16MainStateCounter, C_LOCALDEF__LCCM644__RESOLUTION_SETTING);
-			if(s16Return >= 0)
+			if(sDS18B20.sDevice[sDS18B20.u16MainStateCounter].u8SerialNumber[0] != 0x3B) //Thermocouples don't have resolution settings
 			{
-				//res was set good.
-			}
-			else
-			{
-				//some error
+				s16Return = s16DS18B20_TEMP__Set_Resolution(sDS18B20.u16MainStateCounter, C_LOCALDEF__LCCM644__RESOLUTION_SETTING);
+				if(s16Return >= 0)
+				{
+					//res was set good.
+				}
+				else
+				{
+					//some error
+				}
+			}else{
+				//Do nothing
 			}
 
 
@@ -150,23 +155,39 @@ void vDS18B20__Process(void)
 			}
 			break;
 
-		case DS18B20_STATE__READ_RESOLUTION:
+		case DS18B20_STATE__READ_RESOLUTION: //And User ID
 			//once we have searched and we have a valid search array, we need to configure
 			//the devices onboard resolution before we can start converting.
 
-
-			//configure the resolution
-			s16Return = s16DS18B20_TEMP__Get_Resolution(sDS18B20.u16MainStateCounter, &sDS18B20.sDevice[sDS18B20.u16MainStateCounter].u8Resolution);
-			if(s16Return >= 0)
+			if(sDS18B20.sDevice[sDS18B20.u16MainStateCounter].u8SerialNumber[0] != 0x3B) //Thermocouples don't have resolution settings
 			{
-				//res get was set good.
+				//configure the resolution
+				s16Return = s16DS18B20_TEMP__Get_Resolution(sDS18B20.u16MainStateCounter, &sDS18B20.sDevice[sDS18B20.u16MainStateCounter].u8Resolution);
+				if(s16Return >= 0)
+				{
+					//res get was set good.
 
-				//todo: compare with what we were expecting.
+					//todo: compare with what we were expecting.
 
-			}
-			else
-			{
-				//some error
+				}
+				else
+				{
+					//some error
+				}
+			}else{
+				//configure the resolution
+				s16Return = s16DS18B20_TEMP__Get_UserID(sDS18B20.u16MainStateCounter);
+				if(s16Return >= 0)
+				{
+					//res get was set good.
+
+					//todo: compare with what we were expecting.
+
+				}
+				else
+				{
+					//some error
+				}
 			}
 
 
