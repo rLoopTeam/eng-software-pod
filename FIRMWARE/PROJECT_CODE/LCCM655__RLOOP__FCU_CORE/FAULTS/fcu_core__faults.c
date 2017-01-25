@@ -55,6 +55,7 @@ void vFCU_FAULTS__Process(void)
 	//check the subsystem layers for faults.
 
 	//accel subsystem
+#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 	if(sFCU.sAccel.sFaultFlags.u8FaultFlag == 1U)
 	{
 		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__00);
@@ -63,6 +64,7 @@ void vFCU_FAULTS__Process(void)
 	{
 		//fall on
 	}
+#endif
 
 	//ASI Subsystem
 	if(sFCU.sASI.sFaultFlags.u8FaultFlag == 1U)

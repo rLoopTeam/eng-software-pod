@@ -228,6 +228,15 @@ void vFCU__Process(void)
 			//I2C Channel
 			#if C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE == 1U
 				vRM4_I2C_USER__Init();
+/*
+				vRM4_I2C_PINS__Set_SCL_Tris(0);
+				vRM4_I2C_PINS__Set_SCL_Latch(1);
+				vRM4_I2C_PINS__Set_SCL_Latch(0);
+
+				vRM4_I2C_PINS__Set_SDA_Tris(0);
+				vRM4_I2C_PINS__Set_SDA_Latch(1);
+				vRM4_I2C_PINS__Set_SDA_Latch(0);
+*/
 			#endif
 
 #endif //win32
