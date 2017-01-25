@@ -55,10 +55,10 @@
 			struct
 			{
 				/** The hover engines state machine */
-				E_FCU__HOVERENGINES__STATES_T eState;
+				E_FCU__HOVERENGINES_STATES_T eState;
 
 				/** The hover engines input commands from GS */
-				E_GS_COMMANDS eGSCommands;
+				E_FCU__HOVERENGINES_GS_COMM eGSCommands;
 
 				/** The hover engines command values from GS */
 				Luint32 u32CommandValues;

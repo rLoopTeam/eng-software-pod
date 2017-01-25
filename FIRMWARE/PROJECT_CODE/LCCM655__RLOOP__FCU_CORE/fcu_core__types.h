@@ -2,6 +2,14 @@
 #ifndef RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__TYPES_H_
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__TYPES_H_
 
+	/** Enum for the Control Hover Engines state machine */
+	typedef enum {
+		HOVERENGINES_STATE__IDLE,
+		HOVERENGINES_STATE__ENABLE_1ST_GROUP,
+		HOVERENGINES_STATE__ENABLE_2ND_GROUP,
+		HOVERENGINES_STATE__HOVERING
+	} E_FCU__HOVERENGINES_STATES_T;
+
 	/** Throttle control types */
 	typedef enum
 	{

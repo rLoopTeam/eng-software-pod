@@ -25,11 +25,11 @@ extern struct _strFCU sFCU;
 
 //TODO: need the following function implemented
 
-//u32FCU_FLIGHTCTL_NAV__PodSpeed();
-//u32FCU_FLIGHTCTL_NAV__GetFrontPos();
-//u32FCU_FLIGHTCTL_NAV__GetRearPos();
-//u32FCU_FLIGHTCTL_NAV__PodSpeed();
-//s16FCU_FLIGHTCTL_LASERORIENT__Get_Z_Pos()
+//u32FCU_FCTL_NAV__PodSpeed();
+//u32FCU_FCTL_NAV__GetFrontPos();
+//u32FCU_FCTL_NAV__GetRearPos();
+//u32FCU_FCTL_NAV__PodSpeed();
+//s16FCU_FCTL_LASERORIENT__Get_Z_Pos()
 //u32LandingGearMLPLeftAftValue = u32FCU_LGU__Get_MLP_Value(Luint8 u8Counter);
 
 /***************************************************************************//**
@@ -121,7 +121,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 			//finally init the flight controller
 			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
-				vFCU_FLIGHTCTL__Init();
+				vFCU_FCTL__Init();
 			#endif
 
 			//start the LGU interface
@@ -161,7 +161,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 
 			//Get Pod Speed
-			u32PodSpeed = u32FCU_FLIGHTCTL_NAV__PodSpeed();
+			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 
 			if (u8TestsSuccesful == 1U && sFCU.sStateMachine.sOpStates.u8Lifted && (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY))
 			{
@@ -209,7 +209,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			//transition to FLIGHT mode if the pod has reached the min_x_pos AND 1 second elapsed from the disconnection from the pusher
 
 			u8PusherState = u8FCU_PUSHER__Get_PusherState();
-			u32PodRearPos = u32FCU_FLIGHTCTL_NAV__GetRearPos();
+			u32PodRearPos = u32FCU_FCTL_NAV__GetRearPos();
 
 
 			if(u8PusherState == 0U)
@@ -244,10 +244,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 			//this is the flight mode controller
 
 			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
-				vFCU_FLIGHTCTL__Process();
+				vFCU_FCTL__Process();
 			#endif
 
-			u32PodSpeed = u32FCU_FLIGHTCTL_NAV__PodSpeed();
+			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 
 			if(u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
 
@@ -268,7 +268,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		case MISSION_PHASE__POST_RUN:
 			//post run state
 
-			u32PodSpeed = u32FCU_FLIGHTCTL_NAV__PodSpeed();
+			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 			//void vFCU_FCTL_MAINSM__EnterPreRun_Phase(Luint32 u32Key);
 
 			if((u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && (sFCU.sStateMachine.eGSCommands == MAINSM_GS_ENTER_PRE_RUN_PHASE))
@@ -352,6 +352,11 @@ void vFCU_FCTL_MAINSM__Process(void)
 			vFCU_LGU__Process();
 		#endif
 
+		//Start the Hover Engine Control
+		#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
+			vFCU_FCTL_HOVERENGINES__Process();
+		#endif
+
 		//TODO: NOT MENTIONED ANYWHERE ELSE
 		//process auto-sequence control
 		vFCU_FCTL_MAINSM_AUTO__Process();
@@ -409,7 +414,7 @@ void vFCU_FCTL_MAINSM__CheckIfUnlifted(void)
 
 	//Determine if Lifted
 
-	Luint32 u32PodZPos = s32FCU_FLIGHTCTL_LASERORIENT__Get_Z_Pos();
+	Luint32 u32PodZPos = s32FCU_FCTL_LASERORIENT__Get_Z_Pos();
 
 	if(u32PodZPos < C_FCU__LASERORIENT_MAX_UNLIFTED_HEIGHT)
 	{
@@ -425,7 +430,7 @@ void vFCU_FCTL_MAINSM__CheckIfLifted(void)
 {
 	//Determine if Unlifted
 
-	Luint32	u32PodZPos = s32FCU_FLIGHTCTL_LASERORIENT__Get_Z_Pos();
+	Luint32	u32PodZPos = s32FCU_FCTL_LASERORIENT__Get_Z_Pos();
 
 	if(u32PodZPos > C_FCU__LASERORIENT_MIN_LIFTED_HEIGHT)
 	{
@@ -456,9 +461,9 @@ void vFCU_FCTL_MAINSM__CheckIfHoveringStatically(void)
 //	//Determine if Ready for Push
 //
 //	//Get Pod Current Z Position
-//	Luint32 u32PodZPos = s16FCU_FLIGHTCTL_LASERORIENT__Get_Z_Pos();
+//	Luint32 u32PodZPos = s16FCU_FCTL_LASERORIENT__Get_Z_Pos();
 //	//Get Current Pod Speed
-//	Luint32 u32PodSpeed = u32FCU_FLIGHTCTL_NAV__PodSpeed();
+//	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 //
 //	//Get values on checking the conditions for Pusher Interlock
 //	//Get Pusher Interlock Switch 1 Status
@@ -467,7 +472,7 @@ void vFCU_FCTL_MAINSM__CheckIfHoveringStatically(void)
 //	Luint8 u8PusherSwitch2 = u8FCU_PUSHER__Get_Switch(1);
 //
 //	//Check if we are connected to the pusher, speed is below standby, the height makes sense to be pushed + each of our landing gear units is retracted
-//	if((u32PodZPos > C_FCU_LASERORIENT_MIN_RUN_MODE_HEIGHT) &&  (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && 	(u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U) && (vFCU_FLIGHTCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED))
+//	if((u32PodZPos > C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT) &&  (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && 	(u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U) && (vFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED))
 //	{
 //		sFCU.sStateMachine.sOpStates.u8ReadyForPush = 1U;
 //	}
@@ -484,7 +489,7 @@ void vFCU_FCTL_MAINSM__CheckIfPushing(void)
 	//Get Pusher Interlock Switch 2 Status
 	Luint8 u8PusherSwitch2 = u8FCU_PUSHER__Get_Switch(1);
 	//Get Pod Speed
-	Luint32 u32PodSpeed = u32FCU_FLIGHTCTL_NAV__PodSpeed();
+	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 
 	//Determine if in Pushing State
 	if(u32PodSpeed > C_FCU__NAV_MIN_PUSHER_SPEED && (u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U))
@@ -504,9 +509,9 @@ void vFCU_FCTL_MAINSM__CheckIfPushing(void)
 //	//Get Pusher Interlock Switch 2 Status
 //	Luint8 u8PusherSwitch2 = u8FCU_PUSHER__Get_Switch(1);
 //	//Get Pod Speed
-//	Luint32 u32PodSpeed = u32FCU_FLIGHTCTL_NAV__PodSpeed();
+//	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 //	//
-//	if(u32PodSpeed && (u8PusherSwitch1 == 0U) && (u8PusherSwitch2 == 0U) && (vFCU_FLIGHTCTL_BRAKES__Get_State() == BRAKES_STATE__RETRACTED))
+//	if(u32PodSpeed && (u8PusherSwitch1 == 0U) && (u8PusherSwitch2 == 0U) && (vFCU_FCTL_BRAKES__Get_State() == BRAKES_STATE__RETRACTED))
 //	{
 //		sFCU.sStateMachine.sOpStates.u8Coast = 1U;
 //	}
@@ -518,7 +523,7 @@ void vFCU_FCTL_MAINSM__CheckIfPushing(void)
 //
 //void vFCU_FCTL_MAINSM__CheckIfBraking(void)
 //{
-//	if(vFCU_FLIGHTCTL_BRAKES__Get_State() == BRAKES_STATE__BRAKING)
+//	if(vFCU_FCTL_BRAKES__Get_State() == BRAKES_STATE__BRAKING)
 //	{
 //		sFCU.sStateMachine.sOpStates.u8Braking = 1U;
 //	}
@@ -530,7 +535,7 @@ void vFCU_FCTL_MAINSM__CheckIfPushing(void)
 //
 //void vFCU_FCTL_MAINSM__CheckIfControlledBraking(void)
 //{
-//	if(vFCU_FLIGHTCTL_BRAKES__Get_State() == BRAKES_STATE__CONTROLLED_BRAKING)
+//	if(vFCU_FCTL_BRAKES__Get_State() == BRAKES_STATE__CONTROLLED_BRAKING)
 //	{
 //		sFCU.sStateMachine.sOpStates.u8CtlEmergBraking = 1U;
 //	}

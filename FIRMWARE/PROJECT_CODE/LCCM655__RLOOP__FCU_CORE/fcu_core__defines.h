@@ -81,7 +81,7 @@
 	#define C_FCU__NAV_POD_MIN_X_POS							(500U)//define exact value
 	#define C_FCU__NAV_MAX_UNLIFTED_HEIGHT					(10U) //define exact value
 	#define C_FCU__NAV_PODSPEED_STANDBY						(1U) //define exact value
-	#define C_FCU__NAV_PODSPEED_MAX_SPEED_TO_STABILIZE		(10U) //define exact value
+	#define C_FCU__NAV_PODSPEED_MAX_SPEED_TO_STABILIZE		(1000000U) //define exact value. ATM extra large so that HE never throttle down
 	#define C_FCU__NAV_MIN_PUSHER_SPEED						(10U)//define exact value
 
 	/** State Machine constants */
@@ -100,6 +100,17 @@
 	/** Laser Orientation constants */
 	#define C_FCU__LASERORIENT_MAX_UNLIFTED_HEIGHT			(10U)//define exact value
 	#define C_FCU__LASERORIENT_MIN_LIFTED_HEIGHT				(10U)//define exact value
-	#define C_FCU_LASERORIENT_MIN_RUN_MODE_HEIGHT			(5U)//define exact value
+	#define C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT			(5U)//define exact value
+
+	/** Hover Engines Parameters */
+	#define C_FCU__HE_STATIC_HOVER_RPM                     (2000U)   // hover engine nominal RPM speed
+	#define C_FCU__HE_CRUISE_RPM                           (2000U)   // hover engine cruise RPM speed
+	#define C_FCU__HE_RPM_TOLERANCE                         (500U)   // hover engine maximum allowed RPM speed douring hovering
+	#define C_FCU__HE_MAX_CURRENT                            (10U)   // hover engine maximum allowed current TO BE CHECKED IF EXISTS
+	#define C_FCU__HE_MIN_CURRENT                             (1U)   // hover engine minimum allowed current
+	#define C_FCU__HE_MAX_VOLTAGE                        (100000U)   // VALUE TO BE DEFINED
+	#define C_FCU__HE_MIN_VOLTAGE                             (1U)   // VALUE TO BE DEFINED
+	#define C_FCU__HE_MAX_TEMPERATURE                        (95U)   // critical hover engine temperature
+
 
 #endif /* _FCU_CORE__DEFINES_H_ */

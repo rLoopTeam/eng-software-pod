@@ -7,14 +7,22 @@
 #ifndef RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__ENUMS_H_
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__ENUMS_H_
 
-
-	/** Enum for the Control Hover Engines state machine */
-	typedef enum {
-		HOVERENGINES_STATE__IDLE,
-		HOVERENGINES_STATE__ENABLE_1ST_GROUP,
-		HOVERENGINES_STATE__ENABLE_2ND_GROUP,
-		HOVERENGINES_STATE__HOVERING
-	} E_FCU__HOVERENGINES__STATES_T;
+	/** Ground station commands for the Hover Engines control */
+	typedef enum
+	{
+		HE_CTL_DO_NOTHING = 0U,
+		HE_CTL_STATIC_HOVERING,
+		HE_CTL_RELEASE_STATIC_HOVERING,
+		HE_CTL_M_SET_SPEED_HE1,
+		HE_CTL_M_SET_SPEED_HE2,
+		HE_CTL_M_SET_SPEED_HE3,
+		HE_CTL_M_SET_SPEED_HE4,
+		HE_CTL_M_SET_SPEED_HE5,
+		HE_CTL_M_SET_SPEED_HE6,
+		HE_CTL_M_SET_SPEED_HE7,
+		HE_CTL_M_SET_SPEED_HE8,
+		HE_CTL_M_SET_ALL_HE_SPEED
+	} E_FCU__HOVERENGINES_GS_COMM;
 
 	/** Enum for SpaceX Telemetry */
 	typedef enum
@@ -150,24 +158,6 @@
 		SET_HEX_SPEED,
 		SET_ALL_HE_SPEED
 	} E_GS_COMMANDS;
-
-	/** Flight Control Unit Modes  */
-	// (added by @gsweriduk on 23 NOV 2016)
-	// Obtained on 11 NOV 2016 from FCU Spec http://confluence.rloop.org/display/SD/1.+Determine+Operating+Mode
-
-	typedef enum
-	{
-		STOPPED_UNLIFTED,
-		STOPPED_LIFTED,
-		AUXILIARY_PROPULSION,
-		UNEXPECTED_MOVE_ON_WHEELS,
-		PUSHER_INTERLOCK_MODE,
-		RUN_MODE_FLIGHT,
-		RUN_MODE_STANDBY,
-		RUN_MODE_STOPPED,
-		CONTROLLED_EMERGENCY_BRAKE,
-		FAIL_SAFE_BRAKE
-	} E_FCU_MODES;
 
 	/** State types for the THROTTLE state machine */
 	typedef enum
