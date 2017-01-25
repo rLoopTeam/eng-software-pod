@@ -333,97 +333,120 @@ void vDS18B20_TEMP__Scratch_To_Temp(Luint16 u16SensorIndex, const Luint8 *pu8Scr
 		unT.u8[1U] = pu8Scratch[1U];
 	#endif
 
-	//save off.
-	u16WholeCelcius = unT.u16;
+	if(sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[0] != 0x3BU) //Thermocouples don't have resolution settings
+		{
 
-	//essentially the temp is in 1/16th of a degree for 12 but.
-	switch(sDS18B20.sDevice[u16SensorIndex].u8Resolution)
-	{
-		case 12U:
+		//save off.
+		u16WholeCelcius = unT.u16;
 
-			//clear the undefined bits
-			//none
-			u16WholeCelcius >>= 0U;
+		//essentially the temp is in 1/16th of a degree for 12 but.
+		switch(sDS18B20.sDevice[u16SensorIndex].u8Resolution)
+		{
+			case 12U:
 
-			//check for negative
-			if((unT.u16 & 0x8000U) == 0x8000U)
-			{
-				//two's complement
-				u16WholeCelcius ^= 0xFFFFU;
-				u16WholeCelcius += 1U;
-			}
+				//clear the undefined bits
+				//none
+				u16WholeCelcius >>= 0U;
 
-			unT2.u16 = u16WholeCelcius;
+				//check for negative
+				if((unT.u16 & 0x8000U) == 0x8000U)
+				{
+					//two's complement
+					u16WholeCelcius ^= 0xFFFFU;
+					u16WholeCelcius += 1U;
+				}
 
-			//raw conversion
-			*pf32Temp = (Lfloat32)unT2.s16;
-			*pf32Temp /= 16.0F;
+				unT2.u16 = u16WholeCelcius;
 
-			break;
-		case 11U:
+				//raw conversion
+				*pf32Temp = (Lfloat32)unT2.s16;
+				*pf32Temp /= 16.0F;
 
-			//clear undefined bits
-			u16WholeCelcius >>= 1U;
+				break;
+			case 11U:
 
-			//check for negative
-			if((unT.u16 & 0x8000U) == 0x8000U)
-			{
-				//two's complement
-				u16WholeCelcius ^= 0xFFFFU;
-				u16WholeCelcius += 1U;
-			}
+				//clear undefined bits
+				u16WholeCelcius >>= 1U;
 
-			unT2.u16 = u16WholeCelcius;
+				//check for negative
+				if((unT.u16 & 0x8000U) == 0x8000U)
+				{
+					//two's complement
+					u16WholeCelcius ^= 0xFFFFU;
+					u16WholeCelcius += 1U;
+				}
 
-			//raw conversion
-			*pf32Temp = (Lfloat32)unT2.s16;
-			*pf32Temp /= 8.0F;
-			break;
+				unT2.u16 = u16WholeCelcius;
 
-		case 10U:
-			//clear undefined bits
-			u16WholeCelcius >>= 2U;
+				//raw conversion
+				*pf32Temp = (Lfloat32)unT2.s16;
+				*pf32Temp /= 8.0F;
+				break;
 
-			//check for negative
-			if((unT.u16 & 0x8000U) == 0x8000U)
-			{
-				//two's complement
-				u16WholeCelcius ^= 0xFFFFU;
-				u16WholeCelcius += 1U;
-			}
+			case 10U:
+				//clear undefined bits
+				u16WholeCelcius >>= 2U;
 
-			unT2.u16 = u16WholeCelcius;
+				//check for negative
+				if((unT.u16 & 0x8000U) == 0x8000U)
+				{
+					//two's complement
+					u16WholeCelcius ^= 0xFFFFU;
+					u16WholeCelcius += 1U;
+				}
 
-			//raw conversion
-			*pf32Temp = (Lfloat32)unT2.s16;
-			*pf32Temp /= 4.0F;
-			break;
+				unT2.u16 = u16WholeCelcius;
 
-		case 9U:
-			//clear undefined bits
-			u16WholeCelcius >>= 3U;
+				//raw conversion
+				*pf32Temp = (Lfloat32)unT2.s16;
+				*pf32Temp /= 4.0F;
+				break;
 
-			//check for negative
-			if((unT.u16 & 0x8000U) == 0x8000U)
-			{
-				//two's complement
-				u16WholeCelcius ^= 0xFFFFU;
-				u16WholeCelcius += 1U;
-			}
+			case 9U:
+				//clear undefined bits
+				u16WholeCelcius >>= 3U;
 
-			unT2.u16 = u16WholeCelcius;
+				//check for negative
+				if((unT.u16 & 0x8000U) == 0x8000U)
+				{
+					//two's complement
+					u16WholeCelcius ^= 0xFFFFU;
+					u16WholeCelcius += 1U;
+				}
 
-			//raw conversion
-			*pf32Temp = (Lfloat32)unT2.s16;
-			*pf32Temp /= 2.0F;
-			break;
+				unT2.u16 = u16WholeCelcius;
 
-		default:
-			//set to 128C indicating a problem
-			*pf32Temp = 128.0F;
-			break;
-	}//switch(&sDS18B20.sDevice[u16SensorIndex].u8Resolution)
+				//raw conversion
+				*pf32Temp = (Lfloat32)unT2.s16;
+				*pf32Temp /= 2.0F;
+				break;
 
+			default:
+				//set to 128C indicating a problem
+				*pf32Temp = 128.0F;
+				break;
+		}//switch(&sDS18B20.sDevice[u16SensorIndex].u8Resolution)
+
+	}else{
+		unT.u8[0U] = pu8Scratch[0U];
+		unT.u8[1U] = pu8Scratch[1U];
+
+		//save off.
+		u16WholeCelcius = unT.u16 >> 2;
+
+		//check for negative
+		if((u16WholeCelcius & 0x2000U) == 0x2000U)
+		{
+			//two's complement
+			u16WholeCelcius |= 0xC000;
+		}
+
+		unT2.u16 = u16WholeCelcius;
+
+		//raw conversion
+		*pf32Temp = (Lfloat32)unT2.s16;
+		*pf32Temp /= 4.0F;
+	}
 
 	//noting to return, already updated.
 
@@ -478,6 +501,23 @@ Lint16 s16DS18B20_TEMP__Get_Resolution(Luint16 u16SensorIndex, Luint8 *pu8Resolu
 
 }
 
+Lint16 s16DS18B20_TEMP__Get_UserID(Luint16 u16SensorIndex)
+{
+	/*lint -e934*/
+	//Note 934: Taking address of near auto variable [MISRA 2004 Rule 1.2]
+
+	Lint16 s16Return;
+
+	//read the scratch
+	s16Return = s16DS18B20_SCRATCH__Read(u16SensorIndex, &sDS18B20.u8TempScratch[0]);
+
+	sDS18B20.sDevice[u16SensorIndex].u16UserIndex = sDS18B20.u8TempScratch[4] & 0xF;
+
+
+	return s16Return;
+	/*lint +e934*/
+
+}
 
 /***************************************************************************//**
  * @brief
