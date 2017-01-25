@@ -382,9 +382,9 @@
 		void vPWRNODE_BMS__Balance_Manual(Luint8 u8CellIndex, Luint8 u8Enable);
 		Luint32 u32PWRNODE_BMS__Get_VoltsUpdateCount(void);
 
-			//eth
-			void vPWR_BMS_ETH__Init(void);
-			void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType);
+		//eth
+		void vPWR_BMS_ETH__Init(void);
+		void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
 
 
@@ -461,6 +461,8 @@
 		//cooling eddy subsystem
 		void vPWR_COOLING_EDDY__Init(void);
 		void vPWR_COOLING_EDDY__Process(void);
+		void vPWR_BMS_ETH__Init(void);
+		void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
 #ifdef WIN32
 		void vPWRNODE_WIN32__Init(void);

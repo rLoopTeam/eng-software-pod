@@ -282,6 +282,12 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 				#endif
 				break;
 
+			case NET_PKT__PWR_COOLING__REQ_COOLING:
+				#if C_LOCALDEF__LCCM653__ENABLE_COOLING == 1U
+					sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__PWR_COOLING__TX_COOLING_STATUS;
+				#endif
+				break;
+
 			case NET_PKT__PWR_BMS__REQ_BMS:
 				sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__PWR_BMS__TX_BMS_STATUS;
 				break;
