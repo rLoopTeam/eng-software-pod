@@ -82,7 +82,7 @@ void vFCU_FCTL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 
 				//mission state
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, (Luint16)sFCU.eMissionPhase);
+				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, (Luint16)sFCU.sStateMachine.eMissionPhase);
 				pu8Buffer += 2U;
 
 				//current track database

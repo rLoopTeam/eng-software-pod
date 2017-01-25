@@ -8,6 +8,43 @@
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__ENUMS_H_
 
 
+	/** Enum for the Control Hover Engines state machine */
+	typedef enum {
+		HOVERENGINES_STATE__IDLE,
+		HOVERENGINES_STATE__ENABLE_1ST_GROUP,
+		HOVERENGINES_STATE__ENABLE_2ND_GROUP,
+		HOVERENGINES_STATE__HOVERING
+	} E_FCU__HOVERENGINES__STATES_T;
+
+	/** Enum for SpaceX Telemetry */
+	typedef enum
+	{
+		/** If tests failed */
+		POD_STATUS__FAULT = 0U,
+
+		/** Otherwise */
+		POD_STATUS__IDLE = 1U,
+
+		/** If ready for push */
+		POD_STATUS__READY = 2U,
+
+		/** If pushing */
+		POD_STATUS__PUSHING = 3U,
+
+		/** If coasting */
+		POD_STATUS__COAST = 4U,
+
+		/** If braking */
+		POD_STATUS__BRAKING = 5U
+
+	}E_FCU__POD_STATUS;
+
+	/** Enum for GS commands to State Machine */
+	typedef enum
+	{
+		MAINSM_GS_NO_CMD = 0U,
+		MAINSM_GS_ENTER_PRE_RUN_PHASE = 1U
+	}E_FCU__MAINSM_GS_COMM;
 
 	/** For transmitting to the LGU*/
 	typedef enum

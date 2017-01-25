@@ -347,6 +347,10 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				#endif
 				break;
 
+			case NET_PKT__FCU_GEN__ENTER_PRE_RUN_PHASE_COMMAND:
+					vFCU_FCTL_MAINSM__EnterPreRun_Phase();
+				break;
+
 			default:
 				//do nothing
 				break;

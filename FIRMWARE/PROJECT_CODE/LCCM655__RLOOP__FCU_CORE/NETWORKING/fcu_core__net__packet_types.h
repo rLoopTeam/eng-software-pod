@@ -32,6 +32,9 @@
 		/** Allow us to emulate pod sensor data */
 		NET_PKT__FCU_GEN__POD_EMULATION_CONTROL = 0x0002U,
 
+		/** Request from the host to enter the Pre Run phase from the Post Run phase */
+		NET_PKT__FCU_GEN__ENTER_PRE_RUN_PHASE_COMMAND = 0x0003U,
+
 		/** Switch on or off DAQ streaming */
 		NET_PKT__FCU_GEN__DAQ_ENABLE = 0x00FEU,
 

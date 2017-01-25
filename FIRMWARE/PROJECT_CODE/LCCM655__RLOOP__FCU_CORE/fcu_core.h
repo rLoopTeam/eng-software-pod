@@ -50,10 +50,88 @@
 			/** Structure guard 1*/
 			Luint32 u32Guard1;
 
-			/** The mission phases
-			 * http://confluence.rloop.org/display/SD/1.+Determine+Mission+Phases+and+Operating+States
-			 * */
-			E_FCU__RUN_STATE_T eMissionPhase;
+			/** Hover Engines Control Structure */
+			//#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
+			struct
+			{
+				/** The hover engines state machine */
+				E_FCU__HOVERENGINES__STATES_T eState;
+
+				/** The hover engines input commands from GS */
+				E_GS_COMMANDS eGSCommands;
+
+				/** The hover engines command values from GS */
+				Luint32 u32CommandValues;
+
+
+				/** Internal parameters */
+				struct
+				{
+					Luint8  u8Enable;
+					Luint8  u8RunAuto;
+					Luint8  u8SpeedState;
+					Luint32 u32CurrentRPMValue[8];
+					Luint8  u8TempVar;
+
+				}sIntParams;
+
+			}sHoverEngines;
+			//#endif
+
+			/** State Machine Structure **/
+			struct
+			{
+				/** The mission phases
+				 * http://confluence.rloop.org/display/SD/1.+Determine+Mission+Phases+and+Operating+States
+				 * */
+				E_FCU__MISSION_PHASE_T eMissionPhase;
+
+				/** Counter to count the time elapsed from the disconnection from the pusher **/
+				Luint32 Counter;
+
+				/** Enable Counter counting time elapsed from the disconnection from the pusher **/
+				Luint8 EnableCounter;
+
+				/** Enum for Pod Status for SpaceX telemetry */
+				E_FCU__POD_STATUS ePodStatus;
+
+				/** Enum for GS commands */
+				E_FCU__MAINSM_GS_COMM eGSCommands;
+
+				/** Operating States Structure*/
+				struct
+				{
+					/** Lifted State */
+					Luint8 u8Lifted;
+
+					/** Unlifted State */
+					Luint8 u8Unlifted;
+
+					/** Static Hovering */
+					Luint8 u8StaticHovering;
+
+					/** Gimballing Adjustment State */
+					Luint8 u8GimbAdj;
+
+					/** Ready For Push State */
+					Luint8 u8ReadyForPush;
+
+					/** Pushing State */
+					Luint8 u8Pushing;
+
+					/** Coast State */
+					Luint8 u8Coast;
+
+					/** Braking State */
+					Luint8 u8Braking;
+
+					/** Controlled Emergency State */
+					Luint8 u8CtlEmergBraking;
+
+				}sOpStates;
+
+			}sStateMachine;
+
 
 			/** Auto sequence state machine */
 			E_FCU__AUTO_SEQUENCE_STATE_T eAutoSeqState;

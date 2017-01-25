@@ -468,6 +468,10 @@ void vFCU__RTI_100MS_ISR(void)
 		vFCU_BRAKES__100MS_ISR();
 	#endif
 
+	#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+		vFCU_FCTL_MAINSM__100MS_ISR();
+	#endif
+
 }
 
 

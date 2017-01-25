@@ -62,33 +62,28 @@
 		 * power is first applied to the FCU*/
 		MISSION_PHASE__RESET = 0U,
 
-
 		/** Run the flight computer in startup, do any diagnostics, etc
 		 * Diagnostics here will be on systems that do not involve actuators such as
 		 * memory CRC tests, etc.
 		 * We can stay in startup mode, or startup-fail mode if something is not right here.*/
-		MISSION_PHASE__TEST_PHASE,
+		MISSION_PHASE__TEST,
 
-
-		MISSION_PHASE__PRE_RUN_PHASE,
-
-		MISSION_PHASE__PUSH_INTERLOCK_PHASE,
-
-
-		/** Run the flight computer in flight mode, the flight controller takes care
-		 * of everything until flight finished*/
-		MISSION_PHASE__FLIGHT_MODE,
-
-		/** we have aborted flight, need to cleanup systems, landing gear and safe the pod.
-		 * This mode can also be the flight finished mode. */
-		RUN_STATE__FLIGHT_ABORT,
 		/** In this mode the pod takes care of its functional tests as a terminal countdown.
 		 * Autosequence is entered by the GS and once Autosequence tests are complete we
 		 * move to flight mode. */
-		MISSION_PHASE__AUTO_SEQUENCE_MODE,
+		MISSION_PHASE__PRE_RUN,
 
+		MISSION_PHASE__PUSHER_INTERLOCK,
 
-	}E_FCU__RUN_STATE_T;
+		/** Run the flight computer in flight mode, the flight controller takes care
+		 * of everything until flight finished*/
+		MISSION_PHASE__FLIGHT,
+
+		/** we have aborted flight, need to cleanup systems, landing gear and safe the pod.
+		 * This mode can also be the flight finished mode. */
+		MISSION_PHASE__POST_RUN,
+
+	}E_FCU__MISSION_PHASE_T;
 
 
 	/** Auto sequence functional mode cheks */
