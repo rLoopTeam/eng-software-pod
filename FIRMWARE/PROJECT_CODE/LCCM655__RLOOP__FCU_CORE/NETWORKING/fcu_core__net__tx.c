@@ -37,7 +37,7 @@ void vFCU_NET_TX__Init(void)
 
 	//set our default packet types
 	sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
-	sFCU.sUDPDiag.eTxStreamingType = NET_PKT__NONE;
+	sFCU.sUDPDiag.eTxStreamingType = NET_PKT__FCU_GEN__TX_ROUND_ROBBIN;
 
 	#if C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY == 1U
 		vFCU_NET_SPACEX_TX__Init();
@@ -103,6 +103,46 @@ void vFCU_NET_TX__Process(void)
 		//no streaming, but just harmlessly set the tx type incase it was
 		//requested by the host
 		eType = sFCU.sUDPDiag.eTxPacketType;
+	}
+
+
+	//if round robbin is enabled we look at the last type we streamed and
+	//tx the next type in the list
+	if(eType == NET_PKT__FCU_GEN__TX_ROUND_ROBBIN)
+	{
+		switch(sFCU.sUDPDiag.eTxStreamingRoundRobbinLast){
+			case NET_PKT__FCU_GEN__TX_MISSION_DATA:
+				eType = NET_PKT__FCU_ACCEL__TX_FULL_DATA;
+				break;
+			case NET_PKT__FCU_ACCEL__TX_FULL_DATA:
+				eType = NET_PKT__LASER_OPTO__TX_LASER_DATA;
+				break;
+			case NET_PKT__LASER_OPTO__TX_LASER_DATA:
+				eType = NET_PKT__LASER_DIST__TX_LASER_DATA;
+				break;
+			case NET_PKT__LASER_DIST__TX_LASER_DATA:
+				eType = NET_PKT__LASER_CONT__TX_LASER_DATA_0;
+				break;
+			case NET_PKT__LASER_CONT__TX_LASER_DATA_0:
+				eType = NET_PKT__FCU_NAV__TX_NAV_PROGRESS;
+				break;
+			case NET_PKT__FCU_NAV__TX_NAV_PROGRESS:
+				eType = NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM;
+				break;
+			case NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM:
+				eType = NET_PKT__FCU_THROTTLE__TX_DATA;
+				break;
+			case NET_PKT__FCU_THROTTLE__TX_DATA:
+				eType = NET_PKT__FCU_ASI__TX_PUSHER_DATA;
+				break;
+			case NET_PKT__FCU_ASI__TX_PUSHER_DATA:
+				eType = NET_PKT__FCU_GEN__TX_MISSION_DATA;
+				break;
+			default:
+				eType = NET_PKT__FCU_GEN__TX_MISSION_DATA;
+				break;
+		}
+		sFCU.sUDPDiag.eTxStreamingRoundRobbinLast = eType;
 	}
 
 
