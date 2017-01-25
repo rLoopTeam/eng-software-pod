@@ -82,9 +82,9 @@ void vPWR_COOLING__Process(void)
  * @st_funcMD5
  * @st_funcID
  */
-void vPWR_COOLING__Solennoid_TurnOn(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32PinNumber)
+void vPWR_COOLING__Solennoid_TurnOn(Luint32 u32PinNumber)
 {
-	vRM4_N2HET_PINS__Set_PinHigh(eChannel, u32PinNumber);
+	vRM4_N2HET_PINS__Set_PinHigh(N2HET_CHANNEL__1, u32PinNumber);
 }
 
 /***************************************************************************//**
@@ -95,9 +95,9 @@ void vPWR_COOLING__Solennoid_TurnOn(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32Pi
  * @st_funcMD5
  * @st_funcID
  */
-void vPWR_COOLING__Solennoid_TurnOff(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32PinNumber)
+void vPWR_COOLING__Solennoid_TurnOff(Luint32 u32PinNumber)
 {
-	vRM4_N2HET_PINS__Set_PinLow(eChannel, u32PinNumber);
+	vRM4_N2HET_PINS__Set_PinLow(N2HET_CHANNEL__1, u32PinNumber);
 }
 
 /***************************************************************************//**
