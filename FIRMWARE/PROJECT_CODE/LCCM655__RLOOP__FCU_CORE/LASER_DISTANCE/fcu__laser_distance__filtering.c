@@ -33,7 +33,7 @@ extern struct _strFCU sFCU;
 void vFCU_LASERDIST_FILT__Init(void)
 {
 	//init
-	sFCU.sLaserDist.f32DistanceFiltered = 0.0F;
+	//sFCU.sLaserDist.f32DistanceFiltered = 0.0F;
 }
 
 /***************************************************************************//**
@@ -54,7 +54,7 @@ void vFCU_LASERDIST_FILT__Process(void)
 
 	//output at
 	//todo:
-	sFCU.sLaserDist.f32DistanceFiltered = sFCU.sLaserDist.f32DistanceRAW;
+	//sFCU.sLaserDist.f32DistanceFiltered = sFCU.sLaserDist.s32Distance_mm;
 
 }
 

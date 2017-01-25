@@ -35,7 +35,7 @@ void vFCU_LASERDIST_ETH__Init(void)
 {
 	sFCU.sLaserDist.sEmu.u32EmuKey = 0U;
 	sFCU.sLaserDist.sEmu.u8EmulationEnabled = 0U;
-	sFCU.sLaserDist.sEmu.f32Distance = 0.0F;
+	sFCU.sLaserDist.sEmu.s32Distance = 0.0F;
 }
 
 /***************************************************************************//**
@@ -85,23 +85,23 @@ void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 
 				//spare 0
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32Distance_mm);
 				pu8Buffer += 4U;
 
 				//spare 1
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32PrevDistance_mm);
 				pu8Buffer += 4U;
 
 				//spare 2
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32Velocity_mms);
 				pu8Buffer += 4U;
 
 				//distance raw
-				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sLaserDist.f32DistanceRAW);
+				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32PrevVelocity_mms);
 				pu8Buffer += 4U;
 
 				//distance filtered
-				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sLaserDist.f32DistanceFiltered);
+				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, 0.0F);
 				pu8Buffer += 4U;
 
 				//spare 3
@@ -136,9 +136,9 @@ void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
  * @st_funcMD5		3FBE47EDCE814C80FCF4FA76AC2BAB6B
  * @st_funcID		LCCM655R0.FILE.058.FUNC.003
  */
-void vFCU_LASERDIST_ETH__Emulation_Injection(Lfloat32 f32Value)
+void vFCU_LASERDIST_ETH__Emulation_Injection(Lint32 s32Value)
 {
-	sFCU.sLaserDist.sEmu.f32Distance = f32Value;
+	sFCU.sLaserDist.sEmu.s32Distance = s32Value;
 }
 
 /***************************************************************************//**

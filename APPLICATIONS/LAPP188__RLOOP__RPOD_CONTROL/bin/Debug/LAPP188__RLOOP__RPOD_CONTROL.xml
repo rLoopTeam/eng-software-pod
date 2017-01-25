@@ -4792,6 +4792,13 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.LaserDistance.btnStreamOn__Click(System.Object,System.EventArgs)">
+ <summary>
+ Enable streaming
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission">
  <summary>
  Mission Control Page

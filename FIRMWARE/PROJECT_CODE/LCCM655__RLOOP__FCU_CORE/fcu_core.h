@@ -442,11 +442,17 @@
 				/** Array to hold new bytes received */
 				Luint8 u8NewByteArray[5];
 
-				/** The most recent distance*/
-				Lfloat32 f32DistanceRAW;
+				/** The most recent distance in mm*/
+				Lint32 s32Distance_mm;
+
+				/** Previous distance of last sample */
+				Lint32 s32PrevDistance_mm;
+
+				Lint32 s32Velocity_mms;
+				Lint32 s32PrevVelocity_mms;
 
 				/** The final filtered distance*/
-				Lfloat32 f32DistanceFiltered;
+				//Lfloat32 f32DistanceFiltered;
 
 				/** New distance has been measured, other layer to clear it */
 				Luint8 u8NewDistanceAvail;
@@ -462,7 +468,7 @@
 					Luint32 u32EmuKey;
 
 					/** Emulated Distance */
-					Lfloat32 f32Distance;
+					Lint32 s32Distance;
 
 				}sEmu;
 
@@ -1071,16 +1077,17 @@
 		//Laser distance
 		void vFCU_LASERDIST__Init(void);
 		void vFCU_LASERDIST__Process(void);
-		Lfloat32 f32FCU_LASERDIST__Get_Distance(void);
+		Lint32 s32FCU_LASERDIST__Get_Distance_mm(void);
+		Lint32 s32FCU_LASERDIST__Get_Velocity_mms(void);
 		void vFCU_LASERDIST__100MS_ISR(void);
 
-		DLL_DECLARATION void vFCU_LASERDIST_WIN32__Set_DistanceRaw(Lfloat32 f32Value);
+		DLL_DECLARATION void vFCU_LASERDIST_WIN32__Set_DistanceRaw(Lint32 s32Value);
 
 			//eth
 			void vFCU_LASERDIST_ETH__Init(void);
 			void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType);
 			void vFCU_LASERDIST_ETH__Enable_EmulationMode(Luint32 u32Key, Luint32 u32Enable);
-			void vFCU_LASERDIST_ETH__Emulation_Injection(Lfloat32 f32Value);
+			void vFCU_LASERDIST_ETH__Emulation_Injection(Lint32 s32Value);
 
 			//filtering
 			void vFCU_LASERDIST_FILT__Init(void);
