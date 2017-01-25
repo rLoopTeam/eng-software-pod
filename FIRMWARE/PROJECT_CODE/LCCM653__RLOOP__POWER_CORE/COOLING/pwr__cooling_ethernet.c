@@ -43,7 +43,6 @@ void vPWR_COOLING_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	Luint8 u8BufferIndex;
 	Luint16 u16Length;
 	Luint8 u8Device;
-	Luint8 u8Counter;
 
 	pu8Buffer = 0;
 
@@ -99,10 +98,10 @@ void vPWR_COOLING_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Device].f32Temperature);
 					pu8Buffer += 4U;
 
-					sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Device].eState;
+					pu8Buffer[0] = (Luint8) sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Device].eState;
 					pu8Buffer += 1U;
 
-					sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Device].eEddySolenoidState;
+					pu8Buffer[0] = (Luint8) sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Device].eEddySolenoidState;
 					pu8Buffer += 1U;
 				}
 
