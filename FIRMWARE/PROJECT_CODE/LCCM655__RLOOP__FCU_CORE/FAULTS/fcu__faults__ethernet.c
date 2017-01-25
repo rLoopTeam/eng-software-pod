@@ -82,6 +82,7 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 
 				//accel
+#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sAccel.sFaultFlags.u32Flags[0]);
 				pu8Buffer += 4U;
 
@@ -90,6 +91,14 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32MMA8451__Get_FaultFlags(1U));
 				pu8Buffer += 4U;
+#else
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0x00000000U);
+				pu8Buffer += 4U;
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0x00000000U);
+				pu8Buffer += 4U;
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0x00000000U);
+				pu8Buffer += 4U;
+#endif
 
 				//SC16 System
 				for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM487__NUM_DEVICES; u8Counter++)

@@ -8,6 +8,20 @@
 		#include <../BOARD_SUPPORT/lpcb235r0__board_support.h>
 	#endif
 
+/*******************************************************************************
+SOFTWARE I2C LIBRARY
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
+
+		/** I2C Freq*/
+		#define C_LOCALDEF__LCCM668__I2C_FREQ_H								(100000U)
+
+		/** Main include file */
+		#include <MULTICORE/LCCM668__MULTICORE__SOFT_I2C/soft_i2c.h>
+
+	#endif //#if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
+
 
 /*******************************************************************************
 ETHERNET TRANSPORT
@@ -159,13 +173,13 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		#define C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE					(1U)
 
 		/** Enable accel subsystem */
-		#define C_LOCALDEF__LCCM655__ENABLE_ACCEL							(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_ACCEL							(0U)
 
 		/** Enable the braking subsystems */
 		#define C_LOCALDEF__LCCM655__ENABLE_BRAKES							(1U)
 
 		/** Enable the throttle control */
-		#define C_LOCALDEF__LCCM655__ENABLE_THROTTLE						(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_THROTTLE						(0U)
 
 		/** Enable the ASI_RS485 */
 		#define C_LOCALDEF__LCCM655__ENABLE_ASI_RS485						(1U)

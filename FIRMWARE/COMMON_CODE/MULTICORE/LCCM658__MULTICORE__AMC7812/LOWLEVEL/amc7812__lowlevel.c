@@ -40,9 +40,10 @@ void vAMC7812_LOWLEVEL__Init(void)
 #ifndef WIN32
 	//reset line to output
 	C_LOCALDEF__LCCM658__NRESET__TRIS(0U);
+	C_LOCALDEF__LCCM658__NRESET__LATCH(0U);
 
 	//reset the device
-	vAMC7812_LOWLEVEL__Reset();
+	//vAMC7812_LOWLEVEL__Reset();
 #endif //WIN32
 }
 
