@@ -113,7 +113,10 @@ void vFCU_LASERDIST__Init(void)
 	sFCU.sLaserDist.u8NewDistanceAvail = 0U;
 	sFCU.sLaserDist.u32LaserPOR_Counter = 0U;
 	//just set to some obscene distance
-	sFCU.sLaserDist.f32DistanceRAW = 88888.8F;
+	sFCU.sLaserDist.s32Distance_mm = 0;
+	sFCU.sLaserDist.s32PrevDistance_mm = 0;
+	sFCU.sLaserDist.s32Velocity_mms = 0;
+	sFCU.sLaserDist.s32PrevVelocity_mms = 0;
 
 	//setup the filtering
 	vFCU_LASERDIST_FILT__Init();
@@ -144,7 +147,7 @@ void vFCU_LASERDIST__Process(void)
 		if(sFCU.sLaserDist.sEmu.u32EmuKey == 0x98984343U)
 		{
 			//assign
-			sFCU.sLaserDist.f32DistanceRAW = sFCU.sLaserDist.sEmu.f32Distance;
+			sFCU.sLaserDist.s32Distance_mm = sFCU.sLaserDist.sEmu.s32Distance;
 		}
 		else
 		{
@@ -194,7 +197,9 @@ void vFCU_LASERDIST__Process(void)
 			//send it.
 			vSC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
 
+#ifndef WIN32
 			vRM4_DELAYS__Delay_mS(50);
+#endif
 
 			//<ESC>, M, 1, <CR>
 			u8Array[0] = 0x1BU;
@@ -205,7 +210,9 @@ void vFCU_LASERDIST__Process(void)
 			//send it.
 			vSC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
 
+#ifndef WIN32
 			vRM4_DELAYS__Delay_mS(50);
+#endif
 
 			//C
 			u8Array[0] = 0x1BU;
@@ -222,7 +229,9 @@ void vFCU_LASERDIST__Process(void)
 
 			//wait until the laser is up
 			//nothing to do here.
+#ifndef WIN32
 			vRM4_DELAYS__Delay_mS(50);
+#endif
 
 			//continue to check for new data.
 			sFCU.sLaserDist.eLaserState = LASERDIST_STATE__CHECK_NEW_DATA;
@@ -296,9 +305,9 @@ void vFCU_LASERDIST__Process(void)
  * @st_funcMD5		130FEC5285C1E938EA3350D14F3B468C
  * @st_funcID		LCCM655R0.FILE.033.FUNC.003
  */
-Lfloat32 f32FCU_LASERDIST__Get_Distance(void)
+Lint32 s32FCU_LASERDIST__Get_Distance_mm(void)
 {
-	return sFCU.sLaserDist.f32DistanceRAW;
+	return sFCU.sLaserDist.s32Distance_mm;
 }
 
 //
@@ -313,8 +322,61 @@ Lfloat32 f32FCU_LASERDIST__Get_Distance(void)
  */
 void vFCU_LASERDIST__Process_Packet(void)
 {
+	Lfloat32 f32Delta;
+	Luint32 u32Distance;
+	Luint32 u32Temp;
+	Luint8 u8Temp;
 
-	//todo, process all the bytes
+	//compute the distance
+	//1s
+	u8Temp = sFCU.sLaserDist.u8NewByteArray[4];
+	u8Temp -= 0x30U;
+	u32Distance = (Luint32)u8Temp;
+
+	//10s
+	u8Temp = sFCU.sLaserDist.u8NewByteArray[3];
+	u8Temp -= 0x30U;
+	u32Temp = (Luint32)u8Temp;
+	u32Temp *= 10U;
+	u32Distance += u32Temp;
+
+	//100s
+	u8Temp = sFCU.sLaserDist.u8NewByteArray[2];
+	u8Temp -= 0x30U;
+	u32Temp = (Luint32)u8Temp;
+	u32Temp *= 100U;
+	u32Distance += u32Temp;
+
+	//1000s
+	u8Temp = sFCU.sLaserDist.u8NewByteArray[1];
+	u8Temp -= 0x30U;
+	u32Temp = (Luint32)u8Temp;
+	u32Temp *= 1000U;
+	u32Distance += u32Temp;
+
+	//10000s
+	u8Temp = sFCU.sLaserDist.u8NewByteArray[0];
+	u8Temp -= 0x30U;
+	u32Temp = (Luint32)u8Temp;
+	u32Temp *= 10000U;
+	u32Distance += u32Temp;
+
+	//update
+	sFCU.sLaserDist.s32Distance_mm = (Lint32)u32Distance;
+
+	//compute veloc
+	f32Delta = (Lfloat32)sFCU.sLaserDist.s32PrevDistance_mm;
+	f32Delta -= sFCU.sLaserDist.s32Distance_mm;
+
+	//50hz
+	f32Delta *= 0.05;
+
+	//do it.
+	sFCU.sLaserDist.s32Velocity_mms = (Lint32)f32Delta;
+
+	//save prev
+	sFCU.sLaserDist.s32PrevDistance_mm = sFCU.sLaserDist.s32Distance_mm;
+
 
 }
 
@@ -422,9 +484,9 @@ void vFCU_LASERDIST__100MS_ISR(void)
  * @st_funcMD5		7AFFF2A59E13949E9BFCA62BCED1FAA4
  * @st_funcID		LCCM655R0.FILE.033.FUNC.007
  */
-void vFCU_LASERDIST_WIN32__Set_DistanceRaw(Lfloat32 f32Value)
+void vFCU_LASERDIST_WIN32__Set_DistanceRaw(Lint32 s32Value)
 {
-	sFCU.sLaserDist.f32DistanceRAW = f32Value;
+	sFCU.sLaserDist.s32Distance_mm = s32Value;
 }
 
 #endif

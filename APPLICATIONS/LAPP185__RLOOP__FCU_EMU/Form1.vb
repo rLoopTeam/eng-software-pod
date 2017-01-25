@@ -136,7 +136,7 @@ Public Class Form1
 
     'Laser Distance
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Private Shared Sub vFCU_LASERDIST_WIN32__Set_DistanceRaw(f32Value As Single)
+    Private Shared Sub vFCU_LASERDIST_WIN32__Set_DistanceRaw(s32Value As Int32)
     End Sub
 
     'laser optoncdt
@@ -341,14 +341,14 @@ Public Class Form1
         Dim l1 As New Label
         With l1
             .Location = New Point(10, pB1.Top + pB1.Height + 20)
-            .Text = "LaserDist - RAW"
+            .Text = "Laser Distance mm"
         End With
         pP.Controls.Add(l1)
         Me.m_txtLaserDist__ValueRaw = New TextBox
         With Me.m_txtLaserDist__ValueRaw
             .Location = New Point(10, l1.Top + l1.Height + 0)
             .Size = New Size(100, 24)
-            .Text = "0.0"
+            .Text = "100"
         End With
         pP.Controls.Add(Me.m_txtLaserDist__ValueRaw)
         AddHandler Me.m_txtLaserDist__ValueRaw.KeyDown, AddressOf Me.txtLaserDistanceRaw__KeyDown
@@ -571,7 +571,7 @@ Public Class Form1
                 MsgBox("Warn: You must have thread running.")
             Else
                 'convert string to float32 (single on WIN32)
-                Dim sValue As Single = Single.Parse(Me.m_txtLaserDist__ValueRaw.Text)
+                Dim sValue As Int32 = Int32.Parse(Me.m_txtLaserDist__ValueRaw.Text)
 
                 'update the DLL
                 vFCU_LASERDIST_WIN32__Set_DistanceRaw(sValue)
