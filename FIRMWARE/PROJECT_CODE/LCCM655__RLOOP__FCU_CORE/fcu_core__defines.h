@@ -78,39 +78,41 @@
 	#define C_FCU__GEOM__NUM_ITEMS_S32						(8U)
 
 	/** Navigation function constants */
-	#define C_FCU__NAV_POD_MIN_X_POS							(500U)//define exact value
-	#define C_FCU__NAV_MAX_UNLIFTED_HEIGHT					(10U) //define exact value
-	#define C_FCU__NAV_PODSPEED_STANDBY						(1U) //define exact value
+	#define C_FCU__NAV_POD_MIN_X_POS							(500U)	//define exact value
+	#define C_FCU__NAV_MAX_UNLIFTED_HEIGHT					(10U) 	//define exact value
+	#define C_FCU__NAV_PODSPEED_STANDBY						(1U) 	//define exact value
 	#define C_FCU__NAV_PODSPEED_MAX_SPEED_TO_STABILIZE		(1000000U) //define exact value. ATM extra large so that HE never throttle down
-	#define C_FCU__NAV_MIN_PUSHER_SPEED						(10U)//define exact value
+	#define C_FCU__NAV_MIN_PUSHER_SPEED						(10U)	//define exact value
 
 	/** State Machine constants */
-	#define C_FCU__MAINSM_PUSHER_RELEASE_DELAY				(10U)
+	#define C_FCU__MAINSM_PUSHER_RELEASE_DELAY				(10U) 	//define exact value
 
 	/** GS Communication constants */
-	#define C_FCU__GS_COMM_LOSS_DELAY	// should go in udp rx section
+	#define C_FCU__GS_COMM_LOSS_DELAY						(1U)		//define exact value
 
 	/** Pod Position constants */
 	#define C_FCU__POD_TARGET_POINT_MARGIN_POS				(16U)
-	#define C_FCU__POD_STOP_X_POS							(1600U)//define exact value
+	#define C_FCU__POD_STOP_X_POS							(1600U)	//define exact value
 
 	/** State Machine constants */
-	#define C_FCU__LIFTMECH_RETRACTED_MLP_DISTANCE			(30U)//define exact value
-	#define C_FCU__LIFTMECH_ACTUATOR_NOM_UNLIFT_SPEED			(30U)//define exact value
+	#define C_FCU__LIFTMECH_RETRACTED_MLP_DISTANCE			(30U)	//define exact value
+	#define C_FCU__LIFTMECH_ACTUATOR_NOM_UNLIFT_SPEED			(30U)	//define exact value
 	/** Laser Orientation constants */
-	#define C_FCU__LASERORIENT_MAX_UNLIFTED_HEIGHT			(10U)//define exact value
-	#define C_FCU__LASERORIENT_MIN_LIFTED_HEIGHT				(10U)//define exact value
-	#define C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT			(5U)//define exact value
+	#define C_FCU__LASERORIENT_MAX_UNLIFTED_HEIGHT			(10U)	//define exact value
+	#define C_FCU__LASERORIENT_MIN_LIFTED_HEIGHT				(10U)	//define exact value
+	#define C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT			(5U)		//define exact value
 
 	/** Hover Engines Parameters */
-	#define C_FCU__HE_STATIC_HOVER_RPM                     (2000U)   // hover engine nominal RPM speed
-	#define C_FCU__HE_CRUISE_RPM                           (2000U)   // hover engine cruise RPM speed
-	#define C_FCU__HE_RPM_TOLERANCE                         (500U)   // hover engine maximum allowed RPM speed douring hovering
-	#define C_FCU__HE_MAX_CURRENT                            (10U)   // hover engine maximum allowed current TO BE CHECKED IF EXISTS
-	#define C_FCU__HE_MIN_CURRENT                             (1U)   // hover engine minimum allowed current
-	#define C_FCU__HE_MAX_VOLTAGE                        (100000U)   // VALUE TO BE DEFINED
-	#define C_FCU__HE_MIN_VOLTAGE                             (1U)   // VALUE TO BE DEFINED
-	#define C_FCU__HE_MAX_TEMPERATURE                        (95U)   // critical hover engine temperature
+	#define C_FCU__HE_STATIC_HOVER_RPM                     (2000U)   //hover engine nominal RPM speed
+	#define C_FCU__HE_CRUISE_RPM                           (2000U)   //hover engine cruise RPM speed
+	#define C_FCU__HE_RPM_TOLERANCE                         (500U)   //hover engine maximum allowed RPM speed douring hovering
+	#define C_FCU__HE_MAX_CURRENT                            (10U)   //hover engine maximum allowed current TO BE CHECKED IF EXISTS
+	#define C_FCU__HE_MIN_CURRENT                             (1U)   //hover engine minimum allowed current
+	#define C_FCU__HE_MAX_VOLTAGE                        (100000U)   //define exact value
+	#define C_FCU__HE_MIN_VOLTAGE                             (1U)   //define exact value
+	#define C_FCU__HE_MAX_TEMPERATURE                        (95U)   //critical hover engine temperature
 
+	/**Eddy Brakes Parameters */
+	#define C_FCU__EDDYBRAKES_STEPPER_MOTOR_MAX_TEMP			(90U)	//define exact value
 
 #endif /* _FCU_CORE__DEFINES_H_ */

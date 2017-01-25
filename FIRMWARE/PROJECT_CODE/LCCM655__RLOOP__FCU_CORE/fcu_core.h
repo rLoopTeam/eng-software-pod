@@ -148,6 +148,19 @@
 
 			}sFaults;
 
+			#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
+			struct
+			{
+				/** Main state machine*/
+				E_FCU__DRIVEPOD_PRERUN_STATE ePreRunState;
+
+				E_FCU__DRIVEPOD_GS_COMM eGSCommand;
+
+				Luint8 u8100MS_Timer;
+
+			}sDrivePod;
+			#endif
+
 
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 

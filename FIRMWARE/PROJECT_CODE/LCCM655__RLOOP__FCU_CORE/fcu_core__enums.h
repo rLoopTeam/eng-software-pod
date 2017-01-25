@@ -1,11 +1,15 @@
 /**
  * @file		FCU_CORE__ENUMS.H
  * @brief		Flight control code constants
- * @author		Lachlan Grogan
+ * @author		Lachlan Grogan, Marek Gutt-Mostowy, gsweriduk
  * @copyright	rLoop Inc.
  */
 #ifndef RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__ENUMS_H_
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__ENUMS_H_
+
+	//////////////////////////////////////////////////////
+	//FCTL: HOVER ENGINES
+	//////////////////////////////////////////////////////
 
 	/** Ground station commands for the Hover Engines control */
 	typedef enum
@@ -23,6 +27,10 @@
 		HE_CTL_M_SET_SPEED_HE8,
 		HE_CTL_M_SET_ALL_HE_SPEED
 	} E_FCU__HOVERENGINES_GS_COMM;
+
+	//////////////////////////////////////////////////////
+	//FCTL_MAINSM: SPACEX TELEMETRY
+	//////////////////////////////////////////////////////
 
 	/** Enum for SpaceX Telemetry */
 	typedef enum
@@ -47,12 +55,52 @@
 
 	}E_FCU__POD_STATUS;
 
+	//////////////////////////////////////////////////////
+	//FCTL: STATE MACHINE
+	//////////////////////////////////////////////////////
+
 	/** Enum for GS commands to State Machine */
 	typedef enum
 	{
 		MAINSM_GS_NO_CMD = 0U,
 		MAINSM_GS_ENTER_PRE_RUN_PHASE = 1U
 	}E_FCU__MAINSM_GS_COMM;
+
+	//////////////////////////////////////////////////////
+	//FCTL: DRIVE POD
+	//////////////////////////////////////////////////////
+
+	/**Drive Pod GS commands */
+	typedef enum
+	{
+		DRIVEPOD_GS_NO_CMD = 0U,
+		DRIVEPOD_GS_POD_STOP = 1U
+	}E_FCU__DRIVEPOD_GS_COMM;
+
+	/**Drive Pod State Machine */
+	typedef enum
+	{
+		DRIVEPOD_PRERUN_INITIAL_STATE = 0U,
+		DRIVEPOD_PRERUN_START_HE_STATE = 1U,
+		DRIVEPOD_PRERUN_RETRACT_LIFTMECH = 2U,
+		DRIVEPOD_PRERUN_GIMBAL_BACKWARD = 3U,
+		DRIVEPOD_PRERUN_GIMBAL_MAINTAIN = 4U
+	}E_FCU__DRIVEPOD_PRERUN_STATE;
+
+	//////////////////////////////////////////////////////
+	//FCTL: GIMBALS
+	//////////////////////////////////////////////////////
+
+	typedef enum
+	{
+		GIMBAL_NEUTRAL_LEVEL = 0U,
+		GIMBAL_BACKWARD_LEVEL = 1U,
+		GIMBAL_FORWARD_LEVEL = 2U
+	}E_FCU__GIMBAL_LEVEL;
+
+	//////////////////////////////////////////////////////
+	//LANDING GEAR UNIT COMMS
+	//////////////////////////////////////////////////////
 
 	/** For transmitting to the LGU*/
 	typedef enum
@@ -72,6 +120,9 @@
 
 	}E_LGU_COMMS_STATE_T;
 
+	//////////////////////////////////////////////////////
+	//OPTONCDT LASERS
+	//////////////////////////////////////////////////////
 
 	/** OptoNCDT Laser Positions
 	 *  must be in order from A0:2, B0:2
@@ -89,6 +140,10 @@
 
 	}E_FCU__LASER_OPTO__INDEX_T;
 
+	//////////////////////////////////////////////////////
+	//CONTRAST SENSORS
+	//////////////////////////////////////////////////////
+
 	/** Laser contrast sensors */
 	typedef enum
 	{
@@ -101,6 +156,10 @@
 		LASER_CONT__MAX = 3U
 
 	}E_FCU__LASER_CONT_INDEX_T;
+
+	//////////////////////////////////////////////////////
+	//BRAKES
+	//////////////////////////////////////////////////////
 
 	/** enum type for the left or right brakes */
 	typedef enum
@@ -130,7 +189,11 @@
 
 	}E_FCU__BRAKE_LIMSW_INDEX_T;
 
-	/** The final swtich state, and indeed any switch state */
+	//////////////////////////////////////////////////////
+	//LIMIT SWITCHES
+	//////////////////////////////////////////////////////
+
+	/** The final switch state, and indeed any switch state */
 	typedef enum
 	{
 
@@ -146,6 +209,9 @@
 
 	}E_FCU__SWITCH_STATE_T;
 
+	//////////////////////////////////////////////////////
+	//THROTTLES
+	//////////////////////////////////////////////////////
 
 	/** Ground station commands for throttle layer  */
 	// (added by @gsweriduk on 23 NOV 2016)

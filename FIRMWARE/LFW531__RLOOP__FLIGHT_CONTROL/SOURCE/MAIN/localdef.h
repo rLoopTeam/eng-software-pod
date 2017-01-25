@@ -223,6 +223,9 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 			/** Hover Engine Control */
 			#define C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL			(1U)
 
+			/** Drive Pod Control */
+			#define C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL				(1U)
+
 
 		/** ADC Sample Limits */
 		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__LOWER_BOUND				(300U)
