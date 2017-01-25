@@ -62,4 +62,5 @@
 	#define C_PWRCORE__6P_NEGBUS4_MASK						(0x25U)
 	#define C_PWRCORE__6P_NEGBUS5_MASK						(0x26U)
 
+	#define C_PWRCORE__CURRENT_AVG_SIZE						(0x4U)
 #endif /* RLOOP_POWER_CORE__DEFINES_H_ */

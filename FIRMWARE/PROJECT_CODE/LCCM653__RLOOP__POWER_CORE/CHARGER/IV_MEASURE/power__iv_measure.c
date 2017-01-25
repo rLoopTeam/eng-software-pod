@@ -24,6 +24,7 @@
 
 extern struct _strPWRNODE sPWRNODE;
 
+Lfloat32 f32_Current_Filter_ADC_Value(Lfloat32 ADC_Sample);
 
 /***************************************************************************//**
  * @brief
@@ -71,7 +72,7 @@ void vPWRNODE_CHG_IV__Process(void)
 		f32Voltage_Sample = f32RM4_ADC_USER__Get_Voltage(0U) - sPWRNODE.sHASS600.f32HASS_VoltageOffSet;
 
 		//Convert voltage reading to current reading
-		sPWRNODE.sHASS600.f32HASS_CurrentReading = 906.59F * f32Voltage_Sample - 2219.5F;
+		sPWRNODE.sHASS600.f32HASS_CurrentReading = f32_Current_Filter_ADC_Value( 906.59F * f32Voltage_Sample - 2219.5F);
 
 
 		//todo
@@ -95,6 +96,26 @@ void vPWRNODE_CHG_IV__Process(void)
 	{
 		//adc not ready yet, don't do anything
 	}
+}
+
+/***************************************************************************//**
+ * @brief
+ * Average the current readings
+ *
+ * @st_funcMD5		AF5EF4D90978E6F62271760FF836E754
+ * @st_funcID		LCCM653R0.FILE.023.FUNC.002
+ */
+
+Lfloat32 f32_Current_Filter_ADC_Value(Lfloat32 ADC_Sample)
+{
+	Lfloat32 f32Return;
+
+	f32Return = f32NUMERICAL_FILTERING__Add_F32(	ADC_Sample,
+												&sPWRNODE.sHASS600.u16HAAS_Current_Average_Counter,
+												C_PWRCORE__CURRENT_AVG_SIZE,
+												&sPWRNODE.sHASS600.f32HAAS_Current_Average_Array[0]);
+
+	return f32Return;
 }
 
 //todo: provide functions to get the current voltages and currents as well as any fault flags.

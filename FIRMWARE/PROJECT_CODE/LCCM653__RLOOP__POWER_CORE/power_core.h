@@ -209,6 +209,9 @@
 				/** Current Transducer Fault Flag */
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
+				Luint16 u16HAAS_Current_Average_Counter;
+				Lfloat32 f32HAAS_Current_Average_Array[C_PWRCORE__CURRENT_AVG_SIZE];
+
 			}sHASS600;
 
 			/** Cooling System **/
