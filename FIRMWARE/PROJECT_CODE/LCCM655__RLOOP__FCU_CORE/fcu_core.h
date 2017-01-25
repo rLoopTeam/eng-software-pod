@@ -440,7 +440,7 @@
 				Luint8 u8NewPacket;
 
 				/** Array to hold new bytes received */
-				Luint8 u8NewByteArray[3];
+				Luint8 u8NewByteArray[5];
 
 				/** The most recent distance*/
 				Lfloat32 f32DistanceRAW;
