@@ -453,6 +453,7 @@
 		void vPWR_COOLING__Solennoid_TurnAllOff(void);
 		void vPWR_COOLING__Solennoid_TurnOff(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32PinNumber);
 		void vPWR_COOLING__Solennoid_TurnOn(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32PinNumber);
+		void vPWR_COOLING_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
 		//cooling hover subsystem
 		void vPWR_COOLING_HOVER__Init(void);
