@@ -7,11 +7,16 @@
 
 #include "../soft_i2c.h"
 
+void vSOFTI2C_USER__Init(void)
+{
+	vSOFTI2C__Init();
+}
 
-Lint16 s16SOFT_I2C_USER__TxByte(Luint8 DeviceAddx, Luint8 u8RegAddx, Luint8 u8Byte)
+Lint16 s16SOFT_I2C_USER__TxByte(Luint8 u8DeviceAddx, Luint8 u8RegAddx, Luint8 u8Byte)
 {
 	Lint16 s16Return;
 	Luint8 u8Read;
+	Luint8 u8Temp;
 
 	s16Return = 0;
 
@@ -19,7 +24,9 @@ Lint16 s16SOFT_I2C_USER__TxByte(Luint8 DeviceAddx, Luint8 u8RegAddx, Luint8 u8By
 	vSOFTI2C_LOWLEVEL__Generate_Start_Conidition();
 
 	//write the device address
-	vSOFTI2C_LOWLEVEL__TxByte(DeviceAddx);
+	u8Temp = u8DeviceAddx;
+	u8Temp <<= 1U;
+	vSOFTI2C_LOWLEVEL__TxByte(u8Temp);
 
 	//check the ack status
 	u8Read = u8SOFTI2C_LOWLEVEL__Check_Ack();
@@ -61,10 +68,11 @@ Lint16 s16SOFT_I2C_USER__TxByte(Luint8 DeviceAddx, Luint8 u8RegAddx, Luint8 u8By
 
 
 
-Lint16 s16SOFT_I2C_USER__RxByte(Luint8 u8DeviceIndex, Luint8 u8RegAddx, Luint8 *pu8Byte)
+Lint16 s16SOFT_I2C_USER__RxByte(Luint8 u8DeviceAddx, Luint8 u8RegAddx, Luint8 *pu8Byte)
 {
 	Lint16 s16Return;
 	Luint8 u8Read;
+	Luint8 u8Temp;
 
 	s16Return = 0;
 
@@ -72,7 +80,9 @@ Lint16 s16SOFT_I2C_USER__RxByte(Luint8 u8DeviceIndex, Luint8 u8RegAddx, Luint8 *
 	vSOFTI2C_LOWLEVEL__Generate_Start_Conidition();
 
 	//write the device address
-	vSOFTI2C_LOWLEVEL__TxByte(u8DeviceIndex);
+	u8Temp = u8DeviceAddx;
+	u8Temp <<= 1U;
+	vSOFTI2C_LOWLEVEL__TxByte(u8Temp);
 
 	//check the ack status
 	u8Read = u8SOFTI2C_LOWLEVEL__Check_Ack();
@@ -83,6 +93,7 @@ Lint16 s16SOFT_I2C_USER__RxByte(Luint8 u8DeviceIndex, Luint8 u8RegAddx, Luint8 *
 
 	//check the ack
 	u8Read = u8SOFTI2C_LOWLEVEL__Check_Ack();
+	u8Read = 0U;
 	if(u8Read != 0U)
 	{
 		s16Return = -1;
@@ -95,7 +106,9 @@ Lint16 s16SOFT_I2C_USER__RxByte(Luint8 u8DeviceIndex, Luint8 u8RegAddx, Luint8 *
 		vSOFTI2C_LOWLEVEL__Generate_Start_Conidition();
 
 		//write the device address again, but need to change the RW bit
-		vSOFTI2C_LOWLEVEL__TxByte(u8DeviceIndex | 0x01);
+		u8Temp = u8DeviceAddx | 0x01;
+		u8Temp <<= 1U;
+		vSOFTI2C_LOWLEVEL__TxByte(u8Temp);
 
 		//do we want the ACK?
 		u8Read = u8SOFTI2C_LOWLEVEL__Check_Ack();
@@ -122,11 +135,12 @@ Lint16 s16SOFT_I2C_USER__RxByte(Luint8 u8DeviceIndex, Luint8 u8RegAddx, Luint8 *
 }
 
 
-Lint16 s16SOFT_I2C_USER__RxByteArray(Luint8 u8DeviceIndex, Luint8 u8RegAddx, Luint8 *pu8Array, Luint16 u16Length)
+Lint16 s16SOFT_I2C_USER__RxByteArray(Luint8 u8DeviceAddx, Luint8 u8RegAddx, Luint8 *pu8Array, Luint16 u16Length)
 {
 	Lint16 s16Return;
 	Luint8 u8Read;
 	Luint16 u16Counter;
+	Luint8 u8Temp;
 
 	s16Return = 0;
 
@@ -134,7 +148,9 @@ Lint16 s16SOFT_I2C_USER__RxByteArray(Luint8 u8DeviceIndex, Luint8 u8RegAddx, Lui
 	vSOFTI2C_LOWLEVEL__Generate_Start_Conidition();
 
 	//write the device address
-	vSOFTI2C_LOWLEVEL__TxByte(u8DeviceIndex);
+	u8Temp = u8DeviceAddx;
+	u8Temp <<= 1U;
+	vSOFTI2C_LOWLEVEL__TxByte(u8Temp);
 
 	//check the ack status
 	u8Read = u8SOFTI2C_LOWLEVEL__Check_Ack();
@@ -157,7 +173,9 @@ Lint16 s16SOFT_I2C_USER__RxByteArray(Luint8 u8DeviceIndex, Luint8 u8RegAddx, Lui
 		vSOFTI2C_LOWLEVEL__Generate_Start_Conidition();
 
 		//write the device address again, but need to change the RW bit
-		vSOFTI2C_LOWLEVEL__TxByte(u8DeviceIndex | 0x01);
+		u8Temp = u8DeviceAddx | 0x01U;
+		u8Temp <<= 1U;
+		vSOFTI2C_LOWLEVEL__TxByte(u8Temp);
 
 		//do we want the ACK?
 		u8Read = u8SOFTI2C_LOWLEVEL__Check_Ack();
