@@ -215,6 +215,7 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\NETWORKING\fcu_core__net__tx.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\NETWORKING\SPACEX\fcu__net__spacex_tx.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\NOTIFICATIONS\fcu_core__notifications.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\POD_HEALTH\fcu__pod_health.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\PUSHER\fcu__pusher.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\PUSHER\fcu__pusher__ethernet.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\THROTTLES\fcu__throttles.c" />

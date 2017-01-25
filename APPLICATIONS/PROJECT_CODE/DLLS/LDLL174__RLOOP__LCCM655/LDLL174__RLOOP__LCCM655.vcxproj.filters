@@ -232,6 +232,9 @@
     <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BLENDER">
       <UniqueIdentifier>{d94d6efb-24e8-4ea5-82fa-7ca58999a665}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\POD_HEALTH">
+      <UniqueIdentifier>{7d6e3984-e495-49aa-8f0d-3f0bc8cf2e30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
@@ -671,6 +674,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BLENDER\fcu__flight__blender.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BLENDER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\POD_HEALTH\fcu__pod_health.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\POD_HEALTH</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

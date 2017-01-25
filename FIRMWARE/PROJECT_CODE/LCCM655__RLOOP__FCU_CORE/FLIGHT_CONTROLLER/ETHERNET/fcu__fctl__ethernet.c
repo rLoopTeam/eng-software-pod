@@ -58,7 +58,7 @@ void vFCU_FCTL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__FCU_GEN__TX_MISSION_DATA:
-			u16Length = 7U;
+			u16Length = 11U;
 			break;
 
 
@@ -88,6 +88,11 @@ void vFCU_FCTL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				//current track database
 				pu8Buffer[0] = (Luint8)sFCU.sFlightControl.sTrackDB.u32CurrentDB;
 				pu8Buffer += 1U;
+
+				//pod health
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sPodHealth.sHealthFlags.u32Flags[0]);
+				pu8Buffer += 4U;
+
 
 				break;
 

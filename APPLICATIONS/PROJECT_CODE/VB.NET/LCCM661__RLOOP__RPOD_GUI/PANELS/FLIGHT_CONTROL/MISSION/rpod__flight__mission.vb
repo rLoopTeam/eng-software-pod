@@ -17,6 +17,7 @@
         Private m_txtRxCount As SIL3.ApplicationSupport.TextBoxHelper
 
         Private m_txtFlags As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
+        Private m_txtPodHealth As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
         Private m_txtMissionPhase As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
         Private m_txtDistFilt As SIL3.ApplicationSupport.TextBoxHelper
 
@@ -87,6 +88,7 @@
                     Me.m_txtMissionPhase.Value__Update(New SIL3.Numerical.U16(u8Payload, iOffset).To__Int)
                     iOffset += 2
                     iOffset += Me.m_txtCurrentTrackDB.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtPodHealth.Flags__Update(u8Payload, iOffset, True)
 
                     Me.m_iRxCount += 1
                     Me.m_txtRxCount.Threadsafe__SetText(Me.m_iRxCount.ToString)
@@ -138,9 +140,21 @@
             Me.m_txtFlags.Flags__Add("DAQ SUBSYSTEM")
 
 
+            Dim l01 As New SIL3.ApplicationSupport.LabelHelper("Pod Health")
+            l01.Layout__AboveRightControl(l00, Me.m_txtFlags)
+            Me.m_txtPodHealth = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l01)
+            Me.m_txtPodHealth.Flags__Add("P0: BATTERY_PACK_TEMP_RANGE")
+            Me.m_txtPodHealth.Flags__Add("P1: BATTERY_CELL_TEMP_RANGE")
+            Me.m_txtPodHealth.Flags__Add("P2: BATTERY_VOLTAGE_RANGE")
+            Me.m_txtPodHealth.Flags__Add("P3: BATTERY_CELL_VOLTAGE_RANGE")
+            Me.m_txtPodHealth.Flags__Add("P4: BATTERY_CURRENT_RANGE")
+            Me.m_txtPodHealth.Flags__Add("")
+            Me.m_txtPodHealth.Flags__Add("")
+            Me.m_txtPodHealth.Flags__Add("")
+
 
             Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Mission State")
-            l1.Layout__AboveRightControl(l00, Me.m_txtFlags)
+            l1.Layout__AboveRightControl(l01, Me.m_txtPodHealth)
             Me.m_txtMissionPhase = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l1)
             Me.m_txtMissionPhase.ReadOnly = True
             Me.m_txtMissionPhase.States__Add("MISSION_PHASE__RESET")

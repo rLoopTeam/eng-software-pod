@@ -134,7 +134,7 @@
             Me.m_iBarIndex = Me.m_pExplorer.Bar__Add("Flight Control")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Mission")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "SpaceX Telemetry")
-            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Fault Flags")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Pod Health + Fault Flags")
 
             Me.m_iBarIndex = Me.m_pExplorer.Bar__Add("Flight Subsystems")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Accelerometers")
@@ -160,7 +160,7 @@
             Me.m_pnlFlight__SpaceX = New SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX("SpaceX Telemetry", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__SpaceX)
 
-            Me.m_pnlFlight__FaultFlags = New SIL3.rLoop.rPodControl.Panels.FlightControl.Faults("Fault Flags", Me.m_sLogDir)
+            Me.m_pnlFlight__FaultFlags = New SIL3.rLoop.rPodControl.Panels.FlightControl.Faults("Pod Health + Fault Flags", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__FaultFlags)
 
             Me.m_pnlFlight__Accel = New SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers("Accelerometers", Me.m_sLogDir)
