@@ -60,6 +60,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 			//we have just come out of reset here.
 			//init our rPod specific systems
 
+			#if C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH == 1U
+				vFCU_PODHEALTH__Init();
+			#endif
+
 			//pusher
 			#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
 				vFCU_PUSHER__Init();
@@ -189,6 +193,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 	//always process these items after we have been initted
 	if(sFCU.eMissionPhase > MISSION_PHASE__RESET)
 	{
+		#if C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH == 1U
+			vFCU_PODHEALTH__Process();
+		#endif
+
 		//LG
 		vFCU_FCTL__Process();
 

@@ -571,10 +571,19 @@
 
 				}sBlender;
 
+
 			}sFlightControl;
 
 
-			
+			#if C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH == 1U
+			struct
+			{
+
+				/** The flags indicating pod health */
+				FAULT_TREE__PUBLIC_T sHealthFlags;
+
+			}sPodHealth;
+			#endif
 
 			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
 			/** Contrast sensor structure */
@@ -886,6 +895,33 @@
 			}sLGU;
 			#endif //C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM
 
+			/** Critical info from the BMS */
+			struct
+			{
+				/** Highest cell temp */
+				Lfloat32 f32HighestTemp;
+
+				/** Average Temp cell (battery temp) */
+				Lfloat32 f32AverageTemp;
+
+				/** Total pack voltage */
+				Lfloat32 f32PackVoltage;
+
+				/** Highest cell voltage */
+				Lfloat32 f32HighestCellVoltage;
+
+				/** Lowest cell voltage */
+				Lfloat32 f32LowestCellVoltage;
+
+				/** PV Temp */
+				Lfloat32 f32PV_Temp;
+
+				/** PV Press */
+				Lfloat32 f32PV_Press;
+
+
+			}sBMS[2];
+
 			/** Structure guard 2*/
 			Luint32 u32Guard2;
 
@@ -991,6 +1027,9 @@
 			void vFCU_FCTL_ETH__Init(void);
 			void vFCU_FCTL_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
+			//pod health
+			void vFCU_PODHEALTH__Init(void);
+			void vFCU_PODHEALTH__Process(void);
 
 			// Laser Orientation
 			void vFCU_FLIGHTCTL_LASERORIENT__Init(void);
@@ -1018,6 +1057,7 @@
 		//network
 		void vFCU_NET__Init(void);
 		void vFCU_NET__Process(void);
+		void vFCU_NET_RX__Init(void);
 		Luint8 u8FCU_NET__Is_LinkUp(void);
 		void vFCU_NET_RX__RxUDP(Luint8 * pu8Buffer, Luint16 u16Length, Luint16 u16DestPort);
 		void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault);

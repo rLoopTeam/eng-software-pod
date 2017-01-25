@@ -93,7 +93,6 @@ Lint16 s16SOFT_I2C_USER__RxByte(Luint8 u8DeviceAddx, Luint8 u8RegAddx, Luint8 *p
 
 	//check the ack
 	u8Read = u8SOFTI2C_LOWLEVEL__Check_Ack();
-	u8Read = 0U;
 	if(u8Read != 0U)
 	{
 		s16Return = -1;

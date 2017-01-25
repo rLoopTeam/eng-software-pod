@@ -170,7 +170,9 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer += 4U;
 				#endif
 
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+
+				//pod health
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sPodHealth.sHealthFlags.u32Flags[0]);
 				pu8Buffer += 4U;
 				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;

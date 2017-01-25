@@ -21,6 +21,23 @@
 #if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 extern struct _strFCU sFCU;
 
+void vFCU_NET_RX__Init(void)
+{
+	Luint8 u8Counter;
+
+	//init
+	for(u8Counter = 0U; u8Counter < 2U; u8Counter++)
+	{
+		sFCU.sBMS[u8Counter].f32HighestTemp = 0.0F;
+		sFCU.sBMS[u8Counter].f32AverageTemp = 0.0F;
+		sFCU.sBMS[u8Counter].f32PackVoltage = 0.0F;
+		sFCU.sBMS[u8Counter].f32HighestCellVoltage = 0.0F;
+		sFCU.sBMS[u8Counter].f32LowestCellVoltage = 0.0F;
+		sFCU.sBMS[u8Counter].f32PV_Temp = 0.0F;
+		sFCU.sBMS[u8Counter].f32PV_Press = 0.0F;
+	}
+
+}
 
 /***************************************************************************//**
  * @brief
@@ -59,6 +76,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 	Luint32 u32Block[4];
 	Lfloat32 f32Block[4];
 	Lint32 s32Block[4];
+	Luint8 u8Device;
 
 	//make sure we are rx'ing on our port number
 	if(u16DestPort == C_RLOOP_NET__FCU__PORT)
@@ -357,13 +375,124 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 	{
 		if(u16DestPort == C_RLOOP_NET__POWER_A__PORT)
 		{
+			//check for the BMS packet
+			switch((E_NET__PACKET_T)ePacketType)
+			{
+				case NET_PKT__PWR_BMS__TX_BMS_STATUS:
+
+					u8Device = 0U;
+
+					//fault flags
+					pu8Payload += 4U;
+					//temp sensor state
+					pu8Payload += 1U;
+					//charger state
+					pu8Payload += 1U;
+					//num sensors
+					pu8Payload += 2U;
+
+					//highest individual temp
+					sFCU.sBMS[u8Device].f32HighestTemp = f32NUMERICAL_CONVERT__Array(pu8Payload);
+					pu8Payload += 4U;
+
+					//average temp
+					sFCU.sBMS[u8Device].f32AverageTemp = f32NUMERICAL_CONVERT__Array(pu8Payload);
+					pu8Payload += 4U;
+
+					//highest temp sensor index
+					pu8Payload += 2U;
+
+					//pack volts
+					sFCU.sBMS[u8Device].f32PackVoltage = f32NUMERICAL_CONVERT__Array(pu8Payload);
+					pu8Payload += 4U;
+
+					//highest volts
+					sFCU.sBMS[u8Device].f32HighestCellVoltage = f32NUMERICAL_CONVERT__Array(pu8Payload);
+					pu8Payload += 4U;
+
+					//lowest volts
+					sFCU.sBMS[u8Device].f32LowestCellVoltage = f32NUMERICAL_CONVERT__Array(pu8Payload);
+					pu8Payload += 4U;
+
+					//BMS boards Temp
+					pu8Payload += 4U;
+
+					//node press
+					sFCU.sBMS[u8Device].f32PV_Press = f32NUMERICAL_CONVERT__Array(pu8Payload);
+					pu8Payload += 4U;
+
+					//node temp
+					sFCU.sBMS[u8Device].f32PV_Temp = f32NUMERICAL_CONVERT__Array(pu8Payload);
+					pu8Payload += 4U;
+					break;
+
+
+				default:
+					break;
+			}//switch((E_FCU_NET_PACKET_TYPES)ePacketType)
 
 		}
 		else
 		{
 			if(u16DestPort == C_RLOOP_NET__POWER_B__PORT)
 			{
+				//check for the BMS packet
+				switch((E_NET__PACKET_T)ePacketType)
+				{
+					case NET_PKT__PWR_BMS__TX_BMS_STATUS:
 
+						u8Device = 1U;
+
+						//fault flags
+						pu8Payload += 4U;
+						//temp sensor state
+						pu8Payload += 1U;
+						//charger state
+						pu8Payload += 1U;
+						//num sensors
+						pu8Payload += 2U;
+
+						//highest individual temp
+						sFCU.sBMS[u8Device].f32HighestTemp = f32NUMERICAL_CONVERT__Array(pu8Payload);
+						pu8Payload += 4U;
+
+						//average temp
+						sFCU.sBMS[u8Device].f32AverageTemp = f32NUMERICAL_CONVERT__Array(pu8Payload);
+						pu8Payload += 4U;
+
+						//highest temp sensor index
+						pu8Payload += 2U;
+
+						//pack volts
+						sFCU.sBMS[u8Device].f32PackVoltage = f32NUMERICAL_CONVERT__Array(pu8Payload);
+						pu8Payload += 4U;
+
+						//highest volts
+						sFCU.sBMS[u8Device].f32HighestCellVoltage = f32NUMERICAL_CONVERT__Array(pu8Payload);
+						pu8Payload += 4U;
+
+						//lowest volts
+						sFCU.sBMS[u8Device].f32LowestCellVoltage = f32NUMERICAL_CONVERT__Array(pu8Payload);
+						pu8Payload += 4U;
+
+						//BMS boards Temp
+						pu8Payload += 4U;
+
+						//node press
+						sFCU.sBMS[u8Device].f32PV_Press = f32NUMERICAL_CONVERT__Array(pu8Payload);
+						pu8Payload += 4U;
+
+						//node temp
+						sFCU.sBMS[u8Device].f32PV_Temp = f32NUMERICAL_CONVERT__Array(pu8Payload);
+						pu8Payload += 4U;
+
+						//need pack current
+
+						break;
+
+					default:
+						break;
+				}//switch((E_FCU_NET_PACKET_TYPES)ePacketType)
 			}
 			else
 			{
