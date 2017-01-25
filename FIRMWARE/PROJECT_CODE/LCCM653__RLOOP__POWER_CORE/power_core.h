@@ -372,6 +372,8 @@
 		//charger current and voltage measurement
 		void vPWRNODE_CHG_IV__Init(void);
 		void vPWRNODE_CHG_IV__Process(void);
+		void vPWR_CHARGER_ETH__Init(void);
+		void vPWR_CHARGER_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
 		//BMS interface layer
 		void vPWRNODE_BMS__Init(void);
