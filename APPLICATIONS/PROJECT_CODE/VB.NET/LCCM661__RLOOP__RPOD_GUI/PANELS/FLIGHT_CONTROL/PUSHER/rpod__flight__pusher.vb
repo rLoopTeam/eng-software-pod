@@ -16,7 +16,7 @@
         Private m_txtRxCount As SIL3.ApplicationSupport.TextBoxHelper
 
         Private m_txtFlags As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
-        Private m_txtState As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtState As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
         Private m_txtEdgeFlags(2 - 1) As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtSwitchState(2 - 1) As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtTimer As SIL3.ApplicationSupport.TextBoxHelper
@@ -76,13 +76,11 @@
             If MyBase.m_bLayout = True Then
 
                 'check for our sim packet type
-                If ePacketType = SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_ASI__TX_PUSHER_DATA Then
+                If ePacketType = SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_PUSH__TX_PUSHER_DATA Then
 
                     Dim iOffset As Integer = 0
-                    Dim pU32Flags As New SIL3.Numerical.U32(u8Payload, iOffset)
-                    iOffset += 4
-
-                    Dim u8State As New SIL3.Numerical.U8(u8Payload, iOffset)
+                    iOffset += Me.m_txtFlags.Flags__Update(u8Payload, iOffset, True)
+                    Me.m_txtState.Value__Update(u8Payload(iOffset))
                     iOffset += 1
                     Dim u8SW0_Edge As New SIL3.Numerical.U8(u8Payload, iOffset)
                     iOffset += 1
@@ -96,7 +94,7 @@
                     iOffset += 4
 
 
-                    Me.m_txtFlags.Flags__Update(pU32Flags, True)
+
                     Me.m_txtEdgeFlags(0).Threadsafe__SetText(u8SW0_Edge.To_String)
                     Me.m_txtEdgeFlags(1).Threadsafe__SetText(u8SW1_Edge.To_String)
                     Me.m_txtSwitchState(0).Threadsafe__SetText(u8SW0_State.To_String)
@@ -124,7 +122,7 @@
         Public Overrides Sub LayoutPanel()
 
             Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Controls", MyBase.m_pInnerPanel)
-            Dim btnRL0 As New SIL3.ApplicationSupport.ButtonHelper(100, "Request", AddressOf btnRequest_L0__Click)
+            Dim btnRL0 As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStream__Click)
             btnRL0.Layout__BelowControl(l0)
 
             Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
@@ -135,8 +133,16 @@
             l2.Layout__BelowControl(btnRL0)
             Me.m_txtFlags = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l2)
 
+            Dim l22 As New SIL3.ApplicationSupport.LabelHelper("Pin Final State")
+            l22.Layout__BelowControl(Me.m_txtFlags)
+            Me.m_txtState = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(250, l22)
+            Me.m_txtState.States__Add("PIN_FINAL_STATE__DISCONNECTED")
+            Me.m_txtState.States__Add("PIN_FINAL_STATE__CONNECTED")
+            Me.m_txtState.States__Add("PIN_FINAL_STATE__UNKNOWN")
+
+
             Dim l3 As New SIL3.ApplicationSupport.LabelHelper("Sw:0 Edge")
-            l3.Layout__BelowControl(Me.m_txtFlags)
+            l3.Layout__BelowControl(Me.m_txtState)
             Me.m_txtEdgeFlags(0) = New SIL3.ApplicationSupport.TextBoxHelper(100, l3)
             Dim l4 As New SIL3.ApplicationSupport.LabelHelper("Sw:1 Edge")
             l4.Layout__AboveRightControl(l3, Me.m_txtEdgeFlags(0))
@@ -160,10 +166,27 @@
 
 #Region "BUTTON HELPERS"
 
-        Private Sub btnRequest_L0__Click(s As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_ASI__REQUEST_PUSHER_DATA,
-                                                 0, 0, 0, 0)
+        ''' <summary>
+        ''' control streaming
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnStream__Click(s As Object, e As EventArgs)
+
+            Dim pSB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
+
+            If pSB.Text = "Stream On" Then
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__STREAMING_CONTROL,
+                                                 1, SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_PUSH__TX_PUSHER_DATA, 0, 0)
+                pSB.Text = "Stream OFF"
+            Else
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__STREAMING_CONTROL,
+                                                 0, SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_PUSH__TX_PUSHER_DATA, 0, 0)
+                pSB.Text = "Stream On"
+            End If
+
         End Sub
 
 

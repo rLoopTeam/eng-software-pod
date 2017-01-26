@@ -206,10 +206,10 @@
 		//////////////////////////////////////////////////////
 
 		/** Request from the host to send the pusher data */
-		NET_PKT__FCU_ASI__REQUEST_PUSHER_DATA = 0x1800U,
+		NET_PKT__FCU_PUSH__REQUEST_PUSHER_DATA = 0x1800U,
 
 		/** FCU to Host, return pusher data */
-		NET_PKT__FCU_ASI__TX_PUSHER_DATA = 0x1801U,
+		NET_PKT__FCU_PUSH__TX_PUSHER_DATA = 0x1801U,
 
 
 		//////////////////////////////////////////////////////

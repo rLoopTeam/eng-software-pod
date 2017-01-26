@@ -342,8 +342,8 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_THROTTLE__TX_DATA;
 				break;
 
-			case NET_PKT__FCU_ASI__REQUEST_PUSHER_DATA:
-				sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_ASI__TX_PUSHER_DATA;
+			case NET_PKT__FCU_PUSH__REQUEST_PUSHER_DATA:
+				sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_PUSH__TX_PUSHER_DATA;
 				break;
 
 			case NET_PKT__FCU_FLT__TX_TRACK_DB_CHUNK:

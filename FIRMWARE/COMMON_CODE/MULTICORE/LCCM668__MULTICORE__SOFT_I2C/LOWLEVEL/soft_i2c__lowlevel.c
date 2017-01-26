@@ -128,6 +128,8 @@ Luint8 u8SOFTI2C_LOWLEVEL__Read_Bit(void)
 	//read the value of the data pin
 	u8Read = u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, C_SDA_PIN);
 
+	vSOFTI2C_LOWLEVEL__Generate_Delay();
+
 	//clock to low
 	vSOFTI2C_LOWLEVEL__Set_SCL_Lo();
 
@@ -144,6 +146,7 @@ Luint8 u8SOFTI2C_LOWLEVEL__RxByte(void)
 
 	for(u8Counter = 0; u8Counter < 8; u8Counter++)
 	{
+		vSOFTI2C_LOWLEVEL__Generate_Delay();
 		bitWrite(out_byte, 7 - u8Counter, u8SOFTI2C_LOWLEVEL__Read_Bit());
 	}
 
