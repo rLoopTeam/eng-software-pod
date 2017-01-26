@@ -30,9 +30,6 @@ extern struct _strFCU sFCU;
 
 // TODO: need the following functions:
 // vFCU_COOLING__Set_Valve(ValveNumber, TimeOn, TimeOff);
-// vFCU_COOLING__Set_Valve(ValveNumber, TimeOn, TimeOff);
-// vFCU_COOLING__Set_Valve(ValveNumber, TimeOn, TimeOff);
-// vFCU_COOLING__Set_Valve(ValveNumber, TimeOn, TimeOff);
 // u32FCU_FCTL_NAV__PodSpeed();
 
 void vFCU_FCTL_HOVERENGINES__Init(void)
@@ -134,7 +131,7 @@ void vFCU_FCTL_HOVERENGINES__Process(void)
 				{
 					if(u8Counter == 3U || u8Counter == 4U || u8Counter == 7U || u8Counter == 8U)
 					{
-						// activate the cooling system for the 2th group of Hover Engines
+						// activate the cooling system for the 2nd group of Hover Engines
 						vFCU_COOLING__Set_Valve(u8Counter, 0.5, 1.5); // to be changed (this function is not yet implemented
 						// linearly set the 2th group of Hover Engine RPM from 0 to hover engine nominal RPM
 						vFCU_THROTTLE__Set_Throttle(u8Counter, C_FCU__HE_STATIC_HOVER_RPM, THROTTLE_TYPE__RAMP);
@@ -286,7 +283,7 @@ void vFCU_FCTL_HOVERENGINES__Process(void)
 
 }
 
-Luint16 u16FCU_FCTL_HOVERENGINES__Get_State(void)
+E_FCU__HOVERENGINES_STATES_T eFCU_FCTL_HOVERENGINES__Get_State(void)
 {
 	return sFCU.sHoverEngines.eState;
 }
@@ -375,7 +372,11 @@ void vFCU_FCTL_HOVERENGINES__ManualCommandsHandle(void)
 	}
 }
 
-
+//temporary cooling function
+ void vFCU_COOLING__Set_Valve(ValveNumber, TimeOn, TimeOff)
+ {
+	 //do nothing
+ }
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL
 #ifndef C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL

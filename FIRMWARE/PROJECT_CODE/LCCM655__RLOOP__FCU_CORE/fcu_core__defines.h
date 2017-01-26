@@ -114,5 +114,12 @@
 
 	/**Eddy Brakes Parameters */
 	#define C_FCU__EDDYBRAKES_STEPPER_MOTOR_MAX_TEMP			(90U)	//define exact value
+	#define C_FCU__EDDYBRAKES_NOM_APPL_SPEED					(1U)		//define exact value
+	#define C_FCU__EDDYBRAKES_APPL_MLP_DISTANCE				(1U)		//define exact value
+	#define C_FCU__EDDYBRAKES_NOM_RELEASE_SPEED				(1U)		//define exact value
+	#define C_FCU__EDDYBRAKES_RELEASE_MLP_DISTANCE			(1U)		//define exact value
+
+	#define C_FCU__LIFTMECH_ACTUATOR_NOM_UNLIFT_SPEED			(10U)	//define exact value
+
 
 #endif /* _FCU_CORE__DEFINES_H_ */

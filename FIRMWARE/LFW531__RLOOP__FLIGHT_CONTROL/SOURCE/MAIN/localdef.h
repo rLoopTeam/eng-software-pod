@@ -226,6 +226,18 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 			/** Drive Pod Control */
 			#define C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL				(1U)
 
+			/** Eddy Brakes Control */
+			#define C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES					(1U)
+
+			/** Lift Mechanism Control */
+			#define C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL				(1U)
+
+			/** Navigation function */
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION 				(1U)
+
+			/** Control Aux Propulsion */
+			#define C_LOCALDEF__LCCM655__ENABLE_AUX_PROPULSION_CONTROL 		(1U)
+
 
 		/** ADC Sample Limits */
 		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__LOWER_BOUND				(300U)

@@ -120,7 +120,7 @@
 					Luint8 u8Pushing;
 
 					/** Coast State */
-					Luint8 u8Coast;
+					Luint8 u8Coasting;
 
 					/** Braking State */
 					Luint8 u8Braking;
@@ -161,10 +161,22 @@
 			}sDrivePod;
 			#endif
 
+			struct
+			{
+				struct
+				{
+
+					E_FCU__FCTL_EDDYBRAKES_DIRECTION eEddyBrakesDir;
+
+					E_FCU__FCTL_EDDYBRAKES_ACTUATOR	eEddyBrakesAct;
+				}sEddyBrakes;
+			}sFctl;
+
+
 
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 
-			/** Gloabl brakes system */
+			/** Global brakes system */
 			struct
 			{
 				/** individual brake fault flags */
@@ -793,6 +805,8 @@
 				/** If the user has enabled Tx streaming */
 				E_NET__PACKET_T eTxStreamingType;
 
+				/** Timer for the Drive Pod comms watchdog */
+				Luint32 u32_10MS_GS_COMM_Timer;
 
 			}sUDPDiag;
 

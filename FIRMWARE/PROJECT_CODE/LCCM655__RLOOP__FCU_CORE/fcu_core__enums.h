@@ -8,6 +8,56 @@
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__ENUMS_H_
 
 	//////////////////////////////////////////////////////
+	//FCTL: LIFTING MECHANISM
+	//////////////////////////////////////////////////////
+
+	typedef enum
+	{
+		LIFTMECH_DIR_DOWN = 0U,
+		LIFTMECH_DIR_UP = 1U
+
+	}E_FCU__LIFTMECH_DIRECTION;
+
+	typedef enum
+	{
+		LIFTMECH_AftLeft = 0U,
+		LIFTMECH_AftRight = 1U,
+		LIFTMECH_ForwardLeft = 2U,
+		LIFTMECH_ForwardRight = 3U
+	}E_FCU__LIFTMECH_ACTUATOR;
+
+	typedef enum
+	{
+		LIFT_MECH_STATE__RETRACTED,
+		LIFT_MECH_STATE__EXTENDED
+	}E_FCU_LIFTMECH_STATE;
+
+	//////////////////////////////////////////////////////
+	//FCTL: EDDY BRAKES
+	//////////////////////////////////////////////////////
+
+	typedef enum
+	{
+		EDDYBRAKES_OUTWARD = 0U,
+		EDDYBRAKES_INWARD = 1U
+
+	}E_FCU__FCTL_EDDYBRAKES_DIRECTION;
+
+	typedef enum
+	{
+		EDDYBRAKES_Left = 0U,
+		EDDYBRAKES_Right = 1U
+
+	}E_FCU__FCTL_EDDYBRAKES_ACTUATOR;
+
+	typedef enum
+	{
+		EDDYBRAKES_STATE__RETRACTED,
+		EDDYBRAKES_STATE__CONTROLLED_BRAKING,
+		EDDYBRAKES_STATE__BRAKING
+	}E_FCU__FCTL_EDDYBRAKES_STATE;
+
+	//////////////////////////////////////////////////////
 	//FCTL: HOVER ENGINES
 	//////////////////////////////////////////////////////
 

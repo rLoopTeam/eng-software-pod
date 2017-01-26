@@ -182,9 +182,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 			}
 
-
 			break;
-
 
 		case MISSION_PHASE__PRE_RUN:
 
@@ -359,24 +357,26 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 		//TODO: NOT MENTIONED ANYWHERE ELSE
 		//process auto-sequence control
-		vFCU_FCTL_MAINSM_AUTO__Process();
+		//vFCU_FCTL_MAINSM_AUTO__Process();
 
-//		//Check Operating States
-//		vFCU_FCTL_MAINSM__CheckIfUnlifted();
-//
-//		vFCU_FCTL_MAINSM__CheckIfLifted();
-//
-//		vFCU_FCTL_MAINSM__CheckIfHoveringStatically();
-//
-//		vFCU_FCTL_MAINSM__CheckIfReadyForPush();
-//
-//		vFCU_FCTL_MAINSM__CheckIfPushing();
-//
-//		vFCU_FCTL_MAINSM__CheckIfCoasting();
-//
-//		vFCU_FCTL_MAINSM__CheckIfBraking();
-//
-//		vFCU_FCTL_MAINSM__CheckIfControlledBraking();
+		//Update operating states
+
+		sFCU.sStateMachine.sOpStates.u8Unlifted = u8FCU_FCTL_MAINSM__CheckIfUnlifted();
+
+		sFCU.sStateMachine.sOpStates.u8Lifted = u8FCU_FCTL_MAINSM__CheckIfLifted();
+
+		sFCU.sStateMachine.sOpStates.u8StaticHovering = u8FCU_FCTL_MAINSM__CheckIfHoveringStatically();
+
+		sFCU.sStateMachine.sOpStates.u8ReadyForPush = u8FCU_FCTL_MAINSM__CheckIfReadyForPush();
+
+		sFCU.sStateMachine.sOpStates.u8Pushing = u8FCU_FCTL_MAINSM__CheckIfPushing();
+
+		sFCU.sStateMachine.sOpStates.u8Coasting = u8FCU_FCTL_MAINSM__CheckIfCoasting();
+
+		sFCU.sStateMachine.sOpStates.u8Braking = u8FCU_FCTL_MAINSM__CheckIfBraking();
+
+		sFCU.sStateMachine.sOpStates.u8CtlEmergBraking = u8FCU_FCTL_MAINSM__CheckIfControlledBraking();
+
 	}
 	else
 	{
@@ -405,85 +405,100 @@ void vFCU_FCTL_MAINSM__100MS_ISR(void)
    }
 }
 
+E_FCU__MISSION_PHASE_T eFCU_FCTL_MAIN_SM__GetCurrentMissionPhase()
+{
+	return sFCU.sStateMachine.eMissionPhase;
+}
 
 /** OPERATING STATES */
 
 
-void vFCU_FCTL_MAINSM__CheckIfUnlifted(void)
+Luint8 u8FCU_FCTL_MAINSM__CheckIfUnlifted(void)
 {
 
 	//Determine if Lifted
 
 	Luint32 u32PodZPos = s32FCU_FCTL_LASERORIENT__Get_Z_Pos();
+	Luint8 u8Test;
 
 	if(u32PodZPos < C_FCU__LASERORIENT_MAX_UNLIFTED_HEIGHT)
 	{
-		sFCU.sStateMachine.sOpStates.u8Unlifted = 0U;
+		u8Test = 0U;
 	}
 	else
 	{
-		sFCU.sStateMachine.sOpStates.u8Unlifted = 1U;
+		u8Test = 1U;
 	}
+
+	return u8Test;
 }
 
-void vFCU_FCTL_MAINSM__CheckIfLifted(void)
+Luint8 u8FCU_FCTL_MAINSM__CheckIfLifted(void)
 {
 	//Determine if Unlifted
 
 	Luint32	u32PodZPos = s32FCU_FCTL_LASERORIENT__Get_Z_Pos();
+	Luint8 u8Test;
 
 	if(u32PodZPos > C_FCU__LASERORIENT_MIN_LIFTED_HEIGHT)
 	{
-		sFCU.sStateMachine.sOpStates.u8Lifted = 1U;
+		u8Test = 1U;
 	}
 	else
 	{
-		sFCU.sStateMachine.sOpStates.u8Lifted = 0U;
+		u8Test = 0U;
 	}
+	return u8Test;
 }
 
 
-void vFCU_FCTL_MAINSM__CheckIfHoveringStatically(void)
+Luint8 u8FCU_FCTL_MAINSM__CheckIfHoveringStatically(void)
 {
 	//Determine if Hovering Statically
+
+	Luint8 u8Test;
 	if(sFCU.sHoverEngines.eState == HOVERENGINES_STATE__HOVERING)
 	{
-		sFCU.sStateMachine.sOpStates.u8StaticHovering = 1U;
+		u8Test = 1U;
 	}
 	else
 	{
-		sFCU.sStateMachine.sOpStates.u8StaticHovering = 0U;
+		u8Test = 0U;
 	}
+	return u8Test;
 }
 
-//void vFCU_FCTL_MAINSM__CheckIfReadyForPush(void)
-//{
-//	//Determine if Ready for Push
-//
-//	//Get Pod Current Z Position
-//	Luint32 u32PodZPos = s16FCU_FCTL_LASERORIENT__Get_Z_Pos();
-//	//Get Current Pod Speed
-//	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
-//
-//	//Get values on checking the conditions for Pusher Interlock
-//	//Get Pusher Interlock Switch 1 Status
-//	Luint8 u8PusherSwitch1 = u8FCU_PUSHER__Get_Switch(0);
-//	//Get Pusher Interlock Switch 2 Status
-//	Luint8 u8PusherSwitch2 = u8FCU_PUSHER__Get_Switch(1);
-//
-//	//Check if we are connected to the pusher, speed is below standby, the height makes sense to be pushed + each of our landing gear units is retracted
-//	if((u32PodZPos > C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT) &&  (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && 	(u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U) && (vFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED))
-//	{
-//		sFCU.sStateMachine.sOpStates.u8ReadyForPush = 1U;
-//	}
-//	else
-//	{
-//		sFCU.sStateMachine.sOpStates.u8ReadyForPush = 0U;
-//	}
-//}
-
-void vFCU_FCTL_MAINSM__CheckIfPushing(void)
+Luint8 u8FCU_FCTL_MAINSM__CheckIfReadyForPush(void)
 {
+	//Determine if Ready for Push
+
+	Luint8 u8Test;
+	//Get Pod Current Z Position
+	Luint32 u32PodZPos = s16FCU_FCTL_LASERORIENT__Get_Z_Pos();
+	//Get Current Pod Speed
+	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
+
+	//Get values on checking the conditions for Pusher Interlock
+	//Get Pusher Interlock Switch 1 Status
+	Luint8 u8PusherSwitch1 = u8FCU_PUSHER__Get_Switch(0);
+	//Get Pusher Interlock Switch 2 Status
+	Luint8 u8PusherSwitch2 = u8FCU_PUSHER__Get_Switch(1);
+
+	//Check if we are connected to the pusher, speed is below standby, the height makes sense to be pushed + each of our landing gear units is retracted
+	if((u32PodZPos > C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT) &&  (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && 	(u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U) && (vFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED))
+	{
+		u8Test = 1U;
+	}
+	else
+	{
+		u8Test = 0U;
+	}
+	return u8Test;
+}
+
+Luint8 u8FCU_FCTL_MAINSM__CheckIfPushing(void)
+{
+	Luint8 u8Test;
 	//Get Pusher Interlock Switch 1 Status
 	Luint8 u8PusherSwitch1 = u8FCU_PUSHER__Get_Switch(0);
 	//Get Pusher Interlock Switch 2 Status
@@ -494,56 +509,64 @@ void vFCU_FCTL_MAINSM__CheckIfPushing(void)
 	//Determine if in Pushing State
 	if(u32PodSpeed > C_FCU__NAV_MIN_PUSHER_SPEED && (u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U))
 	{
-		sFCU.sStateMachine.sOpStates.u8Pushing = 1U;
+		u8Test = 1U;
 	}
 	else
 	{
-		sFCU.sStateMachine.sOpStates.u8Pushing = 0U;
+		u8Test = 0U;
 	}
+	return u8Test;
 }
 
-//void vFCU_FCTL_MAINSM__CheckIfCoasting(void)
-//{
-//	//Get Pusher Interlock Switch 1 Status
-//	Luint8 u8PusherSwitch1 = u8FCU_PUSHER__Get_Switch(0);
-//	//Get Pusher Interlock Switch 2 Status
-//	Luint8 u8PusherSwitch2 = u8FCU_PUSHER__Get_Switch(1);
-//	//Get Pod Speed
-//	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
-//	//
-//	if(u32PodSpeed && (u8PusherSwitch1 == 0U) && (u8PusherSwitch2 == 0U) && (vFCU_FCTL_BRAKES__Get_State() == BRAKES_STATE__RETRACTED))
-//	{
-//		sFCU.sStateMachine.sOpStates.u8Coast = 1U;
-//	}
-//	else
-//	{
-//		sFCU.sStateMachine.sOpStates.u8Coast = 0U;
-//	}
-//}
-//
-//void vFCU_FCTL_MAINSM__CheckIfBraking(void)
-//{
-//	if(vFCU_FCTL_BRAKES__Get_State() == BRAKES_STATE__BRAKING)
-//	{
-//		sFCU.sStateMachine.sOpStates.u8Braking = 1U;
-//	}
-//	else
-//	{
-//		sFCU.sStateMachine.sOpStates.u8Braking = 0U;
-//	}
-//}
-//
-//void vFCU_FCTL_MAINSM__CheckIfControlledBraking(void)
-//{
-//	if(vFCU_FCTL_BRAKES__Get_State() == BRAKES_STATE__CONTROLLED_BRAKING)
-//	{
-//		sFCU.sStateMachine.sOpStates.u8CtlEmergBraking = 1U;
-//	}
-//	else
-//	{
-//		sFCU.sStateMachine.sOpStates.u8CtlEmergBraking = 0U;
-//	}
-//}
+Luint8 u8FCU_FCTL_MAINSM__CheckIfCoasting(void)
+{
+	Luint8 u8Test;
+	//Get Pusher Interlock Switch 1 Status
+	Luint8 u8PusherSwitch1 = u8FCU_PUSHER__Get_Switch(0);
+	//Get Pusher Interlock Switch 2 Status
+	Luint8 u8PusherSwitch2 = u8FCU_PUSHER__Get_Switch(1);
+	//Get Pod Speed
+	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
+	//
+	if(u32PodSpeed && (u8PusherSwitch1 == 0U) && (u8PusherSwitch2 == 0U) && (vFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__RETRACTED))
+	{
+		u8Test = 1U;
+	}
+	else
+	{
+		u8Test = 0U;
+	}
+	return u8Test;
+}
+
+Luint8 u8FCU_FCTL_MAINSM__CheckIfBraking(void)
+{
+	Luint8 u8Test;
+	if(vFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__BRAKING)
+	{
+		u8Test = 1U;
+	}
+	else
+	{
+		u8Test = 0U;
+	}
+	return u8Test;
+}
+
+Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void)
+{
+	Luint8 u8Test;
+	if(vFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__CONTROLLED_BRAKING)
+	{
+		u8Test = 1U;
+	}
+	else
+	{
+		u8Test = 0U;
+	}
+	return u8Test;
+}
+
 #endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
 //safetys
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE

@@ -50,6 +50,9 @@
 		/** All system fault flags */
 		NET_PKT__FCU_GEN__TX_ALL_FAULT_FLAGS = 0x0300U,
 
+		/** GS Hearbeat */
+		NET_PKT__FCU_GEN__GS_HEARTBEAT = 0x0400U,
+
 		//////////////////////////////////////////////////////
 		//FCU: ACCEL (0x1000)
 		//////////////////////////////////////////////////////
@@ -214,6 +217,24 @@
 		/** FCU to Host, return pusher data */
 		NET_PKT__FCU_ASI__TX_PUSHER_DATA = 0x1801U,
 
+		//////////////////////////////////////////////////////
+		//FCU: LANDING GEAR UNIT (0x1900)
+		//////////////////////////////////////////////////////
+
+		/** Set Direction */
+		NET_PKT__FCU_LIFTMECH__SET_DIR = 0x1900U,
+
+		/** Set speed */
+		NET_PKT__FCU_LIFTMECH__SET_SPEED = 0x1901U,
+
+		/** Set Group Dir */
+		NET_PKT__FCU_LIFTMECH__SET_GROUP_DIR = 0x1902U,
+
+		/** Set Group Speed */
+		NET_PKT__FCU_LIFTMECH__SET_GROUP_SPEED = 0x1903U,
+
+		/** Release the Lift Mech */
+		NET_PKT__FCU_LIFTMECH__RELEASE = 0x1904U,
 
 		//////////////////////////////////////////////////////
 		//POWER: GENERAL (0x3000)
