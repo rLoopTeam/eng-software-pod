@@ -337,10 +337,35 @@ acceleration validity
 //	// TODO compensate for thermal drift?
 //}
 
-Luint8 u8FCU_FCTL_NAV_GetPodSpeedTooHigh(void)
+Luint8 u8FCU_FCTL_NAV__GetPodSpeedTooHigh(void)
 {
 	Luint8 u8Test;
 	return u8Test;
+}
+
+Luint32 u32FCU_FCTL_NAV__PodSpeed(void)
+{
+//do something with it
+}
+
+Luint32 u32FCU_FCTL_NAV__GetRearPos(void)
+{
+//do something with it
+}
+
+Luint32 u32FCU_FCTL_NAV__GetFrontPos(void)
+{
+//do something with it
+}
+
+Luint32 u32FCU_FCTL_NAV__Get_Accel_mmss(void)
+{
+//do something with it
+}
+
+Luint32 u32FCU_FCTL_LASERORIENT__Get_Z_Pos()
+{
+	//TODO: WRITE THIS ONE
 }
 
 /****************************************************************************/

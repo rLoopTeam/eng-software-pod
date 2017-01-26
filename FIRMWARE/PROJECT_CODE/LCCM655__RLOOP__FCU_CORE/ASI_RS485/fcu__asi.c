@@ -554,6 +554,27 @@ Lint16 s16FCU_ASI__ProcessReply(void)
 	return s16Return;
 }
 
+Luint16 u16FCU_ASI__ReadMotorRpm(Luint8 u8EngineIndex)
+{
+return sFCU.sASI.sHolding[u8EngineIndex].u16RPM;
+}
+
+Luint16 u16FCU_ASI__ReadMotorVoltage(Luint8 u8EngineIndex)
+{
+//TODO: return sFCU.sASI.sHolding[u8EngineIndex].
+}
+
+Lfloat32 f32FCU_ASI__ReadMotorCurrent(Luint8 u8EngineIndex)
+{
+return sFCU.sASI.sHolding[u8EngineIndex].f32MotorCurrentA;
+}
+
+Lfloat32 f32FCU_ASI__ReadControllerTemperature(Luint8 u8EngineIndex)
+{
+return sFCU.sASI.sHolding[u8EngineIndex].f32TempC;
+}
+
+
 #endif //C_LOCALDEF__LCCM655__ENABLE_ASI_RS485
 #ifndef C_LOCALDEF__LCCM655__ENABLE_ASI_RS485
 	#error

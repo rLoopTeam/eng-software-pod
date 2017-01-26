@@ -140,12 +140,12 @@ extern struct _strFCU sFCU;
 //	}
 //}
 
-void vFCU_FCTL_AUX_PROP_Stop(void)
+void vFCU_FCTL_AUX_PROP__Stop(void)
 {
 //todo
 }
 
-void vFCU_FCTL_AUX_PROP_Disable(void)
+void vFCU_FCTL_AUX_PROP__Disable(void)
 {
 //todo
 }

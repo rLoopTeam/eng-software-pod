@@ -29,7 +29,7 @@ extern struct _strFCU sFCU;
 //u32FCU_FCTL_NAV__GetFrontPos();
 //u32FCU_FCTL_NAV__GetRearPos();
 //u32FCU_FCTL_NAV__PodSpeed();
-//s16FCU_FCTL_LASERORIENT__Get_Z_Pos()
+//u32FCU_FCTL_LASERORIENT__Get_Z_Pos()
 //u32LandingGearMLPLeftAftValue = u32FCU_LGU__Get_MLP_Value(Luint8 u8Counter);
 
 /***************************************************************************//**
@@ -61,7 +61,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 	Luint8 u8Counter;
 	Luint8 u8Test;
 	Luint8 u8TestsSuccesful;
-	Lint32 s32Accelmmss;
+	Lint32 u32Accelmmss;
 	Luint32 u32PodSpeed;
 	Luint8 u8PusherState;
 	Luint32 u32PodRearPos;
@@ -188,9 +188,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 			//Transition to Pusher Interlock Phase based on the acceleration
 			//Not sure about how to call the right accelerometer and whether it indicates the right axis
-			s32Accelmmss = s32FCU_FCTL_NAV__Get_Accel_mmss();
+			u32Accelmmss = u32FCU_FCTL_NAV__Get_Accel_mmss();
 
-			if(s32Accelmmss > C_FCU__NAV_PODSPEED_STANDBY)
+			if(u32Accelmmss > C_FCU__NAV_PODSPEED_STANDBY)
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PUSHER_INTERLOCK;
 			}
@@ -418,7 +418,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfUnlifted(void)
 
 	//Determine if Lifted
 
-	Luint32 u32PodZPos = s32FCU_FCTL_LASERORIENT__Get_Z_Pos();
+	Luint32 u32PodZPos = u32FCU_FCTL_LASERORIENT__Get_Z_Pos();
 	Luint8 u8Test;
 
 	if(u32PodZPos < C_FCU__LASERORIENT_MAX_UNLIFTED_HEIGHT)
@@ -437,7 +437,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfLifted(void)
 {
 	//Determine if Unlifted
 
-	Luint32	u32PodZPos = s32FCU_FCTL_LASERORIENT__Get_Z_Pos();
+	Luint32	u32PodZPos = u32FCU_FCTL_LASERORIENT__Get_Z_Pos();
 	Luint8 u8Test;
 
 	if(u32PodZPos > C_FCU__LASERORIENT_MIN_LIFTED_HEIGHT)
@@ -474,7 +474,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfReadyForPush(void)
 
 	Luint8 u8Test;
 	//Get Pod Current Z Position
-	Luint32 u32PodZPos = s16FCU_FCTL_LASERORIENT__Get_Z_Pos();
+	Luint32 u32PodZPos = u32FCU_FCTL_LASERORIENT__Get_Z_Pos();
 	//Get Current Pod Speed
 	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 

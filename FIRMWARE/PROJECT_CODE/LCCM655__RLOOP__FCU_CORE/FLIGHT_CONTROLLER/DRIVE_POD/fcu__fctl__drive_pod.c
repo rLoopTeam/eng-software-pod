@@ -141,9 +141,9 @@ void vFCU_FCTL_DRIVEPOD__Process(void)
 							vFCU_FCTL_LIFTMECH__SetDirAll(0); //SET DIRECTION UP
 							vFCU_FCTL_LIFTMECH__SetSpeedAll(C_FCU__LIFTMECH_ACTUATOR_NOM_UNLIFT_SPEED);
 						}
-						if (u32FCU_FCTL_LIFTMECH__Get_MLP() < C_FCU__LIFTMECH_RETRACTED_MLP_DISTANCE)
+						if (vFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED)
 						{
-							sFCU.sDrivePod.ePreRunState = DRIVEPOD_PRERUN_GIMBAL_BACKWARD;
+//							sFCU.sDrivePod.ePreRunState = DRIVEPOD_PRERUN_GIMBAL_BACKWARD;
 							sFCU.sDrivePod.u8100MS_Timer = 0;
 						}
 						if (sFCU.sDrivePod.u8100MS_Timer >= 100)

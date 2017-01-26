@@ -214,7 +214,12 @@ void vFCU_FCTL_EDDYBRAKES_Speed(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator, Luint3
 }
 void vFCU_FCTL_EDDYBRAKES__Get_State(void)
 {
-	//implement this one
+	//TODO:IMPLEMENT THIS
+}
+
+Luint32 u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp(void)
+{
+	//TODO:IMPLEMENT THIS
 }
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL

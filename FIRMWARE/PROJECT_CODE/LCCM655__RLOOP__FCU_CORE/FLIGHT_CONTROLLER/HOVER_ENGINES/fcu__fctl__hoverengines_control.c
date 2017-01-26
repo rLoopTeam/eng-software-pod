@@ -52,7 +52,7 @@ void vFCU_FCTL_HOVERENGINES__Init(void)
 void vFCU_FCTL_HOVERENGINES__Process(void)
 {
 	Luint32 u32PodSpeed; // SHOULD COME FROM THE NAVIGATION FUNCTIONS
-	Luint16 u16RPM[8]; // Used in order to avoid fetching from structure
+	Luint16 u16Rpm[8]; // Used in order to avoid fetching from structure
 	Luint16 u8status;
 	Luint8  u8Counter;
 
@@ -67,7 +67,7 @@ void vFCU_FCTL_HOVERENGINES__Process(void)
 			if((sFCU.sHoverEngines.eGSCommands == HE_CTL_STATIC_HOVERING) || (sFCU.sHoverEngines.sIntParams.u8Enable == 1U && sFCU.sHoverEngines.sIntParams.u8RunAuto == 1U))
 			{
 				// fetch the pod speed
-				u32PodSpeed = u32FCU_FCTL_NAV__POD_SPEED();
+				u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 				// if the pod speed is lower than the pod standby speed and the pod is lifted
 				if((u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && (sFCU.sStateMachine.sOpStates.u8Lifted != 0U))
 				{
@@ -106,8 +106,9 @@ void vFCU_FCTL_HOVERENGINES__Process(void)
 				if(u8Counter == 1U || u8Counter == 2U || u8Counter == 5U || u8Counter == 6U)
 				{
 
-					Luint16 u16Rpm = 0U;
-					s16FCU_ASI__ReadMotorRpm(u8Counter, &u16Rpm);
+					Luint16 u16Rpm = u16FCU_ASI__ReadMotorRpm(u8Counter);
+					//Luint16 u16Rpm = 0U;
+					//s16FCU_ASI__ReadMotorRpm(u8Counter, &u16Rpm);
 					if(u16Rpm < (C_FCU__HE_CRUISE_RPM - C_FCU__HE_RPM_TOLERANCE))
 						u8status = 0U;
 				}
@@ -149,9 +150,10 @@ void vFCU_FCTL_HOVERENGINES__Process(void)
 			{
 				if(u8Counter == 3U || u8Counter == 4U || u8Counter == 7U || u8Counter == 8U)
 				{
-					Luint16 u16rpm = 0U;
-					s16FCU_ASI__ReadMotorRpm(u8Counter, &u16rpm);
-					if(u16rpm < (C_FCU__HE_CRUISE_RPM - C_FCU__HE_RPM_TOLERANCE))
+					Luint16 u16Rpm = u16FCU_ASI__ReadMotorRpm(u8Counter);
+					//Luint16 u16Rpm = 0U;
+					//s16FCU_ASI__ReadMotorRpm(u8Counter, &u16Rpm);
+					if(u16Rpm < (C_FCU__HE_CRUISE_RPM - C_FCU__HE_RPM_TOLERANCE))
 						u8status = 0U;
 				}
 			}
@@ -174,30 +176,38 @@ void vFCU_FCTL_HOVERENGINES__Process(void)
 				{
 					// RPM, Temperature and Current are monitored,
 					// a fault is reported if those values goes out of the safety range.
-					Luint16 u16rpm = 0;
-					Luint16 u16Current = 0;
-					Luint16 u16Voltage = 0;
-					Luint16 u16Temp = 0;
+					Luint16 u16Rpm = 0;
+					Lfloat32  f32Current = 0;
+					//Luint16 u16Voltage = 0;
+					Lfloat32 f32Temp = 0;
 					Luint8  u8ErrorFlag = 0;
+
 					//read hover engine RPM
-					s16FCU_ASI_CTRL__ReadMotorRpm(u8Counter, &u16rpm);
+					u16FCU_ASI__ReadMotorRpm(u8Counter);
+					//TODO: CHECK s16FCU_ASI_CTRL__ReadMotorRpm(u8Counter, &u16Rpm);
+
 					//read hover engine Current
-					s16FCU_ASI_CTRL__ReadMotorCurrent(u8Counter, &u16Current);
+					f32FCU_ASI__ReadMotorCurrent(u8Counter);
+					//s16FCU_ASI_CTRL__ReadMotorCurrent(u8Counter, &f32Current);
+
 					//read hover engine Voltage
-					s16FCU_ASI_CTRL__ReadMotorVoltage(u8Counter, &u16Voltage);
+					//s16FCU_ASI_CTRL__ReadMotorVoltage(u8Counter, &u16Voltage);
+
 					//read hover engine Temperature
-					s16FCU_ASI_CTRL__ReadControllerTemperature(u8Counter, &u16Temp);
+					f32FCU_ASI__ReadControllerTemperature(u8Counter);
+					//s16FCU_ASI_CTRL__ReadControllerTemperature(u8Counter, &f32Temp);
+
 					// verify Current range
-					u8ErrorFlag = (u16Current > C_FCU__HE_MAX_CURRENT) ? 1U : 0U;
-					u8ErrorFlag = (u16Current < C_FCU__HE_MIN_CURRENT) ? 1U : u8ErrorFlag;
+					u8ErrorFlag = (f32Current > C_FCU__HE_MAX_CURRENT) ? 1U : 0U;
+					u8ErrorFlag = (f32Current < C_FCU__HE_MIN_CURRENT) ? 1U : u8ErrorFlag;
 					// verify voltage range
-					u8ErrorFlag = (u16Voltage > C_FCU__HE_MAX_VOLTAGE) ? 1U : u8ErrorFlag;
-					u8ErrorFlag = (u16Voltage < C_FCU__HE_MIN_VOLTAGE) ? 1U : u8ErrorFlag;
+					//u8ErrorFlag = (u16Voltage > C_FCU__HE_MAX_VOLTAGE) ? 1U : u8ErrorFlag;
+					//u8ErrorFlag = (u16Voltage < C_FCU__HE_MIN_VOLTAGE) ? 1U : u8ErrorFlag;
 					// verify max temperature
-					u8ErrorFlag = (u16Temp > C_FCU__HE_MAX_TEMPERATURE) ? 1U : u8ErrorFlag;
+					u8ErrorFlag = (f32Temp > C_FCU__HE_MAX_TEMPERATURE) ? 1U : u8ErrorFlag;
 					// verify RPM value
-					u8ErrorFlag = (u16rpm > (sFCU.sHoverEngines.sIntParams.u32CurrentRPMValue + C_FCU__HE_RPM_TOLERANCE)) ? 1U : u8ErrorFlag;
-					u8ErrorFlag = (u16rpm < (sFCU.sHoverEngines.sIntParams.u32CurrentRPMValue - C_FCU__HE_RPM_TOLERANCE)) ? 1U : u8ErrorFlag;
+					u8ErrorFlag = (u16Rpm > (sFCU.sHoverEngines.sIntParams.u32CurrentRPMValue + C_FCU__HE_RPM_TOLERANCE)) ? 1U : u8ErrorFlag;
+					u8ErrorFlag = (u16Rpm < (sFCU.sHoverEngines.sIntParams.u32CurrentRPMValue - C_FCU__HE_RPM_TOLERANCE)) ? 1U : u8ErrorFlag;
 
 					if(u8ErrorFlag == 1U)
 					{
@@ -212,7 +222,7 @@ void vFCU_FCTL_HOVERENGINES__Process(void)
 					}
 				}
 				// get pod speed
-				u32PodSpeed = u32FCU_FCTL_NAV__POD_SPEED();
+				u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 				// If the pod speed goes higher than the max speed to stabilize pod
 				if((u32PodSpeed > C_FCU__NAV_PODSPEED_MAX_SPEED_TO_STABILIZE) && (sFCU.sHoverEngines.sIntParams.u8SpeedState == 0U))
 				{
@@ -249,7 +259,7 @@ void vFCU_FCTL_HOVERENGINES__Process(void)
 			if((sFCU.sHoverEngines.eGSCommands == HE_CTL_RELEASE_STATIC_HOVERING) || (sFCU.sHoverEngines.sIntParams.u8Enable == 0U))
 			{
 				// get pod speed
-				u32PodSpeed = u32FCU_FCTL_NAV__POD_SPEED();
+				u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 				if((sFCU.sStateMachine.sOpStates.u8StaticHovering != 0U) && (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY))
 				{
 					for(u8Counter = 1; u8Counter < 8; u8Counter++)
@@ -264,9 +274,10 @@ void vFCU_FCTL_HOVERENGINES__Process(void)
 			u8status = 1U;
 			for(u8Counter = 1U; u8Counter < 8U; u8Counter++)
 			{
-					Luint16 u16rpm = 0U;
-					s16FCU_ASI__ReadMotorRpm(u8Counter, &u16rpm);
-					if(u16rpm < (C_FCU__HE_CRUISE_RPM - C_FCU__HE_RPM_TOLERANCE))
+					//Luint16 u16Rpm = 0U;
+					//s16FCU_ASI__ReadMotorRpm(u8Counter, &u16Rpm);
+					Luint16 u16Rpm = u16FCU_ASI__ReadMotorRpm(u8Counter);
+					if(u16Rpm < (C_FCU__HE_CRUISE_RPM - C_FCU__HE_RPM_TOLERANCE))
 						u8status = 0U;
 			}
 
@@ -323,49 +334,49 @@ void vFCU_FCTL_HOVERENGINES__ManualCommandsHandle(void)
 	switch(sFCU.sHoverEngines.eGSCommands)
 	{
 		case HE_CTL_M_SET_SPEED_HE1:
-			u32PodSpeed = u32FCU_FCTL_NAV__POD_SPEED();
+			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 			if(u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
 				vFCU_THROTTLE__Set_Throttle(1U, u32GS_RPM, THROTTLE_TYPE__STEP);
 			break;
 
 		case HE_CTL_M_SET_SPEED_HE2:
-			u32PodSpeed = u32FCU_FCTL_NAV__POD_SPEED();
+			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 			if(u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
 				vFCU_THROTTLE__Set_Throttle(2U, u32GS_RPM, THROTTLE_TYPE__STEP);
 			break;
 
 		case HE_CTL_M_SET_SPEED_HE3:
-			u32PodSpeed = u32FCU_FCTL_NAV__POD_SPEED();
+			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 			if(u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
 				vFCU_THROTTLE__Set_Throttle(3U, u32GS_RPM, THROTTLE_TYPE__STEP);
 			break;
 
 		case HE_CTL_M_SET_SPEED_HE4:
-			u32PodSpeed = u32FCU_FCTL_NAV__POD_SPEED();
+			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 			if(u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
 				vFCU_THROTTLE__Set_Throttle(4U, u32GS_RPM, THROTTLE_TYPE__STEP);
 			break;
 
 		case HE_CTL_M_SET_SPEED_HE5:
-			u32PodSpeed = u32FCU_FCTL_NAV__POD_SPEED();
+			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 			if(u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
 				vFCU_THROTTLE__Set_Throttle(5U, u32GS_RPM, THROTTLE_TYPE__STEP);
 			break;
 
 		case HE_CTL_M_SET_SPEED_HE6:
-			u32PodSpeed = u32FCU_FCTL_NAV__POD_SPEED();
+			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 			if(u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
 				vFCU_THROTTLE__Set_Throttle(6U, u32GS_RPM, THROTTLE_TYPE__STEP);
 			break;
 
 		case HE_CTL_M_SET_SPEED_HE7:
-			u32PodSpeed = u32FCU_FCTL_NAV__POD_SPEED();
+			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 			if(u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
 				vFCU_THROTTLE__Set_Throttle(7U, u32GS_RPM, THROTTLE_TYPE__STEP);
 			break;
 
 		case HE_CTL_M_SET_SPEED_HE8:
-			u32PodSpeed = u32FCU_FCTL_NAV__POD_SPEED();
+			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 			if(u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
 				vFCU_THROTTLE__Set_Throttle(8U, u32GS_RPM, THROTTLE_TYPE__STEP);
 			break;
