@@ -38,6 +38,9 @@
 		/** Idle Phase, once we have been enabled */
 		COOLING_STATE__IDLE,
 
+		/** Hardware check to see if thermocouples are online */
+		COOLING_HARDWARE__CHECK,
+
 		/** Check the thermocouple temperature */
 		COOLING_STATE__CHECK_TEMPERATURES,
 
