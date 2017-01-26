@@ -43,6 +43,10 @@ void vPWR_COOLING__Process(void)
 		break;
 	case COOLING_STATE__IDLE:
 		//in this state we are only getting to here once we have been enabled
+		sPWRNODE.sCooling.eMainState = COOLING_HARDWARE__CHECK;
+		break;
+	case COOLING_HARDWARE__CHECK:
+		//in this state, we want to check to see if all our thermocouples are online
 		sPWRNODE.sCooling.eMainState = COOLING_STATE__CHECK_TEMPERATURES;
 		break;
 	case COOLING_STATE__CHECK_TEMPERATURES:
