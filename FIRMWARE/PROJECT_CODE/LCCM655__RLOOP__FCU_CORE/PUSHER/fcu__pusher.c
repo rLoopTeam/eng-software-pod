@@ -344,6 +344,16 @@ void vFCU_PUSHER__10MS_ISR(void)
 	#endif
 }
 
+#ifdef WIN32
+
+//emulate
+void vFCU_PUSHER_WIN32__SwitchState(Luint8 u8SwitchIndex, Luint8 u8RisingEdge, Luint8 u8Value)
+{
+
+}
+
+#endif
+
 #ifndef C_LOCALDEF__LCCM655__ENABLE_PUSHER
 	#error
 #endif

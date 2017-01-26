@@ -203,6 +203,13 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				sFCU.sUDPDiag.eTxPacketType = NET_PKT__LASER_OPTO__TX_LASER_DATA;
 				break;
 
+			case NET_PKT__LASER_OPTO__CAL_LASER_HEIGHT:
+				#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
+					//calibrate
+					vFCU_LASEROPTO__Set_CalValue(u32Block[0], f32Block[1]);
+				#endif
+				break;
+
 			case NET_PKT__LASER_DIST__REQUEST_LASER_DATA:
 				//transmit the laser distance data
 				sFCU.sUDPDiag.eTxPacketType = NET_PKT__LASER_DIST__TX_LASER_DATA;

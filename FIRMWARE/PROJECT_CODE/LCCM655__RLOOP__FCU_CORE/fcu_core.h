@@ -420,6 +420,14 @@
 
 				}sOptoLaser[C_FCU__NUM_LASERS_OPTONCDT];
 
+				/** Calibration storage offset */
+				struct
+				{
+					/** The offset value */
+					Lfloat32 f32Offset;
+
+				}sCalibration[C_FCU__NUM_LASERS_OPTONCDT];
+
 			}sLaserOpto;
 			#endif //C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT
 
@@ -1139,6 +1147,7 @@
 		//lasers for OptoNCDT interface
 		void vFCU_LASEROPTO__Init(void);
 		void vFCU_LASEROPTO__Process(void);
+		void vFCU_LASEROPTO__Set_CalValue(Luint32 u32Key, Lfloat32 f32Offset);
 		Lfloat32 f32FCU_LASEROPTO__Get_Distance(E_FCU__LASER_OPTO__INDEX_T eLaser);
 		Luint8 u8FCU_LASEROPTO__Get_Error(E_FCU__LASER_OPTO__INDEX_T eLaser);
 		void vFCU_LASEROPTO__100MS_ISR(void);

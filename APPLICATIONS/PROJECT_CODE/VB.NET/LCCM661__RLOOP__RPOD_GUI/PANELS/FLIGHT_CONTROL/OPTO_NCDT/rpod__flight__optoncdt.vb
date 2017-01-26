@@ -30,6 +30,7 @@
         Private m_txtLaser_LaserRaw() As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtLaser_LaserFiltered() As SIL3.ApplicationSupport.TextBoxHelper
 
+        Private m_txtCalValue As SIL3.ApplicationSupport.TextBoxHelper
 
         Private m_pCSV As SIL3.FileSupport.CSV
 
@@ -198,8 +199,14 @@
             Dim btnOn As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
             btnOn.Layout__BelowControl(Me.m_txtCount)
 
-            Dim btnOff As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream Off", AddressOf btnStreamOff__Click)
-            btnOff.Layout__RightOfControl(btnOn)
+
+            Dim l22 As New SIL3.ApplicationSupport.LabelHelper("Calibration Value")
+            l22.Layout__BelowControl(btnOn)
+            Me.m_txtCalValue = New SIL3.ApplicationSupport.TextBoxHelper(100, l22)
+            Me.m_txtCalValue.Threadsafe__SetText("0.0")
+
+            Dim btnCal As New SIL3.ApplicationSupport.ButtonHelper(100, "Calibrate", AddressOf btnCal__Click)
+            btnCal.Layout__RightOfControl(Me.m_txtCalValue)
 
         End Sub
 
@@ -207,19 +214,43 @@
 
 #Region "BUTTON HELPERS"
 
+        ''' <summary>
+        ''' Height calibration system
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnCal__Click(s As Object, e As EventArgs)
 
-        Private Sub btnStreamOn__Click(s As Object, e As EventArgs)
+            If MsgBox("Warn: Are you sure you want to set the cal?", MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                Exit Sub
+            End If
+
+            Dim pf32 As New SIL3.Numerical.F32(Single.Parse(Me.m_txtCalValue.Text))
+
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LASER_OPTO__CAL_LASER_HEIGHT,
+                                                 &H11221122, pf32.Union__Uint32, 0, 0)
+
+
+        End Sub
+        Private Sub btnStreamOn__Click(s As Object, e As EventArgs)
+
+            Dim pSB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
+            If pSB.Text = "Stream On" Then
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__STREAMING_CONTROL,
                                                  1, SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LASER_OPTO__TX_LASER_DATA, 0, 0)
-        End Sub
 
-        Private Sub btnStreamOff__Click(s As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                pSB.Text = "Stream Off"
+            Else
+                RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__STREAMING_CONTROL,
                                                  0, SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LASER_OPTO__TX_LASER_DATA, 0, 0)
-        End Sub
+                pSB.Text = "Stream On"
+            End If
 
+
+        End Sub
 
 #End Region '#Region "BUTTON HELPERS"
 

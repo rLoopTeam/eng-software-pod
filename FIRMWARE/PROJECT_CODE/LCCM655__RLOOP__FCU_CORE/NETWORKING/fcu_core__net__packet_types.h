@@ -80,6 +80,8 @@
 		/** FCU to Host, return laser data */
 		NET_PKT__LASER_OPTO__TX_LASER_DATA = 0x1101U,
 
+		/** Set the laser height */
+		NET_PKT__LASER_OPTO__CAL_LASER_HEIGHT = 0x1102U,
 
 
 		//////////////////////////////////////////////////////
