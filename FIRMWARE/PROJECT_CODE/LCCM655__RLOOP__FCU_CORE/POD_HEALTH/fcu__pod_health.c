@@ -17,6 +17,14 @@ extern struct _strFCU sFCU;
 #define C_FCU__POD_HEALTH_INDEX__BATTERY_CELL_VOLTAGE_RANGE				0x00000003
 #define C_FCU__POD_HEALTH_INDEX__BATTERY_CURRENT_RANGE					0x00000004
 
+#define C_FCU__POD_HEALTH_INDEX__HE_TEMP_RANGE							0x00000005
+#define C_FCU__POD_HEALTH_INDEX__HE_CURRENT_RANGE						0x00000006
+#define C_FCU__POD_HEALTH_INDEX__HE_VOLT_RANGE							0x00000007
+#define C_FCU__POD_HEALTH_INDEX__HE_RPM_RANGE							0x00000008
+
+#define C_FCU__POD_HEALTH_INDEX__PV_PRESS_RANGE							0x00000009
+#define C_FCU__POD_HEALTH_INDEX__PV_TEMP_RANGE							0x0000000A
+
 //http://confluence.rloop.org/display/SD/10.+Pod+Health+Check
 
 Luint32 u32FCU_PODHEALTH__Check_InRange_F32(Lfloat32 f32Value, Lfloat32 f32Min, Lfloat32 f32Max);
@@ -35,6 +43,7 @@ void vFCU_PODHEALTH__Init(void)
 void vFCU_PODHEALTH__Process(void)
 {
 	Luint8 u8BatteryPack;
+	Luint8 u8Counter;
 /* 0	Battery Pack Average Max Temperature	0 to 50 °C	60 °C
  * 1	Max individual Battery cell temperature	0 to 50 °C	60 °C
  * 2	Battery Voltage	54V to 75.6V
@@ -62,6 +71,39 @@ void vFCU_PODHEALTH__Process(void)
 
 	//battery current.
 	//vFCU_PODHEALTH__Set_FlagInRage__F32(sFCU.sBMS[u8Counter].f32LowestCellVoltage, 3.0F, 5.0F, C_FCU__POD_HEALTH_INDEX__BATTERY_CURRENT_RANGE);
+
+/*
+	Hover Engines
+	5	Hover Engine temperature	0 to 80°C 	100 °C
+	6	Hover Engine current draw	100 A Max
+	7	Hover Engine input voltage draw	50-72 VDC
+	8	Hover Engine RPM	0 - 3000 RPM
+*/
+
+	//go through each HE
+	for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
+	{
+		//todo, temp sensor:
+		//C_FCU__POD_HEALTH_INDEX__HE_TEMP_RANGE
+
+		//I,V,RPM
+		vFCU_PODHEALTH__Set_FlagInRage__F32(sFCU.sASI.sHolding[u8Counter].f32MotorCurrentA, 0.0F, 100.0F, C_FCU__POD_HEALTH_INDEX__HE_CURRENT_RANGE);
+
+		//todo: volts
+		//C_FCU__POD_HEALTH_INDEX__HE_VOLT_RANGE
+		//vFCU_PODHEALTH__Set_FlagInRage__F32(sFCU.sASI[u8Counter].sHolding.f32TempC,
+
+		vFCU_PODHEALTH__Set_FlagInRage__F32((Lfloat32)sFCU.sASI.sHolding[u8Counter].u16RPM, 0.0F, 3000.0F, C_FCU__POD_HEALTH_INDEX__HE_RPM_RANGE);
+
+	}
+
+/*
+	9	Pressure Vessel Pressure	0.7 - 1.1 atm	0.4 atm	Repressurization of the pod is triggered at 0.6 atm and stops at 0.9 atm
+	10	Pressure Vessel Temperature	0 - 40 °C	60 °C
+*/
+	vFCU_PODHEALTH__Set_FlagInRage__F32(sFCU.sBMS[u8BatteryPack].f32PV_Press, 0.7F, 1.1F, C_FCU__POD_HEALTH_INDEX__PV_PRESS_RANGE);
+	vFCU_PODHEALTH__Set_FlagInRage__F32(sFCU.sBMS[u8BatteryPack].f32PV_Temp, 0.0F, 40.0F, C_FCU__POD_HEALTH_INDEX__PV_TEMP_RANGE);
+
 
 }
 

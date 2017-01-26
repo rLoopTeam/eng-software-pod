@@ -325,6 +325,14 @@
 
 		}E_FCU_PUSHER__STATES_T;
 
+		/** Final pusher pin state */
+		typedef enum
+		{
 
+			PIN_FINAL_STATE__DISCONNECTED = 0U,
+			PIN_FINAL_STATE__CONNECTED,
+			PIN_FINAL_STATE__UNKNOWN
+
+		}E_FCU_PUSHPIN_STATE_T;
 
 #endif /* RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__TYPES_H_ */

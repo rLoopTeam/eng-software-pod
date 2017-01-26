@@ -181,7 +181,7 @@ void vFCU_NET_TX__Process(void)
 			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
 
-		case NET_PKT__FCU_ASI__TX_PUSHER_DATA:
+		case NET_PKT__FCU_PUSH__TX_PUSHER_DATA:
 			#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
 				vFCU_PUSHER_ETH__Transmit(eType);
 			#endif

@@ -204,7 +204,7 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         NET_PKT__FCU_ASI__REQUEST_PUSHER_DATA = &H1800
 
         '/** FCU to Host, return pusher data */
-        NET_PKT__FCU_ASI__TX_PUSHER_DATA = &H1801
+        NET_PKT__FCU_PUSH__TX_PUSHER_DATA = &H1801
 
 
         '//////////////////////////////////////////////////////

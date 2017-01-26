@@ -35,7 +35,7 @@ void vFCU_PUSHER__Init(void)
 {
 
 	//init
-	sFCU.sPusher.u8Pusher_Status = 0U;
+	sFCU.sPusher.ePusher_Status = PIN_FINAL_STATE__UNKNOWN;
 	sFCU.sPusher.sSwitches[0].u8EdgeFlag = 0U;
 	sFCU.sPusher.sSwitches[1].u8EdgeFlag = 0U;
 	sFCU.sPusher.sSwitches[0].u8SwitchState = 0U;
@@ -185,12 +185,12 @@ void vFCU_PUSHER__Process(void)
 			if(sFCU.sPusher.sSwitches[0U].u8EdgeFlag == 1U || sFCU.sPusher.sSwitches[1].u8EdgeFlag == 1U)
 			{
 				//pusher connected.
-				sFCU.sPusher.u8Pusher_Status = 1U;
+				sFCU.sPusher.ePusher_Status = PIN_FINAL_STATE__CONNECTED;
 			}
 			else
 			{
 				//pusher not connected.
-				sFCU.sPusher.u8Pusher_Status = 0U;
+				sFCU.sPusher.ePusher_Status = PIN_FINAL_STATE__DISCONNECTED;
 			}
 
 			//go back and do another sample for us.
@@ -266,9 +266,9 @@ Luint8 u8FCU_PUSHER__Get_Switch(Luint8 u8Switch)
  * @st_funcMD5		F51AB362F5D574A9114B7915B833FF9F
  * @st_funcID		LCCM655R0.FILE.012.FUNC.006
  */
-Luint8 u8FCU_PUSHER__Get_PusherState(void)
+E_FCU_PUSHPIN_STATE_T eFCU_PUSHER__Get_PusherState(void)
 {
-	return sFCU.sPusher.u8Pusher_Status;
+	return sFCU.sPusher.ePusher_Status;
 }
 
 /***************************************************************************//**

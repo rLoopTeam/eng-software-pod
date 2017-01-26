@@ -57,7 +57,7 @@ void vFCU_PUSHER_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	//setup length based on packet.
 	switch(ePacketType)
 	{
-		case NET_PKT__FCU_ASI__TX_PUSHER_DATA:
+		case NET_PKT__FCU_PUSH__TX_PUSHER_DATA:
 			u16Length = 4U + 5U + 4U;
 			break;
 
@@ -74,13 +74,13 @@ void vFCU_PUSHER_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		//handle the packet
 		switch(ePacketType)
 		{
-			case NET_PKT__FCU_ASI__TX_PUSHER_DATA:
+			case NET_PKT__FCU_PUSH__TX_PUSHER_DATA:
 
 				//top level fault flags
 				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sPusher.sFaultFlags.u32Flags[0]);
 				pu8Buffer += 4U;
 
-				pu8Buffer[0] = sFCU.sPusher.u8Pusher_Status;
+				pu8Buffer[0] = sFCU.sPusher.ePusher_Status;
 				pu8Buffer[1] = sFCU.sPusher.sSwitches[0].u8EdgeFlag;
 				pu8Buffer[2] = sFCU.sPusher.sSwitches[1].u8EdgeFlag;
 				pu8Buffer[3] = sFCU.sPusher.sSwitches[0].u8SwitchState;

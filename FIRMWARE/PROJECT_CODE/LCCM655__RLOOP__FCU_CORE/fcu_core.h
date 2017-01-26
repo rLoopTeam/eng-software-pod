@@ -325,7 +325,7 @@
 				E_FCU_PUSHER__STATES_T eState;
 
 				/** Interlock switch status */
-				Luint8 u8Pusher_Status;
+				E_FCU_PUSHPIN_STATE_T ePusher_Status;
 
 
 
@@ -1240,7 +1240,7 @@
 		Luint8 u8FCU_PUSHER__Get_InterlockB(void);
 		void vFCU_PUSHER__10MS_ISR(void);
 		Luint8 u8FCU_PUSHER__Get_Switch(Luint8 u8Switch);
-		Luint8 u8FCU_PUSHER__Get_PusherState(void);
+		E_FCU_PUSHPIN_STATE_T eFCU_PUSHER__Get_PusherState(void);
 
 			//eth
 			void vFCU_PUSHER_ETH__Init(void);
