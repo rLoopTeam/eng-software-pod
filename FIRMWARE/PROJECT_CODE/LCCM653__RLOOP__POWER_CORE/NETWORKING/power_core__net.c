@@ -31,8 +31,6 @@ extern struct _strPWRNODE sPWRNODE;
  */
 void vPWRNODE_NET__Init(void)
 {
-	//configure some Rx params
-	vFCU_NET_RX__Init();
 
 	sPWRNODE.sEthernet.u810MS_Timer = 0U;
 	sPWRNODE.sEthernet.eMainState = NET_STATE__IDLE;

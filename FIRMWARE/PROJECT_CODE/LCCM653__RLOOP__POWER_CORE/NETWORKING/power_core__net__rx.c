@@ -66,7 +66,7 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 		if(ePacketType == NET_PKT__PWR_GEN__POD_SAFE_COMMAND)
 		{
 			u32Block[0] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload);
-			if(u32Block[0] == 0x75643210U)
+			if(u32Block[0] == 0x76543210U)
 			{
 				//Safe the pod
 				vPWRNODE_DC__Pod_Safe_Unlock(0xABCD1298U);
