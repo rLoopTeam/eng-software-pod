@@ -45,6 +45,9 @@
 		/** Issue a command to the ASI */
 		ASI_STATE__ISSUE_COMMAND,
 
+		/** Switch the ASI into serial throttle mode */
+		ASI_STATE__ISSUE_SERIAL_TRHOTTLE,
+
 		/** Wait until the recent issued command is complete */
 		ASI_STATE__WAIT_COMMAND_COMPLETE,
 

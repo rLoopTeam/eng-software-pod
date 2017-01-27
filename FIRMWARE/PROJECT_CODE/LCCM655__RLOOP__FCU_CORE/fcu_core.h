@@ -805,6 +805,9 @@
 				/** Do we need to issue a throttle command? */
 				Luint8 u8ThrottleCommand[C_FCU__NUM_HOVER_ENGINES];
 
+				/** Command issued to change ASI's into serial throttle mode */
+				Luint8 u8SerialNetworkCommand[C_FCU__NUM_HOVER_ENGINES];
+
 				/** The throttle value to change to */
 				Luint16 u16Throttle[C_FCU__NUM_HOVER_ENGINES];
 

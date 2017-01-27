@@ -166,6 +166,10 @@ void vPWRNODE_BATTTEMP__Process(void)
 				//clear the hghest index as it will be recomputed belwo
 				sPWRNODE.sTemp.u16HighestSensorIndex = 0U;
 
+				//0x2000 onwards is our BMS sensors
+				u16Mask = C_PWRCORE__BMS_TEMP_MASK;
+				u16Mask <<= 8U;
+
 				//get the number of sensors in the pack
 				u16NumSensors = u16DS18B20__Get_NumEnum_Sensors();
 				for(u16Counter = 0U; u16Counter < u16NumSensors; u16Counter++)
@@ -173,10 +177,6 @@ void vPWRNODE_BATTTEMP__Process(void)
 
 					//make sure the sensors belong to us.
 					u16User = u162DS18B20__Get_UserIndex(u16Counter);
-
-					//0x2000 onwards is our BMS sensors
-					u16Mask = C_PWRCORE__BMS_TEMP_MASK;
-					u16Mask <<= 8U;
 
 					//make sure they are in our user group
 					if((u16User & 0xFF00) != u16Mask)
