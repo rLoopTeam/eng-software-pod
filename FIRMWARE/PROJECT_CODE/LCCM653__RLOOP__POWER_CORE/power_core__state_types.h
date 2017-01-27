@@ -35,6 +35,24 @@
 		/** Do nothing */
 		COOLING_STATE__RESET = 0U,
 
+		/** Start Testing #1 */
+		COOLING_STATE__STARTTESTING_01,
+
+		/** Start Testing #2 */
+		COOLING_STATE__STARTTESTING_02,
+
+		/** Start Testing #3 */
+		COOLING_STATE__STARTTESTING_03,
+
+		/** Start Testing #4 */
+		COOLING_STATE__STARTTESTING_04,
+
+		/** Start Testing #5 */
+		COOLING_STATE__STARTTESTING_05,
+
+		/** End Testing */
+		COOLING_STATE__ENDTESTING,
+
 		/** Idle Phase, once we have been enabled */
 		COOLING_STATE__IDLE,
 
