@@ -51,6 +51,16 @@
 		COOLING_STATE__FAULT
 	}E_PWRNODE__COOLING_T;
 
+	/** Cooling subsystem */
+	typedef enum
+	{
+		/** Start Cooling */
+		COOLINGSUB_STARTCOOLING,
+
+		/** Wait Cooling until timer hits the condition */
+		COOLINGSUB_WAITING
+	}E_PWRNODE__COOLINGSUB_T;
+
 
 	/** Solenoid State */
 	typedef enum
