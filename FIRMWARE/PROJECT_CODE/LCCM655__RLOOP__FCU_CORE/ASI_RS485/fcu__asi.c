@@ -55,6 +55,7 @@ void vFCU_ASI__Init(void)
 	sFCU.sASI.u8NewCommandToSend = 0U;
 	sFCU.sASI.u8RxCount = 0U;
 
+
 	//configure the multiplexer
 	vFCU_ASI_MUX__Init();
 
@@ -82,6 +83,7 @@ void vFCU_ASI__Init(void)
 		sFCU.sASI.sHolding[u8Counter].f32TempC = 0.0F;
 		sFCU.sASI.sHolding[u8Counter].f32MotorCurrentA = 0.0F;
 		sFCU.sASI.sHolding[u8Counter].u16RPM = 0U;
+		sFCU.sASI.u8ThrottleCommand[u8Counter] = 0U;
 	}
 
 }
@@ -115,7 +117,7 @@ void vFCU_ASI__Process(void)
 	{
 		case ASI_STATE__IDLE:
 
-			if(sFCU.sASI.u810MS_Timer > 5U)
+			if(sFCU.sASI.u810MS_Timer > 10U)
 			{
 				//change to send a command
 				sFCU.sASI.eMainState = ASI_STATE__CONFIG_MUX;
@@ -141,11 +143,25 @@ void vFCU_ASI__Process(void)
 		case ASI_STATE__ISSUE_COMMAND:
 
 			//format the command
-			sFCU.sASI.sCurrentCommand.u8SlaveAddress = C_ASI__DEFAULT_SLAVE_ADDX;
-			sFCU.sASI.sCurrentCommand.eFunctionCode = FUNCTION_CODE__READ_HOLDING_REGS;
-			sFCU.sASI.sCurrentCommand.eObjectType = sFCU.sASI.eCommandList[sFCU.sASI.u8CommandListIndex]; // C_FCU_ASI__FAULTS;
-			sFCU.sASI.sCurrentCommand.u16ParamValue = 1;	// we just want to read one register
-			sFCU.sASI.sCurrentCommand.eDestVarType = E_UINT16;
+			if(sFCU.sASI.u8ThrottleCommand[sFCU.sASI.u8ScanIndex] == 1U)
+			{
+				sFCU.sASI.sCurrentCommand.u8SlaveAddress = C_ASI__DEFAULT_SLAVE_ADDX;
+				sFCU.sASI.sCurrentCommand.eFunctionCode = FUNCTION_CODE__READ_HOLDING_REGS;
+				sFCU.sASI.sCurrentCommand.eObjectType = sFCU.sASI.eCommandList[sFCU.sASI.u8CommandListIndex]; // C_FCU_ASI__FAULTS;
+				sFCU.sASI.sCurrentCommand.u16ParamValue = 1;	// we just want to read one register
+				sFCU.sASI.sCurrentCommand.eDestVarType = E_UINT16;
+
+				sFCU.sASI.u8ThrottleCommand[sFCU.sASI.u8ScanIndex] = 0U;
+			}
+			else
+			{
+				sFCU.sASI.sCurrentCommand.u8SlaveAddress = C_ASI__DEFAULT_SLAVE_ADDX;
+				sFCU.sASI.sCurrentCommand.eFunctionCode = FUNCTION_CODE__READ_HOLDING_REGS;
+				sFCU.sASI.sCurrentCommand.eObjectType = sFCU.sASI.eCommandList[sFCU.sASI.u8CommandListIndex]; // C_FCU_ASI__FAULTS;
+				sFCU.sASI.sCurrentCommand.u16ParamValue = 1;	// we just want to read one register
+				sFCU.sASI.sCurrentCommand.eDestVarType = E_UINT16;
+			}
+
 
 			s16Return = s16FCU_ASI__SendCommand();
 			sFCU.sASI.eMainState = ASI_STATE__WAIT_COMMAND_COMPLETE;
@@ -303,6 +319,29 @@ void vFCU_ASI__Process(void)
 			sFCU.sASI.u8NewCommandToSend = 0;
 			sFCU.sASI.eModBusState = ASI_COMM_STATE__IDLE;
 			break;
+
+		default:
+			//do nothing
+			break;
+	}
+
+}
+
+//Set the throttle via the ASI controller.
+void vFCU_ASI__Set_Throttle(Luint8 u8Index, Luint16 u16RPM)
+{
+
+	if(u8Index < C_FCU__NUM_HOVER_ENGINES)
+	{
+		//set the flag that we need to change the throttle
+		sFCU.sASI.u8ThrottleCommand[u8Index] = 1U;
+
+		//save the RPM
+		sFCU.sASI.u16Throttle[u8Index] = u16RPM;
+	}
+	else
+	{
+
 	}
 
 }

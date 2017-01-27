@@ -802,7 +802,14 @@
 				/** Keep track of the command */
 				Luint8 u8CommandListIndex;
 
+				/** Do we need to issue a throttle command? */
+				Luint8 u8ThrottleCommand[C_FCU__NUM_HOVER_ENGINES];
 
+				/** The throttle value to change to */
+				Luint16 u16Throttle[C_FCU__NUM_HOVER_ENGINES];
+
+
+				/** The lower guard */
 				Luint32 u32Guard2;
 
 			}sASI;
@@ -1261,6 +1268,7 @@
 		void vFCU_ASI__10MS_ISR(void);
 		void vFCU_ASI__Process(void);
 		void vFCU_ASI__MemSet(Luint8 *pu8Buffer, Luint8 u8Value, Luint32 u32Count);
+		void vFCU_ASI__Set_Throttle(Luint8 u8Index, Luint16 u16RPM);
 
 
 			//CRC
