@@ -181,7 +181,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 				}
 
 			}
-
 			break;
 
 		case MISSION_PHASE__PRE_RUN:
@@ -244,6 +243,8 @@ void vFCU_FCTL_MAINSM__Process(void)
 			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
 				vFCU_FCTL__Process();
 			#endif
+
+			vFCU_FLIGHTCTL_BRAKEPID__Init();
 
 			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 

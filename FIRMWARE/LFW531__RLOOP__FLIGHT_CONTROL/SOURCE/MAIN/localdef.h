@@ -238,6 +238,9 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 			/** Control Aux Propulsion */
 			#define C_LOCALDEF__LCCM655__ENABLE_AUX_PROPULSION_CONTROL 		(1U)
 
+			/** Enable PID for the Brakes */
+			#define C_LOCALDEF__LCCM655__ENABLE_BRAKEPID 					(1U)
+
 
 		/** ADC Sample Limits */
 		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__LOWER_BOUND				(300U)
