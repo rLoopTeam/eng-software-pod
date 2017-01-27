@@ -267,6 +267,9 @@
 				/** main state machine */
 				E_PWRNODE_NET__MAIN_STATES eMainState;
 
+				/** If we are unicasting */
+				Luint8 u8UnicastAddx[4];
+
 			}sEthernet;
 
 			/** UDP diagnostics system */
