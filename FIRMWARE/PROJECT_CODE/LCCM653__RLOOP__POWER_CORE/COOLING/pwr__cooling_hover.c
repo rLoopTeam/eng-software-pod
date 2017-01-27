@@ -54,7 +54,7 @@ void vPWR_COOLING_HOVER__Process(void)
 				//Turn on for 0.5s/ Turn off at 2s/ Do nothing
 
 				//Set counter
-				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count = 0;
+				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count = 0U;
 				//Turn on Solenoid here
 				vPWR_COOLING__Solennoid_TurnOn(sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u8N2HETPinNumber);
 				//Transit to next state
@@ -65,7 +65,7 @@ void vPWR_COOLING_HOVER__Process(void)
 				//Turn on at 1s/ Turn off at 2s/ Do Nothing
 
 				//Set counter
-				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count = 0;
+				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count = 0U;
 				//Turn on Solenoid here
 				vPWR_COOLING__Solennoid_TurnOn(sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u8N2HETPinNumber);
 				//Transit to next state

@@ -15,6 +15,7 @@ void vPWR_COOLING__Init(void)
 {
 	//Init
 	sPWRNODE.sCooling.eMainState = COOLING_STATE__RESET;
+	sPWRNODE.sCooling.u32100MS_Count = 0U;
 
 	//Config N2HET PIN
 	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 4U); 		//Brake
@@ -48,6 +49,43 @@ void vPWR_COOLING__Process(void)
 		//in this state, we want to check to see if all our thermocouples are online
 		sPWRNODE.sCooling.eMainState = COOLING_STATE__CHECK_TEMPERATURES;
 		break;
+
+	case COOLING_STATE__STARTTESTING_01:
+		sPWRNODE.sCooling.u32100MS_Count = 0U;
+		vPWR_COOLING__Solennoid_TurnOn(4U);
+		sPWRNODE.sCooling.eMainState = COOLING_STATE__ENDTESTING;
+		break;
+	case COOLING_STATE__STARTTESTING_02:
+		sPWRNODE.sCooling.u32100MS_Count = 0U;
+		vPWR_COOLING__Solennoid_TurnOn(8U);
+		sPWRNODE.sCooling.eMainState = COOLING_STATE__ENDTESTING;
+		break;
+	case COOLING_STATE__STARTTESTING_03:
+		sPWRNODE.sCooling.u32100MS_Count = 0U;
+		vPWR_COOLING__Solennoid_TurnOn(16U);
+		sPWRNODE.sCooling.eMainState = COOLING_STATE__ENDTESTING;
+		break;
+	case COOLING_STATE__STARTTESTING_04:
+		sPWRNODE.sCooling.u32100MS_Count = 0U;
+		vPWR_COOLING__Solennoid_TurnOn(22U);
+		sPWRNODE.sCooling.eMainState = COOLING_STATE__ENDTESTING;
+		break;
+	case COOLING_STATE__STARTTESTING_05:
+		sPWRNODE.sCooling.u32100MS_Count = 0U;
+		vPWR_COOLING__Solennoid_TurnOn(23U);
+		sPWRNODE.sCooling.eMainState = COOLING_STATE__ENDTESTING;
+		break;
+	case COOLING_STATE__ENDTESTING:
+		if (sPWRNODE.sCooling.u32100MS_Count < 5)
+		{
+			//stay here
+		}
+		else
+		{
+			sPWRNODE.sCooling.eMainState = COOLING_STATE__RESET;
+		}
+		break;
+
 	case COOLING_STATE__CHECK_TEMPERATURES:
 		//TODO check temperatures
 		//UPDATE Cooling System Status
@@ -135,6 +173,12 @@ void vPWR_COOLING__Enable(Luint32 u32Value)
 		sPWRNODE.sCooling.eMainState = COOLING_STATE__RESET;
 	}
 
+}
+
+//100ms interrupt
+void vPWR_COOLING__100MS_ISR(void)
+{
+	sPWRNODE.sCooling.u32100MS_Count++;
 }
 
 

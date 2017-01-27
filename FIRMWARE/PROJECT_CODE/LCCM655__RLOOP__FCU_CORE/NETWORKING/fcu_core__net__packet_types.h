@@ -295,6 +295,21 @@
 		/** Send COOLING status */
 		NET_PKT__PWR_COOLING__TX_COOLING_STATUS = 0x3601U,
 
+		/** Test Cooling System Solennoid #1 */
+		NET_PKT__PWR_COOLING__RX_TEST_COOLING_01 = 0x3602U,
+
+		/** Test Cooling System Solennoid #2 */
+		NET_PKT__PWR_COOLING__RX_TEST_COOLING_02 = 0x3603U,
+
+		/** Test Cooling System Solennoid #3 */
+		NET_PKT__PWR_COOLING__RX_TEST_COOLING_03 = 0x3604U,
+
+		/** Test Cooling System Solennoid #4 */
+		NET_PKT__PWR_COOLING__RX_TEST_COOLING_04 = 0x3605U,
+
+		/** Test Cooling System Solennoid #5 */
+		NET_PKT__PWR_COOLING__RX_TEST_COOLING_05 = 0x3606U,
+
 		//////////////////////////////////////////////////////
 		//POWER: CURRENT SENSOR (0x3800)
 		//////////////////////////////////////////////////////

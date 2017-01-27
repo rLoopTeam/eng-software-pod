@@ -241,6 +241,9 @@
 
 				/** Cooling System Main State Mainchine */
 				E_PWRNODE__COOLING_T eMainState;
+
+				/** 100 ms counter **/
+				Luint32 u32100MS_Count;
 			}sCooling;
 
 			/** Win32 Functions*/
@@ -461,6 +464,7 @@
 		void vPWR_COOLING__Process(void);
 		void vPWR_COOLING_EDDY__100MS_ISR(void);
 		void vPWR_COOLING_HOVER__100MS_ISR(void);
+		void vPWR_COOLING__100MS_ISR(void);
 		void vPWR_COOLING__Enable(Luint32 u32Value);
 		void vPWR_COOLING__Solennoid_TurnAllOff(void);
 		void vPWR_COOLING__Solennoid_TurnOff(Luint32 u32PinNumber);
