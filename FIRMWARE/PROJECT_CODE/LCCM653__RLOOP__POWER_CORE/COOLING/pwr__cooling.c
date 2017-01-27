@@ -82,6 +82,7 @@ void vPWR_COOLING__Process(void)
 		}
 		else
 		{
+			vPWR_COOLING__Solennoid_TurnAllOff();
 			sPWRNODE.sCooling.eMainState = COOLING_STATE__RESET;
 		}
 		break;
