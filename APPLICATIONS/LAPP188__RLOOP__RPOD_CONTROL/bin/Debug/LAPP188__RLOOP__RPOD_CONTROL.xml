@@ -4411,6 +4411,20 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.ASI.btnChange__Click(System.Object,System.EventArgs)">
+ <summary>
+ Change our HE index
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.ASI.btnStreamOn__Click(System.Object,System.EventArgs)">
+ <summary>
+ Control streaming
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Brakes">
  <summary>
  Brakes Diagnostic System
@@ -5234,6 +5248,13 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Throttle.btnEnableDev__Click(System.Object,System.EventArgs)">
  <summary>
  Switch on throttles dev mode.
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Throttle.btnChange__Click(System.Object,System.EventArgs)">
+ <summary>
+ Change our HE index
  </summary>
  <param name="s"></param>
  <param name="e"></param>

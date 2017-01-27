@@ -372,6 +372,19 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				#endif
 				break;
 
+			case NET_PKT__FCU_ASI__SET_THROTTLE:
+
+				//Change the throttle.
+				if(u32Block[0] == 0x12123434U)
+				{
+					vFCU_ASI__Set_Throttle((Luint8)u32Block[1], (Luint16)u32Block[1]);
+				}
+				else
+				{
+					//not for us
+				}
+				break;
+
 			default:
 				//do nothing
 				break;

@@ -333,6 +333,11 @@
         End Sub
 
 
+        ''' <summary>
+        ''' Change our HE index
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
         Private Sub btnChange__Click(s As Object, e As EventArgs)
 
             Dim iHE As Integer = Me.m_cboHE.SelectedIndex
