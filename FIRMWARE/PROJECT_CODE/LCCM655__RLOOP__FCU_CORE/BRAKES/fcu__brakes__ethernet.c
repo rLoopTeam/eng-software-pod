@@ -406,6 +406,7 @@ void vFCU_BRAKES_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
 		//activate mode
 		sFCU.sBrakesGlobal.sBrakesDev.u8DevMode = 1U;
 		sFCU.sBrakesGlobal.sBrakesDev.u32DevKey = u32Key1;
+		sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__IDLE;
 	}
 	else
 	{

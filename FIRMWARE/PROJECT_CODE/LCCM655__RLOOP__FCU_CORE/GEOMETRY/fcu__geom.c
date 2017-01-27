@@ -23,6 +23,11 @@
 //http://confluence.rloop.org/display/SD/2.3.+Determine+Pod+Front+and+Rear+x+Position%2C+Speed+and+Acceleration+in+tube
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_GEOM == 1U
+
+//CAUTION UNTESTED
+#error
+
 
 //the structure
 extern struct _strFCU sFCU;
@@ -109,7 +114,7 @@ void vFCU_GEOM__Process(void)
 
 }
 
-
+#endif //C_LOCALDEF__LCCM655__ENABLE_GEOM
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 //safetys
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE

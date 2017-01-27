@@ -119,7 +119,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 				vFCU_LGU__Init();
 			#endif
 
-			vFCU_GEOM__Init();
+			#if C_LOCALDEF__LCCM655__ENABLE_GEOM == 1U
+				vFCU_GEOM__Init();
+			#endif //C_LOCALDEF__LCCM655__ENABLE_GEOM
 
 			//put the flight computer into startup mode now that everything has been initted.
 			sFCU.eMissionPhase = MISSION_PHASE__TEST_PHASE;
@@ -261,7 +263,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 			vFCU_LGU__Process();
 		#endif
 
-		vFCU_GEOM__Process();
+		#if C_LOCALDEF__LCCM655__ENABLE_GEOM == 1U
+			vFCU_GEOM__Process();
+		#endif
 
 		//process auto-sequence control
 		vFCU_MAINSM_AUTO__Process();

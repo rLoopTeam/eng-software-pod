@@ -99,12 +99,12 @@ void vFCU_BRAKES_MLP__Init(void)
 		vEEPARAM__WriteU32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER, 0xAABBCCDD, 1U);
 
 		//save the zero
-		vEEPARAM__WriteU16(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO, 0U, 1U);
-		vEEPARAM__WriteU16(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_ZERO, 0U, 1U);
+		vEEPARAM__WriteU16(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO, 0U, DELAY_T__DELAYED_WRITE);
+		vEEPARAM__WriteU16(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_ZERO, 0U, DELAY_T__DELAYED_WRITE);
 
 		//do the span
-		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_SPAN, 1.0F, 1U);
-		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN, 1.0F, 0U);
+		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_SPAN, 1.0F, DELAY_T__DELAYED_WRITE);
+		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN, 1.0F, DELAY_T__IMMEDIATE_WRITE);
 
 		//redo the CRC;
 		vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER,
@@ -425,7 +425,7 @@ void vFCU_BRAKES_MLP__ComputeCalibration_Zero(Luint32 u32Key, E_FCU__BRAKE_INDEX
 			case FCU_BRAKE__LEFT:
 
 				//save	
-				vEEPARAM__WriteU16(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO, sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_FilteredSample, 1U);
+				vEEPARAM__WriteU16(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_ZERO, sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_FilteredSample, DELAY_T__IMMEDIATE_WRITE);
 
 				//redo the CRC;
 				vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER,
@@ -440,7 +440,7 @@ void vFCU_BRAKES_MLP__ComputeCalibration_Zero(Luint32 u32Key, E_FCU__BRAKE_INDEX
 
 			case FCU_BRAKE__RIGHT:
 				//save	
-				vEEPARAM__WriteU16(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_ZERO, sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_FilteredSample, 1U);
+				vEEPARAM__WriteU16(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_ZERO, sFCU.sBrakes[(Luint32)eBrake].sMLP.u16ADC_FilteredSample, DELAY_T__IMMEDIATE_WRITE);
 
 				//redo the CRC;
 				vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER,
@@ -484,13 +484,13 @@ void vFCU_BRAKES_MLP__ComputeCalibration_Span(Luint32 u32Key, E_FCU__BRAKE_INDEX
 			case FCU_BRAKE__LEFT:
 
 				//current screw pos
-				f32Temp = (Lfloat32)sFCU.sBrakes[(Luint8)eBrake].sMove.s32currentPos;
+				f32Temp = 75000.0F; //(Lfloat32)sFCU.sBrakes[(Luint8)eBrake].sMove.s32currentPos;
 				//to mm
 				f32Temp /= 1000.0F;
 				f32Temp /= (Lfloat32)sFCU.sBrakes[(Luint32)eBrake].sMLP.s32ADC_Minus_Zero;
 
 				//save	
-				vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_SPAN, f32Temp, 1U);
+				vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE0_SPAN, f32Temp, DELAY_T__IMMEDIATE_WRITE);
 
 				//redo the CRC;
 				vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER,
@@ -505,13 +505,13 @@ void vFCU_BRAKES_MLP__ComputeCalibration_Span(Luint32 u32Key, E_FCU__BRAKE_INDEX
 
 			case FCU_BRAKE__RIGHT:
 				//current screw pos
-				f32Temp = (Lfloat32)sFCU.sBrakes[(Luint8)eBrake].sMove.s32currentPos;
+				f32Temp = 75000.0F; // (Lfloat32)sFCU.sBrakes[(Luint8)eBrake].sMove.s32currentPos;
 				//to mm
 				f32Temp /= 1000.0F;
 				f32Temp /= (Lfloat32)sFCU.sBrakes[(Luint32)eBrake].sMLP.s32ADC_Minus_Zero;
 
 				//save	
-				vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN, f32Temp, 1U);
+				vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKE1_SPAN, f32Temp, DELAY_T__IMMEDIATE_WRITE);
 
 				//redo the CRC;
 				vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__BRAKES_HEADER,
