@@ -186,6 +186,8 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Serial comms to and from the LGU */
 		#define C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM						(1U)
 
+		/**Geom system */
+		#define C_LOCALDEF__LCCM655__ENABLE_GEOM							(0U)
 
 		/** Flight control specifics */
 		#define C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL					(1U)

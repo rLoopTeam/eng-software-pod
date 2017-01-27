@@ -376,7 +376,7 @@ void vFCU_LASERDIST__Process_Packet(void)
 
 	//save prev
 	sFCU.sLaserDist.s32PrevDistance_mm = sFCU.sLaserDist.s32Distance_mm;
-
+	sFCU.sLaserDist.s32PrevVelocity_mms = sFCU.sLaserDist.s32Velocity_mms;
 
 }
 
