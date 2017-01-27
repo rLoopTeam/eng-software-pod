@@ -56,6 +56,7 @@
 			Luint8 u8MACAddx[6];
 			Luint8 u8IPAddx[4];
 			
+
 			#if (C_LOCALDEF__LCCM325__USE_ON_XILINX == 1U) || (C_LOCALDEF__LCCM325__USE_ON_WIN32 == 1U)
 			struct
 			{
@@ -73,9 +74,13 @@
 			*****************************************************************************/
 			struct
 			{
-
+				/** Dest hardware MAC */
 				Luint8 u8DestMAC[6U];
+
+				/** Source hardware MAC */
 				Luint8 u8SourceMAC[6U];
+
+				/** Ethernet frame type */
 				Luint16 u16EtherType;
 
 			}sETH_II;
@@ -100,12 +105,16 @@
 			*****************************************************************************/
 			struct
 			{
+				/** IPV4 version */
 				Luint8 u8Version;
 				Luint8 u8InternetHeaderLength;
 				Luint16 u16TotalLength;
 				Luint8 u8Protocol;
 				Luint8 u8SourceIP[4U];
 				Luint8 u8DestIP[4U];
+
+				/** If we are using Unicast use this, else it will be FF*/
+				Luint8 u8UnicastDestIP[4];
 
 			}sIPV4;
 
@@ -189,6 +198,7 @@
 		//ipv4 layer
 		void vETH_IPV4__Input(Luint8 * pu8Buffer);
 		void vETH_IPV4__Transmit(Luint16 u16Length);
+		void vETH_IPV4__Set_UnicastAddx(Luint8 *pu8Addx);
 	
 		//ARP
 		void vETH_ARP__Input(Luint8 * pu8Buffer);

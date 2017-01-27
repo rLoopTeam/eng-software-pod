@@ -73,6 +73,15 @@ void vPWRNODE_NET__Init(void)
 	//init the ethernet layer
 	vETHERNET__Init(&sPWRNODE.sEthernet.u8MACAddx[0], &sPWRNODE.sEthernet.u8IPAddx[0]);
 
+	//setup unicast if needed
+#if C_ETH_ENABLE_UNICAST == 1U
+	sPWRNODE.sEthernet.u8UnicastAddx[0] = 192;
+	sPWRNODE.sEthernet.u8UnicastAddx[1] = 168;
+	sPWRNODE.sEthernet.u8UnicastAddx[2] = 0;
+	sPWRNODE.sEthernet.u8UnicastAddx[3] = 50;
+	vETH_IPV4__Set_UnicastAddx(&sPWRNODE.sEthernet.u8UnicastAddx[0]);
+#endif
+
 }
 
 
@@ -126,7 +135,7 @@ void vPWRNODE_NET__Process(void)
 
 		case NET_STATE__WAIT_TIMER_TICK:
 
-			if(sPWRNODE.sEthernet.u810MS_Timer == 1U)
+			if(sPWRNODE.sEthernet.u810MS_Timer > C_ETH_PACKET_TX_COUNT)
 			{
 				sPWRNODE.sEthernet.eMainState = NET_STATE__RUN;
 
@@ -198,7 +207,7 @@ Luint8 u8PWRNODE_NET__Is_LinkUp(void)
  */
 void vPWRNODE_NET__10MS_ISR(void)
 {
-	sPWRNODE.sEthernet.u810MS_Timer = 1U;
+	sPWRNODE.sEthernet.u810MS_Timer++;
 
 	vPWRNODE_NET_TX__10MS_ISR();
 }

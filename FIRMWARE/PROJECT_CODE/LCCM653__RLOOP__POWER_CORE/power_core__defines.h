@@ -8,6 +8,11 @@
 #ifndef RLOOP_POWER_CORE__DEFINES_H_
 #define RLOOP_POWER_CORE__DEFINES_H_
 
+	//number of 10ms timers per Tx count
+	#define C_ETH_PACKET_TX_COUNT					(10U)
+
+	/** Enable UNICASTING to GS */
+	#define C_ETH_ENABLE_UNICAST						(0U)
 
 	/** Number of 6P modules in a battery pack */
 	#define C_PWRCORE__NUM_6P_MODULES					(18U)

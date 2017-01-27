@@ -58,7 +58,7 @@ void vPWRNODE_NET_TX__Process(void)
 		//yes we do
 
 		//do we have a timer flag?
-		if(sPWRNODE.sUDPDiag.u810MS_Flag == 1U)
+		if(sPWRNODE.sUDPDiag.u810MS_Flag > C_ETH_PACKET_TX_COUNT)
 		{
 			//set it
 			eType = sPWRNODE.sUDPDiag.eTxStreamingType;
@@ -142,7 +142,7 @@ void vPWRNODE_NET_TX__Process(void)
  */
 void vPWRNODE_NET_TX__10MS_ISR(void)
 {
-	sPWRNODE.sUDPDiag.u810MS_Flag = 1U;
+	sPWRNODE.sUDPDiag.u810MS_Flag++;
 }
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_ETHERNET
