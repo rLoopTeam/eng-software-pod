@@ -109,6 +109,9 @@
 			/** Main state machine */
 			E_DS18B20__MAIN_STATES eMainState;
 
+			/** With the wait counter we can delay to the next scan to keep our systems alive a bit more */
+			Luint32 u32WaitCounter;
+
 			/** A counter used by the main SM to track progress */
 			Luint16 u16MainStateCounter;
 

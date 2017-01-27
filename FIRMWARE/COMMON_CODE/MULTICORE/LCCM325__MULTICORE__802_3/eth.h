@@ -192,15 +192,18 @@
 		#endif
 
 		//ethernet layer
+		void vETH_ETH__Init();
 		void vETH_ETH__Input(Luint8 * pu8Buffer);
 		void vETH_ETH__Transmit(Luint16 u16EtherType, Luint8 * pu8DestMAC);
 	
 		//ipv4 layer
+		void vETH_IPV4__Init();
 		void vETH_IPV4__Input(Luint8 * pu8Buffer);
 		void vETH_IPV4__Transmit(Luint16 u16Length);
 		void vETH_IPV4__Set_UnicastAddx(Luint8 *pu8Addx);
 	
 		//ARP
+		void vETH_ARP__Init();
 		void vETH_ARP__Input(Luint8 * pu8Buffer);
 		void vETH_ARP__Reply(void);
 		void vETH_ARP__Gratuitous(void);
@@ -214,6 +217,7 @@
 		#endif
 
 		//udp
+		void vETH_UDP__Init();
 		void vETH_UDP__Transmit(Luint16 u16Length, Luint16 u16SourcePort, Luint16 u16DestPort);
 		#if (C_LOCALDEF__LCCM325__USE_ON_XILINX == 1U) || (C_LOCALDEF__LCCM325__USE_ON_WIN32 == 1U)
 			#if C_LOCALDEF__LCCM325__XILINX_USE_NPI_INTERFACE == 1U

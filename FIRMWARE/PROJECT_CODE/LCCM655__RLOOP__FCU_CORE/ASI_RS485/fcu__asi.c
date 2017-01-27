@@ -84,6 +84,7 @@ void vFCU_ASI__Init(void)
 		sFCU.sASI.sHolding[u8Counter].f32MotorCurrentA = 0.0F;
 		sFCU.sASI.sHolding[u8Counter].u16RPM = 0U;
 		sFCU.sASI.u8ThrottleCommand[u8Counter] = 0U;
+		sFCU.sASI.u8SerialNetworkCommand[u8Counter] = 1U;
 	}
 
 }
@@ -142,19 +143,37 @@ void vFCU_ASI__Process(void)
 
 		case ASI_STATE__ISSUE_COMMAND:
 
+
+
+
 			//format the command
-			if(sFCU.sASI.u8ThrottleCommand[sFCU.sASI.u8ScanIndex] == 1U)
+			if(sFCU.sASI.u8SerialNetworkCommand[sFCU.sASI.u8ScanIndex] == 1U)
 			{
+
 				sFCU.sASI.sCurrentCommand.u8SlaveAddress = C_ASI__DEFAULT_SLAVE_ADDX;
-				sFCU.sASI.sCurrentCommand.eFunctionCode = FUNCTION_CODE__READ_HOLDING_REGS;
-				sFCU.sASI.sCurrentCommand.eObjectType = sFCU.sASI.eCommandList[sFCU.sASI.u8CommandListIndex]; // C_FCU_ASI__FAULTS;
-				sFCU.sASI.sCurrentCommand.u16ParamValue = 1;	// we just want to read one register
+				sFCU.sASI.sCurrentCommand.eFunctionCode = FUNCTION_CODE__WRITE_SINGLE_REG;
+				sFCU.sASI.sCurrentCommand.eObjectType = C_FCU_ASI__THROT_SENSOR_SOURCE;
+				//network voltage source
+				sFCU.sASI.sCurrentCommand.u16ParamValue = 5;
+				sFCU.sASI.sCurrentCommand.eDestVarType = E_UINT16;
+
+				//clear now that we are done.
+				sFCU.sASI.u8SerialNetworkCommand[sFCU.sASI.u8ScanIndex] = 0U;
+			}
+			else if(sFCU.sASI.u8ThrottleCommand[sFCU.sASI.u8ScanIndex] == 1U)
+			{
+				//updat the trhottle
+				sFCU.sASI.sCurrentCommand.u8SlaveAddress = C_ASI__DEFAULT_SLAVE_ADDX;
+				sFCU.sASI.sCurrentCommand.eFunctionCode = FUNCTION_CODE__WRITE_SINGLE_REG;
+				sFCU.sASI.sCurrentCommand.eObjectType = C_FCU_ASI__REMOTE_THROTTLE_VOLTAGE;
+				sFCU.sASI.sCurrentCommand.u16ParamValue = sFCU.sASI.u16Throttle[sFCU.sASI.u8CommandListIndex];
 				sFCU.sASI.sCurrentCommand.eDestVarType = E_UINT16;
 
 				sFCU.sASI.u8ThrottleCommand[sFCU.sASI.u8ScanIndex] = 0U;
 			}
 			else
 			{
+				//do a normal read
 				sFCU.sASI.sCurrentCommand.u8SlaveAddress = C_ASI__DEFAULT_SLAVE_ADDX;
 				sFCU.sASI.sCurrentCommand.eFunctionCode = FUNCTION_CODE__READ_HOLDING_REGS;
 				sFCU.sASI.sCurrentCommand.eObjectType = sFCU.sASI.eCommandList[sFCU.sASI.u8CommandListIndex]; // C_FCU_ASI__FAULTS;
@@ -165,6 +184,10 @@ void vFCU_ASI__Process(void)
 
 			s16Return = s16FCU_ASI__SendCommand();
 			sFCU.sASI.eMainState = ASI_STATE__WAIT_COMMAND_COMPLETE;
+			break;
+
+		case ASI_STATE__ISSUE_SERIAL_TRHOTTLE:
+
 			break;
 
 		case ASI_STATE__WAIT_COMMAND_COMPLETE:

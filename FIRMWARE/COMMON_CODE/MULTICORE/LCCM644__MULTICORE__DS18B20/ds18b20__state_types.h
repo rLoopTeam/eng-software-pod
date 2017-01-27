@@ -39,6 +39,9 @@
 		/** Read all the sensors */
 		DS18B20_STATE__READ_SENSORS,
 
+		/** Apply some delay between sensor reads to reduce bus time */
+		DS18B20_STATE__READ_SENSOR_STATE_DELAY,
+
 		/** Done reading the sensors, do any post processing */
 		DS18B20_STATE__READ_DONE
 

@@ -92,11 +92,11 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32MMA8451__Get_FaultFlags(1U));
 				pu8Buffer += 4U;
 #else
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0x00000000U);
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
 				pu8Buffer += 4U;
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0x00000000U);
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
 				pu8Buffer += 4U;
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0x00000000U);
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
 				pu8Buffer += 4U;
 #endif
 
@@ -157,16 +157,19 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sPusher.sFaultFlags.u32Flags[0]);
 				pu8Buffer += 4U;
 
-				//AMC7812
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32AMC7812__Get_FaultFlags());
-				pu8Buffer += 4U;
+
 
 				//Throttle Subsystem
 				#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+				//AMC7812
+					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32AMC7812__Get_FaultFlags());
+					pu8Buffer += 4U;
 					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sThrottle.sFaultFlags.u32Flags[0]);
 					pu8Buffer += 4U;
 				#else
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
+					pu8Buffer += 4U;
+					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
 					pu8Buffer += 4U;
 				#endif
 
@@ -190,7 +193,7 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sFlightControl.sTrackDB.sFaultFlags.u32Flags[0]);
 					pu8Buffer += 4U;
 				#else
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFF);
 					pu8Buffer += 4U;
 				#endif
 
