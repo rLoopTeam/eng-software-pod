@@ -203,6 +203,11 @@
 		/** FCU to Host, return ASI data */
 		NET_PKT__FCU_ASI__TX_ASI_DATA = 0x1701U,
 
+		/** FCU to Host, return ASI data */
+		NET_PKT__FCU_ASI__SET_THROTTLE = 0x1702U,
+
+
+
 		//////////////////////////////////////////////////////
 		//FCU: PUSHER (0x1800)
 		//////////////////////////////////////////////////////

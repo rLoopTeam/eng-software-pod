@@ -198,6 +198,9 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** FCU to Host, return ASI data */
         NET_PKT__FCU_ASI__TX_ASI_DATA = &H1701
 
+        '/** FCU to Host, return ASI data */
+        NET_PKT__FCU_ASI__SET_THROTTLE = &H1702
+
         '//////////////////////////////////////////////////////
         '//FCU: PUSHER (0x1800)
         '//////////////////////////////////////////////////////

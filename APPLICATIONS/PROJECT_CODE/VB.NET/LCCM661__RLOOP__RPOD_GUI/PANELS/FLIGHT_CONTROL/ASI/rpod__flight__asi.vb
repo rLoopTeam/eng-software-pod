@@ -9,6 +9,7 @@
 
 #Region "CONSTANTS"
         Private Const C_NUM_ASI_CONTROLLERS As Integer = 8
+        Private Const C_NUM__THROTTLES As Integer = 8
 #End Region '#Region "CONSTANTS"
 
 #Region "MEMBERS"
@@ -37,6 +38,11 @@
         Private m_txtAct_TempC(C_NUM_ASI_CONTROLLERS - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtAct_Current(C_NUM_ASI_CONTROLLERS - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtAct_RPM(C_NUM_ASI_CONTROLLERS - 1) As SIL3.ApplicationSupport.TextBoxHelper_U16
+
+        'setup the HE
+        Private m_cboHE As SIL3.ApplicationSupport.ComboBoxHelper
+        Private m_cboMode As SIL3.ApplicationSupport.ComboBoxHelper
+        Private m_txtSetRPM As SIL3.ApplicationSupport.TextBoxHelper
 
         ''' <summary>
         ''' The logging directory
@@ -318,6 +324,30 @@
                 Me.m_txtAct_RPM(iCounter) = New SIL3.ApplicationSupport.TextBoxHelper_U16(100, l34(iCounter))
             Next
 
+            Dim l90 As New SIL3.ApplicationSupport.LabelHelper("Throttle Index")
+            l90.Layout__BelowControl(Me.m_txtAct_RPM(0))
+            Me.m_cboHE = New SIL3.ApplicationSupport.ComboBoxHelper(100)
+            Me.m_cboHE.Layout__BelowControl(l90)
+            For iCounter As Integer = 0 To C_NUM__THROTTLES - 1
+                Me.m_cboHE.Threadsafe__AddItem(iCounter.ToString)
+            Next
+            Me.m_cboHE.Threadsafe__AddItem("ALL")
+            Me.m_cboHE.Threadsafe__SetSelectedIndex(0)
+
+            Dim l91 As New SIL3.ApplicationSupport.LabelHelper("Throttle Mode")
+            l91.Layout__AboveRightControl(l90, Me.m_cboHE)
+            Me.m_cboMode = New SIL3.ApplicationSupport.ComboBoxHelper(100, l91)
+            Me.m_cboMode.Threadsafe__AddItem("STEP")
+            Me.m_cboMode.Threadsafe__AddItem("RAMP")
+            Me.m_cboMode.Threadsafe__SetSelectedIndex(0)
+
+            Dim l92 As New SIL3.ApplicationSupport.LabelHelper("Target RPM")
+            l92.Layout__AboveRightControl(l91, Me.m_cboMode)
+            Me.m_txtSetRPM = New ApplicationSupport.TextBoxHelper(100, l92)
+            Me.m_txtSetRPM.Threadsafe__SetText("0")
+
+            Dim btnChange As New SIL3.ApplicationSupport.ButtonHelper(100, "Change", AddressOf Me.btnChange__Click)
+            btnChange.Layout__RightOfControl(Me.m_txtSetRPM)
 
 
         End Sub
@@ -326,6 +356,32 @@
 
 #Region "BUTTON HELPERS"
 
+
+        ''' <summary>
+        ''' Change our HE index
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnChange__Click(s As Object, e As EventArgs)
+
+            Dim iHE As Integer = Me.m_cboHE.SelectedIndex
+            If iHE < 0 Then
+                MsgBox("Error: Invalid HE Index")
+                Exit Sub
+            End If
+
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_THROTTLE__SET_RAW_THROTTLE,
+                                                 iHE,
+                                                 UInt32.Parse(Me.m_txtSetRPM.Text),
+                                                 Me.m_cboMode.SelectedIndex, 0)
+        End Sub
+
+        ''' <summary>
+        ''' Control streaming
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
         Private Sub btnStreamOn__Click(s As Object, e As EventArgs)
 
             Dim pSB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
