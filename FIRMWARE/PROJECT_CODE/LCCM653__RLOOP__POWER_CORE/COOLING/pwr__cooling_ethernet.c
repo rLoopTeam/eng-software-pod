@@ -50,7 +50,7 @@ void vPWR_COOLING_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__PWR_COOLING__TX_COOLING_STATUS:
-			u16Length = 5U;
+			u16Length = 1U;
 			u16Length += POWER_COOLING__MAX_HOVERENG * 6U;
 			u16Length += POWER_COOLING__MAX_EDDYBRAKES * 6U;
 
@@ -74,10 +74,6 @@ void vPWR_COOLING_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				//Cooling System State
 				pu8Buffer[0] = (Luint8) sPWRNODE.sCooling.eMainState;
 				pu8Buffer += 1U;
-
-				//100ms counters
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sPWRNODE.sCooling.u32100MS_Count);
-				pu8Buffer += 4U;
 
 				//Hover Engine Cooling Subsystem
 				for(u8Device = 0; u8Device < POWER_COOLING__MAX_HOVERENG; u8Device++)

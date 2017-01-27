@@ -15,7 +15,6 @@ void vPWR_COOLING__Init(void)
 {
 	//Init
 	sPWRNODE.sCooling.eMainState = COOLING_STATE__RESET;
-	sPWRNODE.sCooling.u32100MS_Count = 0U;
 
 	//Config N2HET PIN
 	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 4U); 		//Brake
@@ -59,6 +58,7 @@ void vPWR_COOLING__Process(void)
 				//COOLING_STATE__EMERGENCY T off: 105C
 			//Eddy Brakes:
 				//TODO
+
 		sPWRNODE.sCooling.eMainState = COOLING_STATE__PROCESS_TEMPERATURES;
 		break;
 	case COOLING_STATE__PROCESS_TEMPERATURES:
@@ -132,16 +132,11 @@ void vPWR_COOLING__Enable(Luint32 u32Value)
 	else
 	{
 		//off
-		sPWRNODE.sCooling.eMainState = COOLING_STATE__IDLE;
+		sPWRNODE.sCooling.eMainState = COOLING_STATE__RESET;
 	}
 
 }
 
-//100ms interrupt
-void vPWR_COOLING__100MS_ISR(void)
-{
-	sPWRNODE.sCooling.u32100MS_Count++;
-}
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS
 #ifndef C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS
