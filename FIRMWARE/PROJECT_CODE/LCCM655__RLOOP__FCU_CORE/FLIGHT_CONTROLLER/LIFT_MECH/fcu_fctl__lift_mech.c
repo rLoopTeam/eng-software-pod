@@ -63,11 +63,12 @@ void vFCU_FCTL_LIFTMECH__Extend(void)
 	}
 }
 
-Luint32 vFCU_FCTL_LIFTMECH__Get_MLP(void)
+Luint32 u32FCU_FCTL_LIFTMECH__Get_MLP(void)
 {
 	// report MLP distance
 	// add lower level function for this
 	// not sure how to combine 4 values into one
+	//TODO: return
 }
 
 void vFCU_FCTL_LIFTMECH__SetDirAll(E_FCU__LIFTMECH_DIRECTION dir)

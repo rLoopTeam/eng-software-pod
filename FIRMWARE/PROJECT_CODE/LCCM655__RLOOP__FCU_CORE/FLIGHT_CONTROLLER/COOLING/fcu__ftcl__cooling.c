@@ -1,24 +1,7 @@
-/** Allow us to control the cooling system */
-#define C_LOCALDEF__LCCM655__ENABLE_COOLING_CONTROL					(1U)
-
-typedef enum
-{
-	COOLING_CTL_DO_NOTHING = 0U,
-	CLOSE_ALL_VALVES,
-	SET_VALVE
-} E_FCU__COOLING_GS_COMM_T;
-
-struct
-{
-	E_FCU__COOLING_GS_COMM_T eGSCoolingCommand;
-
-} sCoolingControl;
-
-
 /**
  * @file		FCU__FLIGHT_CONTROL__COOLING_CONTROL.C
  * @brief		Cooling Control Subsystem
- * @author		Paul Le Henaff
+ * @author		Paul Le Henaff, Marek Gutt-Mostowy
  * @copyright	rLoop Inc.
  */
 /**
@@ -42,10 +25,11 @@ struct
 //the structure
 extern struct _strFCU sFCU;
 
+
 void vFCU_FCTL_COOLING__Init(void)
 {
 	//TODOD MOVE TO sFCU
-	sCoolingControl.eGSCoolingCommand = COOLING_CTL_DO_NOTHING; // Set the commands from the ground station to DO_NOTHING at startup
+	sFCU.sCoolingControl.eGSCoolingCommand = COOLING_CTL_DO_NOTHING; // Set the commands from the ground station to DO_NOTHING at startup
 }
 
 
@@ -84,7 +68,7 @@ void vFCU_FCTL_COOLING__ManualCommandsHandle(void)
 {
 	/** Cooling specific command listener*/
 	// TODO move to sFCU
-	switch(sCoolingControl.eGSCoolingCommand)
+	switch(sFCU.sCoolingControl.eGSCoolingCommand)
 	{
 		// manual commands (for debugging etc)
 		case CLOSE_ALL_VALVES:

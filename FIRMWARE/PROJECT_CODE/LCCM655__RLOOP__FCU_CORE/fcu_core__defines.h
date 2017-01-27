@@ -77,13 +77,6 @@
 	#define C_FCU__GEOM__NUM_ITEMS_F32						(8U)
 	#define C_FCU__GEOM__NUM_ITEMS_S32						(8U)
 
-	/** Navigation function constants */
-	#define C_FCU__NAV_POD_MIN_X_POS							(500U)	//define exact value
-	#define C_FCU__NAV_MAX_UNLIFTED_HEIGHT					(10U) 	//define exact value
-	#define C_FCU__NAV_PODSPEED_STANDBY						(1U) 	//define exact value
-	#define C_FCU__NAV_PODSPEED_MAX_SPEED_TO_STABILIZE		(1000000U) //define exact value. ATM extra large so that HE never throttle down
-	#define C_FCU__NAV_MIN_PUSHER_SPEED						(10U)	//define exact value
-
 	/** State Machine constants */
 	#define C_FCU__MAINSM_PUSHER_RELEASE_DELAY				(10U) 	//define exact value
 
@@ -119,7 +112,32 @@
 	#define C_FCU__EDDYBRAKES_NOM_RELEASE_SPEED				(1U)		//define exact value
 	#define C_FCU__EDDYBRAKES_RELEASE_MLP_DISTANCE			(1U)		//define exact value
 
-	#define C_FCU__LIFTMECH_ACTUATOR_NOM_UNLIFT_SPEED			(10U)	//define exact value
+	/** NAV function constants */
+	#define C_FCU__NAV_POD_MIN_X_POS							(500U)	//define exact value
+	#define C_FCU__NAV_MAX_UNLIFTED_HEIGHT					(10U) 	//define exact value
+	#define C_FCU__NAV_PODSPEED_STANDBY						(1U) 	//define exact value
+	#define C_FCU__NAV_PODSPEED_MAX_SPEED_TO_STABILIZE		(1000000U) //define exact value. ATM extra large so that HE never throttle down
+	#define C_FCU__NAV_MIN_PUSHER_SPEED						(10U)	//define exact value
+
+	#define C_FCU__NAV_NUM_CONTRAST_SENSORS 					(3U)
+	#define C_FCU__NAV_STARTING_XPOS_LC_FWD 					(55U)
+	#define C_FCU__NAV_STARTING_XPOS_LC_MID 					(55U)
+	#define C_FCU__NAV_STARTING_XPOS_LC_AFT 					(55U)
+	#define C_FCU__NAV_STRIPE_LENGTH 						(55U)
+	#define C_FCU__NAV_STRIPE_DETECTION_NAV_DELAY 			(55U)
+	#define C_FCU__NAV_X_POS_UNCERTAINTY_OFFSET 				(55U)
+	#define C_FCU__NAV_MAX_X_POS_UNCERTAINTY 				(55U)
+	#define C_FCU__NAV_PUSHER_START_XPOS 					(55U)
+	#define C_FCU__NAV_POD_LENGTH 							(55U)
+	#define C_FCU__NAV_LRF_MIN_POS_TO_ACTIVATE 				(55U)
+	#define C_FCU__NAV_LRF_FIRST_EXPECTED_RANGE_MIN 			(55U)
+	#define C_FCU__NAV_LRF_FIRST_EXPECTED_RANGE_MAX			(55U)
+	#define C_FCU__NAV_LRF_TRANSITION_DELAY_FROM_CONTRAST_SENSORS		(55U)
+	#define C_FCU__NAV_SPEED_UNCERTAINTY_OFFSET  			(55U)
+	#define C_FCU__NAV_MAX_ACCELERATION 						(55U)
+	#define C_FCU__NAV_ACCELEROMETER_HIGH_VAL_DELAY 			(55U)
+	#define C_FCU__NAV_ACCELEROMETER_LOW_VAL_DELAY 			(55U)
+
 
 
 #endif /* _FCU_CORE__DEFINES_H_ */

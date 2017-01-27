@@ -50,6 +50,50 @@
 			/** Structure guard 1*/
 			Luint32 u32Guard1;
 
+			struct
+			{
+				E_FCU__COOLING_GS_COMM_T eGSCoolingCommand;
+
+			}sCoolingControl;
+
+			/** Navigation */
+			struct
+			{
+				Lfloat32 f32LongitudinalPosition;
+				Lfloat32 f32PositionValidity;
+				Lfloat32 f32LongitudinalSpeed;
+				Lfloat32 f32LongitudinalSpeedUncertainty;
+				Luint8 u8LongitudinalSpeedValidity;
+				Lfloat32 f32LongitudinalAcceleration;
+				Luint8 u8LongitudinalAccelerationValidity;
+				Luint8 u8LRFAvailable;
+				Luint8 u8masterSensor;
+				Luint8 u8GeneralStripeCount;
+				Luint32 u3210MSNavTimer;
+				Luint32 u3210MSLRFTimer;
+				Luint32 u3210MSAccelHiValTimer;
+				Luint32 u3210MSAccelLoValTimer;
+				Luint32 u3210MSDetectStripeTimer;
+				Luint32 u3210MSBetweenStripeTimer;
+
+					struct
+					{
+						Luint32 u32StripeCount;
+						Luint32 u32Xpos;
+						Luint32 u32XPosUncert;
+						Luint32 u32NoseToSensorDist;
+						Luint32 u32Score;
+						Luint8 u8Valid;
+					}sCS[C_FCU__NAV_NUM_CONTRAST_SENSORS];
+
+					struct
+					{
+						Lfloat32 f32Accel;
+						Luint8 u8Valid;
+					}sAccel[C_LOCALDEF__LCCM418__NUM_DEVICES];
+
+			}sNavigation;
+
 			/** Hover Engines Control Structure */
 			//#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
 			struct
@@ -1008,6 +1052,9 @@
 			//main state machine
 			void vFCU_FCTL_MAINSM__Init(void);
 			void vFCU_FCTL_MAINSM__Process(void);
+
+			//drive pod
+			Luint32 u32FCU_NET_RX__GetGsCommTimer(void);
 
 			//blender
 			void vFCU_FCTL_BLENDER__Init(void);

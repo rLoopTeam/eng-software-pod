@@ -31,7 +31,7 @@ extern struct _strFCU sFCU;
 //vFCU_FCTL_GIMBAL__SetLevel(GIMBAL_BACKWARD_LEVEL/GIMBAL_NEUTRAL_LEVEL/GIMBAL_FORWARD_LEVEL)
 //vFCU_FCTL_NAV__GetFrontPos()
 //u32FCU_FCTL_NAV__PodSpeed()
-//vFCU_NET_RX__GetGsCommTimer()
+//u32FCU_NET_RX__GetGsCommTimer()
 //u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp(EDDYBRAKES_Left)
 
 void vFCU_FCTL_DRIVEPOD__Stop(void)
@@ -51,7 +51,7 @@ void vFCU_FCTL_DRIVEPOD__Process(void)
 		Luint8 u8PodSpeedTooHigh;
 
 		case MISSION_PHASE__TEST:
-			if (vFCU_NET_RX__GetGsCommTimer() > C_FCU__GS_COMM_LOSS_DELAY)
+			if (u32FCU_NET_RX__GetGsCommTimer() > C_FCU__GS_COMM_LOSS_DELAY)
 			{
 				vFCU_FCTL_DRIVEPOD__Stop();
 			}
@@ -63,7 +63,7 @@ void vFCU_FCTL_DRIVEPOD__Process(void)
 
 		case MISSION_PHASE__PRE_RUN:
 
-			if (vFCU_NET_RX__GetGsCommTimer() > C_FCU__GS_COMM_LOSS_DELAY)
+			if (u32FCU_NET_RX__GetGsCommTimer() > C_FCU__GS_COMM_LOSS_DELAY)
 			{
 				vFCU_FCTL_DRIVEPOD__Stop();
 			}
@@ -178,7 +178,7 @@ void vFCU_FCTL_DRIVEPOD__Process(void)
 			break;
 
 		case MISSION_PHASE__PUSHER_INTERLOCK:
-			if (vFCU_NET_RX__GetGsCommTimer() > C_FCU__GS_COMM_LOSS_DELAY)
+			if (u32FCU_NET_RX__GetGsCommTimer() > C_FCU__GS_COMM_LOSS_DELAY)
 			{
 				vFCU_FCTL_DRIVEPOD__Stop();
 			}
@@ -218,7 +218,7 @@ void vFCU_FCTL_DRIVEPOD__Process(void)
 
 		case MISSION_PHASE__POST_RUN:
 			// TODO: need to rethink this part if hover engines are not running in this phase
-			if (vFCU_NET_RX__GetGsCommTimer() > C_FCU__GS_COMM_LOSS_DELAY)
+			if (u32FCU_NET_RX__GetGsCommTimer() > C_FCU__GS_COMM_LOSS_DELAY)
 			{
 				vFCU_FCTL_DRIVEPOD__Stop();
 			}
@@ -259,7 +259,7 @@ void vFCU_FCTL_DRIVEPOD__10MS_ISR(void)
 	sFCU.sUDPDiag.u32_10MS_GS_COMM_Timer++;
 }
 
-void vFCU_NET_RX__GetGsCommTimer(void)
+Luint32 u32FCU_NET_RX__GetGsCommTimer(void)
 {
 return sFCU.sUDPDiag.u32_10MS_GS_COMM_Timer;
 }

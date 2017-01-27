@@ -241,6 +241,9 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 			/** Enable PID for the Brakes */
 			#define C_LOCALDEF__LCCM655__ENABLE_BRAKEPID 					(1U)
 
+			/** Enable Cooling control */
+			#define C_LOCALDEF__LCCM655__ENABLE_COOLING_CONTROL				(1U)
+
 
 		/** ADC Sample Limits */
 		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__LOWER_BOUND				(300U)
