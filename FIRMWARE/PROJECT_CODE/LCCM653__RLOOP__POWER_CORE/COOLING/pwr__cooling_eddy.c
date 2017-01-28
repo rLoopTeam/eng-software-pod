@@ -91,7 +91,7 @@ void vPWR_COOLING_EDDY__Process(void)
 				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLINGSUB_WAITING;
 				break;
 			case COOLING_STATE__EMERGENCY:
-				//TODO ENGINE SHUT DOWN instead of cooling
+				//TODO Apply Brakes instead of cooling
 				vPWR_COOLING__Solennoid_TurnOn(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].u8N2HETPinNumber);
 				//Update Solenoid State
 				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eEddySolenoidState = POWER_COOLING__SOLENOID_ON;
@@ -168,7 +168,7 @@ void vPWR_COOLING_EDDY__Process(void)
 				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLINGSUB_STARTCOOLING;
 				break;
 			case COOLING_STATE__EMERGENCY:
-				//TODO ENGINE SHUT DOWN
+				//TODO Apply Brakes
 
 				//Transit back to cooling state
 				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLINGSUB_STARTCOOLING;

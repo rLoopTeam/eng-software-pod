@@ -45,43 +45,43 @@ void vPWR_COOLING__Init(void)
 			switch(sDS18B20.sDevice[u8Counter].u16UserIndex)
 			{
 			case C_PWRCORE_HOVERENGINE0_THERMOCOUPLE_USERID:
-				sPWRNODE.sCooling.sHoverEngineCoolingSystem[0].u8Indexes[0];
+				sPWRNODE.sCooling.sHoverEngineCoolingSystem[0].u8Indexes[0] = u8Counter;
 				u8SolenoidCounter++;
 				break;
 			case C_PWRCORE_HOVERENGINE1_THERMOCOUPLE_USERID:
-				sPWRNODE.sCooling.sHoverEngineCoolingSystem[0].u8Indexes[1];
+				sPWRNODE.sCooling.sHoverEngineCoolingSystem[0].u8Indexes[1] = u8Counter;
 				u8SolenoidCounter++;
 				break;
 			case C_PWRCORE_HOVERENGINE2_THERMOCOUPLE_USERID:
-				sPWRNODE.sCooling.sHoverEngineCoolingSystem[1].u8Indexes[0];
+				sPWRNODE.sCooling.sHoverEngineCoolingSystem[1].u8Indexes[0] = u8Counter;
 				u8SolenoidCounter++;
 				break;
 			case C_PWRCORE_HOVERENGINE3_THERMOCOUPLE_USERID:
-				sPWRNODE.sCooling.sHoverEngineCoolingSystem[1].u8Indexes[1];
+				sPWRNODE.sCooling.sHoverEngineCoolingSystem[1].u8Indexes[1] = u8Counter;
 				u8SolenoidCounter++;
 				break;
 			case C_PWRCORE_HOVERENGINE4_THERMOCOUPLE_USERID:
-				sPWRNODE.sCooling.sHoverEngineCoolingSystem[2].u8Indexes[0];
+				sPWRNODE.sCooling.sHoverEngineCoolingSystem[2].u8Indexes[0] = u8Counter;
 				u8SolenoidCounter++;
 				break;
 			case C_PWRCORE_HOVERENGINE5_THERMOCOUPLE_USERID:
-				sPWRNODE.sCooling.sHoverEngineCoolingSystem[2].u8Indexes[1];
+				sPWRNODE.sCooling.sHoverEngineCoolingSystem[2].u8Indexes[1] = u8Counter;
 				u8SolenoidCounter++;
 				break;
 			case C_PWRCORE_HOVERENGINE6_THERMOCOUPLE_USERID:
-				sPWRNODE.sCooling.sHoverEngineCoolingSystem[3].u8Indexes[0];
+				sPWRNODE.sCooling.sHoverEngineCoolingSystem[3].u8Indexes[0] = u8Counter;
 				u8SolenoidCounter++;
 				break;
 			case C_PWRCORE_HOVERENGINE7_THERMOCOUPLE_USERID:
-				sPWRNODE.sCooling.sHoverEngineCoolingSystem[3].u8Indexes[1];
+				sPWRNODE.sCooling.sHoverEngineCoolingSystem[3].u8Indexes[1] = u8Counter;
 				u8SolenoidCounter++;
 				break;
 			case C_PWRCORE_EDDYBRAKE0_THERMOCOUPLE_USERID:
-				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[0].u8Indexes[0];
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[0].u8Indexes[0] = u8Counter;
 				u8SolenoidCounter++;
 				break;
 			case C_PWRCORE_EDDYBRAKE1_THERMOCOUPLE_USERID:
-				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[0].u8Indexes[1];
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[0].u8Indexes[1] = u8Counter;
 				u8SolenoidCounter++;
 				break;
 			default:
@@ -167,6 +167,8 @@ void vPWR_COOLING__Process(void)
 			f32TempA = f32DS18B20__Get_Temperature_DegC(sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u8Indexes[0]);
 			f32TempB = f32DS18B20__Get_Temperature_DegC(sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u8Indexes[1]);
 
+			// note: faulty sensors are not handled at all, and can trigger a CO2 release, which isn't too big of a deal
+
 			//compare temp
 			if (f32TempA > f32TempB)
 			{
@@ -182,21 +184,21 @@ void vPWR_COOLING__Process(void)
 			//COOLING_STATE__WARNING, T warning: 75C
 			if(sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_WARNING_THREHOLD)
 			{
-				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eState = COOLING_STATE__NORMAL;
+				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__NORMAL;
 			}
 			//COOLING_STATE__CRITICAL, T critical: 95C
 			else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature > C_PWRCORE_COOLING_WARNING_THREHOLD && sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_CRITICAL_THREHOLD)
 			{
-				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eState = COOLING_STATE__WARNING;
+				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__WARNING;
 			}
 			//COOLING_STATE__EMERGENCY T off: 105C
 			else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature > C_PWRCORE_COOLING_CRITICAL_THREHOLD && sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_EMERGENCY_THREHOLD)
 			{
-				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eState = COOLING_STATE__CRITICAL;
+				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__CRITICAL;
 			}
 			else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature > C_PWRCORE_COOLING_EMERGENCY_THREHOLD)
 			{
-				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eState = COOLING_STATE__EMERGENCY;
+				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__EMERGENCY;
 			}
 			else
 			{
@@ -228,21 +230,21 @@ void vPWR_COOLING__Process(void)
 			//COOLING_STATE__WARNING, T warning: 75C
 			if(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_WARNING_THREHOLD)
 			{
-				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLING_STATE__NORMAL;
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__NORMAL;
 			}
 			//COOLING_STATE__CRITICAL, T critical: 95C
 			else if (sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature > C_PWRCORE_COOLING_WARNING_THREHOLD && sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_CRITICAL_THREHOLD)
 			{
-				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLING_STATE__WARNING;
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__WARNING;
 			}
 			//COOLING_STATE__EMERGENCY T off: 105C
 			else if (sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature > C_PWRCORE_COOLING_CRITICAL_THREHOLD && sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_EMERGENCY_THREHOLD)
 			{
-				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLING_STATE__CRITICAL;
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__CRITICAL;
 			}
 			else if (sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature > C_PWRCORE_COOLING_EMERGENCY_THREHOLD)
 			{
-				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLING_STATE__EMERGENCY;
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__EMERGENCY;
 			}
 			else
 			{
@@ -318,7 +320,10 @@ void vPWR_COOLING__Enable(Luint32 u32Value)
 	if(u32Value == 1U)
 	{
 		//go from reset to idle.
-		sPWRNODE.sCooling.eMainState = COOLING_STATE__IDLE;
+		if (sPWRNODE.sCooling.eMainState == COOLING_STATE__RESET)
+		{
+			sPWRNODE.sCooling.eMainState = COOLING_STATE__IDLE;
+		}
 	}
 	else
 	{
