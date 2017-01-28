@@ -21,11 +21,11 @@ void vPWR_COOLING__Init(void)
 	sPWRNODE.sCooling.u32100MS_Count = 0U;
 
 	//Config N2HET PIN
-	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 4U); 		//Brake
-	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 8U); 		//Hover Engine Pair #1
-	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 16U);		//Hover Engine Pair #2
-	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 22U);		//Hover Engine Pair #3
-	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 23U);		//Hover Engine Pair #4
+	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, C_PWRCORE_HOVERENGINES0_N2HET_PIN_NUMBER);
+	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, C_PWRCORE_HOVERENGINES1_N2HET_PIN_NUMBER);
+	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, C_PWRCORE_HOVERENGINES2_N2HET_PIN_NUMBER);
+	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, C_PWRCORE_HOVERENGINES3_N2HET_PIN_NUMBER);
+	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, C_PWRCORE_EDDYBRAKE0_N2HET_PIN_NUMBER);
 
 	//Set PIN STATES
 	vPWR_COOLING__Solennoid_TurnAllOff();
