@@ -114,6 +114,8 @@ void vFCU_BRAKES_SW__Process(void)
 			//todo
 		}
 
+
+
 	}//for(u8Brake = 0U; u8Brake < (Luint8)FCU_BRAKE__MAX_BRAKES; u8Brake++)
 
 	//if an edge has occurred, sample the switches and save the switch state.

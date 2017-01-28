@@ -52,6 +52,9 @@ void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser)
 	f32Temp += sFCU.sLaserOpto.sCalibration[(Luint8)eLaser].f32Offset;
 	sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue = f32Temp;
 
+	//LG Hack
+	return;
+
 	//exponential moving average filter
 	f32Temp = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32DistanceRAW;
 	f32Temp -= sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32PreviousValue;
