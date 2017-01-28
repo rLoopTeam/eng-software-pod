@@ -275,6 +275,56 @@ void vFCU_BRAKES__Process(void)
 }
 
 
+//The purpose of this function is to handle detection of the end limit switches and set the brake screw positions
+//based on those limits.
+void vFCU_BRAKES__Handle_Limit_Switches(void)
+{
+	//crude approach
+
+	//important steps
+	//1. Unlock the limit switch interlock on the stepdrive
+	//2. Set the screw position dependant on the switch (Retract = 75mm, extend = 0mm)
+	//3. Only do this once, so as we don't lock out.
+
+
+	if(sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
+	{
+
+	}
+	else
+	{
+
+	}
+
+	if(sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].eSwitchState == SW_STATE__CLOSED)
+	{
+
+	}
+	else
+	{
+
+	}
+
+	if(sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
+	{
+
+	}
+	else
+	{
+
+	}
+
+	if(sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].eSwitchState == SW_STATE__CLOSED)
+	{
+
+	}
+	else
+	{
+
+	}
+
+}
+
 /***************************************************************************//**
  * @brief
  * must start calibration from the ground station to put the brakes into a mode

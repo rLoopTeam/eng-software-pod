@@ -21,6 +21,15 @@
         Private m_txtPrevDist_mm As SIL3.ApplicationSupport.TextBoxHelper_S32
         Private m_txtVeloc_mms As SIL3.ApplicationSupport.TextBoxHelper_S32
         Private m_txtPrevVeloc_mms As SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtAccel_mmss As SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtPrevAccel_mmss As SIL3.ApplicationSupport.TextBoxHelper_S32
+
+        'for the binary mode
+        Private m_txtBinary_LastU32 As SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtBinary_Counter__MissedStart As SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtBinary_Counter__BadDistance As SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtBinary_Counter__ErrorCode As SIL3.ApplicationSupport.TextBoxHelper_U32
+
 
         ''' <summary>
         ''' The logging directory
@@ -101,14 +110,12 @@
                     iOffset += Me.m_txtPrevDist_mm.Value__Update(u8Payload, iOffset)
                     iOffset += Me.m_txtVeloc_mms.Value__Update(u8Payload, iOffset)
                     iOffset += Me.m_txtPrevVeloc_mms.Value__Update(u8Payload, iOffset)
-
-
-                    Dim pU32Spare0 As New SIL3.Numerical.U32(u8Payload, iOffset)
-                    iOffset += 4
-                    Dim pU32Spare1 As New SIL3.Numerical.U32(u8Payload, iOffset)
-                    iOffset += 4
-
-
+                    iOffset += Me.m_txtAccel_mmss.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtPrevAccel_mmss.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtBinary_LastU32.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtBinary_Counter__MissedStart.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtBinary_Counter__BadDistance.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtBinary_Counter__ErrorCode.Value__Update(u8Payload, iOffset)
 
 
                     Me.m_iRxCount += 1
@@ -130,8 +137,16 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
+
             Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags", MyBase.m_pInnerPanel)
             Me.m_txtFlags = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0)
+
+            Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
+            l11.Layout__AboveRightControl(l0, Me.m_txtFlags)
+            Me.m_txtCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l11)
+
+            Dim btnOn As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
+            btnOn.Layout__RightOfControl(Me.m_txtCount)
 
             Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Distance mm")
             l1.Layout__BelowControl(Me.m_txtFlags)
@@ -149,13 +164,32 @@
             l4.Layout__AboveRightControl(l3, Me.m_txtVeloc_mms)
             Me.m_txtPrevVeloc_mms = New SIL3.ApplicationSupport.TextBoxHelper_S32(100, l4)
 
+            Dim l33 As New SIL3.ApplicationSupport.LabelHelper("Accel mmss")
+            l33.Layout__BelowControl(Me.m_txtVeloc_mms)
+            Me.m_txtAccel_mmss = New SIL3.ApplicationSupport.TextBoxHelper_S32(100, l33)
+
+            Dim l44 As New SIL3.ApplicationSupport.LabelHelper("Prev Accel")
+            l44.Layout__AboveRightControl(l33, Me.m_txtAccel_mmss)
+            Me.m_txtPrevAccel_mmss = New SIL3.ApplicationSupport.TextBoxHelper_S32(100, l44)
 
 
-            Dim btnOn As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
-            btnOn.Layout__BelowControl(Me.m_txtVeloc_mms)
-            Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
-            l11.Layout__BelowControl(btnOn)
-            Me.m_txtCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l11)
+            Dim l5 As New SIL3.ApplicationSupport.LabelHelper("Binary Last")
+            l5.Layout__BelowControl(Me.m_txtAccel_mmss)
+            Me.m_txtBinary_LastU32 = New SIL3.ApplicationSupport.TextBoxHelper_U32(100, l5)
+
+            Dim l6 As New SIL3.ApplicationSupport.LabelHelper("Missed Start")
+            l6.Layout__AboveRightControl(l5, Me.m_txtBinary_LastU32)
+            Me.m_txtBinary_Counter__MissedStart = New SIL3.ApplicationSupport.TextBoxHelper_U32(100, l6)
+
+            Dim l7 As New SIL3.ApplicationSupport.LabelHelper("Bad Distance")
+            l7.Layout__AboveRightControl(l6, Me.m_txtBinary_Counter__MissedStart)
+            Me.m_txtBinary_Counter__BadDistance = New SIL3.ApplicationSupport.TextBoxHelper_U32(100, l7)
+
+            Dim l8 As New SIL3.ApplicationSupport.LabelHelper("Error Codes")
+            l8.Layout__AboveRightControl(l7, Me.m_txtBinary_Counter__BadDistance)
+            Me.m_txtBinary_Counter__ErrorCode = New SIL3.ApplicationSupport.TextBoxHelper_U32(100, l8)
+
+
 
         End Sub
 

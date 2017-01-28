@@ -369,7 +369,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 			case NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW:
 				//move the brake system in development mode.
 				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-					vFCU_BRAKES_ETH__MoveMotor_RAW(u32Block[0], u32Block[1]);
+					vFCU_BRAKES_ETH__MoveMotor_RAW(u32Block[0], s32Block[1]);
 				#endif
 				break;
 
@@ -509,7 +509,9 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				}
 			case NET_PKT__FCU_GEN__ENTER_PRE_RUN_PHASE_COMMAND:
 				#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+#if 0
 					vFCU_FCTL_MAINSM__EnterPreRun_Phase();
+#endif
 				#endif
 				break;
 

@@ -758,29 +758,29 @@
 
         Private Sub btnMoveLeftDev__Click(s As Object, e As EventArgs)
 
-            Dim u32Val As New Numerical.U32(CInt(Me.m_txtDevRawMove.Text))
+            Dim s32Val As New Numerical.S32(CInt(Me.m_txtDevRawMove.Text))
 
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW,
-                                                 0, u32Val.To__Uint32, 0, 0)
+                                                 0, s32Val.Union__Uint32, 0, 0)
         End Sub
 
         Private Sub btnMoveRightDev__Click(s As Object, e As EventArgs)
 
-            Dim u32Val As New Numerical.U32(CInt(Me.m_txtDevRawMove.Text))
+            Dim s32Val As New Numerical.S32(CInt(Me.m_txtDevRawMove.Text))
 
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW,
-                                                 1, u32Val.To__Uint32, 0, 0)
+                                                 1, s32Val.Union__Uint32, 0, 0)
         End Sub
 
         Private Sub btnMoveBothDev__Click(s As Object, e As EventArgs)
 
-            Dim u32Val As New Numerical.U32(CInt(Me.m_txtDevRawMove.Text))
+            Dim s32Val As New Numerical.S32(CInt(Me.m_txtDevRawMove.Text))
 
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW,
-                                                 2, u32Val.To__Uint32, 0, 0)
+                                                 2, s32Val.Union__Uint32, 0, 0)
         End Sub
 
 

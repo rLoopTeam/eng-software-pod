@@ -117,6 +117,15 @@ void vFCU_LASERDIST__Init(void)
 	sFCU.sLaserDist.s32PrevDistance_mm = 0;
 	sFCU.sLaserDist.s32Velocity_mms = 0;
 	sFCU.sLaserDist.s32PrevVelocity_mms = 0;
+	sFCU.sLaserDist.s32Accel_mmss = 0;
+	sFCU.sLaserDist.s32PrevAccel_mmss = 0;
+
+
+	//clear the binary distance mode
+	sFCU.sLaserDist.sBinary.unRx.u32 = 0U;
+	sFCU.sLaserDist.sBinary.u32Counter__MissedStart = 0U;
+	sFCU.sLaserDist.sBinary.u32Counter__BadDistance = 0U;
+	sFCU.sLaserDist.sBinary.u32Counter__ErrorCode = 0U;
 
 	//setup the filtering
 	vFCU_LASERDIST_FILT__Init();
@@ -175,9 +184,11 @@ void vFCU_LASERDIST__Process(void)
 		case LASERDIST_STATE__WAIT_LASER_RESET:
 
 			//wait here until the lasers are out of rest.
-			if(sFCU.sLaserDist.u32LaserPOR_Counter > 50U)
+			//5 seconds onsite hack to wait for the laser up.
+			if(sFCU.sLaserDist.u32LaserPOR_Counter > 500U)
 			{
-				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__INIT_LASER_TURNON;
+				//onsite hack
+				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__CHECK_NEW_DATA; //LASERDIST_STATE__INIT_LASER_TURNON;
 			}
 			else
 			{
@@ -310,7 +321,14 @@ Lint32 s32FCU_LASERDIST__Get_Distance_mm(void)
 	return sFCU.sLaserDist.s32Distance_mm;
 }
 
-//
+
+//process the binary packet.
+void vFCU_LASERDIST__Process_Packet(void)
+{
+
+
+}
+
 /***************************************************************************//**
  * @brief
  * Process the laser packet
@@ -320,7 +338,7 @@ Lint32 s32FCU_LASERDIST__Get_Distance_mm(void)
  * @st_funcMD5		50D2F735AC8706F6B0746CCB9860BD5A
  * @st_funcID		LCCM655R0.FILE.033.FUNC.004
  */
-void vFCU_LASERDIST__Process_Packet(void)
+void vFCU_LASERDIST__Process_Packet_ASCII(void)
 {
 	Lfloat32 f32Delta;
 	Luint32 u32Distance;
@@ -405,6 +423,7 @@ void vFCU_LASERDIST__Append_Byte(Luint8 u8Value)
 
 			//make sure the first two bits are valid
 			//todo
+#if 0 // ASCII MODE
 			if(u8Value == 'D')
 			{
 				//wait for byte 2
@@ -416,18 +435,68 @@ void vFCU_LASERDIST__Append_Byte(Luint8 u8Value)
 
 				//todo: check if we can see a laser error here
 			}
+#endif //
+
+			//check for the start bit
+			if((u8Value & 0x80U) == 0x80U)
+			{
+				//correct distance measurement
+				if((u8Value & 0x40U) == 0x00U)
+				{
+					//correct
+					//distance upper, else error code if bit6 = 1
+					if((u8Value & 0x20U) == 0x20U)
+					{
+						//we have an error code
+						sFCU.sLaserDist.sBinary.u32Counter__ErrorCode++;
+					}
+					else
+					{
+						//we have the MSB value
+						sFCU.sLaserDist.sBinary.unRx.u8[2] = u8Value & 0x3F;
+					}
+
+				}
+				else
+				{
+					//error in distance measurement
+					sFCU.sLaserDist.sBinary.u32Counter__BadDistance++;
+				}
+
+				//in any condition, move on
+				sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_0;
+
+			}
+			else
+			{
+				//maybe not for us, stay in state
+				sFCU.sLaserDist.sBinary.u32Counter__MissedStart++;
+			}
+
 			break;
 
 		case LASERDIST_RX__BYTE_0:
 
+			//distance mid
+			// = "E" if there is an error
+			sFCU.sLaserDist.sBinary.unRx.u8[1] = u8Value;
 			sFCU.sLaserDist.u8NewByteArray[0] = u8Value;
 			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_1;
 			break;
 
 		case LASERDIST_RX__BYTE_1:
 
+			sFCU.sLaserDist.sBinary.unRx.u8[0] = u8Value;
 			sFCU.sLaserDist.u8NewByteArray[1] = u8Value;
-			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_2;
+
+			//millimeter binary mode hack
+			sFCU.sLaserDist.u8NewPacket = 1U;
+
+			//go back and rx the next new packet
+			//in binary mode
+			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_D;
+
+			//sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_2;
 			break;
 
 		case LASERDIST_RX__BYTE_2:

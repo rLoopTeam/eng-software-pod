@@ -94,6 +94,8 @@
 		 * This mode can also be the flight finished mode. */
 		MISSION_PHASE__POST_RUN,
 
+		MISSION_PHASE__DEBUG,
+
 	}E_FCU__MISSION_PHASE_T;
 
 

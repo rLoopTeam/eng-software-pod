@@ -137,10 +137,11 @@ void vFCU_FCTL_MAINSM__Process(void)
 			#endif //C_LOCALDEF__LCCM655__ENABLE_GEOM
 
 			//put the flight computer into startup mode now that everything has been initted.
-			sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__TEST;
+			sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__DEBUG; //MISSION_PHASE__TEST;
 
 			break;
 
+#if 0
 
 		case MISSION_PHASE__TEST:
 
@@ -333,6 +334,11 @@ void vFCU_FCTL_MAINSM__Process(void)
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__POST_RUN;
 			}
 			break;
+#endif
+
+		case MISSION_PHASE__DEBUG:
+
+			break;
 
 		default:
 			//should not get here
@@ -424,7 +430,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		//vFCU_FCTL_MAINSM_AUTO__Process();
 
 		//Update operating states
-
+#if 0
 		sFCU.sStateMachine.sOpStates.u8Unlifted = u8FCU_FCTL_MAINSM__CheckIfUnlifted();
 
 		sFCU.sStateMachine.sOpStates.u8Lifted = u8FCU_FCTL_MAINSM__CheckIfLifted();
@@ -440,7 +446,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		sFCU.sStateMachine.sOpStates.u8Braking = u8FCU_FCTL_MAINSM__CheckIfBraking();
 
 		sFCU.sStateMachine.sOpStates.u8CtlEmergBraking = u8FCU_FCTL_MAINSM__CheckIfControlledBraking();
-
+#endif
 	}
 	else
 	{
@@ -448,21 +454,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 	}
 
 
-}
-
-//allows us to enter pre-run phase from ethernet
-void vFCU_FCTL_MAINSM__EnterPreRun_Phase()
-{
-	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
-
-	if (((sFCU.sStateMachine.eMissionPhase == MISSION_PHASE__TEST && sFCU.sStateMachine.sOpStates.u8Lifted ) || sFCU.sStateMachine.eMissionPhase == MISSION_PHASE__POST_RUN) && (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY))
-	{
-		sFCU.sStateMachine.eGSCommands = MAINSM_GS_ENTER_PRE_RUN_PHASE;
-	}
-	else
-	{
-		//do nothing
-	}
 }
 
 
@@ -504,6 +495,24 @@ void vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR(void)
        sFCU.sStateMachine.MiserableStopCounter = 0U;
    }
 }
+
+
+#if 0
+//allows us to enter pre-run phase from ethernet
+void vFCU_FCTL_MAINSM__EnterPreRun_Phase()
+{
+	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
+
+	if (((sFCU.sStateMachine.eMissionPhase == MISSION_PHASE__TEST && sFCU.sStateMachine.sOpStates.u8Lifted ) || sFCU.sStateMachine.eMissionPhase == MISSION_PHASE__POST_RUN) && (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY))
+	{
+		sFCU.sStateMachine.eGSCommands = MAINSM_GS_ENTER_PRE_RUN_PHASE;
+	}
+	else
+	{
+		//do nothing
+	}
+}
+
 
 
 
@@ -669,6 +678,10 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void)
 	}
 	return u8Test;
 }
+
+#endif //0
+
+
 #endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 #ifndef C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 	#error

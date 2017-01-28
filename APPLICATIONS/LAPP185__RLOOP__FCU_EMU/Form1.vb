@@ -407,6 +407,8 @@ Public Class Form1
             .Text = "Brake R Pos"
         End With
         pP.Controls.Add(l4)
+
+
         Me.m_txtBrakeR_Pos = New TextBox
         With Me.m_txtBrakeR_Pos
             .Location = New Point(l4.Left, l4.Top + l4.Height + 0)
@@ -414,6 +416,44 @@ Public Class Form1
             .Text = "0.0"
         End With
         pP.Controls.Add(Me.m_txtBrakeR_Pos)
+
+
+        Dim btnExtOnL As New Windows.Forms.Button
+        With btnExtOnL
+            .Location = New Point(Me.m_txtBrakeR_Pos.Left + Me.m_txtBrakeR_Pos.Width + 5, Me.m_txtBrakeR_Pos.Top)
+            .Size = New Size(100, 24)
+            .Text = "L ExtSw On"
+        End With
+        pP.Controls.Add(btnExtOnL)
+        AddHandler btnExtOnL.Click, AddressOf Me.m_btnExtL__CLick
+
+
+        Dim btnRetOnL As New Windows.Forms.Button
+        With btnRetOnL
+            .Location = New Point(btnExtOnL.Left + btnExtOnL.Width + 5, btnExtOnL.Top)
+            .Size = New Size(100, 24)
+            .Text = "L RetSw On"
+        End With
+        pP.Controls.Add(btnRetOnL)
+        AddHandler btnRetOnL.Click, AddressOf Me.m_btnRetL__CLick
+
+        Dim btnExtOnR As New Windows.Forms.Button
+        With btnExtOnR
+            .Location = New Point(btnRetOnL.Left + btnRetOnL.Width + 5, btnRetOnL.Top)
+            .Size = New Size(100, 24)
+            .Text = "R ExtSw On"
+        End With
+        pP.Controls.Add(btnExtOnR)
+        AddHandler btnExtOnR.Click, AddressOf Me.m_btnExtR__CLick
+
+        Dim btnRetOnR As New Windows.Forms.Button
+        With btnRetOnR
+            .Location = New Point(btnExtOnR.Left + btnExtOnR.Width + 5, btnExtOnR.Top)
+            .Size = New Size(100, 24)
+            .Text = "R RetSw On"
+        End With
+        pP.Controls.Add(btnRetOnR)
+        AddHandler btnRetOnR.Click, AddressOf Me.m_btnRetR__CLick
 
 
         Dim l5(C_NUM__ASI - 1) As Label
@@ -1080,6 +1120,22 @@ Public Class Form1
 #End Region '#Region "FWD LASER"
 
 #Region "STEPPER"
+
+    Private Sub m_btnExtL__CLick(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub m_btnRetL__CLick(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub m_btnExtR__CLick(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub m_btnRetR__CLick(sender As Object, e As EventArgs)
+
+    End Sub
 
     ''' <summary>
     ''' Update from the stepper system with its new position
