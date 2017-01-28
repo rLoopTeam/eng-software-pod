@@ -18,10 +18,10 @@ void vPWR_COOLING_EDDY__Init(void)
 	for(u8Counter = 0U; u8Counter < (Luint8)POWER_COOLING__MAX_EDDYBRAKES; u8Counter++)
 	{
 		sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature = 0.0F;
-		sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLING_STATE__WAITING;
-		sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eEddySolenoidState = POWER_COOLING__EDDY_OFF;
+		sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__WAITING;
+		sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eEddySolenoidState = POWER_COOLING__SOLENOID_OFF;
 		sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].u32100MS_Count = 0U;
-		sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eSubState = COOLINGSUB_STARTCOOLING;
+		sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLINGSUB_STARTCOOLING;
 	}
 
 	sPWRNODE.sCooling.sEddyBrakeCoolingSystem[0].u8N2HETPinNumber = C_PWRCORE_EDDYBRAKE0_N2HET_PIN_NUMBER;
@@ -46,10 +46,10 @@ void vPWR_COOLING_EDDY__Process(void)
 	 */
 	for(u8Counter = 0U; u8Counter < (Luint8)POWER_COOLING__MAX_EDDYBRAKES; u8Counter++)
 	{
-		switch(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eSubState)
+		switch(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState)
 		{
 		case COOLINGSUB_STARTCOOLING:
-			switch(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState)
+			switch(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eCoolingState)
 			{
 			case COOLING_STATE__WAITING:
 				//do nothing
@@ -62,8 +62,10 @@ void vPWR_COOLING_EDDY__Process(void)
 				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].u32100MS_Count = 0;
 				//Turn on Solenoid here
 				vPWR_COOLING__Solennoid_TurnOn(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].u8N2HETPinNumber);
+				//Update Solenoid State
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eEddySolenoidState = POWER_COOLING__SOLENOID_ON;
 				//Transit to next state
-				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eSubState = COOLINGSUB_WAITING;
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLINGSUB_WAITING;
 				break;
 			case COOLING_STATE__WARNING:
 				//WARNING @ Valve duty cycle 1.0 s ON/ 1.0 s OFF for T > T warning -> delivered mass flow rate/HE 2 - 3 g/s
@@ -73,22 +75,28 @@ void vPWR_COOLING_EDDY__Process(void)
 				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].u32100MS_Count = 0;
 				//Turn on Solenoid here
 				vPWR_COOLING__Solennoid_TurnOn(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].u8N2HETPinNumber);
+				//Update Solenoid State
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eEddySolenoidState = POWER_COOLING__SOLENOID_ON;
 				//Transit to next state
-				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eSubState = COOLINGSUB_WAITING;
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLINGSUB_WAITING;
 				break;
 			case COOLING_STATE__CRITICAL:
 				//Valve OPEN completely for T > T critical -> delivered mass flow rate/HE maximum at around 4.5 g/s
 
 				//Turn on Solenoid here
 				vPWR_COOLING__Solennoid_TurnOn(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].u8N2HETPinNumber);
+				//Update Solenoid State
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eEddySolenoidState = POWER_COOLING__SOLENOID_ON;
 				//Transit to next state
-				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eSubState = COOLINGSUB_WAITING;
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLINGSUB_WAITING;
 				break;
 			case COOLING_STATE__EMERGENCY:
 				//TODO ENGINE SHUT DOWN instead of cooling
 				vPWR_COOLING__Solennoid_TurnOn(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].u8N2HETPinNumber);
+				//Update Solenoid State
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eEddySolenoidState = POWER_COOLING__SOLENOID_ON;
 				//Transit to next state
-				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eSubState = COOLINGSUB_WAITING;
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLINGSUB_WAITING;
 				break;
 			default:
 				//do nothing
@@ -97,7 +105,7 @@ void vPWR_COOLING_EDDY__Process(void)
 			}
 			break; //case: COOLINGSUB_STARTCOOLING
 		case COOLINGSUB_WAITING:
-			switch(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState)
+			switch(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eCoolingState)
 			{
 			case COOLING_STATE__WAITING:
 				//do nothing
@@ -114,11 +122,13 @@ void vPWR_COOLING_EDDY__Process(void)
 				{
 					//Turn off Solenoid here
 					vPWR_COOLING__Solennoid_TurnOff(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].u8N2HETPinNumber);
+					//Update Solenoid State
+					sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eEddySolenoidState = POWER_COOLING__SOLENOID_OFF;
 				}
 				else if (sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].u32100MS_Count > 20)
 				{
 					//Transit back to cooling state
-					sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eSubState = COOLINGSUB_STARTCOOLING;
+					sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLINGSUB_STARTCOOLING;
 				}
 				else
 				{
@@ -137,11 +147,13 @@ void vPWR_COOLING_EDDY__Process(void)
 				{
 					//Turn off Solenoid here
 					vPWR_COOLING__Solennoid_TurnOff(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].u8N2HETPinNumber);
+					//Update Solenoid State
+					sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eEddySolenoidState = POWER_COOLING__SOLENOID_OFF;
 				}
 				else if (sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].u32100MS_Count > 20)
 				{
 					//Transit back to cooling state
-					sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eSubState = COOLINGSUB_STARTCOOLING;
+					sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLINGSUB_STARTCOOLING;
 				}
 				else
 				{
@@ -153,13 +165,13 @@ void vPWR_COOLING_EDDY__Process(void)
 				//Do nothing, solenoid will stay ON
 
 				//Transit back to cooling state
-				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eSubState = COOLINGSUB_STARTCOOLING;
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLINGSUB_STARTCOOLING;
 				break;
 			case COOLING_STATE__EMERGENCY:
 				//TODO ENGINE SHUT DOWN
 
 				//Transit back to cooling state
-				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eSubState = COOLINGSUB_STARTCOOLING;
+				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eState = COOLINGSUB_STARTCOOLING;
 				break;
 			default:
 				//do nothing

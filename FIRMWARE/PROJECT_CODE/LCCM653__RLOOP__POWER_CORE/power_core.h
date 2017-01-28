@@ -137,7 +137,7 @@
 			{
 
 				/** the current state */
-				E_POWER_PICOM__STATE_T eState;
+				E_POWER_PICOM__STATE_T eCoolingState;
 
 				/** 100ms timer interrupt tick*/
 				Luint8 u8100MS_Timer;
@@ -225,11 +225,11 @@
 				struct
 				{
 					Lfloat32 f32Temperature;
-					E_PWRNODE__COOLING_STATES eState;
-					E_PWR__COOLING_HOVESOLENOID_STATE_T eHoverSolenoidState;
+					E_PWRNODE__COOLING_STATES eCoolingState;
+					E_PWR__COOLING_SOLENOID_STATE_T eHoverSolenoidState;
 					Luint8 u8N2HETPinNumber;
 					Luint32 u32100MS_Count;
-					E_PWRNODE__COOLINGSUB_T eSubState;
+					E_PWRNODE__COOLINGSUB_T eState;
 					Luint8 u8Indexes[2U];
 				}sHoverEngineCoolingSystem[POWER_COOLING__MAX_HOVERENG];
 
@@ -237,11 +237,11 @@
 				struct
 				{
 					Lfloat32 f32Temperature;
-					E_PWRNODE__COOLING_STATES eState;
-					E_PWR__COOLING_EDDYSOLENOID_STATE_T eEddySolenoidState;
+					E_PWRNODE__COOLING_STATES eCoolingState;
+					E_PWR__COOLING_SOLENOID_STATE_T eEddySolenoidState;
 					Luint8 u8N2HETPinNumber;
 					Luint32 u32100MS_Count;
-					E_PWRNODE__COOLINGSUB_T eSubState;
+					E_PWRNODE__COOLINGSUB_T eState;
 					Luint8 u8Indexes[2U];
 				}sEddyBrakeCoolingSystem[POWER_COOLING__MAX_EDDYBRAKES];
 
