@@ -187,6 +187,9 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Flight control specifics */
 		#define C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL					(1U)
 
+			/** Main SM */
+			#define C_LOCALDEF__LCCM655__ENABLE_MAIN_SM							(1U)
+
 			//Pitch/Roll/Yaw
 			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION				(0U)
 

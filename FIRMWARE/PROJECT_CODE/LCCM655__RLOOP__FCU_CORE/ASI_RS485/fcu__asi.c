@@ -624,6 +624,7 @@ return sFCU.sASI.sHolding[u8EngineIndex].u16RPM;
 Luint16 u16FCU_ASI__ReadMotorVoltage(Luint8 u8EngineIndex)
 {
 //TODO: return sFCU.sASI.sHolding[u8EngineIndex].
+return 0;
 }
 
 Lfloat32 f32FCU_ASI__ReadMotorCurrent(Luint8 u8EngineIndex)

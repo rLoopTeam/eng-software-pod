@@ -193,6 +193,9 @@ void vPWRNODE_CHG__Process(void)
 
 		case CHG_STATE__START_BALANCE:
 
+			//Switch off while balancing
+			vPWRNODE_CHG_RELAY__Off();
+
 			//5.b.If any cell is above 4.2V, throw an error,
 			//discharge that cell below 4.2V by balancing the pack, and do not charge
 			vPWRNODE_BMS__Balance_Start();
