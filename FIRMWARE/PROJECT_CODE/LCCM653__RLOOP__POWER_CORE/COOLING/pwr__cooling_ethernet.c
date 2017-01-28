@@ -51,9 +51,8 @@ void vPWR_COOLING_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	{
 		case NET_PKT__PWR_COOLING__TX_COOLING_STATUS:
 			u16Length = 1U;
-			u16Length += POWER_COOLING__MAX_HOVERENG * 6U;
-			u16Length += POWER_COOLING__MAX_EDDYBRAKES * 6U;
-			u16Length += 1U;
+			u16Length += POWER_COOLING__MAX_HOVERENG * 7U;
+			u16Length += POWER_COOLING__MAX_EDDYBRAKES * 7U;
 
 			//TODO
 			break;
