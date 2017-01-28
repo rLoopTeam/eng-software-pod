@@ -43,9 +43,6 @@ void vFCU_FCTL_MAINSM__Init(void)
 {
 	sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__RESET;
 
-	//init the auto sequence
-	vFCU_MAINSM_AUTO__Init();
-
 }
 
 
@@ -73,6 +70,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 		case MISSION_PHASE__RESET:
 			//we have just come out of reset here.
 			//init our rPod specific systems
+
+			//init the auto sequence
+			vFCU_MAINSM_AUTO__Init();
 
 			//pusher
 			#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
@@ -160,26 +160,38 @@ void vFCU_FCTL_MAINSM__Process(void)
 				}
 			}
 
+			u32Accelmmss = u32FCU_FCTL_NAV__Get_Accel_mmss();
+
+			if (u32Accelmmss > C_FCU__NAV_MIN_PUSHER_ACCEL)
+			{
+				sFCU.sStateMachine.EnableAccelCounter = 1U;
+			}
+			else
+			{
+				sFCU.sStateMachine.EnableAccelCounter = 0U;
+			}
+
 			//Get Pod Speed
 			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 
-			if (u8TestsSuccesful == 1U && sFCU.sStateMachine.sOpStates.u8Lifted && (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY))
+			if ((u8TestsSuccesful == 1U || sFCU.sStateMachine.eGSCommands == MAINSM_GS_ENTER_PRE_RUN_PHASE) && sFCU.sStateMachine.sOpStates.u8Lifted && (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY))
 			{
 
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PRE_RUN;
+					sFCU.sStateMachine.eGSCommands = MAINSM_GS_NO_CMD;
 			}
 			else
 			{
 
-				if(u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
+				if((sFCU.sStateMachine.AccelCounter > C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY) || u32PodSpeed > C_FCU__NAV_MIN_PUSHER_SPEED)
 				{
-					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__TEST;
+					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PUSHER_INTERLOCK;
+					sFCU.sStateMachine.EnableAccelCounter = 0U;
 				}
 				else
 				{
-					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PUSHER_INTERLOCK;
+					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__TEST;
 				}
-
 			}
 			break;
 
@@ -187,11 +199,25 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 			//Transition to Pusher Interlock Phase based on the acceleration
 			//Not sure about how to call the right accelerometer and whether it indicates the right axis
+
 			u32Accelmmss = u32FCU_FCTL_NAV__Get_Accel_mmss();
 
-			if(u32Accelmmss > C_FCU__NAV_PODSPEED_STANDBY)
+			if (u32Accelmmss > C_FCU__NAV_MIN_PUSHER_ACCEL)
+			{
+				sFCU.sStateMachine.EnableAccelCounter = 1U;
+			}
+			else
+			{
+				sFCU.sStateMachine.EnableAccelCounter = 0U;
+			}
+
+			//Get Pod Speed
+			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
+
+			if((sFCU.sStateMachine.AccelCounter > C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY) || u32PodSpeed > C_FCU__NAV_MIN_PUSHER_SPEED)
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PUSHER_INTERLOCK;
+				sFCU.sStateMachine.EnableAccelCounter = 0U;
 			}
 			else
 			{
@@ -208,30 +234,50 @@ void vFCU_FCTL_MAINSM__Process(void)
 			u8PusherState = u8FCU_PUSHER__Get_PusherState();
 			u32PodRearPos = u32FCU_FCTL_NAV__GetRearPos();
 
-
+			// Check if counter for pusher pin release should be enabled
 			if(u8PusherState == 0U)
 			{
 				//Enable the counter
-				sFCU.sStateMachine.EnableCounter == 1U;
+				sFCU.sStateMachine.EnablePusherCounter == 1U;
 			}
 			else
 			{
-				//do nothing
+				sFCU.sStateMachine.EnablePusherCounter == 0U;
 			}
 
-			if((u32PodRearPos > C_FCU__NAV_POD_MIN_X_POS) && (sFCU.sStateMachine.Counter >= C_FCU__MAINSM_PUSHER_RELEASE_DELAY))
+			// Check if counter for miserable stop should be enabled
+			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
+
+			if(u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
+			{
+				//Enable the counter
+				sFCU.sStateMachine.EnableMiserableStopCounter == 1U;
+			}
+			else
+			{
+				sFCU.sStateMachine.EnableMiserableStopCounter == 0U;
+			}
+
+			if(((u32PodRearPos > C_FCU__NAV_POD_MIN_X_POS) || u8FCU_FCTL_NAV__IsInFailure() == 1U) && (sFCU.sStateMachine.PusherCounter >= C_FCU__MAINSM_PUSHER_RELEASE_DELAY))
 			{
 				//Switch to Mission Phase Flight
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__FLIGHT;
 				//Disable the counter
-				sFCU.sStateMachine.EnableCounter = 0U;
-				//Reset the counter
-				sFCU.sStateMachine.Counter = 0U;
-
+				sFCU.sStateMachine.EnablePusherCounter = 0U;
 			}
 			else
 			{
-				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PUSHER_INTERLOCK;
+				if (sFCU.sStateMachine.MiserableStopCounter > C_FCU__NAV_MISERABLE_STOP_CONFIRM_DELAY)
+				{
+					//Switch to Mission Phase Flight
+					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__POST_RUN;
+					//Disable the counter
+					sFCU.sStateMachine.EnableMiserableStopCounter = 0U;
+				}
+				else
+				{
+					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PUSHER_INTERLOCK;
+				}
 			}
 
 			break;
@@ -260,7 +306,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 
 			//Disable the counter
-			sFCU.sStateMachine.EnableCounter == 0U;
+			sFCU.sStateMachine.EnablePusherCounter == 0U;
 
 			break;
 
@@ -273,6 +319,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if((u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && (sFCU.sStateMachine.eGSCommands == MAINSM_GS_ENTER_PRE_RUN_PHASE))
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PRE_RUN;
+				sFCU.sStateMachine.eGSCommands = MAINSM_GS_NO_CMD;
 			}
 			else
 			{
@@ -390,21 +437,60 @@ void vFCU_FCTL_MAINSM__Process(void)
 //allows us to enter pre-run phase from ethernet
 void vFCU_FCTL_MAINSM__EnterPreRun_Phase()
 {
-	sFCU.sStateMachine.eGSCommands = MAINSM_GS_ENTER_PRE_RUN_PHASE;
+	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
+
+	if (((sFCU.sStateMachine.eMissionPhase == MISSION_PHASE__TEST && sFCU.sStateMachine.sOpStates.u8Lifted ) || sFCU.sStateMachine.eMissionPhase == MISSION_PHASE__POST_RUN) && (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY))
+	{
+		sFCU.sStateMachine.eGSCommands = MAINSM_GS_ENTER_PRE_RUN_PHASE;
+	}
+	else
+	{
+		//do nothing
+	}
+}
+
+
+void vFCU_FCTL_MAINSM__10MS_ISR(void)
+{
+	//Enable/Disable Counter
+   if (sFCU.sStateMachine.EnableAccelCounter == 1U)
+   {
+        sFCU.sStateMachine.AccelCounter++;
+   }
+   else
+   {
+		sFCU.sStateMachine.AccelCounter = 0U;
+   }
 }
 
 void vFCU_FCTL_MAINSM__100MS_ISR(void)
 {
 	//Enable/Disable Counter
-   if (sFCU.sStateMachine.EnableCounter == 1U)
+   if (sFCU.sStateMachine.EnablePusherCounter == 1U)
    {
-        sFCU.sStateMachine.Counter++;
+        sFCU.sStateMachine.PusherCounter++;
    }
    else
    {
-   		//do nothing
+       sFCU.sStateMachine.PusherCounter = 0U;
    }
 }
+
+void vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR(void)
+{
+	//Enable/Disable Counter
+   if (sFCU.sStateMachine.EnableMiserableStopCounter == 1U)
+   {
+        sFCU.sStateMachine.MiserableStopCounter++;
+   }
+   else
+   {
+       sFCU.sStateMachine.MiserableStopCounter = 0U;
+   }
+}
+
+
+
 
 E_FCU__MISSION_PHASE_T eFCU_FCTL_MAIN_SM__GetCurrentMissionPhase()
 {
@@ -486,7 +572,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfReadyForPush(void)
 	Luint8 u8PusherSwitch2 = u8FCU_PUSHER__Get_Switch(1);
 
 	//Check if we are connected to the pusher, speed is below standby, the height makes sense to be pushed + each of our landing gear units is retracted
-	if((u32PodZPos > C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT) &&  (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && 	(u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U) && (vFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED))
+	if((u32PodZPos > C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT) &&  (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && (u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U) && (vFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED))
 	{
 		u8Test = 1U;
 	}

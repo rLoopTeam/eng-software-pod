@@ -131,10 +131,22 @@
 				E_FCU__MISSION_PHASE_T eMissionPhase;
 
 				/** Counter to count the time elapsed from the disconnection from the pusher **/
-				Luint32 Counter;
+				Luint32 PusherCounter;
 
 				/** Enable Counter counting time elapsed from the disconnection from the pusher **/
-				Luint8 EnableCounter;
+				Luint8 EnablePusherCounter;
+
+				/**Counter to count the time the pod experiences acceleration higher than value speccd in the db */
+				Luint32 AccelCounter;
+
+				/**Enable the Accel Counter */
+				Luint8 EnableAccelCounter;
+
+				/** In case Pusher fails and doesn't get us to the min pushed distance */
+				Luint32 MiserableStopCounter;
+
+				/** Enable Miserable Stop Counter */
+				Luint8 EnableMiserableStopCounter;
 
 				/** Enum for Pod Status for SpaceX telemetry */
 				E_FCU__POD_STATUS ePodStatus;

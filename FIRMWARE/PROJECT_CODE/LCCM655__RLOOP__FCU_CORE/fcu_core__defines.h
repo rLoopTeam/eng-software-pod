@@ -79,6 +79,7 @@
 
 	/** State Machine constants */
 	#define C_FCU__MAINSM_PUSHER_RELEASE_DELAY				(10U) 	//define exact value
+	#define C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY			(20U)
 
 	/** GS Communication constants */
 	#define C_FCU__GS_COMM_LOSS_DELAY						(1U)		//define exact value
@@ -118,6 +119,7 @@
 	#define C_FCU__NAV_PODSPEED_STANDBY						(1U) 	//define exact value
 	#define C_FCU__NAV_PODSPEED_MAX_SPEED_TO_STABILIZE		(1000000U) //define exact value. ATM extra large so that HE never throttle down
 	#define C_FCU__NAV_MIN_PUSHER_SPEED						(10U)	//define exact value
+	#define C_FCU__NAV_MIN_PUSHER_ACCEL 						(5000U)
 
 	#define C_FCU__NAV_NUM_CONTRAST_SENSORS 					(3U)
 	#define C_FCU__NAV_STARTING_XPOS_LC_FWD 					(55U)
@@ -130,13 +132,15 @@
 	#define C_FCU__NAV_PUSHER_START_XPOS 					(55U)
 	#define C_FCU__NAV_POD_LENGTH 							(55U)
 	#define C_FCU__NAV_LRF_MIN_POS_TO_ACTIVATE 				(55U)
-	#define C_FCU__NAV_LRF_FIRST_EXPECTED_RANGE_MIN 			(55U)
 	#define C_FCU__NAV_LRF_FIRST_EXPECTED_RANGE_MAX			(55U)
+	#define C_FCU__NAV_LRF_FIRST_EXPECTED_RANGE_MIN 			(55U)
 	#define C_FCU__NAV_LRF_TRANSITION_DELAY_FROM_CONTRAST_SENSORS		(55U)
 	#define C_FCU__NAV_SPEED_UNCERTAINTY_OFFSET  			(55U)
 	#define C_FCU__NAV_MAX_ACCELERATION 						(55U)
 	#define C_FCU__NAV_ACCELEROMETER_HIGH_VAL_DELAY 			(55U)
 	#define C_FCU__NAV_ACCELEROMETER_LOW_VAL_DELAY 			(55U)
+	#define C_FCU__NAV_MISERABLE_STOP_CONFIRM_DELAY 			(200U)
+
 
 
 
