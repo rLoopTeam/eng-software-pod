@@ -68,26 +68,7 @@
 		EDDYBRAKES_STATE__BRAKING
 	}E_FCU__FCTL_EDDYBRAKES_STATE;
 
-	//////////////////////////////////////////////////////
-	//FCTL: HOVER ENGINES
-	//////////////////////////////////////////////////////
 
-	/** Ground station commands for the Hover Engines control */
-	typedef enum
-	{
-		HE_CTL_DO_NOTHING = 0U,
-		HE_CTL_STATIC_HOVERING,
-		HE_CTL_RELEASE_STATIC_HOVERING,
-		HE_CTL_M_SET_SPEED_HE1,
-		HE_CTL_M_SET_SPEED_HE2,
-		HE_CTL_M_SET_SPEED_HE3,
-		HE_CTL_M_SET_SPEED_HE4,
-		HE_CTL_M_SET_SPEED_HE5,
-		HE_CTL_M_SET_SPEED_HE6,
-		HE_CTL_M_SET_SPEED_HE7,
-		HE_CTL_M_SET_SPEED_HE8,
-		HE_CTL_M_SET_ALL_HE_SPEED
-	} E_FCU__HOVERENGINES_GS_COMM;
 
 	//////////////////////////////////////////////////////
 	//FCTL_MAINSM: SPACEX TELEMETRY

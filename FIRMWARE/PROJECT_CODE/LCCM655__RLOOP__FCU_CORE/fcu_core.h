@@ -102,7 +102,7 @@
 				E_FCU__HOVERENGINES_STATES_T eState;
 
 				/** The hover engines input commands from GS */
-				E_FCU__HOVERENGINES_GS_COMM eGSCommands;
+				Luint32 eGSCommands;
 
 				/** The hover engines command values from GS */
 				Luint32 u32CommandValues;
