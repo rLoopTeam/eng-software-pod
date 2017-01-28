@@ -149,6 +149,8 @@
 		/** perform a zero/span on the MLP */
 		NET_PKT__FCU_BRAKES__MLP_ZEROSPAN = 0x1409U,
 
+		/** Set either the veloc or accel */
+		NET_PKT__FCU_BRAKES__VELOC_ACCEL_SET = 0x140AU,
 
 		//////////////////////////////////////////////////////
 		//FCU: THROTTLES (0x1500)

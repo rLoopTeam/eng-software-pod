@@ -146,6 +146,9 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
 
         NET_PKT__FCU_BRAKES__MLP_ZEROSPAN = &H1409
 
+        '/** Set either the veloc Or accel */
+        NET_PKT__FCU_BRAKES__VELOC_ACCEL_SET = &H140A
+
 
         '//////////////////////////////////////////////////////
         '//FCU: THROTTLES (0x1500)

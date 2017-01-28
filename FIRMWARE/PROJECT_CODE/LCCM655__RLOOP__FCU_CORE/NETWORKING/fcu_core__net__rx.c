@@ -332,6 +332,18 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				#endif
 				break;
 
+			case NET_PKT__FCU_BRAKES__VELOC_ACCEL_SET:
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+					if(u32Block[0] == 0xABAB1122)
+					{
+						vFCU_BRAKES_STEP__UpdateValues(u32Block[1], u32Block[2], s32Block[3]);
+					}
+					else
+					{
+						//not for us
+					}
+				#endif
+				break;
 
 			case NET_PKT__FCU_THROTTLE__ENABLE_DEV_MODE:
 				#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
