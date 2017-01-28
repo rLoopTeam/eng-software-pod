@@ -43,6 +43,9 @@ void vPWRNODE__Init(void)
 	sPWRNODE.u32Guard1 = 0xABCD9876U;
 	sPWRNODE.u32Guard2 = 0x12983465U;
 
+	sPWRNODE.u32NodePressCounter = 0U;
+	sPWRNODE.u32NodeTempCounter = 0U;
+
 }
 
 
@@ -347,12 +350,28 @@ void vPWRNODE__Process(void)
 			#endif
 
 			#if C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP == 1U
-				// Process the node temp subsystem
-				vPWRNODE_NODETEMP__Process();
+				if(sPWRNODE.u32NodeTempCounter == 1U)
+				{
+					// Process the node temp subsystem
+					vPWRNODE_NODETEMP__Process();
+					sPWRNODE.u32NodeTempCounter = 0U;
+				}
+				else
+				{
+					//come back later
+				}
 			#endif
 			#if C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS == 1U
-				// Process the node pressure subsystem
-				vPWRNODE_NODEPRESS__Process();
+				if(sPWRNODE.u32NodePressCounter == 1U)
+				{
+					// Process the node pressure subsystem
+					vPWRNODE_NODEPRESS__Process();
+					sPWRNODE.u32NodePressCounter = 0U;
+				}
+				else
+				{
+					//check later
+				}
 			#endif
 
 			#if C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS == 1U
@@ -419,6 +438,9 @@ void vPWRNODE__RTI_100MS_ISR(void)
 		vPWR_COOLING_HOVER__100MS_ISR();
 		vPWR_COOLING__100MS_ISR();
 	#endif
+
+	sPWRNODE.u32NodePressCounter = 1U;
+	sPWRNODE.u32NodeTempCounter = 1U;
 
 }
 

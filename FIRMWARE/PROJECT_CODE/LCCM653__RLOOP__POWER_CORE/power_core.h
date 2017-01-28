@@ -56,6 +56,10 @@
 			/** main state machine */
 			E_PWRNODE__RUN_STATES eMainState;
 
+			/** Just some counters for other I2C devices*/
+			Luint32 u32NodePressCounter;
+			Luint32 u32NodeTempCounter;
+
 			/** fault flags structure */
 			struct
 			{

@@ -45,10 +45,9 @@ void vDS18B20__Init(void)
 	sDS18B20.sEnum.u16NumDevices = 0U;
 	sDS18B20.u8NewData = 0U;
 	//setup the vars
-	sDS18B20.u32Guard1 = 0x11223344;
-	sDS18B20.u32Guard2 = 0x44556677;
+	sDS18B20.u32Guard1 = 0x11223344U;
+	sDS18B20.u32Guard2 = 0x44556677U;
 	sDS18B20.eMainState = DS18B20_STATE__IDLE;
-	sDS18B20.u32WaitCounter = 0U;
 
 
 	//setup the vars for the address searching.
@@ -325,7 +324,9 @@ void vDS18B20__Process(void)
 			else
 			{
 				//keep going
-				sDS18B20.u32WaitCounter = 0U;
+				//clear the counter
+				sDS18B20.u32ISR_Counter = 0U;
+
 				sDS18B20.eMainState = DS18B20_STATE__READ_SENSOR_STATE_DELAY;
 			}
 
@@ -333,10 +334,8 @@ void vDS18B20__Process(void)
 
 		case DS18B20_STATE__READ_SENSOR_STATE_DELAY:
 
-			//need to do a bit of a delay
-			sDS18B20.u32WaitCounter++;
-
-			if(sDS18B20.u32WaitCounter > 10U)
+			//wait for 50ms between sensor reads so as not to flog the I2C
+			if(sDS18B20.u32ISR_Counter > 4U)
 			{
 				//read more
 				sDS18B20.eMainState = DS18B20_STATE__READ_SENSORS;
