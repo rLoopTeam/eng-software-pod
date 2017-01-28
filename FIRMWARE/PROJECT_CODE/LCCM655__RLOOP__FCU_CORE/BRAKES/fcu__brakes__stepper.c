@@ -21,6 +21,9 @@
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 
+//locals
+void vFCU_BRAKES_STEP__LimitMove(Lint32 s32Brake0PosIn, Lint32 s32Brake1PosIn, Lint32 *ps32Brake0PosOut, Lint32 *ps32Brake1PosOut);
+
 //the structure
 extern struct _strFCU sFCU;
 
@@ -136,8 +139,8 @@ void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos)
 
 
 	//format the move
-	s32Pos[0] = s32Brake0Pos;
-	s32Pos[1] = s32Brake1Pos;
+	//s32Pos[0] = s32Brake0Pos;
+	//s32Pos[1] = s32Brake1Pos;
 
 	s32Velocity[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc;
 	s32Velocity[1] = sFCU.sBrakes[1].sMove.s32LinearVeloc;
@@ -152,6 +155,8 @@ void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos)
 	//clear the prev task if needed.
 	vSTEPDRIVE__Clear_TaskComplete();
 
+	vFCU_BRAKES_STEP__LimitMove(s32Brake0Pos, s32Brake1Pos, &s32Pos[0], &s32Pos[1]);
+
 	//command the stepper to actual position, it will start moving based on timer interrupts
 	//it is OK to do address of near here because we copy into the move planner in this call.
 	s16Return = s16STEPDRIVE_POSITION__Set_Position(&s32Pos[0], &s32Velocity[0], &s32Accel[0], u32TaskID);
@@ -162,6 +167,84 @@ void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos)
 	sFCU.sBrakesGlobal.u32MoveTaskID++;
 
 }
+
+
+//before we move check the values of the limit swtiches and if needed limit the move in one direction
+void vFCU_BRAKES_STEP__LimitMove(Lint32 s32Brake0PosIn, Lint32 s32Brake1PosIn, Lint32 *ps32Brake0PosOut, Lint32 *ps32Brake1PosOut)
+{
+
+
+	if(sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
+	{
+		//prevent movements less than 0
+		if(s32Brake0PosIn < 0)
+		{
+			*ps32Brake0PosOut = 0;
+		}
+		else
+		{
+			*ps32Brake0PosOut = s32Brake0PosIn;
+		}
+
+	}
+	else
+	{
+
+	}
+
+	if(sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].eSwitchState == SW_STATE__CLOSED)
+	{
+		//prevent movements > 75mm
+		if(s32Brake0PosIn > 75000)
+		{
+			*ps32Brake0PosOut = 75000;
+		}
+		else
+		{
+			*ps32Brake0PosOut = s32Brake0PosIn;
+		}
+	}
+	else
+	{
+
+	}
+
+	if(sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
+	{
+		//prevent movements less than 0
+		if(s32Brake1PosIn < 0)
+		{
+			*ps32Brake1PosOut = 0;
+		}
+		else
+		{
+			*ps32Brake1PosOut = s32Brake1PosIn;
+		}
+	}
+	else
+	{
+
+	}
+
+	if(sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].eSwitchState == SW_STATE__CLOSED)
+	{
+		//prevent movements > 75mm
+		if(s32Brake1PosIn > 75000)
+		{
+			*ps32Brake1PosOut = 75000;
+		}
+		else
+		{
+			*ps32Brake1PosOut = s32Brake1PosIn;
+		}
+	}
+	else
+	{
+
+	}
+
+}
+
 
 //update the veloc and accel values.
 void vFCU_BRAKES_STEP__UpdateValues(Luint32 u32Brake, Luint32 u32Type, Lint32 s32Value)

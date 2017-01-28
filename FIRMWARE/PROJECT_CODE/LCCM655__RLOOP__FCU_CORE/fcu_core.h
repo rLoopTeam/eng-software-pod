@@ -621,6 +621,9 @@
 				Lint32 s32Velocity_mms;
 				Lint32 s32PrevVelocity_mms;
 
+				Lint32 s32Accel_mmss;
+				Lint32 s32PrevAccel_mmss;
+
 				/** The final filtered distance*/
 				//Lfloat32 f32DistanceFiltered;
 
@@ -641,6 +644,32 @@
 					Lint32 s32Distance;
 
 				}sEmu;
+
+
+
+				/** binary mode data */
+				struct
+				{
+
+					/** Hold the Rx data in binary millimeter mode */
+					union
+					{
+
+						Luint8 u8[4];
+						Luint32 u32;
+
+					}unRx;
+
+					/** Count of missed start packets */
+					Luint32 u32Counter__MissedStart;
+
+					/** Bad distance measurement */
+					Luint32 u32Counter__BadDistance;
+
+					/** Error code value counter */
+					Luint32 u32Counter__ErrorCode;
+
+				}sBinary;
 
 			}sLaserDist;
 
@@ -1388,7 +1417,7 @@
 			//eth
 			void vFCU_BRAKES_ETH__Init(void);
 			void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType);
-			void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Luint32 u32Position);
+			void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Lint32 s32Position);
 			void vFCU_BRAKES_ETH__MoveMotor_IBeam(Lfloat32 f32Value);
 			void vFCU_BRAKES_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1);
 			void vFCU_BRAKES_ETH__MLP_ZeroSpan(Luint32 u32Key0, Luint32 u32Brake, Luint32 u32Function);

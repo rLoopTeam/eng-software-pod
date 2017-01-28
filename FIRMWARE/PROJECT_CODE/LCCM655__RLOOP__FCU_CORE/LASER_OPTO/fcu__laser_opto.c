@@ -27,7 +27,7 @@
 #if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
 
 /** OptoNCDT's error value (out of range) */
-#define C_LASEROPTO__ERROR_CODE_VALUE					(65467U)
+#define C_LASEROPTO__ERROR_CODE_VALUE					(65468U)
 
 //the structure
 extern struct _strFCU sFCU;
@@ -384,9 +384,15 @@ void vFCU_LASEROPTO__Process_Packet(E_FCU__LASER_OPTO__INDEX_T eLaser)
 
 			//Increment the count of error code values from the laser
 			sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sCounters.u32ErrorCode++;
+
+
+			vFAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, 2);
 		}
 		else
 		{
+
+			vFAULTTREE__Clear_Flag(&sFCU.sLaserOpto.sFaultFlags, 2);
+
 			//convert
 			f32Temp = (Lfloat32)u32ValA;
 			f32Temp *= 102.0F;

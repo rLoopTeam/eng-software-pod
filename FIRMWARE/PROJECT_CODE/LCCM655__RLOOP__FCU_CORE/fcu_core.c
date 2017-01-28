@@ -301,7 +301,7 @@ Testing damaged FCU pins
 				//check the fault tree
 
 				//configure for our baud if we are good
-				if(u8Counter == C_FCU__SC16_ASI_INDEX)
+				if((u8Counter == C_FCU__SC16_ASI_INDEX) || (C_FCU__SC16_FWD_LASER_INDEX))
 				{
 					//ASI IF
 					vSC16_BAUD__Set_BaudRate(u8Counter, 1U, 9600U, 1U);
