@@ -125,6 +125,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 			//put the flight computer into startup mode now that everything has been initted.
 			sFCU.eMissionPhase = MISSION_PHASE__TEST_PHASE;
+			#ifdef WIN32
+				vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )eFCU_FCTL_MAIN_SM__GetCurrentMissionPhase());
+			#endif // WIN32
 
 			break;
 
@@ -144,6 +147,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if(u8Test == 1U)
 			{
 				sFCU.eMissionPhase = RUN_STATE__FLIGHT_ABORT;
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )eFCU_FCTL_MAIN_SM__GetCurrentMissionPhase());
+				#endif // WIN32
 			}
 			else
 			{
@@ -156,9 +162,13 @@ void vFCU_FCTL_MAINSM__Process(void)
 				{
 					//not busy and not abort, move to flight
 					sFCU.eMissionPhase = MISSION_PHASE__FLIGHT_MODE;
+					#ifdef WIN32
+						vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )eFCU_FCTL_MAIN_SM__GetCurrentMissionPhase());
+					#endif // WIN32
 				}
 
 			}
+
 			break;
 
 
@@ -287,6 +297,10 @@ void vFCU_FCTL_MAINSM__EnterPreRun_Phase(Luint32 u32Key)
 
 }
 
+E_FCU__MISSION_PHASE_T eFCU_FCTL_MAIN_SM__GetCurrentMissionPhase(void)
+{
+	return sFCU.sStateMachine.eMissionPhase;
+}
 
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 //safetys

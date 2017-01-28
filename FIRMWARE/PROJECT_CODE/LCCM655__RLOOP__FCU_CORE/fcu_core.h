@@ -966,6 +966,21 @@
 			//main state machine
 			void vFCU_FCTL_MAINSM__Init(void);
 			void vFCU_FCTL_MAINSM__Process(void);
+			E_FCU__MISSION_PHASE_T eFCU_FCTL_MAIN_SM__GetCurrentMissionPhase(void);
+
+			//setup our debug statement
+			#define REPORT_MISSIONPHASE(x) vDEBUG_RECORD_WIN32__MissionPhaseCallback(x)
+
+			#ifdef WIN32
+				//this is the callback function type
+				typedef void (__cdecl * pDEBUG_RECORD_Callback_FuncType)(const Luint8 u8Byte);
+				//these are the function definitions
+				DLL_DECLARATION void vDEBUG_RECORD_WIN32__Set_MissionPhaseCallback(pDEBUG_RECORD_Callback_FuncType pFunc);
+
+				void vDEBUG_RECORD_WIN32__MissionPhaseCallback(E_FCU__MISSION_PHASE_T eMissionPhase);
+
+			#endif
+
 
 			//blender
 			void vFCU_FCTL_BLENDER__Init(void);
