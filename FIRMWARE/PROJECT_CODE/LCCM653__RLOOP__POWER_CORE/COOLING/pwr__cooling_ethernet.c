@@ -53,6 +53,7 @@ void vPWR_COOLING_ETH__Transmit(E_NET__PACKET_T ePacketType)
 			u16Length = 1U;
 			u16Length += POWER_COOLING__MAX_HOVERENG * 6U;
 			u16Length += POWER_COOLING__MAX_EDDYBRAKES * 6U;
+			u16Length += 1U;
 
 			//TODO
 			break;
@@ -81,10 +82,13 @@ void vPWR_COOLING_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Device].f32Temperature);
 					pu8Buffer += 4U;
 
-					pu8Buffer[0] = (Luint8) sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Device].eState;
+					pu8Buffer[0] = (Luint8) sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Device].eCoolingState;
 					pu8Buffer += 1U;
 
 					pu8Buffer[0] = (Luint8) sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Device].eHoverSolenoidState;
+					pu8Buffer += 1U;
+
+					pu8Buffer[0] = (Luint8) sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Device].u8N2HETPinNumber;
 					pu8Buffer += 1U;
 				}
 
@@ -94,10 +98,13 @@ void vPWR_COOLING_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Device].f32Temperature);
 					pu8Buffer += 4U;
 
-					pu8Buffer[0] = (Luint8) sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Device].eState;
+					pu8Buffer[0] = (Luint8) sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Device].eCoolingState;
 					pu8Buffer += 1U;
 
 					pu8Buffer[0] = (Luint8) sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Device].eEddySolenoidState;
+					pu8Buffer += 1U;
+
+					pu8Buffer[0] = (Luint8) sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Device].u8N2HETPinNumber;
 					pu8Buffer += 1U;
 				}
 
