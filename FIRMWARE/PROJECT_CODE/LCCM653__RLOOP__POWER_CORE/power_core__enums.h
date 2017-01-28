@@ -11,7 +11,7 @@
 /** Hover Engine Cooling System Enums **/
 typedef enum
 {
-	POWER_COOLING__MAX_HOVERENG = 8U
+	POWER_COOLING__MAX_HOVERENG = 4U
 }E_PWR__COOLING_HOVERENGINES_INDEX_T;
 
 /** Hover Engine Cooling System States **/
@@ -27,7 +27,7 @@ typedef enum
 /** Eddy Brakes Coolinig System Enums **/
 typedef enum
 {
-	POWER_COOLING__MAX_EDDYBRAKES = 2U
+	POWER_COOLING__MAX_EDDYBRAKES = 1U
 }E_PWR__COOLING_EDDYBRAKES_INDEX_T;
 
 /** Eddy Brakes Cooling System States **/

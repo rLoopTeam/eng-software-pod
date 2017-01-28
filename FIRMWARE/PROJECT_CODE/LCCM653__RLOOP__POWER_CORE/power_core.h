@@ -230,6 +230,7 @@
 					Luint8 u8N2HETPinNumber;
 					Luint32 u32100MS_Count;
 					E_PWRNODE__COOLINGSUB_T eSubState;
+					Luint8 u8Indexes[2U];
 				}sHoverEngineCoolingSystem[POWER_COOLING__MAX_HOVERENG];
 
 				/** Eddy Brake Cooling Subsystem **/
@@ -241,6 +242,7 @@
 					Luint8 u8N2HETPinNumber;
 					Luint32 u32100MS_Count;
 					E_PWRNODE__COOLINGSUB_T eSubState;
+					Luint8 u8Indexes[2U];
 				}sEddyBrakeCoolingSystem[POWER_COOLING__MAX_EDDYBRAKES];
 
 				/** Cooling System Main State Mainchine */

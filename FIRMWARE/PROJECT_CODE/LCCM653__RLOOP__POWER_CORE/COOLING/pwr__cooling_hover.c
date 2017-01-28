@@ -23,14 +23,14 @@ void vPWR_COOLING_HOVER__Init(void)
 		sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count = 0U;
 		sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eSubState = COOLINGSUB_STARTCOOLING;
 	}
-	sPWRNODE.sCooling.sHoverEngineCoolingSystem[0].u8N2HETPinNumber = C_PWRCORE_HOVERENGINE0_N2HET_PIN_NUMBER;
-	sPWRNODE.sCooling.sHoverEngineCoolingSystem[1].u8N2HETPinNumber = C_PWRCORE_HOVERENGINE1_N2HET_PIN_NUMBER;
-	sPWRNODE.sCooling.sHoverEngineCoolingSystem[2].u8N2HETPinNumber = C_PWRCORE_HOVERENGINE2_N2HET_PIN_NUMBER;
-	sPWRNODE.sCooling.sHoverEngineCoolingSystem[3].u8N2HETPinNumber = C_PWRCORE_HOVERENGINE3_N2HET_PIN_NUMBER;
-	sPWRNODE.sCooling.sHoverEngineCoolingSystem[4].u8N2HETPinNumber = C_PWRCORE_HOVERENGINE4_N2HET_PIN_NUMBER;
-	sPWRNODE.sCooling.sHoverEngineCoolingSystem[5].u8N2HETPinNumber = C_PWRCORE_HOVERENGINE5_N2HET_PIN_NUMBER;
-	sPWRNODE.sCooling.sHoverEngineCoolingSystem[6].u8N2HETPinNumber = C_PWRCORE_HOVERENGINE6_N2HET_PIN_NUMBER;
-	sPWRNODE.sCooling.sHoverEngineCoolingSystem[7].u8N2HETPinNumber = C_PWRCORE_HOVERENGINE7_N2HET_PIN_NUMBER;
+	sPWRNODE.sCooling.sHoverEngineCoolingSystem[0].u8N2HETPinNumber = C_PWRCORE_HOVERENGINES0_N2HET_PIN_NUMBER;
+	sPWRNODE.sCooling.sHoverEngineCoolingSystem[1].u8N2HETPinNumber = C_PWRCORE_HOVERENGINES1_N2HET_PIN_NUMBER;
+	sPWRNODE.sCooling.sHoverEngineCoolingSystem[2].u8N2HETPinNumber = C_PWRCORE_HOVERENGINES2_N2HET_PIN_NUMBER;
+	sPWRNODE.sCooling.sHoverEngineCoolingSystem[3].u8N2HETPinNumber = C_PWRCORE_HOVERENGINES3_N2HET_PIN_NUMBER;
+	//sPWRNODE.sCooling.sHoverEngineCoolingSystem[4].u8N2HETPinNumber = C_PWRCORE_HOVERENGINE4_N2HET_PIN_NUMBER;
+	//sPWRNODE.sCooling.sHoverEngineCoolingSystem[5].u8N2HETPinNumber = C_PWRCORE_HOVERENGINE5_N2HET_PIN_NUMBER;
+	//sPWRNODE.sCooling.sHoverEngineCoolingSystem[6].u8N2HETPinNumber = C_PWRCORE_HOVERENGINE6_N2HET_PIN_NUMBER;
+	//sPWRNODE.sCooling.sHoverEngineCoolingSystem[7].u8N2HETPinNumber = C_PWRCORE_HOVERENGINE7_N2HET_PIN_NUMBER;
 
 }
 
@@ -80,7 +80,8 @@ void vPWR_COOLING_HOVER__Process(void)
 				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eSubState = COOLINGSUB_WAITING;
 				break;
 			case COOLING_STATE__EMERGENCY:
-				//TODO ENGINE SHUT DOWN
+				//TODO ENGINE SHUT DOWN instead of cooling
+				vPWR_COOLING__Solennoid_TurnOn(sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u8N2HETPinNumber);
 				//Transit to next state
 				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eSubState = COOLINGSUB_WAITING;
 				break;

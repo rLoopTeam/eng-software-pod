@@ -25,7 +25,6 @@ void vPWR_COOLING_EDDY__Init(void)
 	}
 
 	sPWRNODE.sCooling.sEddyBrakeCoolingSystem[0].u8N2HETPinNumber = C_PWRCORE_EDDYBRAKE0_N2HET_PIN_NUMBER;
-	sPWRNODE.sCooling.sEddyBrakeCoolingSystem[1].u8N2HETPinNumber = C_PWRCORE_EDDYBRAKE1_N2HET_PIN_NUMBER;
 
 
 }
@@ -86,7 +85,8 @@ void vPWR_COOLING_EDDY__Process(void)
 				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eSubState = COOLINGSUB_WAITING;
 				break;
 			case COOLING_STATE__EMERGENCY:
-				//TODO ENGINE SHUT DOWN
+				//TODO ENGINE SHUT DOWN instead of cooling
+				vPWR_COOLING__Solennoid_TurnOn(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].u8N2HETPinNumber);
 				//Transit to next state
 				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eSubState = COOLINGSUB_WAITING;
 				break;
