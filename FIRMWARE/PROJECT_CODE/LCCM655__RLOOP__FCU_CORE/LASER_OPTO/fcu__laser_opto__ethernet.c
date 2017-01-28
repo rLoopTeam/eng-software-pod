@@ -99,7 +99,7 @@ void vFCU_LASEROPTO_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer += 4U;
 
 					//Spare
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].sCounters.u32Success);
 					pu8Buffer += 4U;
 
 				}//for(u8Device = 0U; u8Device < C_FCU__NUM_LASERS_OPTONCDT; u8Device++)

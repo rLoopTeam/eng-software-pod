@@ -66,6 +66,7 @@ void vFCU_LASEROPTO__Init(void)
 
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32ErrorCode = 0U;
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32Byte1Wrong = 0U;
+		sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32Success = 0U;
 
 		sFCU.sLaserOpto.sCalibration[u8Counter].f32Offset = 0.0F;
 
@@ -93,10 +94,10 @@ void vFCU_LASEROPTO__Init(void)
 		//CRC is invalid
 		//rewrite.
 
-		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FL_INDEX].f32Offset = 0.0F;
-		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FR_INDEX].f32Offset = 0.0F;
-		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RL_INDEX].f32Offset = 0.0F;
-		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RR_INDEX].f32Offset =	0.0F;
+		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FL_INDEX].f32Offset = 1.0F;
+		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FR_INDEX].f32Offset = 1.0F;
+		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RL_INDEX].f32Offset = 1.0F;
+		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RR_INDEX].f32Offset =	1.0F;
 
 		//do the eeprom
 		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FL_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
@@ -402,6 +403,8 @@ void vFCU_LASEROPTO__Process_Packet(E_FCU__LASER_OPTO__INDEX_T eLaser)
 
 			// Value is not the error value, clear error flag
 			sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].u8Error = 0U;
+
+			sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sCounters.u32Success++;
 		}
 	}
 	else
