@@ -36,7 +36,7 @@ void vPWRNODE_NET_TX__Init(void)
 
 	//set our default packet types
 	sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__NONE;
-	sPWRNODE.sUDPDiag.eTxStreamingType = NET_PKT__NONE;
+	sPWRNODE.sUDPDiag.eTxStreamingType = NET_PKT__PWR_BMS__TX_BMS_STATUS;
 }
 
 

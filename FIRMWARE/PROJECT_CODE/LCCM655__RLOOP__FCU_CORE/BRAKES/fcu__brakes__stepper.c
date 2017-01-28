@@ -57,10 +57,10 @@ void vFCU_BRAKES_STEP__Init(void)
 	else
 	{
 		//CRC is invalid
-		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC, 1000U, 1U);
-		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_ACCEL, 10000U, 1U);
-		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_VELOC, 1000U, 1U);
-		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL, 10000U, 0U);
+		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC, 1000U, DELAY_T__DELAYED_WRITE);
+		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_ACCEL, 10000U, DELAY_T__DELAYED_WRITE);
+		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_VELOC, 1000U, DELAY_T__DELAYED_WRITE);
+		vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL, 10000U, DELAY_T__IMMEDIATE_WRITE);
 
 		//redo the CRC;
 		vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC,
@@ -160,6 +160,76 @@ void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos)
 
 	//int the task ID
 	sFCU.sBrakesGlobal.u32MoveTaskID++;
+
+}
+
+//update the veloc and accel values.
+void vFCU_BRAKES_STEP__UpdateValues(Luint32 u32Brake, Luint32 u32Type, Lint32 s32Value)
+{
+
+	//handle the brake channel
+	switch(u32Brake)
+	{
+
+		case 0:
+
+			//handle the variable type
+			switch(u32Type)
+			{
+				case 0:
+					vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC, s32Value, DELAY_T__IMMEDIATE_WRITE);
+					//redo the CRC;
+					vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC,
+															C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL,
+															C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP_CRC);
+					sFCU.sBrakes[0].sMove.s32LinearVeloc = s32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC);
+					break;
+
+				case 1:
+					vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_ACCEL, s32Value, DELAY_T__IMMEDIATE_WRITE);
+					//redo the CRC;
+					vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC,
+															C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL,
+															C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP_CRC);
+					sFCU.sBrakes[0].sMove.s32LinearAccel = s32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_ACCEL);
+					break;
+				default:
+					break;
+			}
+			break;
+
+		case 1:
+			//handle the variable type
+			switch(u32Type)
+			{
+				case 0:
+					vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_VELOC, s32Value, DELAY_T__IMMEDIATE_WRITE);
+					//redo the CRC;
+					vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC,
+															C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL,
+															C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP_CRC);
+					sFCU.sBrakes[1].sMove.s32LinearVeloc = s32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_VELOC);
+					break;
+
+				case 1:
+					vEEPARAM__WriteS32(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL, s32Value, DELAY_T__IMMEDIATE_WRITE);
+					//redo the CRC;
+					vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC,
+															C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL,
+															C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP_CRC);
+					sFCU.sBrakes[1].sMove.s32LinearAccel = s32EEPARAM__Read(C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL);
+					break;
+				default:
+					break;
+			}
+			break;
+
+		default:
+			break;
+
+
+	}//switch(u32Brake)
+
 
 }
 

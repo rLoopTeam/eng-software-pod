@@ -444,7 +444,6 @@ Lfloat32 f32FCU_THROTTLE__RPM_To_Volts(Luint16 u16RPM)
 
 }
 
-
 /***************************************************************************//**
  * @brief
  * Timer function, returns after 100 milliseconds

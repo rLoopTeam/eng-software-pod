@@ -104,24 +104,136 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 		switch((E_NET__PACKET_T)ePacketType)
 		{
 
+			case NET_PKT__FCU_GEN__GS_HEARTBEAT:
+			#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
+				vFCU_FCTL_DRIVEPOD__10MS_ISR();
+			#endif
+			break;
+
+//			case NET_PKT__FCU_LIFTMECH__SET_DIR:
+//				//set direction of specific mech lift
+//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
+//				E_FCU__LIFTMECH_ACTUATOR actuator;
+//				E_FCU__LIFTMECH_DIRECTION dir;
+//				switch(u32Block[0])
+//				{
+//					case 0:
+//						actuator = LIFTMECH_AftLeft;
+//						break;
+//					case 1:
+//						actuator = LIFTMECH_AftRight;
+//						break;
+//					case 2:
+//						actuator = LIFTMECH_ForwardLeft;
+//						break;
+//					case 3:
+//						actuator = LIFTMECH_ForwardRight;
+//						break;
+//					default:
+//						//report error
+//						break;
+//				}
+//				switch(u32Block[1])
+//				{
+//					case 0:
+//						dir = LIFTMECH_DIR_DOWN;
+//						break;
+//					case 1:
+//						dir = LIFTMECH_DIR_UP;
+//						break;
+//					default:
+//						//report error
+//						break;
+//				}
+//				vFCU_FCTL_LIFTMECH_Dir(actuator, dir);
+//				#endif
+//				break;
+//
+//			case NET_PKT__FCU_LIFTMECH__SET_SPEED:
+//				//set speed of specific mech lift
+//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
+//					E_FCU__LIFTMECH_ACTUATOR actuator;
+//					switch(u32Block[0])
+//					{
+//						case 0:
+//							actuator = LIFTMECH_AftLeft;
+//							break;
+//						case 1:
+//							actuator = LIFTMECH_AftRight;
+//							break;
+//						case 2:
+//							actuator = LIFTMECH_ForwardLeft;
+//							break;
+//						case 3:
+//							actuator = LIFTMECH_ForwardRight;
+//							break;
+//						default:
+//							//report error
+//							break;
+//					}
+//					vFCU_FCTL_LIFTMECH_Speed(actuator, u32Block[1]);
+//				#endif
+//				break;
+//
+//			case NET_PKT__FCU_LIFTMECH__SET_GROUP_DIR:
+//				//set direction of all mech lift actuators
+//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
+//					switch(u32Block[0])
+//					{
+//						case 0:
+//							dir = LIFTMECH_DIR_DOWN;
+//							break;
+//						case 1:
+//							dir = LIFTMECH_DIR_UP;
+//							break;
+//						default:
+//							//report error
+//							break;
+//					}
+//					vFCU_FCTL_LIFTMECH__SetDirAll(dir);
+//				#endif
+//				break;
+#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
+			case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE1:
+						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE2:
+						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE3:
+						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE4:
+						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE5:
+						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE6:
+						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE7:
+						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE8:
+						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__STATIC_HOVERING:
+						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__RELEASE_STATIC_HOVERING:
+							vFCU_FLIGHTCTL_HOVERENGINES__SetCommand( (Luint32)ePacketType, u32Block[0]);
+							break;
+#endif //C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL
+
+			case NET_PKT__FCU_LIFTMECH__SET_GROUP_SPEED:
+				//set speed of all mech lift actuators
+				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
+					vFCU_FCTL_LIFTMECH__SetSpeedAll(u32Block[0]);
+				#endif
+				break;
+			case NET_PKT__FCU_LIFTMECH__RELEASE:
+				//release lift mechanism
+				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
+					vFCU_FCTL_LIFTMECH__Extend();
+				#endif
+				break;
 
 			case NET_PKT__FCU_GEN__POD_STOP_COMMAND:
+				//Execute Pod Stop Command
+				#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
 				if(u32Block[0] == 0x1234ABCDU)
 				{
 					//transition to the pod stop phase.
-
-					/*9.2.2. Execute Pod-Safe Command from GS
-					 * The following requirements describe how the Pod-Safe Command from Ground Station should be implemented.
-					 * The Pod-Safe Command from the Ground Station shall be executed in two steps, so as to prevent operator
-					 * from triggering it by mistake.
-					 * Upon reception of the Authorize Pod-Safe Command from the Ground Station,
-					 * the FCU shall set pod safe command authorized to true.
-					 */
+					vFCU_FCTL_DRIVEPOD__SetPodStopCmd();
 				}
 				else
 				{
 					//maybe should log this error.
 				}
+				#endif
 				break;
 
 			case NET_PKT__FCU_GEN__POD_EMULATION_CONTROL:
@@ -332,6 +444,18 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				#endif
 				break;
 
+			case NET_PKT__FCU_BRAKES__VELOC_ACCEL_SET:
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+					if(u32Block[0] == 0xABAB1122)
+					{
+						vFCU_BRAKES_STEP__UpdateValues(u32Block[1], u32Block[2], s32Block[3]);
+					}
+					else
+					{
+						//not for us
+					}
+				#endif
+				break;
 
 			case NET_PKT__FCU_THROTTLE__ENABLE_DEV_MODE:
 				#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
@@ -383,6 +507,10 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				{
 					//not for us
 				}
+			case NET_PKT__FCU_GEN__ENTER_PRE_RUN_PHASE_COMMAND:
+				#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+					vFCU_FCTL_MAINSM__EnterPreRun_Phase();
+				#endif
 				break;
 
 			default:

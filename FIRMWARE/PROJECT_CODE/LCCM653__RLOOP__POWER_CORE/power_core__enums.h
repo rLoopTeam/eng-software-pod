@@ -11,34 +11,24 @@
 /** Hover Engine Cooling System Enums **/
 typedef enum
 {
-	POWER_COOLING__MAX_HOVERENG = 8U
+	POWER_COOLING__MAX_HOVERENG = 4U
 }E_PWR__COOLING_HOVERENGINES_INDEX_T;
-
-/** Hover Engine Cooling System States **/
-typedef enum
-{
-	/** The solenoid is off */
-	POWER_COOLING__HOVER_OFF = 0U,
-
-	/** The solenoid is on */
-	POWER_COOLING__HOVER_ON
-}E_PWR__COOLING_HOVESOLENOID_STATE_T;
 
 /** Eddy Brakes Coolinig System Enums **/
 typedef enum
 {
-	POWER_COOLING__MAX_EDDYBRAKES = 2U
+	POWER_COOLING__MAX_EDDYBRAKES = 1U
 }E_PWR__COOLING_EDDYBRAKES_INDEX_T;
 
-/** Eddy Brakes Cooling System States **/
+/** Solenoid States **/
 typedef enum
 {
 	/** The solenoid is off */
-	POWER_COOLING__EDDY_OFF = 0U,
+	POWER_COOLING__SOLENOID_OFF = 0U,
 
 	/** The solenoid is on */
-	POWER_COOLING__EDDY_ON
-}E_PWR__COOLING_EDDYSOLENOID_STATE_T;
+	POWER_COOLING__SOLENOID_ON
+}E_PWR__COOLING_SOLENOID_STATE_T;
 
 /** Cooling System Status**/
 typedef enum

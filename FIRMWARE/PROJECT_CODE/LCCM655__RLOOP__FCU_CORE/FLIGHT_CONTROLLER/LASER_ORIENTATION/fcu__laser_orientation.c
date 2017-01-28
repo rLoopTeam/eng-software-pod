@@ -454,7 +454,6 @@ Lint16 s16FCU_FLIGHTCTL_LASERORIENT__Get_TwistRoll()
 	return sFCU.sFlightControl.sOrient.s16TwistRoll
 }
 
-
 #endif //C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION
 #ifndef C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION
 	#error

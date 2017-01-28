@@ -50,10 +50,144 @@
 			/** Structure guard 1*/
 			Luint32 u32Guard1;
 
-			/** The mission phases
-			 * http://confluence.rloop.org/display/SD/1.+Determine+Mission+Phases+and+Operating+States
-			 * */
-			E_FCU__RUN_STATE_T eMissionPhase;
+			struct
+			{
+				E_FCU__COOLING_GS_COMM_T eGSCoolingCommand;
+
+			}sCoolingControl;
+
+			/** Navigation */
+			struct
+			{
+				Lfloat32 f32LongitudinalPosition;
+				Lfloat32 f32PositionValidity;
+				Lfloat32 f32LongitudinalSpeed;
+				Lfloat32 f32LongitudinalSpeedUncertainty;
+				Luint8 u8LongitudinalSpeedValidity;
+				Lfloat32 f32LongitudinalAcceleration;
+				Luint8 u8LongitudinalAccelerationValidity;
+				Luint8 u8LRFAvailable;
+				Luint8 u8masterSensor;
+				Luint8 u8GeneralStripeCount;
+				Luint32 u3210MSNavTimer;
+				Luint32 u3210MSLRFTimer;
+				Luint32 u3210MSAccelHiValTimer;
+				Luint32 u3210MSAccelLoValTimer;
+				Luint32 u3210MSDetectStripeTimer;
+				Luint32 u3210MSBetweenStripeTimer;
+
+					struct
+					{
+						Luint32 u32StripeCount;
+						Luint32 u32Xpos;
+						Luint32 u32XPosUncert;
+						Luint32 u32NoseToSensorDist;
+						Luint32 u32Score;
+						Luint8 u8Valid;
+					}sCS[C_FCU__NAV_NUM_CONTRAST_SENSORS];
+
+					struct
+					{
+						Lfloat32 f32Accel;
+						Luint8 u8Valid;
+					}sAccel[C_LOCALDEF__LCCM418__NUM_DEVICES];
+
+			}sNavigation;
+
+			/** Hover Engines Control Structure */
+			//#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
+			struct
+			{
+				/** The hover engines state machine */
+				E_FCU__HOVERENGINES_STATES_T eState;
+
+				/** The hover engines input commands from GS */
+				Luint32 eGSCommands;
+
+				/** The hover engines command values from GS */
+				Luint32 u32CommandValues;
+
+
+				/** Internal parameters */
+				struct
+				{
+					Luint8  u8Enable;
+					Luint8  u8RunAuto;
+					Luint8  u8SpeedState;
+					Luint32 u32CurrentRPMValue[8];
+					Luint8  u8TempVar;
+
+				}sIntParams;
+
+			}sHoverEngines;
+			//#endif
+
+			/** State Machine Structure **/
+			struct
+			{
+				/** The mission phases
+				 * http://confluence.rloop.org/display/SD/1.+Determine+Mission+Phases+and+Operating+States
+				 * */
+				E_FCU__MISSION_PHASE_T eMissionPhase;
+
+				/** Counter to count the time elapsed from the disconnection from the pusher **/
+				Luint32 PusherCounter;
+
+				/** Enable Counter counting time elapsed from the disconnection from the pusher **/
+				Luint8 EnablePusherCounter;
+
+				/**Counter to count the time the pod experiences acceleration higher than value speccd in the db */
+				Luint32 AccelCounter;
+
+				/**Enable the Accel Counter */
+				Luint8 EnableAccelCounter;
+
+				/** In case Pusher fails and doesn't get us to the min pushed distance */
+				Luint32 MiserableStopCounter;
+
+				/** Enable Miserable Stop Counter */
+				Luint8 EnableMiserableStopCounter;
+
+				/** Enum for Pod Status for SpaceX telemetry */
+				E_FCU__POD_STATUS ePodStatus;
+
+				/** Enum for GS commands */
+				E_FCU__MAINSM_GS_COMM eGSCommands;
+
+				/** Operating States Structure*/
+				struct
+				{
+					/** Lifted State */
+					Luint8 u8Lifted;
+
+					/** Unlifted State */
+					Luint8 u8Unlifted;
+
+					/** Static Hovering */
+					Luint8 u8StaticHovering;
+
+					/** Gimballing Adjustment State */
+					Luint8 u8GimbAdj;
+
+					/** Ready For Push State */
+					Luint8 u8ReadyForPush;
+
+					/** Pushing State */
+					Luint8 u8Pushing;
+
+					/** Coast State */
+					Luint8 u8Coasting;
+
+					/** Braking State */
+					Luint8 u8Braking;
+
+					/** Controlled Emergency State */
+					Luint8 u8CtlEmergBraking;
+
+				}sOpStates;
+
+			}sStateMachine;
+
 
 			/** Auto sequence state machine */
 			E_FCU__AUTO_SEQUENCE_STATE_T eAutoSeqState;
@@ -70,10 +204,35 @@
 
 			}sFaults;
 
+			#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
+			struct
+			{
+				/** Main state machine*/
+				E_FCU__DRIVEPOD_PRERUN_STATE ePreRunState;
+
+				E_FCU__DRIVEPOD_GS_COMM eGSCommand;
+
+				Luint8 u8100MS_Timer;
+
+			}sDrivePod;
+			#endif
+
+			struct
+			{
+				struct
+				{
+
+					E_FCU__FCTL_EDDYBRAKES_DIRECTION eEddyBrakesDir;
+
+					E_FCU__FCTL_EDDYBRAKES_ACTUATOR	eEddyBrakesAct;
+				}sEddyBrakes;
+			}sFctl;
+
+
 
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 
-			/** Gloabl brakes system */
+			/** Global brakes system */
 			struct
 			{
 				/** individual brake fault flags */
@@ -728,6 +887,8 @@
 				/** If the user has enabled Tx streaming */
 				E_NET__PACKET_T eTxStreamingType;
 
+				/** Timer for the Drive Pod comms watchdog */
+				Luint32 u32_10MS_GS_COMM_Timer;
 
 			}sUDPDiag;
 
@@ -982,6 +1143,9 @@
 			#endif
 
 
+			//drive pod
+			Luint32 u32FCU_NET_RX__GetGsCommTimer(void);
+
 			//blender
 			void vFCU_FCTL_BLENDER__Init(void);
 			void vFCU_FCTL_BLENDER__Process(void);
@@ -1212,6 +1376,7 @@
 			void vFCU_BRAKES_STEP__Process(void);
 			void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos);
 			Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake);
+			void vFCU_BRAKES_STEP__UpdateValues(Luint32 u32Brake, Luint32 u32Type, Lint32 s32Value);
 
 			//brake switches
 			void vFCU_BRAKES_SW__Init(void);
@@ -1345,6 +1510,79 @@
 			void vFCU_GEOM_ETH__Init(void);
 			void vFCU_GEOM_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
+		//hover engines
+		E_FCU__HOVERENGINES_STATES_T eFCU_FCTL_HOVERENGINES__Get_State(void);
+		void vFCU_FCTL_HOVERENGINES__ManualCommandsHandle(void);
+		void vFCU_FCTL_HOVERENGINES__Process(void);
+		void vFCU_FCTL_HOVERENGINES__Start(void);
+		void vFCU_FCTL_HOVERENGINES__Stop(void);
+
+		//ASI
+		Luint16 u16FCU_ASI__ReadMotorRpm(Luint8 u8EngineIndex);
+		Lfloat32 f32FCU_ASI__ReadMotorCurrent(Luint8 u8EngineIndex);
+		Lfloat32 f32FCU_ASI__ReadControllerTemperature(Luint8 u8EngineIndex);
+
+		//drive pod
+		void vFCU_FCTL_DRIVEPOD__10MS_ISR(void);
+		void vFCU_FCTL_DRIVEPOD__SetPodStopCmd(void);
+
+		//aux propulsion
+		void vFCU_FCTL_AUX_PROP__Stop(void);
+		void vFCU_FCTL_AUX_PROP__Disable(void);
+
+		//flight controller cooling
+		void vFCU_FCTL_COOLING__ManualCommandsHandle();
+		void vFCU_FCTL_COOLING__Disable(void);
+		void vFCU_FCTL_COOLING__Enable(void);
+
+		//hover engine cooling
+		void vFCU_COOLING__Set_Valve(Luint8 ValveNumber, Lfloat32 TimeOn, Lfloat32 TimeOff);
+
+		//lift mechanism
+		void vFCU_FCTL_LIFTMECH_Dir(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir);
+		void vFCU_FCTL_LIFTMECH__SetDirAll(E_FCU__LIFTMECH_DIRECTION dir);
+		void vFCU_FCTL_LIFTMECH__SetSpeedAll(Luint32 u32speed);
+		void vFCU_FCTL_LIFTMECH__Extend(void);
+		//void vFCU_FCTL_LIFTMECH_Speed(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir);
+		//void vFCU_FCTL_LIFTMECH__Get_State(void);
+
+		//brakes
+		void vFCU_FCTL_EDDYBRAKES_Speed(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator, Luint32 u32speed);
+		void vFCU_FCTL_EDDYBRAKES__SetSpeedAll(Luint32 u32speed);
+		void vFCU_FCTL_EDDYBRAKES__SetDirAll(E_FCU__FCTL_EDDYBRAKES_DIRECTION dir);
+		void vFCU_FCTL_EDDY_BRAKES__ControlledEmergencyBrake();
+		void vFCU_FCTL_EDDY_BRAKES__ApplyFullBrakes(void);
+		void vFCU_FCTL_EDDY_BRAKES__Release(void);
+		void vFCU_FCTL_EDDY_BRAKES__GainScheduleController(Luint32 u32speed);
+		void vFCU_FCTL_EDDY_BRAKES__GimbalSpeedController(void);
+
+		//main state machine
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfUnlifted(void);
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfLifted(void);
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfHoveringStatically(void);
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfReadyForPush(void);
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfPushing(void);
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfCoasting(void);
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfBraking(void);
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void);
+		void vFCU_FCTL_MAINSM__100MS_ISR(void);
+		void vFCU_FCTL_MAINSM__EnterPreRun_Phase();
+
+		//navigation
+		Luint32 u32FCU_FCTL_NAV__PodSpeed(void);
+		Luint8 u8FCU_FCTL_NAV__GetPodSpeedTooHigh(void);
+		Luint32 u32FCU_FCTL_NAV__GetFrontPos(void);
+		Luint32 u32FCU_FCTL_NAV__GetRearPos(void);
+		Luint32 u32FCU_FCTL_NAV__Get_Accel_mmss(void);
+
+		// Laser Orientation
+		Luint32 u32FCU_FCTL_LASERORIENT__Get_Z_Pos();
+
+		//brake pid
+		void vFCU_FLIGHTCTL_BRAKEPID__Init(void);
+
+		//cooling
+		void vFCU_FCTL_COOLING__Enable(void);
 
 		#if C_LOCALDEF__LCCM655__ENABLE_TEST_SPEC == 1U
 
