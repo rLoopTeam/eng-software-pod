@@ -60,13 +60,15 @@
 			struct
 			{
 				Lfloat32 f32LongitudinalPosition;
+				Lfloat32 f32LongitudinalLastPosition;
 				Lfloat32 f32PositionValidity;
 				Lfloat32 f32LongitudinalSpeed;
+				Lfloat32 f32LongitudinalLastSpeed;
 				Lfloat32 f32LongitudinalSpeedUncertainty;
 				Luint8 u8LongitudinalSpeedValidity;
 				Lfloat32 f32LongitudinalAcceleration;
 				Luint8 u8LongitudinalAccelerationValidity;
-				Luint8 u8LRFAvailable;
+				Luint8 u8InLaserRangeFinderArea;
 				Luint8 u8masterSensor;
 				Luint8 u8GeneralStripeCount;
 				Luint32 u3210MSNavTimer;
@@ -81,7 +83,6 @@
 						Luint32 u32StripeCount;
 						Luint32 u32Xpos;
 						Luint32 u32XPosUncert;
-						Luint32 u32NoseToSensorDist;
 						Luint32 u32Score;
 						Luint8 u8Valid;
 					}sCS[C_FCU__NAV_NUM_CONTRAST_SENSORS];
@@ -90,6 +91,7 @@
 					{
 						Lfloat32 f32Accel;
 						Luint8 u8Valid;
+						Luint8 u8Available;
 					}sAccel[C_LOCALDEF__LCCM418__NUM_DEVICES];
 
 			}sNavigation;
