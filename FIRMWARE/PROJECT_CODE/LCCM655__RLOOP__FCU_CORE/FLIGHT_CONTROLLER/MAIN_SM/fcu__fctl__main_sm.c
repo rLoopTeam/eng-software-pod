@@ -42,6 +42,9 @@ extern struct _strFCU sFCU;
 void vFCU_FCTL_MAINSM__Init(void)
 {
 	sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__RESET;
+	#ifdef WIN32
+		vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+	#endif // WIN32
 
 }
 
@@ -137,11 +140,11 @@ void vFCU_FCTL_MAINSM__Process(void)
 			#endif //C_LOCALDEF__LCCM655__ENABLE_GEOM
 
 			//put the flight computer into startup mode now that everything has been initted.
-			sFCU.eMissionPhase = MISSION_PHASE__TEST_PHASE;
-			#ifdef WIN32
-				vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )eFCU_FCTL_MAIN_SM__GetCurrentMissionPhase());
-			#endif // WIN32
 			sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__TEST;
+
+			#ifdef WIN32
+				vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+			#endif // WIN32
 
 			break;
 
@@ -154,13 +157,13 @@ void vFCU_FCTL_MAINSM__Process(void)
 			u8Test = u8FCU_MAINSM_AUTO__Is_Abort();
 			if(u8Test == 1U)
 			{
-				sFCU.eMissionPhase = RUN_STATE__FLIGHT_ABORT;
-				#ifdef WIN32
-					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )eFCU_FCTL_MAIN_SM__GetCurrentMissionPhase());
-				#endif // WIN32
-				//move to RESET if tests aborted
 
+				//move to RESET if tests aborted
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__RESET;
+
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 			else
 			{
@@ -171,12 +174,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 				}
 				else
 				{
-					//not busy and not abort, move to flight
-					sFCU.eMissionPhase = MISSION_PHASE__FLIGHT_MODE;
-				
-                	#ifdef WIN32
-						vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )eFCU_FCTL_MAIN_SM__GetCurrentMissionPhase());
-					#endif // WIN32
 				
                 	//not busy and not abort, set flag indicating tests succesful
 					u8TestsSuccesful = 1U;
@@ -202,6 +199,11 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PRE_RUN;
 					sFCU.sStateMachine.eGSCommands = MAINSM_GS_NO_CMD;
+
+					#ifdef WIN32
+						vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+					#endif // WIN32
+
 			}
 			else
 			{
@@ -210,10 +212,18 @@ void vFCU_FCTL_MAINSM__Process(void)
 				{
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PUSHER_INTERLOCK;
 					sFCU.sStateMachine.EnableAccelCounter = 0U;
+
+					#ifdef WIN32
+						vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+					#endif // WIN32
 				}
 				else
 				{
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__TEST;
+
+					#ifdef WIN32
+						vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+					#endif // WIN32
 				}
 			}
 
@@ -242,10 +252,18 @@ void vFCU_FCTL_MAINSM__Process(void)
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PUSHER_INTERLOCK;
 				sFCU.sStateMachine.EnableAccelCounter = 0U;
+
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 			else
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PRE_RUN;
+
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 
 			break;
@@ -288,6 +306,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__FLIGHT;
 				//Disable the counter
 				sFCU.sStateMachine.EnablePusherCounter = 0U;
+
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 			else
 			{
@@ -297,10 +319,18 @@ void vFCU_FCTL_MAINSM__Process(void)
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__POST_RUN;
 					//Disable the counter
 					sFCU.sStateMachine.EnableMiserableStopCounter = 0U;
+
+					#ifdef WIN32
+						vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+					#endif // WIN32
 				}
 				else
 				{
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PUSHER_INTERLOCK;
+
+					#ifdef WIN32
+						vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+					#endif // WIN32
 				}
 			}
 
@@ -322,11 +352,17 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__POST_RUN;
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 
 			else
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__FLIGHT;
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 
 			//Disable the counter
@@ -344,10 +380,16 @@ void vFCU_FCTL_MAINSM__Process(void)
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PRE_RUN;
 				sFCU.sStateMachine.eGSCommands = MAINSM_GS_NO_CMD;
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 			else
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__POST_RUN;
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 			break;
 
