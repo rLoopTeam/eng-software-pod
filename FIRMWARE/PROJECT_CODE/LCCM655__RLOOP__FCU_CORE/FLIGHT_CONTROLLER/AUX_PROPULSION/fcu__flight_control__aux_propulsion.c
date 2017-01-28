@@ -140,9 +140,14 @@ extern struct _strFCU sFCU;
 //	}
 //}
 
+void vFCU_FCTL_AUX_PROP__Go(void)
+{
+	vRM4_N2HET_PINS__Set_PinHigh(16,1U);
+}
+
 void vFCU_FCTL_AUX_PROP__Stop(void)
 {
-//todo
+	vRM4_N2HET_PINS__Set_PinLow(16,1U);
 }
 
 void vFCU_FCTL_AUX_PROP__Disable(void)

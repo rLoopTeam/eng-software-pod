@@ -161,6 +161,18 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 				break;
 
+			case NET_PKT__FCU_AUXPROP__STOP:
+
+					vFCU_FCTL_AUX_PROP__Stop();
+
+				break;
+
+			case NET_PKT__FCU_AUXPROP__GO:
+
+					vFCU_FCTL_AUX_PROP__Go();
+
+				break;
+
 			case NET_PKT__FCU_GEN__DAQ_ENABLE:
 
 				//configure the DAQ streaming
