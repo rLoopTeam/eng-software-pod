@@ -114,7 +114,7 @@
 					Luint8  u8Enable;
 					Luint8  u8RunAuto;
 					Luint8  u8SpeedState;
-					Luint32 u32CurrentRPMValue[8];
+					Luint16 u16CurrentRPMValue[8];
 					Luint8  u8TempVar;
 
 				}sIntParams;
@@ -1536,6 +1536,7 @@
 		void vFCU_FCTL_HOVERENGINES__Process(void);
 		void vFCU_FCTL_HOVERENGINES__Start(void);
 		void vFCU_FCTL_HOVERENGINES__Stop(void);
+		void vFCU_FCTL_HOVERENGINES__SetCommand(Luint32 u32Command, Luint32 u32Value);
 
 		//ASI
 		Luint16 u16FCU_ASI__ReadMotorRpm(Luint8 u8EngineIndex);
@@ -1559,17 +1560,18 @@
 		void vFCU_COOLING__Set_Valve(Luint8 ValveNumber, Lfloat32 TimeOn, Lfloat32 TimeOff);
 
 		//lift mechanism
-		void vFCU_FCTL_LIFTMECH_Dir(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir);
+		void vFCU_FCTL_LIFTMECH__Dir(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir);
 		void vFCU_FCTL_LIFTMECH__SetDirAll(E_FCU__LIFTMECH_DIRECTION dir);
 		void vFCU_FCTL_LIFTMECH__SetSpeedAll(Luint32 u32speed);
 		void vFCU_FCTL_LIFTMECH__Extend(void);
 		//void vFCU_FCTL_LIFTMECH_Speed(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir);
-		//void vFCU_FCTL_LIFTMECH__Get_State(void);
+		E_FCU_LIFTMECH_STATE eFCU_FCTL_LIFTMECH__Get_State(void);
+		void vFCU_FCTL_LIFTMECH__Speed(E_FCU__LIFTMECH_ACTUATOR actuator, Luint32 u32speed);
 
 		//brakes
-		void vFCU_FCTL_EDDYBRAKES_Speed(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator, Luint32 u32speed);
-		void vFCU_FCTL_EDDYBRAKES__SetSpeedAll(Luint32 u32speed);
-		void vFCU_FCTL_EDDYBRAKES__SetDirAll(E_FCU__FCTL_EDDYBRAKES_DIRECTION dir);
+		void vFCU_FCTL_EDDY_BRAKES__Speed(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator, Luint32 u32speed);
+		void vFCU_FCTL_EDDY_BRAKES__SetSpeedAll(Luint32 u32speed);
+		void vFCU_FCTL_EDDY_BRAKES__SetDirAll(E_FCU__FCTL_EDDYBRAKES_DIRECTION dir);
 		void vFCU_FCTL_EDDY_BRAKES__ControlledEmergencyBrake();
 		void vFCU_FCTL_EDDY_BRAKES__ApplyFullBrakes(void);
 		void vFCU_FCTL_EDDY_BRAKES__Release(void);

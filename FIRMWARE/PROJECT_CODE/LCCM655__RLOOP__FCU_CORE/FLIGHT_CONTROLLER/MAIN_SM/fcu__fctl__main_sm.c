@@ -19,7 +19,8 @@
 #include "../../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
-#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_MAINSM == 1U
+
 //the structure
 extern struct _strFCU sFCU;
 
@@ -640,7 +641,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfCoasting(void)
 	//Get Pod Speed
 	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 	//
-	if(u32PodSpeed && (u8PusherSwitch1 == 0U) && (u8PusherSwitch2 == 0U) && (vFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__RETRACTED))
+	if(u32PodSpeed && (u8PusherSwitch1 == 0U) && (u8PusherSwitch2 == 0U) && (vFCU_FCTL_EDDY_BRAKES__Get_State() == EDDYBRAKES_STATE__RETRACTED))
 	{
 		u8Test = 1U;
 	}
@@ -654,7 +655,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfCoasting(void)
 Luint8 u8FCU_FCTL_MAINSM__CheckIfBraking(void)
 {
 	Luint8 u8Test;
-	if(vFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__BRAKING)
+	if(vFCU_FCTL_EDDY_BRAKES__Get_State() == EDDYBRAKES_STATE__BRAKING)
 	{
 		u8Test = 1U;
 	}
@@ -668,7 +669,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfBraking(void)
 Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void)
 {
 	Luint8 u8Test;
-	if(vFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__CONTROLLED_BRAKING)
+	if(eFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__CONTROLLED_BRAKING)
 	{
 		u8Test = 1U;
 	}
@@ -678,12 +679,8 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void)
 	}
 	return u8Test;
 }
-
-#endif //0
-
-
-#endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
-#ifndef C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
+#endif //C_LOCALDEF__LCCM655__ENABLE_MAINSM
+#ifndef C_LOCALDEF__LCCM655__ENABLE_MAINSM
 	#error
 #endif
 #endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE

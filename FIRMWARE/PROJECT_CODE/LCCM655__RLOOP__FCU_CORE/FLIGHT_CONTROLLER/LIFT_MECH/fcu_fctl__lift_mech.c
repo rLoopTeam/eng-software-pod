@@ -69,37 +69,41 @@ Luint32 u32FCU_FCTL_LIFTMECH__Get_MLP(void)
 	// add lower level function for this
 	// not sure how to combine 4 values into one
 	//TODO: return
+	return 0U;
 }
 
 void vFCU_FCTL_LIFTMECH__SetDirAll(E_FCU__LIFTMECH_DIRECTION dir)
 {
-	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_AftLeft, dir);
-	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_AftRight, dir);
-	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_ForwardLeft, dir);
-	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_ForwardRight, dir);
+//	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_AftLeft, dir);
+//	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_AftRight, dir);
+//	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_ForwardLeft, dir);
+//	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_ForwardRight, dir);
 }
 
 void vFCU_FCTL_LIFTMECH__SetSpeedAll(Luint32 u32speed)
 {
-	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_AftLeft, u32speed);
-	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_AftRight, u32speed);
-	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_ForwardLeft, u32speed);
-	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_ForwardRight, u32speed);
+//	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_AftLeft, u32speed);
+//	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_AftRight, u32speed);
+//	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_ForwardLeft, u32speed);
+//	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_ForwardRight, u32speed);
 }
 
-void vFCU_FCTL_LIFTMECH_Dir(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir)
+void vFCU_FCTL_LIFTMECH__Dir(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir)
 {
 //interface with lower level
 }
 
-void vFCU_FCTL_LIFTMECH_Speed(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir)
+void vFCU_FCTL_LIFTMECH_Speed(E_FCU__LIFTMECH_ACTUATOR actuator, Luint32 speed)
 {
 //interface with lower level
 }
 
-void vFCU_FCTL_LIFTMECH__Get_State(void)
+E_FCU_LIFTMECH_STATE eFCU_FCTL_LIFTMECH__Get_State(void)
 {
 	//implement this one
+	E_FCU_LIFTMECH_STATE eLIFTMECH_STATE;
+	eLIFTMECH_STATE = LIFT_MECH_STATE__RETRACTED;
+	return eLIFTMECH_STATE;
 }
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL

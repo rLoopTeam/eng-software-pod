@@ -82,7 +82,7 @@
 	#define C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY			(20U)
 
 	/** GS Communication constants */
-	#define C_FCU__GS_COMM_LOSS_DELAY						(1U)		//define exact value
+	#define C_FCU__GS_COMM_LOSS_DELAY						(200U)
 
 	/** Pod Position constants */
 	#define C_FCU__POD_TARGET_POINT_MARGIN_POS				(16U)

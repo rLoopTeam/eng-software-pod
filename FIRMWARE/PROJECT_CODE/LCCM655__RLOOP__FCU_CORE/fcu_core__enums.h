@@ -261,11 +261,11 @@
 
 	typedef enum
 	{
-		STATIC_HOVERING,
+		START_STATIC_HOVERING,
 		RELEASE_STATIC_HOVERING,
 		SET_HEX_SPEED,
 		SET_ALL_HE_SPEED
-	} E_GS_COMMANDS;
+	}E_GS_COMMANDS;
 
 	/** State types for the THROTTLE state machine */
 	typedef enum
