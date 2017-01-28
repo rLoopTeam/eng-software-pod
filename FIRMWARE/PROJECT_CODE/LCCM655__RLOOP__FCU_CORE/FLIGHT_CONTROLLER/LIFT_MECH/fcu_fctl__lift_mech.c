@@ -97,7 +97,7 @@ void vFCU_FCTL_LIFTMECH_Speed(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH
 //interface with lower level
 }
 
-void vFCU_FCTL_LIFTMECH__Get_State(void)
+E_FCU_LIFTMECH_STATE eFCU_FCTL_LIFTMECH__Get_State(void)
 {
 	//implement this one
 }

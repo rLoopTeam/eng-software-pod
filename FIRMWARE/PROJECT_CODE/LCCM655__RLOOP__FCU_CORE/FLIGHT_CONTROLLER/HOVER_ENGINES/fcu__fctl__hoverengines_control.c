@@ -382,7 +382,7 @@ void vFCU_FCTL_HOVERENGINES__ManualCommandsHandle(void)
 
 
 
-vFCU_FLIGHTCTL_HOVERENGINES__SetCommand(Luint32 u32Command, Luint32 u32Value)
+void vFCU_FLIGHTCTL_HOVERENGINES__SetCommand(Luint32 u32Command, Luint32 u32Value)
 {
 	sFCU.sHoverEngines.eGSCommands = u32Command ;
 	sFCU.sHoverEngines.u32CommandValues = u32Value;

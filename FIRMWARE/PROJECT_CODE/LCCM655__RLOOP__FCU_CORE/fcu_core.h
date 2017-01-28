@@ -1501,6 +1501,7 @@
 		void vFCU_FCTL_HOVERENGINES__Process(void);
 		void vFCU_FCTL_HOVERENGINES__Start(void);
 		void vFCU_FCTL_HOVERENGINES__Stop(void);
+		void vFCU_FLIGHTCTL_HOVERENGINES__SetCommand(Luint32 u32Command, Luint32 u32Value);
 
 		//ASI
 		Luint16 u16FCU_ASI__ReadMotorRpm(Luint8 u8EngineIndex);
@@ -1524,14 +1525,16 @@
 		void vFCU_COOLING__Set_Valve(Luint8 ValveNumber, Lfloat32 TimeOn, Lfloat32 TimeOff);
 
 		//lift mechanism
+		void vFCU_FCTL_LIFTMECH_Speed(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir);
 		void vFCU_FCTL_LIFTMECH_Dir(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir);
 		void vFCU_FCTL_LIFTMECH__SetDirAll(E_FCU__LIFTMECH_DIRECTION dir);
 		void vFCU_FCTL_LIFTMECH__SetSpeedAll(Luint32 u32speed);
 		void vFCU_FCTL_LIFTMECH__Extend(void);
 		//void vFCU_FCTL_LIFTMECH_Speed(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir);
-		//void vFCU_FCTL_LIFTMECH__Get_State(void);
+		E_FCU_LIFTMECH_STATE eFCU_FCTL_LIFTMECH__Get_State(void);
 
 		//brakes
+		void vFCU_FCTL_EDDYBRAKES_Dir(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator, E_FCU__FCTL_EDDYBRAKES_DIRECTION dir);
 		void vFCU_FCTL_EDDYBRAKES_Speed(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator, Luint32 u32speed);
 		void vFCU_FCTL_EDDYBRAKES__SetSpeedAll(Luint32 u32speed);
 		void vFCU_FCTL_EDDYBRAKES__SetDirAll(E_FCU__FCTL_EDDYBRAKES_DIRECTION dir);
@@ -1540,6 +1543,8 @@
 		void vFCU_FCTL_EDDY_BRAKES__Release(void);
 		void vFCU_FCTL_EDDY_BRAKES__GainScheduleController(Luint32 u32speed);
 		void vFCU_FCTL_EDDY_BRAKES__GimbalSpeedController(void);
+		Luint32 u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator);
+		E_FCU__FCTL_EDDYBRAKES_STATE eFCU_FCTL_EDDYBRAKES__Get_State(void);
 
 		//main state machine
 		Luint8 u8FCU_FCTL_MAINSM__CheckIfUnlifted(void);
@@ -1550,8 +1555,10 @@
 		Luint8 u8FCU_FCTL_MAINSM__CheckIfCoasting(void);
 		Luint8 u8FCU_FCTL_MAINSM__CheckIfBraking(void);
 		Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void);
+		void vFCU_FCTL_MAINSM__10MS_ISR(void);
 		void vFCU_FCTL_MAINSM__100MS_ISR(void);
 		void vFCU_FCTL_MAINSM__EnterPreRun_Phase();
+		void vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR(void);
 
 		//navigation
 		Luint32 u32FCU_FCTL_NAV__PodSpeed(void);
@@ -1559,6 +1566,7 @@
 		Luint32 u32FCU_FCTL_NAV__GetFrontPos(void);
 		Luint32 u32FCU_FCTL_NAV__GetRearPos(void);
 		Luint32 u32FCU_FCTL_NAV__Get_Accel_mmss(void);
+		Luint8 u8FCU_FCTL_NAV__IsInFailure(void);
 
 		// Laser Orientation
 		Luint32 u32FCU_FCTL_LASERORIENT__Get_Z_Pos();

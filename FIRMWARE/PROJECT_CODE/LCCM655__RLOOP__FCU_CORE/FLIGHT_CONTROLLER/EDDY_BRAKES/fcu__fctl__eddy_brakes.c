@@ -212,12 +212,12 @@ void vFCU_FCTL_EDDYBRAKES_Speed(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator, Luint3
 {
 	// need to interface with lower level stuff here
 }
-void vFCU_FCTL_EDDYBRAKES__Get_State(void)
+E_FCU__FCTL_EDDYBRAKES_STATE eFCU_FCTL_EDDYBRAKES__Get_State(void)
 {
 	//TODO:IMPLEMENT THIS
 }
 
-Luint32 u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp(void)
+Luint32 u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator)
 {
 	//TODO:IMPLEMENT THIS
 }

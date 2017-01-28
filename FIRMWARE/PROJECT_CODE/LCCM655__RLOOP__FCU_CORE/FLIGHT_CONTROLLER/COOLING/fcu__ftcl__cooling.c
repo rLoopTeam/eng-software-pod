@@ -37,7 +37,7 @@ void vFCU_FCTL_COOLING__Process(void)
 {
 	vFCU_FCTL_COOLING__ManualCommandsHandle();
 
-	Luint32 u32PodSpeed = vFCU__POD_SPEED();
+	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 
 	switch(sFCU.sStateMachine.eMissionPhase)
 	{

@@ -588,7 +588,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfReadyForPush(void)
 	Luint8 u8PusherSwitch2 = u8FCU_PUSHER__Get_Switch(1);
 
 	//Check if we are connected to the pusher, speed is below standby, the height makes sense to be pushed + each of our landing gear units is retracted
-	if((u32PodZPos > C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT) &&  (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && (u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U) && (vFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED))
+	if((u32PodZPos > C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT) &&  (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && (u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U) && (eFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED))
 	{
 		u8Test = 1U;
 	}
@@ -631,7 +631,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfCoasting(void)
 	//Get Pod Speed
 	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 	//
-	if(u32PodSpeed && (u8PusherSwitch1 == 0U) && (u8PusherSwitch2 == 0U) && (vFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__RETRACTED))
+	if(u32PodSpeed && (u8PusherSwitch1 == 0U) && (u8PusherSwitch2 == 0U) && (eFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__RETRACTED))
 	{
 		u8Test = 1U;
 	}
@@ -645,7 +645,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfCoasting(void)
 Luint8 u8FCU_FCTL_MAINSM__CheckIfBraking(void)
 {
 	Luint8 u8Test;
-	if(vFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__BRAKING)
+	if(eFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__BRAKING)
 	{
 		u8Test = 1U;
 	}
@@ -659,7 +659,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfBraking(void)
 Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void)
 {
 	Luint8 u8Test;
-	if(vFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__CONTROLLED_BRAKING)
+	if(eFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__CONTROLLED_BRAKING)
 	{
 		u8Test = 1U;
 	}
