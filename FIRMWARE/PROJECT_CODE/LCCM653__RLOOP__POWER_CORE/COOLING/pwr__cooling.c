@@ -126,27 +126,27 @@ void vPWR_COOLING__Process(void)
 
 	case COOLING_STATE__STARTTESTING_01:
 		sPWRNODE.sCooling.u32100MS_Count = 0U;
-		vPWR_COOLING__Solennoid_TurnOn(4U);
+		vPWR_COOLING__Solennoid_TurnOn(C_PWRCORE_HOVERENGINES0_N2HET_PIN_NUMBER);
 		sPWRNODE.sCooling.eMainState = COOLING_STATE__ENDTESTING;
 		break;
 	case COOLING_STATE__STARTTESTING_02:
 		sPWRNODE.sCooling.u32100MS_Count = 0U;
-		vPWR_COOLING__Solennoid_TurnOn(8U);
+		vPWR_COOLING__Solennoid_TurnOn(C_PWRCORE_HOVERENGINES1_N2HET_PIN_NUMBER);
 		sPWRNODE.sCooling.eMainState = COOLING_STATE__ENDTESTING;
 		break;
 	case COOLING_STATE__STARTTESTING_03:
 		sPWRNODE.sCooling.u32100MS_Count = 0U;
-		vPWR_COOLING__Solennoid_TurnOn(16U);
+		vPWR_COOLING__Solennoid_TurnOn(C_PWRCORE_HOVERENGINES2_N2HET_PIN_NUMBER);
 		sPWRNODE.sCooling.eMainState = COOLING_STATE__ENDTESTING;
 		break;
 	case COOLING_STATE__STARTTESTING_04:
 		sPWRNODE.sCooling.u32100MS_Count = 0U;
-		vPWR_COOLING__Solennoid_TurnOn(22U);
+		vPWR_COOLING__Solennoid_TurnOn(C_PWRCORE_HOVERENGINES3_N2HET_PIN_NUMBER);
 		sPWRNODE.sCooling.eMainState = COOLING_STATE__ENDTESTING;
 		break;
 	case COOLING_STATE__STARTTESTING_05:
 		sPWRNODE.sCooling.u32100MS_Count = 0U;
-		vPWR_COOLING__Solennoid_TurnOn(23U);
+		vPWR_COOLING__Solennoid_TurnOn(C_PWRCORE_EDDYBRAKE0_N2HET_PIN_NUMBER);
 		sPWRNODE.sCooling.eMainState = COOLING_STATE__ENDTESTING;
 		break;
 	case COOLING_STATE__ENDTESTING:
@@ -182,21 +182,21 @@ void vPWR_COOLING__Process(void)
 			//update NORMAL, CRITICAL, WARNING states
 			//COOLING_STATE__NORMAL,
 			//COOLING_STATE__WARNING, T warning: 75C
-			if(sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_WARNING_THREHOLD)
+			if(sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_WARNING_THRESHOLD)
 			{
 				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__NORMAL;
 			}
 			//COOLING_STATE__CRITICAL, T critical: 95C
-			else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature > C_PWRCORE_COOLING_WARNING_THREHOLD && sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_CRITICAL_THREHOLD)
+			else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature >= C_PWRCORE_COOLING_WARNING_THRESHOLD && sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_CRITICAL_THRESHOLD)
 			{
 				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__WARNING;
 			}
 			//COOLING_STATE__EMERGENCY T off: 105C
-			else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature > C_PWRCORE_COOLING_CRITICAL_THREHOLD && sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_EMERGENCY_THREHOLD)
+			else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature >= C_PWRCORE_COOLING_CRITICAL_THRESHOLD && sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_EMERGENCY_THRESHOLD)
 			{
 				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__CRITICAL;
 			}
-			else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature > C_PWRCORE_COOLING_EMERGENCY_THREHOLD)
+			else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].f32Temperature >= C_PWRCORE_COOLING_EMERGENCY_THRESHOLD)
 			{
 				sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__EMERGENCY;
 			}
@@ -228,21 +228,21 @@ void vPWR_COOLING__Process(void)
 			//update NORMAL, CRITICAL, WARNING states
 			//COOLING_STATE__NORMAL,
 			//COOLING_STATE__WARNING, T warning: 75C
-			if(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_WARNING_THREHOLD)
+			if(sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_WARNING_THRESHOLD)
 			{
 				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__NORMAL;
 			}
 			//COOLING_STATE__CRITICAL, T critical: 95C
-			else if (sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature > C_PWRCORE_COOLING_WARNING_THREHOLD && sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_CRITICAL_THREHOLD)
+			else if (sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature >= C_PWRCORE_COOLING_WARNING_THRESHOLD && sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_CRITICAL_THRESHOLD)
 			{
 				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__WARNING;
 			}
 			//COOLING_STATE__EMERGENCY T off: 105C
-			else if (sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature > C_PWRCORE_COOLING_CRITICAL_THREHOLD && sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_EMERGENCY_THREHOLD)
+			else if (sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature >= C_PWRCORE_COOLING_CRITICAL_THRESHOLD && sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature < C_PWRCORE_COOLING_EMERGENCY_THRESHOLD)
 			{
 				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__CRITICAL;
 			}
-			else if (sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature > C_PWRCORE_COOLING_EMERGENCY_THREHOLD)
+			else if (sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].f32Temperature >= C_PWRCORE_COOLING_EMERGENCY_THRESHOLD)
 			{
 				sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].eCoolingState = COOLING_STATE__EMERGENCY;
 			}
