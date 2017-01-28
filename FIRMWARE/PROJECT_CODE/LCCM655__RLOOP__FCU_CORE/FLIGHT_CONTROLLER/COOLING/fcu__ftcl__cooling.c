@@ -50,13 +50,13 @@ void vFCU_FCTL_COOLING__Process(void)
 				case STATIC_HOVERING:
 					if (sFCU.sStateMachine.sOpStates.u8Lifted == 1U && u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
 					{
-						vFCU_COOLING__Enable();
+						vFCU_FCTL_COOLING__Enable();
 					}
 					break;
 				case RELEASE_STATIC_HOVERING:
 					if (sFCU.sStateMachine.sOpStates.u8StaticHovering == 1U && u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
 					{
-						vFCU_COOLING__Disable();
+						vFCU_FCTL_COOLING__Disable();
 					}
 					break;
 			}
@@ -64,7 +64,7 @@ void vFCU_FCTL_COOLING__Process(void)
 	}
 }
 
-void vFCU_FCTL_COOLING__ManualCommandsHandle(void)
+void vFCU_FCTL_COOLING__ManualCommandsHandle()
 {
 	/** Cooling specific command listener*/
 	// TODO move to sFCU
@@ -83,12 +83,12 @@ void vFCU_FCTL_COOLING__ManualCommandsHandle(void)
 /**
 	Nominal commands used by the system
 */
-void vFCU_COOLING__Enable(void)
+void vFCU_FCTL_COOLING__Enable(void)
 {
 	vPWR_COOLING__Enable(1U);
 }
 
-void vFCU_COOLING__Disable(void)
+void vFCU_FCTL_COOLING__Disable(void)
 {
 	vPWR_COOLING__Enable(0U);
 }

@@ -1424,6 +1424,79 @@
 			void vFCU_GEOM_ETH__Init(void);
 			void vFCU_GEOM_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
+		//hover engines
+		E_FCU__HOVERENGINES_STATES_T eFCU_FCTL_HOVERENGINES__Get_State(void);
+		void vFCU_FCTL_HOVERENGINES__ManualCommandsHandle(void);
+		void vFCU_FCTL_HOVERENGINES__Process(void);
+		void vFCU_FCTL_HOVERENGINES__Start(void);
+		void vFCU_FCTL_HOVERENGINES__Stop(void);
+
+		//ASI
+		Luint16 u16FCU_ASI__ReadMotorRpm(Luint8 u8EngineIndex);
+		Lfloat32 f32FCU_ASI__ReadMotorCurrent(Luint8 u8EngineIndex);
+		Lfloat32 f32FCU_ASI__ReadControllerTemperature(Luint8 u8EngineIndex);
+
+		//drive pod
+		void vFCU_FCTL_DRIVEPOD__10MS_ISR(void);
+		void vFCU_FCTL_DRIVEPOD__SetPodStopCmd(void);
+
+		//aux propulsion
+		void vFCU_FCTL_AUX_PROP__Stop(void);
+		void vFCU_FCTL_AUX_PROP__Disable(void);
+
+		//flight controller cooling
+		void vFCU_FCTL_COOLING__ManualCommandsHandle();
+		void vFCU_FCTL_COOLING__Disable(void);
+		void vFCU_FCTL_COOLING__Enable(void);
+
+		//hover engine cooling
+		void vFCU_COOLING__Set_Valve(Luint8 ValveNumber, Lfloat32 TimeOn, Lfloat32 TimeOff);
+
+		//lift mechanism
+		void vFCU_FCTL_LIFTMECH_Dir(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir);
+		void vFCU_FCTL_LIFTMECH__SetDirAll(E_FCU__LIFTMECH_DIRECTION dir);
+		void vFCU_FCTL_LIFTMECH__SetSpeedAll(Luint32 u32speed);
+		void vFCU_FCTL_LIFTMECH__Extend(void);
+		//void vFCU_FCTL_LIFTMECH_Speed(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir);
+		//void vFCU_FCTL_LIFTMECH__Get_State(void);
+
+		//brakes
+		void vFCU_FCTL_EDDYBRAKES_Speed(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator, Luint32 u32speed);
+		void vFCU_FCTL_EDDYBRAKES__SetSpeedAll(Luint32 u32speed);
+		void vFCU_FCTL_EDDYBRAKES__SetDirAll(E_FCU__FCTL_EDDYBRAKES_DIRECTION dir);
+		void vFCU_FCTL_EDDY_BRAKES__ControlledEmergencyBrake();
+		void vFCU_FCTL_EDDY_BRAKES__ApplyFullBrakes(void);
+		void vFCU_FCTL_EDDY_BRAKES__Release(void);
+		void vFCU_FCTL_EDDY_BRAKES__GainScheduleController(Luint32 u32speed);
+		void vFCU_FCTL_EDDY_BRAKES__GimbalSpeedController(void);
+
+		//main state machine
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfUnlifted(void);
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfLifted(void);
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfHoveringStatically(void);
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfReadyForPush(void);
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfPushing(void);
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfCoasting(void);
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfBraking(void);
+		Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void);
+		void vFCU_FCTL_MAINSM__100MS_ISR(void);
+		void vFCU_FCTL_MAINSM__EnterPreRun_Phase();
+
+		//navigation
+		Luint32 u32FCU_FCTL_NAV__PodSpeed(void);
+		Luint8 u8FCU_FCTL_NAV__GetPodSpeedTooHigh(void);
+		Luint32 u32FCU_FCTL_NAV__GetFrontPos(void);
+		Luint32 u32FCU_FCTL_NAV__GetRearPos(void);
+		Luint32 u32FCU_FCTL_NAV__Get_Accel_mmss(void);
+
+		// Laser Orientation
+		Luint32 u32FCU_FCTL_LASERORIENT__Get_Z_Pos();
+
+		//brake pid
+		void vFCU_FLIGHTCTL_BRAKEPID__Init(void);
+
+		//cooling
+		void vFCU_FCTL_COOLING__Enable(void);
 
 		#if C_LOCALDEF__LCCM655__ENABLE_TEST_SPEC == 1U
 

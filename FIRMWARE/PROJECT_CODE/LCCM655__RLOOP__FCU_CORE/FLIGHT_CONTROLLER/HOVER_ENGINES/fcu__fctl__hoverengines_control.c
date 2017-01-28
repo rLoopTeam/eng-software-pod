@@ -391,7 +391,7 @@ vFCU_FLIGHTCTL_HOVERENGINES__SetCommand(Luint32 u32Command, Luint32 u32Value)
 
 
 //temporary cooling function
- void vFCU_COOLING__Set_Valve(ValveNumber, TimeOn, TimeOff)
+ void vFCU_COOLING__Set_Valve(Luint8 ValveNumber, Lfloat32 TimeOn, Lfloat32 TimeOff)
  {
 	 //do nothing
  }
