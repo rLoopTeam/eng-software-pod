@@ -66,7 +66,7 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 			u16Length = 42U;
 			u16Length +=  (C_LOCALDEF__LCCM650__NUM_DEVICES * C_ATA6870__MAX_CELLS * 4U);
 			u16Length += C_ATA6870__MAX_BUS_DEVICES;
-			u16Length += 8U;
+			u16Length += 12U;
 			break;
 
 		default:
@@ -169,9 +169,13 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32PWRNODE_BMS__Get_VoltsUpdateCount());
 				pu8Buffer += 4U;
 
+				//Number of times we've scaned the temperature sensors
 				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sPWRNODE.sTemp.u32TempScanCount);
 				pu8Buffer += 4U;
 
+				//Current through the battery pack
+				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sHASS600.f32HASS_CurrentReading);
+				pu8Buffer += 4U;
 
 				break;
 
