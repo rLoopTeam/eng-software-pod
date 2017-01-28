@@ -403,11 +403,15 @@
             'l0(iDevice, 12).Layout__BelowControl(Me.m_txtMLP_ADC(iDevice))
             Me.m_txtStep_Veloc(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
+            Dim btnUpdateVeloc0 As New SIL3.ApplicationSupport.ButtonHelper(100, "Update Veloc", AddressOf Me.btnUpdateVeloc0__Click)
+            btnUpdateVeloc0.Layout__BelowControl(Me.m_txtStep_Veloc(iDevice))
 
             l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Accel " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtStep_Veloc(iDevice))
             Me.m_txtStep_Accel(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
+            Dim btnUpdateAccel0 As New SIL3.ApplicationSupport.ButtonHelper(100, "Update Accel", AddressOf Me.btnUpdateAccel0__Click)
+            btnUpdateAccel0.Layout__BelowControl(Me.m_txtStep_Accel(iDevice))
 
             l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Pos " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtStep_Accel(iDevice))
@@ -505,11 +509,16 @@
             'l0(iDevice, 12).Layout__BelowControl(Me.m_txtMLP_ADC(iDevice))
             Me.m_txtStep_Veloc(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
+            Dim btnUpdateVeloc1 As New SIL3.ApplicationSupport.ButtonHelper(100, "Update Veloc", AddressOf Me.btnUpdateVeloc1__Click)
+            btnUpdateVeloc1.Layout__BelowControl(Me.m_txtStep_Veloc(iDevice))
+
 
             l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Accel " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtStep_Veloc(iDevice))
             Me.m_txtStep_Accel(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
+            Dim btnUpdateAccel1 As New SIL3.ApplicationSupport.ButtonHelper(100, "Update Accel", AddressOf Me.btnUpdateAccel1__Click)
+            btnUpdateAccel1.Layout__BelowControl(Me.m_txtStep_Accel(iDevice))
 
             l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Pos " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtStep_Accel(iDevice))
@@ -517,7 +526,7 @@
             iIndex += 1
 
             Dim l10 As New SIL3.ApplicationSupport.LabelHelper("Brakes State")
-            l10.Layout__BelowControl(Me.m_txtStep_Veloc(0))
+            l10.Layout__BelowControl(btnUpdateVeloc0)
             Me.m_txtBrakeState = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l10)
             Dim l100 As New SIL3.ApplicationSupport.LabelHelper("Calibration State")
             l100.Layout__AboveRightControl(l10, Me.m_txtBrakeState)
@@ -632,6 +641,38 @@
 #End Region '#Region "PANEL LAYOUT"
 
 #Region "BUTTON HELPERS"
+        Private Sub btnUpdateVeloc0__Click(s As Object, e As EventArgs)
+            Dim ss As String = InputBox("Enter New Velocity", "Left Brake Velocity", Me.m_txtStep_Veloc(0).Text)
+            Dim s32Val As New SIL3.Numerical.S32(Int32.Parse(ss))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__VELOC_ACCEL_SET,
+                                                &HABAB1122L, 0, 0, s32Val.Union__Uint32)
+        End Sub
+        Private Sub btnUpdateVeloc1__Click(s As Object, e As EventArgs)
+            Dim ss As String = InputBox("Enter New Velocity", "Rigth Brake Velocity", Me.m_txtStep_Veloc(1).Text)
+            Dim s32Val As New SIL3.Numerical.S32(Int32.Parse(ss))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__VELOC_ACCEL_SET,
+                                                &HABAB1122L, 1, 0, s32Val.Union__Uint32)
+        End Sub
+
+        Private Sub btnUpdateAccel0__Click(s As Object, e As EventArgs)
+            Dim ss As String = InputBox("Enter New Accel", "Left Brake Accel", Me.m_txtStep_Accel(0).Text)
+            Dim s32Val As New SIL3.Numerical.S32(Int32.Parse(ss))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__VELOC_ACCEL_SET,
+                                                &HABAB1122L, 0, 1, s32Val.Union__Uint32)
+
+        End Sub
+        Private Sub btnUpdateAccel1__Click(s As Object, e As EventArgs)
+            Dim ss As String = InputBox("Enter New Accel", "Rigth Brake Accel", Me.m_txtStep_Accel(1).Text)
+            Dim s32Val As New SIL3.Numerical.S32(Int32.Parse(ss))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__VELOC_ACCEL_SET,
+                                                &HABAB1122L, 1, 1, s32Val.Union__Uint32)
+
+        End Sub
+
 
         ''' <summary>
         ''' Enable streaming

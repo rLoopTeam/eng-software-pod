@@ -1197,6 +1197,7 @@
 			void vFCU_BRAKES_STEP__Process(void);
 			void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos);
 			Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake);
+			void vFCU_BRAKES_STEP__UpdateValues(Luint32 u32Brake, Luint32 u32Type, Lint32 s32Value);
 
 			//brake switches
 			void vFCU_BRAKES_SW__Init(void);
