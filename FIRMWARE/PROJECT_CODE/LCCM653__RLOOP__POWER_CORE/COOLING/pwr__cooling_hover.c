@@ -105,18 +105,18 @@ void vPWR_COOLING_HOVER__Process(void)
 				//NORMAL COOLING @ Valve duty cycle: 0.5s ON / 1.5 s OFF for T < T warning -> delivered mass flow rate/HE 1-1.5 g/s
 				//Stay on for 0.5s/ Turn off between 0.5s and 2s/ Transit back to cooling state after 2s
 
-				if(sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count <  5)
+				if(sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count <  C_PWRCORE_COOLING_500MS)
 				{
 					//Do nothing since solenoid was turned on during last state
 				}
-				else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count >  5 && sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count < 20)
+				else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count >  C_PWRCORE_COOLING_500MS && sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count < C_PWRCORE_COOLING_2000MS)
 				{
 					//Turn off Solenoid here
 					vPWR_COOLING__Solennoid_TurnOff(sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u8N2HETPinNumber);
 					//Update Solenoid State
 					sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eHoverSolenoidState = POWER_COOLING__SOLENOID_OFF;
 				}
-				else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count > 20)
+				else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count > C_PWRCORE_COOLING_2000MS)
 				{
 					//Transit back to cooling state
 					sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eState = COOLINGSUB_STARTCOOLING;
@@ -130,18 +130,18 @@ void vPWR_COOLING_HOVER__Process(void)
 				//WARNING @ Valve duty cycle 1.0 s ON/ 1.0 s OFF for T > T warning -> delivered mass flow rate/HE 2 - 3 g/s
 				//Stay on for 1s/ Turn off between 1s and 2s/ Transit back to cooling state after 2s
 
-				if(sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count <  10)
+				if(sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count <  C_PWRCORE_COOLING_1000MS)
 				{
 					//Do nothing since solenoid was turned on during last state
 				}
-				else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count >  10 && sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count < 20)
+				else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count >  C_PWRCORE_COOLING_1000MS && sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count < C_PWRCORE_COOLING_2000MS)
 				{
 					//Turn off Solenoid here
 					vPWR_COOLING__Solennoid_TurnOff(sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u8N2HETPinNumber);
 					//Update Solenoid State
 					sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eHoverSolenoidState = POWER_COOLING__SOLENOID_OFF;
 				}
-				else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count > 20)
+				else if (sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].u32100MS_Count > C_PWRCORE_COOLING_2000MS)
 				{
 					//Transit back to cooling state
 					sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Counter].eState = COOLINGSUB_STARTCOOLING;
