@@ -167,7 +167,7 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		#define C_LOCALDEF__LCCM655__ENABLE_BRAKES							(1U)
 
 		/** Enable the throttle control */
-		#define C_LOCALDEF__LCCM655__ENABLE_THROTTLE						(0U)
+		#define C_LOCALDEF__LCCM655__ENABLE_THROTTLE						(1U)//TODO: Change to 0
 
 		/** Enable the ASI_RS485 */
 		#define C_LOCALDEF__LCCM655__ENABLE_ASI_RS485						(1U)
@@ -210,6 +210,29 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 
 			/** Pod Health System */
 			#define C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH						(1U)
+			/** Hover Engine Control */
+			#define C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL			(1U)
+
+			/** Drive Pod Control */
+			#define C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL				(1U)
+
+			/** Eddy Brakes Control */
+			#define C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES					(1U)
+
+			/** Lift Mechanism Control */
+			#define C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL				(1U)
+
+			/** Navigation function */
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION 				(1U)
+
+			/** Control Aux Propulsion */
+			#define C_LOCALDEF__LCCM655__ENABLE_AUX_PROPULSION_CONTROL 		(1U)
+
+			/** Enable PID for the Brakes */
+			#define C_LOCALDEF__LCCM655__ENABLE_BRAKEPID 					(1U)
+
+			/** Enable Cooling control */
+			#define C_LOCALDEF__LCCM655__ENABLE_COOLING_CONTROL				(1U)
 
 
 		/** ADC Sample Limits */

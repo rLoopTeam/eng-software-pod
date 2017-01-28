@@ -32,6 +32,9 @@
 		/** Allow us to emulate pod sensor data */
 		NET_PKT__FCU_GEN__POD_EMULATION_CONTROL = 0x0002U,
 
+		/** Request from the host to enter the Pre Run phase from the Post Run phase */
+		NET_PKT__FCU_GEN__ENTER_PRE_RUN_PHASE_COMMAND = 0x0003U,
+
 		/** Switch on or off DAQ streaming */
 		NET_PKT__FCU_GEN__DAQ_ENABLE = 0x00FEU,
 
@@ -46,6 +49,9 @@
 
 		/** All system fault flags */
 		NET_PKT__FCU_GEN__TX_ALL_FAULT_FLAGS = 0x0300U,
+
+		/** GS Hearbeat */
+		NET_PKT__FCU_GEN__GS_HEARTBEAT = 0x0400U,
 
 		//////////////////////////////////////////////////////
 		//FCU: ACCEL (0x1000)
@@ -169,6 +175,18 @@
 		NET_PKT__FCU_THROTTLE__TX_DATA = 0x1503U,
 
 
+		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE1 = 0x1504U,
+		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE2 = 0x1505U,
+		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE3 = 0x1506U,
+		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE4 = 0x1507U,
+		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE5 = 0x1508U,
+		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE6 = 0x1509U,
+		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE7 = 0x1510U,
+		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE8 = 0x1511U,
+		NET_PKT__FCU_HOVERENGINES_CONTROL__STATIC_HOVERING = 0x1512U,
+		NET_PKT__FCU_HOVERENGINES_CONTROL__RELEASE_STATIC_HOVERING = 0x1513U,
+
+
 		//////////////////////////////////////////////////////
 		//FCU: FLIGHT (0x1600)
 		//////////////////////////////////////////////////////
@@ -220,6 +238,24 @@
 		/** FCU to Host, return pusher data */
 		NET_PKT__FCU_PUSH__TX_PUSHER_DATA = 0x1801U,
 
+		//////////////////////////////////////////////////////
+		//FCU: LANDING GEAR UNIT (0x1900)
+		//////////////////////////////////////////////////////
+
+		/** Set Direction */
+		NET_PKT__FCU_LIFTMECH__SET_DIR = 0x1900U,
+
+		/** Set speed */
+		NET_PKT__FCU_LIFTMECH__SET_SPEED = 0x1901U,
+
+		/** Set Group Dir */
+		NET_PKT__FCU_LIFTMECH__SET_GROUP_DIR = 0x1902U,
+
+		/** Set Group Speed */
+		NET_PKT__FCU_LIFTMECH__SET_GROUP_SPEED = 0x1903U,
+
+		/** Release the Lift Mech */
+		NET_PKT__FCU_LIFTMECH__RELEASE = 0x1904U,
 
 		//////////////////////////////////////////////////////
 		//POWER: GENERAL (0x3000)
