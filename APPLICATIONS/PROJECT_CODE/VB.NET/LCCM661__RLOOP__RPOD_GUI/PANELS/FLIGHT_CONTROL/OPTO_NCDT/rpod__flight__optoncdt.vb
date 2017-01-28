@@ -29,7 +29,7 @@
         Private m_txtLaser_Byte1Count() As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtLaser_LaserRaw() As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtLaser_LaserFiltered() As SIL3.ApplicationSupport.TextBoxHelper
-
+        Private m_txtLaser_SuccessCount() As SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtCalValue As SIL3.ApplicationSupport.TextBoxHelper
 
         Private m_pCSV As SIL3.FileSupport.CSV
@@ -127,6 +127,7 @@
                         Me.m_txtLaser_Byte1Count(iCounter).Threadsafe__SetText(pU32_LaserByte1(iCounter).To_String)
                         Me.m_txtLaser_LaserRaw(iCounter).Threadsafe__SetText(pF32_LaserRaw(iCounter).To__Float32.ToString("0.0000"))
                         Me.m_txtLaser_LaserFiltered(iCounter).Threadsafe__SetText(pF32_LaserFiltered(iCounter).To__Float32.ToString("0.0000"))
+                        Me.m_txtLaser_SuccessCount(iCounter).Threadsafe__SetText(pU32_LaserSpare(iCounter).To_String)
                     Next
 
 
@@ -157,12 +158,14 @@
             ReDim Me.m_txtLaser_Byte1Count(C_NUM_LASERS - 1)
             ReDim Me.m_txtLaser_LaserRaw(C_NUM_LASERS - 1)
             ReDim Me.m_txtLaser_LaserFiltered(C_NUM_LASERS - 1)
+            ReDim Me.m_txtLaser_SuccessCount(C_NUM_LASERS - 1)
 
             Dim la0(C_NUM_LASERS - 1) As SIL3.ApplicationSupport.LabelHelper
             Dim la1(C_NUM_LASERS - 1) As SIL3.ApplicationSupport.LabelHelper
             Dim la2(C_NUM_LASERS - 1) As SIL3.ApplicationSupport.LabelHelper
             Dim la3(C_NUM_LASERS - 1) As SIL3.ApplicationSupport.LabelHelper
             Dim la4(C_NUM_LASERS - 1) As SIL3.ApplicationSupport.LabelHelper
+            Dim la5(C_NUM_LASERS - 1) As SIL3.ApplicationSupport.LabelHelper
 
             For iCounter As Integer = 0 To C_NUM_LASERS - 1
 
@@ -177,6 +180,7 @@
                 la2(iCounter) = New SIL3.ApplicationSupport.LabelHelper("Byte1 Errors")
                 la3(iCounter) = New SIL3.ApplicationSupport.LabelHelper("Laser Raw")
                 la4(iCounter) = New SIL3.ApplicationSupport.LabelHelper("Laser Filtered")
+                la5(iCounter) = New SIL3.ApplicationSupport.LabelHelper("Success Count")
 
                 Me.m_txtLaser_Flags(iCounter) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, la0(iCounter))
                 la1(iCounter).Layout__AboveRightControl(la0(iCounter), Me.m_txtLaser_Flags(iCounter))
@@ -187,6 +191,8 @@
                 Me.m_txtLaser_LaserRaw(iCounter) = New SIL3.ApplicationSupport.TextBoxHelper(100, la3(iCounter))
                 la4(iCounter).Layout__AboveRightControl(la0(iCounter), Me.m_txtLaser_LaserRaw(iCounter))
                 Me.m_txtLaser_LaserFiltered(iCounter) = New SIL3.ApplicationSupport.TextBoxHelper(100, la4(iCounter))
+                la5(iCounter).Layout__AboveRightControl(la0(iCounter), Me.m_txtLaser_LaserFiltered(iCounter))
+                Me.m_txtLaser_SuccessCount(iCounter) = New SIL3.ApplicationSupport.TextBoxHelper(100, la5(iCounter))
 
 
             Next

@@ -404,6 +404,9 @@
 						/** First packet byte was not in the correct place */
 						Luint32 u32Byte1Wrong;
 
+						/** Successful packet count */
+						Luint32 u32Success;
+
 					}sCounters;
 
 					/** Filtered data structure */

@@ -9,7 +9,7 @@
 
 extern struct _strPWRNODE sPWRNODE;
 
-#if C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS == 1U
+#if C_LOCALDEF__LCCM653__ENABLE_COOLING == 1U
 
 void vPWR_COOLING_EDDY__Init(void)
 {
@@ -186,8 +186,8 @@ void vPWR_COOLING_EDDY__100MS_ISR(void)
 		sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Counter].u32100MS_Count++;
 	}
 }
-#endif //C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS
-#ifndef C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS
+#endif //C_LOCALDEF__LCCM653__ENABLE_COOLING
+#ifndef C_LOCALDEF__LCCM653__ENABLE_COOLING
 	#error
 #endif
 

@@ -293,7 +293,11 @@ void vPWRNODE_CHG__Start(void)
 	Luint8 u8Test;
 
 	//make sure we have a batt temp system up
+#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
 	u8Test = u8PWR_BATTTEMP__Is_Avail();
+#else
+	u8Test = 0U;
+#endif
 	if(u8Test == 1U)
 	{
 		//move to start state

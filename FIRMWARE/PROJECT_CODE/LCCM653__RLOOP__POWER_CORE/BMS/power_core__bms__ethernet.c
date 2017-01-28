@@ -130,12 +130,22 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 
 				//node press
+#if C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS == 1U
 				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_NODEPRESS__Get_Pressure_Bar());
 				pu8Buffer += 4U;
+#else
+				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, -1.0F);
+				pu8Buffer += 4U;
+#endif
 
 				//node temp
+#if C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP == 1U
 				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_NODETEMP__Get_DegC());
 				pu8Buffer += 4U;
+#else
+				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, -1.0F);
+				pu8Buffer += 4U;
+#endif
 
 				//cell volts
 				for(u8Device = 0; u8Device < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Device++)
