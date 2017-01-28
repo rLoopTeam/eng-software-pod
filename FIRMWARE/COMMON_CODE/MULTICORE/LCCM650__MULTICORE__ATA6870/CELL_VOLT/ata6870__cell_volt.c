@@ -306,10 +306,14 @@ void vATA6870_CELL__Get_Voltages(Luint8 u8DeviceIndex, Lfloat32 *pf32Voltages, L
 		//TODO: cleanup discharge wiring terminations
 		//and/or: make this smarter based on running average of
 		//each cells temperatures
-		if(f32Temp < 5.0F || f32Temp > 1.0F)
+		if((f32Temp < 5.0F) && (f32Temp > 1.0F))
 		{
 			//assign
 			pf32Voltages[u8Counter] = f32Temp;
+		}
+		else
+		{
+			//do nothing.
 		}
 	}
 

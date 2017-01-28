@@ -169,7 +169,7 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		#define C_LOCALDEF__LCCM655__ENABLE_BRAKES							(1U)
 
 		/** Enable the throttle control */
-		#define C_LOCALDEF__LCCM655__ENABLE_THROTTLE						(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_THROTTLE						(0U)
 
 		/** Enable the ASI_RS485 */
 		#define C_LOCALDEF__LCCM655__ENABLE_ASI_RS485						(1U)
@@ -191,6 +191,9 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 
 		/** Flight control specifics */
 		#define C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL					(1U)
+			
+			/** Main SM */
+			#define C_LOCALDEF__LCCM655__ENABLE_MAIN_SM							(0U)
 
 			//Pitch/Roll/Yaw
 			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION				(0U)
@@ -201,7 +204,7 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 			//Contrast Sensor Navigation
 			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_CONTRAST_NAV				(1U)
 
-			/** Allow us to control the gimbals and include in calculations */
+			// Allow us to control the gimbals and include in calculations 
 			#define C_LOCALDEF__LCCM655__ENABLE_GIMBAL_CONTROL					(1U)
 
 			/** Track Database */
@@ -209,6 +212,31 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 
 			/** Pod Health System */
 			#define C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH						(1U)
+
+			/** Hover Engine Control */
+			#define C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL			(0U)
+
+			/** Drive Pod Control */
+			#define C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL				(0U)
+
+			/** Eddy Brakes Control */
+			#define C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES						(0U)
+
+			/** Lift Mechanism Control */
+			#define C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL				(0U)
+
+			/** Navigation function */
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION 				(0U)
+
+			/** Control Aux Propulsion */
+			#define C_LOCALDEF__LCCM655__ENABLE_AUX_PROPULSION_CONTROL 			(0U)
+
+			/** Enable PID for the Brakes */
+			#define C_LOCALDEF__LCCM655__ENABLE_BRAKEPID 						(0U)
+
+			/** Enable Cooling control */
+			#define C_LOCALDEF__LCCM655__ENABLE_COOLING_CONTROL					(0U)
+
 
 		/** ADC Sample Limits */
 		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__LOWER_BOUND				(300U)

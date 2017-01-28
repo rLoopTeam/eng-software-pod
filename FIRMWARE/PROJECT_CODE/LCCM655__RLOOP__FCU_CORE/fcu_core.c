@@ -361,7 +361,9 @@ Testing damaged FCU pins
 			#endif
 
 			//get our main SM operational
-			vFCU_FCTL_MAINSM__Init();
+			#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+				vFCU_FCTL_MAINSM__Init();
+			#endif
 
 			sFCU.eInitStates = INIT_STATE__START_TIMERS;
 			break;
@@ -415,7 +417,9 @@ Testing damaged FCU pins
 			#endif
 
 			//process the main state machine
-			vFCU_FCTL_MAINSM__Process();
+			#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+				vFCU_FCTL_MAINSM__Process();
+			#endif
 
 			//do the DAQ
 			#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
@@ -474,8 +478,10 @@ void vFCU__RTI_100MS_ISR(void)
 	#endif
 
 	#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+	#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
 		vFCU_FCTL_MAINSM__100MS_ISR();
 		vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR();
+	#endif
 	#endif
 
 }
@@ -513,7 +519,9 @@ void vFCU__RTI_10MS_ISR(void)
 	#endif
 
 	#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+	#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
 		vFCU_FCTL_MAINSM__10MS_ISR();
+	#endif
 	#endif
 
 

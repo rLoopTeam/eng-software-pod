@@ -189,8 +189,8 @@
 		<link>
 			<name>RM4/LCCM280__RM4__MIBSPI_135</name>
 			<type>2</type>
-			<location>D:/LOCKIE/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM280__RM4__MIBSPI_135</location>
-		</link>
+			<locationURI>PARENT-1-PROJECT_LOC../COMMON_CODE/RM4/LCCM280__RM4__MIBSPI_135</locationURI>
+		</link>		
 		<link>
 			<name>RM4/LCCM282__RM4__SCI</name>
 			<type>2</type>
