@@ -268,12 +268,14 @@ void vFCU_FCTL_HOVERENGINES__Process(void)
 					//Read the HEs RPMs
 					Luint16 u16Rpm = u16FCU_ASI__ReadMotorRpm(u8Counter-1);
 					//Check whether the HE RPM is close to zero
-					if(u16Rpm < 10)
+					if(u16Rpm > 10)
+					{
 						u8Status = 0U;
+					}
 			}
 
 			// If all the four THROTTLEs reached the C_FCU__HE_STATIC_HOVER_RPM
-			if(u8Status != 0U)
+			if(u8Status == 1U)
 			{
 				// go to state IDLE
 				sFCU.sHoverEngines.eState = HOVERENGINES_STATE__IDLE;

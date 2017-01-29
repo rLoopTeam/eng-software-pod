@@ -57,7 +57,7 @@ void vFCU_FCTL_MAINSM__Init(void)
 void vFCU_FCTL_MAINSM__Process(void)
 {
 	Luint8 u8Counter;
-	Luint8 u8Test;
+//	Luint8 u8Test;
 //	Luint8 u8TestsSuccesful;
 	Lint32 u32Accelmmss;
 	Luint32 u32PodSpeed;
