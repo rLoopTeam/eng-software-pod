@@ -294,5 +294,29 @@
 
 	} E_THROTTLE_STATES_T;
 
+ #ifdef WIN32
+	//////////////////////////////////////////////////////
+	//FCTL: ERROR INJECT
+	//////////////////////////////////////////////////////
+	typedef enum
+	{
+		INJECT_UNLIFTED = 0x00,
+
+		INJECT_LIFTED,
+
+		INJECT_STATIC_HOVERING,
+
+		INJECT_READY_FOR_PUSH,
+
+		INJECT_PUSHING,
+
+		INJECT_COASTING,
+
+		INJECT_BRAKING,
+
+		INJECT_CTL_EMERGENCY_BRAKING,
+
+	}E_FCU__ERROR_INJECT;
+ #endif // WIN32
 
 #endif /* RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__ENUMS_H_ */

@@ -186,6 +186,17 @@
 
 				}sOpStates;
 
+#ifdef WIN32
+			   struct
+			   {
+				   /** Error condition in MAIN_SM that we want to inject*/
+				   E_FCU__ERROR_INJECT eInjectCondition;
+
+				   /** Value of the error injected 1/0 */
+				   Luint8 u8ErrorInjectionValue;
+			   }sErrorInjection;
+#endif // WIN32
+
 			}sStateMachine;
 
 
@@ -1136,7 +1147,7 @@
 				//this is the callback function type
 				typedef void (__cdecl * pDEBUG_RECORD_Callback_FuncType)(const Luint8 u8Byte);
 				//these are the function definitions
-				DLL_DECLARATION void vDEBUG_RECORD_WIN32__Set_MissionPhaseCallback(pDEBUG_RECORD_Callback_FuncType pFunc);
+				extern "C" __declspec(dllexport) void __cdecls vDEBUG_RECORD_WIN32__Set_MissionPhaseCallback(pDEBUG_RECORD_Callback_FuncType pFunc);
 
 				void vDEBUG_RECORD_WIN32__MissionPhaseCallback(E_FCU__MISSION_PHASE_T eMissionPhase);
 
@@ -1567,7 +1578,9 @@
 		Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void);
 		void vFCU_FCTL_MAINSM__100MS_ISR(void);
 		void vFCU_FCTL_MAINSM__EnterPreRun_Phase();
-
+#ifdef WIN32
+		DLL_DECLARATION void vFCU_FCTL_MAINSM__InjectErrorCondition(Luint32 errorInjectionCondition, Luint8 errorInjectionValue);
+#endif // WIN32
 		//navigation
 		Luint32 u32FCU_FCTL_NAV__PodSpeed(void);
 		Luint8 u8FCU_FCTL_NAV__GetPodSpeedTooHigh(void);

@@ -483,6 +483,16 @@ void vFCU_FCTL_MAINSM__Process(void)
 		//vFCU_FCTL_MAINSM_AUTO__Process();
 
 		//Update operating states
+#ifdef WIN32
+		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_LIFTED)
+		{
+			   sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
+		}
+		else
+#endif // WIN32
+		{
+			   sFCU.sStateMachine.sOpStates.u8Lifted = u8FCU_FCTL_MAINSM__CheckIfLifted();
+		}
 
 		sFCU.sStateMachine.sOpStates.u8Unlifted = u8FCU_FCTL_MAINSM__CheckIfUnlifted();
 
@@ -728,6 +738,15 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void)
 	}
 	return u8Test;
 }
+
+ #ifdef WIN32
+void vFCU_FCTL_MAINSM__InjectErrorCondition(Luint32 errorInjectionCondition, Luint8 errorInjectionValue)
+{
+       sFCU.sStateMachine.sErrorInjection.eInjectCondition = (E_FCU__ERROR_INJECT) errorInjectionCondition;
+       sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue = errorInjectionValue;
+}
+ #endif // WIN32
+
 #endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 #ifndef C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 	#error
