@@ -510,33 +510,104 @@ void vFCU_FCTL_MAINSM__Process(void)
 		//vFCU_FCTL_MAINSM_AUTO__Process();
 
 		//Update operating states
+#if 0
+
+
 #ifdef WIN32
-		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_LIFTED)
+		// Error injection from python simulation
+		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_UNLIFTED)
 		{
-			   sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
+			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
 		}
 		else
 #endif // WIN32
 		{
-			   sFCU.sStateMachine.sOpStates.u8Lifted = u8FCU_FCTL_MAINSM__CheckIfLifted();
+			sFCU.sStateMachine.sOpStates.u8Unlifted = u8FCU_FCTL_MAINSM__CheckIfUnlifted();
 		}
-#if 0
 
-		sFCU.sStateMachine.sOpStates.u8Unlifted = u8FCU_FCTL_MAINSM__CheckIfUnlifted();
+#ifdef WIN32
+		// Error injection from python simulation
+		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_LIFTED)
+		{
+			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
+		}
+		else
+#endif // WIN32
+		{
+			sFCU.sStateMachine.sOpStates.u8Lifted = u8FCU_FCTL_MAINSM__CheckIfLifted();
+		}
 
-		sFCU.sStateMachine.sOpStates.u8Lifted = u8FCU_FCTL_MAINSM__CheckIfLifted();
+#ifdef WIN32
+		// Error injection from python simulation
+		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_STATIC_HOVERING)
+		{
+			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
+		}
+		else
+#endif // WIN32
+		{
+			sFCU.sStateMachine.sOpStates.u8StaticHovering = u8FCU_FCTL_MAINSM__CheckIfHoveringStatically();
+		}
 
-		sFCU.sStateMachine.sOpStates.u8StaticHovering = u8FCU_FCTL_MAINSM__CheckIfHoveringStatically();
+#ifdef WIN32
+		// Error injection from python simulation
+		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_READY_FOR_PUSH)
+		{
+			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
+		}
+		else
+#endif // WIN32
+		{
+			sFCU.sStateMachine.sOpStates.u8ReadyForPush = u8FCU_FCTL_MAINSM__CheckIfReadyForPush();
+		}
 
-		sFCU.sStateMachine.sOpStates.u8ReadyForPush = u8FCU_FCTL_MAINSM__CheckIfReadyForPush();
+#ifdef WIN32
+		// Error injection from python simulation
+		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_PUSHING)
+		{
+			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
+		}
+		else
+#endif // WIN32
+		{
+			sFCU.sStateMachine.sOpStates.u8Pushing = u8FCU_FCTL_MAINSM__CheckIfPushing();
+		}
 
-		sFCU.sStateMachine.sOpStates.u8Pushing = u8FCU_FCTL_MAINSM__CheckIfPushing();
+#ifdef WIN32
+		// Error injection from python simulation
+		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_COASTING)
+		{
+			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
+		}
+		else
+#endif // WIN32
+		{
+			sFCU.sStateMachine.sOpStates.u8Coasting = u8FCU_FCTL_MAINSM__CheckIfCoasting();
+		}
 
-		sFCU.sStateMachine.sOpStates.u8Coasting = u8FCU_FCTL_MAINSM__CheckIfCoasting();
+#ifdef WIN32
+		// Error injection from python simulation
+		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_BRAKING)
+		{
+			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
+		}
+		else
+#endif // WIN32
+		{
+			sFCU.sStateMachine.sOpStates.u8Braking = u8FCU_FCTL_MAINSM__CheckIfBraking();
+		}
 
-		sFCU.sStateMachine.sOpStates.u8Braking = u8FCU_FCTL_MAINSM__CheckIfBraking();
-
-		sFCU.sStateMachine.sOpStates.u8CtlEmergBraking = u8FCU_FCTL_MAINSM__CheckIfControlledBraking();
+#ifdef WIN32
+		// Error injection from python simulation
+		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_CTL_EMERGENCY_BRAKING)
+		{
+			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
+		}
+		else
+#endif // WIN32
+		{
+			sFCU.sStateMachine.sOpStates.u8CtlEmergBraking = u8FCU_FCTL_MAINSM__CheckIfControlledBraking();
+		}
 #endif
 	}
 	else
