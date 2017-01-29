@@ -81,7 +81,7 @@ void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 
 				//fault flags
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sFaultFlags.u32Flags[0]);
 				pu8Buffer += 4U;
 
 				//spare 0

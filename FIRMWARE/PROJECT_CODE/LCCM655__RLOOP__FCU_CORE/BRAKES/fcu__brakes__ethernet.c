@@ -224,7 +224,7 @@ void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Lint32 s32Position)
 		{
 
 			//make the last flag WELL known that we have modded something
-			vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 31U);
+			vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 30U);
 
 
 			switch(u32Index)
@@ -409,6 +409,7 @@ void vFCU_BRAKES_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
 		sFCU.sBrakesGlobal.sBrakesDev.u8DevMode = 1U;
 		sFCU.sBrakesGlobal.sBrakesDev.u32DevKey = u32Key1;
 		sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__IDLE;
+		sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__COMPLETE;
 	}
 	else
 	{

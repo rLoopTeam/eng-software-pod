@@ -599,6 +599,9 @@
 			struct
 			{
 
+				/** Individual laser fault flags */
+				FAULT_TREE__PUBLIC_T sFaultFlags;
+
 				/** main state machine */
 				E_FCU_LASERDIST__STATE_T eLaserState;
 
@@ -1158,6 +1161,9 @@
 			//main state machine
 			void vFCU_FCTL_MAINSM__Init(void);
 			void vFCU_FCTL_MAINSM__Process(void);
+			void vFCU_FCTL_MAINSM__10MS_ISR(void);
+			void vFCU_FCTL_MAINSM__100MS_ISR(void);
+			void vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR(void);
 
 			//drive pod
 			Luint32 u32FCU_NET_RX__GetGsCommTimer(void);

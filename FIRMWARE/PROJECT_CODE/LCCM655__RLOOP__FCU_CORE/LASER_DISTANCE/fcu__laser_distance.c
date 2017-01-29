@@ -130,6 +130,8 @@ void vFCU_LASERDIST__Init(void)
 	//setup the filtering
 	vFCU_LASERDIST_FILT__Init();
 
+	vFAULTTREE__Init(&sFCU.sLaserDist.sFaultFlags);
+
 }
 
 /***************************************************************************//**
@@ -177,6 +179,8 @@ void vFCU_LASERDIST__Process(void)
 
 			sFCU.sLaserDist.u32LaserPOR_Counter = 0U;
 
+			vFAULTTREE__Set_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
+
 			//setup the lasers
 			sFCU.sLaserDist.eLaserState = LASERDIST_STATE__WAIT_LASER_RESET;
 			break;
@@ -187,6 +191,8 @@ void vFCU_LASERDIST__Process(void)
 			//5 seconds onsite hack to wait for the laser up.
 			if(sFCU.sLaserDist.u32LaserPOR_Counter > 500U)
 			{
+				vFAULTTREE__Clear_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
+
 				//onsite hack
 				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__CHECK_NEW_DATA; //LASERDIST_STATE__INIT_LASER_TURNON;
 			}
@@ -325,6 +331,24 @@ Lint32 s32FCU_LASERDIST__Get_Distance_mm(void)
 //process the binary packet.
 void vFCU_LASERDIST__Process_Packet(void)
 {
+	Lfloat32 f32Delta;
+
+	//update
+	sFCU.sLaserDist.s32Distance_mm = (Lint32)sFCU.sLaserDist.sBinary.unRx.u32;
+
+	//compute veloc
+	f32Delta = (Lfloat32)sFCU.sLaserDist.s32PrevDistance_mm;
+	f32Delta -= sFCU.sLaserDist.s32Distance_mm;
+
+	//50hz
+	f32Delta *= 0.05;
+
+	//do it.
+	sFCU.sLaserDist.s32Velocity_mms = (Lint32)f32Delta;
+
+	//save prev
+	sFCU.sLaserDist.s32PrevDistance_mm = sFCU.sLaserDist.s32Distance_mm;
+	sFCU.sLaserDist.s32PrevVelocity_mms = sFCU.sLaserDist.s32Velocity_mms;
 
 
 }
