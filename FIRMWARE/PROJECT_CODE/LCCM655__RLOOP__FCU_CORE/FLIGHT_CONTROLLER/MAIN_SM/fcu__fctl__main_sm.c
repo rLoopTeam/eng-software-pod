@@ -416,6 +416,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 	//always process these items after we have been initted
 	if(sFCU.sStateMachine.eMissionPhase > MISSION_PHASE__RESET)
 	{
+		// FIRST THING, send Mission phase information to ground station proactively and periodically
+		// setting this, the vFCU_NET_TX__Process() will send it to ground station
+		sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_GEN__TX_MISSION_DATA;
+
 		#if C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH == 1U
 			vFCU_PODHEALTH__Process();
 		#endif
