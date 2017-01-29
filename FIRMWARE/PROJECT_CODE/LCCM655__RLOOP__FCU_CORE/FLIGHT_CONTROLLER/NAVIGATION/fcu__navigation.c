@@ -393,18 +393,20 @@ void vFCU_FCTL_NAV__10MS_ISR(void)
 
 Luint8 u8FCU_FCTL_NAV__GetPodSpeedTooHigh(void)
 {
-	Luint8 u8Test;
+	Luint8 u8Test = 0;
 	return u8Test;
 }
 
 Luint32 u32FCU_FCTL_NAV__PodSpeed(void)
 {
-	return round(sFCU.sNavigation.f32LongitudinalSpeed);
+	return 0;
+	//return round(sFCU.sNavigation.f32LongitudinalSpeed);
 }
 
 Luint32 u32FCU_FCTL_NAV__GetFrontPos(void)
 {
-	return round(sFCU.sNavigation.f32LongitudinalPosition);
+	return 0;
+	//return round(sFCU.sNavigation.f32LongitudinalPosition);
 }
 
 Luint32 u32FCU_FCTL_NAV__GetRearPos(void)
@@ -414,7 +416,8 @@ Luint32 u32FCU_FCTL_NAV__GetRearPos(void)
 
 Luint32 u32FCU_FCTL_NAV__Get_Accel_mmss(void)
 {
-	return round(sFCU.sNavigation.f32LongitudinalAcceleration);
+	return 0;
+	//return round(sFCU.sNavigation.f32LongitudinalAcceleration);
 }
 
 Luint32 u32FCU_FCTL_LASERORIENT__Get_Z_Pos()

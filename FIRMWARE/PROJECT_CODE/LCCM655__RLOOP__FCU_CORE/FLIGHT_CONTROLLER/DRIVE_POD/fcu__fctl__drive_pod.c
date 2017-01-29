@@ -139,7 +139,7 @@ void vFCU_FCTL_DRIVEPOD__Process(void)
 						{
 							//TODO: DEFINE ENUM FOR THE LIFTMECH
 							vFCU_FCTL_LIFTMECH__SetDirAll(0); //SET DIRECTION UP
-							vFCU_FCTL_LIFTMECH__SetSpeedAll(C_FCU__LIFTMECH_ACTUATOR_NOM_UNLIFT_SPEED);
+							vFCU_FCTL_LIFTMECH__SetSpeedAll(C_FCU__LIFTMECH_ACTUATOR_NOM_UNLIFT_SPEED); //TODO: CHANGE TO ON OFF
 						}
 						if (eFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED)
 						{
@@ -196,23 +196,23 @@ void vFCU_FCTL_DRIVEPOD__Process(void)
 			u8PodSpeedTooHigh = u8FCU_FCTL_NAV__GetPodSpeedTooHigh();
 
 			//TODO: Check if the watchdog failure should be in
-			if ((sFCU.sDrivePod.eGSCommand == DRIVEPOD_GS_POD_STOP) || (u32PodSpeed > u8PodSpeedTooHigh) || ((u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp(EDDYBRAKES_Left) > C_FCU__EDDYBRAKES_STEPPER_MOTOR_MAX_TEMP)) || ((u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp(EDDYBRAKES_Right) > C_FCU__EDDYBRAKES_STEPPER_MOTOR_MAX_TEMP)))
+			if ((sFCU.sDrivePod.eGSCommand == DRIVEPOD_GS_POD_STOP) || (u32PodSpeed > u8PodSpeedTooHigh) || ((u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp(EDDY_BRAKES_Left) > C_FCU__EDDY_BRAKES_STEPPER_MOTOR_MAX_TEMP)) || ((u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp(EDDY_BRAKES_Right) > C_FCU__EDDY_BRAKES_STEPPER_MOTOR_MAX_TEMP)))
 			{
 				// controlled emergency breaking
 				vFCU_FCTL_EDDY_BRAKES__ControlledEmergencyBrake();  // add full eddy brakes until speed < C_FCU__NAV_PODSPEED_STANDBY
 			}
 			else
 			{
-				vFCU_FCTL_EDDY_BRAKES__GainScheduleController(u32PodSpeed);	// pid controller for brakes until position < C_FCU__POD_STOP_X_POS
-
-//				if (u32PodSpeed >= C_FCU__NAV_PODSPEED_MAX_SPEED_TO_STABILIZE)
-//				{
-//					vFCU_FCTL_GIMBAL__SetLevel(GIMBAL_NEUTRAL_LEVEL);
-//				}
-//				else
-//				{
-//					vFCU_FCTL_EDDY_BRAKES__GimbalSpeedController();	// pid controller for gimbals when speed < C_FCU__PODSPEED_MAX_SPEED_TO_STABILIZE
-//				}
+//				vFCU_FCTL_EDDY_BRAKES__GainScheduleController(u32PodSpeed);	// pid controller for brakes until position < C_FCU__POD_STOP_X_POS
+//
+////				if (u32PodSpeed >= C_FCU__NAV_PODSPEED_MAX_SPEED_TO_STABILIZE)
+////				{
+////					vFCU_FCTL_GIMBAL__SetLevel(GIMBAL_NEUTRAL_LEVEL);
+////				}
+////				else
+////				{
+////					vFCU_FCTL_EDDY_BRAKES__GimbalSpeedController();	// pid controller for gimbals when speed < C_FCU__PODSPEED_MAX_SPEED_TO_STABILIZE
+////				}
 			}
 			break;
 
@@ -241,19 +241,6 @@ void vFCU_FCTL_DRIVEPOD__Process(void)
 //				}
 			}
 			break;
-	}
-}
-
-Luint8 u8FCU_FCTL_DRIVEPOD__LossOfComm(void)
-{
-	Luint8 u8LossOfComm;
-	if (sFCU.sUDPDiag.u32_10MS_GS_COMM_Timer > 200U)
-	{
-		u8LossOfComm = 1U;
-	}
-	else
-	{
-		u8LossOfComm = 0U;
 	}
 }
 

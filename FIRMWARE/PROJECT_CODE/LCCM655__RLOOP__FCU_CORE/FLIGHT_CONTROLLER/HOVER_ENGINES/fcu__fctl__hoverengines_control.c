@@ -5,21 +5,12 @@
 * @copyright  rLoop Inc.
 */
 
-
-
  //Hoverengines handle
  //   void    vFCU_FCTL_HOVERENGINES__Init(void);
  //   void    vFCU_FCTL_HOVERENGINES__Process(void);
  //   void    vFCU_FCTL_HOVERENGINES__Start(void);
  //   void    vFCU_FCTL_HOVERENGINES__Stop(void);
  //   Luint16 u16FCU_FCTL_HOVERENGINES__Get_State(void)
-
-
-
-
-// TO DO:
-// - Verification
-
 
 #include "../../fcu_core.h"
 
@@ -56,6 +47,7 @@ void vFCU_FCTL_HOVERENGINES__Process(void)
 	Luint8 u8Status;
 	Luint8 u8Counter;
 	Luint16 u16Rpm;
+	Luint8 u8SymmetricalIndex;
 
 
 	//vFCU_FCTL_HOVERENGINES__ManualCommandsHandle(); // Call the function with manual commands handling
@@ -96,6 +88,10 @@ void vFCU_FCTL_HOVERENGINES__Process(void)
 						// linearly set the 1st group of Hover Engine RPM from 0 to hover engine nominal RPM
 						vFCU_THROTTLE__Set_Throttle(u8Counter-1U, C_FCU__HE_STATIC_HOVER_RPM, THROTTLE_TYPE__STEP);
 						//sFCU.sHoverEngines.sIntParams.u16CurrentRPMValue[u8Counter-1U] = C_FCU__HE_STATIC_HOVER_RPM;
+					}
+					else
+					{
+						//do nothing
 					}
 				}
 				//Set a flag indicating we just commanded a start up of the first group of the engines, so that we do not repeat it in the next cycle
@@ -179,11 +175,13 @@ void vFCU_FCTL_HOVERENGINES__Process(void)
 			}
 
 
-			// If all the four THROTTLEs reached the C_FCU__HE_STATIC_HOVER_RPM
+			//If all the four THROTTLEs reached the C_FCU__HE_STATIC_HOVER_RPM
 			if(u8Status > 0U)
 			{
-				// go to state HOVERENGINES_STATE__HOVERING
+				//go to state HOVERENGINES_STATE__HOVERING
 				sFCU.sHoverEngines.eState = HOVERENGINES_STATE__HOVERING;
+				sFCU.sHoverEngines.sIntParams.u8TempVar = 0U;
+				//Set the flag indicating the the hover Engines are
 				sFCU.sHoverEngines.sIntParams.u8Enable = 1U;
 			}
 			break;
@@ -191,131 +189,86 @@ void vFCU_FCTL_HOVERENGINES__Process(void)
 		// State HOVERENGINES_STATE__HOVERING: In this state all Hover Engines are running at the STATIC_HOVER_RPM.
 		case HOVERENGINES_STATE__HOVERING:
 
-			// If running in Autonomous behavior mode during flight
-			if(sFCU.sHoverEngines.sIntParams.u8RunAuto == 1U) //Manage HE RPM during flight
+			//Set up for loop to cycle through all 8 of the Hover Engines
+			for(u8Counter = 1U; u8Counter <= 8U; u8Counter++)
 			{
-				for(u8Counter = 1U; u8Counter <= 8U; u8Counter++) // VERIFY PARAMETERS
+				// RPM, Temperature and Current are monitored,
+				// a fault is reported if those values goes out of the safety range.
+				Luint16 u16Rpm = 0U;
+				Lfloat32 f32Current = 0U;
+				Lfloat32 f32Temp = 0U;
+
+				//read hover engine RPM
+				u16Rpm = u16FCU_ASI__ReadMotorRpm(u8Counter-1U);
+
+				//read hover engine Current
+				f32Current = f32FCU_ASI__ReadMotorCurrent(u8Counter-1U);
+
+				//read hover engine Temperature
+				f32Temp = f32FCU_ASI__ReadControllerTemperature(u8Counter-1U);
+
+				// Check whether Current, Temperature are within range
+				if ((f32Current > C_FCU__HE_MAX_CURRENT) || (f32Current < C_FCU__HE_MIN_CURRENT) || (f32Temp > C_FCU__HE_MAX_TEMPERATURE) || (u16Rpm > C_FCU__HE_STATIC_HOVER_RPM + C_FCU__HE_RPM_TOLERANCE) || (u16Rpm < C_FCU__HE_STATIC_HOVER_RPM - C_FCU__HE_RPM_TOLERANCE))
 				{
-					// RPM, Temperature and Current are monitored,
-					// a fault is reported if those values goes out of the safety range.
-					Luint16 u16Rpm = 0U;
-					Lfloat32  f32Current = 0U;
-					//Luint16 u16Voltage = 0;
-					Lfloat32 f32Temp = 0U;
-					Luint8  u8ErrorFlag = 0U;
+					// set hover engine X RPM command and hover engine Y RPM command to 0,
+					// where HEY is the hover engine symmetrically opposite to HEX with respect to pod center
 
-					//read hover engine RPM
-					//u16Rpm = u16FCU_ASI__ReadMotorRpm(u8Counter-1U);
-					//TODO: CHECK s16FCU_ASI_CTRL__ReadMotorRpm(u8Counter, &u16Rpm);
-
-					//read hover engine Current
-					f32Current = f32FCU_ASI__ReadMotorCurrent(u8Counter-1U);
-					//s16FCU_ASI_CTRL__ReadMotorCurrent(u8Counter-1, &f32Current);
-
-					//read hover engine Voltage
-					//s16FCU_ASI_CTRL__ReadMotorVoltage(u8Counter-1, &u16Voltage);
-
-					//read hover engine Temperature
-					f32Temp = f32FCU_ASI__ReadControllerTemperature(u8Counter-1U);
-					//s16FCU_ASI_CTRL__ReadControllerTemperature(u8Counter-1, &f32Temp);
-
-					// verify Current range
-					u8ErrorFlag = (f32Current > C_FCU__HE_MAX_CURRENT) ? 1U : 0U;
-					u8ErrorFlag = (f32Current < C_FCU__HE_MIN_CURRENT) ? 1U : u8ErrorFlag;
-					// verify voltage range
-					//u8ErrorFlag = (u16Voltage > C_FCU__HE_MAX_VOLTAGE) ? 1U : u8ErrorFlag;
-					//u8ErrorFlag = (u16Voltage < C_FCU__HE_MIN_VOLTAGE) ? 1U : u8ErrorFlag;
-					// verify max temperature
-					u8ErrorFlag = (f32Temp > C_FCU__HE_MAX_TEMPERATURE) ? 1U : u8ErrorFlag;
-					// verify RPM value
-
-					//Checking if the Current RPM is higher than the Static Hover RPM + the Tolerance
-					if (sFCU.sASI.sHolding[u8Counter - 1U].u16RPM > C_FCU__HE_STATIC_HOVER_RPM + C_FCU__HE_RPM_TOLERANCE)
+					if (u8Counter < 5U)
 					{
-						//Set the error flag to 1 if true
-						u8ErrorFlag = 1U;
+						u8SymmetricalIndex = (u8Counter + 4U);
 					}
 					else
 					{
-						//Current Rpm below the max allowable RPM
-						u8ErrorFlag = 0U;
+						u8SymmetricalIndex = (u8Counter - 4U);
 					}
+					//Turn off the correct HE
+					vFCU_THROTTLE__Set_Throttle(u8Counter-1, 0U, THROTTLE_TYPE__STEP);
+					//Turn off the correct HE on the opposite side of the pod
+					vFCU_THROTTLE__Set_Throttle(u8SymmetricalIndex-1U, 0U, THROTTLE_TYPE__STEP);
 
-					if (sFCU.sASI.sHolding[u8Counter - 1U].u16RPM < C_FCU__HE_STATIC_HOVER_RPM + C_FCU__HE_RPM_TOLERANCE)
-										{
-					 = (sFCU.sASI.sHolding[u8Counter - 1U].u16RPM < (sFCU.sHoverEngines.sIntParams.u16CurrentRPMValue - C_FCU__HE_RPM_TOLERANCE)) ? 1U : u8ErrorFlag;
-
-					 u8ErrorFlag
-
-					if(u8ErrorFlag == 1U)
-					{
-						// set hover engine X RPM command and hover engine Y RPM command to 0,
-						// where HEY is the hover engine symmetrically opposite to HEX with respect to pod center
-						Luint8 u8SimmetricalIndex;
-						u8SimmetricalIndex = (u8Counter < 5U) ?  (u8Counter + 4U) :  (u8Counter - 4U);
-						vFCU_THROTTLE__Set_Throttle(u8Counter-1, 0U, THROTTLE_TYPE__STEP);
-						vFCU_THROTTLE__Set_Throttle(u8SimmetricalIndex-1U, 0U, THROTTLE_TYPE__STEP);
-						sFCU.sHoverEngines.sIntParams.u16CurrentRPMValue[u8Counter-1U] = 0U;
-						sFCU.sHoverEngines.sIntParams.u16CurrentRPMValue[u8SimmetricalIndex-1U] = 0U;
-					}
 				}
-				// get pod speed
-				u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
-				// If the pod speed goes higher than the max speed to stabilize pod
-				if((u32PodSpeed > C_FCU__NAV_PODSPEED_MAX_SPEED_TO_STABILIZE) && (sFCU.sHoverEngines.sIntParams.u8SpeedState == 0U))
-				{
-					// avoid continusly send the command
-					if(sFCU.sHoverEngines.sIntParams.u8SpeedState == 0U)
-					{
-						for(u8Counter = 1U; u8Counter <= 8U; u8Counter++)
-						{
-							//the HE RPM is reduced to hover engine cruise RPM
-							sFCU.sHoverEngines.sIntParams.u16CurrentRPMValue[u8Counter-1U] = C_FCU__HE_CRUISE_RPM;
-							vFCU_THROTTLE__Set_Throttle(u8Counter-1U, C_FCU__HE_CRUISE_RPM, THROTTLE_TYPE__STEP);
-						}
-						sFCU.sHoverEngines.sIntParams.u8SpeedState = 1U;
-					}
-				}
-				// If the pod speed goes lower than the max speed to stabilize pod
 				else
 				{
-					// avoid continusly send the command
-					if(sFCU.sHoverEngines.sIntParams.u8SpeedState == 1U)
-					{
-						for(u8Counter = 1U; u8Counter <= 8U; u8Counter++)
-						{
-							sFCU.sHoverEngines.sIntParams.u16CurrentRPMValue[u8Counter-1U] = C_FCU__HE_STATIC_HOVER_RPM;
-							vFCU_THROTTLE__Set_Throttle(u8Counter-1, C_FCU__HE_STATIC_HOVER_RPM, THROTTLE_TYPE__STEP);
-						}
-						sFCU.sHoverEngines.sIntParams.u8SpeedState = 0U;
-					}
+					//do nothing
 				}
-			} // end of if(sFCU.sHoverEngines.sIntParams.u8RunAuto == 1U) //Manage HE RPM during flight
+			}//finish looking for values out of range
+
+			//CHECK IF THE ENGINES SHOULD SWITCH OFF
 
 			// If is received the command to release the static hovering
 			// or if the POD_DRIVE FSM disable the HE,
-			if((sFCU.sHoverEngines.eGSCommands == NET_PKT__FCU_HOVERENGINES_CONTROL__RELEASE_STATIC_HOVERING) || (sFCU.sHoverEngines.sIntParams.u8Enable == 0U))
+			// Check whether we have not commanded already the hover engines to Stop
+			if (sFCU.sHoverEngines.sIntParams.u8TempVar < 1U)
 			{
-				// get pod speed
-				u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
-				if((sFCU.sStateMachine.sOpStates.u8StaticHovering != 0U) && (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY))
+				if((sFCU.sHoverEngines.eGSCommands == STOP_STATIC_HOVERING) || (sFCU.sHoverEngines.sIntParams.u8Enable == 0U))
 				{
-					for(u8Counter = 1U; u8Counter <= 8U; u8Counter++)
+					//get pod speed
+					u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
+					//Check if we are Hovering and if we are stationary
+					if((sFCU.sStateMachine.sOpStates.u8StaticHovering == 1U ) && (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY))
 					{
-						sFCU.sHoverEngines.sIntParams.u16CurrentRPMValue[u8Counter-1U] = 0U;
-						vFCU_THROTTLE__Set_Throttle(u8Counter-1U, 0U, THROTTLE_TYPE__STEP);
-//						vFCU_COOLING__Set_Valve(u8Counter-1U, 0.0, 2.0);
+						//cycle through all eight of the hover engines
+						for(u8Counter = 1U; u8Counter <= 8U; u8Counter++)
+						{
+							//Command the Hover Engines to Throttle down
+							vFCU_THROTTLE__Set_Throttle(u8Counter-1U, 0U, THROTTLE_TYPE__STEP);
+						}
 					}
+
 				}
-			}
 			// switch to the idle state only when the HE RPM goes to 0 with a certain tolerance
+			}//finish the guard of the repeated command
+
+			//Check whether the Hover Engines RPMs are zero
+			//Set up a guard flag to 1 which will be set to 0 if any of the engines is not within the range
 			u8Status = 1U;
+			//cycle through all 8 of the hover engines
 			for(u8Counter = 1U; u8Counter <= 8U; u8Counter++)
 			{
-					//Luint16 u16Rpm = 0U;
-					//s16FCU_ASI__ReadMotorRpm(u8Counter, &u16Rpm);
+					//Read the HEs RPMs
 					Luint16 u16Rpm = u16FCU_ASI__ReadMotorRpm(u8Counter-1);
-					if(u16Rpm < (C_FCU__HE_CRUISE_RPM - C_FCU__HE_RPM_TOLERANCE))
+					//Check whether the HE RPM is close to zero
+					if(u16Rpm < 10)
 						u8Status = 0U;
 			}
 
@@ -340,34 +293,30 @@ Luint16 u16FCU_FCTL_HOVERENGINES__Get_FaultFlag(void){
 	return 0U;
 }
 
-void vFCU_FCTL_HOVERENGINES__Enable(void)
-{
-	sFCU.sHoverEngines.sIntParams.u8Enable = 1U;
-}
-
-void vFCU_FCTL_HOVERENGINES__Disable(void)
-{
-	sFCU.sHoverEngines.sIntParams.u8RunAuto = 0U;
-	sFCU.sHoverEngines.sIntParams.u8Enable  = 0U;
-}
-
 void vFCU_FCTL_HOVERENGINES__Start(void)
 {
-	if(sFCU.sHoverEngines.sIntParams.u8Enable != 0U)
-		sFCU.sHoverEngines.sIntParams.u8RunAuto = 1U;
+	sFCU.sHoverEngines.sIntParams.u8Enable = 1U;
+	sFCU.sHoverEngines.sIntParams.u8RunAuto = 1U;
 }
 
 void vFCU_FCTL_HOVERENGINES__Stop(void)
 {
 	sFCU.sHoverEngines.sIntParams.u8RunAuto  = 0U;
+	sFCU.sHoverEngines.sIntParams.u8Enable  = 0U;
 }
 
 /** Handle commands from the Ground Station */
- void vFCU_FCTL_HOVERENGINES_GS_START_COMMAND()
+
+//Execute GS Start command
+void vFCU_FCTL_HOVERENGINES_GS_START_COMMAND(void)
  {
 	 sFCU.sHoverEngines.eGSCommands = START_STATIC_HOVERING;
  }
-
+//Execute GS Stop Command
+void vFCU_FCTL_HOVERENGINES_GS_STOP_COMMAND(void)
+ {
+	 sFCU.sHoverEngines.eGSCommands = STOP_STATIC_HOVERING;
+ }
 
 //void vFCU_FCTL_HOVERENGINES__ManualCommandsHandle(void)
 //{

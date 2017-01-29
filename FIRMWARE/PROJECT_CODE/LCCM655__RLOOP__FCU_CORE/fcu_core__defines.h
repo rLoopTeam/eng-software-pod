@@ -80,6 +80,7 @@
 	/** State Machine constants */
 	#define C_FCU__MAINSM_PUSHER_RELEASE_DELAY				(10U) 	//define exact value
 	#define C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY			(20U)
+	#define C_FCU__MAINSM_MAX_PUSHER_INTERLOCK_PHASE_DURATION	(100U)
 
 	/** GS Communication constants */
 	#define C_FCU__GS_COMM_LOSS_DELAY						(200U)
@@ -107,11 +108,11 @@
 	#define C_FCU__HE_MAX_TEMPERATURE                        (95U)   //critical hover engine temperature
 
 	/**Eddy Brakes Parameters */
-	#define C_FCU__EDDYBRAKES_STEPPER_MOTOR_MAX_TEMP			(90U)	//define exact value
-	#define C_FCU__EDDYBRAKES_NOM_APPL_SPEED					(1U)		//define exact value
-	#define C_FCU__EDDYBRAKES_APPL_MLP_DISTANCE				(1U)		//define exact value
-	#define C_FCU__EDDYBRAKES_NOM_RELEASE_SPEED				(1U)		//define exact value
-	#define C_FCU__EDDYBRAKES_RELEASE_MLP_DISTANCE			(1U)		//define exact value
+	#define C_FCU__EDDY_BRAKES_STEPPER_MOTOR_MAX_TEMP			(90U)	//define exact value
+	#define C_FCU__EDDY_BRAKES_NOM_APPL_SPEED				(1U)		//define exact value
+	#define C_FCU__EDDY_BRAKES_APPL_MLP_DISTANCE				(1U)		//define exact value
+	#define C_FCU__EDDY_BRAKES_NOM_RELEASE_SPEED				(1U)		//define exact value
+	#define C_FCU__EDDY_BRAKES_RELEASE_MLP_DISTANCE			(1U)		//define exact value
 
 	/** NAV function constants */
 	#define C_FCU__NAV_POD_MIN_X_POS							(500U)	//define exact value

@@ -138,6 +138,12 @@
 				/** Enable Counter counting time elapsed from the disconnection from the pusher **/
 				Luint8 EnablePusherCounter;
 
+				/** Counter to measure time in the Pusher Interlock Mission Phase */
+				Luint32 PusherPhaseCounter;
+
+				/** Enable the Pusher Interlock Mission Phase Counter */
+				Luint8 EnablePusherPhaseCounter;
+
 				/**Counter to count the time the pod experiences acceleration higher than value speccd in the db */
 				Luint32 AccelCounter;
 
@@ -224,9 +230,9 @@
 				struct
 				{
 
-					E_FCU__FCTL_EDDYBRAKES_DIRECTION eEddyBrakesDir;
+					E_FCU__FCTL_EDDY_BRAKES_DIRECTION eEddyBrakesDir;
 
-					E_FCU__FCTL_EDDYBRAKES_ACTUATOR	eEddyBrakesAct;
+					E_FCU__FCTL_EDDY_BRAKES_ACTUATOR	eEddyBrakesAct;
 				}sEddyBrakes;
 			}sFctl;
 
@@ -487,8 +493,6 @@
 
 				/** Interlock switch status */
 				E_FCU_PUSHPIN_STATE_T ePusher_Status;
-
-
 
 				/** Timer of 10ms ticks used for switch state timing */
 				Luint32 u32SwtichTimer;
@@ -1539,6 +1543,8 @@
 		void vFCU_FCTL_HOVERENGINES__Start(void);
 		void vFCU_FCTL_HOVERENGINES__Stop(void);
 		void vFCU_FCTL_HOVERENGINES__SetCommand(Luint32 u32Command, Luint32 u32Value);
+		void vFCU_FCTL_HOVERENGINES_GS_START_COMMAND(void);
+		void vFCU_FCTL_HOVERENGINES_GS_STOP_COMMAND(void);
 
 		//ASI
 		Luint16 u16FCU_ASI__ReadMotorRpm(Luint8 u8EngineIndex);
@@ -1571,14 +1577,16 @@
 		void vFCU_FCTL_LIFTMECH__Speed(E_FCU__LIFTMECH_ACTUATOR actuator, Luint32 u32speed);
 
 		//brakes
-		void vFCU_FCTL_EDDY_BRAKES__Speed(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator, Luint32 u32speed);
+		void vFCU_FCTL_EDDY_BRAKES__Speed(E_FCU__FCTL_EDDY_BRAKES_ACTUATOR actuator, Luint32 u32speed);
 		void vFCU_FCTL_EDDY_BRAKES__SetSpeedAll(Luint32 u32speed);
-		void vFCU_FCTL_EDDY_BRAKES__SetDirAll(E_FCU__FCTL_EDDYBRAKES_DIRECTION dir);
+		void vFCU_FCTL_EDDY_BRAKES__SetDirAll(E_FCU__FCTL_EDDY_BRAKES_DIRECTION dir);
 		void vFCU_FCTL_EDDY_BRAKES__ControlledEmergencyBrake();
 		void vFCU_FCTL_EDDY_BRAKES__ApplyFullBrakes(void);
 		void vFCU_FCTL_EDDY_BRAKES__Release(void);
 		void vFCU_FCTL_EDDY_BRAKES__GainScheduleController(Luint32 u32speed);
 		void vFCU_FCTL_EDDY_BRAKES__GimbalSpeedController(void);
+		E_FCU__FCTL_EDDY_BRAKES_STATE eFCU_FCTL_EDDY_BRAKES__Get_State(void);
+		Luint32 u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp();
 
 		//main state machine
 		Luint8 u8FCU_FCTL_MAINSM__CheckIfUnlifted(void);
@@ -1591,6 +1599,9 @@
 		Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void);
 		void vFCU_FCTL_MAINSM__100MS_ISR(void);
 		void vFCU_FCTL_MAINSM__EnterPreRun_Phase();
+		void vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR(void);
+		void vFCU_FCTL_MAINSM__PUSHER_PHASE_COUNTER_100MS_ISR(void);
+		void vFCU_FCTL_MAINSM__10MS_ISR(void);
 
 		//navigation
 		Luint32 u32FCU_FCTL_NAV__PodSpeed(void);
@@ -1598,6 +1609,7 @@
 		Luint32 u32FCU_FCTL_NAV__GetFrontPos(void);
 		Luint32 u32FCU_FCTL_NAV__GetRearPos(void);
 		Luint32 u32FCU_FCTL_NAV__Get_Accel_mmss(void);
+		Luint8 u8FCU_FCTL_NAV__IsInFailure(void);
 
 		// Laser Orientation
 		Luint32 u32FCU_FCTL_LASERORIENT__Get_Z_Pos();

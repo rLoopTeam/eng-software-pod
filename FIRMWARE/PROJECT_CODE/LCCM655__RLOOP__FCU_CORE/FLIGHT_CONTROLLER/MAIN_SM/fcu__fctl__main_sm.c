@@ -75,6 +75,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			#if C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH == 1U
 				vFCU_PODHEALTH__Init();
 			#endif
+
 			//init the auto sequence
 			vFCU_MAINSM_AUTO__Init();
 
@@ -183,7 +184,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			//Get Pod Speed
 			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 
-			if ((u8TestsSuccesful == 1U || sFCU.sStateMachine.eGSCommands == MAINSM_GS_ENTER_PRE_RUN_PHASE) && sFCU.sStateMachine.sOpStates.u8Lifted && (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY))
+			if ((u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && (sFCU.sStateMachine.eGSCommands == MAINSM_GS_ENTER_PRE_RUN_PHASE))
 			{
 
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PRE_RUN;
@@ -239,7 +240,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		case MISSION_PHASE__PUSHER_INTERLOCK:
 
 			//transition to FLIGHT mode if the pod has reached the min_x_pos AND 1 second elapsed from the disconnection from the pusher
-
+			sFCU.sStateMachine.PusherPhaseCounter = 0U;
 			ePusherState = eFCU_PUSHER__Get_PusherState();
 			u32PodRearPos = u32FCU_FCTL_NAV__GetRearPos();
 
@@ -267,7 +268,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				sFCU.sStateMachine.EnableMiserableStopCounter == 0U;
 			}
 
-			if(((u32PodRearPos > C_FCU__NAV_POD_MIN_X_POS) || u8FCU_FCTL_NAV__IsInFailure() == 1U) && (sFCU.sStateMachine.PusherCounter >= C_FCU__MAINSM_PUSHER_RELEASE_DELAY))
+			if((((u32PodRearPos > C_FCU__NAV_POD_MIN_X_POS) || u8FCU_FCTL_NAV__IsInFailure() == 1U) && (sFCU.sStateMachine.PusherCounter >= C_FCU__MAINSM_PUSHER_RELEASE_DELAY)) || sFCU.sStateMachine.PusherPhaseCounter >= C_FCU__MAINSM_MAX_PUSHER_INTERLOCK_PHASE_DURATION)
 			{
 				//Switch to Mission Phase Flight
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__FLIGHT;
@@ -276,7 +277,8 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 			else
 			{
-				if (sFCU.sStateMachine.MiserableStopCounter > C_FCU__NAV_MISERABLE_STOP_CONFIRM_DELAY)
+				//Both Timers need to elapse in order to transition to POST RUN PHASE
+				if ((sFCU.sStateMachine.MiserableStopCounter > C_FCU__NAV_MISERABLE_STOP_CONFIRM_DELAY) && (sFCU.sStateMachine.PusherPhaseCounter > C_FCU__MAINSM_MAX_PUSHER_INTERLOCK_PHASE_DURATION))
 				{
 					//Switch to Mission Phase Flight
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__POST_RUN;
@@ -484,6 +486,12 @@ void vFCU_FCTL_MAINSM__100MS_ISR(void)
    }
 }
 
+void vFCU_FCTL_MAINSM__PUSHER_PHASE_COUNTER_100MS_ISR(void)
+	{
+		sFCU.sStateMachine.PusherPhaseCounter++;
+	}
+
+
 void vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR(void)
 {
 	//Enable/Disable Counter
@@ -598,7 +606,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfReadyForPush(void)
 	Luint8 u8PusherSwitch2 = u8FCU_PUSHER__Get_Switch(1);
 
 	//Check if we are connected to the pusher, speed is below standby, the height makes sense to be pushed + each of our landing gear units is retracted
-	if((u32PodZPos > C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT) &&  (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && (u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U) && (vFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED))
+	if((u32PodZPos > C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT) &&  (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && (u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U) && (eFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED))
 	{
 		u8Test = 1U;
 	}
@@ -641,7 +649,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfCoasting(void)
 	//Get Pod Speed
 	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 	//
-	if(u32PodSpeed && (u8PusherSwitch1 == 0U) && (u8PusherSwitch2 == 0U) && (vFCU_FCTL_EDDY_BRAKES__Get_State() == EDDYBRAKES_STATE__RETRACTED))
+	if(u32PodSpeed && (u8PusherSwitch1 == 0U) && (u8PusherSwitch2 == 0U) && (eFCU_FCTL_EDDY_BRAKES__Get_State() == EDDY_BRAKES_STATE__RETRACTED))
 	{
 		u8Test = 1U;
 	}
@@ -655,7 +663,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfCoasting(void)
 Luint8 u8FCU_FCTL_MAINSM__CheckIfBraking(void)
 {
 	Luint8 u8Test;
-	if(vFCU_FCTL_EDDY_BRAKES__Get_State() == EDDYBRAKES_STATE__BRAKING)
+	if(eFCU_FCTL_EDDY_BRAKES__Get_State() == EDDY_BRAKES_STATE__BRAKING)
 	{
 		u8Test = 1U;
 	}
@@ -669,7 +677,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfBraking(void)
 Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void)
 {
 	Luint8 u8Test;
-	if(eFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__CONTROLLED_BRAKING)
+	if(eFCU_FCTL_EDDY_BRAKES__Get_State() == EDDY_BRAKES_STATE__CONTROLLED_BRAKING)
 	{
 		u8Test = 1U;
 	}
@@ -679,6 +687,21 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void)
 	}
 	return u8Test;
 }
+
+Luint8 u8FCU_FCTL_MAINSM__LossOfComm(void)
+{
+	Luint8 u8LossOfComm;
+	if (sFCU.sUDPDiag.u32_10MS_GS_COMM_Timer > 200U)
+	{
+		u8LossOfComm = 1U;
+	}
+	else
+	{
+		u8LossOfComm = 0U;
+	}
+	return u8LossOfComm;
+}
+
 #endif //C_LOCALDEF__LCCM655__ENABLE_MAINSM
 #ifndef C_LOCALDEF__LCCM655__ENABLE_MAINSM
 	#error

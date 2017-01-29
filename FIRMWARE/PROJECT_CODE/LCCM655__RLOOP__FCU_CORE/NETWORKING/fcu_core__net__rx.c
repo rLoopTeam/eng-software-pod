@@ -110,10 +110,17 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 			#endif
 			break;
 
-			case NET_PKT__FCU_HOVERENGINES_CONTROL__STATIC_HOVERING:
+			case NET_PKT__FCU_HOVERENGINES_CONTROL__START_STATIC_HOVERING:
 				// Start Hover Engines from the Ground Station
 				#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
 				vFCU_FCTL_HOVERENGINES_GS_START_COMMAND();
+				#endif
+				break;
+
+			case NET_PKT__FCU_HOVERENGINES_CONTROL__STOP_STATIC_HOVERING:
+				//Stop the Hover Engines from the Ground Station
+				#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
+				vFCU_FCTL_HOVERENGINES_GS_STOP_COMMAND();
 				#endif
 				break;
 
