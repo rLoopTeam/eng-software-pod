@@ -85,6 +85,8 @@
 						Luint32 u32XPosUncert;
 						Luint32 u32Score;
 						Luint8 u8Valid;
+						Luint8 u8FirstRisingFlag;
+						Luint32 u32NoseToSensorDist;
 					}sCS[C_FCU__NAV_NUM_CONTRAST_SENSORS];
 
 					struct
@@ -221,20 +223,29 @@
 				E_FCU__DRIVEPOD_GS_COMM eGSCommand;
 
 				Luint8 u8100MS_Timer;
+				Luint8 u8startedPreRunAction;
+				Luint8 u8startedPostRunAction;
+				Luint8 u8IsBrakesInhibitedInPreRunPhase;
+				Luint8 u8IsBrakesInhibitedInPusherInterlockPhase;
 
 			}sDrivePod;
 			#endif
 
+			/** Lift Mech structure */
+			#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
 			struct
 			{
-				struct
-				{
+				Luint32 u8100MS_Timer;
+			}sLiftMech;
+			#endif
 
-					E_FCU__FCTL_EDDY_BRAKES_DIRECTION eEddyBrakesDir;
-
-					E_FCU__FCTL_EDDY_BRAKES_ACTUATOR	eEddyBrakesAct;
-				}sEddyBrakes;
-			}sFctl;
+			/** Eddy Brakes structure */
+			#if C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES == 1U
+			struct
+			{
+				E_FCU__FCTL_EDDY_BRAKES_STATE eEddyBrakesState;
+			}sEddyBrakes;
+			#endif
 
 
 

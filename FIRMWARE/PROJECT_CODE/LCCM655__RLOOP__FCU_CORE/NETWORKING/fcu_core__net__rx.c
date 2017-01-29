@@ -106,7 +106,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 			case NET_PKT__FCU_GEN__GS_HEARTBEAT:
 			#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
-				vFCU_FCTL_DRIVEPOD__10MS_ISR();
+				vFCU_FCTL_DRIVEPOD__Reset_GSCommTimer();
 			#endif
 			break;
 
@@ -136,18 +136,18 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				#endif
 				break;
 
-			case NET_PKT__FCU_LIFTMECH__SET_GROUP_SPEED:
-				//set speed of all mech lift actuators
-				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
-					vFCU_FCTL_LIFTMECH__SetSpeedAll(u32Block[0]);
-				#endif
-				break;
-			case NET_PKT__FCU_LIFTMECH__RELEASE:
-				//release lift mechanism
-				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
-					vFCU_FCTL_LIFTMECH__Extend();
-				#endif
-				break;
+//			case NET_PKT__FCU_LIFTMECH__SET_GROUP_SPEED:
+//				//set speed of all mech lift actuators
+//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
+//					vFCU_FCTL_LIFTMECH__SetSpeedAll(u32Block[0]);
+//				#endif
+//				break;
+//			case NET_PKT__FCU_LIFTMECH__RELEASE:
+//				//release lift mechanism
+//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
+//					vFCU_FCTL_LIFTMECH__Extend();
+//				#endif
+//				break;
 
 			case NET_PKT__FCU_GEN__POD_STOP_COMMAND:
 				//Execute Pod Stop Command

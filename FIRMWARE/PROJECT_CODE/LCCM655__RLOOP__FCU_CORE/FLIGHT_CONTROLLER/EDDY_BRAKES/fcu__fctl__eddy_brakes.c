@@ -25,6 +25,11 @@
 
 extern struct _strFCU sFCU;
 
+void vFCU_FCTL_EDDY_BRAKES__Init(void)
+{
+	sFCU.sEddyBrakes.eEddyBrakesState = EDDY_BRAKES_STATE__RETRACTED;
+}
+
 Luint32 vFCU_FCTL_EDDY_BRAKES__PolinomialApproximation(Luint32 u32xvalue)
 {
 	//square of the input value
@@ -100,13 +105,13 @@ void vFCU_FCTL_EDDY_BRAKES__SetDistance(Luint32 u32value)
 
 E_FCU__FCTL_EDDY_BRAKES_STATE eFCU_FCTL_EDDY_BRAKES__Get_State(void)
 {
-	E_FCU__FCTL_EDDY_BRAKES_STATE yo = EDDY_BRAKES_STATE__RETRACTED;
-	return yo;
+	return sFCU.sEddyBrakes.eEddyBrakesState;
 }
 
 void vFCU_FCTL_EDDY_BRAKES__ControlledEmergencyBrake()
 {
-	//do something
+	vFCU_FCTL_EDDY_BRAKES__ApplyFullBrakes();
+	sFCU.sEddyBrakes.eEddyBrakesState = EDDY_BRAKES_STATE__CONTROLLED_BRAKING;
 }
 
 Luint32 u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp()

@@ -98,6 +98,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 				vFCU_BRAKES__Init();
 			#endif
+			#if C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES == 1U
+				vFCU_FCTL_EDDY_BRAKES__Init();
+			#endif
+
 
 			//Init the throttles
 			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
@@ -137,6 +141,11 @@ void vFCU_FCTL_MAINSM__Process(void)
 			#if C_LOCALDEF__LCCM655__ENABLE_GEOM == 1U
 				vFCU_GEOM__Init();
 			#endif //C_LOCALDEF__LCCM655__ENABLE_GEOM
+
+			//init drive pod
+			#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
+				vFCU_FCTL_DRIVEPOD__Init();
+			#endif
 
 			//put the flight computer into startup mode now that everything has been initted.
 			sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__DEBUG; //MISSION_PHASE__TEST;
@@ -428,6 +437,12 @@ void vFCU_FCTL_MAINSM__Process(void)
 			vFCU_FCTL_HOVERENGINES__Process();
 		#endif
 
+		//Start drive pod
+		#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
+			vFCU_FCTL_DRIVEPOD__Process();
+		#endif
+
+
 		//TODO: NOT MENTIONED ANYWHERE ELSE
 		//process auto-sequence control
 		//vFCU_FCTL_MAINSM_AUTO__Process();
@@ -608,7 +623,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfReadyForPush(void)
 	Luint8 u8PusherSwitch2 = u8FCU_PUSHER__Get_Switch(1);
 
 	//Check if we are connected to the pusher, speed is below standby, the height makes sense to be pushed + each of our landing gear units is retracted
-	if((u32PodZPos > C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT) &&  (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && (u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U) && (eFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED))
+	if((u32PodZPos > C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT) &&  (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && (u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U)/* && (eFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED)*/)
 	{
 		u8Test = 1U;
 	}
