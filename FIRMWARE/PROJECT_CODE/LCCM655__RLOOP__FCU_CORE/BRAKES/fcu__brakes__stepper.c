@@ -189,7 +189,7 @@ void vFCU_BRAKES_STEP__LimitMove(Lint32 s32Brake0PosIn, Lint32 s32Brake1PosIn, L
 	}
 	else
 	{
-
+		*ps32Brake0PosOut = s32Brake0PosIn;
 	}
 
 	if(sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__RETRACT].eSwitchState == SW_STATE__CLOSED)
@@ -206,7 +206,7 @@ void vFCU_BRAKES_STEP__LimitMove(Lint32 s32Brake0PosIn, Lint32 s32Brake1PosIn, L
 	}
 	else
 	{
-
+		*ps32Brake0PosOut = s32Brake0PosIn;
 	}
 
 	if(sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
@@ -223,7 +223,7 @@ void vFCU_BRAKES_STEP__LimitMove(Lint32 s32Brake0PosIn, Lint32 s32Brake1PosIn, L
 	}
 	else
 	{
-
+		*ps32Brake1PosOut = s32Brake1PosIn;
 	}
 
 	if(sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].eSwitchState == SW_STATE__CLOSED)
@@ -240,7 +240,7 @@ void vFCU_BRAKES_STEP__LimitMove(Lint32 s32Brake0PosIn, Lint32 s32Brake1PosIn, L
 	}
 	else
 	{
-
+		*ps32Brake1PosOut = s32Brake1PosIn;
 	}
 
 }

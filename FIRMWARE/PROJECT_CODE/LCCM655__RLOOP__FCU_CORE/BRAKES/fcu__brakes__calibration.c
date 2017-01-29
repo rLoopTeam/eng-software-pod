@@ -85,16 +85,33 @@ void vFCU_BRAKES_CAL__Process(void)
 			//we need to fully extend the lead screws to the fwd position.
 			//Because we have zero at the fwd switches we could assume our brakes are fully retracted
 			//so this will be +75.0, move -80.0mm from the worst pos as we should go to the limits
-			s32Pos[0] = -80000;
-			s32Pos[1] = -80000;
+			if(sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
+			{
+				vSTEPDRIVE_ZERO__Set_Zero(0);
+				s32Pos[0] = 0;
+			}
+			else
+			{
+				s32Pos[0] = -80000;
+			}
+
+			if(sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
+			{
+				vSTEPDRIVE_ZERO__Set_Zero(1);
+				s32Pos[1] = 0;
+			}
+			else
+			{
+				s32Pos[1] = -80000;
+			}
 
 
-			s32Velocity[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc;
-			s32Velocity[1] = sFCU.sBrakes[1].sMove.s32LinearVeloc;
+			s32Velocity[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc / 10;
+			s32Velocity[1] = s32Velocity[0];
 
 			//note this must be larger than target accel / microns/revrate
-			s32Accel[0] = sFCU.sBrakes[0].sMove.s32LinearAccel;
-			s32Accel[1] = sFCU.sBrakes[1].sMove.s32LinearAccel;
+			s32Accel[0] = sFCU.sBrakes[0].sMove.s32LinearAccel / 10;
+			s32Accel[1] = s32Accel[0];
 
 			//clear the prev task if needed.
 			vSTEPDRIVE__Clear_TaskComplete();
@@ -143,10 +160,10 @@ void vFCU_BRAKES_CAL__Process(void)
 
 			s32Pos[0] = 10;
 			s32Pos[1] = 10;
-			s32Velocity[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc;
-			s32Velocity[1] = sFCU.sBrakes[1].sMove.s32LinearVeloc;
-			s32Accel[0] = sFCU.sBrakes[0].sMove.s32LinearAccel;
-			s32Accel[1] = sFCU.sBrakes[1].sMove.s32LinearAccel;
+			s32Velocity[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc / 10;
+			s32Velocity[1] = s32Velocity[0];
+			s32Accel[0] = sFCU.sBrakes[0].sMove.s32LinearAccel / 10;
+			s32Accel[1] = s32Accel[0];
 
 			//clear the previous task flag
 			vSTEPDRIVE__Clear_TaskComplete();

@@ -614,7 +614,8 @@ Public Class Form1
                 Dim sValue As Int32 = Int32.Parse(Me.m_txtLaserDist__ValueRaw.Text)
 
                 'update the DLL
-                vFCU_LASERDIST_WIN32__Set_DistanceRaw(sValue)
+                'vFCU_LASERDIST_WIN32__Set_DistanceRaw(sValue)
+                FwdLaser__GenPacket()
 
             End If
         End If
@@ -1116,7 +1117,22 @@ Public Class Form1
 #End Region '#Region "MMA8451"
 
 #Region "FWD LASER"
+    Private Sub FwdLaser__GenPacket()
 
+        'packet format
+        '0x80 | MSB = normal data
+        '0xMID
+        '0xLOW
+
+        Dim u8Array(3 - 1) As Byte
+        u8Array(0) = &H80
+        u8Array(1) = &H0
+        u8Array(2) = 100
+
+        vSC16IS_WIN32__InjectData(6, u8Array, 3)
+
+
+    End Sub
 #End Region '#Region "FWD LASER"
 
 #Region "STEPPER"
