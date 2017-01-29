@@ -522,6 +522,8 @@ void vFCU_FCTL_MAINSM__EnterPreRun_Phase()
 	}
 }
 
+#endif
+
 
 
 
