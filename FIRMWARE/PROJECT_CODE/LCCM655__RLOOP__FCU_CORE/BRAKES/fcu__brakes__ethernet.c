@@ -214,7 +214,7 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
  * @st_funcMD5		E7ACE5E6A14B23D4226EA1541323229E
  * @st_funcID		LCCM655R0.FILE.066.FUNC.003
  */
-void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Luint32 u32Position)
+void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Lint32 s32Position)
 {
 
 	if(sFCU.sBrakesGlobal.sBrakesDev.u8DevMode == 1U)
@@ -224,19 +224,21 @@ void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Luint32 u32Position)
 		{
 
 			//make the last flag WELL known that we have modded something
-			vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 31U);
+			vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 30U);
 
 
 			switch(u32Index)
 			{
 				case 0:
-					vFCU_BRAKES_STEP__Move(u32Position, 0U);
+					//move left
+					vFCU_BRAKES_STEP__Move(s32Position, s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__RIGHT));
 					break;
 				case 1:
-					vFCU_BRAKES_STEP__Move(0U, u32Position);
+					//move right
+					vFCU_BRAKES_STEP__Move(s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__LEFT), s32Position);
 					break;
 				case 2:
-					vFCU_BRAKES_STEP__Move(u32Position, u32Position);
+					vFCU_BRAKES_STEP__Move(s32Position, s32Position);
 					break;
 				default:
 					//do nothing.
@@ -407,6 +409,7 @@ void vFCU_BRAKES_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
 		sFCU.sBrakesGlobal.sBrakesDev.u8DevMode = 1U;
 		sFCU.sBrakesGlobal.sBrakesDev.u32DevKey = u32Key1;
 		sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__IDLE;
+		sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__COMPLETE;
 	}
 	else
 	{

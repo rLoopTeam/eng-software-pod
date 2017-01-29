@@ -106,8 +106,6 @@
 		/** Inject a raw emulation value into the laser */
 		NET_PKT__LASER_DIST__RAW_EMULATION_VALUE = 0x1203U,
 
-
-
 		//////////////////////////////////////////////////////
 		//FCU: LASER CONTRAST (0x1300)
 		//////////////////////////////////////////////////////
@@ -158,6 +156,12 @@
 		/** Set either the veloc or accel */
 		NET_PKT__FCU_BRAKES__VELOC_ACCEL_SET = 0x140AU,
 
+		// fully apply brakes
+		NET_PKT__FCU_EDDYBRAKES_FULLY_APPLY_EDDY_BRAKES = 0x1410U,
+
+		// fully release brakes
+		NET_PKT__FCU_EDDYBRAKES_RELEASE_EDDY_BRAKES = 0x1411U,
+
 		//////////////////////////////////////////////////////
 		//FCU: THROTTLES (0x1500)
 		//////////////////////////////////////////////////////
@@ -174,17 +178,35 @@
 		/** FCU to Host, return Throttle data */
 		NET_PKT__FCU_THROTTLE__TX_DATA = 0x1503U,
 
-
+		/** Set speed of the 1st Hover Engine */
 		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE1 = 0x1504U,
+
+		/** Set speed of the 2nd Hover Engine */
 		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE2 = 0x1505U,
+
+		/** Set speed of the 3rd Hover Engine */
 		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE3 = 0x1506U,
+
+		/** Set speed of the 4th Hover Engine */
 		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE4 = 0x1507U,
+
+		/** Set speed of the 5th Hover Engine */
 		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE5 = 0x1508U,
+
+		/** Set speed of the 6th Hover Engine */
 		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE6 = 0x1509U,
+
+		/** Set speed of the 7th Hover Engine */
 		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE7 = 0x1510U,
+
+		/** Set speed of the 8th Hover Engine */
 		NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE8 = 0x1511U,
-		NET_PKT__FCU_HOVERENGINES_CONTROL__STATIC_HOVERING = 0x1512U,
-		NET_PKT__FCU_HOVERENGINES_CONTROL__RELEASE_STATIC_HOVERING = 0x1513U,
+
+		/** Turn on Static Hovering */
+		NET_PKT__FCU_HOVERENGINES_CONTROL__START_STATIC_HOVERING = 0x1512U,
+
+		/** Release Static Hovering */
+		NET_PKT__FCU_HOVERENGINES_CONTROL__STOP_STATIC_HOVERING = 0x1513U,
 
 
 		//////////////////////////////////////////////////////
@@ -256,6 +278,17 @@
 
 		/** Release the Lift Mech */
 		NET_PKT__FCU_LIFTMECH__RELEASE = 0x1904U,
+
+
+		//////////////////////////////////////////////////////
+		//FCU: AUXILIARY PROPULSION (0x2000)
+		//////////////////////////////////////////////////////
+
+		/** Stop */
+		NET_PKT__FCU_AUXPROP__STOP = 0x2100U,
+
+		/** Go */
+		NET_PKT__FCU_AUXPROP__GO = 0x2200U,
 
 		//////////////////////////////////////////////////////
 		//POWER: GENERAL (0x3000)

@@ -25,23 +25,19 @@
 
 extern struct _strFCU sFCU;
 
-// need to implement these functions
-//vFCU_FCTL_LIFTMECH_Get_MLP
-//vFCU_FCTL_LIFTMECH_Dir
-//vFCU_FCTL_LIFTMECH_Speed
 
 // start of this module
-void vFCU_FCTL_LIFTMECH__Extend(void)
-{
-	// Check whether we are in the Test Phase or the Post Run Phase
-	if ((sFCU.sStateMachine.eMissionPhase == MISSION_PHASE__TEST) || (sFCU.sStateMachine.eMissionPhase == MISSION_PHASE__POST_RUN))
-	{
-		//Get current Pod Speed
-		Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
-		//Check if we are Lifted and still stationary
-		if (sFCU.sStateMachine.sOpStates.u8Lifted && (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY))
-		{
-			//TODO:REVIEW CONFLUENCE SPECCS
+//void vFCU_FCTL_LIFTMECH__Extend(void)
+//{
+//	// Check whether we are in the Test Phase or the Post Run Phase
+//	if ((sFCU.sStateMachine.eMissionPhase == MISSION_PHASE__TEST) || (sFCU.sStateMachine.eMissionPhase == MISSION_PHASE__POST_RUN))
+//	{
+//		//Get current Pod Speed
+//		Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
+//		//Check if we are Lifted and still stationary
+//		if (sFCU.sStateMachine.sOpStates.u8Lifted && (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY))
+//		{
+//			//TODO:REVIEW CONFLUENCE SPECCS
 //			//Set The Lift Mechanism Actuators UP, so that we can retract them
 //			vFCU_FCTL_LIFTMECH__SetDirAll(LIFTMECH_DIR_UP);
 //			vFCU_FCTL_LIFTMECH__SetSpeedAll(C_FCU__LIFTMECH_ACTUATOR_NOM_UNLIFT_SPEED);
@@ -55,52 +51,117 @@ void vFCU_FCTL_LIFTMECH__Extend(void)
 //			{
 //				vFCU_FCTL_LIFTMECH__SetSpeedAll(C_FCU__LIFTMECH_ACTUATOR_NOM_UNLIFT_SPEED);
 //			}
-		}
-		else
-		{
-		//do nothing
-		}
+//		}
+//		else
+//		{
+//		//do nothing
+//		}
+//	}
+//}
+//
+//Luint32 u32FCU_FCTL_LIFTMECH__Get_MLP(void)
+//{
+//	// report MLP distance
+//	// add lower level function for this
+//	// not sure how to combine 4 values into one
+//	//TODO: return
+//	return 0U;
+//}
+//void vFCU_FCTL_LIFTMECH__Dir(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir)
+//{
+//		// TODO: lower level function
+//}
+
+//void vFCU_FCTL_LIFTMECH__SetDirAll(E_FCU__LIFTMECH_DIRECTION dir)
+//{
+//	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_AftLeft, dir);
+//	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_AftRight, dir);
+//	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_ForwardLeft, dir);
+//	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_ForwardRight, dir);
+//	sFCU.sLiftMech.u8DirSet = 1;
+//}
+
+//void vFCU_FCTL_LIFTMECH__SetSpeedAll(Luint32 u32speed)
+//{
+//	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_AftLeft, u32speed);
+//	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_AftRight, u32speed);
+//	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_ForwardLeft, u32speed);
+//	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_ForwardRight, u32speed);
+//}
+
+
+//void vFCU_FCTL_LIFTMECH_Speed(E_FCU__LIFTMECH_ACTUATOR actuator, Luint32 speed)
+//{
+//interface with lower level
+//}
+
+
+void vFCU_FCTL_LIFTMECH__Deploy(E_FCU__LIFTMECH_ACTUATOR actuator)
+{
+	// put wheels down
+	// TODO: lower level function to deploy, set direction to down
+}
+
+void vFCU_FCTL_LIFTMECH__DeployAll(void)
+{
+	vFCU_FCTL_LIFTMECH__Deploy(LIFTMECH_AftLeft);
+	vFCU_FCTL_LIFTMECH__Deploy(LIFTMECH_AftRight);
+	vFCU_FCTL_LIFTMECH__Deploy(LIFTMECH_ForwardLeft);
+	vFCU_FCTL_LIFTMECH__Deploy(LIFTMECH_ForwardRight);
+	sFCU.sLiftMech.u8100MS_Timer = 0;
+}
+
+void vFCU_FCTL_LIFTMECH__Retract(E_FCU__LIFTMECH_ACTUATOR actuator)
+{
+	// put wheels up
+	// TODO: lower level function to retract
+}
+
+void vFCU_FCTL_LIFTMECH__RetractAll(void)
+{
+	vFCU_FCTL_LIFTMECH__Retract(LIFTMECH_AftLeft);
+	vFCU_FCTL_LIFTMECH__Retract(LIFTMECH_AftRight);
+	vFCU_FCTL_LIFTMECH__Retract(LIFTMECH_ForwardLeft);
+	vFCU_FCTL_LIFTMECH__Retract(LIFTMECH_ForwardRight);
+	sFCU.sLiftMech.u8100MS_Timer = 0;
+}
+
+Luint8 u8FCU_FCTL_LIFTMECH__IsRetracted(void)
+{
+	Luint8 isRetracted = 0;
+	if (sFCU.sLiftMech.u8100MS_Timer > 150)
+	{
+		isRetracted = 1;
 	}
+	return isRetracted;
+
 }
 
-Luint32 u32FCU_FCTL_LIFTMECH__Get_MLP(void)
+Luint8 u8FCU_FCTL_LIFTMECH__IsLifted(void)
 {
-	// report MLP distance
-	// add lower level function for this
-	// not sure how to combine 4 values into one
-	//TODO: return
+	Luint8 isLifted = 0;
+	if (sFCU.sLiftMech.u8100MS_Timer > 150)
+	{
+		isLifted = 1;
+	}
+	return isLifted;
+
 }
 
-void vFCU_FCTL_LIFTMECH__SetDirAll(E_FCU__LIFTMECH_DIRECTION dir)
-{
-	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_AftLeft, dir);
-	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_AftRight, dir);
-	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_ForwardLeft, dir);
-	vFCU_FCTL_LIFTMECH_Dir(LIFTMECH_ForwardRight, dir);
-}
 
-void vFCU_FCTL_LIFTMECH__SetSpeedAll(Luint32 u32speed)
-{
-	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_AftLeft, u32speed);
-	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_AftRight, u32speed);
-	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_ForwardLeft, u32speed);
-	vFCU_FCTL_LIFTMECH_Speed(LIFTMECH_ForwardRight, u32speed);
-}
-
-void vFCU_FCTL_LIFTMECH_Dir(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir)
-{
-//interface with lower level
-}
-
-void vFCU_FCTL_LIFTMECH_Speed(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir)
-{
-//interface with lower level
-}
-
-void vFCU_FCTL_LIFTMECH__Get_State(void)
-{
+//E_FCU_LIFTMECH_STATE eFCU_FCTL_LIFTMECH__Get_State(void)
+//{
 	//implement this one
+//	E_FCU_LIFTMECH_STATE eLIFTMECH_STATE;
+//	eLIFTMECH_STATE = LIFT_MECH_STATE__RETRACTED;
+//	return eLIFTMECH_STATE;
+//}
+
+void vFCU_FCTL_LIFTMECH__100MS_ISR(void)
+{
+	sFCU.sLiftMech.u8100MS_Timer++;
 }
+
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL
 #ifndef C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL

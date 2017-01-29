@@ -106,120 +106,48 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 			case NET_PKT__FCU_GEN__GS_HEARTBEAT:
 			#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
-				vFCU_FCTL_DRIVEPOD__10MS_ISR();
+				vFCU_FCTL_DRIVEPOD__Reset_GSCommTimer();
 			#endif
 			break;
 
-//			case NET_PKT__FCU_LIFTMECH__SET_DIR:
-//				//set direction of specific mech lift
-//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
-//				E_FCU__LIFTMECH_ACTUATOR actuator;
-//				E_FCU__LIFTMECH_DIRECTION dir;
-//				switch(u32Block[0])
-//				{
-//					case 0:
-//						actuator = LIFTMECH_AftLeft;
-//						break;
-//					case 1:
-//						actuator = LIFTMECH_AftRight;
-//						break;
-//					case 2:
-//						actuator = LIFTMECH_ForwardLeft;
-//						break;
-//					case 3:
-//						actuator = LIFTMECH_ForwardRight;
-//						break;
-//					default:
-//						//report error
-//						break;
-//				}
-//				switch(u32Block[1])
-//				{
-//					case 0:
-//						dir = LIFTMECH_DIR_DOWN;
-//						break;
-//					case 1:
-//						dir = LIFTMECH_DIR_UP;
-//						break;
-//					default:
-//						//report error
-//						break;
-//				}
-//				vFCU_FCTL_LIFTMECH_Dir(actuator, dir);
-//				#endif
-//				break;
-//
-//			case NET_PKT__FCU_LIFTMECH__SET_SPEED:
-//				//set speed of specific mech lift
-//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
-//					E_FCU__LIFTMECH_ACTUATOR actuator;
-//					switch(u32Block[0])
-//					{
-//						case 0:
-//							actuator = LIFTMECH_AftLeft;
-//							break;
-//						case 1:
-//							actuator = LIFTMECH_AftRight;
-//							break;
-//						case 2:
-//							actuator = LIFTMECH_ForwardLeft;
-//							break;
-//						case 3:
-//							actuator = LIFTMECH_ForwardRight;
-//							break;
-//						default:
-//							//report error
-//							break;
-//					}
-//					vFCU_FCTL_LIFTMECH_Speed(actuator, u32Block[1]);
-//				#endif
-//				break;
-//
-//			case NET_PKT__FCU_LIFTMECH__SET_GROUP_DIR:
-//				//set direction of all mech lift actuators
-//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
-//					switch(u32Block[0])
-//					{
-//						case 0:
-//							dir = LIFTMECH_DIR_DOWN;
-//							break;
-//						case 1:
-//							dir = LIFTMECH_DIR_UP;
-//							break;
-//						default:
-//							//report error
-//							break;
-//					}
-//					vFCU_FCTL_LIFTMECH__SetDirAll(dir);
-//				#endif
-//				break;
-#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
-			case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE1:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE2:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE3:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE4:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE5:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE6:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE7:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE8:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__STATIC_HOVERING:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__RELEASE_STATIC_HOVERING:
-							vFCU_FLIGHTCTL_HOVERENGINES__SetCommand( (Luint32)ePacketType, u32Block[0]);
-							break;
-#endif //C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL
+			case NET_PKT__FCU_HOVERENGINES_CONTROL__START_STATIC_HOVERING:
+				// Start Hover Engines from the Ground Station
+				#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
+				vFCU_FCTL_HOVERENGINES_GS_START_COMMAND();
+				#endif
+				break;
 
-			case NET_PKT__FCU_LIFTMECH__SET_GROUP_SPEED:
-				//set speed of all mech lift actuators
-				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
-					vFCU_FCTL_LIFTMECH__SetSpeedAll(u32Block[0]);
+			case NET_PKT__FCU_HOVERENGINES_CONTROL__STOP_STATIC_HOVERING:
+				//Stop the Hover Engines from the Ground Station
+				#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
+				vFCU_FCTL_HOVERENGINES_GS_STOP_COMMAND();
 				#endif
 				break;
-			case NET_PKT__FCU_LIFTMECH__RELEASE:
-				//release lift mechanism
-				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
-					vFCU_FCTL_LIFTMECH__Extend();
+
+			case NET_PKT__FCU_EDDYBRAKES_FULLY_APPLY_EDDY_BRAKES:
+				#if C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES == 1U
+				vFCU_FCTL_EDDY_BRAKES__ApplyFullBrakes();
 				#endif
 				break;
+
+			case NET_PKT__FCU_EDDYBRAKES_RELEASE_EDDY_BRAKES:
+				#if C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES == 1U
+				vFCU_FCTL_EDDY_BRAKES__Release();
+				#endif
+				break;
+
+//			case NET_PKT__FCU_LIFTMECH__SET_GROUP_SPEED:
+//				//set speed of all mech lift actuators
+//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
+//					vFCU_FCTL_LIFTMECH__SetSpeedAll(u32Block[0]);
+//				#endif
+//				break;
+//			case NET_PKT__FCU_LIFTMECH__RELEASE:
+//				//release lift mechanism
+//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
+//					vFCU_FCTL_LIFTMECH__Extend();
+//				#endif
+//				break;
 
 			case NET_PKT__FCU_GEN__POD_STOP_COMMAND:
 				//Execute Pod Stop Command
@@ -237,6 +165,18 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				break;
 
 			case NET_PKT__FCU_GEN__POD_EMULATION_CONTROL:
+
+				break;
+
+			case NET_PKT__FCU_AUXPROP__STOP:
+
+					vFCU_FCTL_AUX_PROP__Stop();
+
+				break;
+
+			case NET_PKT__FCU_AUXPROP__GO:
+
+					vFCU_FCTL_AUX_PROP__Go();
 
 				break;
 
@@ -369,7 +309,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 			case NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW:
 				//move the brake system in development mode.
 				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-					vFCU_BRAKES_ETH__MoveMotor_RAW(u32Block[0], u32Block[1]);
+					vFCU_BRAKES_ETH__MoveMotor_RAW(u32Block[0], s32Block[1]);
 				#endif
 				break;
 
@@ -509,9 +449,95 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				}
 			case NET_PKT__FCU_GEN__ENTER_PRE_RUN_PHASE_COMMAND:
 				#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+#if 0
 					vFCU_FCTL_MAINSM__EnterPreRun_Phase();
+#endif
 				#endif
 				break;
+
+			//case NET_PKT__FCU_LIFTMECH__SET_DIR:
+			//				//set direction of specific mech lift
+			//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
+			//				E_FCU__LIFTMECH_ACTUATOR actuator;
+			//				E_FCU__LIFTMECH_DIRECTION dir;
+			//				switch(u32Block[0])
+			//				{
+			//					case 0:
+			//						actuator = LIFTMECH_AftLeft;
+			//						break;
+			//					case 1:
+			//						actuator = LIFTMECH_AftRight;
+			//						break;
+			//					case 2:
+			//						actuator = LIFTMECH_ForwardLeft;
+			//						break;
+			//					case 3:
+			//						actuator = LIFTMECH_ForwardRight;
+			//						break;
+			//					default:
+			//						//report error
+			//						break;
+			//				}
+			//				switch(u32Block[1])
+			//				{
+			//					case 0:
+			//						dir = LIFTMECH_DIR_DOWN;
+			//						break;
+			//					case 1:
+			//						dir = LIFTMECH_DIR_UP;
+			//						break;
+			//					default:
+			//						//report error
+			//						break;
+			//				}
+			//				vFCU_FCTL_LIFTMECH_Dir(actuator, dir);
+			//				#endif
+			//				break;
+			//
+			//			case NET_PKT__FCU_LIFTMECH__SET_SPEED:
+			//				//set speed of specific mech lift
+			//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
+			//					E_FCU__LIFTMECH_ACTUATOR actuator;
+			//					switch(u32Block[0])
+			//					{
+			//						case 0:
+			//							actuator = LIFTMECH_AftLeft;
+			//							break;
+			//						case 1:
+			//							actuator = LIFTMECH_AftRight;
+			//							break;
+			//						case 2:
+			//							actuator = LIFTMECH_ForwardLeft;
+			//							break;
+			//						case 3:
+			//							actuator = LIFTMECH_ForwardRight;
+			//							break;
+			//						default:
+			//							//report error
+			//							break;
+			//					}
+			//					vFCU_FCTL_LIFTMECH_Speed(actuator, u32Block[1]);
+			//				#endif
+			//				break;
+			//
+			//			case NET_PKT__FCU_LIFTMECH__SET_GROUP_DIR:
+			//				//set direction of all mech lift actuators
+			//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
+			//					switch(u32Block[0])
+			//					{
+			//						case 0:
+			//							dir = LIFTMECH_DIR_DOWN;
+			//							break;
+			//						case 1:
+			//							dir = LIFTMECH_DIR_UP;
+			//							break;
+			//						default:
+			//							//report error
+			//							break;
+			//					}
+			//					vFCU_FCTL_LIFTMECH__SetDirAll(dir);
+			//				#endif
+			//				break;
 
 			default:
 				//do nothing

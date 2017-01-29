@@ -78,11 +78,12 @@
 	#define C_FCU__GEOM__NUM_ITEMS_S32						(8U)
 
 	/** State Machine constants */
-	#define C_FCU__MAINSM_PUSHER_RELEASE_DELAY				(10U) 	//define exact value
-	#define C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY			(20U)
+	#define C_FCU__MAINSM_MAX_PUSHER_INTERLOCK_PHASE_DURATION	(100U)
+	#define C_FCU__MAINSM_PUSHER_RELEASE_DELAY				(10U)
+	#define C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY		(20U)
 
 	/** GS Communication constants */
-	#define C_FCU__GS_COMM_LOSS_DELAY						(1U)		//define exact value
+	#define C_FCU__GS_COMM_LOSS_DELAY						(200U)
 
 	/** Pod Position constants */
 	#define C_FCU__POD_TARGET_POINT_MARGIN_POS				(16U)
@@ -107,39 +108,46 @@
 	#define C_FCU__HE_MAX_TEMPERATURE                        (95U)   //critical hover engine temperature
 
 	/**Eddy Brakes Parameters */
-	#define C_FCU__EDDYBRAKES_STEPPER_MOTOR_MAX_TEMP			(90U)	//define exact value
-	#define C_FCU__EDDYBRAKES_NOM_APPL_SPEED					(1U)		//define exact value
-	#define C_FCU__EDDYBRAKES_APPL_MLP_DISTANCE				(1U)		//define exact value
-	#define C_FCU__EDDYBRAKES_NOM_RELEASE_SPEED				(1U)		//define exact value
-	#define C_FCU__EDDYBRAKES_RELEASE_MLP_DISTANCE			(1U)		//define exact value
+	#define C_FCU__EDDY_BRAKES_STEPPER_MOTOR_MAX_TEMP			(90U)	//define exact value
+	#define C_FCU__EDDY_BRAKES_NOM_APPL_SPEED				(1U)		//define exact value
+	#define C_FCU__EDDY_BRAKES_APPL_MLP_DISTANCE				(1U)		//define exact value
+	#define C_FCU__EDDY_BRAKES_NOM_RELEASE_SPEED				(1U)		//define exact value
+	#define C_FCU__EDDY_BRAKES_RELEASE_MLP_DISTANCE			(1U)		//define exact value
+	#define C_FCU__EDDY_BRAKES_FOAM_PIT_X_POSITION            (1U)           // Foam X position // THIS VALUE NEEDS TO BE CORRECTED, IS NOT DEFINED
+	#define C_FCU__EDDY_BRAKES_TRIGGER_VELOCITY_SAFETY_MARGIN (2880U)       // Safty margin in the x measurement
+	#define C_FCU__EDDY_BRAKES_POLY_COEF_ORDER0               (0.7423F)     // constant for polinomial approximation
+	#define C_FCU__EDDY_BRAKES_POLY_COEF_ORDER1               (-0.3467F)    // 1th order coefficient for polinomial approximation
+	#define C_FCU__EDDY_BRAKES_POLY_COEF_ORDER2               (-0.0004F)    // 2nd order coefficient for polinomial approximation
+	#define C_FCU__EDDY_BRAKES_POLY_COEF_ORDER3               (-0.0000003F) // 3rd order coefficient for polinomial approximation
 
 	/** NAV function constants */
-	#define C_FCU__NAV_POD_MIN_X_POS							(500U)	//define exact value
+	#define C_FCU__NAV_POD_MIN_X_POS						(500U)	//define exact value
 	#define C_FCU__NAV_MAX_UNLIFTED_HEIGHT					(10U) 	//define exact value
 	#define C_FCU__NAV_PODSPEED_STANDBY						(1U) 	//define exact value
 	#define C_FCU__NAV_PODSPEED_MAX_SPEED_TO_STABILIZE		(1000000U) //define exact value. ATM extra large so that HE never throttle down
 	#define C_FCU__NAV_MIN_PUSHER_SPEED						(10U)	//define exact value
-	#define C_FCU__NAV_MIN_PUSHER_ACCEL 						(5000U)
+	#define C_FCU__NAV_MIN_PUSHER_ACCEL 					(5000U)
 
-	#define C_FCU__NAV_NUM_CONTRAST_SENSORS 					(3U)
-	#define C_FCU__NAV_STARTING_XPOS_LC_FWD 					(55U)
-	#define C_FCU__NAV_STARTING_XPOS_LC_MID 					(55U)
-	#define C_FCU__NAV_STARTING_XPOS_LC_AFT 					(55U)
-	#define C_FCU__NAV_STRIPE_LENGTH 						(55U)
+	#define C_FCU__NAV_NUM_CONTRAST_SENSORS 				(3U)
+	#define C_FCU__NAV_STRIPE_LENGTH 						(4U)
 	#define C_FCU__NAV_STRIPE_DETECTION_NAV_DELAY 			(55U)
-	#define C_FCU__NAV_X_POS_UNCERTAINTY_OFFSET 				(55U)
+	#define C_FCU__NAV_X_POS_UNCERTAINTY_OFFSET 			(55U)
 	#define C_FCU__NAV_MAX_X_POS_UNCERTAINTY 				(55U)
+	#define C_FCU__NAV_STARTUP_REAR_X_POSITION				(0U)
 	#define C_FCU__NAV_PUSHER_START_XPOS 					(55U)
-	#define C_FCU__NAV_POD_LENGTH 							(55U)
-	#define C_FCU__NAV_LRF_MIN_POS_TO_ACTIVATE 				(55U)
-	#define C_FCU__NAV_LRF_FIRST_EXPECTED_RANGE_MAX			(55U)
-	#define C_FCU__NAV_LRF_FIRST_EXPECTED_RANGE_MIN 			(55U)
+	#define C_FCU__NAV_POD_LENGTH 							(3874)
+	#define C_FCU__NAV_DISTANCE_BETWEEN_CONTRAST_SENSOR_1_AND_NOSE	(1270U) // to be measured
+	#define C_FCU__NAV_DISTANCE_BETWEEN_CONTRAST_SENSOR_2_AND_NOSE	(1930U) // to be measured
+	#define C_FCU__NAV_DISTANCE_BETWEEN_CONTRAST_SENSOR_3_AND_NOSE	(2590U) // to be measured
+	#define C_FCU__NAV_LRF_MIN_POS_TO_ACTIVATE 				(0U)
+	#define C_FCU__NAV_MAX_DISCREPANCY_BETWEEN_CURRENT_POSITION_AND_LRF_VALUE	(50000U)
 	#define C_FCU__NAV_LRF_TRANSITION_DELAY_FROM_CONTRAST_SENSORS		(55U)
 	#define C_FCU__NAV_SPEED_UNCERTAINTY_OFFSET  			(55U)
-	#define C_FCU__NAV_MAX_ACCELERATION 						(55U)
-	#define C_FCU__NAV_ACCELEROMETER_HIGH_VAL_DELAY 			(55U)
+	#define C_FCU__NAV_MAX_ACCELERATION 					(55U)
+	#define C_FCU__NAV_ACCELEROMETER_HIGH_VAL_DELAY 		(55U)
 	#define C_FCU__NAV_ACCELEROMETER_LOW_VAL_DELAY 			(55U)
-	#define C_FCU__NAV_MISERABLE_STOP_CONFIRM_DELAY 			(200U)
+	#define C_FCU__NAV_MISERABLE_STOP_CONFIRM_DELAY 		(200U)
+
 
 
 

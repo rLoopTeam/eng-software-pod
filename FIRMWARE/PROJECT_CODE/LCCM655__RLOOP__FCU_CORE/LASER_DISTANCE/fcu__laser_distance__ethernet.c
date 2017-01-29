@@ -60,7 +60,7 @@ void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__LASER_DIST__TX_LASER_DATA:
-			u16Length = 28U;
+			u16Length = 28U + 16U;
 			break;
 
 
@@ -81,7 +81,7 @@ void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 
 				//fault flags
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sFaultFlags.u32Flags[0]);
 				pu8Buffer += 4U;
 
 				//spare 0
@@ -101,11 +101,24 @@ void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 
 				//distance filtered
-				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, 0.0F);
+				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32Accel_mmss);
 				pu8Buffer += 4U;
 
 				//spare 3
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32PrevAccel_mmss);
+				pu8Buffer += 4U;
+
+
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sBinary.unRx.u32);
+				pu8Buffer += 4U;
+
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sBinary.u32Counter__MissedStart);
+				pu8Buffer += 4U;
+
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sBinary.u32Counter__BadDistance);
+				pu8Buffer += 4U;
+
+				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sBinary.u32Counter__ErrorCode);
 				pu8Buffer += 4U;
 
 				break;

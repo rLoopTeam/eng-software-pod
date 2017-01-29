@@ -301,7 +301,7 @@ Testing damaged FCU pins
 				//check the fault tree
 
 				//configure for our baud if we are good
-				if(u8Counter == C_FCU__SC16_ASI_INDEX)
+				if((u8Counter == C_FCU__SC16_ASI_INDEX) || (C_FCU__SC16_FWD_LASER_INDEX))
 				{
 					//ASI IF
 					vSC16_BAUD__Set_BaudRate(u8Counter, 1U, 9600U, 1U);
@@ -477,12 +477,12 @@ void vFCU__RTI_100MS_ISR(void)
 		vFCU_BRAKES__100MS_ISR();
 	#endif
 
-	#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
-	#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+	#if C_LOCALDEF__LCCM655__ENABLE_MAINSM == 1U
 		vFCU_FCTL_MAINSM__100MS_ISR();
 		vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR();
+		vFCU_FCTL_MAINSM__PUSHER_PHASE_COUNTER_100MS_ISR();
 	#endif
-	#endif
+
 
 }
 
@@ -514,15 +514,14 @@ void vFCU__RTI_10MS_ISR(void)
 		vFCU_BRAKES__10MS_ISR();
 	#endif
 
-	#if C_LOCALDEF__LCCM655__ENABLE_DRIVE_POD_CONTROL == 1U
+	#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
 		vFCU_FCTL_DRIVEPOD__10MS_ISR();
 	#endif
 
-	#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
-	#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+	#if C_LOCALDEF__LCCM655__ENABLE_MAINSM == 1U
 		vFCU_FCTL_MAINSM__10MS_ISR();
 	#endif
-	#endif
+
 
 
 }

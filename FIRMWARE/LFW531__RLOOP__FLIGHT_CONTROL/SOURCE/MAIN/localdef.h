@@ -184,11 +184,10 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Serial comms to and from the LGU */
 		#define C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM						(1U)
 
+		#define C_LOCALDEF__LCCM655__ENABLE_MAINSM 						(1U)
+
 		/** Flight control specifics */
 		#define C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL					(1U)
-
-			/** Main SM */
-			#define C_LOCALDEF__LCCM655__ENABLE_MAIN_SM							(1U)
 
 			//Pitch/Roll/Yaw
 			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_ORIENTATION				(0U)
@@ -206,7 +205,7 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_AERO_DRAG					(1U)
 
 			/** Allow us to control the gimbals and include in calculations */
-			#define C_LOCALDEF__LCCM655__ENABLE_GIMBAL_CONTROL					(1U)
+			#define C_LOCALDEF__LCCM655__ENABLE_GIMBAL_CONTROL					(0U)
 
 			/** Track Database */
 			#define C_LOCALDEF__LCCM655__ENABLE_TRACK_DB						(1U)
@@ -235,7 +234,7 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 			#define C_LOCALDEF__LCCM655__ENABLE_BRAKEPID 					(1U)
 
 			/** Enable Cooling control */
-			#define C_LOCALDEF__LCCM655__ENABLE_COOLING_CONTROL				(1U)
+			#define C_LOCALDEF__LCCM655__ENABLE_COOLING_CONTROL				(0U)
 
 
 		/** ADC Sample Limits */

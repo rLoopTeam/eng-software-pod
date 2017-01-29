@@ -94,6 +94,8 @@
 		 * This mode can also be the flight finished mode. */
 		MISSION_PHASE__POST_RUN,
 
+		MISSION_PHASE__DEBUG,
+
 	}E_FCU__MISSION_PHASE_T;
 
 
@@ -105,9 +107,10 @@
 
 		/** Doing nothing, return here when idle */
 		AUTOSEQ_STATE__IDLE,
-
-		AUTOSEQ_STATE__TEST_FUNCTION_X
-
+		/** Perform the tests of the X function */
+		AUTOSEQ_STATE__TEST_FUNCTION_X,
+		/** All of the testes finished successfully */
+		AUTOSEQ_STATE__TESTS_SUCCESSFUL
 
 	}E_FCU__AUTO_SEQUENCE_STATE_T;
 
