@@ -1563,12 +1563,21 @@
 		Lfloat32 f32FCU_ASI__ReadControllerTemperature(Luint8 u8EngineIndex);
 
 		//drive pod
+		void vFCU_FCTL_DRIVEPOD__100MS_ISR(void);
 		void vFCU_FCTL_DRIVEPOD__10MS_ISR(void);
 		void vFCU_FCTL_DRIVEPOD__SetPodStopCmd(void);
+		void vFCU_FCTL_DRIVEPOD__Init(void);
+		void vFCU_FCTL_DRIVEPOD__Stop(void);
+		void vFCU_FCTL_DRIVEPOD__Process(void);
+		Luint8 u8FCU_FCTL_DRIVEPOD__LossOfComm(void);
+		void vFCU_FCTL_DRIVEPOD__Reset_GSCommTimer(void);
+
 
 		//aux propulsion
 		void vFCU_FCTL_AUX_PROP__Stop(void);
 		void vFCU_FCTL_AUX_PROP__Disable(void);
+		void vFCU_FCTL_AUX_PROP__Go(void);
+
 
 		//flight controller cooling
 		void vFCU_FCTL_COOLING__ManualCommandsHandle();
@@ -1586,6 +1595,10 @@
 		//void vFCU_FCTL_LIFTMECH_Speed(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir);
 		E_FCU_LIFTMECH_STATE eFCU_FCTL_LIFTMECH__Get_State(void);
 		void vFCU_FCTL_LIFTMECH__Speed(E_FCU__LIFTMECH_ACTUATOR actuator, Luint32 u32speed);
+		void vFCU_FCTL_LIFTMECH__Deploy(E_FCU__LIFTMECH_ACTUATOR actuator);
+		void vFCU_FCTL_LIFTMECH__DeployAll(void);
+		void vFCU_FCTL_LIFTMECH__Retract(E_FCU__LIFTMECH_ACTUATOR actuator);
+		void vFCU_FCTL_LIFTMECH__RetractAll(void);
 
 		//brakes
 		void vFCU_FCTL_EDDY_BRAKES__Speed(E_FCU__FCTL_EDDY_BRAKES_ACTUATOR actuator, Luint32 u32speed);
@@ -1598,6 +1611,11 @@
 		void vFCU_FCTL_EDDY_BRAKES__GimbalSpeedController(void);
 		E_FCU__FCTL_EDDY_BRAKES_STATE eFCU_FCTL_EDDY_BRAKES__Get_State(void);
 		Luint32 u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp();
+		Luint32 vFCU_FCTL_EDDY_BRAKES__PolinomialApproximation(Luint32 u32xvalue);
+		Luint8 vFCU_FCTL_EDDY_BRAKES__GetPodSpeedTooHigh(void);
+		void vFCU_FCTL_EDDY_BRAKES__SetDistance(Luint32 u32value);
+		void vFCU_FCTL_EDDY_BRAKES__Init();
+
 
 		//main state machine
 		Luint8 u8FCU_FCTL_MAINSM__CheckIfUnlifted(void);
@@ -1621,6 +1639,12 @@
 		Luint32 u32FCU_FCTL_NAV__GetRearPos(void);
 		Luint32 u32FCU_FCTL_NAV__Get_Accel_mmss(void);
 		Luint8 u8FCU_FCTL_NAV__IsInFailure(void);
+		void vFCU_FLIGHTCTL_NAV__Init(void);
+		Luint8 u8InLaserRangeFinderArea(void);
+		Luint8 u8IsAccelerometerAvailable(void);
+		void vFCU_FLIGHTCTL_NAV__Process(void);
+		void vFCU_FCTL_NAV__10MS_ISR(void);
+
 
 		// Laser Orientation
 		Luint32 u32FCU_FCTL_LASERORIENT__Get_Z_Pos();
