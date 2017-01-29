@@ -1657,7 +1657,7 @@
 		void vFCU_FCTL_MAINSM__EnterPreRun_Phase();
 
 #ifdef WIN32
-		DLL_DECLARATION void vFCU_FCTL_MAINSM__InjectErrorCondition(Luint32 errorInjectionCondition, Luint8 errorInjectionValue);
+		DLL_DECLARATION void vFCU_FCTL_MAINSM__WIN32_InjectErrorCondition(Luint32 errorInjectionCondition, Luint8 errorInjectionValue);
 #endif // WIN32
 
 		void vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR(void);

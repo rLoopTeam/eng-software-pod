@@ -513,101 +513,110 @@ void vFCU_FCTL_MAINSM__Process(void)
 #if 0
 
 
-#ifdef WIN32
+ #ifdef WIN32
 		// Error injection from python simulation
 		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_UNLIFTED)
 		{
 			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
 		}
 		else
-#endif // WIN32
+ #endif // WIN32
 		{
 			sFCU.sStateMachine.sOpStates.u8Unlifted = u8FCU_FCTL_MAINSM__CheckIfUnlifted();
 		}
 
-#ifdef WIN32
+ #ifdef WIN32
 		// Error injection from python simulation
 		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_LIFTED)
 		{
 			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
 		}
 		else
-#endif // WIN32
+ #endif // WIN32
 		{
 			sFCU.sStateMachine.sOpStates.u8Lifted = u8FCU_FCTL_MAINSM__CheckIfLifted();
 		}
 
-#ifdef WIN32
+ #ifdef WIN32
 		// Error injection from python simulation
 		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_STATIC_HOVERING)
 		{
 			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
 		}
 		else
-#endif // WIN32
+ #endif // WIN32
 		{
 			sFCU.sStateMachine.sOpStates.u8StaticHovering = u8FCU_FCTL_MAINSM__CheckIfHoveringStatically();
 		}
 
-#ifdef WIN32
+ #ifdef WIN32
 		// Error injection from python simulation
 		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_READY_FOR_PUSH)
 		{
 			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
 		}
 		else
-#endif // WIN32
+ #endif // WIN32
 		{
 			sFCU.sStateMachine.sOpStates.u8ReadyForPush = u8FCU_FCTL_MAINSM__CheckIfReadyForPush();
 		}
 
-#ifdef WIN32
+ #ifdef WIN32
 		// Error injection from python simulation
 		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_PUSHING)
 		{
 			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
 		}
 		else
-#endif // WIN32
+ #endif // WIN32
 		{
 			sFCU.sStateMachine.sOpStates.u8Pushing = u8FCU_FCTL_MAINSM__CheckIfPushing();
 		}
 
-#ifdef WIN32
+ #ifdef WIN32
 		// Error injection from python simulation
 		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_COASTING)
 		{
 			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
 		}
 		else
-#endif // WIN32
+ #endif // WIN32
 		{
 			sFCU.sStateMachine.sOpStates.u8Coasting = u8FCU_FCTL_MAINSM__CheckIfCoasting();
 		}
 
-#ifdef WIN32
+ #ifdef WIN32
 		// Error injection from python simulation
 		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_BRAKING)
 		{
 			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
 		}
 		else
-#endif // WIN32
+ #endif // WIN32
 		{
 			sFCU.sStateMachine.sOpStates.u8Braking = u8FCU_FCTL_MAINSM__CheckIfBraking();
 		}
 
-#ifdef WIN32
+ #ifdef WIN32
 		// Error injection from python simulation
 		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_CTL_EMERGENCY_BRAKING)
 		{
 			sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
 		}
 		else
-#endif // WIN32
+ #endif // WIN32
 		{
 			sFCU.sStateMachine.sOpStates.u8CtlEmergBraking = u8FCU_FCTL_MAINSM__CheckIfControlledBraking();
 		}
+
+		// By this point error is injected. Clear the error injection condition incase
+		// error was injected.
+ #ifdef WIN32
+		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition > INJECT_NONE)
+		{
+			sFCU.sStateMachine.sErrorInjection.eInjectCondition = INJECT_NONE;
+		}
+ #endif // WIN32
 #endif
 	}
 	else
@@ -850,7 +859,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void)
 }
 
  #ifdef WIN32
-void vFCU_FCTL_MAINSM__InjectErrorCondition(Luint32 errorInjectionCondition, Luint8 errorInjectionValue)
+void vFCU_FCTL_MAINSM__WIN32_InjectErrorCondition(Luint32 errorInjectionCondition, Luint8 errorInjectionValue)
 {
        sFCU.sStateMachine.sErrorInjection.eInjectCondition = (E_FCU__ERROR_INJECT) errorInjectionCondition;
        sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue = errorInjectionValue;

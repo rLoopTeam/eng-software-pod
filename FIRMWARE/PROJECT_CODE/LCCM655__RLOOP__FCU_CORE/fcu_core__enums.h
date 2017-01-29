@@ -298,7 +298,9 @@
 	//////////////////////////////////////////////////////
 	typedef enum
 	{
-		INJECT_UNLIFTED = 0x00,
+		INJECT_NONE = 0x00
+
+		INJECT_UNLIFTED,
 
 		INJECT_LIFTED,
 
