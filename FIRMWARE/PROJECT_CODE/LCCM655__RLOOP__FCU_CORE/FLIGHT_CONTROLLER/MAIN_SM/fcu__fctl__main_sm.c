@@ -58,10 +58,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 {
 	Luint8 u8Counter;
 	Luint8 u8Test;
-	Luint8 u8TestsSuccesful;
+//	Luint8 u8TestsSuccesful;
 	Lint32 u32Accelmmss;
 	Luint32 u32PodSpeed;
-	Luint8 ePusherState;
+	E_FCU_PUSHPIN_STATE_T ePusherState;
 	Luint32 u32PodRearPos;
 
 	//handle the state machine.
@@ -149,36 +149,36 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 			//in this mode we are performing tests of all of the sensors and motors pl an auto-sequence
 
-			//see if we have an auto sequence abort
-			u8Test = u8FCU_MAINSM_AUTO__Is_Abort();
-			if(u8Test == 1U)
-			{
-				//move to RESET if tests aborted
-				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__RESET;
-			}
-			else
-			{
-				u8Test = u8FCU_MAINSM_AUTO__Is_Busy();
-				if(u8Test == 1U)
-				{
-					//stay in state, we are still busy
-				}
-				else
-				{
-					//not busy and not abort, set flag indicating tests succesful
-					u8TestsSuccesful = 1U;
-				}
-			}
+//			//see if we have an auto sequence abort
+//			u8Test = u8FCU_MAINSM_AUTO__Is_Abort();
+//			if(u8Test == 1U)
+//			{
+//				//move to RESET if tests aborted
+//				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__RESET;
+//			}
+//			else
+//			{
+//				u8Test = u8FCU_MAINSM_AUTO__Is_Busy();
+//				if(u8Test == 1U)
+//				{
+//					//stay in state, we are still busy
+//				}
+//				else
+//				{
+//					//not busy and not abort, set flag indicating tests succesful
+//					u8TestsSuccesful = 1U;
+//				}
+//			}
 
 			u32Accelmmss = u32FCU_FCTL_NAV__Get_Accel_mmss();
 
 			if (u32Accelmmss > C_FCU__NAV_MIN_PUSHER_ACCEL)
 			{
-				sFCU.sStateMachine.EnableAccelCounter = 1U;
+				sFCU.sStateMachine.u8EnableAccelCounter = 1U;
 			}
 			else
 			{
-				sFCU.sStateMachine.EnableAccelCounter = 0U;
+				sFCU.sStateMachine.u8EnableAccelCounter = 0U;
 			}
 
 			//Get Pod Speed
@@ -193,10 +193,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 			else
 			{
 
-				if((sFCU.sStateMachine.AccelCounter > C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY) || u32PodSpeed > C_FCU__NAV_MIN_PUSHER_SPEED)
+				if((sFCU.sStateMachine.u32AccelCounter > C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY) || u32PodSpeed > C_FCU__NAV_MIN_PUSHER_SPEED)
 				{
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PUSHER_INTERLOCK;
-					sFCU.sStateMachine.EnableAccelCounter = 0U;
+					sFCU.sStateMachine.u8EnableAccelCounter = 0U;
 				}
 				else
 				{
@@ -214,20 +214,20 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 			if (u32Accelmmss > C_FCU__NAV_MIN_PUSHER_ACCEL)
 			{
-				sFCU.sStateMachine.EnableAccelCounter = 1U;
+				sFCU.sStateMachine.u8EnableAccelCounter = 1U;
 			}
 			else
 			{
-				sFCU.sStateMachine.EnableAccelCounter = 0U;
+				sFCU.sStateMachine.u8EnableAccelCounter = 0U;
 			}
 
 			//Get Pod Speed
 			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 
-			if((sFCU.sStateMachine.AccelCounter > C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY) || u32PodSpeed > C_FCU__NAV_MIN_PUSHER_SPEED)
+			if((sFCU.sStateMachine.u32AccelCounter > C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY) || u32PodSpeed > C_FCU__NAV_MIN_PUSHER_SPEED)
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PUSHER_INTERLOCK;
-				sFCU.sStateMachine.EnableAccelCounter = 0U;
+				sFCU.sStateMachine.u8EnableAccelCounter = 0U;
 			}
 			else
 			{
@@ -240,19 +240,19 @@ void vFCU_FCTL_MAINSM__Process(void)
 		case MISSION_PHASE__PUSHER_INTERLOCK:
 
 			//transition to FLIGHT mode if the pod has reached the min_x_pos AND 1 second elapsed from the disconnection from the pusher
-			sFCU.sStateMachine.PusherPhaseCounter = 0U;
+			sFCU.sStateMachine.u32PusherPhaseCounter = 0U;
 			ePusherState = eFCU_PUSHER__Get_PusherState();
 			u32PodRearPos = u32FCU_FCTL_NAV__GetRearPos();
 
 			// Check if counter for pusher pin release should be enabled
-			if(ePusherState == 0U)
+			if(ePusherState == PIN_FINAL_STATE__DISCONNECTED)
 			{
 				//Enable the counter
-				sFCU.sStateMachine.EnablePusherCounter == 1U;
+				sFCU.sStateMachine.u8EnablePusherCounter = 1U;
 			}
 			else
 			{
-				sFCU.sStateMachine.EnablePusherCounter == 0U;
+				sFCU.sStateMachine.u8EnablePusherCounter = 0U;
 			}
 
 			// Check if counter for miserable stop should be enabled
@@ -261,29 +261,29 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if(u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
 			{
 				//Enable the counter
-				sFCU.sStateMachine.EnableMiserableStopCounter == 1U;
+				sFCU.sStateMachine.u8EnableMiserableStopCounter = 1U;
 			}
 			else
 			{
-				sFCU.sStateMachine.EnableMiserableStopCounter == 0U;
+				sFCU.sStateMachine.u8EnableMiserableStopCounter = 0U;
 			}
 
-			if((((u32PodRearPos > C_FCU__NAV_POD_MIN_X_POS) || u8FCU_FCTL_NAV__IsInFailure() == 1U) && (sFCU.sStateMachine.PusherCounter >= C_FCU__MAINSM_PUSHER_RELEASE_DELAY)) || sFCU.sStateMachine.PusherPhaseCounter >= C_FCU__MAINSM_MAX_PUSHER_INTERLOCK_PHASE_DURATION)
+			if((((u32PodRearPos > C_FCU__NAV_POD_MIN_X_POS) || u8FCU_FCTL_NAV__IsInFailure() == 1U) && (sFCU.sStateMachine.u32PusherCounter >= C_FCU__MAINSM_PUSHER_RELEASE_DELAY)) || sFCU.sStateMachine.u32PusherPhaseCounter >= C_FCU__MAINSM_MAX_PUSHER_INTERLOCK_PHASE_DURATION)
 			{
 				//Switch to Mission Phase Flight
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__FLIGHT;
 				//Disable the counter
-				sFCU.sStateMachine.EnablePusherCounter = 0U;
+				sFCU.sStateMachine.u8EnablePusherCounter = 0U;
 			}
 			else
 			{
 				//Both Timers need to elapse in order to transition to POST RUN PHASE
-				if ((sFCU.sStateMachine.MiserableStopCounter > C_FCU__NAV_MISERABLE_STOP_CONFIRM_DELAY) && (sFCU.sStateMachine.PusherPhaseCounter > C_FCU__MAINSM_MAX_PUSHER_INTERLOCK_PHASE_DURATION))
+				if ((sFCU.sStateMachine.u32MiserableStopCounter > C_FCU__NAV_MISERABLE_STOP_CONFIRM_DELAY) && (sFCU.sStateMachine.u32PusherPhaseCounter > C_FCU__MAINSM_MAX_PUSHER_INTERLOCK_PHASE_DURATION))
 				{
 					//Switch to Mission Phase Flight
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__POST_RUN;
 					//Disable the counter
-					sFCU.sStateMachine.EnableMiserableStopCounter = 0U;
+					sFCU.sStateMachine.u8EnableMiserableStopCounter = 0U;
 				}
 				else
 				{
@@ -317,7 +317,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 
 			//Disable the counter
-			sFCU.sStateMachine.EnablePusherCounter == 0U;
+			sFCU.sStateMachine.u8EnablePusherCounter = 0U;
 
 			break;
 
@@ -463,45 +463,45 @@ void vFCU_FCTL_MAINSM__Process(void)
 void vFCU_FCTL_MAINSM__10MS_ISR(void)
 {
 	//Enable/Disable Counter
-   if (sFCU.sStateMachine.EnableAccelCounter == 1U)
+   if (sFCU.sStateMachine.u8EnableAccelCounter == 1U)
    {
-        sFCU.sStateMachine.AccelCounter++;
+        sFCU.sStateMachine.u32AccelCounter++;
    }
    else
    {
-		sFCU.sStateMachine.AccelCounter = 0U;
+		sFCU.sStateMachine.u32AccelCounter = 0U;
    }
 }
 
 void vFCU_FCTL_MAINSM__100MS_ISR(void)
 {
 	//Enable/Disable Counter
-   if (sFCU.sStateMachine.EnablePusherCounter == 1U)
+   if (sFCU.sStateMachine.u8EnablePusherCounter == 1U)
    {
-        sFCU.sStateMachine.PusherCounter++;
+        sFCU.sStateMachine.u32PusherCounter++;
    }
    else
    {
-       sFCU.sStateMachine.PusherCounter = 0U;
+       sFCU.sStateMachine.u32PusherCounter = 0U;
    }
 }
 
 void vFCU_FCTL_MAINSM__PUSHER_PHASE_COUNTER_100MS_ISR(void)
 	{
-		sFCU.sStateMachine.PusherPhaseCounter++;
+		sFCU.sStateMachine.u32PusherPhaseCounter++;
 	}
 
 
 void vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR(void)
 {
 	//Enable/Disable Counter
-   if (sFCU.sStateMachine.EnableMiserableStopCounter == 1U)
+   if (sFCU.sStateMachine.u8EnableMiserableStopCounter == 1U)
    {
-        sFCU.sStateMachine.MiserableStopCounter++;
+        sFCU.sStateMachine.u32MiserableStopCounter++;
    }
    else
    {
-       sFCU.sStateMachine.MiserableStopCounter = 0U;
+       sFCU.sStateMachine.u32MiserableStopCounter = 0U;
    }
 }
 
