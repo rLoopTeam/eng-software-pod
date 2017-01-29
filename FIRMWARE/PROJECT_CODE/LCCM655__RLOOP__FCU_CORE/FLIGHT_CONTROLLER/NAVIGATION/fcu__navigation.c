@@ -84,6 +84,8 @@ E_FCU__LASER_CONT_INDEX_T Get_LC_Enum(Luint8 u8CSIndex)
 			return LASER_CONT__MID;
 		case 2:
 			return LASER_CONT__AFT;
+		default:
+			return LASER_CONT__FWD;
 	}
 }
 
@@ -127,7 +129,7 @@ void vFCU_FLIGHTCTL_NAV__ContrastSensor(void)
 		E_FCU__LASER_CONT_INDEX_T u8CS = Get_LC_Enum(u8CSIndex);
 		s8ExpectedStripeNum = searchStripsInRange(u8CSIndex);
 
-		if (u8FCU_LASERCONT_TL__Get_NewRisingAvail(u8CSIndex))
+		if (u8FCU_LASERCONT_TL__Get_NewRisingAvail(Get_LC_Enum(u8CSIndex)))
 		{
 			// detected stripe
 			if (sFCU.sNavigation.sCS[u8CSIndex].u8FirstRisingFlag == 0)
@@ -204,7 +206,7 @@ void vFCU_FLIGHTCTL_NAV__ContrastSensor(void)
 
 	// determine new master sensor
 	Luint32 maxScore=sFCU.sNavigation.sCS[0].u32Score;
-	Luint32 same = 0;
+	Luint32 same;
 	sFCU.sNavigation.u8masterSensor = 0;
 	for (u8CSIndex = 1; u8CSIndex < C_FCU__NAV_NUM_CONTRAST_SENSORS; u8CSIndex++)
 	{
@@ -224,7 +226,7 @@ void vFCU_FLIGHTCTL_NAV__ContrastSensor(void)
 			same = 0;
 		}
 	}
-	if (same = 0)
+	if (same == 0)
 	{
 		// figure out sensor with least uncertainty
 		Luint32 minUncert=sFCU.sNavigation.sCS[0].u32XPosUncert;
@@ -410,12 +412,6 @@ void vFCU_FCTL_NAV__10MS_ISR(void)
 
 /****************************************************************************/
 /** Functions to retrieve NAVIGATION parameters, to be called from other files */
-
-Luint8 u8FCU_FCTL_NAV__GetPodSpeedTooHigh(void)
-{
-	Luint8 u8Test = 0;
-	return u8Test;
-}
 
 Luint32 u32FCU_FCTL_NAV__PodSpeed(void)
 {

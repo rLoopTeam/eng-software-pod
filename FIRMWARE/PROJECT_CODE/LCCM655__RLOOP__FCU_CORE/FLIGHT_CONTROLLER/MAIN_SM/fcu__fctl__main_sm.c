@@ -497,6 +497,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 			vFCU_FCTL_DRIVEPOD__Process();
 		#endif
 
+		#if C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION == 1U
+			vFCU_FLIGHTCTL_NAV__Process();
+		#endif
 
 		//TODO: NOT MENTIONED ANYWHERE ELSE
 		//process auto-sequence control
