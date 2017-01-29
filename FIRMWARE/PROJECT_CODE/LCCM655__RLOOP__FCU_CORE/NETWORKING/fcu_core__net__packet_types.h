@@ -106,8 +106,6 @@
 		/** Inject a raw emulation value into the laser */
 		NET_PKT__LASER_DIST__RAW_EMULATION_VALUE = 0x1203U,
 
-
-
 		//////////////////////////////////////////////////////
 		//FCU: LASER CONTRAST (0x1300)
 		//////////////////////////////////////////////////////

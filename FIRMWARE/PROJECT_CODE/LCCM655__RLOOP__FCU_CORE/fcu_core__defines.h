@@ -113,6 +113,12 @@
 	#define C_FCU__EDDY_BRAKES_APPL_MLP_DISTANCE				(1U)		//define exact value
 	#define C_FCU__EDDY_BRAKES_NOM_RELEASE_SPEED				(1U)		//define exact value
 	#define C_FCU__EDDY_BRAKES_RELEASE_MLP_DISTANCE			(1U)		//define exact value
+	#define C_FCU__EDDY_BRAKES_FOAM_PIT_X_POSITION            (1U)           // Foam X position // THIS VALUE NEEDS TO BE CORRECTED, IS NOT DEFINED
+	#define C_FCU__EDDY_BRAKES_TRIGGER_VELOCITY_SAFETY_MARGIN (2880U)       // Safty margin in the x measurement
+	#define C_FCU__EDDY_BRAKES_POLY_COEF_ORDER0               (0.7423F)     // constant for polinomial approximation
+	#define C_FCU__EDDY_BRAKES_POLY_COEF_ORDER1               (-0.3467F)    // 1th order coefficient for polinomial approximation
+	#define C_FCU__EDDY_BRAKES_POLY_COEF_ORDER2               (-0.0004F)    // 2nd order coefficient for polinomial approximation
+	#define C_FCU__EDDY_BRAKES_POLY_COEF_ORDER3               (-0.0000003F) // 3rd order coefficient for polinomial approximation
 
 	/** NAV function constants */
 	#define C_FCU__NAV_POD_MIN_X_POS							(500U)	//define exact value
@@ -141,6 +147,7 @@
 	#define C_FCU__NAV_ACCELEROMETER_HIGH_VAL_DELAY 			(55U)
 	#define C_FCU__NAV_ACCELEROMETER_LOW_VAL_DELAY 			(55U)
 	#define C_FCU__NAV_MISERABLE_STOP_CONFIRM_DELAY 			(200U)
+
 
 
 
