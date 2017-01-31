@@ -303,7 +303,21 @@
 			BRAKE_CAL_STATE__WAIT_NEW_ZERO,
 
 			/** Cal is done */
-			BRAKE_CAL_STATE__COMPLETE
+			BRAKE_CAL_STATE__COMPLETE,
+
+			//Type 2 Calibration
+
+			/** Retract the right brake out of the way */
+			BRAKE_CAL__TYPE2__RETRACT_RIGHT,
+
+			BRAKE_CAL__TYPE2__WAIT_RETRACT_RIGHT,
+
+			BRAKE_CAL__TYPE2__RELEASE_RIGHT,
+
+
+
+
+
 
 		}E_FCU_CAL_BRAKES__STATES_T;
 

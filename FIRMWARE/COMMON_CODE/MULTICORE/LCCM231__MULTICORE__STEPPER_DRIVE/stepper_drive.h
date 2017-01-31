@@ -514,6 +514,7 @@
 
 	//zero
 	void vSTEPDRIVE_ZERO__Set_Zero(Luint8 u8Axis);
+	void vSTEPDRIVE_ZERO__Set_Zero_Defined(Luint8 u8AxisIndex, Lint32 s32Value);
 	void vSTEPDRIVE_ZERO__ZeroAll(void);
 
 	//usb

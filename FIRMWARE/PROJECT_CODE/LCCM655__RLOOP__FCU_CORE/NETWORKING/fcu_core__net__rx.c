@@ -336,7 +336,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 			case NET_PKT__LASER_DIST__RAW_EMULATION_VALUE:
 				#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
-					vFCU_LASERDIST_ETH__Emulation_Injection(f32Block[0]);
+					vFCU_LASERDIST_ETH__Emulation_Injection(s32Block[0]);
 				#endif
 				break;
 

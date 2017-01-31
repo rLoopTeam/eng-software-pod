@@ -135,7 +135,9 @@ void vFCU_ASI__Process(void)
 
 		case ASI_STATE__CONFIG_MUX:
 			//setup the channel mux to our current channel
-			vFCU_ASI_MUX__SelectChannel(sFCU.sASI.u8ScanIndex);
+			//vFCU_ASI_MUX__SelectChannel(sFCU.sASI.u8ScanIndex);
+
+			vFCU_ASI_MUX__SelectChannel(7U);
 
 			//start issuing commands
 			sFCU.sASI.eMainState = ASI_STATE__ISSUE_COMMAND;
