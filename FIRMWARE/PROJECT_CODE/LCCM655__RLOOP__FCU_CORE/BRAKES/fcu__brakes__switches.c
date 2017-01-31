@@ -338,7 +338,7 @@ void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void)
 		eState = eFCU_BRAKES_SW__Get_Switch(FCU_BRAKE__RIGHT, BRAKE_SW__RETRACT);
 		if(eState == SW_STATE__CLOSED)
 		{
-			///vSTEPDRIVE_LIMIT__Limit_ISR(1U);
+			//vSTEPDRIVE_LIMIT__Limit_ISR(1U);
 		}
 		else
 		{
@@ -363,19 +363,17 @@ void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void)
 void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void)
 {
 	#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-	E_FCU__SWITCH_STATE_T eState;
+		E_FCU__SWITCH_STATE_T eState;
 
-	eState = eFCU_BRAKES_SW__Get_Switch(FCU_BRAKE__RIGHT, BRAKE_SW__EXTEND);
-	if(eState == SW_STATE__CLOSED)
-	{
-		//vSTEPDRIVE_LIMIT__Limit_ISR(1U);
-	}
-	else
-	{
+		eState = eFCU_BRAKES_SW__Get_Switch(FCU_BRAKE__RIGHT, BRAKE_SW__EXTEND);
+		if(eState == SW_STATE__CLOSED)
+		{
+			//vSTEPDRIVE_LIMIT__Limit_ISR(1U);
+		}
+		else
+		{
 
-	}
-
-
+		}
 
 		sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].u8EdgeSeen = 1U;
 		#if C_LOCALDEF__LCCM655__ENABLE_DEBUG_BRAKES == 1U

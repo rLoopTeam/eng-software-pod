@@ -341,7 +341,7 @@ void vFCU_LASERDIST__Process_Packet(void)
 	f32Delta -= sFCU.sLaserDist.s32Distance_mm;
 
 	//50hz
-	f32Delta *= 0.05;
+	f32Delta *= 0.05F;
 
 	//do it.
 	sFCU.sLaserDist.s32Velocity_mms = (Lint32)f32Delta;
@@ -411,7 +411,7 @@ void vFCU_LASERDIST__Process_Packet_ASCII(void)
 	f32Delta -= sFCU.sLaserDist.s32Distance_mm;
 
 	//50hz
-	f32Delta *= 0.05;
+	f32Delta *= 0.05F;
 
 	//do it.
 	sFCU.sLaserDist.s32Velocity_mms = (Lint32)f32Delta;
