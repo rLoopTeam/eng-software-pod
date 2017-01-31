@@ -103,6 +103,31 @@ void vFCU_LASEROPTO_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer += 4U;
 
 				}//for(u8Device = 0U; u8Device < C_FCU__NUM_LASERS_OPTONCDT; u8Device++)
+
+				//Lateral Translation
+				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sFlightControl.sOrient.f32Lateral);
+				pu8Buffer += 4U;
+
+				//Pitch
+				vNUMERICAL_CONVERT__Array_S16(pu8Buffer, sFCU.sFlightControl.sOrient.s16Pitch);
+				pu8Buffer += 2U;
+
+				//Roll
+				vNUMERICAL_CONVERT__Array_S16(pu8Buffer, sFCU.sFlightControl.sOrient.s16Roll);
+				pu8Buffer += 2U;
+
+				//Yaw
+				vNUMERICAL_CONVERT__Array_S16(pu8Buffer, sFCU.sFlightControl.sOrient.s16Yaw);
+				pu8Buffer += 2U;
+
+				//Twist Pitch
+				vNUMERICAL_CONVERT__Array_S16(pu8Buffer, sFCU.sFlightControl.sOrient.s16TwistPitch);
+				pu8Buffer += 2U;
+
+				//Twist Roll
+				vNUMERICAL_CONVERT__Array_S16(pu8Buffer, sFCU.sFlightControl.sOrient.s16TwistRoll);
+				pu8Buffer += 2U;
+
 				break;
 
 			default:

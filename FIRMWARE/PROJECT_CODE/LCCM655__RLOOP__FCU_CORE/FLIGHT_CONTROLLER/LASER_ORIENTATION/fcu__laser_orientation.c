@@ -293,7 +293,7 @@ Lfloat32 f32FCU_FLIGHTCTL_LASERORIENT__PointToPlaneDistance(Lfloat32 f32Position
 	return 
 	(
 		(sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] * f32Position[LASER_ORIENT__X] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] * f32Position[LASER_ORIENT__Y] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C] * f32Position[LASER_ORIENT__Z] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__D]) /
-		sqrt((double)(sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C]))
+		f32NUMERICAL_FLOAT__SQRT((Lfloat32)(sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C]))
 	);
 }
 
@@ -305,7 +305,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalcRoll(void)
 	Lfloat32 f32vec1x = 1, f32vec1y = 0, f32vec1z = 0;
 
 	//Angle between two planes
-	sFCU.sFlightControl.sOrient.s16Roll = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((double)((f32vec1x * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C]) / sqrt((double)(sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig
+	sFCU.sFlightControl.sOrient.s16Roll = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((Lfloat32)((f32vec1x * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C]) / f32NUMERICAL_FLOAT__SQRT((Lfloat32)(sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig
 }
 
 
@@ -316,7 +316,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalcPitch(void)
 	Lfloat32 f32vec1x = 0, f32vec1y = 1, f32vec1z = 0;
 
 	//Angle between two planes
-	sFCU.sFlightControl.sOrient.s16Pitch = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((double)((f32vec1x * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C]) / sqrt((double)(sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig
+	sFCU.sFlightControl.sOrient.s16Pitch = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((Lfloat32)((f32vec1x * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C]) / f32NUMERICAL_FLOAT__SQRT((Lfloat32)(sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32PlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig
 }
 
 
@@ -327,7 +327,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistRoll(void)
 	Lfloat32 f32vec1x = 1, f32vec1y = 0, f32vec1z = 0;
 
 	//Angle between two planes
-	sFCU.sFlightControl.sOrient.s16TwistRoll = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((double)((f32vec1x * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C]) / sqrt((double)(sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig
+	sFCU.sFlightControl.sOrient.s16TwistRoll = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((Lfloat32)((f32vec1x * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C]) / f32NUMERICAL_FLOAT__SQRT((Lfloat32)(sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig
 	// the discrepancy in roll measured by two triplets of lasers gives the twisting of the pod structure // TODO: check signs
 	sFCU.sFlightControl.sOrient.s16TwistRoll -= sFCU.sFlightControl.sOrient.s16Roll;
 }
@@ -340,7 +340,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalcTwistPitch(void)
 	Lfloat32 f32vec1x = 0, f32vec1y = 1, f32vec1z = 0;
 
 	//Angle between two planes
-	sFCU.sFlightControl.sOrient.s16TwistPitch = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((double)((f32vec1x * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C]) / sqrt((double)(sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig
+	sFCU.sFlightControl.sOrient.s16TwistPitch = (Lint16)(C_NUMERICAL__PI/2 - f32NUMERICAL_Asine((Lfloat32)((f32vec1x * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + f32vec1y * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + f32vec1z * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C]) / f32NUMERICAL_FLOAT__SQRT((Lfloat32)(sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__A] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__B] + sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C] * sFCU.sFlightControl.sOrient.f32TwistPlaneCoeffs[LASER_ORIENT__C])))) * 10000);  // TODO: Trig
 	// the discrepancy in pitch measured by two triplets of lasers gives the bending of the pod structure // TODO: check signs
 	sFCU.sFlightControl.sOrient.s16TwistPitch -= sFCU.sFlightControl.sOrient.s16Pitch;
 }
@@ -406,7 +406,7 @@ void vFCU_FLIGHTCTL_LASERORIENT__CalcYaw_and_Lateral(void)
 
 	f32LaserSeparation_X = sFCU.sFlightControl.sOrient.sBeamLasers[0].f32Position[0] - sFCU.sFlightControl.sOrient.sBeamLasers[1].f32Position[0];
 
-	sFCU.sFlightControl.sOrient.s16Yaw = (Lint16)(2 * f32NUMERICAL_Atan((f32LaserSeparation_X - sqrt(f32LaserSeparation_X * f32LaserSeparation_X + f32Y * f32Y - f32BeamThickness * f32BeamThickness)) / (f32BeamThickness - f32Y))); //todo: why is there a *10000 in old code?
+	sFCU.sFlightControl.sOrient.s16Yaw = (Lint16)(2 * f32NUMERICAL_Atan((f32LaserSeparation_X - f32NUMERICAL_FLOAT__SQRT((Lfloat32)f32LaserSeparation_X * f32LaserSeparation_X + f32Y * f32Y - f32BeamThickness * f32BeamThickness)) / (f32BeamThickness - f32Y))); //todo: why is there a *10000 in old code?
 
 	sFCU.sFlightControl.sOrient.f32Lateral = (f32Y0 - f32Y1) * f32NUMERICAL_Cosine(sFCU.sFlightControl.sOrient.s16Yaw) / 2;
 
