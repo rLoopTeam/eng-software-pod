@@ -39,5 +39,15 @@ var searchData=
   ['ata6870_5freg_5f_5frev_5fid',['ATA6870_REG__REV_ID',['../ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57a4450d4df0622035ef73c54b686627c92',1,'ata6870__register_defs.h']]],
   ['ata6870_5freg_5f_5fsw_5freset',['ATA6870_REG__SW_RESET',['../ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57aea2e508770e728691a439072efda3a62',1,'ata6870__register_defs.h']]],
   ['ata6870_5freg_5f_5fundervolt_5fthresh',['ATA6870_REG__UNDERVOLT_THRESH',['../ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57a488b6f3c1b24417764a9452a83eb2422',1,'ata6870__register_defs.h']]],
-  ['ata6870_5fregs_5ft',['ATA6870_REGS_T',['../ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57',1,'ata6870__register_defs.h']]]
+  ['ata6870_5fregs_5ft',['ATA6870_REGS_T',['../ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57',1,'ata6870__register_defs.h']]],
+  ['ata6870_5fstate_5f_5faverage_5fcell_5fvoltages',['ATA6870_STATE__AVERAGE_CELL_VOLTAGES',['../ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a329bd0c9ea4fec262d6a4cf60da39dcd',1,'ata6870.h']]],
+  ['ata6870_5fstate_5f_5ferror',['ATA6870_STATE__ERROR',['../ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a34edaa7fd8e206a9355dd7eee81c439e',1,'ata6870.h']]],
+  ['ata6870_5fstate_5f_5fidle',['ATA6870_STATE__IDLE',['../ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a909e351395e4fa41f8e628530c7c080d',1,'ata6870.h']]],
+  ['ata6870_5fstate_5f_5finit_5fdevice',['ATA6870_STATE__INIT_DEVICE',['../ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3af22668c03eea249d1dcbeb86c1b61ab2',1,'ata6870.h']]],
+  ['ata6870_5fstate_5f_5finterrupt',['ATA6870_STATE__INTERRUPT',['../ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a96ea5c657dc8277a061595a8d948f137',1,'ata6870.h']]],
+  ['ata6870_5fstate_5f_5fread_5fcell_5fvoltages',['ATA6870_STATE__READ_CELL_VOLTAGES',['../ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a49cec02770976f64da3dec084260c3ea',1,'ata6870.h']]],
+  ['ata6870_5fstate_5f_5frun_5ffiltering',['ATA6870_STATE__RUN_FILTERING',['../ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a57a7f854cee457d3a31c3343080f7886',1,'ata6870.h']]],
+  ['ata6870_5fstate_5f_5fstart_5fconversion',['ATA6870_STATE__START_CONVERSION',['../ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a771eb749815df63b24279f0a12f622be',1,'ata6870.h']]],
+  ['ata6870_5fstate_5f_5fsum_5fcell_5fvoltages',['ATA6870_STATE__SUM_CELL_VOLTAGES',['../ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a7da89d3f53fb4950757b4ead17318408',1,'ata6870.h']]],
+  ['ata6870_5fstate_5f_5fwait_5fconversion',['ATA6870_STATE__WAIT_CONVERSION',['../ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a3678f2685c58ba470a71f899b748a952',1,'ata6870.h']]]
 ];

@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, MULTICORE, ATA6870N Driver)
    &#160;<span id="projectnumber">1.0</span>
@@ -110,6 +110,12 @@ Collaboration diagram for ATA6870__BALANCE:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga957aa8f61f79294a3379825b03badbe3"><td class="memItemLeft" align="right" valign="top">static Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3">u8ATA6870_BALANCE__Handle</a> (Luint8 u8DeviceIndex, Luint8 u8CellCounter, Luint8 u8CellIndex)</td></tr>
+<tr class="memdesc:ga957aa8f61f79294a3379825b03badbe3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle the actual discharging.  <a href="#ga957aa8f61f79294a3379825b03badbe3">More...</a><br /></td></tr>
+<tr class="separator:ga957aa8f61f79294a3379825b03badbe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7eceadbb00e08c5f3c1a17a3a805157b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga7eceadbb00e08c5f3c1a17a3a805157b">vATA6870_BALANCE__Do</a> (void)</td></tr>
+<tr class="memdesc:ga7eceadbb00e08c5f3c1a17a3a805157b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Do the balancing.  <a href="#ga7eceadbb00e08c5f3c1a17a3a805157b">More...</a><br /></td></tr>
+<tr class="separator:ga7eceadbb00e08c5f3c1a17a3a805157b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacc8457d165efaa46cb194f44d3a4c677"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init</a> (void)</td></tr>
 <tr class="memdesc:gacc8457d165efaa46cb194f44d3a4c677"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init any balancer systems.  <a href="#gacc8457d165efaa46cb194f44d3a4c677">More...</a><br /></td></tr>
 <tr class="separator:gacc8457d165efaa46cb194f44d3a4c677"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -125,6 +131,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ga35c425a47779f4893caca3dcbd015707"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process</a> (void)</td></tr>
 <tr class="memdesc:ga35c425a47779f4893caca3dcbd015707"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the balancer state machine.  <a href="#ga35c425a47779f4893caca3dcbd015707">More...</a><br /></td></tr>
 <tr class="separator:ga35c425a47779f4893caca3dcbd015707"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4fbf757d8bc0eaeb4e489c87fc59aa7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga4fbf757d8bc0eaeb4e489c87fc59aa7b">vATA6870_BALANCE__Manual</a> (Luint8 u8CellIndex, Luint8 u8Enable)</td></tr>
+<tr class="separator:ga4fbf757d8bc0eaeb4e489c87fc59aa7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -133,6 +141,90 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga957aa8f61f79294a3379825b03badbe3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 u8ATA6870_BALANCE__Handle </td>
+          <td>(</td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8DeviceIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8CellCounter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8CellIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handle the actual discharging. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u8CellIndex</td><td>The cell in the stack to act on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u8CellCounter</td><td>Individual cell in the BMS </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u8DeviceIndex</td><td>ATA device index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>return 1 if we are resistors on </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>A00A9DCBE0AF34E89F897ED43D57E81F </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.012.FUNC.006 </dd></dl>
+
+<p>References <a class="el" href="struct__str6870.html#ac1e2a3aadda8480981fb550510852c06">_str6870::f32AverageCellVoltage</a>, <a class="el" href="struct__str6870.html#a34447103bff3f1ae8618f50e37e02fad">_str6870::f32BalanceTolerance</a>, <a class="el" href="struct__str6870.html#acce73d49e3af2eb7fa76555ad3e77c5b">_str6870::f32Voltage</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, <a class="el" href="struct__str6870.html#a1f8c75b789030b0f6b0db110f0096f97">_str6870::sBalance</a>, <a class="el" href="struct__str6870.html#a2e9fbdc1d007ad77665f7fd91284034c">_str6870::u8ResistorOn</a>, <a class="el" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga23c1ee8e1d92e772a261d306a53c7e8a">vATA6870_RES__TurnOff()</a>, and <a class="el" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga7f0d8bca7c58a116e64f17939df9e351">vATA6870_RES__TurnOn()</a>.</p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga7eceadbb00e08c5f3c1a17a3a805157b">vATA6870_BALANCE__Do()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___a_t_a6870_____b_a_l_a_n_c_e_ga957aa8f61f79294a3379825b03badbe3_cgraph.png" border="0" usemap="#group___a_t_a6870_____b_a_l_a_n_c_e_ga957aa8f61f79294a3379825b03badbe3_cgraph" alt=""/></div>
+<map name="group___a_t_a6870_____b_a_l_a_n_c_e_ga957aa8f61f79294a3379825b03badbe3_cgraph" id="group___a_t_a6870_____b_a_l_a_n_c_e_ga957aa8f61f79294a3379825b03badbe3_cgraph">
+<area shape="rect" id="node2" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga23c1ee8e1d92e772a261d306a53c7e8a" title="Turn off an individual discharge resistor. " alt="" coords="218,21,387,47"/>
+<area shape="rect" id="node7" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga7f0d8bca7c58a116e64f17939df9e351" title="Turn on an individual discharge resistor. " alt="" coords="217,71,388,98"/>
+<area shape="rect" id="node3" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b" title="Read a byte / byte array from a device with a given length. " alt="" coords="436,5,601,47"/>
+<area shape="rect" id="node6" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea" title="Write a U8 to a devices register. " alt="" coords="436,71,601,112"/>
+<area shape="rect" id="node4" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="649,37,824,79"/>
+<area shape="rect" id="node5" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="872,45,1080,71"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___a_t_a6870_____b_a_l_a_n_c_e_ga957aa8f61f79294a3379825b03badbe3_icgraph.png" border="0" usemap="#group___a_t_a6870_____b_a_l_a_n_c_e_ga957aa8f61f79294a3379825b03badbe3_icgraph" alt=""/></div>
+<map name="group___a_t_a6870_____b_a_l_a_n_c_e_ga957aa8f61f79294a3379825b03badbe3_icgraph" id="group___a_t_a6870_____b_a_l_a_n_c_e_ga957aa8f61f79294a3379825b03badbe3_icgraph">
+<area shape="rect" id="node2" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga7eceadbb00e08c5f3c1a17a3a805157b" title="Do the balancing. " alt="" coords="217,13,396,39"/>
+<area shape="rect" id="node3" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707" title="Process the balancer state machine. " alt="" coords="444,13,655,39"/>
+<area shape="rect" id="node4" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9" title="Process any ATA6870 tasks. " alt="" coords="703,13,845,39"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="gacfe813d3d25c0fc4ae7f9570407cff6a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -150,8 +242,69 @@ Variables</h2></td></tr>
 <p>Check if the balancer is busy. </p>
 <dl class="section return"><dt>Returns</dt><dd>0 = Not busy<br />
  1 = Busy </dd></dl>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>6C722EE0914ABA34FBAEB989E8D06209 </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>0C6AEF282147D3B4C0985DC3C7515D2E </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.012.FUNC.004 </dd></dl>
+
+<p>References <a class="el" href="ata6870_8h.html#a13ab67dee7ce37ca0395998ecbfb441da396e99887cdeaf27f85ed0b08fa45eb2">BALANCE_STATE__IDLE</a>, <a class="el" href="struct__str6870.html#a7db927597461678d0f6afd42ae5c9483">_str6870::eState</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, and <a class="el" href="struct__str6870.html#a1f8c75b789030b0f6b0db110f0096f97">_str6870::sBalance</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga7eceadbb00e08c5f3c1a17a3a805157b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vATA6870_BALANCE__Do </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Do the balancing. </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>D2C266693DEBB69953303D9FCEDB80E9 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.012.FUNC.007 </dd></dl>
+
+<p>References <a class="el" href="ata6870_8h.html#aa125709118f5d33b3b14e49b0c6952c1">C_ATA6870__MAX_CELLS</a>, <a class="el" href="struct__str6870.html#acce73d49e3af2eb7fa76555ad3e77c5b">_str6870::f32Voltage</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, <a class="el" href="struct__str6870.html#a1f8c75b789030b0f6b0db110f0096f97">_str6870::sBalance</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3">u8ATA6870_BALANCE__Handle()</a>, and <a class="el" href="struct__str6870.html#a4f249206b443618f1c759bcbce5a2ab3">_str6870::u8MaxBalanceCells</a>.</p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___a_t_a6870_____b_a_l_a_n_c_e_ga7eceadbb00e08c5f3c1a17a3a805157b_cgraph.png" border="0" usemap="#group___a_t_a6870_____b_a_l_a_n_c_e_ga7eceadbb00e08c5f3c1a17a3a805157b_cgraph" alt=""/></div>
+<map name="group___a_t_a6870_____b_a_l_a_n_c_e_ga7eceadbb00e08c5f3c1a17a3a805157b_cgraph" id="group___a_t_a6870_____b_a_l_a_n_c_e_ga7eceadbb00e08c5f3c1a17a3a805157b_cgraph">
+<area shape="rect" id="node2" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3" title="Handle the actual discharging. " alt="" coords="232,39,396,80"/>
+<area shape="rect" id="node3" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga23c1ee8e1d92e772a261d306a53c7e8a" title="Turn off an individual discharge resistor. " alt="" coords="445,21,614,47"/>
+<area shape="rect" id="node8" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga7f0d8bca7c58a116e64f17939df9e351" title="Turn on an individual discharge resistor. " alt="" coords="444,71,615,98"/>
+<area shape="rect" id="node4" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b" title="Read a byte / byte array from a device with a given length. " alt="" coords="663,5,828,47"/>
+<area shape="rect" id="node7" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea" title="Write a U8 to a devices register. " alt="" coords="663,71,828,112"/>
+<area shape="rect" id="node5" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="876,37,1051,79"/>
+<area shape="rect" id="node6" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="1099,45,1307,71"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___a_t_a6870_____b_a_l_a_n_c_e_ga7eceadbb00e08c5f3c1a17a3a805157b_icgraph.png" border="0" usemap="#group___a_t_a6870_____b_a_l_a_n_c_e_ga7eceadbb00e08c5f3c1a17a3a805157b_icgraph" alt=""/></div>
+<map name="group___a_t_a6870_____b_a_l_a_n_c_e_ga7eceadbb00e08c5f3c1a17a3a805157b_icgraph" id="group___a_t_a6870_____b_a_l_a_n_c_e_ga7eceadbb00e08c5f3c1a17a3a805157b_icgraph">
+<area shape="rect" id="node2" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707" title="Process the balancer state machine. " alt="" coords="232,5,443,32"/>
+<area shape="rect" id="node3" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9" title="Process any ATA6870 tasks. " alt="" coords="491,5,633,32"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -170,10 +323,10 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Init any balancer systems. </p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>A46B577F82793C959687DE3130CB78CD </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>71AFDB346C1B611F3C203CE6F4BACCA1 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.012.FUNC.001 </dd></dl>
 
-<p>References <a class="el" href="ata6870_8h.html#a13ab67dee7ce37ca0395998ecbfb441da396e99887cdeaf27f85ed0b08fa45eb2">BALANCE_STATE__IDLE</a>, <a class="el" href="struct__str6870.html#a1f99dd65a7ff94538f6a85bf350529cf">_str6870::eState</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, and <a class="el" href="struct__str6870.html#a1f8c75b789030b0f6b0db110f0096f97">_str6870::sBalance</a>.</p>
+<p>References <a class="el" href="ata6870_8h.html#a13ab67dee7ce37ca0395998ecbfb441da396e99887cdeaf27f85ed0b08fa45eb2">BALANCE_STATE__IDLE</a>, <a class="el" href="ata6870_8h.html#abbac3d4fda4994bea08ccc00bc00f176">C_ATA6870__TOTAL_CELLS</a>, <a class="el" href="struct__str6870.html#a7db927597461678d0f6afd42ae5c9483">_str6870::eState</a>, <a class="el" href="struct__str6870.html#a34447103bff3f1ae8618f50e37e02fad">_str6870::f32BalanceTolerance</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, <a class="el" href="struct__str6870.html#a1f8c75b789030b0f6b0db110f0096f97">_str6870::sBalance</a>, <a class="el" href="struct__str6870.html#a4f249206b443618f1c759bcbce5a2ab3">_str6870::u8MaxBalanceCells</a>, and <a class="el" href="struct__str6870.html#a2e9fbdc1d007ad77665f7fd91284034c">_str6870::u8ResistorOn</a>.</p>
 
 <p>Referenced by <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937">vATA6870__Init()</a>.</p>
 
@@ -183,6 +336,49 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="group___a_t_a6870_____b_a_l_a_n_c_e_gacc8457d165efaa46cb194f44d3a4c677_icgraph.png" border="0" usemap="#group___a_t_a6870_____b_a_l_a_n_c_e_gacc8457d165efaa46cb194f44d3a4c677_icgraph" alt=""/></div>
 <map name="group___a_t_a6870_____b_a_l_a_n_c_e_gacc8457d165efaa46cb194f44d3a4c677_icgraph" id="group___a_t_a6870_____b_a_l_a_n_c_e_gacc8457d165efaa46cb194f44d3a4c677_icgraph">
 <area shape="rect" id="node2" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937" title="Init any ATA6870 systems. " alt="" coords="232,5,343,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga4fbf757d8bc0eaeb4e489c87fc59aa7b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vATA6870_BALANCE__Manual </td>
+          <td>(</td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8CellIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8Enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>References <a class="el" href="ata6870_8h.html#aa125709118f5d33b3b14e49b0c6952c1">C_ATA6870__MAX_CELLS</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, <a class="el" href="struct__str6870.html#a1f8c75b789030b0f6b0db110f0096f97">_str6870::sBalance</a>, <a class="el" href="struct__str6870.html#a2e9fbdc1d007ad77665f7fd91284034c">_str6870::u8ResistorOn</a>, <a class="el" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga23c1ee8e1d92e772a261d306a53c7e8a">vATA6870_RES__TurnOff()</a>, and <a class="el" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga7f0d8bca7c58a116e64f17939df9e351">vATA6870_RES__TurnOn()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___a_t_a6870_____b_a_l_a_n_c_e_ga4fbf757d8bc0eaeb4e489c87fc59aa7b_cgraph.png" border="0" usemap="#group___a_t_a6870_____b_a_l_a_n_c_e_ga4fbf757d8bc0eaeb4e489c87fc59aa7b_cgraph" alt=""/></div>
+<map name="group___a_t_a6870_____b_a_l_a_n_c_e_ga4fbf757d8bc0eaeb4e489c87fc59aa7b_cgraph" id="group___a_t_a6870_____b_a_l_a_n_c_e_ga4fbf757d8bc0eaeb4e489c87fc59aa7b_cgraph">
+<area shape="rect" id="node2" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga23c1ee8e1d92e772a261d306a53c7e8a" title="Turn off an individual discharge resistor. " alt="" coords="258,21,427,47"/>
+<area shape="rect" id="node7" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga7f0d8bca7c58a116e64f17939df9e351" title="Turn on an individual discharge resistor. " alt="" coords="257,71,428,98"/>
+<area shape="rect" id="node3" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b" title="Read a byte / byte array from a device with a given length. " alt="" coords="476,5,641,47"/>
+<area shape="rect" id="node6" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea" title="Write a U8 to a devices register. " alt="" coords="476,71,641,112"/>
+<area shape="rect" id="node4" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="689,37,864,79"/>
+<area shape="rect" id="node5" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="912,45,1120,71"/>
 </map>
 </div>
 </p>
@@ -205,12 +401,31 @@ Here is the caller graph for this function:</div>
 
 <p>Process the balancer state machine. </p>
 <p>Call this from main loop fast as possible.</p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>D30B7E456ED8751A1AF6618C581E75E6 </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>173C6582E979E9DC904E68091ABF0A71 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.012.FUNC.005 </dd></dl>
 
-<p>References <a class="el" href="ata6870_8h.html#a13ab67dee7ce37ca0395998ecbfb441da396e99887cdeaf27f85ed0b08fa45eb2">BALANCE_STATE__IDLE</a>, <a class="el" href="struct__str6870.html#a1f99dd65a7ff94538f6a85bf350529cf">_str6870::eState</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, and <a class="el" href="struct__str6870.html#a1f8c75b789030b0f6b0db110f0096f97">_str6870::sBalance</a>.</p>
+<p>References <a class="el" href="ata6870_8h.html#a13ab67dee7ce37ca0395998ecbfb441da23ad3951a6c0a83262fb86aa5bc01d02">BALANCE_STATE__BALANCED</a>, <a class="el" href="ata6870_8h.html#a13ab67dee7ce37ca0395998ecbfb441dade8d72dcdac26b124e92284340742da2">BALANCE_STATE__CHECK_BALANCED</a>, <a class="el" href="ata6870_8h.html#a13ab67dee7ce37ca0395998ecbfb441da396e99887cdeaf27f85ed0b08fa45eb2">BALANCE_STATE__IDLE</a>, <a class="el" href="ata6870_8h.html#a13ab67dee7ce37ca0395998ecbfb441da62173026ed31affb8726d1061ab3c218">BALANCE_STATE__START_BALANCING</a>, <a class="el" href="ata6870_8h.html#a13ab67dee7ce37ca0395998ecbfb441da65c30377e01ddbc4a6cd2fc6eb84e186">BALANCE_STATE__WAIT_VOLTAGE_UPDATE</a>, <a class="el" href="ata6870_8h.html#abbac3d4fda4994bea08ccc00bc00f176">C_ATA6870__TOTAL_CELLS</a>, <a class="el" href="struct__str6870.html#a7db927597461678d0f6afd42ae5c9483">_str6870::eState</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, <a class="el" href="struct__str6870.html#a1f8c75b789030b0f6b0db110f0096f97">_str6870::sBalance</a>, <a class="el" href="struct__str6870.html#adac4b0ade35c7cb6f59c6e49d8ed4935">_str6870::u8AverageUpdated</a>, <a class="el" href="struct__str6870.html#a2e9fbdc1d007ad77665f7fd91284034c">_str6870::u8ResistorOn</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga7eceadbb00e08c5f3c1a17a3a805157b">vATA6870_BALANCE__Do()</a>, and <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2af6743461fb48e555818980f53e9757">vATA6870_BALANCE__Stop()</a>.</p>
 
 <p>Referenced by <a class="el" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9">vATA6870__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___a_t_a6870_____b_a_l_a_n_c_e_ga35c425a47779f4893caca3dcbd015707_cgraph.png" border="0" usemap="#group___a_t_a6870_____b_a_l_a_n_c_e_ga35c425a47779f4893caca3dcbd015707_cgraph" alt=""/></div>
+<map name="group___a_t_a6870_____b_a_l_a_n_c_e_ga35c425a47779f4893caca3dcbd015707_cgraph" id="group___a_t_a6870_____b_a_l_a_n_c_e_ga35c425a47779f4893caca3dcbd015707_cgraph">
+<area shape="rect" id="node2" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga7eceadbb00e08c5f3c1a17a3a805157b" title="Do the balancing. " alt="" coords="269,58,448,85"/>
+<area shape="rect" id="node10" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2af6743461fb48e555818980f53e9757" title="Stop the blanacing process and terminate any discharging resistors. " alt="" coords="264,110,453,137"/>
+<area shape="rect" id="node3" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3" title="Handle the actual discharging. " alt="" coords="511,48,675,89"/>
+<area shape="rect" id="node4" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga23c1ee8e1d92e772a261d306a53c7e8a" title="Turn off an individual discharge resistor. " alt="" coords="734,13,903,39"/>
+<area shape="rect" id="node9" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga7f0d8bca7c58a116e64f17939df9e351" title="Turn on an individual discharge resistor. " alt="" coords="733,63,904,90"/>
+<area shape="rect" id="node5" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b" title="Read a byte / byte array from a device with a given length. " alt="" coords="952,5,1117,47"/>
+<area shape="rect" id="node8" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea" title="Write a U8 to a devices register. " alt="" coords="952,71,1117,112"/>
+<area shape="rect" id="node6" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="1165,37,1340,79"/>
+<area shape="rect" id="node7" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="1388,45,1596,71"/>
+<area shape="rect" id="node11" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#gab881482bec60f5d93439668bccba1705" title="Turn off all resistors. " alt="" coords="501,114,685,141"/>
+</map>
+</div>
+</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -239,8 +454,10 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Start the balancing process. </p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>0003B1996E14215C56A9FFF33E5D0590 </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>461C224CAEE30E4668EF221BA446985D </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.012.FUNC.002 </dd></dl>
+
+<p>References <a class="el" href="ata6870_8h.html#a13ab67dee7ce37ca0395998ecbfb441da65c30377e01ddbc4a6cd2fc6eb84e186">BALANCE_STATE__WAIT_VOLTAGE_UPDATE</a>, <a class="el" href="struct__str6870.html#a7db927597461678d0f6afd42ae5c9483">_str6870::eState</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, <a class="el" href="struct__str6870.html#a1f8c75b789030b0f6b0db110f0096f97">_str6870::sBalance</a>, and <a class="el" href="struct__str6870.html#adac4b0ade35c7cb6f59c6e49d8ed4935">_str6870::u8AverageUpdated</a>.</p>
 
 </div>
 </div>
@@ -259,8 +476,36 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Stop the blanacing process and terminate any discharging resistors. </p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>61065840D03858CD5B16762899AED266 </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>0FEC574EA48C801CCD0F4C9D113A53AA </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.012.FUNC.003 </dd></dl>
+
+<p>References <a class="el" href="ata6870_8h.html#a13ab67dee7ce37ca0395998ecbfb441da396e99887cdeaf27f85ed0b08fa45eb2">BALANCE_STATE__IDLE</a>, <a class="el" href="ata6870_8h.html#abbac3d4fda4994bea08ccc00bc00f176">C_ATA6870__TOTAL_CELLS</a>, <a class="el" href="struct__str6870.html#a7db927597461678d0f6afd42ae5c9483">_str6870::eState</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, <a class="el" href="struct__str6870.html#a1f8c75b789030b0f6b0db110f0096f97">_str6870::sBalance</a>, <a class="el" href="struct__str6870.html#a2e9fbdc1d007ad77665f7fd91284034c">_str6870::u8ResistorOn</a>, and <a class="el" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#gab881482bec60f5d93439668bccba1705">vATA6870_RES__TurnAllOff()</a>.</p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___a_t_a6870_____b_a_l_a_n_c_e_ga2af6743461fb48e555818980f53e9757_cgraph.png" border="0" usemap="#group___a_t_a6870_____b_a_l_a_n_c_e_ga2af6743461fb48e555818980f53e9757_cgraph" alt=""/></div>
+<map name="group___a_t_a6870_____b_a_l_a_n_c_e_ga2af6743461fb48e555818980f53e9757_cgraph" id="group___a_t_a6870_____b_a_l_a_n_c_e_ga2af6743461fb48e555818980f53e9757_cgraph">
+<area shape="rect" id="node2" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#gab881482bec60f5d93439668bccba1705" title="Turn off all resistors. " alt="" coords="243,42,427,69"/>
+<area shape="rect" id="node3" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea" title="Write a U8 to a devices register. " alt="" coords="475,35,640,76"/>
+<area shape="rect" id="node4" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="688,5,863,47"/>
+<area shape="rect" id="node5" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="911,42,1119,69"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___a_t_a6870_____b_a_l_a_n_c_e_ga2af6743461fb48e555818980f53e9757_icgraph.png" border="0" usemap="#group___a_t_a6870_____b_a_l_a_n_c_e_ga2af6743461fb48e555818980f53e9757_icgraph" alt=""/></div>
+<map name="group___a_t_a6870_____b_a_l_a_n_c_e_ga2af6743461fb48e555818980f53e9757_icgraph" id="group___a_t_a6870_____b_a_l_a_n_c_e_ga2af6743461fb48e555818980f53e9757_icgraph">
+<area shape="rect" id="node2" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707" title="Process the balancer state machine. " alt="" coords="243,5,453,32"/>
+<area shape="rect" id="node3" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9" title="Process any ATA6870 tasks. " alt="" coords="501,5,644,32"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -275,7 +520,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>, and <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>.</p>
+<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3">u8ATA6870_BALANCE__Handle()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacfe813d3d25c0fc4ae7f9570407cff6a">u8ATA6870_BALANCE__Is_Busy()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga7eceadbb00e08c5f3c1a17a3a805157b">vATA6870_BALANCE__Do()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga4fbf757d8bc0eaeb4e489c87fc59aa7b">vATA6870_BALANCE__Manual()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2105e80a88a638b159d5339f7af13583">vATA6870_BALANCE__Start()</a>, and <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2af6743461fb48e555818980f53e9757">vATA6870_BALANCE__Stop()</a>.</p>
 
 </div>
 </div>

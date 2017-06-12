@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, MULTICORE, ATA6870N Driver)
    &#160;<span id="projectnumber">1.0</span>
@@ -110,6 +110,8 @@ Collaboration diagram for ATA6870__SCAN:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga25d0fba15ca770aeb01b8d3014b25165"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_a6870_____s_c_a_n.html#ga25d0fba15ca770aeb01b8d3014b25165">vATA6870_SCAN__Init</a> (void)</td></tr>
+<tr class="separator:ga25d0fba15ca770aeb01b8d3014b25165"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9f664bd9b7c6862f8bf47939bebd3ea0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_a6870_____s_c_a_n.html#ga9f664bd9b7c6862f8bf47939bebd3ea0">vATA6870_SCAN__Start</a> (void)</td></tr>
 <tr class="memdesc:ga9f664bd9b7c6862f8bf47939bebd3ea0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scans the bus for devices.  <a href="#ga9f664bd9b7c6862f8bf47939bebd3ea0">More...</a><br /></td></tr>
 <tr class="separator:ga9f664bd9b7c6862f8bf47939bebd3ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,6 +123,36 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga25d0fba15ca770aeb01b8d3014b25165"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vATA6870_SCAN__Init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>References <a class="el" href="ata6870_8h.html#aabaa84e2d0ec3222f2659f24dd5cea4a">C_ATA6870__MAX_BUS_DEVICES</a>, <a class="el" href="group___a_t_a6870_____s_c_a_n.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, and <a class="el" href="struct__str6870.html#a50cd5fd2b19b9d17436583149a102321">_str6870::u8RevID</a>.</p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937">vATA6870__Init()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___a_t_a6870_____s_c_a_n_ga25d0fba15ca770aeb01b8d3014b25165_icgraph.png" border="0" usemap="#group___a_t_a6870_____s_c_a_n_ga25d0fba15ca770aeb01b8d3014b25165_icgraph" alt=""/></div>
+<map name="group___a_t_a6870_____s_c_a_n_ga25d0fba15ca770aeb01b8d3014b25165_icgraph" id="group___a_t_a6870_____s_c_a_n_ga25d0fba15ca770aeb01b8d3014b25165_icgraph">
+<area shape="rect" id="node2" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937" title="Init any ATA6870 systems. " alt="" coords="208,5,319,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="ga9f664bd9b7c6862f8bf47939bebd3ea0"></a>
 <div class="memitem">
 <div class="memproto">
@@ -136,12 +168,12 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Scans the bus for devices. </p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>96343991C433CB27E0A245629F759BD5 </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>CA25143716A8DA7D9D9651F8A46D17E5 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.007.FUNC.001 </dd></dl>
 
-<p>References <a class="el" href="ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57a4450d4df0622035ef73c54b686627c92">ATA6870_REG__REV_ID</a>, and <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b">vATA6870_LOWLEVEL__Reg_ReadU8()</a>.</p>
+<p>References <a class="el" href="ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57a4450d4df0622035ef73c54b686627c92">ATA6870_REG__REV_ID</a>, <a class="el" href="group___a_t_a6870_____s_c_a_n.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, <a class="el" href="struct__str6870.html#a50cd5fd2b19b9d17436583149a102321">_str6870::u8RevID</a>, and <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b">vATA6870_LOWLEVEL__Reg_ReadU8()</a>.</p>
 
-<p>Referenced by <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937">vATA6870__Init()</a>.</p>
+<p>Referenced by <a class="el" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9">vATA6870__Process()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -160,7 +192,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group___a_t_a6870_____s_c_a_n_ga9f664bd9b7c6862f8bf47939bebd3ea0_icgraph.png" border="0" usemap="#group___a_t_a6870_____s_c_a_n_ga9f664bd9b7c6862f8bf47939bebd3ea0_icgraph" alt=""/></div>
 <map name="group___a_t_a6870_____s_c_a_n_ga9f664bd9b7c6862f8bf47939bebd3ea0_icgraph" id="group___a_t_a6870_____s_c_a_n_ga9f664bd9b7c6862f8bf47939bebd3ea0_icgraph">
-<area shape="rect" id="node2" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937" title="Init any ATA6870 systems. " alt="" coords="219,5,329,32"/>
+<area shape="rect" id="node2" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9" title="Process any ATA6870 tasks. " alt="" coords="219,5,361,32"/>
 </map>
 </div>
 </p>
@@ -177,6 +209,8 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____s_c_a_n.html#ga25d0fba15ca770aeb01b8d3014b25165">vATA6870_SCAN__Init()</a>, and <a class="el" href="group___a_t_a6870_____s_c_a_n.html#ga9f664bd9b7c6862f8bf47939bebd3ea0">vATA6870_SCAN__Start()</a>.</p>
 
 </div>
 </div>
