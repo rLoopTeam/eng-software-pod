@@ -1,5 +1,6 @@
 var ds2482s____search_8c =
 [
+    [ "u8ADDRX_LENGTH", "ds2482s____search_8c.html#a0579f0ab87f002c8fa1d4301f9f123ff", null ],
     [ "s16DS2482S_SEARCH__Search", "group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f", null ],
     [ "s16DS2482S_SEARCH__SearchFirstDevice", "group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb", null ],
     [ "s16DS2482S_SEARCH__SearchNextDevice", "group___d_s2482_s_____s_e_a_r_c_h.html#ga04cfff3e7960eee3d152029a02e3d9fe", null ],

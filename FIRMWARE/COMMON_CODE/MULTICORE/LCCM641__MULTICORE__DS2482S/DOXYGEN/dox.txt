@@ -6,39 +6,42 @@ Searching for msc files...
 Searching for dia files...
 Searching for files to exclude
 Searching INPUT for files to process...
-Searching for files in directory D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S
-Searching for files in directory D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/CRC
-Searching for files in directory D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DEVICE
-Searching for files in directory D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOCUMENTS
-Searching for files in directory D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOXYGEN
-Searching for files in directory D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOXYGEN/IMAGES
-Searching for files in directory D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOXYGEN/OUTPUT
-Searching for files in directory D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOXYGEN/PDF
-Searching for files in directory D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/LOWLEVEL
-Searching for files in directory D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ONE_WIRE
-Searching for files in directory D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/PCLINT
-Searching for files in directory D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/SAFETOOL
-Searching for files in directory D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/SEARCH
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/CRC
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DEVICE
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOCUMENTS
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOXYGEN
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOXYGEN/IMAGES
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOXYGEN/OUTPUT
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOXYGEN/OUTPUT/latex
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DOXYGEN/PDF
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/LOWLEVEL
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ONE_WIRE
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/PCLINT
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/SAFETOOL
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/SEARCH
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/UNIT_TEST
+Searching for files in directory D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/UNIT_TEST/IMAGES
 Reading and parsing tag files
 Parsing files
-Preprocessing D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/CRC/ds2482s__crc.c...
-Parsing file D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/CRC/ds2482s__crc.c...
-Preprocessing D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DEVICE/ds2482s__device.c...
-Parsing file D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DEVICE/ds2482s__device.c...
-Preprocessing D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s.c...
-Parsing file D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s.c...
-Preprocessing D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s.h...
-Parsing file D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s.h...
-Preprocessing D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s__localdef.h...
-Parsing file D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s__localdef.h...
-Preprocessing D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s__reg_defs.h...
-Parsing file D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s__reg_defs.h...
-Preprocessing D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/LOWLEVEL/ds2482s__lowlevel.c...
-Parsing file D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/LOWLEVEL/ds2482s__lowlevel.c...
-Preprocessing D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ONE_WIRE/ds2482s__one_wire.c...
-Parsing file D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ONE_WIRE/ds2482s__one_wire.c...
-Preprocessing D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/SEARCH/ds2482s__search.c...
-Parsing file D:/LOCKIE/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/SEARCH/ds2482s__search.c...
+Preprocessing D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/CRC/ds2482s__crc.c...
+Parsing file D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/CRC/ds2482s__crc.c...
+Preprocessing D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DEVICE/ds2482s__device.c...
+Parsing file D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/DEVICE/ds2482s__device.c...
+Preprocessing D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s.c...
+Parsing file D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s.c...
+Preprocessing D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s.h...
+Parsing file D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s.h...
+Preprocessing D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s__localdef.h...
+Parsing file D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s__localdef.h...
+Preprocessing D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s__reg_defs.h...
+Parsing file D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s__reg_defs.h...
+Preprocessing D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/LOWLEVEL/ds2482s__lowlevel.c...
+Parsing file D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/LOWLEVEL/ds2482s__lowlevel.c...
+Preprocessing D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ONE_WIRE/ds2482s__one_wire.c...
+Parsing file D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ONE_WIRE/ds2482s__one_wire.c...
+Preprocessing D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/SEARCH/ds2482s__search.c...
+Parsing file D:/SIL3/DESIGN/LDL/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/SEARCH/ds2482s__search.c...
 Building group list...
 Building directory list...
 Building namespace list...
@@ -137,7 +140,6 @@ Generating dependency graph for group DS2482S__CORE
 Generating call graph for function u8DS2482S_USER__1Wire_Reset
 Generating caller graph for function u8DS2482S_USER__1Wire_Reset
 Generating call graph for function vDS2482S__Init
-Generating dependency graph for group DS2482S__REG_DEFS
 Generating dependency graph for group DS2482S__LOWLEVEL
 Generating caller graph for function s16DS2482S_LOWLEVEL__RxReg
 Generating caller graph for function s16DS2482S_LOWLEVEL__TxReg
@@ -164,6 +166,7 @@ Generating call graph for function s16DS2482S_SEARCH__Search
 Generating caller graph for function s16DS2482S_SEARCH__Search
 Generating call graph for function s16DS2482S_SEARCH__SearchFirstDevice
 Generating call graph for function s16DS2482S_SEARCH__SearchNextDevice
+Generating call graph for function s16DS2482S_SEARCH__Verify
 Generating class documentation...
 Generating docs for compound _strDS2482S...
 Generating namespace index...
@@ -185,5 +188,86 @@ Generating example index...
 finalizing index lists...
 writing tag file...
 Running dot...
-lookup cache used 58/65536 hits=284 misses=58
+Generating dot graphs using 3 parallel threads...
+Running dot for graph 1/63
+Running dot for graph 2/63
+Running dot for graph 3/63
+Running dot for graph 4/63
+Running dot for graph 5/63
+Running dot for graph 6/63
+Running dot for graph 7/63
+Running dot for graph 8/63
+Running dot for graph 9/63
+Running dot for graph 10/63
+Running dot for graph 11/63
+Running dot for graph 12/63
+Running dot for graph 13/63
+Running dot for graph 14/63
+Running dot for graph 15/63
+Running dot for graph 16/63
+Running dot for graph 17/63
+Running dot for graph 18/63
+Running dot for graph 19/63
+Running dot for graph 20/63
+Running dot for graph 21/63
+Running dot for graph 22/63
+Running dot for graph 23/63
+Running dot for graph 24/63
+Running dot for graph 25/63
+Running dot for graph 26/63
+Running dot for graph 27/63
+Running dot for graph 28/63
+Running dot for graph 29/63
+Running dot for graph 30/63
+Running dot for graph 31/63
+Running dot for graph 32/63
+Running dot for graph 33/63
+Running dot for graph 34/63
+Running dot for graph 35/63
+Running dot for graph 36/63
+Running dot for graph 37/63
+Running dot for graph 38/63
+Running dot for graph 39/63
+Running dot for graph 40/63
+Running dot for graph 41/63
+Running dot for graph 42/63
+Running dot for graph 43/63
+Running dot for graph 44/63
+Running dot for graph 45/63
+Running dot for graph 46/63
+Running dot for graph 47/63
+Running dot for graph 48/63
+Running dot for graph 49/63
+Running dot for graph 50/63
+Running dot for graph 51/63
+Running dot for graph 52/63
+Running dot for graph 53/63
+Running dot for graph 54/63
+Running dot for graph 55/63
+Running dot for graph 56/63
+Running dot for graph 57/63
+Running dot for graph 58/63
+Running dot for graph 59/63
+Running dot for graph 60/63
+Running dot for graph 61/63
+Running dot for graph 62/63
+Running dot for graph 63/63
+Patching output file 1/17
+Patching output file 2/17
+Patching output file 3/17
+Patching output file 4/17
+Patching output file 5/17
+Patching output file 6/17
+Patching output file 7/17
+Patching output file 8/17
+Patching output file 9/17
+Patching output file 10/17
+Patching output file 11/17
+Patching output file 12/17
+Patching output file 13/17
+Patching output file 14/17
+Patching output file 15/17
+Patching output file 16/17
+Patching output file 17/17
+lookup cache used 59/65536 hits=309 misses=59
 finished...
