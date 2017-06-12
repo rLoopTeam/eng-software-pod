@@ -1,0 +1,1 @@
+D:\TI\ccsv7\eclipse\eclipsec.exe -noSplash -data "D:\SIL3\DESIGN\RLOOP\FIRMWARE\VERIFICATION\WORKSPACE" -application com.ti.ccstudio.apps.projectBuild -ccs.projects LFW534__VERIFY__LCCM650_TE_000 -ccs.configuration Debug > build.txt
