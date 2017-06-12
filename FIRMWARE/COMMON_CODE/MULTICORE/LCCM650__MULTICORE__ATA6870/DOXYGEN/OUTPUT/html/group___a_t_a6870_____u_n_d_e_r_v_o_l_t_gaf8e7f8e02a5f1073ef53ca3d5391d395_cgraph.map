@@ -1,5 +1,0 @@
-<map id="vATA6870_UV__Set_UVTrip" name="vATA6870_UV__Set_UVTrip">
-<area shape="rect" id="node2" href="$group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea" title="Write a U8 to a devices register. " alt="" coords="239,35,404,76"/>
-<area shape="rect" id="node3" href="$group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="452,5,627,47"/>
-<area shape="rect" id="node4" href="$group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="675,42,883,69"/>
-</map>
