@@ -1,6 +1,8 @@
 #ifndef _LOCALDEF_H_
 #define _LOCALDEF_H_
 
+	#include "sil3_generic__cpu.h"
+
 	//our basic defines
 	#include <WIN32/BASIC_TYPES/basic_types.h>
 	#include <WIN32/DEBUG_PRINTF/debug_printf.h>

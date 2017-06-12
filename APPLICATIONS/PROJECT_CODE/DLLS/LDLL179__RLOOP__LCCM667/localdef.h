@@ -1,6 +1,8 @@
 #ifndef _LOCALDEF_H_
 #define _LOCALDEF_H_
 
+	#include "sil3_generic__cpu.h"
+
 	//our basic defines
 	#include <WIN32/BASIC_TYPES/basic_types.h>
 	#include <WIN32/DEBUG_PRINTF/debug_printf.h>
@@ -8,7 +10,7 @@
 	//some placeholders
 	#define SAFETOOL_BRANCH(stFuncID)
 
-	// "D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\LFW531__RLOOP__FLIGHT_CONTROL_SIL3\SOURCE\MAIN\localdef.h"
+	// "D:\SIL3\DESIGN\RLOOP\FIRMWARE\LFW531__RLOOP__FLIGHT_CONTROL_SIL3\SOURCE\MAIN\localdef.h"
 
 	//The PCB's main files
 	#ifndef WIN32

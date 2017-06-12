@@ -528,30 +528,15 @@
             Dim l10 As New SIL3.ApplicationSupport.LabelHelper("Brakes State")
             l10.Layout__BelowControl(btnUpdateVeloc0)
             Me.m_txtBrakeState = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l10)
+            Me.m_txtBrakeState.HeaderFile__Set("D:\SIL3\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core__types.h", "E_FCU_BRAKES__STATES_T")
+
+
             Dim l100 As New SIL3.ApplicationSupport.LabelHelper("Calibration State")
             l100.Layout__AboveRightControl(l10, Me.m_txtBrakeState)
             Me.m_txtBrakeCalState = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l100)
+            Me.m_txtBrakeCalState.HeaderFile__Set("D:\SIL3\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core__types.h", "E_FCU_CAL_BRAKES__STATES_T")
 
 
-            Me.m_txtBrakeState.States__Add("BRAKE_STATE__RESET")
-            Me.m_txtBrakeState.States__Add("BRAKE_STATE__IDLE")
-            Me.m_txtBrakeState.States__Add("BRAKE_STATE__BEGIN_MOVE")
-            Me.m_txtBrakeState.States__Add("BRAKE_STATE__COMPUTE")
-            Me.m_txtBrakeState.States__Add("BRAKE_STATE__MOVING")
-            Me.m_txtBrakeState.States__Add("BRAKE_STATE__MOVE_STOPPED")
-            Me.m_txtBrakeState.States__Add("BRAKE_STATE__FAULT")
-            Me.m_txtBrakeState.States__Add("BRAKE_STATE__TEST")
-            Me.m_txtBrakeState.States__Add("BRAKE_STATE__BEGIN_CAL")
-            Me.m_txtBrakeState.States__Add("BRAKE_STATE__WAIT_CAL_DONE")
-
-
-            Me.m_txtBrakeCalState.States__Add("BRAKE_CAL_STATE__IDLE")
-            Me.m_txtBrakeCalState.States__Add("BRAKE_CAL_STATE__EXTEND_MOTORS")
-            Me.m_txtBrakeCalState.States__Add("BRAKE_CAL_STATE__WAIT_EXTEND_MOTORS")
-            Me.m_txtBrakeCalState.States__Add("BRAKE_CAL_STATE__RELEASE_ZERO")
-            Me.m_txtBrakeCalState.States__Add("BRAKE_CAL_STATE__APPLY_NEW_ZERO")
-            Me.m_txtBrakeCalState.States__Add("BRAKE_CAL_STATE__WAIT_NEW_ZERO")
-            Me.m_txtBrakeCalState.States__Add("BRAKE_CAL_STATE__COMPLETE")
 
             For iCounter As Integer = 0 To C_NUM_BRAKES - 1
                 Me.m_txtLimitsExtend_State(iCounter).States__Add("UNKNOWN")

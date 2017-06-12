@@ -74,7 +74,7 @@
             'check our folder
             SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir)
 
-            Me.m_sDBDir = "D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE\DATABASES\"
+            Me.m_sDBDir = "D:\SIL3\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE\DATABASES\"
 
 
         End Sub

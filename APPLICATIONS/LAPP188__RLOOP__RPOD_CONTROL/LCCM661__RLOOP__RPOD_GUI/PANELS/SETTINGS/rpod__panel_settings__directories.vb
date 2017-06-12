@@ -33,7 +33,7 @@
 
             Dim l1 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Data Logging Folder", Me.m_pInnerPanel)
             Me.m_txtLogRoot = New SIL3.ApplicationSupport.TextBoxHelper(500, l1)
-            Me.m_txtLogRoot.Persist__Set(Types.eLockieCompanyType.SIL3__APP_PATH, "data_log_folder.txt")
+            Me.m_txtLogRoot.Persist__Set(Types.eSIL3CompanyType.SIL3__APP_PATH, "data_log_folder.txt")
 
 
         End Sub

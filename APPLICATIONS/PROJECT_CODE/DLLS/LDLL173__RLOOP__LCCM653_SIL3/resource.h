@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by LDLL173__RLOOP__LCCM653_STATIC.rc
+// Used by LDLL173__RLOOP__LCCM653_SIL3.rc
 
 // Next default values for new objects
 // 

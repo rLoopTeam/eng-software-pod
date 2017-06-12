@@ -199,6 +199,59 @@ if the string is too long it will be clipped
  </summary>
  <remarks></remarks>
 </member>
+<member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8Array">
+ <summary>
+ Create a type of U8 byt array handling functions
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8Array.m_pU8">
+ <summary>
+ The Array of U8's
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8Array.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ Create a new instance, start and copy and array and some length
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8Array.#ctor(System.Int32,System.Byte)">
+ <summary>
+ Create a new instance and set all data to a value
+ </summary>
+ <param name="iLength"></param>
+ <param name="u8Default"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8Array.Insert_Into(System.Byte[]@,System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Insert a byte array into our internal array
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iArrayStartPos"></param>
+ <param name="iInsertPos"></param>
+ <param name="iLength"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8Array.To_String__FormattedHex(System.Boolean,System.Boolean,System.String)">
+ <summary>
+ Converts our internal array to a formatted hex string with a space
+ </summary>
+ <param name="bForward">Forward is default, but can do it in reverse if needed</param>
+ <returns></returns>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8Array.To_String__MACAddx(System.Boolean)">
+ <summary>
+ Take our array and format it as a MAC address
+ </summary>
+ <param name="bForward">Format forward (normal) or false = reverse</param>
+ <returns></returns>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8Array.To_String">
+ <summary>
+ Convert our array to a string comma separated
+ </summary>
+ <returns></returns>
+</member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.#ctor(System.Byte[]@,System.Int32)">
  <summary>
  Create a new U8 from an array, 
@@ -292,6 +345,12 @@ if the string is too long it will be clipped
  </summary>
  <returns></returns>
  <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.To__Int_2s_Complement">
+ <summary>
+ Convert to a twos complement integer from a byte
+ </summary>
+ <returns></returns>
 </member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8.To_String(System.Boolean)">
  <summary>
@@ -466,6 +525,14 @@ same as above, but padded to the correct length
  <param name="u8Array"></param>
  <param name="iStartPosition"></param>
  <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.To__Array_BE(LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8[]@,System.Int32)">
+ <summary>
+ To array, big endian like for modbus
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPosition"></param>
+ <returns></returns>
 </member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U16.From__FormattedHex(System.String)">
  <summary>
@@ -2084,7 +2151,7 @@ reads the file.
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileSaveAs.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.Boolean,System.String)">
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileSaveAs.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eSIL3CompanyType,System.Boolean,System.String)">
  <summary>
  
  </summary>
@@ -2147,7 +2214,7 @@ helper for our file choose dialog
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileChoose.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.Boolean,System.String)">
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileChoose.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eSIL3CompanyType,System.Boolean,System.String)">
  <summary>
  
  </summary>
@@ -2184,7 +2251,7 @@ helper for our file choose dialog
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileChooseMultiple.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.Boolean,System.String)">
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileDialogHelpers.FileChooseMultiple.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eSIL3CompanyType,System.Boolean,System.String)">
  <summary>
  
  </summary>
@@ -2234,6 +2301,13 @@ don't include the dot
  Generic Collection of wrappers for file support
  </summary>
  <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Disk__Exists(System.String)">
+ <summary>
+ check if a disk exists.
+ </summary>
+ <param name="sPath"></param>
+ <returns></returns>
 </member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Disk__Set_VolumeLabel(System.String,System.String)">
  <summary>
@@ -2575,6 +2649,14 @@ gens a random temp file
  <returns></returns>
  <remarks></remarks>
 </member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__ListAllFolders_Recursive_Exclude(System.String,System.Collections.Generic.List{System.String})">
+ <summary>
+ 
+ </summary>
+ <param name="sPath"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(System.String,System.Boolean)">
  <summary>
  checks if the folder exists
@@ -2702,7 +2784,7 @@ returns true if the file is read only.
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.OneLineFile.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.String)">
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.FileSupport.OneLineFile.#ctor(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eSIL3CompanyType,System.String)">
  <summary>
 set true to use our application data path
  </summary>
@@ -2947,7 +3029,7 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  <param name="sText"></param>
  <remarks></remarks>
 </member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CheckBoxHelper.Persist__Set(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.String)">
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.CheckBoxHelper.Persist__Set(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eSIL3CompanyType,System.String)">
  <summary>
  Enable persistance between application closures.
  </summary>
@@ -3043,15 +3125,15 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.Persist__Set(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.String)">
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.Persist__Set(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eSIL3CompanyType,System.String)">
  <summary>
  Enable persistance between application closures.
  </summary>
- <param name="eLockieType"></param>
+ <param name="eSIL3Type"></param>
  <param name="sName"></param>
  <remarks></remarks>
 </member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.History__Set(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.String)">
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ComboBoxHelper.History__Set(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eSIL3CompanyType,System.String)">
  <summary>
  Enable History
  </summary>
@@ -3799,7 +3881,7 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  <param name="pControl"></param>
  <remarks></remarks>
 </member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LoggingBox.Dispose">
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.LoggingBox.Destroy">
  <summary>
  Call this to dispose of this app
  </summary>
@@ -4338,6 +4420,11 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  <param name="sValue"></param>
  <remarks></remarks>
 </member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ProgressHelper.m_bCreateVertical">
+ <summary>
+ Do we want a vertical gauge
+ </summary>
+</member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.ProgressHelper.Layout__BelowControl(System.Windows.Forms.Control@)">
  <summary>
  Places this object below another control
@@ -4697,6 +4784,14 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  </summary>
  <param name="iValue"></param>
 </member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.HeaderFile__Set(System.String,System.String)">
+ <summary>
+ Allows us to extract typedef enum states from a header file
+ as long as that typedef enum structure conforms
+ </summary>
+ <param name="sFilePath">path to the header file</param>
+ <param name="sTypeDefEnumName">Example: TE_PDL__BATTERY_STATE</param>
+</member>
 <member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags">
  <summary>
  A text box specifically to display fault flags
@@ -4747,6 +4842,12 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  Update the flags and append our text box
  </summary>
  <param name="u32Flags"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags.FlagsFile__Read(System.String,System.String)">
+ <summary>
+ Reads the flags file
+ </summary>
+ <param name="sSectionName">CORE, Etc</param>
 </member>
 <member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper">
  <summary>
@@ -4847,6 +4948,13 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  <param name="sData"></param>
  <remarks></remarks>
 </member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.Layout__RightOfControl(System.Windows.Forms.Control@)">
+ <summary>
+ Places this control to the right of anothe rcontrol
+ </summary>
+ <param name="pRightControl"></param>
+ <remarks></remarks>
+</member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.Layout__BelowControl(System.Windows.Forms.Control@)">
  <summary>
  Layout below a control
@@ -4884,7 +4992,7 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  <returns></returns>
  <remarks></remarks>
 </member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.Persist__Set(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType,System.String)">
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper.Persist__Set(LAPP185__RLOOP__FCU_EMU.SIL3.Types.eSIL3CompanyType,System.String)">
  <summary>
  Enable persistance between application closures.
  </summary>
@@ -5521,7 +5629,7 @@ adds a sub level node after one has already been added
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.ChooseAdapter__Show(System.String)">
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.SafeUDP.StdUDPLayer.ChooseAdapter__Show(System.String,System.String,System.String)">
  <summary>
  show the choose adapter dialog
  </summary>
@@ -5811,18 +5919,18 @@ adds a sub level node after one has already been added
  </summary>
  <remarks></remarks>
 </member>
-<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType.USER_SUPPLIED_PATH">
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.Types.eSIL3CompanyType.USER_SUPPLIED_PATH">
  <summary>
  Some direct user supplied path
  </summary>
 </member>
-<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType.SIL3">
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.Types.eSIL3CompanyType.SIL3">
  <summary>
  Documents and Settings\Application Data\SIL3 Pty Ltd\
  </summary>
  <remarks></remarks>
 </member>
-<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.Types.eLockieCompanyType.SIL3__APP_PATH">
+<member name="F:LAPP185__RLOOP__FCU_EMU.SIL3.Types.eSIL3CompanyType.SIL3__APP_PATH">
  <summary>
  Documents and Settings\Application Data\SIL3 Pty Ltd\(Application Path)
  </summary>
