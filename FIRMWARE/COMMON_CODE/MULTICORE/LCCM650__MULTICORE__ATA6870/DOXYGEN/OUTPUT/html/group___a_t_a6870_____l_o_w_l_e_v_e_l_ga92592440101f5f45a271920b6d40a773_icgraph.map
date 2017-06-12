@@ -1,4 +1,0 @@
-<map id="vATA6870_LOWLEVEL__Reset" name="vATA6870_LOWLEVEL__Reset">
-<area shape="rect" id="node2" href="$group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gaad6d63b3411c3eae8561c1ca16f1b933" title="Perform an init of any low level systems, including IO pins. " alt="" coords="219,13,408,39"/>
-<area shape="rect" id="node3" href="$group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937" title="Init any ATA6870 systems. " alt="" coords="456,13,567,39"/>
-</map>

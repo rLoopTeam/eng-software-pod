@@ -1,4 +1,0 @@
-<map id="vATA6870_LOWLEVEL__Reg_WriteU8" name="vATA6870_LOWLEVEL__Reg_WriteU8">
-<area shape="rect" id="node2" href="$group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="219,5,393,47"/>
-<area shape="rect" id="node3" href="$group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="441,42,649,69"/>
-</map>
