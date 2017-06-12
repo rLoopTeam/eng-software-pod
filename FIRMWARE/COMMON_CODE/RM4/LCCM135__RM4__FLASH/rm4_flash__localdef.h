@@ -13,7 +13,7 @@
 #if 0
 
 /*******************************************************************************
-FLASH MODULE
+SIL3 - RM4 FLASH MODULE
 Even if you don't want in system programming or firmware update features
 include this to get access to the flash registers and setup features
 *******************************************************************************/

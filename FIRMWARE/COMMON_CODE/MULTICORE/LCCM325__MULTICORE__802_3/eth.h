@@ -57,7 +57,7 @@
 			Luint8 u8IPAddx[4];
 			
 
-			#if (C_LOCALDEF__LCCM325__USE_ON_XILINX == 1U) || (C_LOCALDEF__LCCM325__USE_ON_WIN32 == 1U)
+			#if (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__XILINX_MICROBLAZE == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__XILINX_PPC405 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__XILINX_PPC440 == 1U) || (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__WIN32 == 1U)
 			struct
 			{
 				/** The length of the NPI payload to send */
@@ -165,66 +165,69 @@
 	
 	
 		//function protos
-		void vETHERNET__Init(Luint8 * pu8MAC, Luint8 * pu8IP);
-		void vETHERNET__Process(void);
-		Luint8 u8ETH_FIFO__Is_Empty(void);
-		Lint16 s16ETH_FIFO__Pop(Luint8 * pu8BufferIndex, Luint16 * pu16PacketLength);
-		void vETH_FIFO__Peek(Luint8 u8BufferPos, Luint8 * pu8BufferIndex, Luint16 * pu16PacketLength);
-		Lint16 s16ETH_FIFO__Push(Luint16 u16PacketLength);
-		void vETH_FIFO__Push_UpdateLength(Luint8 u8FIFOIndex, Luint16 u16NewLength);
-		void vETH_FIFO__Transmit(void);
-		void vETH_FIFO__Reset(void);
+		void vSIL3_ETH__Init(Luint8 * pu8MAC, Luint8 * pu8IP);
+		void vSIL3_ETH__Process(void);
+		Luint8 u8SIL3_ETH_FIFO__Is_Empty(void);
+		Lint16 s16SIL3_ETH_FIFO__Pop(Luint8 * pu8BufferIndex, Luint16 * pu16PacketLength);
+		void vSIL3_ETH_FIFO__Peek(Luint8 u8BufferPos, Luint8 * pu8BufferIndex, Luint16 * pu16PacketLength);
+		Lint16 s16SIL3_ETH_FIFO__Push(Luint16 u16PacketLength);
+		void vSIL3_ETH_FIFO__Push_UpdateLength(Luint8 u8FIFOIndex, Luint16 u16NewLength);
+		void vSIL3_ETH_FIFO__Transmit(void);
+		void vSIL3_ETH_FIFO__Reset(void);
 		
-		#if C_LOCALDEF__LCCM325__USE_ON_RM4 == 1U
-			void vETH_FIFO__Transmit_Worker_RM4(void);
-		#elif C_LOCALDEF__LCCM325__USE_ON_XILINX == 1U
-			void vETH_XILINX__Init(void);
-			void vETH_XILINX__Transmit_PLB(Luint8 u8DeviceIndex);
+		#if (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM42L432 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM46L852 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM48L952 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U)
+			void vSIL3_ETH_FIFO__Transmit_Worker_RM4(void);
+		#elif (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__XILINX_MICROBLAZE == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__XILINX_PPC405 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__XILINX_PPC440 == 1U)
+			void vSIL3_ETH_XILINX__Init(void);
+			void vSIL3_ETH_XILINX__Transmit_PLB(Luint8 u8DeviceIndex);
 			#if C_LOCALDEF__LCCM325__XILINX_USE_NPI_INTERFACE == 1U
-				void vETH_XILINX__Transmit_NPI(Luint8 u8DeviceIndex);
+				void vSIL3_ETH_XILINX__Transmit_NPI(Luint8 u8DeviceIndex);
 			#endif
-		#elif C_LOCALDEF__LCCM325__USE_ON_WIN32 == 1U
-			void vETH_FIFO__Transmit_Worker_WIN32(void);
-		#elif C_LOCALDEF__LCCM325__USE_ON_MSP430 == 1U
+		#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__WIN32 == 1U
+			void vSIL3_ETH_FIFO__Transmit_Worker_WIN32(void);
+		#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__MSP430F5529 == 1U
 			Lint16 s16ETH_FIFO__Transmit_Worker_MSP430(void);
 		#else
 			#error
 		#endif
 
 		//ethernet layer
-		void vETH_ETH__Init();
-		void vETH_ETH__Input(Luint8 * pu8Buffer);
-		void vETH_ETH__Transmit(Luint16 u16EtherType, Luint8 * pu8DestMAC);
+		void vSIL3_ETH_ETH2__Init(void);
+		void vSIL3_ETH_ETH2__Process(void);
+		void vSIL3_ETH_ETH2__Input(Luint8 * pu8Buffer);
+		void vSIL3_ETH_ETH2__Transmit(Luint16 u16EtherType, Luint8 * pu8DestMAC);
 	
 		//ipv4 layer
-		void vETH_IPV4__Init();
-		void vETH_IPV4__Input(Luint8 * pu8Buffer);
-		void vETH_IPV4__Transmit(Luint16 u16Length);
-		void vETH_IPV4__Set_UnicastAddx(Luint8 *pu8Addx);
+		void vSIL3_ETH_IPV4__Init(void);
+		void vSIL3_ETH_IPV4__Process(void);
+		void vSIL3_ETH_IPV4__Input(Luint8 * pu8Buffer);
+		void vSIL3_ETH_IPV4__Transmit(Luint16 u16Length);
+		void vSIL3_ETH_IPV4__Set_UnicastAddx(Luint8 *pu8Addx);
 	
 		//ARP
-		void vETH_ARP__Init();
-		void vETH_ARP__Input(Luint8 * pu8Buffer);
-		void vETH_ARP__Reply(void);
-		void vETH_ARP__Gratuitous(void);
+		void vSIL3_ETH_ARP__Init(void);
+		void vSIL3_ETH_ARP__Process(void);
+		void vSIL3_ETH_ARP__Input(Luint8 * pu8Buffer);
+		void vSIL3_ETH_ARP__Reply(void);
+		void vSIL3_ETH_ARP__Gratuitous(void);
 		
 		//SNMP
 		#if C_LOCALDEF__LCCM325__ENABLE_SNMP == 1U
-			void vETH_SNMP__Init(void);
-			void vETH_SNMP__Process(void);
-			void vETH_SNMP__Input(Luint8 * pu8Buffer);
-			void vETH_SNMP__Transmit(Luint16 *pu16OID, Luint8 u8OIDLength, Luint8 u8RequestType);
+			void vSIL3_ETH_SNMP__Init(void);
+			void vSIL3_ETH_SNMP__Process(void);
+			void vSIL3_ETH_SNMP__Input(Luint8 * pu8Buffer);
+			void vSIL3_ETH_SNMP__Transmit(Luint16 *pu16OID, Luint8 u8OIDLength, Luint8 u8RequestType);
 		#endif
 
 		//udp
-		void vETH_UDP__Init();
-		void vETH_UDP__Transmit(Luint16 u16Length, Luint16 u16SourcePort, Luint16 u16DestPort);
-		#if (C_LOCALDEF__LCCM325__USE_ON_XILINX == 1U) || (C_LOCALDEF__LCCM325__USE_ON_WIN32 == 1U)
+		void vSIL3_ETH_UDP__Init();
+		void vSIL3_ETH_UDP__Transmit(Luint16 u16Length, Luint16 u16SourcePort, Luint16 u16DestPort);
+		#if (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__XILINX_MICROBLAZE == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__XILINX_PPC405 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__XILINX_PPC440 == 1U) || (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__WIN32 == 1U)
 			#if C_LOCALDEF__LCCM325__XILINX_USE_NPI_INTERFACE == 1U
-				void vETH_UDP__Transmit_WithPayload(Luint16 u16Length, Luint16 u16SourcePort, Luint16 u16DestPort, Luint32 u32PayloadLength, Luint32 u32PayloadAddx);
+				void vSIL3_ETH_UDP__Transmit_WithPayload(Luint16 u16Length, Luint16 u16SourcePort, Luint16 u16DestPort, Luint32 u32PayloadLength, Luint32 u32PayloadAddx);
 			#endif
 		#endif
-		void vETH_UDP__Input(Luint8 * pu8Buffer);
+		void vSIL3_ETH_UDP__Input(Luint8 * pu8Buffer);
 		
 		//DHCP
 		#if C_LOCALDEF__LCCM325__ENABLE_DHCP_CLIENT == 1U
@@ -233,54 +236,55 @@
 
 		//LLDP
 		#if C_LOCALDEF__LCCM325__ENABLE_LLDP == 1U
-			void vETH_LLDP__Init(void);
-			void vETH_LLDP__Process(void);
-			void vETH_LLDP__Input(Luint8 * pu8Buffer);
-			void vETH_LLDP__TransmitFrame(void);
+			void vSIL3_ETH_LLDP__Init(void);
+			void vSIL3_ETH_LLDP__Process(void);
+			void vSIL3_ETH_LLDP__Input(Luint8 * pu8Buffer);
+			void vSIL3_ETH_LLDP__TransmitFrame(void);
 		#endif
 
 		//buffer desc
-		Luint32 u32ETH_BUFFERDESC__Get_TxBufferPointer(Luint8 u8BufferIndex);
-		Luint16 u16ETH_BUFFERDESC__Get_BufferSize(Luint8 u8BufferIndex);
+		Luint32 u32SIL3_ETH_BUFFERDESC__Get_TxBufferPointer(Luint8 u8BufferIndex);
+		Luint16 u16SIL3_ETH_BUFFERDESC__Get_BufferSize(Luint8 u8BufferIndex);
+		void vSIL3_ETH_BUFFERDESC__Set_Length(Luint8 u8BufferIndex, Luint32 u32Length);
 		
 		#ifdef WIN32
-			void vETH_WIN32__Init(void);
+			void vSIL3_ETH_WIN32__Init(void);
 			//declare the type
 			typedef void (__cdecl * pETH_WIN32__TxCallback_FuncType)(Luint8 * pu8Buffer, Luint16 u16BufferLength);
-			DLL_DECLARATION void vETH_WIN32__Set_Ethernet_TxCallback(pETH_WIN32__TxCallback_FuncType pFunc);
-			DLL_DECLARATION void vETH_WIN32__Ethernet_Input(Luint8 * pu8Buffer, Luint16 u16BufferLength);
-			DLL_DECLARATION void vETH_WIN32__Ethernet_Output(Luint8 * pu8Buffer, Luint16 u16BufferLength);
+			DLL_DECLARATION void vSIL3_ETH_WIN32__Set_Ethernet_TxCallback(pETH_WIN32__TxCallback_FuncType pFunc);
+			DLL_DECLARATION void vSIL3_ETH_WIN32__Ethernet_Input(Luint8 * pu8Buffer, Luint16 u16BufferLength);
+			DLL_DECLARATION void vSIL3_ETH_WIN32__Ethernet_Output(Luint8 * pu8Buffer, Luint16 u16BufferLength);
 		#endif		
 		
 		//testing
 		#if C_LOCALDEF__LCCM325__ENABLE_TEST_SPEC == 1U
-			void vLCCM325_TS_001(void);
-			void vLCCM325_TS_002(void);
-			void vLCCM325_TS_003(void);
-			void vLCCM325_TS_004(void);
-			void vLCCM325_TS_005(void);
-			void vLCCM325_TS_006(void);
-			void vLCCM325_TS_007(void);
-			void vLCCM325_TS_008(void);
-			void vLCCM325_TS_009(void);
-			void vLCCM325_TS_010(void);
-			void vLCCM325_TS_011(void);
-			void vLCCM325_TS_012(void);
-			void vLCCM325_TS_013(void);
-			void vLCCM325_TS_014(void);
-			void vLCCM325_TS_015(void);
-			void vLCCM325_TS_016(void);
-			void vLCCM325_TS_017(void);
-			void vLCCM325_TS_018(void);
-			void vLCCM325_TS_019(void);
-			void vLCCM325_TS_020(void);
-			void vLCCM325_TS_021(void);
-			void vLCCM325_TS_022(void);
-			void vLCCM325_TS_023(void);
-			void vLCCM325_TS_024(void);
-			void vLCCM325_TS_025(void);
-			void vLCCM325_TS_026(void);
-			void vLCCM325_TS_027(void);
+			void vLCCM325R0_TS_001(void);
+			void vLCCM325R0_TS_002(void);
+			void vLCCM325R0_TS_003(void);
+			void vLCCM325R0_TS_004(void);
+			void vLCCM325R0_TS_005(void);
+			void vLCCM325R0_TS_006(void);
+			void vLCCM325R0_TS_007(void);
+			void vLCCM325R0_TS_008(void);
+			void vLCCM325R0_TS_009(void);
+			void vLCCM325R0_TS_010(void);
+			void vLCCM325R0_TS_011(void);
+			void vLCCM325R0_TS_012(void);
+			void vLCCM325R0_TS_013(void);
+			void vLCCM325R0_TS_014(void);
+			void vLCCM325R0_TS_015(void);
+			void vLCCM325R0_TS_016(void);
+			void vLCCM325R0_TS_017(void);
+			void vLCCM325R0_TS_018(void);
+			void vLCCM325R0_TS_019(void);
+			void vLCCM325R0_TS_020(void);
+			void vLCCM325R0_TS_021(void);
+			void vLCCM325R0_TS_022(void);
+			void vLCCM325R0_TS_023(void);
+			void vLCCM325R0_TS_024(void);
+			void vLCCM325R0_TS_025(void);
+			DLL_DECLARATION void vLCCM325R0_TS_026(void);
+			void vLCCM325R0_TS_027(void);
 			void vLCCM325R0_TS_028(void);
 			void vLCCM325R0_TS_029(void);
 			DLL_DECLARATION void vLCCM325R0_TS_040(void);

@@ -44,6 +44,14 @@ void vAMC7812_GPIO__Init(void)
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		void		## Desc ##
+ * @st_funcMD5		73821D723BC7375C5E5A2BE267676B8F
+ * @st_funcID		LCCM658R0.FILE.006.FUNC.002
+ */
 void vAMC7812_GPIO__Process( void )
 {
 
@@ -68,6 +76,14 @@ void vAMC7812_GPIO__Process( void )
 
 
 #if 0
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		void		## Desc ##
+ * @st_funcMD5		7F494CEC0C8455DA5228300D87669729
+ * @st_funcID		LCCM658R0.FILE.006.FUNC.003
+ */
 void vAMC7812_GPIO__Test( void )
 {
 	// declarations

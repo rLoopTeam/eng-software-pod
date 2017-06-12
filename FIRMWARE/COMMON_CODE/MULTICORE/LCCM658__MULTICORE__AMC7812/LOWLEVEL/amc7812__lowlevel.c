@@ -31,7 +31,7 @@ extern struct _strAMC7812 sAMC;
  * @brief
  * Configure any low level items.
  * 
- * @st_funcMD5		8B4F90FD3EECFCB210D4EB16E704CDB1
+ * @st_funcMD5		397082C56A84A4C7499826F23A5F6D20
  * @st_funcID		LCCM658R0.FILE.004.FUNC.001
  */
 void vAMC7812_LOWLEVEL__Init(void)
@@ -49,6 +49,13 @@ void vAMC7812_LOWLEVEL__Init(void)
 
 
 //generate the reset pulse
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		216BD6A44B6E6DC1465E8A3CC27BCDC8
+ * @st_funcID		LCCM658R0.FILE.004.FUNC.002
+ */
 void vAMC7812_LOWLEVEL__Reset(void)
 {
 #ifndef WIN32

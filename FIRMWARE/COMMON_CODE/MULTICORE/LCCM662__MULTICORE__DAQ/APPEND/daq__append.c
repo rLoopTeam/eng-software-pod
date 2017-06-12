@@ -32,7 +32,7 @@
 extern struct _strDAQ sDAQ;
 
 //locals
-Lint16 s16DAQ_APPEND__Index_to_Buffer_U8(Luint16 u16Index);
+Lint16 s16SIL3_DAQ_APPEND__Index_to_Buffer_U8(Luint16 u16Index);
 Lint16 s16DAQ_APPEND__Index_to_Buffer_S16(Luint16 u16Index);
 Lint16 s16DAQ_APPEND__Index_to_Buffer_U16(Luint16 u16Index);
 Lint16 s16DAQ_APPEND__Index_to_Buffer_S32(Luint16 u16Index);
@@ -43,10 +43,10 @@ Lint16 s16DAQ_APPEND__Index_to_Buffer_F32(Luint16 u16Index);
  * @brief
  * Init the append module.
  * 
- * @st_funcMD5		B598E9A1FD552460D4FF8B6148F88F74
+ * @st_funcMD5		2B5FF6E522591A5E4000B0726733F592
  * @st_funcID		LCCM662R0.FILE.004.FUNC.001
  */
-void vDAQ_APPEND__Init(void)
+void vSIL3_DAQ_APPEND__Init(void)
 {
 	Luint16 u16Counter;
 	Luint16 u16Counter2;
@@ -123,10 +123,10 @@ void vDAQ_APPEND__Init(void)
  * 
  * @param[in]		u8Value					The value to append
  * @param[in]		u16Index				The stream index
- * @st_funcMD5		36A4E1CABF2E49B16E394EA7CCD1AAB7
+ * @st_funcMD5		AC3BA579451A1EF038A58F2225BDF781
  * @st_funcID		LCCM662R0.FILE.004.FUNC.002
  */
-void vDAQ_APPEND__U8(Luint16 u16Index, Luint8 u8Value)
+void vSIL3_DAQ_APPEND__U8(Luint16 u16Index, Luint8 u8Value)
 {
 	Lint16 s16Return;
 	Lint16 s16BuffIndex;
@@ -146,10 +146,10 @@ void vDAQ_APPEND__U8(Luint16 u16Index, Luint8 u8Value)
 				sDAQ.sInterlock.u8U8 = 1U;
 
 				//get our index before we do too much more.
-				s16BuffIndex = s16DAQ_APPEND__Index_to_Buffer_U8(u16Index);
+				s16BuffIndex = s16SIL3_DAQ_APPEND__Index_to_Buffer_U8(u16Index);
 				if(s16BuffIndex >= 0)
 				{
-					s16Return = s16SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
+					s16Return = s16SIL3_SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
 					if(s16Return >= 0)
 					{
 						//write the data in the slot.
@@ -158,7 +158,7 @@ void vDAQ_APPEND__U8(Luint16 u16Index, Luint8 u8Value)
 						//do the timer if needed.
 						#if C_LOCALDEF__LCCM662__ENABLE_TIMER_IN_DATA == 1U
 							//timer index is based on global index, not related to the data type.
-							sDAQ.sBuffers.u32Timer[u16Index][(Luint16)s16Return] = u32DAQ__Get_SystemTimer();
+							sDAQ.sBuffers.u32Timer[u16Index][(Luint16)s16Return] = u32SIL3_DAQ__Get_SystemTimer();
 						#endif
 					}
 					else
@@ -209,10 +209,10 @@ void vDAQ_APPEND__U8(Luint16 u16Index, Luint8 u8Value)
  *
  * @param[in]		s16Value				The value to append
  * @param[in]		u16Index				The stream index
- * @st_funcMD5		DF21819FC44912E086B38E7CE649FA86
+ * @st_funcMD5		600E9702BD683635DC27D82143040133
  * @st_funcID		LCCM662R0.FILE.004.FUNC.005
  */
-void vDAQ_APPEND__S16(Luint16 u16Index, Lint16 s16Value)
+void vSIL3_DAQ_APPEND__S16(Luint16 u16Index, Lint16 s16Value)
 {
 	Lint16 s16Return;
 	Lint16 s16BuffIndex;
@@ -231,7 +231,7 @@ void vDAQ_APPEND__S16(Luint16 u16Index, Lint16 s16Value)
 				s16BuffIndex = s16DAQ_APPEND__Index_to_Buffer_S16(u16Index);
 				if(s16BuffIndex >= 0)
 				{
-					s16Return = s16SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
+					s16Return = s16SIL3_SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
 					if(s16Return >= 0)
 					{
 						//write the data in the slot.
@@ -240,7 +240,7 @@ void vDAQ_APPEND__S16(Luint16 u16Index, Lint16 s16Value)
 						//do the timer if needed.
 						#if C_LOCALDEF__LCCM662__ENABLE_TIMER_IN_DATA == 1U
 							//timer index is based on global index, not related to the data type.
-							sDAQ.sBuffers.u32Timer[u16Index][(Luint16)s16Return] = u32DAQ__Get_SystemTimer();
+							sDAQ.sBuffers.u32Timer[u16Index][(Luint16)s16Return] = u32SIL3_DAQ__Get_SystemTimer();
 						#endif
 					}
 					else
@@ -281,10 +281,10 @@ void vDAQ_APPEND__S16(Luint16 u16Index, Lint16 s16Value)
  *
  * @param[in]		u16Value				The value to append
  * @param[in]		u16Index				The stream index
- * @st_funcMD5		AAECDA43E9A57EA13679CC97E6B52103
+ * @st_funcMD5		A6A76FCED1933596F9C7E208C593C499
  * @st_funcID		LCCM662R0.FILE.004.FUNC.006
  */
-void vDAQ_APPEND__U16(Luint16 u16Index, Luint16 u16Value)
+void vSIL3_DAQ_APPEND__U16(Luint16 u16Index, Luint16 u16Value)
 {
 	Lint16 s16Return;
 	Lint16 s16BuffIndex;
@@ -304,7 +304,7 @@ void vDAQ_APPEND__U16(Luint16 u16Index, Luint16 u16Value)
 				s16BuffIndex = s16DAQ_APPEND__Index_to_Buffer_U16(u16Index);
 				if(s16BuffIndex >= 0)
 				{
-					s16Return = s16SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
+					s16Return = s16SIL3_SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
 					if(s16Return >= 0)
 					{
 						//write the data in the slot.
@@ -313,7 +313,7 @@ void vDAQ_APPEND__U16(Luint16 u16Index, Luint16 u16Value)
 						//do the timer if needed.
 						#if C_LOCALDEF__LCCM662__ENABLE_TIMER_IN_DATA == 1U
 							//timer index is based on global index, not related to the data type.
-							sDAQ.sBuffers.u32Timer[u16Index][(Luint16)s16Return] = u32DAQ__Get_SystemTimer();
+							sDAQ.sBuffers.u32Timer[u16Index][(Luint16)s16Return] = u32SIL3_DAQ__Get_SystemTimer();
 						#endif
 					}
 					else
@@ -354,10 +354,10 @@ void vDAQ_APPEND__U16(Luint16 u16Index, Luint16 u16Value)
  *
  * @param[in]		s32Value				The value to append
  * @param[in]		u16Index				The stream index
- * @st_funcMD5		72A209C9698CF669976A2B84E8856071
+ * @st_funcMD5		3FD889D7270CAE7FE41FD2888234C066
  * @st_funcID		LCCM662R0.FILE.004.FUNC.007
  */
-void vDAQ_APPEND__S32(Luint16 u16Index, Lint32 s32Value)
+void vSIL3_DAQ_APPEND__S32(Luint16 u16Index, Lint32 s32Value)
 {
 	Lint16 s16Return;
 	Lint16 s16BuffIndex;
@@ -376,7 +376,7 @@ void vDAQ_APPEND__S32(Luint16 u16Index, Lint32 s32Value)
 				s16BuffIndex = s16DAQ_APPEND__Index_to_Buffer_S32(u16Index);
 				if(s16BuffIndex >= 0)
 				{
-					s16Return = s16SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
+					s16Return = s16SIL3_SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
 					if(s16Return >= 0)
 					{
 						//write the data in the slot.
@@ -385,7 +385,7 @@ void vDAQ_APPEND__S32(Luint16 u16Index, Lint32 s32Value)
 						//do the timer if needed.
 						#if C_LOCALDEF__LCCM662__ENABLE_TIMER_IN_DATA == 1U
 							//timer index is based on global index, not related to the data type.
-							sDAQ.sBuffers.u32Timer[u16Index][(Luint16)s16Return] = u32DAQ__Get_SystemTimer();
+							sDAQ.sBuffers.u32Timer[u16Index][(Luint16)s16Return] = u32SIL3_DAQ__Get_SystemTimer();
 						#endif
 					}
 					else
@@ -426,10 +426,10 @@ void vDAQ_APPEND__S32(Luint16 u16Index, Lint32 s32Value)
  *
  * @param[in]		u32Value				The value to append
  * @param[in]		u16Index				The stream index
- * @st_funcMD5		D495A52CC651200243E1AAAA34584FAD
+ * @st_funcMD5		706404C1DD0AAB58FFB2666580FD09CB
  * @st_funcID		LCCM662R0.FILE.004.FUNC.008
  */
-void vDAQ_APPEND__U32(Luint16 u16Index, Luint32 u32Value)
+void vSIL3_DAQ_APPEND__U32(Luint16 u16Index, Luint32 u32Value)
 {
 	Lint16 s16Return;
 	Lint16 s16BuffIndex;
@@ -449,7 +449,7 @@ void vDAQ_APPEND__U32(Luint16 u16Index, Luint32 u32Value)
 				s16BuffIndex = s16DAQ_APPEND__Index_to_Buffer_U32(u16Index);
 				if(s16BuffIndex >= 0)
 				{
-					s16Return = s16SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
+					s16Return = s16SIL3_SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
 					if(s16Return >= 0)
 					{
 						//write the data in the slot.
@@ -458,7 +458,7 @@ void vDAQ_APPEND__U32(Luint16 u16Index, Luint32 u32Value)
 						//do the timer if needed.
 						#if C_LOCALDEF__LCCM662__ENABLE_TIMER_IN_DATA == 1U
 							//timer index is based on global index, not related to the data type.
-							sDAQ.sBuffers.u32Timer[u16Index][(Luint16)s16Return] = u32DAQ__Get_SystemTimer();
+							sDAQ.sBuffers.u32Timer[u16Index][(Luint16)s16Return] = u32SIL3_DAQ__Get_SystemTimer();
 						#endif
 					}
 					else
@@ -499,10 +499,10 @@ void vDAQ_APPEND__U32(Luint16 u16Index, Luint32 u32Value)
  *
  * @param[in]		f32Value				The value to append
  * @param[in]		u16Index				The stream index
- * @st_funcMD5		2ACD9D303AB882A0570D4DC6FFF8E939
+ * @st_funcMD5		2C29E8D0D08CB43F2784AC1F6E1C700C
  * @st_funcID		LCCM662R0.FILE.004.FUNC.009
  */
-void vDAQ_APPEND__F32(Luint16 u16Index, Lfloat32 f32Value)
+void vSIL3_DAQ_APPEND__F32(Luint16 u16Index, Lfloat32 f32Value)
 {
 	Lint16 s16Return;
 	Lint16 s16BuffIndex;
@@ -520,7 +520,7 @@ void vDAQ_APPEND__F32(Luint16 u16Index, Lfloat32 f32Value)
 				s16BuffIndex = s16DAQ_APPEND__Index_to_Buffer_F32(u16Index);
 				if(s16BuffIndex >= 0)
 				{
-					s16Return = s16SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
+					s16Return = s16SIL3_SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
 					if(s16Return >= 0)
 					{
 						//write the data in the slot.
@@ -529,7 +529,7 @@ void vDAQ_APPEND__F32(Luint16 u16Index, Lfloat32 f32Value)
 						//do the timer if needed.
 						#if C_LOCALDEF__LCCM662__ENABLE_TIMER_IN_DATA == 1U
 							//timer index is based on global index, not related to the data type.
-							sDAQ.sBuffers.u32Timer[u16Index][(Luint16)s16Return] = u32DAQ__Get_SystemTimer();
+							sDAQ.sBuffers.u32Timer[u16Index][(Luint16)s16Return] = u32SIL3_DAQ__Get_SystemTimer();
 						#endif
 					}
 					else
@@ -573,10 +573,10 @@ void vDAQ_APPEND__F32(Luint16 u16Index, Lfloat32 f32Value)
  * @param[in]		u16Index				The system wide channel index
  * @return			The UB buffer index or\n
  * 					-ve if we are out of range.
- * @st_funcMD5		070B9274E22A819B484701CFE87B7429
+ * @st_funcMD5		45D77B4675F16DCFD7AF86C1E4B7EE2B
  * @st_funcID		LCCM662R0.FILE.004.FUNC.003
  */
-Lint16 s16DAQ_APPEND__Index_to_Buffer_U8(Luint16 u16Index)
+Lint16 s16SIL3_DAQ_APPEND__Index_to_Buffer_U8(Luint16 u16Index)
 {
 	Lint16 s16Return;
 	
@@ -755,10 +755,10 @@ Lint16 s16DAQ_APPEND__Index_to_Buffer_F32(Luint16 u16Index)
  * 
  * @param[out]		*pu8Buffer				The return pointer to the start of the buffer
  * @param[in]		u16Index				The system wide index.
- * @st_funcMD5		B39206E970692459348F768B7F10D049
+ * @st_funcMD5		BCDBEA80709DEE9EEF26ECCCBBE2FA8C
  * @st_funcID		LCCM662R0.FILE.004.FUNC.004
  */
-Lint16 s16DAQ_APPEND__Index_to_BufferPointer(Luint16 u16Index, Luint8 **pu8Buffer)
+Lint16 s16SIL3_DAQ_APPEND__Index_to_BufferPointer(Luint16 u16Index, Luint8 **pu8Buffer)
 {
 	Lint16 s16Return;
 	Luint16 u16Temp;

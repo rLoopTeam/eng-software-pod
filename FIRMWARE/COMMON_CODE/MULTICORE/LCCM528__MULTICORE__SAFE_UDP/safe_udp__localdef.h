@@ -16,16 +16,11 @@
 #if 0
 
 /*******************************************************************************
-SAFETY UDP LAYER
+SIL3 - SAFETY UDP LAYER
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM528__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM528__ENABLE_THIS_MODULE == 1U
 
-		/* Architecture Options*/
-		#define C_LOCALDEF__LCCM528__USE_ON_XILINX							(0U)
-		#define C_LOCALDEF__LCCM528__USE_ON_RM4								(0U)
-		#define C_LOCALDEF__LCCM528__USE_ON_MSP430							(0U)
-		#define C_LOCALDEF__LCCM528__USE_ON_WIN32							(0U)
 
 		/** User Rx Callback
 		* Payload, Length, Type, DestPort, Faults

@@ -201,37 +201,37 @@
 	/*****************************************************************************
 	Function Prototypes
 	*****************************************************************************/
-	void vMMA8451__Init(Luint8 u8DeviceIndex);
-	void vMMA8451__Process(Luint8 u8DeviceIndex);
-	Luint8 u8MMA8451_PROCESS__Get_CalibrationState(Luint8 u8DeviceIndex);
-	void vMMA8451_PROCESS__Calibration(Luint8 u8DeviceIndex);
-	void vMMA8451__ISR(Luint8 u8DeviceIndex);
-	Luint32 u32MMA8451__Get_FaultFlags(Luint8 u8DeviceIndex);
-	Luint8 u8MMA8451__Get_IsFault(Luint8 u8DeviceIndex);
-	Luint8 u8MMA8451__Get_NewSampleReady(Luint8 u8DeviceIndex);
-	void vMMA8451__Clear_NewSampleReady(Luint8 u8DeviceIndex);
+	void vSIL3_MMA8451__Init(Luint8 u8DeviceIndex);
+	void vSIL3_MMA8451__Process(Luint8 u8DeviceIndex);
+	Luint8 u8SIL3_MMA8451_PROCESS__Get_CalibrationState(Luint8 u8DeviceIndex);
+	void vSIL3_MMA8451_PROCESS__Calibration(Luint8 u8DeviceIndex);
+	void vSIL3_MMA8451__ISR(Luint8 u8DeviceIndex);
+	Luint32 u32SIL3_MMA8451__Get_FaultFlags(Luint8 u8DeviceIndex);
+	Luint8 u8SIL3_MMA8451__Get_IsFault(Luint8 u8DeviceIndex);
+	Luint8 u8SIL3_MMA8451__Get_NewSampleReady(Luint8 u8DeviceIndex);
+	void vSIL3_MMA8451__Clear_NewSampleReady(Luint8 u8DeviceIndex);
 
 	//ROC
-	void vMMA8451_ROC__Process_ROC(Luint8 u8DeviceIndex, Lfloat32 f32DifferenceTime);
-	Lfloat32 f32MMA8451_ROC__Get_ROC(Luint8 u8DeviceIndex);
+	void vSIL3_MMA8451_ROC__Process_ROC(Luint8 u8DeviceIndex, Lfloat32 f32DifferenceTime);
+	Lfloat32 f32SIL3_MMA8451_ROC__Get_ROC(Luint8 u8DeviceIndex);
 
 	//filtering
 	#if C_LOCALDEF__LCCM418__USER_AVERAGE_MAX_SAMPLES > 0U
-		void vMMA8451_FILTERING__Init(Luint8 u8DeviceIndex);
-		void vMMA8451_FILTERING__Add(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis, Lint16 s16Value);
+		void vSIL3_MMA8451_FILTERING__Init(Luint8 u8DeviceIndex);
+		void vSIL3_MMA8451_FILTERING__Add(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis, Lint16 s16Value);
 	#endif
-	DLL_DECLARATION Lint16 s16MMA8451_FILTERING__Get_Average(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis);
+	DLL_DECLARATION Lint16 s16SIL3_MMA8451_FILTERING__Get_Average(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis);
 
 	//read	
-	Lint16 s16MMA8451_READ__ReadXYZ(Luint8 u8DeviceIndex);
-	Lint16 s16MMA8451_LOWLEVEL__ReadByte(Luint8 u8DeviceIndex, Luint8 u8AddxOffset, Luint8 * pu8Value);
-	Lint16 s16MMA8451_LOWLEVEL__ReadMultiple(Luint8 u8DeviceIndex, Luint8 u8AddxOffset, Luint8 * pu8Array, Luint8 u8Length);
-	Lint16 s16MMA8451_LOWLEVEL__WriteByte(Luint8 u8DeviceIndex, Luint8 u8AddxOffset, Luint8 u8Value);
-	Lint16 s16MMA8451_READ__StatusRegister(Luint8 u8DeviceIndex, Luint8 * pReg);
+	Lint16 s16SIL3_MMA8451_READ__ReadXYZ(Luint8 u8DeviceIndex);
+	Lint16 s16SIL3_MMA8451_LOWLEVEL__ReadByte(Luint8 u8DeviceIndex, Luint8 u8AddxOffset, Luint8 * pu8Value);
+	Lint16 s16SIL3_MMA8451_LOWLEVEL__ReadMultiple(Luint8 u8DeviceIndex, Luint8 u8AddxOffset, Luint8 * pu8Array, Luint8 u8Length);
+	Lint16 s16SIL3_MMA8451_LOWLEVEL__WriteByte(Luint8 u8DeviceIndex, Luint8 u8AddxOffset, Luint8 u8Value);
+	Lint16 s16SIL3_MMA8451_READ__StatusRegister(Luint8 u8DeviceIndex, Luint8 * pReg);
 
 	//math
-	void vMMA8451_MATH__Sum_Acceleration(Luint8 u8DeviceIndex);
-	Lfloat32 f32MMA8451_MATH__Get_AccelSum(Luint8 u8DeviceIndex);
+	void vSIL3_MMA8451_MATH__Sum_Acceleration(Luint8 u8DeviceIndex);
+	Lfloat32 f32SIL3_MMA8451_MATH__Get_AccelSum(Luint8 u8DeviceIndex);
 
 	//only some functions avail with gforce options.
 	#if C_LOCALDEF__LCCM418__ENABLE_G_FORCE == 1U
@@ -244,24 +244,24 @@
 	#endif
 
 	//zero
-	void vMMA8451_ZERO__AutoZero(Luint8 u8DeviceIndex);
-	void vMMA8451_ZERO__Set_FineZero(Luint8 u8SensorIndex, MMA8451__AXIS_E eAxis);
-	void vMMA8451_ZERO__ClearAll(void);
-	void vMMA8451_ZERO__RestoreZero(Luint8 u8DeviceIndex);
-	void vMMA8451_ZERO__SetX_SensorZero_FineZero(Luint8 u8DeviceIndex);
-	void vMMA8451_ZERO__SetY_SensorZero_FineZero(Luint8 u8DeviceIndex);
-	void vMMA8451_ZERO__SetZ_SensorZero_FineZero(Luint8 u8DeviceIndex);
-	Lint16 s16MMA8451_ZERO__Get_SensorOffset(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis);
+	void vSIL3_MMA8451_ZERO__AutoZero(Luint8 u8DeviceIndex);
+	void vSIL3_MMA8451_ZERO__Set_FineZero(Luint8 u8SensorIndex, MMA8451__AXIS_E eAxis);
+	void vSIL3_MMA8451_ZERO__ClearAll(void);
+	void vSIL3_MMA8451_ZERO__RestoreZero(Luint8 u8DeviceIndex);
+	void vSIL3_MMA8451_ZERO__SetX_SensorZero_FineZero(Luint8 u8DeviceIndex);
+	void vSIL3_MMA8451_ZERO__SetY_SensorZero_FineZero(Luint8 u8DeviceIndex);
+	void vSIL3_MMA8451_ZERO__SetZ_SensorZero_FineZero(Luint8 u8DeviceIndex);
+	Lint16 s16SIL3_MMA8451_ZERO__Get_SensorOffset(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis);
 
 	//FIFO functions
-	void vMMA8451_FIFO__Init(void);
-	void vMMA8451_FIFO__Read(void);
+	void vSIL3_MMA8451_FIFO__Init(void);
+	void vSIL3_MMA8451_FIFO__Read(void);
 	
 	#ifdef WIN32
-		DLL_DECLARATION void vMMA8451_WIN32__TriggerInterrupt(Luint8 u8DeviceIndex);
-		typedef void (__cdecl * pMMA8451_WIN32__ReadDataCallback_FuncType)(Luint8 u8DeviceIndex, Lint16 *ps16X, Lint16 *ps16Y, Lint16 *ps16Z);
-		DLL_DECLARATION void vMMA8451_WIN32__Set_ReadDataCallback(pMMA8451_WIN32__ReadDataCallback_FuncType pFunc);
-		void vMMA8451_WIN32__ReadData(Luint8 u8DeviceIndex, Lint16 *ps16X, Lint16 *ps16Y, Lint16 *ps16Z);
+		DLL_DECLARATION void vSIL3_MMA8451_WIN32__TriggerInterrupt(Luint8 u8DeviceIndex);
+		typedef void (__cdecl * pSIL3_MMA8451_WIN32__ReadDataCallback_FuncType)(Luint8 u8DeviceIndex, Lint16 *ps16X, Lint16 *ps16Y, Lint16 *ps16Z);
+		DLL_DECLARATION void vSIL3_MMA8451_WIN32__Set_ReadDataCallback(pSIL3_MMA8451_WIN32__ReadDataCallback_FuncType pFunc);
+		void vSIL3_MMA8451_WIN32__ReadData(Luint8 u8DeviceIndex, Lint16 *ps16X, Lint16 *ps16Y, Lint16 *ps16Z);
 
 	#endif
 	

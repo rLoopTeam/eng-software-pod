@@ -31,7 +31,7 @@ struct _strAMC7812 sAMC;
  * @brief
  * Init the core module
  * 
- * @st_funcMD5		ED56D8E9A5830A1D90727FF6BB2FB08D
+ * @st_funcMD5		16EA81989F514D4E200BDD0226E84B94
  * @st_funcID		LCCM658R0.FILE.000.FUNC.001
  */
 void vAMC7812__Init(void)
@@ -41,7 +41,7 @@ void vAMC7812__Init(void)
 	sAMC.eState = AMC7812_STATE__RESET;
 
 	//int the fault tree
-	vFAULTTREE__Init(&sAMC.sFaultTree);
+	vSIL3_FAULTTREE__Init(&sAMC.sFaultTree);
 
 	//init lowlevel
 	vAMC7812_LOWLEVEL__Init();
@@ -65,7 +65,7 @@ void vAMC7812__Init(void)
  * @brief
  * Process any core tasks.
  * 
- * @st_funcMD5		96394E4CC69E197E228D42A9743AF8BC
+ * @st_funcMD5		C6F964DAF7F60E005E845DCF4D656A2C
  * @st_funcID		LCCM658R0.FILE.000.FUNC.002
  */
 void vAMC7812__Process(void)
@@ -113,8 +113,8 @@ void vAMC7812__Process(void)
 			}
 			else
 			{
-				vFAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__00);
-				vFAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__02);
+				vSIL3_FAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__00);
+				vSIL3_FAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__02);
 
 				//read error, handle state.
 				sAMC.eState = AMC7812_STATE__FAULT;
@@ -157,8 +157,8 @@ void vAMC7812__Process(void)
 			}
 			else
 			{
-				vFAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__00);
-				vFAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__02);
+				vSIL3_FAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__00);
+				vSIL3_FAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__02);
 
 				//big problem
 				sAMC.eState = AMC7812_STATE__FAULT;
@@ -243,17 +243,40 @@ void vAMC7812__Process(void)
 
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		546A5C505121599C2B537D7CEF96E3D4
+ * @st_funcID		LCCM658R0.FILE.000.FUNC.003
+ */
 E_AMC7812__MNAIN_STATES_T eAMC7812__Get_State(void)
 {
 	return sAMC.eState;
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		DA6FC3D2493E99AA2F8F2ED14588BEC3
+ * @st_funcID		LCCM658R0.FILE.000.FUNC.004
+ */
 Luint32 u32AMC7812__Get_FaultFlags(void)
 {
 	return sAMC.sFaultTree.u32Flags[0];
 }
 
 //ufser level function to set the DAC voltage
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		Lfloat32		## Desc ##
+ * @param[in]		u8Channel		## Desc ##
+ * @st_funcMD5		39862AB0A73C3B9053E9A75C30097DA6
+ * @st_funcID		LCCM658R0.FILE.000.FUNC.005
+ */
 void vAMC7182__DAC_SetVoltage(Luint8 u8Channel, Lfloat32 f32Voltage)
 {
 	//make sure we are in range
@@ -265,8 +288,8 @@ void vAMC7182__DAC_SetVoltage(Luint8 u8Channel, Lfloat32 f32Voltage)
 	else
 	{
 		//error
-		vFAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__01);
+		vSIL3_FAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__00);
+		vSIL3_FAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__01);
 	}
 
 

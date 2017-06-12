@@ -173,33 +173,33 @@
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/
-		void vDAQ__Init(void);
-		void vDAQ__Process(void);
-		void vDAQ__ForceFlush(void);
-		Luint32 u32DAQ__Get_SystemTimer(void);
-		DLL_DECLARATION Luint16 u16DAQ__Get_FIFO_Level(Luint16 u16Index);
-		DLL_DECLARATION Luint16 u16DAQ__Get_FIFO_Max(Luint16 u16Index);
-		void vDAQ__Config_UserPacketType(Luint16 u16Index, Luint16 u16Type);
-		void vDAQ__Streaming_On(void);
-		void vDAQ__Streaming_Off(void);
+		void vSIL3_DAQ__Init(void);
+		void vSIL3_DAQ__Process(void);
+		void vSIL3_DAQ__ForceFlush(void);
+		Luint32 u32SIL3_DAQ__Get_SystemTimer(void);
+		DLL_DECLARATION Luint16 u16SIL3_DAQ__Get_FIFO_Level(Luint16 u16Index);
+		DLL_DECLARATION Luint16 u16SIL3_DAQ__Get_FIFO_Max(Luint16 u16Index);
+		void vSIL3_DAQ__Config_UserPacketType(Luint16 u16Index, Luint16 u16Type);
+		void vSIL3_DAQ__Streaming_On(void);
+		void vSIL3_DAQ__Streaming_Off(void);
 
 		//append
-		void vDAQ_APPEND__Init(void);
-		void vDAQ_APPEND__Process(void);
-		DLL_DECLARATION void vDAQ_APPEND__U8(Luint16 u16Index, Luint8 u8Value);
-		DLL_DECLARATION void vDAQ_APPEND__S16(Luint16 u16Index, Lint16 s16Value);
-		DLL_DECLARATION void vDAQ_APPEND__U16(Luint16 u16Index, Luint16 u16Value);
-		DLL_DECLARATION void vDAQ_APPEND__S32(Luint16 u16Index, Lint32 s32Value);
-		DLL_DECLARATION void vDAQ_APPEND__U32(Luint16 u16Index, Luint32 u32Value);
-		DLL_DECLARATION void vDAQ_APPEND__F32(Luint16 u16Index, Lfloat32 f32Value);
-		Lint16 s16DAQ_APPEND__Index_to_BufferPointer(Luint16 u16Index, Luint8 **pu8Buffer);
+		void vSIL3_DAQ_APPEND__Init(void);
+		void vSIL3_DAQ_APPEND__Process(void);
+		DLL_DECLARATION void vSIL3_DAQ_APPEND__U8(Luint16 u16Index, Luint8 u8Value);
+		DLL_DECLARATION void vSIL3_DAQ_APPEND__S16(Luint16 u16Index, Lint16 s16Value);
+		DLL_DECLARATION void vSIL3_DAQ_APPEND__U16(Luint16 u16Index, Luint16 u16Value);
+		DLL_DECLARATION void vSIL3_DAQ_APPEND__S32(Luint16 u16Index, Lint32 s32Value);
+		DLL_DECLARATION void vSIL3_DAQ_APPEND__U32(Luint16 u16Index, Luint32 u32Value);
+		DLL_DECLARATION void vSIL3_DAQ_APPEND__F32(Luint16 u16Index, Lfloat32 f32Value);
+		Lint16 s16SIL3_DAQ_APPEND__Index_to_BufferPointer(Luint16 u16Index, Luint8 **pu8Buffer);
 		
 		#ifdef WIN32
-			Lint16 s16DAQ_WIN32__TxHandler(Luint16 u16Index, Luint8 *pu8Buffer, Luint16 u16Length);
+			Lint16 s16SIL3_DAQ_WIN32__TxHandler(Luint16 u16Index, Luint8 *pu8Buffer, Luint16 u16Length);
 		#endif
 
 		//template, user should implement their own
-		Lint16 s16DAQ_TRANSMIT__Template(Luint16 u16Index, Luint8 *pu8BufferPointer, Luint16 u16LengthBytes);
+		Lint16 s16SIL3_DAQ_TRANSMIT__Template(Luint16 u16Index, Luint8 *pu8BufferPointer, Luint16 u16LengthBytes);
 
 
 		#if C_LOCALDEF__LCCM662__ENABLE_TEST_SPEC == 1U

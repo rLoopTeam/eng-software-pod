@@ -31,7 +31,7 @@ extern struct _strAMC7812 sAMC;
  * @brief
  * Init any I2C requirements
  * 
- * @st_funcMD5		69922844C23BC4ED90109040C0E6E4CF
+ * @st_funcMD5		18404AD7CC7CC1BD98B3E9DB7192E84A
  * @st_funcID		LCCM658R0.FILE.005.FUNC.001
  */
 void vAMC7812_I2C__Init(void)
@@ -48,7 +48,7 @@ void vAMC7812_I2C__Init(void)
  * @param[in]		eRegister				The register / Command
  * @param[in]		u8DeviceAddx			I2C Bus Address
  * @return			I2C Error Code
- * @st_funcMD5		9A98D912BAD5639D22BB440479EE1774
+ * @st_funcMD5		94DBEFC252BD4681DDFBF7CC6BA1BA9F
  * @st_funcID		LCCM647R0.FILE.003.FUNC.001
  */
 Lint16 s16AMC7812_I2C__TxCommand(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx)
@@ -81,7 +81,7 @@ Lint16 s16AMC7812_I2C__TxCommand(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx)
  * @param[in]		u8RegAddx				The register to write to
  * @param[in]		u8DeviceAddx			I2C Bus addx
  * @return			I2C Status
- * @st_funcMD5		404AE153C899FAAAD485205AB8616729
+ * @st_funcMD5		38D53C2150F57C2A737B0B6DFE011F2D
  * @st_funcID		LCCM658R0.FILE.005.FUNC.002
  */
 Lint16 s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint16 u16Value)
@@ -129,7 +129,7 @@ Lint16 s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luin
  * @param[out]		*pu16Value				Return pointer to the read value
  * @param[in]		u8RegAddx				The register to write to
  * @param[in]		u8DeviceAddx			The I2C device address
- * @st_funcMD5		920EC5F4487D524CBA82E9759E84475F
+ * @st_funcMD5		A419EC4615D15A7EF215C8AA3451DA57
  * @st_funcID		LCCM658R0.FILE.005.FUNC.003
  */
 Lint16 s16AMC7812_I2C__ReadU16(Luint8 u8DeviceAddx, Luint8 u8RegAddx, Luint16 *pu16Value)

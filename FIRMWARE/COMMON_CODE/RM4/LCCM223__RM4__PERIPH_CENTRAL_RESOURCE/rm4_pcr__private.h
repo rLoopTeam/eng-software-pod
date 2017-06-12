@@ -28,6 +28,92 @@
 	*/
 	/*****************************************************************************
 	*****************************************************************************/
+#if C_LOCALDEF__SYSTEM__USE_ON_RM57 == 1U
+	typedef volatile struct pcrBase
+	{
+		Luint32 PMPROTSET0;    /* 0x0000 */
+		Luint32 PMPROTSET1;    /* 0x0004 */
+		Luint32 rsvd1[2U];     /* 0x0008 */
+		Luint32 PMPROTCLR0;    /* 0x0010 */
+		Luint32 PMPROTCLR1;    /* 0x0014 */
+		Luint32 rsvd2[2U];     /* 0x0018 */
+		Luint32 PPROTSET0;     /* 0x0020 */
+		Luint32 PPROTSET1;     /* 0x0024 */
+		Luint32 PPROTSET2;     /* 0x0028 */
+		Luint32 PPROTSET3;     /* 0x002C */
+		Luint32 rsvd3[4U];     /* 0x0030 */
+		Luint32 PPROTCLR0;     /* 0x0040 */
+		Luint32 PPROTCLR1;     /* 0x0044 */
+		Luint32 PPROTCLR2;     /* 0x0048 */
+		Luint32 PPROTCLR3;     /* 0x004C */
+		Luint32 rsvd4[4U];     /* 0x0050 */
+		Luint32 PCSPWRDWNSET0; /* 0x0060 */
+		Luint32 PCSPWRDWNSET1; /* 0x0064 */
+		Luint32 rsvd5[2U];     /* 0x0068 */
+		Luint32 PCSPWRDWNCLR0; /* 0x0070 */
+		Luint32 PCSPWRDWNCLR1; /* 0x0074 */
+		Luint32 rsvd6[2U];     /* 0x0078 */
+		Luint32 PSPWRDWNSET0;  /* 0x0080 */
+		Luint32 PSPWRDWNSET1;  /* 0x0084 */
+		Luint32 PSPWRDWNSET2;  /* 0x0088 */
+		Luint32 PSPWRDWNSET3;  /* 0x008C */
+		Luint32 rsvd7[4U];     /* 0x0090 */
+		Luint32 PSPWRDWNCLR0;  /* 0x00A0 */
+		Luint32 PSPWRDWNCLR1;  /* 0x00A4 */
+		Luint32 PSPWRDWNCLR2;  /* 0x00A8 */
+		Luint32 PSPWRDWNCLR3;  /* 0x00AC */
+		Luint32 rsvd8[4U];     /* 0x00B0 */
+		Luint32 PDPWRDWNSET;   /* 0x00C0 */
+		Luint32 PDPWRDWNCLR;   /* 0x00C4 */
+		Luint32 rsvd9[78U];    /* 0x00C8 */
+		Luint32 MSTIDWRENA;    /* 0x0200 */
+		Luint32 MSTIDENA;      /* 0x0204 */
+		Luint32 MSTIDDIAGCTRL; /* 0x0208 */
+		Luint32 rsvd10[61U];   /* 0x020C */
+		struct
+		{
+			Luint32 PSxMSTID_L;
+			Luint32 PSxMSTID_H;
+		}PSxMSTID[32];            /* 0x0300 */
+		struct
+		{
+			Luint32 PPSxMSTID_L;
+			Luint32 PPSxMSTID_H;
+		}PPSxMSTID[8];            /* 0x0400 */
+		struct
+		{
+			Luint32 PPSExMSTID_L;
+			Luint32 PPSExMSTID_H;
+		}PPSExMSTID[32];            /* 0x0440 */
+		Luint32 PCSxMSTID[32];    /* 0x0540 */
+		Luint32 PPCSxMSTID[8];    /* 0x05C0 */
+	} pcrBASE_t;
+
+	/** @def pcrREG1
+	*   @brief Pcr1 Register Frame Pointer
+	*
+	*   This pointer is used by the system driver to access the Pcr1 registers.
+	*/
+	#define pcrREG1 ((pcrBASE_t *)0xFFFF1000U)
+
+	//RM48 backward
+	#define pcrREG ((pcrBASE_t *)0xFFFF1000U)
+
+	/** @def pcrREG2
+	*   @brief Pcr2 Register Frame Pointer
+	*
+	*   This pointer is used by the system driver to access the Pcr2 registers.
+	*/
+	#define pcrREG2 ((pcrBASE_t *)0xFCFF1000U)
+
+	/** @def pcrREG3
+	*   @brief Pcr3 Register Frame Pointer
+	*
+	*   This pointer is used by the system driver to access the Pcr3 registers.
+	*/
+	#define pcrREG3 ((pcrBASE_t *)0xFFF78000U)
+
+#else
 	typedef volatile struct pcrBase
 	{
 		Luint32 PMPROTSET0;    /* 0x0000 */
@@ -70,6 +156,8 @@
 	*/
 	#define pcrREG ((pcrBASE_t *)0xFFFFE000U)
 	/* PCR General Definitions */
+#endif
+
 
 	typedef Luint32 peripheralFrame_CS_t;
 

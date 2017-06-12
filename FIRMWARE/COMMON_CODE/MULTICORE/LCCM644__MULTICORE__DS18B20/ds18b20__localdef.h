@@ -19,11 +19,6 @@ DS18B20 - 1-Wire Temperature Sensor
 	#define C_LOCALDEF__LCCM644__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM644__ENABLE_THIS_MODULE == 1U
 
-		//processor options
-		#define C_LOCALDEF__LCCM644__USE_ON_RM4								(0U)
-		#define C_LOCALDEF__LCCM644__USE_ON_XILINX							(0U)
-		#define C_LOCALDEF__LCCM644__USE_ON_MSP430							(0U)
-
 		/** Specific the required resoltuion 9, 10, 11 or 12 bit
 		 * Each resolution takes longer to convert
 		 */

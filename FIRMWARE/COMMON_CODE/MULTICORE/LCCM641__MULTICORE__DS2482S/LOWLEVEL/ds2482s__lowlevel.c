@@ -53,7 +53,7 @@ void vDS2482S_LOWLEVEL__Init(Luint8 u8DeviceIndex)
  * @param[in]		u8DeviceIndex			Device index on the bus
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		C08FEB01EB95C3FCD26306F0583CCA18
+ * @st_funcMD5		EF9D90066537B7FC2A42FEA68B6C19B1
  * @st_funcID		LCCM641R0.FILE.005.FUNC.002
  */
 Lint16 s16DS2482S_LOWLEVEL__TxReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegister)
@@ -76,7 +76,7 @@ Lint16 s16DS2482S_LOWLEVEL__TxReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegister)
 	u8Addx |= 0x18U;
 
 	//do the actual write
-	#if C_LOCALDEF__LCCM641__USE_ON_RM4 == 1U
+	#if (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM42L432 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM46L852 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM48L952 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U)
 		s16R = M_LOCALDEF__LCCM641__I2C_TX_REG(u8Addx, (Luint8)eRegister);
 
 		//we should convert here the I2C layer reuturns to our own returns
@@ -88,7 +88,7 @@ Lint16 s16DS2482S_LOWLEVEL__TxReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegister)
 		{
 			s16Return = 0;
 		}
-	#elif C_LOCALDEF__LCCM641__USE_ON_MSP430 == 1U
+	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__MSP430F5529 == 1U
 		s16R = M_LOCALDEF__LCCM641__I2C_TX_REG(u8Addx, (Luint8)eRegister);
 
 		//we should convert here the I2C layer reuturns to our own returns
@@ -119,7 +119,7 @@ Lint16 s16DS2482S_LOWLEVEL__TxReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegister)
  * @param[in]		u8DeviceIndex			The I2C device index
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		C2AEAE98623C9D28C0E75AB6CD439B87
+ * @st_funcMD5		D355DEEE77F6FCECE23086ADB9C8A87B
  * @st_funcID		LCCM641R0.FILE.005.FUNC.003
  */
 Lint16 s16DS2482S_LOWLEVEL__RxReg(Luint8 u8DeviceIndex, Luint8 *pu8Data)
@@ -144,7 +144,7 @@ Lint16 s16DS2482S_LOWLEVEL__RxReg(Luint8 u8DeviceIndex, Luint8 *pu8Data)
 	/*lint +e960*/
 
 	//do the actual write
-	#if C_LOCALDEF__LCCM641__USE_ON_RM4 == 1U
+	#if (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM42L432 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM46L852 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM48L952 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U)
 		s16R = M_LOCALDEF__LCCM641__I2C_RX_REG(u8Addx, pu8Data);
 
 		//we should convert here the I2C layer reuturns to our own returns
@@ -156,7 +156,7 @@ Lint16 s16DS2482S_LOWLEVEL__RxReg(Luint8 u8DeviceIndex, Luint8 *pu8Data)
 		{
 			s16Return = 0;
 		}
-	#elif C_LOCALDEF__LCCM641__USE_ON_MSP430 == 1U
+	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__MSP430F5529 == 1U
 		s16R = M_LOCALDEF__LCCM641__I2C_RX_REG(u8Addx, pu8Data);
 
 		//we should convert here the I2C layer reuturns to our own returns
@@ -185,7 +185,7 @@ Lint16 s16DS2482S_LOWLEVEL__RxReg(Luint8 u8DeviceIndex, Luint8 *pu8Data)
  * @param[in]		u8DeviceIndex			Device index on the bus.
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		FD6924149A1B238D92247783C79AE570
+ * @st_funcMD5		7F502034113AB4A892FA10D5E9426FDA
  * @st_funcID		LCCM641R0.FILE.005.FUNC.004
  */
 Lint16 s16DS2482S_LOWLEVEL__WriteReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegister, Luint8 u8Value)
@@ -210,7 +210,7 @@ Lint16 s16DS2482S_LOWLEVEL__WriteReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegist
 	/*lint +e960*/
 
 	//do the actual write
-	#if C_LOCALDEF__LCCM641__USE_ON_RM4 == 1U
+	#if (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM42L432 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM46L852 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM48L952 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U)
 		s16R = M_LOCALDEF__LCCM641__I2C_TX_BYTE(u8Addx, (Luint8)eRegister, u8Value);
 
 		//we should convert here the I2C layer reuturns to our own returns
@@ -222,7 +222,7 @@ Lint16 s16DS2482S_LOWLEVEL__WriteReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegist
 		{
 			s16Return = 0;
 		}
-	#elif C_LOCALDEF__LCCM641__USE_ON_MSP430 == 1U
+	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__MSP430F5529 == 1U
 		s16R = M_LOCALDEF__LCCM641__I2C_TX_BYTE(u8Addx, (Luint8)eRegister, u8Value);
 
 		//we should convert here the I2C layer reuturns to our own returns
@@ -250,7 +250,7 @@ Lint16 s16DS2482S_LOWLEVEL__WriteReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegist
  * @param[in]		u8DeviceIndex			Device index on the bus
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		7A8803D447E394E96E9561CD82676185
+ * @st_funcMD5		0143184BC9B62B450959CAD1A31E3F6A
  * @st_funcID		LCCM641R0.FILE.005.FUNC.005
  */
 Lint16 s16DS2482S_LOWLEVEL__ReadReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegister, Luint8 *pu8Value)
@@ -275,7 +275,7 @@ Lint16 s16DS2482S_LOWLEVEL__ReadReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegiste
 	/*lint +e960*/
 
 	//do the actual write
-	#if C_LOCALDEF__LCCM641__USE_ON_RM4 == 1U
+	#if (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM42L432 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM46L852 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM48L952 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U)
 		s16R = M_LOCALDEF__LCCM641__I2C_RX_BYTE(u8Addx, (Luint8)eRegister, pu8Value);
 
 		//we should convert here the I2C layer reuturns to our own returns
@@ -287,7 +287,7 @@ Lint16 s16DS2482S_LOWLEVEL__ReadReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegiste
 		{
 			s16Return = 0;
 		}
-	#elif C_LOCALDEF__LCCM641__USE_ON_MSP430 == 1U
+	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__MSP430F5529 == 1U
 		s16R = M_LOCALDEF__LCCM641__I2C_RX_BYTE(u8Addx, (Luint8)eRegister, pu8Value);
 
 		//we should convert here the I2C layer reuturns to our own returns

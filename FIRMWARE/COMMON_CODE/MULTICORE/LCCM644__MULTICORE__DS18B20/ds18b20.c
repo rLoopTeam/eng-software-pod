@@ -35,7 +35,7 @@ struct _strDS18B20 sDS18B20;
  * YOU MUST Either start the search process or manually load
  * ROMID values into the tables before doing anything with this module.
  *
- * @st_funcMD5		58A844B1F30D1E70E52BE4907F4B8580
+ * @st_funcMD5		D8EA8230604994839D2F3F4C48B18E8E
  * @st_funcID		LCCM644R0.FILE.000.FUNC.001
  */
 void vDS18B20__Init(void)
@@ -60,7 +60,7 @@ void vDS18B20__Init(void)
  * Process DS18B20 systems
  * Call from main program loop as quick as possible.
  * 
- * @st_funcMD5		1DFA24E619029C3DE030E0D62E0DF25E
+ * @st_funcMD5		CBFDFFAC4C0AD3B6C780F94FED676659
  * @st_funcID		LCCM644R0.FILE.000.FUNC.002
  */
 void vDS18B20__Process(void)
@@ -403,6 +403,13 @@ void vDS18B20__Start_TempRead(void)
 }
 
 //setup the resolutions
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		55785263636692BDA22431A15B8024B7
+ * @st_funcID		LCCM644R0.FILE.000.FUNC.013
+ */
 void vDS18B20__Start_ConfigureResolution(void)
 {
 	if(sDS18B20.eMainState == DS18B20_STATE__IDLE)
@@ -427,7 +434,7 @@ void vDS18B20__Start_ConfigureResolution(void)
  * Get the last measured temperature
  * 
  * @param[in]		u16SensorIndex				Sensor index
- * @st_funcMD5		97C5027B4445BCB134628BA44BA4F120
+ * @st_funcMD5		55BED7741DD61A81EFDDBD54FEE78923
  * @st_funcID		LCCM644R0.FILE.000.FUNC.007
  */
 Lfloat32 f32DS18B20__Get_Temperature_DegC(Luint16 u16SensorIndex)
@@ -436,6 +443,13 @@ Lfloat32 f32DS18B20__Get_Temperature_DegC(Luint16 u16SensorIndex)
 }
 
 //returns the number of enumerated sensors found
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		8D0E870089BAC035DFA5BF2426DE7C7C
+ * @st_funcID		LCCM644R0.FILE.000.FUNC.014
+ */
 Luint16 u16DS18B20__Get_NumEnum_Sensors(void)
 {
 	return sDS18B20.sEnum.u16NumDevices;
@@ -458,7 +472,7 @@ Luint32 u32DS18B20__Get_DeviceAddx(void)
  * Get the user variable index
  * 
  * @param[in]		u16SensorIndex			Sensor Index
- * @st_funcMD5		E10E42B3A39A5DF7BAA64554DC0E4E18
+ * @st_funcMD5		C9056334031B2B7EBD1E524C882811A1
  * @st_funcID		LCCM644R0.FILE.000.FUNC.009
  */
 Luint16 u162DS18B20__Get_UserIndex(Luint16 u16SensorIndex)
@@ -471,7 +485,7 @@ Luint16 u162DS18B20__Get_UserIndex(Luint16 u16SensorIndex)
  * Get the sensor resolution
  * 
  * @param[in]		u16SensorIndex			Sensor index
- * @st_funcMD5		17F55FE90BED80086EE4414AD72D296F
+ * @st_funcMD5		882A8C0560C0082E8FFA36513C1B4D1A
  * @st_funcID		LCCM644R0.FILE.000.FUNC.010
  */
 Luint8 u82DS18B20__Get_Resolution(Luint16 u16SensorIndex)
@@ -484,7 +498,7 @@ Luint8 u82DS18B20__Get_Resolution(Luint16 u16SensorIndex)
  * Get the BUS index that the sensor is located on
  * 
  * @param[in]		u16SensorIndex			Sensor index
- * @st_funcMD5		CB7F6851D04986D920779A760C2C8587
+ * @st_funcMD5		6347AE473D815D032A6825EAB1BBE65D
  * @st_funcID		LCCM644R0.FILE.000.FUNC.011
  */
 Luint8 u82DS18B20__Get_BusIndex(Luint16 u16SensorIndex)
@@ -498,7 +512,7 @@ Luint8 u82DS18B20__Get_BusIndex(Luint16 u16SensorIndex)
  * 
  * @param[in]		*pu8Buffer				Pointer to buffer to hold the ROM ID
  * @param[in]		u16SensorIndex				Sensor index in its array
- * @st_funcMD5		26DABCECBA0A892082E5A2E8E7C1FB4F
+ * @st_funcMD5		CA517A05118D37B938859E5CBF55777B
  * @st_funcID		LCCM644R0.FILE.000.FUNC.012
  */
 void vDS18B20__Get_ROMID(Luint16 u16SensorIndex, Luint8 *pu8Buffer)

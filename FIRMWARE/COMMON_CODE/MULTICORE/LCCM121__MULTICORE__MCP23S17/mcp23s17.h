@@ -27,33 +27,33 @@
 		/*******************************************************************************
 		Function Protos
 		*******************************************************************************/
-		void vMCP23S17__Init(Luint8 u8DeviceIndex);
-		Luint32 u32MCP23S17__Get_FaultFlags(Luint8 u8DeviceIndex);
-		void vMCP23S17__Set_Pin_High(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
-		void vMCP23S17__Set_Pin(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit, Luint8 u8Value);
-		void vMCP23S17__Set_Pin_Low(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
-		void vMCP23S17__Set_PinDirection_Output(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
-		void vMCP23S17__Set_PinDirection_Input(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
-		void vMCP23S17__Set_PinPolarity_Opposite(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
-		void vMCP23S17__Set_PinPolarity_Same(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
-		void vMCP23S17__EnablePullups(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Mask);
-		void vMCP23S17__Set_Port(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Value);
-		Luint8 u8MCP23S17__Read_PortA(Luint8 u8DeviceIndex);
-		Luint8 u8MCP23S17__Read_Input(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
-		Luint8 u8MCP23S17__Read_PortB(Luint8 u8DeviceIndex);
+		void vSIL3_MCP23S17__Init(Luint8 u8DeviceIndex);
+		Luint32 u32SIL3_MCP23S17__Get_FaultFlags(Luint8 u8DeviceIndex);
+		void vSIL3_MCP23S17__Set_Pin_High(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
+		void vSIL3_MCP23S17__Set_Pin(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit, Luint8 u8Value);
+		void vSIL3_MCP23S17__Set_Pin_Low(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
+		void vSIL3_MCP23S17__Set_PinDirection_Output(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
+		void vSIL3_MCP23S17__Set_PinDirection_Input(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
+		void vSIL3_MCP23S17__Set_PinPolarity_Opposite(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
+		void vSIL3_MCP23S17__Set_PinPolarity_Same(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
+		void vSIL3_MCP23S17__EnablePullups(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Mask);
+		void vSIL3_MCP23S17__Set_Port(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Value);
+		Luint8 u8SIL3_MCP23S17__Read_PortA(Luint8 u8DeviceIndex);
+		Luint8 u8SIL3_MCP23S17__Read_Input(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
+		Luint8 u8SIL3_MCP23S17__Read_PortB(Luint8 u8DeviceIndex);
 		
 		//ISR
-		void vMCP23S17_ISR__MirrorIntPins(Luint8 u8DeviceIndex);
-		void vMCP23S17_ISR__Enable_OnChange(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
-		void vMCP23S17_ISR__Enable_OnChange_New(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
-		void vMCP23S17_ISR__Enable_OnValue(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit, Luint8 u8Value);
-		void vMCP23S17_ISR__Disable(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
-		void vMCP23S17_ISR__Clear(Luint8 u8DeviceIndex);
+		void vSIL3_MCP23S17_ISR__MirrorIntPins(Luint8 u8DeviceIndex);
+		void vSIL3_MCP23S17_ISR__Enable_OnChange(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
+		void vSIL3_MCP23S17_ISR__Enable_OnChange_New(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
+		void vSIL3_MCP23S17_ISR__Enable_OnValue(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit, Luint8 u8Value);
+		void vSIL3_MCP23S17_ISR__Disable(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
+		void vSIL3_MCP23S17_ISR__Clear(Luint8 u8DeviceIndex);
 		
 		//lowlevel
-		void vMCP23S17_LOWLEVEL__ShutdownInterface(Luint8 u8DeviceIndex);
-		Lint16 s16MCP23S17_LOWLEVEL__WriteRegister(Luint8 u8DeviceIndex, Luint8 u8RegAddx, Luint8 u8Value);
-		Lint16 s16MCP23S17_LOWLEVEL__ReadRegister(Luint8 u8DeviceIndex, Luint8 u8Addx, Luint8 * pu8Data);
+		void vSIL3_MCP23S17_LOWLEVEL__ShutdownInterface(Luint8 u8DeviceIndex);
+		Lint16 s16SIL3_MCP23S17_LOWLEVEL__WriteRegister(Luint8 u8DeviceIndex, Luint8 u8RegAddx, Luint8 u8Value);
+		Lint16 s16SIL3_MCP23S17_LOWLEVEL__ReadRegister(Luint8 u8DeviceIndex, Luint8 u8Addx, Luint8 *pu8Data);
 
 		
 

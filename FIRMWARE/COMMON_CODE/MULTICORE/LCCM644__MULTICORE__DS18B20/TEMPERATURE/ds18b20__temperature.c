@@ -37,7 +37,7 @@ static void vDS18B20_TEMP__Scratch_To_Temp(Luint16 u16SensorIndex, const Luint8 
  * @param[in]		u16SensorIndex				The sensor index
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		A078A4525D85F13160DDAF5DF26FE1E2
+ * @st_funcMD5		DFE1EB9B81BE1EA46285352390CFEF1A
  * @st_funcID		LCCM644R0.FILE.003.FUNC.006
  */
 Lint16 s16DS18B20_TEMP__Read(Luint16 u16SensorIndex)
@@ -73,7 +73,7 @@ Lint16 s16DS18B20_TEMP__Read(Luint16 u16SensorIndex)
  * @param[in]		u16SensorIndex				The sensor index
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		2A3FA2AC34982FD9EA9455F9CB0482D1
+ * @st_funcMD5		B793F90E3CDA14726720D0BDC59A0DEF
  * @st_funcID		LCCM644R0.FILE.003.FUNC.003
  */
 Lint16 s16DS18B20_TEMP__All_Request(Luint16 u16SensorIndex, Luint8 u8Wait)
@@ -135,6 +135,15 @@ Lint16 s16DS18B20_TEMP__All_Request(Luint16 u16SensorIndex, Luint8 u8Wait)
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		Luint8		## Desc ##
+ * @param[in]		u8ChannelIndex		## Desc ##
+ * @st_funcMD5		DD670CD6076146A90AC75830264A43D3
+ * @st_funcID		LCCM644R0.FILE.003.FUNC.007
+ */
 Lint16 s16DS18B20_TEMP__All_Request_ByChannel(Luint8 u8ChannelIndex, Luint8 u8Wait)
 {
 	/*lint -e934*/
@@ -203,7 +212,7 @@ Lint16 s16DS18B20_TEMP__All_Request_ByChannel(Luint8 u8ChannelIndex, Luint8 u8Wa
  * @param[in]		u16SensorIndex				The addressed index of the device.
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		860D63E72330497D8ACB60F9EBF50D2D
+ * @st_funcMD5		AFAC92F467DA349D156D5D79A0C1A404
  * @st_funcID		LCCM644R0.FILE.003.FUNC.004
  */
 Lint16 s16DS18B20_TEMP__Request(Luint16 u16SensorIndex, Luint8 u8Wait)
@@ -305,7 +314,7 @@ Lint16 s16DS18B20_TEMP__Request(Luint16 u16SensorIndex, Luint8 u8Wait)
  * @param[out]		*pf32Temp				Pointer to return temperature value
  * @param[in]		*pu8Scratch				Pointer to scratchpad memory
  * @param[in]		u16SensorIndex				Index of the device so as we know our resoltion
- * @st_funcMD5		65DE1541B347FC9CA29984F03A7B741D
+ * @st_funcMD5		BBE4B0A785E2A7B2EDBC2DE9457DDAE0
  * @st_funcID		LCCM644R0.FILE.003.FUNC.005
  */
 void vDS18B20_TEMP__Scratch_To_Temp(Luint16 u16SensorIndex, const Luint8 *pu8Scratch, Lfloat32 *pf32Temp)
@@ -460,7 +469,7 @@ void vDS18B20_TEMP__Scratch_To_Temp(Luint16 u16SensorIndex, const Luint8 *pu8Scr
  * @param[in]		u16SensorIndex				Already enumerated address ID
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		79132391B133E345569932CFFF9C4316
+ * @st_funcMD5		AA74E61B86A3B1819840161836E80D1D
  * @st_funcID		LCCM644R0.FILE.003.FUNC.002
  */
 Lint16 s16DS18B20_TEMP__Get_Resolution(Luint16 u16SensorIndex, Luint8 *pu8Resolution)
@@ -501,6 +510,14 @@ Lint16 s16DS18B20_TEMP__Get_Resolution(Luint16 u16SensorIndex, Luint8 *pu8Resolu
 
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u16SensorIndex		## Desc ##
+ * @st_funcMD5		4845E85872619EE3F5E9A32229D2709C
+ * @st_funcID		LCCM644R0.FILE.003.FUNC.008
+ */
 Lint16 s16DS18B20_TEMP__Get_UserID(Luint16 u16SensorIndex)
 {
 	/*lint -e934*/
@@ -527,7 +544,7 @@ Lint16 s16DS18B20_TEMP__Get_UserID(Luint16 u16SensorIndex)
  * @param[in]		u16SensorIndex				Device index address
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		AA30E950FFA1C69214EC088D9D467661
+ * @st_funcMD5		3B91CBE4E65AC229BC0EAB553C543E68
  * @st_funcID		LCCM644R0.FILE.003.FUNC.001
  */
 Lint16 s16DS18B20_TEMP__Set_Resolution(Luint16 u16SensorIndex, Luint8 u8Resolution)

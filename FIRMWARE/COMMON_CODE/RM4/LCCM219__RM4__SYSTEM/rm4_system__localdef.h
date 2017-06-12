@@ -24,6 +24,8 @@ Change the build settings:
 *******************************************************************************/
 	/*lint -e950 */
 	/*lint -e621 */
+	#include "sil3_generic__cpu.h"
+
 	//data types
 	#include <RM4/LCCM105__RM4__BASIC_TYPES/basic_types.h>
 
@@ -37,15 +39,17 @@ Change the build settings:
 	//This is the HCLK frequency, it is not defined here, but is a result of the
 	//PLL1 setup.  Standard range is 200MHZ to 220MHZ (952 part)
 	//Valid Is:
+	//300 (RM57 ONLY)
 	//220
 	//200 (Standard)
-	//150 (Low Power)
+	//150 (Low Power) OR RM57
 	//100 (Low Power)
 	#define C_LOCALDEF__SYSTEM__HCLK_FREQ_MHZ								(200U)
 
 	//normal bus division is either 1 or 2
 	//In 1x mode, VCLK1 is 100MHZ, in 2x mode VCLK is 50MHZ
 	//you may only need 2x mode if you need ultra lo SPI comms, etc.
+	//Needs to be 2 on RM57
 	#define C_LOCALDEF__SYSTEM__VCLK1_DIVISOR								(1U)
 
 
@@ -63,6 +67,11 @@ Change the build settings:
 
 	//other includes
 	#include <RM4/LCCM219__RM4__SYSTEM/rm4_system.h>
+
+	#if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
+		#include <RM57/LCCM704__RM57__COMMON/HL_system.h>
+	#endif
+
 
 	#include <RM4/LCCM364__RM4__FIRMWARE_VERSION/rm4_firmware_version.h>
 
