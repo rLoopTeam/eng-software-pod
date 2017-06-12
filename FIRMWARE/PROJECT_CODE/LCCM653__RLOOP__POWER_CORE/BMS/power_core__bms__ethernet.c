@@ -76,7 +76,7 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	}//switch(ePacketType)
 
 	//pre-comit
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
 	if(s16Return == 0)
 	{
 		//handle the packet
@@ -85,7 +85,7 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 			case NET_PKT__PWR_BMS__TX_BMS_STATUS:
 
 				//fault flags
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sPWRNODE.sFaults.sTopLevel.u32Flags[0]);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sPWRNODE.sFaults.sTopLevel.u32Flags[0]);
 				pu8Buffer += 4U;
 
 				//temp sensor state
@@ -97,53 +97,53 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 1U;
 
 				//num sensors
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, u16DS18B20__Get_NumEnum_Sensors());
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, u16DS18B20__Get_NumEnum_Sensors());
 				pu8Buffer += 2U;
 
 				//highest individual temp
-				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sTemp.f32HighestTemp);
+				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sTemp.f32HighestTemp);
 				pu8Buffer += 4U;
 
 				//average temp
-				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sTemp.f32AverageTemp);
+				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sTemp.f32AverageTemp);
 				pu8Buffer += 4U;
 
 				//highest temp sensor
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sPWRNODE.sTemp.u16HighestSensorIndex);
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sPWRNODE.sTemp.u16HighestSensorIndex);
 				pu8Buffer += 2U;
 
 				//pack volts
-				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Get_PackVoltage());
+				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Get_PackVoltage());
 				pu8Buffer += 4U;
 
 				//highest volts
-				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Cell_Get_HighestVoltage());
+				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Cell_Get_HighestVoltage());
 				pu8Buffer += 4U;
 
 				//lowest volts
-				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Cell_Get_LowestVoltage());
+				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Cell_Get_LowestVoltage());
 				pu8Buffer += 4U;
 
 				//BMS boards Temp
 				//todo
-				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, 0.0F);
+				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
 				pu8Buffer += 4U;
 
 				//node press
 #if C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS == 1U
-				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_NODEPRESS__Get_Pressure_Bar());
+				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_NODEPRESS__Get_Pressure_Bar());
 				pu8Buffer += 4U;
 #else
-				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, -1.0F);
+				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, -1.0F);
 				pu8Buffer += 4U;
 #endif
 
 				//node temp
 #if C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP == 1U
-				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_NODETEMP__Get_DegC());
+				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_NODETEMP__Get_DegC());
 				pu8Buffer += 4U;
 #else
-				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, -1.0F);
+				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, -1.0F);
 				pu8Buffer += 4U;
 #endif
 
@@ -153,7 +153,7 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					for(u8Counter = 0; u8Counter < C_ATA6870__MAX_CELLS; u8Counter++)
 					{
 						//Cell voltage
-						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sATA6870.f32Voltage[(u8Device * C_ATA6870__MAX_CELLS) + u8Counter]);
+						vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sATA6870.f32Voltage[(u8Device * C_ATA6870__MAX_CELLS) + u8Counter]);
 						pu8Buffer += 4U;
 					}
 				}
@@ -166,15 +166,15 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				}
 
 				//count of times the voltage was updated.
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32PWRNODE_BMS__Get_VoltsUpdateCount());
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32PWRNODE_BMS__Get_VoltsUpdateCount());
 				pu8Buffer += 4U;
 
 				//Number of times we've scaned the temperature sensors
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sPWRNODE.sTemp.u32TempScanCount);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sPWRNODE.sTemp.u32TempScanCount);
 				pu8Buffer += 4U;
 
 				//Current through the battery pack
-				vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sHASS600.f32HASS_CurrentReading);
+				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sHASS600.f32HASS_CurrentReading);
 				pu8Buffer += 4U;
 
 				break;
@@ -186,7 +186,7 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length, sPWRNODE.u16EthPort, sPWRNODE.u16EthPort);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, sPWRNODE.u16EthPort, sPWRNODE.u16EthPort);
 
 	}//if(s16Return == 0)
 	else

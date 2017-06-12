@@ -151,7 +151,7 @@ MULTIPURPOSE DAQ MODULE
 		#define C_LOCALDEF__LCCM662__ENABLE_TIMER_IN_DATA					(0U)
 
 		/** Transmission notification handler */
-		#define M_LOCALDEF__LCCM662__TX_HANDLER(index, pbuffer, length)		s16DAQ_TRANSMIT__Template(index, pbuffer, length)
+		#define M_LOCALDEF__LCCM662__TX_HANDLER(index, pbuffer, length)		s16SIL3_DAQ_TRANSMIT__Template(index, pbuffer, length)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM662__ENABLE_TEST_SPEC						(0U)

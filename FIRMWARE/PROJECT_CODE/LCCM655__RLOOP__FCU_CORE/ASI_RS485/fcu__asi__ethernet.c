@@ -71,7 +71,7 @@ void vFCU_ASI_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	}//switch(ePacketType)
 
 	//pre-comit
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
 	if(s16Return == 0)
 	{
 		//handle the packet
@@ -81,7 +81,7 @@ void vFCU_ASI_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 
 				//fault flags
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;
 
 				pu8Buffer[0] = (Luint8)sFCU.sASI.eMainState;
@@ -93,7 +93,7 @@ void vFCU_ASI_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer[0] = (Luint8)sFCU.sASI.u8ScanIndex;
 				pu8Buffer += 1U;
 
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, (Luint16)sFCU.sASI.eCommandList[sFCU.sASI.u8CommandListIndex]);
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, (Luint16)sFCU.sASI.eCommandList[sFCU.sASI.u8CommandListIndex]);
 				pu8Buffer += 2U;
 
 				//current command details
@@ -101,9 +101,9 @@ void vFCU_ASI_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 1U;
 				pu8Buffer[0] = (Luint8)sFCU.sASI.sCurrentCommand.eFunctionCode;
 				pu8Buffer += 1U;
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, (Luint16)sFCU.sASI.sCurrentCommand.eObjectType);
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, (Luint16)sFCU.sASI.sCurrentCommand.eObjectType);
 				pu8Buffer += 2U;
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sASI.sCurrentCommand.u16ParamValue);
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sASI.sCurrentCommand.u16ParamValue);
 				pu8Buffer += 2U;
 				pu8Buffer[0] = (Luint8)sFCU.sASI.sCurrentCommand.eDestVarType;
 				pu8Buffer += 1U;
@@ -112,27 +112,27 @@ void vFCU_ASI_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				//rxdata
 				pu8Buffer[0] = (Luint8)sFCU.sASI.sCurrentCommand.eErrorType;
 				pu8Buffer += 1U;
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sASI.sCurrentCommand.unDestVar.u16[0]);
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sASI.sCurrentCommand.unDestVar.u16[0]);
 				pu8Buffer += 2U;
 
 				for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
 				{
-					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sASI.sHolding[u8Counter].u16Faults);
+					vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sASI.sHolding[u8Counter].u16Faults);
 					pu8Buffer += 2U;
 				}
 				for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
 				{
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sASI.sHolding[u8Counter].f32TempC);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sASI.sHolding[u8Counter].f32TempC);
 					pu8Buffer += 4U;
 				}
 				for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
 				{
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sASI.sHolding[u8Counter].f32MotorCurrentA);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sASI.sHolding[u8Counter].f32MotorCurrentA);
 					pu8Buffer += 4U;
 				}
 				for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
 				{
-					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sASI.sHolding[u8Counter].u16RPM);
+					vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sASI.sHolding[u8Counter].u16RPM);
 					pu8Buffer += 2U;
 				}
 				break;
@@ -144,7 +144,7 @@ void vFCU_ASI_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length,
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length,
 				C_RLOOP_NET__FCU__PORT,
 				C_RLOOP_NET__FCU__PORT);
 

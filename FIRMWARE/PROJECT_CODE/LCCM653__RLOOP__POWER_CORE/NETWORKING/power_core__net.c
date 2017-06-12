@@ -73,7 +73,7 @@ void vPWRNODE_NET__Init(void)
 #endif
 
 	//init the ethernet layer
-	vETHERNET__Init(&sPWRNODE.sEthernet.u8MACAddx[0], &sPWRNODE.sEthernet.u8IPAddx[0]);
+	vSIL3_ETH__Init(&sPWRNODE.sEthernet.u8MACAddx[0], &sPWRNODE.sEthernet.u8IPAddx[0]);
 
 	//setup unicast if needed
 #if C_ETH_ENABLE_UNICAST == 1U
@@ -109,7 +109,7 @@ void vPWRNODE_NET__Process(void)
 #endif
 
 	//process the ethernet layer.
-	vETHERNET__Process();
+	vSIL3_ETH__Process();
 
 
 	//hande our state machine for Tx

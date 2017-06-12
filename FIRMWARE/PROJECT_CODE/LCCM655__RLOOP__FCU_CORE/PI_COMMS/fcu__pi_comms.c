@@ -317,14 +317,14 @@ void vFCU_PICOMMS__recvLuint32(Luint16 u16Index, Luint32 u32Data)
 
 
 		case PI_PACKET__FCU_BRAKES__SET_LEFTMOTOR__MICROSTEPS:
-			vSTEPDRIVE_MEM__Set_MicroStepResolution(0U, (Luint8)u32Data);
+			vSIL3_STEPDRIVE_MEM__Set_MicroStepResolution(0U, (Luint8)u32Data);
 			break;
 		case PI_PACKET__FCU_BRAKES__SET_LEFTMOTOR__STEPS_REV:
 			//hard coded
 			break;
 
 		case PI_PACKET__FCU_BRAKES__SET_RIGHTMOTOR__MICROSTEPS:
-			vSTEPDRIVE_MEM__Set_MicroStepResolution(1U, (Luint8)u32Data);
+			vSIL3_STEPDRIVE_MEM__Set_MicroStepResolution(1U, (Luint8)u32Data);
 			break;
 		case PI_PACKET__FCU_BRAKES__SET_RIGHTMOTOR__STEPS_REV:
 			//hard coded
@@ -363,7 +363,7 @@ void vFCU_PICOMMS__recvLint32(Luint16 u16Index, Lint32 s32Data)
 			vSTEPDRIVE_MEM__Set_PicoMeters_PerRev(0U, s32Data);
 			break;
 		case PI_PACKET__FCU_BRAKES__SET_LEFTMOTOR__MAX_VELOC:
-			vSTEPDRIVE_MEM__Set_MaxRPM(0U, s32Data);
+			vSIL3_STEPDRIVE_MEM__Set_MaxRPM(0U, s32Data);
 			break;
 
 		case PI_PACKET__FCU_BRAKES__SET_RIGHTMOTOR__MAX_ACCEL:
@@ -373,7 +373,7 @@ void vFCU_PICOMMS__recvLint32(Luint16 u16Index, Lint32 s32Data)
 			vSTEPDRIVE_MEM__Set_PicoMeters_PerRev(1U, s32Data);
 			break;
 		case PI_PACKET__FCU_BRAKES__SET_RIGHTMOTOR__MAX_VELOC:
-			vSTEPDRIVE_MEM__Set_MaxRPM(1U, s32Data);
+			vSIL3_STEPDRIVE_MEM__Set_MaxRPM(1U, s32Data);
 			break;
 
 

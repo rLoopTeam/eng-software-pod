@@ -58,7 +58,7 @@ void vFCU_LASEROPTO_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	}//switch(ePacketType)
 
 	//pre-comit
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
 	if(s16Return == 0)
 	{
 		//handle the packet
@@ -67,11 +67,11 @@ void vFCU_LASEROPTO_ETH__Transmit(E_NET__PACKET_T ePacketType)
 			case NET_PKT__LASER_OPTO__TX_LASER_DATA:
 
 				//top level fault flags
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sFaultFlags.u32Flags[0]);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sFaultFlags.u32Flags[0]);
 				pu8Buffer += 4U;
 
 				//spare
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;
 
 				//24
@@ -79,27 +79,27 @@ void vFCU_LASEROPTO_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				{
 
 					//laser level fault flags
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].sFaultFlags.u32Flags[0]);
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].sFaultFlags.u32Flags[0]);
 					pu8Buffer += 4U;
 
 					//Count of number of "error code packets" returned from the laser
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].sCounters.u32ErrorCode);
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].sCounters.u32ErrorCode);
 					pu8Buffer += 4U;
 
 					//First packet byte was wrong, may indicate some FIFO errors.
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].sCounters.u32Byte1Wrong);
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].sCounters.u32Byte1Wrong);
 					pu8Buffer += 4U;
 
 					//Most Recent Laser Distance (RAW)
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].f32DistanceRAW);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].f32DistanceRAW);
 					pu8Buffer += 4U;
 
 					//Filtered laser packet from filtering system
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].sFiltered.f32FilteredValue);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].sFiltered.f32FilteredValue);
 					pu8Buffer += 4U;
 
 					//Spare
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].sCounters.u32Success);
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].sCounters.u32Success);
 					pu8Buffer += 4U;
 
 				}//for(u8Device = 0U; u8Device < C_FCU__NUM_LASERS_OPTONCDT; u8Device++)
@@ -112,7 +112,7 @@ void vFCU_LASEROPTO_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
 
 	}//if(s16Return == 0)
 	else

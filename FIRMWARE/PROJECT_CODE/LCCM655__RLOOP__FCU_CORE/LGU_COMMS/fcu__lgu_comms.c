@@ -136,7 +136,7 @@ void vFCU_LGU__Process(void)
 		case LGU_COMMS_STATE__PROCESS_RX:
 
 			//check our CRC
-			u8Test = u8SWCRC__CRC8((const Luint8*)&sFCU.sLGU.sRxMessage.u8Header, 7U);
+			u8Test = u8SIL3_SWCRC__CRC8((const Luint8*)&sFCU.sLGU.sRxMessage.u8Header, 7U);
 			if(u8Test == sFCU.sLGU.sRxMessage.u8CRC)
 			{
 				//match
@@ -183,7 +183,7 @@ Lint16 s16FCU_LGU__Tx_MessageU32(E_FCU_LGU_COMM_TYPES_T eType, Luint32 u32Value)
 		sFCU.sLGU.sTxMessage.u8Header = 0x55;
 		sFCU.sLGU.sTxMessage.unCommand.u16 = (Luint16)eType;
 		sFCU.sLGU.sTxMessage.unValue.u32 = u32Value;
-		sFCU.sLGU.sTxMessage.u8CRC = u8SWCRC__CRC8((const Luint8*)&sFCU.sLGU.sTxMessage.u8Header, 7U);
+		sFCU.sLGU.sTxMessage.u8CRC = u8SIL3_SWCRC__CRC8((const Luint8*)&sFCU.sLGU.sTxMessage.u8Header, 7U);
 		sFCU.sLGU.sTxMessage.u8Footer = 0xAA;
 
 		s16Return = 0;

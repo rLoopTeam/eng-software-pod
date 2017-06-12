@@ -64,7 +64,7 @@ void vPWR_COOLING_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	}//switch(ePacketType)
 
 	//pre-comit
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
 	if(s16Return == 0)
 	{
 		//handle the packet
@@ -78,7 +78,7 @@ void vPWR_COOLING_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				//Hover Engine Cooling Subsystem
 				for(u8Device = 0; u8Device < POWER_COOLING__MAX_HOVERENG; u8Device++)
 				{
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Device].f32Temperature);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Device].f32Temperature);
 					pu8Buffer += 4U;
 
 					pu8Buffer[0] = (Luint8) sPWRNODE.sCooling.sHoverEngineCoolingSystem[u8Device].eCoolingState;
@@ -94,7 +94,7 @@ void vPWR_COOLING_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				//Eddy Brake Cooling Subsystem
 				for(u8Device = 0; u8Device < POWER_COOLING__MAX_EDDYBRAKES; u8Device++)
 				{
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Device].f32Temperature);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Device].f32Temperature);
 					pu8Buffer += 4U;
 
 					pu8Buffer[0] = (Luint8) sPWRNODE.sCooling.sEddyBrakeCoolingSystem[u8Device].eCoolingState;
@@ -117,7 +117,7 @@ void vPWR_COOLING_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length, sPWRNODE.u16EthPort, sPWRNODE.u16EthPort);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, sPWRNODE.u16EthPort, sPWRNODE.u16EthPort);
 
 	}//if(s16Return == 0)
 	else

@@ -107,116 +107,116 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_Array(Luint8 *pu8ByteArray)
 
 void vFCU_FCTL_TRACKDB_WIN32__Set_Header(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8Header[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.u8Header[0], u32Value);
 }
 
 //The total length of the data from after this point to the end of the CRC
 void vFCU_FCTL_TRACKDB_WIN32__Set_DataLength(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8DataLength[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.u8DataLength[0], u32Value);
 }
 
 //This is the ID of the track database entry.  User should match this to
 //what is expected for the current run
 void vFCU_FCTL_TRACKDB_WIN32__Set_TrackID(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8TrackID[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.u8TrackID[0], u32Value);
 }
 
 //Track beginning. Should be always 0 by construction
 void vFCU_FCTL_TRACKDB_WIN32__Set_TrackStartXPos(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8TrackBeginningXPosition_mm[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.u8TrackBeginningXPosition_mm[0], u32Value);
 }
 
 //Track end. x position of foam pit
 void vFCU_FCTL_TRACKDB_WIN32__Set_TrackEndXPos(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8TrackEndXPosition_mm[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.u8TrackEndXPosition_mm[0], u32Value);
 }
 
 //Minimum x position in tube to start using LRF.
 //Called "min position to use laser range finder" in FCU spec 2.3
 void vFCU_FCTL_TRACKDB_WIN32__Set_LRF_StartXPos(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8LRFAreaBeginningXPosition_mm[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.u8LRFAreaBeginningXPosition_mm[0], u32Value);
 }
 
 //Number of stripes on this track
 void vFCU_FCTL_TRACKDB_WIN32__Set_NumStripes(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8NumberOfStripes[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.u8NumberOfStripes[0], u32Value);
 }
 
 void vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(Luint32 u32Index, Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8StripeBeginningXPosition_mm[u32Index][0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.u8StripeBeginningXPosition_mm[u32Index][0], u32Value);
 }
 
 //Enable accels for use on the track
 void vFCU_FCTL_TRACKDB_WIN32__Set_EnableAccels(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8EnableAccels[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.u8EnableAccels[0], u32Value);
 }
 void vFCU_FCTL_TRACKDB_WIN32__Set_EnableLRF(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8EnableLRF[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.u8EnableLRF[0], u32Value);
 }
 void vFCU_FCTL_TRACKDB_WIN32__Set_EnableContrast(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8EnableContrast[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.u8EnableContrast[0], u32Value);
 }
 
 
 
 void vFCU_FCTL_TRACKDB_WIN32__Set_HeaderSpare(Luint32 u32Index, Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8SpareData[u32Index][0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.u8SpareData[u32Index][0], u32Value);
 }
 
 //Footer to know we are valid here
 void vFCU_FCTL_TRACKDB_WIN32__Set_Footer(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.u8Footer[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.u8Footer[0], u32Value);
 }
 
 //x position of the front of the pusher car (or rear of pod) before the run. Called "pusher start x position" in FCU spec 2.3 "*/
 void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontStartPos(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8PusherFrontStartXPosition_mm[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8PusherFrontStartXPosition_mm[0], u32Value);
 }
 
 //expected x position of the front of the pusher car at the end of push phase. Called "end pushed phase x position" in FCU spec 1.1 */
 void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontEndPos(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8PusherFrontEndXPosition_mm[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8PusherFrontEndXPosition_mm[0], u32Value);
 }
 
 //arget x position of pod front at the end of the run. Called "stop x position" in FCU spec 8.4 */
 void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PodFrontTargetXPos(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8PodFrontTargetXPosition_mm[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8PodFrontTargetXPosition_mm[0], u32Value);
 }
 
 //Number of setpoints of braking curve for this run.
 void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_NumSetpoints(Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8NumberOfSetpoints[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8NumberOfSetpoints[0], u32Value);
 }
 
 void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointPosX(Luint32 u32Index, Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8BrakingSetPointXPosition_mm[u32Index][0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8BrakingSetPointXPosition_mm[u32Index][0], u32Value);
 }
 
 void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointVelocityX(Luint32 u32Index, Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8BrakingSetPointSpeed_mms[u32Index][0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8BrakingSetPointSpeed_mms[u32Index][0], u32Value);
 }
 
 void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_Spare(Luint32 u32Index, Luint32 u32Value)
 {
-	vNUMERICAL_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8SpareData[u32Index][0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8SpareData[u32Index][0], u32Value);
 }
 
 
@@ -240,14 +240,14 @@ Luint16 u16FCTL_TRAKDB_WIN32__ComputeCRC(void)
 	pu8Array = (Luint8*)&sTrackDB;
 
 	//do the actual CRC
-	u16CRC = u16SWCRC__CRC(pu8Array, u16Size);
+	u16CRC = u16SIL3_SWCRC__CRC(pu8Array, u16Size);
 
 	return u16CRC;
 }
 
 void vFCU_FCTL_TRACKDB_WIN32__Set_CRC(Luint16 u16Value)
 {
-	vNUMERICAL_CONVERT__Array_U16(&sTrackDB.sDB.u8CRC[0], u16Value);
+	vSIL3_NUM_CONVERT__Array_U16(&sTrackDB.sDB.u8CRC[0], u16Value);
 }
 
 #endif //WIN32

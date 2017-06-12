@@ -41,13 +41,13 @@ void vFCU_LASERCONT__Init(void)
 
 
 	//init the fault system for top level
-	vFAULTTREE__Init(&sFCU.sContrast.sFaultFlags);
+	vSIL3_FAULTTREE__Init(&sFCU.sContrast.sFaultFlags);
 
 	//init the sensor specifics
 	for(u8Counter = 0U; u8Counter < LASER_CONT__MAX; u8Counter++)
 	{
 
-		vFAULTTREE__Init(&sFCU.sContrast.sSensors[u8Counter].sFaultFlags);
+		vSIL3_FAULTTREE__Init(&sFCU.sContrast.sSensors[u8Counter].sFaultFlags);
 
 		//Update the distance remaining in mm.
 		//This could be set to the max track distance, or some other distance, but we really need
@@ -188,7 +188,7 @@ void vFCU_LASERCONT__Process(void)
 				vDAQ_APPEND__U16(C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_RISING_EDGE_COUNT_U16, sFCU.sContrast.sTimingList[u8LaserCount].u16RisingCount);
 				vDAQ_APPEND__U32(C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_DISTANCE_ELAPSED_U32, sFCU.sContrast.sSensors[u8LaserCount].u32DistElapsed_mm);
 				vDAQ_APPEND__U32(C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_CURRENT_VELOCITY_U32, sFCU.sContrast.sSensors[u8LaserCount].u32CurrentVeloc_mms);
-				vDAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_CURRENT_ACCEL_S32, sFCU.sContrast.sSensors[u8LaserCount].s32CurrentAccel_mmss);
+				vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_CURRENT_ACCEL_S32, sFCU.sContrast.sSensors[u8LaserCount].s32CurrentAccel_mmss);
 			}
 			else if(u8LaserCount == 1U)
 			{

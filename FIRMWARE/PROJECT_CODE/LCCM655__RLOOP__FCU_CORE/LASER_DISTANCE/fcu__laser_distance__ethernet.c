@@ -71,7 +71,7 @@ void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	}//switch(ePacketType)
 
 	//pre-comit
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
 	if(s16Return == 0)
 	{
 		//handle the packet
@@ -81,44 +81,44 @@ void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 
 				//fault flags
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sFaultFlags.u32Flags[0]);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sFaultFlags.u32Flags[0]);
 				pu8Buffer += 4U;
 
 				//spare 0
-				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32Distance_mm);
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32Distance_mm);
 				pu8Buffer += 4U;
 
 				//spare 1
-				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32PrevDistance_mm);
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32PrevDistance_mm);
 				pu8Buffer += 4U;
 
 				//spare 2
-				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32Velocity_mms);
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32Velocity_mms);
 				pu8Buffer += 4U;
 
 				//distance raw
-				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32PrevVelocity_mms);
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32PrevVelocity_mms);
 				pu8Buffer += 4U;
 
 				//distance filtered
-				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32Accel_mmss);
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32Accel_mmss);
 				pu8Buffer += 4U;
 
 				//spare 3
-				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32PrevAccel_mmss);
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32PrevAccel_mmss);
 				pu8Buffer += 4U;
 
 
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sBinary.unRx.u32);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sBinary.unRx.u32);
 				pu8Buffer += 4U;
 
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sBinary.u32Counter__MissedStart);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sBinary.u32Counter__MissedStart);
 				pu8Buffer += 4U;
 
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sBinary.u32Counter__BadDistance);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sBinary.u32Counter__BadDistance);
 				pu8Buffer += 4U;
 
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sBinary.u32Counter__ErrorCode);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserDist.sBinary.u32Counter__ErrorCode);
 				pu8Buffer += 4U;
 
 				break;
@@ -130,7 +130,7 @@ void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
 
 	}//if(s16Return == 0)
 	else

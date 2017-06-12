@@ -36,7 +36,7 @@ void vFCU_FCTL_TRACKDB__Init(void)
 {
 
 	//init some vars
-	sFCU.sFlightControl.sTrackDB.u32CurrentDB = u32EEPARAM__Read(C_LOCALDEF__LCCM655__FCTL_TRACKDB___CURRENT_DB);
+	sFCU.sFlightControl.sTrackDB.u32CurrentDB = u32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM655__FCTL_TRACKDB___CURRENT_DB);
 	if(sFCU.sFlightControl.sTrackDB.u32CurrentDB >= C_FCTL_TRACKDB__MAX_MEM_DATABASES)
 	{
 		//reset to zero
@@ -44,7 +44,7 @@ void vFCU_FCTL_TRACKDB__Init(void)
 		sFCU.sFlightControl.sTrackDB.u32CurrentDB = 0U;
 	}
 
-	vFAULTTREE__Init(&sFCU.sFlightControl.sTrackDB.sFaultFlags);
+	vSIL3_FAULTTREE__Init(&sFCU.sFlightControl.sTrackDB.sFaultFlags);
 
 	//get the memory up
 	//The risk here is that we load with DB 0, which is OK for now, but in
@@ -88,7 +88,7 @@ void vFCU_FCTL_TRACKDB__Set_CurrentDB(Luint32 u32Key, Luint32 u32TrackID)
 			sFCU.sFlightControl.sTrackDB.u32CurrentDB = u32TrackID;
 
 			//update the EEPROM
-			vEEPARAM__WriteU32(C_LOCALDEF__LCCM655__FCTL_TRACKDB___CURRENT_DB, sFCU.sFlightControl.sTrackDB.u32CurrentDB, DELAY_T__IMMEDIATE_WRITE);
+			vSIL3_EEPARAM__WriteU32(C_LOCALDEF__LCCM655__FCTL_TRACKDB___CURRENT_DB, sFCU.sFlightControl.sTrackDB.u32CurrentDB, DELAY_T__IMMEDIATE_WRITE);
 
 			//reinit the track database memory
 			vFCU_FCTL_TRACKDB_MEM__Init();
@@ -116,55 +116,55 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_CurrentDB(void)
 //the track ID stored with each entry, should match current DB
 Luint32 u32FCU_FCTL_TRACKDB__Get_TrackID(void)
 {
-	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8TrackID[0]);
+	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8TrackID[0]);
 }
 
 Luint32 u32FCU_FCTL_TRACKDB__Get_TrackStartPosX_mm(void)
 {
-	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8TrackBeginningXPosition_mm[0]);
+	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8TrackBeginningXPosition_mm[0]);
 }
 
 Luint32 u32FCU_FCTL_TRACKDB__Get_Current_TrackEndPosX_mm(void)
 {
-	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8TrackEndXPosition_mm[0]);
+	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8TrackEndXPosition_mm[0]);
 }
 
 Luint32 u32FCU_FCTL_TRACKDB__Get_LRF_StartPosX_mm(void)
 {
-	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8LRFAreaBeginningXPosition_mm[0]);
+	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8LRFAreaBeginningXPosition_mm[0]);
 }
 
 Luint32 u32FCU_FCTL_TRACKDB__Get_NumStripes(void)
 {
-	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8NumberOfStripes[0]);
+	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8NumberOfStripes[0]);
 }
 
 Luint32 u32FCU_FCTL_TRACKDB__Get_StripeStartPosX_mm(Luint32 u32StripeIndex)
 {
-	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8StripeBeginningXPosition_mm[u32StripeIndex][0]);
+	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8StripeBeginningXPosition_mm[u32StripeIndex][0]);
 }
 
 //enable LRF for track
 Luint32 u32FCU_FCTL_TRACKDB__Get_EnableLRF(void)
 {
-	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8EnableLRF[0]);
+	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8EnableLRF[0]);
 }
 
 //enable accels for track DB
 Luint32 u32FCU_FCTL_TRACKDB__Get_EnableAccels(void)
 {
-	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8EnableAccels[0]);
+	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8EnableAccels[0]);
 }
 
 Luint32 u32FCU_FCTL_TRACKDB__Get_EnableContrast(void)
 {
-	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8EnableContrast[0]);
+	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8EnableContrast[0]);
 }
 
 //get the footer, a really easy way of checking if things are good
 Luint32 u32FCU_FCTL_TRACKDB__Get_GetFooter(void)
 {
-	return u32NUMERICAL_CONVERT__Array(&sTrackDB.sDB.u8Footer[0]);
+	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8Footer[0]);
 }
 
 

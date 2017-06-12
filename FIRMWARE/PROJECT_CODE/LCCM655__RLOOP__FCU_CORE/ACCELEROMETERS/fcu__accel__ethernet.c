@@ -73,7 +73,7 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	}//switch(ePacketType)
 
 	//pre-comit
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
 	if(s16Return == 0)
 	{
 		//handle the packet
@@ -85,69 +85,69 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				{
 
 					//fault flags
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32MMA8451__Get_FaultFlags(u8Device));
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32SIL3_MMA8451__Get_FaultFlags(u8Device));
 					pu8Buffer += 4U;
 
 					//X Raw
-					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__X));
+					vSIL3_NUM_CONVERT__Array_S16(pu8Buffer, s16SIL3_MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__X));
 					pu8Buffer += 2U;
 
 					//Y Raw
-					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__Y));
+					vSIL3_NUM_CONVERT__Array_S16(pu8Buffer, s16SIL3_MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__Y));
 					pu8Buffer += 2U;
 
 					//Z Raw
-					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__Z));
+					vSIL3_NUM_CONVERT__Array_S16(pu8Buffer, s16SIL3_MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__Z));
 					pu8Buffer += 2U;
 
 
 					#if C_LOCALDEF__LCCM418__ENABLE_G_FORCE == 1U
 						//X Accel
-						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__X));
+						vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__X));
 						pu8Buffer += 4U;
 
 						//Y Accel
-						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__Y));
+						vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__Y));
 						pu8Buffer += 4U;
 
 						//Z Accel
-						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__Z));
+						vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_GForce(u8Device, MMA8451_AXIS__Z));
 						pu8Buffer += 4U;
 
 						//Pitch
-						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_PitchAngle(u8Device));
+						vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_PitchAngle(u8Device));
 						pu8Buffer += 4U;
 
 						//Roll
-						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_RollAngle(u8Device));
+						vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32MMA8451_MATH__Get_RollAngle(u8Device));
 						pu8Buffer += 4U;
 					#else
-						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, 0.0F);
+						vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
 						pu8Buffer += 4U;
-						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, 0.0F);
+						vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
 						pu8Buffer += 4U;
-						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, 0.0F);
+						vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
 						pu8Buffer += 4U;
-						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, 0.0F);
+						vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
 						pu8Buffer += 4U;
-						vNUMERICAL_CONVERT__Array_F32(pu8Buffer, 0.0F);
+						vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
 						pu8Buffer += 4U;
 					#endif
 
 					//FCU computed specifics
-					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32CurrentAccel_mmss);
+					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32CurrentAccel_mmss);
 					pu8Buffer += 4U;
 
-					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32CurrentVeloc_mms);
+					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32CurrentVeloc_mms);
 					pu8Buffer += 4U;
 
-					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32PrevVeloc_mms);
+					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32PrevVeloc_mms);
 					pu8Buffer += 4U;
 
-					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32CurrentDisplacement_mm);
+					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32CurrentDisplacement_mm);
 					pu8Buffer += 4U;
 
-					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32PrevDisplacement_mm);
+					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sChannels[u8Device].s32PrevDisplacement_mm);
 					pu8Buffer += 4U;
 
 
@@ -162,19 +162,19 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				{
 
 					//fault flags
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32MMA8451__Get_FaultFlags(u8Device));
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32SIL3_MMA8451__Get_FaultFlags(u8Device));
 					pu8Buffer += 4U;
 
 					//X Raw
-					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__X));
+					vSIL3_NUM_CONVERT__Array_S16(pu8Buffer, s16SIL3_MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__X));
 					pu8Buffer += 2U;
 
 					//Y Raw
-					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__Y));
+					vSIL3_NUM_CONVERT__Array_S16(pu8Buffer, s16SIL3_MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__Y));
 					pu8Buffer += 2U;
 
 					//Z Raw
-					vNUMERICAL_CONVERT__Array_S16(pu8Buffer, s16MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__Z));
+					vSIL3_NUM_CONVERT__Array_S16(pu8Buffer, s16SIL3_MMA8451_FILTERING__Get_Average(u8Device, MMA8451_AXIS__Z));
 					pu8Buffer += 2U;
 
 				}
@@ -183,7 +183,7 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
 
 	}//if(s16Return == 0)
 	else

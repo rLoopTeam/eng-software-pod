@@ -46,7 +46,7 @@ void vFCU_PUSHER__Init(void)
 
 	sFCU.sPusher.eState = PUSH_STATE__IDLE;
 
-	vFAULTTREE__Init(&sFCU.sPusher.sFaultFlags);
+	vSIL3_FAULTTREE__Init(&sFCU.sPusher.sFaultFlags);
 
 	//setup ethernet
 	vFCU_PUSHER_ETH__Init();
