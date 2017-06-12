@@ -37,6 +37,12 @@ Change the build settings:
 *******************************************************************************/
 	/*lint -e950 */
 	/*lint -e621 */
+	#ifndef WIN32
+		#include "sil3_generic__cpu.h"
+	#else
+		#include "sil3_generic__cpu_win32.h"
+	#endif
+	
 	//data types
 	#include <RM4/LCCM105__RM4__BASIC_TYPES/basic_types.h>
 
@@ -735,29 +741,9 @@ ADC Module
 		#define C_LOCALDEF__LCCM414__ENABLE_TEST_SPEC						(0U)
 
 
-
-		//main include file
+        //main include file
 		#include <RM4/LCCM414__RM4__ADC/rm4_adc.h>
 	#endif //C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE
-
-/*******************************************************************************
-GENERAL PURPOSE
-SOFTWARE FIFO
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE == 1U
-
-		/** Software FIFO depth size, U8 = 255 or U16 = 65K, not both */
-		#define C_LOCALDEF__LCCM357__FIFO_DEPTH_U8							(0U)
-		#define C_LOCALDEF__LCCM357__FIFO_DEPTH_U16							(1U)
-
-		//testing options
-		#define C_LOCALDEF__LCCM357__ENABLE_TEST_SPEC						(0U)
-
-		//main include file
-		#include <MULTICORE/LCCM357__MULTICORE__SOFTWARE_FIFO/software_fifo.h>
-
-	#endif //C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE
 
 
 /*******************************************************************************
@@ -905,6 +891,24 @@ SOFTWARE BASED CRC
 		#include <MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC/software_crc.h>
 
 	#endif
+
+/*******************************************************************************
+SIL3 - GENERAL PURPOSE SOFTWARE FIFO
+*******************************************************************************/
+    #define C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE                         (1U)
+    #if C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE == 1U
+
+        /** Software FIFO depth size, U8 = 255 or U16 = 65K, not both */
+        #define C_LOCALDEF__LCCM357__FIFO_DEPTH_U8                          (0U)
+        #define C_LOCALDEF__LCCM357__FIFO_DEPTH_U16                         (1U)
+
+        //testing options
+        #define C_LOCALDEF__LCCM357__ENABLE_TEST_SPEC                       (0U)
+
+        //main include file
+        #include <MULTICORE/LCCM357__MULTICORE__SOFTWARE_FIFO/software_fifo.h>
+
+    #endif //C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE
 
 #endif //_LPCB234R0_BOARD_SUPPORT_H_
 
