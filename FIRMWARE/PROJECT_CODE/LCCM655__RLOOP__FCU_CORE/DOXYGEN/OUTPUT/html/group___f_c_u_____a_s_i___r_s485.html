@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, RLOOP, Flight Control Core)
    &#160;<span id="projectnumber">1.0</span>
@@ -91,6 +91,9 @@ $(document).ready(function(){initNavTree('group___f_c_u_____a_s_i___r_s485.html'
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">FCU__ASI_RS485<div class="ingroups"><a class="el" href="group___r_l_o_o_p.html">RLOOP</a> &raquo; <a class="el" href="group___f_c_u.html">FCU</a></div></div>  </div>
 </div><!--header-->
@@ -103,6 +106,614 @@ Collaboration diagram for FCU__ASI_RS485:</div>
 <area shape="rect" id="node2" href="group___f_c_u.html" title="FCU" alt="" coords="5,5,53,32"/>
 </map>
 </td></tr></table></center>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga059b1e757bd2055cbb131cbfd46e1043"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga059b1e757bd2055cbb131cbfd46e1043">vFCU_ASI__BuildCmdFrame</a> (struct <a class="el" href="struct__str_a_s_i_cmd.html">_strASICmd</a> *pCmd)</td></tr>
+<tr class="memdesc:ga059b1e757bd2055cbb131cbfd46e1043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build Modbus read/write register command frame to issue to ASI controller.  <a href="#ga059b1e757bd2055cbb131cbfd46e1043">More...</a><br /></td></tr>
+<tr class="separator:ga059b1e757bd2055cbb131cbfd46e1043"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga553f1448559f3bdedd6c3f46757a2c97"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga553f1448559f3bdedd6c3f46757a2c97">s16FCU_ASI__ProcessError</a> (struct <a class="el" href="struct__str_a_s_i_cmd.html">_strASICmd</a> *pCmd)</td></tr>
+<tr class="memdesc:ga553f1448559f3bdedd6c3f46757a2c97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process error from ASI device.  <a href="#ga553f1448559f3bdedd6c3f46757a2c97">More...</a><br /></td></tr>
+<tr class="separator:ga553f1448559f3bdedd6c3f46757a2c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga93f0e09a3b90243d39079f7cbb3b67f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga93f0e09a3b90243d39079f7cbb3b67f2">vFCU_ASI__SetErr</a> (struct <a class="el" href="struct__str_a_s_i_cmd.html">_strASICmd</a> *pCmd)</td></tr>
+<tr class="memdesc:ga93f0e09a3b90243d39079f7cbb3b67f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set variable with appropriate error from ASI device.  <a href="#ga93f0e09a3b90243d39079f7cbb3b67f2">More...</a><br /></td></tr>
+<tr class="separator:ga93f0e09a3b90243d39079f7cbb3b67f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1b9a447f1a78cd39146d7c60cf6b59b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga1b9a447f1a78cd39146d7c60cf6b59b6">vFCU_ASI__MemCopy</a> (Luint8 *pu8Dest, const Luint8 *cpu8Source, Luint32 u32Length)</td></tr>
+<tr class="separator:ga1b9a447f1a78cd39146d7c60cf6b59b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga237d56fc34ea99590620f52cc5a013c6"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga237d56fc34ea99590620f52cc5a013c6">s16FCU_ASI__SendCommand</a> (void)</td></tr>
+<tr class="memdesc:ga237d56fc34ea99590620f52cc5a013c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send Read/Write register command to ASI controller.  <a href="#ga237d56fc34ea99590620f52cc5a013c6">More...</a><br /></td></tr>
+<tr class="separator:ga237d56fc34ea99590620f52cc5a013c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga097f2f02d9d64d3b70af6600800605e9"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga097f2f02d9d64d3b70af6600800605e9">s16FCU_ASI__ProcessReply</a> (void)</td></tr>
+<tr class="memdesc:ga097f2f02d9d64d3b70af6600800605e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process reply from ASI device.  <a href="#ga097f2f02d9d64d3b70af6600800605e9">More...</a><br /></td></tr>
+<tr class="separator:ga097f2f02d9d64d3b70af6600800605e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae959883b6fcdb596d1ed122f0198abf0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gae959883b6fcdb596d1ed122f0198abf0">vFCU_ASI__Init</a> (void)</td></tr>
+<tr class="memdesc:gae959883b6fcdb596d1ed122f0198abf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init any variables.  <a href="#gae959883b6fcdb596d1ed122f0198abf0">More...</a><br /></td></tr>
+<tr class="separator:gae959883b6fcdb596d1ed122f0198abf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa2279256b355a836251e56e0c0642b16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16">vFCU_ASI__Process</a> (void)</td></tr>
+<tr class="memdesc:gaa2279256b355a836251e56e0c0642b16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process any ASI tasks.  <a href="#gaa2279256b355a836251e56e0c0642b16">More...</a><br /></td></tr>
+<tr class="separator:gaa2279256b355a836251e56e0c0642b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga48dba01124058a8b1793063a8f7cc7c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga48dba01124058a8b1793063a8f7cc7c1">vFCU_ASI__Set_Throttle</a> (Luint8 u8Index, Luint16 u16RPM)</td></tr>
+<tr class="separator:ga48dba01124058a8b1793063a8f7cc7c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga30d976c3e2cb8f5feb03733ddfdbcdd9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga30d976c3e2cb8f5feb03733ddfdbcdd9">vFCU_ASI__10MS_ISR</a> (void)</td></tr>
+<tr class="memdesc:ga30d976c3e2cb8f5feb03733ddfdbcdd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">10MS ISR point  <a href="#ga30d976c3e2cb8f5feb03733ddfdbcdd9">More...</a><br /></td></tr>
+<tr class="separator:ga30d976c3e2cb8f5feb03733ddfdbcdd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaebd99609e594e5ef6bc82dec1ccabb34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaebd99609e594e5ef6bc82dec1ccabb34">vFCU_ASI__MemSet</a> (Luint8 *pu8Buffer, Luint8 u8Value, Luint32 u32Count)</td></tr>
+<tr class="separator:gaebd99609e594e5ef6bc82dec1ccabb34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad59f7f1127d5101f2379b1c76488f61c"><td class="memItemLeft" align="right" valign="top">Luint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gad59f7f1127d5101f2379b1c76488f61c">u16FCU_ASI__ReadMotorRpm</a> (Luint8 u8EngineIndex)</td></tr>
+<tr class="separator:gad59f7f1127d5101f2379b1c76488f61c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc7338bbed5378bc404577a03760f6eb"><td class="memItemLeft" align="right" valign="top">Luint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gabc7338bbed5378bc404577a03760f6eb">u16FCU_ASI__ReadMotorVoltage</a> (Luint8 u8EngineIndex)</td></tr>
+<tr class="separator:gabc7338bbed5378bc404577a03760f6eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab1a74adac023c83d49164c96df9c3edf"><td class="memItemLeft" align="right" valign="top">Lfloat32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gab1a74adac023c83d49164c96df9c3edf">f32FCU_ASI__ReadMotorCurrent</a> (Luint8 u8EngineIndex)</td></tr>
+<tr class="separator:gab1a74adac023c83d49164c96df9c3edf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa7362418037d86d803e2306da5327cc7"><td class="memItemLeft" align="right" valign="top">Lfloat32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa7362418037d86d803e2306da5327cc7">f32FCU_ASI__ReadControllerTemperature</a> (Luint8 u8EngineIndex)</td></tr>
+<tr class="separator:gaa7362418037d86d803e2306da5327cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:gacb2c3ba9e6006730b118d98d460b89c5"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__str_f_c_u.html">_strFCU</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a></td></tr>
+<tr class="separator:gacb2c3ba9e6006730b118d98d460b89c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="gaa7362418037d86d803e2306da5327cc7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 f32FCU_ASI__ReadControllerTemperature </td>
+          <td>(</td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8EngineIndex</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>References <a class="el" href="struct__str_f_c_u.html#a073152d2d8f1bd6405ae8affdf690380">_strFCU::sASI</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#a4452625ebcae19abe9dc4db960607638">_strFCU::sHolding</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gab1a74adac023c83d49164c96df9c3edf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 f32FCU_ASI__ReadMotorCurrent </td>
+          <td>(</td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8EngineIndex</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>References <a class="el" href="struct__str_f_c_u.html#a073152d2d8f1bd6405ae8affdf690380">_strFCU::sASI</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#a4452625ebcae19abe9dc4db960607638">_strFCU::sHolding</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga553f1448559f3bdedd6c3f46757a2c97"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lint16 s16FCU_ASI__ProcessError </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct__str_a_s_i_cmd.html">_strASICmd</a> *&#160;</td>
+          <td class="paramname"><em>pCmd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Process error from ASI device. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pCmd</td><td>Command being processed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>References <a class="el" href="fcu____asi__types_8h.html#a857f12e1b5e20d6b68e0237ddb41f957a670911a629261be590c6e7bd3d633ef8">E_ERROR_RESPONSE</a>, <a class="el" href="struct__str_a_s_i_cmd.html#a508bf3655dc3a09596c138da9b3f610e">_strASICmd::eErrorType</a>, <a class="el" href="struct__str_f_c_u.html#a073152d2d8f1bd6405ae8affdf690380">_strFCU::sASI</a>, <a class="el" href="struct__str_f_c_u.html#aa3b874aed491a2cde3580291781aea4a">_strFCU::sCurrentCommand</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga93f0e09a3b90243d39079f7cbb3b67f2">vFCU_ASI__SetErr()</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16">vFCU_ASI__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_s_i___r_s485_ga553f1448559f3bdedd6c3f46757a2c97_cgraph.png" border="0" usemap="#group___f_c_u_____a_s_i___r_s485_ga553f1448559f3bdedd6c3f46757a2c97_cgraph" alt=""/></div>
+<map name="group___f_c_u_____a_s_i___r_s485_ga553f1448559f3bdedd6c3f46757a2c97_cgraph" id="group___f_c_u_____a_s_i___r_s485_ga553f1448559f3bdedd6c3f46757a2c97_cgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____a_s_i___r_s485.html#ga93f0e09a3b90243d39079f7cbb3b67f2" title="Set variable with appropriate error from ASI device. " alt="" coords="240,5,372,32"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_s_i___r_s485_ga553f1448559f3bdedd6c3f46757a2c97_icgraph.png" border="0" usemap="#group___f_c_u_____a_s_i___r_s485_ga553f1448559f3bdedd6c3f46757a2c97_icgraph" alt=""/></div>
+<map name="group___f_c_u_____a_s_i___r_s485_ga553f1448559f3bdedd6c3f46757a2c97_icgraph" id="group___f_c_u_____a_s_i___r_s485_ga553f1448559f3bdedd6c3f46757a2c97_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16" title="Process any ASI tasks. " alt="" coords="240,5,383,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga097f2f02d9d64d3b70af6600800605e9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lint16 s16FCU_ASI__ProcessReply </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Process reply from ASI device. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pCmd</td><td>Command being processed in command queue </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>-1 = crc error 0 = success </dd></dl>
+
+<p>References <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a31dc829935036556b7aa61b2222720ae">C_FCU_ASI__CONT_TEMP</a>, <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628ada91c72b4162bb15d32d7c3a8ad5e569">C_FCU_ASI__FAULTS</a>, <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a235cbedcd9642368e333adf9bae3d619">C_FCU_ASI__MOTOR_CURRENT</a>, <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628ab7195b61ac05bbb505e9dfd037adf1d4">C_FCU_ASI__MOTOR_RPM</a>, <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a58feefe1556b40ef593bd376f112ff2d">C_FCU_ASI__TEMPERATURE</a>, <a class="el" href="fcu____asi__types_8h.html#a857f12e1b5e20d6b68e0237ddb41f957a58ea357da8482012df4d1d7329b3edad">E_CRC_CHECK_FAILED</a>, <a class="el" href="fcu____asi__types_8h.html#a857f12e1b5e20d6b68e0237ddb41f957a670911a629261be590c6e7bd3d633ef8">E_ERROR_RESPONSE</a>, <a class="el" href="fcu____asi__types_8h.html#ac4524912fef781176fb5733e1aab39c4a115611738f96dc90a1ab6a280d36d9f7">E_INT16</a>, <a class="el" href="fcu____asi__types_8h.html#ac4524912fef781176fb5733e1aab39c4a1eca1c54a8bf799c5ed96868c9115297">E_INT8</a>, <a class="el" href="fcu____asi__types_8h.html#a857f12e1b5e20d6b68e0237ddb41f957ae3c9b0460c960742465c63cc7f710994">E_SLAVE_MISMATCH</a>, <a class="el" href="fcu____asi__types_8h.html#ac4524912fef781176fb5733e1aab39c4a1f676291e1ebb9214e8ab49832a0402f">E_UINT16</a>, <a class="el" href="fcu____asi__types_8h.html#ac4524912fef781176fb5733e1aab39c4a160905ec39ee7b245c21553511f3b3c3">E_UINT8</a>, <a class="el" href="struct__str_a_s_i_cmd.html#a5e6a2cf4f484f7e7e23a16c99214225a">_strASICmd::eDestVarType</a>, <a class="el" href="struct__str_a_s_i_cmd.html#a508bf3655dc3a09596c138da9b3f610e">_strASICmd::eErrorType</a>, <a class="el" href="struct__str_a_s_i_cmd.html#ad7173706aacb003a9aff1539d9deb413">_strASICmd::eObjectType</a>, <a class="el" href="struct__str_a_s_i_cmd.html#ab53634fd5647e5a588d6c69d3ef54061">_strASICmd::framedCmd</a>, <a class="el" href="struct__str_a_s_i_cmd.html#a180ba4844c99ce5f654182ac4542a32b">_strASICmd::s16</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_r_c.html#ga7d0455224eef1ecec521cdf80a0cf9fa">s16FCU_ASI_CRC__CheckCRC()</a>, <a class="el" href="struct__str_a_s_i_cmd.html#a72ce3bfd86a910bdfcdeab5ed8a83e18">_strASICmd::s8</a>, <a class="el" href="struct__str_f_c_u.html#a073152d2d8f1bd6405ae8affdf690380">_strFCU::sASI</a>, <a class="el" href="struct__str_f_c_u.html#aa3b874aed491a2cde3580291781aea4a">_strFCU::sCurrentCommand</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a4452625ebcae19abe9dc4db960607638">_strFCU::sHolding</a>, <a class="el" href="struct__str_a_s_i_cmd.html#a548d12df273ba0fe48ff97f1b0795620">_strASICmd::u16</a>, <a class="el" href="struct__str_a_s_i_cmd.html#a5c556c04bc959fa6b9454cf2521aa615">_strASICmd::u8</a>, <a class="el" href="struct__str_a_s_i_cmd.html#ae1f949191d906d35bf85fb440c4f3295">_strASICmd::u8Response</a>, <a class="el" href="struct__str_f_c_u.html#af5998d209a5f724481ad596de404750a">_strFCU::u8ScanIndex</a>, and <a class="el" href="struct__str_a_s_i_cmd.html#a8e385eea7b0ee69b3704cd3957063619">_strASICmd::unDestVar</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16">vFCU_ASI__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_s_i___r_s485_ga097f2f02d9d64d3b70af6600800605e9_cgraph.png" border="0" usemap="#group___f_c_u_____a_s_i___r_s485_ga097f2f02d9d64d3b70af6600800605e9_cgraph" alt=""/></div>
+<map name="group___f_c_u_____a_s_i___r_s485_ga097f2f02d9d64d3b70af6600800605e9_cgraph" id="group___f_c_u_____a_s_i___r_s485_ga097f2f02d9d64d3b70af6600800605e9_cgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____a_s_i_____c_r_c.html#ga7d0455224eef1ecec521cdf80a0cf9fa" title="Check CRC from ASI device response. " alt="" coords="245,5,455,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____a_s_i_____c_r_c.html#gac7bf9bff1093640e7fd3d14cb604c88c" title="Compute the CRC. " alt="" coords="503,5,727,32"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_s_i___r_s485_ga097f2f02d9d64d3b70af6600800605e9_icgraph.png" border="0" usemap="#group___f_c_u_____a_s_i___r_s485_ga097f2f02d9d64d3b70af6600800605e9_icgraph" alt=""/></div>
+<map name="group___f_c_u_____a_s_i___r_s485_ga097f2f02d9d64d3b70af6600800605e9_icgraph" id="group___f_c_u_____a_s_i___r_s485_ga097f2f02d9d64d3b70af6600800605e9_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16" title="Process any ASI tasks. " alt="" coords="245,5,388,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga237d56fc34ea99590620f52cc5a013c6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lint16 s16FCU_ASI__SendCommand </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send Read/Write register command to ASI controller. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pCmd</td><td>Command structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>-1 = error 0 = success </dd></dl>
+
+<p>References <a class="el" href="struct__str_f_c_u.html#a073152d2d8f1bd6405ae8affdf690380">_strFCU::sASI</a>, <a class="el" href="struct__str_f_c_u.html#aa3b874aed491a2cde3580291781aea4a">_strFCU::sCurrentCommand</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a19131be40755e2ac1e6c95dc8a73497f">_strFCU::u8NewCommandToSend</a>, and <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga059b1e757bd2055cbb131cbfd46e1043">vFCU_ASI__BuildCmdFrame()</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gab86c7bb597daf4c22a1ea08ab37c46ec">s16FCU_ASI_CTRL__GetFaults()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga52b40b196895be0b3541bae7ab661849">s16FCU_ASI_CTRL__Init()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gadd05b379b3c8d5460c09831de58beee3">s16FCU_ASI_CTRL__ReadControllerTemperature()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gaa33f7239c9ffb71ce0d5b244b3063a52">s16FCU_ASI_CTRL__ReadMotorCurrent()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gae01dfc96b6d1b6c8d9862df44096cb20">s16FCU_ASI_CTRL__ReadMotorRpm()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga1aabf9ed8708bce8307b86ab901d6de9">s16FCU_ASI_CTRL__SaveSettings()</a>, and <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16">vFCU_ASI__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_s_i___r_s485_ga237d56fc34ea99590620f52cc5a013c6_cgraph.png" border="0" usemap="#group___f_c_u_____a_s_i___r_s485_ga237d56fc34ea99590620f52cc5a013c6_cgraph" alt=""/></div>
+<map name="group___f_c_u_____a_s_i___r_s485_ga237d56fc34ea99590620f52cc5a013c6_cgraph" id="group___f_c_u_____a_s_i___r_s485_ga237d56fc34ea99590620f52cc5a013c6_cgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____a_s_i___r_s485.html#ga059b1e757bd2055cbb131cbfd46e1043" title="Build Modbus read/write register command frame to issue to ASI controller. " alt="" coords="253,5,441,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____a_s_i_____c_r_c.html#gae4b6eff01cb853974aceb2108807de57" title="Add CRC to modbus command frame. " alt="" coords="489,5,668,32"/>
+<area shape="rect" id="node4" href="group___f_c_u_____a_s_i_____c_r_c.html#gac7bf9bff1093640e7fd3d14cb604c88c" title="Compute the CRC. " alt="" coords="716,5,940,32"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_s_i___r_s485_ga237d56fc34ea99590620f52cc5a013c6_icgraph.png" border="0" usemap="#group___f_c_u_____a_s_i___r_s485_ga237d56fc34ea99590620f52cc5a013c6_icgraph" alt=""/></div>
+<map name="group___f_c_u_____a_s_i___r_s485_ga237d56fc34ea99590620f52cc5a013c6_icgraph" id="group___f_c_u_____a_s_i___r_s485_ga237d56fc34ea99590620f52cc5a013c6_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gab86c7bb597daf4c22a1ea08ab37c46ec" title="Get faults from ASI controller. " alt="" coords="270,5,477,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga52b40b196895be0b3541bae7ab661849" title="Initialize ASI controller parameters Broadcast to all devices. " alt="" coords="290,56,457,83"/>
+<area shape="rect" id="node4" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gadd05b379b3c8d5460c09831de58beee3" title="Read controller&#39;s base plate temperature. " alt="" coords="256,107,491,149"/>
+<area shape="rect" id="node5" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gaa33f7239c9ffb71ce0d5b244b3063a52" title="Read motor rpm. " alt="" coords="267,173,480,214"/>
+<area shape="rect" id="node6" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gae01dfc96b6d1b6c8d9862df44096cb20" title="Read motor rpm. " alt="" coords="253,239,493,265"/>
+<area shape="rect" id="node7" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga1aabf9ed8708bce8307b86ab901d6de9" title="Save ASI controller settings. " alt="" coords="260,289,487,316"/>
+<area shape="rect" id="node8" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16" title="Process any ASI tasks. " alt="" coords="302,340,445,367"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="gad59f7f1127d5101f2379b1c76488f61c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint16 u16FCU_ASI__ReadMotorRpm </td>
+          <td>(</td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8EngineIndex</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>References <a class="el" href="struct__str_f_c_u.html#a073152d2d8f1bd6405ae8affdf690380">_strFCU::sASI</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#a4452625ebcae19abe9dc4db960607638">_strFCU::sHolding</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gabc7338bbed5378bc404577a03760f6eb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint16 u16FCU_ASI__ReadMotorVoltage </td>
+          <td>(</td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8EngineIndex</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ga30d976c3e2cb8f5feb03733ddfdbcdd9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_ASI__10MS_ISR </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>10MS ISR point </p>
+
+<p>References <a class="el" href="struct__str_f_c_u.html#a073152d2d8f1bd6405ae8affdf690380">_strFCU::sASI</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a05709ae6af988ce1f50522d8035e8ca0">_strFCU::u32ASI_replywait_Counter</a>, <a class="el" href="struct__str_f_c_u.html#a4319b2f7f9597187bdfc6f8f99ed731e">_strFCU::u32ASI_turnaround_Counter</a>, and <a class="el" href="struct__str_f_c_u.html#af82e1889b8ec06fa33bfbd3b16f85157">_strFCU::u810MS_Timer</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____c_o_r_e.html#gab8335875b185e48b92cc6a8801ea9843">vFCU__RTI_10MS_ISR()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_s_i___r_s485_ga30d976c3e2cb8f5feb03733ddfdbcdd9_icgraph.png" border="0" usemap="#group___f_c_u_____a_s_i___r_s485_ga30d976c3e2cb8f5feb03733ddfdbcdd9_icgraph" alt=""/></div>
+<map name="group___f_c_u_____a_s_i___r_s485_ga30d976c3e2cb8f5feb03733ddfdbcdd9_icgraph" id="group___f_c_u_____a_s_i___r_s485_ga30d976c3e2cb8f5feb03733ddfdbcdd9_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____c_o_r_e.html#gab8335875b185e48b92cc6a8801ea9843" title="10ms timer " alt="" coords="211,5,365,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga059b1e757bd2055cbb131cbfd46e1043"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_ASI__BuildCmdFrame </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct__str_a_s_i_cmd.html">_strASICmd</a> *&#160;</td>
+          <td class="paramname"><em>pCmd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Build Modbus read/write register command frame to issue to ASI controller. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pCmd</td><td>Command structure </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>References <a class="el" href="struct__str_a_s_i_cmd.html#a718898f53abcbb23b8d2ba7a23d67080">_strASICmd::eFunctionCode</a>, <a class="el" href="struct__str_a_s_i_cmd.html#ad7173706aacb003a9aff1539d9deb413">_strASICmd::eObjectType</a>, <a class="el" href="struct__str_a_s_i_cmd.html#ab53634fd5647e5a588d6c69d3ef54061">_strASICmd::framedCmd</a>, <a class="el" href="struct__str_a_s_i_cmd.html#a87556d1c768b326d2c1a22aa52d42a03">_strASICmd::u16ParamValue</a>, <a class="el" href="struct__str_a_s_i_cmd.html#a187512f95b9404c7b1d483eacc3b46ef">_strASICmd::u8SlaveAddress</a>, and <a class="el" href="group___f_c_u_____a_s_i_____c_r_c.html#gae4b6eff01cb853974aceb2108807de57">vFCU_ASI_CRC__AddCRC()</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga237d56fc34ea99590620f52cc5a013c6">s16FCU_ASI__SendCommand()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_s_i___r_s485_ga059b1e757bd2055cbb131cbfd46e1043_cgraph.png" border="0" usemap="#group___f_c_u_____a_s_i___r_s485_ga059b1e757bd2055cbb131cbfd46e1043_cgraph" alt=""/></div>
+<map name="group___f_c_u_____a_s_i___r_s485_ga059b1e757bd2055cbb131cbfd46e1043_cgraph" id="group___f_c_u_____a_s_i___r_s485_ga059b1e757bd2055cbb131cbfd46e1043_cgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____a_s_i_____c_r_c.html#gae4b6eff01cb853974aceb2108807de57" title="Add CRC to modbus command frame. " alt="" coords="241,5,420,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____a_s_i_____c_r_c.html#gac7bf9bff1093640e7fd3d14cb604c88c" title="Compute the CRC. " alt="" coords="468,5,692,32"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_s_i___r_s485_ga059b1e757bd2055cbb131cbfd46e1043_icgraph.png" border="0" usemap="#group___f_c_u_____a_s_i___r_s485_ga059b1e757bd2055cbb131cbfd46e1043_icgraph" alt=""/></div>
+<map name="group___f_c_u_____a_s_i___r_s485_ga059b1e757bd2055cbb131cbfd46e1043_icgraph" id="group___f_c_u_____a_s_i___r_s485_ga059b1e757bd2055cbb131cbfd46e1043_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____a_s_i___r_s485.html#ga237d56fc34ea99590620f52cc5a013c6" title="Send Read/Write register command to ASI controller. " alt="" coords="241,180,441,207"/>
+<area shape="rect" id="node3" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gab86c7bb597daf4c22a1ea08ab37c46ec" title="Get faults from ASI controller. " alt="" coords="506,5,713,32"/>
+<area shape="rect" id="node4" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga52b40b196895be0b3541bae7ab661849" title="Initialize ASI controller parameters Broadcast to all devices. " alt="" coords="526,56,693,83"/>
+<area shape="rect" id="node5" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gadd05b379b3c8d5460c09831de58beee3" title="Read controller&#39;s base plate temperature. " alt="" coords="492,107,727,149"/>
+<area shape="rect" id="node6" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gaa33f7239c9ffb71ce0d5b244b3063a52" title="Read motor rpm. " alt="" coords="503,173,716,214"/>
+<area shape="rect" id="node7" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gae01dfc96b6d1b6c8d9862df44096cb20" title="Read motor rpm. " alt="" coords="489,239,729,265"/>
+<area shape="rect" id="node8" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga1aabf9ed8708bce8307b86ab901d6de9" title="Save ASI controller settings. " alt="" coords="496,289,723,316"/>
+<area shape="rect" id="node9" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16" title="Process any ASI tasks. " alt="" coords="538,340,681,367"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="gae959883b6fcdb596d1ed122f0198abf0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_ASI__Init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Init any variables. </p>
+
+<p>References <a class="el" href="fcu__core____types_8h.html#a8666346cf1bf360df9fcae1c33a0b41fa0116f82471ce8445d692891fa2fcae01">ASI_STATE__IDLE</a>, <a class="el" href="fcu__core____defines_8h.html#ae5f9421bf2c2e05e21c0899e68db5edc">C_FCU__NUM_HOVER_ENGINES</a>, <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a31dc829935036556b7aa61b2222720ae">C_FCU_ASI__CONT_TEMP</a>, <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628ada91c72b4162bb15d32d7c3a8ad5e569">C_FCU_ASI__FAULTS</a>, <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a235cbedcd9642368e333adf9bae3d619">C_FCU_ASI__MOTOR_CURRENT</a>, <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628ab7195b61ac05bbb505e9dfd037adf1d4">C_FCU_ASI__MOTOR_RPM</a>, <a class="el" href="struct__str_f_c_u.html#ab118a33663321797e3a1369e6ab82c20">_strFCU::eCommandList</a>, <a class="el" href="struct__str_f_c_u.html#a1dd163b1074fa5f46a1a26c5893f6157">_strFCU::eMainState</a>, <a class="el" href="struct__str_f_c_u.html#a073152d2d8f1bd6405ae8affdf690380">_strFCU::sASI</a>, <a class="el" href="struct__str_f_c_u.html#ad5bd01c0c0913880e71513ce0f2a08e6">_strFCU::sFaultFlags</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a4452625ebcae19abe9dc4db960607638">_strFCU::sHolding</a>, <a class="el" href="struct__str_f_c_u.html#a05709ae6af988ce1f50522d8035e8ca0">_strFCU::u32ASI_replywait_Counter</a>, <a class="el" href="struct__str_f_c_u.html#a4319b2f7f9597187bdfc6f8f99ed731e">_strFCU::u32ASI_turnaround_Counter</a>, <a class="el" href="struct__str_f_c_u.html#a7fe840b59832dbdf1a07cb64bc0dcc6e">_strFCU::u32Guard1</a>, <a class="el" href="struct__str_f_c_u.html#a26cb452b3951534cad28e36d59c55e86">_strFCU::u32Guard2</a>, <a class="el" href="struct__str_f_c_u.html#af82e1889b8ec06fa33bfbd3b16f85157">_strFCU::u810MS_Timer</a>, <a class="el" href="struct__str_f_c_u.html#a7eb1483a007f71a1405faa7ff7ecaf0d">_strFCU::u8CommandListIndex</a>, <a class="el" href="struct__str_f_c_u.html#a19131be40755e2ac1e6c95dc8a73497f">_strFCU::u8NewCommandToSend</a>, <a class="el" href="struct__str_f_c_u.html#aa326fd26f72d273d6486c6d7040fe81f">_strFCU::u8RxCount</a>, <a class="el" href="struct__str_f_c_u.html#af5998d209a5f724481ad596de404750a">_strFCU::u8ScanIndex</a>, <a class="el" href="struct__str_f_c_u.html#a71bcd95b690d79ba4a02c77f7494ab1b">_strFCU::u8SerialNetworkCommand</a>, <a class="el" href="struct__str_f_c_u.html#a00344b43efb22294187a67169708c8a2">_strFCU::u8ThrottleCommand</a>, <a class="el" href="group___f_c_u_____a_s_i_____e_t_h_e_r_n_e_t.html#ga695dda2570cfc1cd35af4f1b15266486">vFCU_ASI_ETH__Init()</a>, and <a class="el" href="group___f_c_u_____a_s_i_____m_u_x.html#ga9eb2569f3c323604e4a30d071e174199">vFCU_ASI_MUX__Init()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_s_i___r_s485_gae959883b6fcdb596d1ed122f0198abf0_cgraph.png" border="0" usemap="#group___f_c_u_____a_s_i___r_s485_gae959883b6fcdb596d1ed122f0198abf0_cgraph" alt=""/></div>
+<map name="group___f_c_u_____a_s_i___r_s485_gae959883b6fcdb596d1ed122f0198abf0_cgraph" id="group___f_c_u_____a_s_i___r_s485_gae959883b6fcdb596d1ed122f0198abf0_cgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____a_s_i_____e_t_h_e_r_n_e_t.html#ga695dda2570cfc1cd35af4f1b15266486" title="Init ASI ethernet interface. " alt="" coords="167,5,311,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____a_s_i_____m_u_x.html#ga9eb2569f3c323604e4a30d071e174199" title="Init the multiplexer. " alt="" coords="165,56,312,83"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga1b9a447f1a78cd39146d7c60cf6b59b6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_ASI__MemCopy </td>
+          <td>(</td>
+          <td class="paramtype">Luint8 *&#160;</td>
+          <td class="paramname"><em>pu8Dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Luint8 *&#160;</td>
+          <td class="paramname"><em>cpu8Source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Luint32&#160;</td>
+          <td class="paramname"><em>u32Length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="gaebd99609e594e5ef6bc82dec1ccabb34"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_ASI__MemSet </td>
+          <td>(</td>
+          <td class="paramtype">Luint8 *&#160;</td>
+          <td class="paramname"><em>pu8Buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8Value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Luint32&#160;</td>
+          <td class="paramname"><em>u32Count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gab86c7bb597daf4c22a1ea08ab37c46ec">s16FCU_ASI_CTRL__GetFaults()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga52b40b196895be0b3541bae7ab661849">s16FCU_ASI_CTRL__Init()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gadd05b379b3c8d5460c09831de58beee3">s16FCU_ASI_CTRL__ReadControllerTemperature()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gaa33f7239c9ffb71ce0d5b244b3063a52">s16FCU_ASI_CTRL__ReadMotorCurrent()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gae01dfc96b6d1b6c8d9862df44096cb20">s16FCU_ASI_CTRL__ReadMotorRpm()</a>, and <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga1aabf9ed8708bce8307b86ab901d6de9">s16FCU_ASI_CTRL__SaveSettings()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_s_i___r_s485_gaebd99609e594e5ef6bc82dec1ccabb34_icgraph.png" border="0" usemap="#group___f_c_u_____a_s_i___r_s485_gaebd99609e594e5ef6bc82dec1ccabb34_icgraph" alt=""/></div>
+<map name="group___f_c_u_____a_s_i___r_s485_gaebd99609e594e5ef6bc82dec1ccabb34_icgraph" id="group___f_c_u_____a_s_i___r_s485_gaebd99609e594e5ef6bc82dec1ccabb34_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gab86c7bb597daf4c22a1ea08ab37c46ec" title="Get faults from ASI controller. " alt="" coords="214,5,421,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga52b40b196895be0b3541bae7ab661849" title="Initialize ASI controller parameters Broadcast to all devices. " alt="" coords="234,56,401,83"/>
+<area shape="rect" id="node4" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gadd05b379b3c8d5460c09831de58beee3" title="Read controller&#39;s base plate temperature. " alt="" coords="200,107,435,149"/>
+<area shape="rect" id="node5" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gaa33f7239c9ffb71ce0d5b244b3063a52" title="Read motor rpm. " alt="" coords="211,173,424,214"/>
+<area shape="rect" id="node6" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gae01dfc96b6d1b6c8d9862df44096cb20" title="Read motor rpm. " alt="" coords="197,239,437,265"/>
+<area shape="rect" id="node7" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga1aabf9ed8708bce8307b86ab901d6de9" title="Save ASI controller settings. " alt="" coords="204,289,431,316"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="gaa2279256b355a836251e56e0c0642b16"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_ASI__Process </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Process any ASI tasks. </p>
+
+<p>References <a class="el" href="fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5abe6ac7a6a569ce619a556bf71b9cd70c">ASI_COMM_STATE__IDLE</a>, <a class="el" href="fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5a340ec9f35a8a3f9d1813016ff9b59f3f">ASI_COMM_STATE__PROCESS_ERROR</a>, <a class="el" href="fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5a751174b7a46627f8c8891ff08aee05af">ASI_COMM_STATE__PROCESS_REPLY</a>, <a class="el" href="fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5a2e3594b54ea0dbbaabe33d41a194ddcf">ASI_COMM_STATE__WAIT_REPLY</a>, <a class="el" href="fcu__core____types_8h.html#ab47e58ae38171ec69626590afc8137d5a9667f9fe1bc7646d748c093c768f1dec">ASI_COMM_STATE__WAIT_TURNAROUND_DELAY</a>, <a class="el" href="fcu__core____types_8h.html#a8666346cf1bf360df9fcae1c33a0b41fa0ef3a2e4db601b861f7372a4d2ab308d">ASI_STATE__CONFIG_MUX</a>, <a class="el" href="fcu__core____types_8h.html#a8666346cf1bf360df9fcae1c33a0b41fa0116f82471ce8445d692891fa2fcae01">ASI_STATE__IDLE</a>, <a class="el" href="fcu__core____types_8h.html#a8666346cf1bf360df9fcae1c33a0b41fa71dc6444ba0cc0a4a85ece5d1fe4e6ee">ASI_STATE__INC_SCAN_INDEX</a>, <a class="el" href="fcu__core____types_8h.html#a8666346cf1bf360df9fcae1c33a0b41fa3a67c09a7a91248fafe0155e0b10bd95">ASI_STATE__ISSUE_COMMAND</a>, <a class="el" href="fcu__core____types_8h.html#a8666346cf1bf360df9fcae1c33a0b41faf3c6aa4568ef15bc06c117eb4c60a620">ASI_STATE__ISSUE_SERIAL_TRHOTTLE</a>, <a class="el" href="fcu__core____types_8h.html#a8666346cf1bf360df9fcae1c33a0b41fa53a82ce351e71edcbe6fafe90073434e">ASI_STATE__WAIT_COMMAND_COMPLETE</a>, <a class="el" href="fcu____asi__defines_8h.html#a298097483e178f5b26c989a5af45ebba">C_ASI__DEFAULT_SLAVE_ADDX</a>, <a class="el" href="fcu____asi__defines_8h.html#aa2999ff828073e4f42694014ec9969a2">C_ASI__MAX_REPLYWAIT_DELAY</a>, <a class="el" href="fcu____asi__defines_8h.html#a7ac62bf75e5e0fd3a283a09cff930dce">C_ASI__MAX_TURNAROUND_DELAY</a>, <a class="el" href="fcu____asi__types_8h.html#a6e05186d0db166d9e9946b3b69e5cd65">C_ASI__RW_FRAME_SIZE</a>, <a class="el" href="fcu__core____defines_8h.html#aa114c68df46bcc182f6d9f71801cc65d">C_FCU__ASI_COMMAND_LIST_MAX</a>, <a class="el" href="fcu__core____defines_8h.html#ae5f9421bf2c2e05e21c0899e68db5edc">C_FCU__NUM_HOVER_ENGINES</a>, <a class="el" href="fcu__core____defines_8h.html#a21f6dc3109919f568c1962194b1d8263">C_FCU__SC16_ASI_INDEX</a>, <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a58fb06f85af7db1fde52a51bc0c9d58f">C_FCU_ASI__REMOTE_THROTTLE_VOLTAGE</a>, <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a280579b85d318077cbdd0bb9544dc743">C_FCU_ASI__THROT_SENSOR_SOURCE</a>, <a class="el" href="fcu____asi__types_8h.html#a857f12e1b5e20d6b68e0237ddb41f957acda3638964cfce54148324302ec5feeb">E_REPLY_TIMEOUT_EXPIRED</a>, <a class="el" href="fcu____asi__types_8h.html#ac4524912fef781176fb5733e1aab39c4a1f676291e1ebb9214e8ab49832a0402f">E_UINT16</a>, <a class="el" href="struct__str_f_c_u.html#ab118a33663321797e3a1369e6ab82c20">_strFCU::eCommandList</a>, <a class="el" href="struct__str_a_s_i_cmd.html#a5e6a2cf4f484f7e7e23a16c99214225a">_strASICmd::eDestVarType</a>, <a class="el" href="struct__str_a_s_i_cmd.html#a508bf3655dc3a09596c138da9b3f610e">_strASICmd::eErrorType</a>, <a class="el" href="struct__str_a_s_i_cmd.html#a718898f53abcbb23b8d2ba7a23d67080">_strASICmd::eFunctionCode</a>, <a class="el" href="struct__str_f_c_u.html#a1dd163b1074fa5f46a1a26c5893f6157">_strFCU::eMainState</a>, <a class="el" href="struct__str_f_c_u.html#a0cde8c7e90ae455397b96f6a67e715fb">_strFCU::eModBusState</a>, <a class="el" href="struct__str_a_s_i_cmd.html#ad7173706aacb003a9aff1539d9deb413">_strASICmd::eObjectType</a>, <a class="el" href="struct__str_a_s_i_cmd.html#ab53634fd5647e5a588d6c69d3ef54061">_strASICmd::framedCmd</a>, <a class="el" href="fcu____asi__types_8h.html#a0b14b7a5f04a2f25489e8333b410240da376244289d66bc5f3c23c3e71756496c">FUNCTION_CODE__READ_HOLDING_REGS</a>, <a class="el" href="fcu____asi__types_8h.html#a0b14b7a5f04a2f25489e8333b410240da33b73d71da5ba39ea5072f92d68672e6">FUNCTION_CODE__WRITE_SINGLE_REG</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga553f1448559f3bdedd6c3f46757a2c97">s16FCU_ASI__ProcessError()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga097f2f02d9d64d3b70af6600800605e9">s16FCU_ASI__ProcessReply()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga237d56fc34ea99590620f52cc5a013c6">s16FCU_ASI__SendCommand()</a>, <a class="el" href="struct__str_f_c_u.html#a073152d2d8f1bd6405ae8affdf690380">_strFCU::sASI</a>, <a class="el" href="struct__str_f_c_u.html#aa3b874aed491a2cde3580291781aea4a">_strFCU::sCurrentCommand</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_a_s_i_cmd.html#a87556d1c768b326d2c1a22aa52d42a03">_strASICmd::u16ParamValue</a>, <a class="el" href="struct__str_f_c_u.html#aa47fd5970a6258e1abfb5f402b64787e">_strFCU::u16Throttle</a>, <a class="el" href="struct__str_f_c_u.html#a05709ae6af988ce1f50522d8035e8ca0">_strFCU::u32ASI_replywait_Counter</a>, <a class="el" href="struct__str_f_c_u.html#a4319b2f7f9597187bdfc6f8f99ed731e">_strFCU::u32ASI_turnaround_Counter</a>, <a class="el" href="struct__str_f_c_u.html#a7fe840b59832dbdf1a07cb64bc0dcc6e">_strFCU::u32Guard1</a>, <a class="el" href="struct__str_f_c_u.html#a26cb452b3951534cad28e36d59c55e86">_strFCU::u32Guard2</a>, <a class="el" href="struct__str_f_c_u.html#af82e1889b8ec06fa33bfbd3b16f85157">_strFCU::u810MS_Timer</a>, <a class="el" href="struct__str_f_c_u.html#a7eb1483a007f71a1405faa7ff7ecaf0d">_strFCU::u8CommandListIndex</a>, <a class="el" href="struct__str_f_c_u.html#a19131be40755e2ac1e6c95dc8a73497f">_strFCU::u8NewCommandToSend</a>, <a class="el" href="struct__str_a_s_i_cmd.html#ae1f949191d906d35bf85fb440c4f3295">_strASICmd::u8Response</a>, <a class="el" href="struct__str_f_c_u.html#aa326fd26f72d273d6486c6d7040fe81f">_strFCU::u8RxCount</a>, <a class="el" href="struct__str_f_c_u.html#af5998d209a5f724481ad596de404750a">_strFCU::u8ScanIndex</a>, <a class="el" href="struct__str_f_c_u.html#a71bcd95b690d79ba4a02c77f7494ab1b">_strFCU::u8SerialNetworkCommand</a>, <a class="el" href="struct__str_a_s_i_cmd.html#a187512f95b9404c7b1d483eacc3b46ef">_strASICmd::u8SlaveAddress</a>, <a class="el" href="struct__str_f_c_u.html#a00344b43efb22294187a67169708c8a2">_strFCU::u8ThrottleCommand</a>, <a class="el" href="group___f_c_u_____a_s_i_____m_u_x.html#ga0117b7b117ecc3a970fbeadeec0c6129">vFCU_ASI_MUX__Process()</a>, and <a class="el" href="group___f_c_u_____a_s_i_____m_u_x.html#ga5e8270e8955a2c7ffb00b8df6ad6556d">vFCU_ASI_MUX__SelectChannel()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_s_i___r_s485_gaa2279256b355a836251e56e0c0642b16_cgraph.png" border="0" usemap="#group___f_c_u_____a_s_i___r_s485_gaa2279256b355a836251e56e0c0642b16_cgraph" alt=""/></div>
+<map name="group___f_c_u_____a_s_i___r_s485_gaa2279256b355a836251e56e0c0642b16_cgraph" id="group___f_c_u_____a_s_i___r_s485_gaa2279256b355a836251e56e0c0642b16_cgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____a_s_i___r_s485.html#ga553f1448559f3bdedd6c3f46757a2c97" title="Process error from ASI device. " alt="" coords="209,5,396,32"/>
+<area shape="rect" id="node4" href="group___f_c_u_____a_s_i___r_s485.html#ga097f2f02d9d64d3b70af6600800605e9" title="Process reply from ASI device. " alt="" coords="207,56,399,83"/>
+<area shape="rect" id="node7" href="group___f_c_u_____a_s_i___r_s485.html#ga237d56fc34ea99590620f52cc5a013c6" title="Send Read/Write register command to ASI controller. " alt="" coords="203,107,403,133"/>
+<area shape="rect" id="node10" href="group___f_c_u_____a_s_i_____m_u_x.html#ga0117b7b117ecc3a970fbeadeec0c6129" title="Process any mux tasks. " alt="" coords="214,157,391,184"/>
+<area shape="rect" id="node11" href="group___f_c_u_____a_s_i_____m_u_x.html#ga5e8270e8955a2c7ffb00b8df6ad6556d" title="Selet the correct channel for the mux. " alt="" coords="196,208,409,235"/>
+<area shape="rect" id="node3" href="group___f_c_u_____a_s_i___r_s485.html#ga93f0e09a3b90243d39079f7cbb3b67f2" title="Set variable with appropriate error from ASI device. " alt="" coords="494,5,626,32"/>
+<area shape="rect" id="node5" href="group___f_c_u_____a_s_i_____c_r_c.html#ga7d0455224eef1ecec521cdf80a0cf9fa" title="Check CRC from ASI device response. " alt="" coords="711,56,920,83"/>
+<area shape="rect" id="node6" href="group___f_c_u_____a_s_i_____c_r_c.html#gac7bf9bff1093640e7fd3d14cb604c88c" title="Compute the CRC. " alt="" coords="968,81,1192,108"/>
+<area shape="rect" id="node8" href="group___f_c_u_____a_s_i___r_s485.html#ga059b1e757bd2055cbb131cbfd46e1043" title="Build Modbus read/write register command frame to issue to ASI controller. " alt="" coords="466,107,654,133"/>
+<area shape="rect" id="node9" href="group___f_c_u_____a_s_i_____c_r_c.html#gae4b6eff01cb853974aceb2108807de57" title="Add CRC to modbus command frame. " alt="" coords="726,107,905,133"/>
+<area shape="rect" id="node12" href="fcu__core_8h.html#a2ff84920c2310c9c6cfac8555b7f24e7" title="u8FCU_ASI_MUX_WIN32__Get" alt="" coords="457,208,663,235"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga48dba01124058a8b1793063a8f7cc7c1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_ASI__Set_Throttle </td>
+          <td>(</td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8Index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Luint16&#160;</td>
+          <td class="paramname"><em>u16RPM</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>References <a class="el" href="fcu__core____defines_8h.html#ae5f9421bf2c2e05e21c0899e68db5edc">C_FCU__NUM_HOVER_ENGINES</a>, <a class="el" href="struct__str_f_c_u.html#a073152d2d8f1bd6405ae8affdf690380">_strFCU::sASI</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#acd8967b0697ceacfd2e8dc27b66af8f5">_strFCU::u16RPM</a>, <a class="el" href="struct__str_f_c_u.html#aa47fd5970a6258e1abfb5f402b64787e">_strFCU::u16Throttle</a>, and <a class="el" href="struct__str_f_c_u.html#a00344b43efb22294187a67169708c8a2">_strFCU::u8ThrottleCommand</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____c_o_r_e___n_e_t___r_x.html#gafeb5eef9f3c20aef6f1265aeab240ae2">vFCU_NET_RX__RxSafeUDP()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_s_i___r_s485_ga48dba01124058a8b1793063a8f7cc7c1_icgraph.png" border="0" usemap="#group___f_c_u_____a_s_i___r_s485_ga48dba01124058a8b1793063a8f7cc7c1_icgraph" alt=""/></div>
+<map name="group___f_c_u_____a_s_i___r_s485_ga48dba01124058a8b1793063a8f7cc7c1_icgraph" id="group___f_c_u_____a_s_i___r_s485_ga48dba01124058a8b1793063a8f7cc7c1_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____c_o_r_e___n_e_t___r_x.html#gafeb5eef9f3c20aef6f1265aeab240ae2" title="Rx a SafetyUDP. " alt="" coords="219,5,409,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga93f0e09a3b90243d39079f7cbb3b67f2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_ASI__SetErr </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct__str_a_s_i_cmd.html">_strASICmd</a> *&#160;</td>
+          <td class="paramname"><em>pCmd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set variable with appropriate error from ASI device. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pCmd</td><td>Command being processed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>References <a class="el" href="fcu____asi__types_8h.html#ac4524912fef781176fb5733e1aab39c4a115611738f96dc90a1ab6a280d36d9f7">E_INT16</a>, <a class="el" href="fcu____asi__types_8h.html#ac4524912fef781176fb5733e1aab39c4a1eca1c54a8bf799c5ed96868c9115297">E_INT8</a>, <a class="el" href="fcu____asi__types_8h.html#ac4524912fef781176fb5733e1aab39c4a1f676291e1ebb9214e8ab49832a0402f">E_UINT16</a>, <a class="el" href="fcu____asi__types_8h.html#ac4524912fef781176fb5733e1aab39c4a160905ec39ee7b245c21553511f3b3c3">E_UINT8</a>, and <a class="el" href="struct__str_a_s_i_cmd.html#a5e6a2cf4f484f7e7e23a16c99214225a">_strASICmd::eDestVarType</a>.</p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga553f1448559f3bdedd6c3f46757a2c97">s16FCU_ASI__ProcessError()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____a_s_i___r_s485_ga93f0e09a3b90243d39079f7cbb3b67f2_icgraph.png" border="0" usemap="#group___f_c_u_____a_s_i___r_s485_ga93f0e09a3b90243d39079f7cbb3b67f2_icgraph" alt=""/></div>
+<map name="group___f_c_u_____a_s_i___r_s485_ga93f0e09a3b90243d39079f7cbb3b67f2_icgraph" id="group___f_c_u_____a_s_i___r_s485_ga93f0e09a3b90243d39079f7cbb3b67f2_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____a_s_i___r_s485.html#ga553f1448559f3bdedd6c3f46757a2c97" title="Process error from ASI device. " alt="" coords="185,5,372,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16" title="Process any ASI tasks. " alt="" coords="420,5,563,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="gacb2c3ba9e6006730b118d98d460b89c5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="struct__str_f_c_u.html">_strFCU</a> sFCU</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa7362418037d86d803e2306da5327cc7">f32FCU_ASI__ReadControllerTemperature()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gab1a74adac023c83d49164c96df9c3edf">f32FCU_ASI__ReadMotorCurrent()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga553f1448559f3bdedd6c3f46757a2c97">s16FCU_ASI__ProcessError()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga097f2f02d9d64d3b70af6600800605e9">s16FCU_ASI__ProcessReply()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga237d56fc34ea99590620f52cc5a013c6">s16FCU_ASI__SendCommand()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gad59f7f1127d5101f2379b1c76488f61c">u16FCU_ASI__ReadMotorRpm()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga30d976c3e2cb8f5feb03733ddfdbcdd9">vFCU_ASI__10MS_ISR()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gae959883b6fcdb596d1ed122f0198abf0">vFCU_ASI__Init()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16">vFCU_ASI__Process()</a>, and <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga48dba01124058a8b1793063a8f7cc7c1">vFCU_ASI__Set_Throttle()</a>.</p>
+
+</div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->

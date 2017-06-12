@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, RLOOP, Flight Control Core)
    &#160;<span id="projectnumber">1.0</span>
@@ -92,7 +92,8 @@ $(document).ready(function(){initNavTree('fcu____pusher_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">fcu__pusher.c File Reference</div>  </div>
 </div><!--header-->
@@ -106,32 +107,58 @@ Include dependency graph for fcu__pusher.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="fcu____pusher_8c__incl.png" border="0" usemap="#_p_u_s_h_e_r_2fcu____pusher_8c" alt=""/></div>
 <map name="_p_u_s_h_e_r_2fcu____pusher_8c" id="_p_u_s_h_e_r_2fcu____pusher_8c">
-<area shape="rect" id="node2" href="fcu__core_8h.html" title="Main header for the FCU. " alt="" coords="1185,80,1279,107"/>
+<area shape="rect" id="node2" href="fcu__core_8h.html" title="Main header for the FCU. " alt="" coords="1617,80,1711,107"/>
 <area shape="rect" id="node4" href="fcu__core____types_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/fcu_core__types.h" alt="" coords="107,162,285,203"/>
 <area shape="rect" id="node5" href="fcu__core____defines_8h.html" title="Flight control code constants. " alt="" coords="310,162,495,203"/>
 <area shape="rect" id="node6" href="fcu__core____enums_8h.html" title="Flight control code constants. " alt="" coords="519,162,702,203"/>
 <area shape="rect" id="node7" href="fcu____pi__comms____types_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/PI_COMMS/fcu_\l_pi_comms__types.h" alt="" coords="727,155,905,211"/>
-<area shape="rect" id="node8" href="fcu__core____fault__flags_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/fcu_core__fault\l_flags.h" alt="" coords="929,155,1108,211"/>
-<area shape="rect" id="node9" href="fcu____brakes____fault__flags_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/BRAKES/fcu__brakes\l__fault_flags.h" alt="" coords="1133,155,1331,211"/>
-<area shape="rect" id="node10" href="fcu____accel____fault__flags_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/ACCELEROMETERS\l/fcu__accel__fault_flags.h" alt="" coords="1356,155,1551,211"/>
-<area shape="rect" id="node11" href="fcu____laser__opto____fault__flags_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/LASER_OPTO/fcu\l__laser_opto__fault_flags.h" alt="" coords="1575,155,1753,211"/>
-<area shape="rect" id="node12" href="fcu____asi__defines_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/ASI_RS485/fcu\l__asi_defines.h" alt="" coords="1777,155,1956,211"/>
-<area shape="rect" id="node13" href="fcu____asi__types_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/ASI_RS485/fcu\l__asi_types.h" alt="" coords="1980,155,2159,211"/>
-<area shape="rect" id="node14" href="fcu__core____net____packet__types_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/NETWORKING/fcu\l_core__net__packet_types.h" alt="" coords="2183,155,2372,211"/>
+<area shape="rect" id="node8" href="fcu____faults____fault__flags_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/FAULTS/fcu__faults\l__fault_flags.h" alt="" coords="930,155,1115,211"/>
+<area shape="rect" id="node9" href="fcu__core____fault__flags_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/fcu_core__fault\l_flags.h" alt="" coords="1140,155,1319,211"/>
+<area shape="rect" id="node10" href="fcu____brakes____fault__flags_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/BRAKES/fcu__brakes\l__fault_flags.h" alt="" coords="1343,155,1542,211"/>
+<area shape="rect" id="node11" href="fcu____accel____fault__flags_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/ACCELEROMETERS\l/fcu__accel__fault_flags.h" alt="" coords="1567,155,1761,211"/>
+<area shape="rect" id="node12" href="fcu____laser__opto____fault__flags_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/LASER_OPTO/fcu\l__laser_opto__fault_flags.h" alt="" coords="1785,155,1964,211"/>
+<area shape="rect" id="node13" href="fcu____throttles____fault__flags_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/THROTTLES/fcu\l__throttles__fault_flags.h" alt="" coords="1988,155,2167,211"/>
+<area shape="rect" id="node14" href="fcu____asi__defines_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/ASI_RS485/fcu\l__asi_defines.h" alt="" coords="2191,155,2369,211"/>
+<area shape="rect" id="node15" href="fcu____asi__types_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/ASI_RS485/fcu\l__asi_types.h" alt="" coords="2393,155,2572,211"/>
+<area shape="rect" id="node16" href="fcu____lgu__comms____types_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/LGU_COMMS/fcu\l__lgu_comms__types.h" alt="" coords="2596,155,2775,211"/>
+<area shape="rect" id="node17" href="fcu__core____net____packet__types_8h.html" title="LCCM655__RLOOP__FCU\l_CORE/NETWORKING/fcu\l_core__net__packet_types.h" alt="" coords="2799,155,2988,211"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gaa37de03b1b152ac655b318fc2a4654d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gaa37de03b1b152ac655b318fc2a4654d6">vFCU_PUSHER__Init</a> (void)</td></tr>
+<tr class="memdesc:gaa37de03b1b152ac655b318fc2a4654d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init any variables for the pusher system.  <a href="group___f_c_u_____p_u_s_h_e_r.html#gaa37de03b1b152ac655b318fc2a4654d6">More...</a><br /></td></tr>
+<tr class="separator:gaa37de03b1b152ac655b318fc2a4654d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga098eefb130a2ec064561e66d20482171"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga098eefb130a2ec064561e66d20482171">vFCU_PUSHER__Process</a> (void)</td></tr>
+<tr class="memdesc:ga098eefb130a2ec064561e66d20482171"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process any pusher interface tasks.  <a href="group___f_c_u_____p_u_s_h_e_r.html#ga098eefb130a2ec064561e66d20482171">More...</a><br /></td></tr>
+<tr class="separator:ga098eefb130a2ec064561e66d20482171"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad3e8eda9017014acaf29327be32ece7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gad3e8eda9017014acaf29327be32ece7c">vFCU_PUSHER__InterlockA_ISR</a> (void)</td></tr>
 <tr class="memdesc:gad3e8eda9017014acaf29327be32ece7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called from the N2HET notifications that an edge has occurred on Interlock A.  <a href="group___f_c_u_____p_u_s_h_e_r.html#gad3e8eda9017014acaf29327be32ece7c">More...</a><br /></td></tr>
 <tr class="separator:gad3e8eda9017014acaf29327be32ece7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafc57e9c4ee006f35f00adf2e4594b73e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gafc57e9c4ee006f35f00adf2e4594b73e">vFCU_PUSHER__InterlockB_ISR</a> (void)</td></tr>
 <tr class="memdesc:gafc57e9c4ee006f35f00adf2e4594b73e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called from the N2HET notifications that an edge has occurred on Interlock B.  <a href="group___f_c_u_____p_u_s_h_e_r.html#gafc57e9c4ee006f35f00adf2e4594b73e">More...</a><br /></td></tr>
 <tr class="separator:gafc57e9c4ee006f35f00adf2e4594b73e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga74c85fd70a0e9153ee3e0abed718182d"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga74c85fd70a0e9153ee3e0abed718182d">u8FCU_PUSHER__Get_Switch</a> (Luint8 u8Switch)</td></tr>
+<tr class="memdesc:ga74c85fd70a0e9153ee3e0abed718182d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a pusher switch state.  <a href="group___f_c_u_____p_u_s_h_e_r.html#ga74c85fd70a0e9153ee3e0abed718182d">More...</a><br /></td></tr>
+<tr class="separator:ga74c85fd70a0e9153ee3e0abed718182d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga06c4ce458a278f7dc73c86636e2ddd8d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9">E_FCU_PUSHPIN_STATE_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga06c4ce458a278f7dc73c86636e2ddd8d">eFCU_PUSHER__Get_PusherState</a> (void)</td></tr>
+<tr class="memdesc:ga06c4ce458a278f7dc73c86636e2ddd8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the total pusher state.  <a href="group___f_c_u_____p_u_s_h_e_r.html#ga06c4ce458a278f7dc73c86636e2ddd8d">More...</a><br /></td></tr>
+<tr class="separator:ga06c4ce458a278f7dc73c86636e2ddd8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga305404ce04c4e8a48f7bdf8c61a610c3"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga305404ce04c4e8a48f7bdf8c61a610c3">u8FCU_PUSHER__Get_InterlockA</a> (void)</td></tr>
+<tr class="memdesc:ga305404ce04c4e8a48f7bdf8c61a610c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current pin status of interlock A.  <a href="group___f_c_u_____p_u_s_h_e_r.html#ga305404ce04c4e8a48f7bdf8c61a610c3">More...</a><br /></td></tr>
+<tr class="separator:ga305404ce04c4e8a48f7bdf8c61a610c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf923ec3da6490f5dec4a0570328adc68"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gaf923ec3da6490f5dec4a0570328adc68">u8FCU_PUSHER__Get_InterlockB</a> (void)</td></tr>
+<tr class="memdesc:gaf923ec3da6490f5dec4a0570328adc68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current pin status of interlock B.  <a href="group___f_c_u_____p_u_s_h_e_r.html#gaf923ec3da6490f5dec4a0570328adc68">More...</a><br /></td></tr>
+<tr class="separator:gaf923ec3da6490f5dec4a0570328adc68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9ee7d3503898fc47eb2100cdb6b89107"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga9ee7d3503898fc47eb2100cdb6b89107">vFCU_PUSHER__10MS_ISR</a> (void)</td></tr>
 <tr class="memdesc:ga9ee7d3503898fc47eb2100cdb6b89107"><td class="mdescLeft">&#160;</td><td class="mdescRight">10ms interrupt function, coming from FCU Core indicating that a new 10mS event has occurred.  <a href="group___f_c_u_____p_u_s_h_e_r.html#ga9ee7d3503898fc47eb2100cdb6b89107">More...</a><br /></td></tr>
 <tr class="separator:ga9ee7d3503898fc47eb2100cdb6b89107"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:gacb2c3ba9e6006730b118d98d460b89c5"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__str_f_c_u.html">_strFCU</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a></td></tr>
+<tr class="separator:gacb2c3ba9e6006730b118d98d460b89c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Pusher Interface subsystem. </p>

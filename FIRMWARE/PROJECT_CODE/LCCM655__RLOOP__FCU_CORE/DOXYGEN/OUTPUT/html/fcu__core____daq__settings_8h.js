@@ -1,10 +1,10 @@
 var fcu__core____daq__settings_8h =
 [
-    [ "C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__CPU_LOAD_U8", "fcu__core____daq__settings_8h.html#a1d0409a7bb191c1e05f93bb5faef0063", null ],
-    [ "C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_CURRENT_ACCEL_S32", "fcu__core____daq__settings_8h.html#ae548641592acdad5d466b092e7c46adf", null ],
-    [ "C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_CURRENT_VELOCITY_U32", "fcu__core____daq__settings_8h.html#abf9b7148f6e0eea7a71f96ca2854ad80", null ],
-    [ "C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_DISTANCE_ELAPSED_U32", "fcu__core____daq__settings_8h.html#aa610344f248e44ac53dad4e5a06656cc", null ],
-    [ "C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_RISING_EDGE_COUNT_U16", "fcu__core____daq__settings_8h.html#a418ffa6eb5ee0304521ee5909b870bf6", null ],
+    [ "C_FCU_DAQ_SET__DAQ_FOR_BRAKES__CPU_LOAD_U8", "fcu__core____daq__settings_8h.html#a7510bae15836535a9f78aa8ad7d84fa2", null ],
+    [ "C_FCU_DAQ_SET__DAQ_FOR_BRAKES__LEFT_CURRENTPOS_S32", "fcu__core____daq__settings_8h.html#a271957cb159bb8f2737e05ea9c5a4dec", null ],
+    [ "C_FCU_DAQ_SET__DAQ_FOR_BRAKES__LEFT_TARGET_U32", "fcu__core____daq__settings_8h.html#a3e05c7f2981b5e8744b1f80ab506b629", null ],
+    [ "C_FCU_DAQ_SET__DAQ_FOR_BRAKES__RIGHT_CURRENTPOS_S32", "fcu__core____daq__settings_8h.html#a6f5110dca1c07883605859f313798d2f", null ],
+    [ "C_FCU_DAQ_SET__DAQ_FOR_BRAKES__RIGHT_TARGET_U32", "fcu__core____daq__settings_8h.html#a7571066d7879e63faa4293ab2c201bc2", null ],
     [ "C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS", "fcu__core____daq__settings_8h.html#aab8fa29c458e1a75721198d792880c2c", null ],
     [ "C_FCU_DAQ_SET__ENABLE__DAQ_FOR_BRAKES", "fcu__core____daq__settings_8h.html#a60883f0a043831441b8bc9ef61df16db", null ],
     [ "C_FCU_DAQ_SET__ENABLE__DAQ_FOR_FLIGHT", "fcu__core____daq__settings_8h.html#a10cc01672de6d3a8a565d852921a13a1", null ],
@@ -23,6 +23,7 @@ var fcu__core____daq__settings_8h =
     [ "C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S32", "fcu__core____daq__settings_8h.html#a1ef9aa74becb5466c7e2d08b37aea73c", null ],
     [ "C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U16", "fcu__core____daq__settings_8h.html#a9b18d822a8b9028786f92b7ad2b4da9e", null ],
     [ "C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U32", "fcu__core____daq__settings_8h.html#a2412ccd7269879633d368d08d97e642c", null ],
+    [ "C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U64", "fcu__core____daq__settings_8h.html#abd00ed44e3ca874a23875d6f86e4c804", null ],
     [ "C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U8", "fcu__core____daq__settings_8h.html#adf5772aa46036ea427799474fbcf52f6", null ],
     [ "M_LOCALDEF__LCCM662__TX_HANDLER", "fcu__core____daq__settings_8h.html#abca046614bfe786ceb2334f22ee1f6d4", null ]
 ];

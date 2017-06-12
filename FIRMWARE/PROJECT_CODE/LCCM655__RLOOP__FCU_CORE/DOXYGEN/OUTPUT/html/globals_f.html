@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, RLOOP, Flight Control Core)
    &#160;<span id="projectnumber">1.0</span>
@@ -97,9 +97,23 @@ $(document).ready(function(){initNavTree('globals_f.html','');});
 <li>f32A34_BrakeTable
 : <a class="el" href="a34__brake__table_8c.html#aaa1fefd5614de945b786d6a796e4243a">a34_brake_table.c</a>
 </li>
+<li>f32A34_GainsTable
+: <a class="el" href="brake__gap__table_8c.html#aee6a7e343eec3d69473d1b3ce40d9117">brake_gap_table.c</a>
+</li>
+<li>f32A34_SetPointVelocityTable
+: <a class="el" href="setpoint__velocity__table_8c.html#ab0463c5670efe516573d7ceb2f3513b1">setpoint_velocity_table.c</a>
+</li>
 <li>f32FCU_ACCEL__Get_LastG()
 : <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#ga7e14ea2daf6614473d7f54a6f99ae681">fcu__accel.c</a>
 , <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#ga7e14ea2daf6614473d7f54a6f99ae681">fcu_core.h</a>
+</li>
+<li>f32FCU_ASI__ReadControllerTemperature()
+: <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa7362418037d86d803e2306da5327cc7">fcu__asi.c</a>
+, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa7362418037d86d803e2306da5327cc7">fcu_core.h</a>
+</li>
+<li>f32FCU_ASI__ReadMotorCurrent()
+: <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gab1a74adac023c83d49164c96df9c3edf">fcu__asi.c</a>
+, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gab1a74adac023c83d49164c96df9c3edf">fcu_core.h</a>
 </li>
 <li>f32FCU_BRAKES__Get_IBeam_mm()
 : <a class="el" href="group___f_c_u_____b_r_a_k_e_s.html#ga08d1359d6000db61a027ce0371956d11">fcu__brakes.c</a>
@@ -116,16 +130,12 @@ $(document).ready(function(){initNavTree('globals_f.html','');});
 <li>f32FCU_FLIGHTCTL_LASERORIENT__Get_Lateral()
 : <a class="el" href="fcu__core_8h.html#a0638e531227c35cf49a216d9e8ecf135">fcu_core.h</a>
 </li>
-<li>f32FCU_LASERDIST__Get_Distance()
-: <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga1629b8d380ba2466ea8c5f64efb89762">fcu_core.h</a>
-, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga1629b8d380ba2466ea8c5f64efb89762">fcu__laser_distance.c</a>
-</li>
 <li>f32FCU_LASEROPTO__Get_Distance()
-: <a class="el" href="group___f_c_u_____l_a_s_e_r___o_p_t_o.html#gab445a845860da42454df9778790afa7b">fcu__laser_opto.c</a>
-, <a class="el" href="group___f_c_u_____l_a_s_e_r___o_p_t_o.html#gab445a845860da42454df9778790afa7b">fcu_core.h</a>
+: <a class="el" href="group___f_c_u_____l_a_s_e_r___o_p_t_o.html#gab445a845860da42454df9778790afa7b">fcu_core.h</a>
+, <a class="el" href="group___f_c_u_____l_a_s_e_r___o_p_t_o.html#gab445a845860da42454df9778790afa7b">fcu__laser_opto.c</a>
 </li>
-<li>FAIL_SAFE_BRAKE
-: <a class="el" href="fcu__core____enums_8h.html#a1560f192dd5dd63e42c06f8953f56a25a7aeb209724458d8647224c1980caffb9">fcu_core__enums.h</a>
+<li>f32FCU_THROTTLE__RPM_To_Volts()
+: <a class="el" href="group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga93f74b2ab5309b8db0758b9cbb8dc3d7">fcu__throttles.c</a>
 </li>
 <li>FCU_BRAKE__LEFT
 : <a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7ba7285821a8733fd55fdb059d6b24b9612">fcu_core__enums.h</a>
@@ -135,6 +145,27 @@ $(document).ready(function(){initNavTree('globals_f.html','');});
 </li>
 <li>FCU_BRAKE__RIGHT
 : <a class="el" href="fcu__core____enums_8h.html#a183bf227a9fc200b0e356989d736ae7bac3c1da45459f5e310a186fa25daaedfe">fcu_core__enums.h</a>
+</li>
+<li>FCU_MODE
+: <a class="el" href="group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga13b4bfa49247ab09789a67804bc889c4">fcu__throttles.c</a>
+</li>
+<li>FUCNTION_CODE__READ_COILS
+: <a class="el" href="fcu____asi__types_8h.html#a0b14b7a5f04a2f25489e8333b410240da7e6b9c5c6935df420c63cbb3e3ec4750">fcu__asi_types.h</a>
+</li>
+<li>FUNCTION_CODE__READ_DISCRETE_INPUTS
+: <a class="el" href="fcu____asi__types_8h.html#a0b14b7a5f04a2f25489e8333b410240daedd5195376a6f2ed5db879a1d619654c">fcu__asi_types.h</a>
+</li>
+<li>FUNCTION_CODE__READ_HOLDING_REGS
+: <a class="el" href="fcu____asi__types_8h.html#a0b14b7a5f04a2f25489e8333b410240da376244289d66bc5f3c23c3e71756496c">fcu__asi_types.h</a>
+</li>
+<li>FUNCTION_CODE__READ_INPUT_REGS
+: <a class="el" href="fcu____asi__types_8h.html#a0b14b7a5f04a2f25489e8333b410240daedd198b726c9a428fcc944721bba7a41">fcu__asi_types.h</a>
+</li>
+<li>FUNCTION_CODE__WRITE_SINGLE_COIL
+: <a class="el" href="fcu____asi__types_8h.html#a0b14b7a5f04a2f25489e8333b410240da2f5736366994495dac062de5484f197f">fcu__asi_types.h</a>
+</li>
+<li>FUNCTION_CODE__WRITE_SINGLE_REG
+: <a class="el" href="fcu____asi__types_8h.html#a0b14b7a5f04a2f25489e8333b410240da33b73d71da5ba39ea5072f92d68672e6">fcu__asi_types.h</a>
 </li>
 </ul>
 </div><!-- contents -->

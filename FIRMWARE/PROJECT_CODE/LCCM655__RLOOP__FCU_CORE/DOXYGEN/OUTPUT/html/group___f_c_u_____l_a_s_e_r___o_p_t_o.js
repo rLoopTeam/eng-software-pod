@@ -8,5 +8,6 @@ var group___f_c_u_____l_a_s_e_r___o_p_t_o =
     [ "vFCU_LASEROPTO__Init", "group___f_c_u_____l_a_s_e_r___o_p_t_o.html#ga01d25ff9372b9ce53f639fe99af51e1f", null ],
     [ "vFCU_LASEROPTO__Process", "group___f_c_u_____l_a_s_e_r___o_p_t_o.html#gafebb61bf06478b4a61f80f417227e368", null ],
     [ "vFCU_LASEROPTO__Process_Packet", "group___f_c_u_____l_a_s_e_r___o_p_t_o.html#ga614f011c8489ef0c7de78c79b1854af5", null ],
+    [ "vFCU_LASEROPTO__Set_CalValue", "group___f_c_u_____l_a_s_e_r___o_p_t_o.html#gad42c4d22b28009c89a69b49992897fba", null ],
     [ "sFCU", "group___f_c_u_____l_a_s_e_r___o_p_t_o.html#gacb2c3ba9e6006730b118d98d460b89c5", null ]
 ];

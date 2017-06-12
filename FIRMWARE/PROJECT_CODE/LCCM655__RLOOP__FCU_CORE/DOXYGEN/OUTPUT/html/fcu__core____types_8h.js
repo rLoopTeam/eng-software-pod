@@ -1,9 +1,23 @@
 var fcu__core____types_8h =
 [
+    [ "E_FCU__ASI_STATE_T", "fcu__core____types_8h.html#a8666346cf1bf360df9fcae1c33a0b41f", [
+      [ "ASI_STATE__IDLE", "fcu__core____types_8h.html#a8666346cf1bf360df9fcae1c33a0b41fa0116f82471ce8445d692891fa2fcae01", null ],
+      [ "ASI_STATE__CONFIG_MUX", "fcu__core____types_8h.html#a8666346cf1bf360df9fcae1c33a0b41fa0ef3a2e4db601b861f7372a4d2ab308d", null ],
+      [ "ASI_STATE__ISSUE_COMMAND", "fcu__core____types_8h.html#a8666346cf1bf360df9fcae1c33a0b41fa3a67c09a7a91248fafe0155e0b10bd95", null ],
+      [ "ASI_STATE__ISSUE_SERIAL_TRHOTTLE", "fcu__core____types_8h.html#a8666346cf1bf360df9fcae1c33a0b41faf3c6aa4568ef15bc06c117eb4c60a620", null ],
+      [ "ASI_STATE__WAIT_COMMAND_COMPLETE", "fcu__core____types_8h.html#a8666346cf1bf360df9fcae1c33a0b41fa53a82ce351e71edcbe6fafe90073434e", null ],
+      [ "ASI_STATE__INC_SCAN_INDEX", "fcu__core____types_8h.html#a8666346cf1bf360df9fcae1c33a0b41fa71dc6444ba0cc0a4a85ece5d1fe4e6ee", null ]
+    ] ],
     [ "E_FCU__AUTO_SEQUENCE_STATE_T", "fcu__core____types_8h.html#acd5fd46296a0ec15a0d36d9d773c2f2a", [
       [ "AUTOSEQ_STATE__RESET", "fcu__core____types_8h.html#acd5fd46296a0ec15a0d36d9d773c2f2aa1b607b55b8fff6d19b729c09ec25cabe", null ],
       [ "AUTOSEQ_STATE__IDLE", "fcu__core____types_8h.html#acd5fd46296a0ec15a0d36d9d773c2f2aa9c4e80d2db2eb5e9c6995f2e0c1b02fd", null ],
       [ "AUTOSEQ_STATE__TEST_FUNCTION_X", "fcu__core____types_8h.html#acd5fd46296a0ec15a0d36d9d773c2f2aad216110317ed8b14192e252892d3982c", null ]
+    ] ],
+    [ "E_FCU__HOVERENGINES_STATES_T", "fcu__core____types_8h.html#a46c64f7a8f0ae695785670515ff03193", [
+      [ "HOVERENGINES_STATE__IDLE", "fcu__core____types_8h.html#a46c64f7a8f0ae695785670515ff03193af73950dfcfae532a8a212542e12f107c", null ],
+      [ "HOVERENGINES_STATE__ENABLE_1ST_GROUP", "fcu__core____types_8h.html#a46c64f7a8f0ae695785670515ff03193a5d0f498ab0d5f4b6ca3a36460764e24a", null ],
+      [ "HOVERENGINES_STATE__ENABLE_2ND_GROUP", "fcu__core____types_8h.html#a46c64f7a8f0ae695785670515ff03193a41d8236913936fc2caebc500a2d738c4", null ],
+      [ "HOVERENGINES_STATE__HOVERING", "fcu__core____types_8h.html#a46c64f7a8f0ae695785670515ff03193a32dc455ff0e305d952ccfb78285427df", null ]
     ] ],
     [ "E_FCU__INIT_STATE_TYPES", "fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4c", [
       [ "INIT_STATE__RESET", "fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4cac5516a83ea1335e7d16e4ec104fc6c31", null ],
@@ -14,13 +28,14 @@ var fcu__core____types_8h =
       [ "INIT_STATE__START_TIMERS", "fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caceb3d7dc07525718c3d8df84a6057a32", null ],
       [ "INIT_STATE__RUN", "fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caaf2061203d5df58c1953055d1df17093", null ]
     ] ],
-    [ "E_FCU__RUN_STATE_T", "fcu__core____types_8h.html#ad51c0bedd8ff2f532e6e314b01f579cc", [
-      [ "RUN_STATE__RESET", "fcu__core____types_8h.html#ad51c0bedd8ff2f532e6e314b01f579ccaba2884dcebba02eaff147e6f459f5862", null ],
-      [ "RUN_STATE__INIT_SYSTEMS", "fcu__core____types_8h.html#ad51c0bedd8ff2f532e6e314b01f579cca9fc6dc12d8801df2b3f2c629b1da69d8", null ],
-      [ "RUN_STATE__STARTUP_MODE", "fcu__core____types_8h.html#ad51c0bedd8ff2f532e6e314b01f579cca6481dd62d0706c5c86ed53558efaaedd", null ],
-      [ "RUN_STATE__AUTO_SEQUENCE_MODE", "fcu__core____types_8h.html#ad51c0bedd8ff2f532e6e314b01f579ccae5c9663c8f4906671ff8a93d324e4f22", null ],
-      [ "RUN_STATE__FLIGHT_MODE", "fcu__core____types_8h.html#ad51c0bedd8ff2f532e6e314b01f579cca5425825b744e17aea066350b3c800b89", null ],
-      [ "RUN_STATE__FLIGHT_ABORT", "fcu__core____types_8h.html#ad51c0bedd8ff2f532e6e314b01f579cca6a7fa0038e069057a5623b9d755332e8", null ]
+    [ "E_FCU__MISSION_PHASE_T", "fcu__core____types_8h.html#a7def9e2aa36ef9379a52d9fd533f30c1", [
+      [ "MISSION_PHASE__RESET", "fcu__core____types_8h.html#a7def9e2aa36ef9379a52d9fd533f30c1aabbb073623a9b0d4e1a80937279d1540", null ],
+      [ "MISSION_PHASE__TEST", "fcu__core____types_8h.html#a7def9e2aa36ef9379a52d9fd533f30c1afd811d2829b9a3d9ff13cd5947879998", null ],
+      [ "MISSION_PHASE__PRE_RUN", "fcu__core____types_8h.html#a7def9e2aa36ef9379a52d9fd533f30c1afe5d02ec517362a0f01241e631a04b78", null ],
+      [ "MISSION_PHASE__PUSHER_INTERLOCK", "fcu__core____types_8h.html#a7def9e2aa36ef9379a52d9fd533f30c1aae930b1b0f616cfa40c9ad7b9e4ecd9d", null ],
+      [ "MISSION_PHASE__FLIGHT", "fcu__core____types_8h.html#a7def9e2aa36ef9379a52d9fd533f30c1a6a3ec215ca8de091fb34ecaebbc5b158", null ],
+      [ "MISSION_PHASE__POST_RUN", "fcu__core____types_8h.html#a7def9e2aa36ef9379a52d9fd533f30c1a9c1f02d88fd96ceaf6e4b298d226cb23", null ],
+      [ "MISSION_PHASE__DEBUG", "fcu__core____types_8h.html#a7def9e2aa36ef9379a52d9fd533f30c1a26dc29e1efd658f9fe79220580e8d56f", null ]
     ] ],
     [ "E_FCU_BRAKES__STATES_T", "fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413a", [
       [ "BRAKE_STATE__RESET", "fcu__core____types_8h.html#a0ced2bd8e256ce4a6ffe72eeab96413aa32c21a791141fbd6ebe0ad7b663db08f", null ],
@@ -41,12 +56,15 @@ var fcu__core____types_8h =
       [ "BRAKE_CAL_STATE__RELEASE_ZERO", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591a466828f8f08254debec2959824eda822", null ],
       [ "BRAKE_CAL_STATE__APPLY_NEW_ZERO", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591aa782e1f2de5b0e5c51bc55efb9af2c26", null ],
       [ "BRAKE_CAL_STATE__WAIT_NEW_ZERO", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591a5c1c3be31f82475c4ec81394a1a2cb24", null ],
-      [ "BRAKE_CAL_STATE__COMPLETE", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591aeb84530f4d9c5f67db04fdaa9ea08189", null ]
+      [ "BRAKE_CAL_STATE__COMPLETE", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591aeb84530f4d9c5f67db04fdaa9ea08189", null ],
+      [ "BRAKE_CAL__TYPE2__RETRACT_RIGHT", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591a89194198a752c6683fc60bec25ff9770", null ],
+      [ "BRAKE_CAL__TYPE2__WAIT_RETRACT_RIGHT", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591adaac178631faafd524830461d81a4855", null ],
+      [ "BRAKE_CAL__TYPE2__RELEASE_RIGHT", "fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591aa9e18d1b1829f1a1bcf10f10c8b3de7c", null ]
     ] ],
     [ "E_FCU_LASERDIST__STATE_T", "fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259", [
       [ "LASERDIST_STATE__RESET", "fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a014fa685d3f6e77008693c46ded9722c", null ],
       [ "LASERDIST_STATE__WAIT_LASER_RESET", "fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a6b001066622c3d7c4d2570a4bfee7604", null ],
-      [ "LASERDIST_STATE__INIT_LASER", "fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a607e8e1f26b099044349beefecae9877", null ],
+      [ "LASERDIST_STATE__INIT_LASER_TURNON", "fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259ae3b72787f3f76395c43382403c775664", null ],
       [ "LASERDIST_STATE__WAIT_INIT_DONE", "fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259ac0bccc71ea6e67b6e16a82d14e54b93d", null ],
       [ "LASERDIST_STATE__CHECK_NEW_DATA", "fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a775b7b034ee2615d1ddfad3e2602ae01", null ],
       [ "LASERDIST_STATE__CHECK_NEW_PACKET", "fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a068f96bd8649f86c35f1993ec4f1e981", null ]
@@ -74,6 +92,11 @@ var fcu__core____types_8h =
       [ "PUSH_STATE__DETERMINE_PUSHER_STATE", "fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03a831fdd97a0ac888672dd0f0a040e8199", null ],
       [ "PUSH_STATE__CHECK_DISAGREE", "fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03ab2b4d47bd2409fdbcf43c81fddde1f97", null ]
     ] ],
+    [ "E_FCU_PUSHPIN_STATE_T", "fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9", [
+      [ "PIN_FINAL_STATE__DISCONNECTED", "fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9a0bba82c4804b68e6b2572c7959eacdcc", null ],
+      [ "PIN_FINAL_STATE__CONNECTED", "fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9a9306ecea0b40eb369131381e726dfc0d", null ],
+      [ "PIN_FINAL_STATE__UNKNOWN", "fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9a626dda65130ea717520302ce5ffc5265", null ]
+    ] ],
     [ "E_LASER_ORIENTATION__STATE_T", "fcu__core____types_8h.html#af675a18996429db6c59658dd210e1f45", [
       [ "LASER_ORIENTATION_STATE__IDLE", "fcu__core____types_8h.html#af675a18996429db6c59658dd210e1f45ab2aff0ea40c3e879a4acb46d95a3ffad", null ],
       [ "LASER_ORIENTATION_STATE__ERROR", "fcu__core____types_8h.html#af675a18996429db6c59658dd210e1f45afd4842a8c5527cf962308d12d529173a", null ],
@@ -84,13 +107,20 @@ var fcu__core____types_8h =
       [ "LASER_ORIENTATION_STATE__RECALCULATE_YAW_AND_LATERAL", "fcu__core____types_8h.html#af675a18996429db6c59658dd210e1f45a87ba616d1719489e744a5e0179627753", null ]
     ] ],
     [ "E_LASERDIST__RX_STATE_T", "fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0", [
+      [ "LASERDIST_RX__BYTE_D", "fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0a4a5b2bead27ba6c95ef51f11b3b89e2f", null ],
+      [ "LASERDIST_RX__BYTE_0", "fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0a3db76aef1b411903629ddf994b91a05a", null ],
       [ "LASERDIST_RX__BYTE_1", "fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0aa6bee8cb6f835c754b8d57a7283532ad", null ],
       [ "LASERDIST_RX__BYTE_2", "fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0a2ed116656d19254a99a92ee7b2a73b70", null ],
-      [ "LASERDIST_RX__BYTE_3", "fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0a449cb63017b64ce97cff9306cbac4677", null ]
+      [ "LASERDIST_RX__BYTE_3", "fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0a449cb63017b64ce97cff9306cbac4677", null ],
+      [ "LASERDIST_RX__BYTE_4", "fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0ab49d009bdecc03dc41c5db879ce7dd93", null ]
     ] ],
     [ "E_OPTONCDT__RX_STATE_T", "fcu__core____types_8h.html#abe8ac1639441b657735ca9bdb233ce44", [
       [ "OPTONCDT_RX__BYTE_1", "fcu__core____types_8h.html#abe8ac1639441b657735ca9bdb233ce44a577fcd4c62916c52ecbccdda526b9c2a", null ],
       [ "OPTONCDT_RX__BYTE_2", "fcu__core____types_8h.html#abe8ac1639441b657735ca9bdb233ce44a33937cba35330ddaf5654edd8b78c5f7", null ],
       [ "OPTONCDT_RX__BYTE_3", "fcu__core____types_8h.html#abe8ac1639441b657735ca9bdb233ce44ac7085449ccd3c4fd4ea85bde6e6b57d8", null ]
+    ] ],
+    [ "E_THROTTLE_CTRL_T", "fcu__core____types_8h.html#a45996ce8b41445f9e084aaec3bc9387b", [
+      [ "THROTTLE_TYPE__STEP", "fcu__core____types_8h.html#a45996ce8b41445f9e084aaec3bc9387ba232594e4576b72b425aa108baa9b7873", null ],
+      [ "THROTTLE_TYPE__RAMP", "fcu__core____types_8h.html#a45996ce8b41445f9e084aaec3bc9387bab8925c61831c02cdca7863517d98c8bf", null ]
     ] ]
 ];

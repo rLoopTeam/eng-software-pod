@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, RLOOP, Flight Control Core)
    &#160;<span id="projectnumber">1.0</span>
@@ -114,7 +114,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga264d671c4666635a23a545a0de5c37e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Append a new byte from the UART into the internal array, handle any error checking.  <a href="#ga264d671c4666635a23a545a0de5c37e8">More...</a><br /></td></tr>
 <tr class="separator:ga264d671c4666635a23a545a0de5c37e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaebd6c5af7450cd07c19f91dad500a9f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gaebd6c5af7450cd07c19f91dad500a9f4">vFCU_LASERDIST__Process_Packet</a> (void)</td></tr>
-<tr class="memdesc:gaebd6c5af7450cd07c19f91dad500a9f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the laser packet Take the laser packet byte array that has been captured and process it into a length including fault detection.  <a href="#gaebd6c5af7450cd07c19f91dad500a9f4">More...</a><br /></td></tr>
 <tr class="separator:gaebd6c5af7450cd07c19f91dad500a9f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0d3175cee5856cf0819b900d9ddb722a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga0d3175cee5856cf0819b900d9ddb722a">vFCU_LASERDIST__Init</a> (void)</td></tr>
 <tr class="memdesc:ga0d3175cee5856cf0819b900d9ddb722a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init any of the laser distance items.  <a href="#ga0d3175cee5856cf0819b900d9ddb722a">More...</a><br /></td></tr>
@@ -122,9 +121,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga104d67a1b33f6b6826c756de6a48ffbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga104d67a1b33f6b6826c756de6a48ffbf">vFCU_LASERDIST__Process</a> (void)</td></tr>
 <tr class="memdesc:ga104d67a1b33f6b6826c756de6a48ffbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the laser distance system.  <a href="#ga104d67a1b33f6b6826c756de6a48ffbf">More...</a><br /></td></tr>
 <tr class="separator:ga104d67a1b33f6b6826c756de6a48ffbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1629b8d380ba2466ea8c5f64efb89762"><td class="memItemLeft" align="right" valign="top">Lfloat32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga1629b8d380ba2466ea8c5f64efb89762">f32FCU_LASERDIST__Get_Distance</a> (void)</td></tr>
-<tr class="memdesc:ga1629b8d380ba2466ea8c5f64efb89762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the current computed distance.  <a href="#ga1629b8d380ba2466ea8c5f64efb89762">More...</a><br /></td></tr>
-<tr class="separator:ga1629b8d380ba2466ea8c5f64efb89762"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab825fe2107a16407d1e5360661432547"><td class="memItemLeft" align="right" valign="top">Lint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gab825fe2107a16407d1e5360661432547">s32FCU_LASERDIST__Get_Distance_mm</a> (void)</td></tr>
+<tr class="memdesc:gab825fe2107a16407d1e5360661432547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the current computed distance.  <a href="#gab825fe2107a16407d1e5360661432547">More...</a><br /></td></tr>
+<tr class="separator:gab825fe2107a16407d1e5360661432547"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga03992f34ddc95201fe60abf6d6065b1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga03992f34ddc95201fe60abf6d6065b1a">vFCU_LASERDIST__Process_Packet_ASCII</a> (void)</td></tr>
+<tr class="memdesc:ga03992f34ddc95201fe60abf6d6065b1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the laser packet Take the laser packet byte array that has been captured and process it into a length including fault detection.  <a href="#ga03992f34ddc95201fe60abf6d6065b1a">More...</a><br /></td></tr>
+<tr class="separator:ga03992f34ddc95201fe60abf6d6065b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaad87a308d6a4ecb14365d0ae236203e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gaad87a308d6a4ecb14365d0ae236203e3">vFCU_LASERDIST__100MS_ISR</a> (void)</td></tr>
 <tr class="memdesc:gaad87a308d6a4ecb14365d0ae236203e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">100ms Timer interrupt.  <a href="#gaad87a308d6a4ecb14365d0ae236203e3">More...</a><br /></td></tr>
 <tr class="separator:gaad87a308d6a4ecb14365d0ae236203e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,12 +138,12 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ga1629b8d380ba2466ea8c5f64efb89762"></a>
+<a class="anchor" id="gab825fe2107a16407d1e5360661432547"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Lfloat32 f32FCU_LASERDIST__Get_Distance </td>
+          <td class="memname">Lint32 s32FCU_LASERDIST__Get_Distance_mm </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -154,7 +156,7 @@ Variables</h2></td></tr>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>130FEC5285C1E938EA3350D14F3B468C </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.033.FUNC.003 </dd></dl>
 
-<p>References <a class="el" href="struct__str_f_c_u.html#a0bc04b38a9bb299bfb7cc766d21a74f6">_strFCU::f32DistanceRAW</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#a85a34f75dfbd42ee546370542e33f831">_strFCU::sLaserDist</a>.</p>
+<p>References <a class="el" href="struct__str_f_c_u.html#aaf041377b16b1471302924baecc93336">_strFCU::s32Distance_mm</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#ab98d5e71d638ec7989df510d5c1f5590">_strFCU::sLaserDist</a>.</p>
 
 </div>
 </div>
@@ -176,7 +178,7 @@ Variables</h2></td></tr>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>D7AC2E42B341C67C3BC9659D2E8CEC02 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.033.FUNC.006 </dd></dl>
 
-<p>References <a class="el" href="struct__str_f_c_u.html#a0bc04b38a9bb299bfb7cc766d21a74f6">_strFCU::f32DistanceRAW</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a85a34f75dfbd42ee546370542e33f831">_strFCU::sLaserDist</a>, <a class="el" href="struct__str_f_c_u.html#a73f0b05bda016ed96d145f212780b95e">_strFCU::u32LaserPOR_Counter</a>, and <a class="el" href="fcu__core_8h.html#acabc51e2cb76e4376142c74c37587a4a">vFCU_LASERDIST_WIN32__Set_DistanceRaw()</a>.</p>
+<p>References <a class="el" href="struct__str_f_c_u.html#aaf041377b16b1471302924baecc93336">_strFCU::s32Distance_mm</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#ab98d5e71d638ec7989df510d5c1f5590">_strFCU::sLaserDist</a>, <a class="el" href="struct__str_f_c_u.html#a73f0b05bda016ed96d145f212780b95e">_strFCU::u32LaserPOR_Counter</a>, and <a class="el" href="fcu__core_8h.html#a1af0d17ccb02ec056965e82ba086a423">vFCU_LASERDIST_WIN32__Set_DistanceRaw()</a>.</p>
 
 <p>Referenced by <a class="el" href="group___f_c_u_____c_o_r_e.html#ga633c7c5268bc4c315340199d0b024c15">vFCU__RTI_100MS_ISR()</a>.</p>
 
@@ -185,7 +187,7 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_gaad87a308d6a4ecb14365d0ae236203e3_cgraph.png" border="0" usemap="#group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_gaad87a308d6a4ecb14365d0ae236203e3_cgraph" alt=""/></div>
 <map name="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_gaad87a308d6a4ecb14365d0ae236203e3_cgraph" id="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_gaad87a308d6a4ecb14365d0ae236203e3_cgraph">
-<area shape="rect" id="node2" href="fcu__core_8h.html#acabc51e2cb76e4376142c74c37587a4a" title="vFCU_LASERDIST_WIN32\l__Set_DistanceRaw" alt="" coords="268,5,445,47"/>
+<area shape="rect" id="node2" href="fcu__core_8h.html#a1af0d17ccb02ec056965e82ba086a423" title="vFCU_LASERDIST_WIN32\l__Set_DistanceRaw" alt="" coords="268,5,445,47"/>
 </map>
 </div>
 </p>
@@ -226,7 +228,7 @@ Here is the caller graph for this function:</div>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>4CFB149BFF4B44D13D8DC54626482976 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.033.FUNC.005 </dd></dl>
 
-<p>References <a class="el" href="struct__str_f_c_u.html#af82b7d78f1a3af83e3d53e90440b61a6">_strFCU::eRxState</a>, <a class="el" href="fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0aa6bee8cb6f835c754b8d57a7283532ad">LASERDIST_RX__BYTE_1</a>, <a class="el" href="fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0a2ed116656d19254a99a92ee7b2a73b70">LASERDIST_RX__BYTE_2</a>, <a class="el" href="fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0a449cb63017b64ce97cff9306cbac4677">LASERDIST_RX__BYTE_3</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a85a34f75dfbd42ee546370542e33f831">_strFCU::sLaserDist</a>, <a class="el" href="struct__str_f_c_u.html#ab84b110cd3efe65bacff6a22fd6ed622">_strFCU::u8NewByteArray</a>, and <a class="el" href="struct__str_f_c_u.html#ad922ec5f364b3d83068fddc92918ac77">_strFCU::u8NewPacket</a>.</p>
+<p>References <a class="el" href="struct__str_f_c_u.html#af82b7d78f1a3af83e3d53e90440b61a6">_strFCU::eRxState</a>, <a class="el" href="fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0a3db76aef1b411903629ddf994b91a05a">LASERDIST_RX__BYTE_0</a>, <a class="el" href="fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0aa6bee8cb6f835c754b8d57a7283532ad">LASERDIST_RX__BYTE_1</a>, <a class="el" href="fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0a2ed116656d19254a99a92ee7b2a73b70">LASERDIST_RX__BYTE_2</a>, <a class="el" href="fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0a449cb63017b64ce97cff9306cbac4677">LASERDIST_RX__BYTE_3</a>, <a class="el" href="fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0ab49d009bdecc03dc41c5db879ce7dd93">LASERDIST_RX__BYTE_4</a>, <a class="el" href="fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0a4a5b2bead27ba6c95ef51f11b3b89e2f">LASERDIST_RX__BYTE_D</a>, <a class="el" href="struct__str_f_c_u.html#aedc0af955ecb212a3f11fb444e1bb09e">_strFCU::sBinary</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#ab98d5e71d638ec7989df510d5c1f5590">_strFCU::sLaserDist</a>, <a class="el" href="struct__str_f_c_u.html#af0e8d9fab25e2825f007512613ab2549">_strFCU::u8NewByteArray</a>, and <a class="el" href="struct__str_f_c_u.html#ad922ec5f364b3d83068fddc92918ac77">_strFCU::u8NewPacket</a>.</p>
 
 <p>Referenced by <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga104d67a1b33f6b6826c756de6a48ffbf">vFCU_LASERDIST__Process()</a>.</p>
 
@@ -236,8 +238,6 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_ga264d671c4666635a23a545a0de5c37e8_icgraph.png" border="0" usemap="#group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_ga264d671c4666635a23a545a0de5c37e8_icgraph" alt=""/></div>
 <map name="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_ga264d671c4666635a23a545a0de5c37e8_icgraph" id="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_ga264d671c4666635a23a545a0de5c37e8_icgraph">
 <area shape="rect" id="node2" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga104d67a1b33f6b6826c756de6a48ffbf" title="Process the laser distance system. " alt="" coords="276,5,469,32"/>
-<area shape="rect" id="node3" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="517,5,692,32"/>
-<area shape="rect" id="node4" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="740,5,855,32"/>
 </map>
 </div>
 </p>
@@ -262,7 +262,7 @@ Here is the caller graph for this function:</div>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>CB16DEE2A7F5C05AABD3BA9584754C90 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.033.FUNC.001 </dd></dl>
 
-<p>References <a class="el" href="struct__str_f_c_u.html#aad5fb073dd85593d4e21debac2a68a5f">_strFCU::eLaserState</a>, <a class="el" href="struct__str_f_c_u.html#af82b7d78f1a3af83e3d53e90440b61a6">_strFCU::eRxState</a>, <a class="el" href="struct__str_f_c_u.html#a0bc04b38a9bb299bfb7cc766d21a74f6">_strFCU::f32DistanceRAW</a>, <a class="el" href="fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0aa6bee8cb6f835c754b8d57a7283532ad">LASERDIST_RX__BYTE_1</a>, <a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a014fa685d3f6e77008693c46ded9722c">LASERDIST_STATE__RESET</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a85a34f75dfbd42ee546370542e33f831">_strFCU::sLaserDist</a>, <a class="el" href="struct__str_f_c_u.html#a73f0b05bda016ed96d145f212780b95e">_strFCU::u32LaserPOR_Counter</a>, <a class="el" href="struct__str_f_c_u.html#a1609796c82459e0109495ecf91e7b8ff">_strFCU::u8NewDistanceAvail</a>, <a class="el" href="struct__str_f_c_u.html#ad922ec5f364b3d83068fddc92918ac77">_strFCU::u8NewPacket</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_____e_t_h_e_r_n_e_t.html#ga948f7839ee93b856196adcffa68e3b8f">vFCU_LASERDIST_ETH__Init()</a>, and <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_____f_i_l_t_e_r_i_n_g.html#ga603c1596e80ad4e88cf14de38d3dd742">vFCU_LASERDIST_FILT__Init()</a>.</p>
+<p>References <a class="el" href="struct__str_f_c_u.html#aad5fb073dd85593d4e21debac2a68a5f">_strFCU::eLaserState</a>, <a class="el" href="struct__str_f_c_u.html#af82b7d78f1a3af83e3d53e90440b61a6">_strFCU::eRxState</a>, <a class="el" href="fcu__core____types_8h.html#a133d8749d0fb5d7d3c13adde801d29e0a4a5b2bead27ba6c95ef51f11b3b89e2f">LASERDIST_RX__BYTE_D</a>, <a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a014fa685d3f6e77008693c46ded9722c">LASERDIST_STATE__RESET</a>, <a class="el" href="struct__str_f_c_u.html#af827c81e6032d65e6381c05d30482c40">_strFCU::s32Accel_mmss</a>, <a class="el" href="struct__str_f_c_u.html#aaf041377b16b1471302924baecc93336">_strFCU::s32Distance_mm</a>, <a class="el" href="struct__str_f_c_u.html#a76f5551d0ceac130dcc807dc11eb0a7a">_strFCU::s32PrevAccel_mmss</a>, <a class="el" href="struct__str_f_c_u.html#a88734b56c0b7ce1ac8810d5b7382015b">_strFCU::s32PrevDistance_mm</a>, <a class="el" href="struct__str_f_c_u.html#a3faa5535f64d7eb6a08555223842a504">_strFCU::s32PrevVelocity_mms</a>, <a class="el" href="struct__str_f_c_u.html#a158f727b930c39ac86f530e40af38102">_strFCU::s32Velocity_mms</a>, <a class="el" href="struct__str_f_c_u.html#aedc0af955ecb212a3f11fb444e1bb09e">_strFCU::sBinary</a>, <a class="el" href="struct__str_f_c_u.html#ad5bd01c0c0913880e71513ce0f2a08e6">_strFCU::sFaultFlags</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#ab98d5e71d638ec7989df510d5c1f5590">_strFCU::sLaserDist</a>, <a class="el" href="struct__str_f_c_u.html#a73f0b05bda016ed96d145f212780b95e">_strFCU::u32LaserPOR_Counter</a>, <a class="el" href="struct__str_f_c_u.html#a1609796c82459e0109495ecf91e7b8ff">_strFCU::u8NewDistanceAvail</a>, <a class="el" href="struct__str_f_c_u.html#ad922ec5f364b3d83068fddc92918ac77">_strFCU::u8NewPacket</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_____e_t_h_e_r_n_e_t.html#ga948f7839ee93b856196adcffa68e3b8f">vFCU_LASERDIST_ETH__Init()</a>, and <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_____f_i_l_t_e_r_i_n_g.html#ga603c1596e80ad4e88cf14de38d3dd742">vFCU_LASERDIST_FILT__Init()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -292,12 +292,10 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Process the laser distance system. </p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>AEC05101C2E4E0D6763EC30A6ED8FF7A </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>36297D2EDE06DBA5285970E47A1EC16B </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.033.FUNC.002 </dd></dl>
 
-<p>References <a class="el" href="struct__str_f_c_u.html#aad5fb073dd85593d4e21debac2a68a5f">_strFCU::eLaserState</a>, <a class="el" href="struct__str_f_c_u.html#a0bc04b38a9bb299bfb7cc766d21a74f6">_strFCU::f32DistanceRAW</a>, <a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a775b7b034ee2615d1ddfad3e2602ae01">LASERDIST_STATE__CHECK_NEW_DATA</a>, <a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a068f96bd8649f86c35f1993ec4f1e981">LASERDIST_STATE__CHECK_NEW_PACKET</a>, <a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a607e8e1f26b099044349beefecae9877">LASERDIST_STATE__INIT_LASER</a>, <a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a014fa685d3f6e77008693c46ded9722c">LASERDIST_STATE__RESET</a>, <a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259ac0bccc71ea6e67b6e16a82d14e54b93d">LASERDIST_STATE__WAIT_INIT_DONE</a>, <a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a6b001066622c3d7c4d2570a4bfee7604">LASERDIST_STATE__WAIT_LASER_RESET</a>, <a class="el" href="struct__str_f_c_u.html#a495138333a5c83d4129100164c5eeedb">_strFCU::sEmu</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a85a34f75dfbd42ee546370542e33f831">_strFCU::sLaserDist</a>, <a class="el" href="struct__str_f_c_u.html#a73f0b05bda016ed96d145f212780b95e">_strFCU::u32LaserPOR_Counter</a>, <a class="el" href="struct__str_f_c_u.html#ad922ec5f364b3d83068fddc92918ac77">_strFCU::u8NewPacket</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga264d671c4666635a23a545a0de5c37e8">vFCU_LASERDIST__Append_Byte()</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gaebd6c5af7450cd07c19f91dad500a9f4">vFCU_LASERDIST__Process_Packet()</a>, and <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_____f_i_l_t_e_r_i_n_g.html#ga6af4b67a454de290c5abae659b692fff">vFCU_LASERDIST_FILT__Process()</a>.</p>
-
-<p>Referenced by <a class="el" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12">vFCU_MAINSM__Process()</a>.</p>
+<p>References <a class="el" href="fcu__core____defines_8h.html#a3c74c410a474bb12b38620357260e93e">C_FCU__SC16_FWD_LASER_INDEX</a>, <a class="el" href="struct__str_f_c_u.html#aad5fb073dd85593d4e21debac2a68a5f">_strFCU::eLaserState</a>, <a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a775b7b034ee2615d1ddfad3e2602ae01">LASERDIST_STATE__CHECK_NEW_DATA</a>, <a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a068f96bd8649f86c35f1993ec4f1e981">LASERDIST_STATE__CHECK_NEW_PACKET</a>, <a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259ae3b72787f3f76395c43382403c775664">LASERDIST_STATE__INIT_LASER_TURNON</a>, <a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a014fa685d3f6e77008693c46ded9722c">LASERDIST_STATE__RESET</a>, <a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259ac0bccc71ea6e67b6e16a82d14e54b93d">LASERDIST_STATE__WAIT_INIT_DONE</a>, <a class="el" href="fcu__core____types_8h.html#a753606887f1e2069403f87d38cdc4259a6b001066622c3d7c4d2570a4bfee7604">LASERDIST_STATE__WAIT_LASER_RESET</a>, <a class="el" href="struct__str_f_c_u.html#aaf041377b16b1471302924baecc93336">_strFCU::s32Distance_mm</a>, <a class="el" href="struct__str_f_c_u.html#ae2fda4430eb1f4ed36ac6d815f436272">_strFCU::sEmu</a>, <a class="el" href="struct__str_f_c_u.html#ad5bd01c0c0913880e71513ce0f2a08e6">_strFCU::sFaultFlags</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#ab98d5e71d638ec7989df510d5c1f5590">_strFCU::sLaserDist</a>, <a class="el" href="struct__str_f_c_u.html#a73f0b05bda016ed96d145f212780b95e">_strFCU::u32LaserPOR_Counter</a>, <a class="el" href="struct__str_f_c_u.html#ad922ec5f364b3d83068fddc92918ac77">_strFCU::u8NewPacket</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga264d671c4666635a23a545a0de5c37e8">vFCU_LASERDIST__Append_Byte()</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gaebd6c5af7450cd07c19f91dad500a9f4">vFCU_LASERDIST__Process_Packet()</a>, and <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_____f_i_l_t_e_r_i_n_g.html#ga6af4b67a454de290c5abae659b692fff">vFCU_LASERDIST_FILT__Process()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -305,19 +303,8 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_ga104d67a1b33f6b6826c756de6a48ffbf_cgraph.png" border="0" usemap="#group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_ga104d67a1b33f6b6826c756de6a48ffbf_cgraph" alt=""/></div>
 <map name="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_ga104d67a1b33f6b6826c756de6a48ffbf_cgraph" id="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_ga104d67a1b33f6b6826c756de6a48ffbf_cgraph">
 <area shape="rect" id="node2" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga264d671c4666635a23a545a0de5c37e8" title="Append a new byte from the UART into the internal array, handle any error checking. " alt="" coords="247,5,469,32"/>
-<area shape="rect" id="node3" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gaebd6c5af7450cd07c19f91dad500a9f4" title="Process the laser packet Take the laser packet byte array that has been captured and process it into ..." alt="" coords="261,57,455,98"/>
+<area shape="rect" id="node3" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gaebd6c5af7450cd07c19f91dad500a9f4" title="vFCU_LASERDIST__Process\l_Packet" alt="" coords="261,57,455,98"/>
 <area shape="rect" id="node4" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_____f_i_l_t_e_r_i_n_g.html#ga6af4b67a454de290c5abae659b692fff" title="Process teh laser distance filtering. " alt="" coords="277,122,439,163"/>
-</map>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_ga104d67a1b33f6b6826c756de6a48ffbf_icgraph.png" border="0" usemap="#group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_ga104d67a1b33f6b6826c756de6a48ffbf_icgraph" alt=""/></div>
-<map name="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_ga104d67a1b33f6b6826c756de6a48ffbf_icgraph" id="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_ga104d67a1b33f6b6826c756de6a48ffbf_icgraph">
-<area shape="rect" id="node2" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="247,5,421,32"/>
-<area shape="rect" id="node3" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="469,5,584,32"/>
 </map>
 </div>
 </p>
@@ -338,9 +325,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Process the laser packet Take the laser packet byte array that has been captured and process it into a length including fault detection. </p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>50D2F735AC8706F6B0746CCB9860BD5A </dd></dl>
-<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.033.FUNC.004 </dd></dl>
+<p>References <a class="el" href="struct__str_f_c_u.html#aaf041377b16b1471302924baecc93336">_strFCU::s32Distance_mm</a>, <a class="el" href="struct__str_f_c_u.html#a88734b56c0b7ce1ac8810d5b7382015b">_strFCU::s32PrevDistance_mm</a>, <a class="el" href="struct__str_f_c_u.html#a3faa5535f64d7eb6a08555223842a504">_strFCU::s32PrevVelocity_mms</a>, <a class="el" href="struct__str_f_c_u.html#a158f727b930c39ac86f530e40af38102">_strFCU::s32Velocity_mms</a>, <a class="el" href="struct__str_f_c_u.html#aedc0af955ecb212a3f11fb444e1bb09e">_strFCU::sBinary</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#ab98d5e71d638ec7989df510d5c1f5590">_strFCU::sLaserDist</a>.</p>
 
 <p>Referenced by <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga104d67a1b33f6b6826c756de6a48ffbf">vFCU_LASERDIST__Process()</a>.</p>
 
@@ -350,11 +335,31 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_gaebd6c5af7450cd07c19f91dad500a9f4_icgraph.png" border="0" usemap="#group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_gaebd6c5af7450cd07c19f91dad500a9f4_icgraph" alt=""/></div>
 <map name="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_gaebd6c5af7450cd07c19f91dad500a9f4_icgraph" id="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e_gaebd6c5af7450cd07c19f91dad500a9f4_icgraph">
 <area shape="rect" id="node2" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga104d67a1b33f6b6826c756de6a48ffbf" title="Process the laser distance system. " alt="" coords="247,13,440,39"/>
-<area shape="rect" id="node3" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="488,13,663,39"/>
-<area shape="rect" id="node4" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="711,13,825,39"/>
 </map>
 </div>
 </p>
+
+</div>
+</div>
+<a class="anchor" id="ga03992f34ddc95201fe60abf6d6065b1a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_LASERDIST__Process_Packet_ASCII </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Process the laser packet Take the laser packet byte array that has been captured and process it into a length including fault detection. </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>50D2F735AC8706F6B0746CCB9860BD5A </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.033.FUNC.004 </dd></dl>
+
+<p>References <a class="el" href="struct__str_f_c_u.html#aaf041377b16b1471302924baecc93336">_strFCU::s32Distance_mm</a>, <a class="el" href="struct__str_f_c_u.html#a88734b56c0b7ce1ac8810d5b7382015b">_strFCU::s32PrevDistance_mm</a>, <a class="el" href="struct__str_f_c_u.html#a3faa5535f64d7eb6a08555223842a504">_strFCU::s32PrevVelocity_mms</a>, <a class="el" href="struct__str_f_c_u.html#a158f727b930c39ac86f530e40af38102">_strFCU::s32Velocity_mms</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#ab98d5e71d638ec7989df510d5c1f5590">_strFCU::sLaserDist</a>, and <a class="el" href="struct__str_f_c_u.html#af0e8d9fab25e2825f007512613ab2549">_strFCU::u8NewByteArray</a>.</p>
 
 </div>
 </div>
@@ -369,7 +374,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Referenced by <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga1629b8d380ba2466ea8c5f64efb89762">f32FCU_LASERDIST__Get_Distance()</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gaad87a308d6a4ecb14365d0ae236203e3">vFCU_LASERDIST__100MS_ISR()</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga264d671c4666635a23a545a0de5c37e8">vFCU_LASERDIST__Append_Byte()</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga0d3175cee5856cf0819b900d9ddb722a">vFCU_LASERDIST__Init()</a>, and <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga104d67a1b33f6b6826c756de6a48ffbf">vFCU_LASERDIST__Process()</a>.</p>
+<p>Referenced by <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gab825fe2107a16407d1e5360661432547">s32FCU_LASERDIST__Get_Distance_mm()</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gaad87a308d6a4ecb14365d0ae236203e3">vFCU_LASERDIST__100MS_ISR()</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga264d671c4666635a23a545a0de5c37e8">vFCU_LASERDIST__Append_Byte()</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga0d3175cee5856cf0819b900d9ddb722a">vFCU_LASERDIST__Init()</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga104d67a1b33f6b6826c756de6a48ffbf">vFCU_LASERDIST__Process()</a>, <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#gaebd6c5af7450cd07c19f91dad500a9f4">vFCU_LASERDIST__Process_Packet()</a>, and <a class="el" href="group___f_c_u_____l_a_s_e_r___d_i_s_t_a_n_c_e.html#ga03992f34ddc95201fe60abf6d6065b1a">vFCU_LASERDIST__Process_Packet_ASCII()</a>.</p>
 
 </div>
 </div>
