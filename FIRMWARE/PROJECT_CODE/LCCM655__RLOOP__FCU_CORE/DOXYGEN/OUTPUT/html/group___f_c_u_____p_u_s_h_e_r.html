@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, RLOOP, Flight Control Core)
    &#160;<span id="projectnumber">1.0</span>
@@ -92,7 +92,8 @@ $(document).ready(function(){initNavTree('group___f_c_u_____p_u_s_h_e_r.html',''
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">FCU__PUSHER<div class="ingroups"><a class="el" href="group___r_l_o_o_p.html">RLOOP</a> &raquo; <a class="el" href="group___f_c_u.html">FCU</a></div></div>  </div>
 </div><!--header-->
@@ -109,18 +110,159 @@ Collaboration diagram for FCU__PUSHER:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gaa37de03b1b152ac655b318fc2a4654d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gaa37de03b1b152ac655b318fc2a4654d6">vFCU_PUSHER__Init</a> (void)</td></tr>
+<tr class="memdesc:gaa37de03b1b152ac655b318fc2a4654d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init any variables for the pusher system.  <a href="#gaa37de03b1b152ac655b318fc2a4654d6">More...</a><br /></td></tr>
+<tr class="separator:gaa37de03b1b152ac655b318fc2a4654d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga098eefb130a2ec064561e66d20482171"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga098eefb130a2ec064561e66d20482171">vFCU_PUSHER__Process</a> (void)</td></tr>
+<tr class="memdesc:ga098eefb130a2ec064561e66d20482171"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process any pusher interface tasks.  <a href="#ga098eefb130a2ec064561e66d20482171">More...</a><br /></td></tr>
+<tr class="separator:ga098eefb130a2ec064561e66d20482171"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad3e8eda9017014acaf29327be32ece7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gad3e8eda9017014acaf29327be32ece7c">vFCU_PUSHER__InterlockA_ISR</a> (void)</td></tr>
 <tr class="memdesc:gad3e8eda9017014acaf29327be32ece7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called from the N2HET notifications that an edge has occurred on Interlock A.  <a href="#gad3e8eda9017014acaf29327be32ece7c">More...</a><br /></td></tr>
 <tr class="separator:gad3e8eda9017014acaf29327be32ece7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafc57e9c4ee006f35f00adf2e4594b73e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gafc57e9c4ee006f35f00adf2e4594b73e">vFCU_PUSHER__InterlockB_ISR</a> (void)</td></tr>
 <tr class="memdesc:gafc57e9c4ee006f35f00adf2e4594b73e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called from the N2HET notifications that an edge has occurred on Interlock B.  <a href="#gafc57e9c4ee006f35f00adf2e4594b73e">More...</a><br /></td></tr>
 <tr class="separator:gafc57e9c4ee006f35f00adf2e4594b73e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga74c85fd70a0e9153ee3e0abed718182d"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga74c85fd70a0e9153ee3e0abed718182d">u8FCU_PUSHER__Get_Switch</a> (Luint8 u8Switch)</td></tr>
+<tr class="memdesc:ga74c85fd70a0e9153ee3e0abed718182d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a pusher switch state.  <a href="#ga74c85fd70a0e9153ee3e0abed718182d">More...</a><br /></td></tr>
+<tr class="separator:ga74c85fd70a0e9153ee3e0abed718182d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga06c4ce458a278f7dc73c86636e2ddd8d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9">E_FCU_PUSHPIN_STATE_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga06c4ce458a278f7dc73c86636e2ddd8d">eFCU_PUSHER__Get_PusherState</a> (void)</td></tr>
+<tr class="memdesc:ga06c4ce458a278f7dc73c86636e2ddd8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the total pusher state.  <a href="#ga06c4ce458a278f7dc73c86636e2ddd8d">More...</a><br /></td></tr>
+<tr class="separator:ga06c4ce458a278f7dc73c86636e2ddd8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga305404ce04c4e8a48f7bdf8c61a610c3"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga305404ce04c4e8a48f7bdf8c61a610c3">u8FCU_PUSHER__Get_InterlockA</a> (void)</td></tr>
+<tr class="memdesc:ga305404ce04c4e8a48f7bdf8c61a610c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current pin status of interlock A.  <a href="#ga305404ce04c4e8a48f7bdf8c61a610c3">More...</a><br /></td></tr>
+<tr class="separator:ga305404ce04c4e8a48f7bdf8c61a610c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf923ec3da6490f5dec4a0570328adc68"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gaf923ec3da6490f5dec4a0570328adc68">u8FCU_PUSHER__Get_InterlockB</a> (void)</td></tr>
+<tr class="memdesc:gaf923ec3da6490f5dec4a0570328adc68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current pin status of interlock B.  <a href="#gaf923ec3da6490f5dec4a0570328adc68">More...</a><br /></td></tr>
+<tr class="separator:gaf923ec3da6490f5dec4a0570328adc68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9ee7d3503898fc47eb2100cdb6b89107"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga9ee7d3503898fc47eb2100cdb6b89107">vFCU_PUSHER__10MS_ISR</a> (void)</td></tr>
 <tr class="memdesc:ga9ee7d3503898fc47eb2100cdb6b89107"><td class="mdescLeft">&#160;</td><td class="mdescRight">10ms interrupt function, coming from FCU Core indicating that a new 10mS event has occurred.  <a href="#ga9ee7d3503898fc47eb2100cdb6b89107">More...</a><br /></td></tr>
 <tr class="separator:ga9ee7d3503898fc47eb2100cdb6b89107"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:gacb2c3ba9e6006730b118d98d460b89c5"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__str_f_c_u.html">_strFCU</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a></td></tr>
+<tr class="separator:gacb2c3ba9e6006730b118d98d460b89c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga06c4ce458a278f7dc73c86636e2ddd8d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9">E_FCU_PUSHPIN_STATE_T</a> eFCU_PUSHER__Get_PusherState </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the total pusher state. </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>F51AB362F5D574A9114B7915B833FF9F </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.012.FUNC.006 </dd></dl>
+
+<p>References <a class="el" href="struct__str_f_c_u.html#aa215b6ab5c919123036a504a6a294ae9">_strFCU::ePusher_Status</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="struct__str_f_c_u.html#a1828097cf429cad8e9eca15b3c3fd18b">_strFCU::sPusher</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga305404ce04c4e8a48f7bdf8c61a610c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 u8FCU_PUSHER__Get_InterlockA </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the current pin status of interlock A. </p>
+<dl class="section return"><dt>Returns</dt><dd>0 = switch open<br />
+ 1 = switch closed.</dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>7F1CA2D799181F98607158FCA01EC0C1 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.012.FUNC.007 </dd></dl>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga098eefb130a2ec064561e66d20482171">vFCU_PUSHER__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____p_u_s_h_e_r_ga305404ce04c4e8a48f7bdf8c61a610c3_icgraph.png" border="0" usemap="#group___f_c_u_____p_u_s_h_e_r_ga305404ce04c4e8a48f7bdf8c61a610c3_icgraph" alt=""/></div>
+<map name="group___f_c_u_____p_u_s_h_e_r_ga305404ce04c4e8a48f7bdf8c61a610c3_icgraph" id="group___f_c_u_____p_u_s_h_e_r_ga305404ce04c4e8a48f7bdf8c61a610c3_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____p_u_s_h_e_r.html#ga098eefb130a2ec064561e66d20482171" title="Process any pusher interface tasks. " alt="" coords="276,5,452,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="gaf923ec3da6490f5dec4a0570328adc68"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 u8FCU_PUSHER__Get_InterlockB </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the current pin status of interlock B. </p>
+<dl class="section return"><dt>Returns</dt><dd>0 = switch open<br />
+ 1 = switch closed.</dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>C22C0173C59CD8B44B0F76CB010AF54D </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.012.FUNC.008 </dd></dl>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga098eefb130a2ec064561e66d20482171">vFCU_PUSHER__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____p_u_s_h_e_r_gaf923ec3da6490f5dec4a0570328adc68_icgraph.png" border="0" usemap="#group___f_c_u_____p_u_s_h_e_r_gaf923ec3da6490f5dec4a0570328adc68_icgraph" alt=""/></div>
+<map name="group___f_c_u_____p_u_s_h_e_r_gaf923ec3da6490f5dec4a0570328adc68_icgraph" id="group___f_c_u_____p_u_s_h_e_r_gaf923ec3da6490f5dec4a0570328adc68_icgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____p_u_s_h_e_r.html#ga098eefb130a2ec064561e66d20482171" title="Process any pusher interface tasks. " alt="" coords="276,5,452,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga74c85fd70a0e9153ee3e0abed718182d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 u8FCU_PUSHER__Get_Switch </td>
+          <td>(</td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8Switch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a pusher switch state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u8Switch</td><td>Switch index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>06E52713C8F3CF4DECF9DB0F2411A42E </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.012.FUNC.005 </dd></dl>
+
+<p>References <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a1828097cf429cad8e9eca15b3c3fd18b">_strFCU::sPusher</a>, and <a class="el" href="struct__str_f_c_u.html#a9076e3987a781da2e64bf765974b340b">_strFCU::sSwitches</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ga9ee7d3503898fc47eb2100cdb6b89107"></a>
 <div class="memitem">
 <div class="memproto">
@@ -136,11 +278,10 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>10ms interrupt function, coming from FCU Core indicating that a new 10mS event has occurred. </p>
-<p>ToDo</p>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>D970044779CEE3EA4596DB4D7FFBA79F </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.012.FUNC.009 </dd></dl>
 
-<p>References <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>.</p>
+<p>References <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a1828097cf429cad8e9eca15b3c3fd18b">_strFCU::sPusher</a>, and <a class="el" href="struct__str_f_c_u.html#aa5ed0a9a63b2875bdabe41e898856821">_strFCU::u32SwtichTimer</a>.</p>
 
 <p>Referenced by <a class="el" href="group___f_c_u_____c_o_r_e.html#gab8335875b185e48b92cc6a8801ea9843">vFCU__RTI_10MS_ISR()</a>.</p>
 
@@ -150,6 +291,38 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="group___f_c_u_____p_u_s_h_e_r_ga9ee7d3503898fc47eb2100cdb6b89107_icgraph.png" border="0" usemap="#group___f_c_u_____p_u_s_h_e_r_ga9ee7d3503898fc47eb2100cdb6b89107_icgraph" alt=""/></div>
 <map name="group___f_c_u_____p_u_s_h_e_r_ga9ee7d3503898fc47eb2100cdb6b89107_icgraph" id="group___f_c_u_____p_u_s_h_e_r_ga9ee7d3503898fc47eb2100cdb6b89107_icgraph">
 <area shape="rect" id="node2" href="group___f_c_u_____c_o_r_e.html#gab8335875b185e48b92cc6a8801ea9843" title="10ms timer " alt="" coords="244,5,399,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="gaa37de03b1b152ac655b318fc2a4654d6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_PUSHER__Init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Init any variables for the pusher system. </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>7C79C686EA715C75414C8A1DC69E9CCD </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.012.FUNC.001 </dd></dl>
+
+<p>References <a class="el" href="struct__str_f_c_u.html#aa215b6ab5c919123036a504a6a294ae9">_strFCU::ePusher_Status</a>, <a class="el" href="struct__str_f_c_u.html#af8fbebf76338dd5a3a1bc3bf6db96051">_strFCU::eState</a>, <a class="el" href="fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9a626dda65130ea717520302ce5ffc5265">PIN_FINAL_STATE__UNKNOWN</a>, <a class="el" href="fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03a8e457a1d0c9cc38bb3c09c4cabd366b3">PUSH_STATE__IDLE</a>, <a class="el" href="struct__str_f_c_u.html#ad5bd01c0c0913880e71513ce0f2a08e6">_strFCU::sFaultFlags</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a1828097cf429cad8e9eca15b3c3fd18b">_strFCU::sPusher</a>, <a class="el" href="struct__str_f_c_u.html#a9076e3987a781da2e64bf765974b340b">_strFCU::sSwitches</a>, <a class="el" href="struct__str_f_c_u.html#a7fe840b59832dbdf1a07cb64bc0dcc6e">_strFCU::u32Guard1</a>, <a class="el" href="struct__str_f_c_u.html#a26cb452b3951534cad28e36d59c55e86">_strFCU::u32Guard2</a>, <a class="el" href="struct__str_f_c_u.html#aa5ed0a9a63b2875bdabe41e898856821">_strFCU::u32SwtichTimer</a>, and <a class="el" href="group___f_c_u_____p_u_s_h_e_r_____e_t_h_e_r_n_e_t.html#gaac490b6cc0f2af30726f742da4c32f61">vFCU_PUSHER_ETH__Init()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____p_u_s_h_e_r_gaa37de03b1b152ac655b318fc2a4654d6_cgraph.png" border="0" usemap="#group___f_c_u_____p_u_s_h_e_r_gaa37de03b1b152ac655b318fc2a4654d6_cgraph" alt=""/></div>
+<map name="group___f_c_u_____p_u_s_h_e_r_gaa37de03b1b152ac655b318fc2a4654d6_cgraph" id="group___f_c_u_____p_u_s_h_e_r_gaa37de03b1b152ac655b318fc2a4654d6_cgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____p_u_s_h_e_r_____e_t_h_e_r_n_e_t.html#gaac490b6cc0f2af30726f742da4c32f61" title="Init any pusher ethernet issues. " alt="" coords="199,5,376,32"/>
 </map>
 </div>
 </p>
@@ -171,11 +344,10 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Called from the N2HET notifications that an edge has occurred on Interlock A. </p>
-<p>ToDo</p>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>F532E783C3D9B9BC924CFEFB16029DC8 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.012.FUNC.003 </dd></dl>
 
-<p>References <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>.</p>
+<p>References <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a1828097cf429cad8e9eca15b3c3fd18b">_strFCU::sPusher</a>, and <a class="el" href="struct__str_f_c_u.html#a9076e3987a781da2e64bf765974b340b">_strFCU::sSwitches</a>.</p>
 
 <p>Referenced by <a class="el" href="group___f_c_u___c_o_r_e_____n_o_t_i_f_i_c_a_t_i_o_n_s.html#ga07cdc68173bd53f2c82d19081af66665">vRM4_N2HET_DYNAMIC__Notification()</a>.</p>
 
@@ -206,26 +378,12 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Called from the N2HET notifications that an edge has occurred on Interlock B. </p>
-<p>ToDo</p>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>F66C164179E4FC4101AE1B9F280DA709 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.012.FUNC.004 </dd></dl>
 
-<p>References <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="fcu__core_8h.html#a305404ce04c4e8a48f7bdf8c61a610c3">u8FCU_PUSHER__Get_InterlockA()</a>, <a class="el" href="fcu__core_8h.html#af923ec3da6490f5dec4a0570328adc68">u8FCU_PUSHER__Get_InterlockB()</a>, <a class="el" href="fcu__core_8h.html#a7a6486bb10f146e83e80669d73d92b74">u8FCU_PUSHER__Get_PusherState()</a>, and <a class="el" href="fcu__core_8h.html#a74c85fd70a0e9153ee3e0abed718182d">u8FCU_PUSHER__Get_Switch()</a>.</p>
+<p>References <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a1828097cf429cad8e9eca15b3c3fd18b">_strFCU::sPusher</a>, and <a class="el" href="struct__str_f_c_u.html#a9076e3987a781da2e64bf765974b340b">_strFCU::sSwitches</a>.</p>
 
 <p>Referenced by <a class="el" href="group___f_c_u___c_o_r_e_____n_o_t_i_f_i_c_a_t_i_o_n_s.html#ga07cdc68173bd53f2c82d19081af66665">vRM4_N2HET_DYNAMIC__Notification()</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group___f_c_u_____p_u_s_h_e_r_gafc57e9c4ee006f35f00adf2e4594b73e_cgraph.png" border="0" usemap="#group___f_c_u_____p_u_s_h_e_r_gafc57e9c4ee006f35f00adf2e4594b73e_cgraph" alt=""/></div>
-<map name="group___f_c_u_____p_u_s_h_e_r_gafc57e9c4ee006f35f00adf2e4594b73e_cgraph" id="group___f_c_u_____p_u_s_h_e_r_gafc57e9c4ee006f35f00adf2e4594b73e_cgraph">
-<area shape="rect" id="node2" href="fcu__core_8h.html#a305404ce04c4e8a48f7bdf8c61a610c3" title="u8FCU_PUSHER__Get_InterlockA" alt="" coords="268,5,491,32"/>
-<area shape="rect" id="node3" href="fcu__core_8h.html#af923ec3da6490f5dec4a0570328adc68" title="u8FCU_PUSHER__Get_InterlockB" alt="" coords="268,56,491,83"/>
-<area shape="rect" id="node4" href="fcu__core_8h.html#a7a6486bb10f146e83e80669d73d92b74" title="u8FCU_PUSHER__Get_Pusher\lState" alt="" coords="276,107,483,149"/>
-<area shape="rect" id="node5" href="fcu__core_8h.html#a74c85fd70a0e9153ee3e0abed718182d" title="u8FCU_PUSHER__Get_Switch" alt="" coords="277,173,481,200"/>
-</map>
-</div>
-</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -236,6 +394,54 @@ Here is the caller graph for this function:</div>
 </map>
 </div>
 </p>
+
+</div>
+</div>
+<a class="anchor" id="ga098eefb130a2ec064561e66d20482171"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vFCU_PUSHER__Process </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Process any pusher interface tasks. </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>8E34704E4F1C7C92744F7538476CE733 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.012.FUNC.002 </dd></dl>
+
+<p>References <a class="el" href="struct__str_f_c_u.html#aa215b6ab5c919123036a504a6a294ae9">_strFCU::ePusher_Status</a>, <a class="el" href="struct__str_f_c_u.html#af8fbebf76338dd5a3a1bc3bf6db96051">_strFCU::eState</a>, <a class="el" href="fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9a9306ecea0b40eb369131381e726dfc0d">PIN_FINAL_STATE__CONNECTED</a>, <a class="el" href="fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9a0bba82c4804b68e6b2572c7959eacdcc">PIN_FINAL_STATE__DISCONNECTED</a>, <a class="el" href="fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03ab2b4d47bd2409fdbcf43c81fddde1f97">PUSH_STATE__CHECK_DISAGREE</a>, <a class="el" href="fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03a831fdd97a0ac888672dd0f0a040e8199">PUSH_STATE__DETERMINE_PUSHER_STATE</a>, <a class="el" href="fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03a8e457a1d0c9cc38bb3c09c4cabd366b3">PUSH_STATE__IDLE</a>, <a class="el" href="fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03ad859dfe30032870d4ba2d40b58853dd6">PUSH_STATE__SAMPLE_SWITCHES</a>, <a class="el" href="fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03a44f17c9da998e44fae22103415510fdd">PUSH_STATE__WAIT_SW_STABLE</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="struct__str_f_c_u.html#a1828097cf429cad8e9eca15b3c3fd18b">_strFCU::sPusher</a>, <a class="el" href="struct__str_f_c_u.html#a9076e3987a781da2e64bf765974b340b">_strFCU::sSwitches</a>, <a class="el" href="struct__str_f_c_u.html#a7fe840b59832dbdf1a07cb64bc0dcc6e">_strFCU::u32Guard1</a>, <a class="el" href="struct__str_f_c_u.html#a26cb452b3951534cad28e36d59c55e86">_strFCU::u32Guard2</a>, <a class="el" href="struct__str_f_c_u.html#aa5ed0a9a63b2875bdabe41e898856821">_strFCU::u32SwtichTimer</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga305404ce04c4e8a48f7bdf8c61a610c3">u8FCU_PUSHER__Get_InterlockA()</a>, and <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gaf923ec3da6490f5dec4a0570328adc68">u8FCU_PUSHER__Get_InterlockB()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___f_c_u_____p_u_s_h_e_r_ga098eefb130a2ec064561e66d20482171_cgraph.png" border="0" usemap="#group___f_c_u_____p_u_s_h_e_r_ga098eefb130a2ec064561e66d20482171_cgraph" alt=""/></div>
+<map name="group___f_c_u_____p_u_s_h_e_r_ga098eefb130a2ec064561e66d20482171_cgraph" id="group___f_c_u_____p_u_s_h_e_r_ga098eefb130a2ec064561e66d20482171_cgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____p_u_s_h_e_r.html#ga305404ce04c4e8a48f7bdf8c61a610c3" title="Gets the current pin status of interlock A. " alt="" coords="229,5,452,32"/>
+<area shape="rect" id="node3" href="group___f_c_u_____p_u_s_h_e_r.html#gaf923ec3da6490f5dec4a0570328adc68" title="Gets the current pin status of interlock B. " alt="" coords="229,56,452,83"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="gacb2c3ba9e6006730b118d98d460b89c5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="struct__str_f_c_u.html">_strFCU</a> sFCU</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga06c4ce458a278f7dc73c86636e2ddd8d">eFCU_PUSHER__Get_PusherState()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga74c85fd70a0e9153ee3e0abed718182d">u8FCU_PUSHER__Get_Switch()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga9ee7d3503898fc47eb2100cdb6b89107">vFCU_PUSHER__10MS_ISR()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gaa37de03b1b152ac655b318fc2a4654d6">vFCU_PUSHER__Init()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gad3e8eda9017014acaf29327be32ece7c">vFCU_PUSHER__InterlockA_ISR()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gafc57e9c4ee006f35f00adf2e4594b73e">vFCU_PUSHER__InterlockB_ISR()</a>, and <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga098eefb130a2ec064561e66d20482171">vFCU_PUSHER__Process()</a>.</p>
 
 </div>
 </div>

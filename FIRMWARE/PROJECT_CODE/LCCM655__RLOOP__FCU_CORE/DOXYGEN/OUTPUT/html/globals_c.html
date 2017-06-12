@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, RLOOP, Flight Control Core)
    &#160;<span id="projectnumber">1.0</span>
@@ -94,8 +94,8 @@ $(document).ready(function(){initNavTree('globals_c.html','');});
 <div class="textblock">Here is a list of all functions, variables, defines, enums, and typedefs with links to the files they belong to:</div>
 
 <h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
-<li>C_ASI__COMMAND_QUEUE
-: <a class="el" href="fcu____asi__defines_8h.html#aa1f993add374ece8bcef7c9674a5edea">fcu__asi_defines.h</a>
+<li>C_ASI__DEFAULT_SLAVE_ADDX
+: <a class="el" href="fcu____asi__defines_8h.html#a298097483e178f5b26c989a5af45ebba">fcu__asi_defines.h</a>
 </li>
 <li>C_ASI__MAX_FRAME_SIZE
 : <a class="el" href="fcu____asi__defines_8h.html#aa239eb36a75131bcff08466b6ac5a780">fcu__asi_defines.h</a>
@@ -106,17 +106,32 @@ $(document).ready(function(){initNavTree('globals_c.html','');});
 <li>C_ASI__MAX_TURNAROUND_DELAY
 : <a class="el" href="fcu____asi__defines_8h.html#a7ac62bf75e5e0fd3a283a09cff930dce">fcu__asi_defines.h</a>
 </li>
-<li>C_ASI__READ_INPUT_REGISTER
-: <a class="el" href="fcu____asi__defines_8h.html#ab6fdcab176726a12dad1dfd6517aebaa">fcu__asi_defines.h</a>
-</li>
 <li>C_ASI__RW_FRAME_SIZE
 : <a class="el" href="fcu____asi__types_8h.html#a6e05186d0db166d9e9946b3b69e5cd65">fcu__asi_types.h</a>
 </li>
-<li>C_ASI__SW_TEST
-: <a class="el" href="fcu____asi__defines_8h.html#a00eed3f3cba9450cbed43bf3021f9d0d">fcu__asi_defines.h</a>
+<li>C_FCTL_TRACKDB__BLOB_SIZE
+: <a class="el" href="fcu____fctl____track__database____types_8h.html#a80545399ace920932a2e80f1b556982c">fcu__fctl__track_database__types.h</a>
 </li>
-<li>C_ASI__WRITE_SINGLE_REGISTER
-: <a class="el" href="fcu____asi__defines_8h.html#a454ed761453d586d5d0a4d6d62640d18">fcu__asi_defines.h</a>
+<li>C_FCTL_TRACKDB__HEADER_SPARE_WORDS
+: <a class="el" href="fcu____fctl____track__database____types_8h.html#a5e56cec5eab50f30c1bfe5be46919fcc">fcu__fctl__track_database__types.h</a>
+</li>
+<li>C_FCTL_TRACKDB__MAX_CONTRAST_STRIPES
+: <a class="el" href="fcu____fctl____track__database____types_8h.html#ab96ff85bbabe2fc859712b79c14085aa">fcu__fctl__track_database__types.h</a>
+</li>
+<li>C_FCTL_TRACKDB__MAX_MEM_DATABASES
+: <a class="el" href="fcu____fctl____track__database____types_8h.html#a97b252ba7dd679c2b8daa1bb5ab33b86">fcu__fctl__track_database__types.h</a>
+</li>
+<li>C_FCTL_TRACKDB__MAX_SETPOINTS
+: <a class="el" href="fcu____fctl____track__database____types_8h.html#adb40c5786ddf4151147929e876eb67ae">fcu__fctl__track_database__types.h</a>
+</li>
+<li>C_FCTL_TRACKDB__PROFILE_SPARE_WORDS
+: <a class="el" href="fcu____fctl____track__database____types_8h.html#aa4672966dc7f18ad6a8fe36884b19fe6">fcu__fctl__track_database__types.h</a>
+</li>
+<li>C_FCU__ACCEL_FILTER_WINDOW
+: <a class="el" href="fcu__core____defines_8h.html#a5a03030314c0c0a539b2bbcab400fb56">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__ASI_COMMAND_LIST_MAX
+: <a class="el" href="fcu__core____defines_8h.html#aa114c68df46bcc182f6d9f71801cc65d">fcu_core__defines.h</a>
 </li>
 <li>C_FCU__BRAKES__MAX_IBEAM_DIST_MM
 : <a class="el" href="fcu__core____defines_8h.html#ace8786d3d5fb282c81c775d7c73dd1ac">fcu_core__defines.h</a>
@@ -124,8 +139,152 @@ $(document).ready(function(){initNavTree('globals_c.html','');});
 <li>C_FCU__BRAKES__MIN_IBEAM_DIST_MM
 : <a class="el" href="fcu__core____defines_8h.html#a75fb4dbd7d9b853a8290b79382a59f48">fcu_core__defines.h</a>
 </li>
+<li>C_FCU__EDDYBRAKES_APPL_MLP_DISTANCE
+: <a class="el" href="fcu__core____defines_8h.html#a566888bf5e6016920a6541053df89915">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__EDDYBRAKES_NOM_APPL_SPEED
+: <a class="el" href="fcu__core____defines_8h.html#a117e855c72d5ceef6bd9eeb25d38de6a">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__EDDYBRAKES_NOM_RELEASE_SPEED
+: <a class="el" href="fcu__core____defines_8h.html#a89c23bf9b97aae2461be91b42571cf61">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__EDDYBRAKES_RELEASE_MLP_DISTANCE
+: <a class="el" href="fcu__core____defines_8h.html#a29efb34bfb7c20c29a78ac2db51d3358">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__EDDYBRAKES_STEPPER_MOTOR_MAX_TEMP
+: <a class="el" href="fcu__core____defines_8h.html#a10ad75cbc5872dd67ba4ae5b2f6a605d">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__GEOM__NUM_ITEMS_F32
+: <a class="el" href="fcu__core____defines_8h.html#a2064e17c87ffc64d4b41687ec007d67a">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__GEOM__NUM_ITEMS_S32
+: <a class="el" href="fcu__core____defines_8h.html#a479d21eb3aea1b0bf6d7ccc2b51fdd2b">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__GS_COMM_LOSS_DELAY
+: <a class="el" href="fcu__core____defines_8h.html#a96a356ba386e41147f51b1959d1aa7aa">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__HE_CRUISE_RPM
+: <a class="el" href="fcu__core____defines_8h.html#a319330f11e2359a1b676270756ffd164">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__HE_MAX_CURRENT
+: <a class="el" href="fcu__core____defines_8h.html#a8562cffa68682a3fcea8c6fdda1afb3f">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__HE_MAX_TEMPERATURE
+: <a class="el" href="fcu__core____defines_8h.html#a7158f44c03d992e66b835f0e20071d61">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__HE_MAX_VOLTAGE
+: <a class="el" href="fcu__core____defines_8h.html#a96a351acd4753f82544cf0b72cecc59c">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__HE_MIN_CURRENT
+: <a class="el" href="fcu__core____defines_8h.html#aa800cec3ccc0a52d45737386f6f0af95">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__HE_MIN_VOLTAGE
+: <a class="el" href="fcu__core____defines_8h.html#a3f8e81465f5c4a6d5f20a7190ab32d69">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__HE_RPM_TOLERANCE
+: <a class="el" href="fcu__core____defines_8h.html#aef8da0c43cf1ec1f1fdb019bde8ea221">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__HE_STATIC_HOVER_RPM
+: <a class="el" href="fcu__core____defines_8h.html#ac887f47ed7d8c52dc6af2aaa1b117110">fcu_core__defines.h</a>
+</li>
 <li>C_FCU__LASER_CONTRAST__MAX_STRIPES
 : <a class="el" href="fcu__core____defines_8h.html#aaecea577f44d88bc49f5e10a328de25f">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__LASERORIENT_MAX_UNLIFTED_HEIGHT
+: <a class="el" href="fcu__core____defines_8h.html#a7f2c6a0e90ae07b28e3c3a1690a754d7">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__LASERORIENT_MIN_LIFTED_HEIGHT
+: <a class="el" href="fcu__core____defines_8h.html#a61e1877b311f8a8254eb019fcd884bbf">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT
+: <a class="el" href="fcu__core____defines_8h.html#a0b6d7ea99ea3132ad963802b95c6713b">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__LIFTMECH_ACTUATOR_NOM_UNLIFT_SPEED
+: <a class="el" href="fcu__core____defines_8h.html#a7ecd6c7bcd09f54b70eeff888edb6d24">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__LIFTMECH_RETRACTED_MLP_DISTANCE
+: <a class="el" href="fcu__core____defines_8h.html#a9cf8467a9dd6f979c1d7ebc4136cc218">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__MAINSM_PUSHER_RELEASE_DELAY
+: <a class="el" href="fcu__core____defines_8h.html#a3b5fed628a98d472f4fc4e5a86cd1b64">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY
+: <a class="el" href="fcu__core____defines_8h.html#a622ec8119b87a8b22991e4afbc03caae">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_ACCELEROMETER_HIGH_VAL_DELAY
+: <a class="el" href="fcu__core____defines_8h.html#a7a0eb92a43117de99f584d1db2a1f137">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_ACCELEROMETER_LOW_VAL_DELAY
+: <a class="el" href="fcu__core____defines_8h.html#a3970b17ab404141fa6bba7baddaadaee">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_LRF_FIRST_EXPECTED_RANGE_MAX
+: <a class="el" href="fcu__core____defines_8h.html#a94db46b6186c097a18c2b98b7117786e">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_LRF_FIRST_EXPECTED_RANGE_MIN
+: <a class="el" href="fcu__core____defines_8h.html#a04836a2c86e0952ef20d3ff3a6c20736">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_LRF_MIN_POS_TO_ACTIVATE
+: <a class="el" href="fcu__core____defines_8h.html#a26b0dc0346f1e1b082318b5ebeab20b3">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_LRF_TRANSITION_DELAY_FROM_CONTRAST_SENSORS
+: <a class="el" href="fcu__core____defines_8h.html#ae5307099850fe01e75d3e37687c3eb1b">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_MAX_ACCELERATION
+: <a class="el" href="fcu__core____defines_8h.html#ab4eeef53c6b12441831395b646855eea">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_MAX_UNLIFTED_HEIGHT
+: <a class="el" href="fcu__core____defines_8h.html#aa4265da13f2ef3b01e3bae291ba77aa5">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_MAX_X_POS_UNCERTAINTY
+: <a class="el" href="fcu__core____defines_8h.html#a6dcde405fc58170b4103865811c0fd15">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_MIN_PUSHER_ACCEL
+: <a class="el" href="fcu__core____defines_8h.html#a8a29501b91fd8fb97f675929208ddbc2">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_MIN_PUSHER_SPEED
+: <a class="el" href="fcu__core____defines_8h.html#a7715d4b586b23e90ce44579e0f6ffff2">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_MISERABLE_STOP_CONFIRM_DELAY
+: <a class="el" href="fcu__core____defines_8h.html#a65da8867cccedd0974ab9056a3ab57b7">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_NUM_CONTRAST_SENSORS
+: <a class="el" href="fcu__core____defines_8h.html#ae1b90da804caa085e853f5dad3a883f2">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_POD_LENGTH
+: <a class="el" href="fcu__core____defines_8h.html#afaa863de9c5e5216bd3bbe57038be3f2">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_POD_MIN_X_POS
+: <a class="el" href="fcu__core____defines_8h.html#a77dde07fb485e59ab3b05364f0d38ff1">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_PODSPEED_MAX_SPEED_TO_STABILIZE
+: <a class="el" href="fcu__core____defines_8h.html#a34ffccf1c29d203e60e7cbf784c03251">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_PODSPEED_STANDBY
+: <a class="el" href="fcu__core____defines_8h.html#a115d471bb5df5d2ffda77e33e757d1ec">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_PUSHER_START_XPOS
+: <a class="el" href="fcu__core____defines_8h.html#a8666cf12d1313a3af224567f17bc596c">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_SPEED_UNCERTAINTY_OFFSET
+: <a class="el" href="fcu__core____defines_8h.html#a314e35367109474f2485118b5dc1e502">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_STARTING_XPOS_LC_AFT
+: <a class="el" href="fcu__core____defines_8h.html#af71993b2bb7904eb8dd17fba5e172767">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_STARTING_XPOS_LC_FWD
+: <a class="el" href="fcu__core____defines_8h.html#ae303fcb4ab2f0fc5243ead29fe9ffc08">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_STARTING_XPOS_LC_MID
+: <a class="el" href="fcu__core____defines_8h.html#a35df70a886afaec255b2b674206673c3">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_STRIPE_DETECTION_NAV_DELAY
+: <a class="el" href="fcu__core____defines_8h.html#a6e380236967cab14e54e349db9d2ae05">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_STRIPE_LENGTH
+: <a class="el" href="fcu__core____defines_8h.html#a1379fca7dd6218a4a832684168497a34">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__NAV_X_POS_UNCERTAINTY_OFFSET
+: <a class="el" href="fcu__core____defines_8h.html#a69e259da53c7da68cf2a845054be59a6">fcu_core__defines.h</a>
 </li>
 <li>C_FCU__NUM_ACCEL_CHIPS
 : <a class="el" href="fcu__core____defines_8h.html#aa1d3bab74a6b1e86d69f64ed47524421">fcu_core__defines.h</a>
@@ -148,6 +307,69 @@ $(document).ready(function(){initNavTree('globals_c.html','');});
 <li>C_FCU__NUM_LASERS_OPTONCDT
 : <a class="el" href="fcu__core____defines_8h.html#af2c1d0621713097804ba8f8d7c655283">fcu_core__defines.h</a>
 </li>
+<li>C_FCU__POD_HEALTH_INDEX__BATTERY_CELL_TEMP_RANGE
+: <a class="el" href="fcu____pod__health_8c.html#a3e30aa7015b2fcad1a80691ff5a2b1bc">fcu__pod_health.c</a>
+</li>
+<li>C_FCU__POD_HEALTH_INDEX__BATTERY_CELL_VOLTAGE_RANGE
+: <a class="el" href="fcu____pod__health_8c.html#a85a787628704ce47b908c6248bfebd0c">fcu__pod_health.c</a>
+</li>
+<li>C_FCU__POD_HEALTH_INDEX__BATTERY_CURRENT_RANGE
+: <a class="el" href="fcu____pod__health_8c.html#a750aedaa0b868f4ce03dce8dd767dc75">fcu__pod_health.c</a>
+</li>
+<li>C_FCU__POD_HEALTH_INDEX__BATTERY_PACK_TEMP_RANGE
+: <a class="el" href="fcu____pod__health_8c.html#a97c789fdeb7ca039d0b71d3ed8c5f842">fcu__pod_health.c</a>
+</li>
+<li>C_FCU__POD_HEALTH_INDEX__BATTERY_VOLTAGE_RANGE
+: <a class="el" href="fcu____pod__health_8c.html#a5cb4f6e043a0d4ebc96eb7104100d4da">fcu__pod_health.c</a>
+</li>
+<li>C_FCU__POD_HEALTH_INDEX__HE_CURRENT_RANGE
+: <a class="el" href="fcu____pod__health_8c.html#a5268b9b67a834f99ce66593e98a9f0ba">fcu__pod_health.c</a>
+</li>
+<li>C_FCU__POD_HEALTH_INDEX__HE_RPM_RANGE
+: <a class="el" href="fcu____pod__health_8c.html#a7f9200b0bdb1e237fe835d93657148e3">fcu__pod_health.c</a>
+</li>
+<li>C_FCU__POD_HEALTH_INDEX__HE_TEMP_RANGE
+: <a class="el" href="fcu____pod__health_8c.html#a7645a4f36a514377501ca2789d0deabd">fcu__pod_health.c</a>
+</li>
+<li>C_FCU__POD_HEALTH_INDEX__HE_VOLT_RANGE
+: <a class="el" href="fcu____pod__health_8c.html#a81f87c3d964acda7b47a66cd7b6425d4">fcu__pod_health.c</a>
+</li>
+<li>C_FCU__POD_HEALTH_INDEX__PV_PRESS_RANGE
+: <a class="el" href="fcu____pod__health_8c.html#ae422d5f8c7031348cf7d6db73f9ba29e">fcu__pod_health.c</a>
+</li>
+<li>C_FCU__POD_HEALTH_INDEX__PV_TEMP_RANGE
+: <a class="el" href="fcu____pod__health_8c.html#aef5a086240811b166dd1f85bdd706023">fcu__pod_health.c</a>
+</li>
+<li>C_FCU__POD_STOP_X_POS
+: <a class="el" href="fcu__core____defines_8h.html#ac6006802efcced06a8f675c52cbd7dd2">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__POD_TARGET_POINT_MARGIN_POS
+: <a class="el" href="fcu__core____defines_8h.html#a779b4147e690b217b908588395740222">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__SC16_ASI_INDEX
+: <a class="el" href="fcu__core____defines_8h.html#a21f6dc3109919f568c1962194b1d8263">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__SC16_FWD_LASER_INDEX
+: <a class="el" href="fcu__core____defines_8h.html#a3c74c410a474bb12b38620357260e93e">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__SC16_OPTO_FL_INDEX
+: <a class="el" href="fcu__core____defines_8h.html#ab10039ac9b767ac9c0f54a515a4577c7">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__SC16_OPTO_FR_INDEX
+: <a class="el" href="fcu__core____defines_8h.html#a9870859855f1b5b3904a81074577c906">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__SC16_OPTO_RL_INDEX
+: <a class="el" href="fcu__core____defines_8h.html#a04c02333405b5777c886cd745cac8b88">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__SC16_OPTO_RR_INDEX
+: <a class="el" href="fcu__core____defines_8h.html#abbef53c1312bc31893727563dbc372ec">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__SC16_OPTO_YAWF_INDEX
+: <a class="el" href="fcu__core____defines_8h.html#a62197a552d1839215dc292c5649e3cb8">fcu_core__defines.h</a>
+</li>
+<li>C_FCU__SC16_OPTO_YAWR_INDEX
+: <a class="el" href="fcu__core____defines_8h.html#a7af2929a78f097da08befee358bd6467">fcu_core__defines.h</a>
+</li>
 <li>C_FCU_ASI__BRIDGE_OPEN_CIRCUIT
 : <a class="el" href="fcu____asi__defines_8h.html#aa29be81f9ab18325d8fa2a0ba3dbe7af">fcu__asi_defines.h</a>
 </li>
@@ -155,19 +377,19 @@ $(document).ready(function(){initNavTree('globals_c.html','');});
 : <a class="el" href="fcu____asi__defines_8h.html#a65d83a55b80bf735708f962cc45f5ad1">fcu__asi_defines.h</a>
 </li>
 <li>C_FCU_ASI__COMMAND_SOURCE
-: <a class="el" href="fcu____asi__defines_8h.html#a9e993ccaa8991291e6b16ad3e17ba5f7">fcu__asi_defines.h</a>
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a8b0239a9a72d7afd1f1449ea9dd9fcf1">fcu__asi_types.h</a>
 </li>
 <li>C_FCU_ASI__COMMUNICATION_TIMEOUT
 : <a class="el" href="fcu____asi__defines_8h.html#aa1e380ba2fa4e4e0ea0a3fb2245591f7">fcu__asi_defines.h</a>
 </li>
 <li>C_FCU_ASI__CONT_TEMP
-: <a class="el" href="fcu____asi__defines_8h.html#abf8dbd5bbf460bc9edece51ea0c84cd2">fcu__asi_defines.h</a>
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a31dc829935036556b7aa61b2222720ae">fcu__asi_types.h</a>
 </li>
 <li>C_FCU_ASI__CONTROLLER_OVER_VOLTAGE
 : <a class="el" href="fcu____asi__defines_8h.html#a56f88677ca2d4b7eaf343437c5f89263">fcu__asi_defines.h</a>
 </li>
 <li>C_FCU_ASI__CONTROLLER_STATUS
-: <a class="el" href="fcu____asi__defines_8h.html#ae8183cf54c57d3370cb78c9534032386">fcu__asi_defines.h</a>
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a69b771b7f6a4c8ea4b21f6b18f672537">fcu__asi_types.h</a>
 </li>
 <li>C_FCU_ASI__CONTROLLER_TEMPERATURE
 : <a class="el" href="fcu____asi__defines_8h.html#afee406e46d2a189e6d1a546f408be2f0">fcu__asi_defines.h</a>
@@ -188,13 +410,13 @@ $(document).ready(function(){initNavTree('globals_c.html','');});
 : <a class="el" href="fcu____asi__defines_8h.html#a49ee5f3feff8e568af8d7ba07a236b16">fcu__asi_defines.h</a>
 </li>
 <li>C_FCU_ASI__FAULTS
-: <a class="el" href="fcu____asi__defines_8h.html#a261fe187df777b6065d3c5cad6fade4f">fcu__asi_defines.h</a>
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628ada91c72b4162bb15d32d7c3a8ad5e569">fcu__asi_types.h</a>
 </li>
 <li>C_FCU_ASI__FOLDBACK_END_TEMP
-: <a class="el" href="fcu____asi__defines_8h.html#a9d715984c94db60b41296f5632d00257">fcu__asi_defines.h</a>
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a0628ed936ff797df99adbb129c0518ad">fcu__asi_types.h</a>
 </li>
 <li>C_FCU_ASI__FOLDBACK_STARING_TEMP
-: <a class="el" href="fcu____asi__defines_8h.html#ab716adfed5e00ea6dd2e8fdc77ec5bc6">fcu__asi_defines.h</a>
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a843ad0a2f3f59d45d48e47e81d8e18b9">fcu__asi_types.h</a>
 </li>
 <li>C_FCU_ASI__INSTANTANEOUS_PHASE_CURRENT
 : <a class="el" href="fcu____asi__defines_8h.html#a643bb1f60c3105ba7a9e367dd40e3223">fcu__asi_defines.h</a>
@@ -203,19 +425,19 @@ $(document).ready(function(){initNavTree('globals_c.html','');});
 : <a class="el" href="fcu____asi__defines_8h.html#a927b8666b1599c5c753799420c671557">fcu__asi_defines.h</a>
 </li>
 <li>C_FCU_ASI__LAST_FAULT
-: <a class="el" href="fcu____asi__defines_8h.html#a366bf5807b0c61d3f2dd92fb2fc26c97">fcu__asi_defines.h</a>
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a2d3754490cac182cecf75a8b21e4ecd1">fcu__asi_types.h</a>
 </li>
 <li>C_FCU_ASI__MOTOR_CURRENT
-: <a class="el" href="fcu____asi__defines_8h.html#aaa51bdaed443fed8b07f9399205aa8f5">fcu__asi_defines.h</a>
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a235cbedcd9642368e333adf9bae3d619">fcu__asi_types.h</a>
 </li>
 <li>C_FCU_ASI__MOTOR_RPM
-: <a class="el" href="fcu____asi__defines_8h.html#a07cfe01dd54c8610159cb79e0dc6d979">fcu__asi_defines.h</a>
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628ab7195b61ac05bbb505e9dfd037adf1d4">fcu__asi_types.h</a>
 </li>
 <li>C_FCU_ASI__MOTOR_TEMPERATURE
 : <a class="el" href="fcu____asi__defines_8h.html#a77eb8ccbd506fcef59403ec02c4f0470">fcu__asi_defines.h</a>
 </li>
 <li>C_FCU_ASI__OVER_TEMP_THRESHOLD
-: <a class="el" href="fcu____asi__defines_8h.html#a4b710e9e075482b4f36a65b851f2f25f">fcu__asi_defines.h</a>
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a9f1e9c5201a4af4b2bf29f324d37becb">fcu__asi_types.h</a>
 </li>
 <li>C_FCU_ASI__PARAMETER_CRC_32
 : <a class="el" href="fcu____asi__defines_8h.html#a3807a526d9b606ad95e01793484c8952">fcu__asi_defines.h</a>
@@ -224,31 +446,40 @@ $(document).ready(function(){initNavTree('globals_c.html','');});
 : <a class="el" href="fcu____asi__defines_8h.html#a2a75aee97708e77c25288160dae7455c">fcu__asi_defines.h</a>
 </li>
 <li>C_FCU_ASI__RAW_SENSOR_TEMPERATURE
-: <a class="el" href="fcu____asi__defines_8h.html#aa3e94af2f045a452c88fbb344e23cac2">fcu__asi_defines.h</a>
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628ad60dae2d87bd70ea2632619bad9f3bc8">fcu__asi_types.h</a>
+</li>
+<li>C_FCU_ASI__REMOTE_THROTTLE_VOLTAGE
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a58fb06f85af7db1fde52a51bc0c9d58f">fcu__asi_types.h</a>
 </li>
 <li>C_FCU_ASI__SAVE_SETTINGS
-: <a class="el" href="fcu____asi__defines_8h.html#ae1898d5ca8213925f62d6d4f7942c78e">fcu__asi_defines.h</a>
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a22fbebdc7bc181f084ff79929fc52528">fcu__asi_types.h</a>
 </li>
 <li>C_FCU_ASI__TEMPERATURE
-: <a class="el" href="fcu____asi__defines_8h.html#a123b4454c86cfccc24f35aaff8fafdce">fcu__asi_defines.h</a>
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a58feefe1556b40ef593bd376f112ff2d">fcu__asi_types.h</a>
+</li>
+<li>C_FCU_ASI__THROT_SENSOR_SOURCE
+: <a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628a280579b85d318077cbdd0bb9544dc743">fcu__asi_types.h</a>
 </li>
 <li>C_FCU_ASI__THROTTLE_OUTSIDE_VOLTAGE_RANGE
 : <a class="el" href="fcu____asi__defines_8h.html#a3562cd5b9e109116bc92033ed40921e9">fcu__asi_defines.h</a>
 </li>
-<li>C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__CPU_LOAD_U8
-: <a class="el" href="fcu__core____daq__settings_8h.html#a1d0409a7bb191c1e05f93bb5faef0063">fcu_core__daq_settings.h</a>
+<li>C_FCU_BRAKES__CAL_TYPE
+: <a class="el" href="group___f_c_u_____b_r_a_k_e_s_____c_a_l.html#ga78aa3998d10ccd8b1d3436ee5a3bd23a">fcu__brakes__calibration.c</a>
 </li>
-<li>C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_CURRENT_ACCEL_S32
-: <a class="el" href="fcu__core____daq__settings_8h.html#ae548641592acdad5d466b092e7c46adf">fcu_core__daq_settings.h</a>
+<li>C_FCU_DAQ_SET__DAQ_FOR_BRAKES__CPU_LOAD_U8
+: <a class="el" href="fcu__core____daq__settings_8h.html#a7510bae15836535a9f78aa8ad7d84fa2">fcu_core__daq_settings.h</a>
 </li>
-<li>C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_CURRENT_VELOCITY_U32
-: <a class="el" href="fcu__core____daq__settings_8h.html#abf9b7148f6e0eea7a71f96ca2854ad80">fcu_core__daq_settings.h</a>
+<li>C_FCU_DAQ_SET__DAQ_FOR_BRAKES__LEFT_CURRENTPOS_S32
+: <a class="el" href="fcu__core____daq__settings_8h.html#a271957cb159bb8f2737e05ea9c5a4dec">fcu_core__daq_settings.h</a>
 </li>
-<li>C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_DISTANCE_ELAPSED_U32
-: <a class="el" href="fcu__core____daq__settings_8h.html#aa610344f248e44ac53dad4e5a06656cc">fcu_core__daq_settings.h</a>
+<li>C_FCU_DAQ_SET__DAQ_FOR_BRAKES__LEFT_TARGET_U32
+: <a class="el" href="fcu__core____daq__settings_8h.html#a3e05c7f2981b5e8744b1f80ab506b629">fcu_core__daq_settings.h</a>
 </li>
-<li>C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_RISING_EDGE_COUNT_U16
-: <a class="el" href="fcu__core____daq__settings_8h.html#a418ffa6eb5ee0304521ee5909b870bf6">fcu_core__daq_settings.h</a>
+<li>C_FCU_DAQ_SET__DAQ_FOR_BRAKES__RIGHT_CURRENTPOS_S32
+: <a class="el" href="fcu__core____daq__settings_8h.html#a6f5110dca1c07883605859f313798d2f">fcu_core__daq_settings.h</a>
+</li>
+<li>C_FCU_DAQ_SET__DAQ_FOR_BRAKES__RIGHT_TARGET_U32
+: <a class="el" href="fcu__core____daq__settings_8h.html#a7571066d7879e63faa4293ab2c201bc2">fcu_core__daq_settings.h</a>
 </li>
 <li>C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS
 : <a class="el" href="fcu__core____daq__settings_8h.html#aab8fa29c458e1a75721198d792880c2c">fcu_core__daq_settings.h</a>
@@ -295,6 +526,9 @@ $(document).ready(function(){initNavTree('globals_c.html','');});
 <li>C_LCCM655__BRAKES__FAULT_INDEX__03
 : <a class="el" href="fcu____brakes____fault__flags_8h.html#af0eaab4b25fb2b413bcada85ea3f62a5">fcu__brakes__fault_flags.h</a>
 </li>
+<li>C_LCCM655__BRAKES__FAULT_INDEX__04
+: <a class="el" href="fcu____brakes____fault__flags_8h.html#a142c21c13a1b2f342e7a52ddaeea41cd">fcu__brakes__fault_flags.h</a>
+</li>
 <li>C_LCCM655__BRAKES__FAULT_INDEX_MASK__00
 : <a class="el" href="fcu____brakes____fault__flags_8h.html#a40f5df0661792ae1b9393d0f95659a5d">fcu__brakes__fault_flags.h</a>
 </li>
@@ -306,6 +540,9 @@ $(document).ready(function(){initNavTree('globals_c.html','');});
 </li>
 <li>C_LCCM655__BRAKES__FAULT_INDEX_MASK__03
 : <a class="el" href="fcu____brakes____fault__flags_8h.html#a24eb0f41d394604c3c00da130ecd322f">fcu__brakes__fault_flags.h</a>
+</li>
+<li>C_LCCM655__BRAKES__FAULT_INDEX_MASK__04
+: <a class="el" href="fcu____brakes____fault__flags_8h.html#ae22fd85453683000d3f178da37f47d9a">fcu__brakes__fault_flags.h</a>
 </li>
 <li>C_LCCM655__CORE__FAULT_INDEX__00
 : <a class="el" href="fcu__core____fault__flags_8h.html#af6f51b1e015f36648eaca08b753d1dcc">fcu_core__fault_flags.h</a>
@@ -319,8 +556,116 @@ $(document).ready(function(){initNavTree('globals_c.html','');});
 <li>C_LCCM655__CORE__FAULT_INDEX_MASK__01
 : <a class="el" href="fcu__core____fault__flags_8h.html#ad0be52f5738b2ef9d94366739647973f">fcu_core__fault_flags.h</a>
 </li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX__00
+: <a class="el" href="fcu____faults____fault__flags_8h.html#ac6ab1b2b634724f3e7ab11b220a623f5">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX__01
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a5e93b0ad71ba5ae743f24885908e53d4">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX__02
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a66f28a8334415cedcafc58f58fac10d2">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX__03
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a16b2a9c057d400f25609028a4397feca">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX__04
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a87abb34c06cc246deaca9aed5e5f26d7">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX__05
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a1cb021e31c192fdd7098c7edc9aa2423">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX__06
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a6c72f81d6de96fa34373901f0fe6d4d4">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX__07
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a65728b2df6492087060c1c163baeb0bc">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX__08
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a3c08a562250c4c6bc87263928bfc6f28">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX__09
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a39f2e9923a4e120528854b68bf7e6e00">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX__10
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a6dce4b9d07fba2da2154a59e81715dde">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX_MASK__00
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a83b207a021b1f4be30ac1eddd964a409">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX_MASK__01
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a0e9bf3e3a3bb3d2fb8f18ed25367353c">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX_MASK__02
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a9cdebc712f335590066776597f23008e">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX_MASK__03
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a1da6e7f79fa4b9bef4336fa4f6c9ef25">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX_MASK__04
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a24516d53e24bded7fe2e8e6ab5309e81">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX_MASK__05
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a73ebc34e211dcf916655f47a32c4af76">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX_MASK__06
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a19195e2198219e95957662f1eca7d863">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX_MASK__07
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a46de8454dc8001b6a2be287864d91611">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX_MASK__08
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a876739fb082f6f8c8da7add5c623de7a">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX_MASK__09
+: <a class="el" href="fcu____faults____fault__flags_8h.html#adf66a0cefe72218de02fd5cc3dc84a12">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FAULTS__FAULT_INDEX_MASK__10
+: <a class="el" href="fcu____faults____fault__flags_8h.html#a57603bfd6528244ce0204a385051b0e4">fcu__faults__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FCTL_TRACKDB__FAULT_INDEX__00
+: <a class="el" href="fcu____fctl____track__database____fault__flags_8h.html#accbe88b6a17306ce33045f635021d7e0">fcu__fctl__track_database__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FCTL_TRACKDB__FAULT_INDEX__01
+: <a class="el" href="fcu____fctl____track__database____fault__flags_8h.html#abf0309c20d4c269e5eaabdd5bea78b62">fcu__fctl__track_database__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FCTL_TRACKDB__FAULT_INDEX_MASK__00
+: <a class="el" href="fcu____fctl____track__database____fault__flags_8h.html#ae0d73f28756a14d246d146a9df14bf38">fcu__fctl__track_database__fault_flags.h</a>
+</li>
+<li>C_LCCM655__FCTL_TRACKDB__FAULT_INDEX_MASK__01
+: <a class="el" href="fcu____fctl____track__database____fault__flags_8h.html#a532876b062e4c744dc8c6095c1a1f029">fcu__fctl__track_database__fault_flags.h</a>
+</li>
 <li>C_LCCM655__LASER
 : <a class="el" href="fcu____laser__cont____fault__flags_8h.html#acf6ebc3099259af332cdbafddae4bf71">fcu__laser_cont__fault_flags.h</a>
+</li>
+<li>C_LCCM655__THROTTLES__FAULT_INDEX__00
+: <a class="el" href="fcu____throttles____fault__flags_8h.html#aafd451f42af2db769429b71c9f14a4d2">fcu__throttles__fault_flags.h</a>
+</li>
+<li>C_LCCM655__THROTTLES__FAULT_INDEX__01
+: <a class="el" href="fcu____throttles____fault__flags_8h.html#a816c5d0030904fa669272af914bd7a4d">fcu__throttles__fault_flags.h</a>
+</li>
+<li>C_LCCM655__THROTTLES__FAULT_INDEX__02
+: <a class="el" href="fcu____throttles____fault__flags_8h.html#a03032ff204f5c8bcbab0838302d0e4dd">fcu__throttles__fault_flags.h</a>
+</li>
+<li>C_LCCM655__THROTTLES__FAULT_INDEX__03
+: <a class="el" href="fcu____throttles____fault__flags_8h.html#ad4a846547c43628a749cc5affbf3e448">fcu__throttles__fault_flags.h</a>
+</li>
+<li>C_LCCM655__THROTTLES__FAULT_INDEX__04
+: <a class="el" href="fcu____throttles____fault__flags_8h.html#a1855347e935372f234bcf855391d6cb6">fcu__throttles__fault_flags.h</a>
+</li>
+<li>C_LCCM655__THROTTLES__FAULT_INDEX_MASK__00
+: <a class="el" href="fcu____throttles____fault__flags_8h.html#af84e6c7a9a390b0cb7d6d577b314889c">fcu__throttles__fault_flags.h</a>
+</li>
+<li>C_LCCM655__THROTTLES__FAULT_INDEX_MASK__01
+: <a class="el" href="fcu____throttles____fault__flags_8h.html#a786d7d6544989fa577264c73ad366c23">fcu__throttles__fault_flags.h</a>
+</li>
+<li>C_LCCM655__THROTTLES__FAULT_INDEX_MASK__02
+: <a class="el" href="fcu____throttles____fault__flags_8h.html#a845d007b24727eca2c8f941ca4e4e3c9">fcu__throttles__fault_flags.h</a>
+</li>
+<li>C_LCCM655__THROTTLES__FAULT_INDEX_MASK__03
+: <a class="el" href="fcu____throttles____fault__flags_8h.html#a2d6d07b0590f6de16e49e48bd4838c75">fcu__throttles__fault_flags.h</a>
+</li>
+<li>C_LCCM655__THROTTLES__FAULT_INDEX_MASK__04
+: <a class="el" href="fcu____throttles____fault__flags_8h.html#a36ba53d90391fa4d04408df6cf35b92d">fcu__throttles__fault_flags.h</a>
 </li>
 <li>C_LOCALDEF__LCCM231__M0_MAX_ACCELERATION__PARAM_INDEX
 : <a class="el" href="fcu__core____eeprom__layout_8h.html#a9cc011161d066e9ab0bc12b1a8ccb415">fcu_core__eeprom_layout.h</a>
@@ -433,6 +778,33 @@ $(document).ready(function(){initNavTree('globals_c.html','');});
 <li>C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP_CRC
 : <a class="el" href="fcu__core____eeprom__layout_8h.html#ae8038e2d5a65c8efe565603fb51a1e1e">fcu_core__eeprom_layout.h</a>
 </li>
+<li>C_LOCALDEF__LCCM655__FCTL_GEOM___CRC
+: <a class="el" href="fcu__core____eeprom__layout_8h.html#a48d359ce3caa2eea20211e07ec501544">fcu_core__eeprom_layout.h</a>
+</li>
+<li>C_LOCALDEF__LCCM655__FCTL_GEOM___END_INDEX
+: <a class="el" href="fcu__core____eeprom__layout_8h.html#adea27e66cab6146c21b12c2f207729aa">fcu_core__eeprom_layout.h</a>
+</li>
+<li>C_LOCALDEF__LCCM655__FCTL_GEOM___START_INDEX
+: <a class="el" href="fcu__core____eeprom__layout_8h.html#a5d96e185910b0acd9430438b6d70f1c6">fcu_core__eeprom_layout.h</a>
+</li>
+<li>C_LOCALDEF__LCCM655__FCTL_OPTONCDT___CRC
+: <a class="el" href="fcu__core____eeprom__layout_8h.html#a5797e4da5bc7fff226f1f5fc636164dd">fcu_core__eeprom_layout.h</a>
+</li>
+<li>C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO
+: <a class="el" href="fcu__core____eeprom__layout_8h.html#a3ac6985aad5dfbb78fd6a67bf2d00876">fcu_core__eeprom_layout.h</a>
+</li>
+<li>C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FR_ZERO
+: <a class="el" href="fcu__core____eeprom__layout_8h.html#abd8e80d3cdfa62e53b9958b66c9ee19d">fcu_core__eeprom_layout.h</a>
+</li>
+<li>C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RL_ZERO
+: <a class="el" href="fcu__core____eeprom__layout_8h.html#a4365d07bb38aed3604963ebb0343fe4b">fcu_core__eeprom_layout.h</a>
+</li>
+<li>C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO
+: <a class="el" href="fcu__core____eeprom__layout_8h.html#a96e193bde6617c4bb63711848043add1">fcu_core__eeprom_layout.h</a>
+</li>
+<li>C_LOCALDEF__LCCM655__FCTL_TRACKDB___CURRENT_DB
+: <a class="el" href="fcu__core____eeprom__layout_8h.html#ab6610dbb4a2efba61468743d26862f16">fcu_core__eeprom_layout.h</a>
+</li>
 <li>C_LOCALDEF__LCCM662__BUFFER_WATERMARK_LEVEL
 : <a class="el" href="fcu__core____daq__settings_8h.html#a3f59db901f31d1686981ea9890349990">fcu_core__daq_settings.h</a>
 </li>
@@ -469,14 +841,29 @@ $(document).ready(function(){initNavTree('globals_c.html','');});
 <li>C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U32
 : <a class="el" href="fcu__core____daq__settings_8h.html#a2412ccd7269879633d368d08d97e642c">fcu_core__daq_settings.h</a>
 </li>
+<li>C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U64
+: <a class="el" href="fcu__core____daq__settings_8h.html#abd00ed44e3ca874a23875d6f86e4c804">fcu_core__daq_settings.h</a>
+</li>
 <li>C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U8
 : <a class="el" href="fcu__core____daq__settings_8h.html#adf5772aa46036ea427799474fbcf52f6">fcu_core__daq_settings.h</a>
 </li>
 <li>C_MLP__MAX_AVERAGE_SIZE
 : <a class="el" href="fcu__core_8h.html#a50f917bc6849f2efc56d644c32ee7020">fcu_core.h</a>
 </li>
-<li>CONTROLLED_EMERGENCY_BRAKE
-: <a class="el" href="fcu__core____enums_8h.html#a1560f192dd5dd63e42c06f8953f56a25a9734b254732306d836fc38412408ee15">fcu_core__enums.h</a>
+<li>C_RLOOP_NET__FCU__PORT
+: <a class="el" href="fcu__core____net____packet__types_8h.html#a060e8cf220fd269a16d04f07f5d6057a">fcu_core__net__packet_types.h</a>
+</li>
+<li>C_RLOOP_NET__POWER_A__PORT
+: <a class="el" href="fcu__core____net____packet__types_8h.html#a071e3e02ed522f191970cf536bc60455">fcu_core__net__packet_types.h</a>
+</li>
+<li>C_RLOOP_NET__POWER_B__PORT
+: <a class="el" href="fcu__core____net____packet__types_8h.html#ae74b572af3b2e2a9b67881becab8d795">fcu_core__net__packet_types.h</a>
+</li>
+<li>CLOSE_ALL_VALVES
+: <a class="el" href="fcu__core____enums_8h.html#ab3b1827142f24402a7c58abf16d2598ea9c08496e806a19b184bfd1eed28bdb66">fcu_core__enums.h</a>
+</li>
+<li>COOLING_CTL_DO_NOTHING
+: <a class="el" href="fcu__core____enums_8h.html#ab3b1827142f24402a7c58abf16d2598ea256bc08d222cdd1d4e1958b0984ae586">fcu_core__enums.h</a>
 </li>
 </ul>
 </div><!-- contents -->

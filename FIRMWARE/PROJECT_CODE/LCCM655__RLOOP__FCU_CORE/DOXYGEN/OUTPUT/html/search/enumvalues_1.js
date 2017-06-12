@@ -1,5 +1,8 @@
 var searchData=
 [
+  ['brake_5fcal_5f_5ftype2_5f_5frelease_5fright',['BRAKE_CAL__TYPE2__RELEASE_RIGHT',['../fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591aa9e18d1b1829f1a1bcf10f10c8b3de7c',1,'fcu_core__types.h']]],
+  ['brake_5fcal_5f_5ftype2_5f_5fretract_5fright',['BRAKE_CAL__TYPE2__RETRACT_RIGHT',['../fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591a89194198a752c6683fc60bec25ff9770',1,'fcu_core__types.h']]],
+  ['brake_5fcal_5f_5ftype2_5f_5fwait_5fretract_5fright',['BRAKE_CAL__TYPE2__WAIT_RETRACT_RIGHT',['../fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591adaac178631faafd524830461d81a4855',1,'fcu_core__types.h']]],
   ['brake_5fcal_5fstate_5f_5fapply_5fnew_5fzero',['BRAKE_CAL_STATE__APPLY_NEW_ZERO',['../fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591aa782e1f2de5b0e5c51bc55efb9af2c26',1,'fcu_core__types.h']]],
   ['brake_5fcal_5fstate_5f_5fcomplete',['BRAKE_CAL_STATE__COMPLETE',['../fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591aeb84530f4d9c5f67db04fdaa9ea08189',1,'fcu_core__types.h']]],
   ['brake_5fcal_5fstate_5f_5fextend_5fmotors',['BRAKE_CAL_STATE__EXTEND_MOTORS',['../fcu__core____types_8h.html#a89261833b365f29fafc9e343a4c2a591afca7c4d3cc672035964aaa1a10b5ce76',1,'fcu_core__types.h']]],

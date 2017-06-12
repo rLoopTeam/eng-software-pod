@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['daq_5f_5ftransmit_5ftemplate_2ec',['daq__transmit_template.c',['../daq____transmit__template_8c.html',1,'']]]
+  ['brake_5fgap_5ftable_2ec',['brake_gap_table.c',['../brake__gap__table_8c.html',1,'']]]
 ];

@@ -118,15 +118,15 @@
 
             Me.m_sLogDir = sLogDir
 
-            If sLogDir = "" Then
-                MsgBox("Warning, the logging dir is blank, exiting")
-                Return
+            If sLogDir = "" Or sLogDir = "\" Then
+                MsgBox("Warning, the logging dir is blank, logging not possible")
+                Me.m_sLogDir = Me.m_sLogDir & "FLIGHT_CONTROL\"
+
+                'check our folder
+                SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir)
             End If
 
-            Me.m_sLogDir = Me.m_sLogDir & "FLIGHT_CONTROL\"
 
-            'check our folder
-            SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir)
 
             'setup our explorer bar
             Me.m_pExplorer = pExplorer

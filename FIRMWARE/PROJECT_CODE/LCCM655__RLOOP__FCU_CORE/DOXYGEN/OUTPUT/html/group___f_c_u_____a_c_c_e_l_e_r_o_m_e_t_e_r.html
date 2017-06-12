@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, RLOOP, Flight Control Core)
    &#160;<span id="projectnumber">1.0</span>
@@ -116,6 +116,15 @@ Functions</h2></td></tr>
 <tr class="memitem:gaed5fa1fea46dd35cded2eacec73a2c9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gaed5fa1fea46dd35cded2eacec73a2c9f">vFCU_ACCEL__Process</a> (void)</td></tr>
 <tr class="memdesc:gaed5fa1fea46dd35cded2eacec73a2c9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the accel's Call as fast as possible from the main loop.  <a href="#gaed5fa1fea46dd35cded2eacec73a2c9f">More...</a><br /></td></tr>
 <tr class="separator:gaed5fa1fea46dd35cded2eacec73a2c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5b29572fb15be2e209104c4f500dc3d1"><td class="memItemLeft" align="right" valign="top">Lint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#ga5b29572fb15be2e209104c4f500dc3d1">s32FCU_ACCELL__Get_CurrentAccel_mmss</a> (Luint8 u8Channel)</td></tr>
+<tr class="memdesc:ga5b29572fb15be2e209104c4f500dc3d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the current velocity as most recently computed in mm/sec.  <a href="#ga5b29572fb15be2e209104c4f500dc3d1">More...</a><br /></td></tr>
+<tr class="separator:ga5b29572fb15be2e209104c4f500dc3d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga24294cf235f5b96e96a7b4b5fb44d5b3"><td class="memItemLeft" align="right" valign="top">Lint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#ga24294cf235f5b96e96a7b4b5fb44d5b3">s32FCU_ACCELL__Get_CurrentVeloc_mms</a> (Luint8 u8Channel)</td></tr>
+<tr class="memdesc:ga24294cf235f5b96e96a7b4b5fb44d5b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the current velocity as most recently computed in mm/sec.  <a href="#ga24294cf235f5b96e96a7b4b5fb44d5b3">More...</a><br /></td></tr>
+<tr class="separator:ga24294cf235f5b96e96a7b4b5fb44d5b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacf55de3f2c26c67952da36117a06de0b"><td class="memItemLeft" align="right" valign="top">Lint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacf55de3f2c26c67952da36117a06de0b">s32FCU_ACCELL__Get_CurrentDisplacement_mm</a> (Luint8 u8Channel)</td></tr>
+<tr class="memdesc:gacf55de3f2c26c67952da36117a06de0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the current displacement.  <a href="#gacf55de3f2c26c67952da36117a06de0b">More...</a><br /></td></tr>
+<tr class="separator:gacf55de3f2c26c67952da36117a06de0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6ad1415e243d37552119df0d79e3d68c"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#ga6ad1415e243d37552119df0d79e3d68c">s16FCU_ACCEL__Get_LastSample</a> (Luint8 u8Index, Luint8 u8Axis)</td></tr>
 <tr class="memdesc:ga6ad1415e243d37552119df0d79e3d68c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last recorded sample from the Accels.  <a href="#ga6ad1415e243d37552119df0d79e3d68c">More...</a><br /></td></tr>
 <tr class="separator:ga6ad1415e243d37552119df0d79e3d68c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,10 +172,10 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The F32 last computed G-Force from each sensor </dd></dl>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>A1292B6EC9CD5190837BCF3CF23D23F6 </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>D4DC470315C624685712D0F05788CC8C </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.010.FUNC.004 </dd></dl>
 
-<p>References <a class="el" href="struct__str_f_c_u.html#a584309e4e149941b6b88516273a767a5">_strFCU::sAccel</a>, and <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>.</p>
+<p>References <a class="el" href="struct__str_f_c_u.html#ad3033e76f13d56b2058f8d5b88b980af">_strFCU::sAccel</a>, and <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>.</p>
 
 </div>
 </div>
@@ -207,7 +216,91 @@ Variables</h2></td></tr>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>8BA7DA408E22C09AEF1CAEFD11E12ACF </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.010.FUNC.003 </dd></dl>
 
-<p>References <a class="el" href="struct__str_f_c_u.html#a584309e4e149941b6b88516273a767a5">_strFCU::sAccel</a>, and <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>.</p>
+<p>References <a class="el" href="struct__str_f_c_u.html#ad3033e76f13d56b2058f8d5b88b980af">_strFCU::sAccel</a>, and <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga5b29572fb15be2e209104c4f500dc3d1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lint32 s32FCU_ACCELL__Get_CurrentAccel_mmss </td>
+          <td>(</td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8Channel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the current velocity as most recently computed in mm/sec. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u8Channel</td><td>Accel Channel </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>191B8EC70FB8DA0FCE32BB03F443D0D3 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.010.FUNC.005 </dd></dl>
+
+<p>References <a class="el" href="struct__str_f_c_u.html#ad3033e76f13d56b2058f8d5b88b980af">_strFCU::sAccel</a>, and <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gacf55de3f2c26c67952da36117a06de0b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lint32 s32FCU_ACCELL__Get_CurrentDisplacement_mm </td>
+          <td>(</td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8Channel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the current displacement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u8Channel</td><td>Accel channel </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>5B659BF07323FD3334B5C7C0E93D8AAD </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.010.FUNC.007 </dd></dl>
+
+<p>References <a class="el" href="struct__str_f_c_u.html#ad3033e76f13d56b2058f8d5b88b980af">_strFCU::sAccel</a>, and <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga24294cf235f5b96e96a7b4b5fb44d5b3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lint32 s32FCU_ACCELL__Get_CurrentVeloc_mms </td>
+          <td>(</td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8Channel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the current velocity as most recently computed in mm/sec. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u8Channel</td><td>Accel Channel </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>1157DBB2F10EFDDEA1EEE276145B8F66 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.010.FUNC.006 </dd></dl>
+
+<p>References <a class="el" href="struct__str_f_c_u.html#ad3033e76f13d56b2058f8d5b88b980af">_strFCU::sAccel</a>, and <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>.</p>
 
 </div>
 </div>
@@ -226,20 +319,17 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Init the accel subsystem layer. </p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>809972C08E10832306B77DABFAEAA1D2 </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>FF815825A74DAC44085A81F0CECC0114 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.010.FUNC.001 </dd></dl>
 
-<p>References <a class="el" href="fcu____accel____fault__flags_8h.html#a9d6de951483be20f3b8b2e70d44875d9">C_LCCM655__ACCEL__FAULT_INDEX__00</a>, <a class="el" href="fcu____accel____fault__flags_8h.html#a3deade3ee532bd777befb6931e564dd9">C_LCCM655__ACCEL__FAULT_INDEX__01</a>, <a class="el" href="struct__str_f_c_u.html#a584309e4e149941b6b88516273a767a5">_strFCU::sAccel</a>, <a class="el" href="struct__str_f_c_u.html#ac37f372cd764a70bdf25019373eac4a7">_strFCU::sFaults</a>, and <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>.</p>
-
-<p>Referenced by <a class="el" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12">vFCU_MAINSM__Process()</a>.</p>
+<p>References <a class="el" href="fcu__core____defines_8h.html#a5a03030314c0c0a539b2bbcab400fb56">C_FCU__ACCEL_FILTER_WINDOW</a>, <a class="el" href="fcu____accel____fault__flags_8h.html#a9d6de951483be20f3b8b2e70d44875d9">C_LCCM655__ACCEL__FAULT_INDEX__00</a>, <a class="el" href="fcu____accel____fault__flags_8h.html#a3deade3ee532bd777befb6931e564dd9">C_LCCM655__ACCEL__FAULT_INDEX__01</a>, <a class="el" href="struct__str_f_c_u.html#ad3033e76f13d56b2058f8d5b88b980af">_strFCU::sAccel</a>, <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, and <a class="el" href="group___f_c_u_____a_c_c_e_l_____e_t_h_e_r_n_e_t.html#ga7769699d0953837c230273a66906e8fb">vFCU_ACCEL_ETH__Init()</a>.</p>
 
 <p><div class="dynheader">
-Here is the caller graph for this function:</div>
+Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_ga3226e17fb2f55703e7de8934b1f86f80_icgraph.png" border="0" usemap="#group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_ga3226e17fb2f55703e7de8934b1f86f80_icgraph" alt=""/></div>
-<map name="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_ga3226e17fb2f55703e7de8934b1f86f80_icgraph" id="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_ga3226e17fb2f55703e7de8934b1f86f80_icgraph">
-<area shape="rect" id="node2" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="188,5,363,32"/>
-<area shape="rect" id="node3" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="411,5,525,32"/>
+<div class="center"><img src="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_ga3226e17fb2f55703e7de8934b1f86f80_cgraph.png" border="0" usemap="#group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_ga3226e17fb2f55703e7de8934b1f86f80_cgraph" alt=""/></div>
+<map name="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_ga3226e17fb2f55703e7de8934b1f86f80_cgraph" id="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_ga3226e17fb2f55703e7de8934b1f86f80_cgraph">
+<area shape="rect" id="node2" href="group___f_c_u_____a_c_c_e_l_____e_t_h_e_r_n_e_t.html#ga7769699d0953837c230273a66906e8fb" title="Init the eth portion. " alt="" coords="188,5,355,32"/>
 </map>
 </div>
 </p>
@@ -261,20 +351,19 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Process the accel's Call as fast as possible from the main loop. </p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>CC85D859A7DAFE2A9EC3DBE59C6E5665 </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>32AF30A5DE9FF77DA3FE2CB76032CF71 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM655R0.FILE.010.FUNC.002 </dd></dl>
 
-<p>References <a class="el" href="fcu____accel____fault__flags_8h.html#a9d6de951483be20f3b8b2e70d44875d9">C_LCCM655__ACCEL__FAULT_INDEX__00</a>, <a class="el" href="fcu____accel____fault__flags_8h.html#a3deade3ee532bd777befb6931e564dd9">C_LCCM655__ACCEL__FAULT_INDEX__01</a>, <a class="el" href="struct__str_f_c_u.html#a584309e4e149941b6b88516273a767a5">_strFCU::sAccel</a>, <a class="el" href="struct__str_f_c_u.html#ac37f372cd764a70bdf25019373eac4a7">_strFCU::sFaults</a>, and <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>.</p>
-
-<p>Referenced by <a class="el" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12">vFCU_MAINSM__Process()</a>.</p>
+<p>References <a class="el" href="fcu__core____defines_8h.html#a5a03030314c0c0a539b2bbcab400fb56">C_FCU__ACCEL_FILTER_WINDOW</a>, <a class="el" href="fcu____accel____fault__flags_8h.html#a9d6de951483be20f3b8b2e70d44875d9">C_LCCM655__ACCEL__FAULT_INDEX__00</a>, <a class="el" href="fcu____accel____fault__flags_8h.html#a3deade3ee532bd777befb6931e564dd9">C_LCCM655__ACCEL__FAULT_INDEX__01</a>, <a class="el" href="struct__str_f_c_u.html#ad3033e76f13d56b2058f8d5b88b980af">_strFCU::sAccel</a>, <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacb2c3ba9e6006730b118d98d460b89c5">sFCU</a>, <a class="el" href="fcu__core_8h.html#abbcac21956ccce1383d7c714393c99cf">vFCU_FCTL_BLENDER__Accel_UpdateFrom_Accel()</a>, <a class="el" href="fcu__core_8h.html#a6c87615af60f5e6bbf2afd2a62f71cbb">vFCU_FCTL_BLENDER__Displacement_UpdateFrom_Accel()</a>, and <a class="el" href="fcu__core_8h.html#af7b84446d56eb9edc396029d85ea37ee">vFCU_FCTL_BLENDER__Veloc_UpdateFrom_Accel()</a>.</p>
 
 <p><div class="dynheader">
-Here is the caller graph for this function:</div>
+Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_gaed5fa1fea46dd35cded2eacec73a2c9f_icgraph.png" border="0" usemap="#group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_gaed5fa1fea46dd35cded2eacec73a2c9f_icgraph" alt=""/></div>
-<map name="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_gaed5fa1fea46dd35cded2eacec73a2c9f_icgraph" id="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_gaed5fa1fea46dd35cded2eacec73a2c9f_icgraph">
-<area shape="rect" id="node2" href="group___f_c_u_____m_a_i_n___s_m.html#ga3c52f32aa2b9870a43a7117e66015c12" title="Process the main state machine. " alt="" coords="219,5,393,32"/>
-<area shape="rect" id="node3" href="group___f_c_u_____c_o_r_e.html#gadd53ba76044f744165c7c0a6536c1c2c" title="Process any FCU tasks. " alt="" coords="441,5,556,32"/>
+<div class="center"><img src="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_gaed5fa1fea46dd35cded2eacec73a2c9f_cgraph.png" border="0" usemap="#group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_gaed5fa1fea46dd35cded2eacec73a2c9f_cgraph" alt=""/></div>
+<map name="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_gaed5fa1fea46dd35cded2eacec73a2c9f_cgraph" id="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r_gaed5fa1fea46dd35cded2eacec73a2c9f_cgraph">
+<area shape="rect" id="node2" href="fcu__core_8h.html#abbcac21956ccce1383d7c714393c99cf" title="vFCU_FCTL_BLENDER_\l_Accel_UpdateFrom_Accel" alt="" coords="242,5,422,47"/>
+<area shape="rect" id="node3" href="fcu__core_8h.html#a6c87615af60f5e6bbf2afd2a62f71cbb" title="vFCU_FCTL_BLENDER_\l_Displacement_UpdateFrom_Accel" alt="" coords="219,71,445,112"/>
+<area shape="rect" id="node4" href="fcu__core_8h.html#af7b84446d56eb9edc396029d85ea37ee" title="vFCU_FCTL_BLENDER_\l_Veloc_UpdateFrom_Accel" alt="" coords="242,136,422,177"/>
 </map>
 </div>
 </p>
@@ -292,7 +381,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Referenced by <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#ga7e14ea2daf6614473d7f54a6f99ae681">f32FCU_ACCEL__Get_LastG()</a>, <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#ga6ad1415e243d37552119df0d79e3d68c">s16FCU_ACCEL__Get_LastSample()</a>, <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#ga3226e17fb2f55703e7de8934b1f86f80">vFCU_ACCEL__Init()</a>, <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gaed5fa1fea46dd35cded2eacec73a2c9f">vFCU_ACCEL__Process()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#ga9ee7d3503898fc47eb2100cdb6b89107">vFCU_PUSHER__10MS_ISR()</a>, <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gad3e8eda9017014acaf29327be32ece7c">vFCU_PUSHER__InterlockA_ISR()</a>, and <a class="el" href="group___f_c_u_____p_u_s_h_e_r.html#gafc57e9c4ee006f35f00adf2e4594b73e">vFCU_PUSHER__InterlockB_ISR()</a>.</p>
+<p>Referenced by <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#ga7e14ea2daf6614473d7f54a6f99ae681">f32FCU_ACCEL__Get_LastG()</a>, <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#ga6ad1415e243d37552119df0d79e3d68c">s16FCU_ACCEL__Get_LastSample()</a>, <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#ga5b29572fb15be2e209104c4f500dc3d1">s32FCU_ACCELL__Get_CurrentAccel_mmss()</a>, <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gacf55de3f2c26c67952da36117a06de0b">s32FCU_ACCELL__Get_CurrentDisplacement_mm()</a>, <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#ga24294cf235f5b96e96a7b4b5fb44d5b3">s32FCU_ACCELL__Get_CurrentVeloc_mms()</a>, <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#ga3226e17fb2f55703e7de8934b1f86f80">vFCU_ACCEL__Init()</a>, and <a class="el" href="group___f_c_u_____a_c_c_e_l_e_r_o_m_e_t_e_r.html#gaed5fa1fea46dd35cded2eacec73a2c9f">vFCU_ACCEL__Process()</a>.</p>
 
 </div>
 </div>

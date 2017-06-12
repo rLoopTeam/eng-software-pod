@@ -127,7 +127,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="LIBS\LDLL173__RLOOP__LCCM653_STATIC.lib">
+    <Library Include="LIBS\LDLL173__RLOOP__LCCM653_SIL3.lib">
       <Filter>Source Files\LIBS</Filter>
     </Library>
   </ItemGroup>

@@ -56,10 +56,10 @@ Public Class Form1
 
     'Ethernet
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Public Shared Sub vETH_WIN32__Set_Ethernet_TxCallback(ByVal callback As MulticastDelegate)
+    Public Shared Sub vSIL3_ETH_WIN32__Set_Ethernet_TxCallback(ByVal callback As MulticastDelegate)
     End Sub
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Public Shared Sub vETH_WIN32__Ethernet_Input(pu8Buffer() As Byte, u16BufferLength As UInt16)
+    Public Shared Sub vSIL3_ETH_WIN32__Ethernet_Input(pu8Buffer() As Byte, u16BufferLength As UInt16)
     End Sub
     <System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Public Delegate Sub ETH_WIN32__TxCallbackDelegate(ByVal pu8Buffer As IntPtr, ByVal u16BufferLength As UInt16)
@@ -67,33 +67,33 @@ Public Class Form1
 
     'mma8451
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Public Shared Sub vMMA8451_WIN32__Set_ReadDataCallback(ByVal callback As MulticastDelegate)
+    Public Shared Sub vSIL3_MMA8451_WIN32__Set_ReadDataCallback(ByVal callback As MulticastDelegate)
     End Sub
     <System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Public Delegate Sub MMA8451_WIN32__ReadDataCallbackDelegate(u8DeviceIndex As Byte, pu8X As IntPtr, pu8Y As IntPtr, pu8Z As IntPtr)
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Public Shared Sub vMMA8451_WIN32__TriggerInterrupt(u8DeviceIndex As Byte)
+    Public Shared Sub vSIL3_MMA8451_WIN32__TriggerInterrupt(u8DeviceIndex As Byte)
     End Sub
 
     'stepper system
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Public Shared Sub vSTEPDRIVE_WIN32__Set_UpdatePositionCallback(ByVal callback As MulticastDelegate)
+    Public Shared Sub vSIL3_STEPDRIVE_WIN32__Set_UpdatePositionCallback(ByVal callback As MulticastDelegate)
     End Sub
     <System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Public Delegate Sub STEPDRIVE_WIN32__Set_UpdatePositionCallbackDelegate(u8MotorIndex As Byte, u8Step As Byte, u8Dir As Byte, s32Position As Int32)
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Public Shared Sub vSTEPDRIVE_WIN32__ForcePosition(u8MotorIndex As Byte, s32Position As Int32)
+    Public Shared Sub vSIL3_STEPDRIVE_WIN32__ForcePosition(u8MotorIndex As Byte, s32Position As Int32)
     End Sub
 
 
     'SC16 UARTS
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Public Shared Sub vSC16IS_WIN32__Set_TxData_Callback(u8DeviceIndex As Byte, ByVal callback As MulticastDelegate)
+    Public Shared Sub vSIL3_SC16IS_WIN32__Set_TxData_Callback(u8DeviceIndex As Byte, ByVal callback As MulticastDelegate)
     End Sub
     <System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Public Delegate Sub SC16IS_WIN32__Set_TxData_CallbackDelegate(u8DeviceIndex As Byte, pu8Data As IntPtr, u8Length As Byte)
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Public Shared Sub vSC16IS_WIN32__InjectData(u8DeviceIndex As Byte, pu8Data() As Byte, u8Length As Byte)
+    Public Shared Sub vSIL3_SC16IS_WIN32__InjectData(u8DeviceIndex As Byte, pu8Data() As Byte, u8Length As Byte)
     End Sub
 
     'AMC7812 for HE Thrott
@@ -105,6 +105,12 @@ Public Class Form1
 
 
 #End Region '#Region "WIN32/DEBUG"
+
+#Region "SIL3 SPECIFICS"
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vSIL3_STEPDRIVE_TIMEBASE__ISR()
+    End Sub
+#End Region '#Region "SIL3 SPECIFICS"
 
 #Region "C CODE SPECIFICS"
 
@@ -129,9 +135,7 @@ Public Class Form1
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Private Shared Sub vFCU__RTI_100MS_ISR()
     End Sub
-    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Private Shared Sub vSTEPDRIVE_TIMEBASE__ISR()
-    End Sub
+
 
 
     'Laser Distance
@@ -552,17 +556,17 @@ Public Class Form1
         'setup other callbacks
 
         Me.m_pETH_TX__Delegate = AddressOf Me.ETH_WIN32__TxCallback_Sub
-        vETH_WIN32__Set_Ethernet_TxCallback(Me.m_pETH_TX__Delegate)
+        vSIL3_ETH_WIN32__Set_Ethernet_TxCallback(Me.m_pETH_TX__Delegate)
 
         Me.m_pMMA8451_ReadData__Delegate = AddressOf Me.MMA8451_WIN32__ReadDataCallback_Sub
-        vMMA8451_WIN32__Set_ReadDataCallback(Me.m_pMMA8451_ReadData__Delegate)
+        vSIL3_MMA8451_WIN32__Set_ReadDataCallback(Me.m_pMMA8451_ReadData__Delegate)
 
         Me.m_pStepDrive_UpdatePos__Delegate = AddressOf Me.STEPDRIVE_WIN32__UpdatePostion
-        vSTEPDRIVE_WIN32__Set_UpdatePositionCallback(Me.m_pStepDrive_UpdatePos__Delegate)
+        vSIL3_STEPDRIVE_WIN32__Set_UpdatePositionCallback(Me.m_pStepDrive_UpdatePos__Delegate)
 
         Me.m_pSC16_TxData__Delegate = AddressOf SC16IS_WIN32__TxData
         For iCounter As Integer = 0 To C_NUM__SC16IS - 1
-            vSC16IS_WIN32__Set_TxData_Callback(iCounter, Me.m_pSC16_TxData__Delegate)
+            vSIL3_SC16IS_WIN32__Set_TxData_Callback(iCounter, Me.m_pSC16_TxData__Delegate)
         Next
 
         Me.m_pAMC7812_DACVolts__Delegate = AddressOf Me.AMC7182_DAC__SetVolts
@@ -699,14 +703,14 @@ Public Class Form1
         vFCU__Init()
 
         'needs to be done due to WIN32_ETH_Init
-        vETH_WIN32__Set_Ethernet_TxCallback(Me.m_pETH_TX__Delegate)
+        vSIL3_ETH_WIN32__Set_Ethernet_TxCallback(Me.m_pETH_TX__Delegate)
 
 
 
 
         'force the two motor positions to random so as we can simulate the cal process
-        vSTEPDRIVE_WIN32__ForcePosition(0, -34)
-        vSTEPDRIVE_WIN32__ForcePosition(1, 175)
+        vSIL3_STEPDRIVE_WIN32__ForcePosition(0, -34)
+        vSIL3_STEPDRIVE_WIN32__ForcePosition(1, 175)
 
         vFCU_BRAKES_MLP_WIN32__ForceADC(0, 0)
         vFCU_BRAKES_MLP_WIN32__ForceADC(1, 0)
@@ -790,7 +794,7 @@ Public Class Form1
     ''' <param name="e"></param>
     Private Sub Timers__T50u_Tick(s As Object, e As MicroTimerEventArgs) 'System.Timers.ElapsedEventArgs)
         If Me.m_bThreadRun = True Then
-            vSTEPDRIVE_TIMEBASE__ISR()
+            vSIL3_STEPDRIVE_TIMEBASE__ISR()
         End If
     End Sub
 
@@ -824,8 +828,8 @@ Public Class Form1
     ''' <param name="e"></param>
     Private Sub Timers__Accel_Tick(s As Object, e As System.Timers.ElapsedEventArgs)
         If Me.m_bThreadRun = True Then
-            vMMA8451_WIN32__TriggerInterrupt(0)
-            vMMA8451_WIN32__TriggerInterrupt(1)
+            vSIL3_MMA8451_WIN32__TriggerInterrupt(0)
+            vSIL3_MMA8451_WIN32__TriggerInterrupt(1)
         End If
     End Sub
 
@@ -959,7 +963,7 @@ Public Class Form1
     ''' <param name="iLength"></param>
     Public Sub InternalEvent__NewPacket(u8Array() As Byte, iLength As Integer)
         If Me.m_bThreadRun = True Then
-            vETH_WIN32__Ethernet_Input(u8Array, iLength)
+            vSIL3_ETH_WIN32__Ethernet_Input(u8Array, iLength)
         End If
     End Sub
 
@@ -1007,10 +1011,7 @@ Public Class Form1
                 u8Buff(iCounter + 14) = u8Payload(iCounter)
             Next
 
-
-
-            vETH_WIN32__Ethernet_Input(u8Buff, u16PayloadLength.To__Uint16 + 14)
-
+            vSIL3_ETH_WIN32__Ethernet_Input(u8Buff, u16PayloadLength.To__Uint16 + 14)
 
         End If
 
@@ -1129,7 +1130,7 @@ Public Class Form1
         u8Array(1) = &H0
         u8Array(2) = 100
 
-        vSC16IS_WIN32__InjectData(6, u8Array, 3)
+        vSIL3_SC16IS_WIN32__InjectData(6, u8Array, 3)
 
 
     End Sub
@@ -1291,7 +1292,7 @@ Public Class Form1
 
         'Inject into SC16
         'channel 7 is the RS485
-        vSC16IS_WIN32__InjectData(7, u8Array, iLength)
+        vSIL3_SC16IS_WIN32__InjectData(7, u8Array, iLength)
 
     End Sub
 #End Region '#Region "ASI"

@@ -1,0 +1,26 @@
+var struct__str_track_database =
+[
+    [ "sDB", "struct__str_track_database.html#af0262ff76f382a50ddcda13cf174fdb8", null ],
+    [ "sRunProfile", "struct__str_track_database.html#abc659ec21330d65dc7fc281991ed5952", null ],
+    [ "u8BrakingSetPointSpeed_mms", "struct__str_track_database.html#acdcbe420b3901f680239e456d68ef9b8", null ],
+    [ "u8BrakingSetPointXPosition_mm", "struct__str_track_database.html#a59e5ecaff3fe6d9f30e4bddb15dafeeb", null ],
+    [ "u8CRC", "struct__str_track_database.html#ae46ae3f12d7df9fb8d1e7eaec63a57b0", null ],
+    [ "u8DataLength", "struct__str_track_database.html#a36d61bdf25200cc317354a281aa4ea93", null ],
+    [ "u8EnableAccels", "struct__str_track_database.html#a4952b753147bba4448eb2ace733a64c3", null ],
+    [ "u8EnableContrast", "struct__str_track_database.html#a47f662a499515deb11bdf47638152aa8", null ],
+    [ "u8EnableLRF", "struct__str_track_database.html#a526b85d07de82a1433855942a7f33d9f", null ],
+    [ "u8Footer", "struct__str_track_database.html#a2cc886c5e917d109b223c7f82389cceb", null ],
+    [ "u8Header", "struct__str_track_database.html#a6863d23c3cca659569f6332223926de9", null ],
+    [ "u8LRFAreaBeginningXPosition_mm", "struct__str_track_database.html#a0ba6b32f2421aa90bba7e5eea0053c86", null ],
+    [ "u8NumberOfSetpoints", "struct__str_track_database.html#a109addc84c86be02e3e239acbd2ce59c", null ],
+    [ "u8NumberOfStripes", "struct__str_track_database.html#ac5d5ed7fb3bd9550132967dd283ada80", null ],
+    [ "u8PodFrontTargetXPosition_mm", "struct__str_track_database.html#a6514da519bd8925bf0dee7956f9e003e", null ],
+    [ "u8PusherFrontEndXPosition_mm", "struct__str_track_database.html#a448f3021d714ef02a7eebd67c7168511", null ],
+    [ "u8PusherFrontStartXPosition_mm", "struct__str_track_database.html#aefc9fb10817092906f906dc24ffb0af4", null ],
+    [ "u8SpareData", "struct__str_track_database.html#a0332e84c0641f5efa2872639bd394515", null ],
+    [ "u8StripeBeginningXPosition_mm", "struct__str_track_database.html#a37500782261bc3d31aa7187edb06e6ac", null ],
+    [ "u8TrackBeginningXPosition_mm", "struct__str_track_database.html#a1744b61c62c7ec2dd2500a2b95f9dfd3", null ],
+    [ "u8TrackEndXPosition_mm", "struct__str_track_database.html#ae2b94d75d76b6bd0b5ffc976f0916b39", null ],
+    [ "u8TrackID", "struct__str_track_database.html#aacb758f901b005ab5e7935499760d5a2", null ],
+    [ "u8Unused", "struct__str_track_database.html#a66088ef390bd58ca5da32596e59c1e3b", null ]
+];
