@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['u8channelindex',['u8ChannelIndex',['../struct__str_d_s18_b20.html#ae2e3c3200e5219afaca01a8968d4227d',1,'_strDS18B20']]],
-  ['u8firstsearched',['u8FirstSearched',['../struct__str_d_s18_b20.html#a988ba1429052301416d76ea665062bf2',1,'_strDS18B20']]],
-  ['u8numdevices',['u8NumDevices',['../struct__str_d_s18_b20.html#aea5e788cc90b2d572d5c9befe6261d87',1,'_strDS18B20']]],
-  ['u8resolution',['u8Resolution',['../struct__str_d_s18_b20.html#a26277b50efa580689475724e64c44972',1,'_strDS18B20']]],
-  ['u8serialnumber',['u8SerialNumber',['../struct__str_d_s18_b20.html#a47f1c69f3297c2070795b94308d8ee5f',1,'_strDS18B20']]],
-  ['u8wirechannelcounter',['u8WireChannelCounter',['../struct__str_d_s18_b20.html#a9ee1c566e0b4f8ca1c3335d345bf23d6',1,'_strDS18B20']]]
+  ['sdevice',['sDevice',['../struct__str_d_s18_b20.html#a40af803449a6643e3b92e0d06b9dbf4d',1,'_strDS18B20']]],
+  ['sds18b20',['sDS18B20',['../group___d_s18_b20_____a_d_d_r_e_s_s.html#gadca23954e6102c303228dc425d4a0c93',1,'sDS18B20():&#160;ds18b20.c'],['../group___d_s18_b20_____c_o_r_e.html#gadca23954e6102c303228dc425d4a0c93',1,'sDS18B20():&#160;ds18b20.c'],['../group___d_s18_b20_____s_c_r_a_t_c_h_p_a_d.html#gadca23954e6102c303228dc425d4a0c93',1,'sDS18B20():&#160;ds18b20.c'],['../group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#gadca23954e6102c303228dc425d4a0c93',1,'sDS18B20():&#160;ds18b20.c']]],
+  ['senum',['sEnum',['../struct__str_d_s18_b20.html#a0c48d183848e7138624ebdec1bea9e3a',1,'_strDS18B20']]],
+  ['ssearch',['sSearch',['../struct__str_d_s18_b20.html#a5984c109e82a563e3765591e1594c298',1,'_strDS18B20']]],
+  ['ssearchstate',['sSearchState',['../struct__str_d_s18_b20.html#a55db8fc16cf18faf6632e0284911a921',1,'_strDS18B20']]],
+  ['stemp',['sTemp',['../struct__str_d_s18_b20.html#a01a57571b671fdbc6cda816fff3f7eac',1,'_strDS18B20']]]
 ];

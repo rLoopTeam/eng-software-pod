@@ -1,6 +1,6 @@
 var NAVTREE =
 [
-  [ "(C Code, MULTICORE, DS18B20 Temp Sensor)", "index.html", [
+  [ "(C Code, MULTICORE, DS18B20 Temperature Sensor)", "index.html", [
     [ "Modules", "modules.html", "modules" ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
@@ -17,7 +17,8 @@ var NAVTREE =
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
-        [ "Enumerator", "globals_eval.html", null ]
+        [ "Enumerator", "globals_eval.html", null ],
+        [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
   ] ]
