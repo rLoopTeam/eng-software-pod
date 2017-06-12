@@ -15,7 +15,7 @@
 #if 0
 
 /*******************************************************************************
-SOFTWARE MULTIPURPOSE FAULT TREE HANDLER
+SIL3 - SOFTWARE MULTIPURPOSE FAULT TREE HANDLER
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM284__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM284__ENABLE_THIS_MODULE == 1U

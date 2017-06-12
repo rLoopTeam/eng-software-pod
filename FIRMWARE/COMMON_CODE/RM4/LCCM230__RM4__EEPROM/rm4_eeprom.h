@@ -37,8 +37,16 @@
 	#define C_LCCM320__FLASH_START_ADDX		0xF0200000U
 	#define C_LCCM320__FLASH_BANK			7U
 	#define C_LCCM320__FLASH_NUM_SECTORS	4U
-	#define C_LCCM320__FLASH_SECTOR_SIZE_BYTES		0x4000U
-	#define C_LCCM320__FLASH_SIZE_U32S		0x1000U
+
+	//#if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
+		//for reasons unknown we erase with 16 bytes left on RM57, so reduce it here
+	//	#define C_LCCM320__FLASH_SECTOR_SIZE_BYTES		0x3FF0U
+	//	#define C_LCCM320__FLASH_SIZE_U32S				0x0FFCU
+	//#else
+		#define C_LCCM320__FLASH_SECTOR_SIZE_BYTES		0x4000U
+		#define C_LCCM320__FLASH_SIZE_U32S				0x1000U
+	//#endif
+
 
 	#define C_LCCM320__FLASH_SECTOR_0__START_ADDX		0xF0200000U
 	#define C_LCCM320__FLASH_SECTOR_1__START_ADDX		0xF0204000U
@@ -67,10 +75,10 @@
 			/** The fault tree structure */
 			FAULT_TREE__PUBLIC_T sFaultTree;
 
-			//are we init?
+			/** are we init?*/
 			Luint8 u8Init;
 
-			//Is our memory buffer dirty?
+			/** Is our memory buffer dirty?*/
 			Luint8 u8Dirty;
 
 		}RM4_EEPROM__T;

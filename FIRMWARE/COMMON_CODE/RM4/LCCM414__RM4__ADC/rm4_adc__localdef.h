@@ -15,7 +15,7 @@
 #if 0
 
 /*******************************************************************************
-ADC Module
+SIL3 - RM4 ADC DRIVER
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
@@ -108,15 +108,15 @@ ADC Module
 		 */
 		#define C_LOCALDEF__LCCM414__ENABLE_VOLTAGE_CALC					(1U)
 
-
+		/** Use interrupts */
 		#define C_LOCALDEF__LCCM414__ENABLE_INTERRUPTS						(0U)
 
+		//testing
 		#define C_LOCALDEF__LCCM414__ENABLE_TEST_SPEC						(0U)
-
-
 
 		//main include file
 		#include <RM4/LCCM414__RM4__ADC/rm4_adc.h>
+
 	#endif //C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE
 
 #endif //0

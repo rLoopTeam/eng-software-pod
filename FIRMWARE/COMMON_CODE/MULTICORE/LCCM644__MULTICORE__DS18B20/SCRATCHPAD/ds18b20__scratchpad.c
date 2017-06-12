@@ -35,7 +35,7 @@ extern struct _strDS18B20 sDS18B20;
  * @param[in]		u16SensorIndex				Address index
  * @return			0 = success\n
  * 					-ve = error
- * @st_funcMD5		0F8658952A33463C9CEB88D97FF1A6EE
+ * @st_funcMD5		52EE3B1DC4AD5F088732B381087DEB59
  * @st_funcID		LCCM644R0.FILE.004.FUNC.002
  */
 Lint16 s16DS18B20_SCRATCH__Write(Luint16 u16SensorIndex, const Luint8 *pu8Scratch)
@@ -127,7 +127,7 @@ Lint16 s16DS18B20_SCRATCH__Write(Luint16 u16SensorIndex, const Luint8 *pu8Scratc
  * @param[in]		u16SensorIndex				The index of the DS2482 device ROM serial number
  * @return			0 = success\n
  * 					-ve = error
- * @st_funcMD5		F5C21A2413EB188C980C35D9929417EC
+ * @st_funcMD5		B6ECFAB157C9085F044808B2C0076213
  * @st_funcID		LCCM644R0.FILE.004.FUNC.001
  */
 Lint16 s16DS18B20_SCRATCH__Read(Luint16 u16SensorIndex, Luint8 *pu8Scratch)

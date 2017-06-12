@@ -100,18 +100,18 @@
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/
-		void vSAFEUDP__Init(void);
-		void vSAFEUDP__Process(void);
-		void vSAFEUDP__100MS_TimerTick(void);
+		void vSIL3_SAFEUDP__Init(void);
+		void vSIL3_SAFEUDP__Process(void);
+		void vSIL3_SAFEUDP__100MS_TimerTick(void);
 		
 		//rx
-		DLL_DECLARATION void vSAFE_UDP_RX__UDPPacket(Luint8 * pu8PacketBuffer, Luint16 u16PacketLength, Luint16 u16DestPort);
+		DLL_DECLARATION void vSIL3_SAFEUDP_RX__UDPPacket(Luint8 * pu8PacketBuffer, Luint16 u16PacketLength, Luint16 u16DestPort);
 		
 		//tx
-		Luint16 s16SAFEUDP_TX__PreCommit(Luint16 u16PayloadLength, SAFE_UDP__PACKET_T ePacketType, Luint8 ** pu8Buffer, Luint8 * pu8BufferIndex);
-		void vSAFEUDP_TX__Commit(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort);
-		void vSAFEUDP_TX__Commit_ZeroCRC(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort);
-		void vSAFEUDP_TX__Commit_WithPayload(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort, Luint32 u32ExtraLength, Luint32 u32ExtraAddx);
+		Luint16 s16SIL3_SAFEUDP_TX__PreCommit(Luint16 u16PayloadLength, SAFE_UDP__PACKET_T ePacketType, Luint8 ** pu8Buffer, Luint8 * pu8BufferIndex);
+		void vSIL3_SAFEUDP_TX__Commit(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort);
+		void vSIL3_SAFEUDP_TX__Commit_ZeroCRC(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort);
+		void vSIL3_SAFEUDP_TX__Commit_WithPayload(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort, Luint32 u32ExtraLength, Luint32 u32ExtraAddx);
 
 		//sequence
 		void vSAFEUDP_SEQ__Init(void);

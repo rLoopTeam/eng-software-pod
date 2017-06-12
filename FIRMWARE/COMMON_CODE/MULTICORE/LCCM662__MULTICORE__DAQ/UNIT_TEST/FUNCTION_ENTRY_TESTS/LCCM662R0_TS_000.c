@@ -45,37 +45,37 @@ void vLCCM662R0_TS_000_TCASE_001(void)
 	DEBUG_PRINT("START:LCCM662R0.TS.000.TCASE.001\r\n");
 
 	//setup
-	vDAQ__Init();
+	vSIL3_DAQ__Init();
 
 	//switch on streaming
-	vDAQ__Streaming_On();
+	vSIL3_DAQ__Streaming_On();
 
 	//Call the target function
 	u16Index = 0U;
 	u8Value = 0xAA;
 	for (u16Counter = 0U; u16Counter < C_LOCALDEF__LCCM662__BUFFER_WATERMARK_LEVEL*4; u16Counter++)
 	{
-		vDAQ_APPEND__U8(u16Index, (Luint8)u16Counter);
+		vSIL3_DAQ_APPEND__U8(u16Index, (Luint8)u16Counter);
 	}
 
 	//add one more
-	vDAQ_APPEND__U8(u16Index, 0xBB);
+	vSIL3_DAQ_APPEND__U8(u16Index, 0xBB);
 	
 	u16Index = 1U;
 	for (u16Counter = 0U; u16Counter < C_LOCALDEF__LCCM662__BUFFER_WATERMARK_LEVEL; u16Counter++)
 	{
-		vDAQ_APPEND__F32(u16Index, (Lfloat32)u16Counter);
+		vSIL3_DAQ_APPEND__F32(u16Index, (Lfloat32)u16Counter);
 	}
 
 	//add one more
-	vDAQ_APPEND__F32(u16Index, 999.999F);
+	vSIL3_DAQ_APPEND__F32(u16Index, 999.999F);
 
 	#ifdef WIN32
 		sDAQ.sWIN32.u8NewPacket[0] = 0U;
 
 		do
 		{
-			vDAQ__Process();
+			vSIL3_DAQ__Process();
 
 		} while (sDAQ.sWIN32.u8NewPacket[0] == 0U);
 
@@ -102,9 +102,9 @@ void vLCCM662R0_TS_000_TCASE_001(void)
 		}
 	#else	
 		//do a bit of processing
-		vDAQ__Process();
-		vDAQ__Process();
-		vDAQ__Process();
+		vSIL3_DAQ__Process();
+		vSIL3_DAQ__Process();
+		vSIL3_DAQ__Process();
 	#endif
 
 

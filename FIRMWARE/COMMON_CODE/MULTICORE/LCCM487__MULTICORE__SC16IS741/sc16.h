@@ -182,71 +182,71 @@
 		*******************************************************************************/
 
 		//sc16.c
-		void vSC16__Init(Luint8 u8DeviceIndex);
-		void vSC16__Process(Luint8 u8DeviceIndex);
-		Luint8 u8SC16__Get_NewDataAvalible(Luint8 u8DeviceIndex);
-		Luint32 u32SC16__Get_FaultFlags(Luint8 u8DeviceIndex);
-		void vSC16__Clear_ErrorFlagStatus(Luint8 u8DeviceIndex);
-		void vSC16__Clear_NewDataAvalible(Luint8 u8DeviceIndex);
-		void vSC16__Clear_Rx_Byetes(Luint8 u8DeviceIndex);
-		Luint8 u8SC16_USER__Is_TxAvail(Luint8 u8DeviceIndex);
-		Luint8 u8SC16_USER__Get_ByteAvail(Luint8 u8DeviceIndex);
-		Luint8 u8SC16_USER__Get_Byte(Luint8 u8DeviceIndex);
-		void vSC16__Tx_ByteArray(Luint8 u8DeviceIndex, Luint8 *pu8Data, Luint8 u8ArrayLength);
+		void vSIL3_SC16__Init(Luint8 u8DeviceIndex);
+		void vSIL3_SC16__Process(Luint8 u8DeviceIndex);
+		Luint8 u8SIL3_SC16__Get_NewDataAvalible(Luint8 u8DeviceIndex);
+		Luint32 u32SIL3_SC16__Get_FaultFlags(Luint8 u8DeviceIndex);
+		void vSIL3_SC16__Clear_ErrorFlagStatus(Luint8 u8DeviceIndex);
+		void vSIL3_SC16__Clear_NewDataAvalible(Luint8 u8DeviceIndex);
+		void vSIL3_SC16__Clear_Rx_Byetes(Luint8 u8DeviceIndex);
+		Luint8 u8SIL3_SC16_USER__Is_TxAvail(Luint8 u8DeviceIndex);
+		Luint8 u8SIL3_SC16_USER__Get_ByteAvail(Luint8 u8DeviceIndex);
+		Luint8 u8SIL3_SC16_USER__Get_Byte(Luint8 u8DeviceIndex);
+		void vSIL3_SC16__Tx_ByteArray(Luint8 u8DeviceIndex, Luint8 *pu8Data, Luint8 u8ArrayLength);
 
 
 		//Interrupt
-		void vSC16_INT__Init(Luint8 u8DeviceIndex);
-		void vSC16_INT__Process(Luint8 u8DeviceIndex);
-		void vSC16_INT__Handle_ISR(Luint8 u8DeviceIndex);
-		void vSC16_INT__Enable_Xoff_Interrupt(Luint8 u8DeviceIndex, Luint8 u8Enable);
-		void vSC16_INT__Enable_Rx_DataAvalibleInterupt(Luint8 u8DeviceIndex, Luint8 u8Enable);
-		void vSC16_INT__Capture_ISR(Luint8 u8DeviceIndex);
-		Luint8 u8SC16_INT__Read_Interupt_Status(Luint8 u8DeviceIndex);
-		Luint8 u8SC16_INT__Read_Line_StatusReg(Luint8 u8DeviceIndex);
-		Luint8 u8SC16_INT__Read_Line_Status(Luint8 u8DeviceIndex);
+		void vSIL3_SC16_INT__Init(Luint8 u8DeviceIndex);
+		void vSIL3_SC16_INT__Process(Luint8 u8DeviceIndex);
+		void vSIL3_SC16_INT__Handle_ISR(Luint8 u8DeviceIndex);
+		void vSIL3_SC16_INT__Enable_Xoff_Interrupt(Luint8 u8DeviceIndex, Luint8 u8Enable);
+		void vSIL3_SC16_INT__Enable_Rx_DataAvalibleInterupt(Luint8 u8DeviceIndex, Luint8 u8Enable);
+		void vSIL3_SC16_INT__Capture_ISR(Luint8 u8DeviceIndex);
+		Luint8 u8SIL3_SC16_INT__Read_Interupt_Status(Luint8 u8DeviceIndex);
+		Luint8 u8SIL3_SC16_INT__Read_Line_StatusReg(Luint8 u8DeviceIndex);
+		Luint8 u8SIL3_SC16_INT__Read_Line_Status(Luint8 u8DeviceIndex);
 
 
 		//Registers
-		void vSC16_REGISTERS__Edit_Register(Luint8 u8DeviceIndex, Luint8 u8MasterRegisterAddress, Luint8 u8SlaveRegisterAddress,Luint8 u8BitPosMasterReg ,Luint8 u8BitPosSlaveReg, Luint8 u8MasterBitStatus, Luint8 u8SlaveBitStatus);
-		Luint8 u8SC16_REGISTERS__Read_Register(Luint8 u8DeviceIndex, Luint8 u8MasterRegisterAddress, Luint8 u8BitPosMasterReg, Luint8 u8MasterBitStatus, Luint8 u8SlaveRegisterAddress);
+		void vSIL3_SC16_REGISTERS__Edit_Register(Luint8 u8DeviceIndex, Luint8 u8MasterRegisterAddress, Luint8 u8SlaveRegisterAddress,Luint8 u8BitPosMasterReg ,Luint8 u8BitPosSlaveReg, Luint8 u8MasterBitStatus, Luint8 u8SlaveBitStatus);
+		Luint8 u8SIL3_SC16_REGISTERS__Read_Register(Luint8 u8DeviceIndex, Luint8 u8MasterRegisterAddress, Luint8 u8BitPosMasterReg, Luint8 u8MasterBitStatus, Luint8 u8SlaveRegisterAddress);
 
 		//Fifo
-		void vSC16_FIFO___Enable_FIFOs(Luint8 u8DeviceIndex, Luint8 u8Enable);
-		void vSC16_FIFO__Reset_Rx_FIFO(Luint8 u8DeviceIndex, Luint8 u8Reset);
-		void vSC16_FIFO__Reset_Tx_FIFO(Luint8 u8DeviceIndex, Luint8 u8Reset);
+		void vSIL3_SC16_FIFO___Enable_FIFOs(Luint8 u8DeviceIndex, Luint8 u8Enable);
+		void vSIL3_SC16_FIFO__Reset_Rx_FIFO(Luint8 u8DeviceIndex, Luint8 u8Reset);
+		void vSIL3_SC16_FIFO__Reset_Tx_FIFO(Luint8 u8DeviceIndex, Luint8 u8Reset);
 
 		//Flowcontrol
-		void vSC16_FLOWCONTROL__Enable_EnhancedFeatures(Luint8 u8DeviceIndex, Luint8 u8Enable);
-		void vSC16_FLOWCONTROL__Enable_SpecialCharacterDetect(Luint8 u8DeviceIndex, Luint8 u8Enable);
-		void vSC16_FLOWCONTROL__Enable_ProgTriggerLvlRegister(Luint8 u8DeviceIndex, Luint8 u8Enable);
-		void vSC16_FLOWCONTROL__Enable_Parity(Luint8 u8DeviceIndex, Luint8 u8Enable);
-		void vSC16_FLOWCONTROL__Set_ProgTriggerlvlRegister(Luint8 u8DeviceIndex, Luint8 u8Triglevels);
-		void vSC16_FLOWCONTROL__Set_RxTrigger_Level(Luint8 u8DeviceIndex, Luint8 u8Rxlevel);
-		void vSC16_FLOWCONTROL__Set_SpecialCharacter(Luint8 u8DeviceIndex, Luint8 u8Character);
+		void vSIL3_SC16_FLOWCONTROL__Enable_EnhancedFeatures(Luint8 u8DeviceIndex, Luint8 u8Enable);
+		void vSIL3_SC16_FLOWCONTROL__Enable_SpecialCharacterDetect(Luint8 u8DeviceIndex, Luint8 u8Enable);
+		void vSIL3_SC16_FLOWCONTROL__Enable_ProgTriggerLvlRegister(Luint8 u8DeviceIndex, Luint8 u8Enable);
+		void vSIL3_SC16_FLOWCONTROL__Enable_Parity(Luint8 u8DeviceIndex, Luint8 u8Enable);
+		void vSIL3_SC16_FLOWCONTROL__Set_ProgTriggerlvlRegister(Luint8 u8DeviceIndex, Luint8 u8Triglevels);
+		void vSIL3_SC16_FLOWCONTROL__Set_RxTrigger_Level(Luint8 u8DeviceIndex, Luint8 u8Rxlevel);
+		void vSIL3_SC16_FLOWCONTROL__Set_SpecialCharacter(Luint8 u8DeviceIndex, Luint8 u8Character);
 
-		Luint8 u8SC16_FLOWCONTROL__Read_Rx_FillLevel(Luint8 u8DeviceIndex);
-		Luint8 u8SC16_FLOWCONTROL__Read_Tx_FillLevel(Luint8 u8DeviceIndex);
+		Luint8 u8SIL3_SC16_FLOWCONTROL__Read_Rx_FillLevel(Luint8 u8DeviceIndex);
+		Luint8 u8SIL3_SC16_FLOWCONTROL__Read_Tx_FillLevel(Luint8 u8DeviceIndex);
 
 		//Loopback
-		void vSC16_LOOPBACK__Enable_Rx_Loopback(Luint8 u8DeviceIndex, Luint8 u8Enable);
+		void vSIL3_SC16_LOOPBACK__Enable_Rx_Loopback(Luint8 u8DeviceIndex, Luint8 u8Enable);
 
 		//Baud
-		void vSC16_BAUD__Set_BaudRate(Luint8 u8DeviceIndex, Luint8 u8InputClockFreq, Luint32 u32Baudrate, Luint8 u8Prescalar);
-		void vSC16_BAUD__Set_Stopbits(Luint8 u8DeviceIndex, Luint8 u8StopBit);
-		void vSC16_BAUD__Set_Wordlength(Luint8 u8DeviceIndex, Luint8 u8Wordlength);
+		void vSIL3_SC16_BAUD__Set_BaudRate(Luint8 u8DeviceIndex, Luint8 u8InputClockFreq, Luint32 u32Baudrate, Luint8 u8Prescalar);
+		void vSIL3_SC16_BAUD__Set_Stopbits(Luint8 u8DeviceIndex, Luint8 u8StopBit);
+		void vSIL3_SC16_BAUD__Set_Wordlength(Luint8 u8DeviceIndex, Luint8 u8Wordlength);
 
 		//low level.c
-		void vSC16_LOWLEVEL__Init(Luint8 u8DeviceIndex);
-		void vSC16_LOWLEVEL__Reg_Write(Luint8 u8DeviceIndex, Luint8 u8RegAddress,Luint8 u8RegData);
-		Luint8 u8SC16_LOWLEVEL__Reg_Read(Luint8 u8DeviceIndex, Luint8 u8RegAddress);
-		void vSC16_LOWLEVEL__FIFO_Write(Luint8 u8DeviceIndex, Luint8 *u8Data, Luint8 u8DataLength);
-		void vSC16_LOWLEVEL__FIFO_Read(Luint8 u8DeviceIndex);
+		void vSIL3_SC16_LOWLEVEL__Init(Luint8 u8DeviceIndex);
+		void vSIL3_SC16_LOWLEVEL__Reg_Write(Luint8 u8DeviceIndex, Luint8 u8RegAddress,Luint8 u8RegData);
+		Luint8 u8SIL3_SC16_LOWLEVEL__Reg_Read(Luint8 u8DeviceIndex, Luint8 u8RegAddress);
+		void vSIL3_SC16_LOWLEVEL__FIFO_Write(Luint8 u8DeviceIndex, Luint8 *u8Data, Luint8 u8DataLength);
+		void vSIL3_SC16_LOWLEVEL__FIFO_Read(Luint8 u8DeviceIndex);
 
 		#ifdef WIN32
-			DLL_DECLARATION void vSC16IS_WIN32__Set_TxData_Callback(Luint8 u8DeviceIndex, pSC16IS_WIN32_TxData_Callback_FuncType pFunc);
+			DLL_DECLARATION void vSIL3_SC16IS_WIN32__Set_TxData_Callback(Luint8 u8DeviceIndex, pSC16IS_WIN32_TxData_Callback_FuncType pFunc);
 			void vSC16IS_WIN32__TxData(Luint8 u8DeviceIndex, Luint8 *pu8Data, Luint8 u8Length);
-			DLL_DECLARATION void vSC16IS_WIN32__InjectData(Luint8 u8DeviceIndex, Luint8 *pu8Data, Luint8 u8Length);
+			DLL_DECLARATION void vSIL3_SC16IS_WIN32__InjectData(Luint8 u8DeviceIndex, Luint8 *pu8Data, Luint8 u8Length);
 		#endif
 
 		//testing

@@ -14,6 +14,13 @@
 #ifndef _RM4_EMAC_PRIV_H_
 #define _RM4_EMAC_PRIV_H_
 
+	/** Abs max buffer size in bytes */
+	//#define C_RM4_EMAC__MAX_BUFFER_SIZE_BYTES				(1514U)
+	//report as 1536 for alingment
+	#define C_RM4_EMAC__MAX_BUFFER_SIZE_BYTES				(1536U)
+	#define C_RM4_EMAC__MAX_TX_BUFFERS						(4U)
+	#define C_RM4_EMAC__MAX_RX_BUFFERS						(8U)
+
 
 	#define EMAC_BASE			 (0xFCF78000U)
 	#define EMAC_CTRL_BASE		 (0xFCF78800U)

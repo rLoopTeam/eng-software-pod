@@ -282,7 +282,7 @@ Luint8 u8ATA6870_BALANCE__Handle(Luint8 u8DeviceIndex, Luint8 u8CellCounter, Lui
 
 	//If one cell voltage is above average
 	//Note: this could induce a bias.
-	u8Temp = u8NUMERICAL_TOLERANCE__F32(sATA6870.f32Voltage[u8CellIndex], sATA6870.f32AverageCellVoltage, sATA6870.sBalance.f32BalanceTolerance);
+	u8Temp = u8SIL3_NUM_TOLERANCE__F32(sATA6870.f32Voltage[u8CellIndex], sATA6870.f32AverageCellVoltage, sATA6870.sBalance.f32BalanceTolerance);
 	if(u8Temp == 0U)
 	{
 		//make sure we are actually greater

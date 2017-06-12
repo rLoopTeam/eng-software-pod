@@ -19,10 +19,6 @@ DS2482S - I2C TO 1-WIRE CONVERTER
 	#define C_LOCALDEF__LCCM641__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM641__ENABLE_THIS_MODULE == 1U
 
-		//CPU Architecture
-		#define C_LOCALDEF__LCCM641__USE_ON_RM4								(0U)
-		#define C_LOCALDEF__LCCM641__USE_ON_MSP430							(0U)
-
 		/** Max number of DS2482 devices on the same I2C Bus */
 		#define C_LOCALDEF__LCCM641__NUM_DEVICS								(1U)
 

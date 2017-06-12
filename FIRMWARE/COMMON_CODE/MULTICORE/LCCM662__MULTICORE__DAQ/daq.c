@@ -35,10 +35,10 @@ struct _strDAQ sDAQ;
  * Init the DAQ module
  * To be called early in the program.
  * 
- * @st_funcMD5		581A85E93EA1B2F3B62DF5E352EEE712
+ * @st_funcMD5		B410D8BC951DF82A75D71AD117A809EA
  * @st_funcID		LCCM662R0.FILE.000.FUNC.001
  */
-void vDAQ__Init(void)
+void vSIL3_DAQ__Init(void)
 {
 
 	Luint16 u16Counter;
@@ -58,7 +58,7 @@ void vDAQ__Init(void)
 	for(u16Counter = 0U; u16Counter < C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U8; u16Counter++)
 	{
 		sDAQ.u16WatermarkLevel[u16Counter2] = C_LOCALDEF__LCCM662__BUFFER_WATERMARK_LEVEL * 4U;
-		vSOFTFIFO__Init(&sDAQ.sFIFO[u16Counter2], C_LOCALDEF__LCCM662__MAX_DAQ_BUFFER_BLOCKS * 4U);
+		vSIL3_SOFTFIFO__Init(&sDAQ.sFIFO[u16Counter2], C_LOCALDEF__LCCM662__MAX_DAQ_BUFFER_BLOCKS * 4U);
 		sDAQ.u8SizeMultiplier[u16Counter2] = 1U;
 		//inc the global counter
 		u16Counter2++;
@@ -68,7 +68,7 @@ void vDAQ__Init(void)
 	for(u16Counter = 0U; u16Counter < C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S16; u16Counter++)
 	{
 		sDAQ.u16WatermarkLevel[u16Counter2] = C_LOCALDEF__LCCM662__BUFFER_WATERMARK_LEVEL * 2U;
-		vSOFTFIFO__Init(&sDAQ.sFIFO[u16Counter2], C_LOCALDEF__LCCM662__MAX_DAQ_BUFFER_BLOCKS * 2U);
+		vSIL3_SOFTFIFO__Init(&sDAQ.sFIFO[u16Counter2], C_LOCALDEF__LCCM662__MAX_DAQ_BUFFER_BLOCKS * 2U);
 		sDAQ.u8SizeMultiplier[u16Counter2] = 2U;
 		//inc the global counter
 		u16Counter2++;
@@ -78,7 +78,7 @@ void vDAQ__Init(void)
 	for(u16Counter = 0U; u16Counter < C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U16; u16Counter++)
 	{
 		sDAQ.u16WatermarkLevel[u16Counter2] = C_LOCALDEF__LCCM662__BUFFER_WATERMARK_LEVEL * 2U;
-		vSOFTFIFO__Init(&sDAQ.sFIFO[u16Counter2], C_LOCALDEF__LCCM662__MAX_DAQ_BUFFER_BLOCKS * 2U);
+		vSIL3_SOFTFIFO__Init(&sDAQ.sFIFO[u16Counter2], C_LOCALDEF__LCCM662__MAX_DAQ_BUFFER_BLOCKS * 2U);
 		sDAQ.u8SizeMultiplier[u16Counter2] = 2U;
 		//inc the global counter
 		u16Counter2++;
@@ -88,7 +88,7 @@ void vDAQ__Init(void)
 	for(u16Counter = 0U; u16Counter < C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S32; u16Counter++)
 	{
 		sDAQ.u16WatermarkLevel[u16Counter2] = C_LOCALDEF__LCCM662__BUFFER_WATERMARK_LEVEL;
-		vSOFTFIFO__Init(&sDAQ.sFIFO[u16Counter2], C_LOCALDEF__LCCM662__MAX_DAQ_BUFFER_BLOCKS);
+		vSIL3_SOFTFIFO__Init(&sDAQ.sFIFO[u16Counter2], C_LOCALDEF__LCCM662__MAX_DAQ_BUFFER_BLOCKS);
 		sDAQ.u8SizeMultiplier[u16Counter2] = 4U;
 		//inc the global counter
 		u16Counter2++;
@@ -98,7 +98,7 @@ void vDAQ__Init(void)
 	for(u16Counter = 0U; u16Counter < C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U32; u16Counter++)
 	{
 		sDAQ.u16WatermarkLevel[u16Counter2] = C_LOCALDEF__LCCM662__BUFFER_WATERMARK_LEVEL;
-		vSOFTFIFO__Init(&sDAQ.sFIFO[u16Counter2], C_LOCALDEF__LCCM662__MAX_DAQ_BUFFER_BLOCKS);
+		vSIL3_SOFTFIFO__Init(&sDAQ.sFIFO[u16Counter2], C_LOCALDEF__LCCM662__MAX_DAQ_BUFFER_BLOCKS);
 		sDAQ.u8SizeMultiplier[u16Counter2] = 4U;
 		//inc the global counter
 		u16Counter2++;
@@ -108,7 +108,7 @@ void vDAQ__Init(void)
 	for(u16Counter = 0U; u16Counter < C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__F32; u16Counter++)
 	{
 		sDAQ.u16WatermarkLevel[u16Counter2] = C_LOCALDEF__LCCM662__BUFFER_WATERMARK_LEVEL;
-		vSOFTFIFO__Init(&sDAQ.sFIFO[u16Counter2], C_LOCALDEF__LCCM662__MAX_DAQ_BUFFER_BLOCKS);
+		vSIL3_SOFTFIFO__Init(&sDAQ.sFIFO[u16Counter2], C_LOCALDEF__LCCM662__MAX_DAQ_BUFFER_BLOCKS);
 		sDAQ.u8SizeMultiplier[u16Counter2] = 4U;
 		//inc the global counter
 		u16Counter2++;
@@ -136,7 +136,7 @@ void vDAQ__Init(void)
 	}
 	
 	//init the append module
-	vDAQ_APPEND__Init();
+	vSIL3_DAQ_APPEND__Init();
 
 	//init the sates
 	sDAQ.eMainState = DAQ_STATE__IDLE;
@@ -153,10 +153,10 @@ void vDAQ__Init(void)
  * Sould make sure the transport mechanism (such as eth) is up before
  * processing any data.
  * 
- * @st_funcMD5		5DC7EDD39B36457CC06C98AD46AED619
+ * @st_funcMD5		90C4D1787121A78BCD8EBB02437A09E5
  * @st_funcID		LCCM662R0.FILE.000.FUNC.002
  */
-void vDAQ__Process(void)
+void vSIL3_DAQ__Process(void)
 {
 	Luint16 u16Counter;
 	Lint16 s16Return;
@@ -210,7 +210,7 @@ void vDAQ__Process(void)
 			{
 				//get the buffer pointer.
 				pu8Temp = 0;
-				s16Return = s16DAQ_APPEND__Index_to_BufferPointer(sDAQ.u16ProcessPoint, &pu8Temp);
+				s16Return = s16SIL3_DAQ_APPEND__Index_to_BufferPointer(sDAQ.u16ProcessPoint, &pu8Temp);
 				if(s16Return == 0)
 				{
 					//copy our length
@@ -235,7 +235,7 @@ void vDAQ__Process(void)
 
 						//empty the fifo now
 						//risk here is we get another entry while drainging, so use flush.
-						s16SOFTFIFO__PopMany(&sDAQ.sFIFO[sDAQ.u16ProcessPoint], u16Burst);
+						s16SIL3_SOFTFIFO__PopMany(&sDAQ.sFIFO[sDAQ.u16ProcessPoint], u16Burst);
 
 						//clear.
 						sDAQ.u8WatermarkFlag[sDAQ.u16ProcessPoint] = 0U;
@@ -294,7 +294,14 @@ void vDAQ__Process(void)
 
 //this will force the DAQ to transmit what is in its buffers.
 //Useful for getting the last packet of data or flushing after a run.
-void vDAQ__ForceFlush(void)
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		3D7159BCDD5CA2DD5868A3A997AC65BE
+ * @st_funcID		LCCM662R0.FILE.000.FUNC.009
+ */
+void vSIL3_DAQ__ForceFlush(void)
 {
 	Luint16 u16Counter;
 
@@ -312,10 +319,10 @@ void vDAQ__ForceFlush(void)
  * 
  * @param[in]		u16Type					Packet type
  * @param[in]		u16Index				Stream Index
- * @st_funcMD5		FDF58A2B7B3E921E1B031DC14AFEF139
+ * @st_funcMD5		D056C0C49A29017A501FB7BE0CDC726B
  * @st_funcID		LCCM662R0.FILE.000.FUNC.004
  */
-void vDAQ__Config_UserPacketType(Luint16 u16Index, Luint16 u16Type)
+void vSIL3_DAQ__Config_UserPacketType(Luint16 u16Index, Luint16 u16Type)
 {
 	if(u16Index < M_DAQ__NUM_CHANNELS)
 	{
@@ -335,10 +342,10 @@ void vDAQ__Config_UserPacketType(Luint16 u16Index, Luint16 u16Type)
  * @brief
  * Call this to enable the append systems to work
  * 
- * @st_funcMD5		4FF6B9000EF17A6B31BFBE78D0FDA6C0
+ * @st_funcMD5		B7044EB3CED0B26CC84FCC8DE9ADD186
  * @st_funcID		LCCM662R0.FILE.000.FUNC.005
  */
-void vDAQ__Streaming_On(void)
+void vSIL3_DAQ__Streaming_On(void)
 {
 	sDAQ.u8StreamingOn = 1U;
 
@@ -348,10 +355,10 @@ void vDAQ__Streaming_On(void)
  * @brief
  * Set this to off when you want to to allow streaming any more
  * 
- * @st_funcMD5		C2E19705FF8709A65750535A037F75CA
+ * @st_funcMD5		3808023010BF9B42433CCF1D0CA1D1AB
  * @st_funcID		LCCM662R0.FILE.000.FUNC.006
  */
-void vDAQ__Streaming_Off(void)
+void vSIL3_DAQ__Streaming_Off(void)
 {
 	sDAQ.u8StreamingOn = 0U;
 
@@ -361,10 +368,10 @@ void vDAQ__Streaming_Off(void)
  * @brief
  * Return the system level timer / time stamp system
  * 
- * @st_funcMD5		75F1C1FF5FC5481D6567E85928D769FA
+ * @st_funcMD5		5F1406D4982D87ACF9D12BE3093FC76E
  * @st_funcID		LCCM662R0.FILE.000.FUNC.003
  */
-Luint32 u32DAQ__Get_SystemTimer(void)
+Luint32 u32SIL3_DAQ__Get_SystemTimer(void)
 {
 	return 0;
 }
@@ -374,10 +381,10 @@ Luint32 u32DAQ__Get_SystemTimer(void)
  * Get the current FIFO fill level for a particular index for debug
  * 
  * @param[in]		u16Index			The stream index
- * @st_funcMD5		A92421C110892A54E527939075EA311B
+ * @st_funcMD5		3744B6AA814D06E45A93130C7CCF562D
  * @st_funcID		LCCM662R0.FILE.000.FUNC.007
  */
-Luint16 u16DAQ__Get_FIFO_Level(Luint16 u16Index)
+Luint16 u16SIL3_DAQ__Get_FIFO_Level(Luint16 u16Index)
 {
 	return sDAQ.sFIFO[u16Index].uFIFO_FillLevel;
 }
@@ -387,10 +394,10 @@ Luint16 u16DAQ__Get_FIFO_Level(Luint16 u16Index)
  * Ge the max FIFO capacity for a particular stream
  * 
  * @param[in]		u16Index			Stream index
- * @st_funcMD5		A8C7E9FA65D90623397A37522848F58C
+ * @st_funcMD5		5D5CE51E235E92CF20C1BD99C07B937A
  * @st_funcID		LCCM662R0.FILE.000.FUNC.008
  */
-Luint16 u16DAQ__Get_FIFO_Max(Luint16 u16Index)
+Luint16 u16SIL3_DAQ__Get_FIFO_Max(Luint16 u16Index)
 {
 	Lint16 u16Return;
 	Luint16 u16Temp;

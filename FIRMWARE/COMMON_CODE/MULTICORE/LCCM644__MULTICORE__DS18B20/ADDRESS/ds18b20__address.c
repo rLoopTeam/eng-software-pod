@@ -57,7 +57,7 @@ void vDS18B20_ADDX__Init(void)
  * THIS IS VERY SLOW.  Several hundred sensors can take minutes to search.
  * If this is a problem, use the state machine based search.
  *
- * @st_funcMD5		03D56F57CC4B53C6E8DDFB5E41E53B27
+ * @st_funcMD5		A29BD1F5A740D7EA38AE9A030E31CD3C
  * @st_funcID		LCCM644R0.FILE.006.FUNC.001
  */
 Lint16 s16DS18B20_ADDX__Search(void)
@@ -226,7 +226,7 @@ void vDS18B20_ADDX__SearchSM_Start(void)
  * @brief
  * State machine based search processing
  * 
- * @st_funcMD5		43A0A3E0F1548582B19735246BA11219
+ * @st_funcMD5		F7F902346C82873CE29501020DBEEB95
  * @st_funcID		LCCM644R0.FILE.006.FUNC.004
  */
 void vDS18B20_ADDX__SearchSM_Process(void)
@@ -396,7 +396,7 @@ void vDS18B20_ADDX__SearchSM_Process(void)
  * @param[in]		u16SensorIndex					The index in the device table.
  * @return			0 = success\n
  *					-ve = error
- * @st_funcMD5		C5F366E226D6FBF235ACD5DE610D696C
+ * @st_funcMD5		21F28A4FA133EF1963EF7420F9D9C610
  * @st_funcID		LCCM644R0.FILE.006.FUNC.006
  */
 Lint16 s16DS18B20_ADDX__Upload_Addx(Luint16 u16SensorIndex, Luint8 u8ChannelIndex, Luint8 *pu8Addx)
@@ -443,7 +443,7 @@ Lint16 s16DS18B20_ADDX__Upload_Addx(Luint16 u16SensorIndex, Luint8 u8ChannelInde
  * Returns the number of enumerated devices.
  * 
  * @return			The num enumerated, or manually added devices
- * @st_funcMD5		78A160EF3A561E598B4CEED556011A47
+ * @st_funcMD5		1CC8B643F965C7887D353F4F7B67834C
  * @st_funcID		LCCM644R0.FILE.006.FUNC.007
  */
 Luint16 u16DS18B20_ADDX__Get_NumEnumerated(void)
@@ -453,6 +453,13 @@ Luint16 u16DS18B20_ADDX__Get_NumEnumerated(void)
 
 
 //if you are manually loading up addresses, set this to 1 after the manual load.
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		22A9E4CBE5418EA19321E886A3E13E8F
+ * @st_funcID		LCCM644R0.FILE.006.FUNC.008
+ */
 void vDS18B20_ADDX__Set_SearchComplete(void)
 {
 	sDS18B20.sSearch.u8SearchCompleted = 1U;

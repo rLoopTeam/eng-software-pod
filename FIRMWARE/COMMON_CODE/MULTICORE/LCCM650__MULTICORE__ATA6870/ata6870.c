@@ -204,7 +204,7 @@ void vATA6870__Process(void)
 			#if C_LOCALDEF__LCCM650__AVERAGE_WINDOW > 0U
 
 				//do the filtering
-				sATA6870.f32FiltVoltage[sATA6870.u16FilteringChannel] = f32NUMERICAL_FILTERING__Add_F32(sATA6870.f32Voltage[sATA6870.u16FilteringChannel],
+				sATA6870.f32FiltVoltage[sATA6870.u16FilteringChannel] = f32SIL3_NUM_FILTERING__Add_F32(sATA6870.f32Voltage[sATA6870.u16FilteringChannel],
 																									&sATA6870.u16AverageCounter[sATA6870.u16FilteringChannel],
 																									C_LOCALDEF__LCCM650__AVERAGE_WINDOW,
 																									&sATA6870.f32VoltagesBuffer[sATA6870.u16FilteringChannel][0]);

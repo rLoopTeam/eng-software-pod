@@ -30,7 +30,7 @@
  * Generate a reset
  * 
  * @param[in]		u8ChannelIndex			Index of 1-wire interface
- * @st_funcMD5		CDB3958614F79B28CB59ED3A211CC8AC
+ * @st_funcMD5		2CAA2D1D51A8A30B1F02BB384899DC15
  * @st_funcID		LCCM644R0.FILE.007.FUNC.001
  */
 Lint16 s16DS18B20_1WIRE__Generate_Reset(Luint8 u8ChannelIndex)
@@ -55,7 +55,7 @@ Lint16 s16DS18B20_1WIRE__Generate_Reset(Luint8 u8ChannelIndex)
  * 
  * @param[in]		*pu8Addx				Device addx
  * @param[in]		u8ChannelIndex			Index of 1-wire interface
- * @st_funcMD5		00E8C63D899BECC89CE14F45B9FF31BF
+ * @st_funcMD5		06998B55144CC01375E2AC8A1EB245D4
  * @st_funcID		LCCM644R0.FILE.007.FUNC.002
  */
 Lint16 s16DS18B20_1WIRE__SelectDevice(Luint8 u8ChannelIndex, Luint8 *pu8Addx)
@@ -78,7 +78,7 @@ Lint16 s16DS18B20_1WIRE__SelectDevice(Luint8 u8ChannelIndex, Luint8 *pu8Addx)
  * 
  * @param[in]		u8Byte					The byte value to write
  * @param[in]		u8ChannelIndex			Index of 1-wire interface
- * @st_funcMD5		488FA3234797EB76B772F4E003958BA9
+ * @st_funcMD5		D1029FDB0323D178BEB48CED2EBBACD3
  * @st_funcID		LCCM644R0.FILE.007.FUNC.003
  */
 Lint16 s16DS18B20_1WIRE__WriteByte(Luint8 u8ChannelIndex, Luint8 u8Byte)
@@ -102,7 +102,7 @@ Lint16 s16DS18B20_1WIRE__WriteByte(Luint8 u8ChannelIndex, Luint8 u8Byte)
  * 
  * @param[out]		*pu8Byte				Returned byte if found
  * @param[in]		u8ChannelIndex			Index of 1-wire interface
- * @st_funcMD5		AFA59D986F8FC766E12551D1B6F84FA2
+ * @st_funcMD5		4003C7393E488C897BD8C3A529BA45FB
  * @st_funcID		LCCM644R0.FILE.007.FUNC.004
  */
 Lint16 s16DS18B20_1WIRE__ReadByte(Luint8 u8ChannelIndex, Luint8 *pu8Byte)
@@ -126,7 +126,7 @@ Lint16 s16DS18B20_1WIRE__ReadByte(Luint8 u8ChannelIndex, Luint8 *pu8Byte)
  * 
  * @param[out]		*pu8Addx				Returned address if found
  * @param[in]		u8ChannelIndex			Index of 1-wire interface
- * @st_funcMD5		43176838A53AF5897D5E3470907352DD
+ * @st_funcMD5		82C98C519B4B0C31BD1FFADA610F054B
  * @st_funcID		LCCM644R0.FILE.007.FUNC.005
  */
 Lint16 s16DS18B20_SEARCH__SearchFirstDevice(Luint8 u8ChannelIndex, Luint8 *pu8Addx)
@@ -149,7 +149,7 @@ Lint16 s16DS18B20_SEARCH__SearchFirstDevice(Luint8 u8ChannelIndex, Luint8 *pu8Ad
  * 
  * @param[out]		*pu8Addx				Returned address if found
  * @param[in]		u8ChannelIndex			Index of 1-wire interface
- * @st_funcMD5		B1D30D87E8A6ED5A273936EF78C52E1B
+ * @st_funcMD5		7FFCCEE86EEB11DA92C5B64052D8EDCE
  * @st_funcID		LCCM644R0.FILE.007.FUNC.006
  */
 Lint16 s16DS18B20_SEARCH__SearchNextDevice(Luint8 u8ChannelIndex, Luint8 *pu8Addx)
@@ -172,7 +172,7 @@ Lint16 s16DS18B20_SEARCH__SearchNextDevice(Luint8 u8ChannelIndex, Luint8 *pu8Add
  * Implement a 1-Wire skip function.
  * 
  * @param[in]		u8ChannelIndex			Index of 1-wire interface
- * @st_funcMD5		183883F869CD1E4C8B559B980F523637
+ * @st_funcMD5		FD552EC3A61EA374A1CA2E1039247C7E
  * @st_funcID		LCCM644R0.FILE.007.FUNC.007
  */
 Lint16 s16DS18B20_1WIRE__Skip(Luint8 u8ChannelIndex)

@@ -34,7 +34,7 @@ struct _strDS2482S sDS2482S;
  * Init the DS2482 device
  * User should call this first up after the I2C driver is operational.
  * 
- * @st_funcMD5		AB42CA5A54FA471C8DA154300E5B09A1
+ * @st_funcMD5		84B03F177A28004719FBAB95581F4291
  * @st_funcID		LCCM641R0.FILE.000.FUNC.001
  */
 void vDS2482S__Init(void)
@@ -56,7 +56,7 @@ void vDS2482S__Init(void)
 		sDS2482S.sSearch[u8Counter].u8CRC8 = 0U;
 
 		//init the device specifc fault flags
-		vFAULTTREE__Init(&sDS2482S.sDevice[u8Counter].sFaultFlags);
+		vSIL3_FAULTTREE__Init(&sDS2482S.sDevice[u8Counter].sFaultFlags);
 
 		//setup any lowlevel issues
 		vDS2482S_LOWLEVEL__Init(u8Counter);

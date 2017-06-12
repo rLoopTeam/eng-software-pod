@@ -164,7 +164,7 @@ void vMS5607__Process(void)
 					sMS5607.u32LastResultTemperature = 7000000; //Below -15 (at -16C)
 				#endif
 				//add to filter
-				sMS5607.u32AverageResultTemperature = u32NUMERICAL_FILTERING__Add_U32(sMS5607.u32LastResultTemperature,
+				sMS5607.u32AverageResultTemperature = u32SIL3_NUM_FILTERING__Add_U32(sMS5607.u32LastResultTemperature,
 																		&sMS5607.u16AverageCounterTemperature,
 																		C_MS5607__MAX_FILTER_SAMPLES,
 																		&sMS5607.u32AverageArrayTemperature[0]);
@@ -229,7 +229,7 @@ void vMS5607__Process(void)
 					sMS5607.u32LastResultPressure = 6465444;
 				#endif
 				//add to filter
-				sMS5607.u32AverageResultPressure = u32NUMERICAL_FILTERING__Add_U32(sMS5607.u32LastResultPressure,
+				sMS5607.u32AverageResultPressure = u32SIL3_NUM_FILTERING__Add_U32(sMS5607.u32LastResultPressure,
 																		&sMS5607.u16AverageCounterPressure,
 																		C_MS5607__MAX_FILTER_SAMPLES,
 																		&sMS5607.u32AverageArrayPressure[0]);
@@ -358,10 +358,10 @@ Lint16 s16MS5607__StartPressureConversion(void)
 void vMS5607__CalculateTemperature(void)
 {
 	// Difference between actual and reference temperature
-	sMS5607.sTEMP.s32dT = (Lint32)sMS5607.u32AverageResultTemperature - ((Lint32)sMS5607.u16Coefficients[5] * f32NUMERICAL__Power(2, 8));
+	sMS5607.sTEMP.s32dT = (Lint32)sMS5607.u32AverageResultTemperature - ((Lint32)sMS5607.u16Coefficients[5] * f32SIL3_NUM_POWER__F32(2, 8));
 
 	// Actual temperature (-40 unsigned long long 85C with 0.01C resolution)
-	sMS5607.sTEMP.s32TEMP = 2000 + ((sMS5607.sTEMP.s32dT * (Lint64)sMS5607.u16Coefficients[6]) / f32NUMERICAL__Power(2, 23));
+	sMS5607.sTEMP.s32TEMP = 2000 + ((sMS5607.sTEMP.s32dT * (Lint64)sMS5607.u16Coefficients[6]) / f32SIL3_NUM_POWER__F32(2, 23));
 }
 
 /** Calculate Temperature Compensated Pressure */
@@ -372,9 +372,9 @@ void vMS5607__CalculateTempCompensatedPressure(void)
 	Lfloat64 f64TempD1SensDiv2p21MinusOffset = 0;
 	Lfloat64 f64TempD1SensDiv2p21MinusOffsetDiv2p15 = 0;
 	// Offset at actual temperature
-	sMS5607.sPRESSURE.s64OFF = ((Lint64)sMS5607.u16Coefficients[2] * f32NUMERICAL__Power(2, 17)) + (((Lint64)sMS5607.u16Coefficients[4] * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 6));
+	sMS5607.sPRESSURE.s64OFF = ((Lint64)sMS5607.u16Coefficients[2] * f32SIL3_NUM_POWER__F32(2, 17)) + (((Lint64)sMS5607.u16Coefficients[4] * sMS5607.sTEMP.s32dT) / f32SIL3_NUM_POWER__F32(2, 6));
 	// Sensitivity at actual temperature
-	sMS5607.sPRESSURE.s64SENS = ((Lint64)sMS5607.u16Coefficients[1] * f32NUMERICAL__Power(2, 16)) + (((Lint64)sMS5607.u16Coefficients[3] * sMS5607.sTEMP.s32dT) / f32NUMERICAL__Power(2, 7));
+	sMS5607.sPRESSURE.s64SENS = ((Lint64)sMS5607.u16Coefficients[1] * f32SIL3_NUM_POWER__F32(2, 16)) + (((Lint64)sMS5607.u16Coefficients[3] * sMS5607.sTEMP.s32dT) / f32SIL3_NUM_POWER__F32(2, 7));
 
 	// Second Order Temperature Compensation
 	sMS5607.sPRESSURE.s64OFF = sMS5607.sPRESSURE.s64OFF - (Lint64) sMS5607.sSECONDORDER.s32OFF2;
@@ -382,9 +382,9 @@ void vMS5607__CalculateTempCompensatedPressure(void)
 
 	// Temperature compensated pressure (10 to 1200mbar with 0.01mbar resolution)
 	f64TempD1Sens = sMS5607.u32AverageResultPressure * sMS5607.sPRESSURE.s64SENS;
-	f64TempD1SensDiv2p21 = f64TempD1Sens / f64NUMERICAL__Power(2, 21);
+	f64TempD1SensDiv2p21 = f64TempD1Sens / f64SIL3_NUM_POWER__F64(2, 21);
 	f64TempD1SensDiv2p21MinusOffset = f64TempD1SensDiv2p21 - sMS5607.sPRESSURE.s64OFF;
-	f64TempD1SensDiv2p21MinusOffsetDiv2p15 =  f64TempD1SensDiv2p21MinusOffset / f64NUMERICAL__Power(2, 15);
+	f64TempD1SensDiv2p21MinusOffsetDiv2p15 =  f64TempD1SensDiv2p21MinusOffset / f64SIL3_NUM_POWER__F64(2, 15);
 	sMS5607.sPRESSURE.s32P = (Lint32)f64TempD1SensDiv2p21MinusOffsetDiv2p15;
 }
 
@@ -400,10 +400,10 @@ void vMS5607__compensateSecondOrder(void)
     {
     	// T2 = dT^2 / 2^31
     	Lint64 s64Temp = (Lint64) sMS5607.sTEMP.s32dT * sMS5607.sTEMP.s32dT;
-        s32T2 = (Lint32) ( s64Temp / f64NUMERICAL__Power(2, 31));
+        s32T2 = (Lint32) ( s64Temp / f64SIL3_NUM_POWER__F64(2, 31));
 
         // OFF2 = 61 * (TEMP-2000)^2 / 2^4
-        s32OFF2 = 61 * (Lint64) ((sMS5607.sTEMP.s32TEMP - 2000)*(sMS5607.sTEMP.s32TEMP - 2000)) / f32NUMERICAL__Power(2, 4);
+        s32OFF2 = 61 * (Lint64) ((sMS5607.sTEMP.s32TEMP - 2000)*(sMS5607.sTEMP.s32TEMP - 2000)) / f32SIL3_NUM_POWER__F32(2, 4);
 
         // SENS2 = 2 * (TEMP-2000)^2
         s64SENS2 = 2 * (Lint64) ((sMS5607.sTEMP.s32TEMP - 2000)*(sMS5607.sTEMP.s32TEMP - 2000));

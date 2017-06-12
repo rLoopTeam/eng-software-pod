@@ -149,10 +149,10 @@ undefSp .word 0x08000000+0x00001700+0x00000100+0x00000200+0x00000600+0x00000100+
 ;-------------------------------------------------------------------------------
 ; Get CPSR Value
 
-    .def     _getCPSRValue_
+    .def     _rm4_system_core__CPSRValue_
     .asmfunc
 
-_getCPSRValue_
+_rm4_system_core__CPSRValue_
 
         mrs   r0, CPSR
         bx    lr
@@ -162,10 +162,10 @@ _getCPSRValue_
 ;-------------------------------------------------------------------------------
 ; Take CPU to IDLE state
 
-    .def     _gotoCPUIdle_
+    .def     _rm4_system_core__CPUIdle_
     .asmfunc
 
-_gotoCPUIdle_
+_rm4_system_core__CPUIdle_
 
         WFI
         nop
@@ -180,10 +180,10 @@ _gotoCPUIdle_
 ;-------------------------------------------------------------------------------
 ; Enable VFP Unit
 
-    .def     _coreEnableVfp_
+    .def     _rm4_system_core__EnableVfp_
     .asmfunc
 
-_coreEnableVfp_
+_rm4_system_core__EnableVfp_
 
         mrc   p15,     #0x00,      r0,       c1, c0, #0x02
         orr   r0,      r0,         #0xF00000
@@ -197,10 +197,10 @@ _coreEnableVfp_
 ;-------------------------------------------------------------------------------
 ; Enable Event Bus Export
 
-    .def     _coreEnableEventBusExport_
+    .def     _rm4_system_core__EnableEventBusExport_
     .asmfunc
 
-_coreEnableEventBusExport_
+_rm4_system_core__EnableEventBusExport_
 
         stmfd sp!, {r0}
         mrc   p15, #0x00, r0,         c9, c12, #0x00
@@ -215,10 +215,10 @@ _coreEnableEventBusExport_
 ;-------------------------------------------------------------------------------
 ; Disable Event Bus Export
 
-    .def     _coreDisableEventBusExport_
+    .def     _rm4_system_core__DisableEventBusExport_
     .asmfunc
 
-_coreDisableEventBusExport_
+_rm4_system_core__DisableEventBusExport_
 
         stmfd sp!, {r0}
         mrc   p15, #0x00, r0,         c9, c12, #0x00
@@ -233,10 +233,10 @@ _coreDisableEventBusExport_
 ;-------------------------------------------------------------------------------
 ; Enable RAM ECC Support
 
-    .def     _coreEnableRamEcc_
+    .def     _rm4_system_core__EnableRamEcc_
     .asmfunc
 
-_coreEnableRamEcc_
+_rm4_system_core__EnableRamEcc_
 
         stmfd sp!, {r0}
         mrc   p15, #0x00, r0,         c1, c0,  #0x01
@@ -251,10 +251,10 @@ _coreEnableRamEcc_
 ;-------------------------------------------------------------------------------
 ; Disable RAM ECC Support
 
-    .def     _coreDisableRamEcc_
+    .def     _rm4_system_core__DisableRamEcc_
     .asmfunc
 
-_coreDisableRamEcc_
+_rm4_system_core__DisableRamEcc_
 
         stmfd sp!, {r0}
         mrc   p15, #0x00, r0,         c1, c0,  #0x01
@@ -269,10 +269,10 @@ _coreDisableRamEcc_
 ;-------------------------------------------------------------------------------
 ; Enable Flash ECC Support
 
-    .def     _coreEnableFlashEcc_
+    .def     _rm4_system_core__EnableFlashEcc_
     .asmfunc
 
-_coreEnableFlashEcc_
+_rm4_system_core__EnableFlashEcc_
 
         stmfd sp!, {r0}
         mrc   p15, #0x00, r0,         c1, c0,  #0x01
@@ -288,10 +288,10 @@ _coreEnableFlashEcc_
 ;-------------------------------------------------------------------------------
 ; Disable Flash ECC Support
 
-    .def     _coreDisableFlashEcc_
+    .def     _rm4_system_core__DisableFlashEcc_
     .asmfunc
 
-_coreDisableFlashEcc_
+_rm4_system_core__DisableFlashEcc_
 
         stmfd sp!, {r0}
         mrc   p15, #0x00, r0,         c1, c0,  #0x01
@@ -306,10 +306,10 @@ _coreDisableFlashEcc_
 ;-------------------------------------------------------------------------------
 ; Enable Offset via Vic controller
 
-    .def     _coreEnableIrqVicOffset_
+    .def     _rm4_system_core__EnableIrqVicOffset_
     .asmfunc
 
-_coreEnableIrqVicOffset_
+_rm4_system_core__EnableIrqVicOffset_
 
         stmfd sp!, {r0}
         mrc   p15, #0, r0,         c1, c0,  #0
@@ -324,10 +324,10 @@ _coreEnableIrqVicOffset_
 ;-------------------------------------------------------------------------------
 ; Get data fault status register
 
-    .def     _coreGetDataFault_
+    .def     _rm4_system_core__GetDataFault_
     .asmfunc
 
-_coreGetDataFault_
+_rm4_system_core__GetDataFault_
 
         mrc   p15, #0, r0, c5, c0,  #0
         bx    lr
@@ -338,10 +338,10 @@ _coreGetDataFault_
 ;-------------------------------------------------------------------------------
 ; Clear data fault status register
 
-    .def     _coreClearDataFault_
+    .def     _rm4_system_core__ClearDataFault_
     .asmfunc
 
-_coreClearDataFault_
+_rm4_system_core__ClearDataFault_
 
         stmfd sp!, {r0}
         mov   r0,  #0
@@ -355,10 +355,10 @@ _coreClearDataFault_
 ;-------------------------------------------------------------------------------
 ; Get instruction fault status register
 
-    .def     _coreGetInstructionFault_
+    .def     _rm4_system_core__GetInstructionFault_
     .asmfunc
 
-_coreGetInstructionFault_
+_rm4_system_core__GetInstructionFault_
 
         mrc   p15, #0, r0, c5, c0, #1
         bx    lr
@@ -369,10 +369,10 @@ _coreGetInstructionFault_
 ;-------------------------------------------------------------------------------
 ; Clear instruction fault status register
 
-    .def     _coreClearInstructionFault_
+    .def     _rm4_system_core__ClearInstructionFault_
     .asmfunc
 
-_coreClearInstructionFault_
+_rm4_system_core__ClearInstructionFault_
 
         stmfd sp!, {r0}
         mov   r0,  #0
@@ -386,10 +386,10 @@ _coreClearInstructionFault_
 ;-------------------------------------------------------------------------------
 ; Get data fault address register
 
-    .def     _coreGetDataFaultAddress_
+    .def     _rm4_system_core__GetDataFaultAddress_
     .asmfunc
 
-_coreGetDataFaultAddress_
+_rm4_system_core__GetDataFaultAddress_
 
         mrc   p15, #0, r0, c6, c0,  #0
         bx    lr
@@ -400,10 +400,10 @@ _coreGetDataFaultAddress_
 ;-------------------------------------------------------------------------------
 ; Clear data fault address register
 
-    .def     _coreClearDataFaultAddress_
+    .def     _rm4_system_core__ClearDataFaultAddress_
     .asmfunc
 
-_coreClearDataFaultAddress_
+_rm4_system_core__ClearDataFaultAddress_
 
         stmfd sp!, {r0}
         mov   r0,  #0
@@ -417,10 +417,10 @@ _coreClearDataFaultAddress_
 ;-------------------------------------------------------------------------------
 ; Get instruction fault address register
 
-    .def     _coreGetInstructionFaultAddress_
+    .def     _rm4_system_core__GetInstructionFaultAddress_
     .asmfunc
 
-_coreGetInstructionFaultAddress_
+_rm4_system_core__GetInstructionFaultAddress_
 
         mrc   p15, #0, r0, c6, c0, #2
         bx    lr
@@ -431,10 +431,10 @@ _coreGetInstructionFaultAddress_
 ;-------------------------------------------------------------------------------
 ; Clear instruction fault address register
 
-    .def     _coreClearInstructionFaultAddress_
+    .def     _rm4_system_core__ClearInstructionFaultAddress_
     .asmfunc
 
-_coreClearInstructionFaultAddress_
+_rm4_system_core__ClearInstructionFaultAddress_
 
         stmfd sp!, {r0}
         mov   r0,  #0
@@ -448,10 +448,10 @@ _coreClearInstructionFaultAddress_
 ;-------------------------------------------------------------------------------
 ; Get auxiliary data fault status register
 
-    .def     _coreGetAuxiliaryDataFault_
+    .def     _rm4_system_core__GetAuxiliaryDataFault_
     .asmfunc
 
-_coreGetAuxiliaryDataFault_
+_rm4_system_core__GetAuxiliaryDataFault_
 
         mrc   p15, #0, r0, c5, c1, #0
         bx    lr
@@ -462,10 +462,10 @@ _coreGetAuxiliaryDataFault_
 ;-------------------------------------------------------------------------------
 ; Clear auxiliary data fault status register
 
-    .def     _coreClearAuxiliaryDataFault_
+    .def     _rm4_system_core__ClearAuxiliaryDataFault_
     .asmfunc
 
-_coreClearAuxiliaryDataFault_
+_rm4_system_core__ClearAuxiliaryDataFault_
 
         stmfd sp!, {r0}
         mov   r0,  #0
@@ -479,10 +479,10 @@ _coreClearAuxiliaryDataFault_
 ;-------------------------------------------------------------------------------
 ; Get auxiliary instruction fault status register
 
-    .def     _coreGetAuxiliaryInstructionFault_
+    .def     _rm4_system_core__GetAuxiliaryInstructionFault_
     .asmfunc
 
-_coreGetAuxiliaryInstructionFault_
+_rm4_system_core__GetAuxiliaryInstructionFault_
 
         mrc   p15, #0, r0, c5, c1, #1
         bx    lr
@@ -492,10 +492,10 @@ _coreGetAuxiliaryInstructionFault_
 ;-------------------------------------------------------------------------------
 ; Clear auxiliary instruction fault status register
 
-    .def     _coreClearAuxiliaryInstructionFault_
+    .def     _rm4_system_core__ClearAuxiliaryInstructionFault_
     .asmfunc
 
-_coreClearAuxiliaryInstructionFault_
+_rm4_system_core__ClearAuxiliaryInstructionFault_
 
         stmfd sp!, {r0}
         mov   r0,  #0

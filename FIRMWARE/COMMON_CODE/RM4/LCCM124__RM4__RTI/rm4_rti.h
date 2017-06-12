@@ -117,6 +117,7 @@
 		void vRM4_RTI__Clear_Flags(Luint32 u32FlagsToClear);
 		void vRM4_RTI__Update_Period(Luint8 u8Counter, Luint32 u32Period_US);
 		void vRM4_RTI__SystemReset(void);
+		Luint32 u32RM4_RTI__Get_FreeClock(Luint8 u8Index);
 
 		Luint64 u64RM4_RTI__Get_Counter1(void);
 
