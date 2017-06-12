@@ -44,7 +44,7 @@ void vFCU_ASI__Init(void)
 	Lint16 s16Return;
 	Luint8 u8Counter;
 
-	vFAULTTREE__Init(&sFCU.sASI.sFaultFlags);
+	vSIL3_FAULTTREE__Init(&sFCU.sASI.sFaultFlags);
 
 	sFCU.sASI.u32Guard1 = 0xABCDABCDU;
 	sFCU.sASI.u32Guard2 = 0x11223344U;
@@ -247,7 +247,7 @@ void vFCU_ASI__Process(void)
 			if(sFCU.sASI.u8NewCommandToSend == 1U)
 			{
 				//transmit, the command is small so can burst out in one hit.
-				vSC16__Tx_ByteArray(C_FCU__SC16_ASI_INDEX, (Luint8*)&sFCU.sASI.sCurrentCommand.framedCmd, C_ASI__RW_FRAME_SIZE);
+				vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_ASI_INDEX, (Luint8*)&sFCU.sASI.sCurrentCommand.framedCmd, C_ASI__RW_FRAME_SIZE);
 
 				//clear the Rx count
 				sFCU.sASI.u8RxCount = 0U;
@@ -287,7 +287,7 @@ void vFCU_ASI__Process(void)
 		case ASI_COMM_STATE__WAIT_REPLY:
 
 			// see if we have a reply
-			u8Temp = u8SC16_USER__Get_ByteAvail(C_FCU__SC16_ASI_INDEX);
+			u8Temp = u8SIL3_SC16_USER__Get_ByteAvail(C_FCU__SC16_ASI_INDEX);
 			if(u8Temp == 0U)
 			{
 				// no response yet
@@ -305,7 +305,7 @@ void vFCU_ASI__Process(void)
 			else
 			{
 				//we do have at-least one byte, but lets only clock in each byte at a time.
-				sFCU.sASI.sCurrentCommand.u8Response[sFCU.sASI.u8RxCount] = u8SC16_USER__Get_Byte(C_FCU__SC16_ASI_INDEX);
+				sFCU.sASI.sCurrentCommand.u8Response[sFCU.sASI.u8RxCount] = u8SIL3_SC16_USER__Get_Byte(C_FCU__SC16_ASI_INDEX);
 
 				//inc
 				sFCU.sASI.u8RxCount ++;

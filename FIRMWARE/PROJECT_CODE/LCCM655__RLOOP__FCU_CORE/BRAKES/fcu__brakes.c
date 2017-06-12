@@ -53,7 +53,7 @@ void vFCU_BRAKES__Init(void)
 	sFCU.sBrakesGlobal.u8Timer_100ms = 0U;
 
 	//setup the fault flags
-	vFAULTTREE__Init(&sFCU.sBrakesGlobal.sFaultFlags);
+	vSIL3_FAULTTREE__Init(&sFCU.sBrakesGlobal.sFaultFlags);
 
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_BRAKES; u8Counter++)
 	{
@@ -101,7 +101,7 @@ void vFCU_BRAKES__Process(void)
 	Luint8 u8Counter;
 
 	//process the stepper driver if its active
-	vSTEPDRIVE__Process();
+	vSIL3_STEPDRIVE__Process();
 
 	//Process the MLP
 	vFCU_BRAKES_MLP__Process();
@@ -146,7 +146,7 @@ void vFCU_BRAKES__Process(void)
 				sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__IDLE;
 
 				//clear the cal in progress flag
-				vFAULTTREE__Clear_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 30U);
+				vSIL3_FAULTTREE__Clear_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 30U);
 			}
 			break;
 
@@ -197,7 +197,7 @@ void vFCU_BRAKES__Process(void)
 			}//for(u8Counter = 0U; u8Counter < FCU_BRAKE__MAX_BRAKES; u8Counter++)
 
 			//clear the previous task flag
-			vSTEPDRIVE__Clear_TaskComplete();
+			vSIL3_STEPDRIVE__Clear_TaskComplete();
 
 			//feed this to the stepper system
 			vFCU_BRAKES_STEP__Move(sFCU.sBrakes[0].sTarget.u32LeadScrew_um, sFCU.sBrakes[1].sTarget.u32LeadScrew_um);
@@ -219,7 +219,7 @@ void vFCU_BRAKES__Process(void)
 
 
 			//check to see if the curent move task is done.
-			u8Test = u8STEPDRIVE__Get_TaskComplete();
+			u8Test = u8SIL3_STEPDRIVE__Get_TaskComplete();
 			if(u8Test == 0U)
 			{
 				//stay in state
@@ -346,7 +346,7 @@ void vFCU_BRAKES__Begin_Init(Luint32 u32Key)
 			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__BEGIN_CAL;
 
 			//we should also set a flag
-			vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 30U);
+			vSIL3_FAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 30U);
 		}
 		else
 		{
@@ -515,13 +515,13 @@ void vFCU_BRAKES__10MS_ISR(void)
 {
 	#if C_FCU_DAQ_SET__ENABLE__DAQ_FOR_BRAKES == 1U
 		//not exactly IDEAL, but has to be done here
-		vDAQ_APPEND__U8(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__CPU_LOAD_U8, u8RM4_CPULOAD__Get_LoadPercent());
+		vSIL3_DAQ_APPEND__U8(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__CPU_LOAD_U8, u8RM4_CPULOAD__Get_LoadPercent());
 
-		vDAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__LEFT_CURRENTPOS_S32, sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sMove.s32currentPos);
-		vDAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__RIGHT_CURRENTPOS_S32, sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sMove.s32currentPos);
+		vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__LEFT_CURRENTPOS_S32, sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sMove.s32currentPos);
+		vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__RIGHT_CURRENTPOS_S32, sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sMove.s32currentPos);
 
-		vDAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__LEFT_TARGET_U32, sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sTarget.u32LeadScrew_um);
-		vDAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__RIGHT_TARGET_U32, sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sTarget.u32LeadScrew_um);
+		vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__LEFT_TARGET_U32, sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sTarget.u32LeadScrew_um);
+		vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__RIGHT_TARGET_U32, sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sTarget.u32LeadScrew_um);
 
 
 	#endif

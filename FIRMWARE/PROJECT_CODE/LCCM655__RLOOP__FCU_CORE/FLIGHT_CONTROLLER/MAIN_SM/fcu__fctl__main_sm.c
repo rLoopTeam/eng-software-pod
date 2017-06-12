@@ -360,7 +360,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		#if C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE == 1U
 			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM487__NUM_DEVICES; u8Counter++)
 			{
-				vSC16__Process(u8Counter);
+				vSIL3_SC16__Process(u8Counter);
 			}
 		#endif
 

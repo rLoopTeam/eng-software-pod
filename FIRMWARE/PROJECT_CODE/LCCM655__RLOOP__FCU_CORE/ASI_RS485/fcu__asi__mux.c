@@ -36,17 +36,17 @@ void vFCU_ASI_MUX__Init(void)
 {
 
 	//init the MCP23S17
-	vMCP23S17__Init(0U);
+	vSIL3_MCP23S17__Init(0U);
 
-	vMCP23S17__Set_Port(0, MCP23S17_PORT__A, 0x00U);
-	vMCP23S17__Set_Port(0, MCP23S17_PORT__B, 0xFFU);
+	vSIL3_MCP23S17__Set_Port(0, MCP23S17_PORT__A, 0x00U);
+	vSIL3_MCP23S17__Set_Port(0, MCP23S17_PORT__B, 0xFFU);
 
 	//set all the pins output
-	vMCP23S17__Set_PinDirection_Output(0, MCP23S17_PORT__A, 0xFF);
-	vMCP23S17__Set_PinDirection_Output(0, MCP23S17_PORT__B, 0xFF);
+	vSIL3_MCP23S17__Set_PinDirection_Output(0, MCP23S17_PORT__A, 0xFF);
+	vSIL3_MCP23S17__Set_PinDirection_Output(0, MCP23S17_PORT__B, 0xFF);
 
-	vMCP23S17__Set_Port(0, MCP23S17_PORT__A, 0x00U);
-	vMCP23S17__Set_Port(0, MCP23S17_PORT__B, 0xFFU);
+	vSIL3_MCP23S17__Set_Port(0, MCP23S17_PORT__A, 0x00U);
+	vSIL3_MCP23S17__Set_Port(0, MCP23S17_PORT__B, 0xFFU);
 
 #ifdef WIN32
 	sFCU.sASI.u8MuxChannel = 0U;
@@ -91,8 +91,8 @@ void vFCU_ASI_MUX__SelectChannel(Luint8 u8ChannelIndex)
 	u8MaskB ^= 0xFFU;
 
 
-	vMCP23S17__Set_Port(0, MCP23S17_PORT__A, u8MaskA);
-	vMCP23S17__Set_Port(0, MCP23S17_PORT__B, u8MaskB);
+	vSIL3_MCP23S17__Set_Port(0, MCP23S17_PORT__A, u8MaskA);
+	vSIL3_MCP23S17__Set_Port(0, MCP23S17_PORT__B, u8MaskB);
 
 #ifdef WIN32
 	sFCU.sASI.u8MuxChannel = u8ChannelIndex;

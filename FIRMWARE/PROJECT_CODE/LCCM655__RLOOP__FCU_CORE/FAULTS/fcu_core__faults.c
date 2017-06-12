@@ -34,7 +34,7 @@ extern struct _strFCU sFCU;
 void vFCU_FAULTS__Init(void)
 {
 	//init the fault tree module.
-	vFAULTTREE__Init(&sFCU.sFaults.sTopLevel);
+	vSIL3_FAULTTREE__Init(&sFCU.sFaults.sTopLevel);
 
 	//any eth stuff we need
 	vFCU_FAULTS_ETH__Init();
@@ -58,7 +58,7 @@ void vFCU_FAULTS__Process(void)
 #if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 	if(sFCU.sAccel.sFaultFlags.u8FaultFlag == 1U)
 	{
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__00);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__00);
 	}
 	else
 	{
@@ -69,7 +69,7 @@ void vFCU_FAULTS__Process(void)
 	//ASI Subsystem
 	if(sFCU.sASI.sFaultFlags.u8FaultFlag == 1U)
 	{
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__01);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__01);
 	}
 	else
 	{
@@ -79,7 +79,7 @@ void vFCU_FAULTS__Process(void)
 	//brakes
 	if(sFCU.sBrakesGlobal.sFaultFlags.u8FaultFlag == 1U)
 	{
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__02);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__02);
 	}
 	else
 	{
@@ -89,7 +89,7 @@ void vFCU_FAULTS__Process(void)
 	//daq
 	if(0)
 	{
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__03);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__03);
 	}
 	else
 	{
@@ -99,7 +99,7 @@ void vFCU_FAULTS__Process(void)
 	//flight controller
 	if(0)
 	{
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__04);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__04);
 	}
 	else
 	{

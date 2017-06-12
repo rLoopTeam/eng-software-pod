@@ -67,8 +67,8 @@ void vFCU__Process(void)
 	if(sFCU.u32Guard1 != 0xAABBCCDDU)
 	{
 		//guarding error fault
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__CORE__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__CORE__FAULT_INDEX__01);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__CORE__FAULT_INDEX__00);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__CORE__FAULT_INDEX__01);
 	}
 	else
 	{
@@ -78,8 +78,8 @@ void vFCU__Process(void)
 	if(sFCU.u32Guard2 != 0x12345678U)
 	{
 		//guarding error fault
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__CORE__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__CORE__FAULT_INDEX__01);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__CORE__FAULT_INDEX__00);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__CORE__FAULT_INDEX__01);
 	}
 	else
 	{
@@ -104,7 +104,7 @@ void vFCU__Process(void)
 
 			//init the EEPROM Params
 			#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
-				vEEPARAM__Init();
+				vSIL3_EEPARAM__Init();
 			#endif
 
 #ifndef WIN32
@@ -296,7 +296,7 @@ Testing damaged FCU pins
 			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM487__NUM_DEVICES; u8Counter++)
 			{
 				//init the device
-				vSC16__Init(u8Counter);
+				vSIL3_SC16__Init(u8Counter);
 
 				//check the fault tree
 
@@ -304,38 +304,38 @@ Testing damaged FCU pins
 				if((u8Counter == C_FCU__SC16_ASI_INDEX) || (C_FCU__SC16_FWD_LASER_INDEX))
 				{
 					//ASI IF
-					vSC16_BAUD__Set_BaudRate(u8Counter, 1U, 9600U, 1U);
+					vSIL3_SC16_BAUD__Set_BaudRate(u8Counter, 1U, 9600U, 1U);
 
 				}
 				else
 				{
 					//optoNCDT's
-					vSC16_BAUD__Set_BaudRate(u8Counter, 1U, 19200U, 1U);
+					vSIL3_SC16_BAUD__Set_BaudRate(u8Counter, 1U, 19200U, 1U);
 
 				}
 
 
 				//8bits, noparity
-				vSC16_BAUD__Set_Wordlength(u8Counter, 8U);
-				vSC16_FLOWCONTROL__Enable_Parity(u8Counter, 0U);
+				vSIL3_SC16_BAUD__Set_Wordlength(u8Counter, 8U);
+				vSIL3_SC16_FLOWCONTROL__Enable_Parity(u8Counter, 0U);
 
 				//set to 1 stop bits.
-				vSC16_BAUD__Set_Stopbits(u8Counter, 0U);
+				vSIL3_SC16_BAUD__Set_Stopbits(u8Counter, 0U);
 
 				//use FIFO mode
-				vSC16_FIFO___Enable_FIFOs(u8Counter, 1U);
+				vSIL3_SC16_FIFO___Enable_FIFOs(u8Counter, 1U);
 
 				//reset
-				vSC16_FIFO__Reset_Rx_FIFO(u8Counter, 1U);
-				vSC16_FIFO__Reset_Tx_FIFO(u8Counter, 1U);
+				vSIL3_SC16_FIFO__Reset_Rx_FIFO(u8Counter, 1U);
+				vSIL3_SC16_FIFO__Reset_Tx_FIFO(u8Counter, 1U);
 
 				//set the Rx trig level to prevent software overhead.
 				//todo: this will have problems with some devices that are waiting on a reply
 				//such as the ASI system
-				vSC16_FLOWCONTROL__Set_RxTrigger_Level(u8Counter, 16U);
+				vSIL3_SC16_FLOWCONTROL__Set_RxTrigger_Level(u8Counter, 16U);
 
 				//Rx Int
-				vSC16_INT__Enable_Rx_DataAvalibleInterupt(u8Counter, 1U);
+				vSIL3_SC16_INT__Enable_Rx_DataAvalibleInterupt(u8Counter, 1U);
 			}
 			#endif //#if C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE == 1U
 
@@ -352,7 +352,7 @@ Testing damaged FCU pins
 
 			//start DAQ
 			#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
-				vDAQ__Init();
+				vSIL3_DAQ__Init();
 			#endif
 
 			//start the network
@@ -423,7 +423,7 @@ Testing damaged FCU pins
 
 			//do the DAQ
 			#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
-				vDAQ__Process();
+				vSIL3_DAQ__Process();
 			#endif
 
 			//update any system fault flags.

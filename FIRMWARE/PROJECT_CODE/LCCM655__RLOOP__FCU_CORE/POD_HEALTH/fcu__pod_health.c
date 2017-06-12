@@ -35,7 +35,7 @@ void vFCU_PODHEALTH__Set_FlagInRage__F32(Lfloat32 f32Value, Lfloat32 f32Min, Lfl
 void vFCU_PODHEALTH__Init(void)
 {
 	//init
-	vFAULTTREE__Init(&sFCU.sPodHealth.sHealthFlags);
+	vSIL3_FAULTTREE__Init(&sFCU.sPodHealth.sHealthFlags);
 
 }
 
@@ -116,11 +116,11 @@ void vFCU_PODHEALTH__Set_FlagInRage__F32(Lfloat32 f32Value, Lfloat32 f32Min, Lfl
 	u32Test = u32FCU_PODHEALTH__Check_InRange_F32(f32Value, f32Min, f32Max);
 	if(u32Test == 1U)
 	{
-		vFAULTTREE__Set_Flag(&sFCU.sPodHealth.sHealthFlags, u32FlagIndex);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sPodHealth.sHealthFlags, u32FlagIndex);
 	}
 	else
 	{
-		vFAULTTREE__Clear_Flag(&sFCU.sPodHealth.sHealthFlags, u32FlagIndex);
+		vSIL3_FAULTTREE__Clear_Flag(&sFCU.sPodHealth.sHealthFlags, u32FlagIndex);
 	}
 }
 

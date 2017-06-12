@@ -16,7 +16,7 @@
 		COOLING_CTL_DO_NOTHING = 0U,
 		CLOSE_ALL_VALVES,
 		SET_VALVE
-	} E_FCU__COOLING_GS_COMM_T;
+	}E_FCU__COOLING_GS_COMM_T;
 
 	//////////////////////////////////////////////////////
 	//FCTL: LIFTING MECHANISM

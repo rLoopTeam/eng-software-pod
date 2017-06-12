@@ -40,7 +40,7 @@ void vFCU_GEOM__Init(void)
 	Luint16 u16Index;
 
 	//check the CRC
-	u8Test = u8EEPARAM_CRC__Is_CRC_OK(	C_LOCALDEF__LCCM655__FCTL_GEOM___START_INDEX,
+	u8Test = u8SIL3_EEPARAM_CRC__Is_CRC_OK(	C_LOCALDEF__LCCM655__FCTL_GEOM___START_INDEX,
 										C_LOCALDEF__LCCM655__FCTL_GEOM___END_INDEX,
 										C_LOCALDEF__LCCM655__FCTL_GEOM___CRC);
 	//load up the X,Y,Z pairs
@@ -94,7 +94,7 @@ void vFCU_GEOM__Init(void)
 		}
 
 		//redo the CRC;
-		vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__FCTL_GEOM___START_INDEX,
+		vSIL3_EEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__FCTL_GEOM___START_INDEX,
 												C_LOCALDEF__LCCM655__FCTL_GEOM___END_INDEX,
 												C_LOCALDEF__LCCM655__FCTL_GEOM___CRC);
 

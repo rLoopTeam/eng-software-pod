@@ -84,8 +84,8 @@ void vFCU_THROTTLE__Init(void)
 	sFCU.sThrottle.eState = THROTTLE_STATE__IDLE;
 	sFCU.sThrottle.u8RunIndex = 0U;
 
-	vFAULTTREE__Init(&sFCU.sThrottle.sFaultFlags);
-	vFAULTTREE__Set_Flag(&sFCU.sThrottle.sFaultFlags, C_LCCM655__THROTTLES__FAULT_INDEX__03);
+	vSIL3_FAULTTREE__Init(&sFCU.sThrottle.sFaultFlags);
+	vSIL3_FAULTTREE__Set_Flag(&sFCU.sThrottle.sFaultFlags, C_LCCM655__THROTTLES__FAULT_INDEX__03);
 
 
 	//clear some internal vars.
@@ -120,8 +120,8 @@ void vFCU_THROTTLE__Process(void)
 	if(u32Test != 0x00000000U)
 	{
 		//we have a fault, log it
-		vFAULTTREE__Set_Flag(&sFCU.sThrottle.sFaultFlags, C_LCCM655__THROTTLES__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sThrottle.sFaultFlags, C_LCCM655__THROTTLES__FAULT_INDEX__01);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sThrottle.sFaultFlags, C_LCCM655__THROTTLES__FAULT_INDEX__00);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sThrottle.sFaultFlags, C_LCCM655__THROTTLES__FAULT_INDEX__01);
 	}
 	else
 	{
@@ -139,7 +139,7 @@ void vFCU_THROTTLE__Process(void)
 		case THROTTLE_STATE__RUN:
 
 			//Clear the not in run flag
-			vFAULTTREE__Clear_Flag(&sFCU.sThrottle.sFaultFlags, C_LCCM655__THROTTLES__FAULT_INDEX__03);
+			vSIL3_FAULTTREE__Clear_Flag(&sFCU.sThrottle.sFaultFlags, C_LCCM655__THROTTLES__FAULT_INDEX__03);
 
 
 			//do we need to do anything with this throttle
@@ -406,8 +406,8 @@ void vFCU_THROTTLE__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THROTTL
 	else
 	{
 		//log the error.
-		vFAULTTREE__Set_Flag(&sFCU.sThrottle.sFaultFlags, C_LCCM655__THROTTLES__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sFCU.sThrottle.sFaultFlags, C_LCCM655__THROTTLES__FAULT_INDEX__02);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sThrottle.sFaultFlags, C_LCCM655__THROTTLES__FAULT_INDEX__00);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sThrottle.sFaultFlags, C_LCCM655__THROTTLES__FAULT_INDEX__02);
 
 	}
 

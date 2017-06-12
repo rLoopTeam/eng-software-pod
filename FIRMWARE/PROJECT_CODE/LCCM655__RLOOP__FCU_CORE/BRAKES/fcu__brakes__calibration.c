@@ -88,7 +88,7 @@ void vFCU_BRAKES_CAL__Process(void)
 				//so this will be +75.0, move -80.0mm from the worst pos as we should go to the limits
 				if(sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
 				{
-					vSTEPDRIVE_ZERO__Set_Zero(0);
+					vSIL3_STEPDRIVE_ZERO__Set_Zero(0);
 					s32Pos[0] = 0;
 				}
 				else
@@ -98,7 +98,7 @@ void vFCU_BRAKES_CAL__Process(void)
 
 				if(sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
 				{
-					vSTEPDRIVE_ZERO__Set_Zero(1);
+					vSIL3_STEPDRIVE_ZERO__Set_Zero(1);
 					s32Pos[1] = 0;
 				}
 				else
@@ -115,11 +115,11 @@ void vFCU_BRAKES_CAL__Process(void)
 				s32Accel[1] = s32Accel[0];
 
 				//clear the prev task if needed.
-				vSTEPDRIVE__Clear_TaskComplete();
+				vSIL3_STEPDRIVE__Clear_TaskComplete();
 
 				//command the stepper to actual position, it will start moving based on timer interrupts
 				//it is OK to do address of near here because we copy into the move planner in this call.
-				s16Return = s16STEPDRIVE_POSITION__Set_Position(&s32Pos[0], &s32Velocity[0], &s32Accel[0], sFCU.sBrakesGlobal.u32MoveTaskID);
+				s16Return = s16SIL3_STEPDRIVE_POSITION__Set_Position(&s32Pos[0], &s32Velocity[0], &s32Accel[0], sFCU.sBrakesGlobal.u32MoveTaskID);
 
 				//check the return to see if we were able to move.
 
@@ -134,7 +134,7 @@ void vFCU_BRAKES_CAL__Process(void)
 			case BRAKE_CAL_STATE__WAIT_EXTEND_MOTORS:
 				//wait here until the motors retract, they will stop when hitting the axis switches
 				//and they will be re-zero'd
-				u8Test = u8STEPDRIVE_ACCEL__Get_AllMotorsIdle();
+				u8Test = u8SIL3_STEPDRIVE_ACCEL__Get_AllMotorsIdle();
 				if(u8Test == 0U)
 				{
 					//stay in state
@@ -150,8 +150,8 @@ void vFCU_BRAKES_CAL__Process(void)
 			case BRAKE_CAL_STATE__RELEASE_ZERO:
 
 				//release the end stops, by manually setting the zero position
-				vSTEPDRIVE_ZERO__Set_Zero(0);
-				vSTEPDRIVE_ZERO__Set_Zero(1);
+				vSIL3_STEPDRIVE_ZERO__Set_Zero(0);
+				vSIL3_STEPDRIVE_ZERO__Set_Zero(1);
 
 
 				sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__APPLY_NEW_ZERO;
@@ -167,10 +167,10 @@ void vFCU_BRAKES_CAL__Process(void)
 				s32Accel[1] = s32Accel[0];
 
 				//clear the previous task flag
-				vSTEPDRIVE__Clear_TaskComplete();
+				vSIL3_STEPDRIVE__Clear_TaskComplete();
 
 				//command the stepper to actual position, it will start moving based on timer interrupts
-				s16Return = s16STEPDRIVE_POSITION__Set_Position(&s32Pos[0], &s32Velocity[0], &s32Accel[0], sFCU.sBrakesGlobal.u32MoveTaskID);
+				s16Return = s16SIL3_STEPDRIVE_POSITION__Set_Position(&s32Pos[0], &s32Velocity[0], &s32Accel[0], sFCU.sBrakesGlobal.u32MoveTaskID);
 				sFCU.sBrakesGlobal.u32MoveTaskID++;
 
 				//if the limit switches don't permit symetrical operation, apply some new zero's here.
@@ -179,7 +179,7 @@ void vFCU_BRAKES_CAL__Process(void)
 
 			case BRAKE_CAL_STATE__WAIT_NEW_ZERO:
 
-				u8Test = u8STEPDRIVE_ACCEL__Get_AllMotorsIdle();
+				u8Test = u8SIL3_STEPDRIVE_ACCEL__Get_AllMotorsIdle();
 				if(u8Test == 0U)
 				{
 					//stay here until done
@@ -188,8 +188,8 @@ void vFCU_BRAKES_CAL__Process(void)
 				{
 					//if the limit switches don't permit symetrical operation, apply some new zero's here.
 					//reset the zeros
-					vSTEPDRIVE_ZERO__Set_Zero(0);
-					vSTEPDRIVE_ZERO__Set_Zero(1);
+					vSIL3_STEPDRIVE_ZERO__Set_Zero(0);
+					vSIL3_STEPDRIVE_ZERO__Set_Zero(1);
 
 					//done
 					sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__COMPLETE;
@@ -210,7 +210,7 @@ void vFCU_BRAKES_CAL__Process(void)
 				//before we start the right brake was already closed, do ntohing
 				if(sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].eSwitchState == SW_STATE__CLOSED)
 				{
-					vSTEPDRIVE_ZERO__Set_Zero_Defined(FCU_BRAKE__RIGHT, 75000);
+					vSIL3_STEPDRIVE_ZERO__Set_Zero_Defined(FCU_BRAKE__RIGHT, 75000);
 					s32Pos[FCU_BRAKE__RIGHT] = 75000;
 				}
 				else
@@ -230,11 +230,11 @@ void vFCU_BRAKES_CAL__Process(void)
 				s32Accel[1] = s32Accel[0];
 
 				//clear the prev task if needed.
-				vSTEPDRIVE__Clear_TaskComplete();
+				vSIL3_STEPDRIVE__Clear_TaskComplete();
 
 				//command the stepper to actual position, it will start moving based on timer interrupts
 				//it is OK to do address of near here because we copy into the move planner in this call.
-				s16Return = s16STEPDRIVE_POSITION__Set_Position(&s32Pos[0], &s32Velocity[0], &s32Accel[0], sFCU.sBrakesGlobal.u32MoveTaskID);
+				s16Return = s16SIL3_STEPDRIVE_POSITION__Set_Position(&s32Pos[0], &s32Velocity[0], &s32Accel[0], sFCU.sBrakesGlobal.u32MoveTaskID);
 
 				//check the return to see if we were able to move.
 
@@ -250,7 +250,7 @@ void vFCU_BRAKES_CAL__Process(void)
 			case BRAKE_CAL__TYPE2__WAIT_RETRACT_RIGHT:
 
 				//wait until we have stopped moving
-				u8Test = u8STEPDRIVE_ACCEL__Get_AllMotorsIdle();
+				u8Test = u8SIL3_STEPDRIVE_ACCEL__Get_AllMotorsIdle();
 				if(u8Test == 0U)
 				{
 					//stay in state
@@ -321,7 +321,7 @@ void vFCU_BRAKES_CAL__Process(void)
 			//so this will be +75.0, move -80.0mm from the worst pos as we should go to the limits
 			if(sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
 			{
-				vSTEPDRIVE_ZERO__Set_Zero(0);
+				vSIL3_STEPDRIVE_ZERO__Set_Zero(0);
 				s32Pos[0] = 0;
 			}
 			else
@@ -331,7 +331,7 @@ void vFCU_BRAKES_CAL__Process(void)
 
 			if(sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
 			{
-				vSTEPDRIVE_ZERO__Set_Zero(1);
+				vSIL3_STEPDRIVE_ZERO__Set_Zero(1);
 				s32Pos[1] = 0;
 			}
 			else
@@ -383,8 +383,8 @@ void vFCU_BRAKES_CAL__Process(void)
 		case BRAKE_CAL_STATE__RELEASE_ZERO:
 
 			//release the end stops, by manually setting the zero position
-			vSTEPDRIVE_ZERO__Set_Zero(0);
-			vSTEPDRIVE_ZERO__Set_Zero(1);
+			vSIL3_STEPDRIVE_ZERO__Set_Zero(0);
+			vSIL3_STEPDRIVE_ZERO__Set_Zero(1);
 
 
 			sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__APPLY_NEW_ZERO;
@@ -421,8 +421,8 @@ void vFCU_BRAKES_CAL__Process(void)
 			{
 				//if the limit switches don't permit symetrical operation, apply some new zero's here.
 				//reset the zeros
-				vSTEPDRIVE_ZERO__Set_Zero(0);
-				vSTEPDRIVE_ZERO__Set_Zero(1);
+				vSIL3_STEPDRIVE_ZERO__Set_Zero(0);
+				vSIL3_STEPDRIVE_ZERO__Set_Zero(1);
 
 				//done
 				sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__COMPLETE;

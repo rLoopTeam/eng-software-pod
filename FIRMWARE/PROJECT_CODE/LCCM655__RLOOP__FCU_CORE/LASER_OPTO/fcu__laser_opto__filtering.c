@@ -59,7 +59,7 @@ void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser)
 	f32Temp = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32DistanceRAW;
 	f32Temp -= sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32PreviousValue;
 
-	f32Temp2 = f32NUMERICAL__ABS(f32Temp);
+	f32Temp2 = f32SIL3_NUM_ABS__F32(f32Temp);
 
 	//reject current value which differ by more than 5 mm from the previous value
 	if(f32Temp2 < 5.0F)
