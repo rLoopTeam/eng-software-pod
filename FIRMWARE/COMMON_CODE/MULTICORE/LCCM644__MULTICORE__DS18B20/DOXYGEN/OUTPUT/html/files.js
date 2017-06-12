@@ -8,5 +8,6 @@ var files =
     [ "WIRE_IF", "dir_4bdd774bbeebd8ae5d966c7eedc616a1.html", "dir_4bdd774bbeebd8ae5d966c7eedc616a1" ],
     [ "ds18b20.c", "ds18b20_8c.html", "ds18b20_8c" ],
     [ "ds18b20.h", "ds18b20_8h.html", "ds18b20_8h" ],
-    [ "ds18b20__localdef.h", "ds18b20____localdef_8h.html", null ]
+    [ "ds18b20__localdef.h", "ds18b20____localdef_8h.html", null ],
+    [ "ds18b20__state_types.h", "ds18b20____state__types_8h.html", "ds18b20____state__types_8h" ]
 ];

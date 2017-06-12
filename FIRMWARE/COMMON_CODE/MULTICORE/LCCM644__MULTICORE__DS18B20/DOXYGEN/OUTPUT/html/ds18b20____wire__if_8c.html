@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>(C Code, MULTICORE, DS18B20 Temp Sensor): WIRE_IF/ds18b20__wire_if.c File Reference</title>
+<title>(C Code, MULTICORE, DS18B20 Temperature Sensor): WIRE_IF/ds18b20__wire_if.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -31,9 +31,9 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">(C Code, MULTICORE, DS18B20 Temp Sensor)
+   <div id="projectname">(C Code, MULTICORE, DS18B20 Temperature Sensor)
    &#160;<span id="projectnumber">1.0</span>
    </div>
   </td>
@@ -106,33 +106,34 @@ Include dependency graph for ds18b20__wire_if.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="ds18b20____wire__if_8c__incl.png" border="0" usemap="#_w_i_r_e___i_f_2ds18b20____wire__if_8c" alt=""/></div>
 <map name="_w_i_r_e___i_f_2ds18b20____wire__if_8c" id="_w_i_r_e___i_f_2ds18b20____wire__if_8c">
-<area shape="rect" id="node2" href="ds18b20_8h.html" title="Main header for DS18B20 library. " alt="" coords="52,80,147,107"/>
+<area shape="rect" id="node2" href="ds18b20_8h.html" title="Main header for DS18B20 library. " alt="" coords="146,80,241,107"/>
+<area shape="rect" id="node4" href="ds18b20____state__types_8h.html" title="State type defines. " alt="" coords="107,155,279,211"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gaa2cb7543a05f574848bb32a70616f23a"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#gaa2cb7543a05f574848bb32a70616f23a">s16DS18B20_1WIRE__Generate_Reset</a> (Luint8 u8DeviceIndex)</td></tr>
-<tr class="memdesc:gaa2cb7543a05f574848bb32a70616f23a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a reset.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#gaa2cb7543a05f574848bb32a70616f23a">More...</a><br /></td></tr>
-<tr class="separator:gaa2cb7543a05f574848bb32a70616f23a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7a5476f1c807ae17de2e0652f57077be"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#ga7a5476f1c807ae17de2e0652f57077be">s16DS18B20_1WIRE__SelectDevice</a> (Luint8 u8DeviceIndex, Luint8 *pu8Addx)</td></tr>
-<tr class="memdesc:ga7a5476f1c807ae17de2e0652f57077be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select a device.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#ga7a5476f1c807ae17de2e0652f57077be">More...</a><br /></td></tr>
-<tr class="separator:ga7a5476f1c807ae17de2e0652f57077be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0dcdf9b61e256b5ef8f7e7538ebf7ce7"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#ga0dcdf9b61e256b5ef8f7e7538ebf7ce7">s16DS18B20_1WIRE__WriteByte</a> (Luint8 u8DeviceIndex, Luint8 u8Byte)</td></tr>
-<tr class="memdesc:ga0dcdf9b61e256b5ef8f7e7538ebf7ce7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a byte to the wire.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#ga0dcdf9b61e256b5ef8f7e7538ebf7ce7">More...</a><br /></td></tr>
-<tr class="separator:ga0dcdf9b61e256b5ef8f7e7538ebf7ce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae21fd6a4108fbf96b8e1a9988fd577d3"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#gae21fd6a4108fbf96b8e1a9988fd577d3">s16DS18B20_1WIRE__ReadByte</a> (Luint8 u8DeviceIndex, Luint8 *pu8Byte)</td></tr>
-<tr class="memdesc:gae21fd6a4108fbf96b8e1a9988fd577d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a byte from the 1-wire.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#gae21fd6a4108fbf96b8e1a9988fd577d3">More...</a><br /></td></tr>
-<tr class="separator:gae21fd6a4108fbf96b8e1a9988fd577d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga572e99fd088cd0a84241467b89134344"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#ga572e99fd088cd0a84241467b89134344">s16DS18B20_SEARCH__SearchFirstDevice</a> (Luint8 u8DeviceIndex, Luint8 *pu8Addx)</td></tr>
-<tr class="memdesc:ga572e99fd088cd0a84241467b89134344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for the first device on the bus.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#ga572e99fd088cd0a84241467b89134344">More...</a><br /></td></tr>
-<tr class="separator:ga572e99fd088cd0a84241467b89134344"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafb2ae421e95ce33ea60b8c7316a533d3"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#gafb2ae421e95ce33ea60b8c7316a533d3">s16DS18B20_SEARCH__SearchNextDevice</a> (Luint8 u8DeviceIndex, Luint8 *pu8Addx)</td></tr>
-<tr class="memdesc:gafb2ae421e95ce33ea60b8c7316a533d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for the next device on the bus.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#gafb2ae421e95ce33ea60b8c7316a533d3">More...</a><br /></td></tr>
-<tr class="separator:gafb2ae421e95ce33ea60b8c7316a533d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaceecd27ea27e39d3d60ee41700b5c86f"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#gaceecd27ea27e39d3d60ee41700b5c86f">s16DS18B20_1WIRE__Skip</a> (Luint8 u8DeviceIndex)</td></tr>
-<tr class="memdesc:gaceecd27ea27e39d3d60ee41700b5c86f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implement a 1-Wire skip function.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#gaceecd27ea27e39d3d60ee41700b5c86f">More...</a><br /></td></tr>
-<tr class="separator:gaceecd27ea27e39d3d60ee41700b5c86f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5c535231e2a9ba7955a7a3437e72c0e6"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#ga5c535231e2a9ba7955a7a3437e72c0e6">s16DS18B20_1WIRE__Generate_Reset</a> (Luint8 u8ChannelIndex)</td></tr>
+<tr class="memdesc:ga5c535231e2a9ba7955a7a3437e72c0e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a reset.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#ga5c535231e2a9ba7955a7a3437e72c0e6">More...</a><br /></td></tr>
+<tr class="separator:ga5c535231e2a9ba7955a7a3437e72c0e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga056ee233add0bd5703c03a09c690a872"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#ga056ee233add0bd5703c03a09c690a872">s16DS18B20_1WIRE__SelectDevice</a> (Luint8 u8ChannelIndex, Luint8 *pu8Addx)</td></tr>
+<tr class="memdesc:ga056ee233add0bd5703c03a09c690a872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select a device.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#ga056ee233add0bd5703c03a09c690a872">More...</a><br /></td></tr>
+<tr class="separator:ga056ee233add0bd5703c03a09c690a872"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga56b9dd0fe4945c7aaf34ec94d4bc4f2f"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#ga56b9dd0fe4945c7aaf34ec94d4bc4f2f">s16DS18B20_1WIRE__WriteByte</a> (Luint8 u8ChannelIndex, Luint8 u8Byte)</td></tr>
+<tr class="memdesc:ga56b9dd0fe4945c7aaf34ec94d4bc4f2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a byte to the wire.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#ga56b9dd0fe4945c7aaf34ec94d4bc4f2f">More...</a><br /></td></tr>
+<tr class="separator:ga56b9dd0fe4945c7aaf34ec94d4bc4f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0bb7366f7599965c7c7f149e1e445312"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#ga0bb7366f7599965c7c7f149e1e445312">s16DS18B20_1WIRE__ReadByte</a> (Luint8 u8ChannelIndex, Luint8 *pu8Byte)</td></tr>
+<tr class="memdesc:ga0bb7366f7599965c7c7f149e1e445312"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a byte from the 1-wire.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#ga0bb7366f7599965c7c7f149e1e445312">More...</a><br /></td></tr>
+<tr class="separator:ga0bb7366f7599965c7c7f149e1e445312"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga542297fc2a6a5388334be712532f1688"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#ga542297fc2a6a5388334be712532f1688">s16DS18B20_SEARCH__SearchFirstDevice</a> (Luint8 u8ChannelIndex, Luint8 *pu8Addx)</td></tr>
+<tr class="memdesc:ga542297fc2a6a5388334be712532f1688"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for the first device on the bus.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#ga542297fc2a6a5388334be712532f1688">More...</a><br /></td></tr>
+<tr class="separator:ga542297fc2a6a5388334be712532f1688"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga78c443b7865b7e1813a400301e6ddfa1"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#ga78c443b7865b7e1813a400301e6ddfa1">s16DS18B20_SEARCH__SearchNextDevice</a> (Luint8 u8ChannelIndex, Luint8 *pu8Addx)</td></tr>
+<tr class="memdesc:ga78c443b7865b7e1813a400301e6ddfa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for the next device on the bus.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#ga78c443b7865b7e1813a400301e6ddfa1">More...</a><br /></td></tr>
+<tr class="separator:ga78c443b7865b7e1813a400301e6ddfa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab909b5ba4235dd99214585479c734ade"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____w_i_r_e___i_f.html#gab909b5ba4235dd99214585479c734ade">s16DS18B20_1WIRE__Skip</a> (Luint8 u8ChannelIndex)</td></tr>
+<tr class="memdesc:gab909b5ba4235dd99214585479c734ade"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implement a 1-Wire skip function.  <a href="group___d_s18_b20_____w_i_r_e___i_f.html#gab909b5ba4235dd99214585479c734ade">More...</a><br /></td></tr>
+<tr class="separator:gab909b5ba4235dd99214585479c734ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface to various 1-wire calls from other modules. </p>
