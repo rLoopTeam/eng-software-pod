@@ -21,6 +21,8 @@ Change the build settings:
 *******************************************************************************/
 	/*lint -e950 */
 	/*lint -e621 */
+	#include "sil3_generic__cpu.h"
+	
 	//data types
 	#include <RM4/LCCM105__RM4__BASIC_TYPES/basic_types.h>
 
