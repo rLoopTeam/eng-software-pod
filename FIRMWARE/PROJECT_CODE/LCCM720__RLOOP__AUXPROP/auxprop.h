@@ -1,0 +1,121 @@
+/**
+ * @file		AUXPROP.H
+ * @brief		Main Header
+ * @author		Lachlan Grogan
+ * @copyright	This file contains proprietary and confidential information of
+ *				SIL3 Pty. Ltd. (ACN 123 529 064). This code may be distributed
+ *				under a license from SIL3 Pty. Ltd., and may be used, copied
+ *				and/or disclosed only pursuant to the terms of that license agreement.
+ *				This copyright notice must be retained as part of this file at all times.
+ * @copyright	This file is copyright SIL3 Pty. Ltd. 2003-2016, All Rights Reserved.
+ * @st_fileID	LCCM720R0.FILE.001
+ */
+
+#ifndef _AUXPROP_H_
+#define _AUXPROP_H_
+	#include <localdef.h>
+	#if C_LOCALDEF__LCCM720__ENABLE_THIS_MODULE == 1U
+
+		/*******************************************************************************
+		Includes
+		*******************************************************************************/
+		#include <LCCM720__RLOOP__AUXPROP/auxprop__types.h>
+
+		//cross system networking types
+		#include <LCCM655__RLOOP__FCU_CORE/NETWORKING/fcu_core__net__packet_types.h>
+
+		//for software fault tree handling
+		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
+
+		/*******************************************************************************
+		Defines
+		*******************************************************************************/
+
+
+		/*******************************************************************************
+		Structures
+		*******************************************************************************/
+		typedef struct
+		{
+
+			/** Ethernet Systems */
+			struct
+			{
+				/** our hardware MAC */
+				Luint8 u8MACAddx[6U];
+
+				/** our locally assigned IP*/
+				Luint8 u8IPAddx[4U];
+			}sEthernet;
+
+
+			/** Clutch Control */
+			struct
+			{
+
+				/** State either engaged (on) or disegnaged*/
+				Luint8 u8State;
+
+			}sClutch[2U];
+
+
+			/** Clutch Control */
+			struct
+			{
+
+				/** Motor Direction*/
+				Luint8 u8Direction;
+
+			}sThrottle[2U];
+
+		}TS_APU__MAIN;
+
+		/*******************************************************************************
+		Function Prototypes
+		*******************************************************************************/
+		DLL_DECLARATION void vAPU__Init(void);
+		DLL_DECLARATION void vAPU__Process(void);
+		
+		//clutch control
+		void vAPU_CLUTCH__Init(void);
+		void vAPU_CLUTCH__Process(void);
+		void vAPU_CLUTCH__Engage(TE_RLOOP_AUXPROP__SIDE eSide);
+		void vAPU_CLUTCH__Disengage(TE_RLOOP_AUXPROP__SIDE eSide);
+
+		//throttle
+		void vAPU_THROTTLE__Init(void);
+		void vAPU_THROTTLE__Process(void);
+		void vAPU_THROTTLE__Forward(TE_RLOOP_AUXPROP__SIDE eSide);
+		void vAPU_THROTTLE__Reverse(TE_RLOOP_AUXPROP__SIDE eSide);
+		
+		//Ethernet Interface
+		void vAPU_ETH__Init(void);
+		void vAPU_ETH__Process(void);
+		Luint8 u8APU_ETH__Is_LinkUp(void);
+		void vAPU_ETH__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPort);
+		void vAPU_ETH__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault);
+
+		//timers
+		DLL_DECLARATION void vAPU_TIMERS__10MS_ISR(void);
+		DLL_DECLARATION void vAPU_TIMERS__100MS_ISR(void);
+		
+		//DAQ
+		void vAPU_DAQ__Init(void);
+
+		//For WIN32
+		#ifdef WIN32
+			typedef void (__cdecl * pAPU_WIN32__UpdateData_Callback_FuncType)(Luint8 u8ClutchL, Luint8 u8ClutchR, Luint8 u8DirL, Luint8 u8DirR, Luint32 u32FreqL, Luint32 u32FreqR);
+			DLL_DECLARATION void vAPU_WIN32__SetCallback_UpdateData(pAPU_WIN32__UpdateData_Callback_FuncType pFunc);
+			void vAPU_WIN32__UpdateData(Luint8 u8ClutchL, Luint8 u8ClutchR, Luint8 u8DirL, Luint8 u8DirR, Luint32 u32FreqL, Luint32 u32FreqR);
+			void vAPU_WIN32__Send_Generic_Update(void);
+
+		#endif
+		
+		
+	#endif //#if C_LOCALDEF__LCCM720__ENABLE_THIS_MODULE == 1U
+	//safetys
+	#ifndef C_LOCALDEF__LCCM720__ENABLE_THIS_MODULE
+		#error
+	#endif
+#endif //_AUXPROP_H_
+
