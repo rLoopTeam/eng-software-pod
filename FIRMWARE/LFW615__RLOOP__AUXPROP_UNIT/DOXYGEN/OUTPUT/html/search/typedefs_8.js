@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['rm4_5fadc_5f_5fbase_5ft',['RM4_ADC__BASE_T',['../rm4__adc____private_8h.html#a6ef2329e522819906a1cdf9d9b3830a8',1,'rm4_adc__private.h']]],
+  ['rm4_5fadc_5f_5fdata_5ft',['RM4_ADC__DATA_T',['../rm4__adc____private_8h.html#a2ff9b94b5e50c3ee9f2dda494730ef0e',1,'rm4_adc__private.h']]],
+  ['rm4_5fdma_5f_5faccess_5ft',['RM4_DMA__ACCESS_T',['../rm4__dma____private_8h.html#a82c8435c6fecadda2363627ac92ee2ad',1,'rm4_dma__private.h']]],
+  ['rm4_5fdma_5f_5fbase_5ft',['RM4_DMA__BASE_T',['../rm4__dma____private_8h.html#a4643ac632c4965e5f237bfca7fe26ae3',1,'rm4_dma__private.h']]],
+  ['rm4_5fdma_5f_5fchannel_5fe',['RM4_DMA__CHANNEL_E',['../rm4__dma____private_8h.html#a50b0a60d5aafbb037be000afcad4fa49',1,'rm4_dma__private.h']]],
+  ['rm4_5fdma_5f_5finterrupt_5ft',['RM4_DMA__INTERRUPT_T',['../rm4__dma____private_8h.html#a806604003301553ca4ca735508b45ef1',1,'rm4_dma__private.h']]],
+  ['rm4_5fdma_5f_5fpriority_5ft',['RM4_DMA__PRIORITY_T',['../rm4__dma____private_8h.html#a16e3d21b85a3a594e18ae43ce18c30b8',1,'rm4_dma__private.h']]],
+  ['rm4_5fdma_5f_5fregion_5faccess_5ft',['RM4_DMA__REGION_ACCESS_T',['../rm4__dma____private_8h.html#aace6ff349e198ce26b86565dfd5a5f3c',1,'rm4_dma__private.h']]],
+  ['rm4_5fdma_5f_5fregion_5ft',['RM4_DMA__REGION_T',['../rm4__dma____private_8h.html#a9c428bdd361c64dc051ab20834da1590',1,'rm4_dma__private.h']]],
+  ['rm4_5fgio_5f_5fbase_5ft',['RM4_GIO__BASE_T',['../rm4__gio____private_8h.html#a7de25057b70e0ea8b2ac2af6b707dc50',1,'rm4_gio__private.h']]],
+  ['rm4_5fgio_5f_5fport_5fdirection_5ft',['RM4_GIO__PORT_DIRECTION_T',['../rm4__gio_8h.html#a6ba7f6a0831616fff56a1e6c4d892fce',1,'rm4_gio.h']]],
+  ['rm4_5fgio_5f_5fport_5ft',['RM4_GIO__PORT_T',['../rm4__gio____private_8h.html#aea6dc84372f7172a5a5d6bb0e130147f',1,'rm4_gio__private.h']]],
+  ['rm4_5fhet_5f_5fbase_5ft',['RM4_HET__BASE_T',['../rm4__n2het____private_8h.html#ad0905d1fa9f1a46ce41f45a549767299',1,'rm4_n2het__private.h']]],
+  ['rm4_5fhet_5f_5fconfig_5freg_5ft',['RM4_HET__CONFIG_REG_T',['../rm4__n2het_8h.html#a0ed123afa515560a22f3cd5a14fdce44',1,'rm4_n2het.h']]],
+  ['rm4_5fhet_5f_5finstruction_5ft',['RM4_HET__INSTRUCTION_T',['../rm4__n2het_8h.html#af0fc3f251018a7045cdf1a0a5013e847',1,'rm4_n2het.h']]],
+  ['rm4_5fhet_5f_5frambase_5ft',['RM4_HET__RAMBASE_T',['../rm4__n2het_8h.html#aa8eb86877f3eeed3321e1f520bff034b',1,'rm4_n2het.h']]],
+  ['rm4_5fhet_5f_5fsignal_5ft',['RM4_HET__SIGNAL_T',['../rm4__n2het_8h.html#ab52772842ed4e8f91b675b9a3e60b8f4',1,'rm4_n2het.h']]],
+  ['rm4_5fi2c_5f_5fbase_5ft',['RM4_I2C__BASE_T',['../rm4__i2c____private_8h.html#ab13b628e2e90cf616367b372fca1179d',1,'rm4_i2c__private.h']]],
+  ['rm4_5fmibspi135_5f_5fram_5ft',['RM4_MIBSPI135__RAM_T',['../rm4__mibspi135____private_8h.html#a7e16970a6ceb97f4ef3971220b890032',1,'rm4_mibspi135__private.h']]],
+  ['rm4_5fpd_5f_5ftest_5fmode_5ft',['RM4_PD__TEST_MODE_T',['../rm4__pd_8h.html#af6afb08743422fb5f4ad9ce33c14bbfb',1,'rm4_pd.h']]],
+  ['rm4_5frti_5f_5fbase_5ft',['RM4_RTI__BASE_T',['../rm4__rti____private_8h.html#add552532409f45083a8c4cc8fb5959d9',1,'rm4_rti__private.h']]],
+  ['rm4_5fsci_5f_5fbase_5ft',['RM4_SCI__BASE_T',['../rm4__sci____private_8h.html#ab7a3e9655e6ab1352cd577336b009ce5',1,'rm4_sci__private.h']]]
+];
