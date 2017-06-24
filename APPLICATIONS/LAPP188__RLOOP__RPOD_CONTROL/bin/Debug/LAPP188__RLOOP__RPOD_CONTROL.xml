@@ -22,6 +22,11 @@ LAPP188__RLOOP__RPOD_CONTROL
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ProgressHelper.m_bCreateVertical">
+ <summary>
+ Do we want a vertical gauge
+ </summary>
+</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ProgressHelper.Layout__BelowControl(System.Windows.Forms.Control@)">
  <summary>
  Places this object below another control
@@ -171,7 +176,7 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="sText"></param>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.CheckBoxHelper.Persist__Set(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eLockieCompanyType,System.String)">
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.CheckBoxHelper.Persist__Set(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eSIL3CompanyType,System.String)">
  <summary>
  Enable persistance between application closures.
  </summary>
@@ -267,15 +272,15 @@ LAPP188__RLOOP__RPOD_CONTROL
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ComboBoxHelper.Persist__Set(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eLockieCompanyType,System.String)">
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ComboBoxHelper.Persist__Set(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eSIL3CompanyType,System.String)">
  <summary>
  Enable persistance between application closures.
  </summary>
- <param name="eLockieType"></param>
+ <param name="eSIL3Type"></param>
  <param name="sName"></param>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ComboBoxHelper.History__Set(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eLockieCompanyType,System.String)">
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ComboBoxHelper.History__Set(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eSIL3CompanyType,System.String)">
  <summary>
  Enable History
  </summary>
@@ -1183,7 +1188,7 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="pControl"></param>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.LoggingBox.Dispose">
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.LoggingBox.Destroy">
  <summary>
  Call this to dispose of this app
  </summary>
@@ -1869,6 +1874,22 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="iWidth"></param>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U8.Value__Update(System.Byte[]@,System.Int32)">
+ <summary>
+ Update the value in the display box
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U8.Value__Update__To_Int(System.Byte[]@,System.Int32)">
+ <summary>
+ Update the value in the display box as an integer
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
+</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U8.List__Add(System.String,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8)">
  <summary>
  Add a list item
@@ -1938,6 +1959,22 @@ LAPP188__RLOOP__RPOD_CONTROL
  </summary>
  <param name="iWidth"></param>
  <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_S32.Value__Update(System.Byte[]@,System.Int32)">
+ <summary>
+ Update the value from a byte array (such as a packet)
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_S32.Value__ToArray(System.Byte[]@,System.Int32)">
+ <summary>
+ Convert the value in our 
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U32">
  <summary>
@@ -2074,6 +2111,14 @@ LAPP188__RLOOP__RPOD_CONTROL
  </summary>
  <param name="iValue"></param>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.HeaderFile__Set(System.String,System.String)">
+ <summary>
+ Allows us to extract typedef enum states from a header file
+ as long as that typedef enum structure conforms
+ </summary>
+ <param name="sFilePath">path to the header file</param>
+ <param name="sTypeDefEnumName">Example: TE_PDL__BATTERY_STATE</param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags">
  <summary>
  A text box specifically to display fault flags
@@ -2124,6 +2169,12 @@ LAPP188__RLOOP__RPOD_CONTROL
  Update the flags and append our text box
  </summary>
  <param name="u32Flags"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags.FlagsFile__Read(System.String,System.String)">
+ <summary>
+ Reads the flags file
+ </summary>
+ <param name="sSectionName">CORE, Etc</param>
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper">
  <summary>
@@ -2224,6 +2275,13 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="sData"></param>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper.Layout__RightOfControl(System.Windows.Forms.Control@)">
+ <summary>
+ Places this control to the right of anothe rcontrol
+ </summary>
+ <param name="pRightControl"></param>
+ <remarks></remarks>
+</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper.Layout__BelowControl(System.Windows.Forms.Control@)">
  <summary>
  Layout below a control
@@ -2261,7 +2319,7 @@ LAPP188__RLOOP__RPOD_CONTROL
  <returns></returns>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper.Persist__Set(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eLockieCompanyType,System.String)">
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper.Persist__Set(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eSIL3CompanyType,System.String)">
  <summary>
  Enable persistance between application closures.
  </summary>
@@ -4245,11 +4303,74 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  Pod control end points
  </summary>
 </member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU">
+ <summary>
+ Auxiliary Propulsion Unit
+ </summary>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T">
  <summary>
  Network packet defines
  http://confluence.rloop.org/display/SD/Packet+Types
  </summary>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Manual">
+ <summary>
+ Manual AuxProp Control
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Manual.#ctor(System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Manual.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top">
+ <summary>
+ Top level APU panel
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top.m_pExplorer">
+ <summary>
+ Our application explorer bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top.m_iBarIndex">
+ <summary>
+ The index of our category in the explorer bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top.#ctor(System.Windows.Forms.Form@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ExplorerBarHelper@)">
+ <summary>
+ New instance
+ </summary>
+ <param name="pf"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top.Panel__HideShow(System.String)">
+ <summary>
+ How or hide this panel if our text matches
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top.LinkBar_LinkClick(System.String)">
+ <summary>
+ Called when a link is clicked
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers">
  <summary>
@@ -5685,6 +5806,11 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <remarks></remarks>
 </member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pnlAuxProp">
+ <summary>
+ AuxProp top level
+ </summary>
+</member>
 <member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pnlXilinxSim">
  <summary>
  Xilinx simulation module
@@ -5947,6 +6073,59 @@ if the string is too long it will be clipped
  </summary>
  <remarks></remarks>
 </member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8Array">
+ <summary>
+ Create a type of U8 byt array handling functions
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8Array.m_pU8">
+ <summary>
+ The Array of U8's
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8Array.#ctor(System.Byte[]@,System.Int32)">
+ <summary>
+ Create a new instance, start and copy and array and some length
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8Array.#ctor(System.Int32,System.Byte)">
+ <summary>
+ Create a new instance and set all data to a value
+ </summary>
+ <param name="iLength"></param>
+ <param name="u8Default"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8Array.Insert_Into(System.Byte[]@,System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Insert a byte array into our internal array
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iArrayStartPos"></param>
+ <param name="iInsertPos"></param>
+ <param name="iLength"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8Array.To_String__FormattedHex(System.Boolean,System.Boolean,System.String)">
+ <summary>
+ Converts our internal array to a formatted hex string with a space
+ </summary>
+ <param name="bForward">Forward is default, but can do it in reverse if needed</param>
+ <returns></returns>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8Array.To_String__MACAddx(System.Boolean)">
+ <summary>
+ Take our array and format it as a MAC address
+ </summary>
+ <param name="bForward">Format forward (normal) or false = reverse</param>
+ <returns></returns>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8Array.To_String">
+ <summary>
+ Convert our array to a string comma separated
+ </summary>
+ <returns></returns>
+</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8.#ctor(System.Byte[]@,System.Int32)">
  <summary>
  Create a new U8 from an array, 
@@ -6040,6 +6219,12 @@ if the string is too long it will be clipped
  </summary>
  <returns></returns>
  <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8.To__Int_2s_Complement">
+ <summary>
+ Convert to a twos complement integer from a byte
+ </summary>
+ <returns></returns>
 </member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8.To_String(System.Boolean)">
  <summary>
@@ -6214,6 +6399,14 @@ same as above, but padded to the correct length
  <param name="u8Array"></param>
  <param name="iStartPosition"></param>
  <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16.To__Array_BE(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8[]@,System.Int32)">
+ <summary>
+ To array, big endian like for modbus
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPosition"></param>
+ <returns></returns>
 </member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16.From__FormattedHex(System.String)">
  <summary>
@@ -7838,7 +8031,7 @@ reads the file.
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.FileSupport.FileDialogHelpers.FileSaveAs.#ctor(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eLockieCompanyType,System.Boolean,System.String)">
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.FileSupport.FileDialogHelpers.FileSaveAs.#ctor(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eSIL3CompanyType,System.Boolean,System.String)">
  <summary>
  
  </summary>
@@ -7901,7 +8094,7 @@ helper for our file choose dialog
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.FileSupport.FileDialogHelpers.FileChoose.#ctor(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eLockieCompanyType,System.Boolean,System.String)">
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.FileSupport.FileDialogHelpers.FileChoose.#ctor(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eSIL3CompanyType,System.Boolean,System.String)">
  <summary>
  
  </summary>
@@ -7938,7 +8131,7 @@ helper for our file choose dialog
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.FileSupport.FileDialogHelpers.FileChooseMultiple.#ctor(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eLockieCompanyType,System.Boolean,System.String)">
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.FileSupport.FileDialogHelpers.FileChooseMultiple.#ctor(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eSIL3CompanyType,System.Boolean,System.String)">
  <summary>
  
  </summary>
@@ -7988,6 +8181,13 @@ don't include the dot
  Generic Collection of wrappers for file support
  </summary>
  <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.FileSupport.FileHelpers.Disk__Exists(System.String)">
+ <summary>
+ check if a disk exists.
+ </summary>
+ <param name="sPath"></param>
+ <returns></returns>
 </member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.FileSupport.FileHelpers.Disk__Set_VolumeLabel(System.String,System.String)">
  <summary>
@@ -8329,6 +8529,14 @@ gens a random temp file
  <returns></returns>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.FileSupport.FileHelpers.Folder__ListAllFolders_Recursive_Exclude(System.String,System.Collections.Generic.List{System.String})">
+ <summary>
+ 
+ </summary>
+ <param name="sPath"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(System.String,System.Boolean)">
  <summary>
  checks if the folder exists
@@ -8456,7 +8664,7 @@ returns true if the file is read only.
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.FileSupport.OneLineFile.#ctor(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eLockieCompanyType,System.String)">
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.FileSupport.OneLineFile.#ctor(LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eSIL3CompanyType,System.String)">
  <summary>
 set true to use our application data path
  </summary>
@@ -9019,7 +9227,7 @@ this will init our series
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.SafeUDP.StdUDPLayer.ChooseAdapter__Show(System.String)">
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.SafeUDP.StdUDPLayer.ChooseAdapter__Show(System.String,System.String,System.String)">
  <summary>
  show the choose adapter dialog
  </summary>
@@ -9309,18 +9517,18 @@ this will init our series
  </summary>
  <remarks></remarks>
 </member>
-<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eLockieCompanyType.USER_SUPPLIED_PATH">
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eSIL3CompanyType.USER_SUPPLIED_PATH">
  <summary>
  Some direct user supplied path
  </summary>
 </member>
-<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eLockieCompanyType.SIL3">
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eSIL3CompanyType.SIL3">
  <summary>
  Documents and Settings\Application Data\SIL3 Pty Ltd\
  </summary>
  <remarks></remarks>
 </member>
-<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eLockieCompanyType.SIL3__APP_PATH">
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.Types.eSIL3CompanyType.SIL3__APP_PATH">
  <summary>
  Documents and Settings\Application Data\SIL3 Pty Ltd\(Application Path)
  </summary>
