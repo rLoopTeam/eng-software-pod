@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>(C Code, MULTICORE, DS18B20 Temp Sensor): ADDRESS/ds18b20__address.c File Reference</title>
+<title>(C Code, MULTICORE, DS18B20 Temperature Sensor): ADDRESS/ds18b20__address.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -31,9 +31,9 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">(C Code, MULTICORE, DS18B20 Temp Sensor)
+   <div id="projectname">(C Code, MULTICORE, DS18B20 Temperature Sensor)
    &#160;<span id="projectnumber">1.0</span>
    </div>
   </td>
@@ -107,14 +107,15 @@ Include dependency graph for ds18b20__address.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="ds18b20____address_8c__incl.png" border="0" usemap="#_a_d_d_r_e_s_s_2ds18b20____address_8c" alt=""/></div>
 <map name="_a_d_d_r_e_s_s_2ds18b20____address_8c" id="_a_d_d_r_e_s_s_2ds18b20____address_8c">
-<area shape="rect" id="node2" href="ds18b20_8h.html" title="Main header for DS18B20 library. " alt="" coords="63,80,157,107"/>
+<area shape="rect" id="node2" href="ds18b20_8h.html" title="Main header for DS18B20 library. " alt="" coords="146,80,241,107"/>
+<area shape="rect" id="node4" href="ds18b20____state__types_8h.html" title="State type defines. " alt="" coords="107,155,279,211"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga8a4cca88f039bf98ea20a973d4da1689"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga8a4cca88f039bf98ea20a973d4da1689">vDS18B20_ADDX__Init</a> (void)</td></tr>
-<tr class="memdesc:ga8a4cca88f039bf98ea20a973d4da1689"><td class="mdescLeft">&#160;</td><td class="mdescRight">ToDo.  <a href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga8a4cca88f039bf98ea20a973d4da1689">More...</a><br /></td></tr>
+<tr class="memdesc:ga8a4cca88f039bf98ea20a973d4da1689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init the addressing module.  <a href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga8a4cca88f039bf98ea20a973d4da1689">More...</a><br /></td></tr>
 <tr class="separator:ga8a4cca88f039bf98ea20a973d4da1689"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3c1f4218a21309c7a9551f6f5f4b8352"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3c1f4218a21309c7a9551f6f5f4b8352">s16DS18B20_ADDX__Search</a> (void)</td></tr>
 <tr class="memdesc:ga3c1f4218a21309c7a9551f6f5f4b8352"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for all devices on the bus on all channels.  <a href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3c1f4218a21309c7a9551f6f5f4b8352">More...</a><br /></td></tr>
@@ -125,6 +126,14 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3ec3588c5df9cb29f373c1504bf2d7e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">vDS18B20_ADDX__SearchSM_Process</a> (void)</td></tr>
 <tr class="memdesc:ga3ec3588c5df9cb29f373c1504bf2d7e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">State machine based search processing.  <a href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga3ec3588c5df9cb29f373c1504bf2d7e9">More...</a><br /></td></tr>
 <tr class="separator:ga3ec3588c5df9cb29f373c1504bf2d7e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga150d93001d95b34c1b6a4b198bc29f9c"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga150d93001d95b34c1b6a4b198bc29f9c">s16DS18B20_ADDX__Upload_Addx</a> (Luint16 u16SensorIndex, Luint8 u8ChannelIndex, Luint8 *pu8Addx)</td></tr>
+<tr class="memdesc:ga150d93001d95b34c1b6a4b198bc29f9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually upload an address into the device table.  <a href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga150d93001d95b34c1b6a4b198bc29f9c">More...</a><br /></td></tr>
+<tr class="separator:ga150d93001d95b34c1b6a4b198bc29f9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf80d405d3168ab9f981828781f2a303f"><td class="memItemLeft" align="right" valign="top">Luint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#gaf80d405d3168ab9f981828781f2a303f">u16DS18B20_ADDX__Get_NumEnumerated</a> (void)</td></tr>
+<tr class="memdesc:gaf80d405d3168ab9f981828781f2a303f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of enumerated devices.  <a href="group___d_s18_b20_____a_d_d_r_e_s_s.html#gaf80d405d3168ab9f981828781f2a303f">More...</a><br /></td></tr>
+<tr class="separator:gaf80d405d3168ab9f981828781f2a303f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeee8c88e3b112a104ac8c6a038ae883f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#gaeee8c88e3b112a104ac8c6a038ae883f">vDS18B20_ADDX__Set_SearchComplete</a> (void)</td></tr>
+<tr class="separator:gaeee8c88e3b112a104ac8c6a038ae883f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga824fdac4e984a66ac05d3e0a3d680e24"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga824fdac4e984a66ac05d3e0a3d680e24">u8DS18B20_ADDX__SearchSM_IsBusy</a> (void)</td></tr>
 <tr class="memdesc:ga824fdac4e984a66ac05d3e0a3d680e24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if the search state machine is busy or not.  <a href="group___d_s18_b20_____a_d_d_r_e_s_s.html#ga824fdac4e984a66ac05d3e0a3d680e24">More...</a><br /></td></tr>
 <tr class="separator:ga824fdac4e984a66ac05d3e0a3d680e24"><td class="memSeparator" colspan="2">&#160;</td></tr>

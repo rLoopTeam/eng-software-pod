@@ -32,7 +32,7 @@ extern struct _strPWRNODE sPWRNODE;
 void vPWRNODE_FAULTS__Init(void)
 {
 	//init the top level fault tree
-	vFAULTTREE__Init(&sPWRNODE.sFaults.sTopLevel);
+	vSIL3_FAULTTREE__Init(&sPWRNODE.sFaults.sTopLevel);
 
 }
 
@@ -50,14 +50,14 @@ void vPWRNODE_FAULTS__Process(void)
 	if(sPWRNODE.u32Guard1 != 0xABCD9876U)
 	{
 		//fault
-		vFAULTTREE__Set_Flag(&sPWRNODE.sFaults.sTopLevel, C_LCCM653__CORE__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sPWRNODE.sFaults.sTopLevel, C_LCCM653__CORE__FAULT_INDEX__01);
+		vSIL3_FAULTTREE__Set_Flag(&sPWRNODE.sFaults.sTopLevel, C_LCCM653__CORE__FAULT_INDEX__00);
+		vSIL3_FAULTTREE__Set_Flag(&sPWRNODE.sFaults.sTopLevel, C_LCCM653__CORE__FAULT_INDEX__01);
 	}
 	if(sPWRNODE.u32Guard2 != 0x12983465U)
 	{
 		//fault
-		vFAULTTREE__Set_Flag(&sPWRNODE.sFaults.sTopLevel, C_LCCM653__CORE__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sPWRNODE.sFaults.sTopLevel, C_LCCM653__CORE__FAULT_INDEX__01);
+		vSIL3_FAULTTREE__Set_Flag(&sPWRNODE.sFaults.sTopLevel, C_LCCM653__CORE__FAULT_INDEX__00);
+		vSIL3_FAULTTREE__Set_Flag(&sPWRNODE.sFaults.sTopLevel, C_LCCM653__CORE__FAULT_INDEX__01);
 	}
 }
 

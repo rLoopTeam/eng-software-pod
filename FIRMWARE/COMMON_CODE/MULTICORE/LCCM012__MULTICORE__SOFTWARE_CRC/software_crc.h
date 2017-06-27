@@ -27,48 +27,48 @@
 
 	#if C_LOCALDEF__LCCM012__ENABLE_THIS_MODULE == 1U
 
-	/*******************************************************************************
-	Defines
-	*******************************************************************************/
+		/*******************************************************************************
+		Defines
+		*******************************************************************************/
+		
+		/*******************************************************************************
+		Structures
+		*******************************************************************************/
+		struct _strCRC
+		{
+			Luint8 u8Dummy;
+		};
+		
+		/*******************************************************************************
+		Function Prototypes
+		*******************************************************************************/
+		DLL_DECLARATION Luint8 u8SIL3_SWCRC__7Bit_CRC_Add(Luint8 u8ExistingCRC, Luint8 u8NewData);
+		DLL_DECLARATION Luint8 u8SIL3_SWCRC__7Bit_CRC_Finalise(Luint8 u8OldCRC);
+		DLL_DECLARATION Luint16 u16SIL3_SWCRC__16Bit_CRC_Finalise(Luint16 u16OldCRC);
+		DLL_DECLARATION Luint16 u16SIL3_SWCRC__16Bit_CRC_Add(Luint16 u16Existing_CRC, Luint8 u8NewData);
+		DLL_DECLARATION Luint16 u16SIL3_SWCRC__CRC(const Luint8 *cpu8Data, Luint32 u32Length);
+		DLL_DECLARATION Luint8 u8SIL3_SWCRC__CRC8(const Luint8 *pu8Message, Luint32 u32Length);
 	
-	/*******************************************************************************
-	Structures
-	*******************************************************************************/
-	struct _strCRC
-	{
-		Luint8 u8Dummy;
-	};
+		//locals (not for user calling
+		DLL_DECLARATION Luint8 u8SIL3_SWCRC__GetBit(Luint8 u8Byte, Luint8 u8Position);
+		DLL_DECLARATION Luint16 u16SIL3_SWCRC__GetBit(Luint16 u16Word, Luint8 u8Position);
 	
-	/*******************************************************************************
-	Function Prototypes
-	*******************************************************************************/
-	DLL_DECLARATION Luint8 u8SWCRC__7Bit_CRC_Add(Luint8 u8ExistingCRC, Luint8 u8NewData);
-	DLL_DECLARATION Luint8 u8SWCRC__7Bit_CRC_Finalise(Luint8 u8OldCRC);
-	DLL_DECLARATION Luint16 u16SWCRC__16Bit_CRC_Finalise(Luint16 u16OldCRC);
-	DLL_DECLARATION Luint16 u16SWCRC__16Bit_CRC_Add(Luint16 u16Existing_CRC, Luint8 u8NewData);
-	DLL_DECLARATION Luint16 u16SWCRC__CRC(const Luint8 *cpu8Data, Luint32 u32Length);
-	DLL_DECLARATION Luint8 u8SWCRC__CRC8(const Luint8 *pu8Message, Luint32 u32Length);
-
-	//locals (not for user calling
-	DLL_DECLARATION Luint8 u8SWCRC__GetBit(Luint8 u8Byte, Luint8 u8Position);
-	DLL_DECLARATION Luint16 u16SWCRC__GetBit(Luint16 u16Word, Luint8 u8Position);
-
-	#if C_LOCALDEF__LCCM012__ENABLE_TEST_SPEC == 1U
-		DLL_DECLARATION void vLCCM012_TS(void);
-		DLL_DECLARATION void vLCCM012_TS_005(void);
-		DLL_DECLARATION void vLCCM012_TS_006(void);
-		DLL_DECLARATION void vLCCM012_TS_007(void);
-		DLL_DECLARATION void vLCCM012_TS_008(void);
-		DLL_DECLARATION void vLCCM012_TS_009(void);
-		DLL_DECLARATION void vLCCM012_TS_010(void);
-		DLL_DECLARATION void vLCCM012_TS_011(void);
-		DLL_DECLARATION void vLCCM012R0_TS_012(void);
-		DLL_DECLARATION void vLCCM012R0_TS_013(void);
-		DLL_DECLARATION void vLCCM012R0_TS_014(void);
-		DLL_DECLARATION void vLCCM012R0_TS_015(void);
-		DLL_DECLARATION void vLCCM012R0_TS_016(void);
-		DLL_DECLARATION void vLCCM012R0_TS_017(void);
-	#endif
+		#if C_LOCALDEF__LCCM012__ENABLE_TEST_SPEC == 1U
+			DLL_DECLARATION void vLCCM012_TS(void);
+			DLL_DECLARATION void vLCCM012_TS_005(void);
+			DLL_DECLARATION void vLCCM012_TS_006(void);
+			DLL_DECLARATION void vLCCM012_TS_007(void);
+			DLL_DECLARATION void vLCCM012_TS_008(void);
+			DLL_DECLARATION void vLCCM012_TS_009(void);
+			DLL_DECLARATION void vLCCM012_TS_010(void);
+			DLL_DECLARATION void vLCCM012_TS_011(void);
+			DLL_DECLARATION void vLCCM012R0_TS_012(void);
+			DLL_DECLARATION void vLCCM012R0_TS_013(void);
+			DLL_DECLARATION void vLCCM012R0_TS_014(void);
+			DLL_DECLARATION void vLCCM012R0_TS_015(void);
+			DLL_DECLARATION void vLCCM012R0_TS_016(void);
+			DLL_DECLARATION void vLCCM012R0_TS_017(void);
+		#endif
 	
 	#endif //C_LOCALDEF__LCCM012__ENABLE_THIS_MODULE == 1U
 

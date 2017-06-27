@@ -165,7 +165,7 @@ Lint16 s16DS2482S_SEARCH__SearchNextDevice(Luint8 u8DeviceIndex, Luint8 *pu8Addx
  * 
  * @param[in]		*pu8Addx				Pointer to address to verify
  * @param[in]		u8DeviceIndex			I2C device index
- * @st_funcMD5		840510695ACABF41C9D210374BDCE184
+ * @st_funcMD5		5B08EF9844E9C773CD153BAF7A8E3E3C
  * @st_funcID		LCCM641R0.FILE.008.FUNC.004
  */
 Lint16 s16DS2482S_SEARCH__Verify(Luint8 u8DeviceIndex, const Luint8 *pu8Addx)

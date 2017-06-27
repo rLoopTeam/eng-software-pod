@@ -40,6 +40,13 @@ void vAMC7812_ADC__Init(void)
 
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		459B883C32FCB1FB9BD11787415CE703
+ * @st_funcID		LCCM658R0.FILE.008.FUNC.002
+ */
 void vAMC7812_ADC__Process(void)
 {
 

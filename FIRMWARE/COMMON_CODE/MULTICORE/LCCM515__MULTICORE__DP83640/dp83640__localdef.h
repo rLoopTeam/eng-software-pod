@@ -16,14 +16,10 @@
 #if 0
 
 /*******************************************************************************
-DP83640 - Ethernet PHY with IEE1588
+SIL3 - DP83640 Ethernet PHY with IEE1588
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE == 1U
-
-		/** CPU Architecture */
-		#define C_LOCALDEF__LCCM515__USE_ON_RM4								(1U)
-		#define C_LOCALDEF__LCCM515__USE_ON_XILINX							(0U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM515__ENABLE_TEST_SPEC						(0U)

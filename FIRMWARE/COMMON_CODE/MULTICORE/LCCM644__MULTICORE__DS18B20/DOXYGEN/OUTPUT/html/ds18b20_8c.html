@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>(C Code, MULTICORE, DS18B20 Temp Sensor): ds18b20.c File Reference</title>
+<title>(C Code, MULTICORE, DS18B20 Temperature Sensor): ds18b20.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -31,9 +31,9 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">(C Code, MULTICORE, DS18B20 Temp Sensor)
+   <div id="projectname">(C Code, MULTICORE, DS18B20 Temperature Sensor)
    &#160;<span id="projectnumber">1.0</span>
    </div>
   </td>
@@ -107,7 +107,8 @@ Include dependency graph for ds18b20.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="ds18b20_8c__incl.png" border="0" usemap="#ds18b20_8c" alt=""/></div>
 <map name="ds18b20_8c" id="ds18b20_8c">
-<area shape="rect" id="node2" href="ds18b20_8h.html" title="Main header for DS18B20 library. " alt="" coords="5,80,88,107"/>
+<area shape="rect" id="node2" href="ds18b20_8h.html" title="Main header for DS18B20 library. " alt="" coords="152,80,235,107"/>
+<area shape="rect" id="node4" href="ds18b20____state__types_8h.html" title="State type defines. " alt="" coords="107,155,279,211"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -119,6 +120,38 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8712f0c4cbf209c37990a4b080ef0aec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga8712f0c4cbf209c37990a4b080ef0aec">vDS18B20__Process</a> (void)</td></tr>
 <tr class="memdesc:ga8712f0c4cbf209c37990a4b080ef0aec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process DS18B20 systems Call from main program loop as quick as possible.  <a href="group___d_s18_b20_____c_o_r_e.html#ga8712f0c4cbf209c37990a4b080ef0aec">More...</a><br /></td></tr>
 <tr class="separator:ga8712f0c4cbf209c37990a4b080ef0aec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8e5b57ff269554bcf10f2dee542ac882"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga8e5b57ff269554bcf10f2dee542ac882">u8DS18B20__Is_NewDataAvail</a> (void)</td></tr>
+<tr class="memdesc:ga8e5b57ff269554bcf10f2dee542ac882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return if any new data is avail.  <a href="group___d_s18_b20_____c_o_r_e.html#ga8e5b57ff269554bcf10f2dee542ac882">More...</a><br /></td></tr>
+<tr class="separator:ga8e5b57ff269554bcf10f2dee542ac882"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad8e575c6e1eb2dd33efe171d23acab70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____c_o_r_e.html#gad8e575c6e1eb2dd33efe171d23acab70">vDS18B20__Clear_NewDataAvail</a> (void)</td></tr>
+<tr class="memdesc:gad8e575c6e1eb2dd33efe171d23acab70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the new data avail flag.  <a href="group___d_s18_b20_____c_o_r_e.html#gad8e575c6e1eb2dd33efe171d23acab70">More...</a><br /></td></tr>
+<tr class="separator:gad8e575c6e1eb2dd33efe171d23acab70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0a41310dc97e0c9165f6268d6f57f3f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga0a41310dc97e0c9165f6268d6f57f3f1">vDS18B20__Start_TempRead</a> (void)</td></tr>
+<tr class="memdesc:ga0a41310dc97e0c9165f6268d6f57f3f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the temperature read state machine.  <a href="group___d_s18_b20_____c_o_r_e.html#ga0a41310dc97e0c9165f6268d6f57f3f1">More...</a><br /></td></tr>
+<tr class="separator:ga0a41310dc97e0c9165f6268d6f57f3f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga46e9eac2408de13ed1b728080bc9755f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga46e9eac2408de13ed1b728080bc9755f">vDS18B20__Start_ConfigureResolution</a> (void)</td></tr>
+<tr class="memdesc:ga46e9eac2408de13ed1b728080bc9755f"><td class="mdescLeft">&#160;</td><td class="mdescRight">ToDo.  <a href="group___d_s18_b20_____c_o_r_e.html#ga46e9eac2408de13ed1b728080bc9755f">More...</a><br /></td></tr>
+<tr class="separator:ga46e9eac2408de13ed1b728080bc9755f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5ed0f03f16456fda9a08828f3707ee34"><td class="memItemLeft" align="right" valign="top">Lfloat32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga5ed0f03f16456fda9a08828f3707ee34">f32DS18B20__Get_Temperature_DegC</a> (Luint16 u16SensorIndex)</td></tr>
+<tr class="memdesc:ga5ed0f03f16456fda9a08828f3707ee34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last measured temperature.  <a href="group___d_s18_b20_____c_o_r_e.html#ga5ed0f03f16456fda9a08828f3707ee34">More...</a><br /></td></tr>
+<tr class="separator:ga5ed0f03f16456fda9a08828f3707ee34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga894819ac56fdab5a0cb598d4702e4da1"><td class="memItemLeft" align="right" valign="top">Luint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga894819ac56fdab5a0cb598d4702e4da1">u16DS18B20__Get_NumEnum_Sensors</a> (void)</td></tr>
+<tr class="separator:ga894819ac56fdab5a0cb598d4702e4da1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga66d7cd1a84c727ee7a3c8f83db9581d9"><td class="memItemLeft" align="right" valign="top">Luint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga66d7cd1a84c727ee7a3c8f83db9581d9">u32DS18B20__Get_DeviceAddx</a> (void)</td></tr>
+<tr class="memdesc:ga66d7cd1a84c727ee7a3c8f83db9581d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the device memory address.  <a href="group___d_s18_b20_____c_o_r_e.html#ga66d7cd1a84c727ee7a3c8f83db9581d9">More...</a><br /></td></tr>
+<tr class="separator:ga66d7cd1a84c727ee7a3c8f83db9581d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9019a43bd8e63f783040943493def6ed"><td class="memItemLeft" align="right" valign="top">Luint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga9019a43bd8e63f783040943493def6ed">u162DS18B20__Get_UserIndex</a> (Luint16 u16SensorIndex)</td></tr>
+<tr class="memdesc:ga9019a43bd8e63f783040943493def6ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the user variable index.  <a href="group___d_s18_b20_____c_o_r_e.html#ga9019a43bd8e63f783040943493def6ed">More...</a><br /></td></tr>
+<tr class="separator:ga9019a43bd8e63f783040943493def6ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga10d04293ff10337af7834c38ccf82446"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga10d04293ff10337af7834c38ccf82446">u82DS18B20__Get_Resolution</a> (Luint16 u16SensorIndex)</td></tr>
+<tr class="memdesc:ga10d04293ff10337af7834c38ccf82446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the sensor resolution.  <a href="group___d_s18_b20_____c_o_r_e.html#ga10d04293ff10337af7834c38ccf82446">More...</a><br /></td></tr>
+<tr class="separator:ga10d04293ff10337af7834c38ccf82446"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga14c5084c8cd74e227f2151f60583d260"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga14c5084c8cd74e227f2151f60583d260">u82DS18B20__Get_BusIndex</a> (Luint16 u16SensorIndex)</td></tr>
+<tr class="memdesc:ga14c5084c8cd74e227f2151f60583d260"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the BUS index that the sensor is located on.  <a href="group___d_s18_b20_____c_o_r_e.html#ga14c5084c8cd74e227f2151f60583d260">More...</a><br /></td></tr>
+<tr class="separator:ga14c5084c8cd74e227f2151f60583d260"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1273f9ad5a3fdca8353cd86df08d21e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____c_o_r_e.html#ga1273f9ad5a3fdca8353cd86df08d21e6">vDS18B20__Get_ROMID</a> (Luint16 u16SensorIndex, Luint8 *pu8Buffer)</td></tr>
+<tr class="memdesc:ga1273f9ad5a3fdca8353cd86df08d21e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the ROMID.  <a href="group___d_s18_b20_____c_o_r_e.html#ga1273f9ad5a3fdca8353cd86df08d21e6">More...</a><br /></td></tr>
+<tr class="separator:ga1273f9ad5a3fdca8353cd86df08d21e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>

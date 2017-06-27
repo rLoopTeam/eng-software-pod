@@ -14,11 +14,14 @@ Change the build settings:
 *******************************************************************************/
 	/*lint -e950 */
 	/*lint -e621 */
+
 #ifndef WIN32
 	#include "sil3_generic__cpu.h"
 #else
 	#include "../sil3_generic__cpu_win32.h"
 #endif
+=======
+
 	
 	//data types
 	#include <RM4/LCCM105__RM4__BASIC_TYPES/basic_types.h>
@@ -307,8 +310,6 @@ SOFTWARE MULTIPURPOSE FAULT TREE HANDLER
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree.h>
 
 	#endif //C_LOCALDEF__LCCM284__ENABLE_THIS_MODULE
-
-
 
 /*******************************************************************************
 SIL3 - SOFTWARE BASED CRC

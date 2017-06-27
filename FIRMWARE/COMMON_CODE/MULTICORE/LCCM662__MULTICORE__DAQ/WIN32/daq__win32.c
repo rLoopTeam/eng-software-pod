@@ -31,18 +31,18 @@
 
 extern struct _strDAQ sDAQ;
 
-//just a fake Tx handler for WIN32 simulation
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Just a fake Tx handler for WIN32 simulation
  * 
  * @param[in]		u16Length		## Desc ##
  * @param[in]		*pu8Buffer		## Desc ##
  * @param[in]		u16PacketIndex		## Desc ##
- * @st_funcMD5		A2CD2EC3A5DD9CAA4718B16BE83C70BD
+ * @st_funcMD5		E41636B266AA54E48543E166FC404A0D
  * @st_funcID		LCCM662R0.FILE.003.FUNC.001
  */
-Lint16 s16DAQ_WIN32__TxHandler(Luint16 u16PacketIndex, Luint8 *pu8Buffer, Luint16 u16Length)
+Lint16 s16SIL3_DAQ_WIN32__TxHandler(Luint16 u16PacketIndex, Luint8 *pu8Buffer, Luint16 u16Length)
 {
 	Luint16 u16Counter;
 

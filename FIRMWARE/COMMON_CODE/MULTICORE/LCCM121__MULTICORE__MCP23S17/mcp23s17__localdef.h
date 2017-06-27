@@ -16,16 +16,10 @@
 #if 0
 
 /*******************************************************************************
-MCP23S17 DRIVER
+SIL3 - MCP23S17 DRIVER
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM121__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM121__ENABLE_THIS_MODULE == 1U
-
-		//determine the CPU
-		#define C_LOCALDEF__LCCM121__USE_ON_PIC32							(0U)
-		#define C_LOCALDEF__LCCM121__USE_ON_PIC18							(0U)
-		#define C_LOCALDEF__LCCM121__USE_ON_DSPIC							(1U)
-		#define C_LOCALDEF__LCCM121__USE_ON_RM4 							(0U)
 
 		//determine interface
 		#define C_LOCALDEF__LCCM121__USE_I2C 								(0U)

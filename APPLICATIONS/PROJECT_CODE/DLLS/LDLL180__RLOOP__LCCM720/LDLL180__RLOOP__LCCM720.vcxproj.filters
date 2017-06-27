@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE">
+      <UniqueIdentifier>{d8c58b0b-74d9-4e06-b8d9-edf6e5ec80f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WIN32">
+      <UniqueIdentifier>{f317ff19-95a5-48d7-8bae-537bfb6a701c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WIN32\DEBUG_PRINTF">
+      <UniqueIdentifier>{70d4ba12-3067-4f39-87a5-770373bae769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM662__MULTICORE__DAQ">
+      <UniqueIdentifier>{b25e9b67-b28b-47f5-85d1-3e83de3988b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\APEND">
+      <UniqueIdentifier>{a4d0f052-1160-4326-b6b6-acbb5d7f39ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32">
+      <UniqueIdentifier>{31598a4c-185d-483c-88fb-b651a2fbc534}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LIB">
+      <UniqueIdentifier>{d862e578-40e4-4cd0-ab50-e70dddde0ea0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM720__RLOOP__AUXPROP">
+      <UniqueIdentifier>{a0b814e4-3a15-4d71-8f18-0cd600ef4030}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM720__RLOOP__AUXPROP\CLUTCH">
+      <UniqueIdentifier>{bfe7903f-f26c-4374-b7b9-f7bcb583c4a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM720__RLOOP__AUXPROP\ETHERNET">
+      <UniqueIdentifier>{94f6b870-bf96-42a2-b719-3f132bee4157}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM720__RLOOP__AUXPROP\THROTTLE">
+      <UniqueIdentifier>{f4614751-41da-4097-834a-569fd3496660}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\DAQ">
+      <UniqueIdentifier>{f7e4f38f-2728-4cde-b815-7116aa918cfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM720__RLOOP__AUXPROP\DAQ">
+      <UniqueIdentifier>{27a90707-3a51-472a-9b1a-0797964f5435}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM720__RLOOP__AUXPROP\WIN32">
+      <UniqueIdentifier>{c4d0ee66-369d-482d-9e2b-5143ad46bbda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM720__RLOOP__AUXPROP\TIMERS">
+      <UniqueIdentifier>{56a883b0-4d68-4a62-9b30-fd7f08a0d53d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c">
+      <Filter>Source Files\WIN32\DEBUG_PRINTF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq.c">
+      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\APPEND\daq__append.c">
+      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\APEND</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32\daq__win32.c">
+      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32\daq__win32_main.c">
+      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop.c">
+      <Filter>LCCM720__RLOOP__AUXPROP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\CLUTCH\auxprop__clutch.c">
+      <Filter>LCCM720__RLOOP__AUXPROP\CLUTCH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\THROTTLE\auxprop__throttle.c">
+      <Filter>LCCM720__RLOOP__AUXPROP\THROTTLE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\DAQ\auxprop__daq__transmit_template.c">
+      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\DAQ</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\WIN32\auxprop__win32.c">
+      <Filter>LCCM720__RLOOP__AUXPROP\WIN32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\TIMERS\auxprop__timers.c">
+      <Filter>LCCM720__RLOOP__AUXPROP\TIMERS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\ETHERNET\auxprop__ethernet.c">
+      <Filter>LCCM720__RLOOP__AUXPROP\ETHERNET</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="localdef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h">
+      <Filter>Source Files\WIN32\DEBUG_PRINTF</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq.h">
+      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop.h">
+      <Filter>LCCM720__RLOOP__AUXPROP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop__localdef.h">
+      <Filter>LCCM720__RLOOP__AUXPROP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop__types.h">
+      <Filter>LCCM720__RLOOP__AUXPROP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\DAQ\auxprop__daq_settings.h">
+      <Filter>LCCM720__RLOOP__AUXPROP\DAQ</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="LIB\LDLL180__RLOOP__LCCM720_SIL3.lib">
+      <Filter>LIB</Filter>
+    </Library>
+  </ItemGroup>
+</Project>

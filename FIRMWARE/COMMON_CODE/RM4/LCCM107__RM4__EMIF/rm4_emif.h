@@ -49,6 +49,10 @@
 
 			struct
 			{
+
+				/** Our internally managed busy flag */
+				Luint8 u8Busy;
+
 				/** Is flow control enabled? */
 				Luint8 u8FlowControl;
 
@@ -141,6 +145,7 @@
 		void vRM4_EMIF_SPECIAL__TxConstant(Luint32 u32DMAChannel, RM4_EMIF__SPECIAL_CS_REGION_T eRegion, Luint16 u16Constant, Luint32 u32Size, Luint8 u8FlowControl);
 		void vRM4_EMIF_SPECIAL__RxConstant(Luint32 u32DMAChannel, RM4_EMIF__SPECIAL_CS_REGION_T eRegion, Luint32 u32Offset, Luint32 u32Size);
 		void vRM4_EMIF_SPECIAL__Signal_FrameTxComplete(void);
+		void vRM4_EMIF_SPECIAL__Signal_BlockTxComplete(void);
 		void vRM4_EMIF_SPECIAL__Continue(void);
 
 		//pin testing

@@ -1,0 +1,20 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+CCS headless build starting... [Mon Jun 12 13:49:23 AEST 2017] 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+================================================================================
+Pre processing...
+
+
+!WARNING: Project 'LFW532__VERIFY__LCCM641_TE_001_SIL3' was not found in the workspace! Ignoring...
+    NOTE: use the '-ccs.autoImport' argument to automatically import projects found in the workspace root directory.
+
+
+================================================================================
+Building...
+
+
+
+================================================================================
+CCS headless build complete!  0 out of 0 projects have errors.

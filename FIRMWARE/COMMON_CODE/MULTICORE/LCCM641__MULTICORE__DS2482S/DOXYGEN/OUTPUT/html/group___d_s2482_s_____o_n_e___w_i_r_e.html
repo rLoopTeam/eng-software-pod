@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, MULTICORE, DS2482 1-Wire Driver)
    &#160;<span id="projectnumber">1.0</span>
@@ -198,11 +198,12 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group___d_s2482_s_____o_n_e___w_i_r_e_ga4f4619831eda5c0e5f70bf52a15a4c65_icgraph.png" border="0" usemap="#group___d_s2482_s_____o_n_e___w_i_r_e_ga4f4619831eda5c0e5f70bf52a15a4c65_icgraph" alt=""/></div>
 <map name="group___d_s2482_s_____o_n_e___w_i_r_e_ga4f4619831eda5c0e5f70bf52a15a4c65_icgraph" id="group___d_s2482_s_____o_n_e___w_i_r_e_ga4f4619831eda5c0e5f70bf52a15a4c65_icgraph">
-<area shape="rect" id="node2" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga81a319e08babac679447cf0e7a906814" title="Generates a 1&#45;Wire reset/presence&#45;detect cycle (Figure 4) at the 1&#45;Wire line. " alt="" coords="244,39,457,80"/>
-<area shape="rect" id="node3" href="group___d_s2482_s_____c_o_r_e.html#ga7baf186c6b0a4504ce801107909fd572" title="User level function to generate a reset on the one wire bus. " alt="" coords="505,39,688,80"/>
-<area shape="rect" id="node4" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f" title="Search the 1&#45;wire bus and return the first address. " alt="" coords="736,39,903,80"/>
+<area shape="rect" id="node2" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga81a319e08babac679447cf0e7a906814" title="Generates a 1&#45;Wire reset/presence&#45;detect cycle (Figure 4) at the 1&#45;Wire line. " alt="" coords="244,71,457,112"/>
+<area shape="rect" id="node3" href="group___d_s2482_s_____c_o_r_e.html#ga7baf186c6b0a4504ce801107909fd572" title="User level function to generate a reset on the one wire bus. " alt="" coords="505,71,688,112"/>
+<area shape="rect" id="node4" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f" title="Search the 1&#45;wire bus and return the first address. " alt="" coords="736,71,903,112"/>
 <area shape="rect" id="node5" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb" title="Search for the first device on the bus. " alt="" coords="951,5,1117,47"/>
 <area shape="rect" id="node6" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga04cfff3e7960eee3d152029a02e3d9fe" title="Search for subsequent devices. " alt="" coords="951,71,1117,112"/>
+<area shape="rect" id="node7" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga6966e5159ba1a439f73810e0d29712a5" title="Verify that a search device exists. " alt="" coords="951,136,1117,177"/>
 </map>
 </div>
 </p>
@@ -240,7 +241,7 @@ Here is the caller graph for this function:</div>
 <p>Short Detected SD The SD bit is updated with every 1-Wire Reset command. If the DS2482-100 detects a logic 0 on the 1-Wire line at tSI during the presence-detect cycle, the SD bit is set to 1. This bit returns to its default 0 with a subsequent 1-Wire Reset command provided that the short has been removed. If SD is 1, PPD is 0. The DS2482-100 cannot distinguish between a short and a DS1994 or DS2404 signaling a 1-Wire interrupt. For this reason, if a DS2404 or DS1994 is used in the application, the interrupt function must be disabled. The interrupt signaling is explained in the respective 1-Wire device data sheets.</p>
 <p>Presence-Pulse Detect PPD The PPD bit is updated with every 1-Wire Reset command. If the DS2482-100 detects a presence pulse from a 1-Wire device at tMSP during the presence-detect cycle, the PPD bit is set to 1. This bit returns to its default 0 if there is no presence pulse or if the 1-Wire line is shorted during a subsequent 1-Wire Reset command.</p>
 
-<p>References <a class="el" href="group___d_s2482_s_____r_e_g___d_e_f_s.html#gga0dd1a9f843a974d792e91a9f6e43b6a6a300b0cded372e2b550febe9dcdd3427d">DS2482_REGS__COMMAND_1_WIRE_RESET</a>, <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga4f4619831eda5c0e5f70bf52a15a4c65">s16DS2482S_1WIRE__Clear_StrongPullup()</a>, <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga337e96b9b3eb57fa30d9e0a6eccf2ea6">s16DS2482S_DEVICE__Get_Status()</a>, <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#ga60c11542e75efee7894d3f55468476e5">s16DS2482S_LOWLEVEL__TxReg()</a>, and <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga984c08ff8e3a99a45ae3c6b118d2012b">u8DS2482S_DEVICE__Wait_Busy()</a>.</p>
+<p>References <a class="el" href="ds2482s____reg__defs_8h.html#a0dd1a9f843a974d792e91a9f6e43b6a6a300b0cded372e2b550febe9dcdd3427d">DS2482_REGS__COMMAND_1_WIRE_RESET</a>, <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga4f4619831eda5c0e5f70bf52a15a4c65">s16DS2482S_1WIRE__Clear_StrongPullup()</a>, <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga337e96b9b3eb57fa30d9e0a6eccf2ea6">s16DS2482S_DEVICE__Get_Status()</a>, <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#ga60c11542e75efee7894d3f55468476e5">s16DS2482S_LOWLEVEL__TxReg()</a>, and <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga984c08ff8e3a99a45ae3c6b118d2012b">u8DS2482S_DEVICE__Wait_Busy()</a>.</p>
 
 <p>Referenced by <a class="el" href="group___d_s2482_s_____c_o_r_e.html#ga7baf186c6b0a4504ce801107909fd572">u8DS2482S_USER__1Wire_Reset()</a>.</p>
 
@@ -267,10 +268,11 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group___d_s2482_s_____o_n_e___w_i_r_e_ga81a319e08babac679447cf0e7a906814_icgraph.png" border="0" usemap="#group___d_s2482_s_____o_n_e___w_i_r_e_ga81a319e08babac679447cf0e7a906814_icgraph" alt=""/></div>
 <map name="group___d_s2482_s_____o_n_e___w_i_r_e_ga81a319e08babac679447cf0e7a906814_icgraph" id="group___d_s2482_s_____o_n_e___w_i_r_e_ga81a319e08babac679447cf0e7a906814_icgraph">
-<area shape="rect" id="node2" href="group___d_s2482_s_____c_o_r_e.html#ga7baf186c6b0a4504ce801107909fd572" title="User level function to generate a reset on the one wire bus. " alt="" coords="267,39,449,80"/>
-<area shape="rect" id="node3" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f" title="Search the 1&#45;wire bus and return the first address. " alt="" coords="497,39,664,80"/>
+<area shape="rect" id="node2" href="group___d_s2482_s_____c_o_r_e.html#ga7baf186c6b0a4504ce801107909fd572" title="User level function to generate a reset on the one wire bus. " alt="" coords="267,71,449,112"/>
+<area shape="rect" id="node3" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f" title="Search the 1&#45;wire bus and return the first address. " alt="" coords="497,71,664,112"/>
 <area shape="rect" id="node4" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb" title="Search for the first device on the bus. " alt="" coords="712,5,879,47"/>
 <area shape="rect" id="node5" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga04cfff3e7960eee3d152029a02e3d9fe" title="Search for subsequent devices. " alt="" coords="712,71,879,112"/>
+<area shape="rect" id="node6" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga6966e5159ba1a439f73810e0d29712a5" title="Verify that a search device exists. " alt="" coords="712,136,879,177"/>
 </map>
 </div>
 </p>
@@ -341,9 +343,10 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group___d_s2482_s_____o_n_e___w_i_r_e_gae09f403406dd7ec6ac077272a1f41666_icgraph.png" border="0" usemap="#group___d_s2482_s_____o_n_e___w_i_r_e_gae09f403406dd7ec6ac077272a1f41666_icgraph" alt=""/></div>
 <map name="group___d_s2482_s_____o_n_e___w_i_r_e_gae09f403406dd7ec6ac077272a1f41666_icgraph" id="group___d_s2482_s_____o_n_e___w_i_r_e_gae09f403406dd7ec6ac077272a1f41666_icgraph">
-<area shape="rect" id="node2" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f" title="Search the 1&#45;wire bus and return the first address. " alt="" coords="260,39,427,80"/>
+<area shape="rect" id="node2" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f" title="Search the 1&#45;wire bus and return the first address. " alt="" coords="260,71,427,112"/>
 <area shape="rect" id="node3" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb" title="Search for the first device on the bus. " alt="" coords="475,5,641,47"/>
 <area shape="rect" id="node4" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga04cfff3e7960eee3d152029a02e3d9fe" title="Search for subsequent devices. " alt="" coords="475,71,641,112"/>
+<area shape="rect" id="node5" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga6966e5159ba1a439f73810e0d29712a5" title="Verify that a search device exists. " alt="" coords="475,136,641,177"/>
 </map>
 </div>
 </p>
@@ -394,7 +397,7 @@ Here is the caller graph for this function:</div>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>E711932042EC46EE7C765C8CEAB06A7D </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM641R0.FILE.004.FUNC.007 </dd></dl>
 
-<p>References <a class="el" href="group___d_s2482_s_____r_e_g___d_e_f_s.html#gga0dd1a9f843a974d792e91a9f6e43b6a6aa249780c00441b2c51f4dcddf1a1f21b">DS2482_REGS__COMMAND_1_WIRE_READ_BYTE</a>, <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga72543cf0298b8d9885b673865304b405">s16DS2482S_1WIRE__Set_StrongPullup()</a>, <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga1a9af5304c98fc78ccfeecd5929fce7a">s16DS2482S_DEVICE__Read_Byte()</a>, <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#ga60c11542e75efee7894d3f55468476e5">s16DS2482S_LOWLEVEL__TxReg()</a>, and <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga984c08ff8e3a99a45ae3c6b118d2012b">u8DS2482S_DEVICE__Wait_Busy()</a>.</p>
+<p>References <a class="el" href="ds2482s____reg__defs_8h.html#a0dd1a9f843a974d792e91a9f6e43b6a6aa249780c00441b2c51f4dcddf1a1f21b">DS2482_REGS__COMMAND_1_WIRE_READ_BYTE</a>, <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga72543cf0298b8d9885b673865304b405">s16DS2482S_1WIRE__Set_StrongPullup()</a>, <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga1a9af5304c98fc78ccfeecd5929fce7a">s16DS2482S_DEVICE__Read_Byte()</a>, <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#ga60c11542e75efee7894d3f55468476e5">s16DS2482S_LOWLEVEL__TxReg()</a>, and <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga984c08ff8e3a99a45ae3c6b118d2012b">u8DS2482S_DEVICE__Wait_Busy()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -533,15 +536,16 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group___d_s2482_s_____o_n_e___w_i_r_e_ga72543cf0298b8d9885b673865304b405_icgraph.png" border="0" usemap="#group___d_s2482_s_____o_n_e___w_i_r_e_ga72543cf0298b8d9885b673865304b405_icgraph" alt=""/></div>
 <map name="group___d_s2482_s_____o_n_e___w_i_r_e_ga72543cf0298b8d9885b673865304b405_icgraph" id="group___d_s2482_s_____o_n_e___w_i_r_e_ga72543cf0298b8d9885b673865304b405_icgraph">
-<area shape="rect" id="node2" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga9775c5da0ad7d296038c5fe0d094836e" title="Read a byte on the 1&#45;wire. " alt="" coords="234,5,451,32"/>
-<area shape="rect" id="node3" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#gac7b3cece86c1419ddfb809ca518cf8f5" title="Write a bit on the 1&#45;wire device. " alt="" coords="239,56,446,83"/>
-<area shape="rect" id="node8" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga6d02d5649d468c135890f5c7b6a65562" title="Write a byte on the 1&#45;wire device. " alt="" coords="233,136,452,163"/>
-<area shape="rect" id="node4" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#gae09f403406dd7ec6ac077272a1f41666" title="Read a bit from the bus. " alt="" coords="500,5,707,32"/>
-<area shape="rect" id="node5" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f" title="Search the 1&#45;wire bus and return the first address. " alt="" coords="755,49,921,90"/>
-<area shape="rect" id="node6" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb" title="Search for the first device on the bus. " alt="" coords="969,15,1136,57"/>
-<area shape="rect" id="node7" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga04cfff3e7960eee3d152029a02e3d9fe" title="Search for subsequent devices. " alt="" coords="969,81,1136,122"/>
-<area shape="rect" id="node9" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#gadb5a87eee779240580a78bc1320ceed2" title="Select a device on the 1&#45;wire bus. " alt="" coords="505,158,702,199"/>
-<area shape="rect" id="node10" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga404cb5349ae73f2d02d017b3ef63b0ec" title="Issue a skip command on the 1 wire. " alt="" coords="510,224,697,251"/>
+<area shape="rect" id="node2" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga9775c5da0ad7d296038c5fe0d094836e" title="Read a byte on the 1&#45;wire. " alt="" coords="234,27,451,54"/>
+<area shape="rect" id="node3" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#gac7b3cece86c1419ddfb809ca518cf8f5" title="Write a bit on the 1&#45;wire device. " alt="" coords="239,78,446,105"/>
+<area shape="rect" id="node9" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga6d02d5649d468c135890f5c7b6a65562" title="Write a byte on the 1&#45;wire device. " alt="" coords="233,158,452,185"/>
+<area shape="rect" id="node4" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#gae09f403406dd7ec6ac077272a1f41666" title="Read a bit from the bus. " alt="" coords="500,27,707,54"/>
+<area shape="rect" id="node5" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f" title="Search the 1&#45;wire bus and return the first address. " alt="" coords="755,71,921,112"/>
+<area shape="rect" id="node6" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb" title="Search for the first device on the bus. " alt="" coords="969,5,1136,47"/>
+<area shape="rect" id="node7" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga04cfff3e7960eee3d152029a02e3d9fe" title="Search for subsequent devices. " alt="" coords="969,71,1136,112"/>
+<area shape="rect" id="node8" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga6966e5159ba1a439f73810e0d29712a5" title="Verify that a search device exists. " alt="" coords="969,136,1136,177"/>
+<area shape="rect" id="node10" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#gadb5a87eee779240580a78bc1320ceed2" title="Select a device on the 1&#45;wire bus. " alt="" coords="505,180,702,221"/>
+<area shape="rect" id="node11" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga404cb5349ae73f2d02d017b3ef63b0ec" title="Issue a skip command on the 1 wire. " alt="" coords="510,246,697,273"/>
 </map>
 </div>
 </p>
@@ -641,7 +645,7 @@ Here is the call graph for this function:</div>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>436E87F085FF0CE58C1AFFF5782F6D11 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM641R0.FILE.004.FUNC.005 </dd></dl>
 
-<p>References <a class="el" href="group___d_s2482_s_____r_e_g___d_e_f_s.html#gga0dd1a9f843a974d792e91a9f6e43b6a6a4851eabdd4a7def06e8ec97facbceca6">DS2482_REGS__COMMAND_1_WIRE_SINGLE_BIT</a>, <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga72543cf0298b8d9885b673865304b405">s16DS2482S_1WIRE__Set_StrongPullup()</a>, <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaf9534996d93a544c0570e3fcdc3ad973">s16DS2482S_LOWLEVEL__WriteReg()</a>, and <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga984c08ff8e3a99a45ae3c6b118d2012b">u8DS2482S_DEVICE__Wait_Busy()</a>.</p>
+<p>References <a class="el" href="ds2482s____reg__defs_8h.html#a0dd1a9f843a974d792e91a9f6e43b6a6a4851eabdd4a7def06e8ec97facbceca6">DS2482_REGS__COMMAND_1_WIRE_SINGLE_BIT</a>, <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga72543cf0298b8d9885b673865304b405">s16DS2482S_1WIRE__Set_StrongPullup()</a>, <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaf9534996d93a544c0570e3fcdc3ad973">s16DS2482S_LOWLEVEL__WriteReg()</a>, and <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga984c08ff8e3a99a45ae3c6b118d2012b">u8DS2482S_DEVICE__Wait_Busy()</a>.</p>
 
 <p>Referenced by <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#gae09f403406dd7ec6ac077272a1f41666">s16DS2482S_1WIRE__ReadBit()</a>, and <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f">s16DS2482S_SEARCH__Search()</a>.</p>
 
@@ -667,10 +671,11 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group___d_s2482_s_____o_n_e___w_i_r_e_gac7b3cece86c1419ddfb809ca518cf8f5_icgraph.png" border="0" usemap="#group___d_s2482_s_____o_n_e___w_i_r_e_gac7b3cece86c1419ddfb809ca518cf8f5_icgraph" alt=""/></div>
 <map name="group___d_s2482_s_____o_n_e___w_i_r_e_gac7b3cece86c1419ddfb809ca518cf8f5_icgraph" id="group___d_s2482_s_____o_n_e___w_i_r_e_gac7b3cece86c1419ddfb809ca518cf8f5_icgraph">
-<area shape="rect" id="node2" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#gae09f403406dd7ec6ac077272a1f41666" title="Read a bit from the bus. " alt="" coords="260,21,467,47"/>
-<area shape="rect" id="node3" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f" title="Search the 1&#45;wire bus and return the first address. " alt="" coords="515,39,681,80"/>
+<area shape="rect" id="node2" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#gae09f403406dd7ec6ac077272a1f41666" title="Read a bit from the bus. " alt="" coords="260,53,467,79"/>
+<area shape="rect" id="node3" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f" title="Search the 1&#45;wire bus and return the first address. " alt="" coords="515,71,681,112"/>
 <area shape="rect" id="node4" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb" title="Search for the first device on the bus. " alt="" coords="729,5,896,47"/>
 <area shape="rect" id="node5" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga04cfff3e7960eee3d152029a02e3d9fe" title="Search for subsequent devices. " alt="" coords="729,71,896,112"/>
+<area shape="rect" id="node6" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga6966e5159ba1a439f73810e0d29712a5" title="Verify that a search device exists. " alt="" coords="729,136,896,177"/>
 </map>
 </div>
 </p>
@@ -721,7 +726,7 @@ Here is the caller graph for this function:</div>
 <dl class="section user"><dt>SafeTool Function MD5:</dt><dd>F587F6697D8F6FA3C44646DF3D56ACBA </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM641R0.FILE.004.FUNC.004 </dd></dl>
 
-<p>References <a class="el" href="group___d_s2482_s_____r_e_g___d_e_f_s.html#gga0dd1a9f843a974d792e91a9f6e43b6a6af4b93c22f2e93ecbf26e6f7cc08230dc">DS2482_REGS__COMMAND_1_WIRE_WRITE_BYTE</a>, <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga72543cf0298b8d9885b673865304b405">s16DS2482S_1WIRE__Set_StrongPullup()</a>, <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaf9534996d93a544c0570e3fcdc3ad973">s16DS2482S_LOWLEVEL__WriteReg()</a>, and <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga984c08ff8e3a99a45ae3c6b118d2012b">u8DS2482S_DEVICE__Wait_Busy()</a>.</p>
+<p>References <a class="el" href="ds2482s____reg__defs_8h.html#a0dd1a9f843a974d792e91a9f6e43b6a6af4b93c22f2e93ecbf26e6f7cc08230dc">DS2482_REGS__COMMAND_1_WIRE_WRITE_BYTE</a>, <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga72543cf0298b8d9885b673865304b405">s16DS2482S_1WIRE__Set_StrongPullup()</a>, <a class="el" href="group___d_s2482_s_____l_o_w_l_e_v_e_l.html#gaf9534996d93a544c0570e3fcdc3ad973">s16DS2482S_LOWLEVEL__WriteReg()</a>, and <a class="el" href="group___d_s2482_s_____d_e_v_i_c_e.html#ga984c08ff8e3a99a45ae3c6b118d2012b">u8DS2482S_DEVICE__Wait_Busy()</a>.</p>
 
 <p>Referenced by <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#gadb5a87eee779240580a78bc1320ceed2">s16DS2482S_1WIRE__SelectDevice()</a>, <a class="el" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga404cb5349ae73f2d02d017b3ef63b0ec">s16DS2482S_1WIRE__Skip()</a>, and <a class="el" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f">s16DS2482S_SEARCH__Search()</a>.</p>
 
@@ -750,8 +755,9 @@ Here is the caller graph for this function:</div>
 <area shape="rect" id="node2" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#gadb5a87eee779240580a78bc1320ceed2" title="Select a device on the 1&#45;wire bus. " alt="" coords="272,5,469,47"/>
 <area shape="rect" id="node3" href="group___d_s2482_s_____o_n_e___w_i_r_e.html#ga404cb5349ae73f2d02d017b3ef63b0ec" title="Issue a skip command on the 1 wire. " alt="" coords="277,71,464,98"/>
 <area shape="rect" id="node4" href="group___d_s2482_s_____s_e_a_r_c_h.html#gaa5cf288b28238db59f621a7534813e7f" title="Search the 1&#45;wire bus and return the first address. " alt="" coords="287,123,454,164"/>
-<area shape="rect" id="node5" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb" title="Search for the first device on the bus. " alt="" coords="517,89,684,131"/>
-<area shape="rect" id="node6" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga04cfff3e7960eee3d152029a02e3d9fe" title="Search for subsequent devices. " alt="" coords="517,155,684,196"/>
+<area shape="rect" id="node5" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga3b052a4a7f4e439f88eb0390107b50eb" title="Search for the first device on the bus. " alt="" coords="517,57,684,99"/>
+<area shape="rect" id="node6" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga04cfff3e7960eee3d152029a02e3d9fe" title="Search for subsequent devices. " alt="" coords="517,123,684,164"/>
+<area shape="rect" id="node7" href="group___d_s2482_s_____s_e_a_r_c_h.html#ga6966e5159ba1a439f73810e0d29712a5" title="Verify that a search device exists. " alt="" coords="517,188,684,229"/>
 </map>
 </div>
 </p>

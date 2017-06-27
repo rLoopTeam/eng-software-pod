@@ -16,14 +16,10 @@
 #if 0
 
 /*******************************************************************************
-SC16IS741 - UART TO SPI MODULE
+SIL3 - SC16IS741 UART TO SPI MODULE
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE == 1U
-
-		//architecture
-		#define C_LOCALDEF__LCCM487__USE_ON_RM4								(1U)
-		#define C_LOCALDEF__LCCM487__USE_ON_MSP430							(0U)
 	
 		//configure the number of devices in the system
 		#define C_LOCALDEF__LCCM487__NUM_DEVICES							(1U)

@@ -66,7 +66,7 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	}//switch(ePacketType)
 
 	//pre-comit
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
 	if(s16Return == 0)
 	{
 		//handle the packet
@@ -75,11 +75,11 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 			case NET_PKT__PWR_TEMP__TX_CURRENT_TEMPS:
 
 				//number of temp sensors
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, u16Temp);
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, u16Temp);
 				pu8Buffer += 2U;
 
 				//spare
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, 0U);
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, 0U);
 				pu8Buffer += 2U;
 
 				//1080 bytes here!
@@ -87,7 +87,7 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				{
 
 					//temp in deg C
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, f32DS18B20__Get_Temperature_DegC(u16Device));
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32DS18B20__Get_Temperature_DegC(u16Device));
 					pu8Buffer += 4U;
 
 
@@ -99,18 +99,18 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 				//number of temp sensors
 				u16Temp = u16PWRNODE_BATTTEMP_MEM__Get_NumSensors();
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, u16Temp);
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, u16Temp);
 				pu8Buffer += 2U;
 
 				//spare
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, 0U);
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, 0U);
 				pu8Buffer += 2U;
 
 				for(u16Device = 0U; u16Device < u16Temp; u16Device++)
 				{
 
 					//user location
-					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, u162DS18B20__Get_UserIndex(u16Device));
+					vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, u162DS18B20__Get_UserIndex(u16Device));
 					pu8Buffer += 2U;
 
 					//resolution
@@ -134,7 +134,7 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length, sPWRNODE.u16EthPort, sPWRNODE.u16EthPort);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, sPWRNODE.u16EthPort, sPWRNODE.u16EthPort);
 
 	}//if(s16Return == 0)
 	else
@@ -171,11 +171,11 @@ void vPWRNODE_BAATTEMP_ETH__Transmit_ROMID(Luint32 u32Index)
 
 
 	//pre-comit
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)NET_PKT__PWR_TEMP__TX_ROMID_INDEX, &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)NET_PKT__PWR_TEMP__TX_ROMID_INDEX, &pu8Buffer, &u8BufferIndex);
 	if(s16Return == 0)
 	{
 		//Rensed the index
-		vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32Index);
+		vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32Index);
 		pu8Buffer += 4U;
 
 		//send the ID
@@ -184,7 +184,7 @@ void vPWRNODE_BAATTEMP_ETH__Transmit_ROMID(Luint32 u32Index)
 
 
 		//send it
-		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length, sPWRNODE.u16EthPort, sPWRNODE.u16EthPort);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, sPWRNODE.u16EthPort, sPWRNODE.u16EthPort);
 
 	}//if(s16Return == 0)
 	else

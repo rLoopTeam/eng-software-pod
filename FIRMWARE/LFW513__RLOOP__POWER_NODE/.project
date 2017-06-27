@@ -228,7 +228,7 @@
 	</linkedResources>
 	<filteredResources>
 		<filter>
-			<id>1484689112862</id>
+			<id>1495155364987</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -237,7 +237,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1484689112878</id>
+			<id>1495155365007</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -246,7 +246,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1484689112894</id>
+			<id>1495155365022</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -255,7 +255,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1484689112894</id>
+			<id>1495155365041</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -264,7 +264,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1484689112909</id>
+			<id>1495155365060</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -273,12 +273,30 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1484689112925</id>
+			<id>1495155365076</id>
 			<name></name>
 			<type>26</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-false-.svn</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1495155365093</id>
+			<name></name>
+			<type>30</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-UNIT_TEST</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1495155365115</id>
+			<name></name>
+			<type>30</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-MSP430</arguments>
 			</matcher>
 		</filter>
 	</filteredResources>

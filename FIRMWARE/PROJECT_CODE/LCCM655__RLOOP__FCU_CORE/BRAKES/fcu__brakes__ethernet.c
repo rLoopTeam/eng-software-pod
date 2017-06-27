@@ -77,7 +77,7 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	}//switch(ePacketType)
 
 	//pre-comit
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
 	if(s16Return == 0)
 	{
 		//handle the packet
@@ -86,26 +86,26 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 			case NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM:
 				//transmit the stepper motor parameters
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32EEPARAM__Read(C_LOCALDEF__LCCM231__M0_MICROSTEP_RESOLUTION__PARAM_INDEX));
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM231__M0_MICROSTEP_RESOLUTION__PARAM_INDEX));
 				pu8Buffer += 4;
-				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, s32EEPARAM__Read(C_LOCALDEF__LCCM231__M0_MAX_ACCELERATION__PARAM_INDEX));
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, s32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM231__M0_MAX_ACCELERATION__PARAM_INDEX));
 				pu8Buffer += 4;
-				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, s32EEPARAM__Read(C_LOCALDEF__LCCM231__M0_MICRONS_PER_REVOLUTION__PARAM_INDEX));
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, s32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM231__M0_MICRONS_PER_REVOLUTION__PARAM_INDEX));
 				pu8Buffer += 4;
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32EEPARAM__Read(C_LOCALDEF__LCCM231__M0_STEPS_PER_REVOLUTION__PARAM_INDEX));
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM231__M0_STEPS_PER_REVOLUTION__PARAM_INDEX));
 				pu8Buffer += 4;
-				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, s32EEPARAM__Read(C_LOCALDEF__LCCM231__M0_MAX_ANGULAR_VELOCITY__PARAM_INDEX));
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, s32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM231__M0_MAX_ANGULAR_VELOCITY__PARAM_INDEX));
 				pu8Buffer += 4;
 
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32EEPARAM__Read(C_LOCALDEF__LCCM231__M1_MICROSTEP_RESOLUTION__PARAM_INDEX));
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM231__M1_MICROSTEP_RESOLUTION__PARAM_INDEX));
 				pu8Buffer += 4;
-				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, s32EEPARAM__Read(C_LOCALDEF__LCCM231__M1_MAX_ACCELERATION__PARAM_INDEX));
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, s32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM231__M1_MAX_ACCELERATION__PARAM_INDEX));
 				pu8Buffer += 4;
-				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, s32EEPARAM__Read(C_LOCALDEF__LCCM231__M1_MICRONS_PER_REVOLUTION__PARAM_INDEX));
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, s32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM231__M1_MICRONS_PER_REVOLUTION__PARAM_INDEX));
 				pu8Buffer += 4;
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32EEPARAM__Read(C_LOCALDEF__LCCM231__M1_STEPS_PER_REVOLUTION__PARAM_INDEX));
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM231__M1_STEPS_PER_REVOLUTION__PARAM_INDEX));
 				pu8Buffer += 4;
-				vNUMERICAL_CONVERT__Array_S32(pu8Buffer, s32EEPARAM__Read(C_LOCALDEF__LCCM231__M1_MAX_ANGULAR_VELOCITY__PARAM_INDEX));
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, s32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM231__M1_MAX_ANGULAR_VELOCITY__PARAM_INDEX));
 				pu8Buffer += 4;
 
 				//timer
@@ -120,27 +120,27 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				for(u8Counter = 0U; u8Counter < FCU_BRAKE__MAX_BRAKES; u8Counter++)
 				{
 					//fault flags (general, duplicated)
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sBrakesGlobal.sFaultFlags.u32Flags[0]);
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sBrakesGlobal.sFaultFlags.u32Flags[0]);
 					pu8Buffer += 4U;
 
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sTarget.f32IBeam_mm);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sTarget.f32IBeam_mm);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sTarget.f32LeadScrew_mm);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sTarget.f32LeadScrew_mm);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sBrakes[u8Counter].sTarget.u32LeadScrew_um);
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sBrakes[u8Counter].sTarget.u32LeadScrew_um);
 					pu8Buffer += 4U;
 
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sCurrent.f32IBeam_mm);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sCurrent.f32IBeam_mm);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sCurrent.f32ScrewPos_mm);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sCurrent.f32ScrewPos_mm);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sCurrent.f32MLP_mm);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sCurrent.f32MLP_mm);
 					pu8Buffer += 4U;
 
 					//spares
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
 					pu8Buffer += 4U;
 
 					//switches area
@@ -152,23 +152,23 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer += 5U;
 
 					//MLP
-					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sBrakes[u8Counter].sMLP.u16ADC_Sample);
+					vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sBrakes[u8Counter].sMLP.u16ADC_Sample);
 					pu8Buffer += 2U;
-					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sBrakes[u8Counter].sMLP.u16ADC_Zero);
+					vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sBrakes[u8Counter].sMLP.u16ADC_Zero);
 					pu8Buffer += 2U;
-					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sBrakes[u8Counter].sMLP.s32ADC_Minus_Zero);
+					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sBrakes[u8Counter].sMLP.s32ADC_Minus_Zero);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sMLP.f32SystemSpan);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sMLP.f32SystemSpan);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sMLP.f32BrakePosition_mm);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sMLP.f32BrakePosition_mm);
 					pu8Buffer += 4U;
 
 					//stepper system
-					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sBrakes[u8Counter].sMove.s32LinearVeloc);
+					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sBrakes[u8Counter].sMove.s32LinearVeloc);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sBrakes[u8Counter].sMove.s32LinearAccel);
+					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sBrakes[u8Counter].sMove.s32LinearAccel);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sBrakes[u8Counter].sMove.s32currentPos);
+					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sBrakes[u8Counter].sMove.s32currentPos);
 					pu8Buffer += 4U;
 
 
@@ -190,7 +190,7 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
 
 	}//if(s16Return == 0)
 	else
@@ -224,7 +224,7 @@ void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Lint32 s32Position)
 		{
 
 			//make the last flag WELL known that we have modded something
-			vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 30U);
+			vSIL3_FAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 30U);
 
 
 			switch(u32Index)
@@ -276,7 +276,7 @@ void vFCU_BRAKES_ETH__MoveMotor_IBeam(Lfloat32 f32Value)
 		{
 
 			//make the last flag WELL known that we have modded something
-			vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 31U);
+			vSIL3_FAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 31U);
 
 			//remember here our min brake distance is 2.500mm, if we go lower than this
 			if(f32Value < C_FCU__BRAKES__MIN_IBEAM_DIST_MM)
@@ -403,7 +403,7 @@ void vFCU_BRAKES_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)
 	{
 
 		//make the last flag WELL known that we have modded something
-		vFAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 31U);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sBrakesGlobal.sFaultFlags, 31U);
 
 		//activate mode
 		sFCU.sBrakesGlobal.sBrakesDev.u8DevMode = 1U;

@@ -1,0 +1,26 @@
+var struct__str_r_t_i =
+[
+    [ "sCompare", "struct__str_r_t_i.html#aed51ae91a5a2e4328d0cd7d5719a1948", null ],
+    [ "sCounter", "struct__str_r_t_i.html#a376ee436367ed571a67b1ad89b4314d1", null ],
+    [ "u32Compare0_InterruptEnabled", "struct__str_r_t_i.html#a9cf2c535eb47b37b4df5c00ce6f24cf9", null ],
+    [ "u32Compare1_InterruptEnabled", "struct__str_r_t_i.html#a0564916943fdfb4d984bbfe22215e0a6", null ],
+    [ "u32Compare2_InterruptEnabled", "struct__str_r_t_i.html#aa614ab77907252a83b08d4c4d1a4c99e", null ],
+    [ "u32Compare3_InterruptEnabled", "struct__str_r_t_i.html#a795d12b156cce5dcff55f33d4c141bba", null ],
+    [ "u32DMA0_RequestEnabled", "struct__str_r_t_i.html#a15d4fe3521e68da29f7bc3339c9eff70", null ],
+    [ "u32DMA1_RequestEnabled", "struct__str_r_t_i.html#aa749d0bb494ac814cfd6a9378ebd644d", null ],
+    [ "u32DMA2_RequestEnabled", "struct__str_r_t_i.html#ac10932efe90ad8873648f06c87d52e5d", null ],
+    [ "u32DMA3_RequestEnabled", "struct__str_r_t_i.html#a1bf2ae3f78c849a9ca0ab4467a9ceab3", null ],
+    [ "u32FRC0_OverflowInterruptEnabled", "struct__str_r_t_i.html#a155e9ba2d0e77b3e4d1764caab54cd60", null ],
+    [ "u32FRC1_OverflowInterruptEnabled", "struct__str_r_t_i.html#a83f5986470df39780283514c4903f789", null ],
+    [ "u32TimebaseInterruptEnabled", "struct__str_r_t_i.html#a7d7e4500db1133778cba9579325abe50", null ],
+    [ "u32ValueToActivateTheEdgeDetectionCircuit", "struct__str_r_t_i.html#abf174ec756979cf9c78467df3585bf74", null ],
+    [ "u32ValueToDeactivateTheEdgeDetectionCircuit", "struct__str_r_t_i.html#a7dedec6870b2a47549f7103111b9cc92", null ],
+    [ "u8Counter0_Running", "struct__str_r_t_i.html#a1e838ee012e9707df418bb60cf0442fa", null ],
+    [ "u8Counter1_Running", "struct__str_r_t_i.html#a2abc14b8efb7962b9ebc4f163e704c7b", null ],
+    [ "u8CountersRunInHaltDebug", "struct__str_r_t_i.html#ad7d9b6c273bfb602b6a6d633f5859204", null ],
+    [ "u8FRC0_IncrementsOnFailingExternalClock", "struct__str_r_t_i.html#a342270af5764b08e49170dbe4430a770", null ],
+    [ "u8NTUsignalforTimeBase", "struct__str_r_t_i.html#ad431636ad220e113ba4713484f741651", null ],
+    [ "u8SourceCaptureEventCounter0", "struct__str_r_t_i.html#a48ef9daefcbcfa9e2843cea8015ff8d4", null ],
+    [ "u8SourceCaptureEventCounter1", "struct__str_r_t_i.html#ac6c36c9e79bceb3b980521585130de01", null ],
+    [ "u8TimebaseForFRC0", "struct__str_r_t_i.html#a66168aa749e711150e0ecc64a9644135", null ]
+];

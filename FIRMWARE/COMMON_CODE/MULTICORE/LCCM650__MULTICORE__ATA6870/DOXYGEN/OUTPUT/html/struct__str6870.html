@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, MULTICORE, ATA6870N Driver)
    &#160;<span id="projectnumber">1.0</span>
@@ -103,13 +103,30 @@ $(document).ready(function(){initNavTree('struct__str6870.html','');});
 Collaboration diagram for _str6870:</div>
 <div class="dyncontent">
 <div class="center"><img src="struct__str6870__coll__graph.png" border="0" usemap="#__str6870_coll__map" alt="Collaboration graph"/></div>
+<map name="__str6870_coll__map" id="__str6870_coll__map">
+</map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:a7db927597461678d0f6afd42ae5c9483"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3">E_ATA6870_STATE_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str6870.html#a7db927597461678d0f6afd42ae5c9483">eState</a></td></tr>
+<tr class="separator:a7db927597461678d0f6afd42ae5c9483"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50cd5fd2b19b9d17436583149a102321"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str6870.html#a50cd5fd2b19b9d17436583149a102321">u8RevID</a> [<a class="el" href="ata6870_8h.html#aabaa84e2d0ec3222f2659f24dd5cea4a">C_ATA6870__MAX_BUS_DEVICES</a>]</td></tr>
+<tr class="memdesc:a50cd5fd2b19b9d17436583149a102321"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of all revision ID's found on each bus.  <a href="#a50cd5fd2b19b9d17436583149a102321">More...</a><br /></td></tr>
+<tr class="separator:a50cd5fd2b19b9d17436583149a102321"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f8c75b789030b0f6b0db110f0096f97"><td class="memItemLeft" >struct {</td></tr>
 <tr class="memitem:a4ca388d8e5cb1c5da9a9c630a5508852"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="ata6870_8h.html#a13ab67dee7ce37ca0395998ecbfb441d">E_ATA6870__BALANCE_STATE_T</a>&#160;&#160;&#160;<a class="el" href="struct__str6870.html#a1f99dd65a7ff94538f6a85bf350529cf">eState</a></td></tr>
+<tr class="memdesc:a4ca388d8e5cb1c5da9a9c630a5508852"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current balancing state.  <a href="#a4ca388d8e5cb1c5da9a9c630a5508852">More...</a><br /></td></tr>
 <tr class="separator:a4ca388d8e5cb1c5da9a9c630a5508852"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a566f6450d588fa62b29ee4ac224346fa"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str6870.html#a4f249206b443618f1c759bcbce5a2ab3">u8MaxBalanceCells</a></td></tr>
+<tr class="memdesc:a566f6450d588fa62b29ee4ac224346fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total number of cells allowed to be balanced at any one time this will reduce thermal load on the BMS boards.  <a href="#a566f6450d588fa62b29ee4ac224346fa">More...</a><br /></td></tr>
+<tr class="separator:a566f6450d588fa62b29ee4ac224346fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94af93971544a65e090f124b8227da33"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str6870.html#a2e9fbdc1d007ad77665f7fd91284034c">u8ResistorOn</a> [<a class="el" href="ata6870_8h.html#abbac3d4fda4994bea08ccc00bc00f176">C_ATA6870__TOTAL_CELLS</a>]</td></tr>
+<tr class="memdesc:a94af93971544a65e090f124b8227da33"><td class="mdescLeft">&#160;</td><td class="mdescRight">The state of the resistors so we don't flood the SPI.  <a href="#a94af93971544a65e090f124b8227da33">More...</a><br /></td></tr>
+<tr class="separator:a94af93971544a65e090f124b8227da33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93006defe552cefe4b143e582173c6e4"><td class="memItemLeft" >&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str6870.html#a34447103bff3f1ae8618f50e37e02fad">f32BalanceTolerance</a></td></tr>
+<tr class="memdesc:a93006defe552cefe4b143e582173c6e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The tolerance in volts betwen the average and considering a cell needing balancing.  <a href="#a93006defe552cefe4b143e582173c6e4">More...</a><br /></td></tr>
+<tr class="separator:a93006defe552cefe4b143e582173c6e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f8c75b789030b0f6b0db110f0096f97"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str6870.html#a1f8c75b789030b0f6b0db110f0096f97">sBalance</a></td></tr>
 <tr class="memdesc:a1f8c75b789030b0f6b0db110f0096f97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Balancing control state machine.  <a href="#a1f8c75b789030b0f6b0db110f0096f97">More...</a><br /></td></tr>
 <tr class="separator:a1f8c75b789030b0f6b0db110f0096f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,8 +141,46 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a731c07ff4b1710b39b2d1898962b8a6d"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str6870.html#a731c07ff4b1710b39b2d1898962b8a6d">sDevice</a> [C_LOCALDEF__LCCM650__NUM_DEVICES]</td></tr>
 <tr class="memdesc:a731c07ff4b1710b39b2d1898962b8a6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for each individual device in the chain.  <a href="#a731c07ff4b1710b39b2d1898962b8a6d">More...</a><br /></td></tr>
 <tr class="separator:a731c07ff4b1710b39b2d1898962b8a6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad887e2cb2fcbce609df235787ae34c22"><td class="memItemLeft" align="right" valign="top">Lfloat32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str6870.html#ad887e2cb2fcbce609df235787ae34c22">f32NTCTemperatureReading</a> [C_LOCALDEF__LCCM650__NUM_DEVICES]</td></tr>
+<tr class="memdesc:ad887e2cb2fcbce609df235787ae34c22"><td class="mdescLeft">&#160;</td><td class="mdescRight">NTC Temperature Reading.  <a href="#ad887e2cb2fcbce609df235787ae34c22">More...</a><br /></td></tr>
+<tr class="separator:ad887e2cb2fcbce609df235787ae34c22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acce73d49e3af2eb7fa76555ad3e77c5b"><td class="memItemLeft" align="right" valign="top">Lfloat32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str6870.html#acce73d49e3af2eb7fa76555ad3e77c5b">f32Voltage</a> [<a class="el" href="ata6870_8h.html#abbac3d4fda4994bea08ccc00bc00f176">C_ATA6870__TOTAL_CELLS</a>]</td></tr>
+<tr class="memdesc:acce73d49e3af2eb7fa76555ad3e77c5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Voltages of a complete battery pack.  <a href="#acce73d49e3af2eb7fa76555ad3e77c5b">More...</a><br /></td></tr>
+<tr class="separator:acce73d49e3af2eb7fa76555ad3e77c5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abda1bd19a1d2164894f4485fbbc7f461"><td class="memItemLeft" align="right" valign="top">Luint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str6870.html#abda1bd19a1d2164894f4485fbbc7f461">u32VoltsUpdateCount</a></td></tr>
+<tr class="memdesc:abda1bd19a1d2164894f4485fbbc7f461"><td class="mdescLeft">&#160;</td><td class="mdescRight">just a counter for the number of times the volts have been re-read  <a href="#abda1bd19a1d2164894f4485fbbc7f461">More...</a><br /></td></tr>
+<tr class="separator:abda1bd19a1d2164894f4485fbbc7f461"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac024e05e545d69f336d03dbdc7f4f1d2"><td class="memItemLeft" align="right" valign="top">Luint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str6870.html#ac024e05e545d69f336d03dbdc7f4f1d2">u16FilteringChannel</a></td></tr>
+<tr class="memdesc:ac024e05e545d69f336d03dbdc7f4f1d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current filtering channel.  <a href="#ac024e05e545d69f336d03dbdc7f4f1d2">More...</a><br /></td></tr>
+<tr class="separator:ac024e05e545d69f336d03dbdc7f4f1d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a248ccb16a64b8670b343d9d3a5e277cd"><td class="memItemLeft" align="right" valign="top">Lfloat32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str6870.html#a248ccb16a64b8670b343d9d3a5e277cd">f32PackVoltage</a></td></tr>
+<tr class="memdesc:a248ccb16a64b8670b343d9d3a5e277cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total battery pack voltage.  <a href="#a248ccb16a64b8670b343d9d3a5e277cd">More...</a><br /></td></tr>
+<tr class="separator:a248ccb16a64b8670b343d9d3a5e277cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1e2a3aadda8480981fb550510852c06"><td class="memItemLeft" align="right" valign="top">Lfloat32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str6870.html#ac1e2a3aadda8480981fb550510852c06">f32AverageCellVoltage</a></td></tr>
+<tr class="memdesc:ac1e2a3aadda8480981fb550510852c06"><td class="mdescLeft">&#160;</td><td class="mdescRight">The average pack cell voltage.  <a href="#ac1e2a3aadda8480981fb550510852c06">More...</a><br /></td></tr>
+<tr class="separator:ac1e2a3aadda8480981fb550510852c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adac4b0ade35c7cb6f59c6e49d8ed4935"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str6870.html#adac4b0ade35c7cb6f59c6e49d8ed4935">u8AverageUpdated</a></td></tr>
+<tr class="memdesc:adac4b0ade35c7cb6f59c6e49d8ed4935"><td class="mdescLeft">&#160;</td><td class="mdescRight">The average has been updated, cleared in the balancer.  <a href="#adac4b0ade35c7cb6f59c6e49d8ed4935">More...</a><br /></td></tr>
+<tr class="separator:adac4b0ade35c7cb6f59c6e49d8ed4935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29713c63f40b7e9ef7f191bb28b26b4c"><td class="memItemLeft" align="right" valign="top">Luint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str6870.html#a29713c63f40b7e9ef7f191bb28b26b4c">u32ISR_Counter</a></td></tr>
+<tr class="memdesc:a29713c63f40b7e9ef7f191bb28b26b4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The count of 10ms ISR's.  <a href="#a29713c63f40b7e9ef7f191bb28b26b4c">More...</a><br /></td></tr>
+<tr class="separator:a29713c63f40b7e9ef7f191bb28b26b4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a7db927597461678d0f6afd42ae5c9483"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3">E_ATA6870_STATE_T</a> _str6870::eState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacfe813d3d25c0fc4ae7f9570407cff6a">u8ATA6870_BALANCE__Is_Busy()</a>, <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937">vATA6870__Init()</a>, <a class="el" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9">vATA6870__Process()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2105e80a88a638b159d5339f7af13583">vATA6870_BALANCE__Start()</a>, and <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2af6743461fb48e555818980f53e9757">vATA6870_BALANCE__Stop()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a1f99dd65a7ff94538f6a85bf350529cf"></a>
 <div class="memitem">
 <div class="memproto">
@@ -136,7 +191,87 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>, and <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>.</p>
+<p>The current balancing state. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac1e2a3aadda8480981fb550510852c06"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _str6870::f32AverageCellVoltage</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The average pack cell voltage. </p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3">u8ATA6870_BALANCE__Handle()</a>, <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937">vATA6870__Init()</a>, and <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga8ec8fe55730a034ef1fe762e8b112929">vATA6870_CELL__Average_CellVoltages()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a34447103bff3f1ae8618f50e37e02fad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _str6870::f32BalanceTolerance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The tolerance in volts betwen the average and considering a cell needing balancing. </p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3">u8ATA6870_BALANCE__Handle()</a>, and <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad887e2cb2fcbce609df235787ae34c22"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _str6870::f32NTCTemperatureReading[C_LOCALDEF__LCCM650__NUM_DEVICES]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>NTC Temperature Reading. </p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#gac40484d77864f9cf2d51ab251fd5e5c8">s16ATA6870_CELL__BulkRead_All()</a>, and <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937">vATA6870__Init()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a248ccb16a64b8670b343d9d3a5e277cd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _str6870::f32PackVoltage</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Total battery pack voltage. </p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga5ac2f2be8613ebd9dbf172172ed5b9f0">f32ATA6870_CELL__Get_PackVoltage()</a>, <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937">vATA6870__Init()</a>, <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga8ec8fe55730a034ef1fe762e8b112929">vATA6870_CELL__Average_CellVoltages()</a>, and <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga5d8f8e9f8efdb23729bec4f48f2cb344">vATA6870_CELL__Sum_CellVoltages()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acce73d49e3af2eb7fa76555ad3e77c5b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _str6870::f32Voltage[<a class="el" href="ata6870_8h.html#abbac3d4fda4994bea08ccc00bc00f176">C_ATA6870__TOTAL_CELLS</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Voltages of a complete battery pack. </p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga8a1b5862e924e17ea6d4b443521483f3">f32ATA6870_CELL__Get_HighestVoltage()</a>, <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga9b21295617b8710b29639b1ce2f05832">f32ATA6870_CELL__Get_LowestVoltage()</a>, <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#gac40484d77864f9cf2d51ab251fd5e5c8">s16ATA6870_CELL__BulkRead_All()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3">u8ATA6870_BALANCE__Handle()</a>, <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937">vATA6870__Init()</a>, <a class="el" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9">vATA6870__Process()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga7eceadbb00e08c5f3c1a17a3a805157b">vATA6870_BALANCE__Do()</a>, and <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga5d8f8e9f8efdb23729bec4f48f2cb344">vATA6870_CELL__Sum_CellVoltages()</a>.</p>
 
 </div>
 </div>
@@ -152,7 +287,7 @@ Data Fields</h2></td></tr>
 
 <p>Balancing control state machine. </p>
 
-<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>, and <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>.</p>
+<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3">u8ATA6870_BALANCE__Handle()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacfe813d3d25c0fc4ae7f9570407cff6a">u8ATA6870_BALANCE__Is_Busy()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga7eceadbb00e08c5f3c1a17a3a805157b">vATA6870_BALANCE__Do()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga4fbf757d8bc0eaeb4e489c87fc59aa7b">vATA6870_BALANCE__Manual()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2105e80a88a638b159d5339f7af13583">vATA6870_BALANCE__Start()</a>, and <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2af6743461fb48e555818980f53e9757">vATA6870_BALANCE__Stop()</a>.</p>
 
 </div>
 </div>
@@ -188,6 +323,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac024e05e545d69f336d03dbdc7f4f1d2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint16 _str6870::u16FilteringChannel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Current filtering channel. </p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9">vATA6870__Process()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a8ffb5a7d3a2f76f7f9fab4cf30d1b397"></a>
 <div class="memitem">
 <div class="memproto">
@@ -199,6 +350,103 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The status of the last device ID command where the IRQ status is returned as part of the ID phase of the SPI transaction. </p>
+
+</div>
+</div>
+<a class="anchor" id="a29713c63f40b7e9ef7f191bb28b26b4c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint32 _str6870::u32ISR_Counter</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The count of 10ms ISR's. </p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga8a36e2ce275f971926cf0cf0063df58e">vATA6870__10MS_ISR()</a>, and <a class="el" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9">vATA6870__Process()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abda1bd19a1d2164894f4485fbbc7f461"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint32 _str6870::u32VoltsUpdateCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>just a counter for the number of times the volts have been re-read </p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga90bd61727a71b755bb4c079b9f0a02eb">u32ATA6870__Get_VoltsUpdateCount()</a>, <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937">vATA6870__Init()</a>, and <a class="el" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9">vATA6870__Process()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adac4b0ade35c7cb6f59c6e49d8ed4935"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _str6870::u8AverageUpdated</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The average has been updated, cleared in the balancer. </p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937">vATA6870__Init()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2105e80a88a638b159d5339f7af13583">vATA6870_BALANCE__Start()</a>, and <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga8ec8fe55730a034ef1fe762e8b112929">vATA6870_CELL__Average_CellVoltages()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4f249206b443618f1c759bcbce5a2ab3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _str6870::u8MaxBalanceCells</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Total number of cells allowed to be balanced at any one time this will reduce thermal load on the BMS boards. </p>
+<p>NOTE: This value is the number of cells per ATA device, not in total. </p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga7eceadbb00e08c5f3c1a17a3a805157b">vATA6870_BALANCE__Do()</a>, and <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2e9fbdc1d007ad77665f7fd91284034c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _str6870::u8ResistorOn[<a class="el" href="ata6870_8h.html#abbac3d4fda4994bea08ccc00bc00f176">C_ATA6870__TOTAL_CELLS</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The state of the resistors so we don't flood the SPI. </p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3">u8ATA6870_BALANCE__Handle()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga4fbf757d8bc0eaeb4e489c87fc59aa7b">vATA6870_BALANCE__Manual()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>, and <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2af6743461fb48e555818980f53e9757">vATA6870_BALANCE__Stop()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a50cd5fd2b19b9d17436583149a102321"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _str6870::u8RevID[<a class="el" href="ata6870_8h.html#aabaa84e2d0ec3222f2659f24dd5cea4a">C_ATA6870__MAX_BUS_DEVICES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A list of all revision ID's found on each bus. </p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____s_c_a_n.html#ga25d0fba15ca770aeb01b8d3014b25165">vATA6870_SCAN__Init()</a>, and <a class="el" href="group___a_t_a6870_____s_c_a_n.html#ga9f664bd9b7c6862f8bf47939bebd3ea0">vATA6870_SCAN__Start()</a>.</p>
 
 </div>
 </div>

@@ -14,7 +14,7 @@
 
 
 /*******************************************************************************
-EMAC Module
+RM4 - EMAC Module
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM254__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM254__ENABLE_THIS_MODULE == 1U

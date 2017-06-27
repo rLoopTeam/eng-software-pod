@@ -57,7 +57,7 @@ void vFCU_GEOM_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	}//switch(ePacketType)
 
 	//pre-comit
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
 	if(s16Return == 0)
 	{
 		//handle the packet
@@ -67,26 +67,26 @@ void vFCU_GEOM_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 
 				//fault flags
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;
 
 				for(u8Counter = 0U; u8Counter < C_FCU__GEOM__NUM_ITEMS_F32; u8Counter++)
 				{
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sFlightControl.sGeom.vf32Geom[u8Counter].f32X);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sFlightControl.sGeom.vf32Geom[u8Counter].f32X);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sFlightControl.sGeom.vf32Geom[u8Counter].f32Y);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sFlightControl.sGeom.vf32Geom[u8Counter].f32Y);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_F32(pu8Buffer, sFCU.sFlightControl.sGeom.vf32Geom[u8Counter].f32Z);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sFlightControl.sGeom.vf32Geom[u8Counter].f32Z);
 					pu8Buffer += 4U;
 				}
 
 				for(u8Counter = 0U; u8Counter < C_FCU__GEOM__NUM_ITEMS_S32; u8Counter++)
 				{
-					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sFlightControl.sGeom.vs32Geom[u8Counter].s32X);
+					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sFlightControl.sGeom.vs32Geom[u8Counter].s32X);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sFlightControl.sGeom.vs32Geom[u8Counter].s32Y);
+					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sFlightControl.sGeom.vs32Geom[u8Counter].s32Y);
 					pu8Buffer += 4U;
-					vNUMERICAL_CONVERT__Array_S32(pu8Buffer, sFCU.sFlightControl.sGeom.vs32Geom[u8Counter].s32Z);
+					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sFlightControl.sGeom.vs32Geom[u8Counter].s32Z);
 					pu8Buffer += 4U;
 				}
 
@@ -99,7 +99,7 @@ void vFCU_GEOM_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length,
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length,
 				C_RLOOP_NET__FCU__PORT,
 				C_RLOOP_NET__FCU__PORT);
 

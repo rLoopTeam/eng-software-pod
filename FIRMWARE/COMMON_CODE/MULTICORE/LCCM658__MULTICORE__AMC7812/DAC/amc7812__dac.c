@@ -31,7 +31,7 @@ extern struct _strAMC7812 sAMC;
  * @brief
  * Init the DAC portion.
  * 
- * @st_funcMD5		C180710CF0A27FA75265B2D3FA81C0E7
+ * @st_funcMD5		DA9E28553440802ABCC8FB8B52AC802F
  * @st_funcID		LCCM658R0.FILE.007.FUNC.001
  */
 void vAMC7812_DAC__Init(void)
@@ -76,6 +76,13 @@ void vAMC7812_DAC__Init(void)
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		57FC2CAF7DA358743019810A27D309F8
+ * @st_funcID		LCCM658R0.FILE.007.FUNC.002
+ */
 void vAMC7812_DAC__Process(void)
 {
 
@@ -299,6 +306,15 @@ void vAMC7812_DAC__Process(void)
 
 
 //update our internal voltage
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		Lfloat32		## Desc ##
+ * @param[in]		u8Channel		## Desc ##
+ * @st_funcMD5		A11A71D7886F27D0B0AD4EB631D16F30
+ * @st_funcID		LCCM658R0.FILE.007.FUNC.003
+ */
 void vAMC7182_DAC__DAC_UpdateVoltage(Luint8 u8Channel, Lfloat32 f32Voltage)
 {
 	Lfloat32 f32Temp;
@@ -348,14 +364,21 @@ void vAMC7182_DAC__DAC_UpdateVoltage(Luint8 u8Channel, Lfloat32 f32Voltage)
 	else
 	{
 		//error
-		vFAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__00);
-		vFAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__01);
+		vSIL3_FAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__00);
+		vSIL3_FAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__01);
 	}
 }
 
 
 //--- Set the voltage of the specified pin for the given command and conversion factor (to millivolts) ---//
 #if 0
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		CC9C8E3301D7598C8B435D269CF4E791
+ * @st_funcID		LCCM658R0.FILE.007.FUNC.004
+ */
 Lint16 s16AMC7812_DAC__SetPinVoltage(void)
 {
 	// declarations

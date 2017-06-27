@@ -4,17 +4,17 @@
 #ifdef WIN32
 
 //this is our function pointer
-pDEBUG_PRINTF_Callback_FuncType pDebugFunc;
+pSIL3_DEBUG_PRINTF_Callback_FuncType pDebugFunc;
 
 //Set the callback
-DLL_DECLARATION void vDEBUG_PRINTF_WIN32__Set_Callback(pDEBUG_PRINTF_Callback_FuncType pFunc)
+DLL_DECLARATION void vSIL3_DEBUG_PRINTF_WIN32__Set_Callback(pSIL3_DEBUG_PRINTF_Callback_FuncType pFunc)
 {
 
 	pDebugFunc = pFunc;
 }
 
 //allow the firmware to callback to WIN32
-void vDEBUG_PRINTF_WIN32__Win32Callback(const char * pu8String)
+void vSIL3_DEBUG_PRINTF_WIN32__Win32Callback(const char * pu8String)
 {
 	//allocate enough space for large strings
 	Luint8 u8Buffer[1024];

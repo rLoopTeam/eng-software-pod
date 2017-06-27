@@ -16,12 +16,10 @@
 #if 0
 
 /*******************************************************************************
-MMA8451 - 3 AXIS ACCELEROMETER
+SIL3 - MMA8451 3 AXIS ACCELEROMETER
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM418__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM418__ENABLE_THIS_MODULE == 1U
-
-		#define C_LOCALDEF__LCCM418__USE_ON_DSPIC							(0U)
 
 		//Define the number of MMA8451's that are on the I2C Chain (MAX = 2)
 		//Limit if 2 is due to addx pin limit

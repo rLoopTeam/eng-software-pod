@@ -40,144 +40,6 @@ void vFCU_NET_SPACEX_TX__Init(void)
 
 }
 
-
-/***************************************************************************//**
- * @brief
- * Do the transmission
- *
- * @note
- * Teams shall send a binary telemetry frame for SpaceX monitoring of the status of their pod. The frame
- * shall be sent via UDP to IP 192.168.0.1, port 3000 at no greater than 10Hz, and must obey the following
- * format, where the type UINTx is an unsigned integer of x bits in length, and INTx is a twos-complement
- * signed integer of x bits in length. The first 5 fields are required; the latter five fields are optional. If a
- * field is unused, its value must be left as 0.
- *
- * Name 			Type 			Description
- * team_id 			UINT8 			Identifier for the team, assigned by SpaceX. Required.
- * status 			UINT8 			Pod status, indicating current pod health and pushing state, as defined below. Required.
- * acceleration 	INT32 			Acceleration in centimeters per second squared. Required.
- * position 		INT32 			Velocity in centimeters per second. Required.
- * velocity 		INT32 			Position in centimeters. Required.
- * battery_voltage 	INT32 			Battery voltage in millivolts.
- * battery_current 	INT32 			Battery current in milliamps.
- * battery_temperature INT32 		Battery temperature in tenths of a degree Celsius.
- * pod_temperature 	INT32 			Pod temperature in tenths of a degree Celsius.
- * stripe_count 	UINT32 			Count of optical navigation stripes detected in the tube.
- * 
- * @st_funcMD5		0F061C0B0CC27505B8A1A1FD42E83F65
- * @st_funcID		LCCM655R0.FILE.039.FUNC.002
- */
-void vFCU_NET_SPACEX_TX__Process(void)
-{
-	Luint8 u8Test;
-	Luint16 u16PacketLength;
-	Lint16 s16Return;
-	Luint32 u32Buffer;
-	Luint8 *pu8Return;
-	Lint32 s32Temp;
-
-	//do we have a timer flag?
-	if(sFCU.sSpaceX.u8100MS_Flag == 1U)
-	{
-		//send the UDP stream
-		//see if we have space to transmit
-		u8Test = u8ETH_FIFO__Is_Empty();
-		if(u8Test == 1U)
-		{
-
-			//add space for the network packet
-			u16PacketLength = 34U;
-			s16Return = s16ETH_FIFO__Push(u16PacketLength);
-			if(s16Return >= 0)
-			{
-
-				//get a pointer to the buffer
-				u32Buffer = u32ETH_BUFFERDESC__Get_TxBufferPointer((Luint8)s16Return);
-				pu8Return = (Luint8 *)u32Buffer;
-
-
-				//team_id 			UINT8 			Identifier for the team, assigned by SpaceX. Required.
-				pu8Return[0] = 0x08U;
-				pu8Return += 1U;
-
-				//status 			UINT8 			Pod status, indicating current pod health and pushing state, as defined below. Required.
-				pu8Return[0] = 0x01U;
-				pu8Return += u8FCU_NET_SPACEX_TX__GeneratePodStatus();
-
-				//acceleration 	INT32 			Acceleration in centimeters per second squared. Required.
-				s32Temp = s32FCU_FCTL_BLENDER__Get_Accel_mmss();
-				//convert to cm/ss
-				s32Temp /= 10;
-				vNUMERICAL_CONVERT__Array_S32(pu8Return, s32Temp);
-				pu8Return += 4U;
-
-				//position 		INT32 			Velocity in centimeters per second. Required.
-				s32Temp = s32FCU_FCTL_BLENDER__Get_Veloc_mms();
-				//convert to cm/ss
-				s32Temp /= 10;
-				vNUMERICAL_CONVERT__Array_S32(pu8Return, s32Temp);
-				pu8Return += 4U;
-
-				//velocity 		INT32 			Position in centimeters. Required.
-				s32Temp = s32FCU_FCTL_BLENDER__Get_Displacement_mm();
-				//convert to cm/ss
-				s32Temp /= 10;
-				vNUMERICAL_CONVERT__Array_S32(pu8Return, s32Temp);
-				pu8Return += 4U;
-
-				//battery_voltage 	INT32 			Battery voltage in millivolts.
-				vNUMERICAL_CONVERT__Array_S32(pu8Return, 4444);
-				pu8Return += 4U;
-
-				//battery_current 	INT32 			Battery current in milliamps.
-				vNUMERICAL_CONVERT__Array_S32(pu8Return, 55555);
-				pu8Return += 4U;
-
-				//battery_temperature INT32 		Battery temperature in tenths of a degree Celsius.
-				vNUMERICAL_CONVERT__Array_S32(pu8Return, 66666);
-				pu8Return += 4U;
-
-				//pod_temperature 	INT32 			Pod temperature in tenths of a degree Celsius.
-				vNUMERICAL_CONVERT__Array_S32(pu8Return, -77777);
-				pu8Return += 4U;
-
-				//stripe_count 	UINT32 			Count of optical navigation stripes detected in the tube.
-				vNUMERICAL_CONVERT__Array_U32(pu8Return, sFCU.sSpaceX.u32TestCounter++);
-				pu8Return += 4U;
-
-				//send it our SpaceX required port
-				vETH_UDP__Transmit(u16PacketLength, 3000U, 3000U);
-
-				//clear the flag only after a send because im sure SpX want the data
-				//on the 100ms mark.
-				sFCU.sSpaceX.u8100MS_Flag = 0U;
-
-			}//if(s16Return >= 0)
-			else
-			{
-				//FIFO error
-
-			}//else if(s16Return >= 0)
-
-		}//if(u8Test == 1U)
-		else
-		{
-			//mo more space
-
-		}//else if(u8Test == 1U)
-
-
-
-	}
-	else
-	{
-		//check later
-	}
-
-
-}
-
-
 /* 1.3. Determine pod status for SpaceX telemetry
  * As required in section "Pod Monitoring Telemetry" of the Network Guide, the FCU shall compute the pod status as
  * follows and report it to SpaceX telemetry:
@@ -207,6 +69,117 @@ Luint8 u8FCU_NET_SPACEX_TX__GeneratePodStatus(void)
 	return u8Return;
 }
 
+/***************************************************************************/
+/**
+ * @brief
+ * Do the transmission
+ *
+ * @note
+ * Teams shall send a binary telemetry frame for SpaceX monitoring of the status of their pod. The frame
+ * shall be sent via UDP to IP 192.168.0.1, port 3000 at no greater than 10Hz, and must obey the following
+ * format, where the type UINTx is an unsigned integer of x bits in length, and INTx is a twos-complement
+ * signed integer of x bits in length. The first 5 fields are required; the latter five fields are optional. If a
+ * field is unused, its value must be left as 0.
+ *
+ * Name             Type            Description
+ * team_id          UINT8           Identifier for the team, assigned by SpaceX. Required.
+ * status           UINT8           Pod status, indicating current pod health and pushing state, as defined below. Required.
+ * acceleration     INT32           Acceleration in centimeters per second squared. Required.
+ * position         INT32           Velocity in centimeters per second. Required.
+ * velocity         INT32           Position in centimeters. Required.
+ * battery_voltage  INT32           Battery voltage in millivolts.
+ * battery_current  INT32           Battery current in milliamps.
+ * battery_temperature INT32        Battery temperature in tenths of a degree Celsius.
+ * pod_temperature  INT32           Pod temperature in tenths of a degree Celsius.
+ * stripe_count     UINT32          Count of optical navigation stripes detected in the tube.
+ *
+ * @st_funcMD5      0F061C0B0CC27505B8A1A1FD42E83F65
+ * @st_funcID       LCCM655R0.FILE.039.FUNC.002
+ */
+void vFCU_NET_SPACEX_TX__Process(void)
+{
+    Luint8 u8Test;
+    Luint16 u16PacketLength;
+    Lint16 s16Return;
+    Luint32 u32Buffer;
+    Luint8* pu8Return;
+    Lint32 s32Temp;
+    //do we have a timer flag?
+    if(sFCU.sSpaceX.u8100MS_Flag == 1U)
+    {
+        //send the UDP stream
+        //see if we have space to transmit
+        u8Test = u8SIL3_ETH_FIFO__Is_Empty();
+        if(u8Test == 1U)
+        {
+            //add space for the network packet
+            u16PacketLength = 34U;
+            s16Return = s16SIL3_ETH_FIFO__Push(u16PacketLength);
+            if(s16Return >= 0)
+            {
+                //get a pointer to the buffer
+                u32Buffer = u32SIL3_ETH_BUFFERDESC__Get_TxBufferPointer((Luint8) s16Return);
+
+                pu8Return = (Luint8*) u32Buffer;
+                //team_id           UINT8           Identifier for the team, assigned by SpaceX. Required.
+                pu8Return[0] = 0x08U;
+                pu8Return += 1U;
+                //status            UINT8           Pod status, indicating current pod health and pushing state, as defined below. Required.
+                pu8Return[0] = 0x01U;
+                pu8Return += u8FCU_NET_SPACEX_TX__GeneratePodStatus();
+                //acceleration  INT32           Acceleration in centimeters per second squared. Required.
+                s32Temp = s32FCU_FCTL_BLENDER__Get_Accel_mmss();
+                //convert to cm/ss
+                s32Temp /= 10;
+                vSIL3_NUM_CONVERT__Array_S32(pu8Return, s32Temp);
+                pu8Return += 4U;
+                //position      INT32           Velocity in centimeters per second. Required.
+                s32Temp = s32FCU_FCTL_BLENDER__Get_Veloc_mms();
+                //convert to cm/ss
+                s32Temp /= 10;
+                vSIL3_NUM_CONVERT__Array_S32(pu8Return, s32Temp);
+                pu8Return += 4U;
+                //velocity      INT32           Position in centimeters. Required.
+                s32Temp = s32FCU_FCTL_BLENDER__Get_Displacement_mm();
+                //convert to cm/ss
+                s32Temp /= 10;
+                vSIL3_NUM_CONVERT__Array_S32(pu8Return, s32Temp);
+                pu8Return += 4U;
+                //battery_voltage   INT32           Battery voltage in millivolts.
+                vSIL3_NUM_CONVERT__Array_S32(pu8Return, 4444);
+                pu8Return += 4U;
+                //battery_current   INT32           Battery current in milliamps.
+                vSIL3_NUM_CONVERT__Array_S32(pu8Return, 55555);
+                pu8Return += 4U;
+                //battery_temperature INT32         Battery temperature in tenths of a degree Celsius.
+                vSIL3_NUM_CONVERT__Array_S32(pu8Return, 66666);
+                pu8Return += 4U;
+                //pod_temperature   INT32           Pod temperature in tenths of a degree Celsius.
+                vSIL3_NUM_CONVERT__Array_S32(pu8Return, -77777);
+                pu8Return += 4U;
+                //stripe_count  UINT32          Count of optical navigation stripes detected in the tube.
+                vSIL3_NUM_CONVERT__Array_U32(pu8Return,
+                                              sFCU.sSpaceX.u32TestCounter++);
+                pu8Return += 4U;
+                //send it our SpaceX required port
+                vSIL3_ETH_UDP__Transmit(u16PacketLength, 3000U, 3000U);
+                //clear the flag only after a send because im sure SpX want the data
+                //on the 100ms mark.
+                sFCU.sSpaceX.u8100MS_Flag = 0U;
+            }//if(s16Return >= 0)
+            else
+            {
+              //FIFO error
+            }
+        }
+        else
+        {
+            //mo more space
+        }
+
+    }
+
+}
 
 /***************************************************************************//**
  * @brief

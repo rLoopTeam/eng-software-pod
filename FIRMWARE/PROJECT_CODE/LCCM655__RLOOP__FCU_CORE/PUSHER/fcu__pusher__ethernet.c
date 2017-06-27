@@ -68,7 +68,7 @@ void vFCU_PUSHER_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	}//switch(ePacketType)
 
 	//pre-comit
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
 	if(s16Return == 0)
 	{
 		//handle the packet
@@ -77,7 +77,7 @@ void vFCU_PUSHER_ETH__Transmit(E_NET__PACKET_T ePacketType)
 			case NET_PKT__FCU_PUSH__TX_PUSHER_DATA:
 
 				//top level fault flags
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sPusher.sFaultFlags.u32Flags[0]);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sPusher.sFaultFlags.u32Flags[0]);
 				pu8Buffer += 4U;
 
 				pu8Buffer[0] = sFCU.sPusher.ePusher_Status;
@@ -87,7 +87,7 @@ void vFCU_PUSHER_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer[4] = sFCU.sPusher.sSwitches[1].u8SwitchState;
 				pu8Buffer += 5U;
 
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sPusher.u32SwtichTimer);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sPusher.u32SwtichTimer);
 				pu8Buffer += 4U;
 
 
@@ -100,7 +100,7 @@ void vFCU_PUSHER_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length,
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length,
 				C_RLOOP_NET__FCU__PORT,
 				C_RLOOP_NET__FCU__PORT);
 

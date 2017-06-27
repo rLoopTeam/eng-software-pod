@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, MULTICORE, ATA6870N Driver)
    &#160;<span id="projectnumber">1.0</span>
@@ -148,10 +148,12 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>E0486D18237104702DD1E0CF589B1632 </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>11DAF5AAFB4EB61EA1B25C872B8C3CB2 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.008.FUNC.003 </dd></dl>
 
 <p>References <a class="el" href="ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57a6a8a0284bbbc49c431c7dde47a8b46ae">ATA6870_REG__CH_DISCHARGE</a>, and <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea">vATA6870_LOWLEVEL__Reg_WriteU8()</a>.</p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2af6743461fb48e555818980f53e9757">vATA6870_BALANCE__Stop()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -161,6 +163,18 @@ Here is the call graph for this function:</div>
 <area shape="rect" id="node2" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea" title="Write a U8 to a devices register. " alt="" coords="237,35,403,76"/>
 <area shape="rect" id="node3" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="451,5,625,47"/>
 <area shape="rect" id="node4" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="673,42,881,69"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___a_t_a6870_____r_e_s_i_s_t_o_r_s_gab881482bec60f5d93439668bccba1705_icgraph.png" border="0" usemap="#group___a_t_a6870_____r_e_s_i_s_t_o_r_s_gab881482bec60f5d93439668bccba1705_icgraph" alt=""/></div>
+<map name="group___a_t_a6870_____r_e_s_i_s_t_o_r_s_gab881482bec60f5d93439668bccba1705_icgraph" id="group___a_t_a6870_____r_e_s_i_s_t_o_r_s_gab881482bec60f5d93439668bccba1705_icgraph">
+<area shape="rect" id="node2" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2af6743461fb48e555818980f53e9757" title="Stop the blanacing process and terminate any discharging resistors. " alt="" coords="237,5,427,32"/>
+<area shape="rect" id="node3" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707" title="Process the balancer state machine. " alt="" coords="475,5,685,32"/>
+<area shape="rect" id="node4" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9" title="Process any ATA6870 tasks. " alt="" coords="733,5,876,32"/>
 </map>
 </div>
 </p>
@@ -199,10 +213,12 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>5E59534CAF73A6A9FC09D0B164DCDA4A </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>CAC32654A9021593CFCB202AE04CA309 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.008.FUNC.002 </dd></dl>
 
 <p>References <a class="el" href="ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57a6a8a0284bbbc49c431c7dde47a8b46ae">ATA6870_REG__CH_DISCHARGE</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b">vATA6870_LOWLEVEL__Reg_ReadU8()</a>, and <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea">vATA6870_LOWLEVEL__Reg_WriteU8()</a>.</p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3">u8ATA6870_BALANCE__Handle()</a>, and <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga4fbf757d8bc0eaeb4e489c87fc59aa7b">vATA6870_BALANCE__Manual()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -213,6 +229,20 @@ Here is the call graph for this function:</div>
 <area shape="rect" id="node5" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea" title="Write a U8 to a devices register. " alt="" coords="223,71,388,112"/>
 <area shape="rect" id="node3" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="436,37,611,79"/>
 <area shape="rect" id="node4" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="659,45,867,71"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___a_t_a6870_____r_e_s_i_s_t_o_r_s_ga23c1ee8e1d92e772a261d306a53c7e8a_icgraph.png" border="0" usemap="#group___a_t_a6870_____r_e_s_i_s_t_o_r_s_ga23c1ee8e1d92e772a261d306a53c7e8a_icgraph" alt=""/></div>
+<map name="group___a_t_a6870_____r_e_s_i_s_t_o_r_s_ga23c1ee8e1d92e772a261d306a53c7e8a_icgraph" id="group___a_t_a6870_____r_e_s_i_s_t_o_r_s_ga23c1ee8e1d92e772a261d306a53c7e8a_icgraph">
+<area shape="rect" id="node2" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3" title="Handle the actual discharging. " alt="" coords="243,5,407,47"/>
+<area shape="rect" id="node6" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga4fbf757d8bc0eaeb4e489c87fc59aa7b" title="vATA6870_BALANCE__Manual" alt="" coords="223,71,427,98"/>
+<area shape="rect" id="node3" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga7eceadbb00e08c5f3c1a17a3a805157b" title="Do the balancing. " alt="" coords="475,13,653,39"/>
+<area shape="rect" id="node4" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707" title="Process the balancer state machine. " alt="" coords="701,13,912,39"/>
+<area shape="rect" id="node5" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9" title="Process any ATA6870 tasks. " alt="" coords="960,13,1103,39"/>
 </map>
 </div>
 </p>
@@ -251,10 +281,12 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>DB12A9B1E58AB28C4E786FAAF9689A77 </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>F59776F8654983DB7210D16DA2C75DFE </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.008.FUNC.001 </dd></dl>
 
 <p>References <a class="el" href="ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57a6a8a0284bbbc49c431c7dde47a8b46ae">ATA6870_REG__CH_DISCHARGE</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b">vATA6870_LOWLEVEL__Reg_ReadU8()</a>, and <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea">vATA6870_LOWLEVEL__Reg_WriteU8()</a>.</p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3">u8ATA6870_BALANCE__Handle()</a>, and <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga4fbf757d8bc0eaeb4e489c87fc59aa7b">vATA6870_BALANCE__Manual()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -265,6 +297,20 @@ Here is the call graph for this function:</div>
 <area shape="rect" id="node5" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea" title="Write a U8 to a devices register. " alt="" coords="224,71,389,112"/>
 <area shape="rect" id="node3" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="437,37,612,79"/>
 <area shape="rect" id="node4" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="660,45,868,71"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___a_t_a6870_____r_e_s_i_s_t_o_r_s_ga7f0d8bca7c58a116e64f17939df9e351_icgraph.png" border="0" usemap="#group___a_t_a6870_____r_e_s_i_s_t_o_r_s_ga7f0d8bca7c58a116e64f17939df9e351_icgraph" alt=""/></div>
+<map name="group___a_t_a6870_____r_e_s_i_s_t_o_r_s_ga7f0d8bca7c58a116e64f17939df9e351_icgraph" id="group___a_t_a6870_____r_e_s_i_s_t_o_r_s_ga7f0d8bca7c58a116e64f17939df9e351_icgraph">
+<area shape="rect" id="node2" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3" title="Handle the actual discharging. " alt="" coords="244,5,408,47"/>
+<area shape="rect" id="node6" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga4fbf757d8bc0eaeb4e489c87fc59aa7b" title="vATA6870_BALANCE__Manual" alt="" coords="224,71,428,98"/>
+<area shape="rect" id="node3" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga7eceadbb00e08c5f3c1a17a3a805157b" title="Do the balancing. " alt="" coords="476,13,655,39"/>
+<area shape="rect" id="node4" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707" title="Process the balancer state machine. " alt="" coords="703,13,913,39"/>
+<area shape="rect" id="node5" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9" title="Process any ATA6870 tasks. " alt="" coords="961,13,1104,39"/>
 </map>
 </div>
 </p>

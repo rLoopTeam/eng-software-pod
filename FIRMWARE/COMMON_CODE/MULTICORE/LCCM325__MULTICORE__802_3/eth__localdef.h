@@ -17,16 +17,10 @@
 #if 0
 
 /*******************************************************************************
-ETHERNET TRANSPORT
+SIL3 - 802.3 ETHERNET
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM325__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM325__ENABLE_THIS_MODULE == 1U
-
-		//CPU Support
-		#define C_LOCALDEF__LCCM325__USE_ON_RM4								(0U)
-		#define C_LOCALDEF__LCCM325__USE_ON_XILINX							(0U)
-		#define C_LOCALDEF__LCCM325__USE_ON_WIN32							(0U)
-		#define C_LOCALDEF__LCCM325__USE_ON_MSP430							(0U)
 
 		/** On Xilinx Architectures we can use NPI burst transfers */
 		#define C_LOCALDEF__LCCM325__XILINX_USE_NPI_INTERFACE				(0U)
@@ -42,7 +36,7 @@ ETHERNET TRANSPORT
 		#define C_LOCALDEF__LCCM325__ENABLE_TCP								(0U)
 
 		//UDP Rx
-		#define C_LOCALDEF__LCCM325__UDP_RX_CALLBACK(buffer,length,port)	vSAFE_UDP_RX__UDPPacket(buffer, length, port)
+		#define C_LOCALDEF__LCCM325__UDP_RX_CALLBACK(buffer,length,port)	vSIL3_SAFEUDP_RX__UDPPacket(buffer, length, port)
 	
 		//testing options
 		#define C_LOCALDEF__LCCM325__ENABLE_TEST_SPEC						(0U)

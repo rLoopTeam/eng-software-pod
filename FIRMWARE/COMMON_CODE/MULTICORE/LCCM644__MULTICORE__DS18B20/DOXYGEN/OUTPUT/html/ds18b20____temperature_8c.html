@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>(C Code, MULTICORE, DS18B20 Temp Sensor): TEMPERATURE/ds18b20__temperature.c File Reference</title>
+<title>(C Code, MULTICORE, DS18B20 Temperature Sensor): TEMPERATURE/ds18b20__temperature.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -31,9 +31,9 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">(C Code, MULTICORE, DS18B20 Temp Sensor)
+   <div id="projectname">(C Code, MULTICORE, DS18B20 Temperature Sensor)
    &#160;<span id="projectnumber">1.0</span>
    </div>
   </td>
@@ -107,27 +107,35 @@ Include dependency graph for ds18b20__temperature.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="ds18b20____temperature_8c__incl.png" border="0" usemap="#_t_e_m_p_e_r_a_t_u_r_e_2ds18b20____temperature_8c" alt=""/></div>
 <map name="_t_e_m_p_e_r_a_t_u_r_e_2ds18b20____temperature_8c" id="_t_e_m_p_e_r_a_t_u_r_e_2ds18b20____temperature_8c">
-<area shape="rect" id="node2" href="ds18b20_8h.html" title="Main header for DS18B20 library. " alt="" coords="44,95,139,121"/>
+<area shape="rect" id="node2" href="ds18b20_8h.html" title="Main header for DS18B20 library. " alt="" coords="146,95,241,121"/>
+<area shape="rect" id="node4" href="ds18b20____state__types_8h.html" title="State type defines. " alt="" coords="107,169,279,225"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gaa3b0ab54badd49727ff533876b0b35c8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#gaa3b0ab54badd49727ff533876b0b35c8">vDS18B20_TEMP__Scratch_To_Temp</a> (Luint8 u8DSIndex, const Luint8 *pu8Scratch, Lfloat32 *pf32Temp)</td></tr>
-<tr class="memdesc:gaa3b0ab54badd49727ff533876b0b35c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert scratchpad to temperature Takes the two temp bytes in the scratchpad and converts to floating point temp;.  <a href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#gaa3b0ab54badd49727ff533876b0b35c8">More...</a><br /></td></tr>
-<tr class="separator:gaa3b0ab54badd49727ff533876b0b35c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1ea9cd9334d74c0e89964ce4de00d871"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga1ea9cd9334d74c0e89964ce4de00d871">s16DS18B20_TEMP__All_Request</a> (Luint8 u8DSIndex, Luint8 u8Wait)</td></tr>
-<tr class="memdesc:ga1ea9cd9334d74c0e89964ce4de00d871"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issue a global command to start conversion of all devices on the wire This is most useful for starting thousands of sensors to convert.  <a href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga1ea9cd9334d74c0e89964ce4de00d871">More...</a><br /></td></tr>
-<tr class="separator:ga1ea9cd9334d74c0e89964ce4de00d871"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga70cda5834889d76cba2fff8ded10ad16"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga70cda5834889d76cba2fff8ded10ad16">s16DS18B20_TEMP__Request</a> (Luint8 u8DSIndex, Luint8 u8Wait)</td></tr>
-<tr class="memdesc:ga70cda5834889d76cba2fff8ded10ad16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request the temperature.  <a href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga70cda5834889d76cba2fff8ded10ad16">More...</a><br /></td></tr>
-<tr class="separator:ga70cda5834889d76cba2fff8ded10ad16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga11962e41c09a2129e886ea033a17a9bd"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga11962e41c09a2129e886ea033a17a9bd">s16DS18B20_TEMP__Get_Resolution</a> (Luint8 u8DSIndex, Luint8 *pu8Resolution)</td></tr>
-<tr class="memdesc:ga11962e41c09a2129e886ea033a17a9bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current resolution by reading the scratchpad memory.  <a href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga11962e41c09a2129e886ea033a17a9bd">More...</a><br /></td></tr>
-<tr class="separator:ga11962e41c09a2129e886ea033a17a9bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4a927d4706f79e0bb33dbc53ef14d967"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga4a927d4706f79e0bb33dbc53ef14d967">s16DS18B20_TEMP__Set_Resolution</a> (Luint8 u8DSIndex, Luint8 u8Resolution)</td></tr>
-<tr class="memdesc:ga4a927d4706f79e0bb33dbc53ef14d967"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the temperature resolution.  <a href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga4a927d4706f79e0bb33dbc53ef14d967">More...</a><br /></td></tr>
-<tr class="separator:ga4a927d4706f79e0bb33dbc53ef14d967"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga870e541569ee0c042ab21ab7c4fbbc6b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga870e541569ee0c042ab21ab7c4fbbc6b">vDS18B20_TEMP__Scratch_To_Temp</a> (Luint16 u16SensorIndex, const Luint8 *pu8Scratch, Lfloat32 *pf32Temp)</td></tr>
+<tr class="memdesc:ga870e541569ee0c042ab21ab7c4fbbc6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert scratchpad to temperature Takes the two temp bytes in the scratchpad and converts to floating point temp;.  <a href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga870e541569ee0c042ab21ab7c4fbbc6b">More...</a><br /></td></tr>
+<tr class="separator:ga870e541569ee0c042ab21ab7c4fbbc6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a80e71653b3b7d442082a009d0f8c00"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga1a80e71653b3b7d442082a009d0f8c00">s16DS18B20_TEMP__Read</a> (Luint16 u16SensorIndex)</td></tr>
+<tr class="memdesc:ga1a80e71653b3b7d442082a009d0f8c00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the temperature from a device ONCE the conversion is complete.  <a href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga1a80e71653b3b7d442082a009d0f8c00">More...</a><br /></td></tr>
+<tr class="separator:ga1a80e71653b3b7d442082a009d0f8c00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga32a66becce68b1cdadc3c92d4ef787ac"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga32a66becce68b1cdadc3c92d4ef787ac">s16DS18B20_TEMP__All_Request</a> (Luint16 u16SensorIndex, Luint8 u8Wait)</td></tr>
+<tr class="memdesc:ga32a66becce68b1cdadc3c92d4ef787ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issue a global command to start conversion of all devices on the wire This is most useful for starting thousands of sensors to convert.  <a href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga32a66becce68b1cdadc3c92d4ef787ac">More...</a><br /></td></tr>
+<tr class="separator:ga32a66becce68b1cdadc3c92d4ef787ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga87f202f4991781ad5c46a52dd95afb1d"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga87f202f4991781ad5c46a52dd95afb1d">s16DS18B20_TEMP__All_Request_ByChannel</a> (Luint8 u8ChannelIndex, Luint8 u8Wait)</td></tr>
+<tr class="separator:ga87f202f4991781ad5c46a52dd95afb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaacf34ceb3fe3d8eeaaad2545df446344"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#gaacf34ceb3fe3d8eeaaad2545df446344">s16DS18B20_TEMP__Request</a> (Luint16 u16SensorIndex, Luint8 u8Wait)</td></tr>
+<tr class="memdesc:gaacf34ceb3fe3d8eeaaad2545df446344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request the temperature.  <a href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#gaacf34ceb3fe3d8eeaaad2545df446344">More...</a><br /></td></tr>
+<tr class="separator:gaacf34ceb3fe3d8eeaaad2545df446344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0080c49a494d68713db2db7502b9402b"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga0080c49a494d68713db2db7502b9402b">s16DS18B20_TEMP__Get_Resolution</a> (Luint16 u16SensorIndex, Luint8 *pu8Resolution)</td></tr>
+<tr class="memdesc:ga0080c49a494d68713db2db7502b9402b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current resolution by reading the scratchpad memory.  <a href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga0080c49a494d68713db2db7502b9402b">More...</a><br /></td></tr>
+<tr class="separator:ga0080c49a494d68713db2db7502b9402b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaac983e5400965f714986ba901ec36465"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#gaac983e5400965f714986ba901ec36465">s16DS18B20_TEMP__Get_UserID</a> (Luint16 u16SensorIndex)</td></tr>
+<tr class="separator:gaac983e5400965f714986ba901ec36465"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1075d7c9362d6cd30083ce96d8c1bed5"><td class="memItemLeft" align="right" valign="top">Lint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga1075d7c9362d6cd30083ce96d8c1bed5">s16DS18B20_TEMP__Set_Resolution</a> (Luint16 u16SensorIndex, Luint8 u8Resolution)</td></tr>
+<tr class="memdesc:ga1075d7c9362d6cd30083ce96d8c1bed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the temperature resolution.  <a href="group___d_s18_b20_____t_e_m_p_e_r_a_t_u_r_e.html#ga1075d7c9362d6cd30083ce96d8c1bed5">More...</a><br /></td></tr>
+<tr class="separator:ga1075d7c9362d6cd30083ce96d8c1bed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>

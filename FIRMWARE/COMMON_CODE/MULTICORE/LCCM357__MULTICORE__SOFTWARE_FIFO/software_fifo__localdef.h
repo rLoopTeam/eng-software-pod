@@ -17,8 +17,7 @@
 #if 0
 
 /*******************************************************************************
-GENERAL PURPOSE
-SOFTWARE FIFO
+SIL3 - GENERAL PURPOSE SOFTWARE FIFO
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE == 1U

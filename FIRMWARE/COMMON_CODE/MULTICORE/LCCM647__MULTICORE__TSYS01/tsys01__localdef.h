@@ -19,6 +19,9 @@ TSYS01 - DIGITAL TEMP SENSOR
 	#define C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE == 1U
 
+		/** Size of filter */
+		#define C_LOCALDEF__LCCM647__MAX_FILTER_SAMPLES						(8U)
+
 		/** The number of main program loops to wait for conversion */
 		#define C_LOCALDEF__LCCM647__NUM_CONVERSION_LOOPS					(10000U)
 

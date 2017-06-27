@@ -8,6 +8,6 @@ var fcu____brakes____mlp_8c =
     [ "vFCU_BRAKES_MLP__ComputeCalibration_Zero", "group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga223c4a817b18577f925b92641fd6cec7", null ],
     [ "vFCU_BRAKES_MLP__Init", "group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga1288e77d6dab0e995698538fc1d0391e", null ],
     [ "vFCU_BRAKES_MLP__Process", "group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gab7eab11277750558fae8c1cbcf2059d0", null ],
-    [ "vFCU_BRAKES_MLP__Sample_ADC", "group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#ga873a1630d656ff60ac9709e06bd34737", null ],
+    [ "vFCU_BRAKES_MLP__Sample_ADC", "group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gae6bd62f5779bde9f2a913994086fbdfa", null ],
     [ "sFCU", "group___f_c_u_____b_r_a_k_e_s_____m_l_p.html#gacb2c3ba9e6006730b118d98d460b89c5", null ]
 ];

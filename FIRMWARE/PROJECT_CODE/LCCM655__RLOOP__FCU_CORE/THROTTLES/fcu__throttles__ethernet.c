@@ -72,7 +72,7 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	}//switch(ePacketType)
 
 	//pre-comit
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
 	if(s16Return == 0)
 	{
 		//handle the packet
@@ -82,24 +82,24 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 
 				//throttle fault flags
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sThrottle.sFaultFlags.u32Flags[0]);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sThrottle.sFaultFlags.u32Flags[0]);
 				pu8Buffer += 4U;
 
 				//AMC Flags
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, u32AMC7812__Get_FaultFlags());
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32AMC7812__Get_FaultFlags());
 				pu8Buffer += 4U;
 
 				//Requested RPM
 				for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
 				{
-					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sThrottle.u16RequestedRPM[u8Counter]);
+					vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sThrottle.u16RequestedRPM[u8Counter]);
 					pu8Buffer += 2U;
 				}
 
 				//Current RPM
 				for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
 				{
-					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sThrottle.u16CurrentRPM[u8Counter]);
+					vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sThrottle.u16CurrentRPM[u8Counter]);
 					pu8Buffer += 2U;
 				}
 
@@ -107,7 +107,7 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
 				{
 					//ASI RPM
-					vNUMERICAL_CONVERT__Array_U16(pu8Buffer, 0U);
+					vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, 0U);
 					pu8Buffer += 2U;
 				}
 
@@ -132,7 +132,7 @@ void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length,
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length,
 				C_RLOOP_NET__FCU__PORT,
 				C_RLOOP_NET__FCU__PORT);
 

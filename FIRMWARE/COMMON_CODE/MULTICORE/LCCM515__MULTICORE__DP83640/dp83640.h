@@ -75,13 +75,6 @@
 
 		#endif
 
-		//safetys
-		#if C_LOCALDEF__LCCM515__USE_ON_RM4 == 0U
-			#if C_LOCALDEF__LCCM515__USE_ON_XILINX == 0U
-				#error
-			#endif
-		#endif
-
 
 	#endif //#if C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE == 1U
 	//safetys

@@ -61,7 +61,7 @@ void vFCU_NET__Init(void)
 #endif
 
 	//init the ethernet layer
-	vETHERNET__Init(&sFCU.sEthernet.u8MACAddx[0], &sFCU.sEthernet.u8IPAddx[0]);
+	vSIL3_ETH__Init(&sFCU.sEthernet.u8MACAddx[0], &sFCU.sEthernet.u8IPAddx[0]);
 
 }
 
@@ -87,7 +87,7 @@ void vFCU_NET__Process(void)
 #endif
 
 	//process the ethernet layer.
-	vETHERNET__Process();
+	vSIL3_ETH__Process();
 
 	u8Test = u8FCU_NET__Is_LinkUp();
 	if(u8Test == 1U)

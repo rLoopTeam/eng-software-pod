@@ -55,7 +55,7 @@ void vFCU_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPor
 	//We can interpretate messages here,
 
 	//pass to safety udp processor
-	vSAFE_UDP_RX__UDPPacket(pu8Buffer,u16Length, u16DestPort);
+	vSIL3_SAFEUDP_RX__UDPPacket(pu8Buffer,u16Length, u16DestPort);
 }
 
 /***************************************************************************//**
@@ -84,20 +84,20 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 		//blocks are good for putting into functions
 		//this is inhernet in the safetyUDP layer
-		u32Block[0] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload);
-		u32Block[1] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
-		u32Block[2] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
-		u32Block[3] = u32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
+		u32Block[0] = u32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload);
+		u32Block[1] = u32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
+		u32Block[2] = u32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
+		u32Block[3] = u32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
 
-		f32Block[0] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload);
-		f32Block[1] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
-		f32Block[2] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
-		f32Block[3] = f32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
+		f32Block[0] = f32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload);
+		f32Block[1] = f32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
+		f32Block[2] = f32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
+		f32Block[3] = f32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
 
-		s32Block[0] = s32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload);
-		s32Block[1] = s32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
-		s32Block[2] = s32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
-		s32Block[3] = s32NUMERICAL_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
+		s32Block[0] = s32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload);
+		s32Block[1] = s32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
+		s32Block[2] = s32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
+		s32Block[3] = s32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
 
 
 		//determine the type of packet that came in
@@ -246,15 +246,15 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
 					if(u32Block[0] == 1U)
 					{
-						vDAQ__Streaming_On();
+						vSIL3_DAQ__Streaming_On();
 					}
 					else
 					{
 						//switch off the DAQ
-						vDAQ__Streaming_Off();
+						vSIL3_DAQ__Streaming_Off();
 
 						//flush out whats left
-						vDAQ__ForceFlush();
+						vSIL3_DAQ__ForceFlush();
 					}
 				#endif
 				break;
@@ -262,7 +262,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 			case NET_PKT__FCU_GEN__DAQ_FLUSH:
 				//tell the DAQ to flush.
 				#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
-					vDAQ__ForceFlush();
+					vSIL3_DAQ__ForceFlush();
 				#endif
 				break;
 
@@ -296,7 +296,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 					//enter auto calibration mode
 					//block 0 = device
-					vMMA8451_ZERO__AutoZero((Luint8)u32Block[0]);
+					vSIL3_MMA8451_ZERO__AutoZero((Luint8)u32Block[0]);
 				#endif
 				break;
 
@@ -305,7 +305,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					//Fine Zero adjustment on a particular axis
 					//block 0 = device
 					//block 1 = axis
-					vMMA8451_ZERO__Set_FineZero((Luint8)u32Block[0], (MMA8451__AXIS_E)u32Block[1]);
+					vSIL3_MMA8451_ZERO__Set_FineZero((Luint8)u32Block[0], (MMA8451__AXIS_E)u32Block[1]);
 				#endif
 				break;
 
@@ -391,22 +391,22 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 					case 0U:
 						//Max Acecl
-						vSTEPDRIVE_MEM__Set_MaxAngularAccel(u32Block[1], s32Block[2]);
+						vSIL3_STEPDRIVE_MEM__Set_MaxAngularAccel(u32Block[1], s32Block[2]);
 						break;
 
 					case 1U:
 						//microns/rev
-						vSTEPDRIVE_MEM__Set_PicoMeters_PerRev(u32Block[1], s32Block[2]);
+						vSIL3_STEPDRIVE_MEM__Set_PicoMeters_PerRev(u32Block[1], s32Block[2]);
 						break;
 
 					case 2U:
 						//maxRPM
-						vSTEPDRIVE_MEM__Set_MaxRPM(u32Block[1], s32Block[2]);
+						vSIL3_STEPDRIVE_MEM__Set_MaxRPM(u32Block[1], s32Block[2]);
 						break;
 
 					case 3U:
 						//set microstep resolution
-						vSTEPDRIVE_MEM__Set_MicroStepResolution(u32Block[1], u32Block[2]);
+						vSIL3_STEPDRIVE_MEM__Set_MicroStepResolution(u32Block[1], u32Block[2]);
 						break;
 
 					default:
@@ -542,37 +542,37 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					pu8Payload += 2U;
 
 					//highest individual temp
-					sFCU.sBMS[u8Device].f32HighestTemp = f32NUMERICAL_CONVERT__Array(pu8Payload);
+					sFCU.sBMS[u8Device].f32HighestTemp = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 					pu8Payload += 4U;
 
 					//average temp
-					sFCU.sBMS[u8Device].f32AverageTemp = f32NUMERICAL_CONVERT__Array(pu8Payload);
+					sFCU.sBMS[u8Device].f32AverageTemp = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 					pu8Payload += 4U;
 
 					//highest temp sensor index
 					pu8Payload += 2U;
 
 					//pack volts
-					sFCU.sBMS[u8Device].f32PackVoltage = f32NUMERICAL_CONVERT__Array(pu8Payload);
+					sFCU.sBMS[u8Device].f32PackVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 					pu8Payload += 4U;
 
 					//highest volts
-					sFCU.sBMS[u8Device].f32HighestCellVoltage = f32NUMERICAL_CONVERT__Array(pu8Payload);
+					sFCU.sBMS[u8Device].f32HighestCellVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 					pu8Payload += 4U;
 
 					//lowest volts
-					sFCU.sBMS[u8Device].f32LowestCellVoltage = f32NUMERICAL_CONVERT__Array(pu8Payload);
+					sFCU.sBMS[u8Device].f32LowestCellVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 					pu8Payload += 4U;
 
 					//BMS boards Temp
 					pu8Payload += 4U;
 
 					//node press
-					sFCU.sBMS[u8Device].f32PV_Press = f32NUMERICAL_CONVERT__Array(pu8Payload);
+					sFCU.sBMS[u8Device].f32PV_Press = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 					pu8Payload += 4U;
 
 					//node temp
-					sFCU.sBMS[u8Device].f32PV_Temp = f32NUMERICAL_CONVERT__Array(pu8Payload);
+					sFCU.sBMS[u8Device].f32PV_Temp = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 					pu8Payload += 4U;
 					break;
 
@@ -603,37 +603,37 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 						pu8Payload += 2U;
 
 						//highest individual temp
-						sFCU.sBMS[u8Device].f32HighestTemp = f32NUMERICAL_CONVERT__Array(pu8Payload);
+						sFCU.sBMS[u8Device].f32HighestTemp = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 						pu8Payload += 4U;
 
 						//average temp
-						sFCU.sBMS[u8Device].f32AverageTemp = f32NUMERICAL_CONVERT__Array(pu8Payload);
+						sFCU.sBMS[u8Device].f32AverageTemp = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 						pu8Payload += 4U;
 
 						//highest temp sensor index
 						pu8Payload += 2U;
 
 						//pack volts
-						sFCU.sBMS[u8Device].f32PackVoltage = f32NUMERICAL_CONVERT__Array(pu8Payload);
+						sFCU.sBMS[u8Device].f32PackVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 						pu8Payload += 4U;
 
 						//highest volts
-						sFCU.sBMS[u8Device].f32HighestCellVoltage = f32NUMERICAL_CONVERT__Array(pu8Payload);
+						sFCU.sBMS[u8Device].f32HighestCellVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 						pu8Payload += 4U;
 
 						//lowest volts
-						sFCU.sBMS[u8Device].f32LowestCellVoltage = f32NUMERICAL_CONVERT__Array(pu8Payload);
+						sFCU.sBMS[u8Device].f32LowestCellVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 						pu8Payload += 4U;
 
 						//BMS boards Temp
 						pu8Payload += 4U;
 
 						//node press
-						sFCU.sBMS[u8Device].f32PV_Press = f32NUMERICAL_CONVERT__Array(pu8Payload);
+						sFCU.sBMS[u8Device].f32PV_Press = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 						pu8Payload += 4U;
 
 						//node temp
-						sFCU.sBMS[u8Device].f32PV_Temp = f32NUMERICAL_CONVERT__Array(pu8Payload);
+						sFCU.sBMS[u8Device].f32PV_Temp = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 						pu8Payload += 4U;
 
 						//need pack current

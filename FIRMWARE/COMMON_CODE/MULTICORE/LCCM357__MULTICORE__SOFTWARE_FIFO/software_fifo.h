@@ -32,16 +32,16 @@
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/
-		void vSOFTFIFO__Init(SOFTWARE_FIFO__USER_T * pUserT, C_SOFTFIFO__DT uDepth);
-		void vSOFTFIFO__Flush(SOFTWARE_FIFO__USER_T * pUserT);
-		Lint16 s16SOFTFIFO__Push(SOFTWARE_FIFO__USER_T * pUserT);
-		Lint16 s16SOFTFIFO__Pop(SOFTWARE_FIFO__USER_T * pUserT);
-		Lint16 s16SOFTFIFO__PopMany(SOFTWARE_FIFO__USER_T *pUserT, Luint16 u16Num);
-		Luint8 u8SOFTFIFO__Is_Empty(const SOFTWARE_FIFO__USER_T * pUserT);
-		Luint8 u8SOFTFIFO__Is_Full(const SOFTWARE_FIFO__USER_T * pUserT);
-		Luint8 u8SOFTFIFO__Get__WritePosition(const SOFTWARE_FIFO__USER_T * pUserT);
-		Luint8 u8SOFTFIFO__Get_IsWriteBusy(const SOFTWARE_FIFO__USER_T *pUserT);
-		Luint8 u8SOFTFIFO__Get_IsReadBusy(const SOFTWARE_FIFO__USER_T *pUserT);
+		void vSIL3_SOFTFIFO__Init(SOFTWARE_FIFO__USER_T * pUserT, C_SOFTFIFO__DT uDepth);
+		void vSIL3_SOFTFIFO__Flush(SOFTWARE_FIFO__USER_T * pUserT);
+		Lint16 s16SIL3_SOFTFIFO__Push(SOFTWARE_FIFO__USER_T * pUserT);
+		Lint16 s16SIL3_SOFTFIFO__Pop(SOFTWARE_FIFO__USER_T * pUserT);
+		Lint16 s16SIL3_SOFTFIFO__PopMany(SOFTWARE_FIFO__USER_T *pUserT, Luint16 u16Num);
+		Luint8 u8SIL3_SOFTFIFO__Is_Empty(const SOFTWARE_FIFO__USER_T * pUserT);
+		Luint8 u8SIL3_SOFTFIFO__Is_Full(const SOFTWARE_FIFO__USER_T * pUserT);
+		Luint8 u8SIL3_SOFTFIFO__Get__WritePosition(const SOFTWARE_FIFO__USER_T * pUserT);
+		Luint8 u8SIL3_SOFTFIFO__Get_IsWriteBusy(const SOFTWARE_FIFO__USER_T *pUserT);
+		Luint8 u8SIL3_SOFTFIFO__Get_IsReadBusy(const SOFTWARE_FIFO__USER_T *pUserT);
 	
 		#if C_LOCALDEF__LCCM357__ENABLE_TEST_SPEC == 1U
 			DLL_DECLARATION void vLCCM357_TS_001(void);

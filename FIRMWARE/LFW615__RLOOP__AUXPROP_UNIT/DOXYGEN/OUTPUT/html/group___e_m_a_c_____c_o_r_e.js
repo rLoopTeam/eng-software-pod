@@ -1,0 +1,28 @@
+var group___e_m_a_c_____c_o_r_e =
+[
+    [ "EMAC_CONTROL_RESET", "group___e_m_a_c_____c_o_r_e.html#gafdde1f575cdf75914641e0b033669292", null ],
+    [ "EMAC_MAX_HEADER_DESC", "group___e_m_a_c_____c_o_r_e.html#gaecd09d8f509b0054ced9dd24ba49aea8", null ],
+    [ "EMAC_UNICAST_DISABLE", "group___e_m_a_c_____c_o_r_e.html#ga0666a9b206a57206f1b471421326cba2", null ],
+    [ "u32RM4_EMAC__Get_IntVector", "group___e_m_a_c_____c_o_r_e.html#ga83456067342c7cc7b20dd6be636fc2f0", null ],
+    [ "vRM4_EMAC__Enable_MII", "group___e_m_a_c_____c_o_r_e.html#ga817595fd0ad9b562b0ae8cb15d83752a", null ],
+    [ "vRM4_EMAC__Enable_Rx", "group___e_m_a_c_____c_o_r_e.html#ga47559e4028bffd6e4018fa519ed6b8ce", null ],
+    [ "vRM4_EMAC__Enable_RxBroadcast_OnChannel", "group___e_m_a_c_____c_o_r_e.html#ga00235b96cf5378055d3d9ad9854fc996", null ],
+    [ "vRM4_EMAC__Enable_RxPromiscous_OnChannel", "group___e_m_a_c_____c_o_r_e.html#ga9fcb6ca88bf34a58936543fd71d4c232", null ],
+    [ "vRM4_EMAC__Enable_RxUnicast_OnChannel", "group___e_m_a_c_____c_o_r_e.html#ga1ca413fd1202bea2291706572f1a0de0", null ],
+    [ "vRM4_EMAC__Enable_Tx", "group___e_m_a_c_____c_o_r_e.html#ga0f7c97334ec92b145e8e90515945141f", null ],
+    [ "vRM4_EMAC__Init", "group___e_m_a_c_____c_o_r_e.html#ga1cad0f3f8d206f54fa1ed722d7558284", null ],
+    [ "vRM4_EMAC__RxHdrDescPtrWrite", "group___e_m_a_c_____c_o_r_e.html#ga1ba345cf083c402f53e26d54bbf33a16", null ],
+    [ "vRM4_EMAC__RxIntAckToClear", "group___e_m_a_c_____c_o_r_e.html#ga208703afd7ced77e3175dbb0fd537a07", null ],
+    [ "vRM4_EMAC__Set_Duplex", "group___e_m_a_c_____c_o_r_e.html#ga0642d879d7f7fbbacdc48f356a9e84cc", null ],
+    [ "vRM4_EMAC__Set_MACAddx", "group___e_m_a_c_____c_o_r_e.html#ga16e11d0183b24ecff9f68169eed16e40", null ],
+    [ "vRM4_EMAC__Set_MACSrcAddx", "group___e_m_a_c_____c_o_r_e.html#gad5feafe028bfdf5f69194b7a61f9bd6f", null ],
+    [ "vRM4_EMAC__Set_NumFreeRxBuffers", "group___e_m_a_c_____c_o_r_e.html#ga3371daf7ed659f14f82171fa398c04ed", null ],
+    [ "vRM4_EMAC__Set_RMII_Speed100Mb", "group___e_m_a_c_____c_o_r_e.html#ga9291e83d484337c1fcdf41cb337a32e9", null ],
+    [ "vRM4_EMAC__Set_RMII_Speed10Mb", "group___e_m_a_c_____c_o_r_e.html#ga3b4648ddfecdf35a380fbbe71110d48d", null ],
+    [ "vRM4_EMAC__TxHdrDescPtrWrite", "group___e_m_a_c_____c_o_r_e.html#ga646248ea9738eae7ca42c1aa47d4ff77", null ],
+    [ "vRM4_EMAC__Write_RxChannelCompletionPointer", "group___e_m_a_c_____c_o_r_e.html#ga6e637d36748529dbb0b47078a38c36e5", null ],
+    [ "vRM4_EMAC__Write_TxChannelCompletionPointer", "group___e_m_a_c_____c_o_r_e.html#ga4db908586c07307db3370076c70b9e5b", null ],
+    [ "lastInputdescHdr", "group___e_m_a_c_____c_o_r_e.html#ga281f7a596c3543453d1ca52090f92a6f", null ],
+    [ "m_pEMAC_IF", "group___e_m_a_c_____c_o_r_e.html#gabc57e3d92b7024a58cc41957030a9afb", null ],
+    [ "valHDPbefWrite", "group___e_m_a_c_____c_o_r_e.html#ga0f106fadf52124692e28e9d6489a8bc3", null ]
+];

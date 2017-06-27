@@ -130,7 +130,7 @@ void vFCU_LASERDIST__Init(void)
 	//setup the filtering
 	vFCU_LASERDIST_FILT__Init();
 
-	vFAULTTREE__Init(&sFCU.sLaserDist.sFaultFlags);
+	vSIL3_FAULTTREE__Init(&sFCU.sLaserDist.sFaultFlags);
 
 }
 
@@ -179,7 +179,7 @@ void vFCU_LASERDIST__Process(void)
 
 			sFCU.sLaserDist.u32LaserPOR_Counter = 0U;
 
-			vFAULTTREE__Set_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
+			vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
 
 			//setup the lasers
 			sFCU.sLaserDist.eLaserState = LASERDIST_STATE__WAIT_LASER_RESET;
@@ -191,7 +191,7 @@ void vFCU_LASERDIST__Process(void)
 			//5 seconds onsite hack to wait for the laser up.
 			if(sFCU.sLaserDist.u32LaserPOR_Counter > 500U)
 			{
-				vFAULTTREE__Clear_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
+				vSIL3_FAULTTREE__Clear_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
 
 				//onsite hack
 				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__CHECK_NEW_DATA; //LASERDIST_STATE__INIT_LASER_TURNON;
@@ -212,7 +212,7 @@ void vFCU_LASERDIST__Process(void)
 			u8Array[3] = 0x0DU;
 
 			//send it.
-			vSC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+			vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
 
 #ifndef WIN32
 			vRM4_DELAYS__Delay_mS(50);
@@ -225,7 +225,7 @@ void vFCU_LASERDIST__Process(void)
 			u8Array[3] = 0x0DU;
 
 			//send it.
-			vSC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+			vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
 
 #ifndef WIN32
 			vRM4_DELAYS__Delay_mS(50);
@@ -237,7 +237,7 @@ void vFCU_LASERDIST__Process(void)
 			u8Array[2] = 0x0DU;
 
 			//send it.
-			vSC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 3U);
+			vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 3U);
 
 			sFCU.sLaserDist.eLaserState = LASERDIST_STATE__WAIT_INIT_DONE;
 			break;
@@ -261,7 +261,7 @@ void vFCU_LASERDIST__Process(void)
 			{
 
 				//see if there is at least one byte of data avail in the FIFO's
-				u8Temp = u8SC16_USER__Get_ByteAvail(C_FCU__SC16_FWD_LASER_INDEX);
+				u8Temp = u8SIL3_SC16_USER__Get_ByteAvail(C_FCU__SC16_FWD_LASER_INDEX);
 				if(u8Temp == 0U)
 				{
 					//no new data
@@ -271,7 +271,7 @@ void vFCU_LASERDIST__Process(void)
 					//yep some new laser data avail, what to do with it?
 
 					//get the byte and send it off for processing if we have enough data
-					u8Temp = u8SC16_USER__Get_Byte(C_FCU__SC16_FWD_LASER_INDEX);
+					u8Temp = u8SIL3_SC16_USER__Get_Byte(C_FCU__SC16_FWD_LASER_INDEX);
 
 					//process the byte.
 					vFCU_LASERDIST__Append_Byte(u8Temp);

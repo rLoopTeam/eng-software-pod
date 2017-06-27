@@ -12,7 +12,7 @@
 extern struct _strDAQ sDAQ;
 
 //do the DAQ transmit
-Lint16 s16DAQ_TRANSMIT__Template(Luint16 u16Index, Luint8 *pu8BufferPointer, Luint16 u16LengthBytes)
+Lint16 s16SIL3_DAQ_TRANSMIT__Template(Luint16 u16Index, Luint8 *pu8BufferPointer, Luint16 u16LengthBytes)
 {
 	Lint16 s16R;
 	//the UDP payload Length
@@ -33,9 +33,9 @@ Lint16 s16DAQ_TRANSMIT__Template(Luint16 u16Index, Luint8 *pu8BufferPointer, Lui
 	//try and precommit to a UDP packet, if successful space then we get a buffer pointer and index
 	//for future transmit
 	#if C_LOCALDEF__LCCM662__ENABLE_USER_PAYLOAD_TYPES == 1U
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)sDAQ.u16User_PacketType[u16Index], &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)sDAQ.u16User_PacketType[u16Index], &pu8Buffer, &u8BufferIndex);
 	#else
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)((Luint16)NET_PKT__FCU_DAQ__OFFSET_INDEX + u16Index), &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)((Luint16)NET_PKT__FCU_DAQ__OFFSET_INDEX + u16Index), &pu8Buffer, &u8BufferIndex);
 	#endif
 	if(s16Return == 0)
 	{
@@ -47,7 +47,7 @@ Lint16 s16DAQ_TRANSMIT__Template(Luint16 u16Index, Luint8 *pu8BufferPointer, Lui
 		}
 
 		//send the buffer index, with a payload length, on UDP ports (source and dest port)
-		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
 
 		s16R = 0;
 	}

@@ -6,5 +6,6 @@ var dir_e9eb59196da5d38cff807d321cf6743e =
     [ "fcu__brakes__fault_flags.h", "fcu____brakes____fault__flags_8h.html", "fcu____brakes____fault__flags_8h" ],
     [ "fcu__brakes__mlp.c", "fcu____brakes____mlp_8c.html", "fcu____brakes____mlp_8c" ],
     [ "fcu__brakes__stepper.c", "fcu____brakes____stepper_8c.html", "fcu____brakes____stepper_8c" ],
-    [ "fcu__brakes__switches.c", "fcu____brakes____switches_8c.html", "fcu____brakes____switches_8c" ]
+    [ "fcu__brakes__switches.c", "fcu____brakes____switches_8c.html", "fcu____brakes____switches_8c" ],
+    [ "fcu__brakes__watchdog.c", "fcu____brakes____watchdog_8c.html", "fcu____brakes____watchdog_8c" ]
 ];

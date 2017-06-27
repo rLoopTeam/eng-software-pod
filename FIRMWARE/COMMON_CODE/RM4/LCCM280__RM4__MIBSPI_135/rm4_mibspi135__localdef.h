@@ -13,7 +13,7 @@
 #if 0
 
 /*******************************************************************************
-RM4 MiB SPI 1,3 and 5 Common Driver
+SIL3 - RM4 MiBSPI 1,3 and 5 Common Driver
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM280__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM280__ENABLE_THIS_MODULE == 1U

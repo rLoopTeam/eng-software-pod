@@ -10,9 +10,15 @@
 	#if C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE == 1U
 
 		/*******************************************************************************
+		Includes
+		*******************************************************************************/
+		#include <MULTICORE/LCCM647__MULTICORE__TSYS01/tsys01__fault_flags.h>
+		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
+	
+		/*******************************************************************************
 		Defines
 		*******************************************************************************/
-		#define C_TSYS01__MAX_FILTER_SAMPLES					(8U)
+
 
 
 		/** enum type for tsys01 PROM addresses */
@@ -70,9 +76,15 @@
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
-		struct _strTSYS01
+		typedef struct
 		{
 
+			/** Upper Guard */
+			Luint32 u32Guard0;
+		
+			/** Fault flags */
+			FAULT_TREE__PUBLIC_T sFaultFlags;
+		
 			/** the current state */
 			E_TSYS01_STATES_T eState;
 
@@ -95,12 +107,20 @@
 			Luint16 u16AverageCounter;
 
 			/** The averages */
-			Luint32 u32AverageArray[C_TSYS01__MAX_FILTER_SAMPLES];
+			Luint32 u32AverageArray[C_LOCALDEF__LCCM647__MAX_FILTER_SAMPLES];
 
 			/** The computed temp in deg C*/
 			Lfloat32 f32TempDegC;
 
-		};
+			/** New data has been computed.
+			 * NOTE: The filter may have not filled yet
+			 * */
+			Luint8 u8NewDataAvail;
+			
+			/** Lower Guard */
+			Luint32 u32Guard1;
+			
+		}TS_TSYS01__MAIN;
 
 
 
@@ -109,7 +129,7 @@
 		*******************************************************************************/
 		void vTSYS01__Init(void);
 		void vTSYS01__Process(void);
-		void vTSYS01__Enable(void);
+		Luint8 u8TSYS__Get_NewDataAvail(void);
 		Lfloat32 f32TSYS01__Get_TempDegC(void);
 		Luint32 u32TSYS01__Get_FaultFlags(void);
 		

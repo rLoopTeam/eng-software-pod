@@ -36,5 +36,14 @@ var fcu__core____eeprom__layout_8h =
     [ "C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP0_VELOC", "fcu__core____eeprom__layout_8h.html#ade3463ec1a94ae7e91f2984bf09f0e93", null ],
     [ "C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_ACCEL", "fcu__core____eeprom__layout_8h.html#a9daee4425778de9db4d5099d0b41b54a", null ],
     [ "C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP1_VELOC", "fcu__core____eeprom__layout_8h.html#a460d1a3d3ce26df82c7b0e477fec18f7", null ],
-    [ "C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP_CRC", "fcu__core____eeprom__layout_8h.html#ae8038e2d5a65c8efe565603fb51a1e1e", null ]
+    [ "C_LOCALDEF__LCCM655__EEPROM_OFFSET__STEP_CRC", "fcu__core____eeprom__layout_8h.html#ae8038e2d5a65c8efe565603fb51a1e1e", null ],
+    [ "C_LOCALDEF__LCCM655__FCTL_GEOM___CRC", "fcu__core____eeprom__layout_8h.html#a48d359ce3caa2eea20211e07ec501544", null ],
+    [ "C_LOCALDEF__LCCM655__FCTL_GEOM___END_INDEX", "fcu__core____eeprom__layout_8h.html#adea27e66cab6146c21b12c2f207729aa", null ],
+    [ "C_LOCALDEF__LCCM655__FCTL_GEOM___START_INDEX", "fcu__core____eeprom__layout_8h.html#a5d96e185910b0acd9430438b6d70f1c6", null ],
+    [ "C_LOCALDEF__LCCM655__FCTL_OPTONCDT___CRC", "fcu__core____eeprom__layout_8h.html#a5797e4da5bc7fff226f1f5fc636164dd", null ],
+    [ "C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO", "fcu__core____eeprom__layout_8h.html#a3ac6985aad5dfbb78fd6a67bf2d00876", null ],
+    [ "C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FR_ZERO", "fcu__core____eeprom__layout_8h.html#abd8e80d3cdfa62e53b9958b66c9ee19d", null ],
+    [ "C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RL_ZERO", "fcu__core____eeprom__layout_8h.html#a4365d07bb38aed3604963ebb0343fe4b", null ],
+    [ "C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO", "fcu__core____eeprom__layout_8h.html#a96e193bde6617c4bb63711848043add1", null ],
+    [ "C_LOCALDEF__LCCM655__FCTL_TRACKDB___CURRENT_DB", "fcu__core____eeprom__layout_8h.html#ab6610dbb4a2efba61468743d26862f16", null ]
 ];

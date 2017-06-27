@@ -1,13 +1,14 @@
 var indexSectionsWithContent =
 {
-  0: "_defmsuv",
+  0: "_cdefmsuv",
   1: "_",
   2: "d",
-  3: "suv",
-  4: "fsu",
+  3: "fsuv",
+  4: "efsu",
   5: "e",
-  6: "s",
-  7: "dm"
+  6: "ds",
+  7: "c",
+  8: "dm"
 };
 
 var indexSectionNames =
@@ -19,7 +20,8 @@ var indexSectionNames =
   4: "variables",
   5: "enums",
   6: "enumvalues",
-  7: "groups"
+  7: "defines",
+  8: "groups"
 };
 
 var indexSectionLabels =
@@ -31,6 +33,7 @@ var indexSectionLabels =
   4: "Variables",
   5: "Enumerations",
   6: "Enumerator",
-  7: "Modules"
+  7: "Macros",
+  8: "Modules"
 };
 

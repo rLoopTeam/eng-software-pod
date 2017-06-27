@@ -245,107 +245,103 @@
 
 	}E_FCU__INIT_STATE_TYPES;
 
-		/** Brakes states */
-		typedef enum
-		{
+	/** Brakes states */
+	typedef enum
+	{
 
-			/** Just come out of reset */
-			BRAKE_STATE__RESET = 0U,
+		/** Just come out of reset */
+		BRAKE_STATE__RESET = 0U,
 
-			/** We are in idle state */
-			BRAKE_STATE__IDLE,
+		/** We are in idle state */
+		BRAKE_STATE__IDLE,
 
-			/** Beginning to move the brakes */
-			BRAKE_STATE__BEGIN_MOVE,
+		/** Beginning to move the brakes */
+		BRAKE_STATE__BEGIN_MOVE,
 
-			/** Compute the I_Beam distances */
-			BRAKE_STATE__COMPUTE,
+		/** Compute the I_Beam distances */
+		BRAKE_STATE__COMPUTE,
 
-			/** The brakes are moving */
-			BRAKE_STATE__MOVING,
+		/** The brakes are moving */
+		BRAKE_STATE__MOVING,
 
-			/** The brakes were moving, and now they have stopped, cleanup any necessary stuff */
-			BRAKE_STATE__MOVE_STOPPED,
+		/** The brakes were moving, and now they have stopped, cleanup any necessary stuff */
+		BRAKE_STATE__MOVE_STOPPED,
 
-			/** A fault has occurred with the brake system */
-			BRAKE_STATE__FAULT,
+		/** A fault has occurred with the brake system */
+		BRAKE_STATE__FAULT,
 
-			BRAKE_STATE__TEST,
+		BRAKE_STATE__TEST,
 
-			BRAKE_STATE__BEGIN_CAL,
+		BRAKE_STATE__BEGIN_CAL,
 
-			BRAKE_STATE__WAIT_CAL_DONE
+		BRAKE_STATE__WAIT_CAL_DONE
 
-		}E_FCU_BRAKES__STATES_T;
+	}E_FCU_BRAKES__STATES_T;
 
-		/** Brake calibration states */
-		typedef enum
-		{
+	/** Brake calibration states */
+	typedef enum
+	{
 
-			/** We are in idle state */
-			BRAKE_CAL_STATE__IDLE = 0U,
+		/** We are in idle state */
+		BRAKE_CAL_STATE__IDLE = 0U,
 
-			/** Start off and retract both motors */
-			BRAKE_CAL_STATE__EXTEND_MOTORS,
+		/** Start off and retract both motors */
+		BRAKE_CAL_STATE__EXTEND_MOTORS,
 
-			/** Wait for the motors to retract the brakes */
-			BRAKE_CAL_STATE__WAIT_EXTEND_MOTORS,
+		/** Wait for the motors to retract the brakes */
+		BRAKE_CAL_STATE__WAIT_EXTEND_MOTORS,
 
-			/** Release the zero end stops */
-			BRAKE_CAL_STATE__RELEASE_ZERO,
+		/** Release the zero end stops */
+		BRAKE_CAL_STATE__RELEASE_ZERO,
 
-			/** Due to the nature of the switches, we may not be symetrical, so
-			 apply a little zero here.
-			 */
-			BRAKE_CAL_STATE__APPLY_NEW_ZERO,
+		/** Due to the nature of the switches, we may not be symetrical, so
+		 apply a little zero here.
+		 */
+		BRAKE_CAL_STATE__APPLY_NEW_ZERO,
 
-			/** Wait until the new zero is done */
-			BRAKE_CAL_STATE__WAIT_NEW_ZERO,
+		/** Wait until the new zero is done */
+		BRAKE_CAL_STATE__WAIT_NEW_ZERO,
 
-			/** Cal is done */
-			BRAKE_CAL_STATE__COMPLETE,
+		/** Cal is done */
+		BRAKE_CAL_STATE__COMPLETE,
 
-			//Type 2 Calibration
+		//Type 2 Calibration
 
-			/** Retract the right brake out of the way */
-			BRAKE_CAL__TYPE2__RETRACT_RIGHT,
+		/** Retract the right brake out of the way */
+		BRAKE_CAL__TYPE2__RETRACT_RIGHT,
 
-			BRAKE_CAL__TYPE2__WAIT_RETRACT_RIGHT,
+		BRAKE_CAL__TYPE2__WAIT_RETRACT_RIGHT,
 
-			BRAKE_CAL__TYPE2__RELEASE_RIGHT,
-
-
+		BRAKE_CAL__TYPE2__RELEASE_RIGHT,
 
 
-
-
-		}E_FCU_CAL_BRAKES__STATES_T;
+	}E_FCU_CAL_BRAKES__STATES_T;
 
 
 
-		/** Pusher interlock state machine */
-		typedef enum
-		{
-			/** Idle state, doing nothing. */
-			PUSH_STATE__IDLE = 0U,
+	/** Pusher interlock state machine */
+	typedef enum
+	{
+		/** Idle state, doing nothing. */
+		PUSH_STATE__IDLE = 0U,
 
-			/** Take a sample of the switches and see whats going on */
-			PUSH_STATE__SAMPLE_SWITCHES,
+		/** Take a sample of the switches and see whats going on */
+		PUSH_STATE__SAMPLE_SWITCHES,
 
-			/** we have detected a state change on a switch, it may be one sw, or both swtiches
-			 * here we need to wait until all of the swtiches are stable.
-			 */
-			PUSH_STATE__WAIT_SW_STABLE,
+		/** we have detected a state change on a switch, it may be one sw, or both swtiches
+		 * here we need to wait until all of the swtiches are stable.
+		 */
+		PUSH_STATE__WAIT_SW_STABLE,
 
-			/** Determine the pusher state to ensure that we know what combinations
-			 * of switches are valid
-			 */
-			PUSH_STATE__DETERMINE_PUSHER_STATE,
+		/** Determine the pusher state to ensure that we know what combinations
+		 * of switches are valid
+		 */
+		PUSH_STATE__DETERMINE_PUSHER_STATE,
 
-			/** Check if there is some long term disagree with the switches */
-			PUSH_STATE__CHECK_DISAGREE
+		/** Check if there is some long term disagree with the switches */
+		PUSH_STATE__CHECK_DISAGREE
 
-		}E_FCU_PUSHER__STATES_T;
+	}E_FCU_PUSHER__STATES_T;
 
 		/** Final pusher pin state */
 		typedef enum

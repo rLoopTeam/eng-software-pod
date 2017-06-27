@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, MULTICORE, ATA6870N Driver)
    &#160;<span id="projectnumber">1.0</span>
@@ -110,12 +110,20 @@ Collaboration diagram for ATA6870__CORE:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga1b04a7c76fb5f90368f20d230b4ce997"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga1b04a7c76fb5f90368f20d230b4ce997">vATA6870__StartConversion</a> (Luint8 u8VoltageMode, Luint8 u8TempBit)</td></tr>
+<tr class="memdesc:ga1b04a7c76fb5f90368f20d230b4ce997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start ATA6870N Conversion.  <a href="#ga1b04a7c76fb5f90368f20d230b4ce997">More...</a><br /></td></tr>
+<tr class="separator:ga1b04a7c76fb5f90368f20d230b4ce997"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga134d692ccaea43b827bd40f8aa620937"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937">vATA6870__Init</a> (void)</td></tr>
 <tr class="memdesc:ga134d692ccaea43b827bd40f8aa620937"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init any ATA6870 systems.  <a href="#ga134d692ccaea43b827bd40f8aa620937">More...</a><br /></td></tr>
 <tr class="separator:ga134d692ccaea43b827bd40f8aa620937"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafec017c818f276c487a846ffe3dfa7a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9">vATA6870__Process</a> (void)</td></tr>
 <tr class="memdesc:gafec017c818f276c487a846ffe3dfa7a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process any ATA6870 tasks.  <a href="#gafec017c818f276c487a846ffe3dfa7a9">More...</a><br /></td></tr>
 <tr class="separator:gafec017c818f276c487a846ffe3dfa7a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga90bd61727a71b755bb4c079b9f0a02eb"><td class="memItemLeft" align="right" valign="top">Luint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga90bd61727a71b755bb4c079b9f0a02eb">u32ATA6870__Get_VoltsUpdateCount</a> (void)</td></tr>
+<tr class="separator:ga90bd61727a71b755bb4c079b9f0a02eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a36e2ce275f971926cf0cf0063df58e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga8a36e2ce275f971926cf0cf0063df58e">vATA6870__10MS_ISR</a> (void)</td></tr>
+<tr class="memdesc:ga8a36e2ce275f971926cf0cf0063df58e"><td class="mdescLeft">&#160;</td><td class="mdescRight">10ms ISR  <a href="#ga8a36e2ce275f971926cf0cf0063df58e">More...</a><br /></td></tr>
+<tr class="separator:ga8a36e2ce275f971926cf0cf0063df58e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -124,6 +132,46 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga90bd61727a71b755bb4c079b9f0a02eb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint32 u32ATA6870__Get_VoltsUpdateCount </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>References <a class="el" href="group___a_t_a6870_____c_o_r_e.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, and <a class="el" href="struct__str6870.html#abda1bd19a1d2164894f4485fbbc7f461">_str6870::u32VoltsUpdateCount</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga8a36e2ce275f971926cf0cf0063df58e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vATA6870__10MS_ISR </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>10ms ISR </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>EFCD04EB2C2B91C6325DB0C8D146E16B </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM644R0.FILE.000.FUNC.004 </dd></dl>
+
+<p>References <a class="el" href="group___a_t_a6870_____c_o_r_e.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, and <a class="el" href="struct__str6870.html#a29713c63f40b7e9ef7f191bb28b26b4c">_str6870::u32ISR_Counter</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ga134d692ccaea43b827bd40f8aa620937"></a>
 <div class="memitem">
 <div class="memproto">
@@ -139,10 +187,10 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Init any ATA6870 systems. </p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>99D6BF2EA733AE85B32BE7F078646C43 </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>DD75420783FCC074EFEE1B22E4564570 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.000.FUNC.001 </dd></dl>
 
-<p>References <a class="el" href="ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57ace9ebb30adfa2c634f87f562a06c08bc">ATA6870_REG__CONTROL</a>, <a class="el" href="ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57a786a6ea413396fbbfaa27898153c49f1">ATA6870_REG__IRQ_MASK</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>, <a class="el" href="group___a_t_a6870_____i_n_t_e_r_r_u_p_t_s.html#gac108fe47e56a2db4e2e317f8f46211a7">vATA6870_INT__Init()</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gaad6d63b3411c3eae8561c1ca16f1b933">vATA6870_LOWLEVEL__Init()</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga156ce12539d0de358e95d274f61f7941">vATA6870_LOWLEVEL__PowerOn()</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea">vATA6870_LOWLEVEL__Reg_WriteU8()</a>, and <a class="el" href="group___a_t_a6870_____s_c_a_n.html#ga9f664bd9b7c6862f8bf47939bebd3ea0">vATA6870_SCAN__Start()</a>.</p>
+<p>References <a class="el" href="ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3af22668c03eea249d1dcbeb86c1b61ab2">ATA6870_STATE__INIT_DEVICE</a>, <a class="el" href="ata6870_8h.html#abbac3d4fda4994bea08ccc00bc00f176">C_ATA6870__TOTAL_CELLS</a>, <a class="el" href="struct__str6870.html#a7db927597461678d0f6afd42ae5c9483">_str6870::eState</a>, <a class="el" href="struct__str6870.html#ac1e2a3aadda8480981fb550510852c06">_str6870::f32AverageCellVoltage</a>, <a class="el" href="struct__str6870.html#ad887e2cb2fcbce609df235787ae34c22">_str6870::f32NTCTemperatureReading</a>, <a class="el" href="struct__str6870.html#a248ccb16a64b8670b343d9d3a5e277cd">_str6870::f32PackVoltage</a>, <a class="el" href="struct__str6870.html#acce73d49e3af2eb7fa76555ad3e77c5b">_str6870::f32Voltage</a>, <a class="el" href="group___a_t_a6870_____c_o_r_e.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, <a class="el" href="struct__str6870.html#abda1bd19a1d2164894f4485fbbc7f461">_str6870::u32VoltsUpdateCount</a>, <a class="el" href="struct__str6870.html#adac4b0ade35c7cb6f59c6e49d8ed4935">_str6870::u8AverageUpdated</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>, <a class="el" href="group___a_t_a6870_____i_n_t_e_r_r_u_p_t_s.html#gac108fe47e56a2db4e2e317f8f46211a7">vATA6870_INT__Init()</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gaad6d63b3411c3eae8561c1ca16f1b933">vATA6870_LOWLEVEL__Init()</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga156ce12539d0de358e95d274f61f7941">vATA6870_LOWLEVEL__PowerOn()</a>, and <a class="el" href="group___a_t_a6870_____s_c_a_n.html#ga25d0fba15ca770aeb01b8d3014b25165">vATA6870_SCAN__Init()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -153,12 +201,8 @@ Here is the call graph for this function:</div>
 <area shape="rect" id="node3" href="group___a_t_a6870_____i_n_t_e_r_r_u_p_t_s.html#gac108fe47e56a2db4e2e317f8f46211a7" title="Do what ever is needed to bring the interrupts up. " alt="" coords="190,56,327,83"/>
 <area shape="rect" id="node4" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gaad6d63b3411c3eae8561c1ca16f1b933" title="Perform an init of any low level systems, including IO pins. " alt="" coords="164,107,353,133"/>
 <area shape="rect" id="node6" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga156ce12539d0de358e95d274f61f7941" title="Switch the power on to the BMS pod. " alt="" coords="176,158,341,199"/>
-<area shape="rect" id="node7" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea" title="Write a U8 to a devices register. " alt="" coords="401,213,567,254"/>
-<area shape="rect" id="node10" href="group___a_t_a6870_____s_c_a_n.html#ga9f664bd9b7c6862f8bf47939bebd3ea0" title="Scans the bus for devices. " alt="" coords="176,279,341,305"/>
+<area shape="rect" id="node7" href="group___a_t_a6870_____s_c_a_n.html#ga25d0fba15ca770aeb01b8d3014b25165" title="vATA6870_SCAN__Init" alt="" coords="181,224,336,251"/>
 <area shape="rect" id="node5" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga92592440101f5f45a271920b6d40a773" title="Generate a reset pulse on the [Just discovered] No reset line :(. " alt="" coords="401,99,567,141"/>
-<area shape="rect" id="node8" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="615,245,789,286"/>
-<area shape="rect" id="node9" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="837,252,1045,279"/>
-<area shape="rect" id="node11" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b" title="Read a byte / byte array from a device with a given length. " alt="" coords="401,278,567,319"/>
 </map>
 </div>
 </p>
@@ -180,17 +224,108 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Process any ATA6870 tasks. </p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>B36C2CF202BFF0A45AD77EE21E6F3822 </dd></dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>CC6F99350533FEAE2044081BD632EF21 </dd></dl>
 <dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM650R0.FILE.000.FUNC.002 </dd></dl>
 
-<p>References <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>.</p>
+<p>References <a class="el" href="ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57ace9ebb30adfa2c634f87f562a06c08bc">ATA6870_REG__CONTROL</a>, <a class="el" href="ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57a786a6ea413396fbbfaa27898153c49f1">ATA6870_REG__IRQ_MASK</a>, <a class="el" href="ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a329bd0c9ea4fec262d6a4cf60da39dcd">ATA6870_STATE__AVERAGE_CELL_VOLTAGES</a>, <a class="el" href="ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a909e351395e4fa41f8e628530c7c080d">ATA6870_STATE__IDLE</a>, <a class="el" href="ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3af22668c03eea249d1dcbeb86c1b61ab2">ATA6870_STATE__INIT_DEVICE</a>, <a class="el" href="ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a49cec02770976f64da3dec084260c3ea">ATA6870_STATE__READ_CELL_VOLTAGES</a>, <a class="el" href="ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a57a7f854cee457d3a31c3343080f7886">ATA6870_STATE__RUN_FILTERING</a>, <a class="el" href="ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a771eb749815df63b24279f0a12f622be">ATA6870_STATE__START_CONVERSION</a>, <a class="el" href="ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a7da89d3f53fb4950757b4ead17318408">ATA6870_STATE__SUM_CELL_VOLTAGES</a>, <a class="el" href="ata6870_8h.html#a06691ee4c55b9b283d6be958b37f73b3a3678f2685c58ba470a71f899b748a952">ATA6870_STATE__WAIT_CONVERSION</a>, <a class="el" href="ata6870_8h.html#abbac3d4fda4994bea08ccc00bc00f176">C_ATA6870__TOTAL_CELLS</a>, <a class="el" href="struct__str6870.html#a7db927597461678d0f6afd42ae5c9483">_str6870::eState</a>, <a class="el" href="struct__str6870.html#acce73d49e3af2eb7fa76555ad3e77c5b">_str6870::f32Voltage</a>, <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#gac40484d77864f9cf2d51ab251fd5e5c8">s16ATA6870_CELL__BulkRead_All()</a>, <a class="el" href="group___a_t_a6870_____c_o_r_e.html#gae448eed71fc49a40dd3e52a17b4753a8">sATA6870</a>, <a class="el" href="struct__str6870.html#ac024e05e545d69f336d03dbdc7f4f1d2">_str6870::u16FilteringChannel</a>, <a class="el" href="struct__str6870.html#a29713c63f40b7e9ef7f191bb28b26b4c">_str6870::u32ISR_Counter</a>, <a class="el" href="struct__str6870.html#abda1bd19a1d2164894f4485fbbc7f461">_str6870::u32VoltsUpdateCount</a>, <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga1b04a7c76fb5f90368f20d230b4ce997">vATA6870__StartConversion()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>, <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga8ec8fe55730a034ef1fe762e8b112929">vATA6870_CELL__Average_CellVoltages()</a>, <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga5d8f8e9f8efdb23729bec4f48f2cb344">vATA6870_CELL__Sum_CellVoltages()</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea">vATA6870_LOWLEVEL__Reg_WriteU8()</a>, and <a class="el" href="group___a_t_a6870_____s_c_a_n.html#ga9f664bd9b7c6862f8bf47939bebd3ea0">vATA6870_SCAN__Start()</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group___a_t_a6870_____c_o_r_e_gafec017c818f276c487a846ffe3dfa7a9_cgraph.png" border="0" usemap="#group___a_t_a6870_____c_o_r_e_gafec017c818f276c487a846ffe3dfa7a9_cgraph" alt=""/></div>
 <map name="group___a_t_a6870_____c_o_r_e_gafec017c818f276c487a846ffe3dfa7a9_cgraph" id="group___a_t_a6870_____c_o_r_e_gafec017c818f276c487a846ffe3dfa7a9_cgraph">
-<area shape="rect" id="node2" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707" title="Process the balancer state machine. " alt="" coords="196,5,407,32"/>
+<area shape="rect" id="node2" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#gac40484d77864f9cf2d51ab251fd5e5c8" title="bulk read voltages: 6 voltages, 1 temperature " alt="" coords="196,186,423,213"/>
+<area shape="rect" id="node8" href="group___a_t_a6870_____c_o_r_e.html#ga1b04a7c76fb5f90368f20d230b4ce997" title="Start ATA6870N Conversion. " alt="" coords="708,221,893,247"/>
+<area shape="rect" id="node11" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea" title="Write a U8 to a devices register. " alt="" coords="1171,284,1336,325"/>
+<area shape="rect" id="node12" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707" title="Process the balancer state machine. " alt="" coords="204,359,415,386"/>
+<area shape="rect" id="node19" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga8ec8fe55730a034ef1fe762e8b112929" title="Take the average cell voltages. " alt="" coords="220,487,399,528"/>
+<area shape="rect" id="node20" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga5d8f8e9f8efdb23729bec4f48f2cb344" title="Compute the sum of all voltages (= our pack voltage) " alt="" coords="229,552,389,593"/>
+<area shape="rect" id="node21" href="group___a_t_a6870_____s_c_a_n.html#ga9f664bd9b7c6862f8bf47939bebd3ea0" title="Scans the bus for devices. " alt="" coords="483,11,648,38"/>
+<area shape="rect" id="node3" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga7ff31c66d77e49d6a1f5a549aad5b912" title="Gets the voltages for each cell from a specific BMS device. " alt="" coords="723,103,878,144"/>
+<area shape="rect" id="node7" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga835f88b85520e043c1355b31fe11771e" title="Check if a cell is above or below safe threshold. " alt="" coords="472,120,659,161"/>
+<area shape="rect" id="node4" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b" title="Read a byte / byte array from a device with a given length. " alt="" coords="1171,167,1336,208"/>
+<area shape="rect" id="node5" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="1384,225,1559,267"/>
+<area shape="rect" id="node6" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="1607,233,1815,259"/>
+<area shape="rect" id="node9" href="group___a_t_a6870_____s_t_a_t_u_s.html#gafba1240e496181442286ed65f3804d97" title="Gets the status of the IRQ system. " alt="" coords="941,101,1123,143"/>
+<area shape="rect" id="node10" href="group___a_t_a6870_____s_t_a_t_u_s.html#ga0cec67bca791701be1e333f57acd3e38" title="Returns the Op Status register details. " alt="" coords="941,167,1123,208"/>
+<area shape="rect" id="node13" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga7eceadbb00e08c5f3c1a17a3a805157b" title="Do the balancing. " alt="" coords="476,329,655,355"/>
+<area shape="rect" id="node17" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2af6743461fb48e555818980f53e9757" title="Stop the blanacing process and terminate any discharging resistors. " alt="" coords="471,383,660,410"/>
+<area shape="rect" id="node14" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3" title="Handle the actual discharging. " alt="" coords="719,319,883,360"/>
+<area shape="rect" id="node15" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga7f0d8bca7c58a116e64f17939df9e351" title="Turn on an individual discharge resistor. " alt="" coords="947,334,1117,361"/>
+<area shape="rect" id="node16" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#ga23c1ee8e1d92e772a261d306a53c7e8a" title="Turn off an individual discharge resistor. " alt="" coords="947,233,1117,259"/>
+<area shape="rect" id="node18" href="group___a_t_a6870_____r_e_s_i_s_t_o_r_s.html#gab881482bec60f5d93439668bccba1705" title="Turn off all resistors. " alt="" coords="709,385,893,411"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga1b04a7c76fb5f90368f20d230b4ce997"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vATA6870__StartConversion </td>
+          <td>(</td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8VoltageMode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Luint8&#160;</td>
+          <td class="paramname"><em>u8TempBit</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start ATA6870N Conversion. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u8TempBit</td><td>Enable temp measurement </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u8VoltageMode</td><td>Enable volt measurement </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>References <a class="el" href="ata6870____register__defs_8h.html#a81ca753d0892f1e7aaf4121cd18bbd57a29fe181e78d650b8a959374af6cc564a">ATA6870_REG__OPERATION</a>, <a class="el" href="group___a_t_a6870_____s_t_a_t_u_s.html#gafba1240e496181442286ed65f3804d97">u8ATA6870_STATUS__Get_IRQ_Status()</a>, <a class="el" href="group___a_t_a6870_____s_t_a_t_u_s.html#ga0cec67bca791701be1e333f57acd3e38">u8ATA6870_STATUS__Get_Op_Status()</a>, and <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea">vATA6870_LOWLEVEL__Reg_WriteU8()</a>.</p>
+
+<p>Referenced by <a class="el" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9">vATA6870__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___a_t_a6870_____c_o_r_e_ga1b04a7c76fb5f90368f20d230b4ce997_cgraph.png" border="0" usemap="#group___a_t_a6870_____c_o_r_e_ga1b04a7c76fb5f90368f20d230b4ce997_cgraph" alt=""/></div>
+<map name="group___a_t_a6870_____c_o_r_e_ga1b04a7c76fb5f90368f20d230b4ce997_cgraph" id="group___a_t_a6870_____c_o_r_e_ga1b04a7c76fb5f90368f20d230b4ce997_cgraph">
+<area shape="rect" id="node2" href="group___a_t_a6870_____s_t_a_t_u_s.html#gafba1240e496181442286ed65f3804d97" title="Gets the status of the IRQ system. " alt="" coords="239,5,420,47"/>
+<area shape="rect" id="node6" href="group___a_t_a6870_____s_t_a_t_u_s.html#ga0cec67bca791701be1e333f57acd3e38" title="Returns the Op Status register details. " alt="" coords="239,71,420,112"/>
+<area shape="rect" id="node7" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea" title="Write a U8 to a devices register. " alt="" coords="468,129,633,171"/>
+<area shape="rect" id="node3" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b" title="Read a byte / byte array from a device with a given length. " alt="" coords="468,39,633,80"/>
+<area shape="rect" id="node4" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga84fd5c0dfcadafaba0fee7c0f89960a4" title="Transmit the device ID portion on the SPI transaction. " alt="" coords="681,84,856,125"/>
+<area shape="rect" id="node5" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga4b1efdf4a08f6154340fdee57150f075" title="Compute one byte of the CRC. " alt="" coords="904,91,1112,118"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___a_t_a6870_____c_o_r_e_ga1b04a7c76fb5f90368f20d230b4ce997_icgraph.png" border="0" usemap="#group___a_t_a6870_____c_o_r_e_ga1b04a7c76fb5f90368f20d230b4ce997_icgraph" alt=""/></div>
+<map name="group___a_t_a6870_____c_o_r_e_ga1b04a7c76fb5f90368f20d230b4ce997_icgraph" id="group___a_t_a6870_____c_o_r_e_ga1b04a7c76fb5f90368f20d230b4ce997_icgraph">
+<area shape="rect" id="node2" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9" title="Process any ATA6870 tasks. " alt="" coords="239,5,381,32"/>
 </map>
 </div>
 </p>
@@ -208,7 +343,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Referenced by <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>, <a class="el" href="group___a_t_a6870_____i_n_t_e_r_r_u_p_t_s.html#gac108fe47e56a2db4e2e317f8f46211a7">vATA6870_INT__Init()</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b">vATA6870_LOWLEVEL__Reg_ReadU8()</a>, and <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea">vATA6870_LOWLEVEL__Reg_WriteU8()</a>.</p>
+<p>Referenced by <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga8a1b5862e924e17ea6d4b443521483f3">f32ATA6870_CELL__Get_HighestVoltage()</a>, <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga9b21295617b8710b29639b1ce2f05832">f32ATA6870_CELL__Get_LowestVoltage()</a>, <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga5ac2f2be8613ebd9dbf172172ed5b9f0">f32ATA6870_CELL__Get_PackVoltage()</a>, <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#gac40484d77864f9cf2d51ab251fd5e5c8">s16ATA6870_CELL__BulkRead_All()</a>, <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga90bd61727a71b755bb4c079b9f0a02eb">u32ATA6870__Get_VoltsUpdateCount()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga957aa8f61f79294a3379825b03badbe3">u8ATA6870_BALANCE__Handle()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacfe813d3d25c0fc4ae7f9570407cff6a">u8ATA6870_BALANCE__Is_Busy()</a>, <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga8a36e2ce275f971926cf0cf0063df58e">vATA6870__10MS_ISR()</a>, <a class="el" href="group___a_t_a6870_____c_o_r_e.html#ga134d692ccaea43b827bd40f8aa620937">vATA6870__Init()</a>, <a class="el" href="group___a_t_a6870_____c_o_r_e.html#gafec017c818f276c487a846ffe3dfa7a9">vATA6870__Process()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga7eceadbb00e08c5f3c1a17a3a805157b">vATA6870_BALANCE__Do()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#gacc8457d165efaa46cb194f44d3a4c677">vATA6870_BALANCE__Init()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga4fbf757d8bc0eaeb4e489c87fc59aa7b">vATA6870_BALANCE__Manual()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga35c425a47779f4893caca3dcbd015707">vATA6870_BALANCE__Process()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2105e80a88a638b159d5339f7af13583">vATA6870_BALANCE__Start()</a>, <a class="el" href="group___a_t_a6870_____b_a_l_a_n_c_e.html#ga2af6743461fb48e555818980f53e9757">vATA6870_BALANCE__Stop()</a>, <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga8ec8fe55730a034ef1fe762e8b112929">vATA6870_CELL__Average_CellVoltages()</a>, <a class="el" href="group___a_t_a6870_____c_e_l_l___v_o_l_t.html#ga5d8f8e9f8efdb23729bec4f48f2cb344">vATA6870_CELL__Sum_CellVoltages()</a>, <a class="el" href="group___a_t_a6870_____i_n_t_e_r_r_u_p_t_s.html#gac108fe47e56a2db4e2e317f8f46211a7">vATA6870_INT__Init()</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#gad9081db4f51c40aeb11d0a82b0b21d3b">vATA6870_LOWLEVEL__Reg_ReadU8()</a>, <a class="el" href="group___a_t_a6870_____l_o_w_l_e_v_e_l.html#ga9169e0a4e5b03cf68bbc0ccab3e5e0ea">vATA6870_LOWLEVEL__Reg_WriteU8()</a>, <a class="el" href="group___a_t_a6870_____s_c_a_n.html#ga25d0fba15ca770aeb01b8d3014b25165">vATA6870_SCAN__Init()</a>, and <a class="el" href="group___a_t_a6870_____s_c_a_n.html#ga9f664bd9b7c6862f8bf47939bebd3ea0">vATA6870_SCAN__Start()</a>.</p>
 
 </div>
 </div>

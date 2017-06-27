@@ -1,4 +1,22 @@
 var searchData=
 [
-  ['unexpected_5fmove_5fon_5fwheels',['UNEXPECTED_MOVE_ON_WHEELS',['../fcu__core____enums_8h.html#a1560f192dd5dd63e42c06f8953f56a25a52ddaaf3b42c26817dff51e46247b38f',1,'fcu_core__enums.h']]]
+  ['picom_5fstate_5f_5fassemble_5fbuffer',['PICOM_STATE__ASSEMBLE_BUFFER',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a0308f964e5afe3927b527020177a4103',1,'fcu__pi_comms__types.h']]],
+  ['picom_5fstate_5f_5fidle',['PICOM_STATE__IDLE',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a35990985ccd1627faf2073fc65d8bc17',1,'fcu__pi_comms__types.h']]],
+  ['picom_5fstate_5f_5fsetup_5fframe',['PICOM_STATE__SETUP_FRAME',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a907476e700bc0892be7a020f5529746e',1,'fcu__pi_comms__types.h']]],
+  ['picom_5fstate_5f_5fstart_5fdma',['PICOM_STATE__START_DMA',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a931f57e1d71b96d80a9ad2e4bc2cbc6d',1,'fcu__pi_comms__types.h']]],
+  ['picom_5fstate_5f_5fwait_5fdma',['PICOM_STATE__WAIT_DMA',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a3eab3bfd04e4a3cd89e3bdd921231792',1,'fcu__pi_comms__types.h']]],
+  ['pin_5ffinal_5fstate_5f_5fconnected',['PIN_FINAL_STATE__CONNECTED',['../fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9a9306ecea0b40eb369131381e726dfc0d',1,'fcu_core__types.h']]],
+  ['pin_5ffinal_5fstate_5f_5fdisconnected',['PIN_FINAL_STATE__DISCONNECTED',['../fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9a0bba82c4804b68e6b2572c7959eacdcc',1,'fcu_core__types.h']]],
+  ['pin_5ffinal_5fstate_5f_5funknown',['PIN_FINAL_STATE__UNKNOWN',['../fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9a626dda65130ea717520302ce5ffc5265',1,'fcu_core__types.h']]],
+  ['pod_5fstatus_5f_5fbraking',['POD_STATUS__BRAKING',['../fcu__core____enums_8h.html#a1821605b4382a09fd448626c785213c1aabe5d38974006bc1054f6761059d089c',1,'fcu_core__enums.h']]],
+  ['pod_5fstatus_5f_5fcoast',['POD_STATUS__COAST',['../fcu__core____enums_8h.html#a1821605b4382a09fd448626c785213c1aa8a2e11b4dada83ec0d15802801f801c',1,'fcu_core__enums.h']]],
+  ['pod_5fstatus_5f_5ffault',['POD_STATUS__FAULT',['../fcu__core____enums_8h.html#a1821605b4382a09fd448626c785213c1abbff607fb347972bd70d1f8b17fe860b',1,'fcu_core__enums.h']]],
+  ['pod_5fstatus_5f_5fidle',['POD_STATUS__IDLE',['../fcu__core____enums_8h.html#a1821605b4382a09fd448626c785213c1a61d92d0692128c92d3e81e8f352e66b8',1,'fcu_core__enums.h']]],
+  ['pod_5fstatus_5f_5fpushing',['POD_STATUS__PUSHING',['../fcu__core____enums_8h.html#a1821605b4382a09fd448626c785213c1a5b12b733399d0df346b5a0cac2ed22ca',1,'fcu_core__enums.h']]],
+  ['pod_5fstatus_5f_5fready',['POD_STATUS__READY',['../fcu__core____enums_8h.html#a1821605b4382a09fd448626c785213c1a196d6339cbbf19c3778ad76a9e8a385c',1,'fcu_core__enums.h']]],
+  ['push_5fstate_5f_5fcheck_5fdisagree',['PUSH_STATE__CHECK_DISAGREE',['../fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03ab2b4d47bd2409fdbcf43c81fddde1f97',1,'fcu_core__types.h']]],
+  ['push_5fstate_5f_5fdetermine_5fpusher_5fstate',['PUSH_STATE__DETERMINE_PUSHER_STATE',['../fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03a831fdd97a0ac888672dd0f0a040e8199',1,'fcu_core__types.h']]],
+  ['push_5fstate_5f_5fidle',['PUSH_STATE__IDLE',['../fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03a8e457a1d0c9cc38bb3c09c4cabd366b3',1,'fcu_core__types.h']]],
+  ['push_5fstate_5f_5fsample_5fswitches',['PUSH_STATE__SAMPLE_SWITCHES',['../fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03ad859dfe30032870d4ba2d40b58853dd6',1,'fcu_core__types.h']]],
+  ['push_5fstate_5f_5fwait_5fsw_5fstable',['PUSH_STATE__WAIT_SW_STABLE',['../fcu__core____types_8h.html#a859a73067e070b6396f8293b80ac3a03a44f17c9da998e44fae22103415510fdd',1,'fcu_core__types.h']]]
 ];

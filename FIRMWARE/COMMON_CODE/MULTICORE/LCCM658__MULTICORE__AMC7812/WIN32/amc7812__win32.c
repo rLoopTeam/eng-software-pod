@@ -28,11 +28,28 @@
 
 pAMC7812_WIN32__DACVoltsCallback_FuncType m_pAMC7812_WIN32__DACVolts;
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		pFunc		## Desc ##
+ * @st_funcMD5		8217A957A52EF51B2A5A1FC0C7003C09
+ * @st_funcID		LCCM658R0.FILE.003.FUNC.001
+ */
 void vAMC7812_WIN32__Set_DACVoltsCallback(pAMC7812_WIN32__DACVoltsCallback_FuncType pFunc)
 {
 	 m_pAMC7812_WIN32__DACVolts = pFunc;
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		Lfloat32		## Desc ##
+ * @param[in]		u8Channel		## Desc ##
+ * @st_funcMD5		EFA6DB1225AA0C17436AD45FA6380A35
+ * @st_funcID		LCCM658R0.FILE.003.FUNC.002
+ */
 void vAMC7182_WIN32__DAC_SetVolage(Luint8 u8Channel, Lfloat32 f32Volts)
 {
 	m_pAMC7812_WIN32__DACVolts(u8Channel, f32Volts);

@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, RLOOP, Flight Control Core)
    &#160;<span id="projectnumber">1.0</span>
@@ -113,41 +113,43 @@ Collaboration diagram for _strASICmd:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a187512f95b9404c7b1d483eacc3b46ef"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#a187512f95b9404c7b1d483eacc3b46ef">u8SlaveAddress</a></td></tr>
+<tr class="memdesc:a187512f95b9404c7b1d483eacc3b46ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">The slave address, for all purposes this can be 1.  <a href="#a187512f95b9404c7b1d483eacc3b46ef">More...</a><br /></td></tr>
 <tr class="separator:a187512f95b9404c7b1d483eacc3b46ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c64b0e1e670591e3888aa0d12b3620e"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#a4c64b0e1e670591e3888aa0d12b3620e">fncCode</a></td></tr>
-<tr class="separator:a4c64b0e1e670591e3888aa0d12b3620e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac49429a4b7e02f0e9a52c3004ec0a7e1"><td class="memItemLeft" align="right" valign="top">Luint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#ac49429a4b7e02f0e9a52c3004ec0a7e1">paramAddress</a></td></tr>
-<tr class="separator:ac49429a4b7e02f0e9a52c3004ec0a7e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2633aef18902bd31dba811db00e9d294"><td class="memItemLeft" align="right" valign="top">Luint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#a2633aef18902bd31dba811db00e9d294">paramValue</a></td></tr>
-<tr class="separator:a2633aef18902bd31dba811db00e9d294"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a718898f53abcbb23b8d2ba7a23d67080"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fcu____asi__types_8h.html#a0b14b7a5f04a2f25489e8333b410240d">E_FCU_ASI__FUNCTION_CODE_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#a718898f53abcbb23b8d2ba7a23d67080">eFunctionCode</a></td></tr>
+<tr class="memdesc:a718898f53abcbb23b8d2ba7a23d67080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modbus function code.  <a href="#a718898f53abcbb23b8d2ba7a23d67080">More...</a><br /></td></tr>
+<tr class="separator:a718898f53abcbb23b8d2ba7a23d67080"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7173706aacb003a9aff1539d9deb413"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628">E_FCU_ASI_BAC_OBJECT_TYPES__T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#ad7173706aacb003a9aff1539d9deb413">eObjectType</a></td></tr>
+<tr class="memdesc:ad7173706aacb003a9aff1539d9deb413"><td class="mdescLeft">&#160;</td><td class="mdescRight">The tyype of BAC object we want.  <a href="#ad7173706aacb003a9aff1539d9deb413">More...</a><br /></td></tr>
+<tr class="separator:ad7173706aacb003a9aff1539d9deb413"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87556d1c768b326d2c1a22aa52d42a03"><td class="memItemLeft" align="right" valign="top">Luint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#a87556d1c768b326d2c1a22aa52d42a03">u16ParamValue</a></td></tr>
+<tr class="memdesc:a87556d1c768b326d2c1a22aa52d42a03"><td class="mdescLeft">&#160;</td><td class="mdescRight">for reading, this is num of registers to read, set to 1  <a href="#a87556d1c768b326d2c1a22aa52d42a03">More...</a><br /></td></tr>
+<tr class="separator:a87556d1c768b326d2c1a22aa52d42a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab53634fd5647e5a588d6c69d3ef54061"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#ab53634fd5647e5a588d6c69d3ef54061">framedCmd</a> [<a class="el" href="fcu____asi__types_8h.html#a6e05186d0db166d9e9946b3b69e5cd65">C_ASI__RW_FRAME_SIZE</a>]</td></tr>
+<tr class="memdesc:ab53634fd5647e5a588d6c69d3ef54061"><td class="mdescLeft">&#160;</td><td class="mdescRight">The command ready to transmit.  <a href="#ab53634fd5647e5a588d6c69d3ef54061">More...</a><br /></td></tr>
 <tr class="separator:ab53634fd5647e5a588d6c69d3ef54061"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1220761b62e3dba039c18ecaff62a92"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#ad1220761b62e3dba039c18ecaff62a92">response</a> [<a class="el" href="fcu____asi__types_8h.html#a6e05186d0db166d9e9946b3b69e5cd65">C_ASI__RW_FRAME_SIZE</a>]</td></tr>
-<tr class="separator:ad1220761b62e3dba039c18ecaff62a92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57b271992d13e20281bbda5560650187"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#a57b271992d13e20281bbda5560650187">destVar</a></td></tr>
-<tr class="separator:a57b271992d13e20281bbda5560650187"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1f949191d906d35bf85fb440c4f3295"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#ae1f949191d906d35bf85fb440c4f3295">u8Response</a> [<a class="el" href="fcu____asi__types_8h.html#a6e05186d0db166d9e9946b3b69e5cd65">C_ASI__RW_FRAME_SIZE</a>]</td></tr>
+<tr class="memdesc:ae1f949191d906d35bf85fb440c4f3295"><td class="mdescLeft">&#160;</td><td class="mdescRight">assuming we always read only one register  <a href="#ae1f949191d906d35bf85fb440c4f3295">More...</a><br /></td></tr>
+<tr class="separator:ae1f949191d906d35bf85fb440c4f3295"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e385eea7b0ee69b3704cd3957063619"><td class="memItemLeft" >union {</td></tr>
+<tr class="memitem:a408fb8dd1777f42bdac133ddb05bfc17"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_a_s_i_cmd.html#a5c556c04bc959fa6b9454cf2521aa615">u8</a> [4]</td></tr>
+<tr class="separator:a408fb8dd1777f42bdac133ddb05bfc17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1852c7891d850e8be0649ab72d03289"><td class="memItemLeft" >&#160;&#160;&#160;Lint8&#160;&#160;&#160;<a class="el" href="struct__str_a_s_i_cmd.html#a72ce3bfd86a910bdfcdeab5ed8a83e18">s8</a> [4]</td></tr>
+<tr class="separator:af1852c7891d850e8be0649ab72d03289"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc70330fb8e00c8f27f6a99c10da2f9f"><td class="memItemLeft" >&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_a_s_i_cmd.html#a548d12df273ba0fe48ff97f1b0795620">u16</a> [2]</td></tr>
+<tr class="separator:afc70330fb8e00c8f27f6a99c10da2f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37ddb1a7aeabe3c8d50248fd149ffcd3"><td class="memItemLeft" >&#160;&#160;&#160;Lint16&#160;&#160;&#160;<a class="el" href="struct__str_a_s_i_cmd.html#a180ba4844c99ce5f654182ac4542a32b">s16</a> [2]</td></tr>
+<tr class="separator:a37ddb1a7aeabe3c8d50248fd149ffcd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e385eea7b0ee69b3704cd3957063619"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#a8e385eea7b0ee69b3704cd3957063619">unDestVar</a></td></tr>
+<tr class="memdesc:a8e385eea7b0ee69b3704cd3957063619"><td class="mdescLeft">&#160;</td><td class="mdescRight">The returned destination variable.  <a href="#a8e385eea7b0ee69b3704cd3957063619">More...</a><br /></td></tr>
+<tr class="separator:a8e385eea7b0ee69b3704cd3957063619"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e6a2cf4f484f7e7e23a16c99214225a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fcu____asi__types_8h.html#ac4524912fef781176fb5733e1aab39c4">E_VAR_TYPE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#a5e6a2cf4f484f7e7e23a16c99214225a">eDestVarType</a></td></tr>
 <tr class="separator:a5e6a2cf4f484f7e7e23a16c99214225a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af90858703f34d9eed0763505ee5cc3c5"><td class="memItemLeft" align="right" valign="top">Lint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#af90858703f34d9eed0763505ee5cc3c5">retry</a></td></tr>
-<tr class="separator:af90858703f34d9eed0763505ee5cc3c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a508bf3655dc3a09596c138da9b3f610e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fcu____asi__types_8h.html#a857f12e1b5e20d6b68e0237ddb41f957">E_ERR_TYPE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_a_s_i_cmd.html#a508bf3655dc3a09596c138da9b3f610e">eErrorType</a></td></tr>
 <tr class="separator:a508bf3655dc3a09596c138da9b3f610e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>ASI controller modbus read/write register command structure. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="a57b271992d13e20281bbda5560650187"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void* _strASICmd::destVar</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a5e6a2cf4f484f7e7e23a16c99214225a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -157,6 +159,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga097f2f02d9d64d3b70af6600800605e9">s16FCU_ASI__ProcessReply()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gab86c7bb597daf4c22a1ea08ab37c46ec">s16FCU_ASI_CTRL__GetFaults()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gadd05b379b3c8d5460c09831de58beee3">s16FCU_ASI_CTRL__ReadControllerTemperature()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gaa33f7239c9ffb71ce0d5b244b3063a52">s16FCU_ASI_CTRL__ReadMotorCurrent()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gae01dfc96b6d1b6c8d9862df44096cb20">s16FCU_ASI_CTRL__ReadMotorRpm()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16">vFCU_ASI__Process()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga93f0e09a3b90243d39079f7cbb3b67f2">vFCU_ASI__SetErr()</a>, and <a class="el" href="group___f_c_u_____a_s_i_____e_t_h_e_r_n_e_t.html#ga5d5962314e45c6f465d13abee7346f31">vFCU_ASI_ETH__Transmit()</a>.</p>
 
 </div>
 </div>
@@ -170,17 +174,39 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga553f1448559f3bdedd6c3f46757a2c97">s16FCU_ASI__ProcessError()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga097f2f02d9d64d3b70af6600800605e9">s16FCU_ASI__ProcessReply()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16">vFCU_ASI__Process()</a>, and <a class="el" href="group___f_c_u_____a_s_i_____e_t_h_e_r_n_e_t.html#ga5d5962314e45c6f465d13abee7346f31">vFCU_ASI_ETH__Transmit()</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="a4c64b0e1e670591e3888aa0d12b3620e"></a>
+<a class="anchor" id="a718898f53abcbb23b8d2ba7a23d67080"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Luint8 _strASICmd::fncCode</td>
+          <td class="memname"><a class="el" href="fcu____asi__types_8h.html#a0b14b7a5f04a2f25489e8333b410240d">E_FCU_ASI__FUNCTION_CODE_T</a> _strASICmd::eFunctionCode</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Modbus function code. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gab86c7bb597daf4c22a1ea08ab37c46ec">s16FCU_ASI_CTRL__GetFaults()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga52b40b196895be0b3541bae7ab661849">s16FCU_ASI_CTRL__Init()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gadd05b379b3c8d5460c09831de58beee3">s16FCU_ASI_CTRL__ReadControllerTemperature()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gaa33f7239c9ffb71ce0d5b244b3063a52">s16FCU_ASI_CTRL__ReadMotorCurrent()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gae01dfc96b6d1b6c8d9862df44096cb20">s16FCU_ASI_CTRL__ReadMotorRpm()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga1aabf9ed8708bce8307b86ab901d6de9">s16FCU_ASI_CTRL__SaveSettings()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga059b1e757bd2055cbb131cbfd46e1043">vFCU_ASI__BuildCmdFrame()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16">vFCU_ASI__Process()</a>, and <a class="el" href="group___f_c_u_____a_s_i_____e_t_h_e_r_n_e_t.html#ga5d5962314e45c6f465d13abee7346f31">vFCU_ASI_ETH__Transmit()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad7173706aacb003a9aff1539d9deb413"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fcu____asi__types_8h.html#aa6136e16b99d27c948eb625858250628">E_FCU_ASI_BAC_OBJECT_TYPES__T</a> _strASICmd::eObjectType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The tyype of BAC object we want. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga097f2f02d9d64d3b70af6600800605e9">s16FCU_ASI__ProcessReply()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gab86c7bb597daf4c22a1ea08ab37c46ec">s16FCU_ASI_CTRL__GetFaults()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga52b40b196895be0b3541bae7ab661849">s16FCU_ASI_CTRL__Init()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gadd05b379b3c8d5460c09831de58beee3">s16FCU_ASI_CTRL__ReadControllerTemperature()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gaa33f7239c9ffb71ce0d5b244b3063a52">s16FCU_ASI_CTRL__ReadMotorCurrent()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gae01dfc96b6d1b6c8d9862df44096cb20">s16FCU_ASI_CTRL__ReadMotorRpm()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga1aabf9ed8708bce8307b86ab901d6de9">s16FCU_ASI_CTRL__SaveSettings()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga059b1e757bd2055cbb131cbfd46e1043">vFCU_ASI__BuildCmdFrame()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16">vFCU_ASI__Process()</a>, and <a class="el" href="group___f_c_u_____a_s_i_____e_t_h_e_r_n_e_t.html#ga5d5962314e45c6f465d13abee7346f31">vFCU_ASI_ETH__Transmit()</a>.</p>
 
 </div>
 </div>
@@ -194,53 +220,97 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>The command ready to transmit. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga097f2f02d9d64d3b70af6600800605e9">s16FCU_ASI__ProcessReply()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga059b1e757bd2055cbb131cbfd46e1043">vFCU_ASI__BuildCmdFrame()</a>, and <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16">vFCU_ASI__Process()</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="ac49429a4b7e02f0e9a52c3004ec0a7e1"></a>
+<a class="anchor" id="a180ba4844c99ce5f654182ac4542a32b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Luint16 _strASICmd::paramAddress</td>
+          <td class="memname">Lint16 _strASICmd::s16[2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga097f2f02d9d64d3b70af6600800605e9">s16FCU_ASI__ProcessReply()</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="a2633aef18902bd31dba811db00e9d294"></a>
+<a class="anchor" id="a72ce3bfd86a910bdfcdeab5ed8a83e18"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Luint16 _strASICmd::paramValue</td>
+          <td class="memname">Lint8 _strASICmd::s8[4]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga097f2f02d9d64d3b70af6600800605e9">s16FCU_ASI__ProcessReply()</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="ad1220761b62e3dba039c18ecaff62a92"></a>
+<a class="anchor" id="a548d12df273ba0fe48ff97f1b0795620"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Luint8 _strASICmd::response[<a class="el" href="fcu____asi__types_8h.html#a6e05186d0db166d9e9946b3b69e5cd65">C_ASI__RW_FRAME_SIZE</a>]</td>
+          <td class="memname">Luint16 _strASICmd::u16[2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga097f2f02d9d64d3b70af6600800605e9">s16FCU_ASI__ProcessReply()</a>, and <a class="el" href="group___f_c_u_____a_s_i_____e_t_h_e_r_n_e_t.html#ga5d5962314e45c6f465d13abee7346f31">vFCU_ASI_ETH__Transmit()</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="af90858703f34d9eed0763505ee5cc3c5"></a>
+<a class="anchor" id="a87556d1c768b326d2c1a22aa52d42a03"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Lint8 _strASICmd::retry</td>
+          <td class="memname">Luint16 _strASICmd::u16ParamValue</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>for reading, this is num of registers to read, set to 1 </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gab86c7bb597daf4c22a1ea08ab37c46ec">s16FCU_ASI_CTRL__GetFaults()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga52b40b196895be0b3541bae7ab661849">s16FCU_ASI_CTRL__Init()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gadd05b379b3c8d5460c09831de58beee3">s16FCU_ASI_CTRL__ReadControllerTemperature()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gaa33f7239c9ffb71ce0d5b244b3063a52">s16FCU_ASI_CTRL__ReadMotorCurrent()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gae01dfc96b6d1b6c8d9862df44096cb20">s16FCU_ASI_CTRL__ReadMotorRpm()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga1aabf9ed8708bce8307b86ab901d6de9">s16FCU_ASI_CTRL__SaveSettings()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga059b1e757bd2055cbb131cbfd46e1043">vFCU_ASI__BuildCmdFrame()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16">vFCU_ASI__Process()</a>, and <a class="el" href="group___f_c_u_____a_s_i_____e_t_h_e_r_n_e_t.html#ga5d5962314e45c6f465d13abee7346f31">vFCU_ASI_ETH__Transmit()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5c556c04bc959fa6b9454cf2521aa615"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strASICmd::u8[4]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga097f2f02d9d64d3b70af6600800605e9">s16FCU_ASI__ProcessReply()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae1f949191d906d35bf85fb440c4f3295"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strASICmd::u8Response[<a class="el" href="fcu____asi__types_8h.html#a6e05186d0db166d9e9946b3b69e5cd65">C_ASI__RW_FRAME_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>assuming we always read only one register </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga097f2f02d9d64d3b70af6600800605e9">s16FCU_ASI__ProcessReply()</a>, and <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16">vFCU_ASI__Process()</a>.</p>
 
 </div>
 </div>
@@ -253,6 +323,26 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>The slave address, for all purposes this can be 1. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gab86c7bb597daf4c22a1ea08ab37c46ec">s16FCU_ASI_CTRL__GetFaults()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga52b40b196895be0b3541bae7ab661849">s16FCU_ASI_CTRL__Init()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gadd05b379b3c8d5460c09831de58beee3">s16FCU_ASI_CTRL__ReadControllerTemperature()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gaa33f7239c9ffb71ce0d5b244b3063a52">s16FCU_ASI_CTRL__ReadMotorCurrent()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#gae01dfc96b6d1b6c8d9862df44096cb20">s16FCU_ASI_CTRL__ReadMotorRpm()</a>, <a class="el" href="group___f_c_u_____a_s_i_____c_o_n_t_r_o_l_l_e_r.html#ga1aabf9ed8708bce8307b86ab901d6de9">s16FCU_ASI_CTRL__SaveSettings()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga059b1e757bd2055cbb131cbfd46e1043">vFCU_ASI__BuildCmdFrame()</a>, <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#gaa2279256b355a836251e56e0c0642b16">vFCU_ASI__Process()</a>, and <a class="el" href="group___f_c_u_____a_s_i_____e_t_h_e_r_n_e_t.html#ga5d5962314e45c6f465d13abee7346f31">vFCU_ASI_ETH__Transmit()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8e385eea7b0ee69b3704cd3957063619"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">union { ... }  _strASICmd::unDestVar</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The returned destination variable. </p>
+
+<p>Referenced by <a class="el" href="group___f_c_u_____a_s_i___r_s485.html#ga097f2f02d9d64d3b70af6600800605e9">s16FCU_ASI__ProcessReply()</a>, and <a class="el" href="group___f_c_u_____a_s_i_____e_t_h_e_r_n_e_t.html#ga5d5962314e45c6f465d13abee7346f31">vFCU_ASI_ETH__Transmit()</a>.</p>
 
 </div>
 </div>

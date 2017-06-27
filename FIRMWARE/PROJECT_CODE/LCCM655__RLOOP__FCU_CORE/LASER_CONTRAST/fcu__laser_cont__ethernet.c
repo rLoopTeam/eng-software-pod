@@ -73,7 +73,7 @@ void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	}//switch(ePacketType)
 
 	//pre-comit
-	s16Return = s16SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
+	s16Return = s16SIL3_SAFEUDP_TX__PreCommit(u16Length, (SAFE_UDP__PACKET_T)ePacketType, &pu8Buffer, &u8BufferIndex);
 	if(s16Return == 0)
 	{
 		//handle the packet
@@ -85,34 +85,34 @@ void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 
 				//fault flags from the upper level system
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sFaultFlags.u32Flags[0]);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sFaultFlags.u32Flags[0]);
 				pu8Buffer += 4U;
 
 				//spare 1:4
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, 0U);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;
 
 				//send the fault flags
-				vNUMERICAL_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sSensors[u8Device].sFaultFlags.u32Flags[0]);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sSensors[u8Device].sFaultFlags.u32Flags[0]);
 				pu8Buffer += 4U;
 
 
 				//Rising Edge Count
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sContrast.sTimingList[u8Device].u16RisingCount);
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sContrast.sTimingList[u8Device].u16RisingCount);
 				pu8Buffer+=2;
 
 				//Falling edge count
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, sFCU.sContrast.sTimingList[u8Device].u16FallingCount);
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sContrast.sTimingList[u8Device].u16FallingCount);
 				pu8Buffer+=2;
 
 				//max stripes
-				vNUMERICAL_CONVERT__Array_U16(pu8Buffer, C_FCU__LASER_CONTRAST__MAX_STRIPES);
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, C_FCU__LASER_CONTRAST__MAX_STRIPES);
 				pu8Buffer+=2;
 
 
@@ -120,7 +120,7 @@ void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
 				{
 
-					vNUMERICAL_CONVERT__Array_U64(pu8Buffer, sFCU.sContrast.sTimingList[u8Device].u64RisingList[u8Counter2]);
+					vSIL3_NUM_CONVERT__Array_U64(pu8Buffer, sFCU.sContrast.sTimingList[u8Device].u64RisingList[u8Counter2]);
 					pu8Buffer+=8;
 
 				}//for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
@@ -129,7 +129,7 @@ void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
 				{
 
-					vNUMERICAL_CONVERT__Array_U64(pu8Buffer, sFCU.sContrast.sTimingList[u8Device].u64FallingList[u8Counter2]);
+					vSIL3_NUM_CONVERT__Array_U64(pu8Buffer, sFCU.sContrast.sTimingList[u8Device].u64FallingList[u8Counter2]);
 					pu8Buffer+=8;
 
 				}//for(u8Counter2 = 0U; u8Counter2 < C_FCU__LASER_CONTRAST__MAX_STRIPES; u8Counter2++)
@@ -144,7 +144,7 @@ void vFCU_LASERCONT_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
 
 	}//if(s16Return == 0)
 	else

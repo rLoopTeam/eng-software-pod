@@ -31,10 +31,10 @@
 		/*******************************************************************************
 		Function Protos
 		*******************************************************************************/
-		void vFAULTTREE__Init(FAULT_TREE__PUBLIC_T *pFaultTree);
-		void vFAULTTREE__Set_Flag(FAULT_TREE__PUBLIC_T *pFaultTree, Luint32 u32FlagIndex);
-		void vFAULTTREE__Clear_Flag(FAULT_TREE__PUBLIC_T *pFaultTree, Luint32 u32FlagIndex);
-		Luint8 u8FAULTTREE__Get_Fault(const FAULT_TREE__PUBLIC_T *pFaultTree, Luint32 u32FlagIndex);
+		void vSIL3_FAULTTREE__Init(FAULT_TREE__PUBLIC_T *pFaultTree);
+		void vSIL3_FAULTTREE__Set_Flag(FAULT_TREE__PUBLIC_T *pFaultTree, Luint32 u32FlagIndex);
+		void vSIL3_FAULTTREE__Clear_Flag(FAULT_TREE__PUBLIC_T *pFaultTree, Luint32 u32FlagIndex);
+		Luint8 u8SIL3_FAULTTREE__Get_Fault(const FAULT_TREE__PUBLIC_T *pFaultTree, Luint32 u32FlagIndex);
 		
 
 		//testing

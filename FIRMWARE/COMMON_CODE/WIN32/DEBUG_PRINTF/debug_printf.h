@@ -6,15 +6,15 @@
 	#include <localdef.h>
 
 	//setup our debug statement
-	#define DEBUG_PRINT(x) vDEBUG_PRINTF_WIN32__Win32Callback(x)
+	#define DEBUG_PRINT(x) vSIL3_DEBUG_PRINTF_WIN32__Win32Callback(x)
 	
 	#ifdef WIN32
 		//this is the callback function type
-		typedef void (__cdecl * pDEBUG_PRINTF_Callback_FuncType)(const char * pu8String);
+		typedef void (__cdecl * pSIL3_DEBUG_PRINTF_Callback_FuncType)(const char * pu8String);
 		//these are the function definitions
-		extern "C" __declspec(dllexport) void __cdecl vDEBUG_PRINTF_WIN32__Set_Callback(pDEBUG_PRINTF_Callback_FuncType pFunc);
+		extern "C" __declspec(dllexport) void __cdecl vSIL3_DEBUG_PRINTF_WIN32__Set_Callback(pSIL3_DEBUG_PRINTF_Callback_FuncType pFunc);
 
-		void vDEBUG_PRINTF_WIN32__Win32Callback(const char * pu8String);
+		void vSIL3_DEBUG_PRINTF_WIN32__Win32Callback(const char * pu8String);
 	
 	#endif
 

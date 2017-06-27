@@ -67,10 +67,33 @@
 		CurrentValue
 	}config_value_type_t;
 
-	#include <RM4/LCCM219__RM4__SYSTEM/rm4_system__private.h>
 
-	#include <RM4/LCCM223__RM4__PERIPH_CENTRAL_RESOURCE/rm4_pcr.h>
-	#include <RM4/LCCM222__RM4__PIN_MUX/rm4_pinmux.h>
+	#if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
+		#include <RM57/LCCM704__RM57__COMMON/rm57_system__private.h>
+		#include <RM57/LCCM708__RM57__PERIPH_CENTRAL_RESOURCE/rm57_pcr.h>
+		//#include <RM57/LCCM709__RM57__PIN_MUX/rm57_pinmux.h>
+
+		//#include <RM57/LCCM704__RM57__COMMON/HL_reg_system.h>
+		//#include <RM4/LCCM135__RM4__FLASH/rm4_flash__private.h>
+		#include <RM57/LCCM704__RM57__COMMON/HL_reg_flash.h>
+		//#include <RM57/LCCM704__RM57__COMMON/HL_reg_l2ramw.h>
+		//#include <RM57/LCCM704__RM57__COMMON/HL_reg_ccmr5.h>
+		//#include <RM57/LCCM704__RM57__COMMON/HL_sys_core.h>
+
+		//needed for flash memory on RM57
+		//#ifndef _L2FMC
+		#define _L2FMC
+
+	#else
+		#include <RM4/LCCM219__RM4__SYSTEM/rm4_system__private.h>
+		#include <RM4/LCCM223__RM4__PERIPH_CENTRAL_RESOURCE/rm4_pcr.h>
+		#include <RM4/LCCM222__RM4__PIN_MUX/rm4_pinmux.h>
+	#endif
+
+	#ifndef C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843
+		#error
+	#endif
+
 	#include <RM4/LCCM221__RM4__SELFTEST/rm4_selftest.h>
 	//included as its own module
 	//#include <RM4/LCCM220__RM4__error_signal_module/rm4_esm.h>
@@ -98,7 +121,6 @@
 	/*lint -e970*/
 	//Note 960: Violates MISRA 2004 Required Rule 18.4, unions shall not be used
 	//Reviewed LG
-	
 	typedef union
 	{
 		unsigned Word;
@@ -246,11 +268,13 @@
 	*   @brief Initialize Core register
 	*/
 	void _rm4_system_core__InitRegisters_(void);
+	void _rm57_system_core__InitRegisters_(void);
 
 	/** @fn void _rm4_system_core__InitStackPointer_(void)
 	*   @brief Initialize Core stack pointer
 	*/
 	void _rm4_system_core__InitStackPointer_(void);
+	void _rm57_system_core__InitStackPointer_(void);
 
 	/** @fn void _getCPSRValue_(void)
 	*   @brief Get CPSR Value
@@ -260,17 +284,18 @@
 	/** @fn void _gotoCPUIdle_(void)
 	*   @brief Take CPU to Idle state
 	*/
-	void _gotoCPUIdle_(void);
+	void _rm4_system_core__CPUIdle_(void);
 
 	/** @fn void _coreEnableIrqVicOffset_(void)
 	*   @brief Enable Irq offset propagation via Vic controller
 	*/
-	void _coreEnableIrqVicOffset_(void);
+	void _rm4_system_core__EnableIrqVicOffset_(void);
+	void _rm57_system_core__EnableIrqVicOffset_(void);
 
 	/** @fn void _coreEnableVfp_(void)
 	*   @brief Enable vector floating point unit
 	*/
-	void _coreEnableVfp_(void);
+	void _rm4_system_core__EnableVfp_(void);
 
 	/** @fn void _coreEnableEventBusExport_(void)
 	*   @brief Enable event bus export for external monitoring modules
@@ -279,7 +304,8 @@
 	*   This function enables event bus exports to external monitoring modules
 	*   like tightly coupled RAM wrapper, Flash wrapper and error signaling module.
 	*/
-	void _coreEnableEventBusExport_(void);
+	void _rm4_system_core__EnableEventBusExport_(void);
+	void _rm57_system_core__EnableEventBusExport_(void);
 
 	/** @fn void _coreDisableEventBusExport_(void)
 	*   @brief Disable event bus export for external monitoring modules
@@ -287,29 +313,30 @@
 	*   This function disables event bus exports to external monitoring modules
 	*   like tightly coupled RAM wrapper, Flash wrapper and error signaling module.
 	*/
-	void _coreDisableEventBusExport_(void);
+	void _rm4_system_core__DisableEventBusExport_(void);
 
 	/** @fn void _coreEnableRamEcc_(void)
 	*   @brief Enable external ecc error for RAM odd and even bank
 	*   @note It is required to enable event bus export to process ecc issues.
 	*/
-	void _coreEnableRamEcc_(void);
+	void _rm4_system_core__EnableRamEcc_(void);
 
 	/** @fn void _coreDisableRamEcc_(void)
 	*   @brief Disable external ecc error for RAM odd and even bank
 	*/
-	void _coreDisableRamEcc_(void);
+	void _rm4_system_core__DisableRamEcc_(void);
+	void _rm57_system_core__DisableRamEcc_(void);
 
 	/** @fn void _coreEnableFlashEcc_(void)
 	*   @brief Enable external ecc error for the Flash
 	*   @note It is required to enable event bus export to process ecc issues.
 	*/
-	void _coreEnableFlashEcc_(void);
+	void _rm4_system_core__EnableFlashEcc_(void);
 
 	/** @fn void _coreDisableFlashEcc_(void)
 	*   @brief Disable external ecc error for the Flash
 	*/
-	void _coreDisableFlashEcc_(void);
+	void _rm4_system_core__DisableFlashEcc_(void);
 
 	/** @fn Luint32 _coreGetDataFault_(void)
 	*   @brief Get core data fault status register
@@ -330,12 +357,13 @@
 	*                            - 0: AXI Decode Error (DECERR)
 	*                            - 1: AXI Slave Error (SLVERR)
 	*/
-	Luint32 _coreGetDataFault_(void);
+	Luint32 _rm4_system_core__GetDataFault_(void);
+	Luint32 _rm57_system_core__GetDataFault_(void);
 
 	/** @fn void _coreClearDataFault_(void)
 	*   @brief Clear core data fault status register
 	*/
-	void _coreClearDataFault_(void);
+	void _rm4_system_core__ClearDataFault_(void);
 
 	/** @fn Luint32 _coreGetInstructionFault_(void)
 	*   @brief Get core instruction fault status register
@@ -353,34 +381,35 @@
 	*                            - 0: AXI Decode Error (DECERR)
 	*                            - 1: AXI Slave Error (SLVERR)
 	*/
-	Luint32 _coreGetInstructionFault_(void);
+	Luint32 _rm4_system_core__GetInstructionFault_(void);
 
 	/** @fn void _coreClearInstructionFault_(void)
 	*   @brief Clear core instruction fault status register
 	*/
-	void _coreClearInstructionFault_(void);
+	void _rm4_system_core__ClearInstructionFault_(void);
 
 	/** @fn Luint32 _coreGetDataFaultAddress_(void)
 	*   @brief Get core data fault address register
 	*   @return The function will return the data fault address:
 	*/
-	Luint32 _coreGetDataFaultAddress_(void);
+	Luint32 _rm4_system_core__GetDataFaultAddress_(void);
+	Luint32 _rm57_system_core__GetDataFaultAddress_(void);
 
 	/** @fn void _coreClearDataFaultAddress_(void)
 	*   @brief Clear core data fault address register
 	*/
-	void _coreClearDataFaultAddress_(void);
+	void _rm4_system_core__ClearDataFaultAddress_(void);
 
 	/** @fn Luint32 _coreGetInstructionFaultAddress_(void)
 	*   @brief Get core instruction fault address register
 	*   @return The function will return the instruction fault address:
 	*/
-	Luint32 _coreGetInstructionFaultAddress_(void);
+	Luint32 _rm4_system_core__GetInstructionFaultAddress_(void);
 
 	/** @fn void _coreClearInstructionFaultAddress_(void)
 	*   @brief Clear core instruction fault address register
 	*/
-	void _coreClearInstructionFaultAddress_(void);
+	void _rm4_system_core__ClearInstructionFaultAddress_(void);
 
 	/** @fn Luint32 _coreGetAuxiliaryDataFault_(void)
 	*   @brief Get core auxiliary data fault status register
@@ -398,12 +427,12 @@
 	*           - bit [27..24]:
 	*                            - Cache way or way in which error occurred
 	*/
-	Luint32 _coreGetAuxiliaryDataFault_(void);
+	Luint32 _rm4_system_core__GetAuxiliaryDataFault_(void);
 
 	/** @fn void _coreClearAuxiliaryDataFault_(void)
 	*   @brief Clear core auxiliary data fault status register
 	*/
-	void _coreClearAuxiliaryDataFault_(void);
+	void _rm4_system_core__ClearAuxiliaryDataFault_(void);
 
 	/** @fn Luint32 _coreGetAuxiliaryInstructionFault_(void)
 	*   @brief Get core auxiliary instruction fault status register
@@ -421,12 +450,12 @@
 	*           - bit [27..24]:
 	*                            - Cache way or way in which error occurred
 	*/
-	Luint32 _coreGetAuxiliaryInstructionFault_(void);
+	Luint32 _rm4_system_core__GetAuxiliaryInstructionFault_(void);
 
 	/** @fn void _coreClearAuxiliaryInstructionFault_(void)
 	*   @brief Clear core auxiliary instruction fault status register
 	*/
-	void _coreClearAuxiliaryInstructionFault_(void);
+	void _rm4_system_core__ClearAuxiliaryInstructionFault_(void);
 
 	/** @fn void _disable_interrupt_(void)
 	*   @brief Disable IRQ and FIQ Interrupt u32Mode in CPSR register

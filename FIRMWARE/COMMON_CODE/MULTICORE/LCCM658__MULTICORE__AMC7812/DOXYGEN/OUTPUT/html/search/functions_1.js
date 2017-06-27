@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['s16amc7812_5fi2c_5f_5freadu16',['s16AMC7812_I2C__ReadU16',['../group___a_m_c7812_____i2_c.html#gad25046f8079eff0aa0f3b6f6bcd4e8d1',1,'s16AMC7812_I2C__ReadU16(Luint8 u8DeviceAddx, Luint8 u8RegAddx, Luint16 *pu16Value):&#160;amc7812__i2c.c'],['../group___a_m_c7812_____i2_c.html#gad25046f8079eff0aa0f3b6f6bcd4e8d1',1,'s16AMC7812_I2C__ReadU16(Luint8 u8DeviceAddx, Luint8 u8RegAddx, Luint16 *pu16Value):&#160;amc7812__i2c.c']]],
+  ['s16amc7812_5fi2c_5f_5ftxcommand',['s16AMC7812_I2C__TxCommand',['../group___a_m_c7812_____i2_c.html#gaafa7f007f6296f444df7c98af196fec0',1,'s16AMC7812_I2C__TxCommand(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx):&#160;amc7812__i2c.c'],['../group___a_m_c7812_____i2_c.html#gaafa7f007f6296f444df7c98af196fec0',1,'s16AMC7812_I2C__TxCommand(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx):&#160;amc7812__i2c.c']]],
+  ['s16amc7812_5fi2c_5f_5fwriteu16',['s16AMC7812_I2C__WriteU16',['../group___a_m_c7812_____i2_c.html#ga04321d2631665d469fedfdf815c950de',1,'s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint16 u16Value):&#160;amc7812__i2c.c'],['../group___a_m_c7812_____i2_c.html#ga04321d2631665d469fedfdf815c950de',1,'s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint16 u16Value):&#160;amc7812__i2c.c']]]
+];

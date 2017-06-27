@@ -77,7 +77,12 @@
 	void vRM4_BIST__SelfCheck(void);
 
 	//errata
-	void errata_PBIST_4(void);
+	void vRM4_BIST__errata_PBIST_4(void);
+	void vRM57_BIST__errata_PBIST_4(void);
+
+	#define PBISTERRATA_FAIL1         1U
+	#define PBISTERRATA_FAIL2         2U
+	#define PBISTERRATA_FAIL3         3U
 
 
 

@@ -49,7 +49,7 @@ void vFCU_LASEROPTO__Init(void)
 	Luint8 u8Test;
 
 	sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__RESET;
-	vFAULTTREE__Init(&sFCU.sLaserOpto.sFaultFlags);
+	vSIL3_FAULTTREE__Init(&sFCU.sLaserOpto.sFaultFlags);
 
 	//reset everything that is needed
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
@@ -70,23 +70,23 @@ void vFCU_LASEROPTO__Init(void)
 
 		sFCU.sLaserOpto.sCalibration[u8Counter].f32Offset = 0.0F;
 
-		vFAULTTREE__Init(&sFCU.sLaserOpto.sOptoLaser[u8Counter].sFaultFlags);
+		vSIL3_FAULTTREE__Init(&sFCU.sLaserOpto.sOptoLaser[u8Counter].sFaultFlags);
 
 
 	}//for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
 
 	//check the CRC
-	u8Test = u8EEPARAM_CRC__Is_CRC_OK(	C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO,
+	u8Test = u8SIL3_EEPARAM_CRC__Is_CRC_OK(	C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO,
 										C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO,
 										C_LOCALDEF__LCCM655__FCTL_OPTONCDT___CRC);
 
 	if(u8Test == 1U)
 	{
 		//valid
-		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FL_INDEX].f32Offset = f32EEPARAM__Read(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO);
-		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FR_INDEX].f32Offset = f32EEPARAM__Read(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FR_ZERO);
-		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RL_INDEX].f32Offset = f32EEPARAM__Read(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RL_ZERO);
-		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RR_INDEX].f32Offset = f32EEPARAM__Read(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO);
+		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FL_INDEX].f32Offset = f32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO);
+		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FR_INDEX].f32Offset = f32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FR_ZERO);
+		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RL_INDEX].f32Offset = f32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RL_ZERO);
+		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RR_INDEX].f32Offset = f32SIL3_EEPARAM__Read(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO);
 
 	}//if(u8Test == 1U)
 	else
@@ -100,19 +100,19 @@ void vFCU_LASEROPTO__Init(void)
 		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RR_INDEX].f32Offset =	1.0F;
 
 		//do the eeprom
-		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FL_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
-		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FR_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FR_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
-		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RL_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RL_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
-		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RR_INDEX].f32Offset, DELAY_T__IMMEDIATE_WRITE);
+		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FL_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
+		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FR_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FR_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
+		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RL_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RL_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
+		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RR_INDEX].f32Offset, DELAY_T__IMMEDIATE_WRITE);
 
 		//redo the CRC;
-		vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO,
+		vSIL3_EEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO,
 											C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO,
 											C_LOCALDEF__LCCM655__FCTL_OPTONCDT___CRC);
 
 		//set the flags for a general fault and cal data reload fault.
-		vFAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, 0);
-		vFAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, 1);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, 0);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, 1);
 
 	}//else if(u8Test == 1U)
 
@@ -145,13 +145,13 @@ void vFCU_LASEROPTO__Set_CalValue(Luint32 u32Key, Lfloat32 f32Offset)
 		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RR_INDEX].f32Offset = f32Temp;
 
 		//do the eeprom
-		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FL_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
-		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FR_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FR_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
-		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RL_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RL_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
-		vEEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RR_INDEX].f32Offset, DELAY_T__IMMEDIATE_WRITE);
+		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FL_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
+		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FR_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FR_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
+		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RL_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RL_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
+		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RR_INDEX].f32Offset, DELAY_T__IMMEDIATE_WRITE);
 
 		//redo the CRC;
-		vEEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO,
+		vSIL3_EEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO,
 											C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO,
 											C_LOCALDEF__LCCM655__FCTL_OPTONCDT___CRC);
 
@@ -209,7 +209,7 @@ void vFCU_LASEROPTO__Process(void)
 			for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
 			{
 				//send the command
-				vSC16__Tx_ByteArray(u8Counter, (Luint8*)"\r\nOUTPUT RS422\r\n", 16U);
+				vSIL3_SC16__Tx_ByteArray(u8Counter, (Luint8*)"\r\nOUTPUT RS422\r\n", 16U);
 			}
 			//todo:
 			//Check that the laser is in the mode.
@@ -234,7 +234,7 @@ void vFCU_LASEROPTO__Process(void)
 				for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
 				{
 					//see if there is at least one byte of data avail in the FIFO's
-					u8Temp = u8SC16_USER__Get_ByteAvail(u8Counter);
+					u8Temp = u8SIL3_SC16_USER__Get_ByteAvail(u8Counter);
 					if(u8Temp == 0U)
 					{
 						//no new data
@@ -244,7 +244,7 @@ void vFCU_LASEROPTO__Process(void)
 						//yep some new laser data avail, what to do with it?
 
 						//get the byte and send it off for processing if we have enough data
-						u8Temp = u8SC16_USER__Get_Byte(u8Counter);
+						u8Temp = u8SIL3_SC16_USER__Get_Byte(u8Counter);
 
 						//process the byte.
 						vFCU_LASEROPTO__Append_Byte((E_FCU__LASER_OPTO__INDEX_T)u8Counter, u8Temp);
@@ -386,12 +386,12 @@ void vFCU_LASEROPTO__Process_Packet(E_FCU__LASER_OPTO__INDEX_T eLaser)
 			sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sCounters.u32ErrorCode++;
 
 
-			vFAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, 2);
+			vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, 2);
 		}
 		else
 		{
 
-			vFAULTTREE__Clear_Flag(&sFCU.sLaserOpto.sFaultFlags, 2);
+			vSIL3_FAULTTREE__Clear_Flag(&sFCU.sLaserOpto.sFaultFlags, 2);
 
 			//convert
 			f32Temp = (Lfloat32)u32ValA;

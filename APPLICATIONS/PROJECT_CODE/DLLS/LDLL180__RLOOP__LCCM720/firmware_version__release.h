@@ -1,0 +1,9 @@
+#ifndef _FWVERREL_H_
+#define _FWVERREL_H_
+
+	#define C_FIRMWARE_VERSION_LFW 0
+	#define C_FIRMWARE_VERSION_MAJOR 0
+	#define C_FIRMWARE_VERSION_MINOR 0
+
+#endif //FWVERREL_H_
+

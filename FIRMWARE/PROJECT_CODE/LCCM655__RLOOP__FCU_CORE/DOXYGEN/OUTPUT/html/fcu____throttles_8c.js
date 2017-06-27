@@ -1,6 +1,29 @@
 var fcu____throttles_8c =
 [
+    [ "ALL_HES", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#gab2fe2ea2007821af8cb730c9ca7a7455", null ],
+    [ "FCU_MODE", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga13b4bfa49247ab09789a67804bc889c4", null ],
+    [ "GS_COMMAND_MODE", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga8c1489224d539d036ef36a4cef923a06", null ],
+    [ "GS_COMMAND_UNITS", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga0e2fbc793def868231b8d8611849c775", null ],
+    [ "GS_ENGINE_NUMBER", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#gabb510d169340751b3d5f8c00f116461f", null ],
+    [ "GS_THROTTLE_COMMAND", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga532adbcaadd72c72258bdeda15352a6f", null ],
+    [ "GS_THROTTLE_RAMP_DURATION", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga8161b9fe01558e611d45951ae4e4dd79", null ],
+    [ "HOVER_ENGINE_MAXIMUM_SPEED", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#gaab47081f0174413f75bcc3e449795473", null ],
+    [ "HOVER_ENGINE_MINIMUM_SPEED", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#gab79ee9eca1c38a2fdd70cf633ea50277", null ],
+    [ "HOVER_ENGINE_STANDBY_SPEED", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga1b35458b37fd3fe501d2dd5dec0dc9f4", null ],
+    [ "HOVER_ENGINE_STATIC_HOVER_SPEED", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga713715956a7d9844d78ae1305017df76", null ],
+    [ "RAMP_DONE", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga8daa2a02e7ca6115c9e30bc3cd31110a", null ],
+    [ "THROTTLE_RAMP_TIMER_INTERVAL", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#gabc8070054ea2fa9b2c7f637cb0083f22", null ],
+    [ "u16THROTTLE_TOL", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga78003c482797d8edb97284145b9a78b6", null ],
+    [ "f32FCU_THROTTLE__RPM_To_Volts", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga93f74b2ab5309b8db0758b9cbb8dc3d7", null ],
+    [ "u16FCU_THROTTLE__Compute_RPM_StepDown", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga5b2317f2630076dc1132d0279f3b8d84", null ],
+    [ "u16FCU_THROTTLE__Compute_RPM_StepUp", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#gad8bf8af6b02ea10d1fcca47ab0b6904d", null ],
+    [ "vFCU_THROTTLE__100MS_ISR", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#gaccd6ddcbd718e45ded00f7e0dbf601af", null ],
+    [ "vFCU_THROTTLE__Enable_Run", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga8852e137ed12f327c7f885651777db99", null ],
     [ "vFCU_THROTTLE__Init", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#gaa222734e1ef90fdde25b4b740093f1c1", null ],
     [ "vFCU_THROTTLE__Process", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga9b49d8917218e0a1cde9abfb81cf7288", null ],
-    [ "sFCU", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#gacb2c3ba9e6006730b118d98d460b89c5", null ]
+    [ "vFCU_THROTTLE__Set_Throttle", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga565be6a551431f3d38a58c4ee9b5d51f", null ],
+    [ "sFCU", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#gacb2c3ba9e6006730b118d98d460b89c5", null ],
+    [ "u16InitThrottleCommand", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#gabce133b2a850487ff494690ba42814b8", null ],
+    [ "u16LastThrottleCommandValue", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#gade783f6d898e2247ec6ff2b3e15999b6", null ],
+    [ "u16LastThrottleSetPoint", "group___f_c_u_____t_h_r_o_t_t_l_e_s.html#ga4cd9dead567e6814226867508b7c8de5", null ]
 ];
