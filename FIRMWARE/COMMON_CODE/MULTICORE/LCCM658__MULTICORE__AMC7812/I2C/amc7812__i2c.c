@@ -110,7 +110,7 @@ Lint16 s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luin
 
 	u8ArrayLength = 2U;
 	s16Return = -1;
-	s16Return = s16RM4_I2C_USER__TxByteArray(u8DeviceAddx, u8RegisterAddx, &u8Array[0], u8ArrayLength);
+	s16Return = s16RM4_I2C_USER__Tx_U8Array(u8DeviceAddx, u8RegisterAddx, &u8Array[0], u8ArrayLength);
 
 
 #else
@@ -154,7 +154,7 @@ Lint16 s16AMC7812_I2C__ReadU16(Luint8 u8DeviceAddx, Luint8 u8RegAddx, Luint16 *p
 
 	u8ArrayLength = 2U;
 
-	s16Return = s16RM4_I2C_USER__RxByteArray(u8DeviceAddx, u8RegAddx, &u8Array[0], 	u8ArrayLength);
+	s16Return = s16RM4_I2C_USER__Rx_U8Array(u8DeviceAddx, u8RegAddx, &u8Array[0], 	u8ArrayLength);
 
 	//Map
 	unT2.u8[1] = u8Array[0];

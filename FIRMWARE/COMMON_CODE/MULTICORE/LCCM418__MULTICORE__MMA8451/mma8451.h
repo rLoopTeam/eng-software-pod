@@ -236,7 +236,7 @@
 	//only some functions avail with gforce options.
 	#if C_LOCALDEF__LCCM418__ENABLE_G_FORCE == 1U
 		void vMMA8451_MATH__Process_GForce(Luint8 u8DeviceIndex);
-		Lfloat32 f32MMA8451_MATH__Get_GForce(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis);
+		Lfloat32 f32SIL3_MMA8451_MATH__Get_GForce(Luint8 u8DeviceIndex, MMA8451__AXIS_E eAxis);
 		void vMMA8451_MATH__Calculate_Roll_Z(Luint8 u8DeviceIndex);
 		void vMMA8451_MATH__Calculate_InclineXY(Luint8 u8DeviceIndex);
 		Lfloat32 f32MMA8451_MATH__Get_PitchAngle(Luint8 u8DeviceIndex);

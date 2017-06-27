@@ -23,7 +23,7 @@ Lint16 s16MS5607_I2C__TxU8(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint8
 
 #ifndef WIN32
 	//Tx a byte
-	s16Return = s16RM4_I2C_USER__TxByte(u8DeviceAddx, (Luint8)eRegister, u8Byte);
+	s16Return = s16RM4_I2C_USER__Tx_U8(u8DeviceAddx, (Luint8)eRegister, u8Byte);
 #else
 	//fake on win32
 	s16Return = 0;
@@ -43,7 +43,7 @@ Lint16 s16MS5607_I2C__RxU16(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint
 
 	//read two bytes
 #ifndef WIN32
-	s16Return = s16RM4_I2C_USER__RxByteArray(u8DeviceAddx, (Luint8)eRegister, &u8Temp[0], 2U);
+	s16Return = s16RM4_I2C_USER__Rx_U8Array(u8DeviceAddx, (Luint8)eRegister, &u8Temp[0], 2U);
 
 	//swap
 	unT.u8[0] = u8Temp[1];
@@ -71,7 +71,7 @@ Lint16 s16MS5607_I2C__RxU24(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister, Luint
 
 	//read three bytes
 #ifndef WIN32
-	s16Return = s16RM4_I2C_USER__RxByteArray(u8DeviceAddx, (Luint8)eRegister, &u8Temp[0], 3U);
+	s16Return = s16RM4_I2C_USER__Rx_U8Array(u8DeviceAddx, (Luint8)eRegister, &u8Temp[0], 3U);
 
 	//mapping
 	unT.u8[0] = u8Temp[2];
