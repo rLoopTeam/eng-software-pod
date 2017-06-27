@@ -13,7 +13,7 @@
 #if 0
 
 /*******************************************************************************
-RM4 High End Timers (HET)
+SIL3 - RM4 N2HET DRIVER
 General Configuration
 HR Clock = 100MHZ
 VCLK2 = 100Mhz, Actual HR Clock = 100MHZ

@@ -34,16 +34,29 @@
 		Refer to the device datasheet for electrical and timing specifications related to the flash module.
 	*/
 
-	#define C_LCCM320__FLASH_START_ADDX		0xF0200000U
-	#define C_LCCM320__FLASH_BANK			7U
-	#define C_LCCM320__FLASH_NUM_SECTORS	4U
-	#define C_LCCM320__FLASH_SECTOR_SIZE_BYTES		0x4000U
-	#define C_LCCM320__FLASH_SIZE_U32S		0x1000U
+	#if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
+		#define C_LCCM320__FLASH_START_ADDX					0xF0200000U
+		#define C_LCCM320__FLASH_BANK						7U
+		#define C_LCCM320__FLASH_NUM_SECTORS				32U
+		#define C_LCCM320__FLASH_SECTOR_SIZE_BYTES			0x1000U
+		#define C_LCCM320__FLASH_SIZE_U32S					0x0400U
+		#define C_LCCM320__FLASH_SECTOR_0__START_ADDX		0xF0200000U
+		#define C_LCCM320__FLASH_SECTOR_1__START_ADDX		0xF0201000U
+		#define C_LCCM320__FLASH_SECTOR_2__START_ADDX		0xF0202000U
+		#define C_LCCM320__FLASH_SECTOR_3__START_ADDX		0xF0203000U
+	#else
+		#define C_LCCM320__FLASH_START_ADDX					0xF0200000U
+		#define C_LCCM320__FLASH_BANK						7U
+		#define C_LCCM320__FLASH_NUM_SECTORS				4U
+		#define C_LCCM320__FLASH_SECTOR_SIZE_BYTES			0x4000U
+		#define C_LCCM320__FLASH_SIZE_U32S					0x1000U
+		#define C_LCCM320__FLASH_SECTOR_0__START_ADDX		0xF0200000U
+		#define C_LCCM320__FLASH_SECTOR_1__START_ADDX		0xF0204000U
+		#define C_LCCM320__FLASH_SECTOR_2__START_ADDX		0xF0208000U
+		#define C_LCCM320__FLASH_SECTOR_3__START_ADDX		0xF020C000U
+	#endif
 
-	#define C_LCCM320__FLASH_SECTOR_0__START_ADDX		0xF0200000U
-	#define C_LCCM320__FLASH_SECTOR_1__START_ADDX		0xF0204000U
-	#define C_LCCM320__FLASH_SECTOR_2__START_ADDX		0xF0208000U
-	#define C_LCCM320__FLASH_SECTOR_3__START_ADDX		0xF020C000U
+
 
 
 
@@ -67,10 +80,10 @@
 			/** The fault tree structure */
 			FAULT_TREE__PUBLIC_T sFaultTree;
 
-			//are we init?
+			/** are we init?*/
 			Luint8 u8Init;
 
-			//Is our memory buffer dirty?
+			/** Is our memory buffer dirty?*/
 			Luint8 u8Dirty;
 
 		}RM4_EEPROM__T;

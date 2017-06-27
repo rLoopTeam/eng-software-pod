@@ -15,12 +15,57 @@
 #define RM4_EMAC__BD_PRIVATE_H_
 
 	/* Packet Flags */
-	#define EMAC_DSC_FLAG_SOP 0x80000000u
-	#define EMAC_DSC_FLAG_EOP 0x40000000u
-	#define EMAC_DSC_FLAG_OWNER 0x20000000u
-	#define EMAC_DSC_FLAG_EOQ 0x10000000u
-	#define EMAC_DSC_FLAG_TDOWNCMPLT 0x08000000u
-	#define EMAC_DSC_FLAG_PASSCRC 0x04000000u
+
+	/* Start of Packet (SOP) Flag
+	 * When set, this flag indicates that the descriptor points to a packet buffer that is the start of a new packet.
+	 * In the case of a single fragment packet, both the SOP and end of packet (EOP) flags are set. Otherwise,
+	 * the descriptor pointing to the last packet buffer for the packet sets the EOP flag. This bit is set by the
+	 * software application and is not altered by the EMAC.
+	 */
+	#define EMAC_DSC_FLAG_SOP							0x80000000u
+
+	/* End of Packet (EOP) Flag
+	 * When set, this flag indicates that the descriptor points to a packet buffer that is last for a given packet. In
+	 * the case of a single fragment packet, both the start of packet (SOP) and EOP flags are set. Otherwise, the
+	 * descriptor pointing to the last packet buffer for the packet sets the EOP flag. This bit is set by the software
+	 * application and is not altered by the EMAC.
+	 */
+	#define EMAC_DSC_FLAG_EOP							0x40000000u
+
+	/* Ownership (OWNER) Flag
+	 * When set, this flag indicates that all the descriptors for the given packet (from SOP to EOP) are currently
+	 * owned by the EMAC. This flag is set by the software application on the SOP packet descriptor before
+	 * adding the descriptor to the transmit descriptor queue. For a single fragment packet, the SOP, EOP, and
+	 * OWNER flags are all set. The OWNER flag is cleared by the EMAC once it is finished with all the
+	 * descriptors for the given packet. Note that this flag is valid on SOP descriptors only.
+	 */
+	#define EMAC_DSC_FLAG_OWNER							0x20000000u
+
+	/* End of Queue (EOQ) Flag
+	 * When set, this flag indicates that the descriptor in question was the last descriptor in the transmit queue
+	 * for a given transmit channel, and that the transmitter has halted. This flag is initially cleared by the
+	 * software application prior to adding the descriptor to the transmit queue. This bit is set by the EMAC when
+	 * the EMAC identifies that a descriptor is the last for a given packet (the EOP flag is set), and there are no
+	 * more descriptors in the transmit list (next descriptor pointer is NULL).
+	 * The software application can use this bit to detect when the EMAC transmitter for the corresponding
+	 * channel has halted. This is useful when the application appends additional packet descriptors to a transmit
+	 * queue list that is already owned by the EMAC. Note that this flag is valid on EOP descriptors only.
+	 */
+	#define EMAC_DSC_FLAG_EOQ							0x10000000u
+
+	#define EMAC_DSC_FLAG_TDOWNCMPLT					0x08000000u
+
+	/* Pass CRC (PASSCRC) Flag
+	 * This flag is set by the software application in the SOP packet descriptor before it adds the descriptor to the
+	 * transmit queue. Setting this bit indicates to the EMAC that the 4 byte Ethernet CRC is already present in
+	 * the packet data, and that the EMAC should not generate its own version of the CRC.
+	 * When the CRC flag is cleared, the EMAC generates and appends the 4-byte CRC. The buffer length and
+	 * packet length fields do not include the CRC bytes. When the CRC flag is set, the 4-byte CRC is supplied
+	 * by the software application and is already appended to the end of the packet data. The buffer length and
+	 * packet length fields include the CRC bytes, as they are part of the valid packet data. Note that this flag is
+	 * valid on SOP descriptors only.
+	 */
+	#define EMAC_DSC_FLAG_PASSCRC						0x04000000u
 	#define EMAC_DSC_FLAG_JABBER 0x02000000u
 	#define EMAC_DSC_FLAG_OVERSIZE 0x01000000u
 	#define EMAC_DSC_FLAG_FRAGMENT 0x00800000u
