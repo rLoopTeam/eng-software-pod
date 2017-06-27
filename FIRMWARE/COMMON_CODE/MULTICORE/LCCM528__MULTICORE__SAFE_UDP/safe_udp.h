@@ -19,6 +19,9 @@
 	#include <localdef.h>
 	#if C_LOCALDEF__LCCM528__ENABLE_THIS_MODULE == 1U
 
+		/*******************************************************************************
+		Includes
+		*******************************************************************************/
 		#include <MULTICORE/LCCM528__MULTICORE__SAFE_UDP/safe_udp__packet_types.h>
 		#include <MULTICORE/LCCM528__MULTICORE__SAFE_UDP/safe_udp__types.h>
 

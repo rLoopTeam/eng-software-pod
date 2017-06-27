@@ -30,6 +30,8 @@ SIL3 - STEP MOTOR DRIVER AND MOVEMENT PLANNER
 		#define C_LOCALDEF__LCCM231__STEP_VIA_GEKO							(0U)
 		#define C_LOCALDEF__LCCM231__STEP_VIA_WIN32							(0U)
 
+		/** Can switch off the need to EEPROM storage */
+		#define C_LOCALDEF__LCCM231__DISABLE_EEPROM							(0U)
 
 		//value in seconds of the time base being used
 		//10uS is a good value
@@ -45,6 +47,10 @@ SIL3 - STEP MOTOR DRIVER AND MOVEMENT PLANNER
 		//if you have USB, or other modules that want to use the USB
 		//there are some system level functions that you will want to use
 		#define C_LOCALDEF__LCCM231__ENABLE_USB_FUNCTIONS					(0U)
+
+		/** Enable Ethernet control */
+		#define C_LOCALDEF__LCCM231__ENABLE_ETH_FUNCTIONS					(0U)
+
 
 		//enable text debugging
 		#define C_LOCALDEF__LCCM231__ENABLE_TEXT_DEBUG						(1U)
@@ -95,7 +101,7 @@ SIL3 - STEP MOTOR DRIVER AND MOVEMENT PLANNER
 		//Value in rev / square second
 		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MAX_ACCELERATION 			100
 		//Value in mm / rev
-		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MILIMITERS_PER_REVOLUTION 4
+		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MICRONS_PER_REVOLUTION 4
 		//number of steps per revolution [Integer]
 		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_STEPS_PER_REVOLUTION 		200
 		//Value in RPMs [Integer]
@@ -108,7 +114,7 @@ SIL3 - STEP MOTOR DRIVER AND MOVEMENT PLANNER
 			#define C_LOCALDEF__LCCM231__ALL_RESETS_COMMON						(1U)
 
 			#if C_LOCALDEF__LCCM231__ALL_RESETS_COMMON == 1
-				#if C_LOCALDEF__LCCM231__USE_ON_PIC32 == 1
+				#if (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__PIC32MX575F256L == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__PIC32MX460F512L == 1U)
 					#define C_LOCALDEF__LCCM231__COMMON_RESET_TRIS()			{TRISDbits.TRISD0 = 0);
 					#define C_LOCALDEF__LCCM231__COMMON_RESET_LATCH(x)			LATDbits.LATD0 = x
 				#elif (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM42L432 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM46L852 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM48L952 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U)

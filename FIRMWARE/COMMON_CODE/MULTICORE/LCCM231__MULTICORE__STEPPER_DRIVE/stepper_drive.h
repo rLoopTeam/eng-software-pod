@@ -24,9 +24,18 @@
 		*******************************************************************************/
 		#include <MULTICORE/LCCM118__MULTICORE__NUMERICAL/numerical__structs.h>
 
+		#if C_LOCALDEF__LCCM231__ENABLE_ETH_FUNCTIONS == 1U
+			#include <MULTICORE/LCCM528__MULTICORE__SAFE_UDP/safe_udp__types.h>
+			#include <MULTICORE/LCCM528__MULTICORE__SAFE_UDP/safe_udp__packet_types.h>
+		#endif
+
 		/*******************************************************************************
 		Defines
 		*******************************************************************************/
+		//Absolute maximum number of motors supported here, change this and lots of things
+		//in addition will need to change.
+		#define C_STEPDRIVE__ABS_MAX_NUM_MOTORS										(6U)
+
 
 		//the floating point type
 		#ifndef C_LOCALDEF__LCCM231__USE_F64
@@ -129,7 +138,7 @@
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
-		struct _strStepDrive
+		typedef struct
 		{
 			//our two important positions
 			struct
@@ -140,10 +149,10 @@
 					Lint32 s32Home_PicoMeters;
 
 					/** The starting point before the move begins */
-					Lint32 s32StartWorkPoint_PicoMeters;
+					Lint32 s32StartWorkPoint_pm;
 
-					/** Holds the current position (working position) */
-					Lint32 s32WorkPoint_PicoMeters;
+					/** Holds the current position (working position) in um*10 */
+					Lint32 s32WorkPoint_pm;
 
 				}sAxis[C_LOCALDEF__LCCM231__NUMBER_OF_MOTORS];
 
@@ -197,21 +206,29 @@
 				
 				struct
 				{
-					/** the target, either angle or linear posistion */
-					Lint32 s32Target_microns;
+					/** the target linear position absolute */
+					Lint32 s32TargetAbsolutePosition_um;
 
 					/** holds the displacement vector
 					 * Displacement is from current position to new position*/
-					Lint32 s32TargetDisplacementVector_microns;
+					Lint32 s32TargetDisplacementVector_um;
 
-					/** holds the velocity relative to each component or axis */
-					Lint32 s32TargetVeloc;
+					/** Computed dispacement vector in pm*/
+					Lint32 s32TargetDisplacementVector_pm;
 
-					/** holds the acceleration relative to each component or axis */
-					Lint32 s32TargetAccel;
+					/** holds the velocity relative to each component or axis
+					 * POSITIVE ONLY */
+					Lint32 s32TargetVeloc_um_s;
+
+					/** holds the acceleration relative to each component or axis
+					 * POSITIVE ONLY */
+					Lint32 s32TargetAccel_um_s2;
 
 					/** Can the Axis move in this move request */
 					Luint8 u8AxisCanMove;
+
+					/** The computed sign of the movement */
+					Lint32 s32SignOfMovement;
 
 				}sAxis[C_LOCALDEF__LCCM231__NUMBER_OF_MOTORS];
 
@@ -236,19 +253,39 @@
 					Lint32 s32PrevSignOfMovement;
 
 					/** Microns per step
-					 * Needs to be X10 becase on a 5mm lead screw we have 2.5um/pulse.
+					 * Needs to be pm not um because on a 5mm lead screw we have 2.5um/pulse.
 					 */
-					Lint32 s32PicoMeters_PerStep;
+					Lint32 s32Picometers_Per_Step;
 
 					/** Number of pulses for the entire movement */
-					Luint32 u32NumPulses;
+					Luint32 u32NumPulses_Entire_Movement;
 				
 					/** the angular veloc required. */
-					Lint32 s32AngularVelocity;
+					Lint32 s32AngularVelocity_rev_s;
 
-					Lint32 s32AngularAccel;
+					Lint32 s32AngularAccel_rev_s2;
 
 					Luint32 u32MicroStepsPerRevolution;
+
+					/** Stats on the movement */
+					struct
+					{
+
+						/** Has the velocity been limited by the movement request */
+						Luint8 u8LinearVelocLimit;
+
+						/** Has the linear accel been limited by the movement request */
+						Luint8 u8LinearAccelLimit;
+
+						/** Has the RPM been limited by the motor settings */
+						Luint8 u8AngularVelocLimit;
+
+						/** Has the angular accel been limited by the move */
+						Luint8 u8AngularAccelLimit;
+
+
+					}sStats;
+
 
 				}sAxis[C_LOCALDEF__LCCM231__NUMBER_OF_MOTORS];
 
@@ -279,8 +316,8 @@
 					Luint32 u32Current_PulsesDecel;
 
 					//store the values for the current movement
-					Lint32 s32AngularVelocity;
-					Lint32 s32AngularAcceleration;
+					Lint32 s32AngularVelocity_rev_s;
+					Lint32 s32AngularAcceleration_rev_s2;
 					Luint32 u32MicroStepsPerRevolution;
 			
 					//Stores the number of steps that must be rotated in the current instruction
@@ -361,7 +398,7 @@
 			{
 							
 				//Maximum Angular Acceleration
-				Lint32 s32Max_AngularAccel;
+				Lint32 s32Max_AngularAccel_rev_s2;
 				
 				/** The number of picometers per step of the motor.
 				 * We need pm as opposed to um because with a 5mm lead screw we can have 2.5um/step and this causes
@@ -375,7 +412,7 @@
 				Luint32 u32Steps_Rev;
 				
 				/** The maximum angular velocity, should be about 400 */
-				Lint32 s32Max_RPM;
+				Lint32 s32Max_AngularVeloc_rev_min;
 				
 
 			}sParams[C_LOCALDEF__LCCM231__NUMBER_OF_MOTORS];
@@ -395,7 +432,7 @@
 			}sWIN32;
 			#endif
 			
-		}; //stepper
+		}TS_STEPDRIVE_MAIN;
 
 		/*******************************************************************************
 		Function Prototypes
@@ -403,7 +440,7 @@
 		void vSIL3_STEPDRIVE__Init(void);
 		void vSIL3_STEPDRIVE__Process(void);
 		Lint16 s16SIL3_STEPDRIVE_POSITION__Set_Position(Lint32 * ps32XYZABC_microns, Lint32 * ps32Velocity_microns_sec, Lint32 * ps32Accel_microns_ss, Luint32 u32TaskID);
-		Lint32 s32SIL3_STEPDRIVE_POSITION__Get_Position(Luint8 u8AxisIndex);
+		Lint32 s32SIL3_STEPDRIVE_POSITION__Get_PositionPicometers(Luint8 u8AxisIndex);
 		Luint8 u8SIL3_STEPDRIVE__Get_TaskComplete(void);
 		void vSIL3_STEPDRIVE__Set_TaskComplete(void);
 		void vSIL3_STEPDRIVE__Clear_TaskComplete(void);
@@ -429,6 +466,7 @@
 		//memory
 		void vSIL3_STEPDRIVE_MEM__Init(void);
 		Lint32 s32SIL3_STEPDRIVE_MEM__Get_PicoMeters_PerRev(Luint8 u8MotorIndex);
+		Lint32 s32SIL3_STEPDRIVE_MEM__Get_MicronsPerRev(Luint8 u8MotorIndex);
 		Luint32 u32SIL3_STEPDRIVE_MEM__Get_StepsPerRevolution(Luint8 u8MotorIndex);
 		Luint8 u8SIL3_STEPDRIVE_MEM__Get_MicroStepResolution(Luint8 u8MotorIndex);
 		Lint32 s32SIL3_STEPDRIVE_MEM__Get_MaxAngularAcceleration(Luint8 u8MotorIndex);
@@ -436,7 +474,7 @@
 
 		void vSIL3_STEPDRIVE_MEM__Set_MicroStepResolution(Luint8 u8MotorIndex, Luint8 u8Value);
 		void vSIL3_STEPDRIVE_MEM__Set_MaxAngularAccel(Luint8 u8MotorIndex, Lint32 s32Value);
-		void vSIL3_STEPDRIVE_MEM__Set_PicoMeters_PerRev(Luint8 u8MotorIndex, Lint32 s32Value);
+		void vSIL3_STEPDRIVE_MEM__Set_MicronsPerRev(Luint8 u8MotorIndex, Lint32 s32Value);
 		void vSIL3_STEPDRIVE_MEM__Set_MaxRPM(Luint8 u8MotorIndex, Lint32 s32Value);
 
 		//home position
@@ -463,6 +501,7 @@
 		void vSIL3_STEPDRIVE_AXIS__Init(void);
 		void vSIL3_STEPDRIVE_AXIS__Set_AxisToMove(Luint8 u8AxisIndex);
 		Luint8 u8SIL3_STEPDRIVE_AXIS__Get_AxisDirection(Luint8 u8AxisIndex);
+		Luint8 u8SIL3_STEPDRIVE_AXIS__Get_LimitFlags(Luint8 u8AxisIndex);
 		void vSIL3_STEPDRIVE_AXIS__Process(void);
 
 		//acceleration_profile.c
@@ -471,7 +510,7 @@
 		Lint16 s16SIL3_STEPDRIVE_ACCEL__StartRotation(Luint8 u8MotorIndex, Luint32 u32TaskID);
 		Luint8 u8SIL3_STEPDRIVE_ACCEL__Get_Busy(Luint8 u8AxisIndex);
 		Luint8 u8SIL3_STEPDRIVE_ACCEL__Get_CurrentState(Luint8 u8AxisIndex);
-		Luint32 u32SIL3_STEPDRIVE_ACCELL__Get_NumPulsesToRotate(Luint8 u8AxisIndex);
+		Luint32 u32SIL3_STEPDRIVE_ACCEL__Get_NumPulsesToRotate(Luint8 u8AxisIndex);
 		void vSIL3_STEPDRIVE_ACCEL__Update_Ticks__Accel(Luint8 u8AxisIndex);
 		void vSIL3_STEPDRIVE_ACCEL__Update_Ticks__Decel(Luint8 u8AxisIndex);
 
@@ -488,6 +527,14 @@
 		STEP_DRIVE__STEP_STATES_T eSTEPDRIVE_SINGLESTEP__Get_State(Luint8 u8AxisIndex);
 		void vSIL3_STEPDRIVE_SINGLESTEP__ReArm_NextStep(Luint8 u8AxisIndex);
 		
+		//eth interface
+		#if C_LOCALDEF__LCCM231__ENABLE_ETH_FUNCTIONS == 1U
+			void vSIL3_STEPDRIVE_ETH__Init(void);
+			void vSIL3_STEPDRIVE_ETH__Process(void);
+			void vSIL3_STEPDRIVE_ETH__RxUDPSafe(Luint8 *pu8Payload, Luint16 u16PayloadLength, SAFE_UDP__PACKET_T ePayloadType, Luint16 u16DestPort, SAFE_UDP__FAULTS_T ePayloadFault);
+			void vSIL3_STEPDRIVE_ETH__Transmit(SAFE_UDP__PACKET_T ePacketType, Luint32 u32UserValue, Lint32 s32UserValue);
+		#endif
+
 		//low_level.c
 		#if C_LOCALDEF__LCCM231__STEP_VIA_A4988 == 1U
 			void vSIL3_STEPDRIVE_A4988__Init(void);
