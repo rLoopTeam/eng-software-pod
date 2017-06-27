@@ -21,6 +21,12 @@ Change the build settings:
 *******************************************************************************/
 	/*lint -e950 */
 	/*lint -e621 */
+	#ifndef WIN32
+		#include "sil3_generic__cpu.h"
+	#else
+		#include "sil3_generic__cpu_win32.h"
+	#endif
+	
 	//data types
 	#include <RM4/LCCM105__RM4__BASIC_TYPES/basic_types.h>
 
@@ -212,21 +218,21 @@ RM4 GIO MODULE
 
 			#define GIOA_PIN_0_ISR()										vFCU_BRAKES_SW__Left_SwitchRetract_ISR()
 			#define GIOA_PIN_1_ISR()										vFCU_BRAKES_SW__Left_SwitchExtend_ISR()
-			#define GIOA_PIN_2_ISR()										vSC16_INT__Handle_ISR(0U)
-			#define GIOA_PIN_3_ISR()										vSC16_INT__Handle_ISR(1U)
-			#define GIOA_PIN_4_ISR()										vSC16_INT__Handle_ISR(2U)
+			#define GIOA_PIN_2_ISR()										vSIL3_SC16_INT__Handle_ISR(0U)
+			#define GIOA_PIN_3_ISR()										vSIL3_SC16_INT__Handle_ISR(1U)
+			#define GIOA_PIN_4_ISR()										vSIL3_SC16_INT__Handle_ISR(2U)
 			#define GIOA_PIN_5_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_6_ISR()										vMMA8451__ISR(0U)
-			#define GIOA_PIN_7_ISR()										vMMA8451__ISR(1U)
+			#define GIOA_PIN_6_ISR()										vSIL3_MMA8451__ISR(0U)
+			#define GIOA_PIN_7_ISR()										vSIL3_MMA8451__ISR(1U)
 
-			#define GIOB_PIN_0_ISR()										vSC16_INT__Handle_ISR(7U)
-			#define GIOB_PIN_1_ISR()										vSC16_INT__Handle_ISR(3U)
+			#define GIOB_PIN_0_ISR()										vSIL3_SC16_INT__Handle_ISR(7U)
+			#define GIOB_PIN_1_ISR()										vSIL3_SC16_INT__Handle_ISR(3U)
 			#define GIOB_PIN_2_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_3_ISR()										vSC16_INT__Handle_ISR(4U)
+			#define GIOB_PIN_3_ISR()										vSIL3_SC16_INT__Handle_ISR(4U)
 			#define GIOB_PIN_4_ISR()										vRM4_GIO_ISR__DefaultRoutine()
 			#define GIOB_PIN_5_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_6_ISR()										vSC16_INT__Handle_ISR(5U)
-			#define GIOB_PIN_7_ISR()										vSC16_INT__Handle_ISR(8U)
+			#define GIOB_PIN_6_ISR()										vSIL3_SC16_INT__Handle_ISR(5U)
+			#define GIOB_PIN_7_ISR()										vSIL3_SC16_INT__Handle_ISR(8U)
 
 		#endif //#if C_LOCALDEF__LCCM133__ENABLE_INTERRUPTS == 1U
 
@@ -446,12 +452,10 @@ SOFTWARE MULTIPURPOSE FAULT TREE HANDLER
 	
 
 /*******************************************************************************
-NUMERICAL MODULE
+SIL3 - NUMERICAL MODULE
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE == 1U
-
-		#define C_LOCALDEF__LCCM118__USE_ON_DSPIC   						(0U)
 
 		/** set to 1 to include TRIG */
 		#define C_LOCALDEF__LCCM118__ENABLE_TRIG							(1U)
@@ -485,7 +489,7 @@ NUMERICAL MODULE
 
 	
 /*******************************************************************************
-ADC Module
+SIL3 - RM4 ADC DRIVER
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
@@ -828,7 +832,7 @@ RTI MODULE
 		//to a function, otherwise leave as default
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_CALLBACK					vFCU__RTI_100MS_ISR()
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_CALLBACK					vFCU__RTI_10MS_ISR()
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_CALLBACK	 				vSTEPDRIVE_TIMEBASE__ISR()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_CALLBACK	 				vSIL3_STEPDRIVE_TIMEBASE__ISR()
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_3_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
 
 		//Testing options
@@ -859,7 +863,7 @@ SOFTWARE FIFO
 	#endif //C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE
 
 /*******************************************************************************
-SOFTWARE BASED CRC
+SIL3 - SOFTWARE BASED CRC
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM012__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM012__ENABLE_THIS_MODULE == 1U
@@ -896,14 +900,10 @@ SOFTWARE BASED CRC
 
 
 /*******************************************************************************
-SC16IS741 - UART TO SPI MODULE
+SIL3 - SC16IS741 UART TO SPI MODULE
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE == 1U
-
-		//architecture
-		#define C_LOCALDEF__LCCM487__USE_ON_RM4								(1U)
-		#define C_LOCALDEF__LCCM487__USE_ON_MSP430							(0U)
 
 		//configure the number of devices in the system
 		#define C_LOCALDEF__LCCM487__NUM_DEVICES							(8U)
@@ -1010,27 +1010,10 @@ SC16IS741 - UART TO SPI MODULE
 
 
 /*******************************************************************************
-EEPROM BASIC PARAMETERS
+SIL3 - EEPROM BASIC PARAMETERS
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
-
-		//select your architecture
-#ifndef WIN32
-		#define C_LOCALDEF__LCCM188__USE_ON_PIC18							(0U)
-		#define C_LOCALDEF__LCCM188__USE_ON_PIC32							(0U)
-		#define C_LOCALDEF__LCCM188__USE_ON_DSPIC							(0U)
-		#define C_LOCALDEF__LCCM188__USE_ON_RM4 							(1U)
-		#define C_LOCALDEF__LCCM188__USE_ON_MSP430 							(0U)
-		#define C_LOCALDEF__LCCM188__USE_ON_WIN32 							(0U)
-#else
-		#define C_LOCALDEF__LCCM188__USE_ON_PIC18							(0U)
-		#define C_LOCALDEF__LCCM188__USE_ON_PIC32							(0U)
-		#define C_LOCALDEF__LCCM188__USE_ON_DSPIC							(0U)
-		#define C_LOCALDEF__LCCM188__USE_ON_RM4 							(0U)
-		#define C_LOCALDEF__LCCM188__USE_ON_MSP430 							(0U)
-		#define C_LOCALDEF__LCCM188__USE_ON_WIN32 							(1U)
-#endif
 
 		/** Use the EEPRARAMS module with an external FLASH */
 		#define C_LOCALDEF__LCCM188__USE_WITH_LCCM013						(0U)
@@ -1067,16 +1050,10 @@ EEPROM BASIC PARAMETERS
 
 
 /*******************************************************************************
-MCP23S17 DRIVER
+SIL3 - MCP23S17 DRIVER
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM121__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM121__ENABLE_THIS_MODULE == 1U
-
-		//determine the CPU
-		#define C_LOCALDEF__LCCM121__USE_ON_PIC32							(0U)
-		#define C_LOCALDEF__LCCM121__USE_ON_PIC18							(0U)
-		#define C_LOCALDEF__LCCM121__USE_ON_DSPIC							(0U)
-		#define C_LOCALDEF__LCCM121__USE_ON_RM4 							(1U)
 
 		//determine interface
 		#define C_LOCALDEF__LCCM121__USE_I2C 								(0U)
@@ -1105,42 +1082,27 @@ MCP23S17 DRIVER
 
 
 /*******************************************************************************
-STEP MOTOR DRIVER
+SIL3 - STEP MOTOR DRIVER
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM231__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM231__ENABLE_THIS_MODULE == 1U
 
-#ifndef WIN32
-		//determine our architecture
-		#define C_LOCALDEF__LCCM231__USE_ON_PIC32							(0U)
-		#define C_LOCALDEF__LCCM231__USE_ON_RM4								(1U)
-		#define C_LOCALDEF__LCCM231__USE_ON_WIN32							(0U)
-
 		//use f64 if you need the precisions
 		#define C_LOCALDEF__LCCM231__USE_F64								(0U)
 
+#ifndef WIN32
 		//determine the target
 		#define C_LOCALDEF__LCCM231__STEP_VIA_A4988							(0U)
+		#define C_LOCALDEF__LCCM231__STEP_VIA_DRV8711						(0U)
 		#define C_LOCALDEF__LCCM231__STEP_VIA_GEKO							(1U)
 		#define C_LOCALDEF__LCCM231__STEP_VIA_WIN32							(0U)
-
 #else
-		//determine our architecture
-		#define C_LOCALDEF__LCCM231__USE_ON_PIC32							(0U)
-		#define C_LOCALDEF__LCCM231__USE_ON_RM4								(0U)
-		#define C_LOCALDEF__LCCM231__USE_ON_WIN32							(1U)
-
-		//use f64 if you need the precisions
-		#define C_LOCALDEF__LCCM231__USE_F64								(0U)
-
 		//determine the target
 		#define C_LOCALDEF__LCCM231__STEP_VIA_A4988							(0U)
+		#define C_LOCALDEF__LCCM231__STEP_VIA_DRV8711						(0U)
 		#define C_LOCALDEF__LCCM231__STEP_VIA_GEKO							(0U)
 		#define C_LOCALDEF__LCCM231__STEP_VIA_WIN32							(1U)
-
 #endif
-
-
 
 		//value in seconds of the time base being used
 		//50us
@@ -1150,6 +1112,8 @@ STEP MOTOR DRIVER
 		//max number of motors in the system
 		#define C_LOCALDEF__LCCM231__NUMBER_OF_MOTORS						(2U)
 
+		#define C_LOCALDEF__LCCM231__ENABLE_ETH_FUNCTIONS					(0U)
+		
 		//set to 1 to enable USB interface on PIC32 / RM4
 		#define C_LOCALDEF__LCCM231__ENABLE_USB								(0U)
 
@@ -1200,7 +1164,7 @@ STEP MOTOR DRIVER
 		//Value in rev / square second
 		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MAX_ACCELERATION 			100
 		//Value in mm / rev
-		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MILIMITERS_PER_REVOLUTION 4
+		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MICRONS_PER_REVOLUTION 	4000
 		//number of steps per revolution [Integer]
 		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_STEPS_PER_REVOLUTION 		200
 		//Value in RPMs [Integer]
@@ -1211,7 +1175,7 @@ STEP MOTOR DRIVER
 		//Value in rev / square second
 		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MAX_ACCELERATION 			100
 		//Value in mm / rev
-		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MILIMITERS_PER_REVOLUTION 4
+		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MICRONS_PER_REVOLUTION 	4000
 		//number of steps per revolution [Integer]
 		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_STEPS_PER_REVOLUTION 		200
 		//Value in RPMs [Integer]
@@ -1227,26 +1191,10 @@ STEP MOTOR DRIVER
 
 
 /*******************************************************************************
-SOFTWARE I2C LIBRARY
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
-
-		/** I2C Freq*/
-		#define C_LOCALDEF__LCCM668__I2C_FREQ_H								(100000U)
-
-		/** Main include file */
-		#include <MULTICORE/LCCM668__MULTICORE__SOFT_I2C/soft_i2c.h>
-
-	#endif //#if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
-
-/*******************************************************************************
-MMA8451 - 3 AXIS ACCELEROMETER
+SIL3 - MMA8451 3 AXIS ACCELEROMETER
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM418__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM418__ENABLE_THIS_MODULE == 1U
-
-		#define C_LOCALDEF__LCCM418__USE_ON_DSPIC							(0U)
 
 		//Define the number of MMA8451's that are on the I2C Chain (MAX = 2)
 		//Limit if 2 is due to addx pin limit
@@ -1329,35 +1277,31 @@ MMA8451 - 3 AXIS ACCELEROMETER
 
 #if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
 		//I2C PORT DETAILS
-		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16SOFT_I2C_USER__TxByte(device, reg, byt)
-		#define C_LOCALDEF__LCCM418__I2C0_RX_BYTE(device, reg, ptrByte)			s16SOFT_I2C_USER__RxByte(device, reg, ptrByte)
-		#define C_LOCALDEF__LCCM418__I2C0_RX_ARRAY(device, reg, pArray, len) 	s16SOFT_I2C_USER__RxByteArray(device, reg, pArray, len)
+		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16SOFT_I2C_USER__Tx_U8(device, reg, byt)
+		#define C_LOCALDEF__LCCM418__I2C0_RX_BYTE(device, reg, ptrByte)			s16SOFT_I2C_USER__Rx_U8(device, reg, ptrByte)
+		#define C_LOCALDEF__LCCM418__I2C0_RX_ARRAY(device, reg, pArray, len) 	s16SOFT_I2C_USER__Rx_U8Array(device, reg, pArray, len)
 
-		#define C_LOCALDEF__LCCM418__I2C1_TX_BYTE(device, reg, byt) 			s16SOFT_I2C_USER__TxByte(device, reg, byt)
-		#define C_LOCALDEF__LCCM418__I2C1_RX_BYTE(device, reg, ptrByte)			s16SOFT_I2C_USER__RxByte(device, reg, ptrByte)
-		#define C_LOCALDEF__LCCM418__I2C1_RX_ARRAY(device, reg, pArray, len) 	s16SOFT_I2C_USER__RxByteArray(device, reg, pArray, len)
+		#define C_LOCALDEF__LCCM418__I2C1_TX_BYTE(device, reg, byt) 			s16SOFT_I2C_USER__Tx_U8(device, reg, byt)
+		#define C_LOCALDEF__LCCM418__I2C1_RX_BYTE(device, reg, ptrByte)			s16SOFT_I2C_USER__Rx_U8(device, reg, ptrByte)
+		#define C_LOCALDEF__LCCM418__I2C1_RX_ARRAY(device, reg, pArray, len) 	s16SOFT_I2C_USER__Rx_U8Array(device, reg, pArray, len)
 #else
-		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__TxByte(device, reg, byt)
-		#define C_LOCALDEF__LCCM418__I2C0_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__RxByte(device, reg, ptrByte)
-		#define C_LOCALDEF__LCCM418__I2C0_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__RxByteArray(device, reg, pArray, len)
+		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__Tx_U8(device, reg, byt)
+		#define C_LOCALDEF__LCCM418__I2C0_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__Rx_U8(device, reg, ptrByte)
+		#define C_LOCALDEF__LCCM418__I2C0_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__Rx_U8Array(device, reg, pArray, len)
 
-		#define C_LOCALDEF__LCCM418__I2C1_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__TxByte(device, reg, byt)
-		#define C_LOCALDEF__LCCM418__I2C1_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__RxByte(device, reg, ptrByte)
-		#define C_LOCALDEF__LCCM418__I2C1_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__RxByteArray(device, reg, pArray, len)
+		#define C_LOCALDEF__LCCM418__I2C1_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__Tx_U8(device, reg, byt)
+		#define C_LOCALDEF__LCCM418__I2C1_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__Rx_U8(device, reg, ptrByte)
+		#define C_LOCALDEF__LCCM418__I2C1_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__Rx_U8Array(device, reg, pArray, len)
 #endif
 		//main include file
 		#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8451.h>
 	#endif //C_LOCALDEF__LCCM418__ENABLE_THIS_MODULE
 
 /*******************************************************************************
-DP83640 - Ethernet PHY with IEE1588
+SIL3 - DP83640 Ethernet PHY with IEE1588
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM515__ENABLE_THIS_MODULE == 1U
-
-		/** CPU Architecture */
-		#define C_LOCALDEF__LCCM515__USE_ON_RM4								(1U)
-		#define C_LOCALDEF__LCCM515__USE_ON_XILINX							(0U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM515__ENABLE_TEST_SPEC						(0U)
