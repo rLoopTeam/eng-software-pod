@@ -14,7 +14,7 @@
 #if 0
 
 /*******************************************************************************
-BUILT IN SELF TEST MODULE
+RM4 - BUILT IN SELF TEST MODULE
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM227__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM227__ENABLE_THIS_MODULE == 1U

@@ -13,7 +13,7 @@
 #if 0
 
 /*******************************************************************************
-RM4 EEPROM EMULATION
+SIL3 - RM4 EEPROM EMULATION
 You'll need the flash access module for this
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE							(1U)

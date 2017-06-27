@@ -713,7 +713,7 @@ typedef volatile struct FMC_REGISTERS
    /*!
        Defines whole and bit level accesses to the FSM Sector1 Register - 0x2C0
    */
-   union FSM_SECTOR1
+   union FSM_SECTOR1_U
    {
       Luint32 u32Register; /* FSM Sector1, bits 31:0 */
    } FsmSector1;
@@ -721,7 +721,7 @@ typedef volatile struct FMC_REGISTERS
    /*!
        Defines whole and bit level accesses to the FSM Sector2 Register - 0x2C4
    */
-   union FSM_SECTOR2
+   union FSM_SECTOR2_U
    {
       Luint32 u32Register; /* FSM Sector1, bits 31:0 */
    } FsmSector2;
@@ -843,7 +843,7 @@ typedef volatile struct FMC_REGISTERS
    /*!
        Defines whole and bit level accesses to the FCFG BANK Register - 0x400
    */
-   union FCFG_BANK
+   union FCFG_BANK_U
    {
       Luint32 u32Register; /* Flash Bank configuration, bits 31:0 */
       struct

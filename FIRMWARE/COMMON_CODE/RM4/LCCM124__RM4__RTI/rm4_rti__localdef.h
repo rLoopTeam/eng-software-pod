@@ -14,7 +14,7 @@
 #if 0
 
 /*******************************************************************************
-RTI MODULE
+RM4 - RTI MODULE
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1U
@@ -24,6 +24,7 @@ RTI MODULE
 
 		/** RTI CLOCK FREQUENCY
 		 * Based on our standard system, valid values are div(2,4,8):
+		 * 150 (150MHZ - ONLY ON RM57)
 		 * 100 	(100MHZ)
 		 * 50	(50MHZ)
 		 * 25	(25MHZ)

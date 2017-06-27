@@ -40,7 +40,17 @@
 		Luint32 FLG;	 /**< 0x0020: Interrupt Flag Register */
 		Luint32 OFF1;	 /**< 0x0024: Interrupt Offset A Register */
 		Luint32 OFF2;	 /**< 0x0028: Interrupt Offset B Register */
+
+		#if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
+			Luint32 EMU1;      /**< 0x002C: Emulation 1 Register */
+			Luint32 EMU2;      /**< 0x0030: Emulation 2 Register */
+		#endif
+
 	} RM4_GIO__BASE_T;
+
+	#ifndef C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843
+		#error
+	#endif
 
 
 	/** @struct gioPort

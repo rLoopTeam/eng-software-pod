@@ -73,20 +73,41 @@
 	*
 	* This pointer is used by the I2C driver to access the I2C module registers.
 	*/
-	#define i2cREG1 ((RM4_I2C__BASE_T *)0xFFF7D400U)
+	#if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
 
-	/* USER CODE BEGIN (1) */
-	/* USER CODE END */
+	//bit of a trick here, use I2C module 2 as its available on the outer IO pins on RM57Launch
+		#define i2cREG11 ((RM4_I2C__BASE_T *)0xFFF7D400U)
+		#define i2cREG1 ((RM4_I2C__BASE_T *)0xFFF7D500U)
 
 
-	/** @def i2cPORT1
-	* @brief I2C GIO Port Register Pointer
-	*
-	* Pointer used by the GIO driver to access I/O PORT of I2C
-	* (use the GIO drivers to access the port pins).
-	*/
-	#define i2cPORT1 ((gioPORT_t *)0xFFF7D44CU)
+		/* USER CODE BEGIN (1) */
+		/* USER CODE END */
 
+
+		/** @def i2cPORT1
+		* @brief I2C GIO Port Register Pointer
+		*
+		* Pointer used by the GIO driver to access I/O PORT of I2C
+		* (use the GIO drivers to access the port pins).
+		*/
+		#define i2cPORT11 ((gioPORT_t *)0xFFF7D44CU)
+		#define i2cPORT1 ((gioPORT_t *)0xFFF7D54CU)
+
+	#else
+		#define i2cREG1 ((RM4_I2C__BASE_T *)0xFFF7D400U)
+
+		/* USER CODE BEGIN (1) */
+		/* USER CODE END */
+
+
+		/** @def i2cPORT1
+		* @brief I2C GIO Port Register Pointer
+		*
+		* Pointer used by the GIO driver to access I/O PORT of I2C
+		* (use the GIO drivers to access the port pins).
+		*/
+		#define i2cPORT1 ((gioPORT_t *)0xFFF7D44CU)
+	#endif
 
 	/*
 	 No-acknowledge (NACK) mode
