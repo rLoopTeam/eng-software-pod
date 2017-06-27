@@ -14,7 +14,7 @@
 #if 0
 
 /*******************************************************************************
-MULTIPURPOSE DAQ MODULE
+SIL3 - MULTIPURPOSE DAQ MODULE
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
@@ -62,6 +62,7 @@ MULTIPURPOSE DAQ MODULE
 		
 		/** Main include file */
 		#include <MULTICORE/LCCM662__MULTICORE__DAQ/daq.h>
+
 	#endif //#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
 
 #endif //#if 0

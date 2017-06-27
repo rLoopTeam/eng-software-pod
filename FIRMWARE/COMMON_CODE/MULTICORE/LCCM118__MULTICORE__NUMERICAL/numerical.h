@@ -170,14 +170,14 @@
 
 		//trig
 		DLL_DECLARATION void vNUMERICAL__TRIGTABLES__Init(void);
-		Lfloat32 f32NUMERICAL_Atan(Lfloat32 f32Radians);
-		Lfloat32 f32NUMERICAL_Atan2(Lfloat32 f32A, Lfloat32 f32B);
+		Lfloat32 f32SIL3_NUM_TRIG__Atan(Lfloat32 f32Radians);
+		Lfloat32 f32SIL3_NUM_TRIG__Atan2(Lfloat32 f32A, Lfloat32 f32B);
 		Lfloat32 f32NUMERICAL_Cosine(Lfloat32 f32Radians);
 		Lfloat64 f64NUMERICAL_Cosine(Lfloat64 f64Radians);
 		Lfloat32 f32NUMERICAL_Sine(Lfloat32 f32Radians);
 		Lfloat64 f64NUMERICAL_Sine(Lfloat64 f64Radians);
 		Lfloat32 f32NUMERICAL_Asine(Lfloat32 f32Radians);
-		Lfloat64 f64NUMERICAL__Tan(Lfloat64 f64Radians);
+		Lfloat64 f64SIL3_NUM_TRIG__Tan(Lfloat64 f64Radians);
 
 		//float
 		DLL_DECLARATION Luint8 u8SIL3_NUM_FLOAT__IsZero(Lfloat32 f32Test);
