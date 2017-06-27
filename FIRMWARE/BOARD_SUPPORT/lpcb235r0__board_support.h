@@ -489,7 +489,7 @@ SIL3 - NUMERICAL MODULE
 
 	
 /*******************************************************************************
-ADC Module
+SIL3 - RM4 ADC DRIVER
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
@@ -1112,6 +1112,8 @@ SIL3 - STEP MOTOR DRIVER
 		//max number of motors in the system
 		#define C_LOCALDEF__LCCM231__NUMBER_OF_MOTORS						(2U)
 
+		#define C_LOCALDEF__LCCM231__ENABLE_ETH_FUNCTIONS					(0U)
+		
 		//set to 1 to enable USB interface on PIC32 / RM4
 		#define C_LOCALDEF__LCCM231__ENABLE_USB								(0U)
 
@@ -1162,7 +1164,7 @@ SIL3 - STEP MOTOR DRIVER
 		//Value in rev / square second
 		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MAX_ACCELERATION 			100
 		//Value in mm / rev
-		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MILIMITERS_PER_REVOLUTION 4
+		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_MICRONS_PER_REVOLUTION 	4000
 		//number of steps per revolution [Integer]
 		#define C_LOCALDEF__LCCM231___MOTOR0__DEFAULT_STEPS_PER_REVOLUTION 		200
 		//Value in RPMs [Integer]
@@ -1173,7 +1175,7 @@ SIL3 - STEP MOTOR DRIVER
 		//Value in rev / square second
 		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MAX_ACCELERATION 			100
 		//Value in mm / rev
-		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MILIMITERS_PER_REVOLUTION 4
+		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_MICRONS_PER_REVOLUTION 	4000
 		//number of steps per revolution [Integer]
 		#define C_LOCALDEF__LCCM231___MOTOR1__DEFAULT_STEPS_PER_REVOLUTION 		200
 		//Value in RPMs [Integer]
@@ -1187,20 +1189,6 @@ SIL3 - STEP MOTOR DRIVER
 
 	#endif
 
-
-/*******************************************************************************
-SOFTWARE I2C LIBRARY
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE							(0U)
-	#if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
-
-		/** I2C Freq*/
-		#define C_LOCALDEF__LCCM668__I2C_FREQ_H								(100000U)
-
-		/** Main include file */
-		#include <MULTICORE/LCCM668__MULTICORE__SOFT_I2C/soft_i2c.h>
-
-	#endif //#if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
 
 /*******************************************************************************
 SIL3 - MMA8451 3 AXIS ACCELEROMETER
@@ -1289,21 +1277,21 @@ SIL3 - MMA8451 3 AXIS ACCELEROMETER
 
 #if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
 		//I2C PORT DETAILS
-		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16SOFT_I2C_USER__TxByte(device, reg, byt)
-		#define C_LOCALDEF__LCCM418__I2C0_RX_BYTE(device, reg, ptrByte)			s16SOFT_I2C_USER__RxByte(device, reg, ptrByte)
-		#define C_LOCALDEF__LCCM418__I2C0_RX_ARRAY(device, reg, pArray, len) 	s16SOFT_I2C_USER__RxByteArray(device, reg, pArray, len)
+		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16SOFT_I2C_USER__Tx_U8(device, reg, byt)
+		#define C_LOCALDEF__LCCM418__I2C0_RX_BYTE(device, reg, ptrByte)			s16SOFT_I2C_USER__Rx_U8(device, reg, ptrByte)
+		#define C_LOCALDEF__LCCM418__I2C0_RX_ARRAY(device, reg, pArray, len) 	s16SOFT_I2C_USER__Rx_U8Array(device, reg, pArray, len)
 
-		#define C_LOCALDEF__LCCM418__I2C1_TX_BYTE(device, reg, byt) 			s16SOFT_I2C_USER__TxByte(device, reg, byt)
-		#define C_LOCALDEF__LCCM418__I2C1_RX_BYTE(device, reg, ptrByte)			s16SOFT_I2C_USER__RxByte(device, reg, ptrByte)
-		#define C_LOCALDEF__LCCM418__I2C1_RX_ARRAY(device, reg, pArray, len) 	s16SOFT_I2C_USER__RxByteArray(device, reg, pArray, len)
+		#define C_LOCALDEF__LCCM418__I2C1_TX_BYTE(device, reg, byt) 			s16SOFT_I2C_USER__Tx_U8(device, reg, byt)
+		#define C_LOCALDEF__LCCM418__I2C1_RX_BYTE(device, reg, ptrByte)			s16SOFT_I2C_USER__Rx_U8(device, reg, ptrByte)
+		#define C_LOCALDEF__LCCM418__I2C1_RX_ARRAY(device, reg, pArray, len) 	s16SOFT_I2C_USER__Rx_U8Array(device, reg, pArray, len)
 #else
-		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__TxByte(device, reg, byt)
-		#define C_LOCALDEF__LCCM418__I2C0_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__RxByte(device, reg, ptrByte)
-		#define C_LOCALDEF__LCCM418__I2C0_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__RxByteArray(device, reg, pArray, len)
+		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__Tx_U8(device, reg, byt)
+		#define C_LOCALDEF__LCCM418__I2C0_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__Rx_U8(device, reg, ptrByte)
+		#define C_LOCALDEF__LCCM418__I2C0_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__Rx_U8Array(device, reg, pArray, len)
 
-		#define C_LOCALDEF__LCCM418__I2C1_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__TxByte(device, reg, byt)
-		#define C_LOCALDEF__LCCM418__I2C1_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__RxByte(device, reg, ptrByte)
-		#define C_LOCALDEF__LCCM418__I2C1_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__RxByteArray(device, reg, pArray, len)
+		#define C_LOCALDEF__LCCM418__I2C1_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__Tx_U8(device, reg, byt)
+		#define C_LOCALDEF__LCCM418__I2C1_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__Rx_U8(device, reg, ptrByte)
+		#define C_LOCALDEF__LCCM418__I2C1_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__Rx_U8Array(device, reg, pArray, len)
 #endif
 		//main include file
 		#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8451.h>
