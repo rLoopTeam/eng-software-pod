@@ -14,7 +14,6 @@ Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM720__RLOOP__AUXPROP/DOXYGEN/OUTPUT
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM720__RLOOP__AUXPROP/DOXYGEN/OUTPUT/html
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM720__RLOOP__AUXPROP/DOXYGEN/OUTPUT/html/search
-Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM720__RLOOP__AUXPROP/DOXYGEN/PDF
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM720__RLOOP__AUXPROP/ETHERNET
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM720__RLOOP__AUXPROP/THROTTLE
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM720__RLOOP__AUXPROP/TIMERS
@@ -104,7 +103,6 @@ Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/L
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM215__RM4__I2C/WAIT
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM219__RM4__SYSTEM
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM219__RM4__SYSTEM/DOXYGEN
-Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM219__RM4__SYSTEM/LIB_16_9_3
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM219__RM4__SYSTEM/PCLINT
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM219__RM4__SYSTEM/SAFETOOL
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/COMMON_CODE/RM4/LCCM220__RM4__ERROR_SIGNAL_MODULE
@@ -4097,7 +4095,7 @@ Generating example index...
 finalizing index lists...
 writing tag file...
 Running dot...
-Generating dot graphs using 5 parallel threads...
+Generating dot graphs using 3 parallel threads...
 Running dot for graph 1/1573
 Running dot for graph 2/1573
 Running dot for graph 3/1573
