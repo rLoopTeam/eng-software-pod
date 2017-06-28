@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, RLOOP, Power Node Core)
    &#160;<span id="projectnumber">1.0</span>
@@ -106,22 +106,489 @@ $(document).ready(function(){initNavTree('struct__str_p_w_r_n_o_d_e.html','');})
 Collaboration diagram for _strPWRNODE:</div>
 <div class="dyncontent">
 <div class="center"><img src="struct__str_p_w_r_n_o_d_e__coll__graph.png" border="0" usemap="#__str_p_w_r_n_o_d_e_coll__map" alt="Collaboration graph"/></div>
+<map name="__str_p_w_r_n_o_d_e_coll__map" id="__str_p_w_r_n_o_d_e_coll__map">
+</map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a971c2a37bc317be27b7a2effc9a4fb5b"><td class="memItemLeft" >struct {</td></tr>
-<tr class="memitem:a575de34bd832c234717e21c1add4e627"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="power__core_8h.html#ac3a9575010d4bd27eb79d8edd68a15a9">E_PWRNODE__INIT_STATES</a>&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#acb99691e06cd83895a3a67559b02b4f2">sState</a></td></tr>
-<tr class="memdesc:a575de34bd832c234717e21c1add4e627"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current Init State.  <a href="#a575de34bd832c234717e21c1add4e627">More...</a><br /></td></tr>
-<tr class="separator:a575de34bd832c234717e21c1add4e627"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a971c2a37bc317be27b7a2effc9a4fb5b"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_p_w_r_n_o_d_e.html#a971c2a37bc317be27b7a2effc9a4fb5b">sInit</a></td></tr>
-<tr class="memdesc:a971c2a37bc317be27b7a2effc9a4fb5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Power on state machines and diagnostics.  <a href="#a971c2a37bc317be27b7a2effc9a4fb5b">More...</a><br /></td></tr>
-<tr class="separator:a971c2a37bc317be27b7a2effc9a4fb5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affb0a12cee6c03624d8ccf34e734e220"><td class="memItemLeft" align="right" valign="top">Luint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_p_w_r_n_o_d_e.html#affb0a12cee6c03624d8ccf34e734e220">u32Guard1</a></td></tr>
+<tr class="separator:affb0a12cee6c03624d8ccf34e734e220"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50e316b422766283fe00738b2e6487f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="power__core____state__types_8h.html#a89532bdf3d1696eaa00065bc13cfe1fa">E_PWRNODE_TYPE_T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_p_w_r_n_o_d_e.html#a50e316b422766283fe00738b2e6487f8">ePersonality</a></td></tr>
+<tr class="memdesc:a50e316b422766283fe00738b2e6487f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The personality.  <a href="#a50e316b422766283fe00738b2e6487f8">More...</a><br /></td></tr>
+<tr class="separator:a50e316b422766283fe00738b2e6487f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa7191b8d913c68d3290a4cfea31e891"><td class="memItemLeft" align="right" valign="top">Luint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_p_w_r_n_o_d_e.html#afa7191b8d913c68d3290a4cfea31e891">u16EthPort</a></td></tr>
+<tr class="memdesc:afa7191b8d913c68d3290a4cfea31e891"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ethernet port that we are transmitting from.  <a href="#afa7191b8d913c68d3290a4cfea31e891">More...</a><br /></td></tr>
+<tr class="separator:afa7191b8d913c68d3290a4cfea31e891"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb3095b3d9591ae45db19748c209b1f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="power__core____state__types_8h.html#ae33166be644a215f479bc1308b304963">E_PWRNODE__RUN_STATES</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_p_w_r_n_o_d_e.html#afb3095b3d9591ae45db19748c209b1f2">eMainState</a></td></tr>
+<tr class="memdesc:afb3095b3d9591ae45db19748c209b1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">main state machine  <a href="#afb3095b3d9591ae45db19748c209b1f2">More...</a><br /></td></tr>
+<tr class="separator:afb3095b3d9591ae45db19748c209b1f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae24720b9b25ff987b99e1c3e895d2f10"><td class="memItemLeft" align="right" valign="top">Luint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_p_w_r_n_o_d_e.html#ae24720b9b25ff987b99e1c3e895d2f10">u32NodePressCounter</a></td></tr>
+<tr class="memdesc:ae24720b9b25ff987b99e1c3e895d2f10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Just some counters for other I2C devices.  <a href="#ae24720b9b25ff987b99e1c3e895d2f10">More...</a><br /></td></tr>
+<tr class="separator:ae24720b9b25ff987b99e1c3e895d2f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a950f730a6ec7595f5f9b38fe31200cd1"><td class="memItemLeft" align="right" valign="top">Luint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_p_w_r_n_o_d_e.html#a950f730a6ec7595f5f9b38fe31200cd1">u32NodeTempCounter</a></td></tr>
+<tr class="separator:a950f730a6ec7595f5f9b38fe31200cd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcf61ceb7b41eac29226fdee83ef0901"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a096052b97401457dc580379e51425b96"><td class="memItemLeft" >&#160;&#160;&#160;FAULT_TREE__PUBLIC_T&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a0233b3d80a8028a10cdf38116ffd8844">sTopLevel</a></td></tr>
+<tr class="memdesc:a096052b97401457dc580379e51425b96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main top level fault system.  <a href="#a096052b97401457dc580379e51425b96">More...</a><br /></td></tr>
+<tr class="separator:a096052b97401457dc580379e51425b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcf61ceb7b41eac29226fdee83ef0901"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_p_w_r_n_o_d_e.html#afcf61ceb7b41eac29226fdee83ef0901">sFaults</a></td></tr>
+<tr class="memdesc:afcf61ceb7b41eac29226fdee83ef0901"><td class="mdescLeft">&#160;</td><td class="mdescRight">fault flags structure  <a href="#afcf61ceb7b41eac29226fdee83ef0901">More...</a><br /></td></tr>
+<tr class="separator:afcf61ceb7b41eac29226fdee83ef0901"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9777598da4f5b42708bca8ef425bc8b2"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:ab6589b6dbca0ae4f0baefa81963516d8"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="power__core____state__types_8h.html#ac3a9575010d4bd27eb79d8edd68a15a9">E_PWRNODE__INIT_STATES</a>&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#acc3a6e634831486326533997292a65c8">eState</a></td></tr>
+<tr class="memdesc:ab6589b6dbca0ae4f0baefa81963516d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current Init State.  <a href="#ab6589b6dbca0ae4f0baefa81963516d8">More...</a><br /></td></tr>
+<tr class="separator:ab6589b6dbca0ae4f0baefa81963516d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9777598da4f5b42708bca8ef425bc8b2"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_p_w_r_n_o_d_e.html#a9777598da4f5b42708bca8ef425bc8b2">sInit</a></td></tr>
+<tr class="memdesc:a9777598da4f5b42708bca8ef425bc8b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Power on state machines and diagnostics.  <a href="#a9777598da4f5b42708bca8ef425bc8b2">More...</a><br /></td></tr>
+<tr class="separator:a9777598da4f5b42708bca8ef425bc8b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93cabf57fef614dda62600d03ba1647a"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a227ab5be53a5fb6d57e2b8f7bd5caf6d"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="power__core____state__types_8h.html#a4e7dabef8cf28771d53df43c760b37fb">E_BATT_TEMP__STATE_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a0df8f82354d1de01327928b0c96b28e7">eState</a></td></tr>
+<tr class="memdesc:a227ab5be53a5fb6d57e2b8f7bd5caf6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temp sensor processing states.  <a href="#a227ab5be53a5fb6d57e2b8f7bd5caf6d">More...</a><br /></td></tr>
+<tr class="separator:a227ab5be53a5fb6d57e2b8f7bd5caf6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e3b7385cb81f4714f525c792cd14998"><td class="memItemLeft" >&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a6792b338518bfca091c02384bd04614f">u16NumSensors</a></td></tr>
+<tr class="memdesc:a8e3b7385cb81f4714f525c792cd14998"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loaded from memory the number of configured sensors.  <a href="#a8e3b7385cb81f4714f525c792cd14998">More...</a><br /></td></tr>
+<tr class="separator:a8e3b7385cb81f4714f525c792cd14998"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a876be1739f80c724f14b31cc7d8eb2ba"><td class="memItemLeft" >&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#afb404bef62f3a3cd0a2be403c0d21b9c">u16PackMemCRC</a></td></tr>
+<tr class="memdesc:a876be1739f80c724f14b31cc7d8eb2ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pack memory CRC.  <a href="#a876be1739f80c724f14b31cc7d8eb2ba">More...</a><br /></td></tr>
+<tr class="separator:a876be1739f80c724f14b31cc7d8eb2ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a003fec16cb0d9e272b4c0dc1b8efd802"><td class="memItemLeft" >&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a46a64a83e50812052a38258bd12b13cd">f32HighestTemp</a></td></tr>
+<tr class="memdesc:a003fec16cb0d9e272b4c0dc1b8efd802"><td class="mdescLeft">&#160;</td><td class="mdescRight">Highest Temp.  <a href="#a003fec16cb0d9e272b4c0dc1b8efd802">More...</a><br /></td></tr>
+<tr class="separator:a003fec16cb0d9e272b4c0dc1b8efd802"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e8671e11bfc88a42acf6a2e660a2825"><td class="memItemLeft" >&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a371f1be9a93d64b340ca4161b0ed65d2">u16HighestSensorIndex</a></td></tr>
+<tr class="memdesc:a5e8671e11bfc88a42acf6a2e660a2825"><td class="mdescLeft">&#160;</td><td class="mdescRight">The index of the highest temperature sensor.  <a href="#a5e8671e11bfc88a42acf6a2e660a2825">More...</a><br /></td></tr>
+<tr class="separator:a5e8671e11bfc88a42acf6a2e660a2825"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8a0ee978b3c7a6232184e06a089334a"><td class="memItemLeft" >&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a8e3bd62ace21699b9695902578244661">f32AverageTemp</a></td></tr>
+<tr class="memdesc:ad8a0ee978b3c7a6232184e06a089334a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Average Temp.  <a href="#ad8a0ee978b3c7a6232184e06a089334a">More...</a><br /></td></tr>
+<tr class="separator:ad8a0ee978b3c7a6232184e06a089334a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e33f2617aa5a16bd7df8ceb26e89444"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a6160c00dfa7bf027f4b1ac716a389da1">u8NewTempAvail</a></td></tr>
+<tr class="memdesc:a8e33f2617aa5a16bd7df8ceb26e89444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is any new data available?  <a href="#a8e33f2617aa5a16bd7df8ceb26e89444">More...</a><br /></td></tr>
+<tr class="separator:a8e33f2617aa5a16bd7df8ceb26e89444"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73a262afb7f563c8967784b346932906"><td class="memItemLeft" >&#160;&#160;&#160;Luint32&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a903d3c1221df73a28b48f407400d8441">u32TempScanCount</a></td></tr>
+<tr class="memdesc:a73a262afb7f563c8967784b346932906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counter of number if times the temp sensor was scanned.  <a href="#a73a262afb7f563c8967784b346932906">More...</a><br /></td></tr>
+<tr class="separator:a73a262afb7f563c8967784b346932906"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93cabf57fef614dda62600d03ba1647a"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_p_w_r_n_o_d_e.html#a93cabf57fef614dda62600d03ba1647a">sTemp</a></td></tr>
+<tr class="memdesc:a93cabf57fef614dda62600d03ba1647a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temperature sensors (battery temp)  <a href="#a93cabf57fef614dda62600d03ba1647a">More...</a><br /></td></tr>
+<tr class="separator:a93cabf57fef614dda62600d03ba1647a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ef3d4f94f9361e010681f94536d535a"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:aa7dc22683d9d43ee405a9380163c2806"><td class="memItemLeft" >&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#ad0ae509b4ad3875a33d9f37a44057294">f32HASS_CurrentReading</a></td></tr>
+<tr class="memdesc:aa7dc22683d9d43ee405a9380163c2806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current Reading after converted from Voltage.  <a href="#aa7dc22683d9d43ee405a9380163c2806">More...</a><br /></td></tr>
+<tr class="separator:aa7dc22683d9d43ee405a9380163c2806"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a866efc840802d4a7d87fa815a11a2027"><td class="memItemLeft" >&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a879f6d3cf6dfaeb2675c4a49bdfd3a91">f32HASS_VoltageOffSet</a></td></tr>
+<tr class="memdesc:a866efc840802d4a7d87fa815a11a2027"><td class="mdescLeft">&#160;</td><td class="mdescRight">Voltage Reading at Init.  <a href="#a866efc840802d4a7d87fa815a11a2027">More...</a><br /></td></tr>
+<tr class="separator:a866efc840802d4a7d87fa815a11a2027"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a9f75d59c013401f155f6456e93bc89"><td class="memItemLeft" >&#160;&#160;&#160;FAULT_TREE__PUBLIC_T&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#aa6770fc659f941f3cbd3e84836e45f6d">sFaultFlags</a></td></tr>
+<tr class="memdesc:a4a9f75d59c013401f155f6456e93bc89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current Transducer Fault Flag.  <a href="#a4a9f75d59c013401f155f6456e93bc89">More...</a><br /></td></tr>
+<tr class="separator:a4a9f75d59c013401f155f6456e93bc89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59f1d12ea1f36b27fa26052aec6a5737"><td class="memItemLeft" >&#160;&#160;&#160;Luint16&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#aaa17851577ce6234c0ace6eb14135788">u16HAAS_Current_Average_Counter</a></td></tr>
+<tr class="separator:a59f1d12ea1f36b27fa26052aec6a5737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54d7d03c42a940410718806d158f0f29"><td class="memItemLeft" >&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a91cc6a5a3bbe3d8118a21a2d5f064993">f32HAAS_Current_Average_Array</a> [<a class="el" href="power__core____defines_8h.html#a22fa59cbda37443843af7f06cc4e255b">C_PWRCORE__CURRENT_AVG_SIZE</a>]</td></tr>
+<tr class="separator:a54d7d03c42a940410718806d158f0f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ef3d4f94f9361e010681f94536d535a"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_p_w_r_n_o_d_e.html#a3ef3d4f94f9361e010681f94536d535a">sHASS600</a></td></tr>
+<tr class="memdesc:a3ef3d4f94f9361e010681f94536d535a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ATA6870 interface.  <a href="#a3ef3d4f94f9361e010681f94536d535a">More...</a><br /></td></tr>
+<tr class="separator:a3ef3d4f94f9361e010681f94536d535a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b14c24b2d90006a84b99d78d3b6a71b"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a447cd27b0e63040f15688d2305696453"><td class="memItemLeft" >&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:a7f6dfdcd2e27b6f2258aed5443d26d03"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#afb32b1c6639c96f4960082d621797a56">f32Temperature</a></td></tr>
+<tr class="separator:a7f6dfdcd2e27b6f2258aed5443d26d03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af858aeb7630224b2ab72041a03d42dc0"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;<a class="el" href="power__core____enums_8h.html#a63181e5c49ff61ec3b89e172b058456c">E_PWRNODE__COOLING_STATES</a>&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a049be62b28e023c8551d92a84284ff2e">eCoolingState</a></td></tr>
+<tr class="separator:af858aeb7630224b2ab72041a03d42dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63b2212ea9f70387c7e585bc589824e4"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;<a class="el" href="power__core____enums_8h.html#a9190eab12efd2ab323b9bea787c553b3">E_PWR__COOLING_SOLENOID_STATE_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a2f80fc47b3e3b9660c5061d534a2fe73">eHoverSolenoidState</a></td></tr>
+<tr class="separator:a63b2212ea9f70387c7e585bc589824e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63276354e7008dcf4fc1513106c4046e"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#aeca9320e1b6185c67c8c5b47e9e2d2ca">u8N2HETPinNumber</a></td></tr>
+<tr class="separator:a63276354e7008dcf4fc1513106c4046e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00199b99ec6f4ab082f719e156760a50"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint32&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a997e8a6968c5a48c50b5f569ec1f94b3">u32100MS_Count</a></td></tr>
+<tr class="separator:a00199b99ec6f4ab082f719e156760a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64700e384d18c36082ef9a6a8cf67045"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;<a class="el" href="power__core____state__types_8h.html#a31f26f787a993b77a9ff8b95e295326c">E_PWRNODE__COOLINGSUB_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#ad994fa87fdf3b0c09cc95fabb4907dba">eState</a></td></tr>
+<tr class="separator:a64700e384d18c36082ef9a6a8cf67045"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3e0a3444f0caab0addf426a82681710"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#ac71b6f0f2ba2b408c1586b70a4cba202">u8Indexes</a> [2U]</td></tr>
+<tr class="separator:ae3e0a3444f0caab0addf426a82681710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a447cd27b0e63040f15688d2305696453"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a582a3a72800c7284db7437bedf8c7d2f">sHoverEngineCoolingSystem</a> [<a class="el" href="power__core____enums_8h.html#a0f164ea9330ac8d7df33921690f75430ad2950d51e1db1e6ef146607ce8415238">POWER_COOLING__MAX_HOVERENG</a>]</td></tr>
+<tr class="memdesc:a447cd27b0e63040f15688d2305696453"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hover Engine Cooling Subsystem.  <a href="#a447cd27b0e63040f15688d2305696453">More...</a><br /></td></tr>
+<tr class="separator:a447cd27b0e63040f15688d2305696453"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4da0470423d30a1045e44091cafe57e5"><td class="memItemLeft" >&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:a92089b15f6b8315458bafdb770e73df6"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#afb32b1c6639c96f4960082d621797a56">f32Temperature</a></td></tr>
+<tr class="separator:a92089b15f6b8315458bafdb770e73df6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeedf89aae537919a4f0fd747ba49ff75"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;<a class="el" href="power__core____enums_8h.html#a63181e5c49ff61ec3b89e172b058456c">E_PWRNODE__COOLING_STATES</a>&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a049be62b28e023c8551d92a84284ff2e">eCoolingState</a></td></tr>
+<tr class="separator:aeedf89aae537919a4f0fd747ba49ff75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3655aecbc529c4bff0a40d229aaebd73"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;<a class="el" href="power__core____enums_8h.html#a9190eab12efd2ab323b9bea787c553b3">E_PWR__COOLING_SOLENOID_STATE_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a036fd409b3c6da4a2470c3515bbb06d9">eEddySolenoidState</a></td></tr>
+<tr class="separator:a3655aecbc529c4bff0a40d229aaebd73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80fe80c4c379fde7f61aeed01b7c4e4e"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#aeca9320e1b6185c67c8c5b47e9e2d2ca">u8N2HETPinNumber</a></td></tr>
+<tr class="separator:a80fe80c4c379fde7f61aeed01b7c4e4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f9f1b9e21b7d8db077410b3de00349d"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint32&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a997e8a6968c5a48c50b5f569ec1f94b3">u32100MS_Count</a></td></tr>
+<tr class="separator:a9f9f1b9e21b7d8db077410b3de00349d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6590b5058218f46f76e8fc0d5391ac3"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;<a class="el" href="power__core____state__types_8h.html#a31f26f787a993b77a9ff8b95e295326c">E_PWRNODE__COOLINGSUB_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#ad994fa87fdf3b0c09cc95fabb4907dba">eState</a></td></tr>
+<tr class="separator:ac6590b5058218f46f76e8fc0d5391ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac967df9c5a6c1936470d39a0d694e8be"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#ac71b6f0f2ba2b408c1586b70a4cba202">u8Indexes</a> [2U]</td></tr>
+<tr class="separator:ac967df9c5a6c1936470d39a0d694e8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4da0470423d30a1045e44091cafe57e5"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#aa6f138d5fc958fdb12cea243f3dd47e8">sEddyBrakeCoolingSystem</a> [<a class="el" href="power__core____enums_8h.html#ad2cfa0dcd9f7d7fc8184a01cc67dde22a6c0090ac8e012f89592c3acb661b62de">POWER_COOLING__MAX_EDDYBRAKES</a>]</td></tr>
+<tr class="memdesc:a4da0470423d30a1045e44091cafe57e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Eddy Brake Cooling Subsystem.  <a href="#a4da0470423d30a1045e44091cafe57e5">More...</a><br /></td></tr>
+<tr class="separator:a4da0470423d30a1045e44091cafe57e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a504ccb879990ecfff98988b745f43d2f"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="power__core____state__types_8h.html#afa1ae7b34f73723892796d7bd1f6bcda">E_PWRNODE__COOLING_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a5c088c77b81ea74eb283431eb8677442">eMainState</a></td></tr>
+<tr class="memdesc:a504ccb879990ecfff98988b745f43d2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cooling System Main State Mainchine.  <a href="#a504ccb879990ecfff98988b745f43d2f">More...</a><br /></td></tr>
+<tr class="separator:a504ccb879990ecfff98988b745f43d2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07266c074105380b820e9a2d4500652c"><td class="memItemLeft" >&#160;&#160;&#160;Luint32&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a997e8a6968c5a48c50b5f569ec1f94b3">u32100MS_Count</a></td></tr>
+<tr class="memdesc:a07266c074105380b820e9a2d4500652c"><td class="mdescLeft">&#160;</td><td class="mdescRight">100 ms counter  <a href="#a07266c074105380b820e9a2d4500652c">More...</a><br /></td></tr>
+<tr class="separator:a07266c074105380b820e9a2d4500652c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b14c24b2d90006a84b99d78d3b6a71b"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_p_w_r_n_o_d_e.html#a1b14c24b2d90006a84b99d78d3b6a71b">sCooling</a></td></tr>
+<tr class="memdesc:a1b14c24b2d90006a84b99d78d3b6a71b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cooling System.  <a href="#a1b14c24b2d90006a84b99d78d3b6a71b">More...</a><br /></td></tr>
+<tr class="separator:a1b14c24b2d90006a84b99d78d3b6a71b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad244ccfe94ffb9ef625b1e5c204358b4"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:afa10793598e1be45713d6bae3bfccef8"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="power__core____state__types_8h.html#a123be5cd29c098204f38a8b43432eb56">E_PWRNODE__REPRESS_T</a>&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#add74d06105dc44b802b6b7ffd9e102d7">eState</a></td></tr>
+<tr class="memdesc:afa10793598e1be45713d6bae3bfccef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repress state machine.  <a href="#afa10793598e1be45713d6bae3bfccef8">More...</a><br /></td></tr>
+<tr class="separator:afa10793598e1be45713d6bae3bfccef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adeb1f016812da06044e38548271feb1d"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="power__core____state__types_8h.html#a72d356a1377f1e94e06c485407c40032">E_PWRNODE_REPRESS_SOL_STATE</a>&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a9d75812eb777afe17b4b30a0ce09507e">eSolState</a></td></tr>
+<tr class="memdesc:adeb1f016812da06044e38548271feb1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The solenoid state.  <a href="#adeb1f016812da06044e38548271feb1d">More...</a><br /></td></tr>
+<tr class="separator:adeb1f016812da06044e38548271feb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef88afb0e54c1bef94a13021670b98a7"><td class="memItemLeft" >&#160;&#160;&#160;Luint32&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#a997e8a6968c5a48c50b5f569ec1f94b3">u32100MS_Count</a></td></tr>
+<tr class="memdesc:aef88afb0e54c1bef94a13021670b98a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Count of 100ms.  <a href="#aef88afb0e54c1bef94a13021670b98a7">More...</a><br /></td></tr>
+<tr class="separator:aef88afb0e54c1bef94a13021670b98a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69d62c633d77e53592df16154c6c373b"><td class="memItemLeft" >&#160;&#160;&#160;Lfloat32&#160;&#160;&#160;<a class="el" href="struct__str_p_w_r_n_o_d_e.html#aecd5c88ffc8a7e22c4b799f7aed15158">f32Press</a></td></tr>
+<tr class="memdesc:a69d62c633d77e53592df16154c6c373b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pressure Value.  <a href="#a69d62c633d77e53592df16154c6c373b">More...</a><br /></td></tr>
+<tr class="separator:a69d62c633d77e53592df16154c6c373b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad244ccfe94ffb9ef625b1e5c204358b4"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_p_w_r_n_o_d_e.html#ad244ccfe94ffb9ef625b1e5c204358b4">sRePress</a></td></tr>
+<tr class="memdesc:ad244ccfe94ffb9ef625b1e5c204358b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Win32 Functions.  <a href="#ad244ccfe94ffb9ef625b1e5c204358b4">More...</a><br /></td></tr>
+<tr class="separator:ad244ccfe94ffb9ef625b1e5c204358b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a6d5d95350f3b000bb5bd483eb52c42"><td class="memItemLeft" align="right" valign="top">Luint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_p_w_r_n_o_d_e.html#a7a6d5d95350f3b000bb5bd483eb52c42">u32Guard2</a></td></tr>
+<tr class="separator:a7a6d5d95350f3b000bb5bd483eb52c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main Power Node Structure. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="a971c2a37bc317be27b7a2effc9a4fb5b"></a>
+<a class="anchor" id="a049be62b28e023c8551d92a84284ff2e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="power__core____enums_8h.html#a63181e5c49ff61ec3b89e172b058456c">E_PWRNODE__COOLING_STATES</a> _strPWRNODE::eCoolingState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a036fd409b3c6da4a2470c3515bbb06d9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="power__core____enums_8h.html#a9190eab12efd2ab323b9bea787c553b3">E_PWR__COOLING_SOLENOID_STATE_T</a> _strPWRNODE::eEddySolenoidState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2f80fc47b3e3b9660c5061d534a2fe73"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="power__core____enums_8h.html#a9190eab12efd2ab323b9bea787c553b3">E_PWR__COOLING_SOLENOID_STATE_T</a> _strPWRNODE::eHoverSolenoidState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afb3095b3d9591ae45db19748c209b1f2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="power__core____state__types_8h.html#ae33166be644a215f479bc1308b304963">E_PWRNODE__RUN_STATES</a> _strPWRNODE::eMainState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>main state machine </p>
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____s_t_a_t_e___m_a_c_h_i_n_e.html#ga672a450d7a4b982afcf732c5c731670b">vPWRNODE_SM__Enable_ChargingState()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____s_t_a_t_e___m_a_c_h_i_n_e.html#gaba8e7e906715cb18704f1cd601b9f5f4">vPWRNODE_SM__Init()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____s_t_a_t_e___m_a_c_h_i_n_e.html#gac11ee6cf8e680ebed7201c2b2eb54f35">vPWRNODE_SM__Process()</a>, and <a class="el" href="group___p_o_w_e_r___n_o_d_e_____s_t_a_t_e___m_a_c_h_i_n_e.html#ga7e7bcda78dca82e89cd0d8c0dec20c35">vPWRNODE_SM__Stop_ChargingState()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5c088c77b81ea74eb283431eb8677442"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="power__core____state__types_8h.html#afa1ae7b34f73723892796d7bd1f6bcda">E_PWRNODE__COOLING_T</a> _strPWRNODE::eMainState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cooling System Main State Mainchine. </p>
+
+</div>
+</div>
+<a class="anchor" id="a50e316b422766283fe00738b2e6487f8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="power__core____state__types_8h.html#a89532bdf3d1696eaa00065bc13cfe1fa">E_PWRNODE_TYPE_T</a> _strPWRNODE::ePersonality</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The personality. </p>
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f">vPWRNODE__Process()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9d75812eb777afe17b4b30a0ce09507e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="power__core____state__types_8h.html#a72d356a1377f1e94e06c485407c40032">E_PWRNODE_REPRESS_SOL_STATE</a> _strPWRNODE::eSolState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The solenoid state. </p>
+
+</div>
+</div>
+<a class="anchor" id="acc3a6e634831486326533997292a65c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="power__core____state__types_8h.html#ac3a9575010d4bd27eb79d8edd68a15a9">E_PWRNODE__INIT_STATES</a> _strPWRNODE::eState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The current Init State. </p>
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad332b0444a47aa50270b7a9dc7eed24f">vPWRNODE__Init()</a>, and <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f">vPWRNODE__Process()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0df8f82354d1de01327928b0c96b28e7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="power__core____state__types_8h.html#a4e7dabef8cf28771d53df43c760b37fb">E_BATT_TEMP__STATE_T</a> _strPWRNODE::eState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Temp sensor processing states. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad994fa87fdf3b0c09cc95fabb4907dba"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="power__core____state__types_8h.html#a31f26f787a993b77a9ff8b95e295326c">E_PWRNODE__COOLINGSUB_T</a> _strPWRNODE::eState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="add74d06105dc44b802b6b7ffd9e102d7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="power__core____state__types_8h.html#a123be5cd29c098204f38a8b43432eb56">E_PWRNODE__REPRESS_T</a> _strPWRNODE::eState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Repress state machine. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8e3bd62ace21699b9695902578244661"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _strPWRNODE::f32AverageTemp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Average Temp. </p>
+
+</div>
+</div>
+<a class="anchor" id="a91cc6a5a3bbe3d8118a21a2d5f064993"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _strPWRNODE::f32HAAS_Current_Average_Array[<a class="el" href="power__core____defines_8h.html#a22fa59cbda37443843af7f06cc4e255b">C_PWRCORE__CURRENT_AVG_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad0ae509b4ad3875a33d9f37a44057294"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _strPWRNODE::f32HASS_CurrentReading</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Current Reading after converted from Voltage. </p>
+
+</div>
+</div>
+<a class="anchor" id="a879f6d3cf6dfaeb2675c4a49bdfd3a91"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _strPWRNODE::f32HASS_VoltageOffSet</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Voltage Reading at Init. </p>
+
+</div>
+</div>
+<a class="anchor" id="a46a64a83e50812052a38258bd12b13cd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _strPWRNODE::f32HighestTemp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Highest Temp. </p>
+
+</div>
+</div>
+<a class="anchor" id="aecd5c88ffc8a7e22c4b799f7aed15158"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _strPWRNODE::f32Press</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pressure Value. </p>
+
+</div>
+</div>
+<a class="anchor" id="afb32b1c6639c96f4960082d621797a56"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 _strPWRNODE::f32Temperature</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1b14c24b2d90006a84b99d78d3b6a71b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strPWRNODE::sCooling</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cooling System. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa6f138d5fc958fdb12cea243f3dd47e8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strPWRNODE::sEddyBrakeCoolingSystem[<a class="el" href="power__core____enums_8h.html#ad2cfa0dcd9f7d7fc8184a01cc67dde22a6c0090ac8e012f89592c3acb661b62de">POWER_COOLING__MAX_EDDYBRAKES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Eddy Brake Cooling Subsystem. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa6770fc659f941f3cbd3e84836e45f6d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FAULT_TREE__PUBLIC_T _strPWRNODE::sFaultFlags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Current Transducer Fault Flag. </p>
+
+</div>
+</div>
+<a class="anchor" id="afcf61ceb7b41eac29226fdee83ef0901"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strPWRNODE::sFaults</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fault flags structure </p>
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____f_a_u_l_t_s.html#ga39a376654d7c6d901a837e47fac53c47">vPWRNODE_FAULTS__Init()</a>, and <a class="el" href="group___p_o_w_e_r___n_o_d_e_____f_a_u_l_t_s.html#ga31b4fb0ea58500389e1c7e8e79e474b0">vPWRNODE_FAULTS__Process()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3ef3d4f94f9361e010681f94536d535a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strPWRNODE::sHASS600</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ATA6870 interface. </p>
+<p>LEM HASS 600-S Current Transducer </p>
+
+</div>
+</div>
+<a class="anchor" id="a582a3a72800c7284db7437bedf8c7d2f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strPWRNODE::sHoverEngineCoolingSystem[<a class="el" href="power__core____enums_8h.html#a0f164ea9330ac8d7df33921690f75430ad2950d51e1db1e6ef146607ce8415238">POWER_COOLING__MAX_HOVERENG</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hover Engine Cooling Subsystem. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9777598da4f5b42708bca8ef425bc8b2"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -137,19 +604,243 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="acb99691e06cd83895a3a67559b02b4f2"></a>
+<a class="anchor" id="ad244ccfe94ffb9ef625b1e5c204358b4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="power__core_8h.html#ac3a9575010d4bd27eb79d8edd68a15a9">E_PWRNODE__INIT_STATES</a> _strPWRNODE::sState</td>
+          <td class="memname">struct { ... }  _strPWRNODE::sRePress</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The current Init State. </p>
+<p>Win32 Functions. </p>
+<p>PV Repress System </p>
 
-<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad332b0444a47aa50270b7a9dc7eed24f">vPWRNODE__Init()</a>, and <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f">vPWRNODE__Process()</a>.</p>
+</div>
+</div>
+<a class="anchor" id="a93cabf57fef614dda62600d03ba1647a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  _strPWRNODE::sTemp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Temperature sensors (battery temp) </p>
+
+</div>
+</div>
+<a class="anchor" id="a0233b3d80a8028a10cdf38116ffd8844"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FAULT_TREE__PUBLIC_T _strPWRNODE::sTopLevel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Main top level fault system. </p>
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____f_a_u_l_t_s.html#ga39a376654d7c6d901a837e47fac53c47">vPWRNODE_FAULTS__Init()</a>, and <a class="el" href="group___p_o_w_e_r___n_o_d_e_____f_a_u_l_t_s.html#ga31b4fb0ea58500389e1c7e8e79e474b0">vPWRNODE_FAULTS__Process()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afa7191b8d913c68d3290a4cfea31e891"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint16 _strPWRNODE::u16EthPort</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The ethernet port that we are transmitting from. </p>
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f">vPWRNODE__Process()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaa17851577ce6234c0ace6eb14135788"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint16 _strPWRNODE::u16HAAS_Current_Average_Counter</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a371f1be9a93d64b340ca4161b0ed65d2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint16 _strPWRNODE::u16HighestSensorIndex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The index of the highest temperature sensor. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6792b338518bfca091c02384bd04614f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint16 _strPWRNODE::u16NumSensors</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loaded from memory the number of configured sensors. </p>
+
+</div>
+</div>
+<a class="anchor" id="afb404bef62f3a3cd0a2be403c0d21b9c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint16 _strPWRNODE::u16PackMemCRC</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pack memory CRC. </p>
+
+</div>
+</div>
+<a class="anchor" id="a997e8a6968c5a48c50b5f569ec1f94b3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint32 _strPWRNODE::u32100MS_Count</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>100 ms counter </p>
+<p>Count of 100ms. </p>
+
+</div>
+</div>
+<a class="anchor" id="affb0a12cee6c03624d8ccf34e734e220"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint32 _strPWRNODE::u32Guard1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad332b0444a47aa50270b7a9dc7eed24f">vPWRNODE__Init()</a>, and <a class="el" href="group___p_o_w_e_r___n_o_d_e_____f_a_u_l_t_s.html#ga31b4fb0ea58500389e1c7e8e79e474b0">vPWRNODE_FAULTS__Process()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7a6d5d95350f3b000bb5bd483eb52c42"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint32 _strPWRNODE::u32Guard2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad332b0444a47aa50270b7a9dc7eed24f">vPWRNODE__Init()</a>, and <a class="el" href="group___p_o_w_e_r___n_o_d_e_____f_a_u_l_t_s.html#ga31b4fb0ea58500389e1c7e8e79e474b0">vPWRNODE_FAULTS__Process()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae24720b9b25ff987b99e1c3e895d2f10"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint32 _strPWRNODE::u32NodePressCounter</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Just some counters for other I2C devices. </p>
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad332b0444a47aa50270b7a9dc7eed24f">vPWRNODE__Init()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f">vPWRNODE__Process()</a>, and <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gac9d88112b500fc5af0feca045f00d739">vPWRNODE__RTI_100MS_ISR()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a950f730a6ec7595f5f9b38fe31200cd1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint32 _strPWRNODE::u32NodeTempCounter</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad332b0444a47aa50270b7a9dc7eed24f">vPWRNODE__Init()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f">vPWRNODE__Process()</a>, and <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gac9d88112b500fc5af0feca045f00d739">vPWRNODE__RTI_100MS_ISR()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a903d3c1221df73a28b48f407400d8441"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint32 _strPWRNODE::u32TempScanCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Counter of number if times the temp sensor was scanned. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac71b6f0f2ba2b408c1586b70a4cba202"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strPWRNODE::u8Indexes[2U]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aeca9320e1b6185c67c8c5b47e9e2d2ca"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strPWRNODE::u8N2HETPinNumber</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6160c00dfa7bf027f4b1ac716a389da1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Luint8 _strPWRNODE::u8NewTempAvail</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Is any new data available? </p>
 
 </div>
 </div>

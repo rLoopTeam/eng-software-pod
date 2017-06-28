@@ -408,7 +408,7 @@ Note: Needs to go before eeprom params if any.
 		#define C_LOCALDEF__LCCM118__ENABLE_TRIG							(0U)
 
 		/** enable x^y */
-		#define C_LOCALDEF__LCCM118__ENABLE_POWER							(0U)
+		#define C_LOCALDEF__LCCM118__ENABLE_POWER							(1U)
 
 		/** enable vector math */
 		#define C_LOCALDEF__LCCM118__ENABLE_VECTORS							(0U)

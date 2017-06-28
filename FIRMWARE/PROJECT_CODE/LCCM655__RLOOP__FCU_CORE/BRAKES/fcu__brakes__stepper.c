@@ -108,7 +108,7 @@ void vFCU_BRAKES_STEP__Process(void)
  */
 Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake)
 {
-	return s32SIL3_STEPDRIVE_POSITION__Get_Position((Luint8)eBrake);
+	return s32SIL3_STEPDRIVE_POSITION__Get_PositionPicometers((Luint8)eBrake);
 }
 
 

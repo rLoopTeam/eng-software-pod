@@ -516,8 +516,6 @@ NUMERICAL MODULE
 	#define C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE == 1U
 
-		#define C_LOCALDEF__LCCM118__USE_ON_DSPIC   						(0U)
-
 		/** set to 1 to include TRIG */
 		#define C_LOCALDEF__LCCM118__ENABLE_TRIG							(1U)
 

@@ -151,12 +151,14 @@ void vPWRNODE__Process(void)
 			//GIO
 			vRM4_GIO__Init();
 
-			//CPU Load minitoring
+			//CPU Load monitoring
 			vRM4_CPULOAD__Init();
 
 			//setup UART, SCI2 = Pi Connection
+#if C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE == 1U
 			vRM4_SCI__Init(SCI_CHANNEL__2);
 			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 57600U);
+#endif
 			//vRM4_SCI_HELPERS__DisplayText(SCI_CHANNEL__2, "LOK\r\n", 5U);
 			//vRM4_SCI_INT__Enable_Notification(SCI_CHANNEL__2, SCI_RX_INT);
 			//vRM4_SCI__TxByte(SCI_CHANNEL__2, 0xAAU);
