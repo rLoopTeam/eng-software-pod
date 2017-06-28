@@ -17,7 +17,7 @@ Public Class Form1
     ''' <summary>
     ''' The name of our DLL, could be a bit better done with relative paths
     ''' </summary>
-    Private Const C_DLL_NAME As String = "..\..\..\PROJECT_CODE\DLLS\LDLLXXX__RLOOP__LCCM720\bin\Debug\LDLLXXX__RLOOP__LCCM720.dll"
+    Private Const C_DLL_NAME As String = "..\..\..\PROJECT_CODE\DLLS\LDLL180__RLOOP__LCCM720\bin\Debug\LDLL180__RLOOP__LCCM720.dll"
 
 #Region "WIN32 KERNEL"
     Private Declare Auto Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (ByVal pDst() As UInt16, ByVal pSrc As IntPtr, ByVal ByteLen As UInt32)

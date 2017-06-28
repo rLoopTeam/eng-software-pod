@@ -11,6 +11,11 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         POD_CTRL_PT__POWER_A
         POD_CTRL_PT__POWER_B
         POD_CTRL_PT__LGU
+
+        ''' <summary>
+        ''' Auxiliary Propulsion Unit
+        ''' </summary>
+        POD_CTRL_PT__APU
     End Enum
 
 
@@ -214,6 +219,14 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** FCU to Host, return pusher data */
         NET_PKT__FCU_PUSH__TX_PUSHER_DATA = &H1801
 
+
+        '//////////////////////////////////////////////////////
+        '//APU: CLUTCH CONTROL(0x2100 - 0x21FF)
+        '//////////////////////////////////////////////////////
+        NET_PKT__APU_CLUTCH__MANUAL = &H2100
+
+        '/** Manual Motor Directoin Control */
+        NET_PKT__APU_MOTOR__DIRECTION_MANUAL = &H2101
 
         '//////////////////////////////////////////////////////
         '//POWER: GENERAL (&h3000)
