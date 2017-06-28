@@ -256,6 +256,16 @@
 
 		/** Release the Lift Mech */
 		NET_PKT__FCU_LIFTMECH__RELEASE = 0x1904U,
+		
+		
+		
+		//////////////////////////////////////////////////////
+		//APU: CLUTCH CONTROL(0x2100 - 0x21FF)
+		//////////////////////////////////////////////////////
+		NET_PKT__APU_CLUTCH__MANUAL = 0x2100U,
+
+		/** Manual Motor Directoin Control */
+		NET_PKT__APU_MOTOR__DIRECTION_MANUAL = 0x2101U,
 
 		//////////////////////////////////////////////////////
 		//POWER: GENERAL (0x3000)
