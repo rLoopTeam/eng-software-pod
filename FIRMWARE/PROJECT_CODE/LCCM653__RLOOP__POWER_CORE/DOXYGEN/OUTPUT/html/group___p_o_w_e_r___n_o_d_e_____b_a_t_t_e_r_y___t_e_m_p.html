@@ -31,7 +31,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_250X66.BMP"/></td>
+  <td id="projectlogo"><img alt="Logo" src="SIL3_LOGO_180X50.BMP"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">(C Code, RLOOP, Power Node Core)
    &#160;<span id="projectnumber">1.0</span>
@@ -91,8 +91,6 @@ $(document).ready(function(){initNavTree('group___p_o_w_e_r___n_o_d_e_____b_a_t_
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">POWER_NODE__BATTERY_TEMP<div class="ingroups"><a class="el" href="group___r_l_o_o_p.html">RLOOP</a> &raquo; <a class="el" href="group___p_o_w_e_r___n_o_d_e.html">POWER_NODE</a></div></div>  </div>
 </div><!--header-->
@@ -105,154 +103,6 @@ Collaboration diagram for POWER_NODE__BATTERY_TEMP:</div>
 <area shape="rect" id="node2" href="group___p_o_w_e_r___n_o_d_e.html" title="POWER_NODE" alt="" coords="5,5,121,32"/>
 </map>
 </td></tr></table></center>
-</div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga937791521204932397f7153009fc2a38"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p.html#ga937791521204932397f7153009fc2a38">vPWRNODE_BATTTEMP__Init</a> (void)</td></tr>
-<tr class="memdesc:ga937791521204932397f7153009fc2a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init the battery temperature measurement devices.  <a href="#ga937791521204932397f7153009fc2a38">More...</a><br /></td></tr>
-<tr class="separator:ga937791521204932397f7153009fc2a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3a8686c2e3ea7cad6e596952b6ae1798"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p.html#ga3a8686c2e3ea7cad6e596952b6ae1798">vPWRNODE_BATTTEMP__Process</a> (void)</td></tr>
-<tr class="memdesc:ga3a8686c2e3ea7cad6e596952b6ae1798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process any battery temp measurement tasks.  <a href="#ga3a8686c2e3ea7cad6e596952b6ae1798">More...</a><br /></td></tr>
-<tr class="separator:ga3a8686c2e3ea7cad6e596952b6ae1798"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga067b7f6b87917e1bb00008ed449a08fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p.html#ga067b7f6b87917e1bb00008ed449a08fe">vPWRNODE_BATTTEMP__Start_Search</a> (void)</td></tr>
-<tr class="memdesc:ga067b7f6b87917e1bb00008ed449a08fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a search of any devices on the network.  <a href="#ga067b7f6b87917e1bb00008ed449a08fe">More...</a><br /></td></tr>
-<tr class="separator:ga067b7f6b87917e1bb00008ed449a08fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga160e251a711d99bee33282de41a00071"><td class="memItemLeft" align="right" valign="top">Luint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p.html#ga160e251a711d99bee33282de41a00071">u8PWRNODE_BATTTEMP__Search_IsBusy</a> (void)</td></tr>
-<tr class="memdesc:ga160e251a711d99bee33282de41a00071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check to see if the batt temp sensor search process is busy.  <a href="#ga160e251a711d99bee33282de41a00071">More...</a><br /></td></tr>
-<tr class="separator:ga160e251a711d99bee33282de41a00071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ga160e251a711d99bee33282de41a00071"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Luint8 u8PWRNODE_BATTTEMP__Search_IsBusy </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check to see if the batt temp sensor search process is busy. </p>
-<dl class="section return"><dt>Returns</dt><dd>0 = not busy<br />
- 1 = busy </dd></dl>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>CF96C635BC6184E9E3C82972F7EFA099 </dd></dl>
-<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM653R0.FILE.009.FUNC.004 </dd></dl>
-
-<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f">vPWRNODE__Process()</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga160e251a711d99bee33282de41a00071_icgraph.png" border="0" usemap="#group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga160e251a711d99bee33282de41a00071_icgraph" alt=""/></div>
-<map name="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga160e251a711d99bee33282de41a00071_icgraph" id="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga160e251a711d99bee33282de41a00071_icgraph">
-<area shape="rect" id="node2" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f" title="Process the power node states, this should be called as quick as possible from the main program loop..." alt="" coords="232,13,389,39"/>
-</map>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ga937791521204932397f7153009fc2a38"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void vPWRNODE_BATTTEMP__Init </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Init the battery temperature measurement devices. </p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>125710767486723A58326AAA59E627DA </dd></dl>
-<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM653R0.FILE.009.FUNC.001 </dd></dl>
-
-<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f">vPWRNODE__Process()</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga937791521204932397f7153009fc2a38_icgraph.png" border="0" usemap="#group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga937791521204932397f7153009fc2a38_icgraph" alt=""/></div>
-<map name="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga937791521204932397f7153009fc2a38_icgraph" id="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga937791521204932397f7153009fc2a38_icgraph">
-<area shape="rect" id="node2" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f" title="Process the power node states, this should be called as quick as possible from the main program loop..." alt="" coords="255,5,412,32"/>
-</map>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ga3a8686c2e3ea7cad6e596952b6ae1798"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void vPWRNODE_BATTTEMP__Process </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Process any battery temp measurement tasks. </p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>716F10371EC26421C99A1DD629ED9105 </dd></dl>
-<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM653R0.FILE.009.FUNC.002 </dd></dl>
-
-<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f">vPWRNODE__Process()</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga3a8686c2e3ea7cad6e596952b6ae1798_icgraph.png" border="0" usemap="#group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga3a8686c2e3ea7cad6e596952b6ae1798_icgraph" alt=""/></div>
-<map name="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga3a8686c2e3ea7cad6e596952b6ae1798_icgraph" id="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga3a8686c2e3ea7cad6e596952b6ae1798_icgraph">
-<area shape="rect" id="node2" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f" title="Process the power node states, this should be called as quick as possible from the main program loop..." alt="" coords="231,13,388,39"/>
-</map>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ga067b7f6b87917e1bb00008ed449a08fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void vPWRNODE_BATTTEMP__Start_Search </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Start a search of any devices on the network. </p>
-<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>44524ACD1CAC2160BEBA831938D2122E </dd></dl>
-<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM653R0.FILE.009.FUNC.003 </dd></dl>
-
-<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f">vPWRNODE__Process()</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga067b7f6b87917e1bb00008ed449a08fe_icgraph.png" border="0" usemap="#group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga067b7f6b87917e1bb00008ed449a08fe_icgraph" alt=""/></div>
-<map name="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga067b7f6b87917e1bb00008ed449a08fe_icgraph" id="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_ga067b7f6b87917e1bb00008ed449a08fe_icgraph">
-<area shape="rect" id="node2" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f" title="Process the power node states, this should be called as quick as possible from the main program loop..." alt="" coords="231,13,388,39"/>
-</map>
-</div>
-</p>
-
-</div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,13 +1,14 @@
 var indexSectionsWithContent =
 {
-  0: "_efiprsuv",
+  0: "_abcdefinprsuv",
   1: "_",
-  2: "p",
-  3: "fuv",
-  4: "s",
+  2: "afp",
+  3: "fsuv",
+  4: "efsu",
   5: "e",
-  6: "i",
-  7: "pr"
+  6: "bcdinpr",
+  7: "c",
+  8: "pr"
 };
 
 var indexSectionNames =
@@ -19,7 +20,8 @@ var indexSectionNames =
   4: "variables",
   5: "enums",
   6: "enumvalues",
-  7: "groups"
+  7: "defines",
+  8: "groups"
 };
 
 var indexSectionLabels =
@@ -31,6 +33,7 @@ var indexSectionLabels =
   4: "Variables",
   5: "Enumerations",
   6: "Enumerator",
-  7: "Modules"
+  7: "Macros",
+  8: "Modules"
 };
 

@@ -19,6 +19,7 @@
 #include "../power_core.h"
 #if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
+#if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
 /***************************************************************************//**
  * @brief
  * SCI notify
@@ -52,6 +53,7 @@ void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
 	}//switch(eChannel)
 }
 
+#endif //#if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
 
 #endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 //safetys
