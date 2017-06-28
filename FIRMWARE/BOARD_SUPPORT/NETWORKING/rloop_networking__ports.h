@@ -20,13 +20,16 @@
     #define C_RLOOP_NET_PORT__LGU                               (9548U)
     /** LGU Lower Network IP*/
     #define C_RLOOP_NET_IP__LGU                                 (120U)
-
 	
 	/** Aux Propulsion Unit*/
 	#define C_RLOOP_NET_PORT__APU								(9615U)
 	/** Aux Prop Lower Network IP*/
 	#define C_RLOOP_NET_IP__APU									(140U)
 
+	/** HE Thermal Unit*/
+	#define C_RLOOP_NET_PORT__HETHERM							(9608U)
+	/** HE Thermal Lower Network IP*/
+	#define C_RLOOP_NET_IP__HETHERM								(141U)
 
 	
 	
