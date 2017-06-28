@@ -20,8 +20,6 @@ Change the build settings:
 #else
 	#include "../sil3_generic__cpu_win32.h"
 #endif
-=======
-
 	
 	//data types
 	#include <RM4/LCCM105__RM4__BASIC_TYPES/basic_types.h>
