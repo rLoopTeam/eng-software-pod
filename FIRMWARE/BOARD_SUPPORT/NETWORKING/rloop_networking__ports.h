@@ -15,7 +15,12 @@
 	#define C_RLOOP_NET_PORT__FCU								(9531U)
 	/** Flight Control Lower Network IP*/
 	#define C_RLOOP_NET_IP__FCU									(100U)
-	
+
+    /** Landing Gear Unit*/
+    #define C_RLOOP_NET_PORT__LGU                               (9548U)
+    /** LGU Lower Network IP*/
+    #define C_RLOOP_NET_IP__LGU                                 (120U)
+
 	
 	/** Aux Propulsion Unit*/
 	#define C_RLOOP_NET_PORT__APU								(9615U)

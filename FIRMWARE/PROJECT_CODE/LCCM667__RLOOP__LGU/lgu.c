@@ -20,6 +20,9 @@
 
 #if C_LOCALDEF__LCCM667__ENABLE_THIS_MODULE == 1U
 
+//Main structure
+TS_LGU__MAIN sLGU;
+
 void vLGU__Init(void)
 {
 	

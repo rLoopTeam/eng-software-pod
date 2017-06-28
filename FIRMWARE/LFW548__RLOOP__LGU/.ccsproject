@@ -9,5 +9,5 @@
 	<connection value="common/targetdb/connections/TIXDS100v2_Connection.xml"/>
 	<rts value="rtsv7R4_T_le_v3D16_eabi.lib"/>
 	<templateProperties value="id=com.ti.common.project.core.emptyProjectTemplate,"/>
-	<isTargetManual value="false"/>
+	<isTargetManual value="true"/>
 </projectOptions>
