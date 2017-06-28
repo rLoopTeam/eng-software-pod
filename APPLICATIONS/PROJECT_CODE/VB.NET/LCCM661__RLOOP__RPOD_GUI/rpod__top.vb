@@ -31,6 +31,11 @@ Namespace SIL3.rLoop.rPodControl
         Private m_pnlFlightControl As SIL3.rLoop.rPodControl.Panels.FlightControl.Top
 
         ''' <summary>
+        ''' AuxProp top level
+        ''' </summary>
+        Private m_pnlAuxProp As SIL3.rLoop.rPodControl.Panels.AuxProp.Top
+
+        ''' <summary>
         ''' Xilinx simulation module
         ''' </summary>
         Private m_pnlXilinxSim As SIL3.rLoop.rPodControl.Panels.XilinxSim.Top
@@ -69,10 +74,12 @@ Namespace SIL3.rLoop.rPodControl
 
             If MsgBox("Do you want to run this in loopback?" & Environment.NewLine & "Else it will run on .0.x hardware", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 Me.m_pEth.Port__Add("127.0.0.1", 9100, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU)
+                Me.m_pEth.Port__Add("127.0.0.1", 9615, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU)
                 Me.m_pEth.Port__Add("127.0.0.1", 3000, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU_SPACEX_DIAG)
                 Me.m_pEth.Port__Add("127.0.0.1", 9170, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM)
             Else
                 Me.m_pEth.Port__Add("192.168.0.100", 9100, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU)
+                Me.m_pEth.Port__Add("192.168.0.140", 9615, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU)
                 Me.m_pEth.Port__Add("192.168.0.100", 3000, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU_SPACEX_DIAG)
                 Me.m_pEth.Port__Add("192.168.0.170", 9170, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM)
 
@@ -126,6 +133,9 @@ Namespace SIL3.rLoop.rPodControl
             AddHandler Me.m_pnlFlightControl.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlightControl.UserEvent__SafeUDP__Tx_X3_Array, AddressOf Me.InternalEvent__SafeUDP__Tx_X3_Array
 
+            Me.m_pnlAuxProp = New SIL3.rLoop.rPodControl.Panels.AuxProp.Top(pForm, Me.m_pExplorer)
+            AddHandler Me.m_pnlAuxProp.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
+
 
             Me.m_pnlXilinxSim = New SIL3.rLoop.rPodControl.Panels.XilinxSim.Top(pForm, Me.m_pExplorer)
             AddHandler Me.m_pnlXilinxSim.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
@@ -150,6 +160,7 @@ Namespace SIL3.rLoop.rPodControl
         Private Sub LinkBar_LinkClick(ByVal sText As String)
             Me.m_pnlSettings.Panel__HideShow(sText)
             Me.m_pnlFlightControl.Panel__HideShow(sText)
+            Me.m_pnlAuxProp.Panel__HideShow(sText)
             Me.m_pnlXilinxSim.Panel__HideShow(sText)
         End Sub
 #End Region '#Region "EXPLORER BAR"
@@ -185,7 +196,6 @@ Namespace SIL3.rLoop.rPodControl
         End Sub
 
 #End Region '#Region "ETHERNET TX"
-
 
 #Region "ETHERNET RX"
         ''' <summary>

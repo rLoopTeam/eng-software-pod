@@ -1874,6 +1874,22 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="iWidth"></param>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U8.Value__Update(System.Byte[]@,System.Int32)">
+ <summary>
+ Update the value in the display box
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U8.Value__Update__To_Int(System.Byte[]@,System.Int32)">
+ <summary>
+ Update the value in the display box as an integer
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
+</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U8.List__Add(System.String,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U8)">
  <summary>
  Add a list item
@@ -1943,6 +1959,22 @@ LAPP188__RLOOP__RPOD_CONTROL
  </summary>
  <param name="iWidth"></param>
  <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_S32.Value__Update(System.Byte[]@,System.Int32)">
+ <summary>
+ Update the value from a byte array (such as a packet)
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_S32.Value__ToArray(System.Byte[]@,System.Int32)">
+ <summary>
+ Convert the value in our 
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.TextBoxHelper_U32">
  <summary>
@@ -4271,11 +4303,74 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  Pod control end points
  </summary>
 </member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU">
+ <summary>
+ Auxiliary Propulsion Unit
+ </summary>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T">
  <summary>
  Network packet defines
  http://confluence.rloop.org/display/SD/Packet+Types
  </summary>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Manual">
+ <summary>
+ Manual AuxProp Control
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Manual.#ctor(System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Manual.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top">
+ <summary>
+ Top level APU panel
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top.m_pExplorer">
+ <summary>
+ Our application explorer bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top.m_iBarIndex">
+ <summary>
+ The index of our category in the explorer bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top.#ctor(System.Windows.Forms.Form@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ExplorerBarHelper@)">
+ <summary>
+ New instance
+ </summary>
+ <param name="pf"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top.Panel__HideShow(System.String)">
+ <summary>
+ How or hide this panel if our text matches
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top.LinkBar_LinkClick(System.String)">
+ <summary>
+ Called when a link is clicked
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers">
  <summary>
@@ -5710,6 +5805,11 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  The Flight Control Interface
  </summary>
  <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pnlAuxProp">
+ <summary>
+ AuxProp top level
+ </summary>
 </member>
 <member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pnlXilinxSim">
  <summary>
