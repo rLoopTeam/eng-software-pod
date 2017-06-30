@@ -19,7 +19,8 @@
 #include "../../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
-#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_MAINSM == 1U
+
 //the structure
 extern struct _strFCU sFCU;
 
@@ -42,6 +43,9 @@ extern struct _strFCU sFCU;
 void vFCU_FCTL_MAINSM__Init(void)
 {
 	sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__RESET;
+	#ifdef WIN32
+		vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+	#endif // WIN32
 
 }
 
@@ -56,11 +60,11 @@ void vFCU_FCTL_MAINSM__Init(void)
 void vFCU_FCTL_MAINSM__Process(void)
 {
 	Luint8 u8Counter;
-	Luint8 u8Test;
-	Luint8 u8TestsSuccesful;
+//	Luint8 u8Test;
+//	Luint8 u8TestsSuccesful;
 	Lint32 u32Accelmmss;
 	Luint32 u32PodSpeed;
-	Luint8 ePusherState;
+	E_FCU_PUSHPIN_STATE_T ePusherState;
 	Luint32 u32PodRearPos;
 
 	//handle the state machine.
@@ -74,6 +78,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			#if C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH == 1U
 				vFCU_PODHEALTH__Init();
 			#endif
+
 			//init the auto sequence
 			vFCU_MAINSM_AUTO__Init();
 
@@ -96,6 +101,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 				vFCU_BRAKES__Init();
 			#endif
+			#if C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES == 1U
+				vFCU_FCTL_EDDY_BRAKES__Init();
+			#endif
+
 
 			//Init the throttles
 			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
@@ -136,8 +145,17 @@ void vFCU_FCTL_MAINSM__Process(void)
 				vFCU_GEOM__Init();
 			#endif //C_LOCALDEF__LCCM655__ENABLE_GEOM
 
+			//init drive pod
+			#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
+				vFCU_FCTL_DRIVEPOD__Init();
+			#endif
+
 			//put the flight computer into startup mode now that everything has been initted.
 			sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__DEBUG; //MISSION_PHASE__TEST;
+
+			#ifdef WIN32
+				vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+			#endif // WIN32
 
 			break;
 
@@ -147,60 +165,75 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 			//in this mode we are performing tests of all of the sensors and motors pl an auto-sequence
 
-			//see if we have an auto sequence abort
-			u8Test = u8FCU_MAINSM_AUTO__Is_Abort();
-			if(u8Test == 1U)
-			{
-				//move to RESET if tests aborted
-				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__RESET;
-			}
-			else
-			{
-				u8Test = u8FCU_MAINSM_AUTO__Is_Busy();
-				if(u8Test == 1U)
-				{
-					//stay in state, we are still busy
-				}
-				else
-				{
-					//not busy and not abort, set flag indicating tests succesful
-					u8TestsSuccesful = 1U;
-				}
-			}
+//			//see if we have an auto sequence abort
+//			u8Test = u8FCU_MAINSM_AUTO__Is_Abort();
+//			if(u8Test == 1U)
+//			{
+//				//move to RESET if tests aborted
+//				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__RESET;
+//			}
+//			else
+//			{
+//				u8Test = u8FCU_MAINSM_AUTO__Is_Busy();
+//				if(u8Test == 1U)
+//				{
+//					//stay in state, we are still busy
+//				}
+//				else
+//				{
+//					//not busy and not abort, set flag indicating tests succesful
+//					u8TestsSuccesful = 1U;
+//				}
+//			}
 
 			u32Accelmmss = u32FCU_FCTL_NAV__Get_Accel_mmss();
 
 			if (u32Accelmmss > C_FCU__NAV_MIN_PUSHER_ACCEL)
 			{
-				sFCU.sStateMachine.EnableAccelCounter = 1U;
+				sFCU.sStateMachine.u8EnableAccelCounter = 1U;
 			}
 			else
 			{
-				sFCU.sStateMachine.EnableAccelCounter = 0U;
+				sFCU.sStateMachine.u8EnableAccelCounter = 0U;
 			}
 
 			//Get Pod Speed
 			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 
-			if ((u8TestsSuccesful == 1U || sFCU.sStateMachine.eGSCommands == MAINSM_GS_ENTER_PRE_RUN_PHASE) && sFCU.sStateMachine.sOpStates.u8Lifted && (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY))
+			if ((u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && (sFCU.sStateMachine.eGSCommands == MAINSM_GS_ENTER_PRE_RUN_PHASE))
 			{
 
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PRE_RUN;
 					sFCU.sStateMachine.eGSCommands = MAINSM_GS_NO_CMD;
+
+					#ifdef WIN32
+						vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+					#endif // WIN32
+
 			}
 			else
 			{
 
-				if((sFCU.sStateMachine.AccelCounter > C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY) || u32PodSpeed > C_FCU__NAV_MIN_PUSHER_SPEED)
+				if((sFCU.sStateMachine.u32AccelCounter > C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY) || u32PodSpeed > C_FCU__NAV_MIN_PUSHER_SPEED)
 				{
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PUSHER_INTERLOCK;
 					sFCU.sStateMachine.EnableAccelCounter = 0U;
+
+					#ifdef WIN32
+						vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+					#endif // WIN32
+
 				}
 				else
 				{
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__TEST;
+
+					#ifdef WIN32
+						vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+					#endif // WIN32
 				}
 			}
+
 			break;
 
 		case MISSION_PHASE__PRE_RUN:
@@ -212,24 +245,33 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 			if (u32Accelmmss > C_FCU__NAV_MIN_PUSHER_ACCEL)
 			{
-				sFCU.sStateMachine.EnableAccelCounter = 1U;
+				sFCU.sStateMachine.u8EnableAccelCounter = 1U;
 			}
 			else
 			{
-				sFCU.sStateMachine.EnableAccelCounter = 0U;
+				sFCU.sStateMachine.u8EnableAccelCounter = 0U;
 			}
 
 			//Get Pod Speed
 			u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 
-			if((sFCU.sStateMachine.AccelCounter > C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY) || u32PodSpeed > C_FCU__NAV_MIN_PUSHER_SPEED)
+			if((sFCU.sStateMachine.u32AccelCounter > C_FCU__MAINSM_PUSHER_START_CONFIRM_DELAY) || u32PodSpeed > C_FCU__NAV_MIN_PUSHER_SPEED)
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PUSHER_INTERLOCK;
+
 				sFCU.sStateMachine.EnableAccelCounter = 0U;
+
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 			else
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PRE_RUN;
+
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 
 			break;
@@ -238,19 +280,19 @@ void vFCU_FCTL_MAINSM__Process(void)
 		case MISSION_PHASE__PUSHER_INTERLOCK:
 
 			//transition to FLIGHT mode if the pod has reached the min_x_pos AND 1 second elapsed from the disconnection from the pusher
-
+			sFCU.sStateMachine.u32PusherPhaseCounter = 0U;
 			ePusherState = eFCU_PUSHER__Get_PusherState();
 			u32PodRearPos = u32FCU_FCTL_NAV__GetRearPos();
 
 			// Check if counter for pusher pin release should be enabled
-			if(ePusherState == 0U)
+			if(ePusherState == PIN_FINAL_STATE__DISCONNECTED)
 			{
 				//Enable the counter
-				sFCU.sStateMachine.EnablePusherCounter == 1U;
+				sFCU.sStateMachine.u8EnablePusherCounter = 1U;
 			}
 			else
 			{
-				sFCU.sStateMachine.EnablePusherCounter == 0U;
+				sFCU.sStateMachine.u8EnablePusherCounter = 0U;
 			}
 
 			// Check if counter for miserable stop should be enabled
@@ -259,32 +301,45 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if(u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY)
 			{
 				//Enable the counter
-				sFCU.sStateMachine.EnableMiserableStopCounter == 1U;
+				sFCU.sStateMachine.u8EnableMiserableStopCounter = 1U;
 			}
 			else
 			{
-				sFCU.sStateMachine.EnableMiserableStopCounter == 0U;
+				sFCU.sStateMachine.u8EnableMiserableStopCounter = 0U;
 			}
 
-			if(((u32PodRearPos > C_FCU__NAV_POD_MIN_X_POS) || u8FCU_FCTL_NAV__IsInFailure() == 1U) && (sFCU.sStateMachine.PusherCounter >= C_FCU__MAINSM_PUSHER_RELEASE_DELAY))
+			if((((u32PodRearPos > C_FCU__NAV_POD_MIN_X_POS) || u8FCU_FCTL_NAV__IsInFailure() == 1U) && (sFCU.sStateMachine.u32PusherCounter >= C_FCU__MAINSM_PUSHER_RELEASE_DELAY)) || sFCU.sStateMachine.u32PusherPhaseCounter >= C_FCU__MAINSM_MAX_PUSHER_INTERLOCK_PHASE_DURATION)
 			{
 				//Switch to Mission Phase Flight
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__FLIGHT;
 				//Disable the counter
 				sFCU.sStateMachine.EnablePusherCounter = 0U;
+
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 			else
 			{
-				if (sFCU.sStateMachine.MiserableStopCounter > C_FCU__NAV_MISERABLE_STOP_CONFIRM_DELAY)
+				//Both Timers need to elapse in order to transition to POST RUN PHASE
+				if ((sFCU.sStateMachine.u32MiserableStopCounter > C_FCU__NAV_MISERABLE_STOP_CONFIRM_DELAY) && (sFCU.sStateMachine.u32PusherPhaseCounter > C_FCU__MAINSM_MAX_PUSHER_INTERLOCK_PHASE_DURATION))
 				{
 					//Switch to Mission Phase Flight
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__POST_RUN;
 					//Disable the counter
 					sFCU.sStateMachine.EnableMiserableStopCounter = 0U;
+
+					#ifdef WIN32
+						vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+					#endif // WIN32
 				}
 				else
 				{
 					sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PUSHER_INTERLOCK;
+
+					#ifdef WIN32
+						vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+					#endif // WIN32
 				}
 			}
 
@@ -306,15 +361,21 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__POST_RUN;
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 
 			else
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__FLIGHT;
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 
 			//Disable the counter
-			sFCU.sStateMachine.EnablePusherCounter == 0U;
+			sFCU.sStateMachine.u8EnablePusherCounter = 0U;
 
 			break;
 
@@ -328,10 +389,16 @@ void vFCU_FCTL_MAINSM__Process(void)
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__PRE_RUN;
 				sFCU.sStateMachine.eGSCommands = MAINSM_GS_NO_CMD;
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 			else
 			{
 				sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__POST_RUN;
+				#ifdef WIN32
+					vDEBUG_RECORD_WIN32__MissionPhaseCallback((Luint8 )sFCU.sStateMachine.eMissionPhase);
+				#endif // WIN32
 			}
 			break;
 #endif
@@ -349,6 +416,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 	//always process these items after we have been initted
 	if(sFCU.sStateMachine.eMissionPhase > MISSION_PHASE__RESET)
 	{
+		// FIRST THING, send Mission phase information to ground station proactively and periodically
+		// setting this, the vFCU_NET_TX__Process() will send it to ground station
+		sFCU.sUDPDiag.eTxPacketType = NET_PKT__FCU_GEN__TX_MISSION_DATA;
+
 		#if C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH == 1U
 			vFCU_PODHEALTH__Process();
 		#endif
@@ -425,12 +496,32 @@ void vFCU_FCTL_MAINSM__Process(void)
 			vFCU_FCTL_HOVERENGINES__Process();
 		#endif
 
+		//Start drive pod
+		#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
+			vFCU_FCTL_DRIVEPOD__Process();
+		#endif
+
+		#if C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION == 1U
+			vFCU_FLIGHTCTL_NAV__Process();
+		#endif
+
 		//TODO: NOT MENTIONED ANYWHERE ELSE
 		//process auto-sequence control
 		//vFCU_FCTL_MAINSM_AUTO__Process();
 
 		//Update operating states
+#ifdef WIN32
+		if(sFCU.sStateMachine.sErrorInjection.eInjectCondition == INJECT_LIFTED)
+		{
+			   sFCU.sStateMachine.sOpStates.u8Lifted = sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue;
+		}
+		else
+#endif // WIN32
+		{
+			   sFCU.sStateMachine.sOpStates.u8Lifted = u8FCU_FCTL_MAINSM__CheckIfLifted();
+		}
 #if 0
+
 		sFCU.sStateMachine.sOpStates.u8Unlifted = u8FCU_FCTL_MAINSM__CheckIfUnlifted();
 
 		sFCU.sStateMachine.sOpStates.u8Lifted = u8FCU_FCTL_MAINSM__CheckIfLifted();
@@ -460,39 +551,45 @@ void vFCU_FCTL_MAINSM__Process(void)
 void vFCU_FCTL_MAINSM__10MS_ISR(void)
 {
 	//Enable/Disable Counter
-   if (sFCU.sStateMachine.EnableAccelCounter == 1U)
+   if (sFCU.sStateMachine.u8EnableAccelCounter == 1U)
    {
-        sFCU.sStateMachine.AccelCounter++;
+        sFCU.sStateMachine.u32AccelCounter++;
    }
    else
    {
-		sFCU.sStateMachine.AccelCounter = 0U;
+		sFCU.sStateMachine.u32AccelCounter = 0U;
    }
 }
 
 void vFCU_FCTL_MAINSM__100MS_ISR(void)
 {
 	//Enable/Disable Counter
-   if (sFCU.sStateMachine.EnablePusherCounter == 1U)
+   if (sFCU.sStateMachine.u8EnablePusherCounter == 1U)
    {
-        sFCU.sStateMachine.PusherCounter++;
+        sFCU.sStateMachine.u32PusherCounter++;
    }
    else
    {
-       sFCU.sStateMachine.PusherCounter = 0U;
+       sFCU.sStateMachine.u32PusherCounter = 0U;
    }
 }
+
+void vFCU_FCTL_MAINSM__PUSHER_PHASE_COUNTER_100MS_ISR(void)
+	{
+		sFCU.sStateMachine.u32PusherPhaseCounter++;
+	}
+
 
 void vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR(void)
 {
 	//Enable/Disable Counter
-   if (sFCU.sStateMachine.EnableMiserableStopCounter == 1U)
+   if (sFCU.sStateMachine.u8EnableMiserableStopCounter == 1U)
    {
-        sFCU.sStateMachine.MiserableStopCounter++;
+        sFCU.sStateMachine.u32MiserableStopCounter++;
    }
    else
    {
-       sFCU.sStateMachine.MiserableStopCounter = 0U;
+       sFCU.sStateMachine.u32MiserableStopCounter = 0U;
    }
 }
 
@@ -512,6 +609,8 @@ void vFCU_FCTL_MAINSM__EnterPreRun_Phase()
 		//do nothing
 	}
 }
+
+#endif
 
 
 
@@ -597,7 +696,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfReadyForPush(void)
 	Luint8 u8PusherSwitch2 = u8FCU_PUSHER__Get_Switch(1);
 
 	//Check if we are connected to the pusher, speed is below standby, the height makes sense to be pushed + each of our landing gear units is retracted
-	if((u32PodZPos > C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT) &&  (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && (u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U) && (vFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED))
+	if((u32PodZPos > C_FCU__LASERORIENT_MIN_RUN_MODE_HEIGHT) &&  (u32PodSpeed < C_FCU__NAV_PODSPEED_STANDBY) && (u8PusherSwitch1 == 1U) && (u8PusherSwitch2 == 1U)/* && (eFCU_FCTL_LIFTMECH__Get_State() == LIFT_MECH_STATE__RETRACTED)*/)
 	{
 		u8Test = 1U;
 	}
@@ -640,7 +739,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfCoasting(void)
 	//Get Pod Speed
 	Luint32 u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
 	//
-	if(u32PodSpeed && (u8PusherSwitch1 == 0U) && (u8PusherSwitch2 == 0U) && (vFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__RETRACTED))
+	if(u32PodSpeed && (u8PusherSwitch1 == 0U) && (u8PusherSwitch2 == 0U) && (eFCU_FCTL_EDDY_BRAKES__Get_State() == EDDY_BRAKES_STATE__RETRACTED))
 	{
 		u8Test = 1U;
 	}
@@ -654,7 +753,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfCoasting(void)
 Luint8 u8FCU_FCTL_MAINSM__CheckIfBraking(void)
 {
 	Luint8 u8Test;
-	if(vFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__BRAKING)
+	if(eFCU_FCTL_EDDY_BRAKES__Get_State() == EDDY_BRAKES_STATE__BRAKING)
 	{
 		u8Test = 1U;
 	}
@@ -668,7 +767,7 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfBraking(void)
 Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void)
 {
 	Luint8 u8Test;
-	if(vFCU_FCTL_EDDYBRAKES__Get_State() == EDDYBRAKES_STATE__CONTROLLED_BRAKING)
+	if(eFCU_FCTL_EDDY_BRAKES__Get_State() == EDDY_BRAKES_STATE__CONTROLLED_BRAKING)
 	{
 		u8Test = 1U;
 	}
@@ -679,11 +778,32 @@ Luint8 u8FCU_FCTL_MAINSM__CheckIfControlledBraking(void)
 	return u8Test;
 }
 
-#endif //0
+ #ifdef WIN32
+void vFCU_FCTL_MAINSM__InjectErrorCondition(Luint32 errorInjectionCondition, Luint8 errorInjectionValue)
+{
+       sFCU.sStateMachine.sErrorInjection.eInjectCondition = (E_FCU__ERROR_INJECT) errorInjectionCondition;
+       sFCU.sStateMachine.sErrorInjection.u8ErrorInjectionValue = errorInjectionValue;
+}
+ #endif // WIN32
 
 
-#endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
-#ifndef C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
+Luint8 u8FCU_FCTL_MAINSM__LossOfComm(void)
+{
+	Luint8 u8LossOfComm;
+	if (sFCU.sUDPDiag.u32_10MS_GS_COMM_Timer > 200U)
+	{
+		u8LossOfComm = 1U;
+	}
+	else
+	{
+		u8LossOfComm = 0U;
+	}
+	return u8LossOfComm;
+}
+
+#endif //C_LOCALDEF__LCCM655__ENABLE_MAINSM
+#ifndef C_LOCALDEF__LCCM655__ENABLE_MAINSM
+
 	#error
 #endif
 #endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE

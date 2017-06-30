@@ -25,205 +25,103 @@
 
 extern struct _strFCU sFCU;
 
-//// GS comm packet types to add to fcu_core_net_packet_types.h
-//NET_PKT__FCU_EDDYBRAKES__SET_DIR
-//NET_PKT__FCU_EDDYBRAKES__SET_SPEED
-//NET_PKT__FCU_EDDYBRAKES__SET_GROUP_DIR
-//NET_PKT__FCU_EDDYBRAKES__SET_GROUP_SPEED
-//NET_PKT__FCU_EDDYBRAKES__RELEASE_BRAKES
-//NET_PKT__FCU_EDDYBRAKES__FULL_BRAKES
-//
-//// GS lift mech commands to add to fcu_core_net_rx.c:
-//// assuming get actuator and value in u32blocks
-//case NET_PKT__FCU_EDDYBRAKES__SET_DIR:
-//	//set direction of specific eddy brake
-//	#if C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES == 1U
-//		if (sFCU.eMissionPhase != MISSION_PHASE__PUSH_INTERLOCK_PHASE)
-//		{
-//			E_FCU_FCTL_EDDYBRAKES_ACTUATOR actuator;
-//			E_FCU_FCTL_EDDYBRAKES_DIRECTION dir;
-//			switch(u32Block[0])
-//			{
-//				case 0:
-//					actuator = EDDYBRAKES_Left;
-//					break;
-//				case 1:
-//					actuator = EDDYBRAKES_Right;
-//					break;
-//				case default:
-//					//report error
-//					break;
-//			}
-//			switch(u32Block[1])
-//			{
-//				case 0:
-//					dir = EDDYBRAKES_OUTWARD;
-//					break;
-//				case 1:
-//					dir = EDDYBRAKES_INWARD;
-//					break;
-//				case default:
-//					//report error
-//					break;
-//			}
-//			vFCU_FCTL_EDDYBRAKES_Dir(actuator, dir);
-//		}
-//	#endif
-//	break;
-//
-//case NET_PKT__FCU_EDDYBRAKES__SET_SPEED:
-//	//set speed of specific eddy brake
-//	#if C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES == 1U
-//		if (sFCU.eMissionPhase != MISSION_PHASE__PUSH_INTERLOCK_PHASE)
-//		{
-//			E_FCU_FCTL_EDDYBRAKES_ACTUATOR actuator;
-//			switch(u32Block[0])
-//			{
-//				case 0:
-//					actuator = EDDYBRAKES_Left;
-//					break;
-//				case 1:
-//					actuator = EDDYBRAKES_Right;
-//					break;
-//				case default:
-//					//report error
-//					break;
-//			}
-//			vFCU_FCTL_EDDYBRAKES_Speed(actuator, u32Block[1]);
-//		}
-//	#endif
-//	break;
-//
-//case NET_PKT__FCU_EDDYBRAKES__SET_GROUP_DIR:
-//	//set direction of both eddy brakes
-//	#if C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES == 1U
-//		if (sFCU.eMissionPhase != MISSION_PHASE__PUSH_INTERLOCK_PHASE)
-//		{
-//			E_FCU_FCTL_EDDYBRAKES_DIRECTION dir;
-//			switch(u32Block[0])
-//			{
-//				case 0:
-//					dir = EDDYBRAKES_OUTWARD;
-//					break;
-//				case 1:
-//					dir = EDDYBRAKES_INWARD;
-//					break;
-//				case default:
-//					//report error
-//					break;
-//			}
-//			vFCU_FCTL_EDDYBRAKES__SetDirAll(dir);
-//		}
-//	#endif
-//	break;
-//
-//case NET_PKT__FCU_EDDYBRAKES__SET_GROUP_SPEED:
-//	//set speed of all both eddy brakes
-//	#if C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES == 1U
-//		if (sFCU.eMissionPhase != MISSION_PHASE__PUSH_INTERLOCK_PHASE)
-//		{
-//			vFCU_FCTL_EDDYBRAKES__SetSpeedAll(u32Block[0]);
-//		}
-//	#endif
-//	break;
-//case NET_PKT__FCU_EDDYBRAKES__RELEASE_BRAKES:
-//	//release eddy brakes
-//	#if C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES == 1U
-//		vFCU_FCTL_EDDYBRAKES__Release();
-//	#endif
-//	break;
-//case NET_PKT__FCU_EDDYBRAKES__FULL_BRAKES:
-//	//apply full eddy brakes
-//	#if C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES == 1U
-//		vFCU_FCTL_EDDY_BRAKES__ApplyFullBrakes();
-//	#endif
-//	break;
-//
-
-// need to implement:
-//vFCU_FCTL_EDDY_BRAKES__ControlledEmergencyBrake    // controlled full eddy brakes until speed < C_FCU__PODSPEED_STANDBY
-//vFCU_FCTL_EDDY_BRAKES__GainScheduleController	// pid controller for brakes until position < C_FCU__POD_STOP_X_PO
-//vFCU_FCTL_EDDY_BRAKES__GimbalSpeedController		// pid controller for gimbals when speed < C_FCU__PODSPEED_MAX_SPEED_TO_STABILIZE
-//u8FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp
-//vFCU_FCTL_EDDYBRAKES_Dir
-//vFCU_FCTL_EDDYBRAKES_Speed
-
-
-
-// start of this module
-
-void vFCU_FCTL_EDDY_BRAKES__ControlledEmergencyBrake()
+void vFCU_FCTL_EDDY_BRAKES__Init(void)
 {
-	// controlled full eddy brakes until speed < C_FCU__PODSPEED_STANDBY
-	// need a PID for this
+	sFCU.sEddyBrakes.eEddyBrakesState = EDDY_BRAKES_STATE__RETRACTED;
+}
+
+Luint32 vFCU_FCTL_EDDY_BRAKES__PolinomialApproximation(Luint32 u32xvalue)
+{
+	//square of the input value
+	Luint32  u32xvalue_p2;
+	// cube of the input value
+	Luint32  u32xvalue_p3;
+	// result of the polynomial approximation, return value
+	Lfloat32 f32PolinomialApproximation;
+	// calculate the x value square
+	u32xvalue_p2 = u32xvalue * u32xvalue;
+	// calculate the x value cube
+	u32xvalue_p3 = u32xvalue * u32xvalue_p2;
+	// Calculate the 3rd order polynomial FCU_FCTL_EDDY_BRAKES__PolinomialApproximationsed on the constant coeficients
+	f32PolinomialApproximation = (C_FCU__EDDY_BRAKES_POLY_COEF_ORDER3 * u32xvalue_p3) + (C_FCU__EDDY_BRAKES_POLY_COEF_ORDER2 * u32xvalue_p2) + (C_FCU__EDDY_BRAKES_POLY_COEF_ORDER1 * u32xvalue) +  C_FCU__EDDY_BRAKES_POLY_COEF_ORDER0;
+
+	return f32PolinomialApproximation;
+}
+
+Luint8 vFCU_FCTL_EDDY_BRAKES__GetPodSpeedTooHigh(void)
+{
+	Luint32  u32PodFrontPosition;
+	Luint32  u32PodSpeed;
+	Luint32  u32PolinomialInput;
+	Lfloat32 f32V_Trigger;
+	Luint8   u8PodSpeedTooHigh;
+
+	// get the Pod front position
+	u32PodFrontPosition = u32FCU_FCTL_NAV__GetFrontPos();
+
+	// get the Pod speed
+	u32PodSpeed = u32FCU_FCTL_NAV__PodSpeed();
+
+	//apply the safety margine to the x position (in mm)
+	u32PolinomialInput =  u32PodFrontPosition - C_FCU__EDDY_BRAKES_FOAM_PIT_X_POSITION - C_FCU__EDDY_BRAKES_TRIGGER_VELOCITY_SAFETY_MARGIN;
+
+	// Calculate the trigger velocity based on the 3rd order polinomial approximation (in mm)
+	f32V_Trigger =  vFCU_FCTL_EDDY_BRAKES__PolinomialApproximation(u32PolinomialInput);
+
+	// If the trigger velocity is higher than the threshold, set the too high speed flag
+	if(u32PodSpeed > f32V_Trigger)
+	{
+		u8PodSpeedTooHigh = 1U;
+	}
+	else
+	{
+		u8PodSpeedTooHigh = 0U;
+	}
+
+	// return the too high speed flag
+	return u8PodSpeedTooHigh;
 }
 
 void vFCU_FCTL_EDDY_BRAKES__ApplyFullBrakes(void)
 {
-	vFCU_FCTL_EDDYBRAKES__SetDirAll(EDDYBRAKES_INWARD);
-	vFCU_FCTL_EDDYBRAKES__SetSpeedAll(C_FCU__EDDYBRAKES_NOM_APPL_SPEED); //todo add time
+	vFCU_BRAKES__Move_IBeam_Distance_mm(C_FCU__BRAKES__MIN_IBEAM_DIST_MM);
 }
-
-
 
 void vFCU_FCTL_EDDY_BRAKES__Release(void)
 {
-	vFCU_FCTL_EDDYBRAKES__SetDirAll(EDDYBRAKES_OUTWARD);
-	vFCU_FCTL_EDDYBRAKES__SetSpeedAll(C_FCU__EDDYBRAKES_NOM_RELEASE_SPEED); //todo add time
+	vFCU_BRAKES__Move_IBeam_Distance_mm(C_FCU__BRAKES__MAX_IBEAM_DIST_MM);
 }
 
-void vFCU_FCTL_EDDY_BRAKES__GainScheduleController(Luint32 u32speed)
+void vFCU_FCTL_EDDY_BRAKES__SetDistance(Luint32 u32value)
 {
-	// call Sean's controller
-	// pid controller for brakes until position < C_FCU__POD_STOP_X_PO
-	// pid controller should ensure eddy brakes are actuated symmetrically
+//	Lfloat32 f32setvalue =  ( (Lfloat32)u32value )/ 1000.0;
+//	if((f32SetValue < C_FCU__BRAKES__MAX_IBEAM_DIST_MM) && (u32value > C_FCU__BRAKES__MIN_IBEAM_DIST_MM) )
+//	{
+//		// receive the value in um from GS and send to the Brakes lower level
+//		vFCU_BRAKES__Move_IBeam_Distance_mm(f32setvalue);
+//	}
+
 }
 
-void vFCU_FCTL_EDDY_BRAKES__GimbalSpeedController(void)
+E_FCU__FCTL_EDDY_BRAKES_STATE eFCU_FCTL_EDDY_BRAKES__Get_State(void)
 {
-	// call Adrian's controller
-	// pid controller for gimbals when speed < C_FCU__PODSPEED_MAX_SPEED_TO_STABILIZE
-	// pid controller should ensure eddy brakes are actuated symmetrically
+	return sFCU.sEddyBrakes.eEddyBrakesState;
 }
 
-Luint8 u8FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator)
+void vFCU_FCTL_EDDY_BRAKES__ControlledEmergencyBrake()
 {
-	// lower level function to get stepper motor for the actuator specified
+	vFCU_FCTL_EDDY_BRAKES__ApplyFullBrakes();
+	sFCU.sEddyBrakes.eEddyBrakesState = EDDY_BRAKES_STATE__CONTROLLED_BRAKING;
 }
 
-void vFCU_FCTL_EDDYBRAKES__SetDirAll(E_FCU__FCTL_EDDYBRAKES_DIRECTION dir)
+Luint32 u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp()
 {
-	vFCU_FCTL_EDDYBRAKES_Dir(EDDYBRAKES_Left, dir);
-	vFCU_FCTL_EDDYBRAKES_Dir(EDDYBRAKES_Right, dir);
+	return 0;
 }
 
-void vFCU_FCTL_EDDYBRAKES__SetSpeedAll(Luint32 u32speed)
-{
-	vFCU_FCTL_EDDYBRAKES_Speed(EDDYBRAKES_Left, u32speed);
-	vFCU_FCTL_EDDYBRAKES_Speed(EDDYBRAKES_Right, u32speed);
-}
 
-void vFCU_FCTL_EDDYBRAKES_Dir(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator, E_FCU__FCTL_EDDYBRAKES_DIRECTION dir)
-{
-	// need to interface with lower level stuff here
-}
-
-void vFCU_FCTL_EDDYBRAKES_Speed(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator, Luint32 u32speed)
-{
-	// need to interface with lower level stuff here
-}
-void vFCU_FCTL_EDDYBRAKES__Get_State(void)
-{
-	//TODO:IMPLEMENT THIS
-}
-
-Luint32 u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp(void)
-{
-	//TODO:IMPLEMENT THIS
-}
-
-#endif //C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL
-#ifndef C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL
+#endif //C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES_CONTROL
+#ifndef C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES
 	#error
 #endif
 
