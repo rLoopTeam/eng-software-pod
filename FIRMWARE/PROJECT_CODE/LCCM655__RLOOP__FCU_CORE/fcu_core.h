@@ -60,13 +60,15 @@
 			struct
 			{
 				Lfloat32 f32LongitudinalPosition;
+				Lfloat32 f32LongitudinalLastPosition;
 				Lfloat32 f32PositionValidity;
 				Lfloat32 f32LongitudinalSpeed;
+				Lfloat32 f32LongitudinalLastSpeed;
 				Lfloat32 f32LongitudinalSpeedUncertainty;
 				Luint8 u8LongitudinalSpeedValidity;
 				Lfloat32 f32LongitudinalAcceleration;
 				Luint8 u8LongitudinalAccelerationValidity;
-				Luint8 u8LRFAvailable;
+				Luint8 u8InLaserRangeFinderArea;
 				Luint8 u8masterSensor;
 				Luint8 u8GeneralStripeCount;
 				Luint32 u3210MSNavTimer;
@@ -81,15 +83,17 @@
 						Luint32 u32StripeCount;
 						Luint32 u32Xpos;
 						Luint32 u32XPosUncert;
-						Luint32 u32NoseToSensorDist;
 						Luint32 u32Score;
 						Luint8 u8Valid;
+						Luint8 u8FirstRisingFlag;
+						Luint32 u32NoseToSensorDist;
 					}sCS[C_FCU__NAV_NUM_CONTRAST_SENSORS];
 
 					struct
 					{
 						Lfloat32 f32Accel;
 						Luint8 u8Valid;
+						Luint8 u8Available;
 					}sAccel[C_LOCALDEF__LCCM418__NUM_DEVICES];
 
 			}sNavigation;
@@ -114,7 +118,7 @@
 					Luint8  u8Enable;
 					Luint8  u8RunAuto;
 					Luint8  u8SpeedState;
-					Luint32 u32CurrentRPMValue[8];
+					Luint16 u16CurrentRPMValue[8];
 					Luint8  u8TempVar;
 
 				}sIntParams;
@@ -131,22 +135,28 @@
 				E_FCU__MISSION_PHASE_T eMissionPhase;
 
 				/** Counter to count the time elapsed from the disconnection from the pusher **/
-				Luint32 PusherCounter;
+				Luint32 u32PusherCounter;
 
 				/** Enable Counter counting time elapsed from the disconnection from the pusher **/
-				Luint8 EnablePusherCounter;
+				Luint8 u8EnablePusherCounter;
+
+				/** Counter to measure time in the Pusher Interlock Mission Phase */
+				Luint32 u32PusherPhaseCounter;
+
+				/** Enable the Pusher Interlock Mission Phase Counter */
+				Luint8 u8EnablePusherPhaseCounter;
 
 				/**Counter to count the time the pod experiences acceleration higher than value speccd in the db */
-				Luint32 AccelCounter;
+				Luint32 u32AccelCounter;
 
 				/**Enable the Accel Counter */
-				Luint8 EnableAccelCounter;
+				Luint8 u8EnableAccelCounter;
 
 				/** In case Pusher fails and doesn't get us to the min pushed distance */
-				Luint32 MiserableStopCounter;
+				Luint32 u32MiserableStopCounter;
 
 				/** Enable Miserable Stop Counter */
-				Luint8 EnableMiserableStopCounter;
+				Luint8 u8EnableMiserableStopCounter;
 
 				/** Enum for Pod Status for SpaceX telemetry */
 				E_FCU__POD_STATUS ePodStatus;
@@ -186,6 +196,17 @@
 
 				}sOpStates;
 
+#ifdef WIN32
+			   struct
+			   {
+				   /** Error condition in MAIN_SM that we want to inject*/
+				   E_FCU__ERROR_INJECT eInjectCondition;
+
+				   /** Value of the error injected 1/0 */
+				   Luint8 u8ErrorInjectionValue;
+			   }sErrorInjection;
+#endif // WIN32
+
 			}sStateMachine;
 
 
@@ -213,20 +234,29 @@
 				E_FCU__DRIVEPOD_GS_COMM eGSCommand;
 
 				Luint8 u8100MS_Timer;
+				Luint8 u8startedPreRunAction;
+				Luint8 u8startedPostRunAction;
+				Luint8 u8IsBrakesInhibitedInPreRunPhase;
+				Luint8 u8IsBrakesInhibitedInPusherInterlockPhase;
 
 			}sDrivePod;
 			#endif
 
+			/** Lift Mech structure */
+			#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
 			struct
 			{
-				struct
-				{
+				Luint32 u8100MS_Timer;
+			}sLiftMech;
+			#endif
 
-					E_FCU__FCTL_EDDYBRAKES_DIRECTION eEddyBrakesDir;
-
-					E_FCU__FCTL_EDDYBRAKES_ACTUATOR	eEddyBrakesAct;
-				}sEddyBrakes;
-			}sFctl;
+			/** Eddy Brakes structure */
+			#if C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES == 1U
+			struct
+			{
+				E_FCU__FCTL_EDDY_BRAKES_STATE eEddyBrakesState;
+			}sEddyBrakes;
+			#endif
 
 
 
@@ -485,8 +515,6 @@
 
 				/** Interlock switch status */
 				E_FCU_PUSHPIN_STATE_T ePusher_Status;
-
-
 
 				/** Timer of 10ms ticks used for switch state timing */
 				Luint32 u32SwtichTimer;
@@ -1159,6 +1187,22 @@
 			//main state machine
 			void vFCU_FCTL_MAINSM__Init(void);
 			void vFCU_FCTL_MAINSM__Process(void);
+
+			E_FCU__MISSION_PHASE_T eFCU_FCTL_MAIN_SM__GetCurrentMissionPhase(void);
+
+			//setup our debug statement
+			#define REPORT_MISSIONPHASE(x) vDEBUG_RECORD_WIN32__MissionPhaseCallback(x)
+
+			#ifdef WIN32
+				//this is the callback function type
+				typedef void (__cdecl * pDEBUG_RECORD_Callback_FuncType)(const Luint8 u8Byte);
+				//these are the function definitions
+				extern "C" __declspec(dllexport) void __cdecls vDEBUG_RECORD_WIN32__Set_MissionPhaseCallback(pDEBUG_RECORD_Callback_FuncType pFunc);
+
+				void vDEBUG_RECORD_WIN32__MissionPhaseCallback(E_FCU__MISSION_PHASE_T eMissionPhase);
+
+			#endif
+
 			void vFCU_FCTL_MAINSM__10MS_ISR(void);
 			void vFCU_FCTL_MAINSM__100MS_ISR(void);
 			void vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR(void);
@@ -1536,6 +1580,9 @@
 		void vFCU_FCTL_HOVERENGINES__Process(void);
 		void vFCU_FCTL_HOVERENGINES__Start(void);
 		void vFCU_FCTL_HOVERENGINES__Stop(void);
+		void vFCU_FCTL_HOVERENGINES__SetCommand(Luint32 u32Command, Luint32 u32Value);
+		void vFCU_FCTL_HOVERENGINES_GS_START_COMMAND(void);
+		void vFCU_FCTL_HOVERENGINES_GS_STOP_COMMAND(void);
 
 		//ASI
 		Luint16 u16FCU_ASI__ReadMotorRpm(Luint8 u8EngineIndex);
@@ -1543,12 +1590,21 @@
 		Lfloat32 f32FCU_ASI__ReadControllerTemperature(Luint8 u8EngineIndex);
 
 		//drive pod
+		void vFCU_FCTL_DRIVEPOD__100MS_ISR(void);
 		void vFCU_FCTL_DRIVEPOD__10MS_ISR(void);
 		void vFCU_FCTL_DRIVEPOD__SetPodStopCmd(void);
+		void vFCU_FCTL_DRIVEPOD__Init(void);
+		void vFCU_FCTL_DRIVEPOD__Stop(void);
+		void vFCU_FCTL_DRIVEPOD__Process(void);
+		Luint8 u8FCU_FCTL_DRIVEPOD__LossOfComm(void);
+		void vFCU_FCTL_DRIVEPOD__Reset_GSCommTimer(void);
+
 
 		//aux propulsion
 		void vFCU_FCTL_AUX_PROP__Stop(void);
 		void vFCU_FCTL_AUX_PROP__Disable(void);
+		void vFCU_FCTL_AUX_PROP__Go(void);
+
 
 		//flight controller cooling
 		void vFCU_FCTL_COOLING__ManualCommandsHandle();
@@ -1559,22 +1615,34 @@
 		void vFCU_COOLING__Set_Valve(Luint8 ValveNumber, Lfloat32 TimeOn, Lfloat32 TimeOff);
 
 		//lift mechanism
-		void vFCU_FCTL_LIFTMECH_Dir(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir);
+		void vFCU_FCTL_LIFTMECH__Dir(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir);
 		void vFCU_FCTL_LIFTMECH__SetDirAll(E_FCU__LIFTMECH_DIRECTION dir);
 		void vFCU_FCTL_LIFTMECH__SetSpeedAll(Luint32 u32speed);
 		void vFCU_FCTL_LIFTMECH__Extend(void);
 		//void vFCU_FCTL_LIFTMECH_Speed(E_FCU__LIFTMECH_ACTUATOR actuator, E_FCU__LIFTMECH_DIRECTION dir);
-		//void vFCU_FCTL_LIFTMECH__Get_State(void);
+		E_FCU_LIFTMECH_STATE eFCU_FCTL_LIFTMECH__Get_State(void);
+		void vFCU_FCTL_LIFTMECH__Speed(E_FCU__LIFTMECH_ACTUATOR actuator, Luint32 u32speed);
+		void vFCU_FCTL_LIFTMECH__Deploy(E_FCU__LIFTMECH_ACTUATOR actuator);
+		void vFCU_FCTL_LIFTMECH__DeployAll(void);
+		void vFCU_FCTL_LIFTMECH__Retract(E_FCU__LIFTMECH_ACTUATOR actuator);
+		void vFCU_FCTL_LIFTMECH__RetractAll(void);
 
 		//brakes
-		void vFCU_FCTL_EDDYBRAKES_Speed(E_FCU__FCTL_EDDYBRAKES_ACTUATOR actuator, Luint32 u32speed);
-		void vFCU_FCTL_EDDYBRAKES__SetSpeedAll(Luint32 u32speed);
-		void vFCU_FCTL_EDDYBRAKES__SetDirAll(E_FCU__FCTL_EDDYBRAKES_DIRECTION dir);
+		void vFCU_FCTL_EDDY_BRAKES__Speed(E_FCU__FCTL_EDDY_BRAKES_ACTUATOR actuator, Luint32 u32speed);
+		void vFCU_FCTL_EDDY_BRAKES__SetSpeedAll(Luint32 u32speed);
+		void vFCU_FCTL_EDDY_BRAKES__SetDirAll(E_FCU__FCTL_EDDY_BRAKES_DIRECTION dir);
 		void vFCU_FCTL_EDDY_BRAKES__ControlledEmergencyBrake();
 		void vFCU_FCTL_EDDY_BRAKES__ApplyFullBrakes(void);
 		void vFCU_FCTL_EDDY_BRAKES__Release(void);
 		void vFCU_FCTL_EDDY_BRAKES__GainScheduleController(Luint32 u32speed);
 		void vFCU_FCTL_EDDY_BRAKES__GimbalSpeedController(void);
+		E_FCU__FCTL_EDDY_BRAKES_STATE eFCU_FCTL_EDDY_BRAKES__Get_State(void);
+		Luint32 u32FCU_FCTL_EDDY_BRAKES_GetStepMotorTemp();
+		Luint32 vFCU_FCTL_EDDY_BRAKES__PolinomialApproximation(Luint32 u32xvalue);
+		Luint8 vFCU_FCTL_EDDY_BRAKES__GetPodSpeedTooHigh(void);
+		void vFCU_FCTL_EDDY_BRAKES__SetDistance(Luint32 u32value);
+		void vFCU_FCTL_EDDY_BRAKES__Init();
+
 
 		//main state machine
 		Luint8 u8FCU_FCTL_MAINSM__CheckIfUnlifted(void);
@@ -1588,12 +1656,27 @@
 		void vFCU_FCTL_MAINSM__100MS_ISR(void);
 		void vFCU_FCTL_MAINSM__EnterPreRun_Phase();
 
+#ifdef WIN32
+		DLL_DECLARATION void vFCU_FCTL_MAINSM__WIN32_InjectErrorCondition(Luint32 errorInjectionCondition, Luint8 errorInjectionValue);
+#endif // WIN32
+
+		void vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR(void);
+		void vFCU_FCTL_MAINSM__PUSHER_PHASE_COUNTER_100MS_ISR(void);
+		void vFCU_FCTL_MAINSM__10MS_ISR(void);
+
 		//navigation
 		Luint32 u32FCU_FCTL_NAV__PodSpeed(void);
 		Luint8 u8FCU_FCTL_NAV__GetPodSpeedTooHigh(void);
 		Luint32 u32FCU_FCTL_NAV__GetFrontPos(void);
 		Luint32 u32FCU_FCTL_NAV__GetRearPos(void);
 		Luint32 u32FCU_FCTL_NAV__Get_Accel_mmss(void);
+		Luint8 u8FCU_FCTL_NAV__IsInFailure(void);
+		void vFCU_FLIGHTCTL_NAV__Init(void);
+		Luint8 u8InLaserRangeFinderArea(void);
+		Luint8 u8IsAccelerometerAvailable(void);
+		void vFCU_FLIGHTCTL_NAV__Process(void);
+		void vFCU_FCTL_NAV__10MS_ISR(void);
+
 
 		// Laser Orientation
 		Luint32 u32FCU_FCTL_LASERORIENT__Get_Z_Pos();
