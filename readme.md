@@ -48,7 +48,7 @@ Project Description
 - PROJECT_CODE is where code unique to our pod should be.
 - VERIFICATION will eventually be filled with files meant to test the code in COMMON_CODE and PROJECT_CODE.
 - Names of particular drivers/nodes are prepended with a part number. Go to FIRMWARE/COMMON_CODE/MULTICORE/.  
-- Everything begins with LCCM (think "Lachlan's Common Code Module") with some mysterious number attached to it, and then a double underscore.
+- Everything begins with LCCM (think "Lachlan's Common Core Module") with a product number attached to it, and then a double underscore.
 - Next is the category it's under, in this case 'MULTICORE', and another double underscore. 
 - Filenames end with a description of the hardware or what exactly the code is doing, e.g. 'TSYS01' or 'Software_CRC'
 
