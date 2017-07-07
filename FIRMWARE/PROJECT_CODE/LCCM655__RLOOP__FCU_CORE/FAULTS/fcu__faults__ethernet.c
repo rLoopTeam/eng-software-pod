@@ -20,6 +20,7 @@
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET_FAULTS == 1U
 
 extern struct _strFCU sFCU;
 
@@ -209,9 +210,7 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length,
-				C_RLOOP_NET__FCU__PORT,
-							C_RLOOP_NET__FCU__PORT);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
 
 	}//if(s16Return == 0)
 	else
@@ -222,7 +221,11 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 }
 
+#endif //C_LOCALDEF__LCCM655__ENABLE_ETHERNET_FAULTS
 
+#ifndef C_LOCALDEF__LCCM655__ENABLE_ETHERNET_FAULTS
+#error
+#endif
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_ETHERNET
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U

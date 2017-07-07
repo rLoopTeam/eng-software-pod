@@ -653,6 +653,7 @@ _errata_CORTEXR4_66_
         pop {r0}    
         bx lr
     .endasmfunc
+
 ;-------------------------------------------------------------------------------
 ; C++ construct table pointers
 

@@ -47,37 +47,60 @@
 
 
 
-	/** @def sciREG
-	*   @brief  Register Frame Pointer
-	*
-	*   This pointer is used by the SCI driver to access the sci module registers.
-	*/
-	#define sciREG ((RM4_SCI__BASE_T *)0xFFF7E500U)
 
 
-	/** @def sciPORT
-	*   @brief SCI GIO Port Register Pointer
-	*
-	*   Pointer used by the GIO driver to access I/O PORT of SCI
-	*   (use the GIO drivers to access the port pins).
-	*/
-	#define sciPORT ((gioPORT_t *)0xFFF7E540U)
+    #if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 0U
+
+		/** @def sciREG
+		*   @brief  Register Frame Pointer
+		*
+		*   This pointer is used by the SCI driver to access the sci module registers.
+		*/
+		#define sciREG ((RM4_SCI__BASE_T *)0xFFF7E500U)
 
 
-	/** @def scilinREG
-	*   @brief SCILIN (LIN - Compatibility Mode)  Register Frame Pointer
-	*
-	*   This pointer is used by the SCI driver to access the sci module registers.
-	*/
-	#define scilinREG ((RM4_SCI__BASE_T *)0xFFF7E400U)
+		/** @def sciPORT
+		*   @brief SCI GIO Port Register Pointer
+		*
+		*   Pointer used by the GIO driver to access I/O PORT of SCI
+		*   (use the GIO drivers to access the port pins).
+		*/
+		#define sciPORT ((gioPORT_t *)0xFFF7E540U)
 
 
-	/** @def scilinPORT
-	*   @brief SCILIN (LIN - Compatibility Mode)  Register Frame Pointer
-	*
-	*   Pointer used by the GIO driver to access I/O PORT of LIN
-	*   (use the GIO drivers to access the port pins).
-	*/
-	#define scilinPORT ((gioPORT_t *)0xFFF7E440U)
+		/** @def scilinREG
+		*   @brief SCILIN (LIN - Compatibility Mode)  Register Frame Pointer
+		*
+		*   This pointer is used by the SCI driver to access the sci module registers.
+		*/
+		#define scilinREG ((RM4_SCI__BASE_T *)0xFFF7E400U)
+
+
+		/** @def scilinPORT
+		*   @brief SCILIN (LIN - Compatibility Mode)  Register Frame Pointer
+		*
+		*   Pointer used by the GIO driver to access I/O PORT of LIN
+		*   (use the GIO drivers to access the port pins).
+		*/
+		#define scilinPORT ((gioPORT_t *)0xFFF7E440U)
+	#else
+
+		//1
+		#define scilinREG ((RM4_SCI__BASE_T *)0xFFF7E400U)
+		#define scilinPORT ((gioPORT_t *)0xFFF7E440U)
+
+		//3
+		#define sciREG3 ((RM4_SCI__BASE_T *)0xFFF7E500U)
+		#define sciPORT3 ((gioPORT_t *)0xFFF7E540U)
+
+		//2
+		#define sciREG ((RM4_SCI__BASE_T *)0xFFF7E600U)
+		#define sciPORT ((gioPORT_t *)0xFFF7E640U)
+
+		//4
+		#define sciREG4 ((RM4_SCI__BASE_T *)0xFFF7E700U)
+		#define sciPORT4 ((gioPORT_t *)0xFFF7E740U)
+
+    #endif
 
 #endif /* RM4_SCI__PRIVATE_H_ */

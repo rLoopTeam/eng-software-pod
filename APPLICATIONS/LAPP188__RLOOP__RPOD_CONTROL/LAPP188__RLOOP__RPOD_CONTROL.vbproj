@@ -91,11 +91,11 @@
       <Link>LCCM661__RLOOP__RPOD_GUI\ETHERNET\rpod__eth__defines.vb</Link>
     </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\AUX_PROP\rpod__panel_auxprop__manual.vb">
-      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\AUXPROP\rpod__panel_auxprop__manual.vb</Link>
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\AUX_PROP\rpod__panel_auxprop__manual.vb</Link>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\AUX_PROP\rpod__panel_auxprop__top.vb">
-      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\AUXPROP\rpod__panel_auxprop__top.vb</Link>
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\AUX_PROP\rpod__panel_auxprop__top.vb</Link>
     </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\ACCELEROMETERS\rpod__flight__accel.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\ACCELEROMETERS\rpod__flight__accel.vb</Link>
@@ -159,6 +159,13 @@
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\TRACK_DATABASE\rpod__flight__track_db_monitor.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\TRACK_DATABASE\rpod__flight__track_db_monitor.vb</Link>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\HE_THERM\rpod__panel_hetherm__manual.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\HE_THERMAL\rpod__panel_hetherm__manual.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\HE_THERM\rpod__panel_hetherm__top.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\HE_THERMAL\rpod__panel_hetherm__top.vb</Link>
     </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__network.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__network.vb</Link>

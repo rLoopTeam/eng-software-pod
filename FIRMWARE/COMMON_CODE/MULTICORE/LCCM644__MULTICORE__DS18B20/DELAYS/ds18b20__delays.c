@@ -41,6 +41,8 @@ void vDS18B20_DELAYS__Delay_uS(Luint32 u32Value)
 		vXILINX_DELAYS__Delay_uS(u32Value);
 	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__MSP430F5529 == 1U
 		vMSP430_DELAYS__Delay_uS(u32Value);
+	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__WIN32 == 1U
+		//do nothing.
 	#else
 		#error
 	#endif
@@ -62,6 +64,8 @@ void vDS18B20_DELAYS__Delay_mS(Luint32 u32Value)
 		vXILINX_DELAYS__Delay_mS(u32Value);
 	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__MSP430F5529 == 1U
 		vMSP430_DELAYS__Delay_mS(u32Value);
+	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__WIN32 == 1U
+		//do nothing.
 	#else
 		#error
 	#endif

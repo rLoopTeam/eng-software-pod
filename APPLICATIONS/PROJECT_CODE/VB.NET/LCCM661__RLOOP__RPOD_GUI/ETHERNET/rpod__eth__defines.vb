@@ -16,6 +16,7 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         ''' Auxiliary Propulsion Unit
         ''' </summary>
         POD_CTRL_PT__APU
+        POD_CTRL_PT__HETHERM
     End Enum
 
 

@@ -5558,6 +5558,64 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  The threadings
  </summary>
 </member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.HETherm.Manual">
+ <summary>
+ Manual HETherm Control
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.HETherm.Manual.#ctor(System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.HETherm.Manual.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.HETherm.Top">
+ <summary>
+ Top level HET Panel
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.HETherm.Top.m_pExplorer">
+ <summary>
+ Our application explorer bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.HETherm.Top.m_iBarIndex">
+ <summary>
+ The index of our category in the explorer bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.HETherm.Top.#ctor(System.Windows.Forms.Form@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ExplorerBarHelper@)">
+ <summary>
+ New instance
+ </summary>
+ <param name="pf"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.HETherm.Top.Panel__HideShow(System.String)">
+ <summary>
+ How or hide this panel if our text matches
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.HETherm.Top.LinkBar_LinkClick(System.String)">
+ <summary>
+ Called when a link is clicked
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Settings.Network">
  <summary>
  Network settings

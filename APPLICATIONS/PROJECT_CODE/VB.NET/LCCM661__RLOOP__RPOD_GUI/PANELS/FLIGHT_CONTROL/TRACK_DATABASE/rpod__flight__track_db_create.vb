@@ -172,6 +172,9 @@
 
             Me.m_sDBDir = "D:\SIL3\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE\DATABASES\"
 
+            'for now
+            Return
+
             'create the log files in prep
             Me.m_pCSV = New SIL3.FileSupport.CSV(Me.m_sDBDir & "databases.csv", ",", False, False)
             If Me.m_pCSV.File__Exists = False Then

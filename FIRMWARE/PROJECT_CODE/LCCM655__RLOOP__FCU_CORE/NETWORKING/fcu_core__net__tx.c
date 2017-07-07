@@ -120,7 +120,9 @@ void vFCU_NET_TX__Process(void)
 
 		case NET_PKT__FCU_GEN__TX_ALL_FAULT_FLAGS:
 			#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
-				vFCU_FAULTS_ETH__Transmit(eType);
+                #if C_LOCALDEF__LCCM655__ENABLE_ETHERNET_FAULTS == 1U
+				    vFCU_FAULTS_ETH__Transmit(eType);
+                #endif
 			#endif
 			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
@@ -189,7 +191,9 @@ void vFCU_NET_TX__Process(void)
 			break;
 
 		case NET_PKT__FCU_ASI__TX_ASI_DATA:
-			vFCU_ASI_ETH__Transmit(eType);
+            #if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
+			    vFCU_ASI_ETH__Transmit(eType);
+            #endif
 			sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
 
@@ -217,7 +221,7 @@ void vFCU_NET_TX__10MS_ISR(void)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * 100ms ISR
  * 
  * @st_funcMD5		EAD22CC59DC6AF2FAD5C3B84720BB133
  * @st_funcID		LCCM655R0.FILE.019.FUNC.004

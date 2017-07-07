@@ -36,6 +36,8 @@ extern struct _strFCU sFCU;
  */
 void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
 {
+
+/*
 	Luint8 u8Array[1];
 	switch(eChannel)
 	{
@@ -59,6 +61,7 @@ void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
 			break;
 
 	}//switch(eChannel)
+*/
 }
 
 #endif //C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE

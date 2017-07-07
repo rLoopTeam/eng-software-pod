@@ -163,6 +163,7 @@
 		DLL_DECLARATION Lfloat32 f32SIL3_NUM_FILTERING__Add_F32(Lfloat32 f32Sample, Luint16 *pu16AverageCounter, Luint16 u16MaxAverageSize, Lfloat32 *pf32Array);
 
 		//tolerance checks
+		DLL_DECLARATION Luint8 u8SIL3_NUM_TOLERANCE__U16(Luint16 u16A, Luint16 u16B, Luint16 u16Tolerance);
 		DLL_DECLARATION Luint8 u8SIL3_NUM_TOLERANCE__S16(Lint16 s16A, Lint16 s16B, Luint16 u16Tolerance);
 		DLL_DECLARATION Luint8 u8SIL3_NUM_TOLERANCE__F32(Lfloat32 f32A, Lfloat32 f32B, Lfloat32 f32Tolerance);
 		DLL_DECLARATION Luint8 u8SIL3_NUM_TOLERANCE__U32(Luint32 u32A, Luint32 u32B, Luint32 u32Tolerance);

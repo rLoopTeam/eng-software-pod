@@ -176,7 +176,11 @@ SELFTEST MODULE
 /*******************************************************************************
 RM57 - PERIPH CENTRAL RESOURCE
 *******************************************************************************/
+#ifndef WIN32
 	#define C_LOCALDEF__LCCM708__ENABLE_THIS_MODULE							(1U)
+#else
+	#define C_LOCALDEF__LCCM708__ENABLE_THIS_MODULE							(0U)
+#endif
 	#if C_LOCALDEF__LCCM708__ENABLE_THIS_MODULE == 1U
 
 		/** Testing options */

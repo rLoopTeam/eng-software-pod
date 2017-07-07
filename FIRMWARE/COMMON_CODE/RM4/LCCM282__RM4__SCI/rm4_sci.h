@@ -37,8 +37,14 @@
 			#endif
 
 			#if C_LOCALDEF__LCCM282__ENABLE_SCI_2 == 1U
-				SCI_CHANNEL__2 = 1U
+				SCI_CHANNEL__2 = 1U,
 			#endif
+
+            #if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
+                #if C_LOCALDEF__LCCM282__ENABLE_SCI_3 == 1U
+                    SCI_CHANNEL__3 = 2U
+                #endif
+            #endif
 
 		}RM4_SCI__CHANNEL_T;
 

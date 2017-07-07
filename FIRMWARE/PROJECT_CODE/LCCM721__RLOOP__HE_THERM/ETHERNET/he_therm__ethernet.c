@@ -1,3 +1,33 @@
+/**
+ * @file		HE_THERM__ETHERNET.C
+ * @brief		
+ * @author		Lachlan Grogan
+ * @copyright	This file contains proprietary and confidential information of
+ *				SIL3 Pty. Ltd. (ACN 123 529 064). This code may be distributed
+ *				under a license from SIL3 Pty. Ltd., and may be used, copied
+ *				and/or disclosed only pursuant to the terms of that license agreement.
+ *				This copyright notice must be retained as part of this file at all times.
+ * @copyright	This file is copyright SIL3 Pty. Ltd. 2003-2016, All Rights Reserved.
+ * @st_fileID	LCCM721R0.FILE.008
+ */
+/**
+ * @addtogroup PROJECT_NAME
+ * @{
+ */
+/**
+ * @addtogroup PROJECT_NAME
+ * @ingroup MODULE_NAME
+ * @{
+ */
+/**
+ * @addtogroup MODULE_NAME__CORE
+ * @ingroup MODULE_NAME
+ * @{
+ */
+/** @} */
+/** @} */
+/** @} */
+
 
 /**
  * @addtogroup RLOOP
@@ -19,6 +49,13 @@
 //Main structure
 extern TS_HET__MAIN sHET;
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		3FC6307551D9D631FCEC483FB3FEA72D
+ * @st_funcID		LCCM721R0.FILE.008.FUNC.001
+ */
 void vHETHERM_ETH__Init(void)
 {
 	//SIL3 OUID
@@ -48,6 +85,13 @@ void vHETHERM_ETH__Init(void)
 
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		365DC081E00133EE258F04C1335A9801
+ * @st_funcID		LCCM721R0.FILE.008.FUNC.002
+ */
 void vHETHERM_ETH__Process(void)
 {
 	Luint8 u8Test;
@@ -74,6 +118,13 @@ void vHETHERM_ETH__Process(void)
 	}
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		4474B73CA898BC1EBD8846EDF0AFD603
+ * @st_funcID		LCCM721R0.FILE.008.FUNC.003
+ */
 Luint8 u8HETHERM_ETH__Is_LinkUp(void)
 {
 #ifndef WIN32
@@ -83,12 +134,34 @@ Luint8 u8HETHERM_ETH__Is_LinkUp(void)
 #endif
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		Luint16		## Desc ##
+ * @param[in]		Luint16		## Desc ##
+ * @param[in]		*pu8Buffer		## Desc ##
+ * @st_funcMD5		5141B6243B3AFF96ACBA45D78D544C21
+ * @st_funcID		LCCM721R0.FILE.008.FUNC.004
+ */
 void vHETHERM_ETH__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPort)
 {
 	//pass to safety udp processor
 	vSIL3_SAFEUDP_RX__UDPPacket(pu8Buffer,u16Length, u16DestPort);
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		Luint16		## Desc ##
+ * @param[in]		Luint16		## Desc ##
+ * @param[in]		Luint16		## Desc ##
+ * @param[in]		Luint16		## Desc ##
+ * @param[in]		*pu8Payload		## Desc ##
+ * @st_funcMD5		B4986282DECA2553370B69F1F283CA82
+ * @st_funcID		LCCM721R0.FILE.008.FUNC.005
+ */
 void vHETHERM_ETH__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)
 {
 	Luint32 u32Block[4];
