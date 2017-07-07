@@ -56,6 +56,7 @@
 
 			}sCoolingControl;
 
+            #if C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION == 1U
 			/** Navigation */
 			struct
 			{
@@ -93,6 +94,7 @@
 					}sAccel[C_LOCALDEF__LCCM418__NUM_DEVICES];
 
 			}sNavigation;
+            #endif
 
 			/** Hover Engines Control Structure */
 			//#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U

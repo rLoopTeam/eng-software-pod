@@ -34,7 +34,10 @@ SCI / LIN Module
 
 		//SCI 2 is also LIN and uses the LIN pins on ZWT Package
 		//SCI2 is USB debug on HDK
-		#define C_LOCALDEF__LCCM282__ENABLE_SCI_2							(1U)
+		#define C_LOCALDEF__LCCM282__ENABLE_SCI_2							(0U)
+
+        //SCI3 only on RM57, Launchpad Boosterpack Site 1
+        #define C_LOCALDEF__LCCM282__ENABLE_SCI_3                           (0U)
 
 		//testing
 		#define C_LOCALDEF__LCCM282__ENABLE_TEST_SPEC						(0U)

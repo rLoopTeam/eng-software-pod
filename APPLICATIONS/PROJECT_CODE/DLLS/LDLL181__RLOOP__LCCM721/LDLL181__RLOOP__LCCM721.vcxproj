@@ -83,27 +83,46 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\CRC\ds2482s__crc.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\DEVICE\ds2482s__device.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\LOWLEVEL\ds2482s__lowlevel.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ONE_WIRE\ds2482s__one_wire.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\SEARCH\ds2482s__search.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ADDRESS\ds18b20__address.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ALARMS\ds18b20__alarms.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\DELAYS\ds18b20__delays.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\SCRATCHPAD\ds18b20__scratchpad.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\TEMPERATURE\ds18b20__temperature.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\WIRE_IF\ds18b20__wire_if.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\APPEND\daq__append.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32\daq__win32.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32\daq__win32_main.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\CLUTCH\auxprop__clutch.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\DAQ\auxprop__daq__transmit_template.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\ETHERNET\auxprop__ethernet.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\THROTTLE\auxprop__throttle.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\TIMERS\auxprop__timers.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\WIN32\auxprop__win32.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\DAQ\he_therm__daq__transmit_template.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\ETHERNET\he_therm__ethernet.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\he_therm.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\SOLENOIDS\he_therm__solenoids.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\THERMOCOUPLES\he_therm__thermocouples.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\TIMERS\he_therm__timers.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\WIN32\hetherm__win32.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s__localdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s__reg_defs.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20__localdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20__state_types.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq__localdef.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop__localdef.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop__types.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\DAQ\auxprop__daq_settings.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\DAQ\he_therm__daq_settings.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\he_therm.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\he_therm__localdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\he_therm__types.h" />
     <ClInclude Include="localdef.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

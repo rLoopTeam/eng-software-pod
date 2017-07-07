@@ -116,6 +116,8 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 			/** Enable Cooling control */
 			#define C_LOCALDEF__LCCM655__ENABLE_COOLING_CONTROL					(1U)
 
+            /** Enable fault handling out ethernet */
+            #define C_LOCALDEF__LCCM655__ENABLE_ETHERNET_FAULTS                 (1U)
 
 		/** ADC Sample Limits */
 		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__LOWER_BOUND					(300U)

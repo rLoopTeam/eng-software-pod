@@ -37,7 +37,9 @@ void vFCU_FAULTS__Init(void)
 	vSIL3_FAULTTREE__Init(&sFCU.sFaults.sTopLevel);
 
 	//any eth stuff we need
+#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET_FAULTS == 1U
 	vFCU_FAULTS_ETH__Init();
+#endif
 }
 
 
@@ -67,6 +69,7 @@ void vFCU_FAULTS__Process(void)
 #endif
 
 	//ASI Subsystem
+#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
 	if(sFCU.sASI.sFaultFlags.u8FaultFlag == 1U)
 	{
 		vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__01);
@@ -75,8 +78,10 @@ void vFCU_FAULTS__Process(void)
 	{
 		//fall on
 	}
+#endif //C_LOCALDEF__LCCM655__ENABLE_THROTTLE
 
 	//brakes
+#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 	if(sFCU.sBrakesGlobal.sFaultFlags.u8FaultFlag == 1U)
 	{
 		vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__02);
@@ -85,6 +90,7 @@ void vFCU_FAULTS__Process(void)
 	{
 		//fall on
 	}
+#endif //C_LOCALDEF__LCCM655__ENABLE_BRAKES
 
 	//daq
 	if(0)

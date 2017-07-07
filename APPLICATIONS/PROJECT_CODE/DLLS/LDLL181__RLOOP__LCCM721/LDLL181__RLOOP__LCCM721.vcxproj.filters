@@ -34,29 +34,68 @@
     <Filter Include="LIB">
       <UniqueIdentifier>{d862e578-40e4-4cd0-ab50-e70dddde0ea0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LCCM720__RLOOP__AUXPROP">
-      <UniqueIdentifier>{a0b814e4-3a15-4d71-8f18-0cd600ef4030}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="LCCM720__RLOOP__AUXPROP\CLUTCH">
-      <UniqueIdentifier>{bfe7903f-f26c-4374-b7b9-f7bcb583c4a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="LCCM720__RLOOP__AUXPROP\ETHERNET">
-      <UniqueIdentifier>{94f6b870-bf96-42a2-b719-3f132bee4157}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="LCCM720__RLOOP__AUXPROP\THROTTLE">
-      <UniqueIdentifier>{f4614751-41da-4097-834a-569fd3496660}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\DAQ">
       <UniqueIdentifier>{f7e4f38f-2728-4cde-b815-7116aa918cfa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LCCM720__RLOOP__AUXPROP\DAQ">
-      <UniqueIdentifier>{27a90707-3a51-472a-9b1a-0797964f5435}</UniqueIdentifier>
+    <Filter Include="LCCM721__RLOOP__HE_THERM">
+      <UniqueIdentifier>{addac98d-5667-4210-a1d4-a0a8644ef37a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LCCM720__RLOOP__AUXPROP\WIN32">
-      <UniqueIdentifier>{c4d0ee66-369d-482d-9e2b-5143ad46bbda}</UniqueIdentifier>
+    <Filter Include="LCCM721__RLOOP__HE_THERM\ETHERNET">
+      <UniqueIdentifier>{b0636653-bc9e-4da3-aefb-c9bea418f96a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LCCM720__RLOOP__AUXPROP\TIMERS">
-      <UniqueIdentifier>{56a883b0-4d68-4a62-9b30-fd7f08a0d53d}</UniqueIdentifier>
+    <Filter Include="LCCM721__RLOOP__HE_THERM\SOLENOIDS">
+      <UniqueIdentifier>{74f62d0c-582d-4098-95fb-c16c3201e1e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM721__RLOOP__HE_THERM\THERMOCOUPLES">
+      <UniqueIdentifier>{34d8b6f3-49d3-4fc8-a8bd-27115396d374}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM721__RLOOP__HE_THERM\TIMERS">
+      <UniqueIdentifier>{52d513d1-8477-4671-a7cb-8b7ac9da5d37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S">
+      <UniqueIdentifier>{afdf9413-0ac2-4426-a538-cc91936fbc23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\CRC">
+      <UniqueIdentifier>{1136b3c5-d5d8-44b5-b939-690a961bf252}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\DEVICE">
+      <UniqueIdentifier>{4cc6290b-970e-4e44-a4f3-6dd55360e1d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\LOWLEVEL">
+      <UniqueIdentifier>{057621ca-3328-4a05-977a-d8c445799956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\ONE_WIRE">
+      <UniqueIdentifier>{00597045-fdbd-44b6-a29a-8bb07f72f1bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\SEARCH">
+      <UniqueIdentifier>{b9278da7-6600-4a03-a5c1-23fc08269482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20">
+      <UniqueIdentifier>{cbb8fbe2-e526-4c7f-881c-80301b68dec6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\ADDRESS">
+      <UniqueIdentifier>{9b24766b-92cb-46ce-9ac7-1fb3bc2cefd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\ALARMS">
+      <UniqueIdentifier>{ea4deed3-3147-41a8-9251-45c24f3c49e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\DELAYS">
+      <UniqueIdentifier>{f1d1a25b-dc05-4a49-b57d-b85f538f3366}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\SCRATCHPAD">
+      <UniqueIdentifier>{b3f6d9a9-edb4-4aa5-99a2-f60ae4c24593}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\TEMPERATURE">
+      <UniqueIdentifier>{6c896671-3721-4bbe-9072-6b0f8ad0204d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\WIRE_IF">
+      <UniqueIdentifier>{8284e172-c5a5-4565-863d-3f026fdf3e83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM721__RLOOP__HE_THERM\DAQ">
+      <UniqueIdentifier>{383b040f-cb29-47f3-b56e-5863350e9610}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM721__RLOOP__HE_THERM\WIN32">
+      <UniqueIdentifier>{8f2b2c46-7b0e-4df4-82a9-fff173897a37}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,26 +114,65 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32\daq__win32_main.c">
       <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop.c">
-      <Filter>LCCM720__RLOOP__AUXPROP</Filter>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\he_therm.c">
+      <Filter>LCCM721__RLOOP__HE_THERM</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\CLUTCH\auxprop__clutch.c">
-      <Filter>LCCM720__RLOOP__AUXPROP\CLUTCH</Filter>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\ETHERNET\he_therm__ethernet.c">
+      <Filter>LCCM721__RLOOP__HE_THERM\ETHERNET</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\THROTTLE\auxprop__throttle.c">
-      <Filter>LCCM720__RLOOP__AUXPROP\THROTTLE</Filter>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\SOLENOIDS\he_therm__solenoids.c">
+      <Filter>LCCM721__RLOOP__HE_THERM\SOLENOIDS</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\DAQ\auxprop__daq__transmit_template.c">
-      <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ\DAQ</Filter>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\THERMOCOUPLES\he_therm__thermocouples.c">
+      <Filter>LCCM721__RLOOP__HE_THERM\THERMOCOUPLES</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\WIN32\auxprop__win32.c">
-      <Filter>LCCM720__RLOOP__AUXPROP\WIN32</Filter>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\TIMERS\he_therm__timers.c">
+      <Filter>LCCM721__RLOOP__HE_THERM\TIMERS</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\TIMERS\auxprop__timers.c">
-      <Filter>LCCM720__RLOOP__AUXPROP\TIMERS</Filter>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s.c">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\ETHERNET\auxprop__ethernet.c">
-      <Filter>LCCM720__RLOOP__AUXPROP\ETHERNET</Filter>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\CRC\ds2482s__crc.c">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\CRC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\DEVICE\ds2482s__device.c">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\DEVICE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\LOWLEVEL\ds2482s__lowlevel.c">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\LOWLEVEL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ONE_WIRE\ds2482s__one_wire.c">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\ONE_WIRE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\SEARCH\ds2482s__search.c">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\SEARCH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20.c">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ADDRESS\ds18b20__address.c">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\ADDRESS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ALARMS\ds18b20__alarms.c">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\ALARMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\DELAYS\ds18b20__delays.c">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\DELAYS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\SCRATCHPAD\ds18b20__scratchpad.c">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\SCRATCHPAD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\TEMPERATURE\ds18b20__temperature.c">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\TEMPERATURE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\WIRE_IF\ds18b20__wire_if.c">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\WIRE_IF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\DAQ\he_therm__daq__transmit_template.c">
+      <Filter>LCCM721__RLOOP__HE_THERM\DAQ</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\WIN32\hetherm__win32.c">
+      <Filter>LCCM721__RLOOP__HE_THERM\WIN32</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,17 +191,35 @@
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq.h">
       <Filter>Source Files\MULTICORE\LCCM662__MULTICORE__DAQ</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop.h">
-      <Filter>LCCM720__RLOOP__AUXPROP</Filter>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\he_therm.h">
+      <Filter>LCCM721__RLOOP__HE_THERM</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop__localdef.h">
-      <Filter>LCCM720__RLOOP__AUXPROP</Filter>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\he_therm__localdef.h">
+      <Filter>LCCM721__RLOOP__HE_THERM</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop__types.h">
-      <Filter>LCCM720__RLOOP__AUXPROP</Filter>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\he_therm__types.h">
+      <Filter>LCCM721__RLOOP__HE_THERM</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\DAQ\auxprop__daq_settings.h">
-      <Filter>LCCM720__RLOOP__AUXPROP\DAQ</Filter>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s.h">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s__reg_defs.h">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20.h">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20__state_types.h">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\DAQ\he_therm__daq_settings.h">
+      <Filter>LCCM721__RLOOP__HE_THERM\DAQ</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

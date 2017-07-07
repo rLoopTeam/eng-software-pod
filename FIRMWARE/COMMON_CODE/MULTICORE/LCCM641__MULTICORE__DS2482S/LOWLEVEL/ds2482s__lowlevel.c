@@ -100,6 +100,8 @@ Lint16 s16DS2482S_LOWLEVEL__TxReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegister)
 		{
 			s16Return = 0;
 		}
+	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__WIN32 == 1U
+		s16Return = 0;
 	#else
 		#error
 	#endif
@@ -168,6 +170,8 @@ Lint16 s16DS2482S_LOWLEVEL__RxReg(Luint8 u8DeviceIndex, Luint8 *pu8Data)
 		{
 			s16Return = 0;
 		}
+	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__WIN32 == 1U
+		s16Return = 0;
 	#else
 		#error
 	#endif
@@ -234,6 +238,8 @@ Lint16 s16DS2482S_LOWLEVEL__WriteReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegist
 		{
 			s16Return = 0;
 		}
+	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__WIN32 == 1U
+		s16Return = 0;
 	#else
 		#error
 	#endif
@@ -299,6 +305,8 @@ Lint16 s16DS2482S_LOWLEVEL__ReadReg(Luint8 u8DeviceIndex, E_DS2482_REGS eRegiste
 		{
 			s16Return = 0;
 		}
+	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__WIN32 == 1U
+		s16Return = 0;
 	#else
 		#error
 	#endif
