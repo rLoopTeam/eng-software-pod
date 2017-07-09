@@ -5,14 +5,27 @@
 ''' </summary>
 Public Class Form1
 
+#Region "CONSTANTS"
+
+    ''' <summary>
+    ''' The leak rate of the pressure vessel per second
+    ''' </summary>
+    Private Const C_PV_LEAK_RATE__BAR_SEC As Single = 0.00001
+
+#End Region
+
 #Region "DLL HANDLING"
-
-
 
     ''' <summary>
     ''' The name of our DLL, could be a bit better done with relative paths
     ''' </summary>
     Private Const C_DLL_NAME As String = "..\..\..\PROJECT_CODE\DLLS\LDLL173__RLOOP__LCCM653\bin\Debug\LDLL173__RLOOP__LCCM653.dll"
+
+    ''' <summary>
+    ''' Battery model
+    ''' </summary>
+    Private Const C_BATTERY_DLL_NAME As String = "..\..\..\COMMON_CODE\DLLS\LDLL186__MULTICORE__LCCM723\bin\Debug\LDLL186__MULTICORE__LCCM723.dll"
+
 
 #Region "WIN32 KERNEL"
     Private Declare Auto Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (ByVal pDst() As UInt16, ByVal pSrc As IntPtr, ByVal ByteLen As UInt32)
@@ -35,7 +48,7 @@ Public Class Form1
     ''' <param name="callback"></param>
     ''' <remarks></remarks>
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Private Shared Sub vDEBUG_PRINTF_WIN32__Set_Callback(ByVal callback As MulticastDelegate)
+    Private Shared Sub vSIL3_DEBUG_PRINTF_WIN32__Set_Callback(ByVal callback As MulticastDelegate)
     End Sub
 #End Region '#Region "WIN32/DEBUG"
 
@@ -59,8 +72,42 @@ Public Class Form1
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Private Shared Sub vPWRNODE_WIN32__Set_NodeTemperature(f32Temperature As Single)
     End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vPWRNODE_WIN32__Set_NodePressure(f32Temperature As Single)
+    End Sub
 
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vPWRNODE__RTI_100MS_ISR()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vPWRNODE__RTI_10MS_ISR()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vPWRNODE_WIN32__Set_NodePersonality(u8Value As Byte)
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Function u8PWRNODE_WIN32__Get_RepressSolState() As Byte
+    End Function
 #End Region '#Region "C CODE SPECIFICS"
+
+#Region "BATTERY SPECIFICS"
+
+    <System.Runtime.InteropServices.DllImport(C_BATTERY_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vLIPOMODEL__Init()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_BATTERY_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vLIPOMODEL__Process()
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_BATTERY_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vLIPOMODEL__1S_ISR()
+    End Sub
+
+    <System.Runtime.InteropServices.DllImport(C_BATTERY_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Function f32LIPOMODEL_WIN32__Get_PackVoltage(u16PackIndex As UInt16) As Single
+    End Function
+
+
+#End Region '#Region "BATTERY SPECIFICS"
 
 #End Region '#Region "DLL HANDLING"
 
@@ -72,9 +119,27 @@ Public Class Form1
     Private m_txtOutput As Windows.Forms.TextBox
 
     ''' <summary>
+    ''' Allows us to choose which index we want
+    ''' </summary>
+    Private m_cboNodeIndex As ComboBox
+    Private m_bNodeIndex As Byte
+
+    ''' <summary>
     ''' Our node temperature value
     ''' </summary>
     Private m_txtNodeTemp As TextBox
+
+    ''' <summary>
+    ''' Node pressure box
+    ''' </summary>
+    Private m_txtNodePress As TextBox
+
+    ''' <summary>
+    ''' Repress Solenoid
+    ''' </summary>
+    Private m_chkPressSol As CheckBox
+
+    Private m_txtBatteryV As TextBox
 
     ''' <summary>
     ''' The debug delegate
@@ -93,6 +158,9 @@ Public Class Form1
     ''' </summary>
     Private m_bThreadRun As Boolean
 
+    Private m_pTimer10m As System.Timers.Timer
+    Private m_pTimer100m As System.Timers.Timer
+    Private m_pTimer1s As System.Timers.Timer
 
 #End Region '#Region "MEMBERS"
 
@@ -128,6 +196,17 @@ Public Class Form1
         pP.Controls.Add(pB1)
         AddHandler pB1.Click, AddressOf Me.btnStart__Click
 
+        Me.m_cboNodeIndex = New ComboBox
+        With Me.m_cboNodeIndex
+            .Location = New Point(pB1.Location.X + pB1.Size.Width + 5, pB1.Location.Y)
+            .Size = New Size(100, 24)
+
+        End With
+        Me.m_cboNodeIndex.Items.Add("Node A")
+        Me.m_cboNodeIndex.Items.Add("Node B")
+        Me.m_cboNodeIndex.SelectedIndex = 0
+        pP.Controls.Add(Me.m_cboNodeIndex)
+
 
         'create some node temperature items
         Dim l1 As New Label
@@ -144,6 +223,48 @@ Public Class Form1
         End With
         pP.Controls.Add(Me.m_txtNodeTemp)
         AddHandler Me.m_txtNodeTemp.KeyDown, AddressOf Me.txtNodeTemp__KeyDown
+
+
+        Dim l2 As New Label
+        With l2
+            .Location = New Point(Me.m_txtNodeTemp.Location.X + Me.m_txtNodeTemp.Size.Width + 10, l1.Top)
+            .Text = "Pressure (Bar)"
+        End With
+        pP.Controls.Add(l2)
+        Me.m_txtNodePress = New TextBox
+        With Me.m_txtNodePress
+            .Location = New Point(l2.Location.X, l2.Top + l2.Height + 0)
+            .Size = New Size(100, 24)
+            .Text = "1.00000"
+        End With
+        pP.Controls.Add(Me.m_txtNodePress)
+        AddHandler Me.m_txtNodePress.KeyDown, AddressOf Me.txtNodePress__KeyDown
+
+        'add the PV repress solenoid
+        Me.m_chkPressSol = New CheckBox
+        With Me.m_chkPressSol
+            .Location = New Point(Me.m_txtNodePress.Location.X + Me.m_txtNodePress.Size.Width + 10, Me.m_txtNodePress.Location.Y)
+            .Text = "Solenoid"
+            .Enabled = False
+        End With
+        pP.Controls.Add(Me.m_chkPressSol)
+
+        Dim l3 As New Label
+        With l3
+            .Location = New Point(Me.m_txtNodeTemp.Location.X, Me.m_txtNodeTemp.Top + Me.m_txtNodeTemp.Height + 10)
+            .Text = "Battery"
+        End With
+        pP.Controls.Add(l3)
+        Me.m_txtBatteryV = New TextBox
+        With Me.m_txtBatteryV
+            .Location = New Point(l3.Location.X, l3.Top + l3.Height + 0)
+            .Size = New Size(100, 24)
+            .Text = ""
+        End With
+        pP.Controls.Add(Me.m_txtBatteryV)
+
+
+
 
 
         'create a logging box
@@ -183,17 +304,95 @@ Public Class Form1
     Private Sub Setup_System()
 
         'Seup the debugging support if needed
-        Me.m_pDebug_Delegate = AddressOf Me.DEBUG_PRINTF_WIN32_Callback
-        vDEBUG_PRINTF_WIN32__Set_Callback(Me.m_pDebug_Delegate)
+        Me.m_pDebug_Delegate = AddressOf Me.SIL3_DEBUG_PRINTF_WIN32_Callback
+        vSIL3_DEBUG_PRINTF_WIN32__Set_Callback(Me.m_pDebug_Delegate)
 
         'setup other callbacks
 
-        'do the threading
-        Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
-        Me.m_pMainThread.Name = "POWERNODE THREAD"
+
+        Timers__Setup()
 
     End Sub
 #End Region '#Region "SYSTEM INIT"
+
+#Region "TIMERS"
+    ''' <summary>
+    ''' Start the timers.
+    ''' </summary>
+    Private Sub Timers__Setup()
+
+        Me.m_pTimer10m = New System.Timers.Timer
+        Me.m_pTimer10m.Interval = 10
+        AddHandler Me.m_pTimer10m.Elapsed, AddressOf Me.Timers__T10_Tick
+        Me.m_pTimer10m.Start()
+
+        Me.m_pTimer100m = New System.Timers.Timer
+        Me.m_pTimer100m.Interval = 100
+        AddHandler Me.m_pTimer100m.Elapsed, AddressOf Me.Timers__T100_Tick
+        Me.m_pTimer100m.Start()
+
+        Me.m_pTimer1s = New System.Timers.Timer
+        Me.m_pTimer1s.Interval = 1000
+        AddHandler Me.m_pTimer1s.Elapsed, AddressOf Me.Timers__T1S_Tick
+        Me.m_pTimer1s.Start()
+
+    End Sub
+
+    Private Sub Timers__T1S_Tick(s As Object, e As System.Timers.ElapsedEventArgs)
+        If Me.m_bThreadRun = True Then
+
+            'run the battery model
+            vLIPOMODEL__1S_ISR()
+
+            'run PV leak rate
+            Dim sValue As Single = Single.Parse(Me.m_txtNodePress.Text)
+            'leak
+            sValue -= C_PV_LEAK_RATE__BAR_SEC
+
+            'update
+            vPWRNODE_WIN32__Set_NodePressure(sValue)
+            Threadsafe__SetText(Me.m_txtNodePress, sValue.ToString("0.00000"))
+
+            'see if the sol is on.
+            If u8PWRNODE_WIN32__Get_RepressSolState() = 1 Then
+                Me.m_chkPressSol.Checked = True
+            Else
+                Me.m_chkPressSol.Checked = False
+            End If
+
+            'battery
+            Threadsafe__SetText(Me.m_txtBatteryV, f32LIPOMODEL_WIN32__Get_PackVoltage(0).ToString("0.000"))
+
+
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' 10ms timer
+    ''' </summary>
+    ''' <param name="s"></param>
+    ''' <param name="e"></param>
+    Private Sub Timers__T10_Tick(s As Object, e As System.Timers.ElapsedEventArgs)
+        If Me.m_bThreadRun = True Then
+            vPWRNODE__RTI_10MS_ISR()
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' 100ms timer
+    ''' </summary>
+    ''' <param name="s"></param>
+    ''' <param name="e"></param>
+    Private Sub Timers__T100_Tick(s As Object, e As System.Timers.ElapsedEventArgs)
+        If Me.m_bThreadRun = True Then
+            vPWRNODE__RTI_100MS_ISR()
+        End If
+    End Sub
+
+
+
+
+#End Region '#Region "TIMERS"
 
 #Region "KEY PRESS HANDLERS"
     ''' <summary>
@@ -215,6 +414,22 @@ Public Class Form1
             End If
         End If
     End Sub
+
+    Private Sub txtNodePress__KeyDown(s As Object, e As KeyEventArgs)
+        'handle enter key
+        If e.KeyCode = Keys.Enter Then
+            'check safety
+            If Me.m_bThreadRun = False Then
+                MsgBox("Warn: You must have thread running.")
+            Else
+                'convert string to float32 (single on WIN32)
+                'todo, error checking
+                Dim sValue As Single = Single.Parse(Me.m_txtNodePress.Text)
+                vPWRNODE_WIN32__Set_NodePressure(sValue)
+            End If
+        End If
+
+    End Sub
 #End Region
 
 #Region "BUTTON HANDLERS"
@@ -229,6 +444,9 @@ Public Class Form1
         Dim pB As Button = CType(sender, Button)
 
         If pB.Text = "Start" Then
+
+            Me.m_bNodeIndex = Me.m_cboNodeIndex.SelectedIndex
+
             'set the flag
             Me.m_bThreadRun = True
 
@@ -236,6 +454,8 @@ Public Class Form1
             pB.Text = "Stop"
 
             'start the thread
+            Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
+            Me.m_pMainThread.Name = "POWERNODE THREAD"
             Me.m_pMainThread.Start()
 
         Else
@@ -260,11 +480,27 @@ Public Class Form1
     ''' </summary>
     Private Sub Thread__Main()
 
+        'init the battery model
+        vLIPOMODEL__Init()
+
         'call Init
         vPWRNODE__Init()
 
+        'set our win32 personality
+        vPWRNODE_WIN32__Set_NodePersonality(Me.m_bNodeIndex)
+
+        'configure some default values
+        Dim sValue As Single = Single.Parse(Me.m_txtNodeTemp.Text)
+        vPWRNODE_WIN32__Set_NodeTemperature(sValue)
+        sValue = Single.Parse(Me.m_txtNodePress.Text)
+        vPWRNODE_WIN32__Set_NodePressure(sValue)
+
+
         'stay here until thread abort
         While True
+
+            'process the battery model
+            vLIPOMODEL__Process()
 
             'add here any things that need updating like pod sensor data
 
@@ -285,7 +521,7 @@ Public Class Form1
     ''' </summary>
     ''' <param name="pu8String"></param>
     ''' <remarks></remarks>
-    Private Sub DEBUG_PRINTF_WIN32_Callback(ByVal pu8String As IntPtr)
+    Private Sub SIL3_DEBUG_PRINTF_WIN32_Callback(ByVal pu8String As IntPtr)
 
         Dim bArray() As Byte
 

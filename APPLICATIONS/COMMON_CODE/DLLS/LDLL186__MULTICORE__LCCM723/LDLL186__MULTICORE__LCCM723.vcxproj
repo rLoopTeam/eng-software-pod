@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B687D51F-052A-4575-A0D1-F731F85450F6}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>LDLL186__MULTICORE__LCCM723</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(MSBuildProjectDirectory)\OBJECT\</IntDir>
+    <IncludePath>D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM522__MULTICORE__BOOST_FIXED_PT;D:\SIL3\DESIGN\LDL\COMMON_CODE\DLLS\LDLL186__MULTICORE__LCCM723;D:\SIL3\DESIGN\LDL\COMMON_CODE;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LDLL186__MULTICORE__LCCM723;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LDLL186__MULTICORE__LCCM723;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\MULTICORE\LCCM723__MULTICORE__LIPO_CELL_MODEL\cell_model.h" />
+    <ClInclude Include="..\..\MULTICORE\LCCM723__MULTICORE__LIPO_CELL_MODEL\cell_model__localdef.h" />
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h" />
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical__localdef.h" />
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical__structs.h" />
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree.h" />
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree__localdef.h" />
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree__public.h" />
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM517__MULTICORE__SAFETOOL_BRANCH\safetool_branch.h" />
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM517__MULTICORE__SAFETOOL_BRANCH\safetool_branch__localdef.h" />
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\WIN32\DEBUG_CSV\win32__debug_csv.h" />
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h" />
+    <ClInclude Include="localdef.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\MULTICORE\LCCM118__MULTICORE__NUMERICAL\ARRAY\numerical__array.c" />
+    <ClCompile Include="..\..\MULTICORE\LCCM118__MULTICORE__NUMERICAL\BINARY\numerical__binary.c" />
+    <ClCompile Include="..\..\MULTICORE\LCCM118__MULTICORE__NUMERICAL\POLYNOMIAL\numerical__poly.c" />
+    <ClCompile Include="..\..\MULTICORE\LCCM118__MULTICORE__NUMERICAL\POWER\numerical__power.c" />
+    <ClCompile Include="..\..\MULTICORE\LCCM723__MULTICORE__LIPO_CELL_MODEL\BATTERY\cell_model__battery.c" />
+    <ClCompile Include="..\..\MULTICORE\LCCM723__MULTICORE__LIPO_CELL_MODEL\CELL\cell_model__cell.c" />
+    <ClCompile Include="..\..\MULTICORE\LCCM723__MULTICORE__LIPO_CELL_MODEL\cell_model.c" />
+    <ClCompile Include="..\..\MULTICORE\LCCM723__MULTICORE__LIPO_CELL_MODEL\cell_model__tables.c" />
+    <ClCompile Include="..\..\MULTICORE\LCCM723__MULTICORE__LIPO_CELL_MODEL\WIN32\cell_model__win32.c" />
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FLOAT\numerical__float.c" />
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c" />
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TOLERANCE\numerical__tolerance.c" />
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG_TABLES\numerical__cosine.c" />
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG_TABLES\numerical__sine.c" />
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG_TABLES\numerical__trig_tables.c" />
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree.c" />
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM517__MULTICORE__SAFETOOL_BRANCH\safetool_branch.c" />
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM517__MULTICORE__SAFETOOL_BRANCH\STRINGS\safetool_branch__strings.c" />
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\WIN32\DEBUG_CSV\win32__debug_csv.c" />
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

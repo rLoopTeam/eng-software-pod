@@ -190,6 +190,9 @@
 		Lfloat64 f64SIL3_NUM_FLOAT__SQRT(Lfloat64 f64Value);
 		Lfloat64 f64SIL3_NUM_FLOAT__Log(Lfloat64 f64Value);
 	
+		//polynomial
+		DLL_DECLARATION Lfloat32 f32SIL3_NUM_POLY__PolyVal(Lfloat32 *pf32Poly, Luint32 u32PolySize, Lfloat32 f32X);
+	
 		//matrix
 		void vNUMERICAL_MATRIX__Mult(Luint32 aRows, Luint32 aCols_bRows, Luint32 bCols, Lfloat32 matrixC[], const Lfloat32 matrixA[], const Lfloat32 matrixB[]);
 		void vNUMERICAL_MATRIX__Mult_3X3(const Lfloat32 a[3][3], const Lfloat32 b[3][3], Lfloat32 mat[3][3]);

@@ -4579,6 +4579,22 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  <param name="iWidth"></param>
  <remarks></remarks>
 </member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_U8.Value__Update(System.Byte[]@,System.Int32)">
+ <summary>
+ Update the value in the display box
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_U8.Value__Update__To_Int(System.Byte[]@,System.Int32)">
+ <summary>
+ Update the value in the display box as an integer
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
+</member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_U8.List__Add(System.String,LAPP185__RLOOP__FCU_EMU.SIL3.Numerical.U8)">
  <summary>
  Add a list item
@@ -4648,6 +4664,22 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  </summary>
  <param name="iWidth"></param>
  <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_S32.Value__Update(System.Byte[]@,System.Int32)">
+ <summary>
+ Update the value from a byte array (such as a packet)
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_S32.Value__ToArray(System.Byte[]@,System.Int32)">
+ <summary>
+ Convert the value in our 
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
 </member>
 <member name="T:LAPP185__RLOOP__FCU_EMU.SIL3.ApplicationSupport.TextBoxHelper_U32">
  <summary>
@@ -5987,7 +6019,7 @@ adds a sub level node after one has already been added
  <param name="pu8String"></param>
  <remarks></remarks>
 </member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.vDEBUG_PRINTF_WIN32__Set_Callback(System.MulticastDelegate)">
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.vSIL3_DEBUG_PRINTF_WIN32__Set_Callback(System.MulticastDelegate)">
  <summary>
  The debugger callback
  </summary>
@@ -6123,7 +6155,7 @@ adds a sub level node after one has already been added
  <param name="s"></param>
  <param name="e"></param>
 </member>
-<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.DEBUG_PRINTF_WIN32_Callback(System.IntPtr)">
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.SIL3_DEBUG_PRINTF_WIN32_Callback(System.IntPtr)">
  <summary>
  Called when the debug layer wants to print a string
  </summary>

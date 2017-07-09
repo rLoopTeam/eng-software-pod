@@ -14,7 +14,7 @@
     <ProjectGuid>{58FDB1EB-504C-48AF-BC66-8B3E4CE6928A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>LDLL173__RLOOP__LCCM653</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -45,6 +45,7 @@
     <OutDir>$(ProjectDir)\bin\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)\$(Configuration)\</IntDir>
     <IncludePath>$(MSBuildProjectDirectory);$(MSBuildProjectDirectory)\..\..\..\..\FIRMWARE\PROJECT_CODE;$(MSBuildProjectDirectory)\..\..\..\..\FIRMWARE\COMMON_CODE;$(IncludePath)</IncludePath>
+    <LibraryPath>LIB;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -61,6 +62,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>LDLL173__RLOOP__LCCM653_SIL3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -85,10 +87,19 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\BATTERY_TEMP\power_core__battery_temp.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\BMS\power_core__bms.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CAN_NETWORK\power_core__can_network.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CHARGER\IV_MEASURE\power__iv_measure.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CHARGER\power_core__charger.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CHARGER\power_core__charger_ethernet.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CHARGER\RELAY\power_core__charge_relay.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\DC_CONVERTER\power_core__dc_converter.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\FAULTS\power_core__faults.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\NETWORKING\power_core__net.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\NETWORKING\power_core__net__rx.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\NETWORKING\power_core__net__tx.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\NODE_PRESSURE\power_core__node_pressure.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\NODE_TEMP\power_core__node_temp.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\SERIAL_NETWORK\power_core__serial_network.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\REPRESS\pwr__repress.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\STATE_MACHINE\power_core__state_machine.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\WIN32\power_core__win32.c" />
   </ItemGroup>
@@ -99,13 +110,11 @@
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree__public.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CHARGER\IV_MEASURE\power__iv_measure__fault_flags.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core__localdef.h" />
     <ClInclude Include="localdef.h" />
     <ClInclude Include="resource.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="LIBS\LDLL173__RLOOP__LCCM653_SIL3.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

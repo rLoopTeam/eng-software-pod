@@ -49,9 +49,6 @@
     <Filter Include="Source Files\WIN32\DEBUG_PRINTF">
       <UniqueIdentifier>{70d4ba12-3067-4f39-87a5-770373bae769}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\LIBS">
-      <UniqueIdentifier>{11435678-1196-4294-b637-cbf921da88f1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC">
       <UniqueIdentifier>{de699b01-f374-4c48-9b7a-3f071728f97a}</UniqueIdentifier>
     </Filter>
@@ -60,6 +57,21 @@
     </Filter>
     <Filter Include="Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE">
       <UniqueIdentifier>{d8e120f9-4be2-45c5-8425-d0fabbcb71b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM653__RLOOP__POWER_CORE\FAULTS">
+      <UniqueIdentifier>{a9c09105-41b1-4b7e-96f9-74a462d7bff9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM653__RLOOP__POWER_CORE\CHARGER">
+      <UniqueIdentifier>{3a71552f-e5a4-42d4-be28-68230de6f557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM653__RLOOP__POWER_CORE\DC_CONVERTER">
+      <UniqueIdentifier>{a225d6e0-0a58-4491-a2a3-2b568d922177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM653__RLOOP__POWER_CORE\NETWORKING">
+      <UniqueIdentifier>{340ac553-6af6-4b18-bbd5-76c4abafcb81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LCCM653__RLOOP__POWER_CORE\REPRESS">
+      <UniqueIdentifier>{63704cf5-bd42-45af-8d93-1d4f1379ac6d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,14 +96,41 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\STATE_MACHINE\power_core__state_machine.c">
       <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\STATE_MACHINE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\SERIAL_NETWORK\power_core__serial_network.c">
-      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\SERIAL_NETWORK</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\NODE_TEMP\power_core__node_temp.c">
       <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\NODE_TEMP</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\NODE_PRESSURE\power_core__node_pressure.c">
       <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\NODE_PRESSURE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\FAULTS\power_core__faults.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\FAULTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CHARGER\power_core__charger.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\CHARGER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CHARGER\power_core__charger_ethernet.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\CHARGER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CHARGER\IV_MEASURE\power__iv_measure.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\CHARGER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CHARGER\RELAY\power_core__charge_relay.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\CHARGER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\DC_CONVERTER\power_core__dc_converter.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\DC_CONVERTER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\NETWORKING\power_core__net.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\NETWORKING</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\NETWORKING\power_core__net__rx.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\NETWORKING</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\NETWORKING\power_core__net__tx.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\NETWORKING</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\REPRESS\pwr__repress.c">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\REPRESS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,10 +164,8 @@
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree__public.h">
       <Filter>Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="LIBS\LDLL173__RLOOP__LCCM653_SIL3.lib">
-      <Filter>Source Files\LIBS</Filter>
-    </Library>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CHARGER\IV_MEASURE\power__iv_measure__fault_flags.h">
+      <Filter>Source Files\LCCM653__RLOOP__POWER_CORE\CHARGER</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
