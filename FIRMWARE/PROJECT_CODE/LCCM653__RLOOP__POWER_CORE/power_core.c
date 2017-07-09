@@ -164,6 +164,9 @@ void vPWRNODE__Process(void)
 			//vRM4_SCI__TxByte(SCI_CHANNEL__2, 0xAAU);
 
 #else
+			//on win32 set personality
+			sPWRNODE.ePersonality = PWRNODE_TYPE__PACK_A;
+
 			//Init any win32 variables
 			vPWRNODE_WIN32__Init();
 
@@ -208,7 +211,9 @@ void vPWRNODE__Process(void)
 		case INIT_STATE__DC_CONVERTER:
 
 			//startup the ADC for voltage and current measurement.
+#ifndef WIN32
 			vRM4_ADC_USER__Init();
+#endif
 
 			//make sure we latch on the DC/DC converter now.
 			#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
@@ -275,7 +280,7 @@ void vPWRNODE__Process(void)
 
 
 		case INIT_STATE__START_TIMERS:
-
+#ifndef WIN32
 			//int the RTI
 			vRM4_RTI__Init();
 
@@ -292,7 +297,7 @@ void vPWRNODE__Process(void)
 
 			//kick off the ADC too
 			vRM4_ADC_USER__StartConversion();
-
+#endif //win32
 			//move state
 			sPWRNODE.sInit.eState = INIT_STATE__START_LOW_SYSTEM;
 			break;
@@ -313,7 +318,7 @@ void vPWRNODE__Process(void)
 
 		case INIT_STATE__RUN:
 
-
+#ifndef WIN32
 			//CPU load monitoring processing.
 			vRM4_CPULOAD__Process();
 
@@ -322,6 +327,7 @@ void vPWRNODE__Process(void)
 
 			//process any ADC averaging.
 			vRM4_ADC_USER__Process();
+#endif //#ifndef WIN32
 
 			//normal run state
 			#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
@@ -387,9 +393,10 @@ void vPWRNODE__Process(void)
 			//process the main state machine
 			vPWRNODE_SM__Process();
 
-
+#ifndef WIN32
 			//mark th exit point
 			vRM4_CPULOAD__While_Exit();
+#endif
 
 		break;
 

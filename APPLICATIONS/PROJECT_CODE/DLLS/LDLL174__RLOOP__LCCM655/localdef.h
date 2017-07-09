@@ -10,8 +10,6 @@
 	//some placeholders
 	#define SAFETOOL_BRANCH(stFuncID)
 
-	// "D:\LOCKIE\DESIGN\RLOOP\FIRMWARE\LFW531__RLOOP__FLIGHT_CONTROL_SIL3\SOURCE\MAIN\localdef.h"
-
 	//The PCB's main files
 	#ifndef WIN32
 		#include <../../../BOARD_SUPPORT/lpcb235r0__board_support.h>
@@ -220,6 +218,8 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 			/** Enable Cooling control */
 			#define C_LOCALDEF__LCCM655__ENABLE_COOLING_CONTROL					(0U)
 
+			/** Enable fault handling out ethernet */
+			#define C_LOCALDEF__LCCM655__ENABLE_ETHERNET_FAULTS                 (1U)
 
 		/** ADC Sample Limits */
 		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__LOWER_BOUND				(300U)

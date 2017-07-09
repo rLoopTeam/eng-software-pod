@@ -13,11 +13,13 @@ void vPWR_PVPRESS__Init(void)
 	sPWRNODE.sRePress.eSolState = REPRESS_SOL_STATE__OFF;
 	sPWRNODE.sRePress.f32Press = 0.0F;
 
+#ifndef WIN32
 	//configure N2HET PIN
 	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 0U);
 
 	//set its state
 	vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 0U, 0U);
+#endif
 
 }
 
@@ -40,8 +42,13 @@ void vPWR_PVPRESS__Process(void)
 
 
 		case REPRESS_STATE__CHECK_PRESS_SNSR:
+
 			//check that the pressure sensor is working
+#ifndef WIN32
 			u8Test = u8MS5607__Get_IsFault();
+#else
+			u8Test = 0U;
+#endif
 			if(u8Test == 1U)
 			{
 				//do not use the sensor, stay here
@@ -96,6 +103,7 @@ void vPWR_PVPRESS__Process(void)
 	}//switch(sPWRNODE.sRePress.eState)
 
 	//handle the actual solenoid state.
+#ifndef WIN32
 	if(sPWRNODE.sRePress.eSolState == REPRESS_SOL_STATE__OFF)
 	{
 		vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 0U, 0U);
@@ -104,6 +112,18 @@ void vPWR_PVPRESS__Process(void)
 	{
 		vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 0U, 1U);
 	}
+#else
+	//update WIN32
+	if (sPWRNODE.sRePress.eSolState == REPRESS_SOL_STATE__OFF)
+	{
+		sPWRNODE.sWIN32.u8RepressSol = 0U;
+	}
+	else
+	{
+		sPWRNODE.sWIN32.u8RepressSol = 1U;
+	}
+	
+#endif
 }
 
 //to be called from GS to enable the repress system as its dangerous

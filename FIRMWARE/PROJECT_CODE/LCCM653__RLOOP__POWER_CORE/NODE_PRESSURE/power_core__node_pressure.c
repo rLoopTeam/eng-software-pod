@@ -69,10 +69,17 @@ Lfloat32 f32PWRNODE_NODEPRESS__Get_Pressure_Bar(void)
 	Lfloat32 f32Return;
 
 	//get the pressure in mBar
+#ifndef WIN32
 	f32Return = (Lfloat32)sMS5607__GetPressure();
 
 	//convert to Bar
 	f32Return /= 100000.0F;
+#else
+	//fake on WIN32
+	f32Return = sPWRNODE.sWIN32.f32NodePressure;
+#endif
+
+
 
 	return f32Return;
 

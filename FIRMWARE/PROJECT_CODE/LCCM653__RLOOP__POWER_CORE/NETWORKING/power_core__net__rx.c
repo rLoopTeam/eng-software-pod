@@ -68,9 +68,11 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 			u32Block[0] = u32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload);
 			if(u32Block[0] == 0x76543210U)
 			{
-				//Safe the pod
-				vPWRNODE_DC__Pod_Safe_Unlock(0xABCD1298U);
-				vPWRNODE_DC__Pod_Safe_Go();
+				#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
+					//Safe the pod
+					vPWRNODE_DC__Pod_Safe_Unlock(0xABCD1298U);
+					vPWRNODE_DC__Pod_Safe_Go();
+				#endif
 			}
 			else
 			{
@@ -155,12 +157,14 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 
 			case NET_PKT__PWR_GEN__MANUAL_BALANCE_CONTROL:
 
+#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
 				//check our key
 				if(u32Block[0] == 0x34566543U)
 				{
 					//check our enable bit
 					if(u32Block[1] == 1U)
 					{
+						
 						vPWRNODE_GHG__Start_ManualBalance();
 
 						//apply
@@ -180,9 +184,12 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 					vPWRNODE_GHG__Stop_ManualBalance();
 					vPWRNODE_BMS__Balance_Stop();
 				}
+#endif //C_LOCALDEF__LCCM653__ENABLE_CHARGER
+
 				break;
 
 			case NET_PKT__PWR_GEN__LATCH:
+#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
 				//latch the power on.
 				if(u32Block[0] == 0xABCD1245U)
 				{
@@ -205,6 +212,7 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 				{
 					//invalid
 				}
+#endif //C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER
 				break;
 
 			case NET_PKT__PWR_GEN__PV_REPRESS:
@@ -326,23 +334,31 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 				switch(u32Block[0])
 				{
 					case 1U:
-						vSIL3_EEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_VOLT, f32Block[1], DELAY_T__IMMEDIATE_WRITE);
-						sPWRNODE.sCharger.f32MaxHighestCell = f32SIL3_EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_VOLT);
+						#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
+							vSIL3_EEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_VOLT, f32Block[1], DELAY_T__IMMEDIATE_WRITE);
+							sPWRNODE.sCharger.f32MaxHighestCell = f32SIL3_EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_VOLT);
+						#endif
 						break;
 
 					case 2U:
-						vSIL3_EEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_PACK_VOLT, f32Block[1], DELAY_T__IMMEDIATE_WRITE);
-						sPWRNODE.sCharger.f32MaxPackVoltage = f32SIL3_EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_PACK_VOLT);
+						#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
+							vSIL3_EEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_PACK_VOLT, f32Block[1], DELAY_T__IMMEDIATE_WRITE);
+							sPWRNODE.sCharger.f32MaxPackVoltage = f32SIL3_EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_PACK_VOLT);
+						#endif
 						break;
 
 					case 3U:
-						vSIL3_EEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MIN_PACK_VOLT, f32Block[1], DELAY_T__IMMEDIATE_WRITE);
-						sPWRNODE.sCharger.f32MinPackVoltage = f32SIL3_EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MIN_PACK_VOLT);
+						#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
+							vSIL3_EEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MIN_PACK_VOLT, f32Block[1], DELAY_T__IMMEDIATE_WRITE);
+							sPWRNODE.sCharger.f32MinPackVoltage = f32SIL3_EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MIN_PACK_VOLT);
+						#endif
 						break;
 
 					case 4U:
-						vSIL3_EEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_TEMP, f32Block[1], DELAY_T__IMMEDIATE_WRITE);
-						sPWRNODE.sCharger.f32MaxCellTemp = f32SIL3_EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_TEMP);
+						#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
+							vSIL3_EEPARAM__WriteF32(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_TEMP, f32Block[1], DELAY_T__IMMEDIATE_WRITE);
+							sPWRNODE.sCharger.f32MaxCellTemp = f32SIL3_EEPARAM__Read(C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_TEMP);
+						#endif
 						break;
 
 					default:

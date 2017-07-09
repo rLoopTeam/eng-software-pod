@@ -816,14 +816,6 @@ EEPROM BASIC PARAMETERS
 	#define C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
 
-		//select your architecture
-		#define C_LOCALDEF__LCCM188__USE_ON_PIC18							(0U)
-		#define C_LOCALDEF__LCCM188__USE_ON_PIC32							(0U)
-		#define C_LOCALDEF__LCCM188__USE_ON_DSPIC							(0U)
-		#define C_LOCALDEF__LCCM188__USE_ON_RM4 							(1U)
-		#define C_LOCALDEF__LCCM188__USE_ON_MSP430 							(0U)
-		#define C_LOCALDEF__LCCM188__USE_ON_WIN32 							(0U)
-
 		/** Use the EEPRARAMS module with an external FLASH */
 		#define C_LOCALDEF__LCCM188__USE_WITH_LCCM013						(0U)
 

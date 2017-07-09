@@ -259,6 +259,12 @@
 				/** The node temp from the TSYS01 sensor */
 				Lfloat32 f32NodeTemperature;
 
+				/** Simulated node press value */
+				Lfloat32 f32NodePressure;
+
+				/** Repress Sol state */
+				Luint8 u8RepressSol;
+
 			}sWIN32;
 
 #endif
@@ -333,8 +339,8 @@
 		*******************************************************************************/
 		DLL_DECLARATION void vPWRNODE__Init(void);
 		DLL_DECLARATION void vPWRNODE__Process(void);
-		void vPWRNODE__RTI_100MS_ISR(void);
-		void vPWRNODE__RTI_10MS_ISR(void);
+		DLL_DECLARATION void vPWRNODE__RTI_100MS_ISR(void);
+		DLL_DECLARATION void vPWRNODE__RTI_10MS_ISR(void);
 
 		//fault subsystem
 		void vPWRNODE_FAULTS__Init(void);
@@ -489,7 +495,10 @@
 
 #ifdef WIN32
 		void vPWRNODE_WIN32__Init(void);
-		DLL_DECLARATION void vPWRNODE_WIN32__Set_NodeTemperature(Lfloat32 f32Temperature);
+		DLL_DECLARATION void vPWRNODE_WIN32__Set_NodeTemperature(Lfloat32 f32Value);
+		DLL_DECLARATION void vPWRNODE_WIN32__Set_NodePressure(Lfloat32 f32Value);
+		DLL_DECLARATION void vPWRNODE_WIN32__Set_NodePersonality(Luint8 u8Value);
+		DLL_DECLARATION Luint8 u8PWRNODE_WIN32__Get_RepressSolState(void);
 #endif
 
 	#endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U

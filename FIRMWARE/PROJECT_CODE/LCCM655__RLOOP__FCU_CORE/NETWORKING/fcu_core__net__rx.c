@@ -396,7 +396,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 					case 1U:
 						//microns/rev
-						vSIL3_STEPDRIVE_MEM__Set_PicoMeters_PerRev(u32Block[1], s32Block[2]);
+						vSIL3_STEPDRIVE_MEM__Set_MicronsPerRev(u32Block[1], s32Block[2]);
 						break;
 
 					case 2U:

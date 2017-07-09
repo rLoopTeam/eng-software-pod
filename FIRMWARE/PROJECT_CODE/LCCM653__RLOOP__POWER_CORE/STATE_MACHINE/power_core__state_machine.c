@@ -64,12 +64,15 @@ void vPWRNODE_SM__Process(void)
 		case RUN_STATE__CHARGE_START:
 
 			//start the charger
+#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
 			vPWRNODE_CHG__Start();
+#endif
 
 			sPWRNODE.eMainState = RUN_STATE__CHARGE_PROCESS;
 			break;
 
 		case RUN_STATE__CHARGE_PROCESS:
+#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
 			u8Test = u8PWRNODE_CHG__Is_Busy();
 			if(u8Test == 1U)
 			{
@@ -80,11 +83,16 @@ void vPWRNODE_SM__Process(void)
 				//move back to idle
 				sPWRNODE.eMainState = RUN_STATE__IDLE;
 			}
+#else
+			sPWRNODE.eMainState = RUN_STATE__IDLE;
+#endif
 			break;
 
 		case RUN_STATE__CHARGE_STOP:
+#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
 			//abort the charging
 			vPWRNODE_CHG__Abort();
+#endif
 
 			//go back to idle.
 			sPWRNODE.eMainState = RUN_STATE__IDLE;
@@ -99,10 +107,9 @@ void vPWRNODE_SM__Process(void)
 }
 
 
-//call this to configure charging state.
 /***************************************************************************//**
  * @brief
- * ToDo
+ * call this to configure charging state.
  * 
  * @st_funcMD5		A4102DAE2BA37B460B55A31632AE4AC5
  * @st_funcID		LCCM653R0.FILE.003.FUNC.003
@@ -114,10 +121,9 @@ void vPWRNODE_SM__Enable_ChargingState(void)
 
 }
 
-//stop charging immediate
 /***************************************************************************//**
  * @brief
- * ToDo
+ * stop charging immediate
  * 
  * @st_funcMD5		CD45124CCD72755256E22880758DBE25
  * @st_funcID		LCCM653R0.FILE.003.FUNC.004

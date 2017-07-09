@@ -50,7 +50,7 @@ Public Class Form1
     ''' <param name="callback"></param>
     ''' <remarks></remarks>
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Private Shared Sub vDEBUG_PRINTF_WIN32__Set_Callback(ByVal callback As MulticastDelegate)
+    Private Shared Sub vSIL3_DEBUG_PRINTF_WIN32__Set_Callback(ByVal callback As MulticastDelegate)
     End Sub
 
 
@@ -550,8 +550,8 @@ Public Class Form1
         AddHandler Me.m_pSafeUDP.UserEvent__NewPacket, AddressOf Me.InternalEvent__NewPacket
 
         'Seup the debugging support if needed
-        Me.m_pDebug_Delegate = AddressOf Me.DEBUG_PRINTF_WIN32_Callback
-        vDEBUG_PRINTF_WIN32__Set_Callback(Me.m_pDebug_Delegate)
+        Me.m_pDebug_Delegate = AddressOf Me.SIL3_DEBUG_PRINTF_WIN32_Callback
+        vSIL3_DEBUG_PRINTF_WIN32__Set_Callback(Me.m_pDebug_Delegate)
 
         'setup other callbacks
 
@@ -572,9 +572,7 @@ Public Class Form1
         Me.m_pAMC7812_DACVolts__Delegate = AddressOf Me.AMC7182_DAC__SetVolts
         vAMC7812_WIN32__Set_DACVoltsCallback(Me.m_pAMC7812_DACVolts__Delegate)
 
-        'do the threading
-        Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
-        Me.m_pMainThread.Name = "FCU THREAD"
+
 
         'stimers
         Timers__Setup()
@@ -671,6 +669,8 @@ Public Class Form1
             pB.Text = "Stop"
 
             'start the thread
+            Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
+            Me.m_pMainThread.Name = "FCU THREAD"
             Me.m_pMainThread.Start()
 
         Else
@@ -842,7 +842,7 @@ Public Class Form1
     ''' </summary>
     ''' <param name="pu8String"></param>
     ''' <remarks></remarks>
-    Private Sub DEBUG_PRINTF_WIN32_Callback(ByVal pu8String As IntPtr)
+    Private Sub SIL3_DEBUG_PRINTF_WIN32_Callback(ByVal pu8String As IntPtr)
 
         Dim bArray() As Byte
 

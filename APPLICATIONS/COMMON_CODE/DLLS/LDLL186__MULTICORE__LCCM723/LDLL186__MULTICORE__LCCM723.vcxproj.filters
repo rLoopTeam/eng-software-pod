@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="localdef.h" />
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h">
+      <Filter>WIN32\DEBUG_PRINTF</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h">
+      <Filter>MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical__localdef.h">
+      <Filter>MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical__structs.h">
+      <Filter>MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree.h">
+      <Filter>MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree__localdef.h">
+      <Filter>MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree__public.h">
+      <Filter>MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\WIN32\DEBUG_CSV\win32__debug_csv.h">
+      <Filter>WIN32\DEBUG_CSV</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM517__MULTICORE__SAFETOOL_BRANCH\safetool_branch.h">
+      <Filter>MULTICORE\LCCM517__MULTICORE__SAFETOOL_BRANCH</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM517__MULTICORE__SAFETOOL_BRANCH\safetool_branch__localdef.h">
+      <Filter>MULTICORE\LCCM517__MULTICORE__SAFETOOL_BRANCH</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MULTICORE\LCCM723__MULTICORE__LIPO_CELL_MODEL\cell_model.h">
+      <Filter>LCCM723__MULTICORE__LIPO_CELL_MODEL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MULTICORE\LCCM723__MULTICORE__LIPO_CELL_MODEL\cell_model__localdef.h">
+      <Filter>LCCM723__MULTICORE__LIPO_CELL_MODEL</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="MULTICORE">
+      <UniqueIdentifier>{c487dc36-4344-4ffa-a35d-01f8346d1ccf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WIN32">
+      <UniqueIdentifier>{35492673-d986-4b6e-9b82-5e11742baee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WIN32\DEBUG_PRINTF">
+      <UniqueIdentifier>{2f95db77-6bc4-418e-878a-153befcf8145}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MULTICORE\LCCM118__MULTICORE__NUMERICAL">
+      <UniqueIdentifier>{dd130120-19f2-4664-8be1-447575543456}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG">
+      <UniqueIdentifier>{e7b721f5-dd4c-4f36-8f9f-3ba0976f4463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MULTICORE\LCCM284__MULTICORE__FAULT_TREE">
+      <UniqueIdentifier>{4a6ca334-0b83-4bb9-aec7-ddb73949d335}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MULTICORE\LCCM118__MULTICORE__NUMERICAL\TOLERANCE">
+      <UniqueIdentifier>{031bc6fd-bf5c-479b-ad5c-72b74454b503}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WIN32\DEBUG_CSV">
+      <UniqueIdentifier>{61c76c49-303b-4f8c-b37a-e63a0932f3cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MULTICORE\LCCM517__MULTICORE__SAFETOOL_BRANCH">
+      <UniqueIdentifier>{2ba7f220-61ad-4ed3-8fc6-aa1930e46085}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MULTICORE\LCCM118__MULTICORE__NUMERICAL\BINARY">
+      <UniqueIdentifier>{1f00914c-dcb1-40f0-a067-a53e06f86b9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MULTICORE\LCCM118__MULTICORE__NUMERICAL\ARRAY">
+      <UniqueIdentifier>{255769c6-ad68-4bf6-b4e8-bd4a0cb156f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM723__MULTICORE__LIPO_CELL_MODEL">
+      <UniqueIdentifier>{4ef35551-52d9-4165-ac6a-d5a74d24e014}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM723__MULTICORE__LIPO_CELL_MODEL\WIN32">
+      <UniqueIdentifier>{7822963e-0ed8-4bd8-b484-67bea5cb848b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM723__MULTICORE__LIPO_CELL_MODEL\CELL">
+      <UniqueIdentifier>{85590261-f8cf-4a4e-9121-905074b81221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM723__MULTICORE__LIPO_CELL_MODEL\BATTERY">
+      <UniqueIdentifier>{45c681d5-7d87-4f96-a110-2d56bb4869d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MULTICORE\LCCM118__MULTICORE__NUMERICAL\POLY">
+      <UniqueIdentifier>{64f6cbd2-a750-41e0-938b-16623705f0e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MULTICORE\LCCM118__MULTICORE__NUMERICAL\POWER">
+      <UniqueIdentifier>{771e3153-7da4-430c-ac84-cb85eb1c15ed}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c">
+      <Filter>WIN32\DEBUG_PRINTF</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
+      <Filter>MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG_TABLES\numerical__trig_tables.c">
+      <Filter>MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FLOAT\numerical__float.c">
+      <Filter>MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree.c">
+      <Filter>MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TOLERANCE\numerical__tolerance.c">
+      <Filter>MULTICORE\LCCM118__MULTICORE__NUMERICAL\TOLERANCE</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG_TABLES\numerical__sine.c">
+      <Filter>MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\WIN32\DEBUG_CSV\win32__debug_csv.c">
+      <Filter>WIN32\DEBUG_CSV</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG_TABLES\numerical__cosine.c">
+      <Filter>MULTICORE\LCCM118__MULTICORE__NUMERICAL\TRIG</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM517__MULTICORE__SAFETOOL_BRANCH\safetool_branch.c">
+      <Filter>MULTICORE\LCCM517__MULTICORE__SAFETOOL_BRANCH</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SIL3\DESIGN\LDL\COMMON_CODE\MULTICORE\LCCM517__MULTICORE__SAFETOOL_BRANCH\STRINGS\safetool_branch__strings.c">
+      <Filter>MULTICORE\LCCM517__MULTICORE__SAFETOOL_BRANCH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MULTICORE\LCCM118__MULTICORE__NUMERICAL\BINARY\numerical__binary.c">
+      <Filter>MULTICORE\LCCM118__MULTICORE__NUMERICAL\BINARY</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MULTICORE\LCCM118__MULTICORE__NUMERICAL\ARRAY\numerical__array.c">
+      <Filter>MULTICORE\LCCM118__MULTICORE__NUMERICAL\ARRAY</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MULTICORE\LCCM723__MULTICORE__LIPO_CELL_MODEL\cell_model.c">
+      <Filter>LCCM723__MULTICORE__LIPO_CELL_MODEL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MULTICORE\LCCM723__MULTICORE__LIPO_CELL_MODEL\CELL\cell_model__cell.c">
+      <Filter>LCCM723__MULTICORE__LIPO_CELL_MODEL\CELL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MULTICORE\LCCM723__MULTICORE__LIPO_CELL_MODEL\BATTERY\cell_model__battery.c">
+      <Filter>LCCM723__MULTICORE__LIPO_CELL_MODEL\BATTERY</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MULTICORE\LCCM723__MULTICORE__LIPO_CELL_MODEL\WIN32\cell_model__win32.c">
+      <Filter>LCCM723__MULTICORE__LIPO_CELL_MODEL\WIN32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MULTICORE\LCCM118__MULTICORE__NUMERICAL\POLYNOMIAL\numerical__poly.c">
+      <Filter>MULTICORE\LCCM118__MULTICORE__NUMERICAL\POLY</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MULTICORE\LCCM723__MULTICORE__LIPO_CELL_MODEL\cell_model__tables.c">
+      <Filter>LCCM723__MULTICORE__LIPO_CELL_MODEL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MULTICORE\LCCM118__MULTICORE__NUMERICAL\POWER\numerical__power.c">
+      <Filter>MULTICORE\LCCM118__MULTICORE__NUMERICAL\POWER</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
