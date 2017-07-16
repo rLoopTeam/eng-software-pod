@@ -160,12 +160,34 @@
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\TRACK_DATABASE\rpod__flight__track_db_monitor.vb</Link>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\GIMBAL_UNIT\rpod__panel_gimbal__manual.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\GIMBAL_CONTROL\rpod__panel_gimbal__manual.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\GIMBAL_UNIT\rpod__panel_gimbal__top.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\GIMBAL_CONTROL\rpod__panel_gimbal__top.vb</Link>
+    </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\HE_THERM\rpod__panel_hetherm__manual.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\HE_THERMAL\rpod__panel_hetherm__manual.vb</Link>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\HE_THERM\rpod__panel_hetherm__top.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\HE_THERMAL\rpod__panel_hetherm__top.vb</Link>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\LANDING_GEAR\rpod__panel_landing__calibrate.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\LANDING_GEAR\rpod__panel_landing__calibrate.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\LANDING_GEAR\rpod__panel_landing__manual.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\LANDING_GEAR\rpod__panel_landing__manual.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\LANDING_GEAR\rpod__panel_landing__status.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\LANDING_GEAR\rpod__panel_landing__status.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\LANDING_GEAR\rpod__panel_landing__top.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\LANDING_GEAR\rpod__panel_landing__top.vb</Link>
     </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__network.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__network.vb</Link>

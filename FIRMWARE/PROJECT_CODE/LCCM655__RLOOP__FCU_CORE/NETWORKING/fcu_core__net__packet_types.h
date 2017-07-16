@@ -9,9 +9,8 @@
 #define __NET__PACKET_TYPES_H_
 
 
-	#define C_RLOOP_NET__FCU__PORT						(9100U)
-	#define C_RLOOP_NET__POWER_A__PORT					(9110U)
-	#define C_RLOOP_NET__POWER_B__PORT					(9111U)
+
+
 
 	/** rLoop UDP network packet types
 	* http://confluence.rloop.org/display/SD/Packet+Types
@@ -392,8 +391,21 @@
 		NET_PKT__XILINX_SIM__MANUAL_LASER_CONTROL = 0x5001U,
 
 		/** Transmit a progress update to the host */
-		NET_PKT__XILINX_SIM__TX_PROGRESS_UPDATE = 0x5002U
+		NET_PKT__XILINX_SIM__TX_PROGRESS_UPDATE = 0x5002U,
 
+
+		//////////////////////////////////////////////////////
+		//LANDING GEAR UNIT - 0x7000 - 0x7FFF
+		//////////////////////////////////////////////////////
+
+		/** Permit network based streaming control */
+		NET_PKT__LGU__STREAMING_CONTROL = 0x7000U,
+
+		/** Transmit the LGU status packet over the network */
+		NET_PKT__LGU__TX_STATUS_PACKET = 0x7002U,
+
+		/** Transmit the LGU ADC Calibration Data */
+		NET_PKT__LGU__TX_ADC_CAL_PACKET = 0x7003U,
 
 	}E_NET__PACKET_T;
 

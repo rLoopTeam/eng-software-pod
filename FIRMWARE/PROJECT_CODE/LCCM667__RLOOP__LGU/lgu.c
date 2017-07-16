@@ -1,9 +1,37 @@
 /**
- * @file		LGU.H
- * @brief		LGU Core
- * @author		Lachlan, Frank
- * @copyright	rLoop Inc.
+ * @file		LGU.C
+ * @brief		Landing Gear Unit
+ * @note
+ * IO PIN MAPPING
+ *
+ * N2HET1:2					PWM_1
+ * N2HET1:18				DIR_A1
+ * N2HET1:16				PWM_2
+ * N2HET1:14				DIR_A2
+ * N2HET1:12				PWM_3
+ * N2HET1:6					DIR_B1
+ * N2HET1:13				DIR_B2
+ * N2HET1:4					DIR_A3
+ * N2HET1:9					PWM_4
+ * N2HET1:22				DIR_A4
+ * N2HET1:27				DIR_B3
+ * N2HET1:29				DIR_B4
+ *
+ *
+ * GIOA:5					RETRACT_2
+ * GIOA:2					EXTEND_2
+ * GIOA:1					RETRACT_1
+ * GIOA:0					EXTEND_1
+ * GIOA:7					RETRACT_3
+ * GIOA:6					EXTEND_3
+ * GIOB:3					RETRACT_4
+ * GIOB:2					EXTEND_4
+ * @author		Lachlan Grogan
+ *				This copyright notice must be retained as part of this file at all times.
+ * @copyright	rLoop Inc
+ * @st_fileID	LCCM667R0.FILE.000
  */
+
 /**
  * @addtogroup RLOOP
  * @{ */
@@ -23,25 +51,154 @@
 //Main structure
 TS_LGU__MAIN sLGU;
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		3F296735A2E7283560D02EFDEFCE10F6
+ * @st_funcID		LCCM667R0.FILE.000.FUNC.001
+ */
 void vLGU__Init(void)
 {
-	
+	//setup flash memory access
+#ifndef WIN32
+	vRM4_FLASH__Init();
+
+	//int the RM4's EEPROM
+	#if C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE == 1U
+		vRM4_EEPROM__Init();
+	#endif
+#endif
+
+	//init the EEPROM Params
+	#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
+		vSIL3_EEPARAM__Init();
+	#endif
+
+#ifndef WIN32
+	//init the DMA
+	vRM4_DMA__Init();
+
+	//GIO
+	vRM4_GIO__Init();
+
+	//Setup the ADC
+	#if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
+		vRM4_ADC_USER__Init();
+	#endif
+#endif
+	//CPU load monitoring
+	vRM4_CPULOAD__Init();
+
+#ifndef WIN32
+	//setup the N2HET's
+	vRM4_N2HET__Init(N2HET_CHANNEL__1, 0U, HR_PRESCALE__1, LR_PRESCALE__32);
+	vRM4_N2HET_PINS__Init(N2HET_CHANNEL__1);
+
+	#if C_LOCALDEF__LCCM240__ENABLE_N2HET2 == 1U
+		vRM4_N2HET__Init(N2HET_CHANNEL__2, 0U, HR_PRESCALE__1, LR_PRESCALE__32);
+		vRM4_N2HET_PINS__Init(N2HET_CHANNEL__2);
+	#endif
+
+	//setup the IO pins used for N2HET
+
+	//H-Bridges
+	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___PWM_1);
+	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___PWM_2);
+	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___PWM_3);
+	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___PWM_4);
+
+	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_A1);
+	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_B1);
+	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_A2);
+	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_B2);
+	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_A3);
+	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_B3);
+	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_A4);
+	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_B4);
+
+	//create some PWM programs
+
+	//must disable N2HET before adding programs.
+	vRM4_N2HET__Disable(N2HET_CHANNEL__1);
+
+
+	sLGU.sPWM[0].u16ProgIndex = u16N2HET_PROG_DYNAMIC__Add_PWM(C_LOCALDEF__LCCM667___PWM_1, 0U);
+	sLGU.sPWM[1].u16ProgIndex = u16N2HET_PROG_DYNAMIC__Add_PWM(C_LOCALDEF__LCCM667___PWM_2, 0U);
+	sLGU.sPWM[2].u16ProgIndex = u16N2HET_PROG_DYNAMIC__Add_PWM(C_LOCALDEF__LCCM667___PWM_3, 0U);
+	sLGU.sPWM[3].u16ProgIndex = u16N2HET_PROG_DYNAMIC__Add_PWM(C_LOCALDEF__LCCM667___PWM_4, 0U);
+
+	//once all the programs are added, enable the N2HET:1
+	vRM4_N2HET__Enable(N2HET_CHANNEL__1);
+
+	//configure the limit switches
+	vRM4_GIO__Set_BitDirection(C_LOCALDEF__LCCM667___RETRACT_1, GIO_DIRECTION__INPUT);
+	vRM4_GIO__Set_BitDirection(C_LOCALDEF__LCCM667___EXTEND_1, GIO_DIRECTION__INPUT);
+	vRM4_GIO__Set_BitDirection(C_LOCALDEF__LCCM667___RETRACT_2, GIO_DIRECTION__INPUT);
+	vRM4_GIO__Set_BitDirection(C_LOCALDEF__LCCM667___EXTEND_2, GIO_DIRECTION__INPUT);
+	vRM4_GIO__Set_BitDirection(C_LOCALDEF__LCCM667___RETRACT_3, GIO_DIRECTION__INPUT);
+	vRM4_GIO__Set_BitDirection(C_LOCALDEF__LCCM667___EXTEND_3, GIO_DIRECTION__INPUT);
+	vRM4_GIO__Set_BitDirection(C_LOCALDEF__LCCM667___RETRACT_4, GIO_DIRECTION__INPUT);
+	vRM4_GIO__Set_BitDirection(C_LOCALDEF__LCCM667___EXTEND_4, GIO_DIRECTION__INPUT);
+
+	//configure interrupts
+/*
+	vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__BOTH, GIO_ISR_PIN__GIOA_0);
+	vRM4_GIO_ISR__Set_InterruptPolarity(GIO_POLARITY__BOTH, GIO_ISR_PIN__GIOA_1);
+
+	//setup the interrupts
+	vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_0);
+	vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_1);
+*/
+
+#endif //win32
+
+	//bring up the ethernet
+	vLGU_ETH__Init();
+
+	//start some timers if we need them
+#ifndef WIN32
+	//init the RTI
+	vRM4_RTI__Init();
+
+	//start the relevant RTI interrupts going.
+	//100ms timer
+	vRTI_COMPARE__Enable_CompareInterrupt(0U);
+	//10ms timer
+	vRTI_COMPARE__Enable_CompareInterrupt(1U);
+
+	vRM4_RTI__Start_Interrupts();
+	//Starts the counter zero
+	vRM4_RTI__Start_Counter(0U);
+	//counter 1 needed for 64bit timer.
+	vRM4_RTI__Start_Counter(1U);
+#endif //WIN32
+
+	//configure the actual lift mechanism
+	vLGU_LIFT__Init();
+
+
+#ifdef WIN32
+	//for win32 DLL
+	DEBUG_PRINT("LGU - Init()");
+#endif
+
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		9002B03145522CF0667914F0E340C607
+ * @st_funcID		LCCM667R0.FILE.000.FUNC.002
+ */
 void vLGU__Process(void)
 {
-	
+	vLGU_ETH__Process();
+
+	vLGU_LIFT__Process();
 }
 
-void vLGU__RTI_100MS_ISR(void)
-{
-
-}
-
-void vLGU__RTI_10MS_ISR(void)
-{
-
-}
 
 
 #endif //#if C_LOCALDEF__LCCM667__ENABLE_THIS_MODULE == 1U

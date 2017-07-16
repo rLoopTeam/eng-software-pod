@@ -5558,6 +5558,64 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  The threadings
  </summary>
 </member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Gimbal.Manual">
+ <summary>
+ Manual Gimbal Control
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Gimbal.Manual.#ctor(System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Gimbal.Manual.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Gimbal.Top">
+ <summary>
+ Top level Gimbal Panel
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Gimbal.Top.m_pExplorer">
+ <summary>
+ Our application explorer bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Gimbal.Top.m_iBarIndex">
+ <summary>
+ The index of our category in the explorer bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Gimbal.Top.#ctor(System.Windows.Forms.Form@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ExplorerBarHelper@)">
+ <summary>
+ New instance
+ </summary>
+ <param name="pf"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Gimbal.Top.Panel__HideShow(System.String)">
+ <summary>
+ How or hide this panel if our text matches
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Gimbal.Top.LinkBar_LinkClick(System.String)">
+ <summary>
+ Called when a link is clicked
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.HETherm.Manual">
  <summary>
  Manual HETherm Control
@@ -5615,6 +5673,150 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <param name="sText"></param>
  <remarks></remarks>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Calibrate">
+ <summary>
+ LGU
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Calibrate.#ctor(System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Calibrate.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Calibrate.btnStreamOn__Click(System.Object,System.EventArgs)">
+ <summary>
+ Switch on streaming
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Calibrate.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16)">
+ <summary>
+ New Packet In
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Manual">
+ <summary>
+ Manual Landing Gear Control
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Manual.#ctor(System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Manual.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Status">
+ <summary>
+ LGU Variable Status
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Status.#ctor(System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Status.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Status.btnStreamOn__Click(System.Object,System.EventArgs)">
+ <summary>
+ Switch on streaming
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Status.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16)">
+ <summary>
+ New Packet In
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Top">
+ <summary>
+ Top level Landing Gear Panel
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Top.m_pExplorer">
+ <summary>
+ Our application explorer bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Top.m_iBarIndex">
+ <summary>
+ The index of our category in the explorer bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Top.m_pnlLGU__Status">
+ <summary>
+ Landing gear status page
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Top.#ctor(System.Windows.Forms.Form@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.ApplicationSupport.ExplorerBarHelper@)">
+ <summary>
+ New instance
+ </summary>
+ <param name="pf"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Top.Panel__HideShow(System.String)">
+ <summary>
+ How or hide this panel if our text matches
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Top.LinkBar_LinkClick(System.String)">
+ <summary>
+ Called when a link is clicked
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Top.InternalEvent__UDPSafe__RxPacketB(System.UInt16,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Boolean,System.UInt32)">
+ <summary>
+ New packet in from top layer
+ </summary>
+ <param name="u16PacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <param name="bCRC_OK"></param>
+ <param name="u32Sequence"></param>
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Settings.Network">
  <summary>
@@ -5867,6 +6069,21 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
 <member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pnlAuxProp">
  <summary>
  AuxProp top level
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pnlHETherm">
+ <summary>
+ Hover Engine Thermal Management System
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pnlGimbal">
+ <summary>
+ Gimbal Unit
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pnlLandingGear">
+ <summary>
+ Landing Gear Interface
  </summary>
 </member>
 <member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pnlXilinxSim">

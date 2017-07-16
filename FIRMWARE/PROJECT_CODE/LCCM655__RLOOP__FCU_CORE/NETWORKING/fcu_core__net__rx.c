@@ -79,7 +79,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 	Luint8 u8Device;
 
 	//make sure we are rx'ing on our port number
-	if(u16DestPort == C_RLOOP_NET__FCU__PORT)
+	if(u16DestPort == C_RLOOP_NET_PORT__FCU)
 	{
 
 		//blocks are good for putting into functions

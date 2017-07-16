@@ -13,8 +13,10 @@
 	//The PCB's main files
 	#ifndef WIN32
 		#include <../../../BOARD_SUPPORT/lpcb235r0__board_support.h>
+		#include <../../../BOARD_SUPPORT/NETWORKING/rloop_networking__ports.h>
 	#else
 		#include <../BOARD_SUPPORT/lpcb235r0__board_support.h>
+		#include <../BOARD_SUPPORT/NETWORKING/rloop_networking__ports.h>
 	#endif
 
 

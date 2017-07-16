@@ -14,13 +14,14 @@
     <ProjectGuid>{5BDFDC06-8373-432F-97B2-2F0EE52CD26E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>LDLL179__RLOOP__LCCM667</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -44,6 +45,7 @@
     <OutDir>$(ProjectDir)\bin\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)\$(Configuration)\</IntDir>
     <IncludePath>$(MSBuildProjectDirectory);$(MSBuildProjectDirectory)\..\..\..\..\FIRMWARE\PROJECT_CODE;$(MSBuildProjectDirectory)\..\..\..\..\FIRMWARE\COMMON_CODE;$(IncludePath)</IncludePath>
+    <LibraryPath>LIB;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -60,6 +62,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>LDLL179__RLOOP__LCCM667_SIL3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -97,11 +100,12 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS\WIN32\eeprom_params__win32.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO\software_fifo.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\ETHERNET\lgu__ethernet.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\lgu.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\SERIAL_COMMS\lgu__serial_comms.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\LIFT_MECH\lgu__lift_mech.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\TIMERS\lgu__timers.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\WIN32\lgu__win32.c" />
   </ItemGroup>
   <ItemGroup>
@@ -118,11 +122,6 @@
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO\software_fifo.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO\software_fifo__localdef.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO\software_fifo__public.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__localdef.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__private.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__semistaticdef.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__staticdef.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload__localdef.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h" />

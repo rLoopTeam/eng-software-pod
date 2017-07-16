@@ -31,6 +31,9 @@
 	/** HE Thermal Lower Network IP*/
 	#define C_RLOOP_NET_IP__HETHERM								(141U)
 
+
+	#define C_RLOOP_NET__POWER_A__PORT					(9110U)
+	#define C_RLOOP_NET__POWER_B__PORT					(9111U)
 	
 	
 #endif //_RLOOP_NETWORKING__PORTS_H_

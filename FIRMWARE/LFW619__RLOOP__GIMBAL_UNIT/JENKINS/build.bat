@@ -1,0 +1,1 @@
+D:\TI\ccsv7\eclipse\eclipsec.exe -noSplash -data "D:\SIL3\DESIGN\RLOOP\FIRMWARE\WORKSPACE" -application com.ti.ccstudio.apps.projectBuild -ccs.projects LFW619__RLOOP__GIMBAL_UNIT -ccs.configuration Debug > build.txt

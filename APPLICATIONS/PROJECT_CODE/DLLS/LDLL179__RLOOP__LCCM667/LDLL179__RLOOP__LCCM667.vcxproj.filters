@@ -67,17 +67,20 @@
     <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FILTERING">
       <UniqueIdentifier>{561eee60-1570-4744-a4d7-bb7069973af1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\RM4\LCCM124__RM4__RTI">
-      <UniqueIdentifier>{49c322d8-9912-429b-a7fb-ba85628f2d3d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="LCCM667__RLOOP__LGU">
       <UniqueIdentifier>{f4ad3fa5-56e3-4c22-a324-c20685bea680}</UniqueIdentifier>
     </Filter>
     <Filter Include="LCCM667__RLOOP__LGU\WIN32">
       <UniqueIdentifier>{c6792839-f89c-4fa0-98f3-d59543620774}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LCCM667__RLOOP__LGU\SERIAL_COMMS">
-      <UniqueIdentifier>{e227a621-1b1f-45f0-b134-595783e3ed11}</UniqueIdentifier>
+    <Filter Include="LCCM667__RLOOP__LGU\LIFT">
+      <UniqueIdentifier>{b72ae164-6afe-4bd6-8f30-f4d3ce065e24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM667__RLOOP__LGU\ETHERNET">
+      <UniqueIdentifier>{1d5a31c9-c6f7-4a22-b475-6a1d6680c3de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM667__RLOOP__LGU\TIMERS">
+      <UniqueIdentifier>{749158b5-e6ee-4532-90b9-0a32321dcb8f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -138,17 +141,20 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FILTERING\numerical__average.c">
       <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FILTERING</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.c">
-      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\lgu.c">
       <Filter>LCCM667__RLOOP__LGU</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\WIN32\lgu__win32.c">
       <Filter>LCCM667__RLOOP__LGU\WIN32</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\SERIAL_COMMS\lgu__serial_comms.c">
-      <Filter>LCCM667__RLOOP__LGU\SERIAL_COMMS</Filter>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\LIFT_MECH\lgu__lift_mech.c">
+      <Filter>LCCM667__RLOOP__LGU\LIFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\ETHERNET\lgu__ethernet.c">
+      <Filter>LCCM667__RLOOP__LGU\ETHERNET</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\TIMERS\lgu__timers.c">
+      <Filter>LCCM667__RLOOP__LGU\TIMERS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,21 +211,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO\software_fifo__public.h">
       <Filter>Source Files\MULTICORE\LCCM357__MULTICORE__SOFTWARE_FIFO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.h">
-      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__localdef.h">
-      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__private.h">
-      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__semistaticdef.h">
-      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__staticdef.h">
-      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM667__RLOOP__LGU\lgu.h">
       <Filter>LCCM667__RLOOP__LGU</Filter>
