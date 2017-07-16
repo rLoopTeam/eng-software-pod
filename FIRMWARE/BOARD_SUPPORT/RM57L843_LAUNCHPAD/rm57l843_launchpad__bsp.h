@@ -242,6 +242,7 @@ VECTORED INTERRUPT MODULE
 /*******************************************************************************
 SCI / LIN Module
 *******************************************************************************/
+#ifndef WIN32
 	#define C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE							(0U)
 	#if C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE == 1U
 
@@ -269,7 +270,9 @@ SCI / LIN Module
 	#else
 		#define DEBUG_PRINT(x)
 	#endif //C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE
-
+#else
+	//on Win32 provided elsewhere
+#endif
 
 /*******************************************************************************
 SafeTool Branch Analysis Support
@@ -375,7 +378,7 @@ LR Time = 160ns
 		//HET Options
 		#define C_LOCALDEF__LCCM240__ENABLE_INPUT_CAPTURE					(0U)
 		#define C_LOCALDEF__LCCM240__ENABLE_EDGE_CAPTURE					(0U)
-		#define C_LOCALDEF__LCCM240__ENABLE_PWM								(0U)
+		#define C_LOCALDEF__LCCM240__ENABLE_PWM								(1U)
 		#define C_LOCALDEF__LCCM240__ENABLE_TIMESTAMPING					(0U)
 
 		//testing

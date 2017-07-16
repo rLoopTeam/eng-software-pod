@@ -2,13 +2,16 @@
 
 
 ''' <summary>
-''' Basic framework for rLoop Auxiliary Propultion Controler
+''' Basic framework for rLoop Landing Gear Unit
 ''' Lachlan Grogan - @SafetyLok
 ''' </summary>
 Public Class Form1
 
 #Region "CONSTANTS"
 
+    Private Const C_IP_PORT As Integer = 9548
+
+    Private Const C_NUM_ACTUATORS As Integer = 4
 
 #End Region '#Region "CONSTANTS"
 
@@ -17,7 +20,7 @@ Public Class Form1
     ''' <summary>
     ''' The name of our DLL, could be a bit better done with relative paths
     ''' </summary>
-    Private Const C_DLL_NAME As String = "..\..\..\PROJECT_CODE\DLLS\LDLLXXX__RLOOP__LCCM720\bin\Debug\LDLLXXX__RLOOP__LCCM720.dll"
+    Private Const C_DLL_NAME As String = "..\..\..\PROJECT_CODE\DLLS\LDLL179__RLOOP__LCCM667\bin\Debug\LDLL179__RLOOP__LCCM667.dll"
 
 #Region "WIN32 KERNEL"
     Private Declare Auto Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (ByVal pDst() As UInt16, ByVal pSrc As IntPtr, ByVal ByteLen As UInt32)
@@ -72,26 +75,29 @@ Public Class Form1
     ''' The Init function from the power node
     ''' </summary>
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Private Shared Sub vAPU__Init()
+    Private Shared Sub vLGU__Init()
     End Sub
 
     ''' <summary>
     ''' the process function from the power node
     ''' </summary>
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Private Shared Sub vAPU__Process()
+    Private Shared Sub vLGU__Process()
     End Sub
 
 
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Private Shared Sub vAPU_TIMERS__10MS_ISR()
+    Private Shared Sub vLGU_TIMERS__10MS_ISR()
     End Sub
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-    Private Shared Sub vAPU_TIMERS__100MS_ISR()
+    Private Shared Sub vLGU_TIMERS__100MS_ISR()
     End Sub
-
-
-
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vLGU_WIN32__Update_ADC_Value(u8Index As Byte, u16Value As UInt16)
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Sub vLGU_WIN32__Update_Limit_Switches(u8Index As Byte, u8ExtendLimit As Byte, u8RetractLimit As Byte)
+    End Sub
 
 
 #End Region '#Region "C CODE SPECIFICS"
@@ -106,14 +112,9 @@ Public Class Form1
     ''' <remarks></remarks>
     Private m_txtOutput As Windows.Forms.TextBox
 
-    ''' <summary>
-    ''' The current state of each clutch
-    ''' </summary>
-    Private m_txtClutchState() As TextBox
 
-    Private m_txtMotorDirection() As TextBox
+    Private m_pAcutuator(C_NUM_ACTUATORS - 1) As ActuatorGUI
 
-    Private m_txtMotorFreq() As TextBox
 
     ''' <summary>
     ''' The debug delegate for screen printing.
@@ -168,7 +169,7 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         'setup our form text and size
-        Me.Text = "rLoop Aux Prop Unit Emulator (Build: " & My.Application.Info.Version.ToString & ")"
+        Me.Text = "rLoop Landing Gear Unit Emulator (Build: " & My.Application.Info.Version.ToString & ")"
         Me.BackColor = System.Drawing.Color.White
         Me.WindowState = FormWindowState.Maximized
 
@@ -200,108 +201,34 @@ Public Class Form1
         pP.Controls.Add(pB2)
         AddHandler pB2.Click, AddressOf Me.btnTestCases__Click
 
-        'this area is going to get very messy due to absense of SIL3 libs.
 
-        ReDim Me.m_txtClutchState(2 - 1)
-        ReDim Me.m_txtMotorDirection(2 - 1)
-        ReDim Me.m_txtMotorFreq(2 - 1)
+        'create the actuators
+        'fwd left
+        Me.m_pAcutuator(0) = New ActuatorGUI(0)
+        Me.m_pAcutuator(0).Location = New Point(10, pB1.Location.Y + pB1.Size.Height + 10)
+        pP.Controls.Add(Me.m_pAcutuator(0))
 
-        'create some input item.
-        Dim l1 As New Label
-        With l1
-            .Location = New Point(10, pB1.Top + pB1.Height + 20)
-            .Text = "Left Clutch"
-        End With
-        pP.Controls.Add(l1)
-        Me.m_txtClutchState(0) = New TextBox
-        With Me.m_txtClutchState(0)
-            .Location = New Point(10, l1.Top + l1.Height + 0)
-            .Size = New Size(100, 24)
-            .ReadOnly = True
-        End With
-        pP.Controls.Add(Me.m_txtClutchState(0))
+        'aft left
+        Me.m_pAcutuator(1) = New ActuatorGUI(1)
+        Me.m_pAcutuator(1).Location = New Point(Me.m_pAcutuator(0).Location.X, Me.m_pAcutuator(0).Location.Y + Me.m_pAcutuator(0).Size.Height + 5)
+        pP.Controls.Add(Me.m_pAcutuator(1))
 
+        'aft right
+        Me.m_pAcutuator(2) = New ActuatorGUI(2)
+        Me.m_pAcutuator(2).Location = New Point(Me.m_pAcutuator(1).Location.X + Me.m_pAcutuator(1).Size.Width + 5, Me.m_pAcutuator(1).Location.Y)
+        pP.Controls.Add(Me.m_pAcutuator(2))
 
-        Dim l11 As New Label
-        With l11
-            .Location = New Point(10, Me.m_txtClutchState(0).Top + Me.m_txtClutchState(0).Height + 20)
-            .Text = "Left Direction"
-        End With
-        pP.Controls.Add(l11)
-        Me.m_txtMotorDirection(0) = New TextBox
-        With Me.m_txtMotorDirection(0)
-            .Location = New Point(10, l11.Top + l11.Height + 0)
-            .Size = New Size(100, 24)
-            .ReadOnly = True
-        End With
-        pP.Controls.Add(Me.m_txtMotorDirection(0))
-
-
-        Dim l12 As New Label
-        With l12
-            .Location = New Point(Me.m_txtMotorDirection(0).Left + Me.m_txtMotorDirection(0).Width + 10, l11.Top)
-            .Text = "Left Freq (Hz)"
-        End With
-        pP.Controls.Add(l12)
-        Me.m_txtMotorFreq(0) = New TextBox
-        With Me.m_txtMotorFreq(0)
-            .Location = New Point(Me.m_txtMotorDirection(0).Left + Me.m_txtMotorDirection(0).Width + 10, l12.Top + l12.Height + 0)
-            .Size = New Size(100, 24)
-            .ReadOnly = True
-        End With
-        pP.Controls.Add(Me.m_txtMotorFreq(0))
-
-
-        Dim l2 As New Label
-        With l2
-            .Location = New Point(300, l1.Top)
-            .Text = "Right Clutch"
-        End With
-        pP.Controls.Add(l2)
-        Me.m_txtClutchState(1) = New TextBox
-        With Me.m_txtClutchState(1)
-            .Location = New Point(l2.Left, l1.Top + l1.Height + 0)
-            .Size = New Size(100, 24)
-            .ReadOnly = True
-        End With
-        pP.Controls.Add(Me.m_txtClutchState(1))
-
-
-        Dim l21 As New Label
-        With l21
-            .Location = New Point(l2.Left, Me.m_txtClutchState(1).Top + Me.m_txtClutchState(1).Height + 20)
-            .Text = "Right Direction"
-        End With
-        pP.Controls.Add(l21)
-        Me.m_txtMotorDirection(1) = New TextBox
-        With Me.m_txtMotorDirection(1)
-            .Location = New Point(l21.Left, l21.Top + l21.Height + 0)
-            .Size = New Size(100, 24)
-            .ReadOnly = True
-        End With
-        pP.Controls.Add(Me.m_txtMotorDirection(1))
-
-
-        Dim l22 As New Label
-        With l22
-            .Location = New Point(Me.m_txtMotorDirection(1).Left + Me.m_txtMotorDirection(1).Width + 10, l21.Top)
-            .Text = "Right Freq (Hz)"
-        End With
-        pP.Controls.Add(l22)
-        Me.m_txtMotorFreq(1) = New TextBox
-        With Me.m_txtMotorFreq(1)
-            .Location = New Point(Me.m_txtMotorDirection(1).Left + Me.m_txtMotorDirection(1).Width + 10, l22.Top + l22.Height + 0)
-            .Size = New Size(100, 24)
-            .ReadOnly = True
-        End With
-        pP.Controls.Add(Me.m_txtMotorFreq(1))
+        'fwd right
+        Me.m_pAcutuator(3) = New ActuatorGUI(3)
+        Me.m_pAcutuator(3).Location = New Point(Me.m_pAcutuator(0).Location.X + Me.m_pAcutuator(0).Size.Width + 5, Me.m_pAcutuator(0).Location.Y)
+        pP.Controls.Add(Me.m_pAcutuator(3))
 
 
         'create a logging box
         Me.m_txtOutput = New TextBox
         With Me.m_txtOutput
             .Multiline = True
-            .Size = New Size(100, 300)
+            .Size = New Size(100, 100)
             .ScrollBars = ScrollBars.Both
             .Dock = DockStyle.Bottom
             .BorderStyle = BorderStyle.FixedSingle
@@ -321,7 +248,9 @@ Public Class Form1
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
         'kill the threads
-        Me.m_pMainThread.Abort()
+        If Not Me.m_pMainThread Is Nothing Then
+            Me.m_pMainThread.Abort()
+        End If
 
         Me.m_pTimer10m.Stop()
         Me.m_pTimer100m.Stop()
@@ -342,7 +271,7 @@ Public Class Form1
     Private Sub Setup_System()
 
 
-        Me.m_pSafeUDP = New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", 9615, "APU_ETH_EMU", True, True)
+        Me.m_pSafeUDP = New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", C_IP_PORT, "LGU_ETH_EMU", True, True)
         AddHandler Me.m_pSafeUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.InernalEvent__UDPSafe__RxPacket
         AddHandler Me.m_pSafeUDP.UserEvent__NewPacket, AddressOf Me.InternalEvent__NewPacket
 
@@ -355,20 +284,17 @@ Public Class Form1
         Me.m_pSIL3_ETH_WIN32_TX__Delegate = AddressOf Me.ETH_WIN32__TxCallback_Sub
         vSIL3_ETH_WIN32__Set_Ethernet_TxCallback(Me.m_pSIL3_ETH_WIN32_TX__Delegate)
 
-        Me.m_pAPU_WIN32__UpdateData__Delegate = AddressOf Me.APU_WIN32__UpdateData__Callback
-        vAPU_WIN32__SetCallback_UpdateData(Me.m_pAPU_WIN32__UpdateData__Delegate)
+        'Me.m_pAPU_WIN32__UpdateData__Delegate = AddressOf Me.APU_WIN32__UpdateData__Callback
+        'vAPU_WIN32__SetCallback_UpdateData(Me.m_pAPU_WIN32__UpdateData__Delegate)
 
 
-        'do the threading
-        Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
-        Me.m_pMainThread.Name = "APU THREAD"
+
 
         'stimers
         Timers__Setup()
 
     End Sub
 #End Region '#Region "SYSTEM INIT"
-
 
 #Region "BUTTON HANDLERS"
 
@@ -414,7 +340,9 @@ Public Class Form1
             'set the new text
             pB.Text = "Stop"
 
-            'start the thread
+            'do the threading
+            Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
+            Me.m_pMainThread.Name = "LGU THREAD"
             Me.m_pMainThread.Start()
 
         Else
@@ -433,10 +361,6 @@ Public Class Form1
 
 #End Region '#Region "BUTTON HANDLERS"
 
-#Region "ACCEL SIMULATION"
-
-#End Region '#Region "ACCEL SIMULATION"
-
 #Region "THREADING"
     ''' <summary>
     ''' This is the same as Main() in C
@@ -444,7 +368,7 @@ Public Class Form1
     Private Sub Thread__Main()
 
         'call Init
-        vAPU__Init()
+        vLGU__Init()
 
         'needs to be done due to WIN32_ETH_Init
         vSIL3_ETH_WIN32__Set_Ethernet_TxCallback(Me.m_pSIL3_ETH_WIN32_TX__Delegate)
@@ -457,7 +381,7 @@ Public Class Form1
 
             'call process
             Try
-                vAPU__Process()
+                vLGU__Process()
 
             Catch ex As Exception
                 Console.Write(ex.ToString)
@@ -497,7 +421,7 @@ Public Class Form1
     ''' <param name="e"></param>
     Private Sub Timers__T10_Tick(s As Object, e As System.Timers.ElapsedEventArgs)
         If Me.m_bThreadRun = True Then
-            vAPU_TIMERS__10MS_ISR()
+            vLGU_TIMERS__10MS_ISR()
         End If
     End Sub
 
@@ -508,7 +432,21 @@ Public Class Form1
     ''' <param name="e"></param>
     Private Sub Timers__T100_Tick(s As Object, e As System.Timers.ElapsedEventArgs)
         If Me.m_bThreadRun = True Then
-            vAPU_TIMERS__100MS_ISR()
+            vLGU_TIMERS__100MS_ISR()
+
+
+            'update the actuator specifics
+            For iCounter As Integer = 0 To C_NUM_ACTUATORS - 1
+
+                'get the ADC
+                vLGU_WIN32__Update_ADC_Value(CByte(iCounter), Me.m_pAcutuator(iCounter).Get__ADC_Value)
+
+                'limits
+                vLGU_WIN32__Update_Limit_Switches(CByte(iCounter), Me.m_pAcutuator(iCounter).Get__Extend_Limit, Me.m_pAcutuator(iCounter).Get__Retract_Limit)
+
+            Next
+
+
         End If
     End Sub
 
@@ -707,7 +645,7 @@ Public Class Form1
     ''' <remarks></remarks>
     Private Sub ETH_WIN32__TxCallback_Sub(ByVal u8Buffer As IntPtr, ByVal u16BufferLength As UInt16)
 
-        Dim iEthPort As Integer = 9100
+        Dim iEthPort As Integer = C_IP_PORT
         Dim bArray(1500 - 1) As Byte
         SIL3.MemoryCopy.MemoryCopy.Copy_Memory(bArray, u8Buffer, CInt(u16BufferLength))
 
@@ -747,7 +685,7 @@ Public Class Form1
 
 #End Region '#Region "ETH RX"
 
-#Region "APU"
+#Region "LGU"
 
     ''' <summary>
     ''' Handles the update data from the APU if it wants to report back to windows simulation
@@ -760,46 +698,172 @@ Public Class Form1
     ''' <param name="u32FreqR"></param>
     Private Sub APU_WIN32__UpdateData__Callback(u8ClutchL As Byte, u8ClutchR As Byte, u8DirL As Byte, u8DirR As Byte, u32FreqL As UInt32, u32FreqR As UInt32)
 
-        If u8ClutchL = 0 Then
-            Threadsafe__SetText(Me.m_txtClutchState(0), "DISENGAGE")
-        ElseIf u8ClutchL = 1 Then
-            Threadsafe__SetText(Me.m_txtClutchState(0), "ENGAGE")
-        Else
-            Threadsafe__SetText(Me.m_txtClutchState(0), "ERROR")
-        End If
 
-        If u8ClutchR = 0 Then
-            Threadsafe__SetText(Me.m_txtClutchState(1), "DISENGAGE")
-        ElseIf u8ClutchR = 1 Then
-            Threadsafe__SetText(Me.m_txtClutchState(1), "ENGAGE")
-        Else
-            Threadsafe__SetText(Me.m_txtClutchState(1), "ERROR")
-        End If
-
-
-        If u8DirL = 0 Then
-            Threadsafe__SetText(Me.m_txtMotorDirection(0), "REV")
-        ElseIf u8DirL = 1 Then
-            Threadsafe__SetText(Me.m_txtMotorDirection(0), "FWD")
-        Else
-            Threadsafe__SetText(Me.m_txtMotorDirection(0), "ERROR")
-        End If
-
-        If u8DirR = 0 Then
-            Threadsafe__SetText(Me.m_txtMotorDirection(1), "REV")
-        ElseIf u8DirR = 1 Then
-            Threadsafe__SetText(Me.m_txtMotorDirection(1), "FWD")
-        Else
-            Threadsafe__SetText(Me.m_txtMotorDirection(1), "ERROR")
-        End If
-
-        Threadsafe__SetText(Me.m_txtMotorFreq(0), u32FreqL.ToString)
-        Threadsafe__SetText(Me.m_txtMotorFreq(1), u32FreqR.ToString)
 
     End Sub
 
-#End Region '#Region "APU"
+#End Region '#Region "LGU"
 
+
+    ''' <summary>
+    ''' Actuator GUI
+    ''' </summary>
+    Public Class ActuatorGUI
+        Inherits Windows.Forms.Panel
+#Region "MEMBERS"
+
+        ''' <summary>
+        ''' The actuator index
+        ''' </summary>
+        Private m_iDeviceIndex As Integer
+
+        Private m_txtActuatorExtension As TextBox
+
+        Private m_txtMLPVoltage As TextBox
+
+        Private m_txtMotorDir As TextBox
+
+        Private m_txtMotorSpeed As TextBox
+
+        Private m_chkExtendLimit As CheckBox
+
+        Private m_chkRetractLimit As CheckBox
+
+        ''' <summary>
+        ''' The current ADC value
+        ''' </summary>
+        Private m_u16ADCValue As UInt16
+
+#End Region '#Region "MEMBERS"
+
+#Region "NEW"
+        Public Sub New(iDeviceIndex As Integer)
+            MyBase.New
+            m_iDeviceIndex = iDeviceIndex
+
+            MyBase.Size = New Size(300, 300)
+            MyBase.BorderStyle = BorderStyle.FixedSingle
+
+            Dim l1 As New Label
+            With l1
+                .Location = New Point(10, 10)
+                .Text = "Actuator Extension (mm)"
+                .AutoSize = True
+            End With
+            MyBase.Controls.Add(l1)
+
+            Me.m_txtActuatorExtension = New TextBox
+            With Me.m_txtActuatorExtension
+                .Location = New Point(l1.Location.X, l1.Location.Y + l1.Size.Height + 2)
+                .Size = New Size(80, 24)
+                .Text = "0"
+            End With
+            MyBase.Controls.Add(Me.m_txtActuatorExtension)
+
+            Dim l2 As New Label
+            With l2
+                .Location = New Point(Me.m_txtActuatorExtension.Location.X, Me.m_txtActuatorExtension.Location.Y + Me.m_txtActuatorExtension.Size.Height + 10)
+                .Text = "MLP Voltage"
+                .AutoSize = True
+            End With
+            MyBase.Controls.Add(l2)
+
+            Me.m_txtMLPVoltage = New TextBox
+            With Me.m_txtMLPVoltage
+                .Location = New Point(l2.Location.X, l2.Location.Y + l2.Size.Height + 2)
+                .Size = New Size(80, 24)
+                .Text = "0"
+                .ReadOnly = True
+            End With
+            MyBase.Controls.Add(Me.m_txtMLPVoltage)
+
+            Dim l3 As New Label
+            With l3
+                .Location = New Point(Me.m_txtMLPVoltage.Location.X, Me.m_txtMLPVoltage.Location.Y + Me.m_txtMLPVoltage.Size.Height + 10)
+                .Text = "Motor Direction"
+                .AutoSize = True
+            End With
+            MyBase.Controls.Add(l3)
+
+            Me.m_txtMotorDir = New TextBox
+            With Me.m_txtMotorDir
+                .Location = New Point(l3.Location.X, l3.Location.Y + l3.Size.Height + 2)
+                .Size = New Size(80, 24)
+                .Text = "0"
+                .ReadOnly = True
+            End With
+            MyBase.Controls.Add(Me.m_txtMotorDir)
+
+
+            Dim l4 As New Label
+            With l4
+                .Location = New Point(Me.m_txtMotorDir.Location.X + Me.m_txtMotorDir.Size.Width + 10, l3.Location.Y)
+                .Text = "Motor Speed"
+                .AutoSize = True
+            End With
+            MyBase.Controls.Add(l4)
+
+            Me.m_txtMotorSpeed = New TextBox
+            With Me.m_txtMotorSpeed
+                .Location = New Point(l4.Location.X, l4.Location.Y + l4.Size.Height + 2)
+                .Size = New Size(80, 24)
+                .Text = "0"
+                .ReadOnly = True
+            End With
+            MyBase.Controls.Add(Me.m_txtMotorSpeed)
+
+            Me.m_chkRetractLimit = New CheckBox
+            With Me.m_chkRetractLimit
+                .Location = New Point(Me.m_txtMotorDir.Location.X, Me.m_txtMotorDir.Location.Y + Me.m_txtMotorDir.Size.Height + 10)
+                .Text = "Retract Limit Switch"
+            End With
+            MyBase.Controls.Add(Me.m_chkRetractLimit)
+
+            Me.m_chkExtendLimit = New CheckBox
+            With Me.m_chkExtendLimit
+                .Location = New Point(Me.m_txtMotorDir.Location.X, Me.m_chkRetractLimit.Location.Y + Me.m_chkRetractLimit.Size.Height + 10)
+                .Text = "Extend Limit Switch"
+            End With
+            MyBase.Controls.Add(Me.m_chkExtendLimit)
+
+        End Sub
+
+        ''' <summary>
+        ''' Update the motor conditition, this simulates a h-bridge driver
+        ''' </summary>
+        ''' <param name="iDirection"></param>
+        ''' <param name="iSpeed"></param>
+        Public Sub Update__Motor(iDirection As Integer, iSpeed As Integer)
+
+        End Sub
+
+
+        ''' <summary>
+        ''' Get our current ADC value
+        ''' </summary>
+        ''' <returns></returns>
+        Public Function Get__ADC_Value() As UInt16
+            Return Me.m_u16ADCValue
+        End Function
+
+        Public Function Get__Extend_Limit() As Byte
+            If Me.m_chkExtendLimit.Checked = True Then
+                Return &H1
+            Else
+                Return &H0
+            End If
+        End Function
+
+        Public Function Get__Retract_Limit() As Byte
+            If Me.m_chkExtendLimit.Checked = True Then
+                Return &H1
+            Else
+                Return &H0
+            End If
+        End Function
+#End Region '#Region "NEW"
+
+    End Class
 
 End Class
 

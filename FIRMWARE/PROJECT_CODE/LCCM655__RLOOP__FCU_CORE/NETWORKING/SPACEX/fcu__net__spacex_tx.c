@@ -121,46 +121,56 @@ void vFCU_NET_SPACEX_TX__Process(void)
                 u32Buffer = u32SIL3_ETH_BUFFERDESC__Get_TxBufferPointer((Luint8) s16Return);
 
                 pu8Return = (Luint8*) u32Buffer;
+
                 //team_id           UINT8           Identifier for the team, assigned by SpaceX. Required.
                 pu8Return[0] = 0x08U;
                 pu8Return += 1U;
+
                 //status            UINT8           Pod status, indicating current pod health and pushing state, as defined below. Required.
-                pu8Return[0] = 0x01U;
-                pu8Return += u8FCU_NET_SPACEX_TX__GeneratePodStatus();
+                pu8Return[0] = u8FCU_NET_SPACEX_TX__GeneratePodStatus();
+                pu8Return += 1U;
+
                 //acceleration  INT32           Acceleration in centimeters per second squared. Required.
                 s32Temp = s32FCU_FCTL_BLENDER__Get_Accel_mmss();
                 //convert to cm/ss
                 s32Temp /= 10;
                 vSIL3_NUM_CONVERT__Array_S32(pu8Return, s32Temp);
                 pu8Return += 4U;
+
                 //position      INT32           Velocity in centimeters per second. Required.
                 s32Temp = s32FCU_FCTL_BLENDER__Get_Veloc_mms();
                 //convert to cm/ss
                 s32Temp /= 10;
                 vSIL3_NUM_CONVERT__Array_S32(pu8Return, s32Temp);
                 pu8Return += 4U;
+
                 //velocity      INT32           Position in centimeters. Required.
                 s32Temp = s32FCU_FCTL_BLENDER__Get_Displacement_mm();
                 //convert to cm/ss
                 s32Temp /= 10;
                 vSIL3_NUM_CONVERT__Array_S32(pu8Return, s32Temp);
                 pu8Return += 4U;
+
                 //battery_voltage   INT32           Battery voltage in millivolts.
                 vSIL3_NUM_CONVERT__Array_S32(pu8Return, 4444);
                 pu8Return += 4U;
+
                 //battery_current   INT32           Battery current in milliamps.
                 vSIL3_NUM_CONVERT__Array_S32(pu8Return, 55555);
                 pu8Return += 4U;
+
                 //battery_temperature INT32         Battery temperature in tenths of a degree Celsius.
                 vSIL3_NUM_CONVERT__Array_S32(pu8Return, 66666);
                 pu8Return += 4U;
+
                 //pod_temperature   INT32           Pod temperature in tenths of a degree Celsius.
                 vSIL3_NUM_CONVERT__Array_S32(pu8Return, -77777);
                 pu8Return += 4U;
+
                 //stripe_count  UINT32          Count of optical navigation stripes detected in the tube.
-                vSIL3_NUM_CONVERT__Array_U32(pu8Return,
-                                              sFCU.sSpaceX.u32TestCounter++);
+                vSIL3_NUM_CONVERT__Array_U32(pu8Return, sFCU.sSpaceX.u32TestCounter++);
                 pu8Return += 4U;
+
                 //send it our SpaceX required port
                 vSIL3_ETH_UDP__Transmit(u16PacketLength, 3000U, 3000U);
                 //clear the flag only after a send because im sure SpX want the data

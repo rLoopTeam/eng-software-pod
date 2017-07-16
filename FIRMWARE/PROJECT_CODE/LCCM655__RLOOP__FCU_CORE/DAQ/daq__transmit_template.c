@@ -47,7 +47,7 @@ Lint16 s16SIL3_DAQ_TRANSMIT__Template(Luint16 u16Index, Luint8 *pu8BufferPointer
 		}
 
 		//send the buffer index, with a payload length, on UDP ports (source and dest port)
-		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET_PORT__FCU, C_RLOOP_NET_PORT__FCU);
 
 		s16R = 0;
 	}

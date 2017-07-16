@@ -144,9 +144,7 @@ void vFCU_ASI_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length,
-				C_RLOOP_NET__FCU__PORT,
-				C_RLOOP_NET__FCU__PORT);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET_PORT__FCU, C_RLOOP_NET_PORT__FCU);
 
 	}//if(s16Return == 0)
 	else

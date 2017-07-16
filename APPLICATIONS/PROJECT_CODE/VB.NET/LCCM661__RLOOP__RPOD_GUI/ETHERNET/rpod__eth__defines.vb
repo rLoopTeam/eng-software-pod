@@ -17,6 +17,7 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         ''' </summary>
         POD_CTRL_PT__APU
         POD_CTRL_PT__HETHERM
+        POD_CTRL_PT__GIMBAL
     End Enum
 
 
@@ -300,6 +301,20 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
 
         '/** Transmit a progress update to the host */
         NET_PKT__XILINX_SIM__TX_PROGRESS_UPDATE = &H5002
+
+
+        '//////////////////////////////////////////////////////
+        '//LANDING GEAR UNIT - 0x7000 - 0x7FFF
+        '//////////////////////////////////////////////////////
+
+        '/** Permit network based streaming control */
+        NET_PKT__LGU__STREAMING_CONTROL = &H7000
+
+        '/** Transmit the LGU status packet over the network */
+        NET_PKT__LGU__TX_STATUS_PACKET = &H7002
+
+        '/** Transmit the LGU ADC Calibration Data */
+        NET_PKT__LGU__TX_ADC_CAL_PACKET = &H7003
 
     End Enum
 

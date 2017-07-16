@@ -210,7 +210,7 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		}//switch(ePacketType)
 
 		//send it
-		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET_PORT__FCU, C_RLOOP_NET_PORT__FCU);
 
 	}//if(s16Return == 0)
 	else
@@ -224,7 +224,7 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 #endif //C_LOCALDEF__LCCM655__ENABLE_ETHERNET_FAULTS
 
 #ifndef C_LOCALDEF__LCCM655__ENABLE_ETHERNET_FAULTS
-#error
+	#error
 #endif
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_ETHERNET
