@@ -68,7 +68,7 @@ void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Flags)
 
 #endif //win32
 
-
+#if C_LOCALDEF__LCCM240__ENABLE_THIS_MODULE == 1U
 /***************************************************************************//**
  * @brief
  * Interrupt from N2HET programs
@@ -137,6 +137,7 @@ void vRM4_N2HET_DYNAMIC__Notification(RM4_N2HET__CHANNEL_T eChannel, Luint32 u32
 
 	//FCU_Process_EdgeISR(u32ProgramIndex, u32Register);
 }
+#endif //C_LOCALDEF__LCCM240__ENABLE_THIS_MODULE
 
 
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U

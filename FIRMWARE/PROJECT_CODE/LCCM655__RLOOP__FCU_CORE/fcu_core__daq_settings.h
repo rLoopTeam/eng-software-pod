@@ -111,7 +111,7 @@
 /*******************************************************************************
 MULTIPURPOSE DAQ MODULE
 *******************************************************************************/
-	#define C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE							(1U)
+	#define C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE							(0U)
 	#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
 
 		/** Number of DAQ channels in each data format

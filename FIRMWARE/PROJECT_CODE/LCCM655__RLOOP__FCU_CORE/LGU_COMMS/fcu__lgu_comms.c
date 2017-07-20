@@ -28,6 +28,7 @@
 
 
 #include "../fcu_core.h"
+#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM == 1U
 
 extern struct _strFCU sFCU;
@@ -285,6 +286,7 @@ void vFCU_LGU__Rx_Byte(Luint8 u8Value)
 #ifndef C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM
 	#error
 #endif
+#endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
 
 /** @} */
 /** @} */

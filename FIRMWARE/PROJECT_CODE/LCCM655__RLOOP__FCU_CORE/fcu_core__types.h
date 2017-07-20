@@ -239,6 +239,8 @@
 		/** Setup any timers */
 		INIT_STATE__START_TIMERS,
 
+		/** Start the sensors and actuators */
+		INIT_STATE__START_SENSORS,
 
 		/** init is done, run the main state machine */
 		INIT_STATE__RUN

@@ -14,7 +14,7 @@
 #if 0
 
 /*******************************************************************************
-SCI / LIN Module
+SIL3 - RM48/RM57 - SCI / LIN Module
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE == 1U
@@ -38,6 +38,10 @@ SCI / LIN Module
 
         //SCI3 only on RM57, Launchpad Boosterpack Site 1
         #define C_LOCALDEF__LCCM282__ENABLE_SCI_3                           (0U)
+
+        //SCI4 only on RM57
+        #define C_LOCALDEF__LCCM282__ENABLE_SCI_4                           (0U)
+
 
 		//testing
 		#define C_LOCALDEF__LCCM282__ENABLE_TEST_SPEC						(0U)

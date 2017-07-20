@@ -19,6 +19,7 @@
 
 
 #include "../fcu_core.h"
+#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
 
 extern struct _strFCU sFCU;
@@ -321,3 +322,5 @@ void vFCU_LASERCONT__ISR(E_FCU__LASER_CONT_INDEX_T eLaser, Luint32 u32Register)
 #ifndef C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST
 	#error
 #endif
+#endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
+

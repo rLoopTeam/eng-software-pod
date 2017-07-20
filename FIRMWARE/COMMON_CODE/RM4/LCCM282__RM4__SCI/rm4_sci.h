@@ -42,9 +42,14 @@
 
             #if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
                 #if C_LOCALDEF__LCCM282__ENABLE_SCI_3 == 1U
-                    SCI_CHANNEL__3 = 2U
+                    SCI_CHANNEL__3 = 2U,
                 #endif
             #endif
+			#if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
+				#if C_LOCALDEF__LCCM282__ENABLE_SCI_4 == 1U
+					SCI_CHANNEL__4 = 3U
+				#endif
+			#endif
 
 		}RM4_SCI__CHANNEL_T;
 
@@ -58,24 +63,47 @@
 		*****************************************************************************/
 		typedef struct /*g_sciTransfer*/
 		{
-			Luint32   u32Mode;         /* Used to check for TX interrupt Enable */
-			Luint32   u32TxLength;    /* Transmit data length in number of Bytes */
-			Luint32   u32RxLength;    /* Receive data length in number of Bytes */
-			Luint8    * pu8TxData;    /* Transmit data pointer */
-			Luint8    * pu8RxData;    /* Receive data pointer */
+			/** Used to check for TX interrupt Enable */
+			Luint32 u32Mode;
+
+			/** Transmit data length in number of Bytes */
+			Luint32 u32TxLength;
+
+			/** Receive data length in number of Bytes */
+			Luint32 u32RxLength;
+
+			/** Transmit data pointer */
+			Luint8 *pu8TxData;
+
+			/** Receive data pointer */
+			Luint8 *pu8RxData;
 
 		}RM4_SCI__TX_T;
 
 		//Used with vRM4_SCI_INT__Enable_Notification, vRM4_SCI_INT__Disable_Notification
 		typedef enum
 		{
-			SCI_FE_INT    = 0x04000000U,  /* framming error */
-			SCI_OE_INT    = 0x02000000U,  /* overrun error */
-			SCI_PE_INT    = 0x01000000U,  /* parity error */
-			SCI_RX_INT    = 0x00000200U,  /* receive buffer ready */
-			SCI_TX_INT    = 0x00000100U,  /* transmit buffer ready */
-			SCI_WAKE_INT  = 0x00000002U,  /* wakeup */
-			SCI_BREAK_INT = 0x00000001U   /* break detect */
+			/* framming error */
+			SCI_FE_INT = 0x04000000U,
+
+			/* overrun error */
+			SCI_OE_INT = 0x02000000U,
+
+			/* parity error */
+			SCI_PE_INT = 0x01000000U,
+
+			/* receive buffer ready */
+			SCI_RX_INT = 0x00000200U,
+
+			/* transmit buffer ready */
+			SCI_TX_INT = 0x00000100U,
+
+			/* wakeup */
+			SCI_WAKE_INT = 0x00000002U,
+
+			/* break detect */
+			SCI_BREAK_INT = 0x00000001U
+
 		}RM4_SCI__INTERRUPT_FLAGS_T;
 
 
@@ -109,18 +137,25 @@
 		Function Prototypes
 		*****************************************************************************/
 		void vRM4_SCI__Init(RM4_SCI__CHANNEL_T eChannel);
-		void vRM4_SCI__Set_Baudrate(RM4_SCI__CHANNEL_T eChannel, Luint32 baud);
+		Luint8 u8RM4_SCI__Get_IsIdle(RM4_SCI__CHANNEL_T eChannel);
 
-		void vRM4_SCI__Set_PortFunctional(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Port);
-		Luint32 u32RM4_SCI__Is_TxReady(RM4_SCI__CHANNEL_T eChannel);
-		void vRM4_SCI__TxByte(RM4_SCI__CHANNEL_T eChannel, Luint8 byte);
-		void vRM4_SCI__TxByteArray(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Length, Luint8 *pu8Data);
-		Luint32 u32RM4_SCI__Is__RxReady(RM4_SCI__CHANNEL_T eChannel);
-		Luint32 u32RM4_SCI__Get__RxErrorFlags(RM4_SCI__CHANNEL_T eChannel);
-		Luint8 u8RM4_SCI__RxByte(RM4_SCI__CHANNEL_T eChannel);
-		void u8RM4_SCI__RxByteArray(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Length, Luint8 *pu8Data);
-		Luint8 u8RM4_SCI__Get_Rx_Value(RM4_SCI__CHANNEL_T eChannel);
-		Luint8 u8RM4_SCI__IsIdle(RM4_SCI__CHANNEL_T eChannel);
+		//baud
+		void vRM4_SCI_BAUD__Set_Baudrate(RM4_SCI__CHANNEL_T eChannel, Luint32 baud);
+
+		//ports
+		void vRM4_SCI_PORTS__Set_PortFunctional(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Port);
+
+		//Tx
+		Luint32 u32RM4_SCI_TX__Get_IsReady(RM4_SCI__CHANNEL_T eChannel);
+		void vRM4_SCI_TX__Tx_U8(RM4_SCI__CHANNEL_T eChannel, Luint8 byte);
+		void vRM4_SCI_TX__Tx_U8Array(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Length, Luint8 *pu8Data);
+
+		//RX
+		Luint8 u8RM4_SCI_RX__Get_U8(RM4_SCI__CHANNEL_T eChannel);
+		Luint8 u8RM4_SCI_RX__Rx_U8(RM4_SCI__CHANNEL_T eChannel);
+		void u8RM4_SCI_RX__Rx_U8Array(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Length, Luint8 *pu8Data);
+		Luint32 u32RM4_SCI_RX__Get_ErrorFlags(RM4_SCI__CHANNEL_T eChannel);
+		Luint32 u32RM4_SCI_RX__Get_Is_Ready(RM4_SCI__CHANNEL_T eChannel);
 
 		//loopback
 		void vRM4_SCI_LOOPBACK__Enable(RM4_SCI__CHANNEL_T eChannel, RM4_SCI__LOOPBACK_T eLoopback);

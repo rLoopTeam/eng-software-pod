@@ -96,13 +96,19 @@ Namespace SIL3.rLoop.rPodControl
                 Me.m_pEth.Port__Add("127.0.0.1", 3000, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU_SPACEX_DIAG)
                 Me.m_pEth.Port__Add("127.0.0.1", 9170, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM)
             Else
-                Me.m_pEth.Port__Add("192.168.0.100", 9531, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU)
-                Me.m_pEth.Port__Add("192.168.0.140", 9615, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU)
-                Me.m_pEth.Port__Add("192.168.0.141", 9608, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__HETHERM)
-                Me.m_pEth.Port__Add("192.168.0.130", 9130, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__GIMBAL)
-                Me.m_pEth.Port__Add("192.168.0.120", 9548, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU)
-                Me.m_pEth.Port__Add("192.168.0.100", 3000, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU_SPACEX_DIAG)
-                Me.m_pEth.Port__Add("192.168.0.170", 9170, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM)
+
+                Dim sP As String = "129.168.0."
+                If MsgBox("Do you want to run this on 192.168.1.x (else it will be .0.x)", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    sP = "192.168.1."
+                End If
+
+                Me.m_pEth.Port__Add(sP & "100", 9531, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU)
+                Me.m_pEth.Port__Add(sP & "140", 9615, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU)
+                Me.m_pEth.Port__Add(sP & "141", 9608, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__HETHERM)
+                Me.m_pEth.Port__Add(sP & "130", 9130, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__GIMBAL)
+                Me.m_pEth.Port__Add(sP & "120", 9548, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU)
+                Me.m_pEth.Port__Add(sP & "100", 3000, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU_SPACEX_DIAG)
+                Me.m_pEth.Port__Add(sP & "170", 9170, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM)
 
             End If
 

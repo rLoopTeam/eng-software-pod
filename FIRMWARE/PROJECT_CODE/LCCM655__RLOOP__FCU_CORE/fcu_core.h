@@ -25,6 +25,7 @@
 		#include <LCCM655__RLOOP__FCU_CORE/ACCELEROMETERS/fcu__accel__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/LASER_OPTO/fcu__laser_opto__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/THROTTLES/fcu__throttles__fault_flags.h>
+		#include <LCCM655__RLOOP__FCU_CORE/LASER_DISTANCE/fcu__laser_distance__fault_flags.h>
 
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_defines.h>
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_types.h>
@@ -611,6 +612,13 @@
 				/** A 100ms counter to wait until the lasers have powered up*/
 				Luint32 u32LaserPOR_Counter;
 
+				/** Number of 100ms increments the new bytes have been seen */
+				Luint32 u32BytesSeen_Counter;
+
+				/** Number of 100ms increments the new packets have been seen */
+				Luint32 u32PacketsSeen_Counter;
+
+
 				/** A new packet is available for distance processing */
 				Luint8 u8NewPacket;
 
@@ -748,6 +756,7 @@
 				}sTrackDB;
 				#endif //#if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
 
+				#if C_LOCALDEF__LCCM655__ENABLE_GEOM == 1U
 				/** Geometry */
 				struct
 				{
@@ -758,7 +767,7 @@
 					struct tsNUM_s32Vector_3D vs32Geom[C_FCU__GEOM__NUM_ITEMS_S32];
 
 				}sGeom;
-
+				#endif //C_LOCALDEF__LCCM655__ENABLE_GEOM
 
 				/** Accel, Veloc and Displacement blender system */
 				struct

@@ -108,8 +108,7 @@
 
             l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper(10, 10, "General Faults", MyBase.m_pInnerPanel)
             Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
-            Me.m_txtFaults(iIndex).Flags__Add("This is Line 1")
-            Me.m_txtFaults(iIndex).Flags__Add("This is Line 2")
+            Me.m_txtFaults(iIndex).FlagsFile__Read("../../../../FIRMWARE/PROJECT_CODE/LCCM655__RLOOP__FCU_CORE/FAULTS/fcu__faults__fault_flags.h", "FAULTS")
 
             iIndex += 1
 
@@ -166,6 +165,8 @@
             Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
+
+
             l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Contrast:0 Faults")
             l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
             Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
@@ -199,6 +200,7 @@
             l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Laser Distance")
             l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 7))
             Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex).FlagsFile__Read("../../../../FIRMWARE/PROJECT_CODE/LCCM655__RLOOP__FCU_CORE/LASER_DISTANCE/fcu__laser_distance__fault_flags.h", "LASER_DISTANCE")
             iIndex += 1
 
             l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Networking")

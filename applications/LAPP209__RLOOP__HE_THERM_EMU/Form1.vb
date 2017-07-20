@@ -9,6 +9,8 @@ Public Class Form1
 
 #Region "CONSTANTS"
 
+    Private Const C_IP_PORT As Integer = 9608
+
     ''' <summary>
     ''' number of sensors on each side.
     ''' </summary>
@@ -292,7 +294,7 @@ Public Class Form1
     Private Sub Setup_System()
 
 
-        Me.m_pSafeUDP = New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", 9608, "HETHERM_ETH_EMU", True, True)
+        Me.m_pSafeUDP = New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", C_IP_PORT, "HETHERM_ETH_EMU", True, True)
         AddHandler Me.m_pSafeUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.InernalEvent__UDPSafe__RxPacket
         AddHandler Me.m_pSafeUDP.UserEvent__NewPacket, AddressOf Me.InternalEvent__NewPacket
 
@@ -309,9 +311,7 @@ Public Class Form1
         vHETHERM_WIN32__SetCallback_UpdateData(Me.m_pHETHERM_WIN32__UpdateData__Delegate)
 
 
-        'do the threading
-        Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
-        Me.m_pMainThread.Name = "HETHERM THREAD"
+
 
         'stimers
         Timers__Setup()
@@ -363,7 +363,9 @@ Public Class Form1
             'set the new text
             pB.Text = "Stop"
 
-            'start the thread
+            'do the threading
+            Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
+            Me.m_pMainThread.Name = "HETHERM THREAD"
             Me.m_pMainThread.Start()
 
         Else
@@ -652,7 +654,7 @@ Public Class Form1
     ''' <remarks></remarks>
     Private Sub ETH_WIN32__TxCallback_Sub(ByVal u8Buffer As IntPtr, ByVal u16BufferLength As UInt16)
 
-        Dim iEthPort As Integer = 9100
+        Dim iEthPort As Integer = C_IP_PORT
         Dim bArray(1500 - 1) As Byte
         SIL3.MemoryCopy.MemoryCopy.Copy_Memory(bArray, u8Buffer, CInt(u16BufferLength))
 

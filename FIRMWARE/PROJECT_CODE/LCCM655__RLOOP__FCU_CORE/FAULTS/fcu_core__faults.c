@@ -112,6 +112,28 @@ void vFCU_FAULTS__Process(void)
 		//fall on
 	}
 
+	//laser contrast
+
+	//laser distance
+	#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
+	if(sFCU.sLaserDist.sFaultFlags.u8FaultFlag == 1U)
+	{
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__06);
+	}
+	else
+	{
+		//fall on
+	}
+	#endif
+
+	//laser optoNCDT
+
+	//networking
+
+	//pusher
+
+	//throttle
+
 }
 
 /***************************************************************************//**
