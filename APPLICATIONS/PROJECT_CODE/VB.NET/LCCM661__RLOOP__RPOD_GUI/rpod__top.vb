@@ -87,7 +87,7 @@ Namespace SIL3.rLoop.rPodControl
             'add our ports
             'http://confluence.rloop.org/display/SD/Communications
 
-            If MsgBox("Do you want to run this in loopback?" & Environment.NewLine & "Else it will run on .0.x hardware", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If MsgBox("Do you want to run this in loopback on 127.0.0.1?" & Environment.NewLine & "Answering NO will run on 192.168.x.x", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                 Me.m_pEth.Port__Add("127.0.0.1", 9531, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU)
                 Me.m_pEth.Port__Add("127.0.0.1", 9615, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU)
                 Me.m_pEth.Port__Add("127.0.0.1", 9608, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__HETHERM)
@@ -97,8 +97,8 @@ Namespace SIL3.rLoop.rPodControl
                 Me.m_pEth.Port__Add("127.0.0.1", 9170, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM)
             Else
 
-                Dim sP As String = "129.168.0."
-                If MsgBox("Do you want to run this on 192.168.1.x (else it will be .0.x)", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                Dim sP As String = "192.168.0."
+                If MsgBox("Do you want to run this on 192.168.1.x" & Environment.NewLine & "Answering no it will be 192.168.0.x", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
                     sP = "192.168.1."
                 End If
 
