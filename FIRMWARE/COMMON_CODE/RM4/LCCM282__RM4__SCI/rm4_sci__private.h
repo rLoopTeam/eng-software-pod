@@ -86,16 +86,16 @@
 	#else
 
 		//1
-		#define scilinREG ((RM4_SCI__BASE_T *)0xFFF7E400U)
-		#define scilinPORT ((gioPORT_t *)0xFFF7E440U)
+		#define sciREG1 ((RM4_SCI__BASE_T *)0xFFF7E400U)
+		#define sciPORT1 ((gioPORT_t *)0xFFF7E440U)
+
+		//2
+		#define sciREG2 ((RM4_SCI__BASE_T *)0xFFF7E600U)
+		#define sciPORT2 ((gioPORT_t *)0xFFF7E640U)
 
 		//3
 		#define sciREG3 ((RM4_SCI__BASE_T *)0xFFF7E500U)
 		#define sciPORT3 ((gioPORT_t *)0xFFF7E540U)
-
-		//2
-		#define sciREG ((RM4_SCI__BASE_T *)0xFFF7E600U)
-		#define sciPORT ((gioPORT_t *)0xFFF7E640U)
 
 		//4
 		#define sciREG4 ((RM4_SCI__BASE_T *)0xFFF7E700U)

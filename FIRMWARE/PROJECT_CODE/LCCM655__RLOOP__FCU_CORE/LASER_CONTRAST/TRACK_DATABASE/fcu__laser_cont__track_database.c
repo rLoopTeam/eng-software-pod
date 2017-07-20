@@ -18,6 +18,7 @@
 
 
 #include "../../fcu_core.h"
+#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
 
 extern struct _strFCU sFCU;
@@ -232,3 +233,5 @@ Luint32 u32FCU_LASERCONT_TRKDB__Get_DistancePrevSeg_mm(E_FCU__LASER_CONT_INDEX_T
 #ifndef C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST
 	#error
 #endif
+#endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
+

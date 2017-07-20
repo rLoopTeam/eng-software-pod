@@ -285,6 +285,7 @@
 	*   @brief Take CPU to Idle state
 	*/
 	void _rm4_system_core__CPUIdle_(void);
+	void _rm57_system_core__CPUIdle_(void);
 
 	/** @fn void _coreEnableIrqVicOffset_(void)
 	*   @brief Enable Irq offset propagation via Vic controller
@@ -296,6 +297,7 @@
 	*   @brief Enable vector floating point unit
 	*/
 	void _rm4_system_core__EnableVfp_(void);
+	void _rm57_system_core__EnableVfp_(void);
 
 	/** @fn void _coreEnableEventBusExport_(void)
 	*   @brief Enable event bus export for external monitoring modules
@@ -314,6 +316,7 @@
 	*   like tightly coupled RAM wrapper, Flash wrapper and error signaling module.
 	*/
 	void _rm4_system_core__DisableEventBusExport_(void);
+	void _rm57_system_core__DisableEventBusExport_(void);
 
 	/** @fn void _coreEnableRamEcc_(void)
 	*   @brief Enable external ecc error for RAM odd and even bank

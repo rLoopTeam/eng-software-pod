@@ -6,6 +6,7 @@
  */
 
 #include "../fcu_core.h"
+#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_DAQ == 1U
 #include <MULTICORE/LCCM528__MULTICORE__SAFE_UDP/safe_udp__packet_types.h>
 
@@ -65,4 +66,5 @@ Lint16 s16SIL3_DAQ_TRANSMIT__Template(Luint16 u16Index, Luint8 *pu8BufferPointer
 #ifndef C_LOCALDEF__LCCM655__ENABLE_DAQ
 	#error
 #endif
+#endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
 

@@ -7,7 +7,11 @@
  * @brief
  * ACCEL SUBSYSTEM FAULT 
  * 
+ * @note
  *  
+ * 
+ * @tool
+ * [FAULTS]|[00]|[ACCEL SUBSYSTEM FAULT ]|[ ]
 */
 #define C_LCCM655__FAULTS__FAULT_INDEX__00				0x00000000U
 #define C_LCCM655__FAULTS__FAULT_INDEX_MASK__00			0x00000001U
@@ -19,7 +23,11 @@
  * @brief
  * ASI SUBSYSTEM FAULT 
  * 
+ * @note
  *  
+ * 
+ * @tool
+ * [FAULTS]|[01]|[ASI SUBSYSTEM FAULT ]|[ ]
 */
 #define C_LCCM655__FAULTS__FAULT_INDEX__01				0x00000001U
 #define C_LCCM655__FAULTS__FAULT_INDEX_MASK__01			0x00000002U
@@ -31,7 +39,11 @@
  * @brief
  * BRAKES SUBSYSTEM FAULT 
  * 
+ * @note
  *  
+ * 
+ * @tool
+ * [FAULTS]|[02]|[BRAKES SUBSYSTEM FAULT ]|[ ]
 */
 #define C_LCCM655__FAULTS__FAULT_INDEX__02				0x00000002U
 #define C_LCCM655__FAULTS__FAULT_INDEX_MASK__02			0x00000004U
@@ -43,7 +55,11 @@
  * @brief
  * DAQ FAULT 
  * 
+ * @note
  *  
+ * 
+ * @tool
+ * [FAULTS]|[03]|[DAQ FAULT ]|[ ]
 */
 #define C_LCCM655__FAULTS__FAULT_INDEX__03				0x00000003U
 #define C_LCCM655__FAULTS__FAULT_INDEX_MASK__03			0x00000008U
@@ -55,7 +71,11 @@
  * @brief
  * FLIGHT CONTROLLER FAULT 
  * 
+ * @note
  *  
+ * 
+ * @tool
+ * [FAULTS]|[04]|[FLIGHT CONTROLLER FAULT ]|[ ]
 */
 #define C_LCCM655__FAULTS__FAULT_INDEX__04				0x00000004U
 #define C_LCCM655__FAULTS__FAULT_INDEX_MASK__04			0x00000010U
@@ -67,7 +87,11 @@
  * @brief
  * LASER CONTRAST SUBSYSTEM FAULT 
  * 
+ * @note
  *  
+ * 
+ * @tool
+ * [FAULTS]|[05]|[LASER CONTRAST SUBSYSTEM FAULT ]|[ ]
 */
 #define C_LCCM655__FAULTS__FAULT_INDEX__05				0x00000005U
 #define C_LCCM655__FAULTS__FAULT_INDEX_MASK__05			0x00000020U
@@ -79,7 +103,11 @@
  * @brief
  * LASER DISTANCE SUBSYSTEM FAULT 
  * 
+ * @note
  *  
+ * 
+ * @tool
+ * [FAULTS]|[06]|[LASER DISTANCE SUBSYSTEM FAULT ]|[ ]
 */
 #define C_LCCM655__FAULTS__FAULT_INDEX__06				0x00000006U
 #define C_LCCM655__FAULTS__FAULT_INDEX_MASK__06			0x00000040U
@@ -91,7 +119,11 @@
  * @brief
  * LASER OPTO NCDT SUBSYSTEM FAULT 
  * 
+ * @note
  *  
+ * 
+ * @tool
+ * [FAULTS]|[07]|[LASER OPTO NCDT SUBSYSTEM FAULT ]|[ ]
 */
 #define C_LCCM655__FAULTS__FAULT_INDEX__07				0x00000007U
 #define C_LCCM655__FAULTS__FAULT_INDEX_MASK__07			0x00000080U
@@ -103,7 +135,11 @@
  * @brief
  * NETWORKING FAULT 
  * 
+ * @note
  *  
+ * 
+ * @tool
+ * [FAULTS]|[08]|[NETWORKING FAULT ]|[ ]
 */
 #define C_LCCM655__FAULTS__FAULT_INDEX__08				0x00000008U
 #define C_LCCM655__FAULTS__FAULT_INDEX_MASK__08			0x00000100U
@@ -115,7 +151,11 @@
  * @brief
  * PUSHER SUBSYSTEM FAULT 
  * 
+ * @note
  *  
+ * 
+ * @tool
+ * [FAULTS]|[09]|[PUSHER SUBSYSTEM FAULT ]|[ ]
 */
 #define C_LCCM655__FAULTS__FAULT_INDEX__09				0x00000009U
 #define C_LCCM655__FAULTS__FAULT_INDEX_MASK__09			0x00000200U
@@ -127,7 +167,11 @@
  * @brief
  * THROTTLE SUBSYSTEM FAULT 
  * 
+ * @note
  *  
+ * 
+ * @tool
+ * [FAULTS]|[10]|[THROTTLE SUBSYSTEM FAULT ]|[ ]
 */
 #define C_LCCM655__FAULTS__FAULT_INDEX__10				0x0000000AU
 #define C_LCCM655__FAULTS__FAULT_INDEX_MASK__10			0x00000400U

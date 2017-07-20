@@ -12,44 +12,52 @@
 	#include <../BOARD_SUPPORT/NETWORKING/rloop_networking__ports.h>
 #endif
 
+//disable any BSP referenced
 #ifdef C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE
-#undef C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE
-#undef DEBUG_PRINT
+	#undef C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE
+	#undef DEBUG_PRINT
 #endif
 
 /*******************************************************************************
-SCI / LIN Module
+SIL3 - RM48/RM57 - SCI / LIN Module
 *******************************************************************************/
-    #define C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE                         (1U)
-    #if C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE == 1U
+	#define C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE == 1U
 
-        //if you have to do debugging
-        #define DEBUG_PRINT(x)                                              {}
-        //vRM4_SCI_HELPERS__DisplayText(SCI_CHANNEL__2, x, 100)
+		//if you have to do debugging
+		#define DEBUG_PRINT(x)
+		//vRM4_SCI_HELPERS__DisplayText(SCI_CHANNEL__2, x, 100)
 
-        //enable interrupts, else use polling Mode
-        #define C_LOCALDEF__LCCM282__ENABLE_INTERRUPTS                      (0U)
+		//enable interrupts, else use polling Mode
+		#define C_LOCALDEF__LCCM282__ENABLE_INTERRUPTS						(0U)
 
-        /** Switch on DMA functions */
-        #define C_LOCALDEF__LCCM282__ENABLE_DMA                             (0U)
+		/** Switch on DMA functions */
+		#define C_LOCALDEF__LCCM282__ENABLE_DMA								(0U)
 
-        //determine which SCI module to enable
-        //SCI1 shares pins with EMAC
-        #define C_LOCALDEF__LCCM282__ENABLE_SCI_1                           (0U)
+		//determine which SCI module to enable
+		//SCI1 shares pins with EMAC
+		#define C_LOCALDEF__LCCM282__ENABLE_SCI_1							(0U)
 
-        //SCI 2 is also LIN and uses the LIN pins on ZWT Package
-        //SCI2 is USB debug on HDK
-        #define C_LOCALDEF__LCCM282__ENABLE_SCI_2                           (0U)
+		//SCI 2 is also LIN and uses the LIN pins on ZWT Package
+		//SCI2 is USB debug on HDK
+		#define C_LOCALDEF__LCCM282__ENABLE_SCI_2							(0U)
 
         //SCI3 only on RM57, Launchpad Boosterpack Site 1
         #define C_LOCALDEF__LCCM282__ENABLE_SCI_3                           (1U)
 
-        //main include file
-        #include <RM4/LCCM282__RM4__SCI/rm4_sci.h>
+        //SCI4 only on RM57
+        #define C_LOCALDEF__LCCM282__ENABLE_SCI_4                           (0U)
 
-    #else
-        #define DEBUG_PRINT(x)
-    #endif //C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE
+
+		//testing
+		#define C_LOCALDEF__LCCM282__ENABLE_TEST_SPEC						(0U)
+
+		//main include file
+		#include <RM4/LCCM282__RM4__SCI/rm4_sci.h>
+
+	#else
+		#define DEBUG_PRINT(x)
+	#endif //C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE
 
 /*******************************************************************************
 RM4 GIO MODULE

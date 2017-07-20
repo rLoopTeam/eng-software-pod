@@ -94,7 +94,9 @@ void vFCU__Process(void)
 
 			//setup flash memory access
 #ifndef WIN32
-			vRM4_FLASH__Init();
+			#if C_LOCALDEF__LCCM135__ENABLE_THIS_MODULE == 1U
+				vRM4_FLASH__Init();
+			#endif
 
 			//int the RM4's EEPROM
 			#if C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE == 1U
@@ -108,8 +110,6 @@ void vFCU__Process(void)
 			#endif
 
 #ifndef WIN32
-			//init the DMA
-			vRM4_DMA__Init();
 
 			//GIO
 			vRM4_GIO__Init();
@@ -119,8 +119,10 @@ void vFCU__Process(void)
 				vRM4_ADC_USER__Init();
 			#endif
 #endif
-			//CPU load monitoring
-			vRM4_CPULOAD__Init();
+			#if C_LOCALDEF__LCCM663__ENABLE_THIS_MODULE == 1U
+				//CPU load monitoring
+				vRM4_CPULOAD__Init();
+			#endif
 
 			//change state
 			sFCU.eInitStates = INIT_STATE__INIT_IO;
@@ -130,8 +132,10 @@ void vFCU__Process(void)
 
 #ifndef WIN32
 			//setup the N2HET's
-			vRM4_N2HET__Init(N2HET_CHANNEL__1, 0U, HR_PRESCALE__1, LR_PRESCALE__32);
-			vRM4_N2HET_PINS__Init(N2HET_CHANNEL__1);
+			#if C_LOCALDEF__LCCM240__ENABLE_THIS_MODULE == 1U
+				vRM4_N2HET__Init(N2HET_CHANNEL__1, 0U, HR_PRESCALE__1, LR_PRESCALE__32);
+				vRM4_N2HET_PINS__Init(N2HET_CHANNEL__1);
+			#endif
 
 			#if C_LOCALDEF__LCCM240__ENABLE_N2HET2 == 1U
 				vRM4_N2HET__Init(N2HET_CHANNEL__2, 0U, HR_PRESCALE__1, LR_PRESCALE__32);
@@ -146,18 +150,26 @@ void vFCU__Process(void)
 			//1. pusher interlock edges
 			//2. contrast lasers
 			//setup the pins
-			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 4U);
-			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 5U);
-			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 9U);
-			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 22U);
+			#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
+				vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 4U);
+				vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 5U);
+			#endif
+			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+				vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 9U);
+				vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 22U);
+			#endif
 
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
 			//laser contrast sensors
 			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 6U);
 			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 7U);
 			vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 13U);
+			#endif
 
-			//must disable N2HET before adding programs.
-			vRM4_N2HET__Disable(N2HET_CHANNEL__1);
+			#if C_LOCALDEF__LCCM240__ENABLE_THIS_MODULE == 1U
+				//must disable N2HET before adding programs.
+				vRM4_N2HET__Disable(N2HET_CHANNEL__1);
+			#endif
 
 			#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
 				//N2HET programs for the edge interrupts for pusher
@@ -182,8 +194,10 @@ void vFCU__Process(void)
 				sFCU.sContrast.sSensors[LASER_CONT__AFT].u16N2HET_Index = u16N2HET_PROG_DYNAMIC__Add_Edge(N2HET_CHANNEL__1, 13U, EDGE_TYPE__RISING, 1U);
 			#endif
 
-			//once all the programs are added, enable the N2HET:1
-			vRM4_N2HET__Enable(N2HET_CHANNEL__1);
+			#if C_LOCALDEF__LCCM240__ENABLE_THIS_MODULE == 1U
+				//once all the programs are added, enable the N2HET:1
+				vRM4_N2HET__Enable(N2HET_CHANNEL__1);
+			#endif
 
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 				//brake left inputs
@@ -255,7 +269,9 @@ Testing damaged FCU pins
 #ifndef WIN32
 			//give us some interrupts going
 			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 2U, GIO_DIRECTION__INPUT);
+			//caution on RM57, this pin is needed for the MAC
 			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 3U, GIO_DIRECTION__INPUT);
+			//caution on RM57, this pin is needed for the MAC
 			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 4U, GIO_DIRECTION__INPUT);
 
 			vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 1U, GIO_DIRECTION__INPUT);
@@ -372,6 +388,7 @@ Testing damaged FCU pins
 		case INIT_STATE__START_TIMERS:
 
 #ifndef WIN32
+			#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1U
 			//int the RTI
 			vRM4_RTI__Init();
 
@@ -389,8 +406,20 @@ Testing damaged FCU pins
 			vRM4_RTI__Start_Counter(0U);
 			//counter 1 needed for 64bit timer.
 			vRM4_RTI__Start_Counter(1U);
+			#endif //C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE
 #endif //WIN32
 
+
+			//move state
+			sFCU.eInitStates = INIT_STATE__START_SENSORS;
+			break;
+
+		case INIT_STATE__START_SENSORS:
+
+			//laser distance
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
+				vFCU_LASERDIST__Init();
+			#endif
 
 			//move state
 			sFCU.eInitStates = INIT_STATE__RUN;
@@ -398,11 +427,13 @@ Testing damaged FCU pins
 
 		case INIT_STATE__RUN:
 
-			//CPU load processing
-			vRM4_CPULOAD__Process();
+			#if C_LOCALDEF__LCCM663__ENABLE_THIS_MODULE == 1U
+				//CPU load processing
+				vRM4_CPULOAD__Process();
 
-			//start of while entry point
-			vRM4_CPULOAD__While_Entry();
+				//start of while entry point
+				vRM4_CPULOAD__While_Entry();
+			#endif
 
 #ifndef WIN32
 			#if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
@@ -410,6 +441,11 @@ Testing damaged FCU pins
 			vRM4_ADC_USER__Process();
 			#endif
 #endif //WIN32
+
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
+				vFCU_LASERDIST__Process();
+			#endif
+
 
 			//process networking
 			#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
@@ -429,8 +465,10 @@ Testing damaged FCU pins
 			//update any system fault flags.
 			vFCU_FAULTS__Process();
 
-			//end of while loop
-			vRM4_CPULOAD__While_Exit();
+			#if C_LOCALDEF__LCCM663__ENABLE_THIS_MODULE == 1U
+				//end of while loop
+				vRM4_CPULOAD__While_Exit();
+			#endif
 
 			break;
 

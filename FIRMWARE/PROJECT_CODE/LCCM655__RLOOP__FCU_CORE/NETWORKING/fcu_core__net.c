@@ -18,6 +18,7 @@
  * @{ */
 
 #include "../fcu_core.h"
+#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 
 extern struct _strFCU sFCU;
@@ -40,20 +41,20 @@ void vFCU_NET__Init(void)
 	//PCB MAC
 	sFCU.sEthernet.u8MACAddx[3] = 0x01U;
 	sFCU.sEthernet.u8MACAddx[4] = 0x00U;
-	sFCU.sEthernet.u8MACAddx[5] = 100U;
+	sFCU.sEthernet.u8MACAddx[5] = C_RLOOP_NET_IP__FCU;
 
 	//IP
 	sFCU.sEthernet.u8IPAddx[0] = 192U;
 	sFCU.sEthernet.u8IPAddx[1] = 168U;
-#ifdef __LACHLANS__PC__
-	sFCU.sEthernet.u8IPAddx[2] = 1U;
-#else
-	sFCU.sEthernet.u8IPAddx[2] = 0U;
-#endif
-	sFCU.sEthernet.u8IPAddx[3] = 100U;
+	sFCU.sEthernet.u8IPAddx[2] = C_RLOOP_NET_IP__SUBNET;
+	sFCU.sEthernet.u8IPAddx[3] = C_RLOOP_NET_IP__FCU;
+
+	//init the safety UDP layer
+	vSIL3_SAFEUDP__Init();
 
 	//init our systems
 	vFCU_NET_TX__Init();
+
 
 #ifndef WIN32
 	//init the EMAC via its link setup routine.
@@ -80,6 +81,9 @@ void vFCU_NET__Init(void)
 void vFCU_NET__Process(void)
 {
 	Luint8 u8Test;
+
+	//process any safety UDP items
+	vSIL3_SAFEUDP__Process();
 
 #ifndef WIN32
 	//constantly process the EMAC link as it will take some time to get operational
@@ -133,6 +137,7 @@ Luint8 u8FCU_NET__Is_LinkUp(void)
 #ifndef C_LOCALDEF__LCCM655__ENABLE_ETHERNET
 	#error
 #endif
+#endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
 /** @} */
 /** @} */
 /** @} */

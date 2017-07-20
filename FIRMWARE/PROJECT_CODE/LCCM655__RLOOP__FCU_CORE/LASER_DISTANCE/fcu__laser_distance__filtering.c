@@ -1,6 +1,6 @@
 /**
  * @file		FCU__LASER_DISTANCE__FILTERING.C
- * @brief		Forward looking laser distance filter fuinctions
+ * @brief		Forward looking laser distance filter functions
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
  */
@@ -38,7 +38,7 @@ void vFCU_LASERDIST_FILT__Init(void)
 
 /***************************************************************************//**
  * @brief
- * Process teh laser distance filtering
+ * Process the laser distance filtering
  * 
  * @st_funcMD5		77401928E10A4DDF6B7AC0FF4CEBFBEF
  * @st_funcID		LCCM655R0.FILE.059.FUNC.002

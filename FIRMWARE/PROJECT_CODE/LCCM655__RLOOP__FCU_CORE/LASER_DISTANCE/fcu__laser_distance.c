@@ -106,6 +106,8 @@ void vFCU_LASERDIST__Init(void)
 	//setup eth systems if needed
 	vFCU_LASERDIST_ETH__Init();
 
+	sFCU.sLaserDist.u32BytesSeen_Counter = 0U;
+	sFCU.sLaserDist.u32PacketsSeen_Counter = 0U;
 
 	sFCU.sLaserDist.eLaserState = LASERDIST_STATE__RESET;
 	sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_D;
@@ -179,7 +181,7 @@ void vFCU_LASERDIST__Process(void)
 
 			sFCU.sLaserDist.u32LaserPOR_Counter = 0U;
 
-			vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
+			//vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
 
 			//setup the lasers
 			sFCU.sLaserDist.eLaserState = LASERDIST_STATE__WAIT_LASER_RESET;
@@ -191,7 +193,7 @@ void vFCU_LASERDIST__Process(void)
 			//5 seconds onsite hack to wait for the laser up.
 			if(sFCU.sLaserDist.u32LaserPOR_Counter > 500U)
 			{
-				vSIL3_FAULTTREE__Clear_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
+				//vSIL3_FAULTTREE__Clear_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
 
 				//onsite hack
 				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__CHECK_NEW_DATA; //LASERDIST_STATE__INIT_LASER_TURNON;
@@ -264,11 +266,14 @@ void vFCU_LASERDIST__Process(void)
 				u8Temp = u8SIL3_SC16_USER__Get_ByteAvail(C_FCU__SC16_FWD_LASER_INDEX);
 				if(u8Temp == 0U)
 				{
-					//no new data
+
 				}
 				else
 				{
 					//yep some new laser data avail, what to do with it?
+
+					//clear the counter;
+					sFCU.sLaserDist.u32BytesSeen_Counter = 0U;
 
 					//get the byte and send it off for processing if we have enough data
 					u8Temp = u8SIL3_SC16_USER__Get_Byte(C_FCU__SC16_FWD_LASER_INDEX);
@@ -312,6 +317,30 @@ void vFCU_LASERDIST__Process(void)
 
 	//process the laser distance filtering.
 	vFCU_LASERDIST_FILT__Process();
+
+	//no new data
+	if(sFCU.sLaserDist.u32BytesSeen_Counter > 5U)
+	{
+		//500ms expired and no new data, error out
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserDist.sFaultFlags, C_LCCM655__LASER_DISTANCE__FAULT_INDEX__00);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserDist.sFaultFlags, C_LCCM655__LASER_DISTANCE__FAULT_INDEX__01);
+	}
+	else
+	{
+		//seen some bytes
+	}
+
+	//no new data
+	if(sFCU.sLaserDist.u32PacketsSeen_Counter > 5U)
+	{
+		//500ms expired and no new data, error out
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserDist.sFaultFlags, C_LCCM655__LASER_DISTANCE__FAULT_INDEX__00);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserDist.sFaultFlags, C_LCCM655__LASER_DISTANCE__FAULT_INDEX__02);
+	}
+	else
+	{
+		//laser is still healthy.
+	}
 
 }
 
@@ -542,6 +571,9 @@ void vFCU_LASERDIST__Append_Byte(Luint8 u8Value)
 			//signal that a new packet is ready
 			sFCU.sLaserDist.u8NewPacket = 1U;
 
+			//clear the packets seeen counter
+			sFCU.sLaserDist.u32PacketsSeen_Counter = 0U;
+
 			//go back and rx the next new packet
 			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_D;
 			break;
@@ -551,6 +583,10 @@ void vFCU_LASERDIST__Append_Byte(Luint8 u8Value)
 			break;
 
 	}//switch
+
+
+
+
 }
 
 
@@ -565,6 +601,8 @@ void vFCU_LASERDIST__100MS_ISR(void)
 {
 
 	sFCU.sLaserDist.u32LaserPOR_Counter++;
+	sFCU.sLaserDist.u32BytesSeen_Counter++;
+	sFCU.sLaserDist.u32PacketsSeen_Counter++;
 }
 
 
@@ -585,7 +623,7 @@ void vFCU_LASERDIST_WIN32__Set_DistanceRaw(Lint32 s32Value)
 #endif
 
 
-#endif
+#endif //C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE
 /** @} */
 /** @} */
 /** @} */

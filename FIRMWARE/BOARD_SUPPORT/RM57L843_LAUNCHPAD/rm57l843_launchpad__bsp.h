@@ -173,6 +173,99 @@ SELFTEST MODULE
 
 	#endif //C_LOCALDEF__LCCM221__ENABLE_THIS_MODULE
 
+
+/*******************************************************************************
+SIL3 - NUMERICAL MODULE
+Note: Needs to go before eeprom params if any.
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE == 1U
+
+		/** set to 1 to include TRIG */
+		#define C_LOCALDEF__LCCM118__ENABLE_TRIG							(0U)
+
+		/** enable x^y */
+		#define C_LOCALDEF__LCCM118__ENABLE_POWER							(1U)
+
+		/** enable vector math */
+		#define C_LOCALDEF__LCCM118__ENABLE_VECTORS							(0U)
+
+		/** DISABLES */
+		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__S16					(0U)
+		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__U16					(0U)
+		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__U32					(0U)
+		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__S32					(0U)
+		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__F32					(0U)
+
+		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__S16					(0U)
+		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__U16					(0U)
+		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__S32					(0U)
+		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__U32					(0U)
+		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__F32					(0U)
+		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__F64					(0U)
+		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__U64					(0U)
+
+		/** Testing options */
+		#define	C_LOCALDEF__LCCM118__ENABLE_TEST_SPEC						(0U)
+
+		//main include
+		#include <MULTICORE/LCCM118__MULTICORE__NUMERICAL/numerical.h>
+	#endif //C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE
+
+/*******************************************************************************
+SIL3 - RM4 EEPROM EMULATION
+You'll need the flash access module for this
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE							(1U)
+ 	 #if C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE == 1U
+
+		//testing options
+		#define C_LOCALDEF__LCCM230__ENABLE_TEST_SPEC						(0U)
+
+ 	 	//main include
+ 	 	#include <RM4/LCCM230__RM4__EEPROM/rm4_eeprom.h>
+
+ 	 #endif //C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE
+
+/*******************************************************************************
+SIL3 - EEPROM BASIC PARAMETERS
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE							(C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE)
+	#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
+
+		/** Use the EEPRARAMS module with an external FLASH */
+		#define C_LOCALDEF__LCCM188__USE_WITH_LCCM013						(0U)
+
+		/** Define the number of parameters in the system */
+		#define C_LOCALDEF__LCCM188__NUM_PARAMETERS							(32U)
+
+		/** set to 1 if you want to enable CRC's across the entire paramter
+		range.  If so you will loose one paramter at the end to store theCRC
+		*/
+		#define C_LOCALDEF__LCCM188__ENABLE_CRC								(1U)
+
+		/** Offset to start in memory */
+		#define C_LOCALDEF__LCCM188__EEPROM_START_OFFSET					(0U)
+
+		/** DISABLES */
+		#define C_LOCALDEF__LCCM188__DISABLE__U16							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__S16							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__U32							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__S32							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__F32							(0U)
+		#define C_LOCALDEF__LCCM188__DISABLE__MAC							(0U)
+
+		/** Specialised enabled */
+		#define C_LOCALDEF__LCCM188__ENABLE_VECTORS							(0U)
+
+		/** Testing options */
+		#define C_LOCALDEF__LCCM188__ENABLE_TEST_SPEC						(0U)
+
+		//main include file
+		#include <MULTICORE/LCCM188__MULTICORE__EEPROM_PARAMS/eeprom_params.h>
+
+	#endif //C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE
+
 /*******************************************************************************
 RM57 - PERIPH CENTRAL RESOURCE
 *******************************************************************************/
@@ -378,7 +471,7 @@ LR Time = 160ns
 		//HET Options
 		#define C_LOCALDEF__LCCM240__ENABLE_INPUT_CAPTURE					(0U)
 		#define C_LOCALDEF__LCCM240__ENABLE_EDGE_CAPTURE					(0U)
-		#define C_LOCALDEF__LCCM240__ENABLE_PWM								(1U)
+		#define C_LOCALDEF__LCCM240__ENABLE_PWM								(0U)
 		#define C_LOCALDEF__LCCM240__ENABLE_TIMESTAMPING					(0U)
 
 		//testing
@@ -389,58 +482,7 @@ LR Time = 160ns
 
  	 #endif //C_LOCALDEF__LCCM240__ENABLE_THIS_MODULE
 
-/*******************************************************************************
-SIL3 - RM4 EEPROM EMULATION
-You'll need the flash access module for this
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE							(1U)
- 	 #if C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE == 1U
 
-		//testing options
-		#define C_LOCALDEF__LCCM230__ENABLE_TEST_SPEC						(0U)
-
- 	 	//main include
- 	 	#include <RM4/LCCM230__RM4__EEPROM/rm4_eeprom.h>
-
- 	 #endif //C_LOCALDEF__LCCM230__ENABLE_THIS_MODULE
-
-/*******************************************************************************
-SIL3 - NUMERICAL MODULE
-Note: Needs to go before eeprom params if any.
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE == 1U
-
-		/** set to 1 to include TRIG */
-		#define C_LOCALDEF__LCCM118__ENABLE_TRIG							(0U)
-
-		/** enable x^y */
-		#define C_LOCALDEF__LCCM118__ENABLE_POWER							(1U)
-
-		/** enable vector math */
-		#define C_LOCALDEF__LCCM118__ENABLE_VECTORS							(0U)
-
-		/** DISABLES */
-		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__S16					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__U16					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__U32					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__S32					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__F32					(0U)
-
-		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__S16					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__U16					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__S32					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__U32					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__F32					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__F64					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__U64					(0U)
-
-		/** Testing options */
-		#define	C_LOCALDEF__LCCM118__ENABLE_TEST_SPEC						(0U)
-
-		//main include
-		#include <MULTICORE/LCCM118__MULTICORE__NUMERICAL/numerical.h>
-	#endif //C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE
 
 /*******************************************************************************
 SIL3 - GENERAL PURPOSE SOFTWARE FIFO
@@ -461,44 +503,7 @@ SIL3 - GENERAL PURPOSE SOFTWARE FIFO
 	#endif //C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE
 
 
-/*******************************************************************************
-SIL3 - EEPROM BASIC PARAMETERS
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
 
-		/** Use the EEPRARAMS module with an external FLASH */
-		#define C_LOCALDEF__LCCM188__USE_WITH_LCCM013						(0U)
-
-		/** Define the number of parameters in the system */
-		#define C_LOCALDEF__LCCM188__NUM_PARAMETERS							(32U)
-
-		/** set to 1 if you want to enable CRC's across the entire paramter
-		range.  If so you will loose one paramter at the end to store theCRC
-		*/
-		#define C_LOCALDEF__LCCM188__ENABLE_CRC								(1U)
-
-		/** Offset to start in memory */
-		#define C_LOCALDEF__LCCM188__EEPROM_START_OFFSET					(0U)
-
-		/** DISABLES */
-		#define C_LOCALDEF__LCCM188__DISABLE__U16							(0U)
-		#define C_LOCALDEF__LCCM188__DISABLE__S16							(0U)
-		#define C_LOCALDEF__LCCM188__DISABLE__U32							(0U)
-		#define C_LOCALDEF__LCCM188__DISABLE__S32							(0U)
-		#define C_LOCALDEF__LCCM188__DISABLE__F32							(0U)
-		#define C_LOCALDEF__LCCM188__DISABLE__MAC							(0U)
-
-		/** Specialised enabled */
-		#define C_LOCALDEF__LCCM188__ENABLE_VECTORS							(0U)
-
-		/** Testing options */
-		#define C_LOCALDEF__LCCM188__ENABLE_TEST_SPEC						(0U)
-
-		//main include file
-		#include <MULTICORE/LCCM188__MULTICORE__EEPROM_PARAMS/eeprom_params.h>
-
-	#endif //C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE
 
 /*******************************************************************************
 RM4 - EMAC Module
@@ -513,8 +518,8 @@ RM4 - EMAC Module
 		#define C_LOCALDEF__LCCM254__ENABLE_EXTERN_RESET					(1U)
 
 		#if C_LOCALDEF__LCCM254__ENABLE_EXTERN_RESET == 1U
-			#define C_LOCALDEF__LCCM254__NRESET_PIN__TRIS()						vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 0U)
-			#define C_LOCALDEF__LCCM254__NRESET_PIN__LATCH(x)					vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 0U, x)
+			#define C_LOCALDEF__LCCM254__NRESET_PIN__TRIS()					{vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 4U, GIO_DIRECTION__OUTPUT);}
+			#define C_LOCALDEF__LCCM254__NRESET_PIN__LATCH(x)				{vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 4U, x);}
 		#endif
 
 		//use LWIP or not

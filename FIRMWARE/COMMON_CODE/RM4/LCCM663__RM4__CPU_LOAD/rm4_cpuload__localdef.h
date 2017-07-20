@@ -14,7 +14,7 @@
 #if 0
 
 /*******************************************************************************
-RM48 - CPU LOAD MEASUREMENT
+SIl3 - RM48 - CPU LOAD MEASUREMENT
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM663__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM663__ENABLE_THIS_MODULE == 1U

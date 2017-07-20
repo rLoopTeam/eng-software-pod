@@ -9,7 +9,6 @@
  *				and/or disclosed only pursuant to the terms of that license agreement.
  *				This copyright notice must be retained as part of this file at all times.
  * @copyright	This file is copyright SIL3 Pty Ltd 2003-2012, All Rights Reserved.
- * @copyright	This file is copyright Lockie Safety Systems Pty Ltd 2008-2012, All Rights Reserved.
  * @st_fileID	LCCM188R0.FILE.003
  */
 #if 0
