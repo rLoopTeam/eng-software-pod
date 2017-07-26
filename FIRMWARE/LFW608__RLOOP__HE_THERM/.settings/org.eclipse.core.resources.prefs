@@ -1,6 +1,12 @@
 eclipse.preferences.version=1
+encoding//Debug/LCCM721__RLOOP__HE_THERM/DAQ/subdir_rules.mk=UTF-8
+encoding//Debug/LCCM721__RLOOP__HE_THERM/DAQ/subdir_vars.mk=UTF-8
 encoding//Debug/LCCM721__RLOOP__HE_THERM/ETHERNET/subdir_rules.mk=UTF-8
 encoding//Debug/LCCM721__RLOOP__HE_THERM/ETHERNET/subdir_vars.mk=UTF-8
+encoding//Debug/LCCM721__RLOOP__HE_THERM/SOLENOIDS/subdir_rules.mk=UTF-8
+encoding//Debug/LCCM721__RLOOP__HE_THERM/SOLENOIDS/subdir_vars.mk=UTF-8
+encoding//Debug/LCCM721__RLOOP__HE_THERM/THERMOCOUPLES/subdir_rules.mk=UTF-8
+encoding//Debug/LCCM721__RLOOP__HE_THERM/THERMOCOUPLES/subdir_vars.mk=UTF-8
 encoding//Debug/LCCM721__RLOOP__HE_THERM/TIMERS/subdir_rules.mk=UTF-8
 encoding//Debug/LCCM721__RLOOP__HE_THERM/TIMERS/subdir_vars.mk=UTF-8
 encoding//Debug/LCCM721__RLOOP__HE_THERM/subdir_rules.mk=UTF-8

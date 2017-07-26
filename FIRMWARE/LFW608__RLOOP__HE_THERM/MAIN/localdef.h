@@ -60,12 +60,15 @@ RM4 - RTI MODULE
 
 		/** RTI CLOCK FREQUENCY
 		 * Based on our standard system, valid values are div(2,4,8):
-		 * 150 (150MHZ - ONLY ON RM57)
 		 * 100 	(100MHZ)
+		 * 75 	(75MHZ - ONLY ON RM57)
 		 * 50	(50MHZ)
 		 * 25	(25MHZ)
 		 * */
-		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(150U)
+		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(75U)
+
+		/** RTCLK0 feeds counter 0 and is used for general purpose compare times */
+		#define C_LOCALDEF__LCCM124__RTI_COUNTER0_PRESCALER					(10U)
 
 		/** RTCLK1 feeds counter 1 and can be used for 64bit timing */
 		#define C_LOCALDEF__LCCM124__RTI_COUNTER1_PRESCALER					(1U)
@@ -214,11 +217,8 @@ DS2482S - I2C TO 1-WIRE CONVERTER
 	#define C_LOCALDEF__LCCM641__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM641__ENABLE_THIS_MODULE == 1U
 
-		//CPU Architecture
-		#define C_LOCALDEF__LCCM641__USE_ON_RM4								(1U)
-
 		/** Max number of DS2482 devices on the same I2C Bus */
-		#define C_LOCALDEF__LCCM641__NUM_DEVICS								(1U)
+		#define C_LOCALDEF__LCCM641__NUM_DEVICS								(2U)
 
 		/** Use table based LUT CRC or slow computed CRC */
 		#define C_LOCALDEF__LCCM641__USE_TABLE_CRC							(1U)
@@ -227,10 +227,10 @@ DS2482S - I2C TO 1-WIRE CONVERTER
 		#define C_LOCALDEF__LCCM641__MAX_TIMEOUT_LOOPS						(100000U)
 
 		// I2C MACROS
-		#define M_LOCALDEF__LCCM641__I2C_RX_REG(device, reg)				s16RM4_I2C_USER__RxReg(device, reg)
-		#define M_LOCALDEF__LCCM641__I2C_TX_REG(device, reg)				s16RM4_I2C_USER__TxReg(device, reg)
-		#define M_LOCALDEF__LCCM641__I2C_TX_BYTE(device, reg, value)		s16RM4_I2C_USER__Tx_U8(device, reg, value)
-		#define M_LOCALDEF__LCCM641__I2C_RX_BYTE(device, reg, value)		s16RM4_I2C_USER__Rx_U8(device, reg, value)
+		#define M_LOCALDEF__LCCM641__I2C_RX_REG(device, reg)				s16RM4_I2C_USER__RxReg(RM4_I2C_CH__1, device, reg)
+		#define M_LOCALDEF__LCCM641__I2C_TX_REG(device, reg)				s16RM4_I2C_USER__TxReg(RM4_I2C_CH__1, device, reg)
+		#define M_LOCALDEF__LCCM641__I2C_TX_BYTE(device, reg, value)		s16RM4_I2C_USER__Tx_U8(RM4_I2C_CH__1, device, reg, value)
+		#define M_LOCALDEF__LCCM641__I2C_RX_BYTE(device, reg, value)		s16RM4_I2C_USER__Rx_U8(RM4_I2C_CH__1, device, reg, value)
 
 
 		/** Testing Options */
@@ -276,7 +276,7 @@ DS18B20 - 1-Wire Temperature Sensor
 		 * If using the DS2482 we can support 4 devices on the one I2C bus
 		 * Which means we can support hundreds of devices per channel
 		 */
-		#define C_LOCALDEF__LCCM644__MAX_1WIRE_CHANNELS						(1U)
+		#define C_LOCALDEF__LCCM644__MAX_1WIRE_CHANNELS						(2U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM644__ENABLE_TEST_SPEC						(0U)

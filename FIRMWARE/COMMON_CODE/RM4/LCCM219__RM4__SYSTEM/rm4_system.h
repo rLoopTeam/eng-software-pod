@@ -37,6 +37,44 @@
 	#endif
 	#define C_LOCALDEF__SYSTEM__VCLK1_FREQ_MHZ								(C_LOCALDEF__SYSTEM__VCLK_FREQ_MHZ / C_LOCALDEF__SYSTEM__VCLK1_DIVISOR)
 
+	/** Types of reset sources */
+	typedef enum
+	{
+
+		/** no reset occurred*/
+		RM4_SYS_RST__NO_RESET = 0x0000U,
+
+		/** power on reset condition */
+		RM4_SYS_RST__POWERON_RESET,
+
+		/**  Reset caused due to External reset. */
+		RM4_SYS_RST__EXT_RESET = 0x0008U,
+
+		/** Reset caused due Debug reset request */
+		RM4_SYS_RST__DEBUG_RESET = 0x0800U,
+
+		/** Reset caused due to oscillator failure. Add user code to handle oscillator failure */
+		RM4_SYS_RST__OSC_FAILURE_RESET = 0x4000U,
+
+		/** Reset caused due watchdog violation */
+		RM4_SYS_RST__WATCHDOG_RESET = 0x2000U,
+
+		/** Reset caused due watchdog violation */
+		RM4_SYS_RST__WATCHDOG2_RESET = 0x1000U,
+
+		/** Reset caused due to CPU0 reset.
+		CPU reset can be caused by CPU self-test completion, or
+		by toggling the "CPU RESET" bit of the CPU Reset Control Register. */
+		RM4_SYS_RST__CPU0_RESET = 0x0020U,
+
+		/** Reset caused due to software reset. */
+		RM4_SYS_RST__SW_RESET = 0x0010U,
+
+		RM4_SYS_RST__INTERCONNECT_RESET = 0x0080U
+
+	}TE_RM4_SYSTEM__RESET_SOURCE;
+
+
 	/** @enum loopBackType
 	*   @brief Loopback type definition
 	*/
@@ -251,6 +289,7 @@
 
 	//function protos
 	void vRM4_SYSTEM__Init(void);
+	TE_RM4_SYSTEM__RESET_SOURCE eRM4_SYSTEM__Get_ResetSource(void);
 
 	Luint8 u8RM4_SYSTEM_OSC__Is_OscFail(void);
 	Luint8 u8RM4_SYSTEM_OSC__Is_PLLFail(void);
@@ -516,6 +555,10 @@
 	void custom_dabort(void);
 
 	void vRM4_SYSTEM__After_STC(void);
+
+
+	void _rm57_system_core__cacheEnable_(void);
+	void _rm57_system_core__memInit_(void);
 
 #endif //_RM4_SYSTEM_H_
 

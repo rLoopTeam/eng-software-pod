@@ -74,12 +74,16 @@ void vDS2482S__Init(void)
 			else
 			{
 				//log the error
+				vSIL3_FAULTTREE__Set_Flag(&sDS2482S.sDevice[u8Counter].sFaultFlags, C_LCCM641__CORE__FAULT_INDEX__00);
+				vSIL3_FAULTTREE__Set_Flag(&sDS2482S.sDevice[u8Counter].sFaultFlags, C_LCCM641__CORE__FAULT_INDEX__01);
 			}
 
 		}
 		else
 		{
 			//log the error
+			vSIL3_FAULTTREE__Set_Flag(&sDS2482S.sDevice[u8Counter].sFaultFlags, C_LCCM641__CORE__FAULT_INDEX__00);
+			vSIL3_FAULTTREE__Set_Flag(&sDS2482S.sDevice[u8Counter].sFaultFlags, C_LCCM641__CORE__FAULT_INDEX__01);
 		}
 
 	}//for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM641__NUM_DEVICS; u8Counter++)
@@ -104,7 +108,10 @@ void vDS2482S__Process(void)
 
 }
 
-
+Luint32 u32DS2482S__Get_FaultFlags(Luint8 u8DeviceIndex)
+{
+	return sDS2482S.sDevice[u8DeviceIndex].sFaultFlags.u32Flags[0];
+}
 
 /***************************************************************************//**
  * @brief

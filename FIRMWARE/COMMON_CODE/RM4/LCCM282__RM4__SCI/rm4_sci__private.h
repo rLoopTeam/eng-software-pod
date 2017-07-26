@@ -56,7 +56,7 @@
 		*
 		*   This pointer is used by the SCI driver to access the sci module registers.
 		*/
-		#define sciREG ((RM4_SCI__BASE_T *)0xFFF7E500U)
+		#define sciREG1 ((RM4_SCI__BASE_T *)0xFFF7E500U)
 
 
 		/** @def sciPORT
@@ -65,7 +65,7 @@
 		*   Pointer used by the GIO driver to access I/O PORT of SCI
 		*   (use the GIO drivers to access the port pins).
 		*/
-		#define sciPORT ((gioPORT_t *)0xFFF7E540U)
+		#define sciPORT1 ((gioPORT_t *)0xFFF7E540U)
 
 
 		/** @def scilinREG
@@ -73,7 +73,7 @@
 		*
 		*   This pointer is used by the SCI driver to access the sci module registers.
 		*/
-		#define scilinREG ((RM4_SCI__BASE_T *)0xFFF7E400U)
+		#define sciREG2 ((RM4_SCI__BASE_T *)0xFFF7E400U)
 
 
 		/** @def scilinPORT
@@ -82,7 +82,7 @@
 		*   Pointer used by the GIO driver to access I/O PORT of LIN
 		*   (use the GIO drivers to access the port pins).
 		*/
-		#define scilinPORT ((gioPORT_t *)0xFFF7E440U)
+		#define sciPORT2 ((gioPORT_t *)0xFFF7E440U)
 	#else
 
 		//1

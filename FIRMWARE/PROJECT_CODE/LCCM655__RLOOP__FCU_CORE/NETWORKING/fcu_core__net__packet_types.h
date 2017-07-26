@@ -377,6 +377,10 @@
 
 		/** Flight control DAQ offset */
 		NET_PKT__FCU_DAQ__OFFSET_INDEX = 0x4000U,
+		NET_PKT__POWERA_DAQ__OFFSET_INDEX = 0x4100U,
+		NET_PKT__POWERB_DAQ__OFFSET_INDEX = 0x4200U,
+		NET_PKT__LGU_DAQ__OFFSET_INDEX = 0x4300U,
+		NET_PKT__HE_THERM_DAQ__OFFSET_INDEX = 0x4400U,
 
 
 		//////////////////////////////////////////////////////
@@ -392,6 +396,19 @@
 
 		/** Transmit a progress update to the host */
 		NET_PKT__XILINX_SIM__TX_PROGRESS_UPDATE = 0x5002U,
+
+
+		//////////////////////////////////////////////////////
+		//HE THERMAL UNIT - 0x6000 - 0x6FFF
+		//////////////////////////////////////////////////////
+
+		NET_PKT__HET__REQUEST_THERM_PACKET = 0x6000U,
+
+		/** Return a full thermal data packet */
+		NET_PKT__HET__SEND_THERM_PACKET = 0x6001U,
+
+		/** Manual control of the solenoids */
+		NET_PKT__HET__MANUAL_CONTROL = 0x6002U,
 
 
 		//////////////////////////////////////////////////////

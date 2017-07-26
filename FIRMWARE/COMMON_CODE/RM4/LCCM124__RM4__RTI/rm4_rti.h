@@ -28,22 +28,29 @@
 		Includes
 		*****************************************************************************/
 		#include <RM4/LCCM124__RM4__RTI/rm4_rti__private.h>
-		#include <RM4/LCCM124__RM4__RTI/rm4_rti__semistaticdef.h>
+		#include <RM4/LCCM124__RM4__RTI/rm4_rti__staticdef.h>
 
 
-		//Structure to hold details about the counters
+		/** Structure to hold details about the counters */
 		struct _strCounter
 		{
-			Luint32 u32FRCValue; //Free Running Counter Current Value or Preset
-			Luint32 u32CUValue; //Counter Up Current Value or Preset
-			Luint32 u32CUCompareValuePrescale; //Value to generate pulse and restart the counter
-			Luint32 u32FRCCaptureOnEvent; //Holds the value of the Free Running Counter on External Event (Just read)
-			Luint32 u32CUCaptureOnEvent; //Holds the value of the Counter Up on External Event (Just read)
+			/** Free Running Counter Current Value or Preset */
+			Luint32 u32FRCValue;
+
+			/** Counter Up Current Value or Preset*/
+			Luint32 u32CUValue; 
+			
+			/** Value to generate pulse and restart the counter */
+			Luint32 u32CUCompareValuePrescale; 
+			
+			/** Holds the value of the Free Running Counter on External Event (Just read) */
+			Luint32 u32FRCCaptureOnEvent;
+			
+			/** Holds the value of the Counter Up on External Event (Just read)*/
+			Luint32 u32CUCaptureOnEvent;
 		};
 
-		//Structure to hold details about the compare modules
-		/*****************************************************************************
-		*****************************************************************************/
+		/** Structure to hold details about the compare modules*/
 		struct _strCompare
 		{
 			Luint8 u8CounterToCompareWith;
@@ -51,9 +58,7 @@
 			Luint32 u32UpdateCompare;
 		};
 
-		//Structure to hold details about the RTI Module
-		/*****************************************************************************
-		*****************************************************************************/
+		/** Structure to hold details about the RTI Module */
 		struct _strRTI
 		{
 			Luint8 u8NTUsignalforTimeBase;
@@ -86,9 +91,7 @@
 			//Rest of the registers starting at offset ACh should not be used to avoid clearing pending RTI interrupts as per datasheet indication.
 		};
 
-		//Counter clock struct
-		/*****************************************************************************
-		*****************************************************************************/
+		/** Counter clock struct */
 		typedef struct
 		{
 			 Lfloat32 f32SrcFrequency;
@@ -99,7 +102,7 @@
 
 		}RM4_RTI__COUNTER_CLOCK_T;
 
-		//RTI Internal clock structure
+		/** RTI Internal clock structure */
 		typedef struct
 		{
 			 RM4_RTI__COUNTER_CLOCK_T sCounters[2];

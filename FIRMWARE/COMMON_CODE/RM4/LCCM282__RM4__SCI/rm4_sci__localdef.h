@@ -42,7 +42,6 @@ SIL3 - RM48/RM57 - SCI / LIN Module
         //SCI4 only on RM57
         #define C_LOCALDEF__LCCM282__ENABLE_SCI_4                           (0U)
 
-
 		//testing
 		#define C_LOCALDEF__LCCM282__ENABLE_TEST_SPEC						(0U)
 

@@ -120,29 +120,30 @@
 
 		//function prototypes
 		//global private rm4_i2c.c
-		void vRM4_I2C__Init(void);
+		void vRM4_I2C__Init(TE_RM4_I2C__CHANNEL eChannel);
+		void vRM4_I2C__Get_RegAddx(TE_RM4_I2C__CHANNEL eChannel, RM4_I2C__BASE_T **pReg);
 
 		//global rm4_i2c__user.c
-		void vRM4_I2C_USER__Init(void);
-		Luint32 u32RM4_I2C_USER__Get_FaultFlags(void);
-		Lint16 s16RM4_I2C_USER__Tx_U8(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint8 u8Byte);
-		Lint16 s16RM4_I2C_USER__TxReg(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx);
-		Lint16 s16RM4_I2C_USER__RxReg(Luint8 u8DeviceAddx, Luint8 *pu8Byte);
-		Lint16 s16RM4_I2C_USER__Rx_U8(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint8 *pu8Byte);
-		Lint16 s16RM4_I2C_USER__Tx_U8Array(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint8 *pu8Array, Luint8 u8ArrayLength);
-		Lint16 s16RM4_I2C_USER__Tx_U8Array_Constant(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint8 u8Value, Luint16 u16ArrayLength);
-		Lint16 s16RM4_I2C_USER__Rx_U8Array(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint8 *pu8Array, Luint8 u8ArrayLength);
-		Lint16 s16RM4_I2C_USER__RxBit_U8(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint8 u8BitNumber, Luint8 *pu8Byte);
-		Lint16 s16RM4_I2C_USER__RxBits_U8(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint8 u8BitStart, Luint8 u8Length, Luint8 *pu8Byte);
-		Lint16 s16RM4_I2C_USER__RxByte16(Luint8 u8DeviceAddx, Luint16 u16RegisterAddx, Luint8 *pu8Byte);
-		Lint16 s16RM4_I2C_USER__TxByte16(Luint8 u8DeviceAddx, Luint16 u16RegisterAddx, Luint8 u8Byte);
-		Lint16 s16RM4_I2C_USER__RxByteArray16(Luint8 u8DeviceAddx, Luint16 u16RegisterAddx, Luint8 *pu8Array, Luint8 u8ArrayLength);
+		void vRM4_I2C_USER__Init(TE_RM4_I2C__CHANNEL eChannel);
+		Luint32 u32RM4_I2C_USER__Get_FaultFlags(TE_RM4_I2C__CHANNEL eChannel);
+		Lint16 s16RM4_I2C_USER__Tx_U8(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint8 u8Byte);
+		Lint16 s16RM4_I2C_USER__TxReg(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8DeviceAddx, Luint8 u8RegisterAddx);
+		Lint16 s16RM4_I2C_USER__RxReg(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8DeviceAddx, Luint8 *pu8Byte);
+		Lint16 s16RM4_I2C_USER__Rx_U8(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint8 *pu8Byte);
+		Lint16 s16RM4_I2C_USER__Tx_U8Array(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint8 *pu8Array, Luint8 u8ArrayLength);
+		Lint16 s16RM4_I2C_USER__Tx_U8Array_Constant(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint8 u8Value, Luint16 u16ArrayLength);
+		Lint16 s16RM4_I2C_USER__Rx_U8Array(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint8 *pu8Array, Luint8 u8ArrayLength);
+		Lint16 s16RM4_I2C_USER__RxBit_U8(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint8 u8BitNumber, Luint8 *pu8Byte);
+		Lint16 s16RM4_I2C_USER__RxBits_U8(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint8 u8BitStart, Luint8 u8Length, Luint8 *pu8Byte);
+		Lint16 s16RM4_I2C_USER__RxByte16(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8DeviceAddx, Luint16 u16RegisterAddx, Luint8 *pu8Byte);
+		Lint16 s16RM4_I2C_USER__TxByte16(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8DeviceAddx, Luint16 u16RegisterAddx, Luint8 u8Byte);
+		Lint16 s16RM4_I2C_USER__RxByteArray16(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8DeviceAddx, Luint16 u16RegisterAddx, Luint8 *pu8Array, Luint8 u8ArrayLength);
 
 		//waits
-		Luint8 u8RM4_I2C_WAIT__IsBusBusy(void);
-		Luint8 u8RM4_I2C_WAIT__TxBufferEmpty(void);
-		Luint8 u8RM4_I2C_WAIT__TxBufferEmpty_Or_NACK(void);
-		Luint8 u8RM4_I2C_WAIT__RxBufferFull(void);
+		Luint8 u8RM4_I2C_WAIT__IsBusBusy(TE_RM4_I2C__CHANNEL eChannel);
+		Luint8 u8RM4_I2C_WAIT__TxBufferEmpty(TE_RM4_I2C__CHANNEL eChannel);
+		Luint8 u8RM4_I2C_WAIT__TxBufferEmpty_Or_NACK(TE_RM4_I2C__CHANNEL eChannel);
+		Luint8 u8RM4_I2C_WAIT__RxBufferFull(TE_RM4_I2C__CHANNEL eChannel);
 
 		//timeout
 		void vRM4_I2C_TIMEOUT__Start(void);
@@ -150,26 +151,26 @@
 		void vRM4_I2C_TIMEOUT__Stop(void);
 
 		//local functions
-		void vRM4_I2C__TransmiterEnable(void);
-		void vRM4_I2C__ReceiverEnable(void);
-		void vRM4_I2C__Set_OwnAdd(Luint16 u16OwnAdd);
-		void vRM4_I2C__Set_SlaveAdd(Luint16 u16SlaveAdd);
-		void vRM4_I2C__Set_Stop(void);
-		void vRM4_I2C__Clear_Stop(void);
-		void vRM4_I2C__Set_MasterMode(Luint8 u8MasterEnable);
-		void vRM4_I2C__Set_TransactionLength(Luint16 u16Size);
-		Luint8 u8RM4_I2C__IsBusBusy(void);
+		void vRM4_I2C__TransmiterEnable(TE_RM4_I2C__CHANNEL eChannel);
+		void vRM4_I2C__ReceiverEnable(TE_RM4_I2C__CHANNEL eChannel);
+		void vRM4_I2C__Set_OwnAdd(TE_RM4_I2C__CHANNEL eChannel, Luint16 u16OwnAdd);
+		void vRM4_I2C__Set_SlaveAdd(TE_RM4_I2C__CHANNEL eChannel, Luint16 u16SlaveAdd);
+		void vRM4_I2C__Set_Stop(TE_RM4_I2C__CHANNEL eChannel);
+		void vRM4_I2C__Clear_Stop(TE_RM4_I2C__CHANNEL eChannel);
+		void vRM4_I2C__Set_MasterMode(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8MasterEnable);
+		void vRM4_I2C__Set_TransactionLength(TE_RM4_I2C__CHANNEL eChannel, Luint16 u16Size);
+		Luint8 u8RM4_I2C__IsBusBusy(TE_RM4_I2C__CHANNEL eChannel);
 
 		//pins
-		void vRM4_I2C_PINS__Set_SDA_Tris(Luint8 u8Tris);
-		void vRM4_I2C_PINS__Set_SCL_Tris(Luint8 u8Tris);
-		void vRM4_I2C_PINS__Set_SDA_Latch(Luint8 u8Latch);
-		void vRM4_I2C_PINS__Set_SCL_Latch(Luint8 u8Latch);
-		Luint8 u8RM4_I2C_PINS__Get_SDA(void);
-		Luint8 u8RM4_I2C_PINS__Get_SCL(void);
-		void vRM4_I2C_PINS__Set_OutputLow(void);
-		void vRM4_I2C_PINS__Set_Functional(void);
-		void vRM4_I2C_PINS__Toggle_Clock(void);
+		void vRM4_I2C_PINS__Set_SDA_Tris(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8Tris);
+		void vRM4_I2C_PINS__Set_SCL_Tris(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8Tris);
+		void vRM4_I2C_PINS__Set_SDA_Latch(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8Latch);
+		void vRM4_I2C_PINS__Set_SCL_Latch(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8Latch);
+		Luint8 u8RM4_I2C_PINS__Get_SDA(TE_RM4_I2C__CHANNEL eChannel);
+		Luint8 u8RM4_I2C_PINS__Get_SCL(TE_RM4_I2C__CHANNEL eChannel);
+		void vRM4_I2C_PINS__Set_OutputLow(TE_RM4_I2C__CHANNEL eChannel);
+		void vRM4_I2C_PINS__Set_Functional(TE_RM4_I2C__CHANNEL eChannel);
+		void vRM4_I2C_PINS__Toggle_Clock(TE_RM4_I2C__CHANNEL eChannel);
 
 		//interrupts
 		#if C_LOCALDEF__LCCM215__USE_INTERRUPTS == 1U
@@ -179,15 +180,15 @@
 	
 		//private function prototypes
 		//rm4_i2c.c
-		void vRM4_I2C__SetUpTransaction(Luint16 u16Length, Luint8 u8GenerateStopCondition, Luint8 u8IsTransmission, Luint8 u8SlaveAddress);
-		Luint8 u8RM4_I2C__Get_NACK(void);
-		void vRM4_I2C__Clear_NACK(void);
-		void vRM4_I2C__Set_Start(void);
-		void vRM4_I2C__Master_Ignore_NACK(void);
-		Luint16 u16RM4_I2C__IsTxBufferEmpty(void);
-		Luint16 u16RM4_I2C__IsRxBufferFull(void);
-		void vRM4_I2C__SendByte(Luint8 u8Byte);
-		Luint8 u8RM4_I2C__ReceiveByte(void);
+		void vRM4_I2C__SetUpTransaction(TE_RM4_I2C__CHANNEL eChannel, Luint16 u16Length, Luint8 u8GenerateStopCondition, Luint8 u8IsTransmission, Luint8 u8SlaveAddress);
+		Luint8 u8RM4_I2C__Get_NACK(TE_RM4_I2C__CHANNEL eChannel);
+		void vRM4_I2C__Clear_NACK(TE_RM4_I2C__CHANNEL eChannel);
+		void vRM4_I2C__Set_Start(TE_RM4_I2C__CHANNEL eChannel);
+		void vRM4_I2C__Master_Ignore_NACK(TE_RM4_I2C__CHANNEL eChannel);
+		Luint16 u16RM4_I2C__IsTxBufferEmpty(TE_RM4_I2C__CHANNEL eChannel);
+		Luint16 u16RM4_I2C__IsRxBufferFull(TE_RM4_I2C__CHANNEL eChannel);
+		void vRM4_I2C__SendByte(TE_RM4_I2C__CHANNEL eChannel, Luint8 u8Byte);
+		Luint8 u8RM4_I2C__ReceiveByte(TE_RM4_I2C__CHANNEL eChannel);
 		void vRM4_I2C__SendArray(Luint32 u32Length, Luint8 *pu8Data);
 		void vRM4_I2C__ReceiveArray(Luint32 u32Length, Luint8 *pu8Data);
 

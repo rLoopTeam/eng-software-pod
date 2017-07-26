@@ -438,6 +438,48 @@ Lint16 s16DS18B20_ADDX__Upload_Addx(Luint16 u16SensorIndex, Luint8 u8ChannelInde
 
 }
 
+
+Lint16 s16DS18B20_ADDX__Upload_Addx2(Luint16 u16SensorIndex, Luint8 u8ChannelIndex, Luint8 *pu8Addx, Luint8 u8Resolution, Luint16 u16UserID)
+{
+	Lint16 s16Return;
+
+	if(u16SensorIndex < C_LOCALDEF__LCCM644__MAX_DEVICES)
+	{
+
+		//addx was in range, save addx data.
+		//Do this manually
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[0] = pu8Addx[0];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[1] = pu8Addx[1];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[2] = pu8Addx[2];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[3] = pu8Addx[3];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[4] = pu8Addx[4];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[5] = pu8Addx[5];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[6] = pu8Addx[6];
+		sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[7] = pu8Addx[7];
+
+		sDS18B20.sDevice[u16SensorIndex].u8ChannelIndex = u8ChannelIndex;
+		sDS18B20.sDevice[u16SensorIndex].u8Resolution = u8Resolution;
+		sDS18B20.sDevice[u16SensorIndex].u16UserIndex = u16UserID;
+
+		//set the num devices to the max index.
+		//expected that user updates in order
+		sDS18B20.sEnum.u16NumDevices = u16SensorIndex + 1U;
+
+		//good
+		s16Return = 0;
+
+	}
+	else
+	{
+		//error
+		s16Return = -1;
+	}
+
+	//return the fault code
+	return s16Return;
+
+}
+
 /***************************************************************************//**
  * @brief
  * Returns the number of enumerated devices.
@@ -452,10 +494,9 @@ Luint16 u16DS18B20_ADDX__Get_NumEnumerated(void)
 }
 
 
-//if you are manually loading up addresses, set this to 1 after the manual load.
 /***************************************************************************//**
  * @brief
- * ToDo
+ * If you are manually loading up addresses, set this to 1 after the manual load.
  * 
  * @st_funcMD5		22A9E4CBE5418EA19321E886A3E13E8F
  * @st_funcID		LCCM644R0.FILE.006.FUNC.008

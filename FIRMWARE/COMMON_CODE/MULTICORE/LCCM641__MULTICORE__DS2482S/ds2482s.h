@@ -16,9 +16,15 @@
 	#include <localdef.h>
 	#if C_LOCALDEF__LCCM641__ENABLE_THIS_MODULE == 1U
 
+		/*******************************************************************************
+		Includes
+		*******************************************************************************/
 		/*lint -e950*/
+		#include <MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s__fault_flags.h>
 		#include <MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s__reg_defs.h>
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
+
+
 
 		/*******************************************************************************
 		Defines
@@ -73,6 +79,7 @@
 		//user layer
 		void vDS2482S__Init(void);
 		void vDS2482S__Process(void);
+		Luint32 u32DS2482S__Get_FaultFlags(Luint8 u8DeviceIndex);
 		Luint8 u8DS2482S_USER__1Wire_Reset(Luint8 u8DeviceIndex);
 
 

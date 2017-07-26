@@ -181,10 +181,17 @@
 			void vRM4_SCI_INT__Notification(RM4_SCI__CHANNEL_T eChannel, RM4_SCI__INTERRUPT_FLAGS_T eFlags);
 
 			//interrupts called by VIM
-			void vRM4_SCI_ISR__LowLevel(void);
-			void vRM4_SCILIN_ISR__LowLevel(void);
-			void vRM4_SCI_ISR__HighLevel(void);
-			void vRM4_SCILIN_ISR__HighLevel(void);
+			void vRM4_SCI1_ISR__HighLevel(void);
+			void vRM4_SCI1_ISR__LowLevel(void);
+			void vRM4_SCI2_ISR__HighLevel(void);
+			void vRM4_SCI2_ISR__LowLevel(void);
+
+			#if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
+				void vRM4_SCI3_ISR__HighLevel(void);
+				void vRM4_SCI3_ISR__LowLevel(void);
+				void vRM4_SCI4_ISR__HighLevel(void);
+				void vRM4_SCI4_ISR__LowLevel(void);
+			#endif //C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843
 		#endif
 
 
