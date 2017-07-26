@@ -1,33 +1,9 @@
 /**
  * @file		HE_THERM__THERMOCOUPLES.C
- * @brief		
+ * @brief		TC Interface
  * @author		Lachlan Grogan
- * @copyright	This file contains proprietary and confidential information of
- *				SIL3 Pty. Ltd. (ACN 123 529 064). This code may be distributed
- *				under a license from SIL3 Pty. Ltd., and may be used, copied
- *				and/or disclosed only pursuant to the terms of that license agreement.
- *				This copyright notice must be retained as part of this file at all times.
- * @copyright	This file is copyright SIL3 Pty. Ltd. 2003-2016, All Rights Reserved.
  * @st_fileID	LCCM721R0.FILE.006
  */
-/**
- * @addtogroup PROJECT_NAME
- * @{
- */
-/**
- * @addtogroup PROJECT_NAME
- * @ingroup MODULE_NAME
- * @{
- */
-/**
- * @addtogroup MODULE_NAME__CORE
- * @ingroup MODULE_NAME
- * @{
- */
-/** @} */
-/** @} */
-/** @} */
-
 
 /**
  * @addtogroup RLOOP
@@ -49,25 +25,32 @@
 //Main structure
 extern TS_HET__MAIN sHET;
 
+//ROM ID's
+extern const Luint8 u8HETherm_ROMID[];
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Init the thermocouple interface
  * 
- * @st_funcMD5		DCEB6C610D0562CC4E9072C8A94D0587
+ * @st_funcMD5		C45DF4E220392279BA5EB09137BFD982
  * @st_funcID		LCCM721R0.FILE.006.FUNC.001
  */
 void vHETHERM_TC__Init(void)
 {
 	
 	//init the variables
-	sHET.sTemp.f32HighestTemp = 0.0F;
-	sHET.sTemp.f32AverageTemp = 0.0F;
 	sHET.sTemp.u8NewTempAvail = 0U;
-	sHET.sTemp.u16HighestSensorIndex = 0U;
 	sHET.sTemp.u32TempScanCount = 0U;
 	sHET.sTemp.eState = HETHERM_TEMP_STATE__IDLE;
 	
+	sHET.sMotorTemp.sLeftHE.f32HighestTemp = 0.0F;
+	sHET.sMotorTemp.sRightHE.f32HighestTemp = 0.0F;
+	sHET.sMotorTemp.sBrakeMotor.f32HighestTemp = 0.0F;
+
+	sHET.sMotorTemp.sLeftHE.f32AverageTemp = 0.0F;
+	sHET.sMotorTemp.sRightHE.f32AverageTemp = 0.0F;
+	sHET.sMotorTemp.sBrakeMotor.f32AverageTemp = 0.0F;
+
 	//bring up the 1-wire interface
 	vDS2482S__Init();
 
@@ -79,9 +62,9 @@ void vHETHERM_TC__Init(void)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Process the TC interface
  * 
- * @st_funcMD5		BDD69C5F3E7A05D3C8846C48E3839284
+ * @st_funcMD5		713358EA45B2551C135CB8A148ADA787
  * @st_funcID		LCCM721R0.FILE.006.FUNC.002
  */
 void vHETHERM_TC__Process(void)
@@ -90,12 +73,17 @@ void vHETHERM_TC__Process(void)
 	Luint16 u16Counter;
 	Luint16 u16NumSensors;
 	Luint16 u16User;
-	Lfloat32 f32High;
 	Lfloat32 f32Temp;
-	Lfloat32 f32Sum;
 	Lint16 s16Return;
+	Luint32 u32Counter;
+	Luint32 u32Max;
+	union
+	{
+		Luint8 u8[2];
+		Luint16 u16;
+	}unT;
 	
-	#ifndef WIN32
+#ifndef WIN32
 	//process any search tasks
 	vDS18B20_ADDX__SearchSM_Process();
 #endif
@@ -109,9 +97,37 @@ void vHETHERM_TC__Process(void)
 	{
 		case HETHERM_TEMP_STATE__IDLE:
 			//just come out of reset
+			sHET.sTemp.eState = HETHERM_TEMP_STATE__LOAD_DEFAULTS;
+			break;
+
+		case HETHERM_TEMP_STATE__LOAD_DEFAULTS:
+
+			//load up the memory default arrays
+
+			u32Max = 0U;
+
+			//copy into the driver
+			for(u32Counter = 0U; u32Counter < C_LOCALDEF__LCCM644__MAX_DEVICES; u32Counter++)
+			{
+
+				//Get the user ID
+				unT.u8[0] = u8HETherm_ROMID[u32Max + 11U];
+				unT.u8[1] = u8HETherm_ROMID[u32Max + 10U];
+
+				//upload
+				s16DS18B20_ADDX__Upload_Addx2(u32Counter, u8HETherm_ROMID[u32Max + 8U], (Luint8 *)&u8HETherm_ROMID[u32Max], u8HETherm_ROMID[u32Max + 9U], unT.u16);
+
+				//increment the memory addx size
+				u32Max += 12U;
+
+			}
+
+			//signal to the device that we have loaded all our avail data.
+			vDS18B20_ADDX__Set_SearchComplete();
 
 			sHET.sTemp.eState = HETHERM_TEMP_STATE__CONFIGURE_RESOLUTION;
 			break;
+
 
 		case HETHERM_TEMP_STATE__CONFIGURE_RESOLUTION:
 
@@ -120,7 +136,10 @@ void vHETHERM_TC__Process(void)
 			//and ScanComplete is set, the DS18B20 will configure the resolutions per the localdef setting.
 			//vDS18B20__Start_ConfigureResolution();
 
-			sHET.sTemp.eState = HETHERM_TEMP_STATE__START_SCAN;
+			sHET.sTemp.eState = HETHERM_TEMP_STATE__RUN;
+
+			//no need to scan.
+			//sHET.sTemp.eState = HETHERM_TEMP_STATE__START_SCAN;
 			break;
 
 		case HETHERM_TEMP_STATE__START_SCAN:
@@ -155,15 +174,27 @@ void vHETHERM_TC__Process(void)
 
 		case HETHERM_TEMP_STATE__RUN:
 
-			//clear the vars
-			f32High = 0.0F;
-			f32Sum = 0.0F;
+
+			//not the most efficient, but will do for now
+			sHET.sMotorTemp.sLeftHE.f32High = 0.0F;
+			sHET.sMotorTemp.sLeftHE.f32Sum = 0.0F;
+			sHET.sMotorTemp.sRightHE.f32High = 0.0F;
+			sHET.sMotorTemp.sRightHE.f32Sum = 0.0F;
+			sHET.sMotorTemp.sBrakeMotor.f32High = 0.0F;
+			sHET.sMotorTemp.sBrakeMotor.f32Sum = 0.0F;
+
+			sHET.sMotorTemp.sRightHE.u16TotalCount = 0U;
+			sHET.sMotorTemp.sLeftHE.u16TotalCount = 0U;
+			sHET.sMotorTemp.sBrakeMotor.u16TotalCount = 0U;
+
 			//do we have any new updates from the DS18B20 subsystem?
 			u8Test = u8DS18B20__Is_NewDataAvail();
 			if(u8Test == 1U)
 			{
-				//clear the hghest index as it will be recomputed belwo
-				sHET.sTemp.u16HighestSensorIndex = 0U;
+				//clear the hghest index as it will be recomputed below
+				sHET.sMotorTemp.sLeftHE.u16HighestSensorIndex = 0U;
+				sHET.sMotorTemp.sRightHE.u16HighestSensorIndex = 0U;
+				sHET.sMotorTemp.sBrakeMotor.u16HighestSensorIndex = 0U;
 
 				//get the number of sensors found
 				u16NumSensors = u16DS18B20__Get_NumEnum_Sensors();
@@ -173,40 +204,118 @@ void vHETHERM_TC__Process(void)
 					//make sure the sensors belong to us.
 					u16User = u162DS18B20__Get_UserIndex(u16Counter);
 
-					//compute the highest
+					//get the temp;
 					f32Temp = f32DS18B20__Get_Temperature_DegC(u16Counter);
-					if(f32Temp > f32High)
-					{
-						//this sensor value is > than the last higest reading, save it
-						f32High = f32Temp;
-						sHET.sTemp.u16HighestSensorIndex = u16Counter;
 
-					}
-					else
+					//do the left
+					switch(u16User)
 					{
-						//this sensor was lower than the last sensor
-					}
+						case 0x1000:
 
-					//add to the sum
-					f32Sum += f32Temp;
+							//inc the count of sensors on this side
+							sHET.sMotorTemp.sLeftHE.u16TotalCount++;
+
+							//Compare
+							if(f32Temp > sHET.sMotorTemp.sLeftHE.f32High)
+							{
+								//this sensor value is > than the last highest reading, save it
+								sHET.sMotorTemp.sLeftHE.f32High = f32Temp;
+								sHET.sMotorTemp.sLeftHE.u16HighestSensorIndex = u16Counter;
+								//add to the sum
+								sHET.sMotorTemp.sLeftHE.f32Sum += f32Temp;
+
+							}
+							else
+							{
+								//this sensor was lower than the last sensor
+							}
+							break;
+
+						case 0x2000:
+							//inc the count of sensors on this side
+							sHET.sMotorTemp.sRightHE.u16TotalCount++;
+
+							//Compare
+							if(f32Temp > sHET.sMotorTemp.sRightHE.f32High)
+							{
+								//this sensor value is > than the last highest reading, save it
+								sHET.sMotorTemp.sRightHE.f32High = f32Temp;
+								sHET.sMotorTemp.sRightHE.u16HighestSensorIndex = u16Counter;
+								//add to the sum
+								sHET.sMotorTemp.sRightHE.f32Sum += f32Temp;
+
+							}
+							else
+							{
+								//this sensor was lower than the last sensor
+							}
+							break;
+
+						case 0x4000:
+							//inc the count of sensors on this side
+							sHET.sMotorTemp.sBrakeMotor.u16TotalCount++;
+
+							//Compare
+							if(f32Temp > sHET.sMotorTemp.sBrakeMotor.f32High)
+							{
+								//this sensor value is > than the last highest reading, save it
+								sHET.sMotorTemp.sBrakeMotor.f32High = f32Temp;
+								sHET.sMotorTemp.sBrakeMotor.u16HighestSensorIndex = u16Counter;
+								//add to the sum
+								sHET.sMotorTemp.sBrakeMotor.f32Sum += f32Temp;
+
+							}
+							else
+							{
+								//this sensor was lower than the last sensor
+							}
+							break;
+						default:
+							//do nothing
+							break;
+					}//switch(u16User)
+
 
 				}//for(u16Counter = 0U; u16Counter < u16NumSensors; u16Counter++)
 
 
-				//divide
+				//finished with the sensors, now do the math
 				//math safety
-				if(u16NumSensors != 0U)
+				if(sHET.sMotorTemp.sLeftHE.u16TotalCount != 0U)
 				{
-					f32Sum /= (Lfloat32)u16NumSensors;
+					sHET.sMotorTemp.sLeftHE.f32Sum /= (Lfloat32)sHET.sMotorTemp.sLeftHE.u16TotalCount;
+				}
+				else
+				{
+					//stay the same
+				}
+				if(sHET.sMotorTemp.sRightHE.u16TotalCount != 0U)
+				{
+					sHET.sMotorTemp.sRightHE.f32Sum /= (Lfloat32)sHET.sMotorTemp.sRightHE.u16TotalCount;
+				}
+				else
+				{
+					//stay the same
+				}
+				if(sHET.sMotorTemp.sBrakeMotor.u16TotalCount != 0U)
+				{
+					sHET.sMotorTemp.sBrakeMotor.f32Sum /= (Lfloat32)sHET.sMotorTemp.sBrakeMotor.u16TotalCount;
 				}
 				else
 				{
 					//stay the same
 				}
 
+
 				//update our internal vars
-				sHET.sTemp.f32HighestTemp = f32High;
-				sHET.sTemp.f32AverageTemp = f32Sum;
+				sHET.sMotorTemp.sLeftHE.f32HighestTemp = sHET.sMotorTemp.sLeftHE.f32High;
+				sHET.sMotorTemp.sRightHE.f32HighestTemp = sHET.sMotorTemp.sRightHE.f32High;
+				sHET.sMotorTemp.sBrakeMotor.f32HighestTemp = sHET.sMotorTemp.sBrakeMotor.f32High;
+
+				sHET.sMotorTemp.sLeftHE.f32AverageTemp = sHET.sMotorTemp.sLeftHE.f32Sum;
+				sHET.sMotorTemp.sRightHE.f32AverageTemp = sHET.sMotorTemp.sRightHE.f32Sum;
+				sHET.sMotorTemp.sBrakeMotor.f32AverageTemp = sHET.sMotorTemp.sBrakeMotor.f32Sum;
+
 				sHET.sTemp.u8NewTempAvail = 1U;
 
 				//Inc the scan count
@@ -226,10 +335,9 @@ void vHETHERM_TC__Process(void)
 	
 }
 
-//is the thermocouple system available.
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Is the thermocouple system available.
  * 
  * @st_funcMD5		FBFFD727B05BFBE91BCF3248E5D0AC3C
  * @st_funcID		LCCM721R0.FILE.006.FUNC.003

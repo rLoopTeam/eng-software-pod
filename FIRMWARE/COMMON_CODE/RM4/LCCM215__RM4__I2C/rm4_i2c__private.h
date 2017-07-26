@@ -14,8 +14,18 @@
 #ifndef _RM4_I2C_PRIVATE_H_
 #define _RM4_I2C_PRIVATE_H_
 
-	/* USER CODE BEGIN (0) */
-	/* USER CODE END */
+	typedef enum
+	{
+
+		RM4_I2C_CH__1 = 0U,
+
+		#if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
+			RM4_I2C_CH__2
+		#endif
+
+
+	}TE_RM4_I2C__CHANNEL;
+
 
 	/* I2c Register Frame Definition */
 	/** @struct i2cBase
@@ -75,13 +85,10 @@
 	*/
 	#if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
 
-	//bit of a trick here, use I2C module 2 as its available on the outer IO pins on RM57Launch
-		#define i2cREG11 ((RM4_I2C__BASE_T *)0xFFF7D400U)
-		#define i2cREG1 ((RM4_I2C__BASE_T *)0xFFF7D500U)
+		//bit of a trick here, use I2C module 2 as its available on the outer IO pins on RM57Launch
+		#define i2cREG1 ((RM4_I2C__BASE_T *)0xFFF7D400U)
+		#define i2cREG2 ((RM4_I2C__BASE_T *)0xFFF7D500U)
 
-
-		/* USER CODE BEGIN (1) */
-		/* USER CODE END */
 
 
 		/** @def i2cPORT1
@@ -90,14 +97,11 @@
 		* Pointer used by the GIO driver to access I/O PORT of I2C
 		* (use the GIO drivers to access the port pins).
 		*/
-		#define i2cPORT11 ((gioPORT_t *)0xFFF7D44CU)
-		#define i2cPORT1 ((gioPORT_t *)0xFFF7D54CU)
+		#define i2cPORT1 ((gioPORT_t *)0xFFF7D44CU)
+		#define i2cPORT2 ((gioPORT_t *)0xFFF7D54CU)
 
 	#else
 		#define i2cREG1 ((RM4_I2C__BASE_T *)0xFFF7D400U)
-
-		/* USER CODE BEGIN (1) */
-		/* USER CODE END */
 
 
 		/** @def i2cPORT1

@@ -402,10 +402,9 @@ void vDS18B20__Start_TempRead(void)
 	}
 }
 
-//setup the resolutions
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Setup the resolutions
  * 
  * @st_funcMD5		55785263636692BDA22431A15B8024B7
  * @st_funcID		LCCM644R0.FILE.000.FUNC.013
@@ -442,10 +441,9 @@ Lfloat32 f32DS18B20__Get_Temperature_DegC(Luint16 u16SensorIndex)
 	return sDS18B20.sTemp[u16SensorIndex].f32Temperature;
 }
 
-//returns the number of enumerated sensors found
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Returns the number of enumerated sensors found
  * 
  * @st_funcMD5		8D0E870089BAC035DFA5BF2426DE7C7C
  * @st_funcID		LCCM644R0.FILE.000.FUNC.014
@@ -510,7 +508,7 @@ Luint8 u82DS18B20__Get_BusIndex(Luint16 u16SensorIndex)
  * @brief
  * Return the ROMID
  * 
- * @param[in]		*pu8Buffer				Pointer to buffer to hold the ROM ID
+ * @param[in]		*pu8Buffer					Pointer to buffer to hold the ROM ID
  * @param[in]		u16SensorIndex				Sensor index in its array
  * @st_funcMD5		CA517A05118D37B938859E5CBF55777B
  * @st_funcID		LCCM644R0.FILE.000.FUNC.012

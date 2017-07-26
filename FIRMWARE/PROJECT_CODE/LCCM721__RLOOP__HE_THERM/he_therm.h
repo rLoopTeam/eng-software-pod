@@ -1,13 +1,7 @@
 /**
  * @file		HE_THERM.H
- * @brief		
+ * @brief		Main Header
  * @author		Lachlan Grogan
- * @copyright	This file contains proprietary and confidential information of
- *				SIL3 Pty. Ltd. (ACN 123 529 064). This code may be distributed
- *				under a license from SIL3 Pty. Ltd., and may be used, copied
- *				and/or disclosed only pursuant to the terms of that license agreement.
- *				This copyright notice must be retained as part of this file at all times.
- * @copyright	This file is copyright SIL3 Pty. Ltd. 2003-2016, All Rights Reserved.
  * @st_fileID	LCCM721R0.FILE.001
  */
 
@@ -26,6 +20,7 @@
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
 		
 		#include <LCCM721__RLOOP__HE_THERM/he_therm__types.h>
+		#include <LCCM721__RLOOP__HE_THERM/he_therm__defines.h>
 
 		/*******************************************************************************
 		Defines
@@ -41,9 +36,29 @@
 
 				/** our locally assigned IP*/
 				Luint8 u8IPAddx[4U];
+
 			}sEthernet;
 
-			/** Temperature sensors (battery temp)*/
+			 /** UDP diagnostics system */
+			struct
+			{
+
+				/** A flag to indicate 10ms has elapsed if we are using timed packets */
+				Luint8 u810MS_Flag;
+
+				/** 25x 10 MS ticks */
+				Luint8 u8250MS_Flag;
+
+				/** The next packet type to transmit */
+				E_NET__PACKET_T eTxPacketType;
+
+				/** If the user has enabled Tx streaming */
+				E_NET__PACKET_T eTxStreamingType;
+
+
+			}sUDPDiag;
+
+			/** Temperature sensors*/
 			struct
 			{
 
@@ -56,14 +71,6 @@
 				/** Pack memory CRC */
 				Luint16 u16PackMemCRC;
 
-				/** Highest Temp */
-				Lfloat32 f32HighestTemp;
-
-				/** The index of the highest temperature sensor */
-				Luint16 u16HighestSensorIndex;
-
-				/** Average Temp */
-				Lfloat32 f32AverageTemp;
 
 				/** Is any new data available? */
 				Luint8 u8NewTempAvail;
@@ -72,6 +79,58 @@
 				Luint32 u32TempScanCount;
 
 			}sTemp;
+
+			/** Motor Temp System*/
+			struct
+			{
+
+				struct
+				{
+
+					/** Used for computing the highest temperature */
+					Lfloat32 f32High;
+
+					/** Used for computing the sum of the temperatures */
+					Lfloat32 f32Sum;
+
+					/** The index of the highest temperature sensor */
+					Luint16 u16HighestSensorIndex;
+
+					/** Total Count of sensors on this side */
+					Luint16 u16TotalCount;
+
+					/** Highest Temp */
+					Lfloat32 f32HighestTemp;
+
+					/** Average Temp */
+					Lfloat32 f32AverageTemp;
+
+
+				}sLeftHE, sRightHE, sBrakeMotor;
+
+
+			}sMotorTemp;
+
+			/** Solenoid control structure */
+			struct
+			{
+
+				/** Individual Channels */
+				struct
+				{
+					/** Have we thresholded above 75C = 1
+					 * Have we thresholded above 95C = 2
+					 * Else 0
+					 *  */
+					Luint8 u8ChannelOverTemp_State;
+
+
+				}sLeft, sRight, sBrake;
+
+
+			}sSol;
+
+
 
 		}TS_HET__MAIN;
 
@@ -92,12 +151,19 @@
 		Luint8 u8HETHERM_ETH__Is_LinkUp(void);
 		void vHETHERM_ETH__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPort);
 		void vHETHERM_ETH__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault);
+		void vHETHERM_ETH__10MS_ISR(void);
 
 		//thermcouple system
 		void vHETHERM_TC__Init(void);
 		void vHETHERM_TC__Process(void);
 		Luint8 u8HETHERM_TC__Is_Avail(void);
 		
+		//solenoids
+		void vHETHERM_SOL__Init(void);
+		void vHETHERM_SOL__Process(void);
+		void vHETHERM_SOL__Close(Luint8 u8Index);
+		void vHETHERM_SOL__Open(Luint8 u8Index);
+
 		//timers
 		void vHETHERM_TIMERS__10MS_ISR(void);
 		void vHETHERM_TIMERS__100MS_ISR(void);

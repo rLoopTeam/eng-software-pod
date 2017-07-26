@@ -302,6 +302,15 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** Transmit a progress update to the host */
         NET_PKT__XILINX_SIM__TX_PROGRESS_UPDATE = &H5002
 
+        '//////////////////////////////////////////////////////
+        '//HE THERMAL UNIT - 0x6000 - 0x6FFF
+        '//////////////////////////////////////////////////////
+        NET_PKT__HET__REQUEST_THERM_PACKET = &H6000
+
+        NET_PKT__HET__SEND_THERM_PACKET = &H6001
+
+        NET_PKT__HET__MANUAL_CONTROL = &H6002
+
 
         '//////////////////////////////////////////////////////
         '//LANDING GEAR UNIT - 0x7000 - 0x7FFF

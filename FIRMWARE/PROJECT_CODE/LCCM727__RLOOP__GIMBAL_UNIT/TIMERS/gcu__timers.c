@@ -1,4 +1,3 @@
-#include "../gcu.h"
 /**
  * @addtogroup RLOOP
  * @{
@@ -13,6 +12,7 @@
  * @ingroup GCU
  * @{
 */
+#include <LCCM727__RLOOP__GIMBAL_UNIT/gcu.h>
 #if C_LOCALDEF__LCCM727__ENABLE_THIS_MODULE == 1U
 
 

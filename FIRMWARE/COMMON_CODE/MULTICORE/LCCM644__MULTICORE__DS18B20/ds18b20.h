@@ -163,6 +163,7 @@
 		Luint16 u16DS18B20_ADDX__Get_NumEnumerated(void);
 		void vDS18B20_ADDX__Set_SearchComplete(void);
 		Lint16 s16DS18B20_ADDX__Upload_Addx(Luint16 u16SensorIndex, Luint8 u8ChannelIndex, Luint8 *pu8Addx);
+		Lint16 s16DS18B20_ADDX__Upload_Addx2(Luint16 u16SensorIndex, Luint8 u8ChannelIndex, Luint8 *pu8Addx, Luint8 u8Resolution, Luint16 u16UserID);
 
 		//scratchpad
 		Luint8 u8DS18B20_SCRATCH__Compute_CRC(Luint8 *pu8Scratch);

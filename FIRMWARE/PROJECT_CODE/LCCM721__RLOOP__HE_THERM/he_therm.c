@@ -1,32 +1,9 @@
 /**
  * @file		HE_THERM.C
- * @brief		
+ * @brief		Hover Engine Thermal management system.
  * @author		Lachlan Grogan
- * @copyright	This file contains proprietary and confidential information of
- *				SIL3 Pty. Ltd. (ACN 123 529 064). This code may be distributed
- *				under a license from SIL3 Pty. Ltd., and may be used, copied
- *				and/or disclosed only pursuant to the terms of that license agreement.
- *				This copyright notice must be retained as part of this file at all times.
- * @copyright	This file is copyright SIL3 Pty. Ltd. 2003-2016, All Rights Reserved.
  * @st_fileID	LCCM721R0.FILE.000
  */
-/**
- * @addtogroup PROJECT_NAME
- * @{
- */
-/**
- * @addtogroup PROJECT_NAME
- * @ingroup MODULE_NAME
- * @{
- */
-/**
- * @addtogroup MODULE_NAME__CORE
- * @ingroup MODULE_NAME
- * @{
- */
-/** @} */
-/** @} */
-/** @} */
 
 
 /**
@@ -51,9 +28,9 @@ TS_HET__MAIN sHET;
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Init the HE thermal system
  * 
- * @st_funcMD5		F4492C61D013C42D30961A4D252B285A
+ * @st_funcMD5		A8D73F006B09664F71BEA2CC99FC9A71
  * @st_funcID		LCCM721R0.FILE.000.FUNC.001
  */
 void vHETHERM__Init(void)
@@ -76,11 +53,23 @@ void vHETHERM__Init(void)
 	//GIO
 	vRM4_GIO__Init();
 
+	//on RM57 Launch, need this pin high
+	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 3U, GIO_DIRECTION__OUTPUT);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 3U, 1U);
+
+	vRM4_DELAYS__Delay_mS(250);
+
+	//test LED
+	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 6, GIO_DIRECTION__OUTPUT);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_B, 6U, 0U);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_B, 6U, 1U);
+
+
 	//CPU Load monitoring
 	vRM4_CPULOAD__Init();
 		
 	//get the I2C up for the networked sensors
-	vRM4_I2C_USER__Init();
+	vRM4_I2C_USER__Init(RM4_I2C_CH__1);
 
 #endif //WIN32		
 	
@@ -89,6 +78,9 @@ void vHETHERM__Init(void)
 	
 	//init thermocouples
 	vHETHERM_TC__Init();
+
+	//solenoids
+	vHETHERM_SOL__Init();
 
 #ifndef WIN32
 	//int the RTI
@@ -111,9 +103,9 @@ void vHETHERM__Init(void)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Process any HE thermal tasks.
  * 
- * @st_funcMD5		BA3D111D252139939973969EBA907DB7
+ * @st_funcMD5		7195AD6FA2AC38B07BBADC93B11065D8
  * @st_funcID		LCCM721R0.FILE.000.FUNC.002
  */
 void vHETHERM__Process(void)
@@ -128,11 +120,14 @@ void vHETHERM__Process(void)
 #endif
 
 	//process ethernet
-	vHETHERM_ETH__Init();
+	vHETHERM_ETH__Process();
 	
 	//process the thermocouples
 	vHETHERM_TC__Process();
 	
+	//Process solenoids
+	vHETHERM_SOL__Process();
+
 #ifndef WIN32
 	//mark the exit point
 	vRM4_CPULOAD__While_Exit();	
