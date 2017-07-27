@@ -35,7 +35,7 @@ extern struct _strDAQ sDAQ;
  * @param[in]		u16LengthBytes			Transmit Length
  * @param[in]		pu8BufferPointer		Memory BUffer
  * @param[in]		u16Index				Channel Index
- * @st_funcMD5		291480CA0E64F7A4CF7F07EDF49CC80A
+ * @st_funcMD5		05376D7B3651828649127F9DE0DB6A3A
  * @st_funcID		LCCM720R0.FILE.009.FUNC.001
  */
 Lint16 s16SIL3_DAQ_TRANSMIT__Template(Luint16 u16Index, Luint8 *pu8BufferPointer, Luint16 u16LengthBytes)
@@ -73,7 +73,7 @@ Lint16 s16SIL3_DAQ_TRANSMIT__Template(Luint16 u16Index, Luint8 *pu8BufferPointer
 		}
 
 		//send the buffer index, with a payload length, on UDP ports (source and dest port)
-		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET__FCU__PORT, C_RLOOP_NET__FCU__PORT);
+		vSIL3_SAFEUDP_TX__Commit(u8BufferIndex, u16Length, C_RLOOP_NET_PORT__APU, C_RLOOP_NET_PORT__APU);
 
 		s16R = 0;
 	}

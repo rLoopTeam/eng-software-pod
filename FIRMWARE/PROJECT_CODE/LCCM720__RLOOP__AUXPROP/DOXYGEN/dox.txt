@@ -11,6 +11,7 @@ Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM720__RLOOP__AUXPROP/DAQ
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM720__RLOOP__AUXPROP/DOXYGEN
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM720__RLOOP__AUXPROP/DOXYGEN/OUTPUT
+Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM720__RLOOP__AUXPROP/DOXYGEN/PDF
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM720__RLOOP__AUXPROP/ETHERNET
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM720__RLOOP__AUXPROP/THROTTLE
 Searching for files in directory D:/SIL3/DESIGN/RLOOP/FIRMWARE/PROJECT_CODE/LCCM720__RLOOP__AUXPROP/TIMERS
@@ -131,15 +132,22 @@ Generating caller graph for function vAPU_CLUTCH__Process
 Generating dependency graph for group AUXPROP__DQ
 Generating dependency graph for group AUXPROP__ETHERNET
 Generating caller graph for function u8APU_ETH__Is_LinkUp
+Generating caller graph for function vAPU_ETH__10MS_ISR
 Generating caller graph for function vAPU_ETH__Init
 Generating call graph for function vAPU_ETH__Process
+Generating caller graph for function vAPU_ETH__Process
 Generating call graph for function vAPU_ETH__RxSafeUDP
+Generating caller graph for function vAPU_ETH__Transmit
 Generating dependency graph for group AUXPROP__THROTTLE
+Generating caller graph for function vAPU_THROTTLE__Disable
+Generating caller graph for function vAPU_THROTTLE__Enable
 Generating caller graph for function vAPU_THROTTLE__Forward
 Generating call graph for function vAPU_THROTTLE__Init
 Generating caller graph for function vAPU_THROTTLE__Init
 Generating caller graph for function vAPU_THROTTLE__Reverse
+Generating caller graph for function vAPU_THROTTLE__Set_Velocity_mms
 Generating dependency graph for group AUXPROP__TIMERS
+Generating call graph for function vAPU_TIMERS__10MS_ISR
 Generating dependency graph for group AUXPROP__WIN32
 Generating class documentation...
 Generating docs for compound TS_APU__MAIN...
@@ -163,43 +171,50 @@ finalizing index lists...
 writing tag file...
 Running dot...
 Generating dot graphs using 3 parallel threads...
-Running dot for graph 1/37
-Running dot for graph 2/37
-Running dot for graph 3/37
-Running dot for graph 4/37
-Running dot for graph 5/37
-Running dot for graph 6/37
-Running dot for graph 7/37
-Running dot for graph 8/37
-Running dot for graph 9/37
-Running dot for graph 10/37
-Running dot for graph 11/37
-Running dot for graph 12/37
-Running dot for graph 13/37
-Running dot for graph 14/37
-Running dot for graph 15/37
-Running dot for graph 16/37
-Running dot for graph 17/37
-Running dot for graph 18/37
-Running dot for graph 19/37
-Running dot for graph 20/37
-Running dot for graph 21/37
-Running dot for graph 22/37
-Running dot for graph 23/37
-Running dot for graph 24/37
-Running dot for graph 25/37
-Running dot for graph 26/37
-Running dot for graph 27/37
-Running dot for graph 28/37
-Running dot for graph 29/37
-Running dot for graph 30/37
-Running dot for graph 31/37
-Running dot for graph 32/37
-Running dot for graph 33/37
-Running dot for graph 34/37
-Running dot for graph 35/37
-Running dot for graph 36/37
-Running dot for graph 37/37
+Running dot for graph 1/44
+Running dot for graph 2/44
+Running dot for graph 3/44
+Running dot for graph 4/44
+Running dot for graph 5/44
+Running dot for graph 6/44
+Running dot for graph 7/44
+Running dot for graph 8/44
+Running dot for graph 9/44
+Running dot for graph 10/44
+Running dot for graph 11/44
+Running dot for graph 12/44
+Running dot for graph 13/44
+Running dot for graph 14/44
+Running dot for graph 15/44
+Running dot for graph 16/44
+Running dot for graph 17/44
+Running dot for graph 18/44
+Running dot for graph 19/44
+Running dot for graph 20/44
+Running dot for graph 21/44
+Running dot for graph 22/44
+Running dot for graph 23/44
+Running dot for graph 24/44
+Running dot for graph 25/44
+Running dot for graph 26/44
+Running dot for graph 27/44
+Running dot for graph 28/44
+Running dot for graph 29/44
+Running dot for graph 30/44
+Running dot for graph 31/44
+Running dot for graph 32/44
+Running dot for graph 33/44
+Running dot for graph 34/44
+Running dot for graph 35/44
+Running dot for graph 36/44
+Running dot for graph 37/44
+Running dot for graph 38/44
+Running dot for graph 39/44
+Running dot for graph 40/44
+Running dot for graph 41/44
+Running dot for graph 42/44
+Running dot for graph 43/44
+Running dot for graph 44/44
 Patching output file 1/19
 Patching output file 2/19
 Patching output file 3/19
@@ -219,5 +234,5 @@ Patching output file 16/19
 Patching output file 17/19
 Patching output file 18/19
 Patching output file 19/19
-lookup cache used 62/65536 hits=237 misses=62
+lookup cache used 78/65536 hits=218 misses=80
 finished...

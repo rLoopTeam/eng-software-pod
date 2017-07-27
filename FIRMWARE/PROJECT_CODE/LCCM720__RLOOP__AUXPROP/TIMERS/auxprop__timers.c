@@ -27,12 +27,13 @@
  * @brief
  * 10ms Interrupt
  * 
- * @st_funcMD5		D723855BF6912C379A433C85C6ECA54E
+ * @st_funcMD5		FB0972FF8C48F231FDDD869643D57A03
  * @st_funcID		LCCM720R0.FILE.005.FUNC.001
  */
 void vAPU_TIMERS__10MS_ISR(void)
 {
-	
+	//Tell eth about it.
+	vAPU_ETH__10MS_ISR();
 	
 }
 

@@ -8,17 +8,6 @@
 #ifndef _AUXPROP__TYPES_H_
 #define _AUXPROP__TYPES_H_
 	
-	/** Side defintions */
-	typedef enum
-	{
-		/** Left */
-		AUXPROP_SIDE__LEFT = 0,
-		
-		/** Right */
-		AUXPROP_SIDE__RIGHT
-		
-	}TE_RLOOP_AUXPROP__SIDE;
-	
 
 	/** Clutch States */
 	typedef enum
@@ -40,6 +29,19 @@
 		THROTTLE_DIR__FORWARD = 1U
 
 	}TE_RLOOP_AUXPROP__THROTTLE_DIR;
+
+
+	/** Throttle channel enable signals */
+	typedef enum
+	{
+
+		/** Reverse */
+		THROTTLE_ENA__DISABLED = 0U,
+
+		/** Forward */
+		THROTTLE_ENA__ENABLED = 1U
+
+	}TE_RLOOP_AUXPROP__THROTTLE_ENA;
 
 #endif //_AUXPROP__TYPES_H_
 

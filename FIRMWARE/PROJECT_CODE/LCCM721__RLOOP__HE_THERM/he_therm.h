@@ -39,7 +39,7 @@
 
 			}sEthernet;
 
-			 /** UDP diagnostics system */
+			/** UDP diagnostics system */
 			struct
 			{
 

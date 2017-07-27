@@ -43,7 +43,7 @@ TS_APU__MAIN sAPU;
  * @brief
  * Init the APU
  * 
- * @st_funcMD5		9F3032F0BF6440DE53B0790362A22787
+ * @st_funcMD5		CE306F4306ED8C9AA58B61DC5B1BA2B9
  * @st_funcID		LCCM720R0.FILE.000.FUNC.001
  */
 void vAPU__Init(void)
@@ -60,20 +60,27 @@ void vAPU__Init(void)
 
 	//init the EEPROM Params
 	#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
-		vSIL3_EEPARAM__Init();
+		//vSIL3_EEPARAM__Init();
 	#endif
 	
 	//GIO
-
 	vRM4_GIO__Init();
+
+
+	//on RM57 Launch, need this pin high
+	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 3U, GIO_DIRECTION__OUTPUT);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 3U, 1U);
+
+	vRM4_DELAYS__Delay_mS(250);
+
+	//test LED
+	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 6, GIO_DIRECTION__OUTPUT);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_B, 6U, 0U);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_B, 6U, 1U);
 
 	//CPU Load minitoring
 	vRM4_CPULOAD__Init();
 
-	//setup UART, SCI2 = Pi Connection
-	//vRM4_SCI__Init(SCI_CHANNEL__2);
-	//vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 57600U);
-	
 	//N2HET needed for IO
 	vRM4_N2HET__Init(N2HET_CHANNEL__1, 1U, HR_PRESCALE__1, LR_PRESCALE__32);
 #endif	
@@ -81,8 +88,10 @@ void vAPU__Init(void)
 	//configure the clutch control
 	vAPU_CLUTCH__Init();
 
+	//setup the ethernet
 	vAPU_ETH__Init();
 
+	//setup the throttle control channel
 	vAPU_THROTTLE__Init();
 	
 	#if C_LOCALDEF__LCCM662__ENABLE_THIS_MODULE == 1U
@@ -93,9 +102,11 @@ void vAPU__Init(void)
 	//int the RTI
 	vRM4_RTI__Init();
 
-	//start the relevant RTI interrupts going.
 	//100ms timer
 	vRTI_COMPARE__Enable_CompareInterrupt(0);
+	//10ms timer
+	vRTI_COMPARE__Enable_CompareInterrupt(1);
+
 	
 	
 	vRM4_RTI__Start_Interrupts();
@@ -115,15 +126,30 @@ void vAPU__Init(void)
  * @brief
  * Process any APU tasks
  * 
- * @st_funcMD5		8EF605122727951038A1777EAA22BEB7
+ * @st_funcMD5		2EAED7B691DA64D86F2B0E6C5054E356
  * @st_funcID		LCCM720R0.FILE.000.FUNC.002
  */
 void vAPU__Process(void)
 {
 	
+#ifndef WIN32
+	//CPU load monitoring processing.
+	vRM4_CPULOAD__Process();
+
+	//mark the entry point
+	vRM4_CPULOAD__While_Entry();
+#endif
+
+	//process ethernet
+	vAPU_ETH__Process();
+
 	//process the clutch systems
 	vAPU_CLUTCH__Process();
 
+#ifndef WIN32
+	//mark the exit point
+	vRM4_CPULOAD__While_Exit();
+#endif
 	
 }
 

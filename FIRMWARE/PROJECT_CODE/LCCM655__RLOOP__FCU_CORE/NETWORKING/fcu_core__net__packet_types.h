@@ -266,6 +266,18 @@
 		/** Manual Motor Directoin Control */
 		NET_PKT__APU_MOTOR__DIRECTION_MANUAL = 0x2101U,
 
+		/** Manual speed control for the APU */
+		NET_PKT__APU_MOTOR__SPEED_MANUAL = 0x2102U,
+
+
+		/** Status packet sent to host about APU status */
+		NET_PKT__APU__STATUS_PACKET = 0x2103U,
+
+		/** Manual enable control */
+		NET_PKT__APU_MOTOR__ENABLE_MANUAL = 0x2104U,
+
+
+
 		//////////////////////////////////////////////////////
 		//POWER: GENERAL (0x3000)
 		//////////////////////////////////////////////////////

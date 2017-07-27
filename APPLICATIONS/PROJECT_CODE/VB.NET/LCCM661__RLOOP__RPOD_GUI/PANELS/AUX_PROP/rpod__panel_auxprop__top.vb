@@ -34,12 +34,12 @@
             'setup our explorer bar
             Me.m_pExplorer = pExplorer
 
-            Me.m_iBarIndex = Me.m_pExplorer.Bar__Add("Aux Propulsion Unit")
-            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "APU - Manual")
+            Me.m_iBarIndex = Me.m_pExplorer.Bar__Add("Aux Prop Unit (APU)")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "AuxProp - Manual")
 
 
             'add the panels before the bar so as we have docking working well.
-            Me.m_pnlAPU__Manual = New SIL3.rLoop.rPodControl.Panels.AuxProp.Manual("APU - Manual")
+            Me.m_pnlAPU__Manual = New SIL3.rLoop.rPodControl.Panels.AuxProp.Manual("AuxProp - Manual")
             pf.Controls.Add(Me.m_pnlAPU__Manual)
 
 
@@ -88,6 +88,32 @@
         End Sub
 
 #End Region '#Region "ETHERNET"
+
+#Region "ETHERNET RX"
+
+        ''' <summary>
+        ''' New packet in from top layer
+        ''' </summary>
+        ''' <param name="u16PacketType"></param>
+        ''' <param name="u16PayloadLength"></param>
+        ''' <param name="u8Payload"></param>
+        ''' <param name="u16CRC"></param>
+        ''' <param name="bCRC_OK"></param>
+        ''' <param name="u32Sequence"></param>
+        Public Sub InternalEvent__UDPSafe__RxPacketB(u16PacketType As UInt16, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
+            Me.m_pnlAPU__Manual.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload)
+        End Sub
+
+        ''' <summary>
+        ''' Rx a eth packet
+        ''' </summary>
+        ''' <param name="u8Array"></param>
+        ''' <param name="iLength"></param>
+        Public Sub InternalEvent__RxPacketA(u8Array() As Byte, iLength As Integer)
+        End Sub
+
+
+#End Region '#Region "ETHERNET RX"
 
     End Class
 

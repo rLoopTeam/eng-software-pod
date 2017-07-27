@@ -9,16 +9,10 @@
 
 #Region "MEMBERS"
 
+        Private m_pbSpeed As New SIL3.ApplicationSupport.TrackBarHelper
         Private m_txtFaultFlags As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtLeftRetract As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtLeftExtend As SIL3.ApplicationSupport.TextBoxHelper
-
-        Private m_txtRightRetract As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtRightExtend As SIL3.ApplicationSupport.TextBoxHelper
-
-        Private m_txtLeftState As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtRightState As SIL3.ApplicationSupport.TextBoxHelper
-
+        Private m_txtRxCount As SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_iRxCount As Integer
 #End Region '#Region "MEMBERS"
 
 #Region "NEW"
@@ -48,37 +42,42 @@
             Dim l1 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags", Me.m_pInnerPanel)
             Me.m_txtFaultFlags = New SIL3.ApplicationSupport.TextBoxHelper(100, l1)
 
-            Dim l2a As New SIL3.ApplicationSupport.LabelHelper("Left Clutch", Me.m_txtFaultFlags)
-
-            Dim btnClutchL_Disengage As New SIL3.ApplicationSupport.ButtonHelper(100, "Disengage", AddressOf Me.btnClutchL_Disengage)
-            btnClutchL_Disengage.Layout__BelowControl(l2a)
-
-            Dim btnClutchL_Engage As New SIL3.ApplicationSupport.ButtonHelper(100, "Engage", AddressOf Me.btnClutchL_Engage)
-            btnClutchL_Engage.Layout__RightOfControl(btnClutchL_Disengage)
+            Dim l1a As New SIL3.ApplicationSupport.LabelHelper("Rx Packets")
+            l1a.Layout__AboveRightControl(l1, Me.m_txtFaultFlags)
+            Me.m_txtRxCount = New SIL3.ApplicationSupport.TextBoxHelper_S32(100, l1a)
 
 
-            Dim l20a As New SIL3.ApplicationSupport.LabelHelper(300, l2a.Location.Y, "Right Clutch", Me.m_pInnerPanel)
-            Dim btnClutchR_Disengage As New SIL3.ApplicationSupport.ButtonHelper(100, "Disengage", AddressOf Me.btnClutchR_Disengage)
-            btnClutchR_Disengage.Layout__BelowControl(l20a)
-
-            Dim btnClutchR_Engage As New SIL3.ApplicationSupport.ButtonHelper(100, "Engage", AddressOf Me.btnClutchR_Engage)
-            btnClutchR_Engage.Layout__RightOfControl(btnClutchR_Disengage)
-
-
-            Dim l3a As New SIL3.ApplicationSupport.LabelHelper("Left Directon", btnClutchL_Disengage)
-            Dim btnMotorL_DirR As New SIL3.ApplicationSupport.ButtonHelper(100, "Reverse", AddressOf Me.btnMotorL_Reverse)
-            btnMotorL_DirR.Layout__BelowControl(l3a)
-
-            Dim btnMotorL_DirF As New SIL3.ApplicationSupport.ButtonHelper(100, "Forward", AddressOf Me.btnMotorL_Forward)
-            btnMotorL_DirF.Layout__RightOfControl(btnMotorL_DirR)
+            Dim l2a As New SIL3.ApplicationSupport.LabelHelper("Clutches", Me.m_txtFaultFlags)
+            Dim btnClutch_Disengage As New SIL3.ApplicationSupport.ButtonHelper(100, "Disengage", AddressOf Me.btnClutches_Disengage)
+            btnClutch_Disengage.Layout__BelowControl(l2a)
+            Dim btnClutch_Engage As New SIL3.ApplicationSupport.ButtonHelper(100, "Engage", AddressOf Me.btnClutches_Engage)
+            btnClutch_Engage.Layout__RightOfControl(btnClutch_Disengage)
 
 
-            Dim l30a As New SIL3.ApplicationSupport.LabelHelper("Right Directon", btnClutchR_Disengage)
-            Dim btnMotorR_DirR As New SIL3.ApplicationSupport.ButtonHelper(100, "Reverse", AddressOf Me.btnMotorR_Reverse)
-            btnMotorR_DirR.Layout__BelowControl(l30a)
+            Dim l20a As New SIL3.ApplicationSupport.LabelHelper("Motor Enable", btnClutch_Disengage)
+            Dim btnMotor_Enable As New SIL3.ApplicationSupport.ButtonHelper(100, "Enable", AddressOf Me.btnMotor_Enable)
+            btnMotor_Enable.Layout__BelowControl(l20a)
+            Dim btnMotor_Disable As New SIL3.ApplicationSupport.ButtonHelper(100, "Disable", AddressOf Me.btnMotor_Disable)
+            btnMotor_Disable.Layout__RightOfControl(btnMotor_Enable)
 
-            Dim btnMotorR_DirF As New SIL3.ApplicationSupport.ButtonHelper(100, "Forward", AddressOf Me.btnMotorR_Forward)
-            btnMotorR_DirF.Layout__RightOfControl(btnMotorR_DirR)
+
+            Dim l3a As New SIL3.ApplicationSupport.LabelHelper("Directon Control", btnMotor_Enable)
+            Dim btnMotor_DirR As New SIL3.ApplicationSupport.ButtonHelper(100, "Reverse", AddressOf Me.btnMotor_Reverse)
+            btnMotor_DirR.Layout__BelowControl(l3a)
+            Dim btnMotor_DirF As New SIL3.ApplicationSupport.ButtonHelper(100, "Forward", AddressOf Me.btnMotor_Forward)
+            btnMotor_DirF.Layout__RightOfControl(btnMotor_DirR)
+
+            Dim l4 As New SIL3.ApplicationSupport.LabelHelper("Velocity (mm/s)", btnMotor_DirR)
+
+            Me.m_pbSpeed = New SIL3.ApplicationSupport.TrackBarHelper
+            Me.m_pbSpeed.Layout__BelowControl(l4)
+            Me.m_pbSpeed.Size = New Size(250, 24)
+            Me.m_pbSpeed.Minimum = 0
+            Me.m_pbSpeed.Maximum = 1000
+            Me.m_pbSpeed.TickFrequency = 100
+            Me.m_pbSpeed.TickStyle = TickStyle.BottomRight
+
+            Dim btnApply As New SIL3.ApplicationSupport.ButtonHelper(100, "Apply", AddressOf Me.btnApply_Velocity, Me.m_pbSpeed)
 
 
         End Sub
@@ -86,7 +85,19 @@
 
 #Region "BUTTON"
 
-        Private Sub btnClutchL_Disengage(sender As Object, e As EventArgs)
+        Private Sub btnApply_Velocity(sender As Object, e As EventArgs)
+
+            Dim u32Val As UInt32 = UInt32.Parse(CInt(Me.m_pbSpeed.Value))
+
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_MOTOR__SPEED_MANUAL,
+                                                 &H11223399L,
+                                                 u32Val, 0, 0)
+
+
+        End Sub
+
+        Private Sub btnClutches_Disengage(sender As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_CLUTCH__MANUAL,
                                                  &H11223344L,
@@ -94,7 +105,7 @@
 
         End Sub
 
-        Private Sub btnClutchL_Engage(sender As Object, e As EventArgs)
+        Private Sub btnClutches_Engage(sender As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_CLUTCH__MANUAL,
                                                  &H11223344L,
@@ -102,57 +113,75 @@
 
         End Sub
 
-        Private Sub btnClutchR_Disengage(sender As Object, e As EventArgs)
+        Private Sub btnMotor_Disable(sender As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_CLUTCH__MANUAL,
-                                                 &H11223344L,
-                                                 1, 0, 0)
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_MOTOR__ENABLE_MANUAL,
+                                                 &H11223377L,
+                                                0, 0, 0)
 
         End Sub
 
-        Private Sub btnClutchR_Engage(sender As Object, e As EventArgs)
+        Private Sub btnMotor_Enable(sender As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_CLUTCH__MANUAL,
-                                                 &H11223344L,
-                                                1, 1, 0)
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_MOTOR__ENABLE_MANUAL,
+                                                 &H11223377L,
+                                                 0, 1, 0)
 
         End Sub
 
 
-        Private Sub btnMotorL_Reverse(sender As Object, e As EventArgs)
+
+        Private Sub btnMotor_Reverse(sender As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_MOTOR__DIRECTION_MANUAL,
-                                                 &H11223377L,
+                                                 &H11223388L,
                                                  0, 0, 0)
 
         End Sub
 
-        Private Sub btnMotorL_Forward(sender As Object, e As EventArgs)
+        Private Sub btnMotor_Forward(sender As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_MOTOR__DIRECTION_MANUAL,
-                                                 &H11223377L,
+                                                 &H11223388L,
                                                 0, 1, 0)
         End Sub
 
 
-        Private Sub btnMotorR_Reverse(sender As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_MOTOR__DIRECTION_MANUAL,
-                                                 &H11223377L,
-                                                 1, 0, 0)
 
-        End Sub
-
-        Private Sub btnMotorR_Forward(sender As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_MOTOR__DIRECTION_MANUAL,
-                                                 &H11223377L,
-                                                1, 1, 0)
-
-        End Sub
 
 
 #End Region '#Region "BUTTON"
+
+#Region "ETH RX"
+        ''' <summary>
+        ''' New Packet In
+        ''' </summary>
+        ''' <param name="ePacketType"></param>
+        ''' <param name="u16PayloadLength"></param>
+        ''' <param name="u8Payload"></param>
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte)
+
+            'only do if we have been created
+            If MyBase.m_bLayout = True Then
+
+                'match thepacket
+                If ePacketType = SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU__STATUS_PACKET Then
+
+                    Dim iOffset As Integer = 0
+
+                    iOffset += 4 'Me.m_txtFaultFlags_TOP.Flags__Update(u8Payload, iOffset, True)
+
+                    Me.m_iRxCount += 1
+                    Me.m_txtRxCount.Threadsafe__SetText(Me.m_iRxCount.ToString)
+
+
+                End If
+            End If
+
+        End Sub
+
+#End Region '#Region "ETH RX"
+
 
     End Class
 

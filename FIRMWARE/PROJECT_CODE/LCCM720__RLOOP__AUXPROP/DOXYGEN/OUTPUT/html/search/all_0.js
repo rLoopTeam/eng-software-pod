@@ -18,7 +18,5 @@ var searchData=
   ['auxprop_5f_5ftimers_2ec',['auxprop__timers.c',['../auxprop____timers_8c.html',1,'']]],
   ['auxprop_5f_5ftypes_2eh',['auxprop__types.h',['../auxprop____types_8h.html',1,'']]],
   ['auxprop_5f_5fwin32',['AUXPROP__WIN32',['../group___a_u_x_p_r_o_p_____w_i_n32.html',1,'']]],
-  ['auxprop_5f_5fwin32_2ec',['auxprop__win32.c',['../auxprop____win32_8c.html',1,'']]],
-  ['auxprop_5fside_5f_5fleft',['AUXPROP_SIDE__LEFT',['../auxprop____types_8h.html#a29630c9eeade528f3ade84bd62d84bcaaa488d1b5715bab2f46ff3e1ea56ee3df',1,'auxprop__types.h']]],
-  ['auxprop_5fside_5f_5fright',['AUXPROP_SIDE__RIGHT',['../auxprop____types_8h.html#a29630c9eeade528f3ade84bd62d84bcaa4cb7dbf28b1a0c9bbe5245eb3083894a',1,'auxprop__types.h']]]
+  ['auxprop_5f_5fwin32_2ec',['auxprop__win32.c',['../auxprop____win32_8c.html',1,'']]]
 ];

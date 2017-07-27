@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['auxprop_5fside_5f_5fleft',['AUXPROP_SIDE__LEFT',['../auxprop____types_8h.html#a29630c9eeade528f3ade84bd62d84bcaaa488d1b5715bab2f46ff3e1ea56ee3df',1,'auxprop__types.h']]],
-  ['auxprop_5fside_5f_5fright',['AUXPROP_SIDE__RIGHT',['../auxprop____types_8h.html#a29630c9eeade528f3ade84bd62d84bcaa4cb7dbf28b1a0c9bbe5245eb3083894a',1,'auxprop__types.h']]]
+  ['clutch_5fstate_5f_5fdisengaged',['CLUTCH_STATE__DISENGAGED',['../auxprop____types_8h.html#a883421ebef52aafef638dd334aa0070fa576abbb8ae40658e5984e9a72c31b8fc',1,'auxprop__types.h']]],
+  ['clutch_5fstate_5f_5fengaged',['CLUTCH_STATE__ENGAGED',['../auxprop____types_8h.html#a883421ebef52aafef638dd334aa0070fae0ebb30587fb3e2d4b0b7ae4d747d8e2',1,'auxprop__types.h']]]
 ];

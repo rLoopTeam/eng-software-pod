@@ -1,4 +1,16 @@
 eclipse.preferences.version=1
+encoding//Debug/LCCM720__RLOOP__AUXPROP/CLUTCH/subdir_rules.mk=UTF-8
+encoding//Debug/LCCM720__RLOOP__AUXPROP/CLUTCH/subdir_vars.mk=UTF-8
+encoding//Debug/LCCM720__RLOOP__AUXPROP/DAQ/subdir_rules.mk=UTF-8
+encoding//Debug/LCCM720__RLOOP__AUXPROP/DAQ/subdir_vars.mk=UTF-8
+encoding//Debug/LCCM720__RLOOP__AUXPROP/ETHERNET/subdir_rules.mk=UTF-8
+encoding//Debug/LCCM720__RLOOP__AUXPROP/ETHERNET/subdir_vars.mk=UTF-8
+encoding//Debug/LCCM720__RLOOP__AUXPROP/THROTTLE/subdir_rules.mk=UTF-8
+encoding//Debug/LCCM720__RLOOP__AUXPROP/THROTTLE/subdir_vars.mk=UTF-8
+encoding//Debug/LCCM720__RLOOP__AUXPROP/TIMERS/subdir_rules.mk=UTF-8
+encoding//Debug/LCCM720__RLOOP__AUXPROP/TIMERS/subdir_vars.mk=UTF-8
+encoding//Debug/LCCM720__RLOOP__AUXPROP/subdir_rules.mk=UTF-8
+encoding//Debug/LCCM720__RLOOP__AUXPROP/subdir_vars.mk=UTF-8
 encoding//Debug/MAIN/subdir_rules.mk=UTF-8
 encoding//Debug/MAIN/subdir_vars.mk=UTF-8
 encoding//Debug/MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC/UNIT_TEST/BRANCH_TESTS/subdir_rules.mk=UTF-8
