@@ -53,7 +53,7 @@ TS_LGU__MAIN sLGU;
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Init the landing gear unit
  * 
  * @st_funcMD5		3F296735A2E7283560D02EFDEFCE10F6
  * @st_funcID		LCCM667R0.FILE.000.FUNC.001
@@ -81,6 +81,18 @@ void vLGU__Init(void)
 
 	//GIO
 	vRM4_GIO__Init();
+
+	//on RM57 Launch, need this pin high
+	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 3U, GIO_DIRECTION__OUTPUT);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 3U, 1U);
+
+	vRM4_DELAYS__Delay_mS(250);
+
+	//test LED
+	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 6, GIO_DIRECTION__OUTPUT);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_B, 6U, 0U);
+	vRM4_GIO__Set_Bit(RM4_GIO__PORT_B, 6U, 1U);
+
 
 	//Setup the ADC
 	#if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
