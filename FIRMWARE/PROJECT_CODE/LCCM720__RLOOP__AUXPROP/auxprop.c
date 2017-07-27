@@ -23,13 +23,6 @@
 /* RM57 Launchpad Connections
  * See: http://www.ti.com/lit/ml/spnu616/spnu616.pdf
  *
- * J4:1		N2HET1:2		LEFT_CLUTCH
- * J4:2		N2HET1:18		RIGHT_CLUTCH
- * J4:3		N2HET1:16		LEFT_DIR
- * J4:4		N2HET1:30		RIGHT_DIR
- * J4:5		N2HET1:14		LEFT_PWM
- * J4:6		N2HET1:13		RIGHT_PWM
- *
  */
 
 
