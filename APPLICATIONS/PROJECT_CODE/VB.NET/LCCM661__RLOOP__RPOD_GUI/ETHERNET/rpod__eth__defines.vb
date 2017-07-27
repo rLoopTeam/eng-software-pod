@@ -230,6 +230,16 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** Manual Motor Directoin Control */
         NET_PKT__APU_MOTOR__DIRECTION_MANUAL = &H2101
 
+        '/** Manual speed control for the APU */
+        NET_PKT__APU_MOTOR__SPEED_MANUAL = &H2102
+
+
+        '/** Status packet sent to host about APU status */
+        NET_PKT__APU__STATUS_PACKET = &H2103
+
+        '/** Manual enable control */
+        NET_PKT__APU_MOTOR__ENABLE_MANUAL = &H2104
+
         '//////////////////////////////////////////////////////
         '//POWER: GENERAL (&h3000)
         '//////////////////////////////////////////////////////

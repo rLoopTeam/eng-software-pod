@@ -471,7 +471,7 @@ LR Time = 160ns
 		//HET Options
 		#define C_LOCALDEF__LCCM240__ENABLE_INPUT_CAPTURE					(0U)
 		#define C_LOCALDEF__LCCM240__ENABLE_EDGE_CAPTURE					(0U)
-		#define C_LOCALDEF__LCCM240__ENABLE_PWM								(0U)
+		#define C_LOCALDEF__LCCM240__ENABLE_PWM								(1U)
 		#define C_LOCALDEF__LCCM240__ENABLE_TIMESTAMPING					(0U)
 
 		//testing

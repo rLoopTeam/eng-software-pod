@@ -254,6 +254,8 @@ Namespace SIL3.rLoop.rPodControl
                     Me.m_pnlLandingGear.InternalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC, bCRC_OK, u32Sequence)
                 Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__HETHERM
                     Me.m_pnlHETherm.InternalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC, bCRC_OK, u32Sequence)
+                Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU
+                    Me.m_pnlAuxProp.InternalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC, bCRC_OK, u32Sequence)
 
             End Select
 

@@ -4333,6 +4333,14 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Manual.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@)">
+ <summary>
+ New Packet In
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top">
  <summary>
  Top level APU panel
@@ -4371,6 +4379,24 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <param name="sText"></param>
  <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top.InternalEvent__UDPSafe__RxPacketB(System.UInt16,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Boolean,System.UInt32)">
+ <summary>
+ New packet in from top layer
+ </summary>
+ <param name="u16PacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <param name="bCRC_OK"></param>
+ <param name="u32Sequence"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.AuxProp.Top.InternalEvent__RxPacketA(System.Byte[],System.Int32)">
+ <summary>
+ Rx a eth packet
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers">
  <summary>

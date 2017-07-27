@@ -1,8 +1,11 @@
 var searchData=
 [
-  ['u8apu_5feth_5f_5fis_5flinkup',['u8APU_ETH__Is_LinkUp',['../group___a_u_x_p_r_o_p_____e_t_h_e_r_n_e_t.html#ga211847d7308f01047c4bf815801c4596',1,'u8APU_ETH__Is_LinkUp(void):&#160;auxprop__ethernet.c'],['../group___a_u_x_p_r_o_p_____e_t_h_e_r_n_e_t.html#ga211847d7308f01047c4bf815801c4596',1,'u8APU_ETH__Is_LinkUp(void):&#160;auxprop__ethernet.c']]],
-  ['u8direction',['u8Direction',['../struct_t_s___a_p_u_____m_a_i_n.html#a21eb195f5d024f7d67072dd1b210cabf',1,'TS_APU__MAIN']]],
-  ['u8ipaddx',['u8IPAddx',['../struct_t_s___a_p_u_____m_a_i_n.html#a87463b61f7de498af786c2c6db0447e2',1,'TS_APU__MAIN']]],
-  ['u8macaddx',['u8MACAddx',['../struct_t_s___a_p_u_____m_a_i_n.html#aab10a07976a9a46d8929a4bdebfbb621',1,'TS_APU__MAIN']]],
-  ['u8state',['u8State',['../struct_t_s___a_p_u_____m_a_i_n.html#a391f72755f4c5918717e532401e01a3d',1,'TS_APU__MAIN']]]
+  ['te_5frloop_5fauxprop_5f_5fclutch_5fstate',['TE_RLOOP_AUXPROP__CLUTCH_STATE',['../auxprop____types_8h.html#a883421ebef52aafef638dd334aa0070f',1,'auxprop__types.h']]],
+  ['te_5frloop_5fauxprop_5f_5fthrottle_5fdir',['TE_RLOOP_AUXPROP__THROTTLE_DIR',['../auxprop____types_8h.html#a4273779a3aa0be340bede609cca878ef',1,'auxprop__types.h']]],
+  ['te_5frloop_5fauxprop_5f_5fthrottle_5fena',['TE_RLOOP_AUXPROP__THROTTLE_ENA',['../auxprop____types_8h.html#a787b5fd714867d5dfb9f2a02fd2061e1',1,'auxprop__types.h']]],
+  ['throttle_5fdir_5f_5fforward',['THROTTLE_DIR__FORWARD',['../auxprop____types_8h.html#a4273779a3aa0be340bede609cca878efa5eaa1da8017639524d24683307ddcc30',1,'auxprop__types.h']]],
+  ['throttle_5fdir_5f_5freverse',['THROTTLE_DIR__REVERSE',['../auxprop____types_8h.html#a4273779a3aa0be340bede609cca878efaa8a64a934d0bd760fc4b591b1e71dc12',1,'auxprop__types.h']]],
+  ['throttle_5fena_5f_5fdisabled',['THROTTLE_ENA__DISABLED',['../auxprop____types_8h.html#a787b5fd714867d5dfb9f2a02fd2061e1a980fff3bc8c25c7075a0d44f8fcc120c',1,'auxprop__types.h']]],
+  ['throttle_5fena_5f_5fenabled',['THROTTLE_ENA__ENABLED',['../auxprop____types_8h.html#a787b5fd714867d5dfb9f2a02fd2061e1ab7c6c4d1974d91eebf2781bd330f3822',1,'auxprop__types.h']]],
+  ['ts_5fapu_5f_5fmain',['TS_APU__MAIN',['../struct_t_s___a_p_u_____m_a_i_n.html',1,'']]]
 ];
