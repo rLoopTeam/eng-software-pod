@@ -2,21 +2,21 @@
 _Lachlan Grogan_
 
 Please make sure you review our [code standards](FIRMWARE/CODE_STANDARD/rloop_code_standard.txt)
-and [contributing document.](CONTRIBUTING.md) Also check out our [Confluence page](http://confluence.rloop.org/display/SD/CTRL+Team+Page)
+and [contributing document.](CONTRIBUTING.md) Also check out our [Confluence Avionics pages](http://confluence.rloop.org/display/SD/Avionics).
 
 Setup Development Tools:
 -----------------------------
 The project uses the Texas Instruments Code Composer Studio (TI CCS) integrated development
 environment.
 
-1. Get TI CCS V6.1.2.00015 or latest version from the tools folder for any platform [here](http://processors.wiki.ti.com/index.php/Download_CCS)
+1. Get TI CCS V6.1.2.00015 or latest version from the tools folder for any platform [here](http://processors.wiki.ti.com/index.php/Download_CCS).
 2. When installing make sure you have setup for TI RM4 support.
 
 
 GIT:
 -----------------------------
-The project uses Git for source code management [Git documentation](http://https://git-scm.com/)
-The source code resides in a [Github repository](https://github.com/rLoopTeam/eng-software-pod)
+The project uses Git for source code management [Git documentation](http://https://git-scm.com/).
+The source code resides in a [Github repository](https://github.com/rLoopTeam/eng-software-pod).
 
 1. Install Git Desktop
 2. Clone github.com:rLoopTeam/eng-software-pod into a folder.
