@@ -6,8 +6,7 @@ and [contributing document.](CONTRIBUTING.md) Also check out our [Confluence pag
 
 Setup Development Tools:
 -----------------------------
-1. Get CCS V6.1.2.00015 from the tools folder.
-If you are on OS/X check [here](http://processors.wiki.ti.com/index.php/Category:Code_Composer_Studio_v6?keyMatch=CCSV6&tisearch=Search-EN-Everything)
+1. Get CCS V6.1.2.00015 from the tools folder or the latest version for any platform [here](http://processors.wiki.ti.com/index.php/Download_CCS)
 2. When installing make sure you have setup for TI RM4 support
 
 
@@ -52,6 +51,9 @@ Project Description
 - Next is the category it's under, in this case 'MULTICORE', and another double underscore. 
 - Filenames end with a description of the hardware or what exactly the code is doing, e.g. 'TSYS01' or 'Software_CRC'
 
-
+rPod Toolbox Notes
+-----------------------------
+The rPod Toolbox is a VB.NET application developed in tandem with the embedded firmware. It can be found in eng-software-pod\APPLICATIONS\LAPP188__RLOOP__RPOD_CONTROL\bin\Debug\LAPP188__RLOOP__RPOD_CONTROL.exe
+It is dependent on proprietary libraries so you will not be able to compile it from scratch. To use it with the launchpad hardware your computer will need to be on a 192.168.0.0/24 subnet and you'll need libpcap installed. Many of the functions in the rPod Control Toolbox are available with the react-groundstation as well.
 
 
