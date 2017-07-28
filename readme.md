@@ -6,26 +6,32 @@ and [contributing document.](CONTRIBUTING.md) Also check out our [Confluence pag
 
 Setup Development Tools:
 -----------------------------
-1. Get CCS V6.1.2.00015 from the tools folder or the latest version for any platform [here](http://processors.wiki.ti.com/index.php/Download_CCS)
-2. When installing make sure you have setup for TI RM4 support
+The project uses the Texas Instruments Code Composer Studio (TI CCS) integrated development
+environment.
+
+1. Get TI CCS V6.1.2.00015 or latest version from the tools folder for any platform [here](http://processors.wiki.ti.com/index.php/Download_CCS)
+2. When installing make sure you have setup for TI RM4 support.
 
 
 GIT:
 -----------------------------
+The project uses Git for source code management [Git documentation](http://https://git-scm.com/)
+The source code resides in a [Github repository](https://github.com/rLoopTeam/eng-software-pod)
+
 1. Install Git Desktop
-2. Clone github.com:rLoopTeamp/eng-software-pod into a folder
+2. Clone github.com:rLoopTeam/eng-software-pod into a folder.
 
 
 CCS - Initial Use
 -----------------------------
 CCS relies on the notion of a workspace, you need to create a workspace folder and then import the projects into the folder.
 
-1. create a folder at FIRMWARE\WORKSPACE or FIRMWARE\VERIFICATION\WORKSPACE
+1. Create a folder at FIRMWARE\WORKSPACE or FIRMWARE\VERIFICATION\WORKSPACE
 2. Open CCSV6
 3. When prompted, enter the full path to the workspace folder on your local drive.
 4. Choose File->Import and select any of the firmware projects under the firmware root or any projects under the verification root.
 5. Paths should be good to go.
-6. Avoid commiting anything from the WORKSPACE folders and .gitignore is setup to handle this automatically.
+6. Avoid committing anything from the WORKSPACE folders. The .gitignore file is set up to handle this automatically.
 
 Compiler Version
 -----------------------------
@@ -54,6 +60,6 @@ Project Description
 rPod Toolbox Notes
 -----------------------------
 The rPod Toolbox is a VB.NET application developed in tandem with the embedded firmware. It can be found in eng-software-pod\APPLICATIONS\LAPP188__RLOOP__RPOD_CONTROL\bin\Debug\LAPP188__RLOOP__RPOD_CONTROL.exe
-It is dependent on proprietary libraries so you will not be able to compile it from scratch. To use it with the launchpad hardware your computer will need to be on a 192.168.0.0/24 subnet and you'll need libpcap installed. Many of the functions in the rPod Control Toolbox are available with the react-groundstation as well.
+It is dependent on proprietary libraries so you will not be able to compile it from scratch. To use it with the TI Launchpad hardware, your computer will need to be on a 192.168.0.0/24 subnet and you'll need libpcap installed. Many of the functions in the rPod Control Toolbox are available with the react-groundstation as well.
 
 
