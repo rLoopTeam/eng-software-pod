@@ -5,11 +5,11 @@
 
 	//The launchpad
 #ifndef WIN32
-	#include <../../BOARD_SUPPORT/RM57L843_LAUNCHPAD/rm57l843_launchpad__bsp.h>
-	#include <../../BOARD_SUPPORT/NETWORKING/rloop_networking__ports.h>
+    #include <../../BOARD_SUPPORT/RM57L843_LAUNCHPAD/rm57l843_launchpad__bsp.h>
+    #include <../../BOARD_SUPPORT/NETWORKING/rloop_networking__ports.h>
 #else
-	#include <../BOARD_SUPPORT/RM57L843_LAUNCHPAD/rm57l843_launchpad__bsp.h>
-	#include <../BOARD_SUPPORT/NETWORKING/rloop_networking__ports.h>
+    #include <../BOARD_SUPPORT/RM57L843_LAUNCHPAD/rm57l843_launchpad__bsp.h>
+    #include <../BOARD_SUPPORT/NETWORKING/rloop_networking__ports.h>
 #endif
 
 /*******************************************************************************
@@ -49,6 +49,7 @@ RM4 GIO MODULE
 
 	#endif //#if C_LOCALDEF__LCCM133__ENABLE_THIS_MODULE == 1
 
+
 /*******************************************************************************
 RM4 - RTI MODULE
 *******************************************************************************/
@@ -60,12 +61,15 @@ RM4 - RTI MODULE
 
 		/** RTI CLOCK FREQUENCY
 		 * Based on our standard system, valid values are div(2,4,8):
-		 * 150 (150MHZ - ONLY ON RM57)
 		 * 100 	(100MHZ)
+		 * 75 	(75MHZ - ONLY ON RM57)
 		 * 50	(50MHZ)
 		 * 25	(25MHZ)
 		 * */
-		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(150U)
+		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(75U)
+
+		/** RTCLK0 feeds counter 0 and is used for general purpose compare times */
+		#define C_LOCALDEF__LCCM124__RTI_COUNTER0_PRESCALER					(10U)
 
 		/** RTCLK1 feeds counter 1 and can be used for 64bit timing */
 		#define C_LOCALDEF__LCCM124__RTI_COUNTER1_PRESCALER					(1U)
@@ -79,8 +83,8 @@ RM4 - RTI MODULE
 
 		//these are the interrupt handlers which should point
 		//to a function, otherwise leave as default
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_CALLBACK					vLGU__RTI_10MS_ISR()
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_CALLBACK					vLGU__RTI_100MS_ISR()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_CALLBACK					vLGU_TIMERS__10MS_ISR()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_CALLBACK					vLGU_TIMERS__100MS_ISR()
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
 		#define C_LOCALDEF__LCCM124__RTI_COMPARE_3_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
 
@@ -149,23 +153,42 @@ SIL3 - SAFETY UDP LAYER
 	#endif //#if C_LOCALDEF__LCCM528__ENABLE_THIS_MODULE == 1U
 
 
+
 /*******************************************************************************
 RLOOP - LANDING GEAR UNIT
 *******************************************************************************/
-	#define C_LOCALDEF__LCCM667__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM667__ENABLE_THIS_MODULE == 1U
+    #define C_LOCALDEF__LCCM667__ENABLE_THIS_MODULE                         (1U)
+    #if C_LOCALDEF__LCCM667__ENABLE_THIS_MODULE == 1U
 
-		/** Gimbal Subsystem*/
-		#define C_LOCALDEF__LCCM667__LGU_ENABLE_GIMBALS						(0U)
+		#define C_LOCALDEF__LCCM667___PWM_1									N2HET_CHANNEL__1, 2U
+		#define C_LOCALDEF__LCCM667___PWM_2									N2HET_CHANNEL__1, 16U
+		#define C_LOCALDEF__LCCM667___PWM_3									N2HET_CHANNEL__1, 13U
+		#define C_LOCALDEF__LCCM667___PWM_4									N2HET_CHANNEL__1, 9U
 
-		/** Lift Mechanisms*/
-		#define C_LOCALDEF__LCCM667__LGU_ENABLE_LIFT						(0U)
+		#define C_LOCALDEF__LCCM667___DIR_A1								N2HET_CHANNEL__1, 18U
+		#define C_LOCALDEF__LCCM667___DIR_B1								N2HET_CHANNEL__1, 6U
+		#define C_LOCALDEF__LCCM667___DIR_A2								N2HET_CHANNEL__1, 14U
+		#define C_LOCALDEF__LCCM667___DIR_B2								N2HET_CHANNEL__1, 13U
+		#define C_LOCALDEF__LCCM667___DIR_A3								N2HET_CHANNEL__1, 4U
+		#define C_LOCALDEF__LCCM667___DIR_B3								N2HET_CHANNEL__1, 27U
+		#define C_LOCALDEF__LCCM667___DIR_A4								N2HET_CHANNEL__1, 22U
+		#define C_LOCALDEF__LCCM667___DIR_B4								N2HET_CHANNEL__1, 29U
 
-		/** Testing Options */
-		#define C_LOCALDEF__LCCM667__ENABLE_TEST_SPEC						(0U)
+		#define C_LOCALDEF__LCCM667___RETRACT_1								RM4_GIO__PORT_A, 1U
+		#define C_LOCALDEF__LCCM667___EXTEND_1								RM4_GIO__PORT_A, 0U
+		#define C_LOCALDEF__LCCM667___RETRACT_2								RM4_GIO__PORT_A, 5U
+		#define C_LOCALDEF__LCCM667___EXTEND_2								RM4_GIO__PORT_A, 2U
+		#define C_LOCALDEF__LCCM667___RETRACT_3								RM4_GIO__PORT_A, 7U
+		#define C_LOCALDEF__LCCM667___EXTEND_3								RM4_GIO__PORT_A, 6U
+		#define C_LOCALDEF__LCCM667___RETRACT_4								RM4_GIO__PORT_B, 3U
+		#define C_LOCALDEF__LCCM667___EXTEND_4								RM4_GIO__PORT_B, 2U
 
-		/** Main include file */
-		#include <LCCM667__RLOOP__LGU/lgu.h>
-	#endif //#if C_LOCALDEF__LCCM667__ENABLE_THIS_MODULE == 1U
+
+        /** Testing Options */
+        #define C_LOCALDEF__LCCM667__ENABLE_TEST_SPEC                       (0U)
+
+        /** Main include file */
+        #include <LCCM667__RLOOP__LGU/lgu.h>
+    #endif //#if C_LOCALDEF__LCCM667__ENABLE_THIS_MODULE == 1U
 
 #endif /* LOCALDEF_H_ */

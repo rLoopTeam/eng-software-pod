@@ -17,7 +17,7 @@ SIL3 - H-BRIDGE MOTOR CONTROLLER WITH PID
 		#define C_LOCALDEF__LCCM492__LATCH_DIR_B(index, x)					{}
 		
 		/** Enable / PWM control - Connect to enable pin */
-		#define C_LOCALDEF__LCCM492__LATCH_PWM(index, x)					{}
+		#define C_LOCALDEF__LCCM492__UPDATE_PWM(channelIndex, programIndex, pwm, dutycycle)					{}
 		
 		
 		

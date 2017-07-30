@@ -33,11 +33,11 @@ extern struct _strDAQ sDAQ;
 
 //locals
 Lint16 s16SIL3_DAQ_APPEND__Index_to_Buffer_U8(Luint16 u16Index);
-Lint16 s16DAQ_APPEND__Index_to_Buffer_S16(Luint16 u16Index);
-Lint16 s16DAQ_APPEND__Index_to_Buffer_U16(Luint16 u16Index);
-Lint16 s16DAQ_APPEND__Index_to_Buffer_S32(Luint16 u16Index);
-Lint16 s16DAQ_APPEND__Index_to_Buffer_U32(Luint16 u16Index);
-Lint16 s16DAQ_APPEND__Index_to_Buffer_F32(Luint16 u16Index);
+Lint16 s16SIL3_DAQ_APPEND__Index_to_Buffer_S16(Luint16 u16Index);
+Lint16 s16SIL3_DAQ_APPEND__Index_to_Buffer_U16(Luint16 u16Index);
+Lint16 s16SIL3_DAQ_APPEND__Index_to_Buffer_S32(Luint16 u16Index);
+Lint16 s16SIL3_DAQ_APPEND__Index_to_Buffer_U32(Luint16 u16Index);
+Lint16 s16SIL3_DAQ_APPEND__Index_to_Buffer_F32(Luint16 u16Index);
 
 /***************************************************************************//**
  * @brief
@@ -228,7 +228,7 @@ void vSIL3_DAQ_APPEND__S16(Luint16 u16Index, Lint16 s16Value)
 				sDAQ.sInterlock.u8S16 = 1U;
 
 				//get our index before we do too much more.
-				s16BuffIndex = s16DAQ_APPEND__Index_to_Buffer_S16(u16Index);
+				s16BuffIndex = s16SIL3_DAQ_APPEND__Index_to_Buffer_S16(u16Index);
 				if(s16BuffIndex >= 0)
 				{
 					s16Return = s16SIL3_SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
@@ -301,7 +301,7 @@ void vSIL3_DAQ_APPEND__U16(Luint16 u16Index, Luint16 u16Value)
 				sDAQ.sInterlock.u8U16 = 1U;
 
 				//get our index before we do too much more.
-				s16BuffIndex = s16DAQ_APPEND__Index_to_Buffer_U16(u16Index);
+				s16BuffIndex = s16SIL3_DAQ_APPEND__Index_to_Buffer_U16(u16Index);
 				if(s16BuffIndex >= 0)
 				{
 					s16Return = s16SIL3_SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
@@ -373,7 +373,7 @@ void vSIL3_DAQ_APPEND__S32(Luint16 u16Index, Lint32 s32Value)
 				sDAQ.sInterlock.u8S32 = 1U;
 
 				//get our index before we do too much more.
-				s16BuffIndex = s16DAQ_APPEND__Index_to_Buffer_S32(u16Index);
+				s16BuffIndex = s16SIL3_DAQ_APPEND__Index_to_Buffer_S32(u16Index);
 				if(s16BuffIndex >= 0)
 				{
 					s16Return = s16SIL3_SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
@@ -446,7 +446,7 @@ void vSIL3_DAQ_APPEND__U32(Luint16 u16Index, Luint32 u32Value)
 				sDAQ.sInterlock.u8U32 = 1U;
 
 				//get our index before we do too much more.
-				s16BuffIndex = s16DAQ_APPEND__Index_to_Buffer_U32(u16Index);
+				s16BuffIndex = s16SIL3_DAQ_APPEND__Index_to_Buffer_U32(u16Index);
 				if(s16BuffIndex >= 0)
 				{
 					s16Return = s16SIL3_SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
@@ -517,7 +517,7 @@ void vSIL3_DAQ_APPEND__F32(Luint16 u16Index, Lfloat32 f32Value)
 				sDAQ.sInterlock.u8F32 = 1U;
 
 				//get our index before we do too much more.
-				s16BuffIndex = s16DAQ_APPEND__Index_to_Buffer_F32(u16Index);
+				s16BuffIndex = s16SIL3_DAQ_APPEND__Index_to_Buffer_F32(u16Index);
 				if(s16BuffIndex >= 0)
 				{
 					s16Return = s16SIL3_SOFTFIFO__Push(&sDAQ.sFIFO[u16Index]);
@@ -606,7 +606,7 @@ Lint16 s16SIL3_DAQ_APPEND__Index_to_Buffer_U8(Luint16 u16Index)
  * @st_funcMD5		02BB1CA9D83EC9A566D9753486CE7DEF
  * @st_funcID		LCCM662R0.FILE.004.FUNC.010
  */
-Lint16 s16DAQ_APPEND__Index_to_Buffer_S16(Luint16 u16Index)
+Lint16 s16SIL3_DAQ_APPEND__Index_to_Buffer_S16(Luint16 u16Index)
 {
 	Lint16 s16Return;
 
@@ -636,7 +636,7 @@ Lint16 s16DAQ_APPEND__Index_to_Buffer_S16(Luint16 u16Index)
  * @st_funcMD5		AE5BFEBA5151BFDEFD9857D75756A91C
  * @st_funcID		LCCM662R0.FILE.004.FUNC.011
  */
-Lint16 s16DAQ_APPEND__Index_to_Buffer_U16(Luint16 u16Index)
+Lint16 s16SIL3_DAQ_APPEND__Index_to_Buffer_U16(Luint16 u16Index)
 {
 	Lint16 s16Return;
 
@@ -666,7 +666,7 @@ Lint16 s16DAQ_APPEND__Index_to_Buffer_U16(Luint16 u16Index)
  * @st_funcMD5		D8DBCA1C6A79406C5668797C7703B3B8
  * @st_funcID		LCCM662R0.FILE.004.FUNC.012
  */
-Lint16 s16DAQ_APPEND__Index_to_Buffer_S32(Luint16 u16Index)
+Lint16 s16SIL3_DAQ_APPEND__Index_to_Buffer_S32(Luint16 u16Index)
 {
 	Lint16 s16Return;
 
@@ -696,7 +696,7 @@ Lint16 s16DAQ_APPEND__Index_to_Buffer_S32(Luint16 u16Index)
  * @st_funcMD5		4DD4FF34FB03CD1FC2B0011953AEF7E6
  * @st_funcID		LCCM662R0.FILE.004.FUNC.013
  */
-Lint16 s16DAQ_APPEND__Index_to_Buffer_U32(Luint16 u16Index)
+Lint16 s16SIL3_DAQ_APPEND__Index_to_Buffer_U32(Luint16 u16Index)
 {
 	Lint16 s16Return;
 
@@ -727,7 +727,7 @@ Lint16 s16DAQ_APPEND__Index_to_Buffer_U32(Luint16 u16Index)
  * @st_funcMD5		42B757FB3C180CE2BA99E2EF84247EEF
  * @st_funcID		LCCM662R0.FILE.004.FUNC.014
  */
-Lint16 s16DAQ_APPEND__Index_to_Buffer_F32(Luint16 u16Index)
+Lint16 s16SIL3_DAQ_APPEND__Index_to_Buffer_F32(Luint16 u16Index)
 {
 	Lint16 s16Return;
 

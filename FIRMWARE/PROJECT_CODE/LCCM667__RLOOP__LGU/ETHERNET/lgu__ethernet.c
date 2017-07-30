@@ -99,52 +99,44 @@ void vLGU_ETH__Process(void)
 	if(u8Test == 1U)
 	{
 
-		//see if we have a streaming flag set
-		if(sLGU.sUDPDiag.eTxStreamingType != NET_PKT__NONE)
+		//every 250ms broadcast our status
+		if(sLGU.sUDPDiag.u8250MS_Flag > 25U)
 		{
-			//yes we do
+			//send the LGU status
+			vLGU_ETH__Transmit(NET_PKT__LGU__TX_STATUS_PACKET);
 
-			//every 250ms broadcast our status
-			if(sLGU.sUDPDiag.u8250MS_Flag > 25U)
-			{
-				//send the LGU status
-				eType = NET_PKT__LGU__TX_STATUS_PACKET;
-
-				//clear now
-				sLGU.sUDPDiag.u8250MS_Flag = 0U;
-
-			}
-			else
-			{
-
-				//do we have a timer flag?
-				if(sLGU.sUDPDiag.u810MS_Flag == 1U)
-				{
-					//set it
-					eType = sLGU.sUDPDiag.eTxStreamingType;
-
-					//clear the flag now
-					sLGU.sUDPDiag.u810MS_Flag = 0U;
-				}
-				else
-				{
-					//nope
-					eType = NET_PKT__NONE;
-				}
-
-			}
-
+			//clear now
+			sLGU.sUDPDiag.u8250MS_Flag = 0U;
 
 		}
 		else
 		{
-			//no streaming, but just harmlessly set the tx type incase it was
-			//requested by the host
-			eType = sLGU.sUDPDiag.eTxPacketType;
+
+			//do we have a timer flag?
+			if(sLGU.sUDPDiag.u810MS_Flag == 1U)
+			{
+				if(sLGU.sUDPDiag.eTxStreamingType != NET_PKT__NONE)
+				{
+					//send it
+					vLGU_ETH__Transmit(sLGU.sUDPDiag.eTxStreamingType);
+
+				}
+				else
+				{
+					//no packet type.
+				}
+
+				//clear the flag now
+				sLGU.sUDPDiag.u810MS_Flag = 0U;
+			}
+			else
+			{
+				//nope
+				//eType = NET_PKT__NONE;
+			}
+
 		}
 
-		//send the packet
-		vLGU_ETH__Transmit(eType);
 	}
 	else
 	{
@@ -342,6 +334,7 @@ void vLGU_ETH__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPort)
 void vLGU_ETH__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)
 {
 	Luint32 u32Block[4];
+	Lfloat32 f32Block3;
 	
 	if(u16DestPort == C_RLOOP_NET_PORT__LGU)
 	{
@@ -350,6 +343,7 @@ void vLGU_ETH__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 e
 		u32Block[1] = u32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload + 4U);
 		u32Block[2] = u32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload + 8U);
 		u32Block[3] = u32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
+		f32Block3 = f32SIL3_NUM_CONVERT__Array((const Luint8 *)pu8Payload + 12U);
 
 		//determine the type of packet
 		switch(ePacketType)
@@ -369,6 +363,27 @@ void vLGU_ETH__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 e
 					sLGU.sUDPDiag.eTxStreamingType = NET_PKT__NONE;
 				}
 
+				break;
+
+			case NET_PKT__LGU__MANUAL_MODE:
+
+				//make sure we are safe
+				if(u32Block[0] == 0xABAB1122U)
+				{
+
+					//block 1 is the index
+
+					//block 2 is the direction
+					vLGU_LIFT__Set_Direction((Luint8)u32Block[1], (TE_LGU__LIFT_DIRECTIONS)u32Block[2]);
+
+					//block 3 is the speed
+					vLGU_LIFT__Set_Speed((Luint8)u32Block[1], f32Block3);
+
+				}
+				else
+				{
+					//wrong key
+				}
 				break;
 
 			default:

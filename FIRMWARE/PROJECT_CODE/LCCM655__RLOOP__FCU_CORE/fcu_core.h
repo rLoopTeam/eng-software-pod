@@ -17,7 +17,6 @@
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__types.h>
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__defines.h>
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__enums.h>
-		#include <LCCM655__RLOOP__FCU_CORE/PI_COMMS/fcu__pi_comms__types.h>
 
 		#include <LCCM655__RLOOP__FCU_CORE/FAULTS/fcu__faults__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/fcu_core__fault_flags.h>
@@ -29,7 +28,6 @@
 
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_defines.h>
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_types.h>
-		#include <LCCM655__RLOOP__FCU_CORE/LGU_COMMS/fcu__lgu_comms__types.h>
 
 		#include <LCCM655__RLOOP__FCU_CORE/NETWORKING/fcu_core__net__packet_types.h>
 
@@ -461,18 +459,7 @@
 			}sAccel;
 			#endif //C_LOCALDEF__LCCM655__ENABLE_ACCEL
 
-			/** Pi Comms Layer */
-			struct
-			{
-
-				//the current state
-				E_FCU_PICOM__STATE_T eState;
-
-				/** 100ms timer tick */
-				Luint8 u8100MS_Timer;
-
-			}sPiComms;
-
+			
 			#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
 			/** Pusher Interface Layer */
 			struct
@@ -1067,59 +1054,7 @@
 			#endif //C_LOCALDEF__LCCM655__ENABLE_THROTTLE
 
 
-			#if C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM == 1U
-			struct
-			{
-				/** The communication state between FCU and LGU*/
-				E_LGU_COMMS_STATE_T eCommsState;
-
-
-				/** The tx and rx messages */
-				struct
-				{
-
-					/** Header byte = 0x55*/
-					Luint8 u8Header;
-
-					/** The command type */
-					union
-					{
-						Luint16 u16;
-						Luint8 u8[2];
-					}unCommand;
-
-					/** 32bit value */
-					union
-					{
-						Luint32 u32;
-						Lint32 s32;
-						Lfloat32 f32;
-						Luint8 u8[4];
-					}unValue;
-
-					/** The CRC */
-					Luint8 u8CRC;
-
-					/** 0xAA */
-					Luint8 u8Footer;
-
-				}sTxMessage, sRxMessage;
-
-				/** Is a Tx In progress */
-				Luint8 u8TxRequest;
-
-				/** The count of transmission bytes */
-				Luint8 u8TxCounter;
-
-				/** Count of Rx Bytes */
-				Luint8 u8RxCounter;
-
-				/** New Rx packet avail */
-				Luint8 u8RxAvail;
-
-			}sLGU;
-			#endif //C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM
-
+			
 			/** Critical info from the BMS */
 			struct
 			{
@@ -1383,11 +1318,7 @@
 			void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser);
 
 
-		//pi comms
-		void vFCU_PICOMMS__Init(void);
-		void vFCU_PICOMMS__Process(void);
-		void vFCU_PICOMMS__100MS_ISR(void);
-
+		
 		//brakes
 		void vFCU_BRAKES__Init(void);
 		void vFCU_BRAKES__Process(void);
@@ -1493,17 +1424,6 @@
 			DLL_DECLARATION Luint16 u16FCU_ASI_CRC__ComputeCRC(Luint8 *pu8Data, Luint16 u16DataLen);
 			Lint16 s16FCU_ASI_CRC__CheckCRC(Luint8 *pu8Data, Luint8 u8DataLen);
 
-			//controller layer
-			#if 0
-			Lint16 s16FCU_ASI_CTRL__Init(void);
-			Lint16 s16FCU_ASI_CTRL__ReadMotorRpm(Luint8 u8ASIDevNum, Luint16 *pu16Rpm);
-			Lint16 s16FCU_ASI_CTRL__ReadMotorCurrent(Luint8 u8ASIDevNum, Luint16 *pu16Current);
-			Lint16 s16FCU_ASI_CTRL__ReadControllerTemperature(Luint8 u8ASIDevNum, Luint16 *pu16Temp);
-			Lint16 s16FCU_ASI_CTRL__SaveSettings(Luint8 u8ASIDevNum);
-			Lint16 s16FCU_ASI_CTRL__GetFaults(Luint8 u8ASIDevNum, Luint16 *pu16Faults);
-			Lint16 s16FCU_ASI_CTRL__ProcessReply(struct _strASICmd *pTail);
-			#endif //0
-
 			//mux
 			void vFCU_ASI_MUX__Init(void);
 			void vFCU_ASI_MUX__Process(void);
@@ -1527,13 +1447,7 @@
 			void vFCU_THROTTLE_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1);
 			void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THROTTLE_CTRL_T eRampType);
 
-		//landing gear
-		void vFCU_LGU__Init(void);
-		void vFCU_LGU__Process(void);
-		void vFCU_LGU__Rx_Byte(Luint8 u8Value);
-		Lint16 s16FCU_LGU__Tx_MessageU32(E_FCU_LGU_COMM_TYPES_T eType, Luint32 u32Value);
-
-		//geometry
+			//geometry
 		void vFCU_GEOM__Init(void);
 		void vFCU_GEOM__Process(void);
 

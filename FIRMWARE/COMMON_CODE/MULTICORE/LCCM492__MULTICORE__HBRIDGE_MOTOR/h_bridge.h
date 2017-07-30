@@ -8,8 +8,14 @@
 		*******************************************************************************/
 		typedef enum
 		{
-			HBRIDGE_DIR__FORWARD = 0U,
 			
+			/** No direction, set off */
+			HBRIDGE_DIR__NONE = 0U,
+
+			/** Rotate forward */
+			HBRIDGE_DIR__FORWARD,
+
+			/** Rotate in reverse */
 			HBRIDGE_DIR__REVERSE
 			
 		}TE_HBRIDGE_DIR;
@@ -22,15 +28,15 @@
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/
-		void vHBRIDGE__Init(void);
-		void vHBRIDGE__Process(void);
+		void vSIL3_HBRIDGE__Init(void);
+		void vSIL3_HBRIDGE__Process(void);
 		
 		
 		
 		//lowlevel
-		void vHBRIDGE_LOWLEVEL__Init(void);
-		void vHBRIDGE_LOWLEVEL__Process(void);
-		void vHBRIDGE_LOWLEVEL__Set_Dir(Luint8 u8MotorIndex, TE_HBRIDGE_DIR eDir);
+		void vSIL3_HBRIDGE_LOWLEVEL__Init(void);
+		void vSIL3_HBRIDGE_LOWLEVEL__Process(void);
+		void vSIL3_HBRIDGE_LOWLEVEL__Set_Dir(Luint8 u8MotorIndex, TE_HBRIDGE_DIR eDir);
 		
 		
 		

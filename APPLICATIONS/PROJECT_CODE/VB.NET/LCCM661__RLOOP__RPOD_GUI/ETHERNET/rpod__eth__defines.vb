@@ -329,6 +329,9 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** Permit network based streaming control */
         NET_PKT__LGU__STREAMING_CONTROL = &H7000
 
+        '/** Manual control over the actuator */
+        NET_PKT__LGU__MANUAL_MODE = &H7001
+
         '/** Transmit the LGU status packet over the network */
         NET_PKT__LGU__TX_STATUS_PACKET = &H7002
 

@@ -430,6 +430,9 @@
 		/** Permit network based streaming control */
 		NET_PKT__LGU__STREAMING_CONTROL = 0x7000U,
 
+		/** Manual control over the actuator */
+		NET_PKT__LGU__MANUAL_MODE = 0x7001U,
+
 		/** Transmit the LGU status packet over the network */
 		NET_PKT__LGU__TX_STATUS_PACKET = 0x7002U,
 

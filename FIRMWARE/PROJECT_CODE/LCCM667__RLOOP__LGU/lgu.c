@@ -112,36 +112,6 @@ void vLGU__Init(void)
 		vRM4_N2HET_PINS__Init(N2HET_CHANNEL__2);
 	#endif
 
-	//setup the IO pins used for N2HET
-
-	//H-Bridges
-	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___PWM_1);
-	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___PWM_2);
-	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___PWM_3);
-	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___PWM_4);
-
-	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_A1);
-	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_B1);
-	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_A2);
-	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_B2);
-	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_A3);
-	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_B3);
-	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_A4);
-	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___DIR_B4);
-
-	//create some PWM programs
-
-	//must disable N2HET before adding programs.
-	vRM4_N2HET__Disable(N2HET_CHANNEL__1);
-
-
-	sLGU.sPWM[0].u16ProgIndex = u16N2HET_PROG_DYNAMIC__Add_PWM(C_LOCALDEF__LCCM667___PWM_1, 0U);
-	sLGU.sPWM[1].u16ProgIndex = u16N2HET_PROG_DYNAMIC__Add_PWM(C_LOCALDEF__LCCM667___PWM_2, 0U);
-	sLGU.sPWM[2].u16ProgIndex = u16N2HET_PROG_DYNAMIC__Add_PWM(C_LOCALDEF__LCCM667___PWM_3, 0U);
-	sLGU.sPWM[3].u16ProgIndex = u16N2HET_PROG_DYNAMIC__Add_PWM(C_LOCALDEF__LCCM667___PWM_4, 0U);
-
-	//once all the programs are added, enable the N2HET:1
-	vRM4_N2HET__Enable(N2HET_CHANNEL__1);
 
 	//configure the limit switches
 	vRM4_GIO__Set_BitDirection(C_LOCALDEF__LCCM667___RETRACT_1, GIO_DIRECTION__INPUT);
@@ -165,6 +135,9 @@ void vLGU__Init(void)
 
 #endif //win32
 
+	//Setup the lift control
+	vLGU_LIFT__Init();
+
 	//bring up the ethernet
 	vLGU_ETH__Init();
 
@@ -186,9 +159,6 @@ void vLGU__Init(void)
 	vRM4_RTI__Start_Counter(1U);
 #endif //WIN32
 
-	//configure the actual lift mechanism
-	vLGU_LIFT__Init();
-
 
 #ifdef WIN32
 	//for win32 DLL
@@ -208,6 +178,7 @@ void vLGU__Process(void)
 {
 	vLGU_ETH__Process();
 
+	//process the lifting actuators
 	vLGU_LIFT__Process();
 }
 

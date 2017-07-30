@@ -9,15 +9,11 @@
 
 #Region "MEMBERS"
 
-        Private m_txtFaultFlags As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtLeftRetract As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtLeftExtend As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_trkSpeedA0 As SIL3.ApplicationSupport.TrackBarHelper
+        Private m_trkSpeedA1 As SIL3.ApplicationSupport.TrackBarHelper
+        Private m_trkSpeedA2 As SIL3.ApplicationSupport.TrackBarHelper
+        Private m_trkSpeedA3 As SIL3.ApplicationSupport.TrackBarHelper
 
-        Private m_txtRightRetract As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtRightExtend As SIL3.ApplicationSupport.TextBoxHelper
-
-        Private m_txtLeftState As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtRightState As SIL3.ApplicationSupport.TextBoxHelper
 
 #End Region '#Region "MEMBERS"
 
@@ -45,117 +41,244 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l1 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Data Streaming", Me.m_pInnerPanel)
-            Dim btnStream As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", Nothing, l1)
+            Dim lA0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Actuator 0", Me.m_pInnerPanel)
+            Dim btnA0_Stop As New SIL3.ApplicationSupport.ButtonHelper(100, "Stop", AddressOf Me.btnA0_Stop)
+            btnA0_Stop.Layout__BelowControl(lA0)
+            Dim btnA0_Extend As New SIL3.ApplicationSupport.ButtonHelper(100, "Extend", AddressOf Me.btnA0_Extend)
+            btnA0_Extend.Layout__RightOfControl(btnA0_Stop)
+            Dim btnA0_Retract As New SIL3.ApplicationSupport.ButtonHelper(100, "Retract", AddressOf Me.btnA0_Retract)
+            btnA0_Retract.Layout__RightOfControl(btnA0_Extend)
 
-            Dim l2 As New SIL3.ApplicationSupport.LabelHelper("Fault Flags", btnStream)
-            Me.m_txtFaultFlags = New SIL3.ApplicationSupport.TextBoxHelper(100, l2)
+            Me.m_trkSpeedA0 = New SIL3.ApplicationSupport.TrackBarHelper()
+            Me.m_trkSpeedA0.Layout__RightOfControl(btnA0_Retract)
+            With Me.m_trkSpeedA0
+                .Size = New Size(250, 24)
+                .Minimum = 0
+                .Maximum = 100
+                .TickFrequency = 10
+                .Value = 80
+                .TickStyle = TickStyle.BottomRight
+            End With
 
-            Dim l2a As New SIL3.ApplicationSupport.LabelHelper("Left Clutch", Me.m_txtFaultFlags)
+            Dim lA1 As New SIL3.ApplicationSupport.LabelHelper("Actuator 1", btnA0_Stop)
+            Dim btnA1_Stop As New SIL3.ApplicationSupport.ButtonHelper(100, "Stop", AddressOf Me.btnA1_Stop)
+            btnA1_Stop.Layout__BelowControl(lA1)
+            Dim btnA1_Extend As New SIL3.ApplicationSupport.ButtonHelper(100, "Extend", AddressOf Me.btnA1_Extend)
+            btnA1_Extend.Layout__RightOfControl(btnA1_Stop)
+            Dim btnA1_Retract As New SIL3.ApplicationSupport.ButtonHelper(100, "Retract", AddressOf Me.btnA1_Retract)
+            btnA1_Retract.Layout__RightOfControl(btnA1_Extend)
 
-            Dim btnClutchL_Disengage As New SIL3.ApplicationSupport.ButtonHelper(100, "Disengage", AddressOf Me.btnClutchL_Disengage)
-            btnClutchL_Disengage.Layout__BelowControl(l2a)
+            Me.m_trkSpeedA1 = New SIL3.ApplicationSupport.TrackBarHelper()
+            Me.m_trkSpeedA1.Layout__RightOfControl(btnA1_Retract)
+            With Me.m_trkSpeedA1
+                .Size = New Size(250, 24)
+                .Minimum = 0
+                .Maximum = 100
+                .TickFrequency = 10
+                .Value = 80
+                .TickStyle = TickStyle.BottomRight
+            End With
 
-            Dim btnClutchL_Engage As New SIL3.ApplicationSupport.ButtonHelper(100, "Engage", AddressOf Me.btnClutchL_Engage)
-            btnClutchL_Engage.Layout__RightOfControl(btnClutchL_Disengage)
+            Dim lA2 As New SIL3.ApplicationSupport.LabelHelper("Actuator 2", btnA1_Stop)
+            Dim btnA2_Stop As New SIL3.ApplicationSupport.ButtonHelper(100, "Stop", AddressOf Me.btnA2_Stop)
+            btnA2_Stop.Layout__BelowControl(lA2)
+            Dim btnA2_Extend As New SIL3.ApplicationSupport.ButtonHelper(100, "Extend", AddressOf Me.btnA2_Extend)
+            btnA2_Extend.Layout__RightOfControl(btnA2_Stop)
+            Dim btnA2_Retract As New SIL3.ApplicationSupport.ButtonHelper(100, "Retract", AddressOf Me.btnA2_Retract)
+            btnA2_Retract.Layout__RightOfControl(btnA2_Extend)
 
+            Me.m_trkSpeedA2 = New SIL3.ApplicationSupport.TrackBarHelper()
+            Me.m_trkSpeedA2.Layout__RightOfControl(btnA2_Retract)
+            With Me.m_trkSpeedA2
+                .Size = New Size(250, 24)
+                .Minimum = 0
+                .Maximum = 100
+                .TickFrequency = 10
+                .Value = 80
+                .TickStyle = TickStyle.BottomRight
+            End With
 
-            Dim l20a As New SIL3.ApplicationSupport.LabelHelper(300, l2a.Location.Y, "Right Clutch", Me.m_pInnerPanel)
-            Dim btnClutchR_Disengage As New SIL3.ApplicationSupport.ButtonHelper(100, "Disengage", AddressOf Me.btnClutchR_Disengage)
-            btnClutchR_Disengage.Layout__BelowControl(l20a)
+            Dim lA3 As New SIL3.ApplicationSupport.LabelHelper("Actuator 3", btnA2_Stop)
+            Dim btnA3_Stop As New SIL3.ApplicationSupport.ButtonHelper(100, "Stop", AddressOf Me.btnA3_Stop)
+            btnA3_Stop.Layout__BelowControl(lA3)
+            Dim btnA3_Extend As New SIL3.ApplicationSupport.ButtonHelper(100, "Extend", AddressOf Me.btnA3_Extend)
+            btnA3_Extend.Layout__RightOfControl(btnA3_Stop)
+            Dim btnA3_Retract As New SIL3.ApplicationSupport.ButtonHelper(100, "Retract", AddressOf Me.btnA3_Retract)
+            btnA3_Retract.Layout__RightOfControl(btnA3_Extend)
 
-            Dim btnClutchR_Engage As New SIL3.ApplicationSupport.ButtonHelper(100, "Engage", AddressOf Me.btnClutchR_Engage)
-            btnClutchR_Engage.Layout__RightOfControl(btnClutchR_Disengage)
-
-
-            Dim l3a As New SIL3.ApplicationSupport.LabelHelper("Left Directon", btnClutchL_Disengage)
-            Dim btnMotorL_DirR As New SIL3.ApplicationSupport.ButtonHelper(100, "Reverse", AddressOf Me.btnMotorL_Reverse)
-            btnMotorL_DirR.Layout__BelowControl(l3a)
-
-            Dim btnMotorL_DirF As New SIL3.ApplicationSupport.ButtonHelper(100, "Forward", AddressOf Me.btnMotorL_Forward)
-            btnMotorL_DirF.Layout__RightOfControl(btnMotorL_DirR)
-
-
-            Dim l30a As New SIL3.ApplicationSupport.LabelHelper("Right Directon", btnClutchR_Disengage)
-            Dim btnMotorR_DirR As New SIL3.ApplicationSupport.ButtonHelper(100, "Reverse", AddressOf Me.btnMotorR_Reverse)
-            btnMotorR_DirR.Layout__BelowControl(l30a)
-
-            Dim btnMotorR_DirF As New SIL3.ApplicationSupport.ButtonHelper(100, "Forward", AddressOf Me.btnMotorR_Forward)
-            btnMotorR_DirF.Layout__RightOfControl(btnMotorR_DirR)
-
+            Me.m_trkSpeedA3 = New SIL3.ApplicationSupport.TrackBarHelper()
+            Me.m_trkSpeedA3.Layout__RightOfControl(btnA3_Retract)
+            With Me.m_trkSpeedA3
+                .Size = New Size(250, 24)
+                .Minimum = 0
+                .Maximum = 100
+                .TickFrequency = 10
+                .Value = 80
+                .TickStyle = TickStyle.BottomRight
+            End With
 
         End Sub
 #End Region '#Region "PANEL LAYOUT"
 
 #Region "BUTTON"
 
-        Private Sub btnClutchL_Disengage(sender As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_CLUTCH__MANUAL,
-                                                 &H11223344L,
-                                                 0, 0, 0)
+        Private Sub btnA0_Stop(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 0
+            Dim f32Speed As New SIL3.Numerical.F32(CSng(Me.m_trkSpeedA0.Value / 100))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 0, f32Speed.Union__Uint32)
 
         End Sub
 
-        Private Sub btnClutchL_Engage(sender As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_CLUTCH__MANUAL,
-                                                 &H11223344L,
-                                                 0, 1, 0)
-
+        Private Sub btnA0_Retract(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 0
+            Dim f32Speed As New SIL3.Numerical.F32(CSng(Me.m_trkSpeedA0.Value / 100))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 1, f32Speed.Union__Uint32)
         End Sub
 
-        Private Sub btnClutchR_Disengage(sender As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_CLUTCH__MANUAL,
-                                                 &H11223344L,
-                                                 1, 0, 0)
-
-        End Sub
-
-        Private Sub btnClutchR_Engage(sender As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_CLUTCH__MANUAL,
-                                                 &H11223344L,
-                                                1, 1, 0)
+        Private Sub btnA0_Extend(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 0
+            Dim f32Speed As New SIL3.Numerical.F32(CSng(Me.m_trkSpeedA0.Value / 100))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 2, f32Speed.Union__Uint32)
 
         End Sub
 
 
-        Private Sub btnMotorL_Reverse(sender As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_MOTOR__DIRECTION_MANUAL,
-                                                 &H11223377L,
-                                                 0, 0, 0)
+        Private Sub btnA1_Stop(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 1
+            Dim f32Speed As New SIL3.Numerical.F32(CSng(Me.m_trkSpeedA1.Value / 100))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 0, f32Speed.Union__Uint32)
 
         End Sub
 
-        Private Sub btnMotorL_Forward(sender As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_MOTOR__DIRECTION_MANUAL,
-                                                 &H11223377L,
-                                                0, 1, 0)
+        Private Sub btnA1_Retract(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 1
+            Dim f32Speed As New SIL3.Numerical.F32(CSng(Me.m_trkSpeedA1.Value / 100))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 1, f32Speed.Union__Uint32)
         End Sub
 
-
-        Private Sub btnMotorR_Reverse(sender As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_MOTOR__DIRECTION_MANUAL,
-                                                 &H11223377L,
-                                                 1, 0, 0)
-
-        End Sub
-
-        Private Sub btnMotorR_Forward(sender As Object, e As EventArgs)
-            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU,
-                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__APU_MOTOR__DIRECTION_MANUAL,
-                                                 &H11223377L,
-                                                1, 1, 0)
+        Private Sub btnA1_Extend(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 1
+            Dim f32Speed As New SIL3.Numerical.F32(CSng(Me.m_trkSpeedA1.Value / 100))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 2, f32Speed.Union__Uint32)
 
         End Sub
 
+        Private Sub btnA2_Stop(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 2
+            Dim f32Speed As New SIL3.Numerical.F32(CSng(Me.m_trkSpeedA2.Value / 100))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 0, f32Speed.Union__Uint32)
+
+        End Sub
+
+        Private Sub btnA2_Retract(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 2
+            Dim f32Speed As New SIL3.Numerical.F32(CSng(Me.m_trkSpeedA2.Value / 100))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 1, f32Speed.Union__Uint32)
+        End Sub
+
+        Private Sub btnA2_Extend(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 2
+            Dim f32Speed As New SIL3.Numerical.F32(CSng(Me.m_trkSpeedA2.Value / 100))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 2, f32Speed.Union__Uint32)
+
+        End Sub
+
+        Private Sub btnA3_Stop(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 3
+            Dim f32Speed As New SIL3.Numerical.F32(CSng(Me.m_trkSpeedA3.Value / 100))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 0, f32Speed.Union__Uint32)
+
+        End Sub
+
+        Private Sub btnA3_Retract(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 3
+            Dim f32Speed As New SIL3.Numerical.F32(CSng(Me.m_trkSpeedA3.Value / 100))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 1, f32Speed.Union__Uint32)
+        End Sub
+
+        Private Sub btnA3_Extend(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 3
+            Dim f32Speed As New SIL3.Numerical.F32(CSng(Me.m_trkSpeedA3.Value / 100))
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 2, f32Speed.Union__Uint32)
+
+        End Sub
 
 #End Region '#Region "BUTTON"
+
+#Region "ETHERNET"
+        ''' <summary>
+        ''' New Packet In
+        ''' </summary>
+        ''' <param name="ePacketType"></param>
+        ''' <param name="u16PayloadLength"></param>
+        ''' <param name="u8Payload"></param>
+        ''' <param name="u16CRC"></param>
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16)
+
+            'only do if we have been created
+            If MyBase.m_bLayout = True Then
+
+                'check for our sim packet type
+                If ePacketType = SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__TX_STATUS_PACKET Then
+
+                    Dim iOffset As Integer = 0
+
+                    'iOffset += Me.m_txtFaultFlags.Flags__Update(u8Payload, iOffset, True)
+
+                    'For iCounter As Integer = 0 To C_NUM_ACTUATORS - 1
+                    '    iOffset += Me.m_txtA_Flags(iCounter).Flags__Update(u8Payload, iOffset, True)
+                    '    iOffset += Me.m_txtA_ADCRaw(iCounter).Value__Update(u8Payload, iOffset)
+                    '    iOffset += Me.m_txtA_Extension(iCounter).Value__Update(u8Payload, iOffset)
+                    '    iOffset += Me.m_txtA_ComputedHeight(iCounter).Value__Update(u8Payload, iOffset)
+                    '    iOffset += Me.m_txtA_ExtendLimit(iCounter).Value__Update(u8Payload, iOffset)
+                    '    iOffset += Me.m_txtA_RetractLimit(iCounter).Value__Update(u8Payload, iOffset)
+
+                    '    'spares
+                    '    iOffset += 16
+                    'Next
+
+                End If
+            End If
+
+        End Sub
+
+#End Region '#Region "ETHERNET"
 
     End Class
 

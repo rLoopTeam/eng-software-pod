@@ -103,7 +103,7 @@ Lint16 s16FCU_ASI_CTRL__ReadMotorRpm(Luint8 u8ASIDevNum, Luint16 *u16Rpm)
 	sCmd.eFunctionCode = FUNCTION_CODE__READ_INPUT_REGS;
 	sCmd.eObjectType = C_FCU_ASI__MOTOR_RPM;
 	sCmd.u16ParamValue = 1;	// we just want to read one register
-	sCmd.destVar = (void*)u16Rpm;
+	sCmd.unDestVar.u16[0] = u16Rpm;
 	sCmd.eDestVarType = E_UINT16;
 
 	s16Return = s16FCU_ASI__SendCommand(&sCmd);
@@ -130,7 +130,7 @@ Lint16 s16FCU_ASI_CTRL__ReadMotorCurrent(Luint8 u8ASIDevNum, Luint16 *u16Current
 	sCmd.eFunctionCode = FUNCTION_CODE__READ_INPUT_REGS;
 	sCmd.eObjectType = C_FCU_ASI__MOTOR_CURRENT;
 	sCmd.u16ParamValue = 1;	// we just want to read one register
-	sCmd.destVar = (void*)u16Current;
+	sCmd.unDestVar.u16[0] = u16Current;
 	sCmd.eDestVarType = E_UINT16;
 	s16Return=s16FCU_ASI__SendCommand(&sCmd);
 	return s16Return;
@@ -155,7 +155,7 @@ Lint16 s16FCU_ASI_CTRL__ReadControllerTemperature(Luint8 u8ASIDevNum, Luint16 *u
 	sCmd.eFunctionCode = FUNCTION_CODE__READ_INPUT_REGS;
 	sCmd.eObjectType = C_FCU_ASI__CONT_TEMP;
 	sCmd.u16ParamValue = 1;	// we just want to read one register
-	sCmd.destVar = (void*)u16Temp;
+	sCmd.unDestVar.u16[0] = u16Temp;
 	sCmd.eDestVarType = E_UINT16;
 	s16Return = s16FCU_ASI__SendCommand(&sCmd);
 	return s16Return;
@@ -204,7 +204,7 @@ Lint16 s16FCU_ASI_CTRL__GetFaults(Luint8 u8ASIDevNum, Luint16 *u16Faults)
 	sCmd.eFunctionCode = FUNCTION_CODE__READ_INPUT_REGS;
 	sCmd.eObjectType = C_FCU_ASI__FAULTS;
 	sCmd.u16ParamValue = 1;	// we just want to read one register
-	sCmd.destVar = (void*)u16Faults;
+	sCmd.unDestVar.u16[0] = u16Faults;
 	sCmd.eDestVarType = E_UINT16;
 
 	s16Return = s16FCU_ASI__SendCommand(&sCmd);
