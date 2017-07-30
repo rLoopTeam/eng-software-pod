@@ -131,20 +131,7 @@
 			}sDC;
 			#endif
 
-			#if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
-			/** Pi Comms Layer */
-			struct
-			{
-
-				/** the current state */
-				E_POWER_PICOM__STATE_T eCoolingState;
-
-				/** 100ms timer interrupt tick*/
-				Luint8 u8100MS_Timer;
-
-			}sPiComms;
-			#endif
-
+			
 			#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
 			/** Charger Control */
 			struct
@@ -173,25 +160,6 @@
 			}sCharger;
 			#endif //C_LOCALDEF__LCCM653__ENABLE_CHARGER
 
-			/** ATA6870 interface */
-//			#define NUM_CELLS_PER_MODULE    (6U)
-/*
-			struct
-			{
-
-				struct
-				{
-					Luint8 u8DeviceIndex;
-
-					Lfloat32 pf32Voltages[NUM_CELLS_PER_MODULE];
-
-
-					Lfloat32 pf32DeviceTemperature;
-
-				}sDevice[C_LOCALDEF__LCCM650__NUM_DEVICES];
-
-			}sATA6870;
-*/
 
 			#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
 			/** BMS Subsystem */
@@ -218,40 +186,7 @@
 
 			}sHASS600;
 
-			/** Cooling System **/
-			struct
-			{
-				/** Hover Engine Cooling Subsystem **/
-				struct
-				{
-					Lfloat32 f32Temperature;
-					E_PWRNODE__COOLING_STATES eCoolingState;
-					E_PWR__COOLING_SOLENOID_STATE_T eHoverSolenoidState;
-					Luint8 u8N2HETPinNumber;
-					Luint32 u32100MS_Count;
-					E_PWRNODE__COOLINGSUB_T eState;
-					Luint8 u8Indexes[2U];
-				}sHoverEngineCoolingSystem[POWER_COOLING__MAX_HOVERENG];
-
-				/** Eddy Brake Cooling Subsystem **/
-				struct
-				{
-					Lfloat32 f32Temperature;
-					E_PWRNODE__COOLING_STATES eCoolingState;
-					E_PWR__COOLING_SOLENOID_STATE_T eEddySolenoidState;
-					Luint8 u8N2HETPinNumber;
-					Luint32 u32100MS_Count;
-					E_PWRNODE__COOLINGSUB_T eState;
-					Luint8 u8Indexes[2U];
-				}sEddyBrakeCoolingSystem[POWER_COOLING__MAX_EDDYBRAKES];
-
-				/** Cooling System Main State Mainchine */
-				E_PWRNODE__COOLING_T eMainState;
-
-				/** 100 ms counter **/
-				Luint32 u32100MS_Count;
-			}sCooling;
-
+		
 			/** Win32 Functions*/
 #ifdef WIN32
 			struct
@@ -408,34 +343,11 @@
 		void vPWRNODE_BMS__Balance_Manual(Luint8 u8CellIndex, Luint8 u8Enable);
 		Luint32 u32PWRNODE_BMS__Get_VoltsUpdateCount(void);
 
+		
 		//eth
 		void vPWR_BMS_ETH__Init(void);
 		void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
-
-
-		//pi comms interface
-		void vPWRNODE_PICOMMS__Init(void);
-		void vPWRNODE_PICOMMS__Process(void);
-		void vPWRNODE_PICOMMS__100MS_ISR(void);
-
-			//common messaging interface
-			//for the PodSafe (DC/DC converter system)
-			void vPWRNODE_PICOMMS_MSG__PodSafe__UnlockKey(Luint32 u32Key);
-			void vPWRNODE_PICOMMS_MSG__PodSafe__Execute(void);
-			Luint32 u32PWRNODE_PICOMMS_MSG__PodSafe__Get_Watchdog_Value(void);
-
-			//for the node temperature system
-			Lfloat32 f32PWRNODE_PICOMMS_MSG__NodeTemp__Get_DegC(void);
-			Luint32 u32PWRNODE_PICOMMS_MSG__NodeTemp__Get_FaulFlags(void);
-
-			//for the node pressure system
-
-
-
-		//CAN
-		void vPWRNODE_CAN__Init(void);
-		void vPWRNODE_CAN__Process(void);
 
 		//battery temperature system
 		void vPWRNODE_BATTTEMP__Init(void);
@@ -471,27 +383,7 @@
 		void vPWR_PVPRESS__100MS_ISR(void);
 		void vPWR_PVPRESS__Enable(Luint32 u32Value);
 
-		//cooling system
-		void vPWR_COOLING__Init(void);
-		void vPWR_COOLING__Process(void);
-		void vPWR_COOLING_EDDY__100MS_ISR(void);
-		void vPWR_COOLING_HOVER__100MS_ISR(void);
-		void vPWR_COOLING__100MS_ISR(void);
-		void vPWR_COOLING__Enable(Luint32 u32Value);
-		void vPWR_COOLING__Solennoid_TurnAllOff(void);
-		void vPWR_COOLING__Solennoid_TurnOff(Luint32 u32PinNumber);
-		void vPWR_COOLING__Solennoid_TurnOn(Luint32 u32PinNumber);
-		void vPWR_COOLING_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
-		//cooling hover subsystem
-		void vPWR_COOLING_HOVER__Init(void);
-		void vPWR_COOLING_HOVER__Process(void);
-
-		//cooling eddy subsystem
-		void vPWR_COOLING_EDDY__Init(void);
-		void vPWR_COOLING_EDDY__Process(void);
-		void vPWR_BMS_ETH__Init(void);
-		void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
 #ifdef WIN32
 		void vPWRNODE_WIN32__Init(void);

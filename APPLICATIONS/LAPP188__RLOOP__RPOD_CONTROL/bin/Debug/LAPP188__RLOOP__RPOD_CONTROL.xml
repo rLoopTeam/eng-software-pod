@@ -5847,6 +5847,15 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Manual.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__RPOD_CONTROL.SIL3.Numerical.U16)">
+ <summary>
+ New Packet In
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.LandingGear.Status">
  <summary>
  LGU Variable Status

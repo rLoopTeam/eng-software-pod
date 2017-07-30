@@ -677,7 +677,7 @@ LR Time = 160ns
 		//HET Options
 		#define C_LOCALDEF__LCCM240__ENABLE_INPUT_CAPTURE					(0U)
 		#define C_LOCALDEF__LCCM240__ENABLE_EDGE_CAPTURE					(1U)
-		#define C_LOCALDEF__LCCM240__ENABLE_PWM								(0U)
+		#define C_LOCALDEF__LCCM240__ENABLE_PWM								(1U)
 		#define C_LOCALDEF__LCCM240__ENABLE_TIMESTAMPING					(0U)
 
 		//testing
@@ -814,10 +814,14 @@ RTI MODULE
 		/** RTI CLOCK FREQUENCY
 		 * Based on our standard system, valid values are div(2,4,8):
 		 * 100 	(100MHZ)
+		 * 75 	(75MHZ - ONLY ON RM57)
 		 * 50	(50MHZ)
 		 * 25	(25MHZ)
 		 * */
 		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(50U)
+
+		/** RTCLK0 feeds counter 0 and is used for general purpose compare times */
+		#define C_LOCALDEF__LCCM124__RTI_COUNTER0_PRESCALER					(10U)
 
 		/** RTCLK1 feeds counter 1 and can be used for 64bit timing */
 		#define C_LOCALDEF__LCCM124__RTI_COUNTER1_PRESCALER					(1U)
@@ -1285,13 +1289,13 @@ SIL3 - MMA8451 3 AXIS ACCELEROMETER
 		#define C_LOCALDEF__LCCM418__I2C1_RX_BYTE(device, reg, ptrByte)			s16SOFT_I2C_USER__Rx_U8(device, reg, ptrByte)
 		#define C_LOCALDEF__LCCM418__I2C1_RX_ARRAY(device, reg, pArray, len) 	s16SOFT_I2C_USER__Rx_U8Array(device, reg, pArray, len)
 #else
-		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__Tx_U8(device, reg, byt)
-		#define C_LOCALDEF__LCCM418__I2C0_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__Rx_U8(device, reg, ptrByte)
-		#define C_LOCALDEF__LCCM418__I2C0_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__Rx_U8Array(device, reg, pArray, len)
+		#define C_LOCALDEF__LCCM418__I2C0_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__Tx_U8(RM4_I2C_CH__1, device, reg, byt)
+		#define C_LOCALDEF__LCCM418__I2C0_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__Rx_U8(RM4_I2C_CH__1, device, reg, ptrByte)
+		#define C_LOCALDEF__LCCM418__I2C0_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__Rx_U8Array(RM4_I2C_CH__1, device, reg, pArray, len)
 
-		#define C_LOCALDEF__LCCM418__I2C1_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__Tx_U8(device, reg, byt)
-		#define C_LOCALDEF__LCCM418__I2C1_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__Rx_U8(device, reg, ptrByte)
-		#define C_LOCALDEF__LCCM418__I2C1_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__Rx_U8Array(device, reg, pArray, len)
+		#define C_LOCALDEF__LCCM418__I2C1_TX_BYTE(device, reg, byt) 			s16RM4_I2C_USER__Tx_U8(RM4_I2C_CH__1, device, reg, byt)
+		#define C_LOCALDEF__LCCM418__I2C1_RX_BYTE(device, reg, ptrByte)			s16RM4_I2C_USER__Rx_U8(RM4_I2C_CH__1, device, reg, ptrByte)
+		#define C_LOCALDEF__LCCM418__I2C1_RX_ARRAY(device, reg, pArray, len) 	s16RM4_I2C_USER__Rx_U8Array(RM4_I2C_CH__1, device, reg, pArray, len)
 #endif
 		//main include file
 		#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8451.h>

@@ -17,7 +17,7 @@
 		/*******************************************************************************
 		Includes
 		*******************************************************************************/
-		//#include <LCCM667__RLOOP__LGU/lgu__types.h>
+		#include <LCCM667__RLOOP__LGU/lgu__types.h>
 
 		//cross system networking types
 		#include <LCCM655__RLOOP__FCU_CORE/NETWORKING/fcu_core__net__packet_types.h>
@@ -105,6 +105,8 @@
 		//liftmech
 		void vLGU_LIFT__Init(void);
 		void vLGU_LIFT__Process(void);
+		void vLGU_LIFT__Set_Speed(Luint8 u8Actuator, Lfloat32 f32Percent);
+		void vLGU_LIFT__Set_Direction(Luint8 u8Actuator, TE_LGU__LIFT_DIRECTIONS eDir);
 
 		//eth
 		void vLGU_ETH__Init(void);

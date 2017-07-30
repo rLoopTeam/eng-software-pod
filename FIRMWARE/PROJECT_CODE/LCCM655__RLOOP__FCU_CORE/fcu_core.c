@@ -241,17 +241,7 @@ void vFCU__Process(void)
 
 			//I2C Channel
 			#if C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE == 1U
-				vRM4_I2C_USER__Init();
-/*
-Testing damaged FCU pins
-				vRM4_I2C_PINS__Set_SCL_Tris(0);
-				vRM4_I2C_PINS__Set_SCL_Latch(1);
-				vRM4_I2C_PINS__Set_SCL_Latch(0);
-
-				vRM4_I2C_PINS__Set_SDA_Tris(0);
-				vRM4_I2C_PINS__Set_SDA_Latch(1);
-				vRM4_I2C_PINS__Set_SDA_Latch(0);
-*/
+				vRM4_I2C_USER__Init(RM4_I2C_CH__1);
 			#endif
 
 			#if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
@@ -485,10 +475,6 @@ Testing damaged FCU pins
  */
 void vFCU__RTI_100MS_ISR(void)
 {
-	//picomms
-	#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
-		vFCU_PICOMMS__100MS_ISR();
-	#endif
 
 	//OptoNCDT Timer
 	#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
@@ -518,7 +504,6 @@ void vFCU__RTI_100MS_ISR(void)
 	#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 	#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
 		vFCU_FCTL_MAINSM__100MS_ISR();
-		vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR();
 	#endif
 	#endif
 

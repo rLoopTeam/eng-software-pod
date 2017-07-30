@@ -42,18 +42,18 @@
             Me.m_pExplorer = pExplorer
 
             Me.m_iBarIndex = Me.m_pExplorer.Bar__Add("Landing Gear")
-            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "LGU - Status")
-            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "LGU - Calibrate")
-            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "LGU - Manual")
-            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "LGU - Auto Mode")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Landing Gear - Status")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Landing Gear - Calibrate")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Landing Gear - Manual")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Landing Gear - Auto Mode")
 
 
             'add the panels before the bar so as we have docking working well.
-            Me.m_pnlLGU__Status = New SIL3.rLoop.rPodControl.Panels.LandingGear.Status("LGU - Status")
+            Me.m_pnlLGU__Status = New SIL3.rLoop.rPodControl.Panels.LandingGear.Status("Landing Gear - Status")
             pf.Controls.Add(Me.m_pnlLGU__Status)
-            Me.m_pnlLGU__Cal = New SIL3.rLoop.rPodControl.Panels.LandingGear.Calibrate("LGU - Calibrate")
+            Me.m_pnlLGU__Cal = New SIL3.rLoop.rPodControl.Panels.LandingGear.Calibrate("Landing Gear - Calibrate")
             pf.Controls.Add(Me.m_pnlLGU__Cal)
-            Me.m_pnlLGU__Manual = New SIL3.rLoop.rPodControl.Panels.LandingGear.Manual("LGU - Manual")
+            Me.m_pnlLGU__Manual = New SIL3.rLoop.rPodControl.Panels.LandingGear.Manual("Landing Gear - Manual")
             pf.Controls.Add(Me.m_pnlLGU__Manual)
 
 
@@ -119,6 +119,7 @@
         Public Sub InternalEvent__UDPSafe__RxPacketB(u16PacketType As UInt16, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
             Me.m_pnlLGU__Status.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
             Me.m_pnlLGU__Cal.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
+            Me.m_pnlLGU__Manual.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
         End Sub
 
 #End Region '#Region "ETHERNET"
