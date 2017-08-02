@@ -1,0 +1,252 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+LAPP209__RLOOP__HE_THERM_EMU
+</name>
+</assembly>
+<members>
+<member name="T:LAPP209__RLOOP__HE_THERM_EMU.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:LAPP209__RLOOP__HE_THERM_EMU.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:LAPP209__RLOOP__HE_THERM_EMU.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:LAPP209__RLOOP__HE_THERM_EMU.Form1">
+ <summary>
+ Basic framework for rLoop Auxiliary Propultion Controler
+ Lachlan Grogan - @SafetyLok
+ </summary>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.C_NUM_SENSORS_PER_SIDE">
+ <summary>
+ number of sensors on each side.
+ </summary>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.C_DLL_NAME">
+ <summary>
+ The name of our DLL, could be a bit better done with relative paths
+ </summary>
+</member>
+<member name="T:LAPP209__RLOOP__HE_THERM_EMU.Form1.SIL3_DEBUG_PRINTF__CallbackDelegate">
+ <summary>
+ The delegate sub for win32 debug (text) c
+ </summary>
+ <param name="pu8String"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.vSIL3_DEBUG_PRINTF_WIN32__Set_Callback(System.MulticastDelegate)">
+ <summary>
+ The debugger callback
+ </summary>
+ <param name="callback"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.vHETHERM__Init">
+ <summary>
+ The Init function from the power node
+ </summary>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.vHETHERM__Process">
+ <summary>
+ the process function from the power node
+ </summary>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.m_txtOutput">
+ <summary>
+ Our output text box used for serial debugging
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.m_Sensor">
+ <summary>
+ The array of sensors
+ </summary>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.m_pSIL3_DEBUG_PRINTF_WIN32__Delegate">
+ <summary>
+ The debug delegate for screen printing.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.m_pSIL3_ETH_WIN32_TX__Delegate">
+ <summary>
+ Callbacks for the ethernet interface
+ </summary>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.m_pMainThread">
+ <summary>
+ The thread to run our DLL in
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.m_bThreadRun">
+ <summary>
+ Global flag to indicate the thread is running
+ </summary>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.Form1_Load(System.Object,System.EventArgs)">
+ <summary>
+ Create the form
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.Form1_Closing(System.Object,System.ComponentModel.CancelEventArgs)">
+ <summary>
+ Handles an intentional shutdown
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.Setup_System">
+ <summary>
+ Setup anyting else on the system
+ </summary>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.btnTestCases__Click(System.Object,System.EventArgs)">
+ <summary>
+ Run the test cases
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.btnStart__Click(System.Object,System.EventArgs)">
+ <summary>
+ Called to start/stop
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.Thread__Main">
+ <summary>
+ This is the same as Main() in C
+ </summary>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.Timers__Setup">
+ <summary>
+ Start the timers.
+ </summary>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.Timers__T10_Tick(System.Object,System.Timers.ElapsedEventArgs)">
+ <summary>
+ 10ms timer
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.Timers__T100_Tick(System.Object,System.Timers.ElapsedEventArgs)">
+ <summary>
+ 100ms timer
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.SIL3_DEBUG_PRINTF_WIN32_Callback(System.IntPtr)">
+ <summary>
+ Called when the debug layer wants to print a string
+ </summary>
+ <param name="pu8String"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.Convert_ByteArrayASCII_ToString(System.Byte[],System.Int32,System.Int32)">
+ <summary>
+ Helper function to convert a byte array into a string.
+ </summary>
+ <param name="pByteArray"></param>
+ <param name="iArrayLength"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.Threadsafe__SetText(System.Windows.Forms.TextBox@,System.String)">
+ <summary>
+ Sets text on the control in a threasafe mannor
+ </summary>
+ <param name="sData">The string to set</param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.Threadsafe__AppendText(System.Windows.Forms.TextBox@,System.String)">
+ <summary>
+ Append text in a threadsafe mannor
+ </summary>
+ <param name="sData"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.InternalEvent__NewPacket(System.Byte[],System.Int32)">
+ <summary>
+ Rx a new raw packet
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.InernalEvent__UDPSafe__RxPacket(LAPP209__RLOOP__LIB.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T,LAPP209__RLOOP__LIB.SIL3.Numerical.U16,System.Byte[]@,LAPP209__RLOOP__LIB.SIL3.Numerical.U16,System.Boolean,System.UInt32)">
+ <summary>
+ RX a UDP safe packet and fake the eth-ii layer
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <param name="bCRCOK"></param>
+ <param name="u32Seq"></param>
+</member>
+<member name="M:LAPP209__RLOOP__HE_THERM_EMU.Form1.ETH_WIN32__TxCallback_Sub(System.IntPtr,System.UInt16)">
+ <summary>
+ Called when teh DLL wants to trasmit eth data.
+ </summary>
+ <param name="u8Buffer"></param>
+ <param name="u16BufferLength"></param>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.ThermalSensor.m_pTrk">
+ <summary>
+ The track bar
+ </summary>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.ThermalSensor.m_lTemp">
+ <summary>
+ Shows our temperature
+ </summary>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.ThermalSensor.m_lID">
+ <summary>
+ Our device ID
+ </summary>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.ThermalSensor.m_iDeviceIndex">
+ <summary>
+ The bus index
+ </summary>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.Solenoid.m_lTemp">
+ <summary>
+ Shows our temperature
+ </summary>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.Solenoid.m_picState">
+ <summary>
+ Solenoid state
+ </summary>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.Solenoid.m_iDeviceIndex">
+ <summary>
+ The bus index
+ </summary>
+</member>
+<member name="F:LAPP209__RLOOP__HE_THERM_EMU.Form1.Solenoid.m_lID">
+ <summary>
+ Our device ID
+ </summary>
+</member>
+</members>
+</doc>

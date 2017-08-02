@@ -88,22 +88,12 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32\daq__win32.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32\daq__win32_main.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\CLUTCH\auxprop__clutch.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\DAQ\auxprop__daq__transmit_template.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\ETHERNET\auxprop__ethernet.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\THROTTLE\auxprop__throttle.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\TIMERS\auxprop__timers.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\WIN32\auxprop__win32.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq__localdef.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop__localdef.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\auxprop__types.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM720__RLOOP__AUXPROP\DAQ\auxprop__daq_settings.h" />
     <ClInclude Include="localdef.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

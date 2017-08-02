@@ -5,7 +5,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class Brakes
-        Inherits SIL3.ApplicationSupport.PanelTemplate
+        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "CONSTANTS"
         Private Const C_NUM_BRAKES As Integer = 2
@@ -14,44 +14,44 @@
 #Region "MEMBERS"
 
         Private m_iRxCount As Integer
-        Private m_txtCount As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtCount As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
-        Private m_txtFlags(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
-        Private m_txtSpares(C_NUM_BRAKES - 1, 5 - 1) As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtFlags(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
+        Private m_txtSpares(C_NUM_BRAKES - 1, 5 - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
-        Private m_txtTargetIBeam(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
-        Private m_txtTargetScrew_mm(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
-        Private m_txtTargetScrew_um(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtTargetIBeam(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtTargetScrew_mm(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtTargetScrew_um(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
 
-        Private m_txtCurrentIBeam(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
-        Private m_txtCurrentScrew_mm(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
-        Private m_txtCurrentMLP_mm(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtCurrentIBeam(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtCurrentScrew_mm(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtCurrentMLP_mm(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
 
 
         'switches
-        Private m_txtLimitsExtend_State(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
-        Private m_txtLimitsRetract_State(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
-        Private m_txtLimitsExtend_EdgeSeen(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtLimitsRetract_EdgeSeen(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLimitsExtend_State(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
+        Private m_txtLimitsRetract_State(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
+        Private m_txtLimitsExtend_EdgeSeen(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLimitsRetract_EdgeSeen(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
         'mlp
-        Private m_txtMLP_ADC(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtMLP_ADCZero(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtMLP_ADCMinusZero(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtMLP_ADCSpan(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtMLP_Position_mm(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtMLP_ADC(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtMLP_ADCZero(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtMLP_ADCMinusZero(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtMLP_ADCSpan(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtMLP_Position_mm(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
         'stepper system
-        Private m_txtStep_Veloc(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtStep_Accel(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtStep_CurrentPos(C_NUM_BRAKES - 1) As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtStep_Veloc(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtStep_Accel(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtStep_CurrentPos(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
 
-        Private m_txtBrakeState As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
-        Private m_txtBrakeCalState As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
+        Private m_txtBrakeState As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
+        Private m_txtBrakeCalState As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
 
-        Private m_txtDevRawMove As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtDevIBeamMove As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtDevRawMove As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtDevIBeamMove As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
         ''' <summary>
         ''' The logging directory
@@ -61,13 +61,13 @@
         ''' <summary>
         ''' Allows us to write CSV logs of the edges
         ''' </summary>
-        Private m_pCSV As SIL3.FileSupport.CSV
+        Private m_pCSV As LAPP188__RLOOP__LIB.SIL3.FileSupport.CSV
 
 
         ''' <summary>
         ''' Our DAQ Receiver
         ''' </summary>
-        Private m_pDAQ As SIL3.DAQ.Top
+        Private m_pDAQ As LAPP188__RLOOP__LIB.SIL3.DAQ.Top
 
 #End Region '#Region "MEMBERS"
 
@@ -84,14 +84,14 @@
             Me.m_sLogDir = Me.m_sLogDir & "BRAKES\"
 
             'check our folder
-            SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir, True)
+            LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir, True)
 
             'create the log files in prep
             'Me.m_pCSV = New SIL3.FileSupport.CSV(Me.m_sLogDir & "Laser0.csv", ",", False, False)
             'If Me.m_pCSV.File__Exists = False Then
             'End If
 
-            Me.m_pDAQ = New SIL3.DAQ.Top()
+            Me.m_pDAQ = New LAPP188__RLOOP__LIB.SIL3.DAQ.Top()
 
             'add the contrast DAQ items
             Me.m_pDAQ.DAQ__Set_LogFilePath(Me.m_sLogDir)
@@ -121,7 +121,7 @@
         ''' <param name="u16PayloadLength"></param>
         ''' <param name="u8Payload"></param>
         ''' <param name="u16CRC"></param>
-        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16)
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16)
 
             'only do if we have been created
             If MyBase.m_bLayout = True Then
@@ -131,29 +131,29 @@
 
                     Dim iOffset As Integer = 0
 
-                    Dim pU32Spare(C_NUM_BRAKES - 1, 2 - 1) As SIL3.Numerical.U32
+                    Dim pU32Spare(C_NUM_BRAKES - 1, 2 - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.U32
 
 
-                    Dim pF32TargetScrew_mm(C_NUM_BRAKES - 1) As SIL3.Numerical.F32
-                    Dim pS32TargetScrew_um(C_NUM_BRAKES - 1) As SIL3.Numerical.S32
+                    Dim pF32TargetScrew_mm(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.F32
+                    Dim pS32TargetScrew_um(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.S32
 
-                    Dim pu8LimitsExtend_State(C_NUM_BRAKES - 1) As SIL3.Numerical.U8
-                    Dim pu8LimitsRetract_State(C_NUM_BRAKES - 1) As SIL3.Numerical.U8
-                    Dim pu8LimitsExtend_EdgeSeen(C_NUM_BRAKES - 1) As SIL3.Numerical.U8
-                    Dim pu8LimitsRetract_EdgeSeen(C_NUM_BRAKES - 1) As SIL3.Numerical.U8
+                    Dim pu8LimitsExtend_State(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.U8
+                    Dim pu8LimitsRetract_State(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.U8
+                    Dim pu8LimitsExtend_EdgeSeen(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.U8
+                    Dim pu8LimitsRetract_EdgeSeen(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.U8
 
 
-                    Dim pu16ADC_Sample(C_NUM_BRAKES - 1) As SIL3.Numerical.U16
-                    Dim pu16ADC_Zero(C_NUM_BRAKES - 1) As SIL3.Numerical.U16
-                    Dim pf32ADC_Span(C_NUM_BRAKES - 1) As SIL3.Numerical.F32
-                    Dim pf32ADC_MLPPos(C_NUM_BRAKES - 1) As SIL3.Numerical.F32
+                    Dim pu16ADC_Sample(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.U16
+                    Dim pu16ADC_Zero(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.U16
+                    Dim pf32ADC_Span(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.F32
+                    Dim pf32ADC_MLPPos(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.F32
 
-                    Dim ps32Step_Veloc(C_NUM_BRAKES - 1) As SIL3.Numerical.S32
-                    Dim ps32Step_Accel(C_NUM_BRAKES - 1) As SIL3.Numerical.S32
-                    Dim ps32Step_CurrentPos(C_NUM_BRAKES - 1) As SIL3.Numerical.S32
+                    Dim ps32Step_Veloc(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.S32
+                    Dim ps32Step_Accel(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.S32
+                    Dim ps32Step_CurrentPos(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.S32
 
-                    Dim pu8BrakeState As SIL3.Numerical.U8
-                    Dim pu8BrakeCalState As SIL3.Numerical.U8
+                    Dim pu8BrakeState As LAPP188__RLOOP__LIB.SIL3.Numerical.U8
+                    Dim pu8BrakeCalState As LAPP188__RLOOP__LIB.SIL3.Numerical.U8
 
                     For iCounter As Integer = 0 To C_NUM_BRAKES - 1
 
@@ -173,45 +173,45 @@
 
 
                         'switches
-                        pu8LimitsExtend_State(iCounter) = New SIL3.Numerical.U8(u8Payload, iOffset)
+                        pu8LimitsExtend_State(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(u8Payload, iOffset)
                         iOffset += 1
-                        pu8LimitsRetract_State(iCounter) = New SIL3.Numerical.U8(u8Payload, iOffset)
+                        pu8LimitsRetract_State(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(u8Payload, iOffset)
                         iOffset += 1
-                        pu8LimitsExtend_EdgeSeen(iCounter) = New SIL3.Numerical.U8(u8Payload, iOffset)
+                        pu8LimitsExtend_EdgeSeen(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(u8Payload, iOffset)
                         iOffset += 1
-                        pu8LimitsRetract_EdgeSeen(iCounter) = New SIL3.Numerical.U8(u8Payload, iOffset)
+                        pu8LimitsRetract_EdgeSeen(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(u8Payload, iOffset)
                         iOffset += 1
 
                         'sw error
                         iOffset += 1
 
 
-                        pu16ADC_Sample(iCounter) = New SIL3.Numerical.U16(u8Payload, iOffset)
+                        pu16ADC_Sample(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(u8Payload, iOffset)
                         iOffset += 2
-                        pu16ADC_Zero(iCounter) = New SIL3.Numerical.U16(u8Payload, iOffset)
+                        pu16ADC_Zero(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(u8Payload, iOffset)
                         iOffset += 2
 
                         'adc minus zero
                         iOffset += 4
 
-                        pf32ADC_Span(iCounter) = New SIL3.Numerical.F32(u8Payload, iOffset)
+                        pf32ADC_Span(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.F32(u8Payload, iOffset)
                         iOffset += 4
-                        pf32ADC_MLPPos(iCounter) = New SIL3.Numerical.F32(u8Payload, iOffset)
+                        pf32ADC_MLPPos(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.F32(u8Payload, iOffset)
                         iOffset += 4
 
                         'stepper
-                        ps32Step_Veloc(iCounter) = New SIL3.Numerical.S32(u8Payload, iOffset)
+                        ps32Step_Veloc(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(u8Payload, iOffset)
                         iOffset += 4
-                        ps32Step_Accel(iCounter) = New SIL3.Numerical.S32(u8Payload, iOffset)
+                        ps32Step_Accel(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(u8Payload, iOffset)
                         iOffset += 4
-                        ps32Step_CurrentPos(iCounter) = New SIL3.Numerical.S32(u8Payload, iOffset)
+                        ps32Step_CurrentPos(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(u8Payload, iOffset)
                         iOffset += 4
 
                     Next
 
-                    pu8BrakeState = New SIL3.Numerical.U8(u8Payload, iOffset)
+                    pu8BrakeState = New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(u8Payload, iOffset)
                     iOffset += 1
-                    pu8BrakeCalState = New SIL3.Numerical.U8(u8Payload, iOffset)
+                    pu8BrakeCalState = New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(u8Payload, iOffset)
                     iOffset += 1
 
 
@@ -274,7 +274,7 @@
         ''' </summary>
         ''' <param name="u8Val"></param>
         ''' <returns></returns>
-        Private Function State__SwitchExtended(u8Val As Numerical.U8) As String
+        Private Function State__SwitchExtended(u8Val As LAPP188__RLOOP__LIB.SIL3.Numerical.U8) As String
 
             Select Case u8Val.To__Int
                 Case 0
@@ -312,110 +312,110 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l0(C_NUM_BRAKES - 1, 20) As SIL3.ApplicationSupport.LabelHelper
+            Dim l0(C_NUM_BRAKES - 1, 20) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper
 
             Dim iDevice As Integer = 0
             Dim iIndex As Integer = 0
 
             'general
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags " & Me.Layout__GetBrakeSide(iDevice), MyBase.m_pInnerPanel)
-            Me.m_txtFlags(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iDevice, iIndex))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags " & Me.Layout__GetBrakeSide(iDevice), MyBase.m_pInnerPanel)
+            Me.m_txtFlags(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Target IBeam " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Target IBeam " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtFlags(iDevice))
-            Me.m_txtTargetIBeam(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            Me.m_txtTargetIBeam(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Target Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtTargetIBeam(iDevice))
-            Me.m_txtTargetScrew_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            Me.m_txtTargetScrew_mm(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (um) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Target Screw (um) " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtTargetScrew_mm(iDevice))
-            Me.m_txtTargetScrew_um(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_U32(100, l0(iDevice, iIndex))
+            Me.m_txtTargetScrew_um(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l0(iDevice, iIndex))
             iIndex += 1
 
             'current
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Curr. IBeam (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Curr. IBeam (mm) " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtFlags(iDevice))
-            Me.m_txtCurrentIBeam(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            Me.m_txtCurrentIBeam(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Curr. Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Curr. Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtCurrentIBeam(iDevice))
-            Me.m_txtCurrentScrew_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            Me.m_txtCurrentScrew_mm(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Curr. MLP (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Curr. MLP (mm) " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtCurrentScrew_mm(iDevice))
-            Me.m_txtCurrentMLP_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            Me.m_txtCurrentMLP_mm(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
             iIndex += 1
 
 
             'switches
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext State " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Sw Ext State " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtCurrentIBeam(iDevice))
-            Me.m_txtLimitsExtend_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, iIndex))
+            Me.m_txtLimitsExtend_State(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Retract State " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Sw Retract State " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtLimitsExtend_State(iDevice))
-            Me.m_txtLimitsRetract_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, iIndex))
+            Me.m_txtLimitsRetract_State(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext Edge " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Sw Ext Edge " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtLimitsExtend_State(iDevice))
-            Me.m_txtLimitsExtend_EdgeSeen(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtLimitsExtend_EdgeSeen(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Retract Edge " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Sw Retract Edge " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtLimitsExtend_EdgeSeen(iDevice))
-            Me.m_txtLimitsRetract_EdgeSeen(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtLimitsRetract_EdgeSeen(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
             'mlp
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("MLP ADC " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtLimitsExtend_EdgeSeen(iDevice))
-            Me.m_txtMLP_ADC(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtMLP_ADC(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC Zero " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("MLP ADC Zero " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtMLP_ADC(iDevice))
-            Me.m_txtMLP_ADCZero(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtMLP_ADCZero(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC Span " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("MLP ADC Span " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtMLP_ADCZero(iDevice))
-            Me.m_txtMLP_ADCSpan(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtMLP_ADCSpan(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP Position(mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("MLP Position(mm) " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtMLP_ADCSpan(iDevice))
-            Me.m_txtMLP_Position_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtMLP_Position_mm(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
             'stepper
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Veloc " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Stepper Veloc " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Location = New System.Drawing.Point(Me.m_txtMLP_ADC(iDevice).Location.X, Me.m_txtMLP_ADC(iDevice).Location.Y + Me.m_txtMLP_ADC(iDevice).Size.Height + 50)
             Me.m_pInnerPanel.Controls.Add(l0(iDevice, iIndex))
             'l0(iDevice, 12).Layout__BelowControl(Me.m_txtMLP_ADC(iDevice))
-            Me.m_txtStep_Veloc(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtStep_Veloc(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
-            Dim btnUpdateVeloc0 As New SIL3.ApplicationSupport.ButtonHelper(100, "Update Veloc", AddressOf Me.btnUpdateVeloc0__Click)
+            Dim btnUpdateVeloc0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Update Veloc", AddressOf Me.btnUpdateVeloc0__Click)
             btnUpdateVeloc0.Layout__BelowControl(Me.m_txtStep_Veloc(iDevice))
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Accel " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Stepper Accel " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtStep_Veloc(iDevice))
-            Me.m_txtStep_Accel(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtStep_Accel(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
-            Dim btnUpdateAccel0 As New SIL3.ApplicationSupport.ButtonHelper(100, "Update Accel", AddressOf Me.btnUpdateAccel0__Click)
+            Dim btnUpdateAccel0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Update Accel", AddressOf Me.btnUpdateAccel0__Click)
             btnUpdateAccel0.Layout__BelowControl(Me.m_txtStep_Accel(iDevice))
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Pos " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Stepper Pos " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtStep_Accel(iDevice))
-            Me.m_txtStep_CurrentPos(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtStep_CurrentPos(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
 
@@ -424,116 +424,116 @@
             iDevice = 1
             iIndex = 0
             'general
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Fault Flags " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Fault Flags " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice - 1, 0), Me.m_txtTargetScrew_um(iDevice - 1))
-            Me.m_txtFlags(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iDevice, iIndex))
+            Me.m_txtFlags(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Target IBeam " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Target IBeam " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtFlags(iDevice))
-            Me.m_txtTargetIBeam(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            Me.m_txtTargetIBeam(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Target Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtTargetIBeam(iDevice))
-            Me.m_txtTargetScrew_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            Me.m_txtTargetScrew_mm(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Target Screw (um) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Target Screw (um) " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtTargetScrew_mm(iDevice))
-            Me.m_txtTargetScrew_um(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_U32(100, l0(iDevice, iIndex))
+            Me.m_txtTargetScrew_um(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l0(iDevice, iIndex))
             iIndex += 1
 
             'current
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Curr. IBeam (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Curr. IBeam (mm) " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtFlags(iDevice))
-            Me.m_txtCurrentIBeam(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            Me.m_txtCurrentIBeam(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Curr. Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Curr. Screw (mm) " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtCurrentIBeam(iDevice))
-            Me.m_txtCurrentScrew_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            Me.m_txtCurrentScrew_mm(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Curr. MLP (mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Curr. MLP (mm) " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtCurrentScrew_mm(iDevice))
-            Me.m_txtCurrentMLP_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
+            Me.m_txtCurrentMLP_mm(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l0(iDevice, iIndex))
             iIndex += 1
 
             'switches
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext State " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Sw Ext State " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtCurrentIBeam(iDevice))
-            Me.m_txtLimitsExtend_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, iIndex))
+            Me.m_txtLimitsExtend_State(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Retract State " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Sw Retract State " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtLimitsExtend_State(iDevice))
-            Me.m_txtLimitsRetract_State(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, iIndex))
+            Me.m_txtLimitsRetract_State(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Ext Edge " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Sw Ext Edge " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtLimitsExtend_State(iDevice))
-            Me.m_txtLimitsExtend_EdgeSeen(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtLimitsExtend_EdgeSeen(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Sw Retract Edge " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Sw Retract Edge " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtLimitsExtend_EdgeSeen(iDevice))
-            Me.m_txtLimitsRetract_EdgeSeen(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtLimitsRetract_EdgeSeen(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
             'mlp
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("MLP ADC " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtLimitsExtend_EdgeSeen(iDevice))
-            Me.m_txtMLP_ADC(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtMLP_ADC(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC Zero " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("MLP ADC Zero " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtMLP_ADC(iDevice))
-            Me.m_txtMLP_ADCZero(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtMLP_ADCZero(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP ADC Span " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("MLP ADC Span " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtMLP_ADCZero(iDevice))
-            Me.m_txtMLP_ADCSpan(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtMLP_ADCSpan(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("MLP Position(mm) " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("MLP Position(mm) " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtMLP_ADCSpan(iDevice))
-            Me.m_txtMLP_Position_mm(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtMLP_Position_mm(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
             'stepper
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Veloc " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Stepper Veloc " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Location = New System.Drawing.Point(Me.m_txtMLP_ADC(iDevice).Location.X, Me.m_txtMLP_ADC(iDevice).Location.Y + Me.m_txtMLP_ADC(iDevice).Size.Height + 50)
             Me.m_pInnerPanel.Controls.Add(l0(iDevice, iIndex))
             'l0(iDevice, 12).Layout__BelowControl(Me.m_txtMLP_ADC(iDevice))
-            Me.m_txtStep_Veloc(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtStep_Veloc(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
-            Dim btnUpdateVeloc1 As New SIL3.ApplicationSupport.ButtonHelper(100, "Update Veloc", AddressOf Me.btnUpdateVeloc1__Click)
+            Dim btnUpdateVeloc1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Update Veloc", AddressOf Me.btnUpdateVeloc1__Click)
             btnUpdateVeloc1.Layout__BelowControl(Me.m_txtStep_Veloc(iDevice))
 
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Accel " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Stepper Accel " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtStep_Veloc(iDevice))
-            Me.m_txtStep_Accel(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtStep_Accel(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
-            Dim btnUpdateAccel1 As New SIL3.ApplicationSupport.ButtonHelper(100, "Update Accel", AddressOf Me.btnUpdateAccel1__Click)
+            Dim btnUpdateAccel1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Update Accel", AddressOf Me.btnUpdateAccel1__Click)
             btnUpdateAccel1.Layout__BelowControl(Me.m_txtStep_Accel(iDevice))
 
-            l0(iDevice, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Stepper Pos " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Stepper Pos " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtStep_Accel(iDevice))
-            Me.m_txtStep_CurrentPos(iDevice) = New SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            Me.m_txtStep_CurrentPos(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
-            Dim l10 As New SIL3.ApplicationSupport.LabelHelper("Brakes State")
+            Dim l10 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Brakes State")
             l10.Layout__BelowControl(btnUpdateVeloc0)
-            Me.m_txtBrakeState = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l10)
+            Me.m_txtBrakeState = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l10)
             Me.m_txtBrakeState.HeaderFile__Set("D:\SIL3\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core__types.h", "E_FCU_BRAKES__STATES_T")
 
 
-            Dim l100 As New SIL3.ApplicationSupport.LabelHelper("Calibration State")
+            Dim l100 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Calibration State")
             l100.Layout__AboveRightControl(l10, Me.m_txtBrakeState)
-            Me.m_txtBrakeCalState = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l100)
+            Me.m_txtBrakeCalState = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l100)
             Me.m_txtBrakeCalState.HeaderFile__Set("D:\SIL3\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core__types.h", "E_FCU_CAL_BRAKES__STATES_T")
 
 
@@ -548,59 +548,59 @@
             Next
 
 
-            Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
+            Dim l11 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Rx Count")
             l11.Layout__BelowControl(Me.m_txtBrakeState)
-            Me.m_txtCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l11)
+            Me.m_txtCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l11)
 
-            Dim btnOn As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
+            Dim btnOn As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
             btnOn.Layout__RightOfControl(Me.m_txtCount)
 
-            Dim btnDAQ As New SIL3.ApplicationSupport.ButtonHelper(100, "Enable DAQ", AddressOf btnDAQ__Click)
+            Dim btnDAQ As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Enable DAQ", AddressOf btnDAQ__Click)
             btnDAQ.Layout__RightOfControl(btnOn)
 
-            Dim btnInit As New SIL3.ApplicationSupport.ButtonHelper(100, "Init Brakes", AddressOf btnInit__Click)
+            Dim btnInit As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Init Brakes", AddressOf btnInit__Click)
             btnInit.Layout__BelowControl(Me.m_txtCount)
             btnInit.ToolTip__Set("Brake Init", "This is required after reset")
 
 
-            Dim btnDevEnable As New SIL3.ApplicationSupport.ButtonHelper(100, "Dev Enable", AddressOf btnDevEnable__Click)
+            Dim btnDevEnable As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Dev Enable", AddressOf btnDevEnable__Click)
             btnDevEnable.Layout__BelowControl(btnInit)
             btnDevEnable.ToolTip__Set("Development Enable", "Use this to enable development mode before any manual brake commands can be sent.")
 
-            Dim btnCal As New SIL3.ApplicationSupport.ButtonHelper(100, "Calibrate", AddressOf btnCalibrate__Click)
+            Dim btnCal As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Calibrate", AddressOf btnCalibrate__Click)
             btnCal.Layout__RightOfControl(btnDevEnable)
             btnCal.ToolTip__Set("Calibration", "Calibrate the brakes (Only works in DEV mode)  CAUTION!")
 
 
 
-            Dim l20 As New SIL3.ApplicationSupport.LabelHelper("Raw Move (um)")
+            Dim l20 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Raw Move (um)")
             l20.Layout__BelowControl(btnDevEnable)
-            Me.m_txtDevRawMove = New SIL3.ApplicationSupport.TextBoxHelper(100, l20)
+            Me.m_txtDevRawMove = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l20)
 
-            Dim btnMoveLeftDev As New SIL3.ApplicationSupport.ButtonHelper(100, "Move Left", AddressOf btnMoveLeftDev__Click)
+            Dim btnMoveLeftDev As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Move Left", AddressOf btnMoveLeftDev__Click)
             btnMoveLeftDev.Layout__RightOfControl(Me.m_txtDevRawMove)
-            Dim btnMoveRightDev As New SIL3.ApplicationSupport.ButtonHelper(100, "Move Right", AddressOf btnMoveRightDev__Click)
+            Dim btnMoveRightDev As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Move Right", AddressOf btnMoveRightDev__Click)
             btnMoveRightDev.Layout__RightOfControl(btnMoveLeftDev)
-            Dim btnMoveBothDev As New SIL3.ApplicationSupport.ButtonHelper(100, "Move Both", AddressOf btnMoveBothDev__Click)
+            Dim btnMoveBothDev As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Move Both", AddressOf btnMoveBothDev__Click)
             btnMoveBothDev.Layout__RightOfControl(btnMoveRightDev)
 
-            Dim l21 As New SIL3.ApplicationSupport.LabelHelper("IBeam Move (mm)")
+            Dim l21 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("IBeam Move (mm)")
             l21.Layout__BelowControl(Me.m_txtDevRawMove)
-            Me.m_txtDevIBeamMove = New SIL3.ApplicationSupport.TextBoxHelper(100, l21)
-            Dim btnMoveIBeam As New SIL3.ApplicationSupport.ButtonHelper(100, "Move", AddressOf btnMoveIBeam__Click)
+            Me.m_txtDevIBeamMove = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l21)
+            Dim btnMoveIBeam As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Move", AddressOf btnMoveIBeam__Click)
             btnMoveIBeam.Layout__RightOfControl(Me.m_txtDevIBeamMove)
 
 
             'add the MLP buttons
             'Me.m_txtMLP_ADCZero(iDevice)
-            Dim btnMLP_L_Zero As New SIL3.ApplicationSupport.ButtonHelper(100, "ADC Zero", AddressOf Me.btnMLP_L_ZERO__Click)
+            Dim btnMLP_L_Zero As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "ADC Zero", AddressOf Me.btnMLP_L_ZERO__Click)
             btnMLP_L_Zero.Layout__BelowControl(Me.m_txtMLP_ADCZero(0))
-            Dim btnMLP_R_Zero As New SIL3.ApplicationSupport.ButtonHelper(100, "ADC Zero", AddressOf Me.btnMLP_R_ZERO__Click)
+            Dim btnMLP_R_Zero As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "ADC Zero", AddressOf Me.btnMLP_R_ZERO__Click)
             btnMLP_R_Zero.Layout__BelowControl(Me.m_txtMLP_ADCZero(1))
 
-            Dim btnMLP_L_Span As New SIL3.ApplicationSupport.ButtonHelper(100, "ADC Span", AddressOf Me.btnMLP_L_SPAN__Click)
+            Dim btnMLP_L_Span As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "ADC Span", AddressOf Me.btnMLP_L_SPAN__Click)
             btnMLP_L_Span.Layout__RightOfControl(btnMLP_L_Zero)
-            Dim btnMLP_R_Span As New SIL3.ApplicationSupport.ButtonHelper(100, "ADC Span", AddressOf Me.btnMLP_R_SPAN__Click)
+            Dim btnMLP_R_Span As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "ADC Span", AddressOf Me.btnMLP_R_SPAN__Click)
             btnMLP_R_Span.Layout__RightOfControl(btnMLP_R_Zero)
 
 
@@ -628,14 +628,14 @@
 #Region "BUTTON HELPERS"
         Private Sub btnUpdateVeloc0__Click(s As Object, e As EventArgs)
             Dim ss As String = InputBox("Enter New Velocity", "Left Brake Velocity", Me.m_txtStep_Veloc(0).Text)
-            Dim s32Val As New SIL3.Numerical.S32(Int32.Parse(ss))
+            Dim s32Val As New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(Int32.Parse(ss))
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__VELOC_ACCEL_SET,
                                                 &HABAB1122L, 0, 0, s32Val.Union__Uint32)
         End Sub
         Private Sub btnUpdateVeloc1__Click(s As Object, e As EventArgs)
             Dim ss As String = InputBox("Enter New Velocity", "Rigth Brake Velocity", Me.m_txtStep_Veloc(1).Text)
-            Dim s32Val As New SIL3.Numerical.S32(Int32.Parse(ss))
+            Dim s32Val As New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(Int32.Parse(ss))
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__VELOC_ACCEL_SET,
                                                 &HABAB1122L, 1, 0, s32Val.Union__Uint32)
@@ -643,7 +643,7 @@
 
         Private Sub btnUpdateAccel0__Click(s As Object, e As EventArgs)
             Dim ss As String = InputBox("Enter New Accel", "Left Brake Accel", Me.m_txtStep_Accel(0).Text)
-            Dim s32Val As New SIL3.Numerical.S32(Int32.Parse(ss))
+            Dim s32Val As New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(Int32.Parse(ss))
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__VELOC_ACCEL_SET,
                                                 &HABAB1122L, 0, 1, s32Val.Union__Uint32)
@@ -651,7 +651,7 @@
         End Sub
         Private Sub btnUpdateAccel1__Click(s As Object, e As EventArgs)
             Dim ss As String = InputBox("Enter New Accel", "Rigth Brake Accel", Me.m_txtStep_Accel(1).Text)
-            Dim s32Val As New SIL3.Numerical.S32(Int32.Parse(ss))
+            Dim s32Val As New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(Int32.Parse(ss))
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__VELOC_ACCEL_SET,
                                                 &HABAB1122L, 1, 1, s32Val.Union__Uint32)
@@ -666,7 +666,7 @@
         ''' <param name="e"></param>
         Private Sub btnStreamOn__Click(s As Object, e As EventArgs)
 
-            Dim pSB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
+            Dim pSB As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper = CType(s, LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper)
 
             If pSB.Text = "Stream On" Then
                 RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
@@ -693,7 +693,7 @@
         Private Sub btnDAQ__Click(s As Object, e As EventArgs)
 
 
-            Dim pSB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
+            Dim pSB As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper = CType(s, LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper)
 
             If pSB.Text = "Enable DAQ" Then
 
@@ -701,11 +701,11 @@
                 Me.m_pDAQ.DAQTypes__Clear()
 
                 'configure the DAQ
-                Me.m_pDAQ.DAQTypes__Register(0, 0, 0, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U8, "CPU Load", 100)
-                Me.m_pDAQ.DAQTypes__Register(0, 0, 1, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__S32, "LEFT_POS", 100)
-                Me.m_pDAQ.DAQTypes__Register(0, 0, 2, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__S32, "RIGHT_POS", 100)
-                Me.m_pDAQ.DAQTypes__Register(0, 0, 1, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "LEFT_TARGET", 100)
-                Me.m_pDAQ.DAQTypes__Register(0, 0, 2, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "RIGHT_TARGET", 100)
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 0, LAPP188__RLOOP__LIB.SIL3.DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U8, "CPU Load", 100)
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 1, LAPP188__RLOOP__LIB.SIL3.DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__S32, "LEFT_POS", 100)
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 2, LAPP188__RLOOP__LIB.SIL3.DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__S32, "RIGHT_POS", 100)
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 1, LAPP188__RLOOP__LIB.SIL3.DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "LEFT_TARGET", 100)
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 2, LAPP188__RLOOP__LIB.SIL3.DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "RIGHT_TARGET", 100)
 
                 'switch on the DAQ
                 Me.m_pDAQ.DAQ__Start(False)
@@ -743,7 +743,7 @@
 
         Private Sub btnMoveLeftDev__Click(s As Object, e As EventArgs)
 
-            Dim s32Val As New Numerical.S32(CInt(Me.m_txtDevRawMove.Text))
+            Dim s32Val As New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(CInt(Me.m_txtDevRawMove.Text))
 
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW,
@@ -752,7 +752,7 @@
 
         Private Sub btnMoveRightDev__Click(s As Object, e As EventArgs)
 
-            Dim s32Val As New Numerical.S32(CInt(Me.m_txtDevRawMove.Text))
+            Dim s32Val As New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(CInt(Me.m_txtDevRawMove.Text))
 
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW,
@@ -761,7 +761,7 @@
 
         Private Sub btnMoveBothDev__Click(s As Object, e As EventArgs)
 
-            Dim s32Val As New Numerical.S32(CInt(Me.m_txtDevRawMove.Text))
+            Dim s32Val As New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(CInt(Me.m_txtDevRawMove.Text))
 
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__MOVE_MOTOR_RAW,
@@ -771,7 +771,7 @@
 
         Private Sub btnMoveIBeam__Click(s As Object, e As EventArgs)
 
-            Dim f32Val As New Numerical.F32(CSng(Me.m_txtDevIBeamMove.Text))
+            Dim f32Val As New LAPP188__RLOOP__LIB.SIL3.Numerical.F32(CSng(Me.m_txtDevIBeamMove.Text))
 
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__MOVE_IBEAM,

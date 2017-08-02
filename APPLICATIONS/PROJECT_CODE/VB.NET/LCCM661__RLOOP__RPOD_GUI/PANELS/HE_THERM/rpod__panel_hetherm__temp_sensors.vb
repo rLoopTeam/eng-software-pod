@@ -5,7 +5,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class TempSensors
-	        Inherits SIL3.ApplicationSupport.PanelTemplate
+	        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "CONSTANTS"
         ''' <summary>
@@ -18,11 +18,11 @@
 #Region "MEMBERS"
 
 
-        Private m_txtRxCount As SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtRxCount As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
 
-        Private m_txtNumSensors As SIL3.ApplicationSupport.TextBoxHelper_U8
-        Private m_txtTemperature(C_NUM_TEMP_SENSORS - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
-        Private m_txtROM(C_NUM_TEMP_SENSORS - 1) As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtNumSensors As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
+        Private m_txtTemperature(C_NUM_TEMP_SENSORS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtROM(C_NUM_TEMP_SENSORS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
         Private m_iRxCount As Integer
 
@@ -52,18 +52,18 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Rx Count", Me.m_pInnerPanel)
-            Me.m_txtRxCount = New SIL3.ApplicationSupport.TextBoxHelper_S32(100, l0)
+            Dim l0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Rx Count", Me.m_pInnerPanel)
+            Me.m_txtRxCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l0)
 
-            Dim l6 As New SIL3.ApplicationSupport.LabelHelper("Found Sensors")
+            Dim l6 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Found Sensors")
             l6.Layout__BelowControl(Me.m_txtRxCount)
-            Me.m_txtNumSensors = New SIL3.ApplicationSupport.TextBoxHelper_U8(100, l6)
+            Me.m_txtNumSensors = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, l6)
 
             'do the rows of sensors
             Dim iIndex As Integer = 0
-            Dim l7(C_NUM_TEMP_SENSORS - 1) As SIL3.ApplicationSupport.LabelHelper
+            Dim l7(C_NUM_TEMP_SENSORS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper
             For iCounter As Integer = 0 To C_NUM_TEMP_SENSORS - 1
-                l7(iIndex) = New SIL3.ApplicationSupport.LabelHelper("T" & iIndex.ToString("00") & " °C")
+                l7(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("T" & iIndex.ToString("00") & " °C")
                 If iIndex = 0 Then
                     l7(iIndex).Layout__BelowControl(Me.m_txtNumSensors)
                 ElseIf iIndex = 8 Then
@@ -75,14 +75,14 @@
                 Else
                     l7(iIndex).Layout__AboveRightControl(l7(iIndex - 1), Me.m_txtTemperature(iIndex - 1))
                 End If
-                Me.m_txtTemperature(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_F32(120, l7(iIndex))
+                Me.m_txtTemperature(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(120, l7(iIndex))
                 iIndex += 1
             Next
 
             iIndex = 0
-            Dim l8(C_NUM_TEMP_SENSORS - 1) As SIL3.ApplicationSupport.LabelHelper
+            Dim l8(C_NUM_TEMP_SENSORS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper
             For iCounter As Integer = 0 To C_NUM_TEMP_SENSORS - 1
-                l8(iIndex) = New SIL3.ApplicationSupport.LabelHelper("ROM " & iIndex.ToString("00"))
+                l8(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("ROM " & iIndex.ToString("00"))
                 If iIndex = 0 Then
                     l8(iIndex).Layout__BelowControl(Me.m_txtTemperature(16))
                 ElseIf iIndex = 8 Then
@@ -94,7 +94,7 @@
                 Else
                     l8(iIndex).Layout__AboveRightControl(l8(iIndex - 1), Me.m_txtROM(iIndex - 1))
                 End If
-                Me.m_txtROM(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_F32(120, l8(iIndex))
+                Me.m_txtROM(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(120, l8(iIndex))
                 iIndex += 1
             Next
 
@@ -108,7 +108,7 @@
         ''' <param name="ePacketType"></param>
         ''' <param name="u16PayloadLength"></param>
         ''' <param name="u8Payload"></param>
-        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte)
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte)
 
             'only do if we have been created
             If MyBase.m_bLayout = True Then
@@ -130,7 +130,7 @@
                         iOffset += Me.m_txtTemperature(iCounter).Value__Update(u8Payload, iOffset)
 
                         'RomID
-                        Dim pU8A As New SIL3.Numerical.U8Array(u8Payload, iOffset, 8)
+                        Dim pU8A As New LAPP188__RLOOP__LIB.SIL3.Numerical.U8Array(u8Payload, iOffset, 8)
                         iOffset += 8
                         Me.m_txtROM(iCounter).Threadsafe__SetText(pU8A.To_String__FormattedHex)
 

@@ -91,6 +91,9 @@
 				/** N2HET program index */
 				Luint16 u16N2HET_Index;
 
+				/** The last computed frequency */
+				Luint32 u32Frequency;
+
 			}sThrottle;
 
 		}TS_APU__MAIN;

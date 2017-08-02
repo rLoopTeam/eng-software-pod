@@ -5,7 +5,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class Calibrate
-        Inherits SIL3.ApplicationSupport.PanelTemplate
+        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "CONSTANTS"
         Private Const C_NUM_ACTUATORS As Integer = 4
@@ -13,13 +13,13 @@
 
 #Region "MEMBERS"
 
-        Private m_txtA_ADCRaw(C_NUM_ACTUATORS - 1) As SIL3.ApplicationSupport.TextBoxHelper_U16
-        Private m_txtA_Zero(C_NUM_ACTUATORS - 1) As SIL3.ApplicationSupport.TextBoxHelper_S16
-        Private m_txtA_Span(C_NUM_ACTUATORS - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
-        Private m_txtA_Extension(C_NUM_ACTUATORS - 1) As SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtA_ADCRaw(C_NUM_ACTUATORS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
+        Private m_txtA_Zero(C_NUM_ACTUATORS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16
+        Private m_txtA_Span(C_NUM_ACTUATORS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtA_Extension(C_NUM_ACTUATORS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
 
-        Private m_txtA_ExtendLimit(C_NUM_ACTUATORS - 1) As SIL3.ApplicationSupport.TextBoxHelper_U8
-        Private m_txtA_RetractLimit(C_NUM_ACTUATORS - 1) As SIL3.ApplicationSupport.TextBoxHelper_U8
+        Private m_txtA_ExtendLimit(C_NUM_ACTUATORS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
+        Private m_txtA_RetractLimit(C_NUM_ACTUATORS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
 
 
 #End Region '#Region "MEMBERS"
@@ -48,49 +48,49 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l1 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Data Streaming", Me.m_pInnerPanel)
-            Dim btnStream As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf Me.btnStreamOn__Click, l1)
+            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Data Streaming", Me.m_pInnerPanel)
+            Dim btnStream As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf Me.btnStreamOn__Click, l1)
 
 
-            Dim lx(C_NUM_ACTUATORS - 1, 10 - 1) As SIL3.ApplicationSupport.LabelHelper
+            Dim lx(C_NUM_ACTUATORS - 1, 10 - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper
             For iCounter As Integer = 0 To C_NUM_ACTUATORS - 1
 
                 Dim iIndex As Integer = 0
 
 
                 If iCounter = 0 Then
-                    lx(iCounter, iIndex) = New SIL3.ApplicationSupport.LabelHelper(iCounter.ToString & ": ADC", btnStream)
+                    lx(iCounter, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(iCounter.ToString & ": ADC", btnStream)
                 Else
-                    lx(iCounter, iIndex) = New SIL3.ApplicationSupport.LabelHelper(iCounter.ToString & ": ADC", Me.m_txtA_ADCRaw(iCounter - 1))
+                    lx(iCounter, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(iCounter.ToString & ": ADC", Me.m_txtA_ADCRaw(iCounter - 1))
                 End If
 
-                Me.m_txtA_ADCRaw(iCounter) = New SIL3.ApplicationSupport.TextBoxHelper_U16(100, lx(iCounter, iIndex))
+                Me.m_txtA_ADCRaw(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, lx(iCounter, iIndex))
                 iIndex += 1
 
 
-                lx(iCounter, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Zero")
+                lx(iCounter, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Zero")
                 lx(iCounter, iIndex).Layout__AboveRightControl(lx(iCounter, iIndex - 1), Me.m_txtA_ADCRaw(iCounter))
-                Me.m_txtA_Zero(iCounter) = New SIL3.ApplicationSupport.TextBoxHelper_S16(100, lx(iCounter, iIndex))
+                Me.m_txtA_Zero(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16(100, lx(iCounter, iIndex))
                 iIndex += 1
 
-                lx(iCounter, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Span")
+                lx(iCounter, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Span")
                 lx(iCounter, iIndex).Layout__AboveRightControl(lx(iCounter, iIndex - 1), Me.m_txtA_Zero(iCounter))
-                Me.m_txtA_Span(iCounter) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, lx(iCounter, iIndex))
+                Me.m_txtA_Span(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, lx(iCounter, iIndex))
                 iIndex += 1
 
-                lx(iCounter, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Height")
+                lx(iCounter, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Height")
                 lx(iCounter, iIndex).Layout__AboveRightControl(lx(iCounter, iIndex - 1), Me.m_txtA_Span(iCounter))
-                Me.m_txtA_Extension(iCounter) = New SIL3.ApplicationSupport.TextBoxHelper_S32(100, lx(iCounter, iIndex))
+                Me.m_txtA_Extension(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, lx(iCounter, iIndex))
                 iIndex += 1
 
-                lx(iCounter, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Ext. Lim")
+                lx(iCounter, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Ext. Lim")
                 lx(iCounter, iIndex).Layout__AboveRightControl(lx(iCounter, iIndex - 1), Me.m_txtA_Extension(iCounter))
-                Me.m_txtA_ExtendLimit(iCounter) = New SIL3.ApplicationSupport.TextBoxHelper_U8(100, lx(iCounter, iIndex))
+                Me.m_txtA_ExtendLimit(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, lx(iCounter, iIndex))
                 iIndex += 1
 
-                lx(iCounter, iIndex) = New SIL3.ApplicationSupport.LabelHelper("Ret. Lim")
+                lx(iCounter, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Ret. Lim")
                 lx(iCounter, iIndex).Layout__AboveRightControl(lx(iCounter, iIndex - 1), Me.m_txtA_ExtendLimit(iCounter))
-                Me.m_txtA_RetractLimit(iCounter) = New SIL3.ApplicationSupport.TextBoxHelper_U8(100, lx(iCounter, iIndex))
+                Me.m_txtA_RetractLimit(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, lx(iCounter, iIndex))
                 iIndex += 1
 
             Next
@@ -107,7 +107,7 @@
         ''' <param name="s"></param>
         ''' <param name="e"></param>
         Private Sub btnStreamOn__Click(s As Object, e As EventArgs)
-            Dim pSB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
+            Dim pSB As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper = CType(s, LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper)
 
             If pSB.Text = "Stream On" Then
                 pSB.Text = "Stream Off"
@@ -135,7 +135,7 @@
         ''' <param name="u16PayloadLength"></param>
         ''' <param name="u8Payload"></param>
         ''' <param name="u16CRC"></param>
-        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16)
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16)
 
             'only do if we have been created
             If MyBase.m_bLayout = True Then

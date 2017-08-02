@@ -30,7 +30,11 @@ u8ChannelIndex;
 u8Resolution;
 u16UserIndex;
 */
+#ifndef WIN32
 const Luint8 u8HETherm_ROMID[] =
+#else
+Luint8 u8HETherm_ROMID[] =
+#endif
 {
 
 

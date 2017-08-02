@@ -5,7 +5,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class SpaceX
-        Inherits SIL3.ApplicationSupport.PanelTemplate
+        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "CONSTANTS"
 #End Region '#Region "CONSTANTS"
@@ -13,7 +13,7 @@
 #Region "MEMBERS"
 
         Private m_iRxCount As Integer
-        Private m_txtCount As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtCount As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
         ''' <summary>
         ''' The logging directory
@@ -23,19 +23,19 @@
         ''' <summary>
         ''' Allows us to write CSV logs of the edges
         ''' </summary>
-        Private m_pCSV As SIL3.FileSupport.CSV
+        Private m_pCSV As LAPP188__RLOOP__LIB.SIL3.FileSupport.CSV
 
 
-        Private m_txtTeamID As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtStatus As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtAccel As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtPosition As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtVelocity As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtBattVoltage As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtBattCurrent As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtBattTemp As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtPodTemp As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtStripeCount As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtTeamID As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtStatus As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtAccel As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtPosition As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtVelocity As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtBattVoltage As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtBattCurrent As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtBattTemp As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtPodTemp As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtStripeCount As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
 
 #End Region '#Region "MEMBERS"
@@ -53,10 +53,10 @@
             Me.m_sLogDir = Me.m_sLogDir & "SPACEX\"
 
             'check our folder
-            SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir)
+            LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir)
 
             'create the log files in prep
-            Me.m_pCSV = New SIL3.FileSupport.CSV(Me.m_sLogDir & "telemetry.csv", ",", False, False)
+            Me.m_pCSV = New LAPP188__RLOOP__LIB.SIL3.FileSupport.CSV(Me.m_sLogDir & "telemetry.csv", ",", False, False)
             If Me.m_pCSV.File__Exists = False Then
             End If
 
@@ -90,34 +90,34 @@
                 'UDP is 42 bytes in
                 Dim iIndex As Integer = 42
 
-                Dim u8TeamID As New Numerical.U8(u8Array, iIndex)
+                Dim u8TeamID As New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(u8Array, iIndex)
                 iIndex += 1
 
-                Dim u8Status As New Numerical.U8(u8Array, iIndex)
+                Dim u8Status As New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(u8Array, iIndex)
                 iIndex += 1
 
-                Dim s32Accel As New Numerical.S32(u8Array, iIndex)
+                Dim s32Accel As New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(u8Array, iIndex)
                 iIndex += 4
 
-                Dim s32Pos As New Numerical.S32(u8Array, iIndex)
+                Dim s32Pos As New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(u8Array, iIndex)
                 iIndex += 4
 
-                Dim s32Veloc As New Numerical.S32(u8Array, iIndex)
+                Dim s32Veloc As New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(u8Array, iIndex)
                 iIndex += 4
 
-                Dim s32BattV As New Numerical.S32(u8Array, iIndex)
+                Dim s32BattV As New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(u8Array, iIndex)
                 iIndex += 4
 
-                Dim s32BattI As New Numerical.S32(u8Array, iIndex)
+                Dim s32BattI As New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(u8Array, iIndex)
                 iIndex += 4
 
-                Dim s32BattTemp As New Numerical.S32(u8Array, iIndex)
+                Dim s32BattTemp As New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(u8Array, iIndex)
                 iIndex += 4
 
-                Dim s32PodTemp As New Numerical.S32(u8Array, iIndex)
+                Dim s32PodTemp As New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(u8Array, iIndex)
                 iIndex += 4
 
-                Dim u32StripeCount As New Numerical.U32(u8Array, iIndex)
+                Dim u32StripeCount As New LAPP188__RLOOP__LIB.SIL3.Numerical.U32(u8Array, iIndex)
                 iIndex += 4
 
 
@@ -150,7 +150,7 @@
         ''' <param name="u16PayloadLength"></param>
         ''' <param name="u8Payload"></param>
         ''' <param name="u16CRC"></param>
-        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16)
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16)
 
             'only do if we have been created
             If MyBase.m_bLayout = True Then
@@ -170,49 +170,49 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Team ID", MyBase.m_pInnerPanel)
-            Me.m_txtTeamID = New SIL3.ApplicationSupport.TextBoxHelper(100, l0)
+            Dim l0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Team ID", MyBase.m_pInnerPanel)
+            Me.m_txtTeamID = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0)
 
-            Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Pod Status")
+            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Pod Status")
             l1.Layout__AboveRightControl(l0, Me.m_txtTeamID)
-            Me.m_txtStatus = New SIL3.ApplicationSupport.TextBoxHelper(100, l1)
+            Me.m_txtStatus = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l1)
 
-            Dim l2 As New SIL3.ApplicationSupport.LabelHelper("Acceleration cm/s²")
+            Dim l2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Acceleration cm/s²")
             l2.Layout__BelowControl(m_txtTeamID)
-            Me.m_txtAccel = New SIL3.ApplicationSupport.TextBoxHelper(100, l2)
+            Me.m_txtAccel = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l2)
 
-            Dim l3 As New SIL3.ApplicationSupport.LabelHelper("Postion cm")
+            Dim l3 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Postion cm")
             l3.Layout__AboveRightControl(l2, Me.m_txtAccel)
-            Me.m_txtPosition = New SIL3.ApplicationSupport.TextBoxHelper(100, l3)
+            Me.m_txtPosition = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l3)
 
-            Dim l4 As New SIL3.ApplicationSupport.LabelHelper("Velocity cm/s")
+            Dim l4 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Velocity cm/s")
             l4.Layout__AboveRightControl(l3, Me.m_txtPosition)
-            Me.m_txtVelocity = New SIL3.ApplicationSupport.TextBoxHelper(100, l4)
+            Me.m_txtVelocity = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l4)
 
-            Dim l5 As New SIL3.ApplicationSupport.LabelHelper("Batt Voltage mV")
+            Dim l5 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Batt Voltage mV")
             l5.Layout__BelowControl(Me.m_txtAccel)
-            Me.m_txtBattVoltage = New SIL3.ApplicationSupport.TextBoxHelper(100, l5)
+            Me.m_txtBattVoltage = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l5)
 
-            Dim l6 As New SIL3.ApplicationSupport.LabelHelper("Batt Current mA")
+            Dim l6 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Batt Current mA")
             l6.Layout__AboveRightControl(l5, Me.m_txtBattVoltage)
-            Me.m_txtBattCurrent = New SIL3.ApplicationSupport.TextBoxHelper(100, l6)
+            Me.m_txtBattCurrent = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l6)
 
-            Dim l7 As New SIL3.ApplicationSupport.LabelHelper("Batt Temp 0.1C")
+            Dim l7 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Batt Temp 0.1C")
             l7.Layout__AboveRightControl(l6, Me.m_txtBattCurrent)
-            Me.m_txtBattTemp = New SIL3.ApplicationSupport.TextBoxHelper(100, l7)
+            Me.m_txtBattTemp = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l7)
 
-            Dim l8 As New SIL3.ApplicationSupport.LabelHelper("Pod Temp 0.1C")
+            Dim l8 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Pod Temp 0.1C")
             l8.Layout__BelowControl(Me.m_txtBattVoltage)
-            Me.m_txtPodTemp = New SIL3.ApplicationSupport.TextBoxHelper(100, l8)
+            Me.m_txtPodTemp = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l8)
 
-            Dim l9 As New SIL3.ApplicationSupport.LabelHelper("Stripe Count")
+            Dim l9 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Stripe Count")
             l9.Layout__AboveRightControl(l8, Me.m_txtPodTemp)
-            Me.m_txtStripeCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l9)
+            Me.m_txtStripeCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l9)
 
 
-            Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
+            Dim l11 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Rx Count")
             l11.Layout__BelowControl(Me.m_txtPodTemp)
-            Me.m_txtCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l11)
+            Me.m_txtCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l11)
 
         End Sub
 

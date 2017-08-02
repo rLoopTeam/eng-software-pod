@@ -1,5 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports SIL3.LDLL178__COMMON_CODE__MICRO_TMER
+Imports LAPP185__RLOOP__LIB
 ''' <summary>
 ''' Basic framework for rLoop Flight Control Emulation
 ''' Lachlan Grogan - SafetyLok
@@ -7,6 +8,8 @@ Imports SIL3.LDLL178__COMMON_CODE__MICRO_TMER
 Public Class Form1
 
 #Region "CONSTANTS"
+
+    Private Const C_ETH_PORT As Integer = 9531
 
     ''' <summary>
     ''' SC16 UARTS
@@ -232,7 +235,9 @@ Public Class Form1
     ''' <remarks></remarks>
     Private m_pDebug_Delegate As DEBUG_PRINTF__CallbackDelegate
 
-    'ETH
+    ''' <summary>
+    ''' Ethernet transmit
+    ''' </summary>
     Private m_pETH_TX__Delegate As ETH_WIN32__TxCallbackDelegate
 
     ''' <summary>
@@ -264,7 +269,7 @@ Public Class Form1
     ''' </summary>
     Private m_bThreadRun As Boolean
 
-    Private m_pSafeUDP As SIL3.SafeUDP.StdUDPLayer
+    Private m_pSafeUDP As LAPP185__RLOOP__LIB.SIL3.SafeUDP.StdUDPLayer
 
     'Private m_pTimer50u As System.Timers.Timer
     Private m_pTimer10m As System.Timers.Timer
@@ -545,7 +550,7 @@ Public Class Form1
         Next
 
 
-        Me.m_pSafeUDP = New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", 9100, "FCU_ETH_EMU", True, True)
+        Me.m_pSafeUDP = New LAPP185__RLOOP__LIB.SIL3.SafeUDP.StdUDPLayer("127.0.0.1", C_ETH_PORT, "FCU_ETH_EMU", True, True)
         AddHandler Me.m_pSafeUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.InernalEvent__UDPSafe__RxPacket
         AddHandler Me.m_pSafeUDP.UserEvent__NewPacket, AddressOf Me.InternalEvent__NewPacket
 
@@ -977,7 +982,7 @@ Public Class Form1
     ''' <param name="u16CRC"></param>
     ''' <param name="bCRCOK"></param>
     ''' <param name="u32Seq"></param>
-    Public Sub InernalEvent__UDPSafe__RxPacket(ByVal ePacketType As SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRCOK As Boolean, ByVal u32Seq As UInt32)
+    Public Sub InernalEvent__UDPSafe__RxPacket(ByVal ePacketType As LAPP185__RLOOP__LIB.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PayloadLength As LAPP185__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP185__RLOOP__LIB.SIL3.Numerical.U16, ByVal bCRCOK As Boolean, ByVal u32Seq As UInt32)
         'MsgBox("packet")
 
         Dim u8Buff(1500) As Byte
@@ -1026,24 +1031,24 @@ Public Class Form1
     ''' <remarks></remarks>
     Private Sub ETH_WIN32__TxCallback_Sub(ByVal u8Buffer As IntPtr, ByVal u16BufferLength As UInt16)
 
-        Dim iEthPort As Integer = 9100
+        Dim iEthPort As Integer = C_ETH_PORT
         Dim bArray(1500 - 1) As Byte
-        SIL3.MemoryCopy.MemoryCopy.Copy_Memory(bArray, u8Buffer, CInt(u16BufferLength))
+        LAPP185__RLOOP__LIB.SIL3.MemoryCopy.MemoryCopy.Copy_Memory(bArray, u8Buffer, CInt(u16BufferLength))
 
 
         'pass the packet off to our 802.3 layers
-        Dim p802 As New SIL3.IEEE802_3.EthernetFrame(bArray, CInt(u16BufferLength), False)
+        Dim p802 As New LAPP185__RLOOP__LIB.SIL3.IEEE802_3.EthernetFrame(bArray, CInt(u16BufferLength), False)
 
-        If p802.m_eEtherType = SIL3.IEEE802_3.EthernetFrame.eEtherType.Internet_Protocol_version_4 Then
+        If p802.m_eEtherType = LAPP185__RLOOP__LIB.SIL3.IEEE802_3.EthernetFrame.eEtherType.Internet_Protocol_version_4 Then
 
-            Dim p802_IPV4 As New SIL3.IEEE802_3.IPLayer.IPV4(p802.m_bPayload, p802.m_iPayloadLength)
+            Dim p802_IPV4 As New LAPP185__RLOOP__LIB.SIL3.IEEE802_3.IPLayer.IPV4(p802.m_bPayload, p802.m_iPayloadLength)
             If p802_IPV4.m_pU8Protocol.To__Uint8 = &H11 Then
 
-                Dim p802_UDP As New SIL3.IEEE802_3.UDP(p802_IPV4.m_bPayload, p802_IPV4.m_iPayloadLength)
+                Dim p802_UDP As New LAPP185__RLOOP__LIB.SIL3.IEEE802_3.UDP(p802_IPV4.m_bPayload, p802_IPV4.m_iPayloadLength)
                 'If p802_UDP.m_pu16DestPort.To__Int = iEthPort Then
 
                 'if we are here, we assume we are on loopback
-                Dim pStdUDP As New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", p802_UDP.m_pu16DestPort.To__Int) 'iEthPort)
+                Dim pStdUDP As New LAPP185__RLOOP__LIB.SIL3.SafeUDP.StdUDPLayer("127.0.0.1", p802_UDP.m_pu16DestPort.To__Int) 'iEthPort)
                 AddHandler pStdUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.UserEvent__UDPSafe__RxPacket
 
                 'retransmit
@@ -1058,7 +1063,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub UserEvent__UDPSafe__RxPacket(ByVal ePacketType As SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
+    Private Sub UserEvent__UDPSafe__RxPacket(ByVal ePacketType As LAPP185__RLOOP__LIB.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PayloadLength As LAPP185__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP185__RLOOP__LIB.SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
 
 
     End Sub
@@ -1077,22 +1082,22 @@ Public Class Form1
     ''' <param name="ps16Z"></param>
     Private Sub MMA8451_WIN32__ReadDataCallback_Sub(u8DeviceIndex As Byte, ps16X As IntPtr, ps16Y As IntPtr, ps16Z As IntPtr)
 
-        Dim iEthPort As Integer = 9100
+        Dim iEthPort As Integer = C_ETH_PORT
         Dim bArray(1500 - 1) As Byte
-        'SIL3.MemoryCopy.MemoryCopy.Copy_Memory(bArray, u8Buffer, CInt(u16BufferLength))
+        'LAPP185__RLOOP__LIB.SIL3.MemoryCopy.MemoryCopy.Copy_Memory(bArray, u8Buffer, CInt(u16BufferLength))
 
-        Dim xS16X As SIL3.Numerical.S16
-        Dim xS16Y As SIL3.Numerical.S16
-        Dim xS16Z As SIL3.Numerical.S16
+        Dim xS16X As LAPP185__RLOOP__LIB.SIL3.Numerical.S16
+        Dim xS16Y As LAPP185__RLOOP__LIB.SIL3.Numerical.S16
+        Dim xS16Z As LAPP185__RLOOP__LIB.SIL3.Numerical.S16
 
         If u8DeviceIndex = 0 Then
-            xS16X = New SIL3.Numerical.S16(Me.m_iAccel0_X)
-            xS16Y = New SIL3.Numerical.S16(Me.m_iAccel0_Y)
-            xS16Z = New SIL3.Numerical.S16(Me.m_iAccel0_Z)
+            xS16X = New LAPP185__RLOOP__LIB.SIL3.Numerical.S16(Me.m_iAccel0_X)
+            xS16Y = New LAPP185__RLOOP__LIB.SIL3.Numerical.S16(Me.m_iAccel0_Y)
+            xS16Z = New LAPP185__RLOOP__LIB.SIL3.Numerical.S16(Me.m_iAccel0_Z)
         Else
-            xS16X = New SIL3.Numerical.S16(0)
-            xS16Y = New SIL3.Numerical.S16(2048)
-            xS16Z = New SIL3.Numerical.S16(0)
+            xS16X = New LAPP185__RLOOP__LIB.SIL3.Numerical.S16(0)
+            xS16Y = New LAPP185__RLOOP__LIB.SIL3.Numerical.S16(2048)
+            xS16Z = New LAPP185__RLOOP__LIB.SIL3.Numerical.S16(0)
         End If
 
         'this will result in an arith overflow if not careful.
@@ -1109,9 +1114,9 @@ Public Class Form1
         Dim bZ(2 - 1) As Byte
         xS16Z.To__Array(bZ, 0)
 
-        SIL3.MemoryCopy.MemoryCopy.Copy_Memory(ps16X, bX, 2)
-        SIL3.MemoryCopy.MemoryCopy.Copy_Memory(ps16Y, bY, 2)
-        SIL3.MemoryCopy.MemoryCopy.Copy_Memory(ps16Z, bZ, 2)
+        LAPP185__RLOOP__LIB.SIL3.MemoryCopy.MemoryCopy.Copy_Memory(ps16X, bX, 2)
+        LAPP185__RLOOP__LIB.SIL3.MemoryCopy.MemoryCopy.Copy_Memory(ps16Y, bY, 2)
+        LAPP185__RLOOP__LIB.SIL3.MemoryCopy.MemoryCopy.Copy_Memory(ps16Z, bZ, 2)
 
     End Sub
 
@@ -1235,7 +1240,7 @@ Public Class Form1
         Dim pu8Array() As Byte
         ReDim pu8Array(u8Length - 1)
 
-        SIL3.MemoryCopy.MemoryCopy.Copy_Memory(pu8Array, pu8Data, CInt(u8Length))
+        LAPP185__RLOOP__LIB.SIL3.MemoryCopy.MemoryCopy.Copy_Memory(pu8Array, pu8Data, CInt(u8Length))
 
         Select Case u8DeviceIndex
             Case 0
@@ -1346,7 +1351,7 @@ Public Class ASIController
     ''' <summary>
     ''' The fault register
     ''' </summary>
-    Private m_u16Reg__Faults As SIL3.Numerical.U16
+    Private m_u16Reg__Faults As LAPP185__RLOOP__LIB.SIL3.Numerical.U16
 
 #End Region '#Region "MEMBERS"
 
@@ -1361,7 +1366,7 @@ Public Class ASIController
         ReDim Me.m_bTxArray(7 - 1)
 
         'set some values
-        Me.m_u16Reg__Faults = New SIL3.Numerical.U16(0)
+        Me.m_u16Reg__Faults = New LAPP185__RLOOP__LIB.SIL3.Numerical.U16(0)
     End Sub
 
 #End Region '#Region "NEW"
@@ -1398,12 +1403,12 @@ Public Class ASIController
                             'read holding registers
 
                             'reg addx h,l
-                            Dim u16Reg As New SIL3.Numerical.U16(Me.m_bRxArray(2), Me.m_bRxArray(3))
+                            Dim u16Reg As New LAPP185__RLOOP__LIB.SIL3.Numerical.U16(Me.m_bRxArray(2), Me.m_bRxArray(3))
 
                             'num regs, hl,
-                            Dim u16Num As New SIL3.Numerical.U16(Me.m_bRxArray(4), Me.m_bRxArray(5))
+                            Dim u16Num As New LAPP185__RLOOP__LIB.SIL3.Numerical.U16(Me.m_bRxArray(4), Me.m_bRxArray(5))
                             'crc h,l
-                            Dim u16CRC As New SIL3.Numerical.U16(Me.m_bRxArray(6), Me.m_bRxArray(7))
+                            Dim u16CRC As New LAPP185__RLOOP__LIB.SIL3.Numerical.U16(Me.m_bRxArray(6), Me.m_bRxArray(7))
 
                             Select Case u16Reg.To__Int
                                 Case &H102
@@ -1422,7 +1427,7 @@ Public Class ASIController
                                     Dim u16Temp As UInt16
                                     u16Temp = u16FCU_ASI_CRC__ComputeCRC(Me.m_bTxArray, 7 - 2)
 
-                                    Dim pu16 As New SIL3.Numerical.U16(u16Temp)
+                                    Dim pu16 As New LAPP185__RLOOP__LIB.SIL3.Numerical.U16(u16Temp)
                                     pu16.To__Array(Me.m_bTxArray, 5)
 
                                     'transmit it

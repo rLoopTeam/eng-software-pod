@@ -5,7 +5,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class LaserDistance
-        Inherits SIL3.ApplicationSupport.PanelTemplate
+        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "CONSTANTS"
 
@@ -14,21 +14,21 @@
 #Region "MEMBERS"
 
         Private m_iRxCount As Integer
-        Private m_txtCount As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtCount As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
-        Private m_txtFlags As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
-        Private m_txtDist_mm As SIL3.ApplicationSupport.TextBoxHelper_S32
-        Private m_txtPrevDist_mm As SIL3.ApplicationSupport.TextBoxHelper_S32
-        Private m_txtVeloc_mms As SIL3.ApplicationSupport.TextBoxHelper_S32
-        Private m_txtPrevVeloc_mms As SIL3.ApplicationSupport.TextBoxHelper_S32
-        Private m_txtAccel_mmss As SIL3.ApplicationSupport.TextBoxHelper_S32
-        Private m_txtPrevAccel_mmss As SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtFlags As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
+        Private m_txtDist_mm As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtPrevDist_mm As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtVeloc_mms As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtPrevVeloc_mms As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtAccel_mmss As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtPrevAccel_mmss As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
 
         'for the binary mode
-        Private m_txtBinary_LastU32 As SIL3.ApplicationSupport.TextBoxHelper_U32
-        Private m_txtBinary_Counter__MissedStart As SIL3.ApplicationSupport.TextBoxHelper_U32
-        Private m_txtBinary_Counter__BadDistance As SIL3.ApplicationSupport.TextBoxHelper_U32
-        Private m_txtBinary_Counter__ErrorCode As SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtBinary_LastU32 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtBinary_Counter__MissedStart As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtBinary_Counter__BadDistance As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtBinary_Counter__ErrorCode As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
 
 
         ''' <summary>
@@ -39,13 +39,13 @@
         ''' <summary>
         ''' Allows us to write CSV logs of the edges
         ''' </summary>
-        Private m_pCSV As SIL3.FileSupport.CSV
+        Private m_pCSV As LAPP188__RLOOP__LIB.SIL3.FileSupport.CSV
 
 
         ''' <summary>
         ''' Our DAQ Receiver
         ''' </summary>
-        Private m_pDAQ As SIL3.DAQ.Top
+        Private m_pDAQ As LAPP188__RLOOP__LIB.SIL3.DAQ.Top
 
 #End Region '#Region "MEMBERS"
 
@@ -62,7 +62,7 @@
             Me.m_sLogDir = Me.m_sLogDir & "LASER_DIST\"
 
             'check our folder
-            SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir, True)
+            LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir, True)
 
             'create the log files in prep
             'Me.m_pCSV = New SIL3.FileSupport.CSV(Me.m_sLogDir & "Laser0.csv", ",", False, False)
@@ -95,7 +95,7 @@
         ''' <param name="u16PayloadLength"></param>
         ''' <param name="u8Payload"></param>
         ''' <param name="u16CRC"></param>
-        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16)
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16)
 
             'only do if we have been created
             If MyBase.m_bLayout = True Then
@@ -138,57 +138,57 @@
         Public Overrides Sub LayoutPanel()
 
 
-            Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags", MyBase.m_pInnerPanel)
-            Me.m_txtFlags = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0)
+            Dim l0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags", MyBase.m_pInnerPanel)
+            Me.m_txtFlags = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0)
             Me.m_txtFlags.FlagsFile__Read("../../../../FIRMWARE/PROJECT_CODE/LCCM655__RLOOP__FCU_CORE/LASER_DISTANCE/fcu__laser_distance__fault_flags.h", "LASER_DISTANCE")
 
-            Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
+            Dim l11 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Rx Count")
             l11.Layout__AboveRightControl(l0, Me.m_txtFlags)
-            Me.m_txtCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l11)
+            Me.m_txtCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l11)
 
-            Dim btnOn As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
+            Dim btnOn As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
             btnOn.Layout__RightOfControl(Me.m_txtCount)
 
-            Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Distance mm")
+            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Distance mm")
             l1.Layout__BelowControl(Me.m_txtFlags)
-            Me.m_txtDist_mm = New SIL3.ApplicationSupport.TextBoxHelper_S32(100, l1)
+            Me.m_txtDist_mm = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l1)
 
-            Dim l2 As New SIL3.ApplicationSupport.LabelHelper("Prev Dist mm")
+            Dim l2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Prev Dist mm")
             l2.Layout__AboveRightControl(l1, Me.m_txtDist_mm)
-            Me.m_txtPrevDist_mm = New SIL3.ApplicationSupport.TextBoxHelper_S32(100, l2)
+            Me.m_txtPrevDist_mm = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l2)
 
-            Dim l3 As New SIL3.ApplicationSupport.LabelHelper("Veloc mms")
+            Dim l3 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Veloc mms")
             l3.Layout__BelowControl(Me.m_txtDist_mm)
-            Me.m_txtVeloc_mms = New SIL3.ApplicationSupport.TextBoxHelper_S32(100, l3)
+            Me.m_txtVeloc_mms = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l3)
 
-            Dim l4 As New SIL3.ApplicationSupport.LabelHelper("Prev Veloc")
+            Dim l4 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Prev Veloc")
             l4.Layout__AboveRightControl(l3, Me.m_txtVeloc_mms)
-            Me.m_txtPrevVeloc_mms = New SIL3.ApplicationSupport.TextBoxHelper_S32(100, l4)
+            Me.m_txtPrevVeloc_mms = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l4)
 
-            Dim l33 As New SIL3.ApplicationSupport.LabelHelper("Accel mmss")
+            Dim l33 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel mmss")
             l33.Layout__BelowControl(Me.m_txtVeloc_mms)
-            Me.m_txtAccel_mmss = New SIL3.ApplicationSupport.TextBoxHelper_S32(100, l33)
+            Me.m_txtAccel_mmss = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l33)
 
-            Dim l44 As New SIL3.ApplicationSupport.LabelHelper("Prev Accel")
+            Dim l44 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Prev Accel")
             l44.Layout__AboveRightControl(l33, Me.m_txtAccel_mmss)
-            Me.m_txtPrevAccel_mmss = New SIL3.ApplicationSupport.TextBoxHelper_S32(100, l44)
+            Me.m_txtPrevAccel_mmss = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l44)
 
 
-            Dim l5 As New SIL3.ApplicationSupport.LabelHelper("Binary Last")
+            Dim l5 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Binary Last")
             l5.Layout__BelowControl(Me.m_txtAccel_mmss)
-            Me.m_txtBinary_LastU32 = New SIL3.ApplicationSupport.TextBoxHelper_U32(100, l5)
+            Me.m_txtBinary_LastU32 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l5)
 
-            Dim l6 As New SIL3.ApplicationSupport.LabelHelper("Missed Start")
+            Dim l6 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Missed Start")
             l6.Layout__AboveRightControl(l5, Me.m_txtBinary_LastU32)
-            Me.m_txtBinary_Counter__MissedStart = New SIL3.ApplicationSupport.TextBoxHelper_U32(100, l6)
+            Me.m_txtBinary_Counter__MissedStart = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l6)
 
-            Dim l7 As New SIL3.ApplicationSupport.LabelHelper("Bad Distance")
+            Dim l7 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Bad Distance")
             l7.Layout__AboveRightControl(l6, Me.m_txtBinary_Counter__MissedStart)
-            Me.m_txtBinary_Counter__BadDistance = New SIL3.ApplicationSupport.TextBoxHelper_U32(100, l7)
+            Me.m_txtBinary_Counter__BadDistance = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l7)
 
-            Dim l8 As New SIL3.ApplicationSupport.LabelHelper("Error Codes")
+            Dim l8 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Error Codes")
             l8.Layout__AboveRightControl(l7, Me.m_txtBinary_Counter__BadDistance)
-            Me.m_txtBinary_Counter__ErrorCode = New SIL3.ApplicationSupport.TextBoxHelper_U32(100, l8)
+            Me.m_txtBinary_Counter__ErrorCode = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l8)
 
 
 
@@ -205,7 +205,7 @@
         ''' <param name="e"></param>
         Private Sub btnStreamOn__Click(s As Object, e As EventArgs)
 
-            Dim pSB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
+            Dim pSB As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper = CType(s, LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper)
 
             If pSB.Text = "Stream On" Then
 

@@ -26,7 +26,11 @@
 extern TS_HET__MAIN sHET;
 
 //ROM ID's
-extern const Luint8 u8HETherm_ROMID[];
+#ifndef WIN32
+	extern const Luint8 u8HETherm_ROMID[];
+#else
+	extern Luint8 u8HETherm_ROMID[];
+#endif
 
 /***************************************************************************//**
  * @brief

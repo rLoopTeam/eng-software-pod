@@ -36,6 +36,7 @@ void vAPU_THROTTLE__Init(void)
 {
 	
 	sAPU.sThrottle.eDirection = THROTTLE_DIR__FORWARD;
+	sAPU.sThrottle.u32Frequency = 0U;
 
 #ifndef WIN32
 
@@ -110,18 +111,25 @@ void vAPU_THROTTLE__Set_Velocity_mms(Luint32 u32Veloc_mms)
 	//lets assume we have 1khz = 1000m/s
 	f32Freq = (Lfloat32)u32Veloc_mms;
 
+	sAPU.sThrottle.u32Frequency = (Luint32)f32Freq;
+
 	//convert to time
 	f32Period_uS = 1.0F / f32Freq;
 
 	//convert to us
 	f32Period_uS *= 100000.0F;
 
+#ifndef WIN32
+	//Set frequency
 	vRM4_N2HET_PWM__Dyanmic_SetPeriod(N2HET_CHANNEL__1, sAPU.sThrottle.u16N2HET_Index, f32Period_uS);
+
+	//50% duty cycle
 	vRM4_N2HET_PWM__Dyanmic_SetDutyCycle(N2HET_CHANNEL__1, sAPU.sThrottle.u16N2HET_Index, 0.5F);
 
 	//start the PWM
 	vRM4_N2HET_PWM__Dyanmic_Start(N2HET_CHANNEL__1, sAPU.sThrottle.u16N2HET_Index);
 
+#endif
 
 }
 
@@ -135,9 +143,10 @@ void vAPU_THROTTLE__Set_Velocity_mms(Luint32 u32Veloc_mms)
  */
 void vAPU_THROTTLE__Forward(void)
 {
-
+#ifndef WIN32
 	//set the bit
 	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 1U);
+#endif
 
 	//set the state
 	sAPU.sThrottle.eDirection = THROTTLE_DIR__FORWARD;
@@ -157,10 +166,10 @@ void vAPU_THROTTLE__Forward(void)
  */
 void vAPU_THROTTLE__Reverse(void)
 {
-
+#ifndef WIN32
 	//set the bit
 	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 0U);
-
+#endif
 	//set the state
 	sAPU.sThrottle.eDirection = THROTTLE_DIR__REVERSE;
 
@@ -180,10 +189,10 @@ void vAPU_THROTTLE__Reverse(void)
  */
 void vAPU_THROTTLE__Enable(void)
 {
-
+#ifndef WIN32
 	//set the bit
 	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 1U);
-
+#endif
 	//set the state
 	sAPU.sThrottle.eEnable = THROTTLE_ENA__ENABLED;
 
@@ -203,10 +212,10 @@ void vAPU_THROTTLE__Enable(void)
  */
 void vAPU_THROTTLE__Disable(void)
 {
-
+#ifndef WIN32
 	//set the bit
 	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 0U);
-
+#endif
 	//set the state
 	sAPU.sThrottle.eEnable = THROTTLE_ENA__DISABLED;
 

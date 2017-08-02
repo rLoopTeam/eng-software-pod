@@ -5,13 +5,13 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class Manual
-	        Inherits SIL3.ApplicationSupport.PanelTemplate
+	        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "MEMBERS"
 
-        Private m_pbSpeed As New SIL3.ApplicationSupport.TrackBarHelper
-        Private m_txtFaultFlags As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtRxCount As SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_pbSpeed As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TrackBarHelper
+        Private m_txtFaultFlags As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtRxCount As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
         Private m_iRxCount As Integer
 #End Region '#Region "MEMBERS"
 
@@ -39,37 +39,37 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l1 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags", Me.m_pInnerPanel)
-            Me.m_txtFaultFlags = New SIL3.ApplicationSupport.TextBoxHelper(100, l1)
+            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags", Me.m_pInnerPanel)
+            Me.m_txtFaultFlags = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l1)
 
-            Dim l1a As New SIL3.ApplicationSupport.LabelHelper("Rx Packets")
+            Dim l1a As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Rx Packets")
             l1a.Layout__AboveRightControl(l1, Me.m_txtFaultFlags)
-            Me.m_txtRxCount = New SIL3.ApplicationSupport.TextBoxHelper_S32(100, l1a)
+            Me.m_txtRxCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l1a)
 
 
-            Dim l2a As New SIL3.ApplicationSupport.LabelHelper("Clutches", Me.m_txtFaultFlags)
-            Dim btnClutch_Disengage As New SIL3.ApplicationSupport.ButtonHelper(100, "Disengage", AddressOf Me.btnClutches_Disengage)
+            Dim l2a As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Clutches", Me.m_txtFaultFlags)
+            Dim btnClutch_Disengage As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Disengage", AddressOf Me.btnClutches_Disengage)
             btnClutch_Disengage.Layout__BelowControl(l2a)
-            Dim btnClutch_Engage As New SIL3.ApplicationSupport.ButtonHelper(100, "Engage", AddressOf Me.btnClutches_Engage)
+            Dim btnClutch_Engage As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Engage", AddressOf Me.btnClutches_Engage)
             btnClutch_Engage.Layout__RightOfControl(btnClutch_Disengage)
 
 
-            Dim l20a As New SIL3.ApplicationSupport.LabelHelper("Motor Enable", btnClutch_Disengage)
-            Dim btnMotor_Enable As New SIL3.ApplicationSupport.ButtonHelper(100, "Enable", AddressOf Me.btnMotor_Enable)
+            Dim l20a As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Motor Enable", btnClutch_Disengage)
+            Dim btnMotor_Enable As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Enable", AddressOf Me.btnMotor_Enable)
             btnMotor_Enable.Layout__BelowControl(l20a)
-            Dim btnMotor_Disable As New SIL3.ApplicationSupport.ButtonHelper(100, "Disable", AddressOf Me.btnMotor_Disable)
+            Dim btnMotor_Disable As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Disable", AddressOf Me.btnMotor_Disable)
             btnMotor_Disable.Layout__RightOfControl(btnMotor_Enable)
 
 
-            Dim l3a As New SIL3.ApplicationSupport.LabelHelper("Directon Control", btnMotor_Enable)
-            Dim btnMotor_DirR As New SIL3.ApplicationSupport.ButtonHelper(100, "Reverse", AddressOf Me.btnMotor_Reverse)
+            Dim l3a As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Directon Control", btnMotor_Enable)
+            Dim btnMotor_DirR As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Reverse", AddressOf Me.btnMotor_Reverse)
             btnMotor_DirR.Layout__BelowControl(l3a)
-            Dim btnMotor_DirF As New SIL3.ApplicationSupport.ButtonHelper(100, "Forward", AddressOf Me.btnMotor_Forward)
+            Dim btnMotor_DirF As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Forward", AddressOf Me.btnMotor_Forward)
             btnMotor_DirF.Layout__RightOfControl(btnMotor_DirR)
 
-            Dim l4 As New SIL3.ApplicationSupport.LabelHelper("Velocity (mm/s)", btnMotor_DirR)
+            Dim l4 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Velocity (mm/s)", btnMotor_DirR)
 
-            Me.m_pbSpeed = New SIL3.ApplicationSupport.TrackBarHelper
+            Me.m_pbSpeed = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TrackBarHelper
             Me.m_pbSpeed.Layout__BelowControl(l4)
             Me.m_pbSpeed.Size = New Size(250, 24)
             Me.m_pbSpeed.Minimum = 0
@@ -77,7 +77,7 @@
             Me.m_pbSpeed.TickFrequency = 100
             Me.m_pbSpeed.TickStyle = TickStyle.BottomRight
 
-            Dim btnApply As New SIL3.ApplicationSupport.ButtonHelper(100, "Apply", AddressOf Me.btnApply_Velocity, Me.m_pbSpeed)
+            Dim btnApply As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Apply", AddressOf Me.btnApply_Velocity, Me.m_pbSpeed)
 
 
         End Sub
@@ -159,7 +159,7 @@
         ''' <param name="ePacketType"></param>
         ''' <param name="u16PayloadLength"></param>
         ''' <param name="u8Payload"></param>
-        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte)
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte)
 
             'only do if we have been created
             If MyBase.m_bLayout = True Then

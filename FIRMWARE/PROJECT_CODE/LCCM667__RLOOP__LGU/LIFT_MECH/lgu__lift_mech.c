@@ -35,6 +35,7 @@ extern TS_LGU__MAIN sLGU;
 void vLGU_LIFT__Init(void)
 {
 	
+#ifndef WIN32
 	//configure the IO ports
 	//H-Bridges
 	vRM4_N2HET_PINS__Set_PinDirection_Output(C_LOCALDEF__LCCM667___PWM_1);
@@ -67,6 +68,13 @@ void vLGU_LIFT__Init(void)
 
 	//re-enable
 	vRM4_N2HET__Enable(N2HET_CHANNEL__1);
+#else
+	//fake on WIN32
+	sLGU.sPWM[0].u16ProgIndex = 0U;
+	sLGU.sPWM[1].u16ProgIndex = 0U;
+	sLGU.sPWM[2].u16ProgIndex = 0U;
+	sLGU.sPWM[3].u16ProgIndex = 0U;
+#endif //WIN32
 
 	vLGU_LIFT__Set_Direction(0U, LIFT_DIR__EXTEND);
 	vLGU_LIFT__Set_Direction(1U, LIFT_DIR__RETRACT);
@@ -130,11 +138,18 @@ void vLGU_LIFT__Set_Speed(Luint8 u8Actuator, Lfloat32 f32Percent)
 	if(u8Actuator < C_LGU__NUM_ACTUATORS)
 	{
 
+#ifndef WIN32
+
+		//update the frequency
 		vRM4_N2HET_PWM__Dyanmic_SetPeriod(N2HET_CHANNEL__1, sLGU.sPWM[u8Actuator].u16ProgIndex, f32Period_us);
+
+		//update the duty cycle
 		vRM4_N2HET_PWM__Dyanmic_SetDutyCycle(N2HET_CHANNEL__1, sLGU.sPWM[u8Actuator].u16ProgIndex, f32Percent);
 
 		//start the PWM
 		vRM4_N2HET_PWM__Dyanmic_Start(N2HET_CHANNEL__1, sLGU.sPWM[u8Actuator].u16ProgIndex);
+#endif //WIN32
+
 	}
 	else
 	{
@@ -159,31 +174,39 @@ void vLGU_LIFT__Set_Direction(Luint8 u8Actuator, TE_LGU__LIFT_DIRECTIONS eDir)
 				switch(u8Actuator)
 				{
 					case 0:
+#ifndef WIN32
 						//A
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A1, 0U);
 						//B
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B1, 0U);
+#endif
 						break;
 
 					case 1:
+#ifndef WIN32
 						//A
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A2, 0U);
 						//B
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B2, 0U);
+#endif
 						break;
 
 					case 2:
+#ifndef WIN32
 						//A
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A3, 0U);
 						//B
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B3, 0U);
+#endif
 						break;
 
 					case 3:
+#ifndef WIN32
 						//A
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A4, 0U);
 						//B
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B4, 0U);
+#endif
 						break;
 
 					default:
@@ -198,31 +221,39 @@ void vLGU_LIFT__Set_Direction(Luint8 u8Actuator, TE_LGU__LIFT_DIRECTIONS eDir)
 				switch(u8Actuator)
 				{
 					case 0:
+#ifndef WIN32
 						//A
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A1, 1U);
 						//B
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B1, 0U);
+#endif
 						break;
 
 					case 1:
+#ifndef WIN32
 						//A
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A2, 1U);
 						//B
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B2, 0U);
+#endif
 						break;
 
 					case 2:
+#ifndef WIN32
 						//A
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A3, 1U);
 						//B
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B3, 0U);
+#endif
 						break;
 
 					case 3:
+#ifndef WIN32
 						//A
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A4, 1U);
 						//B
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B4, 0U);
+#endif
 						break;
 
 					default:
@@ -236,32 +267,41 @@ void vLGU_LIFT__Set_Direction(Luint8 u8Actuator, TE_LGU__LIFT_DIRECTIONS eDir)
 				//determine which actuator we are using
 				switch(u8Actuator)
 				{
+
 					case 0:
+#ifndef WIN32
 						//A
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A1, 0U);
 						//B
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B1, 1U);
+#endif
 						break;
 
 					case 1:
+#ifndef WIN32
 						//A
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A2, 0U);
 						//B
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B2, 1U);
+#endif
 						break;
 
 					case 2:
+#ifndef WIN32
 						//A
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A3, 0U);
 						//B
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B3, 1U);
+#endif
 						break;
 
 					case 3:
+#ifndef WIN32
 						//A
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A4, 0U);
 						//B
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B4, 1U);
+#endif
 						break;
 
 					default:

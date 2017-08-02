@@ -5,7 +5,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class Geometry
-        Inherits SIL3.ApplicationSupport.PanelTemplate
+        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "CONSTANTS"
         Private Const C_FCU__GEOM__NUM_ITEMS_F32 As Integer = 8
@@ -15,9 +15,9 @@
 #Region "MEMBERS"
 
         Private m_iRxCount As Integer
-        Private m_txtCount As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtF32(C_FCU__GEOM__NUM_ITEMS_F32 - 1, 3 - 1) As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtS32(C_FCU__GEOM__NUM_ITEMS_F32 - 1, 3 - 1) As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtCount As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtF32(C_FCU__GEOM__NUM_ITEMS_F32 - 1, 3 - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtS32(C_FCU__GEOM__NUM_ITEMS_F32 - 1, 3 - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
 
         ''' <summary>
@@ -41,7 +41,7 @@
             Me.m_sLogDir = Me.m_sLogDir & "GEOM\"
 
             'check our folder
-            SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir)
+            LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir)
 
 
 
@@ -70,7 +70,7 @@
         ''' <param name="u16PayloadLength"></param>
         ''' <param name="u8Payload"></param>
         ''' <param name="u16CRC"></param>
-        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16)
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16)
 
             'only do if we have been created
             If MyBase.m_bLayout = True Then
@@ -79,7 +79,7 @@
                 If ePacketType = SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_FLT__TX_GEOM_DATA Then
 
                     Dim iOffset As Integer = 0
-                    Dim pU32UpperFaultFlags As New SIL3.Numerical.U32(u8Payload, iOffset)
+                    Dim pU32UpperFaultFlags As New LAPP188__RLOOP__LIB.SIL3.Numerical.U32(u8Payload, iOffset)
                     iOffset += 4
 
 
@@ -98,15 +98,15 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Geometry Controls", MyBase.m_pInnerPanel)
-            Dim btnRequest As New SIL3.ApplicationSupport.ButtonHelper(100, "Request", AddressOf btnRequest__Click)
+            Dim l0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Geometry Controls", MyBase.m_pInnerPanel)
+            Dim btnRequest As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Request", AddressOf btnRequest__Click)
             btnRequest.Layout__BelowControl(l0)
 
 
 
-            Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
+            Dim l11 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Rx Count")
             l11.Layout__AboveRightControl(l0, btnRequest)
-            Me.m_txtCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l11)
+            Me.m_txtCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l11)
 
         End Sub
 

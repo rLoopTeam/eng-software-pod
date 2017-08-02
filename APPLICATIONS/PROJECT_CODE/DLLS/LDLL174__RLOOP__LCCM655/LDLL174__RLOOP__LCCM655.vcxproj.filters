@@ -348,9 +348,6 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\DAC\amc7812__dac.c">
       <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812\DAC</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LGU_COMMS\fcu__lgu_comms.c">
-      <Filter>LCCM655__RLOOP__FCU_CORE\LGU</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE\fcu__fctl__track_database.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE</Filter>
     </ClCompile>

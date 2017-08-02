@@ -5,7 +5,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class ContrastNav
-        Inherits SIL3.ApplicationSupport.PanelTemplate
+        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 
 #Region "MEMBERS"
@@ -18,22 +18,22 @@
         ''' <summary>
         ''' Count of Packets
         ''' </summary>
-        Private m_txtCount As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtCount As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
         ''' <summary>
         ''' The simulation status
         ''' </summary>
-        Private m_txtStatus As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtStatus As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
         ''' <summary>
         ''' Simulation G-Force
         ''' </summary>
-        Private m_txtGForce As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtGForce As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
         ''' <summary>
         ''' Last Rx CRC
         ''' </summary>
-        Private m_txtCRC As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtCRC As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
 #End Region '#Region "MEMBERS"
 
@@ -70,7 +70,7 @@
         ''' <param name="u16PayloadLength"></param>
         ''' <param name="u8Payload"></param>
         ''' <param name="u16CRC"></param>
-        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16)
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16)
 
             'only do if we have been created
             If MyBase.m_bLayout = True Then
@@ -79,10 +79,10 @@
                 If ePacketType = SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__XILINX_SIM__TX_PROGRESS_UPDATE Then
 
                     Dim iOffset As Integer = 0
-                    Dim pU32Status As New SIL3.Numerical.U32(u8Payload, iOffset)
+                    Dim pU32Status As New LAPP188__RLOOP__LIB.SIL3.Numerical.U32(u8Payload, iOffset)
                     iOffset += 4
 
-                    Dim u8Status As New SIL3.Numerical.U8(u8Payload, iOffset)
+                    Dim u8Status As New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(u8Payload, iOffset)
                     iOffset += 1
 
                     Me.m_txtStatus.Threadsafe__SetText(u8Status.To_String)
@@ -107,40 +107,40 @@
         Public Overrides Sub LayoutPanel()
 
 
-            Dim la0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Simulation G-Force", MyBase.m_pInnerPanel)
-            Me.m_txtGForce = New SIL3.ApplicationSupport.TextBoxHelper(100, la0)
+            Dim la0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Simulation G-Force", MyBase.m_pInnerPanel)
+            Me.m_txtGForce = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, la0)
             Me.m_txtGForce.Threadsafe__SetText("2.0")
 
 
-            Dim la01 As New SIL3.ApplicationSupport.LabelHelper("Track Simulation Run", Me.m_txtGForce)
-            Dim btnStartRun As New SIL3.ApplicationSupport.ButtonHelper(100, "Start Run", AddressOf Me.btnStartRun__Click)
+            Dim la01 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Track Simulation Run", Me.m_txtGForce)
+            Dim btnStartRun As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Start Run", AddressOf Me.btnStartRun__Click)
             btnStartRun.Layout__BelowControl(la01)
-            Dim btnStopRun As New SIL3.ApplicationSupport.ButtonHelper(100, "Stop Run", AddressOf Me.btnStopRun__Click)
+            Dim btnStopRun As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Stop Run", AddressOf Me.btnStopRun__Click)
             btnStopRun.Layout__RightOfControl(btnStartRun)
 
-            Dim la1 As New SIL3.ApplicationSupport.LabelHelper("Manual Laser Control", btnStartRun)
-            Dim btnL0_On As New SIL3.ApplicationSupport.ButtonHelper(100, "Laser0 On", AddressOf Me.btnLaser0_On__Click)
+            Dim la1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Manual Laser Control", btnStartRun)
+            Dim btnL0_On As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Laser0 On", AddressOf Me.btnLaser0_On__Click)
             btnL0_On.Layout__BelowControl(la1)
-            Dim btnL0_Off As New SIL3.ApplicationSupport.ButtonHelper(100, "Laser0 Off", AddressOf Me.btnLaser0_Off__Click)
+            Dim btnL0_Off As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Laser0 Off", AddressOf Me.btnLaser0_Off__Click)
             btnL0_Off.Layout__RightOfControl(btnL0_On)
 
-            Dim btnL1_On As New SIL3.ApplicationSupport.ButtonHelper(100, "Laser1 On", AddressOf Me.btnLaser1_On__Click)
+            Dim btnL1_On As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Laser1 On", AddressOf Me.btnLaser1_On__Click)
             btnL1_On.Layout__BelowControl(btnL0_On)
-            Dim btnL1_Off As New SIL3.ApplicationSupport.ButtonHelper(100, "Laser1 Off", AddressOf Me.btnLaser1_Off__Click)
+            Dim btnL1_Off As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Laser1 Off", AddressOf Me.btnLaser1_Off__Click)
             btnL1_Off.Layout__RightOfControl(btnL1_On)
 
-            Dim btnL2_On As New SIL3.ApplicationSupport.ButtonHelper(100, "Laser2 On", AddressOf Me.btnLaser2_On__Click)
+            Dim btnL2_On As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Laser2 On", AddressOf Me.btnLaser2_On__Click)
             btnL2_On.Layout__BelowControl(btnL1_On)
-            Dim btnL2_Off As New SIL3.ApplicationSupport.ButtonHelper(100, "Laser2 Off", AddressOf Me.btnLaser2_Off__Click)
+            Dim btnL2_Off As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Laser2 Off", AddressOf Me.btnLaser2_Off__Click)
             btnL2_Off.Layout__RightOfControl(btnL2_On)
 
-            Dim l10 As New SIL3.ApplicationSupport.LabelHelper("Status")
+            Dim l10 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Status")
             l10.Layout__BelowControl(btnL2_On)
-            Me.m_txtStatus = New SIL3.ApplicationSupport.TextBoxHelper(100, l10)
+            Me.m_txtStatus = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l10)
 
-            Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
+            Dim l11 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Rx Count")
             l11.Layout__BelowControl(m_txtStatus)
-            Me.m_txtCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l11)
+            Me.m_txtCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l11)
 
 
         End Sub
@@ -151,7 +151,7 @@
         Private Sub btnStartRun__Click(s As Object, e As EventArgs)
 
             'convert f32 value of the desired g-force
-            Dim pF32 As New SIL3.Numerical.F32(CSng(Me.m_txtGForce.Text))
+            Dim pF32 As New LAPP188__RLOOP__LIB.SIL3.Numerical.F32(CSng(Me.m_txtGForce.Text))
 
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__XILINX_SIM__SIMULATION_CONTROL,

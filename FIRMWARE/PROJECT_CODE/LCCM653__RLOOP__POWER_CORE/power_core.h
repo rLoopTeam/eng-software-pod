@@ -15,7 +15,6 @@
 		/*******************************************************************************
 		Includes
 		*******************************************************************************/
-		#include <LCCM653__RLOOP__POWER_CORE/PI_COMMS/power_core__pi_comms__types.h>
 		#include <LCCM653__RLOOP__POWER_CORE/power_core__state_types.h>
 		#include <LCCM653__RLOOP__POWER_CORE/power_core__defines.h>
 		#include <LCCM653__RLOOP__POWER_CORE/power_core__eeprom_index.h>

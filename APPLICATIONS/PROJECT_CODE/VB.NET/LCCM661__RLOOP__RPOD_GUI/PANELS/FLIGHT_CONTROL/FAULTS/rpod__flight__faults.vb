@@ -5,7 +5,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class Faults
-        Inherits SIL3.ApplicationSupport.PanelTemplate
+        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "CONSTANTS"
         Private Const C_NUM__FAULT_FLAGS As Integer = 23 + 8 + 6
@@ -14,8 +14,8 @@
 #Region "MEMBERS"
 
         Private m_iRxCount As Integer
-        Private m_txtRxCount As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtFaults(C_NUM__FAULT_FLAGS - 1) As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
+        Private m_txtRxCount As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtFaults(C_NUM__FAULT_FLAGS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
 
         ''' <summary>
         ''' The logging directory
@@ -37,7 +37,7 @@
             Me.m_sLogDir = Me.m_sLogDir & "FAULTS\"
 
             'check our folder
-            SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir)
+            LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir)
 
         End Sub
 #End Region '#Region "New"
@@ -64,7 +64,7 @@
         ''' <param name="u16PayloadLength"></param>
         ''' <param name="u8Payload"></param>
         ''' <param name="u16CRC"></param>
-        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16)
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16)
 
             'only do if we have been created
             If MyBase.m_bLayout = True Then
@@ -74,10 +74,10 @@
 
                     Dim iOffset As Integer = 0
 
-                    Dim pu32Flags(C_NUM__FAULT_FLAGS - 1) As SIL3.Numerical.U32
+                    Dim pu32Flags(C_NUM__FAULT_FLAGS - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.U32
 
                     For iCounter As Integer = 0 To C_NUM__FAULT_FLAGS - 1
-                        pu32Flags(iCounter) = New SIL3.Numerical.U32(u8Payload, iOffset)
+                        pu32Flags(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.U32(u8Payload, iOffset)
                         iOffset += 4
                         Me.m_txtFaults(iCounter).Flags__Update(pu32Flags(iCounter), True)
                     Next
@@ -103,129 +103,129 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l0(C_NUM__FAULT_FLAGS - 1) As SIL3.ApplicationSupport.LabelHelper
+            Dim l0(C_NUM__FAULT_FLAGS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper
             Dim iIndex As Integer = 0
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper(10, 10, "General Faults", MyBase.m_pInnerPanel)
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "General Faults", MyBase.m_pInnerPanel)
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             Me.m_txtFaults(iIndex).FlagsFile__Read("../../../../FIRMWARE/PROJECT_CODE/LCCM655__RLOOP__FCU_CORE/FAULTS/fcu__faults__fault_flags.h", "FAULTS")
 
             iIndex += 1
 
-            Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
+            Dim l11 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Rx Count")
             l11.Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
-            Me.m_txtRxCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l11)
+            Me.m_txtRxCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l11)
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Accel: Faults")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel: Faults")
             l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 1))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("MMA8451:0 Faults")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("MMA8451:0 Faults")
             l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("MMA8451:1 Faults")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("MMA8451:1 Faults")
             l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
             'do the SC16IS devices
             For iCounter As Integer = 0 To 8 - 1
-                l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("SC16:" & iCounter & " Faults")
+                l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("SC16:" & iCounter & " Faults")
 
                 If iCounter = 0 Then
                     l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 3))
                 Else
                     l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
                 End If
-                Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+                Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
                 iIndex += 1
             Next
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("ASI Faults")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("ASI Faults")
             l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 8))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Brakes Faults")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Brakes Faults")
             l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("DAQ Faults")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("DAQ Faults")
             l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Laser Contrast")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Laser Contrast")
             l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 3))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
 
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Contrast:0 Faults")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Contrast:0 Faults")
             l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Contrast:1 Faults")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Contrast:1 Faults")
             l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Contrast:2 Faults")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Contrast:2 Faults")
             l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("OptoNCDT Module")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("OptoNCDT Module")
             l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 4))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
 
             'do the OptoNCDT's devices
             For iCounter As Integer = 0 To 6 - 1
-                l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("NCDT:" & iCounter & " Faults")
+                l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("NCDT:" & iCounter & " Faults")
                 l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
-                Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+                Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
                 iIndex += 1
             Next
 
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Laser Distance")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Laser Distance")
             l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 7))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             Me.m_txtFaults(iIndex).FlagsFile__Read("../../../../FIRMWARE/PROJECT_CODE/LCCM655__RLOOP__FCU_CORE/LASER_DISTANCE/fcu__laser_distance__fault_flags.h", "LASER_DISTANCE")
             iIndex += 1
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Networking")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Networking")
             l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Pusher Faults")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Pusher Faults")
             l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("AMC7812 Faults")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("AMC7812 Faults")
             l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Throttle Faults")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Throttle Faults")
             l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Pod Health")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Pod Health")
             l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 5))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             Me.m_txtFaults(iIndex).Flags__Add("P0: BATTERY_PACK_TEMP_RANGE")
             Me.m_txtFaults(iIndex).Flags__Add("P1: BATTERY_CELL_TEMP_RANGE")
             Me.m_txtFaults(iIndex).Flags__Add("P2: BATTERY_VOLTAGE_RANGE")
@@ -242,26 +242,26 @@
 
 
             For iCounter As Integer = 0 To 3 - 1
-                l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Spare:" & iCounter & " Faults")
+                l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Spare:" & iCounter & " Faults")
 
                 If iCounter = 0 Then
                     l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 1))
                 Else
                     l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
                 End If
-                Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+                Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
                 iIndex += 1
             Next
 
             'flight controller
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Flight Control - Top")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Flight Control - Top")
             l0(iIndex).Layout__BelowControl(Me.m_txtFaults(iIndex - 3))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
-            l0(iIndex) = New SIL3.ApplicationSupport.LabelHelper("Track Database")
+            l0(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Track Database")
             l0(iIndex).Layout__AboveRightControl(l0(iIndex - 1), Me.m_txtFaults(iIndex - 1))
-            Me.m_txtFaults(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
+            Me.m_txtFaults(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0(iIndex))
             iIndex += 1
 
         End Sub

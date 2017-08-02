@@ -165,8 +165,8 @@
 		void vHETHERM_SOL__Open(Luint8 u8Index);
 
 		//timers
-		void vHETHERM_TIMERS__10MS_ISR(void);
-		void vHETHERM_TIMERS__100MS_ISR(void);
+		DLL_DECLARATION void vHETHERM_TIMERS__10MS_ISR(void);
+		DLL_DECLARATION void vHETHERM_TIMERS__100MS_ISR(void);
 		
 			//For WIN32
 		#ifdef WIN32

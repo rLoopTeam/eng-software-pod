@@ -109,6 +109,7 @@ void vAPU__Init(void)
 #endif
 	
 	#ifdef WIN32
+		DEBUG_PRINT("vAPU__Init()");
 		vAPU_WIN32__Send_Generic_Update();
 	#endif
 	

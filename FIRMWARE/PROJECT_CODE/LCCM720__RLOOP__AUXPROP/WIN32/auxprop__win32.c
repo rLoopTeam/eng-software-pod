@@ -71,9 +71,9 @@ void vAPU_WIN32__UpdateData(Luint8 u8Clutch, Luint8 u8Dir, Luint8 u8Enable, Luin
 void vAPU_WIN32__Send_Generic_Update(void)
 {
 	vAPU_WIN32__UpdateData(sAPU.sClutch.u8State,
-							   (Luint8)sAPU.sThrottle.eDir, 
+							   (Luint8)sAPU.sThrottle.eDirection,
 							   (Luint8)sAPU.sThrottle.eEnable, 
-							   4, 5);
+								sAPU.sThrottle.u32Frequency);
 							   
 		
 }

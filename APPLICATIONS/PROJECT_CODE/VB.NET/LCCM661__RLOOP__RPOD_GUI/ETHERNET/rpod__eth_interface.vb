@@ -13,7 +13,7 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         ''' </summary>
         Public Structure _strUDP_Endpoint
 
-            Dim pSafeUDP As SIL3.SafeUDP.StdUDPLayer
+            Dim pSafeUDP As LAPP188__RLOOP__LIB.SIL3.SafeUDP.StdUDPLayer
 
             Dim iPort As Integer
 
@@ -66,7 +66,7 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         ''' <param name="u16CRC"></param>
         ''' <param name="bCRC_OK"></param>
         ''' <param name="u32Sequence"></param>
-        Public Event UserEvent__UDPSafe__RxPacketB(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16PacketType As UInt16, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
+        Public Event UserEvent__UDPSafe__RxPacketB(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16PacketType As UInt16, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
 
         Public Event UserEvent__RxPacketA(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u8Array() As Byte, iLength As Integer)
 
@@ -84,7 +84,7 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
 
             'new port
             Dim pY As _strUDP_Endpoint
-            pY.pSafeUDP = New SIL3.SafeUDP.StdUDPLayer(sIP, iPort, "SafeUDP_" & iPort.ToString, True, True)
+            pY.pSafeUDP = New LAPP188__RLOOP__LIB.SIL3.SafeUDP.StdUDPLayer(sIP, iPort, "SafeUDP_" & iPort.ToString, True, True)
             pY.eEndpoint = eEndpoint
             pY.iPort = iPort
 
@@ -168,7 +168,7 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         ''' <param name="u16CRC"></param>
         ''' <param name="bCRCOK"></param>
         ''' <param name="u32Seq"></param>
-        Private Sub InernalEvent__UDPSafe__RxPacketA(iPort As Integer, u16PacketType As UInt16, ByVal u16PayloadLength As Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As Numerical.U16, ByVal bCRCOK As Boolean, ByVal u32Seq As UInt32)
+        Private Sub InernalEvent__UDPSafe__RxPacketA(iPort As Integer, u16PacketType As UInt16, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByVal bCRCOK As Boolean, ByVal u32Seq As UInt32)
 
             'work out who owns it and send it off.
             For Each pX As _strUDP_Endpoint In Me.m_lUDP
@@ -179,14 +179,14 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
 
         End Sub
 
-        Private Sub InternalEvent__ARP__Packet(ByVal u8SenderHW() As Numerical.U8, ByVal u8SenderIP() As Numerical.U8, ByVal u16LFW As Numerical.U16, ByVal u8FWMajor As Numerical.U8, ByVal u8FWMinor As Numerical.U8)
+        Private Sub InternalEvent__ARP__Packet(ByVal u8SenderHW() As LAPP188__RLOOP__LIB.SIL3.Numerical.U8, ByVal u8SenderIP() As LAPP188__RLOOP__LIB.SIL3.Numerical.U8, ByVal u16LFW As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByVal u8FWMajor As LAPP188__RLOOP__LIB.SIL3.Numerical.U8, ByVal u8FWMinor As LAPP188__RLOOP__LIB.SIL3.Numerical.U8)
         End Sub
 
 #End Region '#Region "RX HANDLERS"
 
 #Region "TX HANDLERS"
 
-        Private Sub InternalEvent__UDPSafe__TxArray(ByVal u16PacketType As SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PayloadLength As UInt16, ByRef bData() As Byte)
+        Private Sub InternalEvent__UDPSafe__TxArray(ByVal u16PacketType As LAPP188__RLOOP__LIB.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PayloadLength As UInt16, ByRef bData() As Byte)
         End Sub
 #End Region
 

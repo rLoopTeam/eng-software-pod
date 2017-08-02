@@ -5,7 +5,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class Creator
-        Inherits SIL3.ApplicationSupport.PanelTemplate
+        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 
 #Region "DLL"
@@ -120,16 +120,16 @@
 
         Private m_sLogDir As String
 
-        Private m_txtTrackID As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtTrackHumanName As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtTrack_StartXPos As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtTrack_EndXPos As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtLRF_BeginXPos As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtNumStripes As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtTrackID As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtTrackHumanName As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtTrack_StartXPos As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtTrack_EndXPos As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLRF_BeginXPos As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtNumStripes As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
-        Private m_chkEnableAccels As SIL3.ApplicationSupport.CheckBoxHelper
-        Private m_chkEnableLRF As SIL3.ApplicationSupport.CheckBoxHelper
-        Private m_chkEnableContrast As SIL3.ApplicationSupport.CheckBoxHelper
+        Private m_chkEnableAccels As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
+        Private m_chkEnableLRF As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
+        Private m_chkEnableContrast As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
 
 
 
@@ -141,12 +141,12 @@
         ''' <summary>
         ''' The CSV to read the track databse system
         ''' </summary>
-        Private m_pCSV As SIL3.FileSupport.CSV
+        Private m_pCSV As LAPP188__RLOOP__LIB.SIL3.FileSupport.CSV
 
         ''' <summary>
         ''' Choose the database
         ''' </summary>
-        Private m_cboDatabase As SIL3.ApplicationSupport.ComboBoxHelper
+        Private m_cboDatabase As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper
 
         ''' <summary>
         ''' The current selected index.
@@ -168,15 +168,15 @@
             Me.m_sLogDir = Me.m_sLogDir & "TRACK_DB\"
 
             'check our folder
-            SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir)
+            LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir)
 
-            Me.m_sDBDir = "D:\SIL3\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE\DATABASES\"
+            Me.m_sDBDir = "..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE\DATABASES\"
 
             'for now
             Return
 
             'create the log files in prep
-            Me.m_pCSV = New SIL3.FileSupport.CSV(Me.m_sDBDir & "databases.csv", ",", False, False)
+            Me.m_pCSV = New LAPP188__RLOOP__LIB.SIL3.FileSupport.CSV(Me.m_sDBDir & "databases.csv", ",", False, False)
             If Me.m_pCSV.File__Exists = False Then
 
                 If MsgBox("Warn: A new track database CSV will be created, are you sure?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
@@ -237,7 +237,7 @@
                             lStripe.Add("0")
                         Next
                         'save it off
-                        SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__stripes.txt", lStripe)
+                        LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__stripes.txt", lStripe)
 
                         'create the setpoint list
                         Dim lSet As New List(Of String)
@@ -245,8 +245,8 @@
                             lSet.Add("0")
                         Next
                         'save it off
-                        SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__set_xpos.txt", lSet)
-                        SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__set_veloc.txt", lSet)
+                        LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__set_xpos.txt", lSet)
+                        LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__set_veloc.txt", lSet)
 
                     Next 'For iCounter As Integer = 0 To C_FCTL_TRACKDB__MAX_MEM_DATABASES - 1
 
@@ -286,7 +286,7 @@
         ''' <param name="u16PayloadLength"></param>
         ''' <param name="u8Payload"></param>
         ''' <param name="u16CRC"></param>
-        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16)
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16)
 
             'only do if we have been created
             If MyBase.m_bLayout = True Then
@@ -310,8 +310,8 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Track Database List", MyBase.m_pInnerPanel)
-            Me.m_cboDatabase = New SIL3.ApplicationSupport.ComboBoxHelper(500, l0)
+            Dim l0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Track Database List", MyBase.m_pInnerPanel)
+            Me.m_cboDatabase = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper(500, l0)
 
             'fill
             For iCounter As Integer = 0 To Me.m_pCSV.m_alRows.Count - 1
@@ -321,47 +321,47 @@
 
             Me.m_cboDatabase.Threadsafe__SetSelectedIndex(0)
 
-            Dim btnChoose As New SIL3.ApplicationSupport.ButtonHelper(100, "Choose", AddressOf Me.btnChooseDB__Click)
+            Dim btnChoose As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Choose", AddressOf Me.btnChooseDB__Click)
             btnChoose.Layout__RightOfControl(Me.m_cboDatabase)
 
-            Dim btnGenBinary As New SIL3.ApplicationSupport.ButtonHelper(100, "Gen Binary", AddressOf Me.btnGenBinary__Click)
+            Dim btnGenBinary As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Gen Binary", AddressOf Me.btnGenBinary__Click)
             btnGenBinary.Layout__BelowControl(Me.m_cboDatabase)
 
-            Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Track ID")
+            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Track ID")
             l1.Layout__BelowControl(btnGenBinary)
-            Me.m_txtTrackID = New SIL3.ApplicationSupport.TextBoxHelper(100, l1)
+            Me.m_txtTrackID = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l1)
             Me.m_txtTrackID.ReadOnly = True
 
-            Dim l2 As New SIL3.ApplicationSupport.LabelHelper("Track Human Name")
+            Dim l2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Track Human Name")
             l2.Layout__AboveRightControl(l1, Me.m_txtTrackID)
-            Me.m_txtTrackHumanName = New SIL3.ApplicationSupport.TextBoxHelper(200, l2)
+            Me.m_txtTrackHumanName = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(200, l2)
 
-            Dim l3 As New SIL3.ApplicationSupport.LabelHelper("Start XPos (mm)")
+            Dim l3 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Start XPos (mm)")
             l3.Layout__AboveRightControl(l2, Me.m_txtTrackHumanName)
-            Me.m_txtTrack_StartXPos = New SIL3.ApplicationSupport.TextBoxHelper(100, l3)
+            Me.m_txtTrack_StartXPos = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l3)
 
-            Dim l4 As New SIL3.ApplicationSupport.LabelHelper("End XPos (mm)")
+            Dim l4 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("End XPos (mm)")
             l4.Layout__AboveRightControl(l3, Me.m_txtTrack_StartXPos)
-            Me.m_txtTrack_EndXPos = New SIL3.ApplicationSupport.TextBoxHelper(100, l4)
+            Me.m_txtTrack_EndXPos = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l4)
 
-            Dim l5 As New SIL3.ApplicationSupport.LabelHelper("LRF Start X (mm)")
+            Dim l5 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("LRF Start X (mm)")
             l5.Layout__AboveRightControl(l4, Me.m_txtTrack_EndXPos)
-            Me.m_txtLRF_BeginXPos = New SIL3.ApplicationSupport.TextBoxHelper(100, l5)
+            Me.m_txtLRF_BeginXPos = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l5)
 
-            Dim l6 As New SIL3.ApplicationSupport.LabelHelper("Num Stripes")
+            Dim l6 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Num Stripes")
             l6.Layout__BelowControl(Me.m_txtTrackID)
-            Me.m_txtNumStripes = New SIL3.ApplicationSupport.TextBoxHelper(100, l6)
+            Me.m_txtNumStripes = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l6)
 
-            Me.m_chkEnableAccels = New SIL3.ApplicationSupport.CheckBoxHelper("Enable Accels")
+            Me.m_chkEnableAccels = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Enable Accels")
             Me.m_chkEnableAccels.Layout__BelowControl(Me.m_txtNumStripes)
 
-            Me.m_chkEnableLRF = New SIL3.ApplicationSupport.CheckBoxHelper("Enable LRF")
+            Me.m_chkEnableLRF = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Enable LRF")
             Me.m_chkEnableLRF.Layout__RightOfControl(Me.m_chkEnableAccels)
 
-            Me.m_chkEnableContrast = New SIL3.ApplicationSupport.CheckBoxHelper("Enable Contrast")
+            Me.m_chkEnableContrast = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Enable Contrast")
             Me.m_chkEnableContrast.Layout__RightOfControl(Me.m_chkEnableLRF)
 
-            Dim btnSave As New SIL3.ApplicationSupport.ButtonHelper(100, "Save", AddressOf Me.btnSave__Click)
+            Dim btnSave As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Save", AddressOf Me.btnSave__Click)
             btnSave.Layout__RightOfControl(Me.m_txtLRF_BeginXPos)
 
         End Sub

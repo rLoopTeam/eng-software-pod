@@ -70,9 +70,10 @@ void vAPU_CLUTCH__Process(void)
  */
 void vAPU_CLUTCH__Engage(void)
 {
+#ifndef WIN32
 	//set the IO port
 	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 2U, 1U);
-	
+#endif
 	//set the state
 	sAPU.sClutch.u8State = CLUTCH_STATE__ENGAGED;
 
@@ -92,10 +93,10 @@ void vAPU_CLUTCH__Engage(void)
  */
 void vAPU_CLUTCH__Disengage(void)
 {
-
+#ifndef WIN32
 	//set the IO port
 	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 2U, 0U);
-
+#endif
 	//set the state
 	sAPU.sClutch.u8State = CLUTCH_STATE__DISENGAGED;
 
