@@ -1,7 +1,6 @@
 var searchData=
 [
   ['e_5fbatt_5ftemp_5f_5fstate_5ft',['E_BATT_TEMP__STATE_T',['../power__core____state__types_8h.html#a4e7dabef8cf28771d53df43c760b37fb',1,'power_core__state_types.h']]],
-  ['e_5fpower_5fpicom_5f_5fstate_5ft',['E_POWER_PICOM__STATE_T',['../power__core____pi__comms____types_8h.html#a2c46845ed9651c0c3ac5577953200ad5',1,'power_core__pi_comms__types.h']]],
   ['e_5fpwr_5f_5fcharger_5fstate_5ft',['E_PWR__CHARGER_STATE_T',['../power__core____state__types_8h.html#ab7148df02d98699d5bff81b6053494cc',1,'power_core__state_types.h']]],
   ['e_5fpwr_5f_5fcooling_5feddybrakes_5findex_5ft',['E_PWR__COOLING_EDDYBRAKES_INDEX_T',['../power__core____enums_8h.html#ad2cfa0dcd9f7d7fc8184a01cc67dde22',1,'power_core__enums.h']]],
   ['e_5fpwr_5f_5fcooling_5fhoverengines_5findex_5ft',['E_PWR__COOLING_HOVERENGINES_INDEX_T',['../power__core____enums_8h.html#a0f164ea9330ac8d7df33921690f75430',1,'power_core__enums.h']]],

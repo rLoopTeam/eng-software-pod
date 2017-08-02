@@ -59,6 +59,13 @@ void vFCU_BRAKES_CAL__Init(void)
 
 #if C_FCU_BRAKES__CAL_TYPE == 2U
 //new calibration process to move each actuator individually to overcome magnet issues
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		D9EC622A5A5577CE24F0ACB146BA89AF
+ * @st_funcID		LCCM655R0.FILE.068.FUNC.003
+ */
 void vFCU_BRAKES_CAL__Process(void)
 {
 
@@ -289,7 +296,7 @@ void vFCU_BRAKES_CAL__Process(void)
  * @brief
  * Process any claibration tasks.
  * 
- * @st_funcMD5		3B9ACCE51B45DB612AE2F746D4936FCC
+ * @st_funcMD5		444EB4D7518509D117F19E1E435E517D
  * @st_funcID		LCCM655R0.FILE.068.FUNC.003
  */
 void vFCU_BRAKES_CAL__Process(void)
@@ -476,7 +483,7 @@ Luint8 u8FCU_BRAKES_CAL__Is_Busy(void)
  * begin the calibration routine
  * 
  * @param[in]		u32Key				0x00112233U
- * @st_funcMD5		456C98C08EB01C52485F065B61C9B009
+ * @st_funcMD5		9B1223B11F79047CC907BFE442A9FE69
  * @st_funcID		LCCM655R0.FILE.068.FUNC.005
  */
 void vFCU_BRAKES_CAL__BeginCal(Luint32 u32Key)

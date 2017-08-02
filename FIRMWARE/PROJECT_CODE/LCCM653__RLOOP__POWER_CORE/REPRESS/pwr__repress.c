@@ -5,6 +5,13 @@
 extern struct _strPWRNODE sPWRNODE;
 
 //Init the pressure vessel repress system
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		DA61463302D1706E2EFE0AD5D80540B0
+ * @st_funcID		LCCM653R0.FILE.035.FUNC.001
+ */
 void vPWR_PVPRESS__Init(void)
 {
 	//initial state
@@ -24,6 +31,13 @@ void vPWR_PVPRESS__Init(void)
 }
 
 //process the pvrepress system
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		4BDFBA2F957461A134F3C2F8E3B49BE2
+ * @st_funcID		LCCM653R0.FILE.035.FUNC.002
+ */
 void vPWR_PVPRESS__Process(void)
 {
 	Luint8 u8Test;
@@ -127,6 +141,14 @@ void vPWR_PVPRESS__Process(void)
 }
 
 //to be called from GS to enable the repress system as its dangerous
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u32Value		## Desc ##
+ * @st_funcMD5		F3BF77523E1E4FDE210AE4F5C4CAC9E9
+ * @st_funcID		LCCM653R0.FILE.035.FUNC.003
+ */
 void vPWR_PVPRESS__Enable(Luint32 u32Value)
 {
 	if(u32Value == 1U)
@@ -143,6 +165,13 @@ void vPWR_PVPRESS__Enable(Luint32 u32Value)
 }
 
 //100ms interrupt
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		1D6024B6A44D7FB132FF6F6F7D4C319A
+ * @st_funcID		LCCM653R0.FILE.035.FUNC.004
+ */
 void vPWR_PVPRESS__100MS_ISR(void)
 {
 	sPWRNODE.sRePress.u32100MS_Count++;

@@ -41,7 +41,7 @@ void vFCU_ASI_ETH__Init(void)
  * Do the ASI eth transmission
  * 
  * @param[in]		ePacketType				Packet Type
- * @st_funcMD5		83113C0895F1F7105CCD5AAA800911B8
+ * @st_funcMD5		260C0787E18A7F41E81D8A4DEDDEB992
  * @st_funcID		LCCM655R0.FILE.074.FUNC.002
  */
 void vFCU_ASI_ETH__Transmit(E_NET__PACKET_T ePacketType)

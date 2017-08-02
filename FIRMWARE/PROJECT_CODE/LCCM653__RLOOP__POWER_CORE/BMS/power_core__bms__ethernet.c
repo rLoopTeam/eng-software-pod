@@ -44,7 +44,7 @@ void vPWR_BMS_ETH__Init(void)
  * Tx an eth packet
  * 
  * @param[in]		ePacketType				The packet type.
- * @st_funcMD5		85992BC7984E5F9DF42F02F1180C432E
+ * @st_funcMD5		8F66B9F76D2E197949E7C8F228310ABE
  * @st_funcID		LCCM653R0.FILE.032.FUNC.002
  */
 void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)

@@ -9,6 +9,7 @@ var struct_t_s___a_p_u_____m_a_i_n =
     [ "sThrottle", "struct_t_s___a_p_u_____m_a_i_n.html#aeddc4f7bff8ad0fceca89d0c2c41ce2b", null ],
     [ "sUDPDiag", "struct_t_s___a_p_u_____m_a_i_n.html#af1a062c0de1542dc13c84f623ae4c168", null ],
     [ "u16N2HET_Index", "struct_t_s___a_p_u_____m_a_i_n.html#aac24406c8f83ec090cb6e210610fedbe", null ],
+    [ "u32Frequency", "struct_t_s___a_p_u_____m_a_i_n.html#a73c89f1980baaec9cd5c02f2e101a81a", null ],
     [ "u810MS_Flag", "struct_t_s___a_p_u_____m_a_i_n.html#adc8b47c617893871d420fba3697e8cec", null ],
     [ "u8250MS_Flag", "struct_t_s___a_p_u_____m_a_i_n.html#a29dbb340530db774a7ca3794fb059b88", null ],
     [ "u8IPAddx", "struct_t_s___a_p_u_____m_a_i_n.html#a87463b61f7de498af786c2c6db0447e2", null ],

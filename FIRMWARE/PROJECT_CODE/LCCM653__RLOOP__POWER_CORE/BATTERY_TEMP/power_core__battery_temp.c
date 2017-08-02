@@ -28,7 +28,7 @@ extern struct _strPWRNODE sPWRNODE;
  * @brief
  * Init the battery temperature measurement devices
  * 
- * @st_funcMD5		E7E42F602AADF453C701FEB849218FA4
+ * @st_funcMD5		86C09833B06FA3BF0A2875528B492BEA
  * @st_funcID		LCCM653R0.FILE.009.FUNC.001
  */
 void vPWRNODE_BATTTEMP__Init(void)
@@ -66,7 +66,7 @@ void vPWRNODE_BATTTEMP__Init(void)
  * @brief
  * Process any battery temp measurement tasks
  * 
- * @st_funcMD5		CBFDB100C5B760B922B9B973A0D61CC3
+ * @st_funcMD5		521412365BC09A1D1CB3B029664377AB
  * @st_funcID		LCCM653R0.FILE.009.FUNC.002
  */
 void vPWRNODE_BATTTEMP__Process(void)

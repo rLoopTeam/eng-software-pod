@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init Laser distance eth portion
  * 
- * @st_funcMD5		A53F7D42D7CCD995A438A1C6C5F45CC4
+ * @st_funcMD5		90CF579AC2F79F1D419D7122DC76A70A
  * @st_funcID		LCCM655R0.FILE.058.FUNC.001
  */
 void vFCU_LASERDIST_ETH__Init(void)
@@ -43,7 +43,7 @@ void vFCU_LASERDIST_ETH__Init(void)
  * Transmith a laser distance eth packet
  * 
  * @param[in]		ePacketType				The packet type
- * @st_funcMD5		6F7EDE1C5CBC08569FA17C9563330D2D
+ * @st_funcMD5		7CDEE346EA6FD4A5EBF1988276CEC563
  * @st_funcID		LCCM655R0.FILE.058.FUNC.002
  */
 void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
@@ -146,7 +146,7 @@ void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
  * Via eth, inject some emulation value in
  * 
  * @param[in]		f32Value				The value in laser distance units
- * @st_funcMD5		3FBE47EDCE814C80FCF4FA76AC2BAB6B
+ * @st_funcMD5		C426D97404DAEA7381C135D6BE650EDE
  * @st_funcID		LCCM655R0.FILE.058.FUNC.003
  */
 void vFCU_LASERDIST_ETH__Emulation_Injection(Lint32 s32Value)

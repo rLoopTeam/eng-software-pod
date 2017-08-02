@@ -30,6 +30,13 @@ extern struct _strFCU sFCU;
 //The current working track database
 extern struct _strTrackDatabase sTrackDB;
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		AA87CDA3908B109DBFD6F1FE61B04FE0
+ * @st_funcID		LCCM655R0.FILE.086.FUNC.001
+ */
 void vFCU_FCTL_TRACKDB_MEM__Init(void)
 {
 
@@ -38,12 +45,30 @@ void vFCU_FCTL_TRACKDB_MEM__Init(void)
 
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		BF9E2D2FD7A2F82C2241D8CFF63AC9EB
+ * @st_funcID		LCCM655R0.FILE.086.FUNC.002
+ */
 void vFCU_FCTL_TRACKDB_MEM__Process(void)
 {
 
 }
 
 //upload a chunk of memory from the eth to the FCU
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		pu8Buffer		## Desc ##
+ * @param[in]		u32Length		## Desc ##
+ * @param[in]		u32ChunkIndex		## Desc ##
+ * @param[in]		u32TrackID		## Desc ##
+ * @st_funcMD5		BF45F30CFD3CD8648FF594932635D7E5
+ * @st_funcID		LCCM655R0.FILE.086.FUNC.003
+ */
 void vFCU_FCTL_TRACKDB_MEM__UploadChunk(Luint32 u32TrackID, Luint32 u32ChunkIndex, Luint32 u32Length, Luint8 *pu8Buffer)
 {
 	Luint8 *pu8Temp;
@@ -89,6 +114,14 @@ void vFCU_FCTL_TRACKDB_MEM__UploadChunk(Luint32 u32TrackID, Luint32 u32ChunkInde
 
 
 //save the current track index into the memory buffer
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u32Index		## Desc ##
+ * @st_funcMD5		43D277C878ECC7EB4B16C5C5AD0D776B
+ * @st_funcID		LCCM655R0.FILE.086.FUNC.004
+ */
 void vFCU_FCLT_TRACKDB_MEM__Save_TrackDB(Luint32 u32Index)
 {
 
@@ -176,6 +209,15 @@ void vFCU_FCLT_TRACKDB_MEM__Save_TrackDB(Luint32 u32Index)
 
 
 //Load a track database from the memory pool based on a index.
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u32Index		## Desc ##
+ * @return			## Desc ##
+ * @st_funcMD5		FF11C88AF01843D3751C86BF064EF7D5
+ * @st_funcID		LCCM655R0.FILE.086.FUNC.005
+ */
 Lint16 s16FCU_FCLT_TRACKDB_MEM__Load_TrackDB(Luint32 u32Index)
 {
 	Lint16 s16Return;

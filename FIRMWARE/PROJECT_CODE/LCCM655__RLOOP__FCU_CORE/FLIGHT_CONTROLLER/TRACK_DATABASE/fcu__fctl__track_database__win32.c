@@ -31,6 +31,13 @@ extern struct _strFCU sFCU;
 //The current working track database
 extern struct _strTrackDatabase sTrackDB;
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		E54E0B6EFABF762040B6145F052A5CBC
+ * @st_funcID		LCCM655R0.FILE.088.FUNC.001
+ */
 void vFCU_FCTL_TRACKDB_WIN32__Init(void)
 {
 
@@ -39,6 +46,13 @@ void vFCU_FCTL_TRACKDB_WIN32__Init(void)
 
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		863EDC7743B4BC2A097EFB5B30CBDDB5
+ * @st_funcID		LCCM655R0.FILE.088.FUNC.002
+ */
 void vFCU_FCTL_TRACKDB_WIN32__Process(void)
 {
 
@@ -46,6 +60,13 @@ void vFCU_FCTL_TRACKDB_WIN32__Process(void)
 }
 
 //zero the array
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		6DFAA77B344B57DB54D01D8A018F338D
+ * @st_funcID		LCCM655R0.FILE.088.FUNC.003
+ */
 void vFCU_FCTL_TRACKDB_WIN32__Clear_Array(void)
 {
 	Luint16 u16Counter;
@@ -64,6 +85,12 @@ void vFCU_FCTL_TRACKDB_WIN32__Clear_Array(void)
 
 
 //Get the copy of the array in bytes
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcID		LCCM655R0.FILE.088.FUNC.004
+ */
 void vFCU_FCTL_TRACKDB_WIN32__Get_Array(Luint8 * pu8ByteArray)
 {
 	Luint16 u16Counter;

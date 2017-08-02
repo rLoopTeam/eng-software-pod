@@ -41,7 +41,7 @@ void vFCU_PUSHER_ETH__Init(void)
  * Transmit a pusher ethernet packet
  * 
  * @param[in]		ePacketType				The packet type.
- * @st_funcMD5		5E7952DAD1DF74B9D3AFA597A5E4BF9F
+ * @st_funcMD5		4F1CD064FDB95F8A8146C3A7D3220A4B
  * @st_funcID		LCCM655R0.FILE.076.FUNC.002
  */
 void vFCU_PUSHER_ETH__Transmit(E_NET__PACKET_T ePacketType)

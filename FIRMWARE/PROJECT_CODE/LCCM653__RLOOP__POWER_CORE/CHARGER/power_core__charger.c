@@ -28,7 +28,7 @@ extern struct _strPWRNODE sPWRNODE;
  * @brief
  * Init the charger systems.
  * 
- * @st_funcMD5		725370926B9AB79FCE0E576F1D2647B5
+ * @st_funcMD5		AC43B298818E1A69A7E37E92B6423BAA
  * @st_funcID		LCCM653R0.FILE.030.FUNC.001
  */
 void vPWRNODE_CHG__Init(void)
@@ -92,7 +92,7 @@ void vPWRNODE_CHG__Init(void)
  * @note
  * http://confluence.rloop.org/display/SD/Charging
  *
- * @st_funcMD5		F5C060F07CD15EE910FD108F56897E5C
+ * @st_funcMD5		6C097DADD9FF1B6DA62B78D6AFBFC215
  * @st_funcID		LCCM653R0.FILE.030.FUNC.002
  */
 void vPWRNODE_CHG__Process(void)
@@ -267,6 +267,13 @@ void vPWRNODE_CHG__Process(void)
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		2A73C0300D9DB117379DAF41BE6F7740
+ * @st_funcID		LCCM653R0.FILE.030.FUNC.006
+ */
 void vPWRNODE_GHG__Start_ManualBalance(void)
 {
 	if(sPWRNODE.sCharger.sAlgo.eState == CHG_STATE__IDLE)
@@ -279,6 +286,13 @@ void vPWRNODE_GHG__Start_ManualBalance(void)
 	}
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		AF2A6FD8F1D965F3F3F62EC9066C2F1C
+ * @st_funcID		LCCM653R0.FILE.030.FUNC.007
+ */
 void vPWRNODE_GHG__Stop_ManualBalance(void)
 {
 	sPWRNODE.sCharger.sAlgo.eState = CHG_STATE__IDLE;
@@ -288,7 +302,7 @@ void vPWRNODE_GHG__Stop_ManualBalance(void)
  * @brief
  * start charging
  * 
- * @st_funcMD5		7B8FDF8B87B406209DF4C40EDC35480D
+ * @st_funcMD5		65E32C32337A7B32FD36F2E34741D976
  * @st_funcID		LCCM653R0.FILE.030.FUNC.003
  */
 void vPWRNODE_CHG__Start(void)

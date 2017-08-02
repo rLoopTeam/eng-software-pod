@@ -8,6 +8,5 @@ var functions_dup =
     [ "m", "functions_m.html", null ],
     [ "p", "functions_p.html", null ],
     [ "s", "functions_s.html", null ],
-    [ "u", "functions_u.html", null ],
-    [ "v", "functions_v.html", null ]
+    [ "u", "functions_u.html", null ]
 ];

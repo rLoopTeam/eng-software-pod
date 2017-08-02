@@ -26,7 +26,7 @@ extern struct _strPWRNODE sPWRNODE;
  * @brief
  * Init any network transmission stuff
  * 
- * @st_funcMD5		F22223ECE290EE71D79DD969F6F9BFD0
+ * @st_funcMD5		3F2282AB7DAA3A767718151136E05BB2
  * @st_funcID		LCCM653R0.FILE.019.FUNC.001
  */
 void vPWRNODE_NET_TX__Init(void)
@@ -44,7 +44,7 @@ void vPWRNODE_NET_TX__Init(void)
  * @brief
  * Process network transmission and do any transmission as required.
  * 
- * @st_funcMD5		C8F5AD7CFC44AD1FF97722827F69FE08
+ * @st_funcMD5		35F64043C51C1661D37E387BBF650B0A
  * @st_funcID		LCCM653R0.FILE.019.FUNC.002
  */
 void vPWRNODE_NET_TX__Process(void)
@@ -137,7 +137,7 @@ void vPWRNODE_NET_TX__Process(void)
  * To be called from the 10ms timer routine
  * Sets a flag to allow this module to determine that 10ms has elapsed
  * 
- * @st_funcMD5		F52227B3D966EC01608AE852390D8324
+ * @st_funcMD5		4F3E5F3BC3E1859166F0A689603284B8
  * @st_funcID		LCCM653R0.FILE.019.FUNC.003
  */
 void vPWRNODE_NET_TX__10MS_ISR(void)

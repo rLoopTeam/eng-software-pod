@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init any variables for the pusher system
  * 
- * @st_funcMD5		7C79C686EA715C75414C8A1DC69E9CCD
+ * @st_funcMD5		1EDFE16DD603FCFB23D07A5547E418F3
  * @st_funcID		LCCM655R0.FILE.012.FUNC.001
  */
 void vFCU_PUSHER__Init(void)
@@ -58,7 +58,7 @@ void vFCU_PUSHER__Init(void)
  * @brief
  * Process any pusher interface tasks
  * 
- * @st_funcMD5		8E34704E4F1C7C92744F7538476CE733
+ * @st_funcMD5		C2C352926B844FE5960CF4C07FD3DC5F
  * @st_funcID		LCCM655R0.FILE.012.FUNC.002
  */
 void vFCU_PUSHER__Process(void)
@@ -263,7 +263,7 @@ Luint8 u8FCU_PUSHER__Get_Switch(Luint8 u8Switch)
  * @brief
  * Get the total pusher state
  * 
- * @st_funcMD5		F51AB362F5D574A9114B7915B833FF9F
+ * @st_funcMD5		1193ACD07270F57256FA3979C984B35B
  * @st_funcID		LCCM655R0.FILE.012.FUNC.006
  */
 E_FCU_PUSHPIN_STATE_T eFCU_PUSHER__Get_PusherState(void)
@@ -347,6 +347,16 @@ void vFCU_PUSHER__10MS_ISR(void)
 #ifdef WIN32
 
 //emulate
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u8Value		## Desc ##
+ * @param[in]		u8RisingEdge		## Desc ##
+ * @param[in]		u8SwitchIndex		## Desc ##
+ * @st_funcMD5		F82E3399F993413BC7845891C3602412
+ * @st_funcID		LCCM655R0.FILE.012.FUNC.010
+ */
 void vFCU_PUSHER_WIN32__SwitchState(Luint8 u8SwitchIndex, Luint8 u8RisingEdge, Luint8 u8Value)
 {
 

@@ -1,10 +1,5 @@
 var searchData=
 [
-  ['picom_5fstate_5f_5fassemble_5fbuffer',['PICOM_STATE__ASSEMBLE_BUFFER',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a0308f964e5afe3927b527020177a4103',1,'fcu__pi_comms__types.h']]],
-  ['picom_5fstate_5f_5fidle',['PICOM_STATE__IDLE',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a35990985ccd1627faf2073fc65d8bc17',1,'fcu__pi_comms__types.h']]],
-  ['picom_5fstate_5f_5fsetup_5fframe',['PICOM_STATE__SETUP_FRAME',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a907476e700bc0892be7a020f5529746e',1,'fcu__pi_comms__types.h']]],
-  ['picom_5fstate_5f_5fstart_5fdma',['PICOM_STATE__START_DMA',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a931f57e1d71b96d80a9ad2e4bc2cbc6d',1,'fcu__pi_comms__types.h']]],
-  ['picom_5fstate_5f_5fwait_5fdma',['PICOM_STATE__WAIT_DMA',['../fcu____pi__comms____types_8h.html#a5f389ce5b2c9457be3c868cc37d44705a3eab3bfd04e4a3cd89e3bdd921231792',1,'fcu__pi_comms__types.h']]],
   ['pin_5ffinal_5fstate_5f_5fconnected',['PIN_FINAL_STATE__CONNECTED',['../fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9a9306ecea0b40eb369131381e726dfc0d',1,'fcu_core__types.h']]],
   ['pin_5ffinal_5fstate_5f_5fdisconnected',['PIN_FINAL_STATE__DISCONNECTED',['../fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9a0bba82c4804b68e6b2572c7959eacdcc',1,'fcu_core__types.h']]],
   ['pin_5ffinal_5fstate_5f_5funknown',['PIN_FINAL_STATE__UNKNOWN',['../fcu__core____types_8h.html#a66a30d143004d0fe912cbb792b230dd9a626dda65130ea717520302ce5ffc5265',1,'fcu_core__types.h']]],

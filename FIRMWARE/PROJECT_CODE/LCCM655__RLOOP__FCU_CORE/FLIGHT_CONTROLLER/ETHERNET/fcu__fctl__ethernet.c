@@ -41,7 +41,7 @@ void vFCU_FCTL_ETH__Init(void)
  * Process FCU Eth
  * 
  * @param[in]		ePacketType				Packet Type
- * @st_funcMD5		602081C434EB3CDBD00C0ED2BFE3232D
+ * @st_funcMD5		B4735D1A5338CCCBF4730A9C9ADCAEEE
  * @st_funcID		LCCM655R0.FILE.077.FUNC.002
  */
 void vFCU_FCTL_ETH__Transmit(E_NET__PACKET_T ePacketType)

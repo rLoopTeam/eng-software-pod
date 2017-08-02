@@ -28,7 +28,7 @@ extern struct _strPWRNODE sPWRNODE;
  * @brief
  * Init the battery management system
  * 
- * @st_funcMD5		1CA544E68E3E338A54F4E1ADAFB54227
+ * @st_funcMD5		270D9FCF297F4E126AB47ABD1EAA4572
  * @st_funcID		LCCM653R0.FILE.008.FUNC.001
  */
 void vPWRNODE_BMS__Init(void)
@@ -122,17 +122,39 @@ Luint8 u8PWRNODE_BMS__Balance_IsBusy(void)
 }
 
 
-//stop balance immediate
+/***************************************************************************//**
+ * @brief
+ * Stop balance immediate
+ * 
+ * @st_funcMD5		94B33EB600AA0ACD3DD21B166CE76587
+ * @st_funcID		LCCM653R0.FILE.008.FUNC.008
+ */
 void vPWRNODE_BMS__Balance_Stop(void)
 {
 	vATA6870_BALANCE__Stop();
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u8Enable		## Desc ##
+ * @param[in]		u8CellIndex		## Desc ##
+ * @st_funcMD5		62BA84541AA2A37395BF6F24B081ED3D
+ * @st_funcID		LCCM653R0.FILE.008.FUNC.009
+ */
 void vPWRNODE_BMS__Balance_Manual(Luint8 u8CellIndex, Luint8 u8Enable)
 {
 	vATA6870_BALANCE__Manual(u8CellIndex, u8Enable);
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		985C5FB642DFF8E96E0AB41B7CAAB50F
+ * @st_funcID		LCCM653R0.FILE.008.FUNC.010
+ */
 Luint32 u32PWRNODE_BMS__Get_VoltsUpdateCount(void)
 {
 	return u32ATA6870__Get_VoltsUpdateCount();

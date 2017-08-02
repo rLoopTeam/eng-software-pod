@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init any variables as is needed by the main state machine
  * 
- * @st_funcMD5		FED0062F6B73B20B0F3C694DC29503FB
+ * @st_funcMD5		61224CE144104FD40882DF507A463938
  * @st_funcID		LCCM655R0.FILE.035.FUNC.001
  */
 void vFCU_FCTL__Init(void)
@@ -55,7 +55,7 @@ void vFCU_FCTL__Init(void)
  * @brief
  * Process the flight controller
  * 
- * @st_funcMD5		2111AE504D0BAC2BA86A479BB729D51D
+ * @st_funcMD5		905B1E3D5EF9A5AECFDF568F73F372C4
  * @st_funcID		LCCM655R0.FILE.035.FUNC.002
  */
 void vFCU_FCTL__Process(void)

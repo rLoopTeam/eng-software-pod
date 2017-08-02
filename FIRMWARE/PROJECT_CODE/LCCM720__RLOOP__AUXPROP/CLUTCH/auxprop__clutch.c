@@ -65,7 +65,7 @@ void vAPU_CLUTCH__Process(void)
  * @brief
  * Engage the clutch
  * 
- * @st_funcMD5		0C31C29DC205143A2C3D76A2FEAA4C14
+ * @st_funcMD5		8EB0DD162D93B42D70AF08C008A6DE8A
  * @st_funcID		LCCM720R0.FILE.010.FUNC.003
  */
 void vAPU_CLUTCH__Engage(void)
@@ -88,7 +88,7 @@ void vAPU_CLUTCH__Engage(void)
  * @brief
  * Disengage the clutch
  * 
- * @st_funcMD5		30C82A1C49A5485CBA5E4385DE0B1955
+ * @st_funcMD5		786D8823ACD665E8C650DDDE38DF0A32
  * @st_funcID		LCCM720R0.FILE.010.FUNC.004
  */
 void vAPU_CLUTCH__Disengage(void)

@@ -1,7 +1,7 @@
 var struct__str_track_database =
 [
-    [ "sDB", "struct__str_track_database.html#af0262ff76f382a50ddcda13cf174fdb8", null ],
-    [ "sRunProfile", "struct__str_track_database.html#abc659ec21330d65dc7fc281991ed5952", null ],
+    [ "sDB", "struct__str_track_database.html#a9e63f94730efbdfc380a3a455d3ce6d4", null ],
+    [ "sRunProfile", "struct__str_track_database.html#aceb163f2e04c0951ef5a5f345355eec3", null ],
     [ "u8BrakingSetPointSpeed_mms", "struct__str_track_database.html#acdcbe420b3901f680239e456d68ef9b8", null ],
     [ "u8BrakingSetPointXPosition_mm", "struct__str_track_database.html#a59e5ecaff3fe6d9f30e4bddb15dafeeb", null ],
     [ "u8CRC", "struct__str_track_database.html#ae46ae3f12d7df9fb8d1e7eaec63a57b0", null ],

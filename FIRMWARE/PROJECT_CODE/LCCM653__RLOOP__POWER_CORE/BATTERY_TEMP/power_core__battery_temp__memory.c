@@ -33,7 +33,7 @@ extern const Luint8 u8FwdPack__Default[];
  * @brief
  * Init the memory system. Check the CRC's and load the pack data if needed.
  * 
- * @st_funcMD5		C7CA8EDC3B6B18471A4DDFF2BEBCFF18
+ * @st_funcMD5		1EAD81C2BE5C0D89D90FEEA9ED938A1B
  * @st_funcID		LCCM653R0.FILE.029.FUNC.001
  */
 void vPWRNODE_BATTTEMP_MEM__Init(void)
@@ -169,7 +169,7 @@ Lint16 s16PWRNODE_BATTEMP_MEM__Save(void)
  * @brief
  * Load the sensor array data from memory
  * 
- * @st_funcMD5		88966F4CCD3C418E659974B230D4817D
+ * @st_funcMD5		57A569FE10BD47FD366E62DC6750E6C1
  * @st_funcID		LCCM653R0.FILE.029.FUNC.007
  */
 Lint16 s16PWRNODE_BATTEMP_MEM__Load(void)

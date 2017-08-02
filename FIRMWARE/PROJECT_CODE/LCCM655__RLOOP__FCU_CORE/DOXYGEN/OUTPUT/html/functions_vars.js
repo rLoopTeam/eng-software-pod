@@ -8,6 +8,5 @@ var functions_vars =
     [ "m", "functions_vars_m.html", null ],
     [ "p", "functions_vars_p.html", null ],
     [ "s", "functions_vars_s.html", null ],
-    [ "u", "functions_vars_u.html", null ],
-    [ "v", "functions_vars_v.html", null ]
+    [ "u", "functions_vars_u.html", null ]
 ];

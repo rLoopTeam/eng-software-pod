@@ -66,7 +66,7 @@ Luint16 u16FCU_THROTTLE__Compute_RPM_StepDown(Luint16 u16RPM);
  * @brief
  * Init any variables
  * 
- * @st_funcMD5		653E038AB9977C3CC60554EFD34C1240
+ * @st_funcMD5		3D83D3CBE94E074C73347E324EE431FB
  * @st_funcID		LCCM655R0.FILE.006.FUNC.001
  */
 void vFCU_THROTTLE__Init(void)
@@ -104,7 +104,7 @@ void vFCU_THROTTLE__Init(void)
  * @brief
  * Process any Throttle tasks
  * 
- * @st_funcMD5		137E6542B68678DBE1491CDA5DBCE3AB
+ * @st_funcMD5		519F9282320179D5EA89621405D7BACA
  * @st_funcID		LCCM655R0.FILE.006.FUNC.002
  */
 void vFCU_THROTTLE__Process(void)
@@ -380,7 +380,7 @@ void vFCU_THROTTLE__Enable_Run(void)
  * @param[in]		eRampType				The type of throttle ramp
  * @param[in]		u16RPM					Required RPM
  * @param[in]		u8EngineIndex			HE Index, 8 = all HE's
- * @st_funcMD5		91F8E606B73C320B38326AF4D5A62257
+ * @st_funcMD5		67F20EE1B480E01FC261370E4AD8190C
  * @st_funcID		LCCM655R0.FILE.006.FUNC.006
  */
 void vFCU_THROTTLE__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THROTTLE_CTRL_T eRampType)

@@ -15,7 +15,7 @@ extern struct _strPWRNODE sPWRNODE;
  * @brief
  * Init the Eth Portion
  *
- * @st_funcMD5
+ * @st_funcMD5		42C690B2D9756CD089AC11DBCE600FDE
  * @st_funcID
  */
 void vPWR_CHARGER_ETH__Init(void)
@@ -28,7 +28,7 @@ void vPWR_CHARGER_ETH__Init(void)
  * Tx an eth packet
  *
  * @param[in]		ePacketType				The packet type.
- * @st_funcMD5
+ * @st_funcMD5		F788988F4500749C492969239FD0FF2A
  * @st_funcID
  */
 void vPWR_CHARGER_ETH__Transmit(E_NET__PACKET_T ePacketType)

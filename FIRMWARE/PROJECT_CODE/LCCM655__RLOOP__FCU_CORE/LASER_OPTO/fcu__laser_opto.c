@@ -40,7 +40,7 @@ static void vFCU_LASEROPTO__Append_Byte(E_FCU__LASER_OPTO__INDEX_T eLaser, Luint
  * @brief
  * Init any variables
  * 
- * @st_funcMD5		275DF44B14084F7D934217BB273DC9F5
+ * @st_funcMD5		2BA57935D2552A930E3C1C4FF621AE4A
  * @st_funcID		LCCM655R0.FILE.021.FUNC.001
  */
 void vFCU_LASEROPTO__Init(void)
@@ -120,6 +120,15 @@ void vFCU_LASEROPTO__Init(void)
 }		
 
 //Do the calibration
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		f32Offset		## Desc ##
+ * @param[in]		u32Key		## Desc ##
+ * @st_funcMD5		BF3670622F86308F09694DAA20E95429
+ * @st_funcID		LCCM655R0.FILE.021.FUNC.009
+ */
 void vFCU_LASEROPTO__Set_CalValue(Luint32 u32Key, Lfloat32 f32Offset)
 {
 	Lfloat32 f32Temp;
@@ -166,7 +175,7 @@ void vFCU_LASEROPTO__Set_CalValue(Luint32 u32Key, Lfloat32 f32Offset)
  * @brief
  * Process any laser opto tasks
  * 
- * @st_funcMD5		64CE185AAAF228A5697E5F6E4B2D0629
+ * @st_funcMD5		1BD1F37A6175A03AB900257F01E11343
  * @st_funcID		LCCM655R0.FILE.021.FUNC.002
  */
 void vFCU_LASEROPTO__Process(void)
@@ -351,7 +360,7 @@ Luint8 u8FCU_LASEROPTO__Get_Error(E_FCU__LASER_OPTO__INDEX_T eLaser)
  * Process the laser packet
  * 
  * @param[in]		u8LaserIndex		The laser index
- * @st_funcMD5		A3236EC91277B738FFEC7B324049DFD7
+ * @st_funcMD5		8E92CA04DFF76369C507CD9BBBE3EA66
  * @st_funcID		LCCM655R0.FILE.021.FUNC.004
  */
 void vFCU_LASEROPTO__Process_Packet(E_FCU__LASER_OPTO__INDEX_T eLaser)
@@ -551,7 +560,7 @@ void vFCU_LASEROPTO__100MS_ISR(void)
  *
  * @param[in]		f32Value				Raw value in laser units
  * @param[in]		u32Index				The laser index
- * @st_funcMD5		B2906B4ECE0EF676386C646951C577AE
+ * @st_funcMD5		5CD6E38CCABECB0C90FA47549053968D
  * @st_funcID		LCCM655R0.FILE.021.FUNC.008
  */
 void vFCU_LASEROPTO_WIN32__Set_DistanceRaw(Luint32 u32Index, Lfloat32 f32Value)

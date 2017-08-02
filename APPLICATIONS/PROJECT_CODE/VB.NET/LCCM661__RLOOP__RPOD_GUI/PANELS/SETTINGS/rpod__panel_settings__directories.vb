@@ -1,26 +1,14 @@
 ﻿Namespace SIL3.rLoop.rPodControl.Panels.Settings
 
     ''' <summary>
-    ''' Network settings
+    ''' File Path Locations settings
     ''' </summary>
     ''' <remarks></remarks>
-    Public Class Network
-        Inherits SIL3.ApplicationSupport.PanelTemplate
+    Public Class FilePaths
+        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "MEMBERS"
-        ''' <summary>
-        ''' The XYZ Controller network interface
-        ''' </summary>
-        ''' <remarks></remarks>
-        'Private m_pXYZ_Network As LockieInnovation.CNCMachine.Network.XYZ_Network
-
-
-
-        ''' <summary>
-        ''' Network data log
-        ''' </summary>
-        ''' <remarks></remarks>
-        Private m_pLog As SIL3.ApplicationSupport.LoggingBox
+        Private m_txtLogRoot As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
 #End Region '#Region "MEMBERS"
 
@@ -32,7 +20,7 @@
         ''' <remarks></remarks>
         Public Sub New(sPanelText As String)
             MyBase.New(sPanelText)
-
+            Me.LayoutPanel()
         End Sub
 #End Region '#Region "NEW"
 
@@ -43,32 +31,27 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim ppT As New Panel
-            With ppT
-                .Dock = DockStyle.Top
-                .Size = New Size(400, 500)
-            End With
-
-            Dim ppB As New Panel
-            With ppB
-                .Dock = DockStyle.Fill
-            End With
-
-            MyBase.m_pInnerPanel.Controls.Add(ppB)
-            MyBase.m_pInnerPanel.Controls.Add(ppT)
-
-            'Dim btnUP As New LockieInnovation.ApplicationSupport.ButtonHelper(10, 20, 200, "XYZ Update Firmware", ppB, AddressOf Me.btnXYZ__UpdateFirmware__Click)
-
-
-            'Dim btnUP2 As New LockieInnovation.ApplicationSupport.ButtonHelper(200, "PNP Update Firmware", AddressOf Me.btnPNPHEAD__UpdateFirmware__Click)
-            'btnUP2.Layout__BelowControl(btnUP)
-
-            'create the logging box
-            Me.m_pLog = New SIL3.ApplicationSupport.LoggingBox(ppT)
+            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Data Logging Folder", Me.m_pInnerPanel)
+            Me.m_txtLogRoot = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(500, l1)
+            Me.m_txtLogRoot.Persist__Set(LAPP188__RLOOP__LIB.SIL3.Types.eSIL3CompanyType.SIL3__APP_PATH, "data_log_folder.txt")
 
 
         End Sub
 #End Region '#Region "PANEL LAYOUT"
+
+#Region "GET"
+        ''' <summary>
+        ''' Return the data logging directory
+        ''' </summary>
+        ''' <returns></returns>
+        Public Function Get__DataLogDir() As String
+            Dim sText As String = Me.m_txtLogRoot.Text
+            If sText.EndsWith("\") = False Then
+                sText = sText & "\"
+            End If
+            Return sText
+        End Function
+#End Region
 
     End Class
 

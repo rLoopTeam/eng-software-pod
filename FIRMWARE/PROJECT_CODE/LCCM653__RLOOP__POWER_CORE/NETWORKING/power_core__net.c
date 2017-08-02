@@ -26,7 +26,7 @@ extern struct _strPWRNODE sPWRNODE;
  * @brief
  * inits the ethernet networking
  * 
- * @st_funcMD5		18E86E7F8D41B538C27751E8FD3A806B
+ * @st_funcMD5		6503B956583F682C19CEDEE0C48159A6
  * @st_funcID		LCCM653R0.FILE.017.FUNC.001
  */
 void vPWRNODE_NET__Init(void)
@@ -96,7 +96,7 @@ void vPWRNODE_NET__Init(void)
  * This also calls the EMAC link state machine which processes the EMAC link
  * and handles bringing the EMAC on line.
  * 
- * @st_funcMD5		AE749014AEE93F473972E0F6DDFC391C
+ * @st_funcMD5		2AA3D2526979146A07CB5497CA59637B
  * @st_funcID		LCCM653R0.FILE.017.FUNC.002
  */
 void vPWRNODE_NET__Process(void)
@@ -204,7 +204,7 @@ Luint8 u8PWRNODE_NET__Is_LinkUp(void)
  * @brief
  * 10ms ISR from system timer.
  * 
- * @st_funcMD5		19DC91F4363CC4B4FD046C69BB79FBEE
+ * @st_funcMD5		37B10B02423D305234C7C6886DC18950
  * @st_funcID		LCCM653R0.FILE.017.FUNC.004
  */
 void vPWRNODE_NET__10MS_ISR(void)

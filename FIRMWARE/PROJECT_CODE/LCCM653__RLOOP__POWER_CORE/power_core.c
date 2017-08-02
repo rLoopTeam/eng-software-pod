@@ -26,7 +26,7 @@ struct _strPWRNODE sPWRNODE;
  * @brief
  * Init the power node, this should be the first call
  * 
- * @st_funcMD5		5E00CDBD0D5864C84CA2AD39AC3F3703
+ * @st_funcMD5		C31656CC99825E8482652B26957C9295
  * @st_funcID		LCCM653R0.FILE.000.FUNC.001
  */
 void vPWRNODE__Init(void)
@@ -54,7 +54,7 @@ void vPWRNODE__Init(void)
  * Process the power node states, this should be called as quick as possible from
  * the main program loop.
  * 
- * @st_funcMD5		D87D0D684CF1560EB40560019D6342DE
+ * @st_funcMD5		29444FE8792442CF1FBD5ACA34CF1776
  * @st_funcID		LCCM653R0.FILE.000.FUNC.002
  */
 void vPWRNODE__Process(void)
@@ -425,7 +425,7 @@ void vPWRNODE__Process(void)
  * @brief
  * 100ms timer
  * 
- * @st_funcMD5		1C91DBE904A59002BE4066D0653B78F1
+ * @st_funcMD5		2113B1C62D2E2C21EB9C42EAAD17D8B5
  * @st_funcID		LCCM653R0.FILE.000.FUNC.003
  */
 void vPWRNODE__RTI_100MS_ISR(void)

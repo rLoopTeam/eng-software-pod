@@ -19,8 +19,6 @@ var searchData=
   ['power_5fnode_5f_5fnode_5fpressure',['POWER_NODE__NODE_PRESSURE',['../group___p_o_w_e_r___n_o_d_e_____n_o_d_e___p_r_e_s_s_u_r_e.html',1,'']]],
   ['power_5fnode_5f_5fnode_5ftemperature',['POWER_NODE__NODE_TEMPERATURE',['../group___p_o_w_e_r___n_o_d_e_____n_o_d_e___t_e_m_p_e_r_a_t_u_r_e.html',1,'']]],
   ['power_5fnode_5f_5fnotifications',['POWER_NODE__NOTIFICATIONS',['../group___p_o_w_e_r___n_o_d_e_____n_o_t_i_f_i_c_a_t_i_o_n_s.html',1,'']]],
-  ['power_5fnode_5f_5fpi_5fcomms',['POWER_NODE__PI_COMMS',['../group___p_o_w_e_r___n_o_d_e_____p_i___c_o_m_m_s.html',1,'']]],
-  ['power_5fnode_5f_5fpi_5fcomms_5f_5fmsg',['POWER_NODE__PI_COMMS__MSG',['../group___p_o_w_e_r___n_o_d_e_____p_i___c_o_m_m_s_____m_s_g.html',1,'']]],
   ['power_5fnode_5f_5fstate_5fmachine',['POWER_NODE__STATE_MACHINE',['../group___p_o_w_e_r___n_o_d_e_____s_t_a_t_e___m_a_c_h_i_n_e.html',1,'']]],
   ['power_5fnode_5f_5fwin32',['POWER_NODE__WIN32',['../group___p_o_w_e_r___n_o_d_e_____w_i_n32.html',1,'']]]
 ];

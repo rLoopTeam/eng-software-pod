@@ -234,5 +234,5 @@ Patching output file 16/19
 Patching output file 17/19
 Patching output file 18/19
 Patching output file 19/19
-lookup cache used 78/65536 hits=218 misses=80
+lookup cache used 79/65536 hits=224 misses=81
 finished...

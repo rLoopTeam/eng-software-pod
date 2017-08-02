@@ -1,8 +1,5 @@
 var fcu__core____net____packet__types_8h =
 [
-    [ "C_RLOOP_NET__FCU__PORT", "fcu__core____net____packet__types_8h.html#a060e8cf220fd269a16d04f07f5d6057a", null ],
-    [ "C_RLOOP_NET__POWER_A__PORT", "fcu__core____net____packet__types_8h.html#a071e3e02ed522f191970cf536bc60455", null ],
-    [ "C_RLOOP_NET__POWER_B__PORT", "fcu__core____net____packet__types_8h.html#ae74b572af3b2e2a9b67881becab8d795", null ],
     [ "E_NET__PACKET_T", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5ca", [
       [ "NET_PKT__NONE", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa7cd6bffb3ca7885386107341314b1cd4", null ],
       [ "NET_PKT__FCU_GEN__POD_STOP_COMMAND", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caae5b1e139f25177b75f1c33f40f0c9d1c", null ],
@@ -73,6 +70,11 @@ var fcu__core____net____packet__types_8h =
       [ "NET_PKT__FCU_LIFTMECH__SET_GROUP_DIR", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caad8162d25e090d95a9d5a0951597fed06", null ],
       [ "NET_PKT__FCU_LIFTMECH__SET_GROUP_SPEED", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa8905ce4fe9f9e368b0f07060dbf59b89", null ],
       [ "NET_PKT__FCU_LIFTMECH__RELEASE", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa180eb3f197c50ac58c211883d1ff7d76", null ],
+      [ "NET_PKT__APU_CLUTCH__MANUAL", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa733b059441413471d3530dab985516be", null ],
+      [ "NET_PKT__APU_MOTOR__DIRECTION_MANUAL", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa222bece40a7e92148ff25d3b09ad28aa", null ],
+      [ "NET_PKT__APU_MOTOR__SPEED_MANUAL", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa672c50fbcfa28e4fc3aaea411a048632", null ],
+      [ "NET_PKT__APU__STATUS_PACKET", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caaac7b695870370a5e9a93779603d13458", null ],
+      [ "NET_PKT__APU_MOTOR__ENABLE_MANUAL", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa0e9ecb88d8b2d42d97f0e4506851ba9d", null ],
       [ "NET_PKT__PWR_GEN__POD_SAFE_COMMAND", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa3c0133aff95aa0cbb25d8905225ce0b4", null ],
       [ "NET_PKT__PWR_GEN__POD_EMULATION_CONTROL", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa508b437c6e6f316312d2eaa8cbb2a157", null ],
       [ "NET_PKT__PWR_GEN__STREAMING_CONTROL", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa467a308d492d7a5911e15e4a8045e3ec", null ],
@@ -103,8 +105,19 @@ var fcu__core____net____packet__types_8h =
       [ "NET_PKT__PWR_CURRENT__REQ_CURRENT", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa343c5f28d21273576a0422ff538faec8", null ],
       [ "NET_PKT__PWR_CURRENT__TX_CURRENT_STATUS", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa5cd7f1287717dc2b64923c326b9bb5fe", null ],
       [ "NET_PKT__FCU_DAQ__OFFSET_INDEX", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa434a6a2405a2ad47052da4b99dac7ae6", null ],
+      [ "NET_PKT__POWERA_DAQ__OFFSET_INDEX", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa99436bf2daddd21d292a8bb0f63d1a37", null ],
+      [ "NET_PKT__POWERB_DAQ__OFFSET_INDEX", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa7d7b576e3b1ea5a57c57a398af44f94f", null ],
+      [ "NET_PKT__LGU_DAQ__OFFSET_INDEX", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caaeadd368102935675334e2e4db60b3497", null ],
+      [ "NET_PKT__HE_THERM_DAQ__OFFSET_INDEX", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa8ef8f13f7dadc6b60f1e53294cfc970b", null ],
       [ "NET_PKT__XILINX_SIM__SIMULATION_CONTROL", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa98d6fa423914f65b30112ebd15eb5f8c", null ],
       [ "NET_PKT__XILINX_SIM__MANUAL_LASER_CONTROL", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa8ecc74d6cdd6b8ddcf876c44f7ceaa43", null ],
-      [ "NET_PKT__XILINX_SIM__TX_PROGRESS_UPDATE", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa7d9f1731627b3e9fedb90dc5187e207a", null ]
+      [ "NET_PKT__XILINX_SIM__TX_PROGRESS_UPDATE", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa7d9f1731627b3e9fedb90dc5187e207a", null ],
+      [ "NET_PKT__HET__REQUEST_THERM_PACKET", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa06a04540b636bf78cddc28d78045ccb4", null ],
+      [ "NET_PKT__HET__SEND_THERM_PACKET", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caaa3250ed88b02bffd9da9c4ea024dfc13", null ],
+      [ "NET_PKT__HET__MANUAL_CONTROL", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caad83f82308277c13b866cd2cbd7c640d1", null ],
+      [ "NET_PKT__LGU__STREAMING_CONTROL", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa8249eea2a7d540440eb3d337f345ee2d", null ],
+      [ "NET_PKT__LGU__MANUAL_MODE", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caa68e24f974c8fedce751e4ed84247491d", null ],
+      [ "NET_PKT__LGU__TX_STATUS_PACKET", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caad54fca1feeaa666c41f4db3e917cee11", null ],
+      [ "NET_PKT__LGU__TX_ADC_CAL_PACKET", "fcu__core____net____packet__types_8h.html#a05cd440c9ff35af44b25aa24c4cbb5caaf3f1742c5681380f53001f89b314ab86", null ]
     ] ]
 ];

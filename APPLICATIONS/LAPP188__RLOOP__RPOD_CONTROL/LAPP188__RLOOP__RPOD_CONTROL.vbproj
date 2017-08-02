@@ -193,6 +193,10 @@
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\LANDING_GEAR\rpod__panel_landing__top.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\LANDING_GEAR\rpod__panel_landing__top.vb</Link>
     </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__directories.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__directories.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__network.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__network.vb</Link>
       <SubType>Component</SubType>
@@ -216,9 +220,6 @@
     <Compile Include="Form1.Designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LCCM661__RLOOP__RPOD_GUI\PANELS\SETTINGS\rpod__panel_settings__directories.vb">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

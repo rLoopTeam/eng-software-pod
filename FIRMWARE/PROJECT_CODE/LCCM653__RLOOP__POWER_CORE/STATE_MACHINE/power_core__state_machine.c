@@ -42,7 +42,7 @@ void vPWRNODE_SM__Init(void)
  * @brief
  * Process
  * 
- * @st_funcMD5		CBFBEEF04FB99B08A430376E00D99348
+ * @st_funcMD5		2C216E76AC8D83A551120784C3CF399D
  * @st_funcID		LCCM653R0.FILE.003.FUNC.002
  */
 void vPWRNODE_SM__Process(void)

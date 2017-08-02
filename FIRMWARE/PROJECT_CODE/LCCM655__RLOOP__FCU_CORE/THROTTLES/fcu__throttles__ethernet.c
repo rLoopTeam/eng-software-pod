@@ -41,7 +41,7 @@ void vFCU_THROTTLE_ETH__Init(void)
  * Send a throttle eth packet
  * 
  * @param[in]		ePacketType				Packet Type
- * @st_funcMD5		2E572263EF697DB1F6C4A1DAF679B5C0
+ * @st_funcMD5		DC68797182C38280A6A3E17149FE6073
  * @st_funcID		LCCM655R0.FILE.073.FUNC.002
  */
 void vFCU_THROTTLE_ETH__Transmit(E_NET__PACKET_T ePacketType)

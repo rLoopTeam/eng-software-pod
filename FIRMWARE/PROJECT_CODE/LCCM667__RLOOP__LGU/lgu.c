@@ -55,7 +55,7 @@ TS_LGU__MAIN sLGU;
  * @brief
  * Init the landing gear unit
  * 
- * @st_funcMD5		3F296735A2E7283560D02EFDEFCE10F6
+ * @st_funcMD5		B98A41297BC9D7630674FF7C2521E1E5
  * @st_funcID		LCCM667R0.FILE.000.FUNC.001
  */
 void vLGU__Init(void)
@@ -169,9 +169,9 @@ void vLGU__Init(void)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Main Landing Gear Process Function
  * 
- * @st_funcMD5		9002B03145522CF0667914F0E340C607
+ * @st_funcMD5		964DF03CCFB853A03BF6BDF521C5F70F
  * @st_funcID		LCCM667R0.FILE.000.FUNC.002
  */
 void vLGU__Process(void)

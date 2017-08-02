@@ -91,6 +91,9 @@ $(document).ready(function(){initNavTree('power__core____net____rx_8c.html','');
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">power_core__net__rx.c File Reference</div>  </div>
 </div><!--header-->
@@ -99,22 +102,37 @@ $(document).ready(function(){initNavTree('power__core____net____rx_8c.html','');
 <p>Network Rx portion of the power core.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="power__core_8h_source.html">../power_core.h</a>&quot;</code><br />
+<code>#include &lt;LCCM655__RLOOP__FCU_CORE/NETWORKING/fcu_core__net__packet_types.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for power_core__net__rx.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="power__core____net____rx_8c__incl.png" border="0" usemap="#_n_e_t_w_o_r_k_i_n_g_2power__core____net____rx_8c" alt=""/></div>
 <map name="_n_e_t_w_o_r_k_i_n_g_2power__core____net____rx_8c" id="_n_e_t_w_o_r_k_i_n_g_2power__core____net____rx_8c">
 <area shape="rect" id="node2" href="power__core_8h.html" title="Main header file for the power node core functions. " alt="" coords="946,95,1057,121"/>
-<area shape="rect" id="node4" href="power__core____pi__comms____types_8h.html" title="LCCM653__RLOOP__POWER\l_CORE/PI_COMMS/power\l_core__pi_comms__types.h" alt="" coords="107,177,309,233"/>
-<area shape="rect" id="node5" href="power__core____state__types_8h.html" title="LCCM653__RLOOP__POWER\l_CORE/power_core__state\l_types.h" alt="" coords="333,177,536,233"/>
-<area shape="rect" id="node6" href="power__core____defines_8h.html" title="LCCM653__RLOOP__POWER\l_CORE/power_core__defines.h" alt="" coords="560,184,763,225"/>
-<area shape="rect" id="node7" href="power__core____eeprom__index_8h.html" title="LCCM653__RLOOP__POWER\l_CORE/power_core__eeprom\l_index.h" alt="" coords="787,177,989,233"/>
-<area shape="rect" id="node8" href="power__core____enums_8h.html" title="Power Node Control Code Constants. " alt="" coords="1013,184,1216,225"/>
-<area shape="rect" id="node9" href="power__core____fault__flags_8h.html" title="LCCM653__RLOOP__POWER\l_CORE/power_core__fault\l_flags.h" alt="" coords="1240,177,1443,233"/>
-<area shape="rect" id="node10" href="power____iv__measure____fault__flags_8h.html" title="IV Measure Fault Flags. " alt="" coords="1467,169,1690,240"/>
+<area shape="rect" id="node4" href="power__core____state__types_8h.html" title="LCCM653__RLOOP__POWER\l_CORE/power_core__state\l_types.h" alt="" coords="107,177,309,233"/>
+<area shape="rect" id="node5" href="power__core____defines_8h.html" title="LCCM653__RLOOP__POWER\l_CORE/power_core__defines.h" alt="" coords="333,184,536,225"/>
+<area shape="rect" id="node6" href="power__core____eeprom__index_8h.html" title="LCCM653__RLOOP__POWER\l_CORE/power_core__eeprom\l_index.h" alt="" coords="560,177,763,233"/>
+<area shape="rect" id="node7" href="power__core____enums_8h.html" title="Power Node Control Code Constants. " alt="" coords="787,184,989,225"/>
+<area shape="rect" id="node8" href="power__core____fault__flags_8h.html" title="LCCM653__RLOOP__POWER\l_CORE/power_core__fault\l_flags.h" alt="" coords="1013,177,1216,233"/>
+<area shape="rect" id="node9" href="power____iv__measure____fault__flags_8h.html" title="IV Measure Fault Flags. " alt="" coords="1241,169,1463,240"/>
 </map>
 </div>
-</div><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga264930075913f81913dd2a1ef5bf332b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____n_e_t_w_o_r_k_____r_x.html#ga264930075913f81913dd2a1ef5bf332b">vPWRNODE_NET_RX__RxUDP</a> (Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPort)</td></tr>
+<tr class="memdesc:ga264930075913f81913dd2a1ef5bf332b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx a standard UDP packet.  <a href="group___p_o_w_e_r___n_o_d_e_____n_e_t_w_o_r_k_____r_x.html#ga264930075913f81913dd2a1ef5bf332b">More...</a><br /></td></tr>
+<tr class="separator:ga264930075913f81913dd2a1ef5bf332b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e91b976e1ea56bb6aa964c0c86816a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____n_e_t_w_o_r_k_____r_x.html#ga0e91b976e1ea56bb6aa964c0c86816a4">vPWRNODE_NET_RX__RxSafeUDP</a> (Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)</td></tr>
+<tr class="memdesc:ga0e91b976e1ea56bb6aa964c0c86816a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx a SafetyUDP.  <a href="group___p_o_w_e_r___n_o_d_e_____n_e_t_w_o_r_k_____r_x.html#ga0e91b976e1ea56bb6aa964c0c86816a4">More...</a><br /></td></tr>
+<tr class="separator:ga0e91b976e1ea56bb6aa964c0c86816a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:gaf56db0ececc05f4ec2d362cfdf6e5015"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__str_p_w_r_n_o_d_e.html">_strPWRNODE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____n_e_t_w_o_r_k_____r_x.html#gaf56db0ececc05f4ec2d362cfdf6e5015">sPWRNODE</a></td></tr>
+<tr class="separator:gaf56db0ececc05f4ec2d362cfdf6e5015"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Network Rx portion of the power core. </p>
 <dl class="section author"><dt>Author</dt><dd>Lachlan Grogan </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>rLoop Inc. </dd></dl>
