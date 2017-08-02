@@ -5,7 +5,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class Contrast
-        Inherits SIL3.ApplicationSupport.PanelTemplate
+        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "CONSTANTS"
         Private Const C_NUM_CONTRAST_SENSORS As Integer = 3
@@ -14,9 +14,9 @@
 #Region "MEMBERS"
 
         Private m_iRxCount As Integer
-        Private m_txtCount As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtStatus As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtCRC As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtCount As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtStatus As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtCRC As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
         ''' <summary>
         ''' The logging directory
@@ -26,13 +26,13 @@
         ''' <summary>
         ''' Allows us to write CSV logs of the edges
         ''' </summary>
-        Private m_pCSV As SIL3.FileSupport.CSV
+        Private m_pCSV As LAPP188__RLOOP__LIB.SIL3.FileSupport.CSV
 
 
         ''' <summary>
         ''' Our DAQ Receiver
         ''' </summary>
-        Private m_pDAQ As SIL3.DAQ.Top
+        Private m_pDAQ As LAPP188__RLOOP__LIB.SIL3.DAQ.Top
 
 #End Region '#Region "MEMBERS"
 
@@ -49,16 +49,16 @@
             Me.m_sLogDir = Me.m_sLogDir & "CONTRAST\"
 
             'check our folder
-            SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir)
+            LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir)
 
             'create the log files in prep
-            Me.m_pCSV = New SIL3.FileSupport.CSV(Me.m_sLogDir & "Laser0.csv", ",", False, False)
+            Me.m_pCSV = New LAPP188__RLOOP__LIB.SIL3.FileSupport.CSV(Me.m_sLogDir & "Laser0.csv", ",", False, False)
             If Me.m_pCSV.File__Exists = False Then
             End If
 
             'create a DAQ
             'do not pass in any info
-            Me.m_pDAQ = New SIL3.DAQ.Top()
+            Me.m_pDAQ = New LAPP188__RLOOP__LIB.SIL3.DAQ.Top()
 
             'add the contrast DAQ items
             Me.m_pDAQ.DAQ__Set_LogFilePath(Me.m_sLogDir)
@@ -90,7 +90,7 @@
         ''' <param name="u16PayloadLength"></param>
         ''' <param name="u8Payload"></param>
         ''' <param name="u16CRC"></param>
-        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16)
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16)
 
             'only do if we have been created
             If MyBase.m_bLayout = True Then
@@ -99,44 +99,44 @@
                 If ePacketType = SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LASER_CONT__TX_LASER_DATA_0 Then
 
                     Dim iOffset As Integer = 0
-                    Dim pU32UpperFaultFlags As New SIL3.Numerical.U32(u8Payload, iOffset)
+                    Dim pU32UpperFaultFlags As New LAPP188__RLOOP__LIB.SIL3.Numerical.U32(u8Payload, iOffset)
                     iOffset += 4
 
-                    Dim pU32Spare0 As New SIL3.Numerical.U32(u8Payload, iOffset)
+                    Dim pU32Spare0 As New LAPP188__RLOOP__LIB.SIL3.Numerical.U32(u8Payload, iOffset)
                     iOffset += 4
-                    Dim pU32Spare1 As New SIL3.Numerical.U32(u8Payload, iOffset)
+                    Dim pU32Spare1 As New LAPP188__RLOOP__LIB.SIL3.Numerical.U32(u8Payload, iOffset)
                     iOffset += 4
-                    Dim pU32Spare2 As New SIL3.Numerical.U32(u8Payload, iOffset)
+                    Dim pU32Spare2 As New LAPP188__RLOOP__LIB.SIL3.Numerical.U32(u8Payload, iOffset)
                     iOffset += 4
-                    Dim pU32Spare3 As New SIL3.Numerical.U32(u8Payload, iOffset)
-                    iOffset += 4
-
-                    Dim pU32DeviceFaultFlags As New SIL3.Numerical.U32(u8Payload, iOffset)
+                    Dim pU32Spare3 As New LAPP188__RLOOP__LIB.SIL3.Numerical.U32(u8Payload, iOffset)
                     iOffset += 4
 
-                    Dim pU16RisingCount As New SIL3.Numerical.U16(u8Payload, iOffset)
+                    Dim pU32DeviceFaultFlags As New LAPP188__RLOOP__LIB.SIL3.Numerical.U32(u8Payload, iOffset)
+                    iOffset += 4
+
+                    Dim pU16RisingCount As New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(u8Payload, iOffset)
                     iOffset += 2
-                    Dim pU16FallingCount As New SIL3.Numerical.U16(u8Payload, iOffset)
+                    Dim pU16FallingCount As New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(u8Payload, iOffset)
                     iOffset += 2
-                    Dim pU16MaxStripes As New SIL3.Numerical.U16(u8Payload, iOffset)
+                    Dim pU16MaxStripes As New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(u8Payload, iOffset)
                     iOffset += 2
 
                     'the two timing lists
-                    Dim pU64Rise() As SIL3.Numerical.U64
+                    Dim pU64Rise() As LAPP188__RLOOP__LIB.SIL3.Numerical.U64
                     ReDim pU64Rise(pU16MaxStripes.To__Int - 1)
-                    Dim pU64Fall() As SIL3.Numerical.U64
+                    Dim pU64Fall() As LAPP188__RLOOP__LIB.SIL3.Numerical.U64
                     ReDim pU64Fall(pU16MaxStripes.To__Int - 1)
 
 
                     'go through the rising list
                     For iCounter As Integer = 0 To pU16MaxStripes.To__Int - 1
-                        pU64Rise(iCounter) = New SIL3.Numerical.U64(u8Payload, iOffset)
+                        pU64Rise(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.U64(u8Payload, iOffset)
                         iOffset += 8
                     Next
 
                     'go through the falling list
                     For iCounter As Integer = 0 To pU16MaxStripes.To__Int - 1
-                        pU64Fall(iCounter) = New SIL3.Numerical.U64(u8Payload, iOffset)
+                        pU64Fall(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.U64(u8Payload, iOffset)
                         iOffset += 8
                     Next
 
@@ -204,7 +204,7 @@
                         lS.Add(sTemp)
                     Next
 
-                    SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sLogDir & "Laser0.txt", lS)
+                    LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sLogDir & "Laser0.txt", lS)
 
 
                     Me.m_iRxCount += 1
@@ -233,23 +233,23 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Contrast Laser Edge Data", MyBase.m_pInnerPanel)
-            Dim btnRL0 As New SIL3.ApplicationSupport.ButtonHelper(100, "Req. Laser 0", AddressOf btnRequest_L0__Click)
+            Dim l0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Contrast Laser Edge Data", MyBase.m_pInnerPanel)
+            Dim btnRL0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Req. Laser 0", AddressOf btnRequest_L0__Click)
             btnRL0.Layout__BelowControl(l0)
 
-            Dim btnEnableDAQ As New SIL3.ApplicationSupport.ButtonHelper(100, "Enable DAQ", AddressOf btnEnableDAQ__Click)
+            Dim btnEnableDAQ As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Enable DAQ", AddressOf btnEnableDAQ__Click)
             btnEnableDAQ.Layout__RightOfControl(btnRL0)
             btnEnableDAQ.ToolTip__Set("Enable DAQ", "You must enable this BEFORE starting a FPGA sim otherwise the DAQ won't log")
 
 
-            Dim btnRL1 As New SIL3.ApplicationSupport.ButtonHelper(100, "Req. Laser 1", AddressOf btnRequest_L1__Click)
+            Dim btnRL1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Req. Laser 1", AddressOf btnRequest_L1__Click)
             btnRL1.Layout__BelowControl(btnRL0)
-            Dim btnRL2 As New SIL3.ApplicationSupport.ButtonHelper(100, "Req. Laser 2", AddressOf btnRequest_L2__Click)
+            Dim btnRL2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Req. Laser 2", AddressOf btnRequest_L2__Click)
             btnRL2.Layout__BelowControl(btnRL1)
 
-            Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
+            Dim l11 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Rx Count")
             l11.Layout__BelowControl(btnRL2)
-            Me.m_txtCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l11)
+            Me.m_txtCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l11)
 
         End Sub
 
@@ -264,7 +264,7 @@
         ''' <param name="e"></param>
         Private Sub btnEnableDAQ__Click(s As Object, e As EventArgs)
 
-            Dim pSB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
+            Dim pSB As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper = CType(s, LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper)
 
             If pSB.Text = "Enable DAQ" Then
 
@@ -273,15 +273,15 @@
 
                 'reset
                 'cpu load
-                Me.m_pDAQ.DAQTypes__Register(0, 0, 0, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U8, "CPU Load", 0)
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 0, LAPP188__RLOOP__LIB.SIL3.DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U8, "CPU Load", 0)
                 'rising count
-                Me.m_pDAQ.DAQTypes__Register(0, 0, 1, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U16, "Rising Edge Count", 0)
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 1, LAPP188__RLOOP__LIB.SIL3.DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U16, "Rising Edge Count", 0)
                 'distance elapsed mm
-                Me.m_pDAQ.DAQTypes__Register(0, 0, 2, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__S32, "Current Accel mm/ss", 0)
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 2, LAPP188__RLOOP__LIB.SIL3.DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__S32, "Current Accel mm/ss", 0)
                 'last stripe distance mm
-                Me.m_pDAQ.DAQTypes__Register(0, 0, 3, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "Distance Elapsed mm", 0)
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 3, LAPP188__RLOOP__LIB.SIL3.DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "Distance Elapsed mm", 0)
                 'current velocity mm/s
-                Me.m_pDAQ.DAQTypes__Register(0, 0, 4, DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "Velocity mms", 0)
+                Me.m_pDAQ.DAQTypes__Register(0, 0, 4, LAPP188__RLOOP__LIB.SIL3.DAQ.Top.E_DAQ__DATA_TYPES.DATA_TYPE__U32, "Velocity mms", 0)
 
 
                 RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,

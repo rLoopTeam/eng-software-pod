@@ -105,6 +105,7 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\ETHERNET\he_therm__ethernet.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\he_therm.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\SOLENOIDS\he_therm__solenoids.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\THERMOCOUPLES\he_therm__rom_id.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\THERMOCOUPLES\he_therm__thermocouples.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\TIMERS\he_therm__timers.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM721__RLOOP__HE_THERM\WIN32\hetherm__win32.c" />

@@ -22,11 +22,6 @@ LAPP184__RLOOP__PWRNODE_EMU
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
-<member name="T:LAPP184__RLOOP__PWRNODE_EMU.rLoop.Sim.BatterySimTop">
- <summary>
- Top level battery simulation model.
- </summary>
-</member>
 <member name="T:LAPP184__RLOOP__PWRNODE_EMU.Form1">
  <summary>
  Basic framework for rLoop Power Node Emulation
@@ -103,6 +98,11 @@ LAPP184__RLOOP__PWRNODE_EMU
  The debug delegate
  </summary>
  <remarks></remarks>
+</member>
+<member name="F:LAPP184__RLOOP__PWRNODE_EMU.Form1.m_pETH_TX__Delegate">
+ <summary>
+ Ethernet transmit
+ </summary>
 </member>
 <member name="F:LAPP184__RLOOP__PWRNODE_EMU.Form1.m_pMainThread">
  <summary>
@@ -200,6 +200,32 @@ LAPP184__RLOOP__PWRNODE_EMU
  Append text in a threadsafe mannor
  </summary>
  <param name="sData"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP184__RLOOP__PWRNODE_EMU.Form1.InternalEvent__NewPacket(System.Byte[],System.Int32)">
+ <summary>
+ Rx a new raw packet
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
+</member>
+<member name="M:LAPP184__RLOOP__PWRNODE_EMU.Form1.InernalEvent__UDPSafe__RxPacket(LAPP184__RLOOP__LIB.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T,LAPP184__RLOOP__LIB.SIL3.Numerical.U16,System.Byte[]@,LAPP184__RLOOP__LIB.SIL3.Numerical.U16,System.Boolean,System.UInt32)">
+ <summary>
+ RX a UDP safe packet and fake the eth-ii layer
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <param name="bCRCOK"></param>
+ <param name="u32Seq"></param>
+</member>
+<member name="M:LAPP184__RLOOP__PWRNODE_EMU.Form1.ETH_WIN32__TxCallback_Sub(System.IntPtr,System.UInt16)">
+ <summary>
+ Called when teh DLL wants to trasmit eth data.
+ </summary>
+ <param name="u8Buffer"></param>
+ <param name="u16BufferLength"></param>
  <remarks></remarks>
 </member>
 </members>

@@ -40,11 +40,13 @@ void vHETHERM_SOL__Init(void)
 	sHET.sSol.sRight.u8ChannelOverTemp_State = 0U;
 	sHET.sSol.sBrake.u8ChannelOverTemp_State = 0U;
 
+#ifndef WIN32
 	//configure the IO channels.
 	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 0U, GIO_DIRECTION__OUTPUT);
 	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 1U, GIO_DIRECTION__OUTPUT);
 	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 2U, GIO_DIRECTION__OUTPUT);
 	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 5U, GIO_DIRECTION__OUTPUT);
+#endif
 
 	//all sols closed
 	vHETHERM_SOL__Close(0);
@@ -137,7 +139,7 @@ void vHETHERM_SOL__Process(void)
  */
 void vHETHERM_SOL__Open(Luint8 u8Index)
 {
-
+#ifndef WIN32
 	switch(u8Index)
 	{
 		case 0:
@@ -156,6 +158,7 @@ void vHETHERM_SOL__Open(Luint8 u8Index)
 			//do nothing.
 			break;
 	}//switch(u8Index)
+#endif
 
 }
 
@@ -170,7 +173,7 @@ void vHETHERM_SOL__Open(Luint8 u8Index)
  */
 void vHETHERM_SOL__Close(Luint8 u8Index)
 {
-
+#ifndef WIN32
 	switch(u8Index)
 	{
 		case 0:
@@ -189,7 +192,7 @@ void vHETHERM_SOL__Close(Luint8 u8Index)
 			//do nothing.
 			break;
 	}//switch(u8Index)
-
+#endif
 }
 
 

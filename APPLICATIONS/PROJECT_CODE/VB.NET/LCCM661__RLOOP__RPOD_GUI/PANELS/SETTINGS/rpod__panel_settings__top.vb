@@ -11,7 +11,7 @@
         ''' Our application explorer bar
         ''' </summary>
         ''' <remarks></remarks>
-        Private m_pExplorer As SIL3.ApplicationSupport.ExplorerBarHelper
+        Private m_pExplorer As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ExplorerBarHelper
 
         ''' <summary>
         ''' The index of our category in the explorer bar
@@ -29,7 +29,7 @@
         ''' </summary>
         ''' <param name="pf"></param>
         ''' <remarks></remarks>
-        Public Sub New(ByRef pf As Windows.Forms.Form, ByRef pExplorer As SIL3.ApplicationSupport.ExplorerBarHelper)
+        Public Sub New(ByRef pf As Windows.Forms.Form, ByRef pExplorer As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ExplorerBarHelper)
 
             'setup our explorer bar
             Me.m_pExplorer = pExplorer

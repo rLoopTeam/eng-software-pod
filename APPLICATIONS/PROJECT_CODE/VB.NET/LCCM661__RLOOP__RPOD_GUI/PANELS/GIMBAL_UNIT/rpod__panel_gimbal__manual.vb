@@ -5,19 +5,19 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class Manual
-        Inherits SIL3.ApplicationSupport.PanelTemplate
+        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "MEMBERS"
 
-        Private m_txtFaultFlags As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtLeftRetract As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtLeftExtend As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtFaultFlags As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLeftRetract As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLeftExtend As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
-        Private m_txtRightRetract As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtRightExtend As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtRightRetract As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtRightExtend As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
-        Private m_txtLeftState As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtRightState As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLeftState As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtRightState As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
 #End Region '#Region "MEMBERS"
 
@@ -45,39 +45,39 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l1 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags", Me.m_pInnerPanel)
-            Me.m_txtFaultFlags = New SIL3.ApplicationSupport.TextBoxHelper(100, l1)
+            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags", Me.m_pInnerPanel)
+            Me.m_txtFaultFlags = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l1)
 
-            Dim l2a As New SIL3.ApplicationSupport.LabelHelper("Left Clutch", Me.m_txtFaultFlags)
+            Dim l2a As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Left Clutch", Me.m_txtFaultFlags)
 
-            Dim btnClutchL_Disengage As New SIL3.ApplicationSupport.ButtonHelper(100, "Disengage", AddressOf Me.btnClutchL_Disengage)
+            Dim btnClutchL_Disengage As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Disengage", AddressOf Me.btnClutchL_Disengage)
             btnClutchL_Disengage.Layout__BelowControl(l2a)
 
-            Dim btnClutchL_Engage As New SIL3.ApplicationSupport.ButtonHelper(100, "Engage", AddressOf Me.btnClutchL_Engage)
+            Dim btnClutchL_Engage As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Engage", AddressOf Me.btnClutchL_Engage)
             btnClutchL_Engage.Layout__RightOfControl(btnClutchL_Disengage)
 
 
-            Dim l20a As New SIL3.ApplicationSupport.LabelHelper(300, l2a.Location.Y, "Right Clutch", Me.m_pInnerPanel)
-            Dim btnClutchR_Disengage As New SIL3.ApplicationSupport.ButtonHelper(100, "Disengage", AddressOf Me.btnClutchR_Disengage)
+            Dim l20a As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(300, l2a.Location.Y, "Right Clutch", Me.m_pInnerPanel)
+            Dim btnClutchR_Disengage As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Disengage", AddressOf Me.btnClutchR_Disengage)
             btnClutchR_Disengage.Layout__BelowControl(l20a)
 
-            Dim btnClutchR_Engage As New SIL3.ApplicationSupport.ButtonHelper(100, "Engage", AddressOf Me.btnClutchR_Engage)
+            Dim btnClutchR_Engage As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Engage", AddressOf Me.btnClutchR_Engage)
             btnClutchR_Engage.Layout__RightOfControl(btnClutchR_Disengage)
 
 
-            Dim l3a As New SIL3.ApplicationSupport.LabelHelper("Left Directon", btnClutchL_Disengage)
-            Dim btnMotorL_DirR As New SIL3.ApplicationSupport.ButtonHelper(100, "Reverse", AddressOf Me.btnMotorL_Reverse)
+            Dim l3a As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Left Directon", btnClutchL_Disengage)
+            Dim btnMotorL_DirR As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Reverse", AddressOf Me.btnMotorL_Reverse)
             btnMotorL_DirR.Layout__BelowControl(l3a)
 
-            Dim btnMotorL_DirF As New SIL3.ApplicationSupport.ButtonHelper(100, "Forward", AddressOf Me.btnMotorL_Forward)
+            Dim btnMotorL_DirF As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Forward", AddressOf Me.btnMotorL_Forward)
             btnMotorL_DirF.Layout__RightOfControl(btnMotorL_DirR)
 
 
-            Dim l30a As New SIL3.ApplicationSupport.LabelHelper("Right Directon", btnClutchR_Disengage)
-            Dim btnMotorR_DirR As New SIL3.ApplicationSupport.ButtonHelper(100, "Reverse", AddressOf Me.btnMotorR_Reverse)
+            Dim l30a As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Right Directon", btnClutchR_Disengage)
+            Dim btnMotorR_DirR As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Reverse", AddressOf Me.btnMotorR_Reverse)
             btnMotorR_DirR.Layout__BelowControl(l30a)
 
-            Dim btnMotorR_DirF As New SIL3.ApplicationSupport.ButtonHelper(100, "Forward", AddressOf Me.btnMotorR_Forward)
+            Dim btnMotorR_DirF As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Forward", AddressOf Me.btnMotorR_Forward)
             btnMotorR_DirF.Layout__RightOfControl(btnMotorR_DirR)
 
 

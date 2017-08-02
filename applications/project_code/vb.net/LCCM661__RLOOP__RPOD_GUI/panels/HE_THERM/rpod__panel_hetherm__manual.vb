@@ -5,19 +5,19 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class Manual
-	        Inherits SIL3.ApplicationSupport.PanelTemplate
+	        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "MEMBERS"
 
-        Private m_txtFaultFlags As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtLeftRetract As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtLeftExtend As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtFaultFlags As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLeftRetract As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLeftExtend As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
-        Private m_txtRightRetract As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtRightExtend As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtRightRetract As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtRightExtend As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
-        Private m_txtLeftState As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtRightState As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLeftState As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtRightState As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
 #End Region '#Region "MEMBERS"
 
@@ -45,32 +45,32 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l1 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags", Me.m_pInnerPanel)
-            Me.m_txtFaultFlags = New SIL3.ApplicationSupport.TextBoxHelper(100, l1)
+            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags", Me.m_pInnerPanel)
+            Me.m_txtFaultFlags = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l1)
 
-            Dim l2a As New SIL3.ApplicationSupport.LabelHelper("Solenoid 0", Me.m_txtFaultFlags)
-            Dim btnSolOpen_0 As New SIL3.ApplicationSupport.ButtonHelper(100, "Open", AddressOf Me.btnSolOpen_0)
+            Dim l2a As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Solenoid 0", Me.m_txtFaultFlags)
+            Dim btnSolOpen_0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Open", AddressOf Me.btnSolOpen_0)
             btnSolOpen_0.Layout__BelowControl(l2a)
 
-            Dim btnSolClose_0 As New SIL3.ApplicationSupport.ButtonHelper(100, "Close", AddressOf Me.btnSolClose_0)
+            Dim btnSolClose_0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Close", AddressOf Me.btnSolClose_0)
             btnSolClose_0.Layout__RightOfControl(btnSolOpen_0)
 
-            Dim l3 As New SIL3.ApplicationSupport.LabelHelper("Solenoid 1", btnSolOpen_0)
-            Dim btnSolOpen_1 As New SIL3.ApplicationSupport.ButtonHelper(100, "Open", AddressOf Me.btnSolOpen_1)
+            Dim l3 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Solenoid 1", btnSolOpen_0)
+            Dim btnSolOpen_1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Open", AddressOf Me.btnSolOpen_1)
             btnSolOpen_1.Layout__BelowControl(l3)
-            Dim btnSolClose_1 As New SIL3.ApplicationSupport.ButtonHelper(100, "Close", AddressOf Me.btnSolClose_1)
+            Dim btnSolClose_1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Close", AddressOf Me.btnSolClose_1)
             btnSolClose_1.Layout__RightOfControl(btnSolOpen_1)
 
-            Dim l4 As New SIL3.ApplicationSupport.LabelHelper("Solenoid 2", btnSolOpen_1)
-            Dim btnSolOpen_2 As New SIL3.ApplicationSupport.ButtonHelper(100, "Open", AddressOf Me.btnSolOpen_2)
+            Dim l4 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Solenoid 2", btnSolOpen_1)
+            Dim btnSolOpen_2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Open", AddressOf Me.btnSolOpen_2)
             btnSolOpen_2.Layout__BelowControl(l4)
-            Dim btnSolClose_2 As New SIL3.ApplicationSupport.ButtonHelper(100, "Close", AddressOf Me.btnSolClose_2)
+            Dim btnSolClose_2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Close", AddressOf Me.btnSolClose_2)
             btnSolClose_2.Layout__RightOfControl(btnSolOpen_2)
 
-            Dim l5 As New SIL3.ApplicationSupport.LabelHelper("Solenoid 3", btnSolOpen_2)
-            Dim btnSolOpen_3 As New SIL3.ApplicationSupport.ButtonHelper(100, "Open", AddressOf Me.btnSolOpen_3)
+            Dim l5 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Solenoid 3", btnSolOpen_2)
+            Dim btnSolOpen_3 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Open", AddressOf Me.btnSolOpen_3)
             btnSolOpen_3.Layout__BelowControl(l5)
-            Dim btnSolClose_3 As New SIL3.ApplicationSupport.ButtonHelper(100, "Close", AddressOf Me.btnSolClose_3)
+            Dim btnSolClose_3 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Close", AddressOf Me.btnSolClose_3)
             btnSolClose_3.Layout__RightOfControl(btnSolOpen_3)
 
 

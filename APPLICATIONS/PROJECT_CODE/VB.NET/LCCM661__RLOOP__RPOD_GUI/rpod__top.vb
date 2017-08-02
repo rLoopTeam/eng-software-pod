@@ -16,7 +16,7 @@ Namespace SIL3.rLoop.rPodControl
         ''' The explorer bar
         ''' </summary>
         ''' <remarks></remarks>
-        Private m_pExplorer As SIL3.ApplicationSupport.ExplorerBarHelper
+        Private m_pExplorer As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ExplorerBarHelper
 
         ''' <summary>
         ''' The settings panel
@@ -64,7 +64,7 @@ Namespace SIL3.rLoop.rPodControl
         ''' The lower status strip
         ''' </summary>
         ''' <remarks></remarks>
-        Private m_pSS As SIL3.ApplicationSupport.StatusStripHelper
+        Private m_pSS As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.StatusStripHelper
 
 
 #End Region '#Region "MEMBERS"
@@ -146,11 +146,11 @@ Namespace SIL3.rLoop.rPodControl
             pForm.WindowState = FormWindowState.Maximized
 
             'setup the explorer bar
-            Me.m_pExplorer = New SIL3.ApplicationSupport.ExplorerBarHelper(Nothing)
+            Me.m_pExplorer = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ExplorerBarHelper(Nothing)
 
-            Me.m_pExplorer.Bar__ImageList_Add("bullet_square_green.png")
-            Me.m_pExplorer.Bar__ImageList_Add("bullet_square_yellow.png")
-            Me.m_pExplorer.Bar__ImageList_Add("bullet_square_red.png")
+            'Me.m_pExplorer.Bar__ImageList_Add("bullet_square_green.png")
+            'Me.m_pExplorer.Bar__ImageList_Add("bullet_square_yellow.png")
+            'Me.m_pExplorer.Bar__ImageList_Add("bullet_square_red.png")
 
             Me.m_pnlSettings = New SIL3.rLoop.rPodControl.Panels.Settings.Top(pForm, Me.m_pExplorer)
 
@@ -177,7 +177,7 @@ Namespace SIL3.rLoop.rPodControl
             AddHandler Me.m_pExplorer.LinkClick, AddressOf Me.LinkBar_LinkClick
 
             'Create the status strip helper.
-            Me.m_pSS = New SIL3.ApplicationSupport.StatusStripHelper(pForm)
+            Me.m_pSS = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.StatusStripHelper(pForm)
 
         End Sub
 
@@ -243,7 +243,7 @@ Namespace SIL3.rLoop.rPodControl
         ''' <param name="u16CRC"></param>
         ''' <param name="bCRC_OK"></param>
         ''' <param name="u32Sequence"></param>
-        Private Sub InternalEvent__UDPSafe__RxPacketB(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16PacketType As UInt16, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
+        Private Sub InternalEvent__UDPSafe__RxPacketB(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16PacketType As UInt16, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
 
             Select Case eEndpoint
                 Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM

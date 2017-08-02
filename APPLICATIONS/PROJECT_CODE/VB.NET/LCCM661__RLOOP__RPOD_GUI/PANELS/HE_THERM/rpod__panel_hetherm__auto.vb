@@ -5,7 +5,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class AutoControl
-	        Inherits SIL3.ApplicationSupport.PanelTemplate
+	        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "CONSTANTS"
         ''' <summary>
@@ -17,31 +17,31 @@
 
 #Region "MEMBERS"
 
-        Private m_txtRxCount As SIL3.ApplicationSupport.TextBoxHelper_S32
-        Private m_txtFaultFlags_TOP As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
-        Private m_txtFaultFlags_Solenoid As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
-        Private m_txtFaultFlags_DS2482_0 As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
-        Private m_txtFaultFlags_DS2482_1 As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
-        Private m_txtFaultFlags_DS18B20 As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
+        Private m_txtRxCount As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtFaultFlags_TOP As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
+        Private m_txtFaultFlags_Solenoid As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
+        Private m_txtFaultFlags_DS2482_0 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
+        Private m_txtFaultFlags_DS2482_1 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
+        Private m_txtFaultFlags_DS18B20 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
 
-        Private m_txtNumSensors As SIL3.ApplicationSupport.TextBoxHelper_U8
-        Private m_txtTemperature(C_NUM_TEMP_SENSORS - 1) As SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtNumSensors As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
+        Private m_txtTemperature(C_NUM_TEMP_SENSORS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
 
-        Private m_txtLeft_HighestIndex As SIL3.ApplicationSupport.TextBoxHelper_S16
-        Private m_txtRight_HighestIndex As SIL3.ApplicationSupport.TextBoxHelper_S16
-        Private m_txtBrake_HighestIndex As SIL3.ApplicationSupport.TextBoxHelper_S16
+        Private m_txtLeft_HighestIndex As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16
+        Private m_txtRight_HighestIndex As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16
+        Private m_txtBrake_HighestIndex As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16
 
-        Private m_txtLeft_HighestVal As SIL3.ApplicationSupport.TextBoxHelper_F32
-        Private m_txtRight_HighestVal As SIL3.ApplicationSupport.TextBoxHelper_F32
-        Private m_txtBrake_HighestVal As SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtLeft_HighestVal As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtRight_HighestVal As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtBrake_HighestVal As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
 
-        Private m_txtLeft_AvgVal As SIL3.ApplicationSupport.TextBoxHelper_F32
-        Private m_txtRight_AvgVal As SIL3.ApplicationSupport.TextBoxHelper_F32
-        Private m_txtBrake_AvgVal As SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtLeft_AvgVal As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtRight_AvgVal As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtBrake_AvgVal As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
 
-        Private m_txtLeft_CoolingState As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtRight_CoolingState As SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtBrake_CoolingState As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLeft_CoolingState As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtRight_CoolingState As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtBrake_CoolingState As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
 
         Private m_iRxCount As Integer
@@ -72,42 +72,42 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Rx Count", Me.m_pInnerPanel)
-            Me.m_txtRxCount = New SIL3.ApplicationSupport.TextBoxHelper_S32(100, l0)
+            Dim l0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Rx Count", Me.m_pInnerPanel)
+            Me.m_txtRxCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l0)
 
-            Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Module Flags")
+            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Module Flags")
             l1.Layout__AboveRightControl(l0, Me.m_txtRxCount)
-            Me.m_txtFaultFlags_TOP = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l1)
+            Me.m_txtFaultFlags_TOP = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l1)
             'Me.m_txtFaultFlags_TOP.FlagsFile__Read("../../../../FIRMWARE/PROJECT_CODE/LCCM721__RLOOP__HE_THERM/he_therm__fault_flags.h", "CORE")
 
-            Dim l2 As New SIL3.ApplicationSupport.LabelHelper("Solenoid Faults")
+            Dim l2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Solenoid Faults")
             l2.Layout__AboveRightControl(l1, Me.m_txtFaultFlags_TOP)
-            Me.m_txtFaultFlags_Solenoid = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l2)
+            Me.m_txtFaultFlags_Solenoid = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l2)
 
-            Dim l3 As New SIL3.ApplicationSupport.LabelHelper("DS2482:0 Faults")
+            Dim l3 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("DS2482:0 Faults")
             l3.Layout__AboveRightControl(l2, Me.m_txtFaultFlags_Solenoid)
-            Me.m_txtFaultFlags_DS2482_0 = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l3)
+            Me.m_txtFaultFlags_DS2482_0 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l3)
             Me.m_txtFaultFlags_DS2482_0.FlagsFile__Read("../../../../FIRMWARE/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s__fault_flags.h", "CORE")
 
-            Dim l4 As New SIL3.ApplicationSupport.LabelHelper("DS2482:1 Faults")
+            Dim l4 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("DS2482:1 Faults")
             l4.Layout__AboveRightControl(l3, Me.m_txtFaultFlags_DS2482_0)
-            Me.m_txtFaultFlags_DS2482_1 = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l4)
+            Me.m_txtFaultFlags_DS2482_1 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l4)
             Me.m_txtFaultFlags_DS2482_1.FlagsFile__Read("../../../../FIRMWARE/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s__fault_flags.h", "CORE")
 
-            Dim l5 As New SIL3.ApplicationSupport.LabelHelper("DS18B20 Faults")
+            Dim l5 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("DS18B20 Faults")
             l5.Layout__AboveRightControl(l3, Me.m_txtFaultFlags_DS2482_1)
-            Me.m_txtFaultFlags_DS18B20 = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l5)
+            Me.m_txtFaultFlags_DS18B20 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l5)
             'Me.m_txtFaultFlags_DS18B20_1.FlagsFile__Read("../../../../FIRMWARE/COMMON_CODE/MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s__fault_flags.h", "CORE")
 
-            Dim l6 As New SIL3.ApplicationSupport.LabelHelper("Found Sensors")
+            Dim l6 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Found Sensors")
             l6.Layout__BelowControl(Me.m_txtRxCount)
-            Me.m_txtNumSensors = New SIL3.ApplicationSupport.TextBoxHelper_U8(100, l6)
+            Me.m_txtNumSensors = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, l6)
 
             'do the rows of sensors
             Dim iIndex As Integer = 0
-            Dim l7(C_NUM_TEMP_SENSORS - 1) As SIL3.ApplicationSupport.LabelHelper
+            Dim l7(C_NUM_TEMP_SENSORS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper
             For iCounter As Integer = 0 To C_NUM_TEMP_SENSORS - 1
-                l7(iIndex) = New SIL3.ApplicationSupport.LabelHelper("T" & iIndex.ToString("00") & " °C")
+                l7(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("T" & iIndex.ToString("00") & " °C")
                 If iIndex = 0 Then
                     l7(iIndex).Layout__BelowControl(Me.m_txtNumSensors)
                 ElseIf iIndex = 8 Then
@@ -119,47 +119,47 @@
                 Else
                     l7(iIndex).Layout__AboveRightControl(l7(iIndex - 1), Me.m_txtTemperature(iIndex - 1))
                 End If
-                Me.m_txtTemperature(iIndex) = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l7(iIndex))
+                Me.m_txtTemperature(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l7(iIndex))
                 iIndex += 1
             Next
 
-            Dim l80 As New SIL3.ApplicationSupport.LabelHelper("L High Idx", Me.m_txtTemperature(16))
-            Me.m_txtLeft_HighestIndex = New SIL3.ApplicationSupport.TextBoxHelper_S16(100, l80)
-            Dim l81 As New SIL3.ApplicationSupport.LabelHelper("L High °C")
+            Dim l80 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("L High Idx", Me.m_txtTemperature(16))
+            Me.m_txtLeft_HighestIndex = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16(100, l80)
+            Dim l81 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("L High °C")
             l81.Layout__AboveRightControl(l80, Me.m_txtLeft_HighestIndex)
-            Me.m_txtLeft_HighestVal = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l81)
-            Dim l82 As New SIL3.ApplicationSupport.LabelHelper("L Average °C")
+            Me.m_txtLeft_HighestVal = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l81)
+            Dim l82 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("L Average °C")
             l82.Layout__AboveRightControl(l81, Me.m_txtLeft_HighestVal)
-            Me.m_txtLeft_AvgVal = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l82)
-            Dim l83 As New SIL3.ApplicationSupport.LabelHelper("Cooling State")
+            Me.m_txtLeft_AvgVal = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l82)
+            Dim l83 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Cooling State")
             l83.Layout__AboveRightControl(l82, Me.m_txtLeft_AvgVal)
-            Me.m_txtLeft_CoolingState = New SIL3.ApplicationSupport.TextBoxHelper(100, l83)
+            Me.m_txtLeft_CoolingState = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l83)
 
 
-            Dim l90 As New SIL3.ApplicationSupport.LabelHelper("R High Idx", Me.m_txtLeft_HighestIndex)
-            Me.m_txtRight_HighestIndex = New SIL3.ApplicationSupport.TextBoxHelper_S16(100, l90)
-            Dim l91 As New SIL3.ApplicationSupport.LabelHelper("R High °C")
+            Dim l90 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("R High Idx", Me.m_txtLeft_HighestIndex)
+            Me.m_txtRight_HighestIndex = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16(100, l90)
+            Dim l91 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("R High °C")
             l91.Layout__AboveRightControl(l90, Me.m_txtRight_HighestIndex)
-            Me.m_txtRight_HighestVal = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l91)
-            Dim l92 As New SIL3.ApplicationSupport.LabelHelper("R Average °C")
+            Me.m_txtRight_HighestVal = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l91)
+            Dim l92 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("R Average °C")
             l92.Layout__AboveRightControl(l91, Me.m_txtRight_HighestVal)
-            Me.m_txtRight_AvgVal = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, l92)
-            Dim l93 As New SIL3.ApplicationSupport.LabelHelper("Cooling State")
+            Me.m_txtRight_AvgVal = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l92)
+            Dim l93 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Cooling State")
             l93.Layout__AboveRightControl(l92, Me.m_txtRight_AvgVal)
-            Me.m_txtRight_CoolingState = New SIL3.ApplicationSupport.TextBoxHelper(100, l93)
+            Me.m_txtRight_CoolingState = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l93)
 
 
-            Dim lA0 As New SIL3.ApplicationSupport.LabelHelper("Brake High Idx", Me.m_txtRight_HighestIndex)
-            Me.m_txtBrake_HighestIndex = New SIL3.ApplicationSupport.TextBoxHelper_S16(100, lA0)
-            Dim lA1 As New SIL3.ApplicationSupport.LabelHelper("Brake High °C")
+            Dim lA0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Brake High Idx", Me.m_txtRight_HighestIndex)
+            Me.m_txtBrake_HighestIndex = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16(100, lA0)
+            Dim lA1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Brake High °C")
             lA1.Layout__AboveRightControl(lA0, Me.m_txtBrake_HighestIndex)
-            Me.m_txtBrake_HighestVal = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, lA1)
-            Dim lA2 As New SIL3.ApplicationSupport.LabelHelper("Brake Average °C")
+            Me.m_txtBrake_HighestVal = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, lA1)
+            Dim lA2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Brake Average °C")
             lA2.Layout__AboveRightControl(lA1, Me.m_txtBrake_HighestVal)
-            Me.m_txtBrake_AvgVal = New SIL3.ApplicationSupport.TextBoxHelper_F32(100, lA2)
-            Dim lA3 As New SIL3.ApplicationSupport.LabelHelper("Cooling State")
+            Me.m_txtBrake_AvgVal = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, lA2)
+            Dim lA3 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Cooling State")
             lA3.Layout__AboveRightControl(lA2, Me.m_txtBrake_AvgVal)
-            Me.m_txtBrake_CoolingState = New SIL3.ApplicationSupport.TextBoxHelper(100, lA3)
+            Me.m_txtBrake_CoolingState = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, lA3)
 
 
         End Sub
@@ -195,7 +195,7 @@
         ''' <param name="ePacketType"></param>
         ''' <param name="u16PayloadLength"></param>
         ''' <param name="u8Payload"></param>
-        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte)
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte)
 
             'only do if we have been created
             If MyBase.m_bLayout = True Then

@@ -12,7 +12,9 @@ Public Class Form1
     ''' </summary>
     Private Const C_PV_LEAK_RATE__BAR_SEC As Single = 0.00001
 
-#End Region
+    Private Const C_ETH_PORT As Integer = 9110
+
+#End Region '#Region "CONSTANTS"
 
 #Region "DLL HANDLING"
 
@@ -50,6 +52,20 @@ Public Class Form1
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Private Shared Sub vSIL3_DEBUG_PRINTF_WIN32__Set_Callback(ByVal callback As MulticastDelegate)
     End Sub
+
+
+    'Ethernet
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Shared Sub vSIL3_ETH_WIN32__Set_Ethernet_TxCallback(ByVal callback As MulticastDelegate)
+    End Sub
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Shared Sub vSIL3_ETH_WIN32__Ethernet_Input(pu8Buffer() As Byte, u16BufferLength As UInt16)
+    End Sub
+    <System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Public Delegate Sub ETH_WIN32__TxCallbackDelegate(ByVal pu8Buffer As IntPtr, ByVal u16BufferLength As UInt16)
+
+
+
 #End Region '#Region "WIN32/DEBUG"
 
 #Region "C CODE SPECIFICS"
@@ -148,6 +164,12 @@ Public Class Form1
     Private m_pDebug_Delegate As DEBUG_PRINTF__CallbackDelegate
 
     ''' <summary>
+    ''' Ethernet transmit
+    ''' </summary>
+    Private m_pETH_TX__Delegate As ETH_WIN32__TxCallbackDelegate
+
+
+    ''' <summary>
     ''' The thread to run our DLL in
     ''' </summary>
     ''' <remarks></remarks>
@@ -157,6 +179,9 @@ Public Class Form1
     ''' Global flag to indicate the thread is running
     ''' </summary>
     Private m_bThreadRun As Boolean
+
+    Private m_pSafeUDP As LAPP184__RLOOP__LIB.SIL3.SafeUDP.StdUDPLayer
+
 
     Private m_pTimer10m As System.Timers.Timer
     Private m_pTimer100m As System.Timers.Timer
@@ -292,6 +317,14 @@ Public Class Form1
 
         'kill the threads
         Me.m_pMainThread.Abort()
+
+        Me.m_pTimer10m.Stop()
+        Me.m_pTimer100m.Stop()
+
+        If Not Me.m_pSafeUDP Is Nothing Then
+            Me.m_pSafeUDP.Destroy()
+        End If
+
     End Sub
 
 
@@ -303,13 +336,22 @@ Public Class Form1
     ''' </summary>
     Private Sub Setup_System()
 
+
+        Me.m_pSafeUDP = New LAPP184__RLOOP__LIB.SIL3.SafeUDP.StdUDPLayer("127.0.0.1", C_ETH_PORT, "PWR_A_ETH_EMU", True, True)
+        AddHandler Me.m_pSafeUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.InernalEvent__UDPSafe__RxPacket
+        AddHandler Me.m_pSafeUDP.UserEvent__NewPacket, AddressOf Me.InternalEvent__NewPacket
+
+
         'Seup the debugging support if needed
         Me.m_pDebug_Delegate = AddressOf Me.SIL3_DEBUG_PRINTF_WIN32_Callback
         vSIL3_DEBUG_PRINTF_WIN32__Set_Callback(Me.m_pDebug_Delegate)
 
         'setup other callbacks
+        Me.m_pETH_TX__Delegate = AddressOf Me.ETH_WIN32__TxCallback_Sub
+        vSIL3_ETH_WIN32__Set_Ethernet_TxCallback(Me.m_pETH_TX__Delegate)
 
 
+        'config the timers
         Timers__Setup()
 
     End Sub
@@ -495,6 +537,9 @@ Public Class Form1
         sValue = Single.Parse(Me.m_txtNodePress.Text)
         vPWRNODE_WIN32__Set_NodePressure(sValue)
 
+        'needs to be done due to WIN32_ETH_Init
+        vSIL3_ETH_WIN32__Set_Ethernet_TxCallback(Me.m_pETH_TX__Delegate)
+
 
         'stay here until thread abort
         While True
@@ -632,5 +677,117 @@ Public Class Form1
     End Sub
 
 #End Region '#Region "THREAD SAFETY"
+
+#Region "ETH RX"
+
+    ''' <summary>
+    ''' Rx a new raw packet
+    ''' </summary>
+    ''' <param name="u8Array"></param>
+    ''' <param name="iLength"></param>
+    Public Sub InternalEvent__NewPacket(u8Array() As Byte, iLength As Integer)
+        If Me.m_bThreadRun = True Then
+            vSIL3_ETH_WIN32__Ethernet_Input(u8Array, iLength)
+        End If
+    End Sub
+
+
+    ''' <summary>
+    ''' RX a UDP safe packet and fake the eth-ii layer
+    ''' </summary>
+    ''' <param name="ePacketType"></param>
+    ''' <param name="u16PayloadLength"></param>
+    ''' <param name="u8Payload"></param>
+    ''' <param name="u16CRC"></param>
+    ''' <param name="bCRCOK"></param>
+    ''' <param name="u32Seq"></param>
+    Public Sub InernalEvent__UDPSafe__RxPacket(ByVal ePacketType As LAPP184__RLOOP__LIB.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PayloadLength As LAPP184__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP184__RLOOP__LIB.SIL3.Numerical.U16, ByVal bCRCOK As Boolean, ByVal u32Seq As UInt32)
+        'MsgBox("packet")
+
+        Dim u8Buff(1500) As Byte
+        Return
+        'Update the hardware
+        If Me.m_bThreadRun = True Then
+
+            'update the hardware
+            'now let the fun begin, on loopback we have no eth2 layer
+
+            'dest mac, source mac, 
+            u8Buff(0) = 0
+            u8Buff(1) = 0
+            u8Buff(2) = 0
+            u8Buff(3) = 0
+            u8Buff(4) = 0
+            u8Buff(5) = 0
+
+            u8Buff(6) = 0
+            u8Buff(7) = 0
+            u8Buff(8) = 0
+            u8Buff(9) = 0
+            u8Buff(10) = 0
+            u8Buff(11) = 0
+
+            'ipv4 eth type
+            u8Buff(12) = &H8
+            u8Buff(13) = &H0
+
+            For iCounter = 0 To u16PayloadLength.To__Uint16 - 1
+                u8Buff(iCounter + 14) = u8Payload(iCounter)
+            Next
+
+            vSIL3_ETH_WIN32__Ethernet_Input(u8Buff, u16PayloadLength.To__Uint16 + 14)
+
+        End If
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Called when teh DLL wants to trasmit eth data.
+    ''' </summary>
+    ''' <param name="u8Buffer"></param>
+    ''' <param name="u16BufferLength"></param>
+    ''' <remarks></remarks>
+    Private Sub ETH_WIN32__TxCallback_Sub(ByVal u8Buffer As IntPtr, ByVal u16BufferLength As UInt16)
+
+        Dim iEthPort As Integer = C_ETH_PORT
+        Dim bArray(1500 - 1) As Byte
+        LAPP184__RLOOP__LIB.SIL3.MemoryCopy.MemoryCopy.Copy_Memory(bArray, u8Buffer, CInt(u16BufferLength))
+
+
+        'pass the packet off to our 802.3 layers
+        Dim p802 As New LAPP184__RLOOP__LIB.SIL3.IEEE802_3.EthernetFrame(bArray, CInt(u16BufferLength), False)
+
+        If p802.m_eEtherType = LAPP184__RLOOP__LIB.SIL3.IEEE802_3.EthernetFrame.eEtherType.Internet_Protocol_version_4 Then
+
+            Dim p802_IPV4 As New LAPP184__RLOOP__LIB.SIL3.IEEE802_3.IPLayer.IPV4(p802.m_bPayload, p802.m_iPayloadLength)
+            If p802_IPV4.m_pU8Protocol.To__Uint8 = &H11 Then
+
+                Dim p802_UDP As New LAPP184__RLOOP__LIB.SIL3.IEEE802_3.UDP(p802_IPV4.m_bPayload, p802_IPV4.m_iPayloadLength)
+                'If p802_UDP.m_pu16DestPort.To__Int = iEthPort Then
+
+                'if we are here, we assume we are on loopback
+                Dim pStdUDP As New LAPP184__RLOOP__LIB.SIL3.SafeUDP.StdUDPLayer("127.0.0.1", p802_UDP.m_pu16DestPort.To__Int) 'iEthPort)
+                AddHandler pStdUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.UserEvent__UDPSafe__RxPacket
+
+                'retransmit
+                pStdUDP.UserEvent__NewUDP(p802_UDP, True)
+
+                'End If
+
+            End If
+
+        End If
+
+
+    End Sub
+
+    Private Sub UserEvent__UDPSafe__RxPacket(ByVal ePacketType As LAPP184__RLOOP__LIB.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PayloadLength As LAPP184__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP184__RLOOP__LIB.SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
+
+
+    End Sub
+
+
+#End Region '#Region "ETH RX"
 
 End Class

@@ -5,7 +5,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class Mission
-        Inherits SIL3.ApplicationSupport.PanelTemplate
+        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "CONSTANTS"
 
@@ -14,15 +14,15 @@
 #Region "MEMBERS"
 
         Private m_iRxCount As Integer
-        Private m_txtRxCount As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtRxCount As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
-        Private m_txtFlags As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
-        Private m_txtPodHealth As SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
-        Private m_txtMissionPhase As SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
-        Private m_txtDistFilt As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtFlags As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
+        Private m_txtPodHealth As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
+        Private m_txtMissionPhase As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
+        Private m_txtDistFilt As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
-        Private m_cboSelectTrackDB As SIL3.ApplicationSupport.ComboBoxHelper
-        Private m_txtCurrentTrackDB As SIL3.ApplicationSupport.TextBoxHelper_U8
+        Private m_cboSelectTrackDB As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper
+        Private m_txtCurrentTrackDB As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
 
         ''' <summary>
         ''' The logging directory
@@ -44,7 +44,7 @@
             Me.m_sLogDir = sLog
             Me.m_sLogDir = Me.m_sLogDir & "MISSION\"
             If Me.m_sLogDir.Contains(":\") = True Then
-                SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir, True)
+                LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.Folder__CheckWarnMake(Me.m_sLogDir, True)
             End If
 
 
@@ -73,7 +73,7 @@
         ''' <param name="u16PayloadLength"></param>
         ''' <param name="u8Payload"></param>
         ''' <param name="u16CRC"></param>
-        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16)
+        Public Sub InernalEvent__UDPSafe__RxPacketB(ByVal ePacketType As SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16)
 
             'only do if we have been created
             If MyBase.m_bLayout = True Then
@@ -85,7 +85,7 @@
 
                     'update the GUI
                     iOffset += Me.m_txtFlags.Flags__Update(u8Payload, iOffset, True)
-                    Me.m_txtMissionPhase.Value__Update(New SIL3.Numerical.U16(u8Payload, iOffset).To__Int)
+                    Me.m_txtMissionPhase.Value__Update(New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(u8Payload, iOffset).To__Int)
                     iOffset += 2
                     iOffset += Me.m_txtCurrentTrackDB.Value__Update(u8Payload, iOffset)
                     iOffset += Me.m_txtPodHealth.Flags__Update(u8Payload, iOffset, True)
@@ -110,39 +110,39 @@
         Public Overrides Sub LayoutPanel()
 
 
-            Dim l0 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Streaming Control", MyBase.m_pInnerPanel)
-            Dim btnOn As New SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
+            Dim l0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Streaming Control", MyBase.m_pInnerPanel)
+            Dim btnOn As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
             btnOn.Layout__BelowControl(l0)
 
-            Dim l11 As New SIL3.ApplicationSupport.LabelHelper("Rx Count")
+            Dim l11 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Rx Count")
             l11.Layout__AboveRightControl(l0, btnOn)
-            Me.m_txtRxCount = New SIL3.ApplicationSupport.TextBoxHelper(100, l11)
+            Me.m_txtRxCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l11)
             Me.m_txtRxCount.ReadOnly = True
 
-            Dim l110 As New SIL3.ApplicationSupport.LabelHelper("Flight Controls")
+            Dim l110 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Flight Controls")
             l110.Layout__AboveRightControl(l11, Me.m_txtRxCount)
-            Dim btnEnterPreRun As New SIL3.ApplicationSupport.ButtonHelper(100, "Enter Pre-Run", Nothing)
+            Dim btnEnterPreRun As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Enter Pre-Run", Nothing)
             btnEnterPreRun.Layout__BelowControl(l110)
             'btnEnterPreRun.BackColor = Color.Orange
-            Dim btnFlightAbort As New SIL3.ApplicationSupport.ButtonHelper(100, "Flight Abort", Nothing)
+            Dim btnFlightAbort As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Flight Abort", Nothing)
             btnFlightAbort.Layout__RightOfControl(btnEnterPreRun)
-            Dim btnPodStop As New SIL3.ApplicationSupport.ButtonHelper(100, "Pod Stop", AddressOf Me.btnPodStop__Click)
+            Dim btnPodStop As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Pod Stop", AddressOf Me.btnPodStop__Click)
             btnPodStop.Layout__RightOfControl(btnFlightAbort)
-            Dim btnPodSafe As New SIL3.ApplicationSupport.ButtonHelper(100, "Pod Safe", AddressOf Me.btnPodSafed__Click)
+            Dim btnPodSafe As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Pod Safe", AddressOf Me.btnPodSafed__Click)
             btnPodSafe.Layout__RightOfControl(btnPodStop)
 
 
-            Dim l00 As New SIL3.ApplicationSupport.LabelHelper("Fault Flags", btnOn)
-            Me.m_txtFlags = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l00)
+            Dim l00 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Fault Flags", btnOn)
+            Me.m_txtFlags = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l00)
             Me.m_txtFlags.Flags__Add("ACCEL SUBSYSTEM")
             Me.m_txtFlags.Flags__Add("ASI SUBSYSTEM")
             Me.m_txtFlags.Flags__Add("BRAKES SUBSYSTEM")
             Me.m_txtFlags.Flags__Add("DAQ SUBSYSTEM")
 
 
-            Dim l01 As New SIL3.ApplicationSupport.LabelHelper("Pod Health")
+            Dim l01 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Pod Health")
             l01.Layout__AboveRightControl(l00, Me.m_txtFlags)
-            Me.m_txtPodHealth = New SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l01)
+            Me.m_txtPodHealth = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l01)
             Me.m_txtPodHealth.Flags__Add("P0: BATTERY_PACK_TEMP_RANGE")
             Me.m_txtPodHealth.Flags__Add("P1: BATTERY_CELL_TEMP_RANGE")
             Me.m_txtPodHealth.Flags__Add("P2: BATTERY_VOLTAGE_RANGE")
@@ -156,9 +156,9 @@
             Me.m_txtPodHealth.Flags__Add("P10: PV_TEMP_RANGE")
 
 
-            Dim l1 As New SIL3.ApplicationSupport.LabelHelper("Mission State")
+            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Mission State")
             l1.Layout__AboveRightControl(l01, Me.m_txtPodHealth)
-            Me.m_txtMissionPhase = New SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l1)
+            Me.m_txtMissionPhase = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l1)
             Me.m_txtMissionPhase.ReadOnly = True
             Me.m_txtMissionPhase.States__Add("MISSION_PHASE__RESET")
             Me.m_txtMissionPhase.States__Add("MISSION_PHASE__TEST_PHASE")
@@ -167,20 +167,20 @@
             Me.m_txtMissionPhase.States__Add("MISSION_PHASE__FLIGHT_MODE")
 
 
-            Dim l2 As New SIL3.ApplicationSupport.LabelHelper("Select Track DB")
+            Dim l2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Select Track DB")
             l2.Layout__BelowControl(Me.m_txtFlags)
-            Me.m_cboSelectTrackDB = New SIL3.ApplicationSupport.ComboBoxHelper(100, l2)
+            Me.m_cboSelectTrackDB = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper(100, l2)
 
             For iCounter As Integer = 0 To 8 - 1
                 Me.m_cboSelectTrackDB.Threadsafe__AddItem(iCounter.ToString)
             Next
             Me.m_cboSelectTrackDB.Threadsafe__SetSelectedIndex(0)
 
-            Dim l3 As New SIL3.ApplicationSupport.LabelHelper("Current Track DB")
+            Dim l3 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Current Track DB")
             l3.Layout__AboveRightControl(l2, Me.m_cboSelectTrackDB)
-            Me.m_txtCurrentTrackDB = New SIL3.ApplicationSupport.TextBoxHelper_U8(100, l3)
+            Me.m_txtCurrentTrackDB = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, l3)
 
-            Dim btnChangeTrackDB As New SIL3.ApplicationSupport.ButtonHelper(100, "Change DB", AddressOf Me.btnChangeTrackDB__Click)
+            Dim btnChangeTrackDB As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Change DB", AddressOf Me.btnChangeTrackDB__Click)
             btnChangeTrackDB.Layout__RightOfControl(Me.m_txtCurrentTrackDB)
 
         End Sub
@@ -209,7 +209,7 @@
         ''' <param name="s"></param>
         ''' <param name="e"></param>
         Private Sub btnStreamOn__Click(s As Object, e As EventArgs)
-            Dim pSB As SIL3.ApplicationSupport.ButtonHelper = CType(s, SIL3.ApplicationSupport.ButtonHelper)
+            Dim pSB As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper = CType(s, LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper)
 
             If pSB.Text = "Stream On" Then
                 pSB.Text = "Stream Off"

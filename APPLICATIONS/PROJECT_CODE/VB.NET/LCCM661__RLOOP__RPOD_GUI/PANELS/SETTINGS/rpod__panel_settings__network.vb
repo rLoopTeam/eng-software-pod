@@ -5,12 +5,12 @@
     ''' </summary>
     ''' <remarks></remarks>
     Public Class Network
-        Inherits SIL3.ApplicationSupport.PanelTemplate
+        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "MEMBERS"
 
         ''The grid control
-        Private m_pSG As SIL3.ApplicationSupport.SandGrid.Grid
+        Private m_pSG As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.SandGrid.Grid
 
 #End Region '#Region "MEMBERS"
 
@@ -33,7 +33,7 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Me.m_pSG = New SIL3.ApplicationSupport.SandGrid.Grid(Me.m_pInnerPanel, False)
+            Me.m_pSG = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.SandGrid.Grid(Me.m_pInnerPanel, False)
 
             Me.m_pSG.Column__Add("\",
                                  New String() {"MODULE", "IP ADDX", "PORT", "MAC"},

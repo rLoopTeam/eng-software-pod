@@ -97,6 +97,10 @@ void vHETHERM__Init(void)
 	vRM4_RTI__Start_Counter(0);
 	vRM4_RTI__Start_Counter(1);
 	
+#else
+
+	DEBUG_PRINT("vHETHERM__Init()");
+
 #endif //WIN32
 
 }

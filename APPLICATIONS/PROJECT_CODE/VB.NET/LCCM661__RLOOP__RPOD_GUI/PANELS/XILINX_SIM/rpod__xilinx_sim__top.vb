@@ -11,7 +11,7 @@
         ''' Our application explorer bar
         ''' </summary>
         ''' <remarks></remarks>
-        Private m_pExplorer As SIL3.ApplicationSupport.ExplorerBarHelper
+        Private m_pExplorer As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ExplorerBarHelper
 
         ''' <summary>
         ''' The index of our category in the explorer bar
@@ -48,7 +48,7 @@
         ''' </summary>
         ''' <param name="pf"></param>
         ''' <remarks></remarks>
-        Public Sub New(ByRef pf As Windows.Forms.Form, ByRef pExplorer As SIL3.ApplicationSupport.ExplorerBarHelper)
+        Public Sub New(ByRef pf As Windows.Forms.Form, ByRef pExplorer As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ExplorerBarHelper)
 
             'setup our explorer bar
             Me.m_pExplorer = pExplorer
@@ -121,7 +121,7 @@
         ''' <param name="u16CRC"></param>
         ''' <param name="bCRC_OK"></param>
         ''' <param name="u32Sequence"></param>
-        Public Sub InternalEvent__UDPSafe__RxPacketB(u16PacketType As UInt16, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
+        Public Sub InternalEvent__UDPSafe__RxPacketB(u16PacketType As UInt16, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
             Me.m_pnlXilinx__ContrastNav.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
         End Sub
 

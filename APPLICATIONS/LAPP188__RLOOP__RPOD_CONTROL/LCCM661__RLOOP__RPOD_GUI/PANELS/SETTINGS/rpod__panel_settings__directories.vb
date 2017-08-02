@@ -1,14 +1,15 @@
-﻿Namespace SIL3.rLoop.rPodControl.Panels.Settings
+﻿Imports LAPP188__RLOOP__LIB
+Namespace SIL3.rLoop.rPodControl.Panels.Settings
 
     ''' <summary>
     ''' File Path Locations settings
     ''' </summary>
     ''' <remarks></remarks>
     Public Class FilePaths
-        Inherits SIL3.ApplicationSupport.PanelTemplate
+        Inherits LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PanelTemplate
 
 #Region "MEMBERS"
-        Private m_txtLogRoot As SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLogRoot As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
 #End Region '#Region "MEMBERS"
 
@@ -31,9 +32,9 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l1 As New SIL3.ApplicationSupport.LabelHelper(10, 10, "Data Logging Folder", Me.m_pInnerPanel)
-            Me.m_txtLogRoot = New SIL3.ApplicationSupport.TextBoxHelper(500, l1)
-            Me.m_txtLogRoot.Persist__Set(Types.eSIL3CompanyType.SIL3__APP_PATH, "data_log_folder.txt")
+            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Data Logging Folder", Me.m_pInnerPanel)
+            Me.m_txtLogRoot = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(500, l1)
+            Me.m_txtLogRoot.Persist__Set(LAPP188__RLOOP__LIB.SIL3.Types.eSIL3CompanyType.SIL3__APP_PATH, "data_log_folder.txt")
 
 
         End Sub

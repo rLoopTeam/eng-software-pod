@@ -9,6 +9,7 @@ Public Class Form1
 
 #Region "CONSTANTS"
 
+    Private Const C_ETH_PORT As Integer = 9615
 
 #End Region '#Region "CONSTANTS"
 
@@ -139,7 +140,7 @@ Public Class Form1
     ''' </summary>
     Private m_bThreadRun As Boolean
 
-    Private m_pSafeUDP As SIL3.SafeUDP.StdUDPLayer
+    Private m_pSafeUDP As LAPP208__RLOOP__LIB.SIL3.SafeUDP.StdUDPLayer
 
     Private m_pTimer10m As System.Timers.Timer
     Private m_pTimer100m As System.Timers.Timer
@@ -342,7 +343,7 @@ Public Class Form1
     Private Sub Setup_System()
 
 
-        Me.m_pSafeUDP = New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", 9615, "APU_ETH_EMU", True, True)
+        Me.m_pSafeUDP = New LAPP208__RLOOP__LIB.SIL3.SafeUDP.StdUDPLayer("127.0.0.1", C_ETH_PORT, "APU_ETH_EMU", True, True)
         AddHandler Me.m_pSafeUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.InernalEvent__UDPSafe__RxPacket
         AddHandler Me.m_pSafeUDP.UserEvent__NewPacket, AddressOf Me.InternalEvent__NewPacket
 
@@ -359,9 +360,6 @@ Public Class Form1
         vAPU_WIN32__SetCallback_UpdateData(Me.m_pAPU_WIN32__UpdateData__Delegate)
 
 
-        'do the threading
-        Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
-        Me.m_pMainThread.Name = "APU THREAD"
 
         'stimers
         Timers__Setup()
@@ -415,6 +413,8 @@ Public Class Form1
             pB.Text = "Stop"
 
             'start the thread
+            Me.m_pMainThread = New Threading.Thread(AddressOf Me.Thread__Main)
+            Me.m_pMainThread.Name = "APU THREAD"
             Me.m_pMainThread.Start()
 
         Else
@@ -433,9 +433,6 @@ Public Class Form1
 
 #End Region '#Region "BUTTON HANDLERS"
 
-#Region "ACCEL SIMULATION"
-
-#End Region '#Region "ACCEL SIMULATION"
 
 #Region "THREADING"
     ''' <summary>
@@ -658,7 +655,7 @@ Public Class Form1
     ''' <param name="u16CRC"></param>
     ''' <param name="bCRCOK"></param>
     ''' <param name="u32Seq"></param>
-    Public Sub InernalEvent__UDPSafe__RxPacket(ByVal ePacketType As SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRCOK As Boolean, ByVal u32Seq As UInt32)
+    Public Sub InernalEvent__UDPSafe__RxPacket(ByVal ePacketType As LAPP208__RLOOP__LIB.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PayloadLength As LAPP208__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP208__RLOOP__LIB.SIL3.Numerical.U16, ByVal bCRCOK As Boolean, ByVal u32Seq As UInt32)
         'MsgBox("packet")
 
         Dim u8Buff(1500) As Byte
@@ -707,24 +704,24 @@ Public Class Form1
     ''' <remarks></remarks>
     Private Sub ETH_WIN32__TxCallback_Sub(ByVal u8Buffer As IntPtr, ByVal u16BufferLength As UInt16)
 
-        Dim iEthPort As Integer = 9100
+        Dim iEthPort As Integer = C_ETH_PORT
         Dim bArray(1500 - 1) As Byte
-        SIL3.MemoryCopy.MemoryCopy.Copy_Memory(bArray, u8Buffer, CInt(u16BufferLength))
+        LAPP208__RLOOP__LIB.SIL3.MemoryCopy.MemoryCopy.Copy_Memory(bArray, u8Buffer, CInt(u16BufferLength))
 
 
         'pass the packet off to our 802.3 layers
-        Dim p802 As New SIL3.IEEE802_3.EthernetFrame(bArray, CInt(u16BufferLength), False)
+        Dim p802 As New LAPP208__RLOOP__LIB.SIL3.IEEE802_3.EthernetFrame(bArray, CInt(u16BufferLength), False)
 
-        If p802.m_eEtherType = SIL3.IEEE802_3.EthernetFrame.eEtherType.Internet_Protocol_version_4 Then
+        If p802.m_eEtherType = LAPP208__RLOOP__LIB.SIL3.IEEE802_3.EthernetFrame.eEtherType.Internet_Protocol_version_4 Then
 
-            Dim p802_IPV4 As New SIL3.IEEE802_3.IPLayer.IPV4(p802.m_bPayload, p802.m_iPayloadLength)
+            Dim p802_IPV4 As New LAPP208__RLOOP__LIB.SIL3.IEEE802_3.IPLayer.IPV4(p802.m_bPayload, p802.m_iPayloadLength)
             If p802_IPV4.m_pU8Protocol.To__Uint8 = &H11 Then
 
-                Dim p802_UDP As New SIL3.IEEE802_3.UDP(p802_IPV4.m_bPayload, p802_IPV4.m_iPayloadLength)
+                Dim p802_UDP As New LAPP208__RLOOP__LIB.SIL3.IEEE802_3.UDP(p802_IPV4.m_bPayload, p802_IPV4.m_iPayloadLength)
                 'If p802_UDP.m_pu16DestPort.To__Int = iEthPort Then
 
                 'if we are here, we assume we are on loopback
-                Dim pStdUDP As New SIL3.SafeUDP.StdUDPLayer("127.0.0.1", p802_UDP.m_pu16DestPort.To__Int) 'iEthPort)
+                Dim pStdUDP As New LAPP208__RLOOP__LIB.SIL3.SafeUDP.StdUDPLayer("127.0.0.1", p802_UDP.m_pu16DestPort.To__Int) 'iEthPort)
                 AddHandler pStdUDP.UserEvent__UDPSafe__RxPacket, AddressOf Me.UserEvent__UDPSafe__RxPacket
 
                 'retransmit
@@ -739,7 +736,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub UserEvent__UDPSafe__RxPacket(ByVal ePacketType As SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PayloadLength As SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
+    Private Sub UserEvent__UDPSafe__RxPacket(ByVal ePacketType As LAPP208__RLOOP__LIB.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T, ByVal u16PayloadLength As LAPP208__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP208__RLOOP__LIB.SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
 
 
     End Sub
