@@ -25,11 +25,26 @@
 extern struct _strFCU sFCU;
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		68044BB0E9C6844995D27879824E9D4F
+ * @st_funcID		LCCM655R0.FILE.083.FUNC.001
+ */
 void vFCU_GEOM_ETH__Init(void)
 {
 
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		ePacketType		## Desc ##
+ * @st_funcMD5		DB43536D4349E572FB3821C82FB95495
+ * @st_funcID		LCCM655R0.FILE.083.FUNC.002
+ */
 void vFCU_GEOM_ETH__Transmit(E_NET__PACKET_T ePacketType)
 {
 

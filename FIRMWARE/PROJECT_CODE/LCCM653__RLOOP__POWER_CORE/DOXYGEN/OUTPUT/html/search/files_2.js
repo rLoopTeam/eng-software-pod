@@ -26,15 +26,8 @@ var searchData=
   ['power_5fcore_5f_5fnode_5fpressure_2ec',['power_core__node_pressure.c',['../power__core____node__pressure_8c.html',1,'']]],
   ['power_5fcore_5f_5fnode_5ftemp_2ec',['power_core__node_temp.c',['../power__core____node__temp_8c.html',1,'']]],
   ['power_5fcore_5f_5fnotifications_2ec',['power_core__notifications.c',['../power__core____notifications_8c.html',1,'']]],
-  ['power_5fcore_5f_5fpi_5fcomms_2ec',['power_core__pi_comms.c',['../power__core____pi__comms_8c.html',1,'']]],
-  ['power_5fcore_5f_5fpi_5fcomms_5f_5fmsg_2ec',['power_core__pi_comms__msg.c',['../power__core____pi__comms____msg_8c.html',1,'']]],
-  ['power_5fcore_5f_5fpi_5fcomms_5f_5ftypes_2eh',['power_core__pi_comms__types.h',['../power__core____pi__comms____types_8h.html',1,'']]],
   ['power_5fcore_5f_5fstate_5fmachine_2ec',['power_core__state_machine.c',['../power__core____state__machine_8c.html',1,'']]],
   ['power_5fcore_5f_5fstate_5ftypes_2eh',['power_core__state_types.h',['../power__core____state__types_8h.html',1,'']]],
   ['power_5fcore_5f_5fwin32_2ec',['power_core__win32.c',['../power__core____win32_8c.html',1,'']]],
-  ['pwr_5f_5fcooling_2ec',['pwr__cooling.c',['../pwr____cooling_8c.html',1,'']]],
-  ['pwr_5f_5fcooling_5feddy_2ec',['pwr__cooling_eddy.c',['../pwr____cooling__eddy_8c.html',1,'']]],
-  ['pwr_5f_5fcooling_5fethernet_2ec',['pwr__cooling_ethernet.c',['../pwr____cooling__ethernet_8c.html',1,'']]],
-  ['pwr_5f_5fcooling_5fhover_2ec',['pwr__cooling_hover.c',['../pwr____cooling__hover_8c.html',1,'']]],
   ['pwr_5f_5frepress_2ec',['pwr__repress.c',['../pwr____repress_8c.html',1,'']]]
 ];

@@ -30,7 +30,7 @@ extern struct _strPWRNODE sPWRNODE;
  * @param[in]		u16DestPort			The desination UDP port
  * @param[in]		u16Length			The UDP Length
  * @param[in]		*pu8Buffer			Pointer to the UDP packet data
- * @st_funcMD5		7474DC6F85CD0C2610EA3ED9A058AC33
+ * @st_funcMD5		846C8A515C3244ECDD1DA5B609B8C1E7
  * @st_funcID		LCCM653R0.FILE.018.FUNC.001
  */
 void vPWRNODE_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPort)
@@ -50,7 +50,7 @@ void vPWRNODE_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16Des
  * @param[in]		ePacketType				SafeUDP Packet Type
  * @param[in]		u16PayloadLength		SafeUDP Payload Length
  * @param[in]		*pu8Payload				Pointer to SafeUDP Payload
- * @st_funcMD5		AD548DCA137258A5308B46F94D254866
+ * @st_funcMD5		116A9079EF71D980FE146B60F169983E
  * @st_funcID		LCCM653R0.FILE.018.FUNC.002
  */
 void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)

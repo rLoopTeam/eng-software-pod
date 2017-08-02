@@ -26,6 +26,7 @@ var fcu__core____types_8h =
       [ "INIT_STATE__INIT_SPI_UARTS", "fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caf2f2c5a22525fc2f3b9d1cb007092ada", null ],
       [ "INIT_STATE__LOWER_SYSTEMS", "fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caf335a6ffa959d5ae290f518d61bcacae", null ],
       [ "INIT_STATE__START_TIMERS", "fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caceb3d7dc07525718c3d8df84a6057a32", null ],
+      [ "INIT_STATE__START_SENSORS", "fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4ca317ce9e96243d7e21f7b93a270ef487f", null ],
       [ "INIT_STATE__RUN", "fcu__core____types_8h.html#a9debb6acecbc58f1aa126cb7fc1f8a4caaf2061203d5df58c1953055d1df17093", null ]
     ] ],
     [ "E_FCU__MISSION_PHASE_T", "fcu__core____types_8h.html#a7def9e2aa36ef9379a52d9fd533f30c1", [

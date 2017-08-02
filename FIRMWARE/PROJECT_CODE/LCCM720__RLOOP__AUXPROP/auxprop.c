@@ -36,7 +36,7 @@ TS_APU__MAIN sAPU;
  * @brief
  * Init the APU
  * 
- * @st_funcMD5		CE306F4306ED8C9AA58B61DC5B1BA2B9
+ * @st_funcMD5		FB3E054943E2CBC6732D522ADB9761A2
  * @st_funcID		LCCM720R0.FILE.000.FUNC.001
  */
 void vAPU__Init(void)

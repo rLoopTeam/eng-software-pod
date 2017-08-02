@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the accel subsystem layer
  * 
- * @st_funcMD5		FF815825A74DAC44085A81F0CECC0114
+ * @st_funcMD5		46C37AE8833944FB73FC33A8719C9594
  * @st_funcID		LCCM655R0.FILE.010.FUNC.001
  */
 void vFCU_ACCEL__Init(void)
@@ -137,7 +137,7 @@ void vFCU_ACCEL__Init(void)
  * Process the accel's
  * Call as fast as possible from the main loop
  * 
- * @st_funcMD5		32AF30A5DE9FF77DA3FE2CB76032CF71
+ * @st_funcMD5		3FC0C3BAE5A3CBF2B906965C1DBDF816
  * @st_funcID		LCCM655R0.FILE.010.FUNC.002
  */
 void vFCU_ACCEL__Process(void)

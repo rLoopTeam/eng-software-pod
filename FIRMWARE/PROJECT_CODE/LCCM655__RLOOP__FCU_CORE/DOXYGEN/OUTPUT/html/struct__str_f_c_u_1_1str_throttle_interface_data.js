@@ -2,7 +2,7 @@ var struct__str_f_c_u_1_1str_throttle_interface_data =
 [
     [ "eRequestedMode", "struct__str_f_c_u_1_1str_throttle_interface_data.html#a890064cacf3c143afdde1b4bc7f9c199", null ],
     [ "eState", "struct__str_f_c_u_1_1str_throttle_interface_data.html#a593776c45960381feb7474f7ca8ac1cc", null ],
-    [ "sDevMode", "struct__str_f_c_u_1_1str_throttle_interface_data.html#a60aef9b2cadb75b7233c612d91fd968d", null ],
+    [ "sDevMode", "struct__str_f_c_u_1_1str_throttle_interface_data.html#ad43cf17b5b5c22ffe43d1b287bae5844", null ],
     [ "sFaultFlags", "struct__str_f_c_u_1_1str_throttle_interface_data.html#a7e0e4b3ecda824f023b0fff0a9c52252", null ],
     [ "u16CurrentRPM", "struct__str_f_c_u_1_1str_throttle_interface_data.html#a1713530e999b40ace689bb2b2f552b9b", null ],
     [ "u16RequestedRPM", "struct__str_f_c_u_1_1str_throttle_interface_data.html#ae9dc896a5c3cf7aad979f9f3b6f5693a", null ],

@@ -29,7 +29,7 @@ extern TS_LGU__MAIN sLGU;
  * @brief
  * Init the lift mechanism
  * 
- * @st_funcMD5		9934EC34BD356EAD39EDBB6DF5C2B968
+ * @st_funcMD5		93A1624EF95FC806B4F411DF7A837894
  * @st_funcID		LCCM667R0.FILE.007.FUNC.001
  */
 void vLGU_LIFT__Init(void)
@@ -94,15 +94,25 @@ void vLGU_LIFT__Init(void)
  * @brief
  * Process any lift tasks
  * 
- * @st_funcMD5		36799778BA999C2F66C54E752A4BF7D9
+ * @st_funcMD5		665AE66506CEEDAD3A611BF87B367675
  * @st_funcID		LCCM667R0.FILE.007.FUNC.002
  */
 void vLGU_LIFT__Process(void)
 {
+
+	//nothing here
+
 }
 
-
-//Set the speed of the actuator in a percentage
+/***************************************************************************//**
+ * @brief
+ * Set the speed of the actuator in a percentage
+ * 
+ * @param[in]		f32Percent			0.0 to 1.0
+ * @param[in]		u8Actuator			Actuator index
+ * @st_funcMD5		BC18C7D4BEA359737A5FB854C8314E26
+ * @st_funcID		LCCM667R0.FILE.007.FUNC.003
+ */
 void vLGU_LIFT__Set_Speed(Luint8 u8Actuator, Lfloat32 f32Percent)
 {
 	Lfloat32 f32Period_us;
@@ -159,7 +169,15 @@ void vLGU_LIFT__Set_Speed(Luint8 u8Actuator, Lfloat32 f32Percent)
 }
 
 
-//Sets the direction of an actuator
+/***************************************************************************//**
+ * @brief
+ * Sets the direction of an actuator
+ * 
+ * @param[in]		eDir					Direction
+ * @param[in]		u8Actuator				Actuator index
+ * @st_funcMD5		E9005419DECCC750F041F760E0F79980
+ * @st_funcID		LCCM667R0.FILE.007.FUNC.004
+ */
 void vLGU_LIFT__Set_Direction(Luint8 u8Actuator, TE_LGU__LIFT_DIRECTIONS eDir)
 {
 	if(u8Actuator < C_LGU__NUM_ACTUATORS)

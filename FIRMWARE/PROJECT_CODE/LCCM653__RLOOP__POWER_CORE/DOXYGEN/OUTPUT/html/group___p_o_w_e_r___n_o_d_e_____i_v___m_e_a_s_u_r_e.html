@@ -91,6 +91,10 @@ $(document).ready(function(){initNavTree('group___p_o_w_e_r___n_o_d_e_____i_v___
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">POWER_NODE__IV_MEASURE<div class="ingroups"><a class="el" href="group___r_l_o_o_p.html">RLOOP</a> &raquo; <a class="el" href="group___p_o_w_e_r___n_o_d_e.html">POWER_NODE</a></div></div>  </div>
 </div><!--header-->
@@ -103,6 +107,175 @@ Collaboration diagram for POWER_NODE__IV_MEASURE:</div>
 <area shape="rect" id="node1" href="group___p_o_w_e_r___n_o_d_e.html" title="POWER_NODE" alt="" coords="5,5,121,32"/>
 </map>
 </td></tr></table></center>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga127c9a691bbfdf76f0af2218ac0c7b0f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#ga127c9a691bbfdf76f0af2218ac0c7b0f">ADCREFERENCEVOLTAGE</a>&#160;&#160;&#160;(3.3F)</td></tr>
+<tr class="separator:ga127c9a691bbfdf76f0af2218ac0c7b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gaeaa998fbadf1a5b6e8e72eacc284b8d7"><td class="memItemLeft" align="right" valign="top">Lfloat32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#gaeaa998fbadf1a5b6e8e72eacc284b8d7">f32PWRNODE_CHG_IV__Filter_ADC_Value</a> (Lfloat32 ADC_Sample)</td></tr>
+<tr class="memdesc:gaeaa998fbadf1a5b6e8e72eacc284b8d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Average the current readings.  <a href="#gaeaa998fbadf1a5b6e8e72eacc284b8d7">More...</a><br /></td></tr>
+<tr class="separator:gaeaa998fbadf1a5b6e8e72eacc284b8d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaabbf22d5a2092277970fecb7a80d06e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#gaabbf22d5a2092277970fecb7a80d06e7">vPWRNODE_CHG_IV__Init</a> (void)</td></tr>
+<tr class="memdesc:gaabbf22d5a2092277970fecb7a80d06e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init the charger voltage and current measurement.  <a href="#gaabbf22d5a2092277970fecb7a80d06e7">More...</a><br /></td></tr>
+<tr class="separator:gaabbf22d5a2092277970fecb7a80d06e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafd67b935db0752046f634325bf2a0ec6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#gafd67b935db0752046f634325bf2a0ec6">vPWRNODE_CHG_IV__Process</a> (void)</td></tr>
+<tr class="memdesc:gafd67b935db0752046f634325bf2a0ec6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the charger voltage and current measurement.  <a href="#gafd67b935db0752046f634325bf2a0ec6">More...</a><br /></td></tr>
+<tr class="separator:gafd67b935db0752046f634325bf2a0ec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:gaf56db0ececc05f4ec2d362cfdf6e5015"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__str_p_w_r_n_o_d_e.html">_strPWRNODE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#gaf56db0ececc05f4ec2d362cfdf6e5015">sPWRNODE</a></td></tr>
+<tr class="separator:gaf56db0ececc05f4ec2d362cfdf6e5015"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ga127c9a691bbfdf76f0af2218ac0c7b0f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ADCREFERENCEVOLTAGE&#160;&#160;&#160;(3.3F)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="gaeaa998fbadf1a5b6e8e72eacc284b8d7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lfloat32 f32PWRNODE_CHG_IV__Filter_ADC_Value </td>
+          <td>(</td>
+          <td class="paramtype">Lfloat32&#160;</td>
+          <td class="paramname"><em>ADC_Sample</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Average the current readings. </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>AF5EF4D90978E6F62271760FF836E754 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM653R0.FILE.023.FUNC.002 </dd></dl>
+
+<p>References <a class="el" href="power__core____defines_8h.html#a22fa59cbda37443843af7f06cc4e255b">C_PWRCORE__CURRENT_AVG_SIZE</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#a91cc6a5a3bbe3d8118a21a2d5f064993">_strPWRNODE::f32HAAS_Current_Average_Array</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#a99a0955f6f3382e7fd36f885a8c8d6af">_strPWRNODE::sHASS600</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#gaf56db0ececc05f4ec2d362cfdf6e5015">sPWRNODE</a>, and <a class="el" href="struct__str_p_w_r_n_o_d_e.html#aaa17851577ce6234c0ace6eb14135788">_strPWRNODE::u16HAAS_Current_Average_Counter</a>.</p>
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#gafd67b935db0752046f634325bf2a0ec6">vPWRNODE_CHG_IV__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gaeaa998fbadf1a5b6e8e72eacc284b8d7_icgraph.png" border="0" usemap="#group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gaeaa998fbadf1a5b6e8e72eacc284b8d7_icgraph" alt=""/></div>
+<map name="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gaeaa998fbadf1a5b6e8e72eacc284b8d7_icgraph" id="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gaeaa998fbadf1a5b6e8e72eacc284b8d7_icgraph">
+<area shape="rect" id="node2" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#gafd67b935db0752046f634325bf2a0ec6" title="Process the charger voltage and current measurement. " alt="" coords="221,13,432,39"/>
+<area shape="rect" id="node3" href="group___p_o_w_e_r___n_o_d_e_____c_h_a_r_g_e_r.html#ga240310c206abd5717d8982232248740a" title="Process the charger. " alt="" coords="480,13,672,39"/>
+<area shape="rect" id="node4" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f" title="Process the power node states, this should be called as quick as possible from the main program loop..." alt="" coords="720,13,877,39"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="gaabbf22d5a2092277970fecb7a80d06e7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vPWRNODE_CHG_IV__Init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Init the charger voltage and current measurement. </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>60D7C48E9A55F549B328B969C6A38605 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM653R0.FILE.023.FUNC.001 </dd></dl>
+
+<p>References <a class="el" href="struct__str_p_w_r_n_o_d_e.html#a879f6d3cf6dfaeb2675c4a49bdfd3a91">_strPWRNODE::f32HASS_VoltageOffSet</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#aa6770fc659f941f3cbd3e84836e45f6d">_strPWRNODE::sFaultFlags</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#a99a0955f6f3382e7fd36f885a8c8d6af">_strPWRNODE::sHASS600</a>, and <a class="el" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#gaf56db0ececc05f4ec2d362cfdf6e5015">sPWRNODE</a>.</p>
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_h_a_r_g_e_r.html#ga829ec9522c5fa3e3f61b6d7237ca7a38">vPWRNODE_CHG__Init()</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gaabbf22d5a2092277970fecb7a80d06e7_icgraph.png" border="0" usemap="#group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gaabbf22d5a2092277970fecb7a80d06e7_icgraph" alt=""/></div>
+<map name="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gaabbf22d5a2092277970fecb7a80d06e7_icgraph" id="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gaabbf22d5a2092277970fecb7a80d06e7_icgraph">
+<area shape="rect" id="node2" href="group___p_o_w_e_r___n_o_d_e_____c_h_a_r_g_e_r.html#ga829ec9522c5fa3e3f61b6d7237ca7a38" title="Init the charger systems. " alt="" coords="233,5,395,32"/>
+<area shape="rect" id="node3" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f" title="Process the power node states, this should be called as quick as possible from the main program loop..." alt="" coords="443,5,600,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="gafd67b935db0752046f634325bf2a0ec6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vPWRNODE_CHG_IV__Process </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Process the charger voltage and current measurement. </p>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>AF5EF4D90978E6F62271760FF836E754 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM653R0.FILE.023.FUNC.002 </dd></dl>
+
+<p>References <a class="el" href="power____iv__measure____fault__flags_8h.html#aed882057b50a5bfe39d541df32a7132e">C_LCCM653__IVMEASURE__FAULT_INDEX__00</a>, <a class="el" href="power____iv__measure____fault__flags_8h.html#a7c59f95957291da837536497d82d1f3d">C_LCCM653__IVMEASURE__FAULT_INDEX_MASK__00</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#ad0ae509b4ad3875a33d9f37a44057294">_strPWRNODE::f32HASS_CurrentReading</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#a879f6d3cf6dfaeb2675c4a49bdfd3a91">_strPWRNODE::f32HASS_VoltageOffSet</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#gaeaa998fbadf1a5b6e8e72eacc284b8d7">f32PWRNODE_CHG_IV__Filter_ADC_Value()</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#aa6770fc659f941f3cbd3e84836e45f6d">_strPWRNODE::sFaultFlags</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#a99a0955f6f3382e7fd36f885a8c8d6af">_strPWRNODE::sHASS600</a>, and <a class="el" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#gaf56db0ececc05f4ec2d362cfdf6e5015">sPWRNODE</a>.</p>
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_h_a_r_g_e_r.html#ga240310c206abd5717d8982232248740a">vPWRNODE_CHG__Process()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gafd67b935db0752046f634325bf2a0ec6_cgraph.png" border="0" usemap="#group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gafd67b935db0752046f634325bf2a0ec6_cgraph" alt=""/></div>
+<map name="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gafd67b935db0752046f634325bf2a0ec6_cgraph" id="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gafd67b935db0752046f634325bf2a0ec6_cgraph">
+<area shape="rect" id="node2" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#gaeaa998fbadf1a5b6e8e72eacc284b8d7" title="Average the current readings. " alt="" coords="264,5,432,47"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gafd67b935db0752046f634325bf2a0ec6_icgraph.png" border="0" usemap="#group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gafd67b935db0752046f634325bf2a0ec6_icgraph" alt=""/></div>
+<map name="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gafd67b935db0752046f634325bf2a0ec6_icgraph" id="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e_gafd67b935db0752046f634325bf2a0ec6_icgraph">
+<area shape="rect" id="node2" href="group___p_o_w_e_r___n_o_d_e_____c_h_a_r_g_e_r.html#ga240310c206abd5717d8982232248740a" title="Process the charger. " alt="" coords="264,5,456,32"/>
+<area shape="rect" id="node3" href="group___p_o_w_e_r___n_o_d_e_____c_o_r_e.html#gad2dcf31f2793fd95f38956c62b32aa9f" title="Process the power node states, this should be called as quick as possible from the main program loop..." alt="" coords="504,5,661,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="gaf56db0ececc05f4ec2d362cfdf6e5015"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="struct__str_p_w_r_n_o_d_e.html">_strPWRNODE</a> sPWRNODE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#gaeaa998fbadf1a5b6e8e72eacc284b8d7">f32PWRNODE_CHG_IV__Filter_ADC_Value()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#gaabbf22d5a2092277970fecb7a80d06e7">vPWRNODE_CHG_IV__Init()</a>, and <a class="el" href="group___p_o_w_e_r___n_o_d_e_____i_v___m_e_a_s_u_r_e.html#gafd67b935db0752046f634325bf2a0ec6">vPWRNODE_CHG_IV__Process()</a>.</p>
+
+</div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->

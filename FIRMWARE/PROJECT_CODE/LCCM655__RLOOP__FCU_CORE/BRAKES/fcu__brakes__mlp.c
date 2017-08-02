@@ -35,7 +35,7 @@ static Lint16 s16FCU_BRAKES_MLP__Filter_ADC_Value(E_FCU__BRAKE_INDEX_T eBrake);
  * @brief
  * init the systems specifically to the MLP
  * 
- * @st_funcMD5		1526985EB514C32C0F929BD217105401
+ * @st_funcMD5		EF7193F48D28AB9115D5EE38BFB0C3F7
  * @st_funcID		LCCM655R0.FILE.024.FUNC.001
  */
 void vFCU_BRAKES_MLP__Init(void)
@@ -322,7 +322,7 @@ Lint16 s16FCU_BRAKES_MLP__Check_ADC_Limits(E_FCU__BRAKE_INDEX_T eBrake)
  *
  * @param[in]		eBrake					The brake index
  * @return			Filtered Value
- * @st_funcMD5		5026035D4C7154FA483D9F60FA67916B
+ * @st_funcMD5		25BE0217D808FC312C8067B6D646C03B
  * @st_funcID		LCCM655R0.FILE.024.FUNC.005
  */
 Lint16 s16FCU_BRAKES_MLP__Filter_ADC_Value(E_FCU__BRAKE_INDEX_T eBrake)
@@ -413,7 +413,7 @@ void vFCU_BRAKES_MLP__Apply_Zero(E_FCU__BRAKE_INDEX_T eBrake)
  * 
  * @param[in]		eBrake				The brake channel.
  * @param[in]		u32Key				0x11112222U
- * @st_funcMD5		45386F94C0417E4653974BA16A98646C
+ * @st_funcMD5		D0AA7E9E1B254C1D2169CA3C6513C15D
  * @st_funcID		LCCM655R0.FILE.024.FUNC.008
  */
 void vFCU_BRAKES_MLP__ComputeCalibration_Zero(Luint32 u32Key, E_FCU__BRAKE_INDEX_T eBrake)
@@ -470,7 +470,7 @@ void vFCU_BRAKES_MLP__ComputeCalibration_Zero(Luint32 u32Key, E_FCU__BRAKE_INDEX
  * 
  * @param[in]		eBrake				The brake channel
  * @param[in]		u32Key				0x33334444U
- * @st_funcMD5		AA133F10248B752876733A4737ADC5A3
+ * @st_funcMD5		4A737F5C67F4BFA7B927F989EF02DB3D
  * @st_funcID		LCCM655R0.FILE.024.FUNC.009
  */
 void vFCU_BRAKES_MLP__ComputeCalibration_Span(Luint32 u32Key, E_FCU__BRAKE_INDEX_T eBrake)

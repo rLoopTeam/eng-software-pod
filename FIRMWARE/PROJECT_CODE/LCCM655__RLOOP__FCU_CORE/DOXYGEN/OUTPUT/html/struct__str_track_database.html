@@ -112,84 +112,84 @@ Collaboration diagram for _strTrackDatabase:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:af0262ff76f382a50ddcda13cf174fdb8"><td class="memItemLeft" >struct {</td></tr>
-<tr class="memitem:ae0d4ae4f5caa0c159afc7cdfc2f8f12c"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a6863d23c3cca659569f6332223926de9">u8Header</a> [4]</td></tr>
-<tr class="memdesc:ae0d4ae4f5caa0c159afc7cdfc2f8f12c"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 Header word for easy identification Could be like 0xABCD1234  <a href="#ae0d4ae4f5caa0c159afc7cdfc2f8f12c">More...</a><br /></td></tr>
-<tr class="separator:ae0d4ae4f5caa0c159afc7cdfc2f8f12c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fbbd584c392850bca6397b70f7e0a4d"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a36d61bdf25200cc317354a281aa4ea93">u8DataLength</a> [4]</td></tr>
-<tr class="memdesc:a7fbbd584c392850bca6397b70f7e0a4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">2 The total length of the data from after this point to the end of the CRC  <a href="#a7fbbd584c392850bca6397b70f7e0a4d">More...</a><br /></td></tr>
-<tr class="separator:a7fbbd584c392850bca6397b70f7e0a4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3e4e661fafcf758100805bc7727fdc5"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#aacb758f901b005ab5e7935499760d5a2">u8TrackID</a> [4]</td></tr>
-<tr class="memdesc:af3e4e661fafcf758100805bc7727fdc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">3 This is the ID of the track database entry.  <a href="#af3e4e661fafcf758100805bc7727fdc5">More...</a><br /></td></tr>
-<tr class="separator:af3e4e661fafcf758100805bc7727fdc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad260d92bb75be8336d5b8b016a6aa260"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a1744b61c62c7ec2dd2500a2b95f9dfd3">u8TrackBeginningXPosition_mm</a> [4]</td></tr>
-<tr class="memdesc:ad260d92bb75be8336d5b8b016a6aa260"><td class="mdescLeft">&#160;</td><td class="mdescRight">4 Track beginning.  <a href="#ad260d92bb75be8336d5b8b016a6aa260">More...</a><br /></td></tr>
-<tr class="separator:ad260d92bb75be8336d5b8b016a6aa260"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e228e8df1324558d7e67382bc9e3153"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#ae2b94d75d76b6bd0b5ffc976f0916b39">u8TrackEndXPosition_mm</a> [4]</td></tr>
-<tr class="memdesc:a6e228e8df1324558d7e67382bc9e3153"><td class="mdescLeft">&#160;</td><td class="mdescRight">5 Track end.  <a href="#a6e228e8df1324558d7e67382bc9e3153">More...</a><br /></td></tr>
-<tr class="separator:a6e228e8df1324558d7e67382bc9e3153"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cd4bdaa39c1de14d11003503da11171"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a0ba6b32f2421aa90bba7e5eea0053c86">u8LRFAreaBeginningXPosition_mm</a> [4]</td></tr>
-<tr class="memdesc:a1cd4bdaa39c1de14d11003503da11171"><td class="mdescLeft">&#160;</td><td class="mdescRight">6 Minimum x position in tube to start using LRF.  <a href="#a1cd4bdaa39c1de14d11003503da11171">More...</a><br /></td></tr>
-<tr class="separator:a1cd4bdaa39c1de14d11003503da11171"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfabb1b7f2855beda47526b442ffd322"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#ac5d5ed7fb3bd9550132967dd283ada80">u8NumberOfStripes</a> [4]</td></tr>
-<tr class="memdesc:abfabb1b7f2855beda47526b442ffd322"><td class="mdescLeft">&#160;</td><td class="mdescRight">5 Number of stripes on this track (listed in the array below).  <a href="#abfabb1b7f2855beda47526b442ffd322">More...</a><br /></td></tr>
-<tr class="separator:abfabb1b7f2855beda47526b442ffd322"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27c86a4fe29b42658fac4940ff91d00c"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a37500782261bc3d31aa7187edb06e6ac">u8StripeBeginningXPosition_mm</a> [<a class="el" href="fcu____fctl____track__database____types_8h.html#ab96ff85bbabe2fc859712b79c14085aa">C_FCTL_TRACKDB__MAX_CONTRAST_STRIPES</a>][4]</td></tr>
-<tr class="memdesc:a27c86a4fe29b42658fac4940ff91d00c"><td class="mdescLeft">&#160;</td><td class="mdescRight">8 List of stripes beginning x position in tube.  <a href="#a27c86a4fe29b42658fac4940ff91d00c">More...</a><br /></td></tr>
-<tr class="separator:a27c86a4fe29b42658fac4940ff91d00c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab966c5b1695f3c172b4b48fb59e15e34"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a4952b753147bba4448eb2ace733a64c3">u8EnableAccels</a> [4]</td></tr>
-<tr class="memdesc:ab966c5b1695f3c172b4b48fb59e15e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable Accels on the current track.  <a href="#ab966c5b1695f3c172b4b48fb59e15e34">More...</a><br /></td></tr>
-<tr class="separator:ab966c5b1695f3c172b4b48fb59e15e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb1d4d72402c83c7c6acc4d391c11d50"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a526b85d07de82a1433855942a7f33d9f">u8EnableLRF</a> [4]</td></tr>
-<tr class="memdesc:afb1d4d72402c83c7c6acc4d391c11d50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable laser range on the current track.  <a href="#afb1d4d72402c83c7c6acc4d391c11d50">More...</a><br /></td></tr>
-<tr class="separator:afb1d4d72402c83c7c6acc4d391c11d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fa528eff40f63cde0b9184723bd1c55"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a47f662a499515deb11bdf47638152aa8">u8EnableContrast</a> [4]</td></tr>
-<tr class="memdesc:a8fa528eff40f63cde0b9184723bd1c55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable contrast sensor on current track.  <a href="#a8fa528eff40f63cde0b9184723bd1c55">More...</a><br /></td></tr>
-<tr class="separator:a8fa528eff40f63cde0b9184723bd1c55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66547e478a57ec969704c2355b7442a6"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a0332e84c0641f5efa2872639bd394515">u8SpareData</a> [<a class="el" href="fcu____fctl____track__database____types_8h.html#a5e56cec5eab50f30c1bfe5be46919fcc">C_FCTL_TRACKDB__HEADER_SPARE_WORDS</a>][4]</td></tr>
-<tr class="memdesc:a66547e478a57ec969704c2355b7442a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spare Data.  <a href="#a66547e478a57ec969704c2355b7442a6">More...</a><br /></td></tr>
-<tr class="separator:a66547e478a57ec969704c2355b7442a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad789ec196e3a8f0a1a12df5588002cc1"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a2cc886c5e917d109b223c7f82389cceb">u8Footer</a> [4]</td></tr>
-<tr class="memdesc:ad789ec196e3a8f0a1a12df5588002cc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Footer to know we are valid here.  <a href="#ad789ec196e3a8f0a1a12df5588002cc1">More...</a><br /></td></tr>
-<tr class="separator:ad789ec196e3a8f0a1a12df5588002cc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4534de73973f065cef98c331c2a1a32f"><td class="memItemLeft" >&#160;&#160;&#160;struct {</td></tr>
-<tr class="memitem:a9d046ed5fab7e9b1d9b6161cfe9c5bb4"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#aefc9fb10817092906f906dc24ffb0af4">u8PusherFrontStartXPosition_mm</a> [4]</td></tr>
-<tr class="memdesc:a9d046ed5fab7e9b1d9b6161cfe9c5bb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes 0-3: x position of the front of the pusher car (or rear of pod) before the run.  <a href="#a9d046ed5fab7e9b1d9b6161cfe9c5bb4">More...</a><br /></td></tr>
-<tr class="separator:a9d046ed5fab7e9b1d9b6161cfe9c5bb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add5795768a73ff986a3d8822f50cf0ab"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a448f3021d714ef02a7eebd67c7168511">u8PusherFrontEndXPosition_mm</a> [4]</td></tr>
-<tr class="memdesc:add5795768a73ff986a3d8822f50cf0ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes 4-7: expected x position of the front of the pusher car at the end of push phase.  <a href="#add5795768a73ff986a3d8822f50cf0ab">More...</a><br /></td></tr>
-<tr class="separator:add5795768a73ff986a3d8822f50cf0ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b76609972fb81e97a55d18a3ffc474b"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a6514da519bd8925bf0dee7956f9e003e">u8PodFrontTargetXPosition_mm</a> [4]</td></tr>
-<tr class="memdesc:a9b76609972fb81e97a55d18a3ffc474b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes 8-11: Target x position of pod front at the end of the run.  <a href="#a9b76609972fb81e97a55d18a3ffc474b">More...</a><br /></td></tr>
-<tr class="separator:a9b76609972fb81e97a55d18a3ffc474b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7dfa9c397e4fc874e729602173ecaafd"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a109addc84c86be02e3e239acbd2ce59c">u8NumberOfSetpoints</a> [4]</td></tr>
-<tr class="memdesc:a7dfa9c397e4fc874e729602173ecaafd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 12: Number of setpoints of braking curve for this run.  <a href="#a7dfa9c397e4fc874e729602173ecaafd">More...</a><br /></td></tr>
-<tr class="separator:a7dfa9c397e4fc874e729602173ecaafd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a314b5881feab0153b587b7d9d067fec3"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a59e5ecaff3fe6d9f30e4bddb15dafeeb">u8BrakingSetPointXPosition_mm</a> [<a class="el" href="fcu____fctl____track__database____types_8h.html#adb40c5786ddf4151147929e876eb67ae">C_FCTL_TRACKDB__MAX_SETPOINTS</a>][4]</td></tr>
-<tr class="memdesc:a314b5881feab0153b587b7d9d067fec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes 13-112: List of braking setpoints' x position.  <a href="#a314b5881feab0153b587b7d9d067fec3">More...</a><br /></td></tr>
-<tr class="separator:a314b5881feab0153b587b7d9d067fec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a499a20ab73c2a24599044766d2e9488d"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#acdcbe420b3901f680239e456d68ef9b8">u8BrakingSetPointSpeed_mms</a> [<a class="el" href="fcu____fctl____track__database____types_8h.html#adb40c5786ddf4151147929e876eb67ae">C_FCTL_TRACKDB__MAX_SETPOINTS</a>][4]</td></tr>
-<tr class="memdesc:a499a20ab73c2a24599044766d2e9488d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes 113-212: List of braking setpoints' speed.  <a href="#a499a20ab73c2a24599044766d2e9488d">More...</a><br /></td></tr>
-<tr class="separator:a499a20ab73c2a24599044766d2e9488d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99ff71548a0c0f85be57926688d15e8b"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a0332e84c0641f5efa2872639bd394515">u8SpareData</a> [<a class="el" href="fcu____fctl____track__database____types_8h.html#aa4672966dc7f18ad6a8fe36884b19fe6">C_FCTL_TRACKDB__PROFILE_SPARE_WORDS</a>][4]</td></tr>
-<tr class="memdesc:a99ff71548a0c0f85be57926688d15e8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spare Data.  <a href="#a99ff71548a0c0f85be57926688d15e8b">More...</a><br /></td></tr>
-<tr class="separator:a99ff71548a0c0f85be57926688d15e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4534de73973f065cef98c331c2a1a32f"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#abc659ec21330d65dc7fc281991ed5952">sRunProfile</a></td></tr>
-<tr class="memdesc:a4534de73973f065cef98c331c2a1a32f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run profile structure.  <a href="#a4534de73973f065cef98c331c2a1a32f">More...</a><br /></td></tr>
-<tr class="separator:a4534de73973f065cef98c331c2a1a32f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48255505602302a5cf86624f976be278"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#ae46ae3f12d7df9fb8d1e7eaec63a57b0">u8CRC</a> [2]</td></tr>
-<tr class="memdesc:a48255505602302a5cf86624f976be278"><td class="mdescLeft">&#160;</td><td class="mdescRight">The CRC for this entire packet Only 16bit CRC.  <a href="#a48255505602302a5cf86624f976be278">More...</a><br /></td></tr>
-<tr class="separator:a48255505602302a5cf86624f976be278"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a783a6ff4b4d8074fd84c2e1a676a9115"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a66088ef390bd58ca5da32596e59c1e3b">u8Unused</a> [2]</td></tr>
-<tr class="separator:a783a6ff4b4d8074fd84c2e1a676a9115"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0262ff76f382a50ddcda13cf174fdb8"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_track_database.html#af0262ff76f382a50ddcda13cf174fdb8">sDB</a></td></tr>
-<tr class="memdesc:af0262ff76f382a50ddcda13cf174fdb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Track database structure.  <a href="#af0262ff76f382a50ddcda13cf174fdb8">More...</a><br /></td></tr>
-<tr class="separator:af0262ff76f382a50ddcda13cf174fdb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e63f94730efbdfc380a3a455d3ce6d4"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:ad8938fe72c490ec047eeba267043636f"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a6863d23c3cca659569f6332223926de9">u8Header</a> [4]</td></tr>
+<tr class="memdesc:ad8938fe72c490ec047eeba267043636f"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 Header word for easy identification Could be like 0xABCD1234  <a href="#ad8938fe72c490ec047eeba267043636f">More...</a><br /></td></tr>
+<tr class="separator:ad8938fe72c490ec047eeba267043636f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa03770abc7dcbfc592185e2cf1c68b61"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a36d61bdf25200cc317354a281aa4ea93">u8DataLength</a> [4]</td></tr>
+<tr class="memdesc:aa03770abc7dcbfc592185e2cf1c68b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">2 The total length of the data from after this point to the end of the CRC  <a href="#aa03770abc7dcbfc592185e2cf1c68b61">More...</a><br /></td></tr>
+<tr class="separator:aa03770abc7dcbfc592185e2cf1c68b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d237c6ae138cccc69218378223a00af"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#aacb758f901b005ab5e7935499760d5a2">u8TrackID</a> [4]</td></tr>
+<tr class="memdesc:a5d237c6ae138cccc69218378223a00af"><td class="mdescLeft">&#160;</td><td class="mdescRight">3 This is the ID of the track database entry.  <a href="#a5d237c6ae138cccc69218378223a00af">More...</a><br /></td></tr>
+<tr class="separator:a5d237c6ae138cccc69218378223a00af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36fe9da3def520f77d513e59f260306b"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a1744b61c62c7ec2dd2500a2b95f9dfd3">u8TrackBeginningXPosition_mm</a> [4]</td></tr>
+<tr class="memdesc:a36fe9da3def520f77d513e59f260306b"><td class="mdescLeft">&#160;</td><td class="mdescRight">4 Track beginning.  <a href="#a36fe9da3def520f77d513e59f260306b">More...</a><br /></td></tr>
+<tr class="separator:a36fe9da3def520f77d513e59f260306b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41458d433a57bc212bdbc2ca0e29466d"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#ae2b94d75d76b6bd0b5ffc976f0916b39">u8TrackEndXPosition_mm</a> [4]</td></tr>
+<tr class="memdesc:a41458d433a57bc212bdbc2ca0e29466d"><td class="mdescLeft">&#160;</td><td class="mdescRight">5 Track end.  <a href="#a41458d433a57bc212bdbc2ca0e29466d">More...</a><br /></td></tr>
+<tr class="separator:a41458d433a57bc212bdbc2ca0e29466d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16a7c2a76dca44216acdf5a1879e5fc8"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a0ba6b32f2421aa90bba7e5eea0053c86">u8LRFAreaBeginningXPosition_mm</a> [4]</td></tr>
+<tr class="memdesc:a16a7c2a76dca44216acdf5a1879e5fc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">6 Minimum x position in tube to start using LRF.  <a href="#a16a7c2a76dca44216acdf5a1879e5fc8">More...</a><br /></td></tr>
+<tr class="separator:a16a7c2a76dca44216acdf5a1879e5fc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88ce4170a9bf4767a0da2994a6aa4861"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#ac5d5ed7fb3bd9550132967dd283ada80">u8NumberOfStripes</a> [4]</td></tr>
+<tr class="memdesc:a88ce4170a9bf4767a0da2994a6aa4861"><td class="mdescLeft">&#160;</td><td class="mdescRight">5 Number of stripes on this track (listed in the array below).  <a href="#a88ce4170a9bf4767a0da2994a6aa4861">More...</a><br /></td></tr>
+<tr class="separator:a88ce4170a9bf4767a0da2994a6aa4861"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ef2baf67288156df95bff17ff0c26c4"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a37500782261bc3d31aa7187edb06e6ac">u8StripeBeginningXPosition_mm</a> [<a class="el" href="fcu____fctl____track__database____types_8h.html#ab96ff85bbabe2fc859712b79c14085aa">C_FCTL_TRACKDB__MAX_CONTRAST_STRIPES</a>][4]</td></tr>
+<tr class="memdesc:a6ef2baf67288156df95bff17ff0c26c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">8 List of stripes beginning x position in tube.  <a href="#a6ef2baf67288156df95bff17ff0c26c4">More...</a><br /></td></tr>
+<tr class="separator:a6ef2baf67288156df95bff17ff0c26c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e1fb9835e8050a1101f921b94911bd9"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a4952b753147bba4448eb2ace733a64c3">u8EnableAccels</a> [4]</td></tr>
+<tr class="memdesc:a6e1fb9835e8050a1101f921b94911bd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable Accels on the current track.  <a href="#a6e1fb9835e8050a1101f921b94911bd9">More...</a><br /></td></tr>
+<tr class="separator:a6e1fb9835e8050a1101f921b94911bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbfc44c95dde63ba5109422e6b566c5f"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a526b85d07de82a1433855942a7f33d9f">u8EnableLRF</a> [4]</td></tr>
+<tr class="memdesc:abbfc44c95dde63ba5109422e6b566c5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable laser range on the current track.  <a href="#abbfc44c95dde63ba5109422e6b566c5f">More...</a><br /></td></tr>
+<tr class="separator:abbfc44c95dde63ba5109422e6b566c5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cd7d95ba65a8fca89418cc641620305"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a47f662a499515deb11bdf47638152aa8">u8EnableContrast</a> [4]</td></tr>
+<tr class="memdesc:a3cd7d95ba65a8fca89418cc641620305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable contrast sensor on current track.  <a href="#a3cd7d95ba65a8fca89418cc641620305">More...</a><br /></td></tr>
+<tr class="separator:a3cd7d95ba65a8fca89418cc641620305"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb5ebbb5bbccd26e1aeb1baca3477b42"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a0332e84c0641f5efa2872639bd394515">u8SpareData</a> [<a class="el" href="fcu____fctl____track__database____types_8h.html#a5e56cec5eab50f30c1bfe5be46919fcc">C_FCTL_TRACKDB__HEADER_SPARE_WORDS</a>][4]</td></tr>
+<tr class="memdesc:abb5ebbb5bbccd26e1aeb1baca3477b42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spare Data.  <a href="#abb5ebbb5bbccd26e1aeb1baca3477b42">More...</a><br /></td></tr>
+<tr class="separator:abb5ebbb5bbccd26e1aeb1baca3477b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaab55a41ecd73c10eba95f95da74622"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a2cc886c5e917d109b223c7f82389cceb">u8Footer</a> [4]</td></tr>
+<tr class="memdesc:acaab55a41ecd73c10eba95f95da74622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Footer to know we are valid here.  <a href="#acaab55a41ecd73c10eba95f95da74622">More...</a><br /></td></tr>
+<tr class="separator:acaab55a41ecd73c10eba95f95da74622"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d089d66aa90897bc70ed725a01157a5"><td class="memItemLeft" >&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:aa16e9af474f404f2c8b5d8080974a763"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#aefc9fb10817092906f906dc24ffb0af4">u8PusherFrontStartXPosition_mm</a> [4]</td></tr>
+<tr class="memdesc:aa16e9af474f404f2c8b5d8080974a763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes 0-3: x position of the front of the pusher car (or rear of pod) before the run.  <a href="#aa16e9af474f404f2c8b5d8080974a763">More...</a><br /></td></tr>
+<tr class="separator:aa16e9af474f404f2c8b5d8080974a763"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6646d55c70a717d32b1ec77dbac53053"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a448f3021d714ef02a7eebd67c7168511">u8PusherFrontEndXPosition_mm</a> [4]</td></tr>
+<tr class="memdesc:a6646d55c70a717d32b1ec77dbac53053"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes 4-7: expected x position of the front of the pusher car at the end of push phase.  <a href="#a6646d55c70a717d32b1ec77dbac53053">More...</a><br /></td></tr>
+<tr class="separator:a6646d55c70a717d32b1ec77dbac53053"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7931b63e075e99fd1685d70cbdcdbd0c"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a6514da519bd8925bf0dee7956f9e003e">u8PodFrontTargetXPosition_mm</a> [4]</td></tr>
+<tr class="memdesc:a7931b63e075e99fd1685d70cbdcdbd0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes 8-11: Target x position of pod front at the end of the run.  <a href="#a7931b63e075e99fd1685d70cbdcdbd0c">More...</a><br /></td></tr>
+<tr class="separator:a7931b63e075e99fd1685d70cbdcdbd0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad203752471e955cc23eb60d3362a5b96"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a109addc84c86be02e3e239acbd2ce59c">u8NumberOfSetpoints</a> [4]</td></tr>
+<tr class="memdesc:ad203752471e955cc23eb60d3362a5b96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 12: Number of setpoints of braking curve for this run.  <a href="#ad203752471e955cc23eb60d3362a5b96">More...</a><br /></td></tr>
+<tr class="separator:ad203752471e955cc23eb60d3362a5b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9da3e27a6d29cdd27c8db3ee9bbb64be"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a59e5ecaff3fe6d9f30e4bddb15dafeeb">u8BrakingSetPointXPosition_mm</a> [<a class="el" href="fcu____fctl____track__database____types_8h.html#adb40c5786ddf4151147929e876eb67ae">C_FCTL_TRACKDB__MAX_SETPOINTS</a>][4]</td></tr>
+<tr class="memdesc:a9da3e27a6d29cdd27c8db3ee9bbb64be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes 13-112: List of braking setpoints' x position.  <a href="#a9da3e27a6d29cdd27c8db3ee9bbb64be">More...</a><br /></td></tr>
+<tr class="separator:a9da3e27a6d29cdd27c8db3ee9bbb64be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac06596583dd9193baa32b2f479b82106"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#acdcbe420b3901f680239e456d68ef9b8">u8BrakingSetPointSpeed_mms</a> [<a class="el" href="fcu____fctl____track__database____types_8h.html#adb40c5786ddf4151147929e876eb67ae">C_FCTL_TRACKDB__MAX_SETPOINTS</a>][4]</td></tr>
+<tr class="memdesc:ac06596583dd9193baa32b2f479b82106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes 113-212: List of braking setpoints' speed.  <a href="#ac06596583dd9193baa32b2f479b82106">More...</a><br /></td></tr>
+<tr class="separator:ac06596583dd9193baa32b2f479b82106"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7c36ab4220f7a557921eeefbade1a76"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a0332e84c0641f5efa2872639bd394515">u8SpareData</a> [<a class="el" href="fcu____fctl____track__database____types_8h.html#aa4672966dc7f18ad6a8fe36884b19fe6">C_FCTL_TRACKDB__PROFILE_SPARE_WORDS</a>][4]</td></tr>
+<tr class="memdesc:ab7c36ab4220f7a557921eeefbade1a76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spare Data.  <a href="#ab7c36ab4220f7a557921eeefbade1a76">More...</a><br /></td></tr>
+<tr class="separator:ab7c36ab4220f7a557921eeefbade1a76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d089d66aa90897bc70ed725a01157a5"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#aceb163f2e04c0951ef5a5f345355eec3">sRunProfile</a></td></tr>
+<tr class="memdesc:a9d089d66aa90897bc70ed725a01157a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run profile structure.  <a href="#a9d089d66aa90897bc70ed725a01157a5">More...</a><br /></td></tr>
+<tr class="separator:a9d089d66aa90897bc70ed725a01157a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a510258ad0e799017cc076589b7284387"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#ae46ae3f12d7df9fb8d1e7eaec63a57b0">u8CRC</a> [2]</td></tr>
+<tr class="memdesc:a510258ad0e799017cc076589b7284387"><td class="mdescLeft">&#160;</td><td class="mdescRight">The CRC for this entire packet Only 16bit CRC.  <a href="#a510258ad0e799017cc076589b7284387">More...</a><br /></td></tr>
+<tr class="separator:a510258ad0e799017cc076589b7284387"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c0802d8487aac552254716c9e2b7db3"><td class="memItemLeft" >&#160;&#160;&#160;Luint8&#160;&#160;&#160;<a class="el" href="struct__str_track_database.html#a66088ef390bd58ca5da32596e59c1e3b">u8Unused</a> [2]</td></tr>
+<tr class="separator:a7c0802d8487aac552254716c9e2b7db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e63f94730efbdfc380a3a455d3ce6d4"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__str_track_database.html#a9e63f94730efbdfc380a3a455d3ce6d4">sDB</a></td></tr>
+<tr class="memdesc:a9e63f94730efbdfc380a3a455d3ce6d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Track database structure.  <a href="#a9e63f94730efbdfc380a3a455d3ce6d4">More...</a><br /></td></tr>
+<tr class="separator:a9e63f94730efbdfc380a3a455d3ce6d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>List of all track databases SHOULD MAKE A MULTIPLE OF 16 BYTES for better eeprom layout 8 + STRIPES(64) + SPARE(16) = 88 6 + SPARE(16) + SETPOINTS(256)*2 = 2 + = 626 16 * 40 = 640*4 = 2560/16 = 160. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="af0262ff76f382a50ddcda13cf174fdb8"></a>
+<a class="anchor" id="a9e63f94730efbdfc380a3a455d3ce6d4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -206,7 +206,7 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="abc659ec21330d65dc7fc281991ed5952"></a>
+<a class="anchor" id="aceb163f2e04c0951ef5a5f345355eec3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">

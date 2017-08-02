@@ -65,7 +65,7 @@ void vAPU_WIN32__UpdateData(Luint8 u8Clutch, Luint8 u8Dir, Luint8 u8Enable, Luin
  * @brief
  * Send an update through the callback.
  * 
- * @st_funcMD5		97F3FC8AA3C950672469A48D3AE3763A
+ * @st_funcMD5		76168547ED18F32F210EA0DD912D00EF
  * @st_funcID		LCCM720R0.FILE.004.FUNC.003
  */
 void vAPU_WIN32__Send_Generic_Update(void)

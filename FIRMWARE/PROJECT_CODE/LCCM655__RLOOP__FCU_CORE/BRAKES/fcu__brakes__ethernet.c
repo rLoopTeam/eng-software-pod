@@ -46,7 +46,7 @@ void vFCU_BRAKES_ETH__Init(void)
  * Process any new eth packets (transmit)
  * 
  * @param[in]		ePacketType			The packet type
- * @st_funcMD5		D5DA6935BF00141E3F4D6C28FE5B72D2
+ * @st_funcMD5		C754D9D30A7EF146C3774EB71128826A
  * @st_funcID		LCCM655R0.FILE.066.FUNC.002
  */
 void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
@@ -211,7 +211,7 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
  *
  * @param[in]		u32Position				The new position in microns
  * @param[in]		u32Index				The motor index
- * @st_funcMD5		E7ACE5E6A14B23D4226EA1541323229E
+ * @st_funcMD5		35AF1E20E924880E93EC4F7814CC1DEB
  * @st_funcID		LCCM655R0.FILE.066.FUNC.003
  */
 void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Lint32 s32Position)
@@ -263,7 +263,7 @@ void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Lint32 s32Position)
  * In development mode, move the brakes to an I-Beam distance
  * 
  * @param[in]		f32Value				The distance in mm
- * @st_funcMD5		AC4FDC65FD7852EEDDD124550F52B0FA
+ * @st_funcMD5		085AFA1736F7F27AF5F4600C1F7300A5
  * @st_funcID		LCCM655R0.FILE.066.FUNC.004
  */
 void vFCU_BRAKES_ETH__MoveMotor_IBeam(Lfloat32 f32Value)
@@ -393,7 +393,7 @@ void vFCU_BRAKES_ETH__MLP_ZeroSpan(Luint32 u32Key0, Luint32 u32Brake, Luint32 u3
  *
  * @param[in]		u32Key1				Key1 should be 0xABCD0987U
  * @param[in]		u32Key0				Key0 shoul dbe 0x1293847
- * @st_funcMD5		F21BB83DD999BFB06DE4C3D53889D9E6
+ * @st_funcMD5		47D7E037EED89A1815F095893AF568B9
  * @st_funcID		LCCM655R0.FILE.007.FUNC.010
  */
 void vFCU_BRAKES_ETH__Enable_DevMode(Luint32 u32Key0, Luint32 u32Key1)

@@ -60,6 +60,13 @@ void vFCU_NET_SPACEX_TX__Init(void)
  * 1: (Idle): otherwise
  *
  */
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		20488A965D31CF39F54286BC6B95BD52
+ * @st_funcID		LCCM655R0.FILE.039.FUNC.004
+ */
 Luint8 u8FCU_NET_SPACEX_TX__GeneratePodStatus(void)
 {
 	Luint8 u8Return;
@@ -93,7 +100,7 @@ Luint8 u8FCU_NET_SPACEX_TX__GeneratePodStatus(void)
  * pod_temperature  INT32           Pod temperature in tenths of a degree Celsius.
  * stripe_count     UINT32          Count of optical navigation stripes detected in the tube.
  *
- * @st_funcMD5      0F061C0B0CC27505B8A1A1FD42E83F65
+ * @st_funcMD5		0FF9F7AA25696D8694628162EBB1F00B
  * @st_funcID       LCCM655R0.FILE.039.FUNC.002
  */
 void vFCU_NET_SPACEX_TX__Process(void)

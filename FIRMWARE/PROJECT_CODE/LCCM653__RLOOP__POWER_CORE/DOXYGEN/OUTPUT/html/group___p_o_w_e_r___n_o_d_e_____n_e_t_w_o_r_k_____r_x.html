@@ -91,6 +91,9 @@ $(document).ready(function(){initNavTree('group___p_o_w_e_r___n_o_d_e_____n_e_t_
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">POWER_NODE__NETWORK__RX<div class="ingroups"><a class="el" href="group___r_l_o_o_p.html">RLOOP</a> &raquo; <a class="el" href="group___p_o_w_e_r___n_o_d_e.html">POWER_NODE</a></div></div>  </div>
 </div><!--header-->
@@ -103,6 +106,163 @@ Collaboration diagram for POWER_NODE__NETWORK__RX:</div>
 <area shape="rect" id="node1" href="group___p_o_w_e_r___n_o_d_e.html" title="POWER_NODE" alt="" coords="5,5,121,32"/>
 </map>
 </td></tr></table></center>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga264930075913f81913dd2a1ef5bf332b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____n_e_t_w_o_r_k_____r_x.html#ga264930075913f81913dd2a1ef5bf332b">vPWRNODE_NET_RX__RxUDP</a> (Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPort)</td></tr>
+<tr class="memdesc:ga264930075913f81913dd2a1ef5bf332b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx a standard UDP packet.  <a href="#ga264930075913f81913dd2a1ef5bf332b">More...</a><br /></td></tr>
+<tr class="separator:ga264930075913f81913dd2a1ef5bf332b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e91b976e1ea56bb6aa964c0c86816a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____n_e_t_w_o_r_k_____r_x.html#ga0e91b976e1ea56bb6aa964c0c86816a4">vPWRNODE_NET_RX__RxSafeUDP</a> (Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)</td></tr>
+<tr class="memdesc:ga0e91b976e1ea56bb6aa964c0c86816a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx a SafetyUDP.  <a href="#ga0e91b976e1ea56bb6aa964c0c86816a4">More...</a><br /></td></tr>
+<tr class="separator:ga0e91b976e1ea56bb6aa964c0c86816a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:gaf56db0ececc05f4ec2d362cfdf6e5015"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__str_p_w_r_n_o_d_e.html">_strPWRNODE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_o_w_e_r___n_o_d_e_____n_e_t_w_o_r_k_____r_x.html#gaf56db0ececc05f4ec2d362cfdf6e5015">sPWRNODE</a></td></tr>
+<tr class="separator:gaf56db0ececc05f4ec2d362cfdf6e5015"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga0e91b976e1ea56bb6aa964c0c86816a4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vPWRNODE_NET_RX__RxSafeUDP </td>
+          <td>(</td>
+          <td class="paramtype">Luint8 *&#160;</td>
+          <td class="paramname"><em>pu8Payload</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Luint16&#160;</td>
+          <td class="paramname"><em>u16PayloadLength</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Luint16&#160;</td>
+          <td class="paramname"><em>ePacketType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Luint16&#160;</td>
+          <td class="paramname"><em>u16DestPort</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Luint16&#160;</td>
+          <td class="paramname"><em>u16Fault</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rx a SafetyUDP. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u16Fault</td><td>Fault details (if any) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u16DestPort</td><td>The destination port in the UDP packet </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ePacketType</td><td>SafeUDP Packet Type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u16PayloadLength</td><td>SafeUDP Payload Length </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*pu8Payload</td><td>Pointer to SafeUDP Payload </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>116A9079EF71D980FE146B60F169983E </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM653R0.FILE.018.FUNC.002 </dd></dl>
+
+<p>References <a class="el" href="power__core____eeprom__index_8h.html#a7e5b57424bb1d26ce13c2aaef8effa79">C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_TEMP</a>, <a class="el" href="power__core____eeprom__index_8h.html#ae18a63c9776a726c033f39787cc233ca">C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_CELL_VOLT</a>, <a class="el" href="power__core____eeprom__index_8h.html#add8330d361f625999ed6b61e526e1dae">C_POWERCORE__EEPARAM_INDEX__CHARGER__MAX_PACK_VOLT</a>, <a class="el" href="power__core____eeprom__index_8h.html#a4cecbb239a2a6db37d9345473b0e5942">C_POWERCORE__EEPARAM_INDEX__CHARGER__MIN_PACK_VOLT</a>, <a class="el" href="power__core____eeprom__index_8h.html#a74ccb89b52e2e6e3e598196417224fd1">C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_A</a>, <a class="el" href="power__core____eeprom__index_8h.html#a3b4ff5f34bef759163698644d91348fa">C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_B</a>, <a class="el" href="power__core____eeprom__index_8h.html#acbd0639a4ef604b3e9d8caecefca349c">C_POWERCORE__EEPARAM_INDEX__NODE_TYPE__TYPE_CRC</a>, <a class="el" href="power__core____state__types_8h.html#afa1ae7b34f73723892796d7bd1f6bcdaab5d9dde997ae94a133ef7b97ffb446f3">COOLING_STATE__STARTTESTING_01</a>, <a class="el" href="power__core____state__types_8h.html#afa1ae7b34f73723892796d7bd1f6bcdaaf5cbfd01a79fea277266af623cc609a0">COOLING_STATE__STARTTESTING_02</a>, <a class="el" href="power__core____state__types_8h.html#afa1ae7b34f73723892796d7bd1f6bcdaa3c5026cd5bd7ae9052ac9103946dff9d">COOLING_STATE__STARTTESTING_03</a>, <a class="el" href="power__core____state__types_8h.html#afa1ae7b34f73723892796d7bd1f6bcdaa100f377939d61940afadaa338a36cd85">COOLING_STATE__STARTTESTING_04</a>, <a class="el" href="power__core____state__types_8h.html#afa1ae7b34f73723892796d7bd1f6bcdaac441b759e43324c776516c4c23a82ea4">COOLING_STATE__STARTTESTING_05</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#afb3095b3d9591ae45db19748c209b1f2">_strPWRNODE::eMainState</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#a50e316b422766283fe00738b2e6487f8">_strPWRNODE::ePersonality</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#af37c18bbc3a13bda586f0f5d5e603a69">_strPWRNODE::eTxPacketType</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#a89213384b7b1b411efc9c4a5573c3cbb">_strPWRNODE::eTxStreamingType</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#a6eba25cfaf37397832851e9857e2be90">_strPWRNODE::f32MaxCellTemp</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#a92d11d8f2109caa80050c32b7a4c4bec">_strPWRNODE::f32MaxHighestCell</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#ac3c022cad5390516ee465d8067900294">_strPWRNODE::f32MaxPackVoltage</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#a466d2a52070c9d364a537347e13d2267">_strPWRNODE::f32MinPackVoltage</a>, <a class="el" href="power__core____state__types_8h.html#a89532bdf3d1696eaa00065bc13cfe1faacf67dba7bd4b8691da278c0c3d6d9e0b">PWRNODE_TYPE__PACK_A</a>, <a class="el" href="power__core____state__types_8h.html#a89532bdf3d1696eaa00065bc13cfe1faa5abbb04278c8e422bd780dcf41600ea1">PWRNODE_TYPE__PACK_B</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#a90adf485446be2d55318f88ce7a8210f">_strPWRNODE::sCharger</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____n_e_t_w_o_r_k_____r_x.html#gaf56db0ececc05f4ec2d362cfdf6e5015">sPWRNODE</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#a98653e176e3a086c5bf89a84fefb20e4">_strPWRNODE::sUDPDiag</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#afa7191b8d913c68d3290a4cfea31e891">_strPWRNODE::u16EthPort</a>, <a class="el" href="struct__str_p_w_r_n_o_d_e.html#a823fe07a72a7f24f27015b068f94a97c">_strPWRNODE::u32Block0</a>, <a class="el" href="power__core_8h.html#aa0e786856f04f63203a0bc6bfb4966f2">vPWR_PVPRESS__Enable()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_____m_e_m_o_r_y.html#ga38b47c6cbae8a24976c52dcc65af20a3">vPWRNODE_BATTEMP_MEM__Set_ROMID()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_____m_e_m_o_r_y.html#ga9bd5513c7c047105283383c065d9b08a">vPWRNODE_BATTEMP_MEM__Set_UserData()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____b_m_s.html#ga304e1f0c75181b673480b1d2a4fa4733">vPWRNODE_BMS__Balance_Manual()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____b_m_s.html#ga5845fa853167776029de90800e8edf44">vPWRNODE_BMS__Balance_Stop()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____d_c___c_o_n_v_e_r_t_e_r.html#ga0f5d08c8242721217443492c97facde5">vPWRNODE_DC__Latch()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____d_c___c_o_n_v_e_r_t_e_r.html#ga5e25f972ace131166cf265ca8d04e356">vPWRNODE_DC__Pod_Safe_Go()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____d_c___c_o_n_v_e_r_t_e_r.html#ga38a95933068c638804174fb4c81a8236">vPWRNODE_DC__Pod_Safe_Unlock()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_h_a_r_g_e_r.html#ga52624fa789e9434f98f29b8047f9bf3e">vPWRNODE_GHG__Start_ManualBalance()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____c_h_a_r_g_e_r.html#gaa3cc8ced4726ca6ec768128099f4d172">vPWRNODE_GHG__Stop_ManualBalance()</a>, <a class="el" href="group___p_o_w_e_r___n_o_d_e_____s_t_a_t_e___m_a_c_h_i_n_e.html#ga672a450d7a4b982afcf732c5c731670b">vPWRNODE_SM__Enable_ChargingState()</a>, and <a class="el" href="group___p_o_w_e_r___n_o_d_e_____s_t_a_t_e___m_a_c_h_i_n_e.html#ga7e7bcda78dca82e89cd0d8c0dec20c35">vPWRNODE_SM__Stop_ChargingState()</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___p_o_w_e_r___n_o_d_e_____n_e_t_w_o_r_k_____r_x_ga0e91b976e1ea56bb6aa964c0c86816a4_cgraph.png" border="0" usemap="#group___p_o_w_e_r___n_o_d_e_____n_e_t_w_o_r_k_____r_x_ga0e91b976e1ea56bb6aa964c0c86816a4_cgraph" alt=""/></div>
+<map name="group___p_o_w_e_r___n_o_d_e_____n_e_t_w_o_r_k_____r_x_ga0e91b976e1ea56bb6aa964c0c86816a4_cgraph" id="group___p_o_w_e_r___n_o_d_e_____n_e_t_w_o_r_k_____r_x_ga0e91b976e1ea56bb6aa964c0c86816a4_cgraph">
+<area shape="rect" id="node2" href="power__core_8h.html#aa0e786856f04f63203a0bc6bfb4966f2" title="ToDo. " alt="" coords="309,5,491,32"/>
+<area shape="rect" id="node3" href="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_____m_e_m_o_r_y.html#ga38b47c6cbae8a24976c52dcc65af20a3" title="Set the ROMID in memory. " alt="" coords="299,57,501,98"/>
+<area shape="rect" id="node4" href="group___p_o_w_e_r___n_o_d_e_____b_a_t_t_e_r_y___t_e_m_p_____m_e_m_o_r_y.html#ga9bd5513c7c047105283383c065d9b08a" title="Set the misc user data. " alt="" coords="299,122,501,163"/>
+<area shape="rect" id="node5" href="group___p_o_w_e_r___n_o_d_e_____b_m_s.html#ga304e1f0c75181b673480b1d2a4fa4733" title="ToDo. " alt="" coords="304,187,496,229"/>
+<area shape="rect" id="node6" href="group___p_o_w_e_r___n_o_d_e_____b_m_s.html#ga5845fa853167776029de90800e8edf44" title="Stop balance immediate. " alt="" coords="287,253,513,280"/>
+<area shape="rect" id="node7" href="group___p_o_w_e_r___n_o_d_e_____d_c___c_o_n_v_e_r_t_e_r.html#ga0f5d08c8242721217443492c97facde5" title="ToDo. " alt="" coords="317,304,483,331"/>
+<area shape="rect" id="node8" href="group___p_o_w_e_r___n_o_d_e_____d_c___c_o_n_v_e_r_t_e_r.html#ga5e25f972ace131166cf265ca8d04e356" title="Execute pod safe. " alt="" coords="293,355,507,381"/>
+<area shape="rect" id="node9" href="group___p_o_w_e_r___n_o_d_e_____d_c___c_o_n_v_e_r_t_e_r.html#ga38a95933068c638804174fb4c81a8236" title="To implement pod safe, first we need to unlock the function with a separate command This will provent..." alt="" coords="305,406,495,447"/>
+<area shape="rect" id="node10" href="group___p_o_w_e_r___n_o_d_e_____c_h_a_r_g_e_r.html#ga52624fa789e9434f98f29b8047f9bf3e" title="ToDo. " alt="" coords="313,471,487,513"/>
+<area shape="rect" id="node11" href="group___p_o_w_e_r___n_o_d_e_____c_h_a_r_g_e_r.html#gaa3cc8ced4726ca6ec768128099f4d172" title="ToDo. " alt="" coords="314,537,486,578"/>
+<area shape="rect" id="node12" href="group___p_o_w_e_r___n_o_d_e_____s_t_a_t_e___m_a_c_h_i_n_e.html#ga672a450d7a4b982afcf732c5c731670b" title="call this to configure charging state. " alt="" coords="312,602,488,643"/>
+<area shape="rect" id="node13" href="group___p_o_w_e_r___n_o_d_e_____s_t_a_t_e___m_a_c_h_i_n_e.html#ga7e7bcda78dca82e89cd0d8c0dec20c35" title="stop charging immediate " alt="" coords="289,667,511,709"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ga264930075913f81913dd2a1ef5bf332b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vPWRNODE_NET_RX__RxUDP </td>
+          <td>(</td>
+          <td class="paramtype">Luint8 *&#160;</td>
+          <td class="paramname"><em>pu8Buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Luint16&#160;</td>
+          <td class="paramname"><em>u16Length</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Luint16&#160;</td>
+          <td class="paramname"><em>u16DestPort</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rx a standard UDP packet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">u16DestPort</td><td>The desination UDP port </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u16Length</td><td>The UDP Length </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*pu8Buffer</td><td>Pointer to the UDP packet data </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>SafeTool Function MD5:</dt><dd>846C8A515C3244ECDD1DA5B609B8C1E7 </dd></dl>
+<dl class="section user"><dt>SafeTool Function ID:</dt><dd>LCCM653R0.FILE.018.FUNC.001 </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="gaf56db0ececc05f4ec2d362cfdf6e5015"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="struct__str_p_w_r_n_o_d_e.html">_strPWRNODE</a> sPWRNODE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="group___p_o_w_e_r___n_o_d_e_____n_e_t_w_o_r_k_____r_x.html#ga0e91b976e1ea56bb6aa964c0c86816a4">vPWRNODE_NET_RX__RxSafeUDP()</a>.</p>
+
+</div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->

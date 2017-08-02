@@ -61,7 +61,7 @@ void vPWRNODE_NODEPRESS__Process(void)
  * Return the node pressure in Bar
  *
  * @return			The most recent pressure sample.
- * @st_funcMD5		70C54965EA46ECDD79FCC81F477BA2B4
+ * @st_funcMD5		0748B93E24608CC0971FB005AFCDF812
  * @st_funcID		LCCM653R0.FILE.006.FUNC.003
  */
 Lfloat32 f32PWRNODE_NODEPRESS__Get_Pressure_Bar(void)

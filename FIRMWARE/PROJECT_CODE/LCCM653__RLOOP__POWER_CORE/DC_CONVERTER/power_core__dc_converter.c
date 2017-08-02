@@ -30,7 +30,7 @@ static void vPWRNODE_DC__Power_Off(void);
  * @brief
  * Init the DC/DC Converter system
  * 
- * @st_funcMD5		620C799234B5B3567ADDF656945DDB19
+ * @st_funcMD5		03C5B47F8AC73AE6C19CF6ACC65B5FB2
  * @st_funcID		LCCM653R0.FILE.021.FUNC.001
  */
 void vPWRNODE_DC__Init(void)
@@ -57,7 +57,7 @@ void vPWRNODE_DC__Init(void)
  * @brief
  * Process the DC/DC converter control
  * 
- * @st_funcMD5		0EFE25E73A8AE12AE86AD3975F0A8D52
+ * @st_funcMD5		ED67B9BE6929E2BDFF7700E07B296503
  * @st_funcID		LCCM653R0.FILE.021.FUNC.002
  */
 void vPWRNODE_DC__Process(void)
@@ -151,6 +151,14 @@ void vPWRNODE_DC__Process(void)
 
 }
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u32Key		## Desc ##
+ * @st_funcMD5		E2B6001DE811C97DECC3E37BB4314D81
+ * @st_funcID		LCCM653R0.FILE.021.FUNC.009
+ */
 void vPWRNODE_DC__Latch(Luint32 u32Key)
 {
 
@@ -178,7 +186,7 @@ void vPWRNODE_DC__Latch(Luint32 u32Key)
  * This will provent spurious safes.
  *
  * @param[in]		u32UnlockKey			The key, should be ABCD1298
- * @st_funcMD5		13855F3831AD134B745053EB8442E3B7
+ * @st_funcMD5		430ED2B41CF6301D6D45283A2F1EB803
  * @st_funcID		LCCM653R0.FILE.021.FUNC.003
  */
 void vPWRNODE_DC__Pod_Safe_Unlock(Luint32 u32UnlockKey)

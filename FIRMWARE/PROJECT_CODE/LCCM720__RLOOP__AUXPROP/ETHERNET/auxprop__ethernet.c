@@ -246,12 +246,12 @@ void vAPU_ETH__Transmit(E_NET__PACKET_T ePacketType)
  * @brief
  * Rx a safety udp packet.
  * 
- * @param[in]		u16Fault			Fault types
- * @param[in]		u16DestPort			Target port
- * @param[in]		ePacketType			Packet type
+ * @param[in]		u16Fault				Fault types
+ * @param[in]		u16DestPort				Target port
+ * @param[in]		ePacketType				Packet type
  * @param[in]		u16PayloadLength		Length of payload
- * @param[in]		*pu8Payload			Pointer to payload
- * @st_funcMD5		B80AFD376EA9B85ACF09A7A5C9EEE278
+ * @param[in]		*pu8Payload				Pointer to payload
+ * @st_funcMD5		E05CE7EB54B2F6532875CC93B6DAB7BD
  * @st_funcID		LCCM720R0.FILE.011.FUNC.005
  */
 void vAPU_ETH__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)

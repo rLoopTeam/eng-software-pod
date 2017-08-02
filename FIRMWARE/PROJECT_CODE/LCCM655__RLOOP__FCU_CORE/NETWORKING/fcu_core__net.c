@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * Inits the ethernet networking
  * Sets our IP and MAC addresses for this hardware and starts up ethernet
  * 
- * @st_funcMD5		2A8E34802AC9AAAC87736EE78F59E1F1
+ * @st_funcMD5		13A035336C96D72DBAFD7A5F41412935
  * @st_funcID		LCCM655R0.FILE.016.FUNC.001
  */
 void vFCU_NET__Init(void)
@@ -75,7 +75,7 @@ void vFCU_NET__Init(void)
  * This also calls the EMAC link state machine which processes the EMAC link
  * and handles bringing the EMAC on line.
  * 
- * @st_funcMD5		BBC84C1B1C55F122903F8D7CABFCFD50
+ * @st_funcMD5		7B2AF3925C7CFC0E6ABD265C1AAC7F6B
  * @st_funcID		LCCM655R0.FILE.016.FUNC.002
  */
 void vFCU_NET__Process(void)

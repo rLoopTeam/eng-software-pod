@@ -33,7 +33,7 @@ void vLGU_ETH__Transmit(E_NET__PACKET_T ePacketType);
  * @brief
  * Init the Eth subsystem
  * 
- * @st_funcMD5		DF37822D306D57B60DD7EF8D2DCDF843
+ * @st_funcMD5		C3B4CC3A5109238CBBFF035E96BE38B9
  * @st_funcID		LCCM667R0.FILE.009.FUNC.001
  */
 void vLGU_ETH__Init(void)
@@ -77,7 +77,7 @@ void vLGU_ETH__Init(void)
  * @brief
  * Process any ethernet tasks
  * 
- * @st_funcMD5		CDCF4D90003A754FEAF1AD80C80D7BB6
+ * @st_funcMD5		9E5A0DA7B9FA07D662950116C2EDEE30
  * @st_funcID		LCCM667R0.FILE.009.FUNC.002
  */
 void vLGU_ETH__Process(void)
@@ -142,12 +142,17 @@ void vLGU_ETH__Process(void)
 	{
 		//not ready for ethernet yet
 	}
-
-
-
-
 }
 
+
+/***************************************************************************//**
+ * @brief
+ * Transmit an ethernet packet
+ * 
+ * @param[in]		ePacketType				The packet type
+ * @st_funcMD5		CC9DE3848062E90EC70C3EBD67FDEF34
+ * @st_funcID		LCCM667R0.FILE.009.FUNC.006
+ */
 void vLGU_ETH__Transmit(E_NET__PACKET_T ePacketType)
 {
 
@@ -323,12 +328,12 @@ void vLGU_ETH__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPort)
  * @brief
  * Rx a safety udp packet.
  * 
- * @param[in]		u16Fault			Fault types
- * @param[in]		u16DestPort			Target port
- * @param[in]		ePacketType			Packet type
+ * @param[in]		u16Fault				Fault types
+ * @param[in]		u16DestPort				Target port
+ * @param[in]		ePacketType				Packet type
  * @param[in]		u16PayloadLength		Length of payload
- * @param[in]		*pu8Payload			Pointer to payload
- * @st_funcMD5		42FF91ADE1E4D4C9FD3B3BA11BC14CE1
+ * @param[in]		*pu8Payload				Pointer to payload
+ * @st_funcMD5		364C34B3EF4080FBC3AAD1C371F7F1C3
  * @st_funcID		LCCM667R0.FILE.009.FUNC.005
  */
 void vLGU_ETH__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)
@@ -399,6 +404,13 @@ void vLGU_ETH__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 e
 	
 }
 
+/***************************************************************************//**
+ * @brief
+ * 10ms Interrupt
+ * 
+ * @st_funcMD5		4FA4E1AC352E516A4F7E399CF5EFE075
+ * @st_funcID		LCCM667R0.FILE.009.FUNC.007
+ */
 void vLGU_ETH__10MS_ISR(void)
 {
 	sLGU.sUDPDiag.u810MS_Flag = 1U;

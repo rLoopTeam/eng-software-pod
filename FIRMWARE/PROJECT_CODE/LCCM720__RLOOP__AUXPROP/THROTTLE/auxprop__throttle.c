@@ -29,7 +29,7 @@ extern TS_APU__MAIN sAPU;
  * @brief
  * Init the throttles
  * 
- * @st_funcMD5		87A73A82BFE6B5B9A8E3E6E5B37651B5
+ * @st_funcMD5		95B216A7663D18DBE6E204A91AFC15E8
  * @st_funcID		LCCM720R0.FILE.006.FUNC.001
  */
 void vAPU_THROTTLE__Init(void)
@@ -97,7 +97,7 @@ void vAPU_THROTTLE__Process(void)
  * Sets the velocity
  * 
  * @param[in]		u32Veloc_mms		Veloc in mm/sec
- * @st_funcMD5		BF7F67473C5A06EBB874D952714D35E2
+ * @st_funcMD5		DBF39EC993F3F976F8FE7DA3FCD67825
  * @st_funcID		LCCM720R0.FILE.006.FUNC.007
  */
 void vAPU_THROTTLE__Set_Velocity_mms(Luint32 u32Veloc_mms)
@@ -138,7 +138,7 @@ void vAPU_THROTTLE__Set_Velocity_mms(Luint32 u32Veloc_mms)
  * @brief
  * Set direction forward
  * 
- * @st_funcMD5		ADCAD8B592BB5D9743AB5113471541BE
+ * @st_funcMD5		A94C4E22E13B755B2FBD72B17913DB8F
  * @st_funcID		LCCM720R0.FILE.006.FUNC.003
  */
 void vAPU_THROTTLE__Forward(void)
@@ -161,7 +161,7 @@ void vAPU_THROTTLE__Forward(void)
  * @brief
  * Set direction in reverse
  * 
- * @st_funcMD5		00F1EFAD2D0FB25609A0B35A16CF8EE0
+ * @st_funcMD5		C3CCD4DB59AE6CF746A901B85FA4DC63
  * @st_funcID		LCCM720R0.FILE.006.FUNC.004
  */
 void vAPU_THROTTLE__Reverse(void)
@@ -184,7 +184,7 @@ void vAPU_THROTTLE__Reverse(void)
  * @brief
  * Enable the motor
  * 
- * @st_funcMD5		0CFE9413650B3DBFC02297CB55529079
+ * @st_funcMD5		9F19C707642E67D5DF1D7736BDF1DFDE
  * @st_funcID		LCCM720R0.FILE.006.FUNC.005
  */
 void vAPU_THROTTLE__Enable(void)
@@ -207,7 +207,7 @@ void vAPU_THROTTLE__Enable(void)
  * @brief
  * Disable the motor
  * 
- * @st_funcMD5		3B0D6C4E589C54C2A59A5895C0FC2457
+ * @st_funcMD5		DA3A68EBFEBAAF31186C99D255BC42B4
  * @st_funcID		LCCM720R0.FILE.006.FUNC.006
  */
 void vAPU_THROTTLE__Disable(void)

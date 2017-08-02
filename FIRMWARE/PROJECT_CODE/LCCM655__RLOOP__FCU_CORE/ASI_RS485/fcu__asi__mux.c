@@ -29,7 +29,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the multiplexer
  * 
- * @st_funcMD5		E700FA5BEB4A6F0ADA945455A48569E7
+ * @st_funcMD5		A6500A22CEB4BD0E15374C4FF64FF812
  * @st_funcID		LCCM655R0.FILE.070.FUNC.001
  */
 void vFCU_ASI_MUX__Init(void)
@@ -72,7 +72,7 @@ void vFCU_ASI_MUX__Process(void)
  * Selet the correct channel for the mux
  * 
  * @param[in]		u8ChannelIndex			The channel index
- * @st_funcMD5		EB7B3402EC920445295809F30788558B
+ * @st_funcMD5		786987109CD90A5702222FC24E19D899
  * @st_funcID		LCCM655R0.FILE.070.FUNC.003
  */
 void vFCU_ASI_MUX__SelectChannel(Luint8 u8ChannelIndex)

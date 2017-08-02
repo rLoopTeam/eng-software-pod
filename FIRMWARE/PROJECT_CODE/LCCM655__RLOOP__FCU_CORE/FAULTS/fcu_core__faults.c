@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the fault processing system
  * 
- * @st_funcMD5		5CF11A5E121D877F3D2EE0529551224C
+ * @st_funcMD5		315FD5AA53A663D44B912BC2D889CAFE
  * @st_funcID		LCCM655R0.FILE.022.FUNC.001
  */
 void vFCU_FAULTS__Init(void)
@@ -48,7 +48,7 @@ void vFCU_FAULTS__Init(void)
  * @brief
  * Process any faults
  * 
- * @st_funcMD5		BF2420870949587CB67641D07D3954DC
+ * @st_funcMD5		63C5D8FE5739541417C29CF3448BF7A1
  * @st_funcID		LCCM655R0.FILE.022.FUNC.002
  */
 void vFCU_FAULTS__Process(void)

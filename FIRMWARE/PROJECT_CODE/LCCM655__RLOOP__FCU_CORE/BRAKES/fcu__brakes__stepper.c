@@ -31,7 +31,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the stepper interface
  * 
- * @st_funcMD5		D30F783904FC50285A0DBBD96FACE951
+ * @st_funcMD5		82EF310377CC37926C5B5B85EBC7540F
  * @st_funcID		LCCM655R0.FILE.025.FUNC.001
  */
 void vFCU_BRAKES_STEP__Init(void)
@@ -103,7 +103,7 @@ void vFCU_BRAKES_STEP__Process(void)
  * Returns the current position of the lead screw for the brakes
  * 
  * @param[in]		eBrake				The brake index
- * @st_funcMD5		3BF5E1F91C16F1F30165C47A35510773
+ * @st_funcMD5		ECB078C68B997C76922FDE710ED8D5BB
  * @st_funcID		LCCM655R0.FILE.025.FUNC.003
  */
 Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake)
@@ -118,7 +118,7 @@ Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake)
  * 
  * @param[in]		s32Brake1Pos				Microns of brake pos R
  * @param[in]		s32Brake0Pos				Microns on brake pos L
- * @st_funcMD5		3B43DC76587675958F6129042FEBF569
+ * @st_funcMD5		3EA45F9C6480C598FE26185764B0A1F6
  * @st_funcID		LCCM655R0.FILE.025.FUNC.004
  */
 void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos)
@@ -170,6 +170,17 @@ void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos)
 
 
 //before we move check the values of the limit swtiches and if needed limit the move in one direction
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		ps32Brake1PosOut		## Desc ##
+ * @param[in]		ps32Brake0PosOut		## Desc ##
+ * @param[in]		s32Brake1PosIn		## Desc ##
+ * @param[in]		s32Brake0PosIn		## Desc ##
+ * @st_funcMD5		4F0CAC2E5EDC8F9A8F3EDF9CD8E43534
+ * @st_funcID		LCCM655R0.FILE.025.FUNC.005
+ */
 void vFCU_BRAKES_STEP__LimitMove(Lint32 s32Brake0PosIn, Lint32 s32Brake1PosIn, Lint32 *ps32Brake0PosOut, Lint32 *ps32Brake1PosOut)
 {
 
@@ -247,6 +258,16 @@ void vFCU_BRAKES_STEP__LimitMove(Lint32 s32Brake0PosIn, Lint32 s32Brake1PosIn, L
 
 
 //update the veloc and accel values.
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		s32Value		## Desc ##
+ * @param[in]		u32Type		## Desc ##
+ * @param[in]		u32Brake		## Desc ##
+ * @st_funcMD5		B120DC37AB061A4707E95BB97DE2067E
+ * @st_funcID		LCCM655R0.FILE.025.FUNC.006
+ */
 void vFCU_BRAKES_STEP__UpdateValues(Luint32 u32Brake, Luint32 u32Type, Lint32 s32Value)
 {
 

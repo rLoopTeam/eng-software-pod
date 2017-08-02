@@ -1759,6 +1759,31 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="bCRC_OK"></param>
  <param name="u32Sequence"></param>
 </member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Settings.FilePaths">
+ <summary>
+ File Path Locations settings
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Settings.FilePaths.#ctor(System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Settings.FilePaths.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Settings.FilePaths.Get__DataLogDir">
+ <summary>
+ Return the data logging directory
+ </summary>
+ <returns></returns>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Settings.Network">
  <summary>
  Network settings
@@ -1816,31 +1841,6 @@ LAPP188__RLOOP__RPOD_CONTROL
  </summary>
  <param name="sText"></param>
  <remarks></remarks>
-</member>
-<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Settings.FilePaths">
- <summary>
- File Path Locations settings
- </summary>
- <remarks></remarks>
-</member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Settings.FilePaths.#ctor(System.String)">
- <summary>
- New instance
- </summary>
- <param name="sPanelText"></param>
- <remarks></remarks>
-</member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Settings.FilePaths.LayoutPanel">
- <summary>
- Create our layout prior to being shown
- </summary>
- <remarks></remarks>
-</member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.Settings.FilePaths.Get__DataLogDir">
- <summary>
- Return the data logging directory
- </summary>
- <returns></returns>
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.XilinxSim.ContrastNav">
  <summary>

@@ -40,7 +40,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init any brakes variables, etc.
  * 
- * @st_funcMD5		5365FE6C1140E5A501525B2F171D7CEB
+ * @st_funcMD5		2F90CE074852B95337F5D5C7666DC804
  * @st_funcID		LCCM655R0.FILE.007.FUNC.001
  */
 void vFCU_BRAKES__Init(void)
@@ -91,7 +91,7 @@ void vFCU_BRAKES__Init(void)
  * @brief
  * Process any brakes tasks.
  * 
- * @st_funcMD5		4685D605141B18C8E55D1490ABB0DC0C
+ * @st_funcMD5		DAA9C7B260F462B16845D3B2D3C482CC
  * @st_funcID		LCCM655R0.FILE.007.FUNC.002
  */
 void vFCU_BRAKES__Process(void)
@@ -278,6 +278,13 @@ void vFCU_BRAKES__Process(void)
 
 //The purpose of this function is to handle detection of the end limit switches and set the brake screw positions
 //based on those limits.
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		173CA63464D0F06C93C2331B83D21BE3
+ * @st_funcID		LCCM655R0.FILE.007.FUNC.011
+ */
 void vFCU_BRAKES__Handle_Limit_Switches(void)
 {
 	//crude approach
@@ -332,7 +339,7 @@ void vFCU_BRAKES__Handle_Limit_Switches(void)
  * where they can be used.
  * 
  * @param[in]		u32Key				0x98765432U
- * @st_funcMD5		EE29EBB23A41C03E43DD253219CFD50C
+ * @st_funcMD5		5054C857308741B6FAB2374C62547989
  * @st_funcID		LCCM655R0.FILE.007.FUNC.009
  */
 void vFCU_BRAKES__Begin_Init(Luint32 u32Key)
@@ -511,6 +518,13 @@ void vFCU_BRAKES__100MS_ISR(void)
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		6D73494991EA8C73F2CBB41BEB9B362A
+ * @st_funcID		LCCM655R0.FILE.007.FUNC.012
+ */
 void vFCU_BRAKES__10MS_ISR(void)
 {
 	#if C_FCU_DAQ_SET__ENABLE__DAQ_FOR_BRAKES == 1U

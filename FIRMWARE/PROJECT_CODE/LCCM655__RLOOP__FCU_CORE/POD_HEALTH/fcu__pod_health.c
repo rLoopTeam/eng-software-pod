@@ -32,6 +32,13 @@ void vFCU_PODHEALTH__Set_FlagInRage__F32(Lfloat32 f32Value, Lfloat32 f32Min, Lfl
 
 
 //init the pod health system
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		3DC546ADC8B0B45C310F55BF2317E1B5
+ * @st_funcID		LCCM655R0.FILE.081.FUNC.001
+ */
 void vFCU_PODHEALTH__Init(void)
 {
 	//init
@@ -40,12 +47,19 @@ void vFCU_PODHEALTH__Init(void)
 }
 
 //process the health items
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		A7BAB7E3F5A7399BC1EC97869D225163
+ * @st_funcID		LCCM655R0.FILE.081.FUNC.002
+ */
 void vFCU_PODHEALTH__Process(void)
 {
 	Luint8 u8BatteryPack;
 	Luint8 u8Counter;
-/* 0	Battery Pack Average Max Temperature	0 to 50 °C	60 °C
- * 1	Max individual Battery cell temperature	0 to 50 °C	60 °C
+/* 0	Battery Pack Average Max Temperature	0 to 50 ï¿½C	60 ï¿½C
+ * 1	Max individual Battery cell temperature	0 to 50 ï¿½C	60 ï¿½C
  * 2	Battery Voltage	54V to 75.6V
  * 3	Cell Voltage Range	> 3.0 and < 4.2 V
  * 4	Battery Current	500A max
@@ -74,7 +88,7 @@ void vFCU_PODHEALTH__Process(void)
 
 /*
 	Hover Engines
-	5	Hover Engine temperature	0 to 80°C 	100 °C
+	5	Hover Engine temperature	0 to 80ï¿½C 	100 ï¿½C
 	6	Hover Engine current draw	100 A Max
 	7	Hover Engine input voltage draw	50-72 VDC
 	8	Hover Engine RPM	0 - 3000 RPM
@@ -99,7 +113,7 @@ void vFCU_PODHEALTH__Process(void)
 
 /*
 	9	Pressure Vessel Pressure	0.7 - 1.1 atm	0.4 atm	Repressurization of the pod is triggered at 0.6 atm and stops at 0.9 atm
-	10	Pressure Vessel Temperature	0 - 40 °C	60 °C
+	10	Pressure Vessel Temperature	0 - 40 ï¿½C	60 ï¿½C
 */
 	vFCU_PODHEALTH__Set_FlagInRage__F32(sFCU.sBMS[u8BatteryPack].f32PV_Press, 0.7F, 1.1F, C_FCU__POD_HEALTH_INDEX__PV_PRESS_RANGE);
 	vFCU_PODHEALTH__Set_FlagInRage__F32(sFCU.sBMS[u8BatteryPack].f32PV_Temp, 0.0F, 40.0F, C_FCU__POD_HEALTH_INDEX__PV_TEMP_RANGE);
@@ -108,6 +122,17 @@ void vFCU_PODHEALTH__Process(void)
 }
 
 //set a fault flag if NOT in range, clears it if back in range
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		u32FlagIndex		## Desc ##
+ * @param[in]		f32Max		## Desc ##
+ * @param[in]		f32Min		## Desc ##
+ * @param[in]		f32Value		## Desc ##
+ * @st_funcMD5		BE047727CE16C005E07E789529BB9DFE
+ * @st_funcID		LCCM655R0.FILE.081.FUNC.003
+ */
 void vFCU_PODHEALTH__Set_FlagInRage__F32(Lfloat32 f32Value, Lfloat32 f32Min, Lfloat32 f32Max, Luint32 u32FlagIndex)
 {
 	Luint32 u32Test;
@@ -125,6 +150,17 @@ void vFCU_PODHEALTH__Set_FlagInRage__F32(Lfloat32 f32Value, Lfloat32 f32Min, Lfl
 }
 
 //checks if we are in range, return 1 if NOT in range
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		f32Max		## Desc ##
+ * @param[in]		f32Min		## Desc ##
+ * @param[in]		f32Value		## Desc ##
+ * @return			## Desc ##
+ * @st_funcMD5		CD7042B17B5E9AC1BAAFF505F8CB7AF6
+ * @st_funcID		LCCM655R0.FILE.081.FUNC.004
+ */
 Luint32 u32FCU_PODHEALTH__Check_InRange_F32(Lfloat32 f32Value, Lfloat32 f32Min, Lfloat32 f32Max)
 {
 	Luint32 u32Return;
