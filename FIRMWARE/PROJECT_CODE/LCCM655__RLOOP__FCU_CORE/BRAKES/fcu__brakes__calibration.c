@@ -1,5 +1,24 @@
 /**
  * @file		FCU__BRAKES__CALIBRATION.C
+ *
+ *
+ * @note
+ * Revised brake calibration procedure:
+ *
+ * Position Considerations and terminolog
+ * 1. Fully extended brakes: Lead screw position is 0.0 mm, brake gap is 2.5 mm
+ * 2. Fully retracted brakes: Lead screw position is 75.0 mm, brake gap is 25.0 mm
+ *
+ * Procedure
+ * 1. Set both brake distances to 80mm. Note: Must both retract at the same time.
+ * 2. Allow both brakes to "retract" until the end stops are hit (interrupt limits)
+ * 3. On each end-stop, set the current brake position to 75.0mm
+ *
+ * Problems:
+ * The problems with this approach is the fine grained control of the 2.5mm brake distance.
+ * If the limit switches do not operate at 75.0mm, say 75.5mm then what is the effect on the 2.5mm tolerance requirement?
+ *
+ *
  * @brief		Brake Calibration Routines
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
@@ -226,8 +245,8 @@ void vFCU_BRAKES_CAL__Process(void)
 					s32Pos[FCU_BRAKE__RIGHT] = 80000;
 				}
 
-				//do not move the left brak
-				s32Pos[FCU_BRAKE__LEFT] = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__LEFT);;
+				//do not move the left brake
+				s32Pos[FCU_BRAKE__LEFT] = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__LEFT);
 
 				s32Velocity[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc / 10;
 				s32Velocity[1] = s32Velocity[0];
