@@ -54,6 +54,13 @@ struct
 #endif
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		6A4CB84AD7E29F47CCC6C975810677D3
+ * @st_funcID		LCCM655R0.FILE.090.FUNC.001
+ */
 void vFCU_FLIGHTCTL_BRAKEPID__Init(void)
 {
 	// set initial conditions for pid
@@ -62,6 +69,13 @@ void vFCU_FLIGHTCTL_BRAKEPID__Init(void)
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		AD54420EA2E65DED0BE6EF5E1F8175C1
+ * @st_funcID		LCCM655R0.FILE.090.FUNC.002
+ */
 void vFCU_FLIGHTCTL_BRAKEPID__Process(void)
 {
 //	Lint32 kp, ki, kd;
