@@ -97,7 +97,7 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
 
         End Sub
 
-#End Region
+#End Region '#Region "ADD PORTS"
 
 #Region "TRANSMIT"
         ''' <summary>
@@ -139,7 +139,7 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
 
         End Sub
 
-#End Region
+#End Region '#Region "TRANSMIT"
 
 #Region "RX HANDLERS"
 

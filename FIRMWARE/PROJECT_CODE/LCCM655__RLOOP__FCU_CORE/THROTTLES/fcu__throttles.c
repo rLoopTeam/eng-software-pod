@@ -437,8 +437,17 @@ Lfloat32 f32FCU_THROTTLE__RPM_To_Volts(Luint16 u16RPM)
 
 	//add zero offset
 	//for now add in 0.95V, actually 1.0v on the controller, but we don't want to have any issues
-	f32Temp += 0.95F;
 
+	//make sure if RPM = 0 then we are off
+	if(u16RPM == 0U)
+	{
+		f32Temp += 0.0F;
+
+	}
+	else
+	{
+		f32Temp += 0.95F;
+	}
 
 	return f32Temp;
 

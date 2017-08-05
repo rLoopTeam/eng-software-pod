@@ -164,20 +164,13 @@
             Dim l10 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Module Flags")
             l10.Layout__BelowControl(btnRequest)
             Me.m_txtThrottleFlags = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l10)
-
-            Me.m_txtThrottleFlags.Flags__Add("GENERAL")
-            Me.m_txtThrottleFlags.Flags__Add("AMC7812 FAULT")
-            Me.m_txtThrottleFlags.Flags__Add("INDEXING FAULT")
-            Me.m_txtThrottleFlags.Flags__Add("THROTTLE NOT IN RUN MODE")
-            Me.m_txtThrottleFlags.Flags__Add("DEV MODE ENABLED")
+            Me.m_txtThrottleFlags.FlagsFile__Read("../../../../FIRMWARE/PROJECT_CODE/LCCM655__RLOOP__FCU_CORE/THROTTLES/fcu__throttles__fault_flags.h", "THROTTLES")
 
 
             Dim l11 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("AMC7812 Flags")
             l11.Layout__AboveRightControl(l10, Me.m_txtThrottleFlags)
             Me.m_txtAMC7812Flags = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l11)
-            Me.m_txtThrottleFlags.Flags__Add("GENERAL")
-            Me.m_txtThrottleFlags.Flags__Add("DAC INDEXING FAULT ")
-            Me.m_txtThrottleFlags.Flags__Add("I2C FAULT")
+            Me.m_txtAMC7812Flags.FlagsFile__Read("../../../../FIRMWARE/COMMON_CODE/MULTICORE/LCCM658__MULTICORE__AMC7812/amc7812__fault_flags.h", "CORE")
 
 
 

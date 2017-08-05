@@ -221,12 +221,6 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 				#endif
 				break;
 
-			case NET_PKT__PWR_GEN__COOLING:
-				#if C_LOCALDEF__LCCM653__ENABLE_COOLING == 1U
-					vPWR_COOLING__Enable(u32Block[0]);
-				#endif
-				break;
-
 			case NET_PKT__PWR_GEN__POWER_PERSONALITY:
 
 				//personality key
@@ -290,44 +284,8 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 				#endif
 				break;
 
-			case NET_PKT__PWR_COOLING__REQ_COOLING:
-				#if C_LOCALDEF__LCCM653__ENABLE_COOLING == 1U
-					sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__PWR_COOLING__TX_COOLING_STATUS;
-				#endif
-				break;
-
 			case NET_PKT__PWR_BMS__REQ_BMS:
 				sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__PWR_BMS__TX_BMS_STATUS;
-				break;
-
-			case NET_PKT__PWR_COOLING__RX_TEST_COOLING_01:
-				#if C_LOCALDEF__LCCM653__ENABLE_COOLING == 1U
-					sPWRNODE.sCooling.eMainState = COOLING_STATE__STARTTESTING_01;
-				#endif
-				break;
-
-			case NET_PKT__PWR_COOLING__RX_TEST_COOLING_02:
-				#if C_LOCALDEF__LCCM653__ENABLE_COOLING == 1U
-					sPWRNODE.sCooling.eMainState = COOLING_STATE__STARTTESTING_02;
-				#endif
-				break;
-
-			case NET_PKT__PWR_COOLING__RX_TEST_COOLING_03:
-				#if C_LOCALDEF__LCCM653__ENABLE_COOLING == 1U
-					sPWRNODE.sCooling.eMainState = COOLING_STATE__STARTTESTING_03;
-				#endif
-				break;
-
-			case NET_PKT__PWR_COOLING__RX_TEST_COOLING_04:
-				#if C_LOCALDEF__LCCM653__ENABLE_COOLING == 1U
-					sPWRNODE.sCooling.eMainState = COOLING_STATE__STARTTESTING_04;
-				#endif
-				break;
-
-			case NET_PKT__PWR_COOLING__RX_TEST_COOLING_05:
-				#if C_LOCALDEF__LCCM653__ENABLE_COOLING == 1U
-					sPWRNODE.sCooling.eMainState = COOLING_STATE__STARTTESTING_05;
-				#endif
 				break;
 
 			case NET_PKT__PWR_BMS__SET_CHG_VALUES:

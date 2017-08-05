@@ -69,9 +69,6 @@
 			/** Data ready due to interrupt called */
 			Luint8 u8Interrupt;
 
-			/** Set to 1 to inhibit the interrupt during a read */
-			Luint8 u8InterruptInhibit;
-
 			/** The count of interrupts last seen */
 			Luint32 u32InterruptLastSeen;
 

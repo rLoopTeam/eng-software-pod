@@ -77,46 +77,8 @@ void vFCU_FCTL_MAINSM__Process(void)
 			//init the auto sequence
 			vFCU_MAINSM_AUTO__Init();
 
-			//pusher
-			#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
-				vFCU_PUSHER__Init();
-			#endif
-
-			//laser contrast sensors
-			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
-				vFCU_LASERCONT__Init();
-			#endif
 
 
-			//init the brake systems
-			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-				vFCU_BRAKES__Init();
-			#endif
-
-			//Init the throttles
-			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
-				vFCU_THROTTLE__Init();
-			#endif
-
-			//init the ASI RS485 interface
-			#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
-				vFCU_ASI__Init();
-			#endif
-
-			//init the acclerometer system
-			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
-				vFCU_ACCEL__Init();
-			#endif
-
-			//laser opto's
-			#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
-				vFCU_LASEROPTO__Init();
-			#endif
-
-			//PiComms Layer
-			#if C_LOCALDEF__LCCM655__ENABLE_PI_COMMS == 1U
-				vFCU_PICOMMS__Init();
-			#endif
 
 			//finally init the flight controller
 			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
@@ -154,53 +116,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 		//LG
 		vFCU_FCTL__Process();
 
-		//process the SC16IS interface always
-		#if C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE == 1U
-			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM487__NUM_DEVICES; u8Counter++)
-			{
-				vSIL3_SC16__Process(u8Counter);
-			}
-		#endif
-
-		// process the AMC7812
-		// process the throttles
-		#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
-			vFCU_THROTTLE__Process();
-			vAMC7812__Process();
-		#endif
-
-		#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
-			vFCU_LASEROPTO__Process();
-		#endif
-
-		//laser orientation
-		#if C_LOCALDEF__LCCM655__ENABLE_ORIENTATION == 1U
-			vFCU_LASER_ORIENTATION__Process();
-		#endif
-
-		#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
-			vFCU_LASERCONT__Process();
-		#endif
 
 
-		#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
-			vFCU_PUSHER__Process();
-		#endif
 
-		//process the brakes.
-		#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-			vFCU_BRAKES__Process();
-		#endif
 
-		//process the accel channels
-		#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
-			vFCU_ACCEL__Process();
-		#endif
-
-		//ASI RS485 interface
-		#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
-			vFCU_ASI__Process();
-		#endif
 
 		#if C_LOCALDEF__LCCM655__ENABLE_GEOM == 1U
 			vFCU_GEOM__Process();

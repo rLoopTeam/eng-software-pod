@@ -13,7 +13,7 @@
         ''' </summary>
         Private Const C_NUM_ACCELS As Integer = 2
 
-        Private Const C_ACCEL_FREQ_HZ As Integer = 100
+        Private Const C_ACCEL_FREQ_HZ As Integer = 50
 
 #End Region '#Region "CONSTANTS"
 
@@ -62,8 +62,10 @@
 
             Me.m_pDAQ = New LAPP188__RLOOP__LIB.SIL3.DAQ.Top()
 
-            'add the contrast DAQ items
             Me.m_pDAQ.DAQ__Set_LogFilePath(Me.m_sLogDir)
+
+
+
 
         End Sub
 #End Region '#Region "NEW"

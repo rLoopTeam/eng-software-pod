@@ -438,6 +438,9 @@ RTI MODULE
 		 * */
 		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(25U)
 
+		/** RTCLK0 feeds counter 0 and is used for general purpose compare times */
+		#define C_LOCALDEF__LCCM124__RTI_COUNTER0_PRESCALER					(10U)
+
 		/** RTCLK1 feeds counter 1 and can be used for 64bit timing */
 		#define C_LOCALDEF__LCCM124__RTI_COUNTER1_PRESCALER					(1U)
 

@@ -23,7 +23,7 @@ extern struct _strFCU sFCU;
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Init the ethernet
  * 
  * @st_funcMD5		5B1DE8A3F401FB4A50E331F747199F27
  * @st_funcID		LCCM655R0.FILE.018.FUNC.003
@@ -505,17 +505,17 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 			case NET_PKT__FCU_ASI__SET_THROTTLE:
 
-				//Change the throttle.
-                #if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+				//Change the throttle over the ASI interface
+                #if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
                     if(u32Block[0] == 0x12123434U)
                     {
-                        vFCU_ASI__Set_Throttle((Luint8)u32Block[1], (Luint16)u32Block[1]);
+                        	vFCU_ASI__Set_Throttle((Luint8)u32Block[1], (Luint16)u32Block[1]);
                     }
                     else
                     {
                         //not for us
                     }
-                #endif//C_LOCALDEF__LCCM655__ENABLE_THROTTLE
+                #endif//C_LOCALDEF__LCCM655__ENABLE_ASI_RS485
                 break;
 
 			case NET_PKT__FCU_GEN__ENTER_PRE_RUN_PHASE_COMMAND:

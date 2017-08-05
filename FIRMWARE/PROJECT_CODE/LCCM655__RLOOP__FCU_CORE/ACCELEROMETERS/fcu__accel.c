@@ -148,6 +148,7 @@ void vFCU_ACCEL__Process(void)
 	MMA8451__AXIS_E eTargetAxis;
 	Lint32 s32Axis_To_ms;
 	Lint32 s32Temp;
+	Lfloat32 f32Temp;
 
 	//depending on the orientation of the hardware
 	eTargetAxis = MMA8451_AXIS__Y;
@@ -202,34 +203,37 @@ void vFCU_ACCEL__Process(void)
 																									C_FCU__ACCEL_FILTER_WINDOW,
 																									&sFCU.sAccel.sChannels[u8Counter].s16FilterValues[0]);
 
-				//Convert into m/s
-				//s32Temp = sFCU.sAccel.sChannels[u8Counter].s16LastSample[(Luint8)eTargetAxis];
-				s32Temp = sFCU.sAccel.sChannels[u8Counter].s16FilteredResult;
+				//Get the current filtered value in accel units
+				f32Temp = (Lfloat32)sFCU.sAccel.sChannels[u8Counter].s16FilteredResult;
+
+				//convert this raw value into G-Force
+				f32Temp /= (Lfloat32)s32Axis_To_ms;
 
 				//todo
 				//pitch angle offset in data.
 
-				//9.80665 * 1000 (mm/sec)
-				s32Temp *= 9807;
+				//convert g-force into meters / sec^2
+				f32Temp *= 9.80665F;
 
-				//take out the accel scale
-				s32Temp /= s32Axis_To_ms;
+				//convert m/s into mm/sec
+				f32Temp *= 1000.0F;
 
 				//assign
-				sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mmss = s32Temp;
+				sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mmss = (Lint32)f32Temp;
 
 				//at this point here we have raw acceleration units updating every 1/freq
 
 				//convert to mm/100th's (or what-ever the data rate is)
-				//This is the same as a*t
-				s32Temp /= (Lint32)C_LOCALDEF__LCCM418__DEV0__DATA_RATE_HZ;
+				//This is the same as a*t where T = 1/Freq
+				//Assume this value is 100HZ
+				f32Temp /= (Lfloat32)C_LOCALDEF__LCCM418__DEV0__DATA_RATE_HZ;
 
 				//v = u + at
 				//where u = prev sample and t = time slice
-				s32Temp += sFCU.sAccel.sChannels[u8Counter].s32PrevVeloc_mms;
+				f32Temp += (Lfloat32)sFCU.sAccel.sChannels[u8Counter].s32PrevVeloc_mms;
 
 				//assign
-				sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms = s32Temp;
+				sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms = (Lint32)f32Temp;
 
 				//assing prev (u)
 				sFCU.sAccel.sChannels[u8Counter].s32PrevVeloc_mms = sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms;
@@ -246,9 +250,9 @@ void vFCU_ACCEL__Process(void)
 				switch(u8Counter)
 				{
 					case 0:
-						vDAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0X_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__X]);
-						vDAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0Y_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Y]);
-						vDAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0Z_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Z]);
+						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0X_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__X]);
+						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0Y_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Y]);
+						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0Z_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Z]);
 
 						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_ACCEL_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mmss);
 						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_VELOC_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms);
@@ -256,9 +260,9 @@ void vFCU_ACCEL__Process(void)
 						break;
 
 					case 1:
-						vDAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1X_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__X]);
-						vDAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1Y_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Y]);
-						vDAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1Z_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Z]);
+						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1X_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__X]);
+						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1Y_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Y]);
+						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1Z_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Z]);
 
 						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_ACCEL_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mmss);
 						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_VELOC_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms);

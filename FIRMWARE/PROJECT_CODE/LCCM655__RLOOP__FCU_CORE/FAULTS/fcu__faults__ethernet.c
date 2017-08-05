@@ -110,12 +110,22 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				}
 
 				//ASI
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sASI.sFaultFlags.u32Flags[0]);
-				pu8Buffer += 4U;
+				#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sASI.sFaultFlags.u32Flags[0]);
+					pu8Buffer += 4U;
+				#else
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
+					pu8Buffer += 4U;
+				#endif
 
 				//Brakes
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sBrakesGlobal.sFaultFlags.u32Flags[0]);
-				pu8Buffer += 4U;
+				#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sBrakesGlobal.sFaultFlags.u32Flags[0]);
+					pu8Buffer += 4U;
+				#else
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
+					pu8Buffer += 4U;
+				#endif
 
 				//DAQ
 				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
@@ -123,31 +133,58 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 				//laser contrast sensors
 				//Top Level
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sFaultFlags.u32Flags[0]);
-				pu8Buffer += 4U;
-
-				//each sensor
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sSensors[0].sFaultFlags.u32Flags[0]);
-				pu8Buffer += 4U;
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sSensors[1].sFaultFlags.u32Flags[0]);
-				pu8Buffer += 4U;
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sSensors[2].sFaultFlags.u32Flags[0]);
-				pu8Buffer += 4U;
-
-				//laser distance
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
-				pu8Buffer += 4U;
-
-				//optos, top level
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sFaultFlags.u32Flags[0]);
-				pu8Buffer += 4U;
-
-				for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
-				{
-					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Counter].sFaultFlags.u32Flags[0]);
+				#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sFaultFlags.u32Flags[0]);
 					pu8Buffer += 4U;
 
-				}
+					//each sensor
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sSensors[0].sFaultFlags.u32Flags[0]);
+					pu8Buffer += 4U;
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sSensors[1].sFaultFlags.u32Flags[0]);
+					pu8Buffer += 4U;
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sContrast.sSensors[2].sFaultFlags.u32Flags[0]);
+					pu8Buffer += 4U;
+				#else
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
+					pu8Buffer += 4U;
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
+					pu8Buffer += 4U;
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
+					pu8Buffer += 4U;
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
+					pu8Buffer += 4U;
+				#endif
+
+				//laser distance
+				#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
+					pu8Buffer += 4U;
+
+					//optos, top level
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sFaultFlags.u32Flags[0]);
+					pu8Buffer += 4U;
+
+					for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+					{
+						vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Counter].sFaultFlags.u32Flags[0]);
+						pu8Buffer += 4U;
+
+					}
+				#else
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
+					pu8Buffer += 4U;
+
+					//optos, top level
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
+					pu8Buffer += 4U;
+
+					for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+					{
+						vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
+						pu8Buffer += 4U;
+
+					}
+				#endif
 
 				//10
 				//networking
@@ -155,8 +192,13 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 
 				//pusher
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sPusher.sFaultFlags.u32Flags[0]);
-				pu8Buffer += 4U;
+				#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sPusher.sFaultFlags.u32Flags[0]);
+					pu8Buffer += 4U;
+				#else
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
+					pu8Buffer += 4U;
+				#endif
 
 
 

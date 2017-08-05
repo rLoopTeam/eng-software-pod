@@ -51,7 +51,7 @@ void vAMC7812_I2C__Init(void)
  * @st_funcMD5		94DBEFC252BD4681DDFBF7CC6BA1BA9F
  * @st_funcID		LCCM647R0.FILE.003.FUNC.001
  */
-Lint16 s16AMC7812_I2C__TxCommand(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx)
+Lint16 s16AMC7812_I2C__TxCommand(Luint8 u8DeviceAddx, TE_AMC7812__REG_ADDX eReg)
 {
 	Lint16 s16Return;
 
@@ -60,7 +60,7 @@ Lint16 s16AMC7812_I2C__TxCommand(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx)
 	// write to control register to issue command
 
 	s16Return = -1;
-	s16Return = s16RM4_I2C_USER__TxReg(RM4_I2C_CH__1, u8DeviceAddx, u8RegisterAddx);
+	s16Return = s16RM4_I2C_USER__TxReg(RM4_I2C_CH__1, u8DeviceAddx, (Luint8)eReg);
 
 #else
 	//fake on win32
@@ -84,7 +84,7 @@ Lint16 s16AMC7812_I2C__TxCommand(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx)
  * @st_funcMD5		38D53C2150F57C2A737B0B6DFE011F2D
  * @st_funcID		LCCM658R0.FILE.005.FUNC.002
  */
-Lint16 s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint16 u16Value)
+Lint16 s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, TE_AMC7812__REG_ADDX eReg, Luint16 u16Value)
 {
 
 	Luint8 u8Array[2];
@@ -110,7 +110,7 @@ Lint16 s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luin
 
 	u8ArrayLength = 2U;
 	s16Return = -1;
-	s16Return = s16RM4_I2C_USER__Tx_U8Array(RM4_I2C_CH__1, u8DeviceAddx, u8RegisterAddx, &u8Array[0], u8ArrayLength);
+	s16Return = s16RM4_I2C_USER__Tx_U8Array(RM4_I2C_CH__1, u8DeviceAddx, (Luint8)eReg, &u8Array[0], u8ArrayLength);
 
 
 #else
@@ -132,7 +132,7 @@ Lint16 s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luin
  * @st_funcMD5		A419EC4615D15A7EF215C8AA3451DA57
  * @st_funcID		LCCM658R0.FILE.005.FUNC.003
  */
-Lint16 s16AMC7812_I2C__ReadU16(Luint8 u8DeviceAddx, Luint8 u8RegAddx, Luint16 *pu16Value)
+Lint16 s16AMC7812_I2C__ReadU16(Luint8 u8DeviceAddx, TE_AMC7812__REG_ADDX eReg, Luint16 *pu16Value)
 {
 
 	// declarations
@@ -154,7 +154,7 @@ Lint16 s16AMC7812_I2C__ReadU16(Luint8 u8DeviceAddx, Luint8 u8RegAddx, Luint16 *p
 
 	u8ArrayLength = 2U;
 
-	s16Return = s16RM4_I2C_USER__Rx_U8Array(RM4_I2C_CH__1, u8DeviceAddx, u8RegAddx, &u8Array[0], 	u8ArrayLength);
+	s16Return = s16RM4_I2C_USER__Rx_U8Array(RM4_I2C_CH__1, u8DeviceAddx, (Luint8)eReg, &u8Array[0], u8ArrayLength);
 
 	//Map
 	unT2.u8[1] = u8Array[0];

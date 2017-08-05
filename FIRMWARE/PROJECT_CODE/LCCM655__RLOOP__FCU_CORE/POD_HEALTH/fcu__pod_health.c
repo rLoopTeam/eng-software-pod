@@ -101,13 +101,13 @@ void vFCU_PODHEALTH__Process(void)
 		//C_FCU__POD_HEALTH_INDEX__HE_TEMP_RANGE
 
 		//I,V,RPM
-		vFCU_PODHEALTH__Set_FlagInRage__F32(sFCU.sASI.sHolding[u8Counter].f32MotorCurrentA, 0.0F, 100.0F, C_FCU__POD_HEALTH_INDEX__HE_CURRENT_RANGE);
+		//vFCU_PODHEALTH__Set_FlagInRage__F32(sFCU.sASI.sHolding[u8Counter].f32MotorCurrentA, 0.0F, 100.0F, C_FCU__POD_HEALTH_INDEX__HE_CURRENT_RANGE);
 
 		//todo: volts
 		//C_FCU__POD_HEALTH_INDEX__HE_VOLT_RANGE
 		//vFCU_PODHEALTH__Set_FlagInRage__F32(sFCU.sASI[u8Counter].sHolding.f32TempC,
 
-		vFCU_PODHEALTH__Set_FlagInRage__F32((Lfloat32)sFCU.sASI.sHolding[u8Counter].u16RPM, 0.0F, 3000.0F, C_FCU__POD_HEALTH_INDEX__HE_RPM_RANGE);
+		//vFCU_PODHEALTH__Set_FlagInRage__F32((Lfloat32)sFCU.sASI.sHolding[u8Counter].u16RPM, 0.0F, 3000.0F, C_FCU__POD_HEALTH_INDEX__HE_RPM_RANGE);
 
 	}
 

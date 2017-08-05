@@ -43,15 +43,14 @@ void vAMC7812_LOWLEVEL__Init(void)
 	C_LOCALDEF__LCCM658__NRESET__LATCH(0U);
 
 	//reset the device
-	//vAMC7812_LOWLEVEL__Reset();
+	vAMC7812_LOWLEVEL__Reset();
 #endif //WIN32
 }
 
 
-//generate the reset pulse
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Generate the reset pulse
  * 
  * @st_funcMD5		216BD6A44B6E6DC1465E8A3CC27BCDC8
  * @st_funcID		LCCM658R0.FILE.004.FUNC.002
