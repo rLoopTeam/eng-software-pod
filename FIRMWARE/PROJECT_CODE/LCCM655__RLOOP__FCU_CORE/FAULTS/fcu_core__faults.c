@@ -69,7 +69,7 @@ void vFCU_FAULTS__Process(void)
 #endif
 
 	//ASI Subsystem
-#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+	#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
 	if(sFCU.sASI.sFaultFlags.u8FaultFlag == 1U)
 	{
 		vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__01);
@@ -78,7 +78,7 @@ void vFCU_FAULTS__Process(void)
 	{
 		//fall on
 	}
-#endif //C_LOCALDEF__LCCM655__ENABLE_THROTTLE
+	#endif //C_LOCALDEF__LCCM655__ENABLE_THROTTLE
 
 	//brakes
 #if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U

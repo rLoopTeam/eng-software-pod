@@ -13,6 +13,20 @@ Namespace SIL3.rLoop.rPodControl
 #Region "MEMBERS"
 
         ''' <summary>
+        ''' A UDP packet
+        ''' </summary>
+        Private Structure _strUDP
+            Dim eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS
+            Dim u16PacketType As UInt16
+            Dim u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16
+            Dim u8Payload() As Byte
+            Dim u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16
+            Dim bCRC_OK As Byte
+            Dim u32Sequence As UInt32
+        End Structure
+
+
+        ''' <summary>
         ''' The explorer bar
         ''' </summary>
         ''' <remarks></remarks>
@@ -66,6 +80,23 @@ Namespace SIL3.rLoop.rPodControl
         ''' <remarks></remarks>
         Private m_pSS As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.StatusStripHelper
 
+        ''' <summary>
+        ''' Dequeue our data
+        ''' </summary>
+        Private pDeQThread_Data As System.Threading.Thread
+
+        ''' <summary>
+        ''' The data capture queue
+        ''' </summary>
+        Private m_pQueue As Concurrent.ConcurrentQueue(Of _strUDP)
+
+        ''' <summary>
+        ''' Term the thread?
+        ''' </summary>
+        Private m_bTerminate As Boolean
+
+        Private m_iRx_FCU As Integer
+        Private m_iTx_FCU As Integer
 
 #End Region '#Region "MEMBERS"
 
@@ -117,6 +148,15 @@ Namespace SIL3.rLoop.rPodControl
             AddHandler Me.m_pEth.UserEvent__UDPSafe__RxPacketB, AddressOf Me.InternalEvent__UDPSafe__RxPacketB
             AddHandler Me.m_pEth.UserEvent__RxPacketA, AddressOf Me.InternalEvent__RxPacketA
 
+            'create the QUEUE
+            Me.m_pQueue = New Concurrent.ConcurrentQueue(Of _strUDP)
+
+
+            Me.pDeQThread_Data = New System.Threading.Thread(AddressOf Me.ThreadRun_DeQueue)
+            Me.pDeQThread_Data.Name = "RPOD__DATA_DEQUEUE"
+            Me.pDeQThread_Data.Start()
+
+
         End Sub
 
         ''' <summary>
@@ -124,10 +164,10 @@ Namespace SIL3.rLoop.rPodControl
         ''' </summary>
         ''' <remarks></remarks>
         Public Sub Destroy()
-
+            Me.m_bTerminate = True
             'Kill the eth interface
             Me.m_pEth.Destroy()
-
+            Me.pDeQThread_Data.Abort()
         End Sub
 
 #End Region '#Region "NEW"
@@ -157,7 +197,7 @@ Namespace SIL3.rLoop.rPodControl
 
 
             Me.m_pnlFlightControl = New SIL3.rLoop.rPodControl.Panels.FlightControl.Top(pForm, Me.m_pExplorer, Me.m_pnlSettings.Get__DataLogDir)
-            AddHandler Me.m_pnlFlightControl.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
+            AddHandler Me.m_pnlFlightControl.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4_FCU
             AddHandler Me.m_pnlFlightControl.UserEvent__SafeUDP__Tx_X3_Array, AddressOf Me.InternalEvent__SafeUDP__Tx_X3_Array
 
             Me.m_pnlLandingGear = New SIL3.rLoop.rPodControl.Panels.LandingGear.Top(pForm, Me.m_pExplorer)
@@ -178,6 +218,13 @@ Namespace SIL3.rLoop.rPodControl
 
             'Create the status strip helper.
             Me.m_pSS = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.StatusStripHelper(pForm)
+
+            'Make some panels
+            Me.m_pSS.Panel__Add("FCU: Rx: 00000, RxQ: 00000, Tx: 00000")
+            Me.m_pSS.Panel__Add("LGU: Rx: 00000, RxQ: 00000, Tx: 00000")
+            Me.m_pSS.Panel__Add("APU: Rx: 00000, RxQ: 00000, Tx: 00000")
+            Me.m_pSS.Panel__Add("GCU: Rx: 00000, RxQ: 00000, Tx: 00000")
+            Me.m_pSS.Panel__Add("HET: Rx: 00000, RxQ: 00000, Tx: 00000")
 
         End Sub
 
@@ -215,6 +262,12 @@ Namespace SIL3.rLoop.rPodControl
             Me.m_pEth.User__SafeUDP__Tx_X4(eEndpoint, u16Type, u32Block0, u32Block1, u32Block2, u32Block3)
         End Sub
 
+        Public Sub InternalEvent__SafeUDP__Tx_X4_FCU(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16Type As UInt16, u32Block0 As UInt32, u32Block1 As UInt32, u32Block2 As UInt32, u32Block3 As UInt32)
+            Me.m_iTx_FCU += 1
+            Me.m_pEth.User__SafeUDP__Tx_X4(eEndpoint, u16Type, u32Block0, u32Block1, u32Block2, u32Block3)
+        End Sub
+
+
         ''' <summary>
         ''' 3x Blocks and a array
         ''' </summary>
@@ -245,19 +298,21 @@ Namespace SIL3.rLoop.rPodControl
         ''' <param name="u32Sequence"></param>
         Private Sub InternalEvent__UDPSafe__RxPacketB(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16PacketType As UInt16, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
 
-            Select Case eEndpoint
-                Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM
-                    Me.m_pnlXilinxSim.InternalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC, bCRC_OK, u32Sequence)
-                Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU
-                    Me.m_pnlFlightControl.InternalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC, bCRC_OK, u32Sequence)
-                Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU
-                    Me.m_pnlLandingGear.InternalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC, bCRC_OK, u32Sequence)
-                Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__HETHERM
-                    Me.m_pnlHETherm.InternalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC, bCRC_OK, u32Sequence)
-                Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU
-                    Me.m_pnlAuxProp.InternalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC, bCRC_OK, u32Sequence)
+            Dim pX As _strUDP
 
-            End Select
+            pX.eEndpoint = eEndpoint
+            pX.u16PacketType = u16PacketType
+            pX.u16PayloadLength = u16PayloadLength
+
+            ReDim pX.u8Payload(u8Payload.Length - 1)
+            For iCounter As Integer = 0 To u8Payload.Length - 1
+                pX.u8Payload(iCounter) = u8Payload(iCounter)
+            Next
+            pX.u16CRC = u16CRC
+            pX.bCRC_OK = bCRC_OK
+            pX.u32Sequence = u32Sequence
+
+            Me.m_pQueue.Enqueue(pX)
 
         End Sub
 
@@ -275,6 +330,61 @@ Namespace SIL3.rLoop.rPodControl
         End Sub
 
 #End Region '#Region "ETHERNET RX"
+
+#Region "QUEUE"
+        ''' <summary>
+        ''' Gets the count of items in the queue
+        ''' </summary>
+        ''' <returns></returns>
+        Public Function Queue__GetCount() As Integer
+            Return Me.m_pQueue.Count
+        End Function
+
+        ''' <summary>
+        ''' Dequeue our data
+        ''' </summary>
+        Private Sub ThreadRun_DeQueue()
+
+            While True
+
+                If Me.m_bTerminate = True Then
+                    Exit Sub
+                End If
+
+                Dim pUDP As _strUDP = Nothing
+
+                'see if we have anything queued
+                If Me.m_pQueue.TryDequeue(pUDP) = True Then
+
+
+                    Select Case pUDP.eEndpoint
+                        Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM
+                            Me.m_pnlXilinxSim.InternalEvent__UDPSafe__RxPacketB(pUDP.u16PacketType, pUDP.u16PayloadLength, pUDP.u8Payload, pUDP.u16CRC, pUDP.bCRC_OK, pUDP.u32Sequence)
+
+                        Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU
+                            Me.m_pnlFlightControl.InternalEvent__UDPSafe__RxPacketB(pUDP.u16PacketType, pUDP.u16PayloadLength, pUDP.u8Payload, pUDP.u16CRC, pUDP.bCRC_OK, pUDP.u32Sequence)
+                            Me.m_iRx_FCU += 1
+                            Me.m_pSS.Panel__SetText(0, "FCU: Rx: " & Me.m_iRx_FCU.ToString("00000") & ", RxQ: " & Me.m_pQueue.Count.ToString("00000") & ", Tx: " & Me.m_iTx_FCU.ToString("00000"))
+
+                        Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU
+                            Me.m_pnlLandingGear.InternalEvent__UDPSafe__RxPacketB(pUDP.u16PacketType, pUDP.u16PayloadLength, pUDP.u8Payload, pUDP.u16CRC, pUDP.bCRC_OK, pUDP.u32Sequence)
+
+                        Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__HETHERM
+                            Me.m_pnlHETherm.InternalEvent__UDPSafe__RxPacketB(pUDP.u16PacketType, pUDP.u16PayloadLength, pUDP.u8Payload, pUDP.u16CRC, pUDP.bCRC_OK, pUDP.u32Sequence)
+
+                        Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU
+                            Me.m_pnlAuxProp.InternalEvent__UDPSafe__RxPacketB(pUDP.u16PacketType, pUDP.u16PayloadLength, pUDP.u8Payload, pUDP.u16CRC, pUDP.bCRC_OK, pUDP.u32Sequence)
+
+                    End Select
+
+                End If
+
+                System.Threading.Thread.Sleep(2)
+
+            End While
+        End Sub
+
+#End Region '#Region "QUEUE"
 
     End Class
 

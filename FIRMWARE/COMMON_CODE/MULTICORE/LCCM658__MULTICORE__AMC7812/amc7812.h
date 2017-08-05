@@ -41,46 +41,19 @@
 		#define C_AMC8172__DAC_PRECISION			(4096.0F)
 
 		/** Multiply volts by thsi value to get DAC units*/
-		#define C_AMC8172__DAC_SCALING_VALUE		(C_AMC8172__DAC_VREF_VOLTS / C_AMC8172__DAC_PRECISION)
+		#define C_AMC8172__DAC_SCALING_VALUE		(C_AMC8172__DAC_PRECISION / C_AMC8172__DAC_VREF_VOLTS)
 
 		// AMC7812 external control pins driven by RM48 N2HET1 and GIOA pins
-
-        #define RM48_N2HET1_PIN__AMC7812_HW_RESET      	(18U)
 
         #define RM48_N2HET1_PIN__AMC7812_CLR0      		(16U)
         #define RM48_N2HET1_PIN__AMC7812_CLR1      		(17U)
         #define RM48_N2HET1_PIN__AMC7812_CNVT      		(19U)
         #define RM48_GIOA_PIN__AMC7812_DAV      		(5U)
 
-		// power-down register address; see AMC7812 datasheet, Table 10, p. 50
 
-		#define AMC7812_REG_ADR__PWR_DWN				0x6B
-
-		// GPIO pin address
-
-		#define AMC7812_REG_ADR__GPIO 					0x4B
-
-		// Device ID address
-
-		#define AMC7812_REG_ADR__DEV_ID					0x6C
 
 		#define NUM_GPIO_PINS							(8U)
 
-		// Software reset register
-		#define AMC7812_DAC_REG__SW_RESET				0x7C
-
-		// Software clear register
-		#define AMC7812_DAC_REG__SW_DAC_CLR				0x55
-
-		// Hardware clear register
-		#define AMC7812_DAC_REG__HW_DAC_CLR_EN_0		0x56
-		#define AMC7812_DAC_REG__HW_DAC_CLR_EN_1		0x57
-
-		// DAC configuration register, sets synchronous/asynchronous mode
-		#define AMC7812_DAC_REG__CONFIG					0x58
-
-		// DAC Gains register
-		#define AMC7812_DAC_REG__GAINS					0x59
 
 		// DAC Vref (millivolts)
 		#define AMC7812_DAC_VREF						2500U
@@ -91,22 +64,76 @@
 		// DAC configuration mode flag: 0 for asynchronous, 1 for synchronous
 		#define	AMC7812_DAC_CONFIG_MODE_FLAG			0U
 
-		// enum type for  DAC 16-bit data registers
-		typedef enum AMC7812_DAC_DATA_REG_ADDRESSES
+		/** AMC7812 Registers */
+		typedef enum
 		{
-			AMC7812_REG_ADR__DAC_0_DATA = 0x33,		// address for AMC7812 DAC-0-OUT pin register (see Table 10, p. 60, AMC7812 Datasheet)
-			AMC7812_REG_ADR__DAC_1_DATA = 0x34,
-			AMC7812_REG_ADR__DAC_2_DATA = 0x35,
-			AMC7812_REG_ADR__DAC_3_DATA = 0x36,
-			AMC7812_REG_ADR__DAC_4_DATA = 0x37,
-			AMC7812_REG_ADR__DAC_5_DATA = 0x38,
-			AMC7812_REG_ADR__DAC_6_DATA = 0x39,
-			AMC7812_REG_ADR__DAC_7_DATA = 0x3A,
-			AMC7812_REG_ADR__DAC_8_DATA = 0x3B,
-			AMC7812_REG_ADR__DAC_9_DATA = 0x3C,
-			AMC7812_REG_ADR__DAC_10_DATA = 0x3D,
-			AMC7812_REG_ADR__DAC_11_DATA = 0x3E,
-		} E_AMC7812_DAC_DATA_REG_ADDRESSES;
+
+			AMC7812_REG_ADR__LT_TEMP_DATA = 0x00U,
+
+			AMC7812_REG_ADR__D1_TEMP_DATA = 0x01U,
+
+			AMC7812_REG_ADR__D2_TEMP_DATA = 0x02U,
+
+			AMC7812_REG_ADR__TEMP_CONFIG = 0x0AU,
+
+			AMC7812_REG_ADR__TEMP_CONVERT_RATE = 0x0BU,
+
+			AMC7812_REG_ADR__N_FACTOR_D1 = 0x21U,
+
+			AMC7812_REG_ADR__N_FACTOR_D2 = 0x022U,
+
+			AMC7812_REG_ADR__ADC0_DATA = 0x23U,
+			AMC7812_REG_ADR__ADC1_DATA = 0x24U,
+			AMC7812_REG_ADR__ADC2_DATA = 0x25U,
+			AMC7812_REG_ADR__ADC3_DATA = 0x26U,
+			AMC7812_REG_ADR__ADC4_DATA = 0x27U,
+			AMC7812_REG_ADR__ADC5_DATA = 0x28U,
+			AMC7812_REG_ADR__ADC6_DATA = 0x29U,
+			AMC7812_REG_ADR__ADC7_DATA = 0x2AU,
+			AMC7812_REG_ADR__ADC8_DATA = 0x2BU,
+			AMC7812_REG_ADR__ADC9_DATA = 0x2CU,
+			AMC7812_REG_ADR__ADC10_DATA = 0x2DU,
+			AMC7812_REG_ADR__ADC11_DATA = 0x2EU,
+			AMC7812_REG_ADR__ADC12_DATA = 0x2FU,
+			AMC7812_REG_ADR__ADC13_DATA = 0x30U,
+			AMC7812_REG_ADR__ADC14_DATA = 0x31U,
+			AMC7812_REG_ADR__ADC15_DATA = 0x32U,
+
+
+			AMC7812_REG_ADR__DAC_0_DATA = 0x33U,
+			AMC7812_REG_ADR__DAC_1_DATA = 0x34U,
+			AMC7812_REG_ADR__DAC_2_DATA = 0x35U,
+			AMC7812_REG_ADR__DAC_3_DATA = 0x36U,
+			AMC7812_REG_ADR__DAC_4_DATA = 0x37U,
+			AMC7812_REG_ADR__DAC_5_DATA = 0x38U,
+			AMC7812_REG_ADR__DAC_6_DATA = 0x39U,
+			AMC7812_REG_ADR__DAC_7_DATA = 0x3AU,
+			AMC7812_REG_ADR__DAC_8_DATA = 0x3BU,
+			AMC7812_REG_ADR__DAC_9_DATA = 0x3CU,
+			AMC7812_REG_ADR__DAC_10_DATA = 0x3DU,
+			AMC7812_REG_ADR__DAC_11_DATA = 0x3EU,
+
+			AMC7812_REG_ADR__GPIO = 0x4BU,
+
+			AMC7812_REG_ADR__SW_DAC_CLEAR = 0x55U,
+
+			AMC7812_REG_ADR__HW_DAC_CLR_EN_0 = 0x56U,
+
+			AMC7812_REG_ADR__HW_DAC_CLR_EN_1 = 0x57U,
+
+			AMC7812_REG_ADR__DAC_CONFIG = 0x58U,
+
+			AMC7812_REG_ADR__DAC_GAIN = 0x59U,
+
+			AMC7812_REG_ADR__POWER_DOWN = 0x6BU,
+
+			AMC7812_REG_ADR__DEVICE_ID = 0x6CU,
+
+			AMC7812_REG_ADR__SW_RESET = 0x7CU,
+
+
+
+		} TE_AMC7812__REG_ADDX;
 
 
 		/** States for the AMC7812 main state machine */
@@ -220,10 +247,9 @@
 		//I2C
 		void vAMC7812_I2C__Init(void);
 
-		Lint16 s16AMC7812_I2C__TxCommand(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx);
-		Lint16 s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx, Luint16 u16Value);
-		Lint16 s16AMC7812_I2C__TxCommand(Luint8 u8DeviceAddx, Luint8 u8RegisterAddx);
-		Lint16 s16AMC7812_I2C__ReadU16(Luint8 u8DeviceAddx, Luint8 u8RegAddx, Luint16 *pu16Value);
+		Lint16 s16AMC7812_I2C__TxCommand(Luint8 u8DeviceAddx, TE_AMC7812__REG_ADDX eReg);
+		Lint16 s16AMC7812_I2C__WriteU16(Luint8 u8DeviceAddx, TE_AMC7812__REG_ADDX eReg, Luint16 u16Value);
+		Lint16 s16AMC7812_I2C__ReadU16(Luint8 u8DeviceAddx, TE_AMC7812__REG_ADDX eReg, Luint16 *pu16Value);
 
 		
 		//DAC

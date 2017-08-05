@@ -240,7 +240,7 @@
 		INIT_STATE__START_TIMERS,
 
 		/** Start the sensors and actuators */
-		INIT_STATE__START_SENSORS,
+		INIT_STATE__START_POD_SYSTEMS,
 
 		/** init is done, run the main state machine */
 		INIT_STATE__RUN

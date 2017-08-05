@@ -21,9 +21,6 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Data Acqusition System */
 		#define C_LOCALDEF__LCCM655__ENABLE_DAQ								(1U)
 
-		/** Enable or disable the PiComms layer */
-		#define C_LOCALDEF__LCCM655__ENABLE_PI_COMMS						(0U)
-
 		/** Enable the OptoNCDT laser interface */
 		#define C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT					(1U)
 

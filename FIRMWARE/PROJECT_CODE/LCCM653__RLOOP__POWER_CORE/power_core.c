@@ -157,7 +157,7 @@ void vPWRNODE__Process(void)
 			//setup UART, SCI2 = Pi Connection
 #if C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE == 1U
 			vRM4_SCI__Init(SCI_CHANNEL__2);
-			vRM4_SCI__Set_Baudrate(SCI_CHANNEL__2, 57600U);
+			vRM4_SCI_BAUD__Set_Baudrate(SCI_CHANNEL__2, 57600U);
 #endif
 			//vRM4_SCI_HELPERS__DisplayText(SCI_CHANNEL__2, "LOK\r\n", 5U);
 			//vRM4_SCI_INT__Enable_Notification(SCI_CHANNEL__2, SCI_RX_INT);
@@ -174,14 +174,6 @@ void vPWRNODE__Process(void)
 			DEBUG_PRINT("INIT_STATE__START");
 #endif
 
-			//start the pi comms layer
-			#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
-				#if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
-					vPWRNODE_PICOMMS__Init();
-				#endif
-			#endif
-
-
 			//move to next state
 			sPWRNODE.sInit.eState = INIT_STATE__COMMS;
 
@@ -196,7 +188,7 @@ void vPWRNODE__Process(void)
 			vRM4_MIBSPI135__Init(MIBSPI135_CHANNEL__1);
 
 			//get the I2C up for the networked sensors
-			vRM4_I2C_USER__Init();
+			vRM4_I2C_USER__Init(RM4_I2C_CH__1);
 #endif
 			//startup the ethernet
 			#if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
@@ -308,10 +300,6 @@ void vPWRNODE__Process(void)
 				vPWR_PVPRESS__Init();
 			#endif
 
-			#if C_LOCALDEF__LCCM653__ENABLE_COOLING == 1U
-				vPWR_COOLING__Init();
-			#endif
-
 			//move state
 			sPWRNODE.sInit.eState = INIT_STATE__RUN;
 			break;
@@ -330,11 +318,6 @@ void vPWRNODE__Process(void)
 #endif //#ifndef WIN32
 
 			//normal run state
-			#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
-				#if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
-					vPWRNODE_PICOMMS__Process();
-				#endif
-			#endif
 
 			//process the DC/DC conveter, may need to pet the watchdog, etc
 			#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
@@ -386,10 +369,6 @@ void vPWRNODE__Process(void)
 				vPWR_PVPRESS__Process();
 			#endif
 
-			#if C_LOCALDEF__LCCM653__ENABLE_COOLING == 1U
-				vPWR_COOLING__Process();
-			#endif
-
 			//process the main state machine
 			vPWRNODE_SM__Process();
 
@@ -399,9 +378,6 @@ void vPWRNODE__Process(void)
 #endif
 
 		break;
-
-
-
 		default:
 			//todo:
 			break;
@@ -430,10 +406,6 @@ void vPWRNODE__Process(void)
  */
 void vPWRNODE__RTI_100MS_ISR(void)
 {
-	#if C_LOCALDEF__LCCM653__ENABLE_PI_COMMS == 1U
-		vPWRNODE_PICOMMS__100MS_ISR();
-	#endif
-
 	#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
 		//tell the DC/DC converter about us for pod safe command.
 		vPWRNODE_DC__100MS_ISR();
@@ -441,11 +413,6 @@ void vPWRNODE__RTI_100MS_ISR(void)
 
 	#if C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS == 1U
 		vPWR_PVPRESS__100MS_ISR();
-	#endif
-	#if C_LOCALDEF__LCCM653__ENABLE_COOLING == 1U
-		vPWR_COOLING_EDDY__100MS_ISR();
-		vPWR_COOLING_HOVER__100MS_ISR();
-		vPWR_COOLING__100MS_ISR();
 	#endif
 
 	sPWRNODE.u32NodePressCounter = 1U;

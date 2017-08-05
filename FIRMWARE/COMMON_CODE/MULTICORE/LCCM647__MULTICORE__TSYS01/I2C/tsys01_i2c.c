@@ -41,7 +41,7 @@ Lint16 s16TSYS01_I2C__TxCommand(Luint8 u8DeviceAddx, E_TSYS01_REGS_T eRegister)
 #ifndef WIN32
 	//tx only the command
 	#if (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM42L432 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM46L852 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM48L952 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U)
-		s16Return = s16RM4_I2C_USER__TxReg(u8DeviceAddx, (Luint8)eRegister);
+		s16Return = s16RM4_I2C_USER__TxReg(RM4_I2C_CH__1, u8DeviceAddx, (Luint8)eRegister);
 	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__MSP430F5529 == 1U
 		s16Return = s16MSP430_I2C_USER__TxReg(MSP430_USCI_B0_I2C_BASE, u8DeviceAddx, (Luint8)eRegister);
 	#else
@@ -72,7 +72,7 @@ Lint16 s16TSYS01_I2C__TxU8(Luint8 u8DeviceAddx, E_TSYS01_REGS_T eRegister, Luint
 #ifndef WIN32
 	//Tx a byte
 	#if (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM42L432 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM46L852 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM48L952 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U)
-		s16Return = s16RM4_I2C_USER__Tx_U8(u8DeviceAddx, (Luint8)eRegister, u8Byte);
+		s16Return = s16RM4_I2C_USER__Tx_U8(RM4_I2C_CH__1, u8DeviceAddx, (Luint8)eRegister, u8Byte);
 	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__MSP430F5529 == 1U
 		s16Return = s16MSP430_I2C_USER__Tx_U8(MSP430_USCI_B0_I2C_BASE, u8DeviceAddx, (Luint8)eRegister, u8Byte);
 	#else
@@ -114,7 +114,7 @@ Lint16 s16TSYS01_I2C__RxU16(Luint8 u8DeviceAddx, E_TSYS01_REGS_T eRegister, Luin
 	//read two bytes
 #ifndef WIN32
 	#if (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM42L432 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM46L852 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM48L952 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U)
-		s16Return = s16RM4_I2C_USER__Rx_U8Array(u8DeviceAddx, (Luint8)eRegister, &u8Array[0], 2U);
+		s16Return = s16RM4_I2C_USER__Rx_U8Array(RM4_I2C_CH__1, u8DeviceAddx, (Luint8)eRegister, &u8Array[0], 2U);
 		//Map
 		unT2.u8[1] = u8Array[0];
 		unT2.u8[0] = u8Array[1];
@@ -171,7 +171,7 @@ Lint16 s16TSYS01_I2C__RxU24(Luint8 u8DeviceAddx, E_TSYS01_REGS_T eRegister, Luin
 	//read three bytes
 #ifndef WIN32
 	#if (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM42L432 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM46L852 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM48L952 == 1U || C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U)
-		s16Return = s16RM4_I2C_USER__Rx_U8Array(u8DeviceAddx, (Luint8)eRegister, &u8Array[0], 3U);
+		s16Return = s16RM4_I2C_USER__Rx_U8Array(RM4_I2C_CH__1, u8DeviceAddx, (Luint8)eRegister, &u8Array[0], 3U);
 		//do the mapping
 		unT2.u8[0] = u8Array[2];
 		unT2.u8[1] = u8Array[1];

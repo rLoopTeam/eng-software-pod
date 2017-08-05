@@ -12,7 +12,7 @@
 
 
 	/** Accelerometer DAQ */
-	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS							(0U)
+	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS							(1U)
 	#if C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS == 1U
 
 		//define here the actual DAQ channel indexes
@@ -44,7 +44,7 @@
 
 
 
-	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_BRAKES							(1U)
+	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_BRAKES							(0U)
 	#if C_FCU_DAQ_SET__ENABLE__DAQ_FOR_BRAKES == 1U
 
 		//configured DAQ channels

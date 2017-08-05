@@ -1989,6 +1989,11 @@ LAPP188__RLOOP__RPOD_CONTROL
  </summary>
  <remarks></remarks>
 </member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox._strUDP">
+ <summary>
+ A UDP packet
+ </summary>
+</member>
 <member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pExplorer">
  <summary>
  The explorer bar
@@ -2042,6 +2047,21 @@ LAPP188__RLOOP__RPOD_CONTROL
  The lower status strip
  </summary>
  <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.pDeQThread_Data">
+ <summary>
+ Dequeue our data
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pQueue">
+ <summary>
+ The data capture queue
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_bTerminate">
+ <summary>
+ Term the thread?
+ </summary>
 </member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.#ctor(System.Windows.Forms.Form@)">
  <summary>
@@ -2111,6 +2131,17 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="eEndpoint"></param>
  <param name="u8Array"></param>
  <param name="iLength"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.Queue__GetCount">
+ <summary>
+ Gets the count of items in the queue
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.ThreadRun_DeQueue">
+ <summary>
+ Dequeue our data
+ </summary>
 </member>
 </members>
 </doc>

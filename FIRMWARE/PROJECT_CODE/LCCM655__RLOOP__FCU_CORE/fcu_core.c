@@ -401,14 +401,49 @@ void vFCU__Process(void)
 
 
 			//move state
-			sFCU.eInitStates = INIT_STATE__START_SENSORS;
+			sFCU.eInitStates = INIT_STATE__START_POD_SYSTEMS;
 			break;
 
-		case INIT_STATE__START_SENSORS:
+		case INIT_STATE__START_POD_SYSTEMS:
+
+			//init the acclerometer system
+			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
+				vFCU_ACCEL__Init();
+			#endif
 
 			//laser distance
 			#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
 				vFCU_LASERDIST__Init();
+			#endif
+
+			//Init the throttles
+			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+				vFCU_THROTTLE__Init();
+			#endif
+
+			//laser contrast sensors
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
+				vFCU_LASERCONT__Init();
+			#endif
+
+			//init the brake systems
+			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+				vFCU_BRAKES__Init();
+			#endif
+
+			//init the ASI RS485 interface
+			#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
+				vFCU_ASI__Init();
+			#endif
+
+			//laser opto's
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
+				vFCU_LASEROPTO__Init();
+			#endif
+
+			//pusher
+			#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
+				vFCU_PUSHER__Init();
 			#endif
 
 			//move state
@@ -425,21 +460,70 @@ void vFCU__Process(void)
 				vRM4_CPULOAD__While_Entry();
 			#endif
 
-#ifndef WIN32
+			#ifndef WIN32
 			#if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
-			//Handle the ADC conversions
-			vRM4_ADC_USER__Process();
+				//Handle the ADC conversions
+				vRM4_ADC_USER__Process();
 			#endif
-#endif //WIN32
+			#endif //WIN32
 
 			#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
 				vFCU_LASERDIST__Process();
 			#endif
 
+			//process the SC16IS interface always
+			#if C_LOCALDEF__LCCM487__ENABLE_THIS_MODULE == 1U
+				for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM487__NUM_DEVICES; u8Counter++)
+				{
+					vSIL3_SC16__Process(u8Counter);
+				}
+			#endif
+
+			// process the throttles
+			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
+
+				vFCU_THROTTLE__Process();
+
+				// process the AMC7812
+				vAMC7812__Process();
+			#endif
 
 			//process networking
 			#if C_LOCALDEF__LCCM655__ENABLE_ETHERNET == 1U
 				vFCU_NET__Process();
+			#endif
+
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
+				vFCU_LASEROPTO__Process();
+			#endif
+
+			//laser orientation
+			#if C_LOCALDEF__LCCM655__ENABLE_ORIENTATION == 1U
+				vFCU_LASER_ORIENTATION__Process();
+			#endif
+
+			#if C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST == 1U
+				vFCU_LASERCONT__Process();
+			#endif
+
+
+			#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
+				vFCU_PUSHER__Process();
+			#endif
+
+			//process the brakes.
+			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
+				vFCU_BRAKES__Process();
+			#endif
+
+			//process the accel channels
+			#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
+				vFCU_ACCEL__Process();
+			#endif
+
+			//ASI RS485 interface
+			#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
+				vFCU_ASI__Process();
 			#endif
 
 			//process the main state machine

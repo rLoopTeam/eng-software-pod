@@ -303,15 +303,12 @@ void vAMC7812_DAC__Process(void)
 
 }
 
-
-
-//update our internal voltage
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Update our internal voltage
  * 
- * @param[in]		Lfloat32		## Desc ##
- * @param[in]		u8Channel		## Desc ##
+ * @param[in]		f32Voltage				The desired DAC voltage
+ * @param[in]		u8Channel				The DAC channel
  * @st_funcMD5		A11A71D7886F27D0B0AD4EB631D16F30
  * @st_funcID		LCCM658R0.FILE.007.FUNC.003
  */
@@ -327,8 +324,7 @@ void vAMC7182_DAC__DAC_UpdateVoltage(Luint8 u8Channel, Lfloat32 f32Voltage)
 		//calc the new voltage
 		//The device is 0-5V = 0 - 2^12
 		f32Temp = f32Voltage;
-		//to mV
-		f32Temp *= 1000.0F;
+
 		//Scale
 		f32Temp *= C_AMC8172__DAC_SCALING_VALUE;
 
@@ -368,108 +364,6 @@ void vAMC7182_DAC__DAC_UpdateVoltage(Luint8 u8Channel, Lfloat32 f32Voltage)
 		vSIL3_FAULTTREE__Set_Flag(&sAMC.sFaultTree, C_LCCM658__CORE__FAULT_INDEX__01);
 	}
 }
-
-
-//--- Set the voltage of the specified pin for the given command and conversion factor (to millivolts) ---//
-#if 0
-/***************************************************************************//**
- * @brief
- * ToDo
- * 
- * @st_funcMD5		CC9C8E3301D7598C8B435D269CF4E791
- * @st_funcID		LCCM658R0.FILE.007.FUNC.004
- */
-Lint16 s16AMC7812_DAC__SetPinVoltage(void)
-{
-	// declarations
-
-	Lint16 s16Return;
-	Luint16 u16OutputVolts;
-	Lfloat32 f32ThrottleToMVolts;
-	Luint16 u16Command;
-	Luint16 u16MaxCommandValue;
-	Luint16 u16MinCommandValue;
-	Luint16 u16MaxVolts;
-	Luint16 u16MinVolts;
-	Luint8 u8RegAddr;
-	Lfloat32 f32ScaleFactor;
-	Luint16 u16DACData;
-	Lfloat32 f32temp1, f32temp2;
-
-
-	// set local variables
-
-	u16Command = strAMC7812_DAC.u16Command;
-	u16MaxCommandValue = strAMC7812_DAC.u16MaxCommandValue;
-	u16MinCommandValue = strAMC7812_DAC.u16MinCommandValue;
-	u16MaxVolts = strAMC7812_DAC.u16MaxVoltage;
-	u16MinVolts = strAMC7812_DAC.u16MinVoltage;
-	u8RegAddr = strAMC7812_DAC.u8DACRegAddr;
-	f32ScaleFactor = strAMC7812_DAC.f32ScaleFactor;
-
-	// set the state
-
-	strAMC7812_DAC.eState = AMC7812_DAC_STATE__SET_VOLTAGE;
-
-	// compute command conversion factor (command units to millivolts)
-
-	f32temp1 = (Lfloat32)(u16MaxVolts - u16MinVolts);
-	f32temp2 = (Lfloat32)(u16MaxCommandValue - u16MinCommandValue);
-	f32ThrottleToMVolts = f32temp1 / f32temp2;
-
-
-	// Compute required voltage for the throttle command value
-
-	u16OutputVolts = (Luint16)(u16Command * f32ThrottleToMVolts);
-
-	// Check that output is within range
-
-	if(u16OutputVolts > u16MaxVolts)
-	{
-		u16OutputVolts = u16MaxVolts;
-	}
-	else
-	{
-		if(u16OutputVolts < u16MinVolts)
-		{
-			u16OutputVolts = u16MinVolts;
-		}
-		else
-		{
-			// okay, no action req'd
-		}
-	}
-
-	// Compute the DAC 12-bit register value to get the desired voltage output:
-
-	f32temp1 = (Lfloat32)u16OutputVolts * f32ScaleFactor;
-	u16DACData = (Luint16)f32temp1;
-
-	// initialize return flag
-
-	s16Return = -1;
-
-	// call I2C write function
-
-	s16Return = s16AMC7812_I2C__WriteU16(C_LOCALDEF__LCCM658__BUS_ADDX, u8RegAddr, u16DACData);
-
-	if(s16Return >= 0)
-	{
-		// successful, change state
-
-		strAMC7812_DAC.eState = AMC7812_STATE__IDLE;
-	}
-	else
-	{
-		// failed, change state
-
-		strAMC7812_DAC.eState = AMC7812_DAC_STATE__ERROR;
-	}
-
-	return s16Return;
-}
-#endif //0
-
 
 #endif //#if C_LOCALDEF__LCCM658__ENABLE_THIS_MODULE == 1U
 //safetys
