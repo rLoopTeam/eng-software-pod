@@ -44,7 +44,9 @@ void vPWRNODE_NET__Init(void)
 
 	//PCB MAC
 	sPWRNODE.sEthernet.u8MACAddx[3] = 0x01;
-	sPWRNODE.sEthernet.u8MACAddx[4] = 0x00;
+	sPWRNODE.sEthernet.u8MACAddx[4] = 0x66;
+
+	//unique MAC's
 	if(sPWRNODE.ePersonality == PWRNODE_TYPE__PACK_A)
 	{
 		sPWRNODE.sEthernet.u8MACAddx[5] = 1U;
@@ -57,7 +59,9 @@ void vPWRNODE_NET__Init(void)
 	//IP
 	sPWRNODE.sEthernet.u8IPAddx[0] = 192;
 	sPWRNODE.sEthernet.u8IPAddx[1] = 168;
-	sPWRNODE.sEthernet.u8IPAddx[2] = 0;
+	sPWRNODE.sEthernet.u8IPAddx[2] = C_RLOOP_NET_IP__SUBNET;
+
+	//different packs are on diff IP's
 	if(sPWRNODE.ePersonality == PWRNODE_TYPE__PACK_A)
 	{
 		sPWRNODE.sEthernet.u8IPAddx[3] = 110;

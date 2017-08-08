@@ -44,6 +44,10 @@ Namespace SIL3.rLoop.rPodControl
         ''' <remarks></remarks>
         Private m_pnlFlightControl As SIL3.rLoop.rPodControl.Panels.FlightControl.Top
 
+        Private m_pnlBMS_A As SIL3.rLoop.rPodControl.Panels.BMS.Top
+        Private m_pnlBMS_B As SIL3.rLoop.rPodControl.Panels.BMS.Top
+
+
         ''' <summary>
         ''' AuxProp top level
         ''' </summary>
@@ -57,7 +61,7 @@ Namespace SIL3.rLoop.rPodControl
         ''' <summary>
         ''' Gimbal Unit
         ''' </summary>
-        Private m_pnlGimbal As SIL3.rLoop.rPodControl.Panels.Gimbal.Top
+        Private m_pnlGCU As SIL3.rLoop.rPodControl.Panels.Gimbal.Top
 
         ''' <summary>
         ''' Landing Gear Interface
@@ -97,6 +101,18 @@ Namespace SIL3.rLoop.rPodControl
 
         Private m_iRx_FCU As Integer
         Private m_iTx_FCU As Integer
+        Private m_iRx_APU As Integer
+        Private m_iTx_APU As Integer
+        Private m_iRx_LGU As Integer
+        Private m_iTx_LGU As Integer
+        Private m_iRx_GCU As Integer
+        Private m_iTx_GCU As Integer
+        Private m_iRx_HET As Integer
+        Private m_iTx_HET As Integer
+        Private m_iRx_BMS_A As Integer
+        Private m_iTx_BMS_A As Integer
+        Private m_iRx_BMS_B As Integer
+        Private m_iTx_BMS_B As Integer
 
 #End Region '#Region "MEMBERS"
 
@@ -118,8 +134,23 @@ Namespace SIL3.rLoop.rPodControl
             'add our ports
             'http://confluence.rloop.org/display/SD/Communications
 
-            If MsgBox("Do you want to run this in loopback on 127.0.0.1?" & Environment.NewLine & "Answering NO will run on 192.168.x.x", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+
+            Dim sP As String = "192.168.0."
+            Dim bLoopBack As Boolean = False
+            If MsgBox("Do you want to run this on 127.0.0.x" & Environment.NewLine & "Answering no it will be 192.168.x.x", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                sP = "127.0.0."
+                bLoopBack = True
+            Else
+                If MsgBox("Do you want to run this on 192.168.1.x" & Environment.NewLine & "Answering no it will be 192.168.0.x", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                    sP = "192.168.1."
+                End If
+            End If
+
+
+            If bLoopBack = True Then
                 Me.m_pEth.Port__Add("127.0.0.1", 9531, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU)
+                Me.m_pEth.Port__Add("127.0.0.1", 9110, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__BMS_A)
+                Me.m_pEth.Port__Add("127.0.0.1", 9111, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__BMS_B)
                 Me.m_pEth.Port__Add("127.0.0.1", 9615, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU)
                 Me.m_pEth.Port__Add("127.0.0.1", 9608, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__HETHERM)
                 Me.m_pEth.Port__Add("127.0.0.1", 9130, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__GIMBAL)
@@ -127,13 +158,9 @@ Namespace SIL3.rLoop.rPodControl
                 Me.m_pEth.Port__Add("127.0.0.1", 3000, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU_SPACEX_DIAG)
                 Me.m_pEth.Port__Add("127.0.0.1", 9170, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM)
             Else
-
-                Dim sP As String = "192.168.0."
-                If MsgBox("Do you want to run this on 192.168.1.x" & Environment.NewLine & "Answering no it will be 192.168.0.x", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                    sP = "192.168.1."
-                End If
-
                 Me.m_pEth.Port__Add(sP & "100", 9531, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU)
+                Me.m_pEth.Port__Add(sP & "110", 9110, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__BMS_A)
+                Me.m_pEth.Port__Add(sP & "111", 9111, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__BMS_B)
                 Me.m_pEth.Port__Add(sP & "140", 9615, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU)
                 Me.m_pEth.Port__Add(sP & "141", 9608, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__HETHERM)
                 Me.m_pEth.Port__Add(sP & "130", 9130, Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__GIMBAL)
@@ -200,14 +227,20 @@ Namespace SIL3.rLoop.rPodControl
             AddHandler Me.m_pnlFlightControl.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4_FCU
             AddHandler Me.m_pnlFlightControl.UserEvent__SafeUDP__Tx_X3_Array, AddressOf Me.InternalEvent__SafeUDP__Tx_X3_Array
 
+            Me.m_pnlBMS_A = New SIL3.rLoop.rPodControl.Panels.BMS.Top(pForm, Me.m_pExplorer, Me.m_pnlSettings.Get__DataLogDir, 0)
+            AddHandler Me.m_pnlBMS_A.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4_BMS_A
+            Me.m_pnlBMS_B = New SIL3.rLoop.rPodControl.Panels.BMS.Top(pForm, Me.m_pExplorer, Me.m_pnlSettings.Get__DataLogDir, 1)
+            AddHandler Me.m_pnlBMS_B.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4_BMS_B
+
+
             Me.m_pnlLandingGear = New SIL3.rLoop.rPodControl.Panels.LandingGear.Top(pForm, Me.m_pExplorer)
-            AddHandler Me.m_pnlLandingGear.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
+            AddHandler Me.m_pnlLandingGear.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4_LGU
             Me.m_pnlAuxProp = New SIL3.rLoop.rPodControl.Panels.AuxProp.Top(pForm, Me.m_pExplorer)
-            AddHandler Me.m_pnlAuxProp.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
+            AddHandler Me.m_pnlAuxProp.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4_APU
             Me.m_pnlHETherm = New SIL3.rLoop.rPodControl.Panels.HETherm.Top(pForm, Me.m_pExplorer)
-            AddHandler Me.m_pnlHETherm.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
-            Me.m_pnlGimbal = New SIL3.rLoop.rPodControl.Panels.Gimbal.Top(pForm, Me.m_pExplorer)
-            AddHandler Me.m_pnlGimbal.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
+            AddHandler Me.m_pnlHETherm.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4_HET
+            Me.m_pnlGCU = New SIL3.rLoop.rPodControl.Panels.Gimbal.Top(pForm, Me.m_pExplorer)
+            AddHandler Me.m_pnlGCU.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4_GCU
 
             Me.m_pnlXilinxSim = New SIL3.rLoop.rPodControl.Panels.XilinxSim.Top(pForm, Me.m_pExplorer)
             AddHandler Me.m_pnlXilinxSim.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
@@ -220,11 +253,14 @@ Namespace SIL3.rLoop.rPodControl
             Me.m_pSS = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.StatusStripHelper(pForm)
 
             'Make some panels
-            Me.m_pSS.Panel__Add("FCU: Rx: 00000, RxQ: 00000, Tx: 00000")
-            Me.m_pSS.Panel__Add("LGU: Rx: 00000, RxQ: 00000, Tx: 00000")
-            Me.m_pSS.Panel__Add("APU: Rx: 00000, RxQ: 00000, Tx: 00000")
-            Me.m_pSS.Panel__Add("GCU: Rx: 00000, RxQ: 00000, Tx: 00000")
-            Me.m_pSS.Panel__Add("HET: Rx: 00000, RxQ: 00000, Tx: 00000")
+            Me.m_pSS.Panel__Add("RxQ: 00000")
+            Me.m_pSS.Panel__Add("FCU: Rx: 00000, Tx: 00000")
+            Me.m_pSS.Panel__Add("BMS-A: Rx: 00000, Tx: 00000")
+            Me.m_pSS.Panel__Add("BMS-B: Rx: 00000, Tx: 00000")
+            Me.m_pSS.Panel__Add("LGU: Rx: 00000, Tx: 00000")
+            Me.m_pSS.Panel__Add("APU: Rx: 00000, Tx: 00000")
+            Me.m_pSS.Panel__Add("GCU: Rx: 00000, Tx: 00000")
+            Me.m_pSS.Panel__Add("HET: Rx: 00000, Tx: 00000")
 
         End Sub
 
@@ -239,8 +275,10 @@ Namespace SIL3.rLoop.rPodControl
         Private Sub LinkBar_LinkClick(ByVal sText As String)
             Me.m_pnlSettings.Panel__HideShow(sText)
             Me.m_pnlFlightControl.Panel__HideShow(sText)
+            Me.m_pnlBMS_A.Panel__HideShow(sText)
+            Me.m_pnlBMS_B.Panel__HideShow(sText)
             Me.m_pnlLandingGear.Panel__HideShow(sText)
-            Me.m_pnlGimbal.Panel__HideShow(sText)
+            Me.m_pnlGCU.Panel__HideShow(sText)
             Me.m_pnlAuxProp.Panel__HideShow(sText)
             Me.m_pnlHETherm.Panel__HideShow(sText)
             Me.m_pnlXilinxSim.Panel__HideShow(sText)
@@ -266,6 +304,31 @@ Namespace SIL3.rLoop.rPodControl
             Me.m_iTx_FCU += 1
             Me.m_pEth.User__SafeUDP__Tx_X4(eEndpoint, u16Type, u32Block0, u32Block1, u32Block2, u32Block3)
         End Sub
+        Public Sub InternalEvent__SafeUDP__Tx_X4_APU(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16Type As UInt16, u32Block0 As UInt32, u32Block1 As UInt32, u32Block2 As UInt32, u32Block3 As UInt32)
+            Me.m_iTx_APU += 1
+            Me.m_pEth.User__SafeUDP__Tx_X4(eEndpoint, u16Type, u32Block0, u32Block1, u32Block2, u32Block3)
+        End Sub
+        Public Sub InternalEvent__SafeUDP__Tx_X4_LGU(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16Type As UInt16, u32Block0 As UInt32, u32Block1 As UInt32, u32Block2 As UInt32, u32Block3 As UInt32)
+            Me.m_iTx_LGU += 1
+            Me.m_pEth.User__SafeUDP__Tx_X4(eEndpoint, u16Type, u32Block0, u32Block1, u32Block2, u32Block3)
+        End Sub
+        Public Sub InternalEvent__SafeUDP__Tx_X4_HET(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16Type As UInt16, u32Block0 As UInt32, u32Block1 As UInt32, u32Block2 As UInt32, u32Block3 As UInt32)
+            Me.m_iTx_HET += 1
+            Me.m_pEth.User__SafeUDP__Tx_X4(eEndpoint, u16Type, u32Block0, u32Block1, u32Block2, u32Block3)
+        End Sub
+        Public Sub InternalEvent__SafeUDP__Tx_X4_GCU(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16Type As UInt16, u32Block0 As UInt32, u32Block1 As UInt32, u32Block2 As UInt32, u32Block3 As UInt32)
+            Me.m_iTx_GCU += 1
+            Me.m_pEth.User__SafeUDP__Tx_X4(eEndpoint, u16Type, u32Block0, u32Block1, u32Block2, u32Block3)
+        End Sub
+        Public Sub InternalEvent__SafeUDP__Tx_X4_BMS_A(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16Type As UInt16, u32Block0 As UInt32, u32Block1 As UInt32, u32Block2 As UInt32, u32Block3 As UInt32)
+            Me.m_iTx_BMS_A += 1
+            Me.m_pEth.User__SafeUDP__Tx_X4(eEndpoint, u16Type, u32Block0, u32Block1, u32Block2, u32Block3)
+        End Sub
+        Public Sub InternalEvent__SafeUDP__Tx_X4_BMS_B(eEndpoint As SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS, u16Type As UInt16, u32Block0 As UInt32, u32Block1 As UInt32, u32Block2 As UInt32, u32Block3 As UInt32)
+            Me.m_iTx_BMS_B += 1
+            Me.m_pEth.User__SafeUDP__Tx_X4(eEndpoint, u16Type, u32Block0, u32Block1, u32Block2, u32Block3)
+        End Sub
+
 
 
         ''' <summary>
@@ -356,6 +419,8 @@ Namespace SIL3.rLoop.rPodControl
                 'see if we have anything queued
                 If Me.m_pQueue.TryDequeue(pUDP) = True Then
 
+                    Me.m_pSS.Panel__SetText(0, "RxQ: " & Me.m_pQueue.Count.ToString("00000"))
+
 
                     Select Case pUDP.eEndpoint
                         Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__XILINX_SIM
@@ -364,16 +429,38 @@ Namespace SIL3.rLoop.rPodControl
                         Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU
                             Me.m_pnlFlightControl.InternalEvent__UDPSafe__RxPacketB(pUDP.u16PacketType, pUDP.u16PayloadLength, pUDP.u8Payload, pUDP.u16CRC, pUDP.bCRC_OK, pUDP.u32Sequence)
                             Me.m_iRx_FCU += 1
-                            Me.m_pSS.Panel__SetText(0, "FCU: Rx: " & Me.m_iRx_FCU.ToString("00000") & ", RxQ: " & Me.m_pQueue.Count.ToString("00000") & ", Tx: " & Me.m_iTx_FCU.ToString("00000"))
+                            Me.m_pSS.Panel__SetText(1, "FCU: Rx: " & Me.m_iRx_FCU.ToString("00000") & ", Tx: " & Me.m_iTx_FCU.ToString("00000"))
+
+                        Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__BMS_A
+                            Me.m_pnlBMS_A.InternalEvent__UDPSafe__RxPacketB(pUDP.u16PacketType, pUDP.u16PayloadLength, pUDP.u8Payload, pUDP.u16CRC, pUDP.bCRC_OK, pUDP.u32Sequence)
+                            Me.m_iRx_BMS_A += 1
+                            Me.m_pSS.Panel__SetText(2, "BMS-A: Rx: " & Me.m_iRx_BMS_A.ToString("00000") & ", Tx: " & Me.m_iTx_BMS_A.ToString("00000"))
+
+                        Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__BMS_B
+                            Me.m_pnlBMS_B.InternalEvent__UDPSafe__RxPacketB(pUDP.u16PacketType, pUDP.u16PayloadLength, pUDP.u8Payload, pUDP.u16CRC, pUDP.bCRC_OK, pUDP.u32Sequence)
+                            Me.m_iRx_BMS_B += 1
+                            Me.m_pSS.Panel__SetText(3, "BMS-B: Rx: " & Me.m_iRx_BMS_B.ToString("00000") & ", Tx: " & Me.m_iTx_BMS_B.ToString("00000"))
 
                         Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU
                             Me.m_pnlLandingGear.InternalEvent__UDPSafe__RxPacketB(pUDP.u16PacketType, pUDP.u16PayloadLength, pUDP.u8Payload, pUDP.u16CRC, pUDP.bCRC_OK, pUDP.u32Sequence)
-
-                        Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__HETHERM
-                            Me.m_pnlHETherm.InternalEvent__UDPSafe__RxPacketB(pUDP.u16PacketType, pUDP.u16PayloadLength, pUDP.u8Payload, pUDP.u16CRC, pUDP.bCRC_OK, pUDP.u32Sequence)
+                            Me.m_iRx_LGU += 1
+                            Me.m_pSS.Panel__SetText(4, "LGU: Rx: " & Me.m_iRx_LGU.ToString("00000") & ", Tx: " & Me.m_iTx_LGU.ToString("00000"))
 
                         Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__APU
                             Me.m_pnlAuxProp.InternalEvent__UDPSafe__RxPacketB(pUDP.u16PacketType, pUDP.u16PayloadLength, pUDP.u8Payload, pUDP.u16CRC, pUDP.bCRC_OK, pUDP.u32Sequence)
+                            Me.m_iRx_APU += 1
+                            Me.m_pSS.Panel__SetText(5, "APU: Rx: " & Me.m_iRx_APU.ToString("00000") & ", Tx: " & Me.m_iTx_APU.ToString("00000"))
+
+                        Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__GIMBAL
+                            Me.m_pnlGCU.InternalEvent__UDPSafe__RxPacketB(pUDP.u16PacketType, pUDP.u16PayloadLength, pUDP.u8Payload, pUDP.u16CRC, pUDP.bCRC_OK, pUDP.u32Sequence)
+                            Me.m_iRx_GCU += 1
+                            Me.m_pSS.Panel__SetText(6, "GCU: Rx: " & Me.m_iRx_GCU.ToString("00000") & ", Tx: " & Me.m_iTx_GCU.ToString("00000"))
+
+                        Case Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__HETHERM
+                            Me.m_pnlHETherm.InternalEvent__UDPSafe__RxPacketB(pUDP.u16PacketType, pUDP.u16PayloadLength, pUDP.u8Payload, pUDP.u16CRC, pUDP.bCRC_OK, pUDP.u32Sequence)
+                            Me.m_iRx_HET += 1
+                            Me.m_pSS.Panel__SetText(7, "HET: Rx: " & Me.m_iRx_HET.ToString("00000") & ", Tx: " & Me.m_iTx_HET.ToString("00000"))
+
 
                     End Select
 

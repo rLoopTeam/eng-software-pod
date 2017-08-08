@@ -157,7 +157,7 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 
 			case NET_PKT__PWR_GEN__MANUAL_BALANCE_CONTROL:
 
-#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
+				#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
 				//check our key
 				if(u32Block[0] == 0x34566543U)
 				{
@@ -168,28 +168,34 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 						vPWRNODE_GHG__Start_ManualBalance();
 
 						//apply
-						vPWRNODE_BMS__Balance_Manual((Luint8)u32Block[2], (Luint8)u32Block[3]);
+						#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+							vPWRNODE_BMS__Balance_Manual((Luint8)u32Block[2], (Luint8)u32Block[3]);
+						#endif
 
 					}
 					else
 					{
 						//abort
 						vPWRNODE_GHG__Stop_ManualBalance();
-						vPWRNODE_BMS__Balance_Stop();
+						#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+							vPWRNODE_BMS__Balance_Stop();
+						#endif
 					}
 				}
 				else
 				{
 					//abort
 					vPWRNODE_GHG__Stop_ManualBalance();
-					vPWRNODE_BMS__Balance_Stop();
+					#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+						vPWRNODE_BMS__Balance_Stop();
+					#endif
 				}
-#endif //C_LOCALDEF__LCCM653__ENABLE_CHARGER
+				#endif //C_LOCALDEF__LCCM653__ENABLE_CHARGER
 
 				break;
 
 			case NET_PKT__PWR_GEN__LATCH:
-#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
+				#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
 				//latch the power on.
 				if(u32Block[0] == 0xABCD1245U)
 				{
@@ -212,7 +218,7 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 				{
 					//invalid
 				}
-#endif //C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER
+				#endif //C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER
 				break;
 
 			case NET_PKT__PWR_GEN__PV_REPRESS:

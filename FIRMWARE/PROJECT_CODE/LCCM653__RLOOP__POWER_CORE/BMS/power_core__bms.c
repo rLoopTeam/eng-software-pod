@@ -35,8 +35,38 @@ void vPWRNODE_BMS__Init(void)
 {
 
 #ifndef WIN32
-	//init the ATA6870 driver
-	vATA6870__Init();
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		//init the ATA6870 driver
+		vATA6870__Init();
+
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+
+		//configure the IO ports
+
+		//Comms Enable
+		vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 7U, GIO_DIRECTION__OUTPUT);
+		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 7U, 1U);
+
+		//NCS
+		vRM4_MIBSPI135_PINS__Set_OutputDirection(MIBSPI135_CHANNEL__3, MIBSPI135_PIN__CS1);
+
+		//convert
+		vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 2U);
+
+		//Fault
+		vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 18U);
+
+		//Data Ready
+		vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 16U);
+
+		//Alert Pin
+		vRM4_N2HET_PINS__Set_PinDirection_Input(N2HET_CHANNEL__1, 22U);
+
+		//init the BQ driver
+		vBQ76__Init();
+	#else
+		#error
+	#endif
 #endif
 
 	//setup any ethernet systems.
@@ -54,8 +84,14 @@ void vPWRNODE_BMS__Init(void)
 void vPWRNODE_BMS__Process(void)
 {
 #ifndef WIN32
-	//process any ATA6870 tasks
-	vATA6870__Process();
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		//process any ATA6870 tasks
+		vATA6870__Process();
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		vBQ76__Process();
+	#else
+		#error
+	#endif
 #endif
 }
 
@@ -68,7 +104,13 @@ void vPWRNODE_BMS__Process(void)
  */
 Lfloat32 f32PWRNODE_BMS__Cell_Get_HighestVoltage(void)
 {
-	return f32ATA6870_CELL__Get_HighestVoltage();
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		return f32ATA6870_CELL__Get_HighestVoltage();
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		return f32BQ76_CELLS__Get_HighestVoltage();
+	#else
+		#error
+	#endif
 }
 
 /***************************************************************************//**
@@ -80,7 +122,13 @@ Lfloat32 f32PWRNODE_BMS__Cell_Get_HighestVoltage(void)
  */
 Lfloat32 f32PWRNODE_BMS__Cell_Get_LowestVoltage(void)
 {
-	return f32ATA6870_CELL__Get_LowestVoltage();
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		return f32ATA6870_CELL__Get_LowestVoltage();
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		return f32BQ76_CELLS__Get_LowestVoltage();
+	#else
+		#error
+	#endif
 }
 
 /***************************************************************************//**
@@ -92,7 +140,14 @@ Lfloat32 f32PWRNODE_BMS__Cell_Get_LowestVoltage(void)
  */
 Lfloat32 f32PWRNODE_BMS__Get_PackVoltage(void)
 {
-	return f32ATA6870_CELL__Get_PackVoltage();
+
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		return f32ATA6870_CELL__Get_PackVoltage();
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		return f3BQ76_BATTERY__Get_PackVoltage();
+	#else
+		#error
+	#endif
 }
 
 
@@ -105,7 +160,14 @@ Lfloat32 f32PWRNODE_BMS__Get_PackVoltage(void)
  */
 void vPWRNODE_BMS__Balance_Start(void)
 {
-	vATA6870_BALANCE__Start();
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		vATA6870_BALANCE__Start();
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		vBQ76_BALANCE__Start();
+	#else
+		#error
+	#endif
+
 }
 
 
@@ -118,7 +180,14 @@ void vPWRNODE_BMS__Balance_Start(void)
  */
 Luint8 u8PWRNODE_BMS__Balance_IsBusy(void)
 {
-	return u8ATA6870_BALANCE__Is_Busy();
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		return u8ATA6870_BALANCE__Is_Busy();
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		return u8BQ76_BALANCE__Is_Busy();
+	#else
+		#error
+	#endif
+
 }
 
 
@@ -131,33 +200,55 @@ Luint8 u8PWRNODE_BMS__Balance_IsBusy(void)
  */
 void vPWRNODE_BMS__Balance_Stop(void)
 {
-	vATA6870_BALANCE__Stop();
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		vATA6870_BALANCE__Stop();
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		vBQ76_BALANCE__Stop();
+	#else
+		#error
+	#endif
+
 }
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Enable manual balancing on a particular cell
  * 
- * @param[in]		u8Enable		## Desc ##
- * @param[in]		u8CellIndex		## Desc ##
+ * @param[in]		u8Enable				1 = Enable
+ * @param[in]		u8CellIndex				Zero based cell index for all cells in the battery
  * @st_funcMD5		62BA84541AA2A37395BF6F24B081ED3D
  * @st_funcID		LCCM653R0.FILE.008.FUNC.009
  */
 void vPWRNODE_BMS__Balance_Manual(Luint8 u8CellIndex, Luint8 u8Enable)
 {
-	vATA6870_BALANCE__Manual(u8CellIndex, u8Enable);
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		vATA6870_BALANCE__Manual(u8CellIndex, u8Enable);
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		vBQ76_BALANCE__Manual(u8CellIndex, u8Enable);
+	#else
+		#error
+	#endif
+
 }
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Get the count of the number of times the voltage has been resampled.
+ * This is useful for checking the speed of things
  * 
  * @st_funcMD5		985C5FB642DFF8E96E0AB41B7CAAB50F
  * @st_funcID		LCCM653R0.FILE.008.FUNC.010
  */
 Luint32 u32PWRNODE_BMS__Get_VoltsUpdateCount(void)
 {
-	return u32ATA6870__Get_VoltsUpdateCount();
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		return u32ATA6870__Get_VoltsUpdateCount();
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		return u32BQ76__Get_VoltsUpdateCount();
+	#else
+		#error
+	#endif
+
 }
 
 

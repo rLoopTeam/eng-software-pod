@@ -87,7 +87,7 @@
 
 		REPRESS_SOL_STATE__ON
 
-	}E_PWRNODE_REPRESS_SOL_STATE;
+	}TE_PWR_REPRESS_SOL_STATE;
 
 	/** Pack A or B */
 	typedef enum
@@ -98,180 +98,180 @@
 
 		PWRNODE_TYPE__PACK_MAX
 
-	}E_PWRNODE_TYPE_T;
+	}TE_PWR__TYPE_T;
 
-		/** Battery Temp Sensor Scan/load states */
-		typedef enum
-		{
+	/** Battery Temp Sensor Scan/load states */
+	typedef enum
+	{
 
-			/** Do nothing */
-			BATT_TEMP_STATE__IDLE = 0U,
+		/** Do nothing */
+		BATT_TEMP_STATE__IDLE = 0U,
 
-			/** Load the temp sensor defaults from memory */
-			BATT_TEMP_STATE__LOAD_DEFAULTS,
+		/** Load the temp sensor defaults from memory */
+		BATT_TEMP_STATE__LOAD_DEFAULTS,
 
-			/** Configure the sensor resolution after the memory load */
-			BATT_TEMP_STATE__CONFIGURE_RESOLUTION,
+		/** Configure the sensor resolution after the memory load */
+		BATT_TEMP_STATE__CONFIGURE_RESOLUTION,
 
-			/** If we are not loading from memory start a scan */
-			BATT_TEMP_STATE__START_SCAN,
+		/** If we are not loading from memory start a scan */
+		BATT_TEMP_STATE__START_SCAN,
 
-			/** Wait for the scanning to finish */
-			BATT_TEMP_STATE__WAIT_SCAN,
+		/** Wait for the scanning to finish */
+		BATT_TEMP_STATE__WAIT_SCAN,
 
-			/** Running with the temp system */
-			BATT_TEMP_STATE__RUN
+		/** Running with the temp system */
+		BATT_TEMP_STATE__RUN
 
-		}E_BATT_TEMP__STATE_T;
+	}TE_PWR_BATT_TEMP__STATE_T;
 
-		/** Networking States*/
-		typedef enum
-		{
-			NET_STATE__IDLE = 0U,
+	/** Networking States*/
+	typedef enum
+	{
+		NET_STATE__IDLE = 0U,
 
-			/** wait for the link to become avail */
-			NET_STATE__WAIT_LINK,
+		/** wait for the link to become avail */
+		NET_STATE__WAIT_LINK,
 
-			/** wait for our timer */
-			NET_STATE__WAIT_TIMER_TICK,
+		/** wait for our timer */
+		NET_STATE__WAIT_TIMER_TICK,
 
+		/** Network is up and running */
+		NET_STATE__RUN
 
-			NET_STATE__RUN
-
-		}E_PWRNODE_NET__MAIN_STATES;
-
-
-		/** Power node control states */
-		typedef enum
-		{
-			/** Just come out of reset */
-			RUN_STATE__RESET = 0U,
-
-			RUN_STATE__IDLE,
-
-			/** Start the charging state */
-			RUN_STATE__CHARGE_START,
-
-			/** process the battery charger system */
-			RUN_STATE__CHARGE_PROCESS,
-
-			/** Cleanup the charging process*/
-			RUN_STATE__CHARGE_STOP,
-
-			RUN_STATE__TEST,
-
-		}E_PWRNODE__RUN_STATES;
-
-		/** Charger RELAY state machine control */
-		typedef enum
-		{
-
-			/** Charger control just come out of reset */
-			CHG_RLY_STATE__RESET = 0U,
-
-		}E_PWRNODE__CHG_RLY_STATES_T;
+	}TE_PWR_NET__MAIN_STATES;
 
 
-		/** Charge Algo */
-		typedef enum
-		{
+	/** Power node control states */
+	typedef enum
+	{
+		/** Just come out of reset */
+		RUN_STATE__RESET = 0U,
 
-			CHG_STATE__IDLE = 0U,
+		RUN_STATE__IDLE,
 
-			/** Start the charging process */
-			CHG_STATE__START,
+		/** Start the charging state */
+		RUN_STATE__CHARGE_START,
 
-			/** Start balancing */
-			CHG_STATE__START_BALANCE,
+		/** process the battery charger system */
+		RUN_STATE__CHARGE_PROCESS,
 
-			/** Check the temperature state of the pack */
-			CHG_STATE__CHECK_PACK_TEMP,
+		/** Cleanup the charging process*/
+		RUN_STATE__CHARGE_STOP,
 
+		RUN_STATE__TEST,
 
-			/** Run the balancer*/
-			CHG_STATE__RUN_BALANCER,
+	}TE_PWR__RUN_STATES;
 
-			/** Close charge contactor relay */
-			CHG_STATE__CLOSE_CONTACTOR_RELAY,
+	/** Charger RELAY state machine control */
+	typedef enum
+	{
 
-			/** Check the amount of current flowing in the charger circuit */
-			CHG_STATE__CHECK_CHG_CURRENT,
+		/** Charger control just come out of reset */
+		CHG_RLY_STATE__RESET = 0U,
 
-			/** Check the cell voltages during charging */
-			CHG_STATE__CHECK_CELL_V_DURING_CHG,
-
-			/** Manual balance control via the GS */
-			CHG_STATE__MANUAL_BALANCING,
-
-			/** Abort charging due to some condition */
-			CHG_STATE__ABORT
+	}TE_PWR__CHG_RLY_STATES_T;
 
 
-		}E_PWR__CHARGER_STATE_T;
+	/** Charge Algo */
+	typedef enum
+	{
 
-		/** Init states.
-		 * These enums are for the init states of the Power Node. As each subsystem is brought
-		 * online the states will be incremented.
-		 */
-		typedef enum
-		{
+		/** Doing nothing */
+		CHG_STATE__IDLE = 0U,
 
-			/** Unknown state, could also be out of reset */
-			INIT_STATE__UNKNOWN = 0U,
+		/** Start the charging process */
+		CHG_STATE__START,
 
-			/** First starting state launched after Init */
-			INIT_STATE__START,
+		/** Start balancing */
+		CHG_STATE__START_BALANCE,
 
-			/** Init any comms channels such as I2C and SPI */
-			INIT_STATE__COMMS,
+		/** Check the temperature state of the pack */
+		CHG_STATE__CHECK_PACK_TEMP,
 
-			/** Init the 1 wire network and I2C <> 1 Wire devices */
-			INIT_STATE__CELL_TEMP_START,
+		/** Run the balancer*/
+		CHG_STATE__RUN_BALANCER,
 
-			/** Init the DC/DC converter layer */
-			INIT_STATE__DC_CONVERTER,
+		/** Close charge contactor relay */
+		CHG_STATE__CLOSE_CONTACTOR_RELAY,
 
-			/** Init the BMS layer */
-			INIT_STATE__BMS,
+		/** Check the amount of current flowing in the charger circuit */
+		CHG_STATE__CHECK_CHG_CURRENT,
 
-			/** Start the TSYS01 */
-			INIT_STATE__TSYS01,
+		/** Check the cell voltages during charging */
+		CHG_STATE__CHECK_CELL_V_DURING_CHG,
 
-			/** Init the node pressure MS5607*/
-			INIT_STATE__MS5607,
+		/** Manual balance control via the GS */
+		CHG_STATE__MANUAL_BALANCING,
 
-			/** start the RTI subsystem */
-			INIT_STATE__START_TIMERS,
-
-			/** Start any lower level sytems */
-			INIT_STATE__START_LOW_SYSTEM,
-
-			/** Normal run state */
-			INIT_STATE__RUN
-
-		}E_PWRNODE__INIT_STATES;
+		/** Abort charging due to some condition */
+		CHG_STATE__ABORT
 
 
-		/** DC/DC Converter types */
-		typedef enum
-		{
+	}TE_PWR__CHARGER_STATE_T;
 
-			/** DC/DC has just come out of reset */
-			DC_STATE__RESET = 0U,
+	/** Init states.
+	 * These enums are for the init states of the Power Node. As each subsystem is brought
+	 * online the states will be incremented.
+	 */
+	typedef enum
+	{
 
-			/** Once powered must latch on */
-			DC_STATE__LATCH_COMMAND,
+		/** Unknown state, could also be out of reset */
+		INIT_STATE__UNKNOWN = 0U,
 
-			/** check the WDT needs petting */
-			DC_STATE__CHECK_WDT_PET,
+		/** First starting state launched after Init */
+		INIT_STATE__START,
 
-			/** Check if we need to implement the pod safe command from the user */
-			DC_STATE__CHECK_POD_SAFE,
+		/** Init any comms channels such as I2C and SPI */
+		INIT_STATE__COMMS,
 
-			/** Check our internal timer to make sure we have not received comms */
-			DC_STATE__CHECK_WDT_TIMER,
+		/** Init the 1 wire network and I2C <> 1 Wire devices */
+		INIT_STATE__CELL_TEMP_START,
 
-		}E_PWR_DC__STATE_T;
+		/** Init the DC/DC converter layer */
+		INIT_STATE__DC_CONVERTER,
+
+		/** Init the BMS layer */
+		INIT_STATE__BMS,
+
+		/** Start the TSYS01 */
+		INIT_STATE__TSYS01,
+
+		/** Init the node pressure MS5607*/
+		INIT_STATE__MS5607,
+
+		/** start the RTI subsystem */
+		INIT_STATE__START_TIMERS,
+
+		/** Start any lower level sytems */
+		INIT_STATE__START_LOW_SYSTEM,
+
+		/** Normal run state */
+		INIT_STATE__RUN
+
+	}TE_PWR__INIT_STATES;
+
+
+	/** DC/DC Converter types */
+	typedef enum
+	{
+
+		/** DC/DC has just come out of reset */
+		DC_STATE__RESET = 0U,
+
+		/** Once powered must latch on */
+		DC_STATE__LATCH_COMMAND,
+
+		/** check the WDT needs petting */
+		DC_STATE__CHECK_WDT_PET,
+
+		/** Check if we need to implement the pod safe command from the user */
+		DC_STATE__CHECK_POD_SAFE,
+
+		/** Check our internal timer to make sure we have not received comms */
+		DC_STATE__CHECK_WDT_TIMER,
+
+	}TE_PWR_DC__STATE_T;
 
 
 

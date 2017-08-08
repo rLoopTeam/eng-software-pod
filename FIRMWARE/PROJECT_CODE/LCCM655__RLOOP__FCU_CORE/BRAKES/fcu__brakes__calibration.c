@@ -82,7 +82,7 @@ void vFCU_BRAKES_CAL__Init(void)
  * @brief
  * ToDo
  * 
- * @st_funcMD5		D9EC622A5A5577CE24F0ACB146BA89AF
+ * @st_funcMD5		D3D30A35BF6FF699F2CFBBC51D1466E5
  * @st_funcID		LCCM655R0.FILE.068.FUNC.003
  */
 void vFCU_BRAKES_CAL__Process(void)

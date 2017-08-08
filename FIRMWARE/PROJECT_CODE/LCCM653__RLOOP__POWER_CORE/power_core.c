@@ -113,7 +113,7 @@ void vPWRNODE__Process(void)
 				if(u32Test < (Luint32)PWRNODE_TYPE__PACK_MAX)
 				{
 					//Set the new personality
-					sPWRNODE.ePersonality = (E_PWRNODE_TYPE_T)u32Test;
+					sPWRNODE.ePersonality = (TE_PWR__TYPE_T)u32Test;
 				}
 				else
 				{
@@ -145,11 +145,14 @@ void vPWRNODE__Process(void)
 			}
 
 
-			//DMA
-			vRM4_DMA__Init();
-
 			//GIO
 			vRM4_GIO__Init();
+
+			#if C_LOCALDEF__BMS_REVISION == 2U
+				//on RM57 Launch, need this pin high
+				vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 3U, GIO_DIRECTION__OUTPUT);
+				vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 3U, 1U);
+			#endif
 
 			//CPU Load monitoring
 			vRM4_CPULOAD__Init();
@@ -184,11 +187,26 @@ void vPWRNODE__Process(void)
 #ifndef WIN32
 			//init any comms channels
 
-			//get the SPI up for the BMS system
-			vRM4_MIBSPI135__Init(MIBSPI135_CHANNEL__1);
 
-			//get the I2C up for the networked sensors
-			vRM4_I2C_USER__Init(RM4_I2C_CH__1);
+			#if C_LOCALDEF__BMS_REVISION == 1U
+				//get the SPI up for the BMS system
+				vRM4_MIBSPI135__Init(MIBSPI135_CHANNEL__1);
+
+				//get the I2C up for the networked sensors
+				vRM4_I2C_USER__Init(RM4_I2C_CH__1);
+			#elif C_LOCALDEF__BMS_REVISION == 2U
+
+				//get the SPI up for the BMS system
+				vRM4_MIBSPI135__Init(MIBSPI135_CHANNEL__3);
+
+				//Need both I2C's
+				vRM4_I2C_USER__Init(RM4_I2C_CH__1);
+				vRM4_I2C_USER__Init(RM4_I2C_CH__2);
+
+			#else
+				#error
+			#endif
+
 #endif
 			//startup the ethernet
 			#if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
@@ -214,7 +232,6 @@ void vPWRNODE__Process(void)
 
 			//do the charger too
 			#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
-
 				vPWRNODE_CHG__Init();
 			#endif
 
@@ -441,7 +458,13 @@ void vPWRNODE__RTI_10MS_ISR(void)
 	#endif
 
 	#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
-		vATA6870__10MS_ISR();
+		#if C_LOCALDEF__BMS_REVISION == 1U
+			vATA6870__10MS_ISR();
+		#elif C_LOCALDEF__BMS_REVISION == 2U
+
+		#else
+			#error
+		#endif
 	#endif
 }
 
@@ -451,6 +474,10 @@ void vPWRNODE__RTI_10MS_ISR(void)
 	#error
 #endif
 #ifndef C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP
+	#error
+#endif
+
+#ifndef C_LOCALDEF__BMS_REVISION
 	#error
 #endif
 

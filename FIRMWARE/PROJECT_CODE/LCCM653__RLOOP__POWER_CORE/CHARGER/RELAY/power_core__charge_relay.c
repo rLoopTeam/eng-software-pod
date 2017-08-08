@@ -37,11 +37,20 @@ void vPWRNODE_CHG_RELAY__Init(void)
 	sPWRNODE.sCharger.eRelayState = CHG_RLY_STATE__RESET;
 
 	//Setup the hardware pins
-	//GPIOA1
-	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 1U, GIO_DIRECTION__OUTPUT);
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		//GPIOA1
+		vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 1U, GIO_DIRECTION__OUTPUT);
 
-	//set to OFF
-	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 0U);
+		//set to OFF
+		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 0U);
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 6U, GIO_DIRECTION__OUTPUT);
+
+		//set to OFF
+		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 6U, 0U);
+	#else
+		#error
+	#endif
 }
 
 /***************************************************************************//**
@@ -77,26 +86,31 @@ void vPWRNODE_CHG_RELAY__Process(void)
 void vPWRNODE_CHG_RELAY__On(void)
 {
 
-	//todo, change state
-
-	//for test week, toggle the pin.
-	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 1U);
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 1U);
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 6U, 1U);
+	#else
+		#error
+	#endif
 }
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Switch off the charger relay
  * 
  * @st_funcMD5		44A67B75C1052F8DCA9577FCCE0DE0E4
  * @st_funcID		LCCM653R0.FILE.022.FUNC.004
  */
 void vPWRNODE_CHG_RELAY__Off(void)
 {
-
-	//todo, change state
-
-	//for test week, toggle the pin.
-	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 0U);
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 0U);
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 6U, 0U);
+	#else
+		#error
+	#endif
 }
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_CHARGER

@@ -211,6 +211,95 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="u8Array"></param>
  <param name="iLength"></param>
 </member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Charger">
+ <summary>
+ Manual BMS Charger Control
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Charger.m_iBMSIndex">
+ <summary>
+ The current bms channel
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Charger.#ctor(System.String,System.Int32)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Charger.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Charger.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__LIB.SIL3.Numerical.U16,System.Byte[]@)">
+ <summary>
+ New Packet In
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Top">
+ <summary>
+ Top level BMS Channel A panel
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Top.m_pExplorer">
+ <summary>
+ Our application explorer bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Top.m_iBarIndex">
+ <summary>
+ The index of our category in the explorer bar
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Top.#ctor(System.Windows.Forms.Form@,LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ExplorerBarHelper@,System.String,System.Int32)">
+ <summary>
+ New instance
+ </summary>
+ <param name="pf"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Top.Panel__HideShow(System.String)">
+ <summary>
+ How or hide this panel if our text matches
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Top.LinkBar_LinkClick(System.String)">
+ <summary>
+ Called when a link is clicked
+ </summary>
+ <param name="sText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Top.InternalEvent__UDPSafe__RxPacketB(System.UInt16,LAPP188__RLOOP__LIB.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__LIB.SIL3.Numerical.U16,System.Boolean,System.UInt32)">
+ <summary>
+ New packet in from top layer
+ </summary>
+ <param name="u16PacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+ <param name="bCRC_OK"></param>
+ <param name="u32Sequence"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Top.InternalEvent__RxPacketA(System.Byte[],System.Int32)">
+ <summary>
+ Rx a eth packet
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iLength"></param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers">
  <summary>
  Accelerometer control and calibration
@@ -892,6 +981,13 @@ LAPP188__RLOOP__RPOD_CONTROL
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.OptoNCDT.btnCal__Click(System.Object,System.EventArgs)">
  <summary>
  Height calibration system
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.OptoNCDT.btnStreamOn__Click(System.Object,System.EventArgs)">
+ <summary>
+ Handle Laser streaming control
  </summary>
  <param name="s"></param>
  <param name="e"></param>
@@ -2022,7 +2118,7 @@ LAPP188__RLOOP__RPOD_CONTROL
  Hover Engine Thermal Management System
  </summary>
 </member>
-<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pnlGimbal">
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Toolbox.m_pnlGCU">
  <summary>
  Gimbal Unit
  </summary>

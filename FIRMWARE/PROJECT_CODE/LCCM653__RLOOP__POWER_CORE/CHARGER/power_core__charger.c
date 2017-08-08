@@ -124,8 +124,11 @@ void vPWRNODE_CHG__Process(void)
 			//If all cells are above 4.1V, pack is full, do not charge
 			//If any cell is above 4.2V, throw an error, discharge that cell below 4.2V by balancing the pack, and do not charge
 			//If any cell is below 2.5V, throw an error and do not charge
-
-			f32Temp = f32PWRNODE_BMS__Cell_Get_HighestVoltage();
+			#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+				f32Temp = f32PWRNODE_BMS__Cell_Get_HighestVoltage();
+			#else
+				f32Temp = 4.1F;
+			#endif
 			if(f32Temp > sPWRNODE.sCharger.f32MaxHighestCell)
 			{
 				//run the balancer
@@ -135,7 +138,11 @@ void vPWRNODE_CHG__Process(void)
 			{
 				//check other pack conditions
 				// 4.1 * 18 = 73.8
-				f32Temp = f32PWRNODE_BMS__Get_PackVoltage();
+				#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+					f32Temp = f32PWRNODE_BMS__Get_PackVoltage();
+				#else
+					f32Temp = 73.8F;
+				#endif
 				if(f32Temp > sPWRNODE.sCharger.f32MaxPackVoltage)
 				{
 					//our pack is charged, back to idle
@@ -198,7 +205,9 @@ void vPWRNODE_CHG__Process(void)
 
 			//5.b.If any cell is above 4.2V, throw an error,
 			//discharge that cell below 4.2V by balancing the pack, and do not charge
-			vPWRNODE_BMS__Balance_Start();
+			#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+				vPWRNODE_BMS__Balance_Start();
+			#endif
 
 			//move to run the balancer
 			sPWRNODE.sCharger.sAlgo.eState = CHG_STATE__RUN_BALANCER;
@@ -207,7 +216,11 @@ void vPWRNODE_CHG__Process(void)
 		case CHG_STATE__RUN_BALANCER:
 
 			//in this mode we are waiting until the balancing is done
-			u8Temp = u8PWRNODE_BMS__Balance_IsBusy();
+			#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+				u8Temp = u8PWRNODE_BMS__Balance_IsBusy();
+			#else
+				u8Temp = 0U;
+			#endif
 			if(u8Temp == 1U)
 			{
 				//we are still balancing
@@ -269,7 +282,7 @@ void vPWRNODE_CHG__Process(void)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Start manual balancing.
  * 
  * @st_funcMD5		2A73C0300D9DB117379DAF41BE6F7740
  * @st_funcID		LCCM653R0.FILE.030.FUNC.006
@@ -288,7 +301,7 @@ void vPWRNODE_GHG__Start_ManualBalance(void)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Stop the manual balance process
  * 
  * @st_funcMD5		AF2A6FD8F1D965F3F3F62EC9066C2F1C
  * @st_funcID		LCCM653R0.FILE.030.FUNC.007
@@ -310,11 +323,12 @@ void vPWRNODE_CHG__Start(void)
 	Luint8 u8Test;
 
 	//make sure we have a batt temp system up
-#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
-	u8Test = u8PWR_BATTTEMP__Is_Avail();
-#else
-	u8Test = 0U;
-#endif
+	#if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
+		u8Test = u8PWR_BATTTEMP__Is_Avail();
+	#else
+		//if not using battery temp, we want to make sure we can charge manually
+		u8Test = 1U;
+	#endif
 	if(u8Test == 1U)
 	{
 		//move to start state
@@ -325,9 +339,6 @@ void vPWRNODE_CHG__Start(void)
 		//can't charge yet
 		sPWRNODE.sCharger.sAlgo.eState = CHG_STATE__ABORT;
 	}
-
-
-
 
 }
 

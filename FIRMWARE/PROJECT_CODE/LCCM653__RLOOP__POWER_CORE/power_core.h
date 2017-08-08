@@ -47,13 +47,13 @@
 			Luint32 u32Guard1;
 
 			/** The personality */
-			E_PWRNODE_TYPE_T ePersonality;
+			TE_PWR__TYPE_T ePersonality;
 
 			/** The ethernet port that we are transmitting from*/
 			Luint16 u16EthPort;
 
 			/** main state machine */
-			E_PWRNODE__RUN_STATES eMainState;
+			TE_PWR__RUN_STATES eMainState;
 
 			/** Just some counters for other I2C devices*/
 			Luint32 u32NodePressCounter;
@@ -73,7 +73,7 @@
 			{
 
 				/** The current Init State */
-				E_PWRNODE__INIT_STATES eState;
+				TE_PWR__INIT_STATES eState;
 
 			}sInit;
 
@@ -82,7 +82,7 @@
 			{
 
 				/** Temp sensor processing states */
-				E_BATT_TEMP__STATE_T eState;
+				TE_PWR_BATT_TEMP__STATE_T eState;
 
 				/** Loaded from memory the number of configured sensors */
 				Luint16 u16NumSensors;
@@ -113,7 +113,7 @@
 			{
 
 				/** DC/DC state machine */
-				E_PWR_DC__STATE_T eState;
+				TE_PWR_DC__STATE_T eState;
 
 				/** Unlock Key Issued*/
 				Luint8 u8Unlock;
@@ -141,7 +141,7 @@
 				{
 
 					/** Charger state machine */
-					E_PWR__CHARGER_STATE_T eState;
+					TE_PWR__CHARGER_STATE_T eState;
 
 				}sAlgo;
 
@@ -153,7 +153,7 @@
 				Lfloat32 f32MaxCellTemp;
 
 				/** Charger Relay control state */
-				E_PWRNODE__CHG_RLY_STATES_T eRelayState;
+				TE_PWR__CHG_RLY_STATES_T eRelayState;
 
 
 			}sCharger;
@@ -217,7 +217,7 @@
 				Luint8 u810MS_Timer;
 
 				/** main state machine */
-				E_PWRNODE_NET__MAIN_STATES eMainState;
+				TE_PWR_NET__MAIN_STATES eMainState;
 
 				/** If we are unicasting */
 				Luint8 u8UnicastAddx[4];
@@ -252,7 +252,7 @@
 				E_PWRNODE__REPRESS_T eState;
 
 				/** The solenoid state */
-				E_PWRNODE_REPRESS_SOL_STATE eSolState;
+				TE_PWR_REPRESS_SOL_STATE eSolState;
 
 				/** Count of 100ms */
 				Luint32 u32100MS_Count;

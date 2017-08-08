@@ -4,10 +4,9 @@
 
 extern struct _strPWRNODE sPWRNODE;
 
-//Init the pressure vessel repress system
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Init the pressure vessel repress system
  * 
  * @st_funcMD5		DA61463302D1706E2EFE0AD5D80540B0
  * @st_funcID		LCCM653R0.FILE.035.FUNC.001
@@ -20,20 +19,29 @@ void vPWR_PVPRESS__Init(void)
 	sPWRNODE.sRePress.eSolState = REPRESS_SOL_STATE__OFF;
 	sPWRNODE.sRePress.f32Press = 0.0F;
 
-#ifndef WIN32
-	//configure N2HET PIN
-	vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 0U);
+	#ifndef WIN32
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		//configure N2HET PIN
+		vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 0U);
 
-	//set its state
-	vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 0U, 0U);
-#endif
+		//set its state
+		vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 0U, 0U);
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		//configure N2HET PIN
+		vRM4_N2HET_PINS__Set_PinDirection_Output(N2HET_CHANNEL__1, 4U);
+
+		//set its state
+		vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 4U, 0U);
+	#else
+		#error
+	#endif
+	#endif
 
 }
 
-//process the pvrepress system
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Process the pv repress system
  * 
  * @st_funcMD5		4BDFBA2F957461A134F3C2F8E3B49BE2
  * @st_funcID		LCCM653R0.FILE.035.FUNC.002
@@ -118,14 +126,27 @@ void vPWR_PVPRESS__Process(void)
 
 	//handle the actual solenoid state.
 #ifndef WIN32
-	if(sPWRNODE.sRePress.eSolState == REPRESS_SOL_STATE__OFF)
-	{
-		vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 0U, 0U);
-	}
-	else
-	{
-		vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 0U, 1U);
-	}
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		if(sPWRNODE.sRePress.eSolState == REPRESS_SOL_STATE__OFF)
+		{
+			vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 0U, 0U);
+		}
+		else
+		{
+			vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 0U, 1U);
+		}
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		if(sPWRNODE.sRePress.eSolState == REPRESS_SOL_STATE__OFF)
+		{
+			vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 4U, 0U);
+		}
+		else
+		{
+			vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 4U, 1U);
+		}
+	#else
+		#error
+	#endif
 #else
 	//update WIN32
 	if (sPWRNODE.sRePress.eSolState == REPRESS_SOL_STATE__OFF)
@@ -140,12 +161,11 @@ void vPWR_PVPRESS__Process(void)
 #endif
 }
 
-//to be called from GS to enable the repress system as its dangerous
 /***************************************************************************//**
  * @brief
- * ToDo
+ * To be called from GS to enable the repress system as its dangerous
  * 
- * @param[in]		u32Value		## Desc ##
+ * @param[in]		u32Value			1 = Enable
  * @st_funcMD5		F3BF77523E1E4FDE210AE4F5C4CAC9E9
  * @st_funcID		LCCM653R0.FILE.035.FUNC.003
  */
@@ -164,10 +184,9 @@ void vPWR_PVPRESS__Enable(Luint32 u32Value)
 
 }
 
-//100ms interrupt
 /***************************************************************************//**
  * @brief
- * ToDo
+ * 100ms interrupt
  * 
  * @st_funcMD5		1D6024B6A44D7FB132FF6F6F7D4C319A
  * @st_funcID		LCCM653R0.FILE.035.FUNC.004

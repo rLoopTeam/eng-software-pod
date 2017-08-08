@@ -358,6 +358,13 @@ Lint32 s32FCU_LASERDIST__Get_Distance_mm(void)
 
 
 //process the binary packet.
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		089FCC7F1278951692A429D26ED21534
+ * @st_funcID		LCCM655R0.FILE.033.FUNC.008
+ */
 void vFCU_LASERDIST__Process_Packet(void)
 {
 	Lfloat32 f32Delta;

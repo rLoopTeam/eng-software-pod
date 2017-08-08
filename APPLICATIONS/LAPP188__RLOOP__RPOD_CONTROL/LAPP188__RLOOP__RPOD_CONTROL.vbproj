@@ -93,6 +93,13 @@
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\AUX_PROP\rpod__panel_auxprop__top.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\AUX_PROP\rpod__panel_auxprop__top.vb</Link>
     </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\BMS\rpod__panel_bms__charger.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\BMS\rpod__panel_bms__charger.vb</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\BMS\rpod__panel_bms__top.vb">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\BMS\rpod__panel_bms__top.vb</Link>
+    </Compile>
     <Compile Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\ACCELEROMETERS\rpod__flight__accel.vb">
       <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\ACCELEROMETERS\rpod__flight__accel.vb</Link>
       <SubType>Component</SubType>

@@ -43,14 +43,24 @@ void vPWRNODE_DC__Init(void)
 	sPWRNODE.sDC.u8100MS_Tick = 0U;
 	sPWRNODE.sDC.u32100MS_TimerCount = 0U;
 
-#ifndef WIN32
-	//Setup the hardware pins (DC_WATCHDOG Signal)
-	//GPIOA0
-	vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 0U, GIO_DIRECTION__OUTPUT);
+	#ifndef WIN32
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		//Setup the hardware pins (DC_WATCHDOG Signal)
+		//GPIOA0
+		vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 0U, GIO_DIRECTION__OUTPUT);
 
-	//set to OFF
-	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 0U);
-#endif
+		//set to OFF
+		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 0U);
+
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 2U, GIO_DIRECTION__OUTPUT);
+
+		//set to OFF
+		vRM4_GIO__Set_Bit(RM4_GIO__PORT_B, 2U, 0U);
+	#else
+		#error
+	#endif
+	#endif
 }
 
 /***************************************************************************//**
@@ -77,7 +87,13 @@ void vPWRNODE_DC__Process(void)
 			// we must not do anything yet until the GS has latched us
 
 			//now we can set to on
-			vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 1U);
+			#if C_LOCALDEF__BMS_REVISION == 1U
+				vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 1U);
+			#elif C_LOCALDEF__BMS_REVISION == 2U
+				vRM4_GIO__Set_Bit(RM4_GIO__PORT_B, 2U, 1U);
+			#else
+				#error
+			#endif
 
 			sPWRNODE.sDC.eState = DC_STATE__CHECK_WDT_PET;
 			break;
@@ -153,9 +169,9 @@ void vPWRNODE_DC__Process(void)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Latch the DC/DC Converter on
  * 
- * @param[in]		u32Key		## Desc ##
+ * @param[in]		u32Key			The latch key
  * @st_funcMD5		E2B6001DE811C97DECC3E37BB4314D81
  * @st_funcID		LCCM653R0.FILE.021.FUNC.009
  */
@@ -249,7 +265,13 @@ Luint32 u32PWRNODE_DC__Get_TimerCount(void)
  */
 void vPWRNODE_DC__Power_Off(void)
 {
-	vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 0U);
+	#if C_LOCALDEF__BMS_REVISION == 1U
+		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 0U);
+	#elif C_LOCALDEF__BMS_REVISION == 2U
+		vRM4_GIO__Set_Bit(RM4_GIO__PORT_B, 2U, 0U);
+	#else
+		#error
+	#endif
 }
 
 
@@ -285,6 +307,9 @@ void vPWRNODE_DC__100MS_ISR(void)
 	#error
 #endif
 #ifndef C_LOCALDEF__LCCM653__DC_CONVERTER__HEART_TIMER_MAX
+	#error
+#endif
+#ifndef C_LOCALDEF__BMS_REVISION
 	#error
 #endif
 

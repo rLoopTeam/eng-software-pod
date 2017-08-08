@@ -109,9 +109,8 @@ void vPWRNODE_NET_TX__Process(void)
 			break;
 
 		case NET_PKT__PWR_BMS__TX_BMS_STATUS:
-			#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
-				vPWR_BMS_ETH__Transmit(eType);
-			#endif
+			//we always have BMS eth
+			vPWR_BMS_ETH__Transmit(eType);
 			sPWRNODE.sUDPDiag.eTxPacketType = NET_PKT__NONE;
 			break;
 

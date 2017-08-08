@@ -20,7 +20,7 @@ extern struct _strPWRNODE sPWRNODE;
  */
 void vPWR_CHARGER_ETH__Init(void)
 {
-
+	//do ntohign.
 }
 
 /***************************************************************************//**
