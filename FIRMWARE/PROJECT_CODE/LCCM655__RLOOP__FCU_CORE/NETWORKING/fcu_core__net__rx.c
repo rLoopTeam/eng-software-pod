@@ -74,7 +74,7 @@ void vFCU_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPor
  * @param[in]		ePacketType				SafeUDP packet Type
  * @param[in]		u16PayloadLength		Length of only the SafeUDP payload
  * @param[in]		*pu8Payload				Pointer to the payload bytes
- * @st_funcMD5		5AD676C1CB39DA8E23F769F70DAA8534
+ * @st_funcMD5		C3A4BF57DFA63DF34F9A148740791C65
  * @st_funcID		LCCM655R0.FILE.018.FUNC.002
  */
 void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)
@@ -328,6 +328,21 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					vFCU_LASEROPTO__Set_CalValue(u32Block[0], f32Block[1]);
 				#endif
 				break;
+
+			/** Enable ethernet injection */
+			case NET_PKT__LASER_OPTO__ENABLE_ETH_INJ:
+				#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
+					vFCU_LASEROPTO__Enable_Ethernet_Injection(u32Block[0], 0xABBA1221U, (Luint8)u32Block[1]);
+				#endif
+				break;
+
+			/** Enable ethernet injection */
+			case NET_PKT__LASER_OPTO__ETH_INJ_PACKET:
+				#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
+				vFCU_LASEROPTO__Inject_Value(u32Block[0], f32Block[1]);
+				#endif
+				break;
+
 
 			case NET_PKT__LASER_DIST__REQUEST_LASER_DATA:
 				//transmit the laser distance data

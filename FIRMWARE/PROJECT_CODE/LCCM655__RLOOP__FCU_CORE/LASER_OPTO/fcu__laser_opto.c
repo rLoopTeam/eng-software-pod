@@ -40,7 +40,7 @@ static void vFCU_LASEROPTO__Append_Byte(E_FCU__LASER_OPTO__INDEX_T eLaser, Luint
  * @brief
  * Init any variables
  * 
- * @st_funcMD5		2BA57935D2552A930E3C1C4FF621AE4A
+ * @st_funcMD5		5186E8658F72896A54A0CC92659AD380
  * @st_funcID		LCCM655R0.FILE.021.FUNC.001
  */
 void vFCU_LASEROPTO__Init(void)
@@ -48,8 +48,19 @@ void vFCU_LASEROPTO__Init(void)
 	Luint8 u8Counter;
 	Luint8 u8Test;
 
+	sFCU.sLaserOpto.u32Guard1 = 0xABAB1133U;
+	sFCU.sLaserOpto.u32Guard2 = 0xBBCC2244U;
+
 	sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__RESET;
 	vSIL3_FAULTTREE__Init(&sFCU.sLaserOpto.sFaultFlags);
+
+	sFCU.sLaserOpto.sInjection.u8InjectionEnabled = 0U;
+	sFCU.sLaserOpto.sInjection.u32InjectionKey = 0U;
+	for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+	{
+		sFCU.sLaserOpto.sInjection.f32InjValues[u8Counter] = 0.0F;
+	}
+
 
 	//reset everything that is needed
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
@@ -59,7 +70,7 @@ void vFCU_LASEROPTO__Init(void)
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].u8ReadyForFiltering = 0U;
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].u8NewDistanceAvail = 0U;
 		//just set to some obscene distance
-		sFCU.sLaserOpto.sOptoLaser[u8Counter].f32DistanceRAW = 99999.9F;
+		sFCU.sLaserOpto.sOptoLaser[u8Counter].f32DistanceRAW = 0.0F;
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].sFiltered.f32FilteredValue = 0.0F;
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].sFiltered.f32PreviousValue = 0.0F;
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].u8Error = 0U;
@@ -67,11 +78,11 @@ void vFCU_LASEROPTO__Init(void)
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32ErrorCode = 0U;
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32Byte1Wrong = 0U;
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32Success = 0U;
+		sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32ByteSeenTimeOut = 0U;
 
 		sFCU.sLaserOpto.sCalibration[u8Counter].f32Offset = 0.0F;
 
 		vSIL3_FAULTTREE__Init(&sFCU.sLaserOpto.sOptoLaser[u8Counter].sFaultFlags);
-
 
 	}//for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
 
@@ -111,71 +122,22 @@ void vFCU_LASEROPTO__Init(void)
 											C_LOCALDEF__LCCM655__FCTL_OPTONCDT___CRC);
 
 		//set the flags for a general fault and cal data reload fault.
-		vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, 0);
-		vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, 1);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, C_LCCM655__LASER_OPTO__FAULT_INDEX__00);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, C_LCCM655__LASER_OPTO__FAULT_INDEX__01);
 
 	}//else if(u8Test == 1U)
 
 
 }		
 
-//Do the calibration
-/***************************************************************************//**
- * @brief
- * ToDo
- * 
- * @param[in]		f32Offset		## Desc ##
- * @param[in]		u32Key		## Desc ##
- * @st_funcMD5		BF3670622F86308F09694DAA20E95429
- * @st_funcID		LCCM655R0.FILE.021.FUNC.009
- */
-void vFCU_LASEROPTO__Set_CalValue(Luint32 u32Key, Lfloat32 f32Offset)
-{
-	Lfloat32 f32Temp;
 
-	if(u32Key == 0x11221122U)
-	{
 
-		//take the current val and subtract to = the offset
-		f32Temp = f32Offset;
-		f32Temp -= sFCU.sLaserOpto.sOptoLaser[C_FCU__SC16_OPTO_FL_INDEX].f32DistanceRAW;
-		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FL_INDEX].f32Offset = f32Temp;
-
-		f32Temp = f32Offset;
-		f32Temp -= sFCU.sLaserOpto.sOptoLaser[C_FCU__SC16_OPTO_FR_INDEX].f32DistanceRAW;
-		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FR_INDEX].f32Offset = f32Temp;
-
-		f32Temp = f32Offset;
-		f32Temp -= sFCU.sLaserOpto.sOptoLaser[C_FCU__SC16_OPTO_RL_INDEX].f32DistanceRAW;
-		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RL_INDEX].f32Offset = f32Temp;
-
-		f32Temp = f32Offset;
-		f32Temp -= sFCU.sLaserOpto.sOptoLaser[C_FCU__SC16_OPTO_RR_INDEX].f32DistanceRAW;
-		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RR_INDEX].f32Offset = f32Temp;
-
-		//do the eeprom
-		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FL_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
-		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FR_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FR_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
-		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RL_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RL_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
-		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RR_INDEX].f32Offset, DELAY_T__IMMEDIATE_WRITE);
-
-		//redo the CRC;
-		vSIL3_EEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO,
-											C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO,
-											C_LOCALDEF__LCCM655__FCTL_OPTONCDT___CRC);
-
-	}
-	else
-	{
-		//error
-	}
-}
 
 /***************************************************************************//**
  * @brief
  * Process any laser opto tasks
  * 
- * @st_funcMD5		1BD1F37A6175A03AB900257F01E11343
+ * @st_funcMD5		8EFE61E3DF3A87B20FE282AEC922686C
  * @st_funcID		LCCM655R0.FILE.021.FUNC.002
  */
 void vFCU_LASEROPTO__Process(void)
@@ -183,10 +145,24 @@ void vFCU_LASEROPTO__Process(void)
 	Luint8 u8Counter;
 	Luint8 u8Temp;
 	Luint8 u8BurstCount;
+	Luint32 u32Test;
+
+	//check the memory guarding
+	if(sFCU.sLaserOpto.u32Guard1 != 0xABAB1133U)
+	{
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, C_LCCM655__LASER_OPTO__FAULT_INDEX__00);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, C_LCCM655__LASER_OPTO__FAULT_INDEX__02);
+	}
+	if(sFCU.sLaserOpto.u32Guard2 != 0xBBCC2244U)
+	{
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, C_LCCM655__LASER_OPTO__FAULT_INDEX__00);
+		vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, C_LCCM655__LASER_OPTO__FAULT_INDEX__02);
+	}
 
 	//handle the optoNCDT laser state
 	switch(sFCU.sLaserOpto.eOptoNCDTState)
 	{
+		/** just come out of reset */
 		case OPTOLASER_STATE__RESET:
 			//just fresh out of reset.
 
@@ -196,6 +172,7 @@ void vFCU_LASEROPTO__Process(void)
 			sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__WAIT_LASER_RESET;
 			break;
 
+		/** we need to wait until the lasers power up before issuing a command*/
 		case OPTOLASER_STATE__WAIT_LASER_RESET:
 
 			//wait here until the lasers are out of rest.
@@ -211,7 +188,28 @@ void vFCU_LASEROPTO__Process(void)
 
 			break;
 
+		/** configure the laser into RS422 mode */
 		case OPTOLASER_STATE__INIT_LASER:
+
+			//need to make sure our SC16IS channel is available for us
+			for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
+			{
+
+				u32Test = u32SIL3_SC16__Get_FaultFlags(u8Counter);
+				//rule out the Rx Fifo Overflow
+				if((u32Test & (0x03 ^ 0xFFFFFFFF)) != 0U)
+				{
+					//opto fault
+					vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sOptoLaser[u8Counter].sFaultFlags, C_LCCM655__LASER_OPTO_LASER__FAULT_INDEX__00);
+					vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sOptoLaser[u8Counter].sFaultFlags, C_LCCM655__LASER_OPTO_LASER__FAULT_INDEX__01);
+				}
+				else
+				{
+					//ok
+				}
+
+			}
+
 
 			//sucks but we have had to set the profile called rLoop into each sensor
 			//put the lasers into RS422 mode.
@@ -225,74 +223,128 @@ void vFCU_LASEROPTO__Process(void)
 			sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__WAIT_INIT_DONE;
 			break;
 
+		/** Wait until the laser has been initted */
 		case OPTOLASER_STATE__WAIT_INIT_DONE:
 			//wait until the laser is up
 
+			for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
+			{
+				//clear any counters early on
+				sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32ByteSeenTimeOut = 0U;
+			}
 
 			//continue to check for new data.
 			sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__CHECK_NEW_DATA;
 			break;
 
+		/** Check if any new data is avail from the laser FIFO's */
 		case OPTOLASER_STATE__CHECK_NEW_DATA:
 
-			//do a sneeky burst here
-			for(u8BurstCount = 0U; u8BurstCount < 3U; u8BurstCount++)
+			if((sFCU.sLaserOpto.sInjection.u8InjectionEnabled == 1U) && (sFCU.sLaserOpto.sInjection.u32InjectionKey == 0x55667788U))
 			{
+				//inject
+				//fall on
+			}
+			else
+			{
+				//do a sneeky burst here
+				for(u8BurstCount = 0U; u8BurstCount < 3U; u8BurstCount++)
+				{
 
-				//check if any new laser data is available on the bus.
+					//check if any new laser data is available on the bus.
+					for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
+					{
+						//see if there is at least one byte of data avail in the FIFO's
+						u8Temp = u8SIL3_SC16_USER__Get_ByteAvail(u8Counter);
+						if(u8Temp == 0U)
+						{
+							//no new data
+						}
+						else
+						{
+							//yep some new laser data avail, what to do with it?
+
+							//get the byte and send it off for processing if we have enough data
+							u8Temp = u8SIL3_SC16_USER__Get_Byte(u8Counter);
+
+							//process the byte.
+							vFCU_LASEROPTO__Append_Byte((E_FCU__LASER_OPTO__INDEX_T)u8Counter, u8Temp);
+
+							//clear now that we have a byte in
+							sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32ByteSeenTimeOut = 0U;
+						}
+
+					}//for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+
+				}//for(u8BurstCount = 0U; u8BurstCount < 3U; u8BurstCount++)
+
+
+				//handle byte timeout flags.
 				for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
 				{
-					//see if there is at least one byte of data avail in the FIFO's
-					u8Temp = u8SIL3_SC16_USER__Get_ByteAvail(u8Counter);
-					if(u8Temp == 0U)
+					if(sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32ByteSeenTimeOut > 5U)
 					{
-						//no new data
+						//timeout
+						vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sOptoLaser[u8Counter].sFaultFlags, C_LCCM655__LASER_OPTO_LASER__FAULT_INDEX__00);
+						vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sOptoLaser[u8Counter].sFaultFlags, C_LCCM655__LASER_OPTO_LASER__FAULT_INDEX__02);
+
 					}
 					else
 					{
-						//yep some new laser data avail, what to do with it?
-
-						//get the byte and send it off for processing if we have enough data
-						u8Temp = u8SIL3_SC16_USER__Get_Byte(u8Counter);
-
-						//process the byte.
-						vFCU_LASEROPTO__Append_Byte((E_FCU__LASER_OPTO__INDEX_T)u8Counter, u8Temp);
+						//still good, no timeout seeen.
 					}
 
-				}//for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
-
-			}//for(u8BurstCount = 0U; u8BurstCount < 3U; u8BurstCount++)
+				}//for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
+			}
 
 			sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__CHECK_NEW_PACKET;
 			break;
 
+		/** Check if a new packet is avail for each laser */
 		case OPTOLASER_STATE__CHECK_NEW_PACKET:
 
-			//check the packet state of each laser
-			for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
+			if((sFCU.sLaserOpto.sInjection.u8InjectionEnabled == 1U) && (sFCU.sLaserOpto.sInjection.u32InjectionKey == 0x55667788U))
 			{
-				if(sFCU.sLaserOpto.sOptoLaser[u8Counter].u8NewPacket == 1U)
+				//permit injection
+				for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
 				{
-					//we have a new laser packet, process it for distance or error code.
-					vFCU_LASEROPTO__Process_Packet((E_FCU__LASER_OPTO__INDEX_T)u8Counter);
+					sFCU.sLaserOpto.sOptoLaser[u8Counter].f32DistanceRAW = sFCU.sLaserOpto.sInjection.f32InjValues[u8Counter];
 
 					//good for packet filtering.
 					sFCU.sLaserOpto.sOptoLaser[u8Counter].u8ReadyForFiltering = 1U;
-
-					//clear the flag
-					sFCU.sLaserOpto.sOptoLaser[u8Counter].u8NewPacket = 0U;
 				}
-				else
+
+			}
+			else
+			{
+
+				//check the packet state of each laser
+				for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
 				{
-					//no new packet has arrived, loop around
-				}
+					if(sFCU.sLaserOpto.sOptoLaser[u8Counter].u8NewPacket == 1U)
+					{
+						//we have a new laser packet, process it for distance or error code.
+						vFCU_LASEROPTO__Process_Packet((E_FCU__LASER_OPTO__INDEX_T)u8Counter);
 
-			}//or(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+						//good for packet filtering.
+						sFCU.sLaserOpto.sOptoLaser[u8Counter].u8ReadyForFiltering = 1U;
+
+						//clear the flag
+						sFCU.sLaserOpto.sOptoLaser[u8Counter].u8NewPacket = 0U;
+					}
+					else
+					{
+						//no new packet has arrived, loop around
+					}
+
+				}//for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
+			}
 
 			//now filter it
 			sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__FILTER_PACKET;
 			break;
 
+		/** Perform packet filtering */
 		case OPTOLASER_STATE__FILTER_PACKET:
 
 			//check the packet state of each laser
@@ -314,7 +366,7 @@ void vFCU_LASEROPTO__Process(void)
 					//no filtering needed on this packet.
 				}
 
-			}//or(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+			}//for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
 
 			//back to check for more data
 			sFCU.sLaserOpto.eOptoNCDTState = OPTOLASER_STATE__CHECK_NEW_DATA;
@@ -325,8 +377,81 @@ void vFCU_LASEROPTO__Process(void)
 			//log;
 			break;
 	}//switch(sFCU.sLaserOpto.eOptoNCDTState)
-
 }
+
+
+/***************************************************************************//**
+ * @brief
+ * Enable ethernet injection, take the laser offline and provide raw values
+ * 
+ * @param[in]		u8Enable			1 = enable
+ * @param[in]		u32Key2				Second Key
+ * @param[in]		u32Key1				First Key
+ * @st_funcMD5		642B56910936A715E8ABCE4609418B1C
+ * @st_funcID		LCCM655R0.FILE.021.FUNC.010
+ */
+void vFCU_LASEROPTO__Enable_Ethernet_Injection(Luint32 u32Key1, Luint32 u32Key2, Luint8 u8Enable)
+{
+
+	if(u8Enable == 1U)
+	{
+		if(u32Key1 == 0x11331133U)
+		{
+
+			if(u32Key2 == 0xABBA1221U)
+			{
+				sFCU.sLaserOpto.sInjection.u8InjectionEnabled = 1U;
+				sFCU.sLaserOpto.sInjection.u32InjectionKey = 0x55667788U;
+
+				vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, C_LCCM655__LASER_OPTO__FAULT_INDEX__00);
+				vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, C_LCCM655__LASER_OPTO__FAULT_INDEX__03);
+
+			}
+			else
+			{
+				//wrong second key
+				sFCU.sLaserOpto.sInjection.u8InjectionEnabled = 0U;
+				sFCU.sLaserOpto.sInjection.u32InjectionKey = 0U;
+			}
+
+		}
+		else
+		{
+			//wrong key
+			sFCU.sLaserOpto.sInjection.u8InjectionEnabled = 0U;
+			sFCU.sLaserOpto.sInjection.u32InjectionKey = 0U;
+		}
+	}
+	else
+	{
+		//disable
+		sFCU.sLaserOpto.sInjection.u8InjectionEnabled = 0U;
+		sFCU.sLaserOpto.sInjection.u32InjectionKey = 0U;
+	}
+}
+
+/***************************************************************************//**
+ * @brief
+ * Inject a value over ethernet
+ * 
+ * @param[in]		f32Value			The value (laser height)
+ * @param[in]		u8LaserIndex		The index of the laser
+ * @st_funcMD5		CBE72E221D4D69D32AFFDFC48091F050
+ * @st_funcID		LCCM655R0.FILE.021.FUNC.011
+ */
+void vFCU_LASEROPTO__Inject_Value(Luint8 u8LaserIndex, Lfloat32 f32Value)
+{
+	if(u8LaserIndex < C_FCU__NUM_LASERS_OPTONCDT)
+	{
+		sFCU.sLaserOpto.sInjection.f32InjValues[u8LaserIndex] = f32Value;
+	}
+	else
+	{
+		//big error
+	}
+}
+
+
 
 /***************************************************************************//**
  * @brief
@@ -360,7 +485,7 @@ Luint8 u8FCU_LASEROPTO__Get_Error(E_FCU__LASER_OPTO__INDEX_T eLaser)
  * Process the laser packet
  * 
  * @param[in]		u8LaserIndex		The laser index
- * @st_funcMD5		8E92CA04DFF76369C507CD9BBBE3EA66
+ * @st_funcMD5		6D784FA042D43AE0B486869D48A653A2
  * @st_funcID		LCCM655R0.FILE.021.FUNC.004
  */
 void vFCU_LASEROPTO__Process_Packet(E_FCU__LASER_OPTO__INDEX_T eLaser)
@@ -394,13 +519,12 @@ void vFCU_LASEROPTO__Process_Packet(E_FCU__LASER_OPTO__INDEX_T eLaser)
 			//Increment the count of error code values from the laser
 			sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sCounters.u32ErrorCode++;
 
-
-			vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sFaultFlags, 2);
+			vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFaultFlags, C_LCCM655__LASER_OPTO_LASER__FAULT_INDEX__05);
 		}
 		else
 		{
 
-			vSIL3_FAULTTREE__Clear_Flag(&sFCU.sLaserOpto.sFaultFlags, 2);
+			vSIL3_FAULTTREE__Clear_Flag(&sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFaultFlags, C_LCCM655__LASER_OPTO_LASER__FAULT_INDEX__05);
 
 			//convert
 			f32Temp = (Lfloat32)u32ValA;
@@ -453,7 +577,7 @@ void vFCU_LASEROPTO__Process_Packet(E_FCU__LASER_OPTO__INDEX_T eLaser)
  * 
  * @param[in]		u8Value					New byte value
  * @param[in]		u8LaserIndex			The laser index.
- * @st_funcMD5		DA0F12390988943896FBFA359E063324
+ * @st_funcMD5		C94F420DE8FE763B45DF853B7252621A
  * @st_funcID		LCCM655R0.FILE.021.FUNC.005
  */
 void vFCU_LASEROPTO__Append_Byte(E_FCU__LASER_OPTO__INDEX_T eLaser, Luint8 u8Value)
@@ -488,7 +612,7 @@ void vFCU_LASEROPTO__Append_Byte(E_FCU__LASER_OPTO__INDEX_T eLaser, Luint8 u8Val
 				break;
 			case OPTONCDT_RX__BYTE_2:
 
-				//check for byte 1
+				//check for byte 2
 				if((u8Value & 0xC0U) == 0x40U)
 				{
 					//the top two bits are 1, we are good to go
@@ -507,7 +631,7 @@ void vFCU_LASEROPTO__Append_Byte(E_FCU__LASER_OPTO__INDEX_T eLaser, Luint8 u8Val
 
 			case OPTONCDT_RX__BYTE_3:
 
-				//check for byte 1
+				//check for byte 3
 				if((u8Value & 0xC0U) == 0x80U)
 				{
 					//the top two bits are valid, we are good to go
@@ -543,15 +667,73 @@ void vFCU_LASEROPTO__Append_Byte(E_FCU__LASER_OPTO__INDEX_T eLaser, Luint8 u8Val
  * @brief
  * 100MS ISR point
  * 
- * @st_funcMD5		E23807C52369107D55D0953516ED2BFB
+ * @st_funcMD5		F4FB049D0F01C48CD1F828446586792E
  * @st_funcID		LCCM655R0.FILE.021.FUNC.006
  */
 void vFCU_LASEROPTO__100MS_ISR(void)
 {
+	Luint8 u8Counter;
+	for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
+	{
+		sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32ByteSeenTimeOut++;
+	}
 
 	sFCU.sLaserOpto.u32LaserPOR_Counter++;
 }
 
+
+/***************************************************************************//**
+ * @brief
+ * Do the calibration
+ * Lets us set the height of all height lasers, assumes everything is level
+ *
+ * @param[in]		f32Offset			Offset in mm
+ * @param[in]		u32Key				Access Key
+ * @st_funcMD5		BF3670622F86308F09694DAA20E95429
+ * @st_funcID		LCCM655R0.FILE.021.FUNC.009
+ */
+void vFCU_LASEROPTO__Set_CalValue(Luint32 u32Key, Lfloat32 f32Offset)
+{
+	Lfloat32 f32Temp;
+
+	if(u32Key == 0x11221122U)
+	{
+
+		//take the current val and subtract to = the offset
+		f32Temp = f32Offset;
+		f32Temp -= sFCU.sLaserOpto.sOptoLaser[C_FCU__SC16_OPTO_FL_INDEX].f32DistanceRAW;
+		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FL_INDEX].f32Offset = f32Temp;
+
+		f32Temp = f32Offset;
+		f32Temp -= sFCU.sLaserOpto.sOptoLaser[C_FCU__SC16_OPTO_FR_INDEX].f32DistanceRAW;
+		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FR_INDEX].f32Offset = f32Temp;
+
+		f32Temp = f32Offset;
+		f32Temp -= sFCU.sLaserOpto.sOptoLaser[C_FCU__SC16_OPTO_RL_INDEX].f32DistanceRAW;
+		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RL_INDEX].f32Offset = f32Temp;
+
+		f32Temp = f32Offset;
+		f32Temp -= sFCU.sLaserOpto.sOptoLaser[C_FCU__SC16_OPTO_RR_INDEX].f32DistanceRAW;
+		sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RR_INDEX].f32Offset = f32Temp;
+
+		//do the eeprom
+		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FL_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
+		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FR_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_FR_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
+		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RL_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RL_INDEX].f32Offset, DELAY_T__DELAYED_WRITE);
+		vSIL3_EEPARAM__WriteF32(C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO, sFCU.sLaserOpto.sCalibration[C_FCU__SC16_OPTO_RR_INDEX].f32Offset, DELAY_T__IMMEDIATE_WRITE);
+
+		//redo the CRC;
+		vSIL3_EEPARAM_CRC__Calculate_And_Store_CRC(	C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO,
+											C_LOCALDEF__LCCM655__FCTL_OPTONCDT___RR_ZERO,
+											C_LOCALDEF__LCCM655__FCTL_OPTONCDT___CRC);
+
+	}
+	else
+	{
+		//error
+	}
+
+}
 
 #ifdef WIN32
 /***************************************************************************//**

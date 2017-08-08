@@ -152,6 +152,8 @@
 
             Dim l0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Module Flags", MyBase.m_pInnerPanel)
             Me.m_txtModuleFlags = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l0)
+            Me.m_txtModuleFlags.FlagsFile__Read("../../../../FIRMWARE/PROJECT_CODE/LCCM655__RLOOP__FCU_CORE/LASER_OPTO/fcu__laser_opto__fault_flags.h", "LASER_OPTO")
+
 
             ReDim Me.m_txtLaser_Flags(C_NUM_LASERS - 1)
             ReDim Me.m_txtLaser_ErrorCount(C_NUM_LASERS - 1)
@@ -183,6 +185,7 @@
                 la5(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Success Count")
 
                 Me.m_txtLaser_Flags(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, la0(iCounter))
+                Me.m_txtLaser_Flags(iCounter).FlagsFile__Read("../../../../FIRMWARE/PROJECT_CODE/LCCM655__RLOOP__FCU_CORE/LASER_OPTO/fcu__laser_opto__laser_fault_flags.h", "LASER_OPTO_LASER")
                 la1(iCounter).Layout__AboveRightControl(la0(iCounter), Me.m_txtLaser_Flags(iCounter))
                 Me.m_txtLaser_ErrorCount(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, la1(iCounter))
                 la2(iCounter).Layout__AboveRightControl(la0(iCounter), Me.m_txtLaser_ErrorCount(iCounter))
@@ -239,6 +242,12 @@
 
 
         End Sub
+
+        ''' <summary>
+        ''' Handle Laser streaming control
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
         Private Sub btnStreamOn__Click(s As Object, e As EventArgs)
 
             Dim pSB As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper = CType(s, LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper)

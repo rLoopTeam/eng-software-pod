@@ -42,6 +42,7 @@
 	#define C_FCU__NUM_LASERS_CONTRAST						(3U)
 
 	//Opto NCDT indexes
+	//DO NOT CHANGE THESE VALUES, THE WORLD WILL END
 	#define C_FCU__SC16_OPTO_FL_INDEX						(0U)
 	#define C_FCU__SC16_OPTO_FR_INDEX						(1U)
 	#define C_FCU__SC16_OPTO_RL_INDEX						(2U)

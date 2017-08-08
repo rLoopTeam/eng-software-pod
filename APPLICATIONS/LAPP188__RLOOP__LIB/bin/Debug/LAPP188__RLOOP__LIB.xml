@@ -2009,6 +2009,16 @@ LAPP188__RLOOP__LIB
  F32 based helper
  </summary>
 </member>
+<member name="F:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.m_bEnableLimits_Upper">
+ <summary>
+ Enable limit control
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.m_f32Limit_Upper">
+ <summary>
+ What is our upper limit?
+ </summary>
+</member>
 <member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.#ctor(System.Int32)">
  <summary>
  Create a new text box and pass in the width
@@ -2031,6 +2041,20 @@ LAPP188__RLOOP__LIB
  </summary>
  <param name="iWidth"></param>
  <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.Limits__SetUpper(System.Single)">
+ <summary>
+ Set the upper limits
+ </summary>
+ <param name="f32Value"></param>
+</member>
+<member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.Value__Update(System.Byte[]@,System.Int32)">
+ <summary>
+ Update the value from an array
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
 </member>
 <member name="T:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16">
  <summary>
@@ -2110,6 +2134,13 @@ LAPP188__RLOOP__LIB
  Update the state display based on some new states
  </summary>
  <param name="iValue"></param>
+</member>
+<member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.Value__UpdateU8(System.Byte[]@,System.Int32)">
+ <summary>
+ Update our internal value based on a payload
+ </summary>
+ <param name="bArray"></param>
+ <param name="iIndex"></param>
 </member>
 <member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.HeaderFile__Set(System.String,System.String)">
  <summary>
@@ -2986,7 +3017,7 @@ adds a sub level node after one has already been added
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.SandGrid.Grid.#ctor(System.Windows.Forms.Control@,System.Boolean)">
+<member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.SandGrid.Grid.#ctor(System.Windows.Forms.Control@,System.Boolean,System.Boolean)">
  <summary>
  Create a new instance, pass in a gb to hold the control
  </summary>
@@ -3174,6 +3205,13 @@ adds a sub level node after one has already been added
  <returns></returns>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.SandGrid.Grid.Grid__Get_SelectedRowIndexs(System.String)">
+ <summary>
+ Gets a list of row indexes if we have multi select enable
+ </summary>
+ <param name="sPath"></param>
+ <returns></returns>
+</member>
 <member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.SandGrid.Grid.Grid__Get_SelectedRowsIndex(System.String)">
  <summary>
  If we have selected more than one item, handle it
@@ -3300,7 +3338,7 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.SandGrid.Grid.CreateGrid(System.Boolean)">
+<member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.SandGrid.Grid.CreateGrid(System.Boolean,System.Boolean)">
  <summary>
  Creates the grid
  </summary>
@@ -3416,7 +3454,7 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  <param name="bAllowEditing"></param>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.SandGrid.Grid.NestedGrid__Add(System.String,System.Int32,System.Collections.Generic.List{System.String},System.Boolean)">
+<member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.SandGrid.Grid.NestedGrid__Add(System.String,System.Int32,System.Collections.Generic.List{System.String},System.Boolean,System.Boolean)">
  <summary>
  Add a nested grid with the new path as a string list
  </summary>
@@ -3426,7 +3464,7 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  <param name="bTreeViewMode"></param>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.SandGrid.Grid.NestedGrid__Add(System.String,System.Int32,System.String,System.Boolean)">
+<member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.SandGrid.Grid.NestedGrid__Add(System.String,System.Int32,System.String,System.Boolean,System.Boolean)">
  <summary>
  Adds a nested grid in a row.
  </summary>
@@ -3765,9 +3803,9 @@ Dim sPairs() As Divelements.SandGrid.NameValuePair
  </summary>
  <remarks></remarks>
 </member>
-<member name="F:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.SandGrid.CellExtensions.GridRichTextCell.m_sText">
+<member name="F:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.SandGrid.CellExtensions.GridRichTextCell.m_sRTF">
  <summary>
- Our string
+ Our RTF string
  </summary>
  <remarks></remarks>
 </member>

@@ -23,6 +23,7 @@
 		#include <LCCM655__RLOOP__FCU_CORE/BRAKES/fcu__brakes__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/ACCELEROMETERS/fcu__accel__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/LASER_OPTO/fcu__laser_opto__fault_flags.h>
+		#include <LCCM655__RLOOP__FCU_CORE/LASER_OPTO/fcu__laser_opto__laser_fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/THROTTLES/fcu__throttles__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/LASER_DISTANCE/fcu__laser_distance__fault_flags.h>
 
@@ -506,6 +507,10 @@
 			/** Overall structure for the OPTONCDT laser interfaces */
 			struct
 			{
+
+				/** Upper guard */
+				Luint32 u32Guard1;
+
 				/** Global laser fault flags */
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
@@ -556,6 +561,9 @@
 						/** Successful packet count */
 						Luint32 u32Success;
 
+						/** Keep track of how long its takes between bytes being seen */
+						Luint32 u32ByteSeenTimeOut;
+
 					}sCounters;
 
 					/** Filtered data structure */
@@ -579,6 +587,26 @@
 					Lfloat32 f32Offset;
 
 				}sCalibration[C_FCU__NUM_LASERS_OPTONCDT];
+
+				/** Ethernet Injection values */
+				struct
+				{
+
+					/** Is eth inj enabled? */
+					Luint8 u8InjectionEnabled;
+
+					/** What is the eth injection key, check this against enabled value */
+					Luint32 u32InjectionKey;
+
+					/** The actual injected values */
+					Lfloat32 f32InjValues[C_FCU__NUM_LASERS_OPTONCDT];
+
+				}sInjection;
+
+
+				/** Lower guard */
+				Luint32 u32Guard2;
+
 
 			}sLaserOpto;
 			#endif //C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT
@@ -1307,6 +1335,8 @@
 		void vFCU_LASEROPTO__Process(void);
 		void vFCU_LASEROPTO__Set_CalValue(Luint32 u32Key, Lfloat32 f32Offset);
 		Lfloat32 f32FCU_LASEROPTO__Get_Distance(E_FCU__LASER_OPTO__INDEX_T eLaser);
+		DLL_DECLARATION void vFCU_LASEROPTO__Enable_Ethernet_Injection(Luint32 u32Key1, Luint32 u32Key2, Luint8 u8Enable);
+		DLL_DECLARATION void vFCU_LASEROPTO__Inject_Value(Luint8 u8LaserIndex, Lfloat32 f32Value);
 		Luint8 u8FCU_LASEROPTO__Get_Error(E_FCU__LASER_OPTO__INDEX_T eLaser);
 		void vFCU_LASEROPTO__100MS_ISR(void);
 		DLL_DECLARATION void vFCU_LASEROPTO_WIN32__Set_DistanceRaw(Luint32 u32Index, Lfloat32 f32Value);

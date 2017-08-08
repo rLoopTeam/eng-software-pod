@@ -420,7 +420,7 @@ void vFCU_THROTTLE__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THROTTL
  * 
  * @param[in]		u16RPM				Desired RPM
  * @return			DAC Volts
- * @st_funcMD5		104E1A0088369417D74427715DC40585
+ * @st_funcMD5		54F536DCC5134D617078F6E61B6D2FAB
  * @st_funcID		LCCM655R0.FILE.006.FUNC.007
  */
 Lfloat32 f32FCU_THROTTLE__RPM_To_Volts(Luint16 u16RPM)

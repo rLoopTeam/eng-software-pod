@@ -48,7 +48,7 @@ void vFCU_FAULTS__Init(void)
  * @brief
  * Process any faults
  * 
- * @st_funcMD5		63C5D8FE5739541417C29CF3448BF7A1
+ * @st_funcMD5		1D0A75C89FE59DD22542A26E24BDB613
  * @st_funcID		LCCM655R0.FILE.022.FUNC.002
  */
 void vFCU_FAULTS__Process(void)

@@ -219,9 +219,7 @@ void vAMC7812__Process(void)
 			if(sAMC.sDAC.u8NewValueLatched[sAMC.sDAC.u8UpdatePos] == 1U)
 			{
 				//we have a new value, send it.
-				s16Return = s16AMC7812_I2C__WriteU16(	C_LOCALDEF__LCCM658__BUS_ADDX,
-														AMC7812_REG_ADR__DAC_0_DATA + sAMC.sDAC.u8UpdatePos,
-														sAMC.sDAC.u16DAC_OutputValue[sAMC.sDAC.u8UpdatePos]);
+				s16Return = s16AMC7812_I2C__WriteU16(C_LOCALDEF__LCCM658__BUS_ADDX, (TE_AMC7812__REG_ADDX)(AMC7812_REG_ADR__DAC_0_DATA + (TE_AMC7812__REG_ADDX)sAMC.sDAC.u8UpdatePos), sAMC.sDAC.u16DAC_OutputValue[sAMC.sDAC.u8UpdatePos]);
 				if(s16Return >= 0)
 				{
 					//success

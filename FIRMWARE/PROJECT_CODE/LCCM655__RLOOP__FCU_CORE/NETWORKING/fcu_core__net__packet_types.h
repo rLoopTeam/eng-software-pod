@@ -88,6 +88,12 @@
 		/** Set the laser height */
 		NET_PKT__LASER_OPTO__CAL_LASER_HEIGHT = 0x1102U,
 
+		/** Enable ethernet injection */
+		NET_PKT__LASER_OPTO__ENABLE_ETH_INJ = 0x1103U,
+
+		/** Enable ethernet injection */
+		NET_PKT__LASER_OPTO__ETH_INJ_PACKET = 0x1104U,
+
 
 		//////////////////////////////////////////////////////
 		//FCU: LASER DISTANCE (0x1200)

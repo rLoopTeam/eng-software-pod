@@ -41,7 +41,7 @@ void vFCU_FAULTS_ETH__Init(void)
  * Transmit a faults eth packet
  * 
  * @param[in]		ePacketType				Type
- * @st_funcMD5		EA50576A07E20B507D9646660649C39F
+ * @st_funcMD5		A5D2ABDF7597B56B3AB6B6AA520CA7C2
  * @st_funcID		LCCM655R0.FILE.078.FUNC.002
  */
 void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)

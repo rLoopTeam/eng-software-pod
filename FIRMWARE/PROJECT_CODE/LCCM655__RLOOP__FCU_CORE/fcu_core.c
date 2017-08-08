@@ -56,7 +56,7 @@ void vFCU__Init(void)
  * @brief
  * Process any FCU tasks.
  * 
- * @st_funcMD5		E9CF30992131C3EE26CC2714EE674BC3
+ * @st_funcMD5		E5AD495164E03D905F72149D85F80333
  * @st_funcID		LCCM655R0.FILE.000.FUNC.002
  */
 void vFCU__Process(void)
@@ -307,11 +307,16 @@ void vFCU__Process(void)
 				//check the fault tree
 
 				//configure for our baud if we are good
-				if((u8Counter == C_FCU__SC16_ASI_INDEX) || (C_FCU__SC16_FWD_LASER_INDEX))
+				if(u8Counter == C_FCU__SC16_ASI_INDEX)
 				{
 					//ASI IF
 					vSIL3_SC16_BAUD__Set_BaudRate(u8Counter, 1U, 9600U, 1U);
 
+				}
+				else if(u8Counter == C_FCU__SC16_FWD_LASER_INDEX)
+				{
+					//NOPTEL
+					vSIL3_SC16_BAUD__Set_BaudRate(u8Counter, 1U, 9600U, 1U);
 				}
 				else
 				{

@@ -49,7 +49,7 @@ void vFCU_NET_TX__Init(void)
  * @brief
  * Process network transmission and do any transmission as required.
  * 
- * @st_funcMD5		65C6FAA1DBF1306608BFDDE4F98A81F7
+ * @st_funcMD5		EA13ABE6EE5E62C1BD340DD3329C2EB0
  * @st_funcID		LCCM655R0.FILE.019.FUNC.002
  */
 void vFCU_NET_TX__Process(void)
@@ -80,7 +80,7 @@ void vFCU_NET_TX__Process(void)
 		{
 
 			//do we have a timer flag?
-			if(sFCU.sUDPDiag.u810MS_Flag == 1U)
+			if(sFCU.sUDPDiag.u810MS_Flag > 1U)
 			{
 				//set it
 				eType = sFCU.sUDPDiag.eTxStreamingType;
@@ -210,12 +210,12 @@ void vFCU_NET_TX__Process(void)
  * To be called from the 10ms timer routine
  * Sets a flag to allow this module to determine that 10ms has elapsed
  * 
- * @st_funcMD5		122D15F22532184854938AF8E7E5104D
+ * @st_funcMD5		0E696ED29F4B0A382C0A3760520AA2BE
  * @st_funcID		LCCM655R0.FILE.019.FUNC.003
  */
 void vFCU_NET_TX__10MS_ISR(void)
 {
-	sFCU.sUDPDiag.u810MS_Flag = 1U;
+	sFCU.sUDPDiag.u810MS_Flag ++;
 	sFCU.sUDPDiag.u8250MS_Flag++;
 }
 

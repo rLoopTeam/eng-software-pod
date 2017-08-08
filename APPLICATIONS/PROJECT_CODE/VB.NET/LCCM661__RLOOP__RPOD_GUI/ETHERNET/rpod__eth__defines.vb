@@ -18,6 +18,8 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         POD_CTRL_PT__APU
         POD_CTRL_PT__HETHERM
         POD_CTRL_PT__GIMBAL
+        POD_CTRL_PT__BMS_A
+        POD_CTRL_PT__BMS_B
     End Enum
 
 
@@ -90,6 +92,11 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** Set the laser height */
         NET_PKT__LASER_OPTO__CAL_LASER_HEIGHT = &H1102
 
+        '/** Enable ethernet injection */
+        NET_PKT__LASER_OPTO__ENABLE_ETH_INJ = &H1103
+
+        '/** Enable ethernet injection */
+        NET_PKT__LASER_OPTO__ETH_INJ_PACKET = &H1104
 
         '//////////////////////////////////////////////////////
         '//FCU: LASER DISTANCE(&h1200)
@@ -290,6 +297,20 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
 
         '/** Set the User Data by Sensor Index*/
         NET_PKT__PWR_TEMP__SET_USERDATA_INDEX = &H3207
+
+
+        '//////////////////////////////////////////////////////
+        '//POWER: BMS SYSTEM(0x3400)
+        '//////////////////////////////////////////////////////
+        '/** Request a BMS packet */
+        NET_PKT__PWR_BMS__REQ_BMS = &H3400
+
+        '/** Send BMS status */
+        NET_PKT__PWR_BMS__TX_BMS_STATUS = &H3401
+
+        '/** Setup the charger values */
+        NET_PKT__PWR_BMS__SET_CHG_VALUES = &H3402
+
 
         '//////////////////////////////////////////////////////
         '//DAQ (0x4000)

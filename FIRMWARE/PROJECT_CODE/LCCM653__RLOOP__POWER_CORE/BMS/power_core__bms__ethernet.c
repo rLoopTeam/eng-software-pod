@@ -24,7 +24,13 @@
 extern struct _strPWRNODE sPWRNODE;
 
 //needed right now.
-extern struct _str6870 sATA6870;
+#if C_LOCALDEF__BMS_REVISION == 1U
+	extern struct _str6870 sATA6870;
+#elif C_LOCALDEF__BMS_REVISION == 2U
+	extern TS_BQ76__MAIN sBQ76;
+#else
+	#error
+#endif
 
 /***************************************************************************//**
  * @brief
@@ -35,7 +41,7 @@ extern struct _str6870 sATA6870;
  */
 void vPWR_BMS_ETH__Init(void)
 {
-
+	//do nothing.
 }
 
 
@@ -63,10 +69,21 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__PWR_BMS__TX_BMS_STATUS:
-			u16Length = 42U;
-			u16Length +=  (C_LOCALDEF__LCCM650__NUM_DEVICES * C_ATA6870__MAX_CELLS * 4U);
-			u16Length += C_ATA6870__MAX_BUS_DEVICES;
-			u16Length += 12U;
+			#if C_LOCALDEF__BMS_REVISION == 1U
+				u16Length = 42U;
+				u16Length +=  (C_LOCALDEF__LCCM650__NUM_DEVICES * C_ATA6870__MAX_CELLS * 4U);
+				u16Length += C_ATA6870__MAX_BUS_DEVICES;
+				u16Length += 12U;
+			#elif C_LOCALDEF__BMS_REVISION == 2U
+				u16Length = 42U;
+				u16Length +=  (C_LOCALDEF__LCCM715__NUM_DEVICES * C_BQ76__MAX_CELLS_PER_DEVICE * 4U);
+				u16Length += C_LOCALDEF__LCCM715__NUM_DEVICES;
+				u16Length += 12U;
+			#else
+				#error
+			#endif
+
+
 			break;
 
 		default:
@@ -112,17 +129,31 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sPWRNODE.sTemp.u16HighestSensorIndex);
 				pu8Buffer += 2U;
 
-				//pack volts
-				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Get_PackVoltage());
-				pu8Buffer += 4U;
+				#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+					//pack volts
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Get_PackVoltage());
+					pu8Buffer += 4U;
 
-				//highest volts
-				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Cell_Get_HighestVoltage());
-				pu8Buffer += 4U;
+					//highest volts
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Cell_Get_HighestVoltage());
+					pu8Buffer += 4U;
 
-				//lowest volts
-				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Cell_Get_LowestVoltage());
-				pu8Buffer += 4U;
+					//lowest volts
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Cell_Get_LowestVoltage());
+					pu8Buffer += 4U;
+				#else
+					//pack volts
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
+					pu8Buffer += 4U;
+
+					//highest volts
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
+					pu8Buffer += 4U;
+
+					//lowest volts
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
+					pu8Buffer += 4U;
+				#endif
 
 				//BMS boards Temp
 				//todo
@@ -130,44 +161,71 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 
 				//node press
-#if C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS == 1U
-				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_NODEPRESS__Get_Pressure_Bar());
-				pu8Buffer += 4U;
-#else
-				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, -1.0F);
-				pu8Buffer += 4U;
-#endif
+				#if C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS == 1U
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_NODEPRESS__Get_Pressure_Bar());
+					pu8Buffer += 4U;
+				#else
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, -1.0F);
+					pu8Buffer += 4U;
+				#endif
 
 				//node temp
-#if C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP == 1U
-				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_NODETEMP__Get_DegC());
-				pu8Buffer += 4U;
-#else
-				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, -1.0F);
-				pu8Buffer += 4U;
-#endif
+				#if C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP == 1U
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_NODETEMP__Get_DegC());
+					pu8Buffer += 4U;
+				#else
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, -1.0F);
+					pu8Buffer += 4U;
+				#endif
 
-				//cell volts
-				for(u8Device = 0; u8Device < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Device++)
-				{
-					for(u8Counter = 0; u8Counter < C_ATA6870__MAX_CELLS; u8Counter++)
+				#if C_LOCALDEF__BMS_REVISION == 1U
+					//cell volts
+					for(u8Device = 0; u8Device < C_LOCALDEF__LCCM650__NUM_DEVICES; u8Device++)
 					{
-						//Cell voltage
-						vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sATA6870.f32Voltage[(u8Device * C_ATA6870__MAX_CELLS) + u8Counter]);
-						pu8Buffer += 4U;
+						for(u8Counter = 0; u8Counter < C_ATA6870__MAX_CELLS; u8Counter++)
+						{
+							//Cell voltage
+							vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sATA6870.f32Voltage[(u8Device * C_ATA6870__MAX_CELLS) + u8Counter]);
+							pu8Buffer += 4U;
+						}
 					}
-				}
 
-				//BMS ID
-				for(u8Counter = 0U; u8Counter < C_ATA6870__MAX_BUS_DEVICES; u8Counter++)
-				{
-					pu8Buffer[0] = sATA6870.u8RevID[u8Counter];
-					pu8Buffer += 1U;
-				}
+					//BMS ID
+					for(u8Counter = 0U; u8Counter < C_ATA6870__MAX_BUS_DEVICES; u8Counter++)
+					{
+						pu8Buffer[0] = sATA6870.u8RevID[u8Counter];
+						pu8Buffer += 1U;
+					}
+				#elif C_LOCALDEF__BMS_REVISION == 2U
+					//cell volts
+					for(u8Device = 0; u8Device < C_LOCALDEF__LCCM715__NUM_DEVICES; u8Device++)
+					{
+						for(u8Counter = 0; u8Counter < C_BQ76__MAX_CELLS_PER_DEVICE; u8Counter++)
+						{
+							//Cell voltage
+							vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
+							pu8Buffer += 4U;
+						}
+					}
+
+					//BMS ID
+					for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM715__NUM_DEVICES; u8Counter++)
+					{
+						pu8Buffer[0] = 1U;
+						pu8Buffer += 1U;
+					}
+				#else
+					#error
+				#endif
 
 				//count of times the voltage was updated.
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32PWRNODE_BMS__Get_VoltsUpdateCount());
-				pu8Buffer += 4U;
+				#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32PWRNODE_BMS__Get_VoltsUpdateCount());
+					pu8Buffer += 4U;
+				#else
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
+					pu8Buffer += 4U;
+				#endif
 
 				//Number of times we've scaned the temperature sensors
 				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sPWRNODE.sTemp.u32TempScanCount);
@@ -196,7 +254,6 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	}//else if(s16Return == 0)
 
 }
-
 #endif //#if C_LOCALDEF__LCCM653__ENABLE_ETHERNET == 1U
 //safetys
 #ifndef C_LOCALDEF__LCCM653__ENABLE_ETHERNET

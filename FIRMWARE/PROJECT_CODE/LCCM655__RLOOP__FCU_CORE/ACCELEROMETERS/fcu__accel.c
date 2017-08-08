@@ -137,7 +137,7 @@ void vFCU_ACCEL__Init(void)
  * Process the accel's
  * Call as fast as possible from the main loop
  * 
- * @st_funcMD5		3FC0C3BAE5A3CBF2B906965C1DBDF816
+ * @st_funcMD5		DFABA0A8D784F428A045DA419B306A3D
  * @st_funcID		LCCM655R0.FILE.010.FUNC.002
  */
 void vFCU_ACCEL__Process(void)
