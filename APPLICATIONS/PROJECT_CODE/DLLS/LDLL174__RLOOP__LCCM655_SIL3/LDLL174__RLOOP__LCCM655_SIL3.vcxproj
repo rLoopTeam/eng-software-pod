@@ -154,6 +154,8 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\VISION\safe_udp__vision_rx.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\VISION\safe_udp__vision_tx.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\WIN32\safe_udp__win32.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
@@ -191,6 +193,12 @@
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\safe_udp__localdef.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\safe_udp__packet_types.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM528__MULTICORE__SAFE_UDP\safe_udp__types.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__localdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__private.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__staticdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload__localdef.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h" />
     <ClInclude Include="localdef.h" />
     <ClInclude Include="resource.h" />

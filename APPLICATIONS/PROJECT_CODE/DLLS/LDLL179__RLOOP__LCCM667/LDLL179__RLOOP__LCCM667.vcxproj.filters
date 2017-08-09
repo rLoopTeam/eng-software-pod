@@ -52,12 +52,6 @@
     <Filter Include="Source Files\WIN32\DEBUG_PRINTF">
       <UniqueIdentifier>{70d4ba12-3067-4f39-87a5-770373bae769}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\RM4">
-      <UniqueIdentifier>{2ae5ec37-a849-440c-9691-3a3dc6e26533}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\RM4\LCCM663__RM4__CPU_LOAD">
-      <UniqueIdentifier>{b5d36206-36ec-49d9-9380-7d61f24c5638}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS">
       <UniqueIdentifier>{1b2f7d9e-8d94-408c-a07f-b9f909e16dbf}</UniqueIdentifier>
     </Filter>
@@ -123,9 +117,6 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FLOAT\numerical__float.c">
       <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL\FLOAT</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.c">
-      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS\WIN32\eeprom_params__win32.c">
       <Filter>Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS</Filter>
     </ClCompile>
@@ -190,12 +181,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC\software_crc__localdef.h">
       <Filter>Source Files\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.h">
-      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload__localdef.h">
-      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS\eeprom_params__localdef.h">
       <Filter>Source Files\MULTICORE\LCCM188__MULTICORE__EEPROM_PARAMS</Filter>

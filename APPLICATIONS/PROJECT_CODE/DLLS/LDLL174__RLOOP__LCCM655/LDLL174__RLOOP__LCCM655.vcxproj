@@ -94,8 +94,6 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32\daq__win32.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\WIN32\daq__win32_main.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.c" />
-    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\fcu__accel.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\fcu__accel__ethernet.c" />
@@ -162,13 +160,6 @@
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\amc7812__localdef.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM662__MULTICORE__DAQ\daq__localdef.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__localdef.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__private.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__semistaticdef.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__staticdef.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload__localdef.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\fcu__accel__fault_flags.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi_defines.h" />
