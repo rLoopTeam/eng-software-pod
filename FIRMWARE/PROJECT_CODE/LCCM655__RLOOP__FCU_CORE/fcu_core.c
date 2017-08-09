@@ -243,10 +243,14 @@ void vFCU__Process(void)
 			#if C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE == 1U
 				vRM4_I2C_USER__Init(RM4_I2C_CH__1);
 			#endif
+			//Testing damaged FCU pins
+			vRM4_I2C_PINS__Set_SCL_Tris(RM4_I2C_CH__1, 0);
+			vRM4_I2C_PINS__Set_SCL_Latch(RM4_I2C_CH__1, 1);
+			vRM4_I2C_PINS__Set_SCL_Latch(RM4_I2C_CH__1, 0);
 
-			#if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
-				vSOFTI2C_USER__Init();
-			#endif
+			vRM4_I2C_PINS__Set_SDA_Tris(RM4_I2C_CH__1, 0);
+			vRM4_I2C_PINS__Set_SDA_Latch(RM4_I2C_CH__1, 1);
+			vRM4_I2C_PINS__Set_SDA_Latch(RM4_I2C_CH__1, 0);
 
 #endif //win32
 			//init the I2C

@@ -118,6 +118,15 @@
     <Filter Include="Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\TIME_BASE">
       <UniqueIdentifier>{0156b6bf-f82e-47dd-aa61-93dda1349f7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\RM4">
+      <UniqueIdentifier>{8b80f3fa-fbae-4f68-99ed-c13746668a11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RM4\LCCM663__RM4__CPU_LOAD">
+      <UniqueIdentifier>{3155ec48-ae5d-4821-891e-67c66f6c1fe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RM4\LCCM124__RM4__RTI">
+      <UniqueIdentifier>{6af15791-4fef-4132-b527-d6afebb7cff3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
@@ -345,6 +354,12 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\TIMEBASE\stepper_drive__time_base.c">
       <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\TIME_BASE</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.c">
+      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.c">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h">
@@ -454,6 +469,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM487__MULTICORE__SC16IS741\sc16__localdef.h">
       <Filter>Source Files\MULTICORE\LCCM487__MULTICORE__SC16IS741</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.h">
+      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload__localdef.h">
+      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__localdef.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__private.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__staticdef.h">
+      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

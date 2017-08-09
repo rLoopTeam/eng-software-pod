@@ -94,20 +94,11 @@
     <Filter Include="Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812">
       <UniqueIdentifier>{a8ff73c2-3096-4dda-9e97-8f79e4689726}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\RM4">
-      <UniqueIdentifier>{2ae5ec37-a849-440c-9691-3a3dc6e26533}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\RM4\LCCM663__RM4__CPU_LOAD">
-      <UniqueIdentifier>{b5d36206-36ec-49d9-9380-7d61f24c5638}</UniqueIdentifier>
-    </Filter>
     <Filter Include="LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\VELOCITY">
       <UniqueIdentifier>{0e4d4546-1f7a-4816-849a-b14f170a481c}</UniqueIdentifier>
     </Filter>
     <Filter Include="LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TRACK_DATABASE">
       <UniqueIdentifier>{294e9711-8cd4-45b0-a1a1-3babd79c75a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\RM4\LCCM124__RM4__RTI">
-      <UniqueIdentifier>{49c322d8-9912-429b-a7fb-ba85628f2d3d}</UniqueIdentifier>
     </Filter>
     <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\MAIN_SM">
       <UniqueIdentifier>{0b8b7a0f-5ad4-479c-932b-24b236e98138}</UniqueIdentifier>
@@ -249,9 +240,6 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\amc7812.c">
       <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.c">
-      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_001.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
     </ClCompile>
@@ -272,9 +260,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TRACK_DATABASE\fcu__laser_cont__track_database.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\TRACK_DATABASE</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.c">
-      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BRAKE_PROFILE\a34_brake_table.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BRAKE_PROFILE</Filter>
@@ -419,29 +404,8 @@
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM658__MULTICORE__AMC7812\amc7812.h">
       <Filter>Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload.h">
-      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM663__RM4__CPU_LOAD\rm4_cpuload__localdef.h">
-      <Filter>Source Files\RM4\LCCM663__RM4__CPU_LOAD</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\fcu__laser_cont__fault_flags.h">
       <Filter>LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.h">
-      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__localdef.h">
-      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__private.h">
-      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__semistaticdef.h">
-      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__staticdef.h">
-      <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_OPTO\fcu__laser_opto__fault_flags.h">
       <Filter>LCCM655__RLOOP__FCU_CORE\LASER_OPTO</Filter>
