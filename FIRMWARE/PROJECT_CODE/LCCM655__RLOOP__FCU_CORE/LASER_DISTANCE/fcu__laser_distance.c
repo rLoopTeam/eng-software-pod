@@ -17,55 +17,7 @@
  *
  * 2 					MOK
  * 						(Binary format distances)
- *
- * 3 					MOK
- * 						HW BINARY MODE
- * 						ESC to EXIT
- *
- * 4 					MOK
- * 						RS BINARY MODE
- * 						ESC to EXIT
- *
- * 5 (example) 			MOK
- * 						TRIGGER MODE
- * 						TRIG IN 500�550 cm
- * 						ESC to EXIT
- *
- * 6 (example) 			MOK
- * 						TWO DEVICE SPEED MODE
- * 						TRIG IN 500�550 cm
- * 						ESC to EXIT
- *
- * 7 (example) 			MOK
- * 						SINGLE DEVICE SPEED MODE
- * 						Approaching vehicles mode Speed window size : 100 cm
- * 						TRIG IN 2000�2500cm
- * 						ESC to EXIT
- *
- * 8 					MOK
- * 						ESC to EXIT
- * 						HW CAPTURE MODE (1000 SAMPLES)
- *
- * 9 					RS CAPTURE MODE (1000 SAMPLES)
- * 						ESC to EXIT
- *
- * 10 					CONTINUOUS SPEED MODE. ESC TO EXIT
- *
- * 11 (example) 		SINGLE DEVICE SIZE MODE
- * 						Departing vehicles mode
- * 						Speed window size : 300 cm
- * 						Vehicle classification activated.
- * 						TRIG IN 2460�2960 cm
- * 						ESC to EXIT
- *
- * 12 (example) 		MULTILANE SINGLE DEVICE SPEED MODE
- * 						Lane Configuration:
- * 						ESC to EXIT
- *
- * 13 (example) 		MOVEMENT TRIGGER MODE
- * 						Reference distance : 995 cm
- * 						TRIG IN 945- 1045 cm
- * 						ESC to EXIT
+
  *
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
@@ -155,8 +107,6 @@ void vFCU_LASERDIST__Process(void)
 	Luint8 u8Array[4];
 
 
-
-
 	//check for emulation
 	if(sFCU.sLaserDist.sEmu.u8EmulationEnabled == 1U)
 	{
@@ -186,6 +136,16 @@ void vFCU_LASERDIST__Process(void)
 
 			//vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
 
+#if 0
+			//G - tell the laser to reset
+			//<ESC>, G, <CR>
+			u8Array[0] = 0x1BU;
+			u8Array[1] = 0x47U;
+			u8Array[2] = 0x0DU;
+
+			//send it.
+			vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 3U);
+#endif
 			//setup the lasers
 			sFCU.sLaserDist.eLaserState = LASERDIST_STATE__WAIT_LASER_RESET;
 			break;
@@ -194,12 +154,13 @@ void vFCU_LASERDIST__Process(void)
 
 			//wait here until the lasers are out of rest.
 			//5 seconds onsite hack to wait for the laser up.
-			if(sFCU.sLaserDist.u32LaserPOR_Counter > 500U)
+			if(sFCU.sLaserDist.u32LaserPOR_Counter > 50U)
 			{
 				//vSIL3_FAULTTREE__Clear_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
 
 				//onsite hack
-				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__CHECK_NEW_DATA; //LASERDIST_STATE__INIT_LASER_TURNON;
+				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__CHECK_NEW_DATA;
+//				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__INIT_LASER_TURNON;
 			}
 			else
 			{
@@ -208,41 +169,117 @@ void vFCU_LASERDIST__Process(void)
 			break;
 
 		case LASERDIST_STATE__INIT_LASER_TURNON:
+#if 0
+				if(0){
+					//tell the pointer to turn on
+					//<ESC>, O, 1, <CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x4FU;
+					u8Array[2] = 0x31U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
 
-			//tell the laser to turn on
-			//<ESC>, O, 1, <CR>
-			u8Array[0] = 0x1BU;
-			u8Array[1] = 0x4FU;
-			u8Array[2] = 0x31U;
-			u8Array[3] = 0x0DU;
+				if(0){
+					//laser info
+					//<ESC>, V, 1, <CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x56U;
+					u8Array[2] = 0x31U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
 
-			//send it.
-			vSIL3_SC16__Tx_U8Array(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				if(0){
+					//Run self test - responds 'OK' if good, else 'ERR'
+					//<ESC>, V, 2, <CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x56U;
+					u8Array[2] = 0x32U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
 
-#ifndef WIN32
-			vRM4_DELAYS__Delay_mS(50);
+				//Read user parameters in permanent memory
+				if(0){
+					//Operation mode, No. 1
+					//<ESC>, P, 1, <CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x50U;
+					u8Array[2] = 0x31U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
+
+				if(0){
+					//baud, No. 4
+					//<ESC>P4<CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x50U;
+					u8Array[2] = 0x34U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
+
+				if(0){
+					//binary averaging, No. 22
+					//<ESC>P22<CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x50U;
+					u8Array[2] = 0x32U;
+					u8Array[3] = 0x32U;
+					u8Array[4] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 5U);
+				}
+
+				if(0){
+					//Control Byte2, No. 3 (if extended cm 128, or mm 64 )
+					//<ESC>P3<CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x50U;
+					u8Array[2] = 0x33U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
+
+				if(0){
+					//Set measurement mode to continuous ASCII
+					//<ESC>, M, 1, <CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x4DU;
+					u8Array[2] = 0x31U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
+
+				if(0){
+					//C - enable continious ascii
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x63U;
+					u8Array[2] = 0x0DU;
+
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 3U);
+				}
+
+				if(0){
+					//Check all current params
+					//<ESC>, L <CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x4CU;
+					u8Array[2] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 3U);
+				}
 #endif
-
-			//<ESC>, M, 1, <CR>
-			u8Array[0] = 0x1BU;
-			u8Array[1] = 0x4DU;
-			u8Array[2] = 0x31U;
-			u8Array[3] = 0x0DU;
-
-			//send it.
-			vSIL3_SC16__Tx_U8Array(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
-
-#ifndef WIN32
-			vRM4_DELAYS__Delay_mS(50);
-#endif
-
-			//C
-			u8Array[0] = 0x1BU;
-			u8Array[1] = 0x63U;
-			u8Array[2] = 0x0DU;
-
-			//send it.
-			vSIL3_SC16__Tx_U8Array(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 3U);
 
 			sFCU.sLaserDist.eLaserState = LASERDIST_STATE__WAIT_INIT_DONE;
 			break;
@@ -297,7 +334,14 @@ void vFCU_LASERDIST__Process(void)
 			if(sFCU.sLaserDist.u8NewPacket == 1U)
 			{
 				//we have a new laser packet, process it for distance or error code.
+
+#if 0			//Continues binary mode
 				vFCU_LASERDIST__Process_Packet();
+#endif
+
+#if 1			//Continues ascii mode
+				vFCU_LASERDIST__Process_Packet_ASCII();
+#endif
 
 				//clear the flag
 				sFCU.sLaserDist.u8NewPacket = 0U;
@@ -450,10 +494,11 @@ void vFCU_LASERDIST__Process_Packet_ASCII(void)
 
 	//compute veloc
 	f32Delta = (Lfloat32)sFCU.sLaserDist.s32PrevDistance_mm;
-	f32Delta -= sFCU.sLaserDist.s32Distance_mm;
+	f32Delta -= (Lfloat32)sFCU.sLaserDist.s32Distance_mm;
 
-	//50hz
-	f32Delta *= 0.05F;
+	//1/76hz
+
+	f32Delta *= .013F;
 
 	//do it.
 	sFCU.sLaserDist.s32Velocity_mm_s = (Lint32)f32Delta;
@@ -597,11 +642,23 @@ void vFCU_LASERDIST__Append_Byte(Luint8 u8Value)
 
 	}//switch
 
+	//////////////////
+    //compute accel
+    f32Delta = (Lfloat32)sFCU.sLaserDist.s32PrevVelocity_mms;
+    f32Delta -= sFCU.sLaserDist.s32Velocity_mms;
 
+    //1/76hz
+    f32Delta *= .013F;
 
+    //do it.
+    sFCU.sLaserDist.s32Accel_mmss = (Lint32)f32Delta;
+
+	//save prev
+	sFCU.sLaserDist.s32PrevDistance_mm = sFCU.sLaserDist.s32Distance_mm;
+	sFCU.sLaserDist.s32PrevVelocity_mms = sFCU.sLaserDist.s32Velocity_mms;
+   sFCU.sLaserDist.s32PrevAccel_mmss = sFCU.sLaserDist.s32Accel_mmss;
 
 }
-
 
 /***************************************************************************//**
  * @brief
