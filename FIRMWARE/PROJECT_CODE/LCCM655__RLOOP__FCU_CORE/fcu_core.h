@@ -26,6 +26,7 @@
 		#include <LCCM655__RLOOP__FCU_CORE/LASER_OPTO/fcu__laser_opto__laser_fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/THROTTLES/fcu__throttles__fault_flags.h>
 		#include <LCCM655__RLOOP__FCU_CORE/LASER_DISTANCE/fcu__laser_distance__fault_flags.h>
+		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi__fault_flags.h>
 
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_defines.h>
 		#include <LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi_types.h>
@@ -981,6 +982,9 @@
 					/** Motor Current */
 					Lfloat32 f32MotorCurrentA;
 
+					/** Throttle Voltage*/
+					Lfloat32 f32ThrottleV;
+
 					/** Current RPM */
 					Luint16 u16RPM;
 
@@ -998,20 +1002,8 @@
 				/** ASI Subsystemfaults */
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
-				/** the modbus state */
-				E_FCU_MODBUS__STATE_T eModBusState;
-
-				struct _strASICmd sCurrentCommand;
-
 				/** The Rx Counter Position */
 				Luint8 u8RxCount;
-
-				/** The user has prepared a new command to send*/
-				Luint8 u8NewCommandToSend;
-
-				/** a set of timers to control tx timeouts */
-				Luint32 u32ASI_turnaround_Counter;
-				Luint32 u32ASI_replywait_Counter;
 
 				#ifdef WIN32
 					/** On win32 generate save the mux */
@@ -1449,15 +1441,10 @@
 		void vFCU_ASI__Set_Throttle(Luint8 u8Index, Luint16 u16RPM);
 
 
-			//CRC
-			void vFCU_ASI_CRC__AddCRC(Luint8 *pu8Data);
-			DLL_DECLARATION Luint16 u16FCU_ASI_CRC__ComputeCRC(Luint8 *pu8Data, Luint16 u16DataLen);
-			Lint16 s16FCU_ASI_CRC__CheckCRC(Luint8 *pu8Data, Luint8 u8DataLen);
-
 			//mux
 			void vFCU_ASI_MUX__Init(void);
 			void vFCU_ASI_MUX__Process(void);
-			void vFCU_ASI_MUX__SelectChannel(Luint8 u8ChannelIndex);
+			void vFCU_ASI_MUX__SelectChannel_DE(Luint8 u8ChannelIndex, Luint8 u8DeValue);
 			DLL_DECLARATION Luint8 u8FCU_ASI_MUX_WIN32__Get(void);
 
 			//eth

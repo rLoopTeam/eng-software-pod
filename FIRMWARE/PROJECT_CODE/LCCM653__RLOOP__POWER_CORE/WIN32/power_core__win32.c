@@ -46,7 +46,7 @@ void vPWRNODE_WIN32__Set_NodePressure(Lfloat32 f32Value)
 
 void vPWRNODE_WIN32__Set_NodePersonality(Luint8 u8Value)
 {
-	sPWRNODE.ePersonality = (E_PWRNODE_TYPE_T)u8Value;
+	sPWRNODE.ePersonality = (TE_PWR__TYPE_T)u8Value;
 }
 
 //return if the repress is on

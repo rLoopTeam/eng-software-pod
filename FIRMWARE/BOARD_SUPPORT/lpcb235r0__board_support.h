@@ -225,14 +225,14 @@ RM4 GIO MODULE
 			#define GIOA_PIN_6_ISR()										vSIL3_MMA8451__ISR(0U)
 			#define GIOA_PIN_7_ISR()										vSIL3_MMA8451__ISR(1U)
 
-			#define GIOB_PIN_0_ISR()										vSIL3_SC16_INT__Handle_ISR(7U)
+			#define GIOB_PIN_0_ISR()										vSIL3_SC16_INT__Handle_ISR(6U)
 			#define GIOB_PIN_1_ISR()										vSIL3_SC16_INT__Handle_ISR(3U)
 			#define GIOB_PIN_2_ISR()										vRM4_GIO_ISR__DefaultRoutine()
 			#define GIOB_PIN_3_ISR()										vSIL3_SC16_INT__Handle_ISR(4U)
 			#define GIOB_PIN_4_ISR()										vRM4_GIO_ISR__DefaultRoutine()
 			#define GIOB_PIN_5_ISR()										vRM4_GIO_ISR__DefaultRoutine()
 			#define GIOB_PIN_6_ISR()										vSIL3_SC16_INT__Handle_ISR(5U)
-			#define GIOB_PIN_7_ISR()										vSIL3_SC16_INT__Handle_ISR(8U)
+			#define GIOB_PIN_7_ISR()										vSIL3_SC16_INT__Handle_ISR(7U)
 
 		#endif //#if C_LOCALDEF__LCCM133__ENABLE_INTERRUPTS == 1U
 

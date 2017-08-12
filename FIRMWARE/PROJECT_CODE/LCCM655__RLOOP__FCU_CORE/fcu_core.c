@@ -232,6 +232,10 @@ void vFCU__Process(void)
 
 				//Serial channel's A
 				vRM4_MIBSPI135__Init(MIBSPI135_CHANNEL__3);
+
+				//SPI5 needed for some pin functions
+				vRM4_MIBSPI135__Init(MIBSPI135_CHANNEL__5);
+
 			#endif
 
 			//serial subsystem B
@@ -243,6 +247,7 @@ void vFCU__Process(void)
 			#if C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE == 1U
 				vRM4_I2C_USER__Init(RM4_I2C_CH__1);
 			#endif
+/*
 			//Testing damaged FCU pins
 			vRM4_I2C_PINS__Set_SCL_Tris(RM4_I2C_CH__1, 0);
 			vRM4_I2C_PINS__Set_SCL_Latch(RM4_I2C_CH__1, 1);
@@ -251,7 +256,7 @@ void vFCU__Process(void)
 			vRM4_I2C_PINS__Set_SDA_Tris(RM4_I2C_CH__1, 0);
 			vRM4_I2C_PINS__Set_SDA_Latch(RM4_I2C_CH__1, 1);
 			vRM4_I2C_PINS__Set_SDA_Latch(RM4_I2C_CH__1, 0);
-
+*/
 #endif //win32
 			//init the I2C
 			sFCU.eInitStates = INIT_STATE__INIT_SPI_UARTS;
@@ -337,17 +342,53 @@ void vFCU__Process(void)
 				//set to 1 stop bits.
 				vSIL3_SC16_BAUD__Set_Stopbits(u8Counter, 0U);
 
-				//use FIFO mode
-				vSIL3_SC16_FIFO___Enable_FIFOs(u8Counter, 1U);
-
-				//reset
-				vSIL3_SC16_FIFO__Reset_Rx_FIFO(u8Counter, 1U);
-				vSIL3_SC16_FIFO__Reset_Tx_FIFO(u8Counter, 1U);
 
 				//set the Rx trig level to prevent software overhead.
 				//todo: this will have problems with some devices that are waiting on a reply
 				//such as the ASI system
-				vSIL3_SC16_FLOWCONTROL__Set_RxTrigger_Level(u8Counter, 16U);
+
+
+				//configure for our baud if we are good
+				if(u8Counter == C_FCU__SC16_ASI_INDEX)
+				{
+					//ASI IF
+					//use FIFO mode
+					vSIL3_SC16_FIFO___Enable_FIFOs(u8Counter, 1U);
+
+					//reset
+					vSIL3_SC16_FIFO__Reset_Rx_FIFO(u8Counter, 1U);
+					vSIL3_SC16_FIFO__Reset_Tx_FIFO(u8Counter, 1U);
+
+					//small trigger level.
+					vSIL3_SC16_FLOWCONTROL__Set_RxTrigger_Level(u8Counter, 8U);
+
+				}
+				else if(u8Counter == C_FCU__SC16_FWD_LASER_INDEX)
+				{
+					//NOPTEL
+					//use FIFO mode
+					vSIL3_SC16_FIFO___Enable_FIFOs(u8Counter, 1U);
+
+					//reset
+					vSIL3_SC16_FIFO__Reset_Rx_FIFO(u8Counter, 1U);
+					vSIL3_SC16_FIFO__Reset_Tx_FIFO(u8Counter, 1U);
+
+					vSIL3_SC16_FLOWCONTROL__Set_RxTrigger_Level(u8Counter, 16U);
+				}
+				else
+				{
+					//optoNCDT's
+					//use FIFO mode
+					vSIL3_SC16_FIFO___Enable_FIFOs(u8Counter, 1U);
+
+					//reset
+					vSIL3_SC16_FIFO__Reset_Rx_FIFO(u8Counter, 1U);
+					vSIL3_SC16_FIFO__Reset_Tx_FIFO(u8Counter, 1U);
+
+					vSIL3_SC16_FLOWCONTROL__Set_RxTrigger_Level(u8Counter, 16U);
+
+				}
+
 
 				//Rx Int
 				vSIL3_SC16_INT__Enable_Rx_DataAvalibleInterupt(u8Counter, 1U);

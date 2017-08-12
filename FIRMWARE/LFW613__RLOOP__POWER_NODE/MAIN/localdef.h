@@ -610,9 +610,6 @@ RLOOP - POWER NODE CORE
 	#define C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
-		/** Enable or disable the PiComms layer */
-		#define C_LOCALDEF__LCCM653__ENABLE_PI_COMMS						(0U)
-
 		/** Enable the battery temperature measurement system */
 		#define C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP						(1U)
 
@@ -645,9 +642,6 @@ RLOOP - POWER NODE CORE
 
 		/** Enable Pressure Vesel Repress System */
 		#define C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS						(0U)
-
-		/** Enable HE Cooling System */
-		#define C_LOCALDEF__LCCM653__ENABLE_COOLING							(1U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM653__ENABLE_TEST_SPEC						(0U)

@@ -33,6 +33,7 @@
 		void vSIL3_MCP23S17__Set_Pin(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit, Luint8 u8Value);
 		void vSIL3_MCP23S17__Set_Pin_Low(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
 		void vSIL3_MCP23S17__Set_PinDirection_Output(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
+		void vSIL3_MCP23S17__Set_PortDirection_Output(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort);
 		void vSIL3_MCP23S17__Set_PinDirection_Input(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
 		void vSIL3_MCP23S17__Set_PinPolarity_Opposite(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);
 		void vSIL3_MCP23S17__Set_PinPolarity_Same(Luint8 u8DeviceIndex, MCP23S17__PORT_E ePort, Luint8 u8Bit);

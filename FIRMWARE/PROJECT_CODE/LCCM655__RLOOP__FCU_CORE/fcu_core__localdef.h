@@ -43,6 +43,11 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Enable the ASI_RS485 */
 		#define C_LOCALDEF__LCCM655__ENABLE_ASI_RS485						(1U)
 
+		/** If you have the ASI monitoring on, to simplify things if we have all the
+		 * devices on different addresses, set this to one and then daisy-chain*/
+		#define C_LOCALDEF__LCCM655__SINGLE_RS485_ONLY						(1U)
+
+
 		/** Enable the pusher detection system */
 		#define C_LOCALDEF__LCCM655__ENABLE_PUSHER							(0U)
 

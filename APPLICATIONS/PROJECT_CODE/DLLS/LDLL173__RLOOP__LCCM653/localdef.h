@@ -3,6 +3,8 @@
 
 	#include "sil3_generic__cpu.h"
 
+	#define C_LOCALDEF__BMS_REVISION 2
+
 	//our basic defines
 	#include <WIN32/BASIC_TYPES/basic_types.h>
 	#include <WIN32/DEBUG_PRINTF/debug_printf.h>
@@ -11,147 +13,13 @@
 	#define SAFETOOL_BRANCH(stFuncID)
 
 	//#include "D:\SIL3\DESIGN\RLOOP\FIRMWARE\LFW513__RLOOP__POWER_NODE\MAIN\localdef.h"
-
-/*******************************************************************************
-SIL3 - SOFTWARE MULTIPURPOSE FAULT TREE HANDLER
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM284__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM284__ENABLE_THIS_MODULE == 1U
-
-		//testing options
-		#define C_LOCALDEF__LCCM284__ENABLE_TEST_SPEC						(0U)
-
-		//main include file
-		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree.h>
-
-	#endif //C_LOCALDEF__LCCM284__ENABLE_THIS_MODULE
-
-/*******************************************************************************
-NUMERICAL MODULE
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE == 1U
-
-		/** set to 1 to include TRIG */
-		#define C_LOCALDEF__LCCM118__ENABLE_TRIG							(1U)
-
-		/** enable x^y */
-		#define C_LOCALDEF__LCCM118__ENABLE_POWER							(1U)
-
-		/** enable vector math */
-		#define C_LOCALDEF__LCCM118__ENABLE_VECTORS							(0U)
-
-		/** DISABLES */
-		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__S16					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__U16					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__U32					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__S32					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_FILTERING__F32					(0U)
-
-		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__S16					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__U16					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__S32					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__U32					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__F32					(0U)
-		#define C_LOCALDEF__LCCM118__DISABLE_NUMERICAL__F64					(0U)
-
-		/** Testing options */
-		#define	C_LOCALDEF__LCCM118__ENABLE_TEST_SPEC						(0U)
-
-		//main include
-		#include <MULTICORE/LCCM118__MULTICORE__NUMERICAL/numerical.h>
-	#endif //C_LOCALDEF__LCCM118__ENABLE_THIS_MODULE
-
-
-/*******************************************************************************
-EEPROM BASIC PARAMETERS
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
-
-		/** Use the EEPRARAMS module with an external FLASH */
-		#define C_LOCALDEF__LCCM188__USE_WITH_LCCM013						(0U)
-
-		/** Define the number of parameters in the system */
-		#define C_LOCALDEF__LCCM188__NUM_PARAMETERS							(128U)
-
-		/** set to 1 if you want to enable CRC's across the entire paramter
-		range.  If so you will loose one paramter at the end to store theCRC
-		*/
-		#define C_LOCALDEF__LCCM188__ENABLE_CRC								(1U)
-
-		/** Offset to start in memory */
-		#define C_LOCALDEF__LCCM188__EEPROM_START_OFFSET					(0U)
-
-		/** DISABLES */
-		#define C_LOCALDEF__LCCM188__DISABLE__U16							(0U)
-		#define C_LOCALDEF__LCCM188__DISABLE__S16							(0U)
-		#define C_LOCALDEF__LCCM188__DISABLE__U32							(0U)
-		#define C_LOCALDEF__LCCM188__DISABLE__S32							(0U)
-		#define C_LOCALDEF__LCCM188__DISABLE__F32							(0U)
-		#define C_LOCALDEF__LCCM188__DISABLE__MAC							(0U)
-
-		/** Testing options */
-		#define C_LOCALDEF__LCCM188__ENABLE_TEST_SPEC						(0U)
-
-		//main include file
-		#include <MULTICORE/LCCM188__MULTICORE__EEPROM_PARAMS/eeprom_params.h>
-
-	#endif //C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE
-
-/*******************************************************************************
-SOFTWARE BASED CRC
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM012__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM012__ENABLE_THIS_MODULE == 1U
-
-		//set to 1 to enable test specification code
-		#define C_LOCALDEF__LCCM012__ENABLE_TEST_SPEC						(0U)
-
-		//types of CRC
-		#define C_LOCALDEF__LCCM012__ENABLE_CRC7							(0U)
-		#define C_LOCALDEF__LCCM012__ENABLE_CRC8							(1U)
-		#define C_LOCALDEF__LCCM012__ENABLE_CRC16							(1U)
-
-		//set to 1 to enable table based CRC16
-		//Note: Not possible on PIC18 due to page sizes
-		#define C_LOCALDEF__LCCM012__ENABLE_TABLE_BASED_CRC					(1U)
-
-
-		#if C_LOCALDEF__LCCM012__ENABLE_CRC16 == 1U
-
-			//if using tables, define any alignment issues
-			#if C_LOCALDEF__LCCM012__ENABLE_TABLE_BASED_CRC == 1U
-				#ifndef WIN32
-					#define C_LOCALDEF__LCCM012__TABLE16_DEF const Luint16 u16SWCRC_CRC_TABLE[] __attribute__ ((aligned (128)))
-				#else
-					//no alignment possible on win32.
-					#define C_LOCALDEF__LCCM012__TABLE16_DEF const Luint16 u16SWCRC_CRC_TABLE[]
-				#endif
-			#endif //C_LOCALDEF__LCCM012__ENABLE_TABLE_BASED_CRC
-		#endif
-
-		#include <MULTICORE/LCCM012__MULTICORE__SOFTWARE_CRC/software_crc.h>
-
+	#ifndef WIN32
+		#include <../../BOARD_SUPPORT/RM57L843_LAUNCHPAD/rm57l843_launchpad__bsp.h>
+		#include <../../BOARD_SUPPORT/NETWORKING/rloop_networking__ports.h>
+	#else
+		#include <../BOARD_SUPPORT/RM57L843_LAUNCHPAD/rm57l843_launchpad__bsp.h>
+		#include <../BOARD_SUPPORT/NETWORKING/rloop_networking__ports.h>
 	#endif
-
-/*******************************************************************************
-SIL3 - GENERAL PURPOSE SOFTWARE FIFO
-*******************************************************************************/
-    #define C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE                         (1U)
-    #if C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE == 1U
-
-        /** Software FIFO depth size, U8 = 255 or U16 = 65K, not both */
-        #define C_LOCALDEF__LCCM357__FIFO_DEPTH_U8                          (0U)
-        #define C_LOCALDEF__LCCM357__FIFO_DEPTH_U16                         (1U)
-
-        //testing options
-        #define C_LOCALDEF__LCCM357__ENABLE_TEST_SPEC                       (0U)
-
-        //main include file
-        #include <MULTICORE/LCCM357__MULTICORE__SOFTWARE_FIFO/software_fifo.h>
-
-    #endif //C_LOCALDEF__LCCM357__ENABLE_THIS_MODULE
 
 /*******************************************************************************
 SIL3 - ETHERNET TRANSPORT
@@ -211,13 +79,186 @@ SIL3 - SAFETY UDP LAYER
 	#endif //#if C_LOCALDEF__LCCM528__ENABLE_THIS_MODULE == 1U
 
 /*******************************************************************************
+MS5607 - PRESSURE SENSOR
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
+
+		/** MS5607 Device Address */
+		#define C_LOCALDEF__LCCM648__BUS_ADDX								(0x76U)
+
+		/** The number of main program loops to wait for conversion */
+		#define C_LOCALDEF__LCCM648__NUM_CONVERSION_LOOPS					(10000U)
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM648__ENABLE_TEST_SPEC						(0U)
+
+		/** Enable datasheet values to test math
+		 * DO NOT put this in production */
+		#define C_LOCALDEF__LCCM648__ENABLE_DS_VALUES						(0U)
+
+		/** Main include file */
+		#include <MULTICORE/LCCM648__MULTICORE__MS5607/ms5607.h>
+
+	#endif //#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
+
+/*******************************************************************************
+DS2482S - I2C TO 1-WIRE CONVERTER
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM641__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM641__ENABLE_THIS_MODULE == 1U
+
+		//CPU Architecture
+		#define C_LOCALDEF__LCCM641__USE_ON_RM4								(1U)
+
+		/** Max number of DS2482 devices on the same I2C Bus */
+		#define C_LOCALDEF__LCCM641__NUM_DEVICS								(2U)
+
+		/** Use table based LUT CRC or slow computed CRC */
+		#define C_LOCALDEF__LCCM641__USE_TABLE_CRC							(1U)
+
+		/** When waiting in loops, we need a program loop timeout value */
+		#define C_LOCALDEF__LCCM641__MAX_TIMEOUT_LOOPS						(100000U)
+
+		// I2C MACROS
+		#define M_LOCALDEF__LCCM641__I2C_RX_REG(device, reg)				s16RM4_I2C_USER__RxReg(device, reg)
+		#define M_LOCALDEF__LCCM641__I2C_TX_REG(device, reg)				s16RM4_I2C_USER__TxReg(device, reg)
+		#define M_LOCALDEF__LCCM641__I2C_TX_BYTE(device, reg, value)		s16RM4_I2C_USER__Tx_U8(device, reg, value)
+		#define M_LOCALDEF__LCCM641__I2C_RX_BYTE(device, reg, value)		s16RM4_I2C_USER__Rx_U8(device, reg, value)
+
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM641__ENABLE_TEST_SPEC						(0U)
+
+		/** Main include file */
+		#include <MULTICORE/LCCM641__MULTICORE__DS2482S/ds2482s.h>
+
+	#endif //#if C_LOCALDEF__LCCM641__ENABLE_THIS_MODULE == 1U
+
+/*******************************************************************************
+DS18B20 - 1-Wire Temperature Sensor
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM644__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM644__ENABLE_THIS_MODULE == 1U
+
+		//processor options
+		#define C_LOCALDEF__LCCM644__USE_ON_RM4								(1U)
+		#define C_LOCALDEF__LCCM644__USE_ON_XILINX							(0U)
+		#define C_LOCALDEF__LCCM644__USE_ON_MSP430							(0U)
+
+		/** Specific the required resoltuion 9, 10, 11 or 12 bit
+		 * Each resolution takes longer to convert
+		 */
+		#define C_LOCALDEF__LCCM644__RESOLUTION_SETTING						(9U)
+
+		/** If we have access to a 10ms ISR then we don't need to wait
+		 * for the conversion to finish. If we don't have an ISR then
+		 * set this to 0
+		 */
+		#define C_LOCALDEF__LCCM644__USE_10MS_ISR							(1U)
+
+		//connectivity options
+		//1-Wire software library
+		#define C_LOCALDEF__LCCM644__CONNECT_LCCM236						(0U)
+		//DS2482S I2C Device
+		#define C_LOCALDEF__LCCM644__CONNECT_LCCM641						(1U)
+
+		//max supported devices
+		#define C_LOCALDEF__LCCM644__MAX_DEVICES							(250U)
+
+		/** Define the number of I2C channels available in the system
+		 * If using the DS2482 we can support 4 devices on the one I2C bus
+		 * Which means we can support hundreds of devices per channel
+		 */
+		#define C_LOCALDEF__LCCM644__MAX_1WIRE_CHANNELS						(2U)
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM644__ENABLE_TEST_SPEC						(0U)
+
+		/** Main include file */
+		#include <MULTICORE/LCCM644__MULTICORE__DS18B20/ds18b20.h>
+	#endif //#if C_LOCALDEF__LCCM644__ENABLE_THIS_MODULE == 1U
+
+/*******************************************************************************
+TSYS01 - DIGITAL TEMP SENSOR
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE == 1U
+
+		//Architecture
+		#define C_LOCALDEF__LCCM647__USE_ON_RM4								(1U)
+		#define C_LOCALDEF__LCCM647__USE_ON_MSP430							(0U)
+
+        /** Size of filter */
+        #define C_LOCALDEF__LCCM647__MAX_FILTER_SAMPLES                     (8U)
+
+		/** The number of main program loops to wait for conversion */
+		#define C_LOCALDEF__LCCM647__NUM_CONVERSION_LOOPS					(10000U)
+
+		/** the I2C address on the bus */
+		#define C_LOCALDEF__LCCM647__BUS_ADDX								(0x77U)
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM647__ENABLE_TEST_SPEC						(0U)
+
+
+		/** Enable datasheet values to test math
+		 * DO NOT put this in production */
+		#define C_LOCALDEF__LCCM647__ENABLE_DS_VALUES						(0U)
+
+		/** Main include file */
+		#include <MULTICORE/LCCM647__MULTICORE__TSYS01/tsys01.h>
+
+	#endif //#if C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE == 1U
+
+/*******************************************************************************
+BQ76PL536A - BMS DRIVER
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM715__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM715__ENABLE_THIS_MODULE == 1U
+
+		/** number of devices in series */
+		#define C_LOCALDEF__LCCM715__NUM_DEVICES							(3U)
+
+		/** Use checksum support on the comms or not? */
+		#define C_LOCALDEF__LCCM715__ENABLE_CRC								(0U)
+
+		/** Average window, set to 0 for averaging off */
+		#define C_LOCALDEF__LCCM715__AVERAGE_WINDOW							(16U)
+
+
+		/** SPI TX / RX */
+		#define M_LOCALDEF__LCCM715__SPI_TX_U8(value)
+
+		/** Chip Select */
+		#define M_LOCALDEF__LCCM715__LATCH__CS(x)							{}
+
+		/** Convert Control */
+		#define M_LOCALDEF__LCCM715__LATCH__CONV(x)							{}
+
+		/** Data Ready Input (if not using interrupts) */
+		#define M_LOCALDEF__LCCM715__PORT__DRDY()							{}
+
+		/** Fault Input (if not using interrupts) */
+		#define M_LOCALDEF__LCCM715__PORT__FAULT()							{}
+
+		/** Alert Input (if not using interrupts) */
+		#define M_LOCALDEF__LCCM715__PORT__ALERT()							{}
+
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM715__ENABLE_TEST_SPEC						(0U)
+
+		/** Main include file */
+		#include <MULTICORE/LCCM715__MULTICORE__BQ76PL536A/bq76.h>
+
+	#endif //#if C_LOCALDEF__LCCM715__ENABLE_THIS_MODULE == 1U
+
+/*******************************************************************************
 RLOOP - POWER NODE CORE
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
-
-		/** Enable or disable the PiComms layer */
-		#define C_LOCALDEF__LCCM653__ENABLE_PI_COMMS						(0U)
 
 		/** Enable the battery temperature measurement system */
 		#define C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP						(0U)
@@ -251,10 +292,7 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__ENABLE_ETHERNET						(1U)
 
 		/** Enable Pressure Vesel Repress System */
-		#define C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS						(1U)
-
-		/** Enable HE Cooling System */
-		#define C_LOCALDEF__LCCM653__ENABLE_COOLING							(10U)
+		#define C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS						(0U)
 
 
 		/** Testing Options */

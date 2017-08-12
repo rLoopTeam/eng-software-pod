@@ -14,6 +14,33 @@
 #ifndef _MODBUS_TYPES_H_
 #define _MODBUS_TYPES_H_
 
+	/** Modbus master states */
+	typedef enum
+	{
+
+		/** Idle out of reset */
+		MASTER_STATE__IDLE = 0U,
+
+		/** User wants to issue a command to a slave, start the transmission process */
+		MASTER_STATE__START_TX,
+
+		/** Wait for the Tx to complete */
+		MASTER_STATE__WAIT_TX,
+
+		
+		/** Wait Rx after a read command */
+		MASTER_STATE__WAIT_RX_READ,
+
+		/** We passed the Rx frame check */
+		MASTER_STATE__RX_FRAME_CHECK_DONE,
+
+		/** The CRC check has now been completed */
+		MASTER_STATE__RX_CRC_CHECK_DONE,
+
+
+	}TE_MODBUS__MASTER_STATES;
+
+
 	/** Modbus Function Codes */
 	typedef enum
 	{

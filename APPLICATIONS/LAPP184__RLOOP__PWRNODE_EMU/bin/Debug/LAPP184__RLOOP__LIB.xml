@@ -4714,6 +4714,16 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  F32 based helper
  </summary>
 </member>
+<member name="F:LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.m_bEnableLimits_Upper">
+ <summary>
+ Enable limit control
+ </summary>
+</member>
+<member name="F:LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.m_f32Limit_Upper">
+ <summary>
+ What is our upper limit?
+ </summary>
+</member>
 <member name="M:LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.#ctor(System.Int32)">
  <summary>
  Create a new text box and pass in the width
@@ -4736,6 +4746,20 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  </summary>
  <param name="iWidth"></param>
  <remarks></remarks>
+</member>
+<member name="M:LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.Limits__SetUpper(System.Single)">
+ <summary>
+ Set the upper limits
+ </summary>
+ <param name="f32Value"></param>
+</member>
+<member name="M:LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.Value__Update(System.Byte[]@,System.Int32)">
+ <summary>
+ Update the value from an array
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
 </member>
 <member name="T:LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16">
  <summary>
@@ -4815,6 +4839,13 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  Update the state display based on some new states
  </summary>
  <param name="iValue"></param>
+</member>
+<member name="M:LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.Value__UpdateU8(System.Byte[]@,System.Int32)">
+ <summary>
+ Update our internal value based on a payload
+ </summary>
+ <param name="bArray"></param>
+ <param name="iIndex"></param>
 </member>
 <member name="M:LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.HeaderFile__Set(System.String,System.String)">
  <summary>

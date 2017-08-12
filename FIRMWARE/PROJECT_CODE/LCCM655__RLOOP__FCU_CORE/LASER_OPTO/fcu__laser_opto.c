@@ -216,7 +216,7 @@ void vFCU_LASEROPTO__Process(void)
 			for(u8Counter = C_FCU__SC16_OPTO_FL_INDEX; u8Counter <= C_FCU__SC16_OPTO_YAWR_INDEX; u8Counter++)
 			{
 				//send the command
-				vSIL3_SC16__Tx_ByteArray(u8Counter, (Luint8*)"\r\nOUTPUT RS422\r\n", 16U);
+				vSIL3_SC16__Tx_U8Array(u8Counter, (Luint8*)"\r\nOUTPUT RS422\r\n", 16U);
 			}
 			//todo:
 			//Check that the laser is in the mode.

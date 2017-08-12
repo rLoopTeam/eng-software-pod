@@ -240,9 +240,9 @@ void vTSYS01__Process(void)
 
 		case TSYS01_STATE__COMPUTE:
 			// Compute temperature polynomial terms individually then sum
-			f32Term[4] = sTSYS.f32Coeffs[4] * f32SIL3_NUM_POWER__F32(sTSYS.u32AverageResult_Div256, 4);
-			f32Term[3] = sTSYS.f32Coeffs[3] * f32SIL3_NUM_POWER__F32(sTSYS.u32AverageResult_Div256, 3);
-			f32Term[2] = sTSYS.f32Coeffs[2] * f32SIL3_NUM_POWER__F32(sTSYS.u32AverageResult_Div256, 2);
+			f32Term[4] = sTSYS.f32Coeffs[4] * f32SIL3_NUM_POWER__F32((Lfloat32)sTSYS.u32AverageResult_Div256, 4.0F);
+			f32Term[3] = sTSYS.f32Coeffs[3] * f32SIL3_NUM_POWER__F32((Lfloat32)sTSYS.u32AverageResult_Div256, 3.0F);
+			f32Term[2] = sTSYS.f32Coeffs[2] * f32SIL3_NUM_POWER__F32((Lfloat32)sTSYS.u32AverageResult_Div256, 2.0F);
 			f32Term[1] = sTSYS.f32Coeffs[1] * (Lfloat32)sTSYS.u32AverageResult_Div256;
 			f32Term[0] = sTSYS.f32Coeffs[0];
 
@@ -353,6 +353,8 @@ void vTSYS01__Delay_mS(Luint32 u32Value)
 		vRM4_DELAYS__Delay_mS(u32Value);
 	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__MSP430F5529 == 1U
 		vMSP430_DELAYS__Delay_mS(u32Value);
+	#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__WIN32 == 1U
+		//no delay on WIN32
 	#else
 		#error
 	#endif
