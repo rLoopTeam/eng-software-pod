@@ -83,9 +83,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\CRC\ds2482s__crc.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\DEVICE\ds2482s__device.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\LOWLEVEL\ds2482s__lowlevel.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ONE_WIRE\ds2482s__one_wire.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\SEARCH\ds2482s__search.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ADDRESS\ds18b20__address.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ALARMS\ds18b20__alarms.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\DELAYS\ds18b20__delays.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\SCRATCHPAD\ds18b20__scratchpad.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\TEMPERATURE\ds18b20__temperature.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\WIRE_IF\ds18b20__wire_if.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM647__MULTICORE__TSYS01\I2C\tsys01_i2c.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM647__MULTICORE__TSYS01\tsys01.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM648__MULTICORE__MS5607\I2C\ms5607_i2c.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM648__MULTICORE__MS5607\ms5607.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\BALANCE\bq76__balance.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\BATTERY\bq76__battery.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\bq76.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\CELLS\bq76__cells.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\INTERRUPTS\bq76__interrupts.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\SPI\bq76__spi.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\WIN32\bq76__win32.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\BATTERY_TEMP\power_core__battery_temp.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\BMS\power_core__bms.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\BMS\power_core__bms__ethernet.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CAN_NETWORK\power_core__can_network.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CHARGER\IV_MEASURE\power__iv_measure.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CHARGER\power_core__charger.c" />
@@ -104,15 +129,30 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\WIN32\power_core__win32.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC\software_crc.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical__structs.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree.h" />
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree__public.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s__fault_flags.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s__localdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s__reg_defs.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20__localdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20__state_types.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM647__MULTICORE__TSYS01\tsys01.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM647__MULTICORE__TSYS01\tsys01__fault_flags.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM647__MULTICORE__TSYS01\tsys01__localdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM648__MULTICORE__MS5607\ms5607.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM648__MULTICORE__MS5607\ms5607__localdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\bq76.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\bq76__localdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\bq76__reg_defs.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CHARGER\IV_MEASURE\power__iv_measure__fault_flags.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core__defines.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core__eeprom_index.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core__enums.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core__fault_flags.h" />
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core__localdef.h" />
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core__state_types.h" />
     <ClInclude Include="localdef.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

@@ -55,17 +55,48 @@
 			C_FCU_ASI__FOLDBACK_STARING_TEMP = 91U,
 			C_FCU_ASI__FOLDBACK_END_TEMP = 92U,
 			C_FCU_ASI__COMMAND_SOURCE = 208U,
-			C_FCU_ASI__CONTROLLER_STATUS = 257U,
-			C_FCU_ASI__FAULTS = 0x0102U,
+
+
 
 			C_FCU_ASI__THROT_SENSOR_SOURCE = 247U,
 
+
 			C_FCU_ASI__REMOTE_THROTTLE_VOLTAGE = 495U,
 
+
+			C_FCU_ASI__CONTROLLER_STATUS = 257U,
+
+			/* A fault is issued when the drive or motor could be damaged by further operation or the motor cannot
+			 * be operated safely. When a fault occurs, the drive attempts to bring the motor to a stop, and then
+			 * stops driving the motor (the bridge goes into a high impedance state). The drive enters the “Stop”
+			 * state. To start the drive, it is necessary to clear the fault indicator and change the state to “Run”. If
+			 * the fault persists, another fault will be issued. */
+			C_FCU_ASI__FAULTS = 258U,
+
+
+			/** This value represents the temperature of the controller’s base plate. */
 			C_FCU_ASI__CONT_TEMP = 259U,
+
+			/* This value represents the temperature of any device that is connected to the brake 2 input. This
+			 * temperature measurement can be used indicate motor or outside temperature as an example. */
 			C_FCU_ASI__TEMPERATURE = 261U,
+
+			/** This variable represents the peak (not RMS) motor current in Amperes. */
 			C_FCU_ASI__MOTOR_CURRENT = 262U,
+
+			/** This variable represents the motor’s speed in RPM. */
 			C_FCU_ASI__MOTOR_RPM = 263U,
+
+			/** This variable represents the measured battery voltage. */
+			C_FCU_ASI__BATTERY_VOLTAGE = 265U,
+
+			/** This variable represents the estimated battery current. */
+			C_FCU_ASI__BATTERY_CURRENT = 266U,
+
+			/** This variable represents the filtered throttle voltage. */
+			C_FCU_ASI__THROT_VOLTAGE = 270U,
+
+
 			C_FCU_ASI__LAST_FAULT = 269U,
 			C_FCU_ASI__RAW_SENSOR_TEMPERATURE = 273U,
 			C_FCU_ASI__SAVE_SETTINGS = 511U

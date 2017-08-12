@@ -28,11 +28,22 @@ SIL3 - MODBUS MASTER / SLAVE INTERFACE
 		 */
 		#define C_LOCALDEF__LCCM690__NUM_SLAVE_REGISTERS					(1U)
 
+		/** Define the number of slaves a master will monitor*/
+		#define C_LOCALDEF__LCCM690__MASTER_NUM_SLAVES						(1U)
+
+		/** Define the number of registers that can be monitored for a slave */
+		#define C_LOCALDEF__LCCM690__MASTER_NUM_SLAVE_REGS					(1U)
+
+
 		/** Serial port function */
-		#define M_LOCALDEF__LCCM690__SERIAL_TX_ARRAY_U8(x, len)				{vRM4_SCI_TX__Tx_U8Array(SCI_CHANNEL__3, len, x);}
+		#define M_LOCALDEF__LCCM690__SERIAL_TX_U8_ARRAY(x, len)				{vRM4_SCI_TX__Tx_U8Array(SCI_CHANNEL__3, len, x);}
 
 		/** TX Enable Pin (Active High) */
 		#define M_LOCALDEF__LCCM690__DRIVER_TX_LATCH(x)						{vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 7U, x);}
+
+
+		/** define the number of us to wait for the Tx to complete*/
+		#define C_LOCALDEF__LCCM690__NUM_US_WAIT_TX							(8000U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM690__ENABLE_TEST_SPEC						(0U)

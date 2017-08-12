@@ -58,7 +58,7 @@
 	#define C_FCU__SC16_ASI_INDEX							(7U)
 
 	/** max number of commands in the round robbin list */
-	#define C_FCU__ASI_COMMAND_LIST_MAX						(4U)
+	#define C_FCU__ASI_COMMAND_LIST_MAX						(5U)
 
 	/** The max number of contrast laser stripes in the tube
 	 * 1 Mile Tube = 5280ft

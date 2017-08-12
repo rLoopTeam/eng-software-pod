@@ -22,15 +22,6 @@
     <Filter Include="Source Files\WIN32\DEBUG_PRINTF">
       <UniqueIdentifier>{70d4ba12-3067-4f39-87a5-770373bae769}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC">
-      <UniqueIdentifier>{de699b01-f374-4c48-9b7a-3f071728f97a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL">
-      <UniqueIdentifier>{a8cc3f8a-d864-4abe-b926-b8800c735930}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE">
-      <UniqueIdentifier>{d8e120f9-4be2-45c5-8425-d0fabbcb71b4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="LCCM653__RLOOP__POWER_CORE">
       <UniqueIdentifier>{15cdce45-9912-47bb-b0ea-784bf553e144}</UniqueIdentifier>
     </Filter>
@@ -48,9 +39,6 @@
     </Filter>
     <Filter Include="LCCM653__RLOOP__POWER_CORE\NODE_TEMP">
       <UniqueIdentifier>{a97c243e-227d-430f-8094-db1794723a49}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="LCCM653__RLOOP__POWER_CORE\SERIAL_NETWORK">
-      <UniqueIdentifier>{a1f85123-33cc-4cbc-b17c-ddc0ec94438d}</UniqueIdentifier>
     </Filter>
     <Filter Include="LCCM653__RLOOP__POWER_CORE\STATE_MACHINE">
       <UniqueIdentifier>{8d79ec31-47d8-4a9a-82d7-4d586f7f03d0}</UniqueIdentifier>
@@ -72,6 +60,78 @@
     </Filter>
     <Filter Include="LCCM653__RLOOP__POWER_CORE\REPRESS">
       <UniqueIdentifier>{63704cf5-bd42-45af-8d93-1d4f1379ac6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A">
+      <UniqueIdentifier>{5009c466-34cd-4fa1-a245-73ba0efa2552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\WIN32">
+      <UniqueIdentifier>{9610be46-828c-4e0f-a44a-cca517002cee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\CELLS">
+      <UniqueIdentifier>{8c70acc8-2440-4a16-8ec9-f03c0c8324a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\BATTERY">
+      <UniqueIdentifier>{15535324-7143-4ea2-82b2-90870e453833}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\BALANCE">
+      <UniqueIdentifier>{9d869ee2-7ad7-4b83-ad09-49dba1ad77b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\SPI">
+      <UniqueIdentifier>{935b6448-8b1d-4c88-8981-e49c5277bb65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\INTERRUPTS">
+      <UniqueIdentifier>{79a45713-bebc-4789-be2c-1efd7adf0d47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20">
+      <UniqueIdentifier>{20fbae99-08fb-4351-b372-959325b71dbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\ADDRESS">
+      <UniqueIdentifier>{623ce585-fef9-4e08-af00-63ea1a270525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\ALARMS">
+      <UniqueIdentifier>{c12d28dd-0d90-491a-b75e-01982d8ad457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\DELAYS">
+      <UniqueIdentifier>{867e1480-1ab0-4175-86dc-ab201798db79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\SCRATCHPAD">
+      <UniqueIdentifier>{65b29aee-5866-46bf-a3a4-571ad0c53d16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\TEMPERATURE">
+      <UniqueIdentifier>{18591074-1035-43cd-8631-f2a6b801921b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\WIRE_IF">
+      <UniqueIdentifier>{ad3ca157-9af1-4b1d-981d-ea5c6e39e6f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM648__MULTICORE__MS5607">
+      <UniqueIdentifier>{c09388eb-e72f-4116-93f7-e101e03f3685}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM648__MULTICORE__MS5607\I2C">
+      <UniqueIdentifier>{139519c2-aed7-439a-9972-d32d383448d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM647__MULTICORE__TSYS01">
+      <UniqueIdentifier>{4389108a-fca7-4d08-9c89-0b0a82273e24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM647__MULTICORE__TSYS01\I2C">
+      <UniqueIdentifier>{37f89bd9-4dc3-4a80-beb3-c556e09b6563}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S">
+      <UniqueIdentifier>{5f27a078-b1a0-446c-b2cd-2b2a1ab30afb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\CRC">
+      <UniqueIdentifier>{4193c668-41e6-48d1-a7aa-82ad3c4ecb6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\DEVICE">
+      <UniqueIdentifier>{058f55e7-11d1-48d7-8517-9c42d8821bb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\LOWLEVEL">
+      <UniqueIdentifier>{ebbc01ab-081c-40cf-8cfb-0e865af4c5a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\ONE_WIRE">
+      <UniqueIdentifier>{4fbcf2fe-4f1c-4292-8c78-118b97189915}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\SEARCH">
+      <UniqueIdentifier>{9dea07a3-d611-4953-bb90-f722914c95e0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +192,81 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\REPRESS\pwr__repress.c">
       <Filter>LCCM653__RLOOP__POWER_CORE\REPRESS</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\BMS\power_core__bms__ethernet.c">
+      <Filter>LCCM653__RLOOP__POWER_CORE\BMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\bq76.c">
+      <Filter>Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\WIN32\bq76__win32.c">
+      <Filter>Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\WIN32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\BATTERY\bq76__battery.c">
+      <Filter>Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\BATTERY</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\BALANCE\bq76__balance.c">
+      <Filter>Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\BALANCE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\SPI\bq76__spi.c">
+      <Filter>Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\SPI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\INTERRUPTS\bq76__interrupts.c">
+      <Filter>Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\INTERRUPTS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\CELLS\bq76__cells.c">
+      <Filter>Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\CELLS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20.c">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ADDRESS\ds18b20__address.c">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\ADDRESS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ALARMS\ds18b20__alarms.c">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\ALARMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\DELAYS\ds18b20__delays.c">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\DELAYS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\WIRE_IF\ds18b20__wire_if.c">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\WIRE_IF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\TEMPERATURE\ds18b20__temperature.c">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\TEMPERATURE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\SCRATCHPAD\ds18b20__scratchpad.c">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20\SCRATCHPAD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM648__MULTICORE__MS5607\ms5607.c">
+      <Filter>Source Files\MULTICORE\LCCM648__MULTICORE__MS5607</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM648__MULTICORE__MS5607\I2C\ms5607_i2c.c">
+      <Filter>Source Files\MULTICORE\LCCM648__MULTICORE__MS5607\I2C</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM647__MULTICORE__TSYS01\tsys01.c">
+      <Filter>Source Files\MULTICORE\LCCM647__MULTICORE__TSYS01</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM647__MULTICORE__TSYS01\I2C\tsys01_i2c.c">
+      <Filter>Source Files\MULTICORE\LCCM647__MULTICORE__TSYS01\I2C</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s.c">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\CRC\ds2482s__crc.c">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\CRC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\DEVICE\ds2482s__device.c">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\DEVICE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\LOWLEVEL\ds2482s__lowlevel.c">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\LOWLEVEL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\SEARCH\ds2482s__search.c">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\SEARCH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ONE_WIRE\ds2482s__one_wire.c">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\ONE_WIRE</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="localdef.h">
@@ -149,23 +284,68 @@
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core__localdef.h">
       <Filter>LCCM653__RLOOP__POWER_CORE</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC\software_crc.h">
-      <Filter>Source Files\MULTICORE\LCCM012__MULTICORE__SOFTWARE_CRC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h">
-      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical__structs.h">
-      <Filter>Source Files\MULTICORE\LCCM118__MULTICORE__NUMERICAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree.h">
-      <Filter>Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM284__MULTICORE__FAULT_TREE\fault_tree__public.h">
-      <Filter>Source Files\MULTICORE\LCCM284__MULTICORE__FAULT_TREE</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\CHARGER\IV_MEASURE\power__iv_measure__fault_flags.h">
       <Filter>LCCM653__RLOOP__POWER_CORE\CHARGER</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core__defines.h">
+      <Filter>LCCM653__RLOOP__POWER_CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core__eeprom_index.h">
+      <Filter>LCCM653__RLOOP__POWER_CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core__enums.h">
+      <Filter>LCCM653__RLOOP__POWER_CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core__fault_flags.h">
+      <Filter>LCCM653__RLOOP__POWER_CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM653__RLOOP__POWER_CORE\power_core__state_types.h">
+      <Filter>LCCM653__RLOOP__POWER_CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\bq76.h">
+      <Filter>Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\bq76__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\bq76__reg_defs.h">
+      <Filter>Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20.h">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM644__MULTICORE__DS18B20\ds18b20__state_types.h">
+      <Filter>Source Files\MULTICORE\LCCM644__MULTICORE__DS18B20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM648__MULTICORE__MS5607\ms5607.h">
+      <Filter>Source Files\MULTICORE\LCCM648__MULTICORE__MS5607</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM648__MULTICORE__MS5607\ms5607__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM648__MULTICORE__MS5607</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM647__MULTICORE__TSYS01\tsys01.h">
+      <Filter>Source Files\MULTICORE\LCCM647__MULTICORE__TSYS01</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM647__MULTICORE__TSYS01\tsys01__fault_flags.h">
+      <Filter>Source Files\MULTICORE\LCCM647__MULTICORE__TSYS01</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM647__MULTICORE__TSYS01\tsys01__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM647__MULTICORE__TSYS01</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s.h">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s__fault_flags.h">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ds2482s__reg_defs.h">
+      <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

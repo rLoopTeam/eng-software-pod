@@ -110,8 +110,13 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 1U;
 
 				//charger state
-				pu8Buffer[0] = (Luint8)sPWRNODE.sCharger.sAlgo.eState;
-				pu8Buffer += 1U;
+				#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
+					pu8Buffer[0] = (Luint8)sPWRNODE.sCharger.sAlgo.eState;
+					pu8Buffer += 1U;
+				#else
+					pu8Buffer[0] = 0U;
+					pu8Buffer += 1U;
+				#endif
 
 				//num sensors
 				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, u16DS18B20__Get_NumEnum_Sensors());

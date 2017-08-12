@@ -28,8 +28,8 @@ void vMS5607__Init(void)
 	sMS5607.u16AverageCounterTemperature = 0U;
 	sMS5607.u16AverageCounterPressure = 0U;
 
-	sMS5607.sTEMP.s32TEMP = 90.0F;    // MILA&ED: this needs to be confirmed
-	sMS5607.sPRESSURE.s32P = 1300.0F; // MILA&ED: this needs to be confirmed
+	sMS5607.sTEMP.s32TEMP = 90;    // MILA&ED: this needs to be confirmed
+	sMS5607.sPRESSURE.s32P = 1300; // MILA&ED: this needs to be confirmed
 
 	//clear the average
 	for(u8Counter = 0U; u8Counter < C_MS5607__MAX_FILTER_SAMPLES; u8Counter++)
@@ -299,7 +299,9 @@ Lint16 s16MS5607__GetCalibrationContants(Luint16 *pu16Values)
 	// Loop through the coefficients from 0 to 8.
 	for (u8CoefficientIndex = 0; u8CoefficientIndex < 8; u8CoefficientIndex++)
 	{
-		vRM4_DELAYS__Delay_mS(10U);
+		#ifndef WIN32
+			vRM4_DELAYS__Delay_mS(10U);
+		#endif	
 		// We have to make sure we're increasing the address by 2,
 		// since we're reading two bytes at a time (16-bit words).
 		s16Return = s16MS5607_I2C__RxU16(C_LOCALDEF__LCCM648__BUS_ADDX, (E_MS5607_CMD_T)(u8CoefficientStartingAddress + (2 * u8CoefficientIndex)), &pu16Values[u8CoefficientIndex]);

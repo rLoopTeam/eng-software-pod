@@ -214,7 +214,7 @@ void vFCU_LASERDIST__Process(void)
 			u8Array[3] = 0x0DU;
 
 			//send it.
-			vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+			vSIL3_SC16__Tx_U8Array(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
 
 #ifndef WIN32
 			vRM4_DELAYS__Delay_mS(50);
@@ -227,7 +227,7 @@ void vFCU_LASERDIST__Process(void)
 			u8Array[3] = 0x0DU;
 
 			//send it.
-			vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+			vSIL3_SC16__Tx_U8Array(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
 
 #ifndef WIN32
 			vRM4_DELAYS__Delay_mS(50);
@@ -239,7 +239,7 @@ void vFCU_LASERDIST__Process(void)
 			u8Array[2] = 0x0DU;
 
 			//send it.
-			vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 3U);
+			vSIL3_SC16__Tx_U8Array(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 3U);
 
 			sFCU.sLaserDist.eLaserState = LASERDIST_STATE__WAIT_INIT_DONE;
 			break;

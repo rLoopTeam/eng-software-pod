@@ -169,6 +169,7 @@ void vPWRNODE__Process(void)
 #else
 			//on win32 set personality
 			sPWRNODE.ePersonality = PWRNODE_TYPE__PACK_A;
+			sPWRNODE.u16EthPort = 9110U;
 
 			//Init any win32 variables
 			vPWRNODE_WIN32__Init();

@@ -23,21 +23,12 @@
         Private m_txtScanIndex As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
         Private m_txtCurTx__CurrCommand As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
 
-        'for the current Tx packet
-        Private m_txtCurTx__SlaveAddx As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
-        Private m_txtCurTx__FunctionCode As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
-        Private m_txtCurTx__BACObject As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
-        Private m_txtCurTx__ParamValue As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
-        Private m_txtCurTx__VarType As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
-
-        Private m_txtCurRx__ErrorType As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
-        Private m_txtCurRx__Value As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
-
         'actual data
         Private m_txtAct_Faults(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
         Private m_txtAct_TempC(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtAct_Current(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtAct_RPM(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
+        Private m_txtAct_ThrottleV(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
 
         'setup the HE
         Private m_cboHE As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper
@@ -103,37 +94,25 @@
 
                     Dim iOffset As Integer = 0
 
+                    'faults
                     iOffset += Me.m_txtFlags.Flags__Update(u8Payload, iOffset, True)
 
+                    'scanning state
                     Me.m_txtMainState.Value__Update(u8Payload(iOffset))
                     iOffset += 1
-                    Me.m_txtModbusState.Value__Update(u8Payload(iOffset))
-                    iOffset += 1
-                    Me.m_txtScanIndex.Value__Update(u8Payload, iOffset)
-                    iOffset += 1
+
+                    'scan index
+                    iOffset += Me.m_txtScanIndex.Value__Update(u8Payload, iOffset)
+
+                    'current command
                     iOffset += Me.m_txtCurTx__CurrCommand.Value__Update(u8Payload, iOffset)
-
-                    iOffset += Me.m_txtCurTx__SlaveAddx.Value__Update(u8Payload, iOffset)
-                    iOffset += Me.m_txtCurTx__FunctionCode.Value__Update(u8Payload, iOffset)
-                    iOffset += Me.m_txtCurTx__BACObject.Value__Update(u8Payload, iOffset)
-                    iOffset += Me.m_txtCurTx__ParamValue.Value__Update(u8Payload, iOffset)
-                    iOffset += Me.m_txtCurTx__VarType.Value__Update(u8Payload, iOffset)
-
-                    Me.m_txtCurRx__ErrorType.Value__Update(u8Payload(iOffset))
-                    iOffset += 1
-                    iOffset += Me.m_txtCurRx__Value.Value__Update(u8Payload, iOffset)
 
                     For iCounter As Integer = 0 To C_NUM_ASI_CONTROLLERS - 1
                         iOffset += Me.m_txtAct_Faults(iCounter).Value__Update(u8Payload, iOffset)
-                    Next
-                    For iCounter As Integer = 0 To C_NUM_ASI_CONTROLLERS - 1
                         iOffset += Me.m_txtAct_TempC(iCounter).Value__Update(u8Payload, iOffset)
-                    Next
-                    For iCounter As Integer = 0 To C_NUM_ASI_CONTROLLERS - 1
                         iOffset += Me.m_txtAct_Current(iCounter).Value__Update(u8Payload, iOffset)
-                    Next
-                    For iCounter As Integer = 0 To C_NUM_ASI_CONTROLLERS - 1
                         iOffset += Me.m_txtAct_RPM(iCounter).Value__Update(u8Payload, iOffset)
+                        iOffset += Me.m_txtAct_ThrottleV(iCounter).Value__Update(u8Payload, iOffset)
                     Next
 
                     Me.m_iRxCount += 1
@@ -165,6 +144,7 @@
             Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Fault Flags")
             l1.Layout__BelowControl(btnOn)
             Me.m_txtFlags = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l1)
+            Me.m_txtFlags.FlagsFile__Read("../../../../FIRMWARE/PROJECT_CODE/LCCM655__RLOOP__FCU_CORE/ASI_RS485/fcu__asi__fault_flags.h", "ASI")
 
             Dim l2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Main State Machine")
             l2.Layout__AboveRightControl(l1, Me.m_txtFlags)
@@ -196,55 +176,6 @@
             Me.m_txtCurTx__CurrCommand.List__Add("C_FCU_ASI__SAVE_SETTINGS", New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(511))
 
             'current command
-            Dim l55 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Current Command (Tx)")
-            l55.Layout__BelowControl(Me.m_txtScanIndex)
-            Dim l5 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Slave Addx")
-            l5.Layout__BelowControl(l55)
-            Me.m_txtCurTx__SlaveAddx = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, l5)
-
-            Dim l6 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Modbus Function")
-            l6.Layout__AboveRightControl(l5, Me.m_txtCurTx__SlaveAddx)
-            Me.m_txtCurTx__FunctionCode = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(200, l6)
-            Me.m_txtCurTx__FunctionCode.List__Add("FUNC_CODE__READ_COILS", New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(1))
-            Me.m_txtCurTx__FunctionCode.List__Add("FUNC_CODE__READ_DISCRETE_INPUTS", New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(2))
-            Me.m_txtCurTx__FunctionCode.List__Add("FUNC_CODE__READ_HOLDING_REGS", New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(3))
-            Me.m_txtCurTx__FunctionCode.List__Add("FUNC_CODE__READ_INPUT_REGS", New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(4))
-            Me.m_txtCurTx__FunctionCode.List__Add("FUNC_CODE__WRITE_SINGLE_COIL", New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(5))
-            Me.m_txtCurTx__FunctionCode.List__Add("FUNC_CODE__WRITE_SINGLE_REG", New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(6))
-
-
-            Dim l7 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("BAC Object Code")
-            l7.Layout__AboveRightControl(l6, Me.m_txtCurTx__FunctionCode)
-            Me.m_txtCurTx__BACObject = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(200, l7)
-            Me.m_txtCurTx__BACObject.List__Add("C_FCU_ASI__OVER_TEMP_THRESHOLD", New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(90))
-            Me.m_txtCurTx__BACObject.List__Add("C_FCU_ASI__FOLDBACK_STARING_TEMP", New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(91))
-            Me.m_txtCurTx__BACObject.List__Add("C_FCU_ASI__FOLDBACK_END_TEMP", New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(92))
-            Me.m_txtCurTx__BACObject.List__Add("C_FCU_ASI__COMMAND_SOURCE", New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(208))
-            Me.m_txtCurTx__BACObject.List__Add("C_FCU_ASI__CONTROLLER_STATUS", New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(257))
-            Me.m_txtCurTx__BACObject.List__Add("C_FCU_ASI__FAULTS", New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(&H102))
-            Me.m_txtCurTx__BACObject.List__Add("C_FCU_ASI__CONT_TEMP", New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(259))
-            Me.m_txtCurTx__BACObject.List__Add("C_FCU_ASI__TEMPERATURE", New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(261))
-            Me.m_txtCurTx__BACObject.List__Add("C_FCU_ASI__MOTOR_CURRENT", New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(262))
-            Me.m_txtCurTx__BACObject.List__Add("C_FCU_ASI__MOTOR_RPM ", New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(263))
-            Me.m_txtCurTx__BACObject.List__Add("C_FCU_ASI__LAST_FAULT", New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(269))
-            Me.m_txtCurTx__BACObject.List__Add("C_FCU_ASI__RAW_SENSOR_TEMPERATURE", New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(273))
-            Me.m_txtCurTx__BACObject.List__Add("C_FCU_ASI__SAVE_SETTINGS", New LAPP188__RLOOP__LIB.SIL3.Numerical.U16(511))
-
-            Dim l8 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Param Value")
-            l8.Layout__AboveRightControl(l7, Me.m_txtCurTx__BACObject)
-            Me.m_txtCurTx__ParamValue = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, l8)
-
-            Dim l9 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Variable Type")
-            l9.Layout__AboveRightControl(l8, Me.m_txtCurTx__ParamValue)
-            Me.m_txtCurTx__VarType = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, l9)
-            Me.m_txtCurTx__VarType.List__Add("E_INT8", New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(&H11))
-            Me.m_txtCurTx__VarType.List__Add("E_UINT8", New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(&H12))
-            Me.m_txtCurTx__VarType.List__Add("E_INT16", New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(&H21))
-            Me.m_txtCurTx__VarType.List__Add("E_UINT16", New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(&H22))
-            Me.m_txtCurTx__VarType.List__Add("E_INT32", New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(&H41))
-            Me.m_txtCurTx__VarType.List__Add("E_UINT32", New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(&H42))
-            Me.m_txtCurTx__VarType.List__Add("E_INT64", New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(&H81))
-            Me.m_txtCurTx__VarType.List__Add("E_UINT64", New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(&H82))
 
             'setup the main states
             Me.m_txtMainState.States__Add("ASI_STATE__IDLE")
@@ -260,25 +191,8 @@
             Me.m_txtModbusState.States__Add("ASI_COMM_STATE__PROCESS_ERROR")
 
 
-            Dim l56 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Last Command (Rx)")
-            l56.Layout__BelowControl(Me.m_txtCurTx__SlaveAddx)
-
-            Dim l10 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Rx Type")
-            l10.Layout__BelowControl(l56)
-            Me.m_txtCurRx__ErrorType = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l10)
-
-            Me.m_txtCurRx__ErrorType.States__Add("E_NONE")
-            Me.m_txtCurRx__ErrorType.States__Add("E_SLAVE_MISMATCH")
-            Me.m_txtCurRx__ErrorType.States__Add("E_CRC_CHECK_FAILED")
-            Me.m_txtCurRx__ErrorType.States__Add("E_REPLY_TIMEOUT_EXPIRED")
-            Me.m_txtCurRx__ErrorType.States__Add("E_ERROR_RESPONSE")
-
-            Dim l12 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Rx Value")
-            l12.Layout__AboveRightControl(l10, Me.m_txtCurRx__ErrorType)
-            Me.m_txtCurRx__Value = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, l12)
-
             Dim l30 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Actual Parameters")
-            l30.Layout__BelowControl(Me.m_txtCurRx__ErrorType)
+            l30.Layout__BelowControl(Me.m_txtScanIndex)
 
             Dim l31(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper
             For iCounter As Integer = 0 To C_NUM_ASI_CONTROLLERS - 1
@@ -324,8 +238,21 @@
                 Me.m_txtAct_RPM(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, l34(iCounter))
             Next
 
+
+            Dim l35(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper
+            For iCounter As Integer = 0 To C_NUM_ASI_CONTROLLERS - 1
+                l35(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(iCounter.ToString & ": Throttle V")
+                If iCounter = 0 Then
+                    l35(iCounter).Layout__BelowControl(Me.m_txtAct_RPM(0))
+                Else
+                    l35(iCounter).Layout__AboveRightControl(l35(iCounter - 1), Me.m_txtAct_ThrottleV(iCounter - 1))
+                End If
+                Me.m_txtAct_ThrottleV(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l35(iCounter))
+            Next
+
+
             Dim l90 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Throttle Index")
-            l90.Layout__BelowControl(Me.m_txtAct_RPM(0))
+            l90.Layout__BelowControl(Me.m_txtAct_ThrottleV(0))
             Me.m_cboHE = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper(100)
             Me.m_cboHE.Layout__BelowControl(l90)
             For iCounter As Integer = 0 To C_NUM__THROTTLES - 1

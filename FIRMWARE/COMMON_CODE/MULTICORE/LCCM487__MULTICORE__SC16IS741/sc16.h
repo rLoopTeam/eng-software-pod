@@ -192,7 +192,7 @@
 		Luint8 u8SIL3_SC16_USER__Is_TxAvail(Luint8 u8DeviceIndex);
 		Luint8 u8SIL3_SC16_USER__Get_ByteAvail(Luint8 u8DeviceIndex);
 		Luint8 u8SIL3_SC16_USER__Get_Byte(Luint8 u8DeviceIndex);
-		void vSIL3_SC16__Tx_ByteArray(Luint8 u8DeviceIndex, Luint8 *pu8Data, Luint8 u8ArrayLength);
+		void vSIL3_SC16__Tx_U8Array(Luint8 u8DeviceIndex, Luint8 *pu8Data, Luint8 u8ArrayLength);
 
 
 		//Interrupt
