@@ -210,7 +210,7 @@ void vFCU_LASERDIST__Process(void)
 				if(0)
 				{
 					//Operation mode, No. 1
-					//<ESC>, P, 1, <CR>
+					//<ESC>, P1, <CR>
 					u8Array[0] = 0x1BU;
 					u8Array[1] = 0x50U;
 					u8Array[2] = 0x31U;
@@ -230,6 +230,17 @@ void vFCU_LASERDIST__Process(void)
 					//send it.
 					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
 				}
+				if(0)
+				{
+					//Control Byte2, No. 3 (if extended cm: 128, or mm: 64, or none: 0 )
+					//<ESC>P3<CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x50U;
+					u8Array[2] = 0x33U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
 
 				if(0)
 				{
@@ -242,18 +253,6 @@ void vFCU_LASERDIST__Process(void)
 					u8Array[4] = 0x0DU;
 					//send it.
 					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 5U);
-				}
-
-				if(0)
-				{
-					//Control Byte2, No. 3 (if extended cm: 128, or mm: 64, or none: 0 )
-					//<ESC>P3<CR>
-					u8Array[0] = 0x1BU;
-					u8Array[1] = 0x50U;
-					u8Array[2] = 0x33U;
-					u8Array[3] = 0x0DU;
-					//send it.
-					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
 				}
 
 				if(0)
@@ -290,7 +289,6 @@ void vFCU_LASERDIST__Process(void)
 					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 3U);
 				}
 #endif
-
 			sFCU.sLaserDist.eLaserState = LASERDIST_STATE__WAIT_INIT_DONE;
 			break;
 
@@ -463,6 +461,7 @@ void vFCU_LASERDIST__Process_Packet(void)
   sFCU.sLaserDist.s32PrevAccel_mmss = sFCU.sLaserDist.s32Accel_mmss;
 
 
+
 }
 
 /***************************************************************************//**
@@ -520,7 +519,8 @@ void vFCU_LASERDIST__Process_Packet_ASCII(void)
 	//update
 	sFCU.sLaserDist.s32Distance_mm = (Lint32)u32Distance;
 
-  //////////////////
+
+//////////////////
 	//compute veloc
 	f32Delta = (Lfloat32)sFCU.sLaserDist.s32PrevDistance_mm;
 	f32Delta -= sFCU.sLaserDist.s32Distance_mm;
@@ -681,11 +681,11 @@ void vFCU_LASERDIST__Append_Byte(Luint8 u8Value)
   //do it.
   sFCU.sLaserDist.s32Accel_mmss = (Lint32)f32Delta;
 
+
 	//save prev
 	sFCU.sLaserDist.s32PrevDistance_mm = sFCU.sLaserDist.s32Distance_mm;
 	sFCU.sLaserDist.s32PrevVelocity_mms = sFCU.sLaserDist.s32Velocity_mms;
   sFCU.sLaserDist.s32PrevAccel_mmss = sFCU.sLaserDist.s32Accel_mmss;
-
 }
 
 
@@ -830,8 +830,8 @@ void vFCU_LASERDIST__Append_Byte_ASCII(Luint8 u8Value)
 			//todo, log the error
 			break;
 	}//switch
+}
 
-	
 /***************************************************************************//**
  * @brief
  * 100ms Timer interrupt.
