@@ -218,8 +218,15 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 
 				//pod health
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sPodHealth.sHealthFlags.u32Flags[0]);
-				pu8Buffer += 4U;
+				#if C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH == 1U
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sPodHealth.sHealthFlags.u32Flags[0]);
+					pu8Buffer += 4U;
+				#elif C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH == 0U
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
+					pu8Buffer += 4U;
+				#else
+					#error
+				#endif
 				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
 				pu8Buffer += 4U;
 				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);

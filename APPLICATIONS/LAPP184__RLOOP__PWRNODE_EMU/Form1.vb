@@ -380,6 +380,12 @@ Public Class Form1
 
     End Sub
 
+
+    ''' <summary>
+    ''' 1 second timer tick for the battery model.
+    ''' </summary>
+    ''' <param name="s"></param>
+    ''' <param name="e"></param>
     Private Sub Timers__T1S_Tick(s As Object, e As System.Timers.ElapsedEventArgs)
         If Me.m_bThreadRun = True Then
 
@@ -430,9 +436,6 @@ Public Class Form1
             vPWRNODE__RTI_100MS_ISR()
         End If
     End Sub
-
-
-
 
 #End Region '#Region "TIMERS"
 

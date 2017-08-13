@@ -9,10 +9,13 @@
 
 #Region "MEMBERS"
 
-        Private m_txtFaultFlags As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
+        ''' <summary>
+        ''' Power node faults
+        ''' </summary>
+        Private m_txtNode_FaultFlags As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags
+
+
         Private m_txtCharger_State As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
-        Private m_txtRxCount As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
-        Private m_iRxCount As Integer
 
         Private m_txtHighestTemp As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtAverageTemp As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
@@ -20,6 +23,10 @@
         Private m_txtPackVolts As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtCell_Highest As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtCell_Lowest As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+
+
+        Private m_txtRxCount As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_iRxCount As Integer
 
 
         ''' <summary>
@@ -56,16 +63,16 @@
         Public Overrides Sub LayoutPanel()
 
             Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Fault Flags", Me.m_pInnerPanel)
-            Me.m_txtFaultFlags = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l1)
-            Me.m_txtFaultFlags.FlagsFile__Read("../../../../FIRMWARE/PROJECT_CODE/LCCM653__RLOOP__POWER_CORE/power_core__fault_flags.h", "CORE")
+            Me.m_txtNode_FaultFlags = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l1)
+            Me.m_txtNode_FaultFlags.FlagsFile__Read("../../../../FIRMWARE/PROJECT_CODE/LCCM653__RLOOP__POWER_CORE/power_core__fault_flags.h", "CORE")
 
 
             Dim l1a As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Rx Packets")
-            l1a.Layout__AboveRightControl(l1, Me.m_txtFaultFlags)
+            l1a.Layout__AboveRightControl(l1, Me.m_txtNode_FaultFlags)
             Me.m_txtRxCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l1a)
 
 
-            Dim l2a As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Manual Charge Control", Me.m_txtFaultFlags)
+            Dim l2a As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Manual Charge Control", Me.m_txtNode_FaultFlags)
             Dim btnCharger_Enable As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Enable", AddressOf Me.btnCharge_Enable)
             btnCharger_Enable.Layout__BelowControl(l2a)
             Dim btnCharger_Disable As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Disable", AddressOf Me.btnCharge_Disable)
@@ -159,13 +166,35 @@
                     Dim iOffset As Integer = 0
 
                     'top flags
-                    iOffset += Me.m_txtFaultFlags.Flags__Update(u8Payload, iOffset, True)
+                    iOffset += Me.m_txtNode_FaultFlags.Flags__Update(u8Payload, iOffset, True)
 
-                    'temp sensor state
-                    iOffset += 1
+                    'Bq76 flags
+                    iOffset += 12
+
+                    iOffset += Me.m_txtPackVolts.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtCell_Highest.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtCell_Lowest.Value__Update(u8Payload, iOffset)
+
+                    'cell volts
+                    iOffset += 18 * 4
+
+                    'cell spares
+                    iOffset += 18 * 4
+
+                    'resistors
+                    iOffset += 18
+
+                    'volts update count
+                    iOffset += 4
+
+                    'batt spares
+                    iOffset += 4
 
                     'charger state
                     iOffset += Me.m_txtCharger_State.Value__UpdateU8(u8Payload, iOffset)
+
+                    'temp sensor state
+                    iOffset += 1
 
                     'num sensors
                     iOffset += 2
@@ -177,9 +206,7 @@
                     'highest sensor index
                     iOffset += 2
 
-                    iOffset += Me.m_txtPackVolts.Value__Update(u8Payload, iOffset)
-                    iOffset += Me.m_txtCell_Highest.Value__Update(u8Payload, iOffset)
-                    iOffset += Me.m_txtCell_Lowest.Value__Update(u8Payload, iOffset)
+                    'temp scan count
 
 
                     Me.m_iRxCount += 1

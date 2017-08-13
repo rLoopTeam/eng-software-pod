@@ -462,7 +462,7 @@ void vPWRNODE__RTI_10MS_ISR(void)
 		#if C_LOCALDEF__BMS_REVISION == 1U
 			vATA6870__10MS_ISR();
 		#elif C_LOCALDEF__BMS_REVISION == 2U
-
+			vBQ76__10MS_ISR();
 		#else
 			#error
 		#endif

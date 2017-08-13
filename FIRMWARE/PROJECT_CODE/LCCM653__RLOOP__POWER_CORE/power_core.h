@@ -244,12 +244,13 @@
 
 			#endif
 
+			#if C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS == 1U
 			/** PV Repress System */
 			struct
 			{
 
 				/** Repress state machine */
-				E_PWRNODE__REPRESS_T eState;
+				TE_PWRNODE__REPRESS_T eState;
 
 				/** The solenoid state */
 				TE_PWR_REPRESS_SOL_STATE eSolState;
@@ -261,6 +262,7 @@
 				Lfloat32 f32Press;
 
 			}sRePress;
+			#endif //C_LOCALDEF__LCCM653__ENABLE_PV_REPRESS
 
 			//lower structure guarding
 			Luint32 u32Guard2;
@@ -333,6 +335,7 @@
 		//BMS interface layer
 		void vPWRNODE_BMS__Init(void);
 		void vPWRNODE_BMS__Process(void);
+		Luint32 u32PWRNODE_BMS__Get_DeviceFlags(Luint8 u8DeviceIndex);
 		Lfloat32 f32PWRNODE_BMS__Cell_Get_HighestVoltage(void);
 		Lfloat32 f32PWRNODE_BMS__Cell_Get_LowestVoltage(void);
 		Lfloat32 f32PWRNODE_BMS__Get_PackVoltage(void);
