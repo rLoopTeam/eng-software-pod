@@ -27,7 +27,7 @@
 		/** Fault condition */
 		REPRESS_STATE__FAULT
 
-	}E_PWRNODE__REPRESS_T;
+	}TE_PWRNODE__REPRESS_T;
 
 	/** Cooling system */
 	typedef enum

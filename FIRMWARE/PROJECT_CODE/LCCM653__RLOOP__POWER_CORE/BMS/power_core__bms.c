@@ -95,6 +95,19 @@ void vPWRNODE_BMS__Process(void)
 #endif
 }
 
+Luint32 u32PWRNODE_BMS__Get_DeviceFlags(Luint8 u8DeviceIndex)
+{
+#if C_LOCALDEF__BMS_REVISION == 1U
+	return 0xFFFFFFFFU;
+#elif C_LOCALDEF__BMS_REVISION == 2U
+	return u32BQ76__Get_FaultFlags(u8DeviceIndex);
+#else
+	#error
+#endif
+
+}
+
+
 /***************************************************************************//**
  * @brief
  * Get the highest cell voltage
@@ -144,7 +157,7 @@ Lfloat32 f32PWRNODE_BMS__Get_PackVoltage(void)
 	#if C_LOCALDEF__BMS_REVISION == 1U
 		return f32ATA6870_CELL__Get_PackVoltage();
 	#elif C_LOCALDEF__BMS_REVISION == 2U
-		return f3BQ76_BATTERY__Get_PackVoltage();
+		return f32BQ76_BATTERY__Get_PackVoltage();
 	#else
 		#error
 	#endif

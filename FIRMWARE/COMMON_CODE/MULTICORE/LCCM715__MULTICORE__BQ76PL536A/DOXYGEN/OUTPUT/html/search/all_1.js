@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['c_5fbq76_5f_5fmax_5fcells_5fper_5fdevice',['C_BQ76__MAX_CELLS_PER_DEVICE',['../bq76_8h.html#ad1d602edcf7f7deda5e65156f5f37a28',1,'bq76.h']]],
+  ['c_5fbq76_5f_5ftotal_5fcells',['C_BQ76__TOTAL_CELLS',['../bq76_8h.html#aef1706dc5ad887d8e12711edd00e5dda',1,'bq76.h']]],
+  ['c_5flccm715_5f_5fcore_5f_5ffault_5findex_5f_5f00',['C_LCCM715__CORE__FAULT_INDEX__00',['../bq76____fault__flags_8h.html#a628b2b3eaa377c2052c886628535f0dd',1,'bq76__fault_flags.h']]],
+  ['c_5flccm715_5f_5fcore_5f_5ffault_5findex_5f_5f01',['C_LCCM715__CORE__FAULT_INDEX__01',['../bq76____fault__flags_8h.html#a5f70a85fcde691b1bfae767407e75267',1,'bq76__fault_flags.h']]],
+  ['c_5flccm715_5f_5fcore_5f_5ffault_5findex_5fmask_5f_5f00',['C_LCCM715__CORE__FAULT_INDEX_MASK__00',['../bq76____fault__flags_8h.html#a61700a481145de07c6abcd91a5145426',1,'bq76__fault_flags.h']]],
+  ['c_5flccm715_5f_5fcore_5f_5ffault_5findex_5fmask_5f_5f01',['C_LCCM715__CORE__FAULT_INDEX_MASK__01',['../bq76____fault__flags_8h.html#a91faaefb5e2f5d0c1555d271be4cfbe5',1,'bq76__fault_flags.h']]],
+  ['c_5flccm715_5f_5fdevice_5f_5ffault_5findex_5f_5f00',['C_LCCM715__DEVICE__FAULT_INDEX__00',['../bq76____device__fault__flags_8h.html#a329f3b9291fe39465eda9af0ec1116ae',1,'bq76__device_fault_flags.h']]],
+  ['c_5flccm715_5f_5fdevice_5f_5ffault_5findex_5f_5f01',['C_LCCM715__DEVICE__FAULT_INDEX__01',['../bq76____device__fault__flags_8h.html#a6255e01f0af65615a7d2231fe53bb390',1,'bq76__device_fault_flags.h']]],
+  ['c_5flccm715_5f_5fdevice_5f_5ffault_5findex_5fmask_5f_5f00',['C_LCCM715__DEVICE__FAULT_INDEX_MASK__00',['../bq76____device__fault__flags_8h.html#a3eba52f8a85b78bc29274602b4a22791',1,'bq76__device_fault_flags.h']]],
+  ['c_5flccm715_5f_5fdevice_5f_5ffault_5findex_5fmask_5f_5f01',['C_LCCM715__DEVICE__FAULT_INDEX_MASK__01',['../bq76____device__fault__flags_8h.html#ae868b2e0198b34d6ae23699d1072b170',1,'bq76__device_fault_flags.h']]],
+  ['cells_5fstate_5f_5fcompute_5fbattery',['CELLS_STATE__COMPUTE_BATTERY',['../bq76_8h.html#a9a451b494f95eba5a69fe2ef26ac8fb3a25f9afaae70119634b63a1759bea4a8a',1,'bq76.h']]],
+  ['cells_5fstate_5f_5fcompute_5fmin_5fmax',['CELLS_STATE__COMPUTE_MIN_MAX',['../bq76_8h.html#a9a451b494f95eba5a69fe2ef26ac8fb3a1b708cae18090114dd99a87f88f10ec4',1,'bq76.h']]],
+  ['cells_5fstate_5f_5fconvert_5fvolts',['CELLS_STATE__CONVERT_VOLTS',['../bq76_8h.html#a9a451b494f95eba5a69fe2ef26ac8fb3a11a619188294e857408b939cbf2eef27',1,'bq76.h']]],
+  ['cells_5fstate_5f_5fidle',['CELLS_STATE__IDLE',['../bq76_8h.html#a9a451b494f95eba5a69fe2ef26ac8fb3ab7e659ca7f304aee614acafd69e52b82',1,'bq76.h']]],
+  ['cells_5fstate_5f_5fread_5fvolts',['CELLS_STATE__READ_VOLTS',['../bq76_8h.html#a9a451b494f95eba5a69fe2ef26ac8fb3a9e2ea9bc3b147953a699d458bd4264c7',1,'bq76.h']]],
+  ['cells_5fstate_5f_5frun_5faverager',['CELLS_STATE__RUN_AVERAGER',['../bq76_8h.html#a9a451b494f95eba5a69fe2ef26ac8fb3a915225af62f9a466aadf5567aed29075',1,'bq76.h']]],
+  ['cells_5fstate_5f_5fstart_5fconvert',['CELLS_STATE__START_CONVERT',['../bq76_8h.html#a9a451b494f95eba5a69fe2ef26ac8fb3ae8663de998399db3bdff5f6fca28e5df',1,'bq76.h']]],
+  ['cells_5fstate_5f_5fwait_5fconvert',['CELLS_STATE__WAIT_CONVERT',['../bq76_8h.html#a9a451b494f95eba5a69fe2ef26ac8fb3a93723cf25d9ce496f61e51562e76ed1e',1,'bq76.h']]]
+];

@@ -86,12 +86,22 @@ void vFCU_FCTL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 2U;
 
 				//current track database
-				pu8Buffer[0] = (Luint8)sFCU.sFlightControl.sTrackDB.u32CurrentDB;
-				pu8Buffer += 1U;
+				#if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
+					pu8Buffer[0] = (Luint8)sFCU.sFlightControl.sTrackDB.u32CurrentDB;
+					pu8Buffer += 1U;
+				#else
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
+					pu8Buffer += 4U;
+				#endif
 
 				//pod health
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sPodHealth.sHealthFlags.u32Flags[0]);
-				pu8Buffer += 4U;
+				#if C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH == 1U
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sPodHealth.sHealthFlags.u32Flags[0]);
+					pu8Buffer += 4U;
+				#else
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
+					pu8Buffer += 4U;
+				#endif
 
 
 				break;

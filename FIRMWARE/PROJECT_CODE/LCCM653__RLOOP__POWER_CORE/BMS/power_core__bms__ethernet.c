@@ -75,10 +75,28 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				u16Length += C_ATA6870__MAX_BUS_DEVICES;
 				u16Length += 12U;
 			#elif C_LOCALDEF__BMS_REVISION == 2U
-				u16Length = 42U;
-				u16Length +=  (C_LOCALDEF__LCCM715__NUM_DEVICES * C_BQ76__MAX_CELLS_PER_DEVICE * 4U);
-				u16Length += C_LOCALDEF__LCCM715__NUM_DEVICES;
-				u16Length += 12U;
+				u16Length = 28U;
+
+				//volts
+				u16Length +=  (C_BQ76__TOTAL_CELLS * 4U);
+				//spares
+				u16Length +=  (C_BQ76__TOTAL_CELLS * 4U);
+
+				//dischg resistors
+				u16Length += C_BQ76__TOTAL_CELLS;
+				u16Length += 4;
+
+				//battery spares
+				u16Length += 4;
+
+				//charger
+				u16Length += 1;
+
+				//temp sensor
+				u16Length += 17;
+
+				//press+temp = 8
+				u16Length += 8U;
 			#else
 				#error
 			#endif
@@ -99,6 +117,8 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		//handle the packet
 		switch(ePacketType)
 		{
+
+#if C_LOCALDEF__BMS_REVISION == 1U
 			case NET_PKT__PWR_BMS__TX_BMS_STATUS:
 
 				//fault flags
@@ -241,6 +261,147 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 
 				break;
+
+#elif C_LOCALDEF__BMS_REVISION == 2U
+			case NET_PKT__PWR_BMS__TX_BMS_STATUS:
+
+				//fault flags
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sPWRNODE.sFaults.sTopLevel.u32Flags[0]);
+				pu8Buffer += 4U;
+
+				//Device fault flags
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32PWRNODE_BMS__Get_DeviceFlags(0U));
+				pu8Buffer += 4U;
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32PWRNODE_BMS__Get_DeviceFlags(1U));
+				pu8Buffer += 4U;
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32PWRNODE_BMS__Get_DeviceFlags(2U));
+				pu8Buffer += 4U;
+
+				#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+					//pack volts
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Get_PackVoltage());
+					pu8Buffer += 4U;
+					//highest volts
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Cell_Get_HighestVoltage());
+					pu8Buffer += 4U;
+					//lowest volts
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_BMS__Cell_Get_LowestVoltage());
+					pu8Buffer += 4U;
+				#else
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
+					pu8Buffer += 4U;
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
+					pu8Buffer += 4U;
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
+					pu8Buffer += 4U;
+				#endif
+
+
+				//cell volts
+				for(u8Counter = 0; u8Counter < C_BQ76__TOTAL_CELLS; u8Counter++)
+				{
+					//Cell voltage
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32BQ76__Get_CellVoltage(u8Counter));
+					pu8Buffer += 4U;
+
+				}
+
+				//cell spares
+				for(u8Counter = 0; u8Counter < C_BQ76__TOTAL_CELLS; u8Counter++)
+				{
+					//Cell voltage
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
+					pu8Buffer += 4U;
+
+				}
+
+				//discharge resistors
+				for(u8Counter = 0; u8Counter < C_BQ76__TOTAL_CELLS; u8Counter++)
+				{
+					pu8Buffer[0] = sBQ76.sBalance.u8Resistor[u8Counter];
+					pu8Buffer += 1U;
+				}
+
+				//count of times the voltage was updated.
+				#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32PWRNODE_BMS__Get_VoltsUpdateCount());
+					pu8Buffer += 4U;
+				#else
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
+					pu8Buffer += 4U;
+				#endif
+
+				//battery spares
+				pu8Buffer += 4U;
+
+
+				//charger state
+				#if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
+					pu8Buffer[0] = (Luint8)sPWRNODE.sCharger.sAlgo.eState;
+					pu8Buffer += 1U;
+				#else
+					pu8Buffer[0] = 0U;
+					pu8Buffer += 1U;
+				#endif
+
+
+
+				//temp sensor state
+				pu8Buffer[0] = (Luint8)sPWRNODE.sTemp.eState;
+				pu8Buffer += 1U;
+
+
+				//num sensors
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, u16DS18B20__Get_NumEnum_Sensors());
+				pu8Buffer += 2U;
+
+				//highest individual temp
+				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sTemp.f32HighestTemp);
+				pu8Buffer += 4U;
+
+				//average temp
+				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sTemp.f32AverageTemp);
+				pu8Buffer += 4U;
+
+				//highest temp sensor
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sPWRNODE.sTemp.u16HighestSensorIndex);
+				pu8Buffer += 2U;
+
+				//Number of times we've scaned the temperature sensors
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sPWRNODE.sTemp.u32TempScanCount);
+				pu8Buffer += 4U;
+
+
+				//node press
+				#if C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS == 1U
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_NODEPRESS__Get_Pressure_Bar());
+					pu8Buffer += 4U;
+				#else
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
+					pu8Buffer += 4U;
+				#endif
+
+				//node temp
+				#if C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP == 1U
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, f32PWRNODE_NODETEMP__Get_DegC());
+					pu8Buffer += 4U;
+				#else
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, 0.0F);
+					pu8Buffer += 4U;
+				#endif
+
+
+
+
+				//Current through the battery pack
+				//vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sHASS600.f32HASS_CurrentReading);
+				//pu8Buffer += 4U;
+
+				break;
+
+#else
+	#error
+#endif
 
 			default:
 				//fall on

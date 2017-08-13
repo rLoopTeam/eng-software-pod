@@ -2,6 +2,13 @@
 #define LOCALDEF_H_
 
 /*lint -e950*/
+	/** BMS PCB VERSION
+	 *
+	 * 1 = RM48 (Lachlan - Pod V1)
+	 * 2 = RM57 (David - Pod V2)
+	 */
+
+	#define C_LOCALDEF__BMS_REVISION 		(2U)
 
 	//The launchpad
 #ifndef WIN32
@@ -13,208 +20,15 @@
 #endif
 
 /*******************************************************************************
-ADC Module
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
-
-		/** The number of ADC channels (modules) being used
-		 * Keep a 1 for now
-		 */
-		#define C_LOCALDEF__LCCM414__NUM_ADC_MODULES						(1U)
-
-		/** Continuous Conversion Mode:  When enabled the ADC
-		 * Will always keep making samples of the configured channels
-		 */
-		#define C_LOCALDEF__LCCM414__ENABLE_CONTINUOUS_CONVERSION			(0U)
-
-		/** Averaging is enabled across all channels.
-		 * It can consume serious CPU time for a fully enabled ADC
-		 */
-		#define C_LOCALDEF__LCCM414__ENABLE_AVERAGING						(1U)
-
-		/** The number of samples for each channels ADC averager */
-		#define C_LOCALDEF__LCCM414__AVERAGE_MAX_SAMPLES					(4U)
-
-
-		/** Determine which of ADC1 to enable */
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN0						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN1						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN2						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN3						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN4						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN5						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN6						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN7						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN8						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN9						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN10						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN11						(1U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN12						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN13						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN14						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN15						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN16						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN17						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN18						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN19						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN20						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN21						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN22						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN23						(0U)
-
-		/** The number of connected devices to the ADC's
-		 * We store a local copy of our ADC results in a user addressable
-		 * structure to reduce the complexity of finding our result
-		 * Value can be from 1 to 24
-		 */
-		#define C_LOCALDEF__LCCM414__NUM_CONNECTED_DEVICES					(1U)
-
-		/** For each device we determine the location of the device within our strucrture
-		 * You must configure an index from 0 to NUM_CONNECTED_DEVICES - 1
-		 * No two units may have the same index
-		 * Example MAP ADC1_IN0 to Device (1)
-		 */
-		#define C_LOCALDEF__LCCM414__ADC1_IN0__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN1__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN2__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN3__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN4__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN5__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN6__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN7__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN8__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN9__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN10__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN11__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN12__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN13__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN14__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN15__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN16__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN17__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN18__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN19__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN20__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN21__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN22__INDEX						(0U)
-		#define C_LOCALDEF__LCCM414__ADC1_IN23__INDEX						(0U)
-
-		/** Enable voltage conversion to return the voltage value
-		 * for a device.  This reduces the external workload to compute the
-		 * voltage based on VREF
-		 */
-		#define C_LOCALDEF__LCCM414__ENABLE_VOLTAGE_CALC					(1U)
-
-
-		#define C_LOCALDEF__LCCM414__ENABLE_INTERRUPTS						(0U)
-
-		#define C_LOCALDEF__LCCM414__ENABLE_TEST_SPEC						(0U)
-
-
-        //main include file
-		#include <RM4/LCCM414__RM4__ADC/rm4_adc.h>
-	#endif //C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE
-
-/*******************************************************************************
-RM4 GIO MODULE
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM133__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM133__ENABLE_THIS_MODULE == 1U
-
-		#define C_LOCALDEF__LCCM133__ENABLE_INTERRUPTS						(0U)
-
-		#if C_LOCALDEF__LCCM133__ENABLE_INTERRUPTS == 1U
-
-			#define GIOA_PIN_0_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_1_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_2_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_3_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_4_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_5_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_6_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_7_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_0_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_1_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_2_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_3_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_4_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_5_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_6_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOB_PIN_7_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-
-		#endif //#if C_LOCALDEF__LCCM133__ENABLE_INTERRUPTS == 1U
-
-		//Testing options
-		#define C_LOCALDEF__LCCM133__ENABLE_TEST_SPEC						(0U)
-
-		//main include file
-		#include <RM4/LCCM133__RM4__GIO/rm4_gio.h>
-
-	#endif //#if C_LOCALDEF__LCCM133__ENABLE_THIS_MODULE == 1
-
-
-/*******************************************************************************
-RTI MODULE
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1U
-
-		//globally switch on the WDT
-		#define C_LOCALDEF__LCCM124__ENABLE_WDT								(1U)
-
-		/** RTI CLOCK FREQUENCY
-		 * Based on our standard system, valid values are div(2,4,8):
-		 * 100 	(100MHZ)
-		 * 50	(50MHZ)
-		 * 25	(25MHZ)
-		 * */
-		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(150U)
-
-		/** RTCLK1 feeds counter 1 and can be used for 64bit timing */
-		#define C_LOCALDEF__LCCM124__RTI_COUNTER1_PRESCALER					(1U)
-
-
-		//Sets up the time periods for each compare. Must be defined in microSeconds.
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_PERIOD_US 				(100000U)
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_PERIOD_US 				(10000U)
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_PERIOD_US 				(1000000U)
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_3_PERIOD_US 				(1000000U)
-
-		//these are the interrupt handlers which should point
-		//to a function, otherwise leave as default
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_CALLBACK					vPWRNODE__RTI_100MS_ISR()
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_CALLBACK					vPWRNODE__RTI_10MS_ISR()
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
-		#define C_LOCALDEF__LCCM124__RTI_COMPARE_3_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
-
-		//These values need to be updated if the HALCoGen file is modified
-		#define GCLK_FREQ		 											(200)
-		#define HCLK_FREQ													(200)
-		#define VCLK1_FREQ													(100)
-		#define VCLK2_FREQ													(100)
-		#define VCLK3_FREQ													(100)
-		#define VCLKA1_FREQ	 												(100)
-		#define VCLKA4_FREQ	 												(100)
-
-		//Testing options
-		#define C_LOCALDEF__LCCM124__ENABLE_TEST_SPEC	 					(0U)
-
-		#include <RM4/LCCM124__RM4__RTI/rm4_rti.h>
-
-	#endif //#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1U
-
-
-/*******************************************************************************
-RM4 MiB SPI 1,3 and 5 Common Driver
+SIL3 - RM4 MiBSPI 1,3 and 5 Common Driver
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM280__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM280__ENABLE_THIS_MODULE == 1U
 
 		//enable specific channels
 		#define C_LOCALDEF__LCCM280__ENABLE_MIBSPI_1						(1U)
-		#define C_LOCALDEF__LCCM280__ENABLE_MIBSPI_3						(0U)
-		#define C_LOCALDEF__LCCM280__ENABLE_MIBSPI_5						(0U)
+		#define C_LOCALDEF__LCCM280__ENABLE_MIBSPI_3						(1U)
+		#define C_LOCALDEF__LCCM280__ENABLE_MIBSPI_5						(1U)
 
 		//set to 1 to use interrupts
 		#define C_LOCALDEF__LCCM280__ENABLE_INTERRUPTS						(1U)
@@ -231,21 +45,18 @@ RM4 MiB SPI 1,3 and 5 Common Driver
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_3__TXLEN_BITS	MIBSPI135_DATAFORMAT__8BITS
 
 			//set the speed of each format
-			//ATA6870N Clock Max = 0.5xFclk = 250KHZ!!! Max
-			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_0__SPEED			MIBSPI135_SPEED__400K
+			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_0__SPEED			MIBSPI135_SPEED__5MHZ
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_1__SPEED			MIBSPI135_SPEED__5MHZ
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_2__SPEED			MIBSPI135_SPEED__5MHZ
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_3__SPEED			MIBSPI135_SPEED__5MHZ
 
 			//clock phase
-			//ATA6870N is phase 0
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_0__CPHA			MIBSPI135_CPHA__1
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_1__CPHA			MIBSPI135_CPHA__1
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_2__CPHA			MIBSPI135_CPHA__1
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_3__CPHA			MIBSPI135_CPHA__1
 
 			//clock polarity
-			//ATA6870 is polarity 0
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_0__CPOL			MIBSPI135_CPOL__0
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_1__CPOL			MIBSPI135_CPOL__0
 			#define C_LOCALDEF__LCCM280__MIBSPI_1__DATAFMT_2__CPOL			MIBSPI135_CPOL__0
@@ -269,13 +80,13 @@ RM4 MiB SPI 1,3 and 5 Common Driver
 			#define C_LOCALDEF__LCCM280__MIBSPI_3__DATAFMT_3__TXLEN_BITS	MIBSPI135_DATAFORMAT__8BITS
 
 			//set the speed of each format
-			#define C_LOCALDEF__LCCM280__MIBSPI_3__DATAFMT_0__SPEED			MIBSPI135_SPEED__5MHZ
+			#define C_LOCALDEF__LCCM280__MIBSPI_3__DATAFMT_0__SPEED			MIBSPI135_SPEED__400K
 			#define C_LOCALDEF__LCCM280__MIBSPI_3__DATAFMT_1__SPEED			MIBSPI135_SPEED__5MHZ
 			#define C_LOCALDEF__LCCM280__MIBSPI_3__DATAFMT_2__SPEED			MIBSPI135_SPEED__5MHZ
 			#define C_LOCALDEF__LCCM280__MIBSPI_3__DATAFMT_3__SPEED			MIBSPI135_SPEED__5MHZ
 
 			//clock phase
-			#define C_LOCALDEF__LCCM280__MIBSPI_3__DATAFMT_0__CPHA			MIBSPI135_CPHA__1
+			#define C_LOCALDEF__LCCM280__MIBSPI_3__DATAFMT_0__CPHA			MIBSPI135_CPHA__0
 			#define C_LOCALDEF__LCCM280__MIBSPI_3__DATAFMT_1__CPHA			MIBSPI135_CPHA__1
 			#define C_LOCALDEF__LCCM280__MIBSPI_3__DATAFMT_2__CPHA			MIBSPI135_CPHA__1
 			#define C_LOCALDEF__LCCM280__MIBSPI_3__DATAFMT_3__CPHA			MIBSPI135_CPHA__1
@@ -315,7 +126,44 @@ RM4 MiB SPI 1,3 and 5 Common Driver
 	#endif //C_LOCALDEF__LCCM280__ENABLE_THIS_MODULE
 
 /*******************************************************************************
-RM4 I2C
+RM4 GIO MODULE
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM133__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM133__ENABLE_THIS_MODULE == 1U
+
+		#define C_LOCALDEF__LCCM133__ENABLE_INTERRUPTS						(0U)
+
+		#if C_LOCALDEF__LCCM133__ENABLE_INTERRUPTS == 1U
+
+			#define GIOA_PIN_0_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOA_PIN_1_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOA_PIN_2_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOA_PIN_3_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOA_PIN_4_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOA_PIN_5_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOA_PIN_6_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOA_PIN_7_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOB_PIN_0_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOB_PIN_1_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOB_PIN_2_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOB_PIN_3_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOB_PIN_4_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOB_PIN_5_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOB_PIN_6_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+			#define GIOB_PIN_7_ISR()										vRM4_GIO_ISR__DefaultRoutine()
+
+		#endif //#if C_LOCALDEF__LCCM133__ENABLE_INTERRUPTS == 1U
+
+		//Testing options
+		#define C_LOCALDEF__LCCM133__ENABLE_TEST_SPEC						(0U)
+
+		//main include file
+		#include <RM4/LCCM133__RM4__GIO/rm4_gio.h>
+
+	#endif //#if C_LOCALDEF__LCCM133__ENABLE_THIS_MODULE == 1
+
+/*******************************************************************************
+RM4 - I2C DRIVER
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE == 1U
@@ -326,7 +174,7 @@ RM4 I2C
 		#define C_LOCALDEF__LCCM215__OWN_ADDRESS                        	(0x50)
 
 		/** Number of loops to wait for the timeout*/
-		#define C_LOCALDEF__LCCM215__TIMEOUT_CYCLES   						(10000000U)
+		#define C_LOCALDEF__LCCM215__TIMEOUT_CYCLES   						(1000000U)
 
 		#define C_LOCALDEF__LCCM215__USE_INTERRUPTS 						(0U)
 
@@ -373,6 +221,50 @@ RM4 I2C
 
 	#endif //C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE
 
+/*******************************************************************************
+RM4 - RTI MODULE
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1U
+
+		//globally switch on the WDT
+		#define C_LOCALDEF__LCCM124__ENABLE_WDT								(0U)
+
+		/** RTI CLOCK FREQUENCY
+		 * Based on our standard system, valid values are div(2,4,8):
+		 * 100 	(100MHZ)
+		 * 75 	(75MHZ - ONLY ON RM57)
+		 * 50	(50MHZ)
+		 * 25	(25MHZ)
+		 * */
+		#define C_LOCALDEF__LCCM124__RTI_CLK_FREQ							(75U)
+
+		/** RTCLK0 feeds counter 0 and is used for general purpose compare times */
+		#define C_LOCALDEF__LCCM124__RTI_COUNTER0_PRESCALER					(10U)
+
+		/** RTCLK1 feeds counter 1 and can be used for 64bit timing */
+		#define C_LOCALDEF__LCCM124__RTI_COUNTER1_PRESCALER					(1U)
+
+
+		//Sets up the time periods for each compare. Must be defined in microSeconds.
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_PERIOD_US 				(10000U)
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_PERIOD_US 				(100000U)
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_PERIOD_US 				(1000000U)
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_3_PERIOD_US 				(1000000U)
+
+		//these are the interrupt handlers which should point
+		//to a function, otherwise leave as default
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_0_CALLBACK					vPWRNODE__RTI_10MS_ISR()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_1_CALLBACK					vPWRNODE__RTI_100MS_ISR()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_2_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
+		#define C_LOCALDEF__LCCM124__RTI_COMPARE_3_CALLBACK	 				vRM4_RTI_INTERRUPTS__DefaultCallbackHandler()
+
+		//Testing options
+		#define C_LOCALDEF__LCCM124__ENABLE_TEST_SPEC	 					(0U)
+
+		#include <RM4/LCCM124__RM4__RTI/rm4_rti.h>
+
+	#endif //#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1U
 
 /*******************************************************************************
 SIL3 - ETHERNET TRANSPORT
@@ -433,68 +325,6 @@ SIL3 - SAFETY UDP LAYER
 
 
 /*******************************************************************************
-ATA6870N - BATTERY MANAGEMENT DEVICE
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM650__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM650__ENABLE_THIS_MODULE == 1U
-
-		//architecture
-		#define C_LOCALDEF__LCCM650__USE_ON_RM4								(1U)
-
-		/** number of devices in series */
-		#define C_LOCALDEF__LCCM650__NUM_DEVICES							(3U)
-
-		/** Use checksum support on the ATA comms or not? */
-		#define C_LOCALDEF__LCCM650__ENABLE_CRC								(0U)
-
-		/** Average window, set to 0 for averaging off */
-		#define C_LOCALDEF__LCCM650__AVERAGE_WINDOW							(16U)
-
-		//setup for functions
-		#define M_LOCALDEF__LCCM650__NCS_TRIS(dir)							{if(dir == 0U) vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 4U, GIO_DIRECTION__OUTPUT); else vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 4U, GIO_DIRECTION__INPUT);}
-		#define M_LOCALDEF__LCCM650__NCS_LATCH(val)							{vRM4_GIO__Set_Bit(RM4_GIO__PORT_B, 4U, val);}
-		#define M_LOCALDEF__LCCM650__SPI_TX_U8(x)							u8RM4_MIBSPI135__Tx_U8(MIBSPI135_CHANNEL__1, MIBSPI135_DATA_FORMAT__0, MIBSPI135_CS__NONE, x)
-
-		#define M_LOCALDEF__LCCM650__POWER_ENABLE_TRIS(x)					{if(x == 0U) vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 2U, GIO_DIRECTION__OUTPUT); else vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 2U, GIO_DIRECTION__INPUT); }
-		#define M_LOCALDEF__LCCM650__POWER_ENABLE_LATCH(x)					{vRM4_GIO__Set_Bit(RM4_GIO__PORT_B, 2U, x); }
-
-		#define M_LOCALDEF__LCCM650__POWER_AVAIL_TRIS(x)					{if(x == 0U) vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 5U, GIO_DIRECTION__OUTPUT); else vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 5U, GIO_DIRECTION__INPUT); }
-		#define M_LOCALDEF__LCCM650__POWER_AVAIL_PORT()						u32RM4_GIO__Get_Bit(RM4_GIO__PORT_B, 5U)
-
-
-		/** Testing Options */
-		#define C_LOCALDEF__LCCM650__ENABLE_TEST_SPEC						(0U)
-
-
-		/** Main include file */
-		#include <MULTICORE/LCCM650__MULTICORE__ATA6870/ata6870.h>
-	#endif //#if C_LOCALDEF__LCCM650__ENABLE_THIS_MODULE == 1U
-
-/*******************************************************************************
-MS5607 - PRESSURE SENSOR
-*******************************************************************************/
-	#define C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
-
-		/** MS5607 Device Address */
-		#define C_LOCALDEF__LCCM648__BUS_ADDX								(0x76U)
-
-		/** The number of main program loops to wait for conversion */
-		#define C_LOCALDEF__LCCM648__NUM_CONVERSION_LOOPS					(10000U)
-
-		/** Testing Options */
-		#define C_LOCALDEF__LCCM648__ENABLE_TEST_SPEC						(0U)
-
-		/** Enable datasheet values to test math
-		 * DO NOT put this in production */
-		#define C_LOCALDEF__LCCM648__ENABLE_DS_VALUES						(0U)
-
-		/** Main include file */
-		#include <MULTICORE/LCCM648__MULTICORE__MS5607/ms5607.h>
-
-	#endif //#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
-
-/*******************************************************************************
 DS2482S - I2C TO 1-WIRE CONVERTER
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM641__ENABLE_THIS_MODULE							(1U)
@@ -513,10 +343,10 @@ DS2482S - I2C TO 1-WIRE CONVERTER
 		#define C_LOCALDEF__LCCM641__MAX_TIMEOUT_LOOPS						(100000U)
 
 		// I2C MACROS
-		#define M_LOCALDEF__LCCM641__I2C_RX_REG(device, reg)				s16RM4_I2C_USER__RxReg(device, reg)
-		#define M_LOCALDEF__LCCM641__I2C_TX_REG(device, reg)				s16RM4_I2C_USER__TxReg(device, reg)
-		#define M_LOCALDEF__LCCM641__I2C_TX_BYTE(device, reg, value)		s16RM4_I2C_USER__Tx_U8(device, reg, value)
-		#define M_LOCALDEF__LCCM641__I2C_RX_BYTE(device, reg, value)		s16RM4_I2C_USER__Rx_U8(device, reg, value)
+		#define M_LOCALDEF__LCCM641__I2C_RX_REG(device, reg)				s16RM4_I2C_USER__RxReg(RM4_I2C_CH__1, device, reg)
+		#define M_LOCALDEF__LCCM641__I2C_TX_REG(device, reg)				s16RM4_I2C_USER__TxReg(RM4_I2C_CH__1, device, reg)
+		#define M_LOCALDEF__LCCM641__I2C_TX_BYTE(device, reg, value)		s16RM4_I2C_USER__Tx_U8(RM4_I2C_CH__1, device, reg, value)
+		#define M_LOCALDEF__LCCM641__I2C_RX_BYTE(device, reg, value)		s16RM4_I2C_USER__Rx_U8(RM4_I2C_CH__1, device, reg, value)
 
 
 		/** Testing Options */
@@ -572,6 +402,30 @@ DS18B20 - 1-Wire Temperature Sensor
 	#endif //#if C_LOCALDEF__LCCM644__ENABLE_THIS_MODULE == 1U
 
 /*******************************************************************************
+MS5607 - PRESSURE SENSOR
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
+
+		/** MS5607 Device Address */
+		#define C_LOCALDEF__LCCM648__BUS_ADDX								(0x76U)
+
+		/** The number of main program loops to wait for conversion */
+		#define C_LOCALDEF__LCCM648__NUM_CONVERSION_LOOPS					(10000U)
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM648__ENABLE_TEST_SPEC						(0U)
+
+		/** Enable datasheet values to test math
+		 * DO NOT put this in production */
+		#define C_LOCALDEF__LCCM648__ENABLE_DS_VALUES						(0U)
+
+		/** Main include file */
+		#include <MULTICORE/LCCM648__MULTICORE__MS5607/ms5607.h>
+
+	#endif //#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
+
+/*******************************************************************************
 TSYS01 - DIGITAL TEMP SENSOR
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE							(1U)
@@ -588,7 +442,13 @@ TSYS01 - DIGITAL TEMP SENSOR
 		#define C_LOCALDEF__LCCM647__NUM_CONVERSION_LOOPS					(10000U)
 
 		/** the I2C address on the bus */
-		#define C_LOCALDEF__LCCM647__BUS_ADDX								(0x77U)
+		#if C_LOCALDEF__BMS_REVISION == 1U
+			#define C_LOCALDEF__LCCM647__BUS_ADDX								(0x77U)
+		#elif C_LOCALDEF__BMS_REVISION == 2U
+			#define C_LOCALDEF__LCCM647__BUS_ADDX								(0x76U)
+		#else
+			#error
+		#endif
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM647__ENABLE_TEST_SPEC						(0U)
@@ -605,13 +465,174 @@ TSYS01 - DIGITAL TEMP SENSOR
 
 
 /*******************************************************************************
+SIL3 - RM4 ADC DRIVER
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
+
+		/** The number of ADC channels (modules) being used
+		 * Keep a 1 for now
+		 */
+		#define C_LOCALDEF__LCCM414__NUM_ADC_MODULES						(1U)
+
+		/** Continuous Conversion Mode:  When enabled the ADC
+		 * Will always keep making samples of the configured channels
+		 */
+		#define C_LOCALDEF__LCCM414__ENABLE_CONTINUOUS_CONVERSION			(0U)
+
+		/** Averaging is enabled across all channels.
+		 * It can consume serious CPU time for a fully enabled ADC
+		 */
+		#define C_LOCALDEF__LCCM414__ENABLE_AVERAGING						(1U)
+
+		/** The number of samples for each channels ADC averager */
+		#define C_LOCALDEF__LCCM414__AVERAGE_MAX_SAMPLES					(4U)
+
+
+		/** Determine which of ADC1 to enable */
+
+		//charge volts
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN0						(1U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN1						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN2						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN3						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN4						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN5						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN6						(0U)
+		//battery current
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN7						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN8						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN9						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN10						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN11						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN12						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN13						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN14						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN15						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN16						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN17						(0U)
+		//batt current reference
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN18						(0U)
+		//batt voltage
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN19						(0U)
+		//charge current ref
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN20						(0U)
+		//charge current.
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN21						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN22						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN23						(0U)
+
+		/** The number of connected devices to the ADC's
+		 * We store a local copy of our ADC results in a user addressable
+		 * structure to reduce the complexity of finding our result
+		 * Value can be from 1 to 24
+		 */
+		#define C_LOCALDEF__LCCM414__NUM_CONNECTED_DEVICES					(6U)
+
+		/** For each device we determine the location of the device within our strucrture
+		 * You must configure an index from 0 to NUM_CONNECTED_DEVICES - 1
+		 * No two units may have the same index
+		 * Example MAP ADC1_IN0 to Device (1)
+		 */
+		//charge voltage
+		#define C_LOCALDEF__LCCM414__ADC1_IN0__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN1__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN2__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN3__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN4__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN5__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN6__INDEX						(0U)
+		//battery current
+		#define C_LOCALDEF__LCCM414__ADC1_IN7__INDEX						(1U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN8__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN9__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN10__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN11__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN12__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN13__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN14__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN15__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN16__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN17__INDEX						(0U)
+		//battery current ref
+		#define C_LOCALDEF__LCCM414__ADC1_IN18__INDEX						(2U)
+		//battery voltage
+		#define C_LOCALDEF__LCCM414__ADC1_IN19__INDEX						(3U)
+		//charge current ref
+		#define C_LOCALDEF__LCCM414__ADC1_IN20__INDEX						(4U)
+		//charge current
+		#define C_LOCALDEF__LCCM414__ADC1_IN21__INDEX						(5U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN22__INDEX						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1_IN23__INDEX						(0U)
+
+		/** Enable voltage conversion to return the voltage value
+		 * for a device.  This reduces the external workload to compute the
+		 * voltage based on VREF
+		 */
+		#define C_LOCALDEF__LCCM414__ENABLE_VOLTAGE_CALC					(1U)
+
+		/** Use interrupts */
+		#define C_LOCALDEF__LCCM414__ENABLE_INTERRUPTS						(0U)
+
+		//testing
+		#define C_LOCALDEF__LCCM414__ENABLE_TEST_SPEC						(0U)
+
+		//main include file
+		#include <RM4/LCCM414__RM4__ADC/rm4_adc.h>
+
+	#endif //C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE
+
+/*******************************************************************************
+BQ76PL536A - BMS DRIVER
+*******************************************************************************/
+	#define C_LOCALDEF__LCCM715__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM715__ENABLE_THIS_MODULE == 1U
+
+		/** number of devices in series */
+		#define C_LOCALDEF__LCCM715__NUM_DEVICES							(3U)
+
+		/** Use checksum support on the comms or not? */
+		#define C_LOCALDEF__LCCM715__ENABLE_CRC								(0U)
+
+		/** Average window, set to 0 for averaging off */
+		#define C_LOCALDEF__LCCM715__AVERAGE_WINDOW							(16U)
+
+
+		/** SPI TX / RX */
+		#define M_LOCALDEF__LCCM715__SPI_TX_U8(x)							u8RM4_MIBSPI135__Tx_U8(MIBSPI135_CHANNEL__3, MIBSPI135_DATA_FORMAT__0, MIBSPI135_CS__NONE, x)
+
+		/** Chip Select */
+		#define M_LOCALDEF__LCCM715__LATCH__CS(x)							{vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__3, MIBSPI135_PIN__CS1, x);}
+
+		/** Convert Control */
+		#define M_LOCALDEF__LCCM715__LATCH__CONV(x)							{vRM4_N2HET_PINS__Set_Pin(N2HET_CHANNEL__1, 2U, x);}
+
+		/** Data Ready Input (if not using interrupts) */
+		#define M_LOCALDEF__LCCM715__PORT__DRDY()							u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, 16U)
+
+		/** Fault Input (if not using interrupts) */
+		#define M_LOCALDEF__LCCM715__PORT__FAULT()							u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, 18U)
+
+		/** Alert Input (if not using interrupts) */
+		#define M_LOCALDEF__LCCM715__PORT__ALERT()							u8RM4_N2HET_PINS__Get_Pin(N2HET_CHANNEL__1, 22U)
+
+
+		/** Testing Options */
+		#define C_LOCALDEF__LCCM715__ENABLE_TEST_SPEC						(0U)
+
+		/** Main include file */
+		#include <MULTICORE/LCCM715__MULTICORE__BQ76PL536A/bq76.h>
+
+	#endif //#if C_LOCALDEF__LCCM715__ENABLE_THIS_MODULE == 1U
+
+/*******************************************************************************
 RLOOP - POWER NODE CORE
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
 		/** Enable the battery temperature measurement system */
-		#define C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP						(1U)
+		#define C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP						(0U)
 
 		/** Enable or disable battery temp search */
 		#define C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP_SEARCH				(0U)
@@ -623,10 +644,10 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP						(0U)
 
 		/** Node pressure using MS5607 */
-		#define C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS						(1U)
+		#define C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS						(0U)
 
 		/** Enable the DC/DC converter subsystem */
-		#define C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER					(1U)
+		#define C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER					(0U)
 		//when the DC/DC is enabled we can implement a timeout timer from
 		//heartbeat (or any GS comms)
 		#define C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER__HEART_TIMEOUT		(0U)
@@ -635,7 +656,7 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__DC_CONVERTER__HEART_TIMER_MAX			(30U)
 
 		/** Enable the charger subsystem */
-		#define C_LOCALDEF__LCCM653__ENABLE_CHARGER							(1U)
+		#define C_LOCALDEF__LCCM653__ENABLE_CHARGER							(0U)
 
 		/** Enable Ethernet */
 		#define C_LOCALDEF__LCCM653__ENABLE_ETHERNET						(1U)

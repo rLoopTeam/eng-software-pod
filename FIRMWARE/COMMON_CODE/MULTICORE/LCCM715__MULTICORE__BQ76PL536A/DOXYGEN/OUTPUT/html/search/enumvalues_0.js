@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['balance_5fstate_5f_5fbalanced',['BALANCE_STATE__BALANCED',['../bq76_8h.html#a087d99772115fdc480e70c1a1a092b7aa23ad3951a6c0a83262fb86aa5bc01d02',1,'bq76.h']]],
+  ['balance_5fstate_5f_5fcheck_5fbalanced',['BALANCE_STATE__CHECK_BALANCED',['../bq76_8h.html#a087d99772115fdc480e70c1a1a092b7aade8d72dcdac26b124e92284340742da2',1,'bq76.h']]],
+  ['balance_5fstate_5f_5fidle',['BALANCE_STATE__IDLE',['../bq76_8h.html#a087d99772115fdc480e70c1a1a092b7aa396e99887cdeaf27f85ed0b08fa45eb2',1,'bq76.h']]],
+  ['balance_5fstate_5f_5fstart_5fbalancing',['BALANCE_STATE__START_BALANCING',['../bq76_8h.html#a087d99772115fdc480e70c1a1a092b7aa62173026ed31affb8726d1061ab3c218',1,'bq76.h']]],
+  ['balance_5fstate_5f_5fwait_5fvoltage_5fupdate',['BALANCE_STATE__WAIT_VOLTAGE_UPDATE',['../bq76_8h.html#a087d99772115fdc480e70c1a1a092b7aa65c30377e01ddbc4a6cd2fc6eb84e186',1,'bq76.h']]],
+  ['bq76_5freg_5f_5fadc_5fcontrol',['BQ76_REG__ADC_CONTROL',['../bq76____reg__defs_8h.html#a93c0a9d25f9655218c4db8dc4cd30205a517acf3b75aaa96c44a286bab78d8f71',1,'bq76__reg_defs.h']]],
+  ['bq76_5freg_5f_5fadc_5fconvert',['BQ76_REG__ADC_CONVERT',['../bq76____reg__defs_8h.html#a93c0a9d25f9655218c4db8dc4cd30205a6308b47dfd3cd5d09bffa40413eed3b1',1,'bq76__reg_defs.h']]],
+  ['bq76_5freg_5f_5faddx_5fcontrol',['BQ76_REG__ADDX_CONTROL',['../bq76____reg__defs_8h.html#a93c0a9d25f9655218c4db8dc4cd30205a1f463644c3d39c94f4b2855ad3f83250',1,'bq76__reg_defs.h']]],
+  ['bq76_5freg_5f_5falert_5fstatus',['BQ76_REG__ALERT_STATUS',['../bq76____reg__defs_8h.html#a93c0a9d25f9655218c4db8dc4cd30205a0a9fbc102f823e68df5767ce97d7919d',1,'bq76__reg_defs.h']]],
+  ['bq76_5freg_5f_5fcb_5fctrl',['BQ76_REG__CB_CTRL',['../bq76____reg__defs_8h.html#a93c0a9d25f9655218c4db8dc4cd30205acd3b36da70d1df53fa016b3dad4b6cd3',1,'bq76__reg_defs.h']]],
+  ['bq76_5freg_5f_5fcb_5ftime',['BQ76_REG__CB_TIME',['../bq76____reg__defs_8h.html#a93c0a9d25f9655218c4db8dc4cd30205ae73d3ab057420c59bf54d60399ab4bac',1,'bq76__reg_defs.h']]],
+  ['bq76_5freg_5f_5fdevice_5fstatus',['BQ76_REG__DEVICE_STATUS',['../bq76____reg__defs_8h.html#a93c0a9d25f9655218c4db8dc4cd30205aefc658155e2c11bdddc907fa4a2c8ce6',1,'bq76__reg_defs.h']]],
+  ['bq76_5freg_5f_5ffault_5fstatus',['BQ76_REG__FAULT_STATUS',['../bq76____reg__defs_8h.html#a93c0a9d25f9655218c4db8dc4cd30205ad945bd2a1cb747f51344a16640be29e0',1,'bq76__reg_defs.h']]],
+  ['bq76_5freg_5f_5freset',['BQ76_REG__RESET',['../bq76____reg__defs_8h.html#a93c0a9d25f9655218c4db8dc4cd30205a6a26abc1ecc17317ded4181fdb01c330',1,'bq76__reg_defs.h']]],
+  ['bq76_5freg_5f_5fvcell1',['BQ76_REG__VCELL1',['../bq76____reg__defs_8h.html#a93c0a9d25f9655218c4db8dc4cd30205afd0f59ec70a42db82be8165c95e17af7',1,'bq76__reg_defs.h']]],
+  ['bq76_5fstate_5f_5faverage_5fcell_5fvoltages',['BQ76_STATE__AVERAGE_CELL_VOLTAGES',['../bq76_8h.html#ac7cc4863ddb4087133e155d75136f10ca1480d977a03cf4a5ef94b8e6b9913bc6',1,'bq76.h']]],
+  ['bq76_5fstate_5f_5ferror',['BQ76_STATE__ERROR',['../bq76_8h.html#ac7cc4863ddb4087133e155d75136f10cabfd62d38afb8be8092b0750196d5046e',1,'bq76.h']]],
+  ['bq76_5fstate_5f_5fidle',['BQ76_STATE__IDLE',['../bq76_8h.html#ac7cc4863ddb4087133e155d75136f10ca27ad3588c779c89cdf07e888f1aada43',1,'bq76.h']]],
+  ['bq76_5fstate_5f_5finit_5fdevice',['BQ76_STATE__INIT_DEVICE',['../bq76_8h.html#ac7cc4863ddb4087133e155d75136f10ca578de4eda2912357838366bbd343f71b',1,'bq76.h']]],
+  ['bq76_5fstate_5f_5finterrupt',['BQ76_STATE__INTERRUPT',['../bq76_8h.html#ac7cc4863ddb4087133e155d75136f10ca28596bd807411dc8a5608566982b3c57',1,'bq76.h']]],
+  ['bq76_5fstate_5f_5fread_5fcell_5fvoltages',['BQ76_STATE__READ_CELL_VOLTAGES',['../bq76_8h.html#ac7cc4863ddb4087133e155d75136f10cae1ac1dc6b5df2926103103d0b015538d',1,'bq76.h']]],
+  ['bq76_5fstate_5f_5frun_5ffiltering',['BQ76_STATE__RUN_FILTERING',['../bq76_8h.html#ac7cc4863ddb4087133e155d75136f10ca7a9085ea3fec90eb75cb6b9d8f925716',1,'bq76.h']]],
+  ['bq76_5fstate_5f_5fstart_5fconversion',['BQ76_STATE__START_CONVERSION',['../bq76_8h.html#ac7cc4863ddb4087133e155d75136f10ca7f9bbfe05fcb88bb90290789259080d1',1,'bq76.h']]],
+  ['bq76_5fstate_5f_5fsum_5fcell_5fvoltages',['BQ76_STATE__SUM_CELL_VOLTAGES',['../bq76_8h.html#ac7cc4863ddb4087133e155d75136f10caf959033f25110301685c404a5f2fa2ab',1,'bq76.h']]],
+  ['bq76_5fstate_5f_5fwait_5fconversion',['BQ76_STATE__WAIT_CONVERSION',['../bq76_8h.html#ac7cc4863ddb4087133e155d75136f10ca6217361d77cf407663adba1695907f4e',1,'bq76.h']]]
+];
