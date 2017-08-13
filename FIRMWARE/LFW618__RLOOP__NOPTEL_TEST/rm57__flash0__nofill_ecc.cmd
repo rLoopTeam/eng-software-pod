@@ -41,6 +41,7 @@ SECTIONS
     .const   align(8) : {} > FLASH0
     .cinit   align(8) : {} > FLASH0
     .pinit   align(8) : {} > FLASH0
+    .stack :{} > STACKS
     .bss     : {} > RAM
     .data    : {} > RAM
 	.sysmem  : {} > RAM
