@@ -322,9 +322,9 @@ void vFCU_LASERDIST__Process(void)
 					//get the byte and send it off for processing if we have enough data
 					u8Temp = u8SIL3_SC16_USER__Get_Byte(C_FCU__SC16_FWD_LASER_INDEX);
 
-#if 1				//BINARY MODE
+				//BINARY MODE
 					vFCU_LASERDIST__Append_Byte(u8Temp);
-#endif
+
 
 #if 0			    //ASCII MODE
 					vFCU_LASERDIST__Append_Byte_ASCII(u8Temp);
@@ -344,9 +344,9 @@ void vFCU_LASERDIST__Process(void)
 			{
 				//we have a new laser packet, process it for distance or error code.
 
-#if 1			//Continues binary mode
+			//Continues binary mode
 				vFCU_LASERDIST__Process_Packet();
-#endif
+
 
 #if 0			//Continues ascii mode
 				vFCU_LASERDIST__Process_Packet_ASCII();
@@ -686,7 +686,7 @@ void vFCU_LASERDIST__Append_Byte(Luint8 u8Value)
 	//handle the laser distance rx states
 	switch(sFCU.sLaserDist.eRxState)
 	{
-		case LASERDIST_RX__BYTE_1:
+		case LASERDIST_RX__BYTE_D:
 			//make sure the first two bits are valid
 			//check for the start bit
 			if((u8Value & 0x80U) == 0x80U)
@@ -709,7 +709,7 @@ void vFCU_LASERDIST__Append_Byte(Luint8 u8Value)
 				}
 
 				//in any condition, move on
-				sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_2;
+				sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_1;
 			}
 			else
 			{
@@ -718,7 +718,7 @@ void vFCU_LASERDIST__Append_Byte(Luint8 u8Value)
 			}
 			break;
 
-		case LASERDIST_RX__BYTE_2:
+		case LASERDIST_RX__BYTE_1:
             //check if second byte starts with 0 not 1
 			if((u8Value & 0x80U) != 0x80U)
 			{
@@ -733,7 +733,7 @@ void vFCU_LASERDIST__Append_Byte(Luint8 u8Value)
 			//clear the packets seeen counter
 			sFCU.sLaserDist.u32PacketsSeen_Counter = 0U;
 
-			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_1;
+			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_D;
 			break;
 
 		default:
