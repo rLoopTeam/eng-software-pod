@@ -105,6 +105,7 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\bq76.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\CELLS\bq76__cells.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\INTERRUPTS\bq76__interrupts.c" />
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\RESISTOR\bq76__resistor.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\SPI\bq76__spi.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\WIN32\bq76__win32.c" />
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c" />

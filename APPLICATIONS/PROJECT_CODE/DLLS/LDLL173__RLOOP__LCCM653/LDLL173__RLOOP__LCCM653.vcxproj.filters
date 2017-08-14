@@ -133,6 +133,9 @@
     <Filter Include="Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\SEARCH">
       <UniqueIdentifier>{9dea07a3-d611-4953-bb90-f722914c95e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\RESISTOR">
+      <UniqueIdentifier>{727a3427-a142-42f4-b50c-dcddbf93b32e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\WIN32\DEBUG_PRINTF\debug_printf.c">
@@ -266,6 +269,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM641__MULTICORE__DS2482S\ONE_WIRE\ds2482s__one_wire.c">
       <Filter>Source Files\MULTICORE\LCCM641__MULTICORE__DS2482S\ONE_WIRE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\RESISTOR\bq76__resistor.c">
+      <Filter>Source Files\MULTICORE\LCCM715__MULTICORE__BQ76PL536A\RESISTOR</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

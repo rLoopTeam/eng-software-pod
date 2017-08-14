@@ -44,10 +44,12 @@ void vPWRNODE_CHG_RELAY__Init(void)
 		//set to OFF
 		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 0U);
 	#elif C_LOCALDEF__BMS_REVISION == 2U
+#ifndef WIN32
 		vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 6U, GIO_DIRECTION__OUTPUT);
 
 		//set to OFF
 		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 6U, 0U);
+#endif
 	#else
 		#error
 	#endif
@@ -89,7 +91,9 @@ void vPWRNODE_CHG_RELAY__On(void)
 	#if C_LOCALDEF__BMS_REVISION == 1U
 		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 1U);
 	#elif C_LOCALDEF__BMS_REVISION == 2U
+#ifndef WIN32
 		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 6U, 1U);
+#endif
 	#else
 		#error
 	#endif
@@ -107,7 +111,9 @@ void vPWRNODE_CHG_RELAY__Off(void)
 	#if C_LOCALDEF__BMS_REVISION == 1U
 		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 1U, 0U);
 	#elif C_LOCALDEF__BMS_REVISION == 2U
+#ifndef WIN32
 		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 6U, 0U);
+#endif
 	#else
 		#error
 	#endif

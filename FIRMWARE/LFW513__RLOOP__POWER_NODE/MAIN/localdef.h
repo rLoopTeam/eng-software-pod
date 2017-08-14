@@ -3,6 +3,14 @@
 
 /*lint -e950*/
 
+	/** BMS PCB VERSION
+	 *
+	 * 1 = RM48 (Lachlan - Pod V1)
+	 * 2 = RM57 (David - Pod V2)
+	 */
+
+	#define C_LOCALDEF__BMS_REVISION 		(1U)
+
 	//The control card
 	#ifndef WIN32
 		#include <../../BOARD_SUPPORT/lpcb234r0__board_support.h>
@@ -151,10 +159,10 @@ DS2482S - I2C TO 1-WIRE CONVERTER
 		#define C_LOCALDEF__LCCM641__MAX_TIMEOUT_LOOPS						(100000U)
 
 		// I2C MACROS
-		#define M_LOCALDEF__LCCM641__I2C_RX_REG(device, reg)				s16RM4_I2C_USER__RxReg(device, reg)
-		#define M_LOCALDEF__LCCM641__I2C_TX_REG(device, reg)				s16RM4_I2C_USER__TxReg(device, reg)
-		#define M_LOCALDEF__LCCM641__I2C_TX_BYTE(device, reg, value)		s16RM4_I2C_USER__Tx_U8(device, reg, value)
-		#define M_LOCALDEF__LCCM641__I2C_RX_BYTE(device, reg, value)		s16RM4_I2C_USER__Rx_U8(device, reg, value)
+		#define M_LOCALDEF__LCCM641__I2C_RX_REG(device, reg)				s16RM4_I2C_USER__RxReg(RM4_I2C_CH__1, device, reg)
+		#define M_LOCALDEF__LCCM641__I2C_TX_REG(device, reg)				s16RM4_I2C_USER__TxReg(RM4_I2C_CH__1, device, reg)
+		#define M_LOCALDEF__LCCM641__I2C_TX_BYTE(device, reg, value)		s16RM4_I2C_USER__Tx_U8(RM4_I2C_CH__1, device, reg, value)
+		#define M_LOCALDEF__LCCM641__I2C_RX_BYTE(device, reg, value)		s16RM4_I2C_USER__Rx_U8(RM4_I2C_CH__1, device, reg, value)
 
 
 		/** Testing Options */

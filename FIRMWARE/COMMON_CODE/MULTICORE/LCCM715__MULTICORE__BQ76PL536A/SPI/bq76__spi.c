@@ -49,14 +49,16 @@ void vBQ76_SPI__Init(void)
 
 	//software reset all devices
 	vBQ76_SPI__Reset_All();
-	
-	vRM4_DELAYS__Delay_uS(50);
 
+#ifndef WIN32
+	vRM4_DELAYS__Delay_uS(50);
+#endif
 	//configure our addx stack
 	vBQ76_SPI__Set_Addresses();
 	
+#ifndef WIN32
 	vRM4_DELAYS__Delay_uS(10);
-
+#endif
 	//Configure all the cells to sample each run
 	for(u8Device = 0U; u8Device < C_LOCALDEF__LCCM715__NUM_DEVICES; u8Device++)
 	{
@@ -64,8 +66,9 @@ void vBQ76_SPI__Init(void)
 		//can or 0x40 to switch the ADC on always if needed.
 		vBQ76_SPI__Write_U8(u8Device + 1U, BQ76_REG__ADC_CONTROL, 0x05U);
 		
+#ifndef WIN32
 		vRM4_DELAYS__Delay_uS(10);
-
+#endif
 
 	}
 	
@@ -117,7 +120,9 @@ void vBQ76_SPI__Set_Addresses(void)
 		//set addx 0 to addx n_1
 		vBQ76_SPI__Write_U8(0, BQ76_REG__ADDX_CONTROL, u8Counter + 1U);
 		
+#ifndef WIN32
 		vRM4_DELAYS__Delay_uS(10);
+#endif
 
 		//read it back.
 		u8Temp = u8BQ76_SPI__Read_U8(u8Counter + 1U, BQ76_REG__ADDX_CONTROL);
@@ -138,8 +143,10 @@ void vBQ76_SPI__Set_Addresses(void)
 		//it requires setting 0x80 and then 0x00 (two writes)
 		vBQ76_SPI__Write_U8(u8Counter + 1U, BQ76_REG__ALERT_STATUS, 0x80U);
 
+#ifndef WIN32
 		vRM4_DELAYS__Delay_uS(10);
-		
+#endif
+
 		//second write
 		vBQ76_SPI__Write_U8(u8Counter + 1U, BQ76_REG__ALERT_STATUS, 0x00U);
 
@@ -207,7 +214,6 @@ void vBQ76_SPI__Write_U8(Luint8 u8DeviceAddx, TE_BQ76__REG_DEFS eReg, Luint8 u8V
 
 #else
 	//win32
-	return 0U;
 #endif
 
 }
@@ -337,7 +343,6 @@ void vBQ76_SPI__Read_U8_Array(Luint8 u8DeviceAddx, TE_BQ76__REG_DEFS eReg, Luint
 
 #else
 	//win32
-	return 0U;
 #endif
 }
 

@@ -139,6 +139,13 @@ LAPP184__RLOOP__PWRNODE_EMU
  Start the timers.
  </summary>
 </member>
+<member name="M:LAPP184__RLOOP__PWRNODE_EMU.Form1.Timers__T1S_Tick(System.Object,System.Timers.ElapsedEventArgs)">
+ <summary>
+ 1 second timer tick for the battery model.
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
 <member name="M:LAPP184__RLOOP__PWRNODE_EMU.Form1.Timers__T10_Tick(System.Object,System.Timers.ElapsedEventArgs)">
  <summary>
  10ms timer
