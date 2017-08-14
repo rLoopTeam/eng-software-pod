@@ -22,7 +22,7 @@
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROJECT.Texas Instruments XDS110 USB Debug Probe_0/CortexR5" value="LFW618__RLOOP__NOPTEL_TEST"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_TARGET_CONFIG" value="${target_config_active_default:LFW618__RLOOP__NOPTEL_TEST}"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.Texas Instruments XDS100v2 USB Emulator/CortexR4" value="D:/LOCKIE\DESIGN\RLOOP\FIRMWARE\LFW618__RLOOP__NOPTEL_TEST\Debug\LFW618__RLOOP__NOPTEL_TEST.out"/>
-<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.Texas Instruments XDS110 USB Debug Probe_0/CortexR5" value="/Users/mila/Projects/rloop/2017/eng-software-pod/FIRMWARE/LFW618__RLOOP__NOPTEL_TEST/Debug/LFW618__RLOOP__NOPTEL_TEST.out"/>
+<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.Texas Instruments XDS110 USB Debug Probe_0/CortexR5" value="/Users/v/icloud_reset/rLoop/code/eng-software-pod/FIRMWARE/LFW618__RLOOP__NOPTEL_TEST/Debug/LFW618__RLOOP__NOPTEL_TEST.out"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/LFW618__RLOOP__NOPTEL_TEST"/>
 </listAttribute>

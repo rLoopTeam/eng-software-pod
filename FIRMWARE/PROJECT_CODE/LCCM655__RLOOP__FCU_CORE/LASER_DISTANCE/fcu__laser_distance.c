@@ -428,7 +428,7 @@ void vFCU_LASERDIST__Process_Packet(void)
 {
 	Lfloat32 f32Delta;
 	//update
-	sFCU.sLaserDist.s32Distance_mm = (Lint32)sFCU.sLaserDist.sBinary.unRx.u32;
+	sFCU.sLaserDist.s32Distance_mm = (Lint32)sFCU.sLaserDist.sBinary.unRx.u32 / 100;
      /////////////////
 	//compute veloc
 	f32Delta = (Lfloat32)sFCU.sLaserDist.s32PrevDistance_mm;
