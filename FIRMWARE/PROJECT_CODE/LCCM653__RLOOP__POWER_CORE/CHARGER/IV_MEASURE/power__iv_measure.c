@@ -40,7 +40,11 @@ void vPWRNODE_CHG_IV__Init(void)
 	//the ADC is already init
 
 	//Zero
+#ifndef WIN32
 	sPWRNODE.sHASS600.f32HASS_VoltageOffSet = f32RM4_ADC_USER__Get_Voltage(0U);
+#else
+	sPWRNODE.sHASS600.f32HASS_VoltageOffSet = 0.0F;
+#endif
 }
 
 /***************************************************************************//**
@@ -69,7 +73,11 @@ void vPWRNODE_CHG_IV__Process(void)
 		// * CHARGE CURRENT		INPUT			AD1:08
 		// * BATTERY VOLTAGE		INPUT			AD1:09
 		// * CHARGE VOLTAGE		INPUT			AD1:10
+#ifndef WIN32
 		f32Voltage_Sample = f32RM4_ADC_USER__Get_Voltage(0U) - sPWRNODE.sHASS600.f32HASS_VoltageOffSet;
+#else
+		f32Voltage_Sample = 0 - sPWRNODE.sHASS600.f32HASS_VoltageOffSet;
+#endif
 
 		//Convert voltage reading to current reading
 		sPWRNODE.sHASS600.f32HASS_CurrentReading = f32PWRNODE_CHG_IV__Filter_ADC_Value( 906.59F * f32Voltage_Sample - 2219.5F);
@@ -89,7 +97,9 @@ void vPWRNODE_CHG_IV__Process(void)
 		}
 
 		//taken the data now
+#ifndef WIN32
 		vRM4_ADC_USER__Clear_NewDataAvailable();
+#endif
 
 	}
 	else

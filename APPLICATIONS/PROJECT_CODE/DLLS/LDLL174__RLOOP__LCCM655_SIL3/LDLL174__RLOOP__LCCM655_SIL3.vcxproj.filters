@@ -127,6 +127,30 @@
     <Filter Include="Source Files\RM4\LCCM124__RM4__RTI">
       <UniqueIdentifier>{6af15791-4fef-4132-b527-d6afebb7cff3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS">
+      <UniqueIdentifier>{40a48179-d052-4c7b-86b2-dc164b050394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\WIN32">
+      <UniqueIdentifier>{f05ea730-ae52-4293-aa22-07f672d01a82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\FRAME">
+      <UniqueIdentifier>{7e2cfef6-56cd-4623-b487-4ef3484cbcd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\MASTER">
+      <UniqueIdentifier>{995df84f-6e35-4850-baa8-912a858afd7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\SLAVE">
+      <UniqueIdentifier>{dd7ca930-aaba-4488-b4d3-78d31bb6fcca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\UART">
+      <UniqueIdentifier>{66ea0c46-488c-427f-8337-39a8236ca6fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\CRC">
+      <UniqueIdentifier>{062741cc-3094-43f9-b18a-744cf51154de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\LOWLEVEL">
+      <UniqueIdentifier>{8ab560b8-224e-48df-93ad-8f0dc8e64ffd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
@@ -360,6 +384,39 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti.c">
       <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\modbus.c">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\FRAME\modbus__frame.c">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\FRAME</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\CRC\modbus__crc.c">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\CRC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\LOWLEVEL\modbus__lowlevel.c">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\LOWLEVEL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\UART\modbus__uart.c">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\UART</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\SLAVE_REGISTERS\modbus__slave.c">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\SLAVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\SLAVE_REGISTERS\modbus__slave_regs.c">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\SLAVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\WIN32\modbus__win32.c">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\WIN32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\MASTER\modbus__master.c">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\MASTER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\MASTER\modbus__master__commands.c">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\MASTER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\MASTER\modbus__master__slave_regs.c">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\MASTER</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.h">
@@ -487,6 +544,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\RM4\LCCM124__RM4__RTI\rm4_rti__staticdef.h">
       <Filter>Source Files\RM4\LCCM124__RM4__RTI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\modbus.h">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\modbus__defines.h">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\modbus__localdef.h">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\modbus__types.h">
+      <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

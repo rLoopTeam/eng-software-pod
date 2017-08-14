@@ -291,9 +291,6 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\BRAKES\fcu__brakes__calibration.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\BRAKES</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi__crc.c">
-      <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ASI_RS485\fcu__asi__mux.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\ASI_RS485</Filter>
     </ClCompile>

@@ -102,24 +102,43 @@ AMC7812
 
 
 /*******************************************************************************
-RLOOP - PI COMMUNICATIONS MODULE
+SIL3 - MODBUS MASTER / SLAVE INTERFACE
 *******************************************************************************/
-	#define C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE							(0U)
-	#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
+	#define C_LOCALDEF__LCCM690__ENABLE_THIS_MODULE							(1U)
+	#if C_LOCALDEF__LCCM690__ENABLE_THIS_MODULE == 1U
 
-		//arch
-		#define C_LOCALDEF__LCCM656__USE_ON_RM4								(1U)
-		#define C_LOCALDEF__LCCM656__USE_ON_WIN32							(0U)
+		/** Personality Master / nSlave */
+		#define C_LOCALDEF__LCCM690__PERSONALITY_MASTER						(1U)
 
-		/** enable the receiver side? */
-		#define C_LOCALDEF__LCCM656__ENABLE_RX								(1U)
+		/** If we are a slave, set the maximum number of registers supported
+		 * This will go into the register pool and we can configure each register
+		 * individually after this in software
+		 */
+		#define C_LOCALDEF__LCCM690__NUM_SLAVE_REGISTERS					(1U)
+
+		/** Define the number of slaves a master will monitor*/
+		#define C_LOCALDEF__LCCM690__MASTER_NUM_SLAVES						(8U)
+
+		/** Define the number of registers that can be monitored for a slave */
+		#define C_LOCALDEF__LCCM690__MASTER_NUM_SLAVE_REGS					(6U)
+
+		/** Serial port function */
+		#define M_LOCALDEF__LCCM690__SERIAL_TX_U8_ARRAY(x, len)				{vSIL3_SC16__Tx_U8Array(C_FCU__SC16_ASI_INDEX, x, len);}
+
+		/** TX Enable Pin (Active High) */
+		#define M_LOCALDEF__LCCM690__DRIVER_TX_LATCH(x)						{vFCU_ASI_MUX__SelectChannel_DE(0U, x);}
+
+		/** define the number of us to wait for the Tx to complete*/
+		#define C_LOCALDEF__LCCM690__NUM_US_WAIT_TX							(2700U)
 
 		/** Testing Options */
-		#define C_LOCALDEF__LCCM656__ENABLE_TEST_SPEC						(0U)
+		#define C_LOCALDEF__LCCM690__ENABLE_TEST_SPEC						(0U)
 
 		/** Main include file */
-		#include <LCCM656__RLOOP__PI_COMMS/pi_comms.h>
-	#endif //#if C_LOCALDEF__LCCM656__ENABLE_THIS_MODULE == 1U
+		#include <MULTICORE/LCCM690__MULTICORE__MODBUS/modbus.h>
+
+	#endif //#if C_LOCALDEF__LCCM690__ENABLE_THIS_MODULE == 1U
+
 
 /*******************************************************************************
 RLOOP - FLIGHT CONTROL UNIT - CORE

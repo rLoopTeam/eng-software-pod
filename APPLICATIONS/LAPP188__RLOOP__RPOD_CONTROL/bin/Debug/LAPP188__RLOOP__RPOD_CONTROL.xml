@@ -211,6 +211,38 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="u8Array"></param>
  <param name="iLength"></param>
 </member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Cells">
+ <summary>
+ Cell View
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Cells.m_iBMSIndex">
+ <summary>
+ The current bms channel
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Cells.#ctor(System.String,System.Int32)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Cells.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Cells.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__LIB.SIL3.Numerical.U16,System.Byte[]@)">
+ <summary>
+ New Packet In
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Charger">
  <summary>
  Manual BMS Charger Control
@@ -304,38 +336,6 @@ LAPP188__RLOOP__RPOD_CONTROL
  </summary>
  <param name="u8Array"></param>
  <param name="iLength"></param>
-</member>
-<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Cells">
- <summary>
- Cell View
- </summary>
- <remarks></remarks>
-</member>
-<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Cells.m_iBMSIndex">
- <summary>
- The current bms channel
- </summary>
-</member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Cells.#ctor(System.String,System.Int32)">
- <summary>
- New instance
- </summary>
- <param name="sPanelText"></param>
- <remarks></remarks>
-</member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Cells.LayoutPanel">
- <summary>
- Create our layout prior to being shown
- </summary>
- <remarks></remarks>
-</member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Cells.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__LIB.SIL3.Numerical.U16,System.Byte[]@)">
- <summary>
- New Packet In
- </summary>
- <param name="ePacketType"></param>
- <param name="u16PayloadLength"></param>
- <param name="u8Payload"></param>
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Accelerometers">
  <summary>
