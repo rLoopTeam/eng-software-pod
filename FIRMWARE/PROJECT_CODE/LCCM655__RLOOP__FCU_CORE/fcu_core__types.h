@@ -2,6 +2,102 @@
 #ifndef RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__TYPES_H_
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__TYPES_H_
 
+
+    /////////////////////////////////////////////////////////////////////
+    //  Pod States
+    /////////////////////////////////////////////////////////////////////
+    typedef enum 
+    {
+        POD_NULL_STATE = 0U,
+        POD_INIT_STATE,
+        POD_IDLE_STATE,
+        POD_TEST_MODE_STATE,
+        POD_DRIVE_STATE,
+        POD_ARMED_WAIT_STATE,
+        POD_FLIGHT_PREP_STATE,
+        POD_READY_STATE,
+        POD_ACCEL_STATE,
+        POD_COAST_INTERLOCK_STATE,
+        POD_BRAKE_STATE,
+        POD_SPINDOWN_STATE
+    } E_POD_STATE_T;
+    #define E_POD_STATE_N 12
+
+    // Pod state lookup
+    static char *pod_state_lookup[] =
+    {
+        "POD_NULL_STATE",
+        "POD_INIT_STATE",
+        "POD_IDLE_STATE",
+        "POD_TEST_MODE_STATE",
+        "POD_DRIVE_STATE",
+        "POD_ARMED_WAIT_STATE",
+        "POD_FLIGHT_PREP_STATE",
+        "POD_READY_STATE",
+        "POD_ACCEL_STATE",
+        "POD_COAST_INTERLOCK_STATE",
+        "POD_BRAKE_STATE",
+        "POD_SPINDOWN_STATE"
+    };
+
+    // Pod state lookup function
+    static inline const char * lookup_pod_state(const E_POD_STATE_T state)
+    {
+        return pod_state_lookup[state];
+    };
+
+
+    /////////////////////////////////////////////////////////////////////
+    //  Pod Commands
+    /////////////////////////////////////////////////////////////////////
+    typedef enum 
+    {
+        POD_NO_CMD = 0U,
+        POD_IDLE,
+        POD_TEST_MODE,
+        POD_DRIVE,
+        POD_FLIGHT_PREP,
+        POD_ARMED_WAIT,
+        POD_READY
+
+    } E_POD_COMMAND_T;
+    #define E_POD_COMMAND_N 7
+
+    // Pod command lookup
+    static char *pod_command_lookup[] = 
+    {
+        "POD_NO_CMD",
+        "POD_IDLE",
+        "POD_TEST_MODE",
+        "POD_DRIVE",
+        "POD_FLIGHT_PREP",
+        "POD_ARMED_WAIT",
+        "POD_READY"
+    };
+
+    // Pod command lookup function
+    static inline const char * lookup_pod_command(const E_POD_COMMAND_T command)
+    {
+        return pod_command_lookup[command];
+    };
+
+    // Pod command type
+    typedef struct 
+    {
+        // Command
+        E_POD_COMMAND_T command;
+
+        // @todo: handle indices -- e.g. brakes[0]
+
+        struct {
+            
+
+
+        } args;
+
+    } strPodCmd;
+            
+            
 	/** Enum for the Control Hover Engines state machine */
 	typedef enum {
 		HOVERENGINES_STATE__IDLE,

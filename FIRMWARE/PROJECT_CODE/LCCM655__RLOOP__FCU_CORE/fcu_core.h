@@ -135,6 +135,8 @@
             struct 
             {
                 StateMachine sm;
+                
+                strPodCmd command;
     
 				/** Enum for Pod Status for SpaceX telemetry */
 				E_FCU__POD_STATUS ePodStatus;
@@ -159,6 +161,7 @@
 
             } sPodStateMachine;
             
+
 
 			/** State Machine Structure **/
 			struct

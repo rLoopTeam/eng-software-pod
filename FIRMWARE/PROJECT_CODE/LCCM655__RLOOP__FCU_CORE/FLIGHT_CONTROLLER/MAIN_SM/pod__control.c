@@ -2,6 +2,7 @@
 #include "pod__types.h"
 #include "../../fcu_core.h"
 #include "../../timers.h"
+#include "../../state_machine.h"
 
 
 extern struct _strFCU sFCU;
@@ -809,7 +810,7 @@ void cmd_POD_IDLE()
         printf("cmd_POD_IDLE() called\n");
     #endif
     
-    strPodCmd * cmd = &sFCU.sPodStateMachine.external_command;
+    strPodCmd * cmd = &sFCU.sPodStateMachine.command;
     cmd->command = POD_IDLE;
 
 }
@@ -820,7 +821,7 @@ void cmd_POD_TEST_MODE()
         printf("cmd_POD_TEST_MODE() called\n");
     #endif
     
-    strPodCmd * cmd = &sFCU.sPodStateMachine.external_command;
+    strPodCmd * cmd = &sFCU.sPodStateMachine.command;
     cmd->command = POD_TEST_MODE;
 
 }
@@ -831,7 +832,7 @@ void cmd_POD_DRIVE()
         printf("cmd_POD_DRIVE() called\n");
     #endif
     
-    strPodCmd * cmd = &sFCU.sPodStateMachine.external_command;
+    strPodCmd * cmd = &sFCU.sPodStateMachine.command;
     cmd->command = POD_DRIVE;
 
 }
@@ -842,7 +843,7 @@ void cmd_POD_FLIGHT_PREP()
         printf("cmd_POD_FLIGHT_PREP() called\n");
     #endif
     
-    strPodCmd * cmd = &sFCU.sPodStateMachine.external_command;
+    strPodCmd * cmd = &sFCU.sPodStateMachine.command;
     cmd->command = POD_FLIGHT_PREP;
 
 }
@@ -853,7 +854,7 @@ void cmd_POD_ARMED_WAIT()
         printf("cmd_POD_ARMED_WAIT() called\n");
     #endif
     
-    strPodCmd * cmd = &sFCU.sPodStateMachine.external_command;
+    strPodCmd * cmd = &sFCU.sPodStateMachine.command;
     cmd->command = POD_ARMED_WAIT;
 
 }
@@ -864,7 +865,7 @@ void cmd_POD_READY()
         printf("cmd_POD_READY() called\n");
     #endif
     
-    strPodCmd * cmd = &sFCU.sPodStateMachine.external_command;
+    strPodCmd * cmd = &sFCU.sPodStateMachine.command;
     cmd->command = POD_READY;
 
 }

@@ -2,6 +2,8 @@
 #define _TIMERS_H_
 
 #include <stdbool.h>
+#include <localdef.h>
+
 /*
 Usage:
 strRepeatTimer t;
@@ -56,7 +58,7 @@ void some_ISR_10ms()
 
 typedef struct
 {
-    Luint32 duration_ms;  // How long to wait until repeating (note: still need to reset once you've handled it)
+    Luint16 duration_ms;  // How long to wait until repeating (note: still need to reset once you've handled it)
 
     // Is the timer running? Don't update if false.
     bool started;
