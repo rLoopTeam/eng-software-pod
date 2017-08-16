@@ -18,7 +18,7 @@
 
 #include "../../fcu_core.h"
 
-#include "pod__types.h"
+// #include "pod__types.h"
 #include "pod__control.h"
 
 
@@ -869,5 +869,26 @@ void cmd_POD_READY()
 
 
 
-#endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
-#endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+void vFCU_FCTL_MAINSM__10MS_ISR(void)
+{
+
+}
+
+void vFCU_FCTL_MAINSM__100MS_ISR(void)
+{
+
+}
+
+
+#endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
+#ifndef C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
+	#error
+#endif
+#endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
+//safetys
+#ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
+	#error
+#endif
+/** @} */
+/** @} */
+/** @} */

@@ -3,7 +3,6 @@
 
 // #include "../COMPAT.h"
 #include "../../state_machine.h"
-#include "../../timers.h"
 
 
 /*  Now in fcu_core__types.h

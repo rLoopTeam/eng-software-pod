@@ -39,8 +39,8 @@
 
 		// For flight controller
 		#include <LCCM655__RLOOP__FCU_CORE/state_machine.h>
-		#include <LCCM655__RLOOP__FCU_CORE/timers.h>
-		#include <LCCM655__RLOOP__FCU_CORE/interlock_command.h>
+		// #include <LCCM655__RLOOP__FCU_CORE/timers.h>
+		// #include <LCCM655__RLOOP__FCU_CORE/interlock_command.h>
 
 
 		/*******************************************************************************
@@ -1154,6 +1154,39 @@
 		DLL_DECLARATION void vFCU__Process(void);
 		DLL_DECLARATION void vFCU__RTI_100MS_ISR(void);
 		DLL_DECLARATION void vFCU__RTI_10MS_ISR(void);
+
+
+        // General Timer and timeouts
+        void timer_ensure_started(strTimer *t);
+        void timer_stop(strTimer *t);
+        void timer_update(strTimer *t, Luint32 elapsed_ms);
+        void timer_reset(strTimer *t);
+        bool timer_expired(const strTimer *t);
+
+        void timeout_ensure_started(strTimer *timeout);
+        strTimer create_timeout(Luint32 duration_ms);
+        void timeout_reset(strTimer *timeout);
+        void timeout_restart(strTimer *timeout);
+        bool timeout_expired(strTimer *timeout);
+        void timeout_update(strTimer *timeout, Luint32 elapsed_ms);
+
+
+        // Interlock command handling
+        strInterlockCommand create_interlock_command(const Luint32 duration_ms);
+
+        // Call this when the first packet is received. Ok to call it multiple times; it will just restart the timeout.
+        void interlock_command_enable(strInterlockCommand *ic);
+
+        // Call this when the second packet is received to check whether the command can execute (i.e. timeout has not expired)
+        bool interlock_command_can_execute(strInterlockCommand *ic);
+
+        // Call this if the command was executed and we're ready to listen for the initial packet again
+        // @todo: do we even need this? if we receive another enable packet, we will restart the timeout. Once its timed out, it will not keep counting, so we're ok. 
+        void interlock_command_reset(strInterlockCommand *ic);
+
+        // Call this in one of our timer ISRs. Ok to call this since the timeout has to be started for the update to have any effect. 
+        void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms);
+
 
 
 		//flight controller

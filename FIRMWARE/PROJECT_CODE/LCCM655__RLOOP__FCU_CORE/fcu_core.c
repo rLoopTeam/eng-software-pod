@@ -600,6 +600,146 @@ void vFCU__Process(void)
 
 }
 
+
+/////////////////////////////////////////////////////////////////////
+//  Timers and timeouts
+/////////////////////////////////////////////////////////////////////
+void timer_ensure_started(strTimer *t)
+{
+    if ( ! t->started ) {
+        // If we're not started, make sure we are and reset our elapsed time
+        t->started = true;
+        t->elapsed_ms = 0;
+    } else {
+        // We're started; nothing to do
+    }
+}
+
+void timer_stop(strTimer *t)
+{
+    // Stop the timer and reset the counter
+    t->started = false;
+    t->elapsed_ms = 0;
+}
+
+void timer_update(strTimer *t, int elapsed_ms)
+{
+    if (t->started) {
+        t->elapsed_ms += elapsed_ms;
+    }
+}
+
+void timer_reset(strTimer *timer)
+{
+    timer->elapsed_ms = 0;
+}
+
+bool timer_expired(const strTimer *timeout)
+{
+    return timeout->elapsed_ms >= timeout->duration_ms;
+}
+
+
+void timeout_ensure_started(strTimer *timeout)
+{
+    if ( ! timeout->started ) {
+        // If we're not started, make sure we are and reset our elapsed time
+        timeout_restart(timeout);
+    } else {
+        // We're started; nothing to do
+    }
+}
+
+
+strTimer create_timeout(int duration_ms)
+{
+    strTimer t;
+    t.duration_ms = duration_ms;
+    t.elapsed_ms = 0;
+    return t;
+}
+
+void timeout_reset(strTimer *timeout)
+{
+    timeout->elapsed_ms = 0;
+    timeout->started = false;
+}
+
+bool timeout_expired(strTimer *timeout)
+{
+    return timeout->elapsed_ms >= timeout->duration_ms;
+}
+
+void timeout_update(strTimer *timeout, int elapsed_ms)
+{
+    if ( ! timeout_expired(timeout) ) 
+    {
+        // If we haven't expired, update our timeout. We have no reason to keep adding once we've expired.
+        timeout->elapsed_ms += elapsed_ms;
+    }
+}
+
+void timeout_restart(strTimer *timeout)
+{
+    timeout->elapsed_ms = 0U;
+    timeout->started = true;
+}
+
+
+/////////////////////////////////////////////////////////////////////
+//  Interlock command handling
+/////////////////////////////////////////////////////////////////////
+
+strInterlockCommand create_interlock_command(const Luint32 duration_ms)
+{
+    strInterlockCommand ic;
+    ic.enabled = false;
+    timeout_reset(&ic.commandTimeout);
+	return ic;
+}
+
+
+// Call this when the first packet is received. Ok to call it multiple times; it will just reset the timer.
+void interlock_command_enable(strInterlockCommand *ic)
+{
+    ic->enabled = true;
+    timeout_restart(&ic->commandTimeout);
+}
+
+// Call this when the second packet is received to check whether the command can execute (i.e. timeout has not expired)
+bool interlock_command_can_execute(strInterlockCommand *ic)
+{
+    bool can_execute;
+    
+    // Note: I know this is not great code style but under time crunch    
+    if (ic->enabled && ! timeout_expired(&ic->commandTimeout) )
+    {
+        can_execute = true;
+    } 
+    else 
+    {
+        can_execute = false;
+    }
+    return can_execute;
+}
+
+// Call this if the command was executed and we're ready to listen for the initial packet again
+// @todo: do we even need this? if we receive another enable packet, we will restart the timeout. Once its timed out, it will not keep counting, so we're ok. 
+void interlock_command_reset(strInterlockCommand *ic)
+{
+    // Reset the timeout (stop it and set the elapsed time to 0)
+    timeout_reset(&ic->commandTimeout);
+}
+
+// Call this in one of our timer ISRs. Ok to call this since the timeout has to be started for the update to have any effect. 
+void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms)
+{
+    // Update the timeout
+    timeout_update(&ic->commandTimeout, time_ms);
+}
+
+
+
 /***************************************************************************//**
  * @brief
  * 100ms timer

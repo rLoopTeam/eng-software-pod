@@ -4,6 +4,35 @@
 
 
     /////////////////////////////////////////////////////////////////////
+    //  Timer/Timeout struct
+    /////////////////////////////////////////////////////////////////////
+    
+    typedef struct
+    {
+        Luint32 duration_ms;  // How long to wait until repeating (note: still need to reset once you've handled it)
+
+        // Is the timer running? Don't update if false.
+        bool started;
+
+        // Number of times to repeat (0 = no limit)    
+        Luint32 elapsed_ms;
+
+    } strTimer;
+
+
+    /////////////////////////////////////////////////////////////////////
+    //  Interlock command struct
+    /////////////////////////////////////////////////////////////////////
+
+    typedef struct
+    {
+        bool enabled; // Happens first, starts the timer
+        strTimer commandTimeout;
+
+    } strInterlockCommand;
+
+
+    /////////////////////////////////////////////////////////////////////
     //  Pod States
     /////////////////////////////////////////////////////////////////////
     typedef enum 
