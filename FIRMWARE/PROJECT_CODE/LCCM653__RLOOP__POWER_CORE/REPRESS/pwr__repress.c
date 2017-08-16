@@ -89,7 +89,7 @@ void vPWR_PVPRESS__Process(void)
 
 		case REPRESS_STATE__PROCESS_PRESS:
 			//ok work out what to do:
-			if(sPWRNODE.sRePress.f32Press < 0.6F)
+			if(sPWRNODE.sRePress.f32Press < 0.75F)
 			{
 				//less than 0.6bar, repress.
 				sPWRNODE.sRePress.eSolState = REPRESS_SOL_STATE__ON;
@@ -97,7 +97,7 @@ void vPWR_PVPRESS__Process(void)
 			else
 			{
 				//above 0.6 bar + hyster, if we are already on then we need off
-				if(sPWRNODE.sRePress.f32Press > 0.9F)
+				if(sPWRNODE.sRePress.f32Press > 0.78F)
 				{
 					//done off
 					sPWRNODE.sRePress.eSolState = REPRESS_SOL_STATE__OFF;
