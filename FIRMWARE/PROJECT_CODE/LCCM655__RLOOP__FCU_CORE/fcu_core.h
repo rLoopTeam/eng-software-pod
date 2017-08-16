@@ -37,6 +37,12 @@
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
 		#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8451__types.h>
 
+		// For flight controller
+		#include <LCCM655__RLOOP__FCU_CORE/state_machine.h>
+		#include <LCCM655__RLOOP__FCU_CORE/timers.h>
+		#include <LCCM655__RLOOP__FCU_CORE/interlock_command.h>
+
+
 		/*******************************************************************************
 		Defines
 		*******************************************************************************/
@@ -124,6 +130,35 @@
 
 			}sHoverEngines;
 			//#endif
+
+            /** Flight Controller */
+            struct 
+            {
+                StateMachine sm;
+    
+				/** Enum for Pod Status for SpaceX telemetry */
+				E_FCU__POD_STATUS ePodStatus;
+				
+				// @todo: add commands (and enum for commands from ground station)
+				
+                // Timers and timeouts
+                // Ready state to Idle backup timeout
+                strTimer ReadyExpiredBackupTimeout;
+    
+                // Accel to Coast Interlock backup timeout
+                strTimer AccelBackupTimeout;
+    
+                // Coast interlock timeout
+                strTimer CoastInterlockTimeout;
+    
+                // Brake to Spindown backup timeout
+                strTimer BrakeToSpindownBackupTimeout;
+    
+                // Spindown to Idle backup timeout
+                strTimer SpindownToIdleBackupTimeout;
+
+            } sPodStateMachine;
+            
 
 			/** State Machine Structure **/
 			struct

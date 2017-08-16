@@ -1,7 +1,7 @@
 /**
  * @file		FCU__FCTL__MAIN_SM.C
  * @brief		Main state machine for the flight control unit
- * @author		Lachlan Grogan, Marek Gutt-Mostowy
+ * @author		Lachlan Grogan, Ryan Adams
  * @copyright	rLoop Inc.
  */
 /**
@@ -18,8 +18,13 @@
 
 #include "../../fcu_core.h"
 
+#include "pod__types.h"
+#include "pod__control.h"
+
+
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+
 //the structure
 extern struct _strFCU sFCU;
 
@@ -41,7 +46,8 @@ extern struct _strFCU sFCU;
  */
 void vFCU_FCTL_MAINSM__Init(void)
 {
-	sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__RESET;
+	// @todo: Initialize the state machine (set state)
+	sFCU.sPodStateMachine.sm.state = POD_INIT_STATE;  // @todo: should we have a 'startup' state that checks to make sure the FCU is initialized before moving to 'IDLE'?
 
 }
 
@@ -55,113 +61,282 @@ void vFCU_FCTL_MAINSM__Init(void)
  */
 void vFCU_FCTL_MAINSM__Process(void)
 {
-	Luint8 u8Counter;
-	Luint8 u8Test;
-	Luint8 u8TestsSuccesful;
-	Lint32 u32Accelmmss;
-	Luint32 u32PodSpeed;
-	Luint8 ePusherState;
-	Luint32 u32PodRearPos;
+    StateMachine *sm = &sFCU.sPodStateMachine.sm;
+    
+    // Step the state machine to pick up on state changes etc.
+    sm_step(sm);
+        
+    // Process pod state machine
+    switch (sm->state)
+    {
+        case POD_INIT_STATE:
+        
+            if (sm_entering(sm, POD_INIT_STATE)) {
+                // Perform entering actions
+                #if DEBUG == 1U
+                    printf("- %s Entering POD_INIT_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+            }
+        
+            // Handle transitions
+            handle_POD_INIT_STATE_transitions();
+         
+            if (sm_exiting(sm, POD_INIT_STATE)) 
+            {
+                // We're exiting this state -- perform any exit actions
+                // ...
+                #if DEBUG == 1U
+                    printf("- %s Exiting POD_INIT_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+        
+            }
+            
+            break;
+        
+        case POD_IDLE_STATE:
+        
+            if (sm_entering(sm, POD_IDLE_STATE)) {
+                // Perform entering actions
+                #if DEBUG == 1U
+                    printf("- %s Entering POD_IDLE_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+            }
+        
+            // Handle transitions
+            handle_POD_IDLE_STATE_transitions();
+         
+            if (sm_exiting(sm, POD_IDLE_STATE)) 
+            {
+                // We're exiting this state -- perform any exit actions
+                // ...
+                #if DEBUG == 1U
+                    printf("- %s Exiting POD_IDLE_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+        
+            }
+            
+            break;
+        
+        case POD_TEST_MODE_STATE:
+        
+            if (sm_entering(sm, POD_TEST_MODE_STATE)) {
+                // Perform entering actions
+                #if DEBUG == 1U
+                    printf("- %s Entering POD_TEST_MODE_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+            }
+        
+            // Handle transitions
+            handle_POD_TEST_MODE_STATE_transitions();
+         
+            if (sm_exiting(sm, POD_TEST_MODE_STATE)) 
+            {
+                // We're exiting this state -- perform any exit actions
+                // ...
+                #if DEBUG == 1U
+                    printf("- %s Exiting POD_TEST_MODE_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+        
+            }
+            
+            break;
+        
+        case POD_DRIVE_STATE:
+        
+            if (sm_entering(sm, POD_DRIVE_STATE)) {
+                // Perform entering actions
+                #if DEBUG == 1U
+                    printf("- %s Entering POD_DRIVE_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+            }
+        
+            // Handle transitions
+            handle_POD_DRIVE_STATE_transitions();
+         
+            if (sm_exiting(sm, POD_DRIVE_STATE)) 
+            {
+                // We're exiting this state -- perform any exit actions
+                // ...
+                #if DEBUG == 1U
+                    printf("- %s Exiting POD_DRIVE_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+        
+            }
+            
+            break;
+        
+        case POD_ARMED_WAIT_STATE:
+        
+            if (sm_entering(sm, POD_ARMED_WAIT_STATE)) {
+                // Perform entering actions
+                #if DEBUG == 1U
+                    printf("- %s Entering POD_ARMED_WAIT_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+            }
+        
+            // Handle transitions
+            handle_POD_ARMED_WAIT_STATE_transitions();
+         
+            if (sm_exiting(sm, POD_ARMED_WAIT_STATE)) 
+            {
+                // We're exiting this state -- perform any exit actions
+                // ...
+                #if DEBUG == 1U
+                    printf("- %s Exiting POD_ARMED_WAIT_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+        
+            }
+            
+            break;
+        
+        case POD_FLIGHT_PREP_STATE:
+        
+            if (sm_entering(sm, POD_FLIGHT_PREP_STATE)) {
+                // Perform entering actions
+                #if DEBUG == 1U
+                    printf("- %s Entering POD_FLIGHT_PREP_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+            }
+        
+            // Handle transitions
+            handle_POD_FLIGHT_PREP_STATE_transitions();
+         
+            if (sm_exiting(sm, POD_FLIGHT_PREP_STATE)) 
+            {
+                // We're exiting this state -- perform any exit actions
+                // ...
+                #if DEBUG == 1U
+                    printf("- %s Exiting POD_FLIGHT_PREP_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+        
+            }
+            
+            break;
+        
+        case POD_READY_STATE:
+        
+            if (sm_entering(sm, POD_READY_STATE)) {
+                // Perform entering actions
+                #if DEBUG == 1U
+                    printf("- %s Entering POD_READY_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+            }
+        
+            // Handle transitions
+            handle_POD_READY_STATE_transitions();
+         
+            if (sm_exiting(sm, POD_READY_STATE)) 
+            {
+                // We're exiting this state -- perform any exit actions
+                // ...
+                #if DEBUG == 1U
+                    printf("- %s Exiting POD_READY_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+        
+            }
+            
+            break;
+        
+        case POD_ACCEL_STATE:
+        
+            if (sm_entering(sm, POD_ACCEL_STATE)) {
+                // Perform entering actions
+                #if DEBUG == 1U
+                    printf("- %s Entering POD_ACCEL_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+            }
+        
+            // Handle transitions
+            handle_POD_ACCEL_STATE_transitions();
+         
+            if (sm_exiting(sm, POD_ACCEL_STATE)) 
+            {
+                // We're exiting this state -- perform any exit actions
+                // ...
+                #if DEBUG == 1U
+                    printf("- %s Exiting POD_ACCEL_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+        
+            }
+            
+            break;
+        
+        case POD_COAST_INTERLOCK_STATE:
+        
+            if (sm_entering(sm, POD_COAST_INTERLOCK_STATE)) {
+                // Perform entering actions
+                #if DEBUG == 1U
+                    printf("- %s Entering POD_COAST_INTERLOCK_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+            }
+        
+            // Handle transitions
+            handle_POD_COAST_INTERLOCK_STATE_transitions();
+         
+            if (sm_exiting(sm, POD_COAST_INTERLOCK_STATE)) 
+            {
+                // We're exiting this state -- perform any exit actions
+                // ...
+                #if DEBUG == 1U
+                    printf("- %s Exiting POD_COAST_INTERLOCK_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+        
+            }
+            
+            break;
+        
+        case POD_BRAKE_STATE:
+        
+            if (sm_entering(sm, POD_BRAKE_STATE)) {
+                // Perform entering actions
+                #if DEBUG == 1U
+                    printf("- %s Entering POD_BRAKE_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+            }
+        
+            // Handle transitions
+            handle_POD_BRAKE_STATE_transitions();
+         
+            if (sm_exiting(sm, POD_BRAKE_STATE)) 
+            {
+                // We're exiting this state -- perform any exit actions
+                // ...
+                #if DEBUG == 1U
+                    printf("- %s Exiting POD_BRAKE_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+        
+            }
+            
+            break;
+        
+        case POD_SPINDOWN_STATE:
+        
+            if (sm_entering(sm, POD_SPINDOWN_STATE)) {
+                // Perform entering actions
+                #if DEBUG == 1U
+                    printf("- %s Entering POD_SPINDOWN_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+            }
+        
+            // Handle transitions
+            handle_POD_SPINDOWN_STATE_transitions();
+         
+            if (sm_exiting(sm, POD_SPINDOWN_STATE)) 
+            {
+                // We're exiting this state -- perform any exit actions
+                // ...
+                #if DEBUG == 1U
+                    printf("- %s Exiting POD_SPINDOWN_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+        
+            }
+            
+            break;
 
-	//handle the state machine.
-	switch(sFCU.sStateMachine.eMissionPhase)
-	{
-
-		case MISSION_PHASE__RESET:
-			//we have just come out of reset here.
-			//init our rPod specific systems
-
-			#if C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH == 1U
-				vFCU_PODHEALTH__Init();
-			#endif
-			//init the auto sequence
-			vFCU_MAINSM_AUTO__Init();
-
-
-
-
-			//finally init the flight controller
-			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
-				vFCU_FCTL__Init();
-			#endif
-
-
-			#if C_LOCALDEF__LCCM655__ENABLE_GEOM == 1U
-				vFCU_GEOM__Init();
-			#endif //C_LOCALDEF__LCCM655__ENABLE_GEOM
-
-			//put the flight computer into startup mode now that everything has been initted.
-			sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__DEBUG; //MISSION_PHASE__TEST;
-
-			break;
-
-
-		case MISSION_PHASE__DEBUG:
-
-			break;
-
-		default:
-			//should not get here
-			break;
-
-	}//switch(sFCU.eRunState)
-
-	//always process these items after we have been initted
-	if(sFCU.sStateMachine.eMissionPhase > MISSION_PHASE__RESET)
-	{
-		#if C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH == 1U
-			vFCU_PODHEALTH__Process();
-		#endif
-
-		//LG
-		vFCU_FCTL__Process();
-
-
-
-
-
-
-		#if C_LOCALDEF__LCCM655__ENABLE_GEOM == 1U
-			vFCU_GEOM__Process();
-		#endif
-		//Start the Hover Engine Control
-		#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
-			vFCU_FCTL_HOVERENGINES__Process();
-		#endif
-	}
-	else
-	{
-		//do nothing.
-	}
-
-
+    }
+   
 }
 
 
-void vFCU_FCTL_MAINSM__10MS_ISR(void)
-{
-
-}
-
-void vFCU_FCTL_MAINSM__100MS_ISR(void)
-{
-
-}
-
-
-
-
-
-#endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
-#ifndef C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
-	#error
-#endif
-#endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
-//safetys
-#ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
-	#error
-#endif
-/** @} */
-/** @} */
-/** @} */
-
+#endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+#endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
