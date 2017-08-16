@@ -64,8 +64,8 @@ void vAPU_THROTTLE__Init(void)
 	//re-enable
 	vRM4_N2HET__Enable(N2HET_CHANNEL__1);
 
-	//set speed low
-	vAPU_THROTTLE__Set_Velocity_mms(500U);
+	//set speed 0
+	vAPU_THROTTLE__Set_Velocity_mms(0U);
 
 	//all motors forward
 	vAPU_THROTTLE__Forward();
@@ -108,8 +108,8 @@ void vAPU_THROTTLE__Set_Velocity_mms(Luint32 u32Veloc_mms)
 	//convert the mm/s to a PWM with range
 	//period is in uS, so 25us = 40KHZ.
 
-	//lets assume we have 1khz = 1000m/s
-	f32Freq = (Lfloat32)u32Veloc_mms;
+	//lets assume we have 1khz = 0.2*1000mm/s
+	f32Freq = (Lfloat32)u32Veloc_mms*0.2F;
 
 	sAPU.sThrottle.u32Frequency = (Luint32)f32Freq;
 
