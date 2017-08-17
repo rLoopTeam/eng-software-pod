@@ -1,7 +1,7 @@
 #ifndef LOCALDEF_H_
 #define LOCALDEF_H_
 
-/*lint -e950*/
+	/*lint -e950*/
 	/** BMS PCB VERSION
 	 *
 	 * 1 = RM48 (Lachlan - Pod V1)
