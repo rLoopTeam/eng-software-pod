@@ -45,7 +45,9 @@ extern struct _strFCU sFCU;
  */
 void vFCU_FCTL_MAINSM__Init(void)
 {
-	// @todo: Initialize the state machine (set state)
+    #ifdef WIN32
+        DEBUG_PRINT("FCU_FCTL_MAINSM__Init()");
+    #endif
 	sFCU.sPodStateMachine.sm.state = POD_INIT_STATE;  // @todo: should we have a 'startup' state that checks to make sure the FCU is initialized before moving to 'IDLE'?
 
 }
@@ -75,6 +77,10 @@ void vFCU_FCTL_MAINSM__Process(void)
                 #if DEBUG == 1U
                     printf("- %s Entering POD_INIT_STATE\n", "sFCU.sPodStateMachine.sm");
                 #endif
+                #ifdef WIN32
+                    DEBUG_PRINT("Entering POD_INIT_STATE");
+                #endif
+
             }
         
             // Handle transitions
@@ -98,6 +104,9 @@ void vFCU_FCTL_MAINSM__Process(void)
                 // Perform entering actions
                 #if DEBUG == 1U
                     printf("- %s Entering POD_IDLE_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+                #ifdef WIN32
+                    DEBUG_PRINT("Entering POD_IDLE_STATE");
                 #endif
             }
         
@@ -123,7 +132,9 @@ void vFCU_FCTL_MAINSM__Process(void)
                 #if DEBUG == 1U
                     printf("- %s Entering POD_TEST_MODE_STATE\n", "sFCU.sPodStateMachine.sm");
                 #endif
-            }
+                #ifdef WIN32
+                    DEBUG_PRINT("Entering POD_TEST_MODE_STATE");
+                #endif            }
         
             // Handle transitions
             handle_POD_TEST_MODE_STATE_transitions();
@@ -147,7 +158,9 @@ void vFCU_FCTL_MAINSM__Process(void)
                 #if DEBUG == 1U
                     printf("- %s Entering POD_DRIVE_STATE\n", "sFCU.sPodStateMachine.sm");
                 #endif
-            }
+                #ifdef WIN32
+                    DEBUG_PRINT("Entering POD_DRIVE_STATE");
+                #endif            }
         
             // Handle transitions
             handle_POD_DRIVE_STATE_transitions();
@@ -171,6 +184,9 @@ void vFCU_FCTL_MAINSM__Process(void)
                 #if DEBUG == 1U
                     printf("- %s Entering POD_ARMED_WAIT_STATE\n", "sFCU.sPodStateMachine.sm");
                 #endif
+                #ifdef WIN32
+                    DEBUG_PRINT("Entering POD_ARMED_WAIT_STATE");
+                #endif            
             }
         
             // Handle transitions
@@ -195,6 +211,9 @@ void vFCU_FCTL_MAINSM__Process(void)
                 #if DEBUG == 1U
                     printf("- %s Entering POD_FLIGHT_PREP_STATE\n", "sFCU.sPodStateMachine.sm");
                 #endif
+                #ifdef WIN32
+                    DEBUG_PRINT("Entering POD_FLIGHT_PREP_STATE");
+                #endif            
             }
         
             // Handle transitions
@@ -206,8 +225,7 @@ void vFCU_FCTL_MAINSM__Process(void)
                 // ...
                 #if DEBUG == 1U
                     printf("- %s Exiting POD_FLIGHT_PREP_STATE\n", "sFCU.sPodStateMachine.sm");
-                #endif
-        
+                #endif        
             }
             
             break;
@@ -218,6 +236,9 @@ void vFCU_FCTL_MAINSM__Process(void)
                 // Perform entering actions
                 #if DEBUG == 1U
                     printf("- %s Entering POD_READY_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+                #ifdef WIN32
+                    DEBUG_PRINT("Entering POD_READY_STATE");
                 #endif
             }
         
@@ -243,6 +264,9 @@ void vFCU_FCTL_MAINSM__Process(void)
                 #if DEBUG == 1U
                     printf("- %s Entering POD_ACCEL_STATE\n", "sFCU.sPodStateMachine.sm");
                 #endif
+                #ifdef WIN32
+                    DEBUG_PRINT("Entering POD_ACCEL_STATE");
+                #endif
             }
         
             // Handle transitions
@@ -266,6 +290,9 @@ void vFCU_FCTL_MAINSM__Process(void)
                 // Perform entering actions
                 #if DEBUG == 1U
                     printf("- %s Entering POD_COAST_INTERLOCK_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+                #ifdef WIN32
+                    DEBUG_PRINT("Entering POD_COAST_INTERLOCK_STATE");
                 #endif
             }
         
@@ -291,6 +318,9 @@ void vFCU_FCTL_MAINSM__Process(void)
                 #if DEBUG == 1U
                     printf("- %s Entering POD_BRAKE_STATE\n", "sFCU.sPodStateMachine.sm");
                 #endif
+                #ifdef WIN32
+                    DEBUG_PRINT("Entering POD_BRAKE_STATE");
+                #endif
             }
         
             // Handle transitions
@@ -314,6 +344,9 @@ void vFCU_FCTL_MAINSM__Process(void)
                 // Perform entering actions
                 #if DEBUG == 1U
                     printf("- %s Entering POD_SPINDOWN_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+                #ifdef WIN32
+                    DEBUG_PRINT("Entering POD_SPINDOWN_STATE");
                 #endif
             }
         
