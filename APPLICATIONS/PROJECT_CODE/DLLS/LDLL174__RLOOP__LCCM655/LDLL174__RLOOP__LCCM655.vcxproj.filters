@@ -366,6 +366,9 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_DISTANCE\fcu__laser_distance__valid.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\LASER_DISTANCE</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS\fcu__accel__win32.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\ACCELEROMETERS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="localdef.h">

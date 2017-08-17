@@ -18,9 +18,6 @@
 
 		#include <RM4/LCCM414__RM4__ADC/rm4_adc__private.h>
 
-		//3.3/(2^12)
-		#define C_RM4ADC__VREF_CONSTANT		0.0008056640625F
-
 
 		/*ADC General Definitions */
 
@@ -162,6 +159,11 @@
 
 		//DMA
 		void vRM4_ADC_DMA__Setup_Interleave(RM4_ADC__INDEX_T eADC, RM4_ADC__GROUPS_T eGroup, Luint32 u32ArrayDestAddx, Luint32 u32ArraySize, Luint32 u32NumChannels);
+
+		//safetys
+		#ifndef C_LOCALDEF__LCCM414__VREF_CONSTANT
+			#error
+		#endif
 
 #endif
 

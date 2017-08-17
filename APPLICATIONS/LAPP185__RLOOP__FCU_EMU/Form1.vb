@@ -21,6 +21,11 @@ Public Class Form1
     ''' </summary>
     Private Const C_NUM__ASI As Integer = 8
 
+    ''' <summary>
+    ''' The number of optos
+    ''' </summary>
+    Private Const C_NUM_OPTONCDT As Integer = 6
+
 #End Region '#Region "CONSTANTS"
 
 #Region "ENUMS"
@@ -41,10 +46,10 @@ Public Class Form1
         '/** Fully extended limit switch */
         BRAKE_SW__EXTEND = 0
 
-		'/** Fully retracted switch */
-		BRAKE_SW__RETRACT = 1
+        '/** Fully retracted switch */
+        BRAKE_SW__RETRACT = 1
 
-End Enum
+    End Enum '#Region "ENUMS"
 
 #End Region
 
@@ -249,10 +254,15 @@ End Enum
     ''' <remarks></remarks>
     Private m_txtOutput As Windows.Forms.TextBox
 
+    ''' <summary>
+    ''' Raw laser distance value for injection
+    ''' </summary>
+    Private m_txtLaserDist__ValueRaw As LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
-    Private m_txtLaserDist__ValueRaw As TextBox
-
-    Private m_txtLaserOpto() As TextBox
+    ''' <summary>
+    ''' The OpotNCDT values
+    ''' </summary>
+    Private m_txtLaserOpto() As LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
     ''' <summary>
     ''' The debug delegate
@@ -310,15 +320,22 @@ End Enum
     ''' </summary>
     Private m_pTimerAccel As System.Timers.Timer
 
-    Private m_txtBrakeL_Pos As TextBox
-    Private m_txtBrakeR_Pos As TextBox
+    Private m_txtBrakeL_Pos As LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+    Private m_txtBrakeR_Pos As LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
     Private m_txtASI_Volts() As TextBox
+
+
+    Private m_txtNav_AccelY(2 - 1) As LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+
 
 #Region "SENSOR SIM VALUES"
 
     Private m_iAccel0_X As Integer
     Private m_iAccel0_Y As Integer
     Private m_iAccel0_Z As Integer
+    Private m_iAccel1_X As Integer
+    Private m_iAccel1_Y As Integer
+    Private m_iAccel1_Z As Integer
 
     Private m_iL_MLP As Integer
     Private m_iR_MLP As Integer
@@ -349,177 +366,126 @@ End Enum
         End With
         Me.Controls.Add(pP)
 
-        'add a start / stop button
-        Dim pB1 As New Button
-        With pB1
-            .Location = New Point(10, 10)
-            .Size = New Size(100, 24)
-            .Text = "Start"
+
+        Dim pTC As New Windows.Forms.TabControl
+        pTC.Dock = DockStyle.Fill
+        pP.Controls.Add(pTC)
+
+        Dim pTabGeneral As New Windows.Forms.TabPage
+        With pTabGeneral
+            .Text = "General"
+            .BackColor = Color.White
         End With
-        pP.Controls.Add(pB1)
-        AddHandler pB1.Click, AddressOf Me.btnStart__Click
+        pTC.TabPages.Add(pTabGeneral)
 
 
-        Dim pB2 As New Button
-        With pB2
-            .Location = New Point(pB1.Location.X + pB1.Size.Width + 5, 10)
-            .Size = New Size(100, 24)
-            .Text = "Test Cases"
-        End With
-        pP.Controls.Add(pB2)
-        AddHandler pB2.Click, AddressOf Me.btnTestCases__Click
+        Dim btnStart As New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(10, 10, 100, "Start", pTabGeneral, AddressOf Me.btnStart__Click)
+        Dim btnTestCases As New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Test Cases", AddressOf Me.btnTestCases__Click)
+        btnTestCases.Layout__RightOfControl(btnStart)
 
-        'this area is going to get very messy due to absense of SIL3 libs.
-
-        'create some input item.
-        Dim l1 As New Label
-        With l1
-            .Location = New Point(10, pB1.Top + pB1.Height + 20)
-            .Text = "Laser Distance mm"
-        End With
-        pP.Controls.Add(l1)
-        Me.m_txtLaserDist__ValueRaw = New TextBox
-        With Me.m_txtLaserDist__ValueRaw
-            .Location = New Point(10, l1.Top + l1.Height + 0)
-            .Size = New Size(100, 24)
-            .Text = "100"
-        End With
-        pP.Controls.Add(Me.m_txtLaserDist__ValueRaw)
+        Dim l1 As New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Laser Distance mm", btnStart)
+        Me.m_txtLaserDist__ValueRaw = New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l1)
         AddHandler Me.m_txtLaserDist__ValueRaw.KeyDown, AddressOf Me.txtLaserDistanceRaw__KeyDown
 
 
-        Dim l2(6 - 1) As Label
-        ReDim Me.m_txtLaserOpto(6 - 1)
-        For iCounter As Integer = 0 To 6 - 1
+        Dim l2(6 - 1) As LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper
+        ReDim Me.m_txtLaserOpto(C_NUM_OPTONCDT - 1)
+        For iCounter As Integer = 0 To C_NUM_OPTONCDT - 1
             If iCounter = 0 Then
-                l2(iCounter) = New Label
-                With l2(iCounter)
-                    .Location = New Point(10, Me.m_txtLaserDist__ValueRaw.Top + pB1.Height + 20)
-                    .Text = "OptoNCDT:" & iCounter.ToString & " - RAW"
-                    .AutoSize = True
-                End With
+                l2(iCounter) = New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("OptoNCDT:" & iCounter.ToString & " - RAW", Me.m_txtLaserDist__ValueRaw)
             Else
-                l2(iCounter) = New Label
-                With l2(iCounter)
-                    .Location = New Point(Me.m_txtLaserOpto(iCounter - 1).Left + Me.m_txtLaserOpto(iCounter - 1).Width + 20, l2(iCounter - 1).Top)
-                    .Text = "OptoNCDT:" & iCounter.ToString & " - RAW"
-                    .AutoSize = True
-                End With
+                l2(iCounter) = New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("OptoNCDT:" & iCounter.ToString & " - RAW")
+                l2(iCounter).Layout__AboveRightControl(l2(iCounter - 1), Me.m_txtLaserOpto(iCounter - 1))
             End If
-            pP.Controls.Add(l2(iCounter))
 
-            Me.m_txtLaserOpto(iCounter) = New TextBox
-            With Me.m_txtLaserOpto(iCounter)
-                .Location = New Point(l2(iCounter).Left, l2(iCounter).Top + l2(iCounter).Height + 0)
-                .Size = New Size(100, 24)
-                .Text = "0.0"
-                .Tag = iCounter.ToString
-            End With
-            pP.Controls.Add(Me.m_txtLaserOpto(iCounter))
+            Me.m_txtLaserOpto(iCounter) = New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l2(iCounter))
+            Me.m_txtLaserOpto(iCounter).Text = "0.0"
             AddHandler Me.m_txtLaserOpto(iCounter).KeyDown, AddressOf Me.txtLaserOptoRaw__KeyDown
 
         Next ' For iCounter As Integer = 0 To 6 - 1
 
 
-        Dim l3 As New Label
-        With l3
-            .Location = New Point(10, Me.m_txtLaserOpto(0).Top + Me.m_txtLaserOpto(0).Height + 20)
-            .Text = "Brake L Pos (um)"
+        Dim pTabBrakes As New Windows.Forms.TabPage
+        With pTabBrakes
+            .Text = "Brakes"
+            .BackColor = Color.White
         End With
-        pP.Controls.Add(l3)
-        Me.m_txtBrakeL_Pos = New TextBox
-        With Me.m_txtBrakeL_Pos
-            .Location = New Point(10, l3.Top + l3.Height + 0)
-            .Size = New Size(100, 24)
-            .Text = "0.0"
+        pTC.TabPages.Add(pTabBrakes)
+
+        Dim l100 As New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Brake L Pos (um)", pTabBrakes)
+        Me.m_txtBrakeL_Pos = New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l100)
+
+        Dim l101 As New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Brake L Pos (um)")
+        l101.Layout__AboveRightControl(l100, Me.m_txtBrakeL_Pos)
+        Me.m_txtBrakeR_Pos = New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l101)
+
+
+
+        Dim btnExtOnL As New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "L ExtSw On", AddressOf Me.m_btnExtL__CLick)
+        btnExtOnL.Layout__BelowControl(Me.m_txtBrakeL_Pos)
+        Dim btnRetOnL As New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "L RetSw On", AddressOf Me.m_btnRetL__CLick)
+        btnRetOnL.Layout__RightOfControl(btnExtOnL)
+        Dim btnExtOnR As New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "R ExtSw On", AddressOf Me.m_btnExtR__CLick)
+        btnExtOnR.Layout__RightOfControl(btnRetOnL)
+        Dim btnRetOnR As New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "R RetSw On", AddressOf Me.m_btnRetR__CLick)
+        btnRetOnR.Layout__RightOfControl(btnExtOnR)
+
+
+
+
+
+        'Dim l5(C_NUM__ASI - 1) As Label
+        'ReDim Me.m_txtASI_Volts(C_NUM__ASI - 1)
+        'For iCounter As Integer = 0 To 6 - 1
+        '    If iCounter = 0 Then
+        '        l5(iCounter) = New Label
+        '        With l5(iCounter)
+        '            .Location = New Point(10, Me.m_txtBrakeL_Pos.Top + pB1.Height + 20)
+        '            .Text = "ASI:" & iCounter.ToString & " - Volts"
+        '            .AutoSize = True
+        '        End With
+        '    Else
+        '        l5(iCounter) = New Label
+        '        With l5(iCounter)
+        '            .Location = New Point(Me.m_txtASI_Volts(iCounter - 1).Left + Me.m_txtASI_Volts(iCounter - 1).Width + 20, l5(iCounter - 1).Top)
+        '            .Text = "ASI:" & iCounter.ToString & " - Volts"
+        '            .AutoSize = True
+        '        End With
+        '    End If
+        '    pP.Controls.Add(l5(iCounter))
+
+        '    Me.m_txtASI_Volts(iCounter) = New TextBox
+        '    With Me.m_txtASI_Volts(iCounter)
+        '        .Location = New Point(l5(iCounter).Left, l5(iCounter).Top + l5(iCounter).Height + 0)
+        '        .Size = New Size(100, 24)
+        '        .Text = "0.0"
+        '        .Tag = iCounter.ToString
+        '    End With
+        '    pP.Controls.Add(Me.m_txtASI_Volts(iCounter))
+
+        'Next ' For iCounter As Integer = 0 To 6 - 1
+
+
+        Dim pTabNav As New Windows.Forms.TabPage
+        With pTabNav
+            .Text = "Navigation"
+            .BackColor = Color.White
         End With
-        pP.Controls.Add(Me.m_txtBrakeL_Pos)
+        pTC.TabPages.Add(pTabNav)
 
-        Dim l4 As New Label
-        With l4
-            .Location = New Point(Me.m_txtBrakeL_Pos.Left + Me.m_txtBrakeL_Pos.Width + 20, l3.Top)
-            .Text = "Brake R Pos (um)"
-        End With
-        pP.Controls.Add(l4)
+        Dim l200 As New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Accel0:Y RAW", pTabNav)
+        Me.m_txtNav_AccelY(0) = New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l200)
+        Me.m_txtNav_AccelY(0).Threadsafe__SetText("0")
+        Me.m_txtNav_AccelY(0).Tag = "0"
+        AddHandler Me.m_txtNav_AccelY(0).KeyDown, AddressOf Me.txtAccelY_Raw__KeyDown
 
+        Dim l201 As New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel1:Y RAW")
+        l201.Layout__AboveRightControl(l200, Me.m_txtNav_AccelY(0))
+        Me.m_txtNav_AccelY(1) = New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l201)
+        Me.m_txtNav_AccelY(1).Threadsafe__SetText("0")
+        Me.m_txtNav_AccelY(1).Tag = "1"
+        AddHandler Me.m_txtNav_AccelY(1).KeyDown, AddressOf Me.txtAccelY_Raw__KeyDown
 
-        Me.m_txtBrakeR_Pos = New TextBox
-        With Me.m_txtBrakeR_Pos
-            .Location = New Point(l4.Left, l4.Top + l4.Height + 0)
-            .Size = New Size(100, 24)
-            .Text = "0.0"
-        End With
-        pP.Controls.Add(Me.m_txtBrakeR_Pos)
-
-
-        Dim btnExtOnL As New Windows.Forms.Button
-        With btnExtOnL
-            .Location = New Point(Me.m_txtBrakeR_Pos.Left + Me.m_txtBrakeR_Pos.Width + 5, Me.m_txtBrakeR_Pos.Top)
-            .Size = New Size(100, 24)
-            .Text = "L ExtSw On"
-        End With
-        pP.Controls.Add(btnExtOnL)
-        AddHandler btnExtOnL.Click, AddressOf Me.m_btnExtL__CLick
-
-
-        Dim btnRetOnL As New Windows.Forms.Button
-        With btnRetOnL
-            .Location = New Point(btnExtOnL.Left + btnExtOnL.Width + 5, btnExtOnL.Top)
-            .Size = New Size(100, 24)
-            .Text = "L RetSw On"
-        End With
-        pP.Controls.Add(btnRetOnL)
-        AddHandler btnRetOnL.Click, AddressOf Me.m_btnRetL__CLick
-
-        Dim btnExtOnR As New Windows.Forms.Button
-        With btnExtOnR
-            .Location = New Point(btnRetOnL.Left + btnRetOnL.Width + 5, btnRetOnL.Top)
-            .Size = New Size(100, 24)
-            .Text = "R ExtSw On"
-        End With
-        pP.Controls.Add(btnExtOnR)
-        AddHandler btnExtOnR.Click, AddressOf Me.m_btnExtR__CLick
-
-        Dim btnRetOnR As New Windows.Forms.Button
-        With btnRetOnR
-            .Location = New Point(btnExtOnR.Left + btnExtOnR.Width + 5, btnExtOnR.Top)
-            .Size = New Size(100, 24)
-            .Text = "R RetSw On"
-        End With
-        pP.Controls.Add(btnRetOnR)
-        AddHandler btnRetOnR.Click, AddressOf Me.m_btnRetR__CLick
-
-
-        Dim l5(C_NUM__ASI - 1) As Label
-        ReDim Me.m_txtASI_Volts(C_NUM__ASI - 1)
-        For iCounter As Integer = 0 To 6 - 1
-            If iCounter = 0 Then
-                l5(iCounter) = New Label
-                With l5(iCounter)
-                    .Location = New Point(10, Me.m_txtBrakeL_Pos.Top + pB1.Height + 20)
-                    .Text = "ASI:" & iCounter.ToString & " - Volts"
-                    .AutoSize = True
-                End With
-            Else
-                l5(iCounter) = New Label
-                With l5(iCounter)
-                    .Location = New Point(Me.m_txtASI_Volts(iCounter - 1).Left + Me.m_txtASI_Volts(iCounter - 1).Width + 20, l5(iCounter - 1).Top)
-                    .Text = "ASI:" & iCounter.ToString & " - Volts"
-                    .AutoSize = True
-                End With
-            End If
-            pP.Controls.Add(l5(iCounter))
-
-            Me.m_txtASI_Volts(iCounter) = New TextBox
-            With Me.m_txtASI_Volts(iCounter)
-                .Location = New Point(l5(iCounter).Left, l5(iCounter).Top + l5(iCounter).Height + 0)
-                .Size = New Size(100, 24)
-                .Text = "0.0"
-                .Tag = iCounter.ToString
-            End With
-            pP.Controls.Add(Me.m_txtASI_Volts(iCounter))
-
-        Next ' For iCounter As Integer = 0 To 6 - 1
 
 
 
@@ -547,10 +513,16 @@ End Enum
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
         'kill the threads
-        Me.m_pMainThread.Abort()
+        If Not Me.m_pMainThread Is Nothing Then
+            Me.m_pMainThread.Abort()
+        End If
 
-        Me.m_pTimer10m.Stop()
-        Me.m_pTimer100m.Stop()
+        If Not Me.m_pTimer10m Is Nothing Then
+            Me.m_pTimer10m.Stop()
+            Me.m_pTimer100m.Stop()
+            Me.m_pTimer50u.Stop()
+        End If
+
 
         If Not Me.m_pSafeUDP Is Nothing Then
             Me.m_pSafeUDP.Destroy()
@@ -652,6 +624,40 @@ End Enum
             End If
         End If
     End Sub
+
+    ''' <summary>
+    ''' Accel Y channel raw
+    ''' </summary>
+    ''' <param name="s"></param>
+    ''' <param name="e"></param>
+    Private Sub txtAccelY_Raw__KeyDown(s As Object, e As KeyEventArgs)
+        'handle enter key
+        If e.KeyCode = Keys.Enter Then
+            'check safety
+            If Me.m_bThreadRun = False Then
+                MsgBox("Warn: You must have thread running.")
+            Else
+
+                Dim pT As LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper = CType(s, LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper)
+                Dim iIndex As Integer = CInt(pT.Tag)
+
+                Dim sValue As Int32 = Int32.Parse(Me.m_txtNav_AccelY(iIndex).Text)
+
+                If iIndex = 0 Then
+                    Me.m_iAccel0_Y = sValue
+                Else
+                    Me.m_iAccel1_Y = sValue
+                End If
+
+
+                'update the DLL
+                'vFCU_LASERDIST_WIN32__Set_DistanceRaw(sValue)
+
+
+            End If
+            End If
+    End Sub
+
 #End Region '#Region "KEY PRESS HANDLERS"
 
 #Region "BUTTON HANDLERS"
@@ -687,9 +693,9 @@ End Enum
         If pB.Text = "Start" Then
 
             'setup the default values
-            Me.m_iAccel0_X = -100
-            Me.m_iAccel0_Y = 500
-            Me.m_iAccel0_Z = 1024
+            Me.m_iAccel0_X = 0
+            Me.m_iAccel0_Y = 0
+            Me.m_iAccel0_Z = 0
 
 
             'set the flag
@@ -1120,15 +1126,10 @@ End Enum
             xS16Y = New LAPP185__RLOOP__LIB.SIL3.Numerical.S16(Me.m_iAccel0_Y)
             xS16Z = New LAPP185__RLOOP__LIB.SIL3.Numerical.S16(Me.m_iAccel0_Z)
         Else
-            xS16X = New LAPP185__RLOOP__LIB.SIL3.Numerical.S16(0)
-            xS16Y = New LAPP185__RLOOP__LIB.SIL3.Numerical.S16(2048)
-            xS16Z = New LAPP185__RLOOP__LIB.SIL3.Numerical.S16(0)
+            xS16X = New LAPP185__RLOOP__LIB.SIL3.Numerical.S16(Me.m_iAccel1_X)
+            xS16Y = New LAPP185__RLOOP__LIB.SIL3.Numerical.S16(Me.m_iAccel1_Y)
+            xS16Z = New LAPP185__RLOOP__LIB.SIL3.Numerical.S16(Me.m_iAccel1_Z)
         End If
-
-        'this will result in an arith overflow if not careful.
-        'Me.m_iAccel0_X += 1
-        'Me.m_iAccel0_Y += 1
-        'Me.m_iAccel0_Z += 1
 
         Dim bX(2 - 1) As Byte
         xS16X.To__Array(bX, 0)
@@ -1142,6 +1143,8 @@ End Enum
         LAPP185__RLOOP__LIB.SIL3.MemoryCopy.MemoryCopy.Copy_Memory(ps16X, bX, 2)
         LAPP185__RLOOP__LIB.SIL3.MemoryCopy.MemoryCopy.Copy_Memory(ps16Y, bY, 2)
         LAPP185__RLOOP__LIB.SIL3.MemoryCopy.MemoryCopy.Copy_Memory(ps16Z, bZ, 2)
+
+
 
     End Sub
 
