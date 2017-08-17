@@ -93,19 +93,19 @@ void vFCU_LASERDIST_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 
 				//spare 2
-				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32Velocity_mms);
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32Velocity_mm_s);
 				pu8Buffer += 4U;
 
 				//distance raw
-				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32PrevVelocity_mms);
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32PrevVelocity_mm_s);
 				pu8Buffer += 4U;
 
 				//distance filtered
-				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32Accel_mmss);
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32Accel_mm_ss);
 				pu8Buffer += 4U;
 
 				//spare 3
-				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32PrevAccel_mmss);
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sLaserDist.s32PrevAccel_mm_ss);
 				pu8Buffer += 4U;
 
 

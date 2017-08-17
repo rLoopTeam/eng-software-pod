@@ -1874,13 +1874,6 @@ LAPP188__RLOOP__LIB
  <param name="iWidth"></param>
  <remarks></remarks>
 </member>
-<member name="M:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_Firmware.List__Add(System.String,LAPP188__RLOOP__LIB.SIL3.Numerical.U16)">
- <summary>
- Add a list item
- </summary>
- <param name="sName"></param>
- <param name="sValue"></param>
-</member>
 <member name="T:LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8">
  <summary>
  U8 based helper

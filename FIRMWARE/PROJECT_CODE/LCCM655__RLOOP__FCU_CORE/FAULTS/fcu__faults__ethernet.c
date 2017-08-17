@@ -156,7 +156,7 @@ void vFCU_FAULTS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				#endif
 
 				//laser distance
-				#if C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE == 1U
+				#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
 					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
 					pu8Buffer += 4U;
 

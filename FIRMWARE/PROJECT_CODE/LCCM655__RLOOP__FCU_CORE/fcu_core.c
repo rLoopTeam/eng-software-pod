@@ -658,6 +658,10 @@ void vFCU__RTI_10MS_ISR(void)
 		vFCU_NET_TX__10MS_ISR();
 	#endif
 
+	#if C_LOCALDEF__LCCM655__ENABLE_ACCEL
+		vFCU_ACCEL__10MS_ISR();
+	#endif
+
 	#if C_LOCALDEF__LCCM655__ENABLE_PUSHER == 1U
 		//tell the pusher interface about us.
 		vFCU_PUSHER__10MS_ISR();

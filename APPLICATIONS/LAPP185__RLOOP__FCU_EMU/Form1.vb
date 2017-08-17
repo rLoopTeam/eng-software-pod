@@ -23,6 +23,31 @@ Public Class Form1
 
 #End Region '#Region "CONSTANTS"
 
+#Region "ENUMS"
+    '/** enum type for the left Or right brakes */
+    Private Enum E_FCU__BRAKE_INDEX_T
+
+        '/** left brake */
+        FCU_BRAKE__LEFT = 0
+
+        '/** Right hand brake */
+        FCU_BRAKE__RIGHT = 1
+
+    End Enum
+
+    '/** Brake limit switch enums */
+    Private Enum E_FCU__BRAKE_LIMSW_INDEX_T
+
+        '/** Fully extended limit switch */
+        BRAKE_SW__EXTEND = 0
+
+		'/** Fully retracted switch */
+		BRAKE_SW__RETRACT = 1
+
+End Enum
+
+#End Region
+
 #Region "DLL HANDLING"
 
 
@@ -399,7 +424,7 @@ Public Class Form1
         Dim l3 As New Label
         With l3
             .Location = New Point(10, Me.m_txtLaserOpto(0).Top + Me.m_txtLaserOpto(0).Height + 20)
-            .Text = "Brake L Pos"
+            .Text = "Brake L Pos (um)"
         End With
         pP.Controls.Add(l3)
         Me.m_txtBrakeL_Pos = New TextBox
@@ -413,7 +438,7 @@ Public Class Form1
         Dim l4 As New Label
         With l4
             .Location = New Point(Me.m_txtBrakeL_Pos.Left + Me.m_txtBrakeL_Pos.Width + 20, l3.Top)
-            .Text = "Brake R Pos"
+            .Text = "Brake R Pos (um)"
         End With
         pP.Controls.Add(l4)
 
@@ -770,7 +795,7 @@ Public Class Form1
         Me.m_pTimer100m.Start()
 
         Me.m_pTimer50u = New MicroTimer
-        Me.m_pTimer50u.Interval = 500
+        Me.m_pTimer50u.Interval = 50
         AddHandler Me.m_pTimer50u.MicroTimerElapsed, AddressOf Me.Timers__T50u_Tick
         Me.m_pTimer50u.Start()
 
@@ -784,9 +809,9 @@ Public Class Form1
         'AddHandler Me.m_pTimer100m.MicroTimerElapsed, AddressOf Me.Timers__T100_Tick
         'Me.m_pTimer100m.Start()
 
-        '100hz
+        '50hz
         Me.m_pTimerAccel = New System.Timers.Timer
-        Me.m_pTimerAccel.Interval = 100
+        Me.m_pTimerAccel.Interval = 20
         AddHandler Me.m_pTimerAccel.Elapsed, AddressOf Me.Timers__Accel_Tick
         Me.m_pTimerAccel.Start()
 
@@ -1186,21 +1211,27 @@ Public Class Form1
                 'convert to ADC values
                 sMLP *= (2 ^ 12)
 
+                If sMLP < 0 Then
+                    sMLP = 0
+                End If
 
                 Me.m_iL_MLP = CInt(sMLP)
                 vFCU_BRAKES_MLP_WIN32__ForceADC(0, CUShort(sMLP))
 
                 '75mm
-                If s32Position > 750000 Then
-                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(0, 1, 1)
+                If s32Position > 75 * 1000 Then
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(E_FCU__BRAKE_INDEX_T.FCU_BRAKE__LEFT, E_FCU__BRAKE_LIMSW_INDEX_T.BRAKE_SW__EXTEND, 1)
                     vFCU_BRAKES_SW__Left_SwitchExtend_ISR()
-                ElseIf s32Position < -300 Then
+
+                    '-2mm
+                ElseIf s32Position < -2 * 1000 Then
                     'fake some cal limit
-                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(0, 0, 1)
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(E_FCU__BRAKE_INDEX_T.FCU_BRAKE__LEFT, E_FCU__BRAKE_LIMSW_INDEX_T.BRAKE_SW__RETRACT, 1)
                     vFCU_BRAKES_SW__Left_SwitchRetract_ISR()
                 Else
-                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(0, 1, 0)
-                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(0, 0, 0)
+                    'else we are normal
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(E_FCU__BRAKE_INDEX_T.FCU_BRAKE__LEFT, E_FCU__BRAKE_LIMSW_INDEX_T.BRAKE_SW__EXTEND, 0)
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(E_FCU__BRAKE_INDEX_T.FCU_BRAKE__LEFT, E_FCU__BRAKE_LIMSW_INDEX_T.BRAKE_SW__RETRACT, 0)
                 End If
 
             Case 1
@@ -1209,16 +1240,19 @@ Public Class Form1
                 'make a simple little simulation model
                 'if the brake position is < 0 hit the limit swiches
                 '75mm
-                If s32Position > 750000 Then
-                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 1, 1)
+                If s32Position > 75 * 1000 Then
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(E_FCU__BRAKE_INDEX_T.FCU_BRAKE__RIGHT, E_FCU__BRAKE_LIMSW_INDEX_T.BRAKE_SW__EXTEND, 1)
                     vFCU_BRAKES_SW__Right_SwitchExtend_ISR()
-                ElseIf s32Position < -120 Then
+
+                    'make this brake -2.5 to add some asymetry
+                ElseIf s32Position < -2.5 * 1000 Then
                     'fake some cal limit
-                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 0, 1)
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(E_FCU__BRAKE_INDEX_T.FCU_BRAKE__RIGHT, E_FCU__BRAKE_LIMSW_INDEX_T.BRAKE_SW__RETRACT, 1)
                     vFCU_BRAKES_SW__Right_SwitchRetract_ISR()
                 Else
-                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 0, 0)
-                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(1, 1, 0)
+                    'else brakes are norm
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(E_FCU__BRAKE_INDEX_T.FCU_BRAKE__RIGHT, E_FCU__BRAKE_LIMSW_INDEX_T.BRAKE_SW__EXTEND, 0)
+                    vFCU_BRAKES_SW_WIN32__Inject_SwitchState(E_FCU__BRAKE_INDEX_T.FCU_BRAKE__RIGHT, E_FCU__BRAKE_LIMSW_INDEX_T.BRAKE_SW__RETRACT, 0)
                 End If
 
 

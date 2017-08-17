@@ -287,36 +287,36 @@
 		/** We are in idle state */
 		BRAKE_CAL_STATE__IDLE = 0U,
 
-		/** Start off and retract both motors */
-		BRAKE_CAL_STATE__EXTEND_MOTORS,
+		/** Step 1, run both motors and RETRACT THEM */
+		BRAKE_CAL_STATE__STEP1__RETRACT_MOTORS,
+
+		/** Step 2, wait until both motors have retracted and hit their limits */
+		BRAKE_CAL_STATE__STEP2__WAIT_RETRACT_LIMITS,
+
+		/** Step 3, because we have run up against the brake limit switches
+		 * Now we need to release the software interlocks.
+		 */
+		BRAKE_CAL_STATE__STEP3__RELEASE_RETRACT_ZERO,
+
+		/** Step 4, extend a small amount (~2mm) from the retracted limit switches */
+		BRAKE_CAL_STATE__STEP4__EXTEND_FROM_RETRACT,
+
+		/** Wait until all motos have stopped */
+		BRAKE_CAL_STATE__STEP5__WAIT_EFR,
+
+		/** Call our 2mm position the new zero */
+		BRAKE_CAL_STATE__STEP6__APPLY_ZERO,
+
+		/** Extend both motors down to the brake limits of 2.5mm */
+		BRAKE_CAL_STATE__STEP7_EXTEND_MOTORS,
 
 		/** Wait for the motors to retract the brakes */
-		BRAKE_CAL_STATE__WAIT_EXTEND_MOTORS,
+		BRAKE_CAL_STATE__STEP8_WAIT_EXTEND_MOTORS,
 
-		/** Release the zero end stops */
-		BRAKE_CAL_STATE__RELEASE_ZERO,
 
-		/** Due to the nature of the switches, we may not be symetrical, so
-		 apply a little zero here.
-		 */
-		BRAKE_CAL_STATE__APPLY_NEW_ZERO,
-
-		/** Wait until the new zero is done */
-		BRAKE_CAL_STATE__WAIT_NEW_ZERO,
-
-		/** Cal is done */
+		/** We are complete and ready for normal brake operation*/
 		BRAKE_CAL_STATE__COMPLETE,
-
-		//Type 2 Calibration
-
-		/** Retract the right brake out of the way */
-		BRAKE_CAL__TYPE2__RETRACT_RIGHT,
-
-		BRAKE_CAL__TYPE2__WAIT_RETRACT_RIGHT,
-
-		BRAKE_CAL__TYPE2__RELEASE_RIGHT,
-
-
+	
 	}E_FCU_CAL_BRAKES__STATES_T;
 
 

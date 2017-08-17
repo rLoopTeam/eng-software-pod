@@ -3,20 +3,21 @@
  *
  *
  * @note
- * Revised brake calibration procedure:
+ * http://confluence.rloop.org/display/SD/Brake+Control
  *
- * Position Considerations and terminolog
- * 1. Fully extended brakes: Lead screw position is 0.0 mm, brake gap is 2.5 mm
- * 2. Fully retracted brakes: Lead screw position is 75.0 mm, brake gap is 25.0 mm
+ * Position Considerations
+ * 1. Motors are at the FWD of the pod
+ * 2. Fully RETRACTED = 0.0mm = Closest to the motor (FWD)
+ * 3. Fully EXTENDED = ~75.0mm = AFT of the pod
  *
  * Procedure
- * 1. Set both brake distances to 80mm. Note: Must both retract at the same time.
- * 2. Allow both brakes to "retract" until the end stops are hit (interrupt limits)
- * 3. On each end-stop, set the current brake position to 75.0mm
+ * 1. Retract both brakes in sequence. Its important to retract in sequence
+ * 2. Stop each brake motor on the RETRACTED limit switch interrupt.
+ * 3. Consider each brake motor at 0.0mm now
+ * 4. Fully extend each brake motor to 72mm + a fudge factor. The FF is needed to bring the
+ * 		brake pad distance to 2.5mm
+ * 5. Check the range of the MLP sensors and calibrate accordingly
  *
- * Problems:
- * The problems with this approach is the fine grained control of the 2.5mm brake distance.
- * If the limit switches do not operate at 75.0mm, say 75.5mm then what is the effect on the 2.5mm tolerance requirement?
  *
  *
  * @brief		Brake Calibration Routines
@@ -77,10 +78,10 @@ void vFCU_BRAKES_CAL__Init(void)
 }
 
 #if C_FCU_BRAKES__CAL_TYPE == 2U
-//new calibration process to move each actuator individually to overcome magnet issues
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Calibration process to ensure brakes are RETRACTED in sequence
  * 
  * @st_funcMD5		D3D30A35BF6FF699F2CFBBC51D1466E5
  * @st_funcID		LCCM655R0.FILE.068.FUNC.003
@@ -89,24 +90,192 @@ void vFCU_BRAKES_CAL__Process(void)
 {
 
 	//The poistion to move to in microns
-		Lint32 s32Pos[2];
+	Lint32 s32Pos_um[2];
 
-		//The linear velocity for the move
-		Lint32 s32Velocity[2];
+	//The linear velocity for the move
+	Lint32 s32Velocity_um_s[2];
 
-		//The linear accel for the move.
-		Lint32 s32Accel[2];
-		Luint8 u8Test;
-		Lint16 s16Return;
+	//The linear accel for the move.
+	Lint32 s32Accel_um_ss[2];
+	Luint8 u8Test;
+	Lint16 s16Return;
 
 
-		switch(sFCU.sBrakesGlobal.sCalibration.eState)
-		{
+	switch(sFCU.sBrakesGlobal.sCalibration.eState)
+	{
 
-			case BRAKE_CAL_STATE__IDLE:
-				//we stay here until told to being retracting motors.
-				break;
+		case BRAKE_CAL_STATE__IDLE:
+			//we stay here until told to being retracting motors.
+			break;
 
+		case BRAKE_CAL_STATE__STEP1__RETRACT_MOTORS:
+
+			//setup some initial conditions to slowly retract the motors
+
+			//set the position to -77mm this means that if the brakes are at fully EXTENDED we can
+			//run back -77mm to below -0
+			s32Pos_um[FCU_BRAKE__LEFT] = -77 * 1000;
+			s32Pos_um[FCU_BRAKE__RIGHT] = s32Pos_um[FCU_BRAKE__LEFT];
+
+			//set the velocity to 1/10th of our normal veloc
+			s32Velocity_um_s[FCU_BRAKE__LEFT] = sFCU.sBrakes[FCU_BRAKE__LEFT].sMove.s32LinearVeloc_um_s / 10;
+			s32Velocity_um_s[FCU_BRAKE__RIGHT] = s32Velocity_um_s[FCU_BRAKE__LEFT];
+
+			//set the accel to 1/10th
+			s32Accel_um_ss[FCU_BRAKE__LEFT] = sFCU.sBrakes[FCU_BRAKE__LEFT].sMove.s32LinearAccel_um_ss / 10;
+			s32Accel_um_ss[FCU_BRAKE__RIGHT] = s32Accel_um_ss[FCU_BRAKE__LEFT];
+
+			//clear the previous task flag
+			vSIL3_STEPDRIVE__Clear_TaskComplete();
+
+			//command the stepper to actual position, it will start moving based on timer interrupts
+			s16Return = s16SIL3_STEPDRIVE_POSITION__Set_Position(&s32Pos_um[0], &s32Velocity_um_s[0], &s32Accel_um_ss[0], sFCU.sBrakesGlobal.u32MoveTaskID);
+
+			//increment the movement task ID so as we can track ID
+			sFCU.sBrakesGlobal.u32MoveTaskID++;
+
+			//wait for the motors to hit the retract switches
+			sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__STEP2__WAIT_RETRACT_LIMITS;
+			break;
+
+		/** Step 2, wait until both motors have retracted and hit their limits */
+		case BRAKE_CAL_STATE__STEP2__WAIT_RETRACT_LIMITS:
+
+			//by checking if all motor state machines are IDLE we know both of the motors have stopped moving.
+			u8Test = u8SIL3_STEPDRIVE_ACCEL__Get_AllMotorsIdle();
+			if(u8Test == 0U)
+			{
+				//stay in state
+			}
+			else
+			{
+				//move to the next state
+				sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__STEP3__RELEASE_RETRACT_ZERO;
+			}
+
+			break;
+
+		/** Step 3, because we have run up against the brake limit switches
+		 * Now we need to release the software interlocks.
+		 */
+		case BRAKE_CAL_STATE__STEP3__RELEASE_RETRACT_ZERO:
+
+			//release the end stops, by manually setting the zero position
+			vSIL3_STEPDRIVE_ZERO__Set_Zero(FCU_BRAKE__LEFT);
+			vSIL3_STEPDRIVE_ZERO__Set_Zero(FCU_BRAKE__RIGHT);
+
+			//next state, move off the endstops
+			sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__STEP4__EXTEND_FROM_RETRACT;
+			break;
+
+		/** Step 4, extend a small amount (~2mm) from the retracted limit switches */
+		case BRAKE_CAL_STATE__STEP4__EXTEND_FROM_RETRACT:
+
+			//set 2mm
+			s32Pos_um[FCU_BRAKE__LEFT] = 2 * 1000;
+			s32Pos_um[FCU_BRAKE__RIGHT] = s32Pos_um[FCU_BRAKE__LEFT];
+
+			//keep the velocity low
+			s32Velocity_um_s[FCU_BRAKE__LEFT] = sFCU.sBrakes[FCU_BRAKE__LEFT].sMove.s32LinearVeloc_um_s / 10;
+			s32Velocity_um_s[FCU_BRAKE__RIGHT] = s32Velocity_um_s[FCU_BRAKE__LEFT];
+
+			//keep acceleration low
+			s32Accel_um_ss[FCU_BRAKE__LEFT] = sFCU.sBrakes[FCU_BRAKE__LEFT].sMove.s32LinearAccel_um_ss / 10;
+			s32Accel_um_ss[FCU_BRAKE__RIGHT] = s32Accel_um_ss[FCU_BRAKE__LEFT];
+
+			//clear the previous task flag
+			vSIL3_STEPDRIVE__Clear_TaskComplete();
+
+			//command the stepper to actual position, it will start moving based on timer interrupts
+			s16Return = s16SIL3_STEPDRIVE_POSITION__Set_Position(&s32Pos_um[0], &s32Velocity_um_s[0], &s32Accel_um_ss[0], sFCU.sBrakesGlobal.u32MoveTaskID);
+
+			//increment the task ID
+			sFCU.sBrakesGlobal.u32MoveTaskID++;
+
+			//if the limit switches don't permit symetrical operation, apply some new zero's here.
+			sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__STEP5__WAIT_EFR;
+			break;
+
+		/** Wait until all motos have stopped */
+		case BRAKE_CAL_STATE__STEP5__WAIT_EFR:
+			//by checking if all motor state machines are IDLE we know both of the motors have stopped moving.
+			u8Test = u8SIL3_STEPDRIVE_ACCEL__Get_AllMotorsIdle();
+			if(u8Test == 0U)
+			{
+				//stay in state
+			}
+			else
+			{
+				//move to the next state, apply the new zero
+				sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__STEP6__APPLY_ZERO;
+			}
+			break;
+
+
+		/** Call our 2mm position the new zero */
+		case BRAKE_CAL_STATE__STEP6__APPLY_ZERO:
+
+			//set the zero on both left and right motors
+			vSIL3_STEPDRIVE_ZERO__Set_Zero(FCU_BRAKE__LEFT);
+			vSIL3_STEPDRIVE_ZERO__Set_Zero(FCU_BRAKE__RIGHT);
+
+			//do an extension check.
+			sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__STEP7_EXTEND_MOTORS;
+			break;
+
+			/** Extend both motors down to the brake limits of 2.5mm */
+		case BRAKE_CAL_STATE__STEP7_EXTEND_MOTORS:
+
+			//for this we should use the calculation tool
+
+			//for now until we solve the math, lets take those to +72mm, at worst
+			//we will hit the limits
+			s32Pos_um[FCU_BRAKE__LEFT] = 72 * 1000;
+			s32Pos_um[FCU_BRAKE__RIGHT] = s32Pos_um[FCU_BRAKE__LEFT];
+
+			//keep the velocity low
+			s32Velocity_um_s[FCU_BRAKE__LEFT] = sFCU.sBrakes[FCU_BRAKE__LEFT].sMove.s32LinearVeloc_um_s / 10;
+			s32Velocity_um_s[FCU_BRAKE__RIGHT] = s32Velocity_um_s[FCU_BRAKE__LEFT];
+
+			//keep acceleration low
+			s32Accel_um_ss[FCU_BRAKE__LEFT] = sFCU.sBrakes[FCU_BRAKE__LEFT].sMove.s32LinearAccel_um_ss / 10;
+			s32Accel_um_ss[FCU_BRAKE__RIGHT] = s32Accel_um_ss[FCU_BRAKE__LEFT];
+
+			//clear the previous task flag
+			vSIL3_STEPDRIVE__Clear_TaskComplete();
+
+			//command the stepper to actual position, it will start moving based on timer interrupts
+			s16Return = s16SIL3_STEPDRIVE_POSITION__Set_Position(&s32Pos_um[0], &s32Velocity_um_s[0], &s32Accel_um_ss[0], sFCU.sBrakesGlobal.u32MoveTaskID);
+
+			//increment the task ID
+			sFCU.sBrakesGlobal.u32MoveTaskID++;
+
+			//if the limit switches don't permit symetrical operation, apply some new zero's here.
+			sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__STEP8_WAIT_EXTEND_MOTORS;
+						
+			break;
+
+		case BRAKE_CAL_STATE__STEP8_WAIT_EXTEND_MOTORS:
+
+			//wait until they are on targer
+			u8Test = u8SIL3_STEPDRIVE_ACCEL__Get_AllMotorsIdle();
+			if (u8Test == 0U)
+			{
+				//stay in state
+			}
+			else
+			{
+				//move to the next state, apply the new zero
+				sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__COMPLETE;
+			}
+
+			break;
+
+		case BRAKE_CAL_STATE__COMPLETE:
+			//we are done calibrating.
+			//stay here for ever now.
+			break;
+#if 0
 			case BRAKE_CAL_STATE__EXTEND_MOTORS:
 
 				//we need to fully extend the lead screws to the fwd position.
@@ -115,37 +284,37 @@ void vFCU_BRAKES_CAL__Process(void)
 				if(sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
 				{
 					vSIL3_STEPDRIVE_ZERO__Set_Zero(0);
-					s32Pos[0] = 0;
+					s32Pos_um[0] = 0;
 				}
 				else
 				{
-					s32Pos[0] = -80000;
+					s32Pos_um[0] = -80000;
 				}
 
 				if(sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
 				{
 					vSIL3_STEPDRIVE_ZERO__Set_Zero(1);
-					s32Pos[1] = 0;
+					s32Pos_um[1] = 0;
 				}
 				else
 				{
-					s32Pos[1] = -80000;
+					s32Pos_um[1] = -80000;
 				}
 
 
-				s32Velocity[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc / 10;
-				s32Velocity[1] = s32Velocity[0];
+				s32Velocity_um_s[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc_um_s / 10;
+				s32Velocity_um_s[1] = s32Velocity_um_s[0];
 
 				//note this must be larger than target accel / microns/revrate
-				s32Accel[0] = sFCU.sBrakes[0].sMove.s32LinearAccel / 10;
-				s32Accel[1] = s32Accel[0];
+				s32Accel_um_ss[0] = sFCU.sBrakes[0].sMove.s32LinearAccel_um_ss / 10;
+				s32Accel_um_ss[1] = s32Accel_um_ss[0];
 
 				//clear the prev task if needed.
 				vSIL3_STEPDRIVE__Clear_TaskComplete();
 
 				//command the stepper to actual position, it will start moving based on timer interrupts
 				//it is OK to do address of near here because we copy into the move planner in this call.
-				s16Return = s16SIL3_STEPDRIVE_POSITION__Set_Position(&s32Pos[0], &s32Velocity[0], &s32Accel[0], sFCU.sBrakesGlobal.u32MoveTaskID);
+				s16Return = s16SIL3_STEPDRIVE_POSITION__Set_Position(&s32Pos_um[0], &s32Velocity_um_s[0], &s32Accel_um_ss[0], sFCU.sBrakesGlobal.u32MoveTaskID);
 
 				//check the return to see if we were able to move.
 
@@ -185,18 +354,18 @@ void vFCU_BRAKES_CAL__Process(void)
 
 			case BRAKE_CAL_STATE__APPLY_NEW_ZERO:
 
-				s32Pos[0] = 10;
-				s32Pos[1] = 10;
-				s32Velocity[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc / 10;
-				s32Velocity[1] = s32Velocity[0];
-				s32Accel[0] = sFCU.sBrakes[0].sMove.s32LinearAccel / 10;
-				s32Accel[1] = s32Accel[0];
+				s32Pos_um[0] = 10;
+				s32Pos_um[1] = 10;
+				s32Velocity_um_s[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc_um_s / 10;
+				s32Velocity_um_s[1] = s32Velocity_um_s[0];
+				s32Accel_um_ss[0] = sFCU.sBrakes[0].sMove.s32LinearAccel_um_ss / 10;
+				s32Accel_um_ss[1] = s32Accel_um_ss[0];
 
 				//clear the previous task flag
 				vSIL3_STEPDRIVE__Clear_TaskComplete();
 
 				//command the stepper to actual position, it will start moving based on timer interrupts
-				s16Return = s16SIL3_STEPDRIVE_POSITION__Set_Position(&s32Pos[0], &s32Velocity[0], &s32Accel[0], sFCU.sBrakesGlobal.u32MoveTaskID);
+				s16Return = s16SIL3_STEPDRIVE_POSITION__Set_Position(&s32Pos_um[0], &s32Velocity_um_s[0], &s32Accel_um_ss[0], sFCU.sBrakesGlobal.u32MoveTaskID);
 				sFCU.sBrakesGlobal.u32MoveTaskID++;
 
 				//if the limit switches don't permit symetrical operation, apply some new zero's here.
@@ -223,10 +392,7 @@ void vFCU_BRAKES_CAL__Process(void)
 				}
 				break;
 
-			case BRAKE_CAL_STATE__COMPLETE:
-				//we are done calibrating.
-				//stay here for ever now.
-				break;
+
 
 
 			case BRAKE_CAL__TYPE2__RETRACT_RIGHT:
@@ -237,30 +403,30 @@ void vFCU_BRAKES_CAL__Process(void)
 				if(sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__RETRACT].eSwitchState == SW_STATE__CLOSED)
 				{
 					vSIL3_STEPDRIVE_ZERO__Set_Zero_Defined(FCU_BRAKE__RIGHT, 75000);
-					s32Pos[FCU_BRAKE__RIGHT] = 75000;
+					s32Pos_um[FCU_BRAKE__RIGHT] = 75000;
 				}
 				else
 				{
 					//move past 8K
-					s32Pos[FCU_BRAKE__RIGHT] = 80000;
+					s32Pos_um[FCU_BRAKE__RIGHT] = 80000;
 				}
 
 				//do not move the left brake
-				s32Pos[FCU_BRAKE__LEFT] = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__LEFT);
+				s32Pos_um[FCU_BRAKE__LEFT] = s32FCU_BRAKES__Get_CurrentPos_um(FCU_BRAKE__LEFT);
 
-				s32Velocity[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc / 10;
-				s32Velocity[1] = s32Velocity[0];
+				s32Velocity_um_s[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc_um_s / 10;
+				s32Velocity_um_s[1] = s32Velocity_um_s[0];
 
 				//note this must be larger than target accel / microns/revrate
-				s32Accel[0] = sFCU.sBrakes[0].sMove.s32LinearAccel / 10;
-				s32Accel[1] = s32Accel[0];
+				s32Accel_um_ss[0] = sFCU.sBrakes[0].sMove.s32LinearAccel_um_ss / 10;
+				s32Accel_um_ss[1] = s32Accel_um_ss[0];
 
 				//clear the prev task if needed.
 				vSIL3_STEPDRIVE__Clear_TaskComplete();
 
 				//command the stepper to actual position, it will start moving based on timer interrupts
 				//it is OK to do address of near here because we copy into the move planner in this call.
-				s16Return = s16SIL3_STEPDRIVE_POSITION__Set_Position(&s32Pos[0], &s32Velocity[0], &s32Accel[0], sFCU.sBrakesGlobal.u32MoveTaskID);
+				s16Return = s16SIL3_STEPDRIVE_POSITION__Set_Position(&s32Pos_um[0], &s32Velocity_um_s[0], &s32Accel_um_ss[0], sFCU.sBrakesGlobal.u32MoveTaskID);
 
 				//check the return to see if we were able to move.
 
@@ -296,7 +462,7 @@ void vFCU_BRAKES_CAL__Process(void)
 
 
 				break;
-
+#endif //0
 
 			default:
 				//?
@@ -322,13 +488,13 @@ void vFCU_BRAKES_CAL__Process(void)
 {
 
 	//The poistion to move to in microns
-	Lint32 s32Pos[2];
+	Lint32 s32Pos_um[2];
 
 	//The linear velocity for the move
-	Lint32 s32Velocity[2];
+	Lint32 s32Velocity_um_s[2];
 
 	//The linear accel for the move.
-	Lint32 s32Accel[2];
+	Lint32 s32Accel_um_ss[2];
 	Luint8 u8Test;
 	Lint16 s16Return;
 
@@ -348,37 +514,37 @@ void vFCU_BRAKES_CAL__Process(void)
 			if(sFCU.sBrakes[FCU_BRAKE__LEFT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
 			{
 				vSIL3_STEPDRIVE_ZERO__Set_Zero(0);
-				s32Pos[0] = 0;
+				s32Pos_um[0] = 0;
 			}
 			else
 			{
-				s32Pos[0] = -80000;
+				s32Pos_um[0] = -80000;
 			}
 
 			if(sFCU.sBrakes[FCU_BRAKE__RIGHT].sLimits[BRAKE_SW__EXTEND].eSwitchState == SW_STATE__CLOSED)
 			{
 				vSIL3_STEPDRIVE_ZERO__Set_Zero(1);
-				s32Pos[1] = 0;
+				s32Pos_um[1] = 0;
 			}
 			else
 			{
-				s32Pos[1] = -80000;
+				s32Pos_um[1] = -80000;
 			}
 
 
-			s32Velocity[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc / 10;
-			s32Velocity[1] = s32Velocity[0];
+			s32Velocity_um_s[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc_um_s / 10;
+			s32Velocity_um_s[1] = s32Velocity_um_s[0];
 
 			//note this must be larger than target accel / microns/revrate
-			s32Accel[0] = sFCU.sBrakes[0].sMove.s32LinearAccel / 10;
-			s32Accel[1] = s32Accel[0];
+			s32Accel_um_ss[0] = sFCU.sBrakes[0].sMove.s32LinearAccel_um_ss / 10;
+			s32Accel_um_ss[1] = s32Accel_um_ss[0];
 
 			//clear the prev task if needed.
 			vSTEPDRIVE__Clear_TaskComplete();
 
 			//command the stepper to actual position, it will start moving based on timer interrupts
 			//it is OK to do address of near here because we copy into the move planner in this call.
-			s16Return = s16STEPDRIVE_POSITION__Set_Position(&s32Pos[0], &s32Velocity[0], &s32Accel[0], sFCU.sBrakesGlobal.u32MoveTaskID);
+			s16Return = s16STEPDRIVE_POSITION__Set_Position(&s32Pos_um[0], &s32Velocity_um_s[0], &s32Accel_um_ss[0], sFCU.sBrakesGlobal.u32MoveTaskID);
 
 			//check the return to see if we were able to move.
 
@@ -418,18 +584,18 @@ void vFCU_BRAKES_CAL__Process(void)
 
 		case BRAKE_CAL_STATE__APPLY_NEW_ZERO:
 
-			s32Pos[0] = 10;
-			s32Pos[1] = 10;
-			s32Velocity[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc / 10;
-			s32Velocity[1] = s32Velocity[0];
-			s32Accel[0] = sFCU.sBrakes[0].sMove.s32LinearAccel / 10;
-			s32Accel[1] = s32Accel[0];
+			s32Pos_um[0] = 10;
+			s32Pos_um[1] = 10;
+			s32Velocity_um_s[0] = sFCU.sBrakes[0].sMove.s32LinearVeloc_um_s / 10;
+			s32Velocity_um_s[1] = s32Velocity_um_s[0];
+			s32Accel_um_ss[0] = sFCU.sBrakes[0].sMove.s32LinearAccel_um_ss / 10;
+			s32Accel_um_ss[1] = s32Accel_um_ss[0];
 
 			//clear the previous task flag
 			vSTEPDRIVE__Clear_TaskComplete();
 
 			//command the stepper to actual position, it will start moving based on timer interrupts
-			s16Return = s16STEPDRIVE_POSITION__Set_Position(&s32Pos[0], &s32Velocity[0], &s32Accel[0], sFCU.sBrakesGlobal.u32MoveTaskID);
+			s16Return = s16STEPDRIVE_POSITION__Set_Position(&s32Pos_um[0], &s32Velocity_um_s[0], &s32Accel_um_ss[0], sFCU.sBrakesGlobal.u32MoveTaskID);
 			sFCU.sBrakesGlobal.u32MoveTaskID++;
 
 			//if the limit switches don't permit symetrical operation, apply some new zero's here.
@@ -515,7 +681,7 @@ void vFCU_BRAKES_CAL__BeginCal(Luint32 u32Key)
 			#if C_FCU_BRAKES__CAL_TYPE == 1U
 				sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__EXTEND_MOTORS;
 			#else
-				sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL__TYPE2__RETRACT_RIGHT;
+				sFCU.sBrakesGlobal.sCalibration.eState = BRAKE_CAL_STATE__STEP1__RETRACT_MOTORS;
 			#endif
 		}
 		else

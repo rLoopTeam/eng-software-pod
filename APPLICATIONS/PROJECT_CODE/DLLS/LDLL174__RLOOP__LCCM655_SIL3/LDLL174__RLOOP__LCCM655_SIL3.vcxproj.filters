@@ -151,6 +151,9 @@
     <Filter Include="Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\LOWLEVEL">
       <UniqueIdentifier>{8ab560b8-224e-48df-93ad-8f0dc8e64ffd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\MEMORY">
+      <UniqueIdentifier>{ab80ed03-aa8a-4673-87e5-faea510c7d68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM118__MULTICORE__NUMERICAL\numerical.c">
@@ -250,9 +253,6 @@
       <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\LIMITS\stepper_drive__limits.c">
-      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\MEMORY\stepper_drive__memory.c">
       <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\stepper_drive.c">
@@ -416,6 +416,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM690__MULTICORE__MODBUS\MASTER\modbus__master__slave_regs.c">
       <Filter>Source Files\MULTICORE\LCCM690__MULTICORE__MODBUS\MASTER</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\COMMON_CODE\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\MEMORY\stepper_drive__memory.c">
+      <Filter>Source Files\MULTICORE\LCCM231__MULTICORE__STEPPER_DRIVE\MEMORY</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
