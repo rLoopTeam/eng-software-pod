@@ -47,7 +47,6 @@ void vFCU_FCTL_MAINSM__Init(void)
 {
 
     #ifdef WIN32
-	//for win32 DLL
 	DEBUG_PRINT("vFCU_FCTL_MAINSM__Init()");
     #endif
 
@@ -81,6 +80,9 @@ void vFCU_FCTL_MAINSM__Process(void)
                 #if DEBUG == 1U
                     printf("- %s Entering POD_INIT_STATE\n", "sFCU.sPodStateMachine.sm");
                 #endif
+#ifdef WIN32
+	DEBUG_PRINT("Entering POD_INIT_STATE");
+#endif
             }
         
             // Handle transitions
