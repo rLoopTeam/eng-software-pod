@@ -380,8 +380,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 bool pod_init_complete()
 {
-    // @todo: implement
-    return false;
+    return sFCU.eInitStates == INIT_STATE__RUN;
 }
 
 bool armed_wait_checks_ok()
