@@ -45,6 +45,12 @@ extern struct _strFCU sFCU;
  */
 void vFCU_FCTL_MAINSM__Init(void)
 {
+
+#ifdef WIN32
+	//for win32 DLL
+	DEBUG_PRINT("vFCU_FCTL_MAINSM__Init()");
+#endif
+
 	// @todo: Initialize the state machine (set state)
 	sFCU.sPodStateMachine.sm.state = POD_INIT_STATE;  // @todo: should we have a 'startup' state that checks to make sure the FCU is initialized before moving to 'IDLE'?
 
