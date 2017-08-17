@@ -1510,6 +1510,9 @@
 			Lint32 sFCU_ACCEL_VALID__Get_Displacement_mm(void);
 			void vFCU_ACCEL_VALID__Enable(Luint8 u8Enable);
 
+			//win32
+			void vFCU_ACCEL_WIN32__Set_Raw(Luint8 u8DeviceIndex, Luint8 u8ChannelIndex, Lint32 s32Value);
+
 		//Pusher interface
 		void vFCU_PUSHER__Init(void);
 		void vFCU_PUSHER__Process(void);

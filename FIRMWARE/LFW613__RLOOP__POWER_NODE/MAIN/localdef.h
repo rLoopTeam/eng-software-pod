@@ -470,6 +470,9 @@ SIL3 - RM4 ADC DRIVER
 	#define C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
 
+		/** Vref constant used for voltage calc 5V/(2^12)*/
+		#define C_LOCALDEF__LCCM414__VREF_CONSTANT							(0.001220703125)
+
 		/** The number of ADC channels (modules) being used
 		 * Keep a 1 for now
 		 */

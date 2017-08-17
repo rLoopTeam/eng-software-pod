@@ -38,6 +38,11 @@ LAPP185__RLOOP__FCU_EMU
  Number of ASI controllers
  </summary>
 </member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.C_NUM_OPTONCDT">
+ <summary>
+ The number of optos
+ </summary>
+</member>
 <member name="F:LAPP185__RLOOP__FCU_EMU.Form1.C_DLL_NAME">
  <summary>
  The name of our DLL, could be a bit better done with relative paths
@@ -77,6 +82,16 @@ LAPP185__RLOOP__FCU_EMU
  Our output text box used for serial debugging
  </summary>
  <remarks></remarks>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_txtLaserDist__ValueRaw">
+ <summary>
+ Raw laser distance value for injection
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_txtLaserOpto">
+ <summary>
+ The OpotNCDT values
+ </summary>
 </member>
 <member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_pDebug_Delegate">
  <summary>
@@ -138,6 +153,13 @@ LAPP185__RLOOP__FCU_EMU
  <summary>
  Setup anyting else on the system
  </summary>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.txtAccelY_Raw__KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+ <summary>
+ Accel Y channel raw
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
 </member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.Form1.btnTestCases__Click(System.Object,System.EventArgs)">
  <summary>
