@@ -29,9 +29,20 @@
 
         Private m_txtCalc__CurrentAccel_mmss(C_NUM_ACCELS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
         Private m_txtCalc__CurrentVeloc_mms(C_NUM_ACCELS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
-        'Private m_txtCalc__PrevVeloc_mms(C_NUM_ACCELS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
         Private m_txtCalc__CurrentDisplacement_mm(C_NUM_ACCELS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
-        'Private m_txtCalc__PrevDisplacement_mm(C_NUM_ACCELS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+
+        'data valid
+        Private m_txtValid_Enable As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
+        Private m_txtValid_Valid As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
+        Private m_txtValid_Accel_mm_ss As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtValid_Veloc_mm_s As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtValid_Dist_mm As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+
+        'thresholding
+        Private m_txtThresh_True As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
+        Private m_txtThresh_10xms As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtThresh_Accel_mm_ss As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtThresh_10ms_Counter As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
 
         ''' <summary>
         ''' Our DAQ Receiver
@@ -284,17 +295,50 @@
             l200(iIndex, 2).Layout__AboveRightControl(l200(iIndex, 0), Me.m_txtCalc__CurrentAccel_mmss(iIndex))
             Me.m_txtCalc__CurrentVeloc_mms(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l200(iIndex, 2))
 
-            'l200(iIndex, 3) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("A:" & iIndex.ToString & " Prev Veloc")
-            'l200(iIndex, 3).Layout__AboveRightControl(l200(iIndex, 2), Me.m_txtCalc__CurrentVeloc_mms(iIndex))
-            'Me.m_txtCalc__PrevVeloc_mms(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l200(iIndex, 3))
-
             l200(iIndex, 4) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("A:" & iIndex.ToString & " Disp (mm)")
             l200(iIndex, 4).Layout__AboveRightControl(l200(iIndex, 2), Me.m_txtCalc__CurrentVeloc_mms(iIndex))
             Me.m_txtCalc__CurrentDisplacement_mm(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l200(iIndex, 4))
 
-            'l200(iIndex, 5) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("A:" & iIndex.ToString & " Prev Disp.")
-            'l200(iIndex, 5).Layout__AboveRightControl(l200(iIndex, 4), Me.m_txtCalc__CurrentDisplacement_mm(iIndex))
-            'Me.m_txtCalc__PrevDisplacement_mm(iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l200(iIndex, 5))
+            Dim l300 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Valid: Enable", Me.m_txtCalc__CurrentAccel_mmss(1))
+            Me.m_txtValid_Enable = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, l300)
+
+            Dim l301 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Valid: Valid")
+            l301.Layout__AboveRightControl(l300, Me.m_txtValid_Enable)
+            Me.m_txtValid_Valid = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, l301)
+
+            Dim l302 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel mm ss")
+            l302.Layout__AboveRightControl(l301, Me.m_txtValid_Valid)
+            Me.m_txtValid_Accel_mm_ss = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l302)
+
+            Dim l303 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Veloc mm s")
+            l303.Layout__AboveRightControl(l302, Me.m_txtValid_Accel_mm_ss)
+            Me.m_txtValid_Veloc_mm_s = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l303)
+
+            Dim l304 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Displace mm")
+            l304.Layout__AboveRightControl(l303, Me.m_txtValid_Veloc_mm_s)
+            Me.m_txtValid_Dist_mm = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l304)
+
+            ''thresholding
+            Dim l400 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Thresh: True", Me.m_txtValid_Enable)
+            Me.m_txtThresh_True = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, l400)
+
+            Dim l401 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Thresh x10MS")
+            l401.Layout__AboveRightControl(l400, Me.m_txtThresh_True)
+            Me.m_txtThresh_10xms = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l401)
+
+            Dim l402 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel mm ss")
+            l402.Layout__AboveRightControl(l401, Me.m_txtThresh_10xms)
+            Me.m_txtThresh_Accel_mm_ss = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l402)
+
+            Dim l403 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("10ms Counter")
+            l403.Layout__AboveRightControl(l402, Me.m_txtThresh_Accel_mm_ss)
+            Me.m_txtThresh_10ms_Counter = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l403)
+
+
+
+
+
+
 
             For iIndex = 0 To C_NUM_ACCELS - 1
                 Me.m_txtStatusFlags(iIndex).Flags__Add("GENERAL")

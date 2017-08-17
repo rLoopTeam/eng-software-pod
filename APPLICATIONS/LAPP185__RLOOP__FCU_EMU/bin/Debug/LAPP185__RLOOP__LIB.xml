@@ -4551,6 +4551,34 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  <param name="sText"></param>
  <remarks></remarks>
 </member>
+<member name="T:LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_Firmware">
+ <summary>
+ LWFxx.x.x.D display
+ </summary>
+</member>
+<member name="M:LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_Firmware.#ctor(System.Int32)">
+ <summary>
+ Create a new text box and pass in the width
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_Firmware.#ctor(System.Int32,System.Windows.Forms.Control,System.String,System.String)">
+ <summary>
+ We can opt to layout below a control if we want to.
+ </summary>
+ <param name="iWidth"></param>
+ <param name="pBelowControl"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_Firmware.#ctor(System.Int32,System.Int32,System.Boolean)">
+ <summary>
+ Create a new text box and pass in the width
+ If you also pass in the height then we use multiline mode
+ </summary>
+ <param name="iWidth"></param>
+ <remarks></remarks>
+</member>
 <member name="T:LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8">
  <summary>
  U8 based helper
@@ -4714,6 +4742,16 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  F32 based helper
  </summary>
 </member>
+<member name="F:LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.m_bEnableLimits_Upper">
+ <summary>
+ Enable limit control
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.m_f32Limit_Upper">
+ <summary>
+ What is our upper limit?
+ </summary>
+</member>
 <member name="M:LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.#ctor(System.Int32)">
  <summary>
  Create a new text box and pass in the width
@@ -4736,6 +4774,20 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  </summary>
  <param name="iWidth"></param>
  <remarks></remarks>
+</member>
+<member name="M:LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.Limits__SetUpper(System.Single)">
+ <summary>
+ Set the upper limits
+ </summary>
+ <param name="f32Value"></param>
+</member>
+<member name="M:LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32.Value__Update(System.Byte[]@,System.Int32)">
+ <summary>
+ Update the value from an array
+ </summary>
+ <param name="u8Array"></param>
+ <param name="iStartPos"></param>
+ <returns></returns>
 </member>
 <member name="T:LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16">
  <summary>
@@ -4815,6 +4867,13 @@ this function has been tested for use with An Autodesk Inventor AddIN Server
  Update the state display based on some new states
  </summary>
  <param name="iValue"></param>
+</member>
+<member name="M:LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.Value__UpdateU8(System.Byte[]@,System.Int32)">
+ <summary>
+ Update our internal value based on a payload
+ </summary>
+ <param name="bArray"></param>
+ <param name="iIndex"></param>
 </member>
 <member name="M:LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay.HeaderFile__Set(System.String,System.String)">
  <summary>
@@ -5990,325 +6049,6 @@ adds a sub level node after one has already been added
  Do not change the method contents inside the source code editor. The Forms designer might
  not be able to load this method if it was changed manually.
  </summary>
-</member>
-<member name="T:LAPP185__RLOOP__LIB.Form1">
- <summary>
- Basic framework for rLoop Flight Control Emulation
- Lachlan Grogan - SafetyLok
- </summary>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.Form1.C_NUM__SC16IS">
- <summary>
- SC16 UARTS
- </summary>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.Form1.C_NUM__ASI">
- <summary>
- Number of ASI controllers
- </summary>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.Form1.C_DLL_NAME">
- <summary>
- The name of our DLL, could be a bit better done with relative paths
- </summary>
-</member>
-<member name="T:LAPP185__RLOOP__LIB.Form1.DEBUG_PRINTF__CallbackDelegate">
- <summary>
- The delegate sub for win32 debug (text) c
- </summary>
- <param name="pu8String"></param>
- <remarks></remarks>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.vSIL3_DEBUG_PRINTF_WIN32__Set_Callback(System.MulticastDelegate)">
- <summary>
- The debugger callback
- </summary>
- <param name="callback"></param>
- <remarks></remarks>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.vFCU__Init">
- <summary>
- The Init function from the power node
- </summary>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.vFCU__Process">
- <summary>
- the process function from the power node
- </summary>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.Form1.m_pASI">
- <summary>
- A list of ASI controllers
- </summary>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.Form1.m_txtOutput">
- <summary>
- Our output text box used for serial debugging
- </summary>
- <remarks></remarks>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.Form1.m_pDebug_Delegate">
- <summary>
- The debug delegate
- </summary>
- <remarks></remarks>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.Form1.m_pMMA8451_ReadData__Delegate">
- <summary>
- When the MMA8451 wants data from us
- </summary>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.Form1.m_pSC16_TxData__Delegate">
- <summary>
- When the SC16 subsystem wants to transmit
- </summary>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.Form1.m_pAMC7812_DACVolts__Delegate">
- <summary>
- When the DAC voltage is updated.
- </summary>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.Form1.m_pMainThread">
- <summary>
- The thread to run our DLL in
- </summary>
- <remarks></remarks>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.Form1.m_bThreadRun">
- <summary>
- Global flag to indicate the thread is running
- </summary>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.Form1.m_pTimerAccel">
- <summary>
- Timer to handle accels.
- </summary>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.Form1_Load(System.Object,System.EventArgs)">
- <summary>
- Create the form
- </summary>
- <param name="sender"></param>
- <param name="e"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.Form1_Closing(System.Object,System.ComponentModel.CancelEventArgs)">
- <summary>
- Handles an intentional shutdown
- </summary>
- <param name="sender"></param>
- <param name="e"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.Setup_System">
- <summary>
- Setup anyting else on the system
- </summary>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.btnTestCases__Click(System.Object,System.EventArgs)">
- <summary>
- Run the test cases
- </summary>
- <param name="sender"></param>
- <param name="e"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.btnStart__Click(System.Object,System.EventArgs)">
- <summary>
- Called to start/stop
- </summary>
- <param name="sender"></param>
- <param name="e"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.Thread__Main">
- <summary>
- This is the same as Main() in C
- </summary>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.Timers__Setup">
- <summary>
- Start the timers.
- </summary>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.Timers__T50u_Tick(System.Object,SIL3.LDLL178__COMMON_CODE__MICRO_TMER.MicroTimerEventArgs)">
- <summary>
- 50us timer
- </summary>
- <param name="s"></param>
- <param name="e"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.Timers__T10_Tick(System.Object,System.Timers.ElapsedEventArgs)">
- <summary>
- 10ms timer
- </summary>
- <param name="s"></param>
- <param name="e"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.Timers__T100_Tick(System.Object,System.Timers.ElapsedEventArgs)">
- <summary>
- 100ms timer
- </summary>
- <param name="s"></param>
- <param name="e"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.Timers__Accel_Tick(System.Object,System.Timers.ElapsedEventArgs)">
- <summary>
- 100ms timer
- </summary>
- <param name="s"></param>
- <param name="e"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.SIL3_DEBUG_PRINTF_WIN32_Callback(System.IntPtr)">
- <summary>
- Called when the debug layer wants to print a string
- </summary>
- <param name="pu8String"></param>
- <remarks></remarks>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.Convert_ByteArrayASCII_ToString(System.Byte[],System.Int32,System.Int32)">
- <summary>
- Helper function to convert a byte array into a string.
- </summary>
- <param name="pByteArray"></param>
- <param name="iArrayLength"></param>
- <param name="iStartPos"></param>
- <returns></returns>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.Threadsafe__SetText(System.Windows.Forms.TextBox@,System.String)">
- <summary>
- Sets text on the control in a threasafe mannor
- </summary>
- <param name="sData">The string to set</param>
- <remarks></remarks>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.Threadsafe__AppendText(System.Windows.Forms.TextBox@,System.String)">
- <summary>
- Append text in a threadsafe mannor
- </summary>
- <param name="sData"></param>
- <remarks></remarks>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.InternalEvent__NewPacket(System.Byte[],System.Int32)">
- <summary>
- Rx a new raw packet
- </summary>
- <param name="u8Array"></param>
- <param name="iLength"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.InernalEvent__UDPSafe__RxPacket(LAPP185__RLOOP__LIB.SIL3.SafeUDP.PacketTypes.SAFE_UDP__PACKET_T,LAPP185__RLOOP__LIB.SIL3.Numerical.U16,System.Byte[]@,LAPP185__RLOOP__LIB.SIL3.Numerical.U16,System.Boolean,System.UInt32)">
- <summary>
- RX a UDP safe packet and fake the eth-ii layer
- </summary>
- <param name="ePacketType"></param>
- <param name="u16PayloadLength"></param>
- <param name="u8Payload"></param>
- <param name="u16CRC"></param>
- <param name="bCRCOK"></param>
- <param name="u32Seq"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.ETH_WIN32__TxCallback_Sub(System.IntPtr,System.UInt16)">
- <summary>
- Called when teh DLL wants to trasmit eth data.
- </summary>
- <param name="u8Buffer"></param>
- <param name="u16BufferLength"></param>
- <remarks></remarks>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.MMA8451_WIN32__ReadDataCallback_Sub(System.Byte,System.IntPtr,System.IntPtr,System.IntPtr)">
- <summary>
- Callback when the MMA wants to read some new data
- </summary>
- <param name="u8DeviceIndex"></param>
- <param name="ps16X"></param>
- <param name="ps16Y"></param>
- <param name="ps16Z"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.STEPDRIVE_WIN32__UpdatePostion(System.Byte,System.Byte,System.Byte,System.Int32)">
- <summary>
- Update from the stepper system with its new position
- </summary>
- <param name="u8MotorIndex"></param>
- <param name="u8Step"></param>
- <param name="u8Dir"></param>
- <param name="s32Position"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.SC16IS_WIN32__TxData(System.Byte,System.IntPtr,System.Byte)">
- <summary>
- Called when a SC16IS wants to transmit
- </summary>
- <param name="u8DeviceIndex"></param>
- <param name="pu8Data"></param>
- <param name="u8Length"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.AMC7182_DAC__SetVolts(System.Byte,System.Single)">
- <summary>
- The DAC has updated us with its volts
- </summary>
- <param name="u8Channel"></param>
- <param name="f32Value"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.Form1.ASI_Tx_RS485(System.Byte[],System.Int32)">
- <summary>
- ASI wants to transmit
- </summary>
- <param name="u8Array"></param>
- <param name="iLength"></param>
-</member>
-<member name="T:LAPP185__RLOOP__LIB.CM30Laser">
- <summary>
- Just a Fake CM30 laser
- </summary>
-</member>
-<member name="T:LAPP185__RLOOP__LIB.ASIController">
- <summary>
- Mock ASI controller interface
- </summary>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.ASIController.m_iRxCount">
- <summary>
- The count of Rx Bytes
- </summary>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.ASIController.m_bRxArray">
- <summary>
- Holding array for Rx bytes
- </summary>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.ASIController.m_bTxArray">
- <summary>
- Transmit return array
- </summary>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.ASIController.m_f32Volts">
- <summary>
- Our internal voltage which is the RPM
- </summary>
-</member>
-<member name="F:LAPP185__RLOOP__LIB.ASIController.m_u16Reg__Faults">
- <summary>
- The fault register
- </summary>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.ASIController.#ctor">
- <summary>
- New instance
- </summary>
-</member>
-<member name="E:LAPP185__RLOOP__LIB.ASIController.Tx_RS485">
- <summary>
- Called when we want to Tx a packet
- </summary>
- <param name="u8Array"></param>
- <param name="iLength"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.ASIController.Byte_In(System.Byte)">
- <summary>
- Rx some new byte of data for the ASI
- </summary>
- <param name="u8Value"></param>
-</member>
-<member name="M:LAPP185__RLOOP__LIB.ASIController.Voltage__Update(System.Single)">
- <summary>
- Update our voltage.
- </summary>
- <param name="f32Voltage"></param>
 </member>
 </members>
 </doc>

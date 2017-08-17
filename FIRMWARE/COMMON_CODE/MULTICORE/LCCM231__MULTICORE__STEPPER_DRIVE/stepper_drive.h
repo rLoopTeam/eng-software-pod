@@ -132,7 +132,7 @@
 		}STEP_DRIVE__MOTOR_STATE_T;
 
 		#ifdef WIN32	
-			typedef void (__cdecl * pSTEPDRIVE_WIN32__UpdatePosCallback_FuncType)(Luint8 u8MotorIndex, Luint8 u8Step, Luint8 u8Dir, Lint32 s32Position);
+			typedef void (__cdecl * pSTEPDRIVE_WIN32__UpdatePosCallback_FuncType)(Luint8 u8MotorIndex, Luint8 u8Step, Luint8 u8Dir, Lint32 s32Position_um);
 		#endif
 		
 		/*******************************************************************************

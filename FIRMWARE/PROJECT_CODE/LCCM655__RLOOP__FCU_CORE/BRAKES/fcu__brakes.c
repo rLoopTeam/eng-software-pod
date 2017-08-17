@@ -131,8 +131,8 @@ void vFCU_BRAKES__Process(void)
 		case BRAKE_STATE__WAIT_CAL_DONE:
 
 			//monitor the state
-			sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__LEFT);
-			sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__RIGHT);
+			sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos_um(FCU_BRAKE__LEFT);
+			sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos_um(FCU_BRAKE__RIGHT);
 
 
 			u8Test = u8FCU_BRAKES_CAL__Is_Busy();
@@ -153,8 +153,8 @@ void vFCU_BRAKES__Process(void)
 
 		case BRAKE_STATE__IDLE:
 			//idle state, wait here until we are commanded to move via a chance state.
-			sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__LEFT);
-			sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__RIGHT);
+			sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos_um(FCU_BRAKE__LEFT);
+			sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos_um(FCU_BRAKE__RIGHT);
 			break;
 
 		case BRAKE_STATE__BEGIN_MOVE:
@@ -212,8 +212,8 @@ void vFCU_BRAKES__Process(void)
 			//process any PID algo's here too
 
 			//check the movement planner
-			sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__LEFT);
-			sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__RIGHT);
+			sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos_um(FCU_BRAKE__LEFT);
+			sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos_um(FCU_BRAKE__RIGHT);
 
 			//todo, compute the brake position in terms of Ibeam distance.
 
@@ -273,6 +273,30 @@ void vFCU_BRAKES__Process(void)
 		//fall on
 	}
 
+}
+
+
+Lint32 s32FCU_BRAKES__ScrewPos_Compute_um(Lfloat32 f32BrakePadPos)
+{
+	Lfloat32 f32Temp;
+	//equation:
+	//ibeam_dist = tan(17) * screw_dist
+
+	//72 * .305 = 21.9mm
+	//8.17 * .305 = 2.5mm
+
+	//div by Tan(17)
+	f32Temp /= 0.305730681F;
+
+	//because our min brake gap is 2.5mm, and this should equal to 0mm lead screw, we
+	//need to subtract -2.5mm/tan(17)
+	f32Temp -= 8.1771F;
+
+	//to microns
+	f32Temp *= 1000.0F;
+
+	//return distance
+	return (Lint32)f32Temp;
 }
 
 

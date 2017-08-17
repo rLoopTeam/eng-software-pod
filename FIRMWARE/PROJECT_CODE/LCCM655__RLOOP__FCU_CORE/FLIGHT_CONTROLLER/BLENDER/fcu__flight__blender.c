@@ -21,9 +21,9 @@ extern struct _strFCU sFCU;
 void vFCU_FCTL_BLENDER__Init(void)
 {
 	//todo: init flight conditions
-	sFCU.sFlightControl.sBlender.sWorking.s32Accel_mmss = 0;
-	sFCU.sFlightControl.sBlender.sWorking.s32Veloc_mms = 0;
-	sFCU.sFlightControl.sBlender.sWorking.s32Disp_mm = 0;
+	sFCU.sFlightControl.sBlender.sWorking.s32Accel_mm_ss = 0;
+	sFCU.sFlightControl.sBlender.sWorking.s32Veloc_mm_s = 0;
+	sFCU.sFlightControl.sBlender.sWorking.s32Distance_mm = 0;
 }
 
 
@@ -54,7 +54,7 @@ void vFCU_FCTL_BLENDER__Process(void)
  */
 Lint32 s32FCU_FCTL_BLENDER__Get_Accel_mmss(void)
 {
-	return sFCU.sFlightControl.sBlender.sWorking.s32Accel_mmss;
+	return sFCU.sFlightControl.sBlender.sWorking.s32Accel_mm_ss;
 }
 
 /***************************************************************************//**
@@ -66,7 +66,7 @@ Lint32 s32FCU_FCTL_BLENDER__Get_Accel_mmss(void)
  */
 Lint32 s32FCU_FCTL_BLENDER__Get_Veloc_mms(void)
 {
-	return sFCU.sFlightControl.sBlender.sWorking.s32Veloc_mms;
+	return sFCU.sFlightControl.sBlender.sWorking.s32Veloc_mm_s;
 }
 
 /***************************************************************************//**
@@ -78,7 +78,7 @@ Lint32 s32FCU_FCTL_BLENDER__Get_Veloc_mms(void)
  */
 Lint32 s32FCU_FCTL_BLENDER__Get_Displacement_mm(void)
 {
-	return sFCU.sFlightControl.sBlender.sWorking.s32Disp_mm;
+	return sFCU.sFlightControl.sBlender.sWorking.s32Distance_mm;
 }
 
 //update the velocity from the accelometer subystems

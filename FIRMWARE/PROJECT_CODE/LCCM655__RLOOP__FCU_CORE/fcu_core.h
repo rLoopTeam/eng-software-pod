@@ -366,10 +366,10 @@
 				{
 
 					/** The required linear veloc for the move */
-					Lint32 s32LinearVeloc;
+					Lint32 s32LinearVeloc_um_s;
 
 					/** The required linear accel for the move */
-					Lint32 s32LinearAccel;
+					Lint32 s32LinearAccel_um_ss;
 
 					/** The position that we have requested the brake to move to */
 					Lint32 s32MoveToPos;
@@ -423,6 +423,46 @@
 				/** Accel subsystem faults */
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
+				/** Thresholding system */
+				struct
+				{
+
+					/** Set to 1 when the threshold has been reached*/
+					Luint8 u8ThresholdTrue;
+
+					/** The threshold time in count of 10ms increments */
+					Luint32 u32ThreshTime_x10ms;
+
+					/** The threshold acceleration in mm_ss*/
+					Lint32 s32Thresh_Accel_mm_ss;
+
+					/** Count of the number of 10ms interrupts */
+					Luint32 u3210MS_Counter;
+
+				}sThresh;
+
+				/** Data validity checks */
+				struct
+				{
+
+					/** Is the accel module enabled? */
+					Luint8 u8Enabled;
+
+					/** Is our data source valid, if we loose accel, we loose all data */
+					Luint8 u8IsValid;
+
+					/** What is our valid accel? */
+					Lint32 s32ValidAccel_mm_ss;
+
+					/** The computed current velocity in mm/sec*/
+					Lint32 s32ValidVeloc_mm_s;
+
+					/** Current displacement */
+					Luint32 s32ValidDisplacement_mm;
+
+				}sValid;
+
+
 				/** individual accel channels */
 				struct
 				{
@@ -440,13 +480,13 @@
 					#endif
 
 					/** The current acceleration in mm/sec^2 based on the last sample */
-					Lint32 s32CurrentAccel_mmss;
+					Lint32 s32CurrentAccel_mm_ss;
 
 					/** The computed current velocity in mm/sec*/
-					Lint32 s32CurrentVeloc_mms;
+					Lint32 s32CurrentVeloc_mm_s;
 
 					/** The previous veloc has just been calculated in the last time period */
-					Lint32 s32PrevVeloc_mms;
+					Lint32 s32PrevVeloc_mm_s;
 
 					/** Current displacement */
 					Luint32 s32CurrentDisplacement_mm;
@@ -616,6 +656,28 @@
 			struct
 			{
 
+				/** Data valid structure */
+				struct
+				{
+
+					/** Do we want to enable this data source */
+					Luint8 u8Enable;
+
+					/** Is this data source valid?*/
+					Luint8 u8Valid;
+
+					/** What is our valid accel? */
+					Lint32 s32ValidAccel_mm_ss;
+
+					/** The computed current velocity in mm/sec*/
+					Lint32 s32ValidVeloc_mm_s;
+
+					/** Current displacement */
+					Luint32 s32ValidDistance_mm;
+
+				}sValid;
+
+
 				/** Individual laser fault flags */
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
@@ -647,11 +709,11 @@
 				/** Previous distance of last sample */
 				Lint32 s32PrevDistance_mm;
 
-				Lint32 s32Velocity_mms;
-				Lint32 s32PrevVelocity_mms;
+				Lint32 s32Velocity_mm_s;
+				Lint32 s32PrevVelocity_mm_s;
 
-				Lint32 s32Accel_mmss;
-				Lint32 s32PrevAccel_mmss;
+				Lint32 s32Accel_mm_ss;
+				Lint32 s32PrevAccel_mm_ss;
 
 				/** The final filtered distance*/
 				//Lfloat32 f32DistanceFiltered;
@@ -792,9 +854,14 @@
 					/** The current working values we are using for flight */
 					struct
 					{
-						Lint32 s32Accel_mmss;
-						Lint32 s32Veloc_mms;
-						Lint32 s32Disp_mm;
+						/** Current computed accel in ms ss*/
+						Lint32 s32Accel_mm_ss;
+
+						/** Computed velocity */
+						Lint32 s32Veloc_mm_s;
+
+						/** The actual measured distance to the target infront of the pod */
+						Lint32 s32Distance_mm;
 
 					}sWorking;
 
@@ -859,7 +926,7 @@
 					Luint32 u32PreviousVeloc_mms;
 
 					/** Current acceleration */
-					Lint32 s32CurrentAccel_mmss;
+					Lint32 s32CurrentAccel_mm_ss;
 
 				}sSensors[LASER_CONT__MAX];
 
@@ -1306,8 +1373,18 @@
 		Lint32 s32FCU_LASERDIST__Get_Distance_mm(void);
 		Lint32 s32FCU_LASERDIST__Get_Velocity_mms(void);
 		void vFCU_LASERDIST__100MS_ISR(void);
-
 		DLL_DECLARATION void vFCU_LASERDIST_WIN32__Set_DistanceRaw(Lint32 s32Value);
+
+			//valid checks
+			void vFCU_LASERDIST_VALID__Init(void);
+			void vFCU_LASERDIST_VALID__Process(void);
+			void vFCU_LASERDIST_VALID__Enable(Luint8 u8Enable);
+			Luint8 vFCU_LASERDIST_VALID__Get_IsValid(void);
+			Lint32 s32FCU_LASERDIST_VALID__Get_Accel_mm_ss(void);
+			Lint32 s32FCU_LASERDIST_VALID__Get_Velocity_mm_s(void);
+			Lint32 s32FCU_LASERDIST_VALID__Get_Distance_mm(void);
+
+
 
 			//eth
 			void vFCU_LASERDIST_ETH__Init(void);
@@ -1359,7 +1436,7 @@
 			void vFCU_BRAKES_STEP__Init(void);
 			void vFCU_BRAKES_STEP__Process(void);
 			void vFCU_BRAKES_STEP__Move(Lint32 s32Brake0Pos, Lint32 s32Brake1Pos);
-			Lint32 s32FCU_BRAKES__Get_CurrentPos(E_FCU__BRAKE_INDEX_T eBrake);
+			Lint32 s32FCU_BRAKES__Get_CurrentPos_um(E_FCU__BRAKE_INDEX_T eBrake);
 			void vFCU_BRAKES_STEP__UpdateValues(Luint32 u32Brake, Luint32 u32Type, Lint32 s32Value);
 
 			//brake switches
@@ -1406,16 +1483,32 @@
 		//accelerometer layer
 		void vFCU_ACCEL__Init(void);
 		void vFCU_ACCEL__Process(void);
+		void vFCU_ACCEL__10MS_ISR(void);
 		Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis);
 		Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis);
 		DLL_DECLARATION Lint32 s32FCU_ACCELL__Get_CurrentAccel_mmss(Luint8 u8Channel);
 		DLL_DECLARATION Lint32 s32FCU_ACCELL__Get_CurrentVeloc_mms(Luint8 u8Channel);
 		DLL_DECLARATION Lint32 s32FCU_ACCELL__Get_CurrentDisplacement_mm(Luint8 u8Channel);
 
+			//thresholding
+			void vFCU_ACCEL_THRESH__Init(void);
+			void vFCU_ACCEL_THRESH__Process(void);
+			Luint8 u8FCU_ACCEL_THRES__Is_Threshold_Met(void);
+			void vFCU_ACCEL_THRESH__Set_Threshold(Luint32 u32Time_x10ms, Lint32 s32Accel_mm_ss);
+			void vFCU_ACCEL_THRESH__10MS_ISR(void);
+
 			//eth
 			void vFCU_ACCEL_ETH__Init(void);
 			void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
+			//valid checks
+			void vFCU_ACCEL_VALID__Init(void);
+			void vFCU_ACCEL_VALID__Process(void);
+			Luint8 u8FCU_ACCEL_VALID__Get_IsValid(void);
+			Lint32 sFCU_ACCEL_VALID__Get_Accel_mm_ss(void);
+			Lint32 sFCU_ACCEL_VALID__Get_Velocity_mm_s(void);
+			Lint32 sFCU_ACCEL_VALID__Get_Displacement_mm(void);
+			void vFCU_ACCEL_VALID__Enable(Luint8 u8Enable);
 
 		//Pusher interface
 		void vFCU_PUSHER__Init(void);

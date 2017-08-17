@@ -57,7 +57,7 @@ void vFCU_LASERCONT__Init(void)
 		sFCU.sContrast.sSensors[u8Counter].u32DistLastStripe_mm = 0U;
 		sFCU.sContrast.sSensors[u8Counter].u32CurrentVeloc_mms = 0U;
 		sFCU.sContrast.sSensors[u8Counter].u32PreviousVeloc_mms = 0U;
-		sFCU.sContrast.sSensors[u8Counter].s32CurrentAccel_mmss = 0;
+		sFCU.sContrast.sSensors[u8Counter].s32CurrentAccel_mm_ss = 0;
 
 	}
 
@@ -176,7 +176,7 @@ void vFCU_LASERCONT__Process(void)
 			}
 
 			//save
-			sFCU.sContrast.sSensors[u8LaserCount].s32CurrentAccel_mmss = (Lint32)s64Temp;
+			sFCU.sContrast.sSensors[u8LaserCount].s32CurrentAccel_mm_ss = (Lint32)s64Temp;
 
 
 			//update
@@ -189,7 +189,7 @@ void vFCU_LASERCONT__Process(void)
 				vDAQ_APPEND__U16(C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_RISING_EDGE_COUNT_U16, sFCU.sContrast.sTimingList[u8LaserCount].u16RisingCount);
 				vDAQ_APPEND__U32(C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_DISTANCE_ELAPSED_U32, sFCU.sContrast.sSensors[u8LaserCount].u32DistElapsed_mm);
 				vDAQ_APPEND__U32(C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_CURRENT_VELOCITY_U32, sFCU.sContrast.sSensors[u8LaserCount].u32CurrentVeloc_mms);
-				vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_CURRENT_ACCEL_S32, sFCU.sContrast.sSensors[u8LaserCount].s32CurrentAccel_mmss);
+				vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_CONTRAST__L0_CURRENT_ACCEL_S32, sFCU.sContrast.sSensors[u8LaserCount].s32CurrentAccel_mm_ss);
 			}
 			else if(u8LaserCount == 1U)
 			{

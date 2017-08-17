@@ -164,9 +164,9 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer += 4U;
 
 					//stepper system
-					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sBrakes[u8Counter].sMove.s32LinearVeloc);
+					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sBrakes[u8Counter].sMove.s32LinearVeloc_um_s);
 					pu8Buffer += 4U;
-					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sBrakes[u8Counter].sMove.s32LinearAccel);
+					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sBrakes[u8Counter].sMove.s32LinearAccel_um_ss);
 					pu8Buffer += 4U;
 					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sBrakes[u8Counter].sMove.s32currentPos);
 					pu8Buffer += 4U;
@@ -231,11 +231,11 @@ void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Lint32 s32Position)
 			{
 				case 0:
 					//move left
-					vFCU_BRAKES_STEP__Move(s32Position, s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__RIGHT));
+					vFCU_BRAKES_STEP__Move(s32Position, s32FCU_BRAKES__Get_CurrentPos_um(FCU_BRAKE__RIGHT));
 					break;
 				case 1:
 					//move right
-					vFCU_BRAKES_STEP__Move(s32FCU_BRAKES__Get_CurrentPos(FCU_BRAKE__LEFT), s32Position);
+					vFCU_BRAKES_STEP__Move(s32FCU_BRAKES__Get_CurrentPos_um(FCU_BRAKE__LEFT), s32Position);
 					break;
 				case 2:
 					vFCU_BRAKES_STEP__Move(s32Position, s32Position);

@@ -40,7 +40,14 @@ void vFCU_ACCEL__Init(void)
 	//accel subsystem
 	vSIL3_FAULTTREE__Init(&sFCU.sAccel.sFaultFlags);
 
+	//init the ethernet systems
 	vFCU_ACCEL_ETH__Init();
+
+	//init the valid checks
+	vFCU_ACCEL_VALID__Init();
+
+	//setup the thresholding
+	vFCU_ACCEL_THRESH__Init();
 
 	//init vars
 	for(u8Device = 0U; u8Device < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Device++)
@@ -52,9 +59,9 @@ void vFCU_ACCEL__Init(void)
 		}//for(u8Counter = 0U; u8Counter < 3U; u8Counter++)
 
 		//clear the computed varaiables.
-		sFCU.sAccel.sChannels[u8Device].s32CurrentAccel_mmss = 0;
-		sFCU.sAccel.sChannels[u8Device].s32CurrentVeloc_mms = 0;
-		sFCU.sAccel.sChannels[u8Device].s32PrevVeloc_mms = 0;
+		sFCU.sAccel.sChannels[u8Device].s32CurrentAccel_mm_ss = 0;
+		sFCU.sAccel.sChannels[u8Device].s32CurrentVeloc_mm_s = 0;
+		sFCU.sAccel.sChannels[u8Device].s32PrevVeloc_mm_s = 0;
 		sFCU.sAccel.sChannels[u8Device].s32CurrentDisplacement_mm = 0;
 		sFCU.sAccel.sChannels[u8Device].s32PrevDisplacement_mm = 0;
 
@@ -219,7 +226,7 @@ void vFCU_ACCEL__Process(void)
 				f32Temp *= 1000.0F;
 
 				//assign
-				sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mmss = (Lint32)f32Temp;
+				sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mm_ss = (Lint32)f32Temp;
 
 				//at this point here we have raw acceleration units updating every 1/freq
 
@@ -230,17 +237,17 @@ void vFCU_ACCEL__Process(void)
 
 				//v = u + at
 				//where u = prev sample and t = time slice
-				f32Temp += (Lfloat32)sFCU.sAccel.sChannels[u8Counter].s32PrevVeloc_mms;
+				f32Temp += (Lfloat32)sFCU.sAccel.sChannels[u8Counter].s32PrevVeloc_mm_s;
 
 				//assign
-				sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms = (Lint32)f32Temp;
+				sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mm_s = (Lint32)f32Temp;
 
 				//assing prev (u)
-				sFCU.sAccel.sChannels[u8Counter].s32PrevVeloc_mms = sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms;
+				sFCU.sAccel.sChannels[u8Counter].s32PrevVeloc_mm_s = sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mm_s;
 
 				//compute poition
 				//pos = posPrev + T * veloc
-				sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm = sFCU.sAccel.sChannels[u8Counter].s32PrevDisplacement_mm + sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms;
+				sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm = sFCU.sAccel.sChannels[u8Counter].s32PrevDisplacement_mm + sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mm_s;
 
 				//update the previous
 				sFCU.sAccel.sChannels[u8Counter].s32PrevDisplacement_mm = sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm;
@@ -254,8 +261,8 @@ void vFCU_ACCEL__Process(void)
 						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0Y_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Y]);
 						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0Z_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Z]);
 
-						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_ACCEL_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mmss);
-						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_VELOC_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms);
+						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_ACCEL_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mm_ss);
+						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_VELOC_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mm_s);
 						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_DISP_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm);
 						break;
 
@@ -264,8 +271,8 @@ void vFCU_ACCEL__Process(void)
 						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1Y_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Y]);
 						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1Z_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Z]);
 
-						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_ACCEL_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mmss);
-						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_VELOC_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms);
+						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_ACCEL_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mm_ss);
+						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_VELOC_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mm_s);
 						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_DISP_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm);
 						break;
 
@@ -276,8 +283,8 @@ void vFCU_ACCEL__Process(void)
 				#endif
 
 				//give the flight layer some data
-				vFCU_FCTL_BLENDER__Accel_UpdateFrom_Accel(u8Counter, sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mmss);
-				vFCU_FCTL_BLENDER__Veloc_UpdateFrom_Accel(u8Counter, sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mms);
+				vFCU_FCTL_BLENDER__Accel_UpdateFrom_Accel(u8Counter, sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mm_ss);
+				vFCU_FCTL_BLENDER__Veloc_UpdateFrom_Accel(u8Counter, sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mm_s);
 				vFCU_FCTL_BLENDER__Displacement_UpdateFrom_Accel(u8Counter, sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm);
 
 				//done with the sample now
@@ -290,6 +297,13 @@ void vFCU_ACCEL__Process(void)
 		}
 
 	}//for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Counter++)
+
+
+	//finally process the valid checks.
+	vFCU_ACCEL_VALID__Process();
+
+	//process the thresholding detection
+	vFCU_ACCEL_THRESH__Process();
 
 }
 
@@ -304,7 +318,7 @@ void vFCU_ACCEL__Process(void)
  */
 Lint32 s32FCU_ACCELL__Get_CurrentAccel_mmss(Luint8 u8Channel)
 {
-	return sFCU.sAccel.sChannels[u8Channel].s32CurrentAccel_mmss;
+	return sFCU.sAccel.sChannels[u8Channel].s32CurrentAccel_mm_ss;
 }
 
 
@@ -318,7 +332,7 @@ Lint32 s32FCU_ACCELL__Get_CurrentAccel_mmss(Luint8 u8Channel)
  */
 Lint32 s32FCU_ACCELL__Get_CurrentVeloc_mms(Luint8 u8Channel)
 {
-	return sFCU.sAccel.sChannels[u8Channel].s32CurrentVeloc_mms;
+	return sFCU.sAccel.sChannels[u8Channel].s32CurrentVeloc_mm_s;
 }
 
 /***************************************************************************//**
@@ -370,6 +384,13 @@ Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis)
 	#else
 		return 0.0F;
 	#endif
+}
+
+
+void vFCU_ACCEL__10MS_ISR(void)
+{
+	//pass off to thrreshold detection system.
+	vFCU_ACCEL_THRESH__10MS_ISR();
 }
 
 //make sure both sensors are in the same range

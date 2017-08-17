@@ -152,17 +152,14 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Data Acqusition System */
 		#define C_LOCALDEF__LCCM655__ENABLE_DAQ								(1U)
 
-		/** Enable or disable the PiComms layer */
-		#define C_LOCALDEF__LCCM655__ENABLE_PI_COMMS						(0U)
-
 		/** Enable the OptoNCDT laser interface */
-		#define C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT					(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT					(0U)
 
 		/** Enable the Laser contrast sensors */
-		#define C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST					(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST					(0U)
 
 		/** Laser Distance Unit */
-		#define C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE					(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE					(0U)
 
 		/** Enable accel subsystem */
 		#define C_LOCALDEF__LCCM655__ENABLE_ACCEL							(1U)
@@ -174,19 +171,16 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		#define C_LOCALDEF__LCCM655__ENABLE_THROTTLE						(0U)
 
 		/** Enable the ASI_RS485 */
-		#define C_LOCALDEF__LCCM655__ENABLE_ASI_RS485						(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_ASI_RS485						(0U)
 
 		/** Enable the pusher detection system */
-		#define C_LOCALDEF__LCCM655__ENABLE_PUSHER							(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_PUSHER							(0U)
 
 		/** Ethernet Systems */
 		#define C_LOCALDEF__LCCM655__ENABLE_ETHERNET						(1U)
 
 		/** SpaceX Telemetry Requirements Enable */
 		#define C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY				(1U)
-
-		/** Serial comms to and from the LGU */
-		#define C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM						(1U)
 
 		/**Geom system */
 		#define C_LOCALDEF__LCCM655__ENABLE_GEOM							(0U)
@@ -235,9 +229,6 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 
 			/** Enable PID for the Brakes */
 			#define C_LOCALDEF__LCCM655__ENABLE_BRAKEPID 						(0U)
-
-			/** Enable Cooling control */
-			#define C_LOCALDEF__LCCM655__ENABLE_COOLING_CONTROL					(0U)
 
 			/** Enable fault handling out ethernet */
 			#define C_LOCALDEF__LCCM655__ENABLE_ETHERNET_FAULTS                 (1U)

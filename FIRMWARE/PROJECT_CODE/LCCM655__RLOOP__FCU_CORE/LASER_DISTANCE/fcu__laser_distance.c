@@ -106,6 +106,9 @@ void vFCU_LASERDIST__Init(void)
 	//setup eth systems if needed
 	vFCU_LASERDIST_ETH__Init();
 
+	//setup the valid checks
+	vFCU_LASERDIST_VALID__Init();
+
 	sFCU.sLaserDist.u32BytesSeen_Counter = 0U;
 	sFCU.sLaserDist.u32PacketsSeen_Counter = 0U;
 
@@ -117,10 +120,10 @@ void vFCU_LASERDIST__Init(void)
 	//just set to some obscene distance
 	sFCU.sLaserDist.s32Distance_mm = 0;
 	sFCU.sLaserDist.s32PrevDistance_mm = 0;
-	sFCU.sLaserDist.s32Velocity_mms = 0;
-	sFCU.sLaserDist.s32PrevVelocity_mms = 0;
-	sFCU.sLaserDist.s32Accel_mmss = 0;
-	sFCU.sLaserDist.s32PrevAccel_mmss = 0;
+	sFCU.sLaserDist.s32Velocity_mm_s = 0;
+	sFCU.sLaserDist.s32PrevVelocity_mm_s = 0;
+	sFCU.sLaserDist.s32Accel_mm_ss = 0;
+	sFCU.sLaserDist.s32PrevAccel_mm_ss = 0;
 
 
 	//clear the binary distance mode
@@ -342,6 +345,9 @@ void vFCU_LASERDIST__Process(void)
 		//laser is still healthy.
 	}
 
+	//finally process the data valid checks
+	vFCU_LASERDIST_VALID__Process();
+
 }
 
 /***************************************************************************//**
@@ -380,11 +386,11 @@ void vFCU_LASERDIST__Process_Packet(void)
 	f32Delta *= 0.05F;
 
 	//do it.
-	sFCU.sLaserDist.s32Velocity_mms = (Lint32)f32Delta;
+	sFCU.sLaserDist.s32Velocity_mm_s = (Lint32)f32Delta;
 
 	//save prev
 	sFCU.sLaserDist.s32PrevDistance_mm = sFCU.sLaserDist.s32Distance_mm;
-	sFCU.sLaserDist.s32PrevVelocity_mms = sFCU.sLaserDist.s32Velocity_mms;
+	sFCU.sLaserDist.s32PrevVelocity_mm_s = sFCU.sLaserDist.s32Velocity_mm_s;
 
 
 }
@@ -450,11 +456,11 @@ void vFCU_LASERDIST__Process_Packet_ASCII(void)
 	f32Delta *= 0.05F;
 
 	//do it.
-	sFCU.sLaserDist.s32Velocity_mms = (Lint32)f32Delta;
+	sFCU.sLaserDist.s32Velocity_mm_s = (Lint32)f32Delta;
 
 	//save prev
 	sFCU.sLaserDist.s32PrevDistance_mm = sFCU.sLaserDist.s32Distance_mm;
-	sFCU.sLaserDist.s32PrevVelocity_mms = sFCU.sLaserDist.s32Velocity_mms;
+	sFCU.sLaserDist.s32PrevVelocity_mm_s = sFCU.sLaserDist.s32Velocity_mm_s;
 
 }
 
