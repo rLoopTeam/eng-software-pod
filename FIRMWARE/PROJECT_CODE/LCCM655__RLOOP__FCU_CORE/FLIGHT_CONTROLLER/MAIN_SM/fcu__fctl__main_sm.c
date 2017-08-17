@@ -107,6 +107,9 @@ void vFCU_FCTL_MAINSM__Process(void)
                 #if DEBUG == 1U
                     printf("- %s Entering POD_IDLE_STATE\n", "sFCU.sPodStateMachine.sm");
                 #endif
+                #ifdef WIN32
+                	DEBUG_PRINT("Entering POD_IDLE_STATE");
+                #endif
             }
         
             // Handle transitions
@@ -131,6 +134,9 @@ void vFCU_FCTL_MAINSM__Process(void)
                 #if DEBUG == 1U
                     printf("- %s Entering POD_TEST_MODE_STATE\n", "sFCU.sPodStateMachine.sm");
                 #endif
+                #ifdef WIN32
+                	DEBUG_PRINT("Entering POD_TEST_MODE_STATE");
+                #endif
             }
         
             // Handle transitions
@@ -154,6 +160,9 @@ void vFCU_FCTL_MAINSM__Process(void)
                 // Perform entering actions
                 #if DEBUG == 1U
                     printf("- %s Entering POD_DRIVE_STATE\n", "sFCU.sPodStateMachine.sm");
+                #endif
+                #ifdef WIN32
+                	DEBUG_PRINT("Entering POD_DRIVE_STATE");
                 #endif
             }
         
