@@ -129,7 +129,7 @@
 			}sHoverEngines;
 			//#endif
 
-            /** Flight Controller */
+            /** Pod State Machine / Flight Controller */
             struct 
             {
                 StateMachine sm;
@@ -137,31 +137,33 @@
                 strPodCmd command;
     
 				/** Enum for Pod Status for SpaceX telemetry */
+				// @todo: update code to reflect move from sStateMachine to ePodStateMachine
 				E_FCU__POD_STATUS ePodStatus;
 				
 				// @todo: add commands (and enum for commands from ground station)
 				
-                // Timers and timeouts
+                // Timers and timeouts:
+                
                 // Ready state to Idle backup timeout
-                strTimer ReadyExpiredBackupTimeout;
+                strTimeout ReadyExpiredBackupTimeout;
     
                 // Accel to Coast Interlock backup timeout
-                strTimer AccelBackupTimeout;
+                strTimeout AccelBackupTimeout;
     
                 // Coast interlock timeout
-                strTimer CoastInterlockTimeout;
+                strTimeout CoastInterlockTimeout;
     
                 // Brake to Spindown backup timeout
-                strTimer BrakeToSpindownBackupTimeout;
+                strTimeout BrakeToSpindownBackupTimeout;
     
                 // Spindown to Idle backup timeout
-                strTimer SpindownToIdleBackupTimeout;
+                strTimeout SpindownToIdleBackupTimeout;
 
             } sPodStateMachine;
             
 
 
-			/** State Machine Structure **/
+			/** State Machine Structure (DEPRECATED) **/
 			struct
 			{
 				/** The mission phases
@@ -1155,18 +1157,12 @@
 
 
         // General Timer and timeouts
-        void timer_ensure_started(strTimer *t);
-        void timer_stop(strTimer *t);
-        void timer_update(strTimer *t, Luint32 elapsed_ms);
-        void timer_reset(strTimer *t);
-        bool timer_expired(const strTimer *t);
-
-        void timeout_ensure_started(strTimer *timeout);
-        strTimer create_timeout(Luint32 duration_ms);
-        void timeout_reset(strTimer *timeout);
-        void timeout_restart(strTimer *timeout);
-        bool timeout_expired(strTimer *timeout);
-        void timeout_update(strTimer *timeout, Luint32 elapsed_ms);
+        strTimeout create_timeout(Luint32 duration_ms);
+        void timeout_restart(strTimeout *timeout);
+        void timeout_reset(strTimeout *timeout);
+        void timeout_ensure_started(strTimeout *timeout);
+        bool timeout_expired(strTimeout *timeout);
+        void timeout_update(strTimeout *timeout, Luint32 elapsed_ms);
 
 
         // Interlock command handling

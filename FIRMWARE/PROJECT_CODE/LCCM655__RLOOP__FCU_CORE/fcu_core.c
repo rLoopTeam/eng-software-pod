@@ -604,85 +604,50 @@ void vFCU__Process(void)
 /////////////////////////////////////////////////////////////////////
 //  Timers and timeouts
 /////////////////////////////////////////////////////////////////////
-void timer_ensure_started(strTimer *t)
+
+strTimeout create_timeout(int duration_ms)
 {
-    if ( ! t->started ) {
-        // If we're not started, make sure we are and reset our elapsed time
-        t->started = true;
-        t->elapsed_ms = 0;
-    } else {
-        // We're started; nothing to do
-    }
-}
-
-void timer_stop(strTimer *t)
-{
-    // Stop the timer and reset the counter
-    t->started = false;
-    t->elapsed_ms = 0;
-}
-
-void timer_update(strTimer *t, int elapsed_ms)
-{
-    if (t->started) {
-        t->elapsed_ms += elapsed_ms;
-    }
-}
-
-void timer_reset(strTimer *timer)
-{
-    timer->elapsed_ms = 0;
-}
-
-bool timer_expired(const strTimer *timeout)
-{
-    return timeout->elapsed_ms >= timeout->duration_ms;
-}
-
-
-void timeout_ensure_started(strTimer *timeout)
-{
-    if ( ! timeout->started ) {
-        // If we're not started, make sure we are and reset our elapsed time
-        timeout_restart(timeout);
-    } else {
-        // We're started; nothing to do
-    }
-}
-
-
-strTimer create_timeout(int duration_ms)
-{
-    strTimer t;
+    strTimeout t;
     t.duration_ms = duration_ms;
     t.elapsed_ms = 0;
     return t;
 }
 
-void timeout_reset(strTimer *timeout)
+void timeout_restart(strTimeout *timeout)
 {
-    timeout->elapsed_ms = 0;
+    // Call this to start or restart a timeout
+    timeout->elapsed_ms = 0U;
+    timeout->started = true;
+}
+
+void timeout_reset(strTimeout *timeout)
+{
+    timeout->elapsed_ms = 0U;
     timeout->started = false;
 }
 
-bool timeout_expired(strTimer *timeout)
+void timeout_ensure_started(strTimeout *timeout)
+{
+    if ( ! timeout->started ) {
+        // If we're not started, make sure we are and reset our elapsed time
+        timeout_restart(timeout);
+    } else {
+        // We're already started; nothing to do
+    }
+}
+
+bool timeout_expired(strTimeout *timeout)
 {
     return timeout->elapsed_ms >= timeout->duration_ms;
 }
 
-void timeout_update(strTimer *timeout, int elapsed_ms)
+void timeout_update(strTimeout *timeout, int elapsed_ms)
 {
     if ( ! timeout_expired(timeout) ) 
     {
         // If we haven't expired, update our timeout. We have no reason to keep adding once we've expired.
         timeout->elapsed_ms += elapsed_ms;
     }
-}
-
-void timeout_restart(strTimer *timeout)
-{
-    timeout->elapsed_ms = 0U;
-    timeout->started = true;
 }
 
 
@@ -693,8 +658,8 @@ void timeout_restart(strTimer *timeout)
 strInterlockCommand create_interlock_command(const Luint32 duration_ms)
 {
     strInterlockCommand ic;
+    ic.commandTimeout = create_timeout(duration_ms);
     ic.enabled = false;
-    timeout_reset(&ic.commandTimeout);
 	return ic;
 }
 

@@ -9,15 +9,16 @@
     
     typedef struct
     {
-        Luint32 duration_ms;  // How long to wait until repeating (note: still need to reset once you've handled it)
+        // Duration of the timeout
+        Luint32 duration_ms;
 
-        // Is the timer running? Don't update if false.
+        // Is the timer running?
         bool started;
 
-        // Number of times to repeat (0 = no limit)    
+        // Elapsed time in milliseconds   
         Luint32 elapsed_ms;
 
-    } strTimer;
+    } strTimeout;
 
 
     /////////////////////////////////////////////////////////////////////
@@ -26,8 +27,11 @@
 
     typedef struct
     {
-        bool enabled; // Happens first, starts the timer
-        strTimer commandTimeout;
+        // Has the command been enabled? 
+        bool enabled;
+
+        // Once the command has been enabled, start the timeout and don't allow execution if it's expired.
+        strTimeout commandTimeout;
 
     } strInterlockCommand;
 
