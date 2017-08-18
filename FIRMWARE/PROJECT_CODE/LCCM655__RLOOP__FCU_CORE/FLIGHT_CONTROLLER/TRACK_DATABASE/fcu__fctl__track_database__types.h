@@ -28,7 +28,13 @@
 	#define C_FCTL_TRACKDB__BLOB_SIZE			 ((((8U + C_FCTL_TRACKDB__MAX_CONTRAST_STRIPES + C_FCTL_TRACKDB__HEADER_SPARE_WORDS) + (4U + C_FCTL_TRACKDB__MAX_SETPOINTS + C_FCTL_TRACKDB__MAX_SETPOINTS + C_FCTL_TRACKDB__PROFILE_SPARE_WORDS)) * 4U) + 2U)
 
 
-	/** Track database V2 */
+	/** Track database V2
+	 * Size = 16 + 16 + 16 + 16 + 16 = 80
+	 * For 8 tracks = 640 bytes.
+	 * */
+#ifdef WIN32
+	#pragma pack(push, 1)
+#endif
 	struct
 	{
 
@@ -93,11 +99,34 @@
 			/** Enable end of run cooling */
 			Luint8 u8UseCooling;
 
+			/** make up to 16*/
+			Luint8 u8Spares[12];
+
 		}sControl;
 
+		/** Track Specifics */
+		struct
+		{
+
+			/** The length of the track in mm */
+			Luint32 u32TrackLength_mm;
+
+			/** make up to 16 bytes */
+			Luint8 u8Spares[12];
+
+		}sTrack;
+
+	#ifndef WIN32
 	}sDB2[C_FCTL_TRACKDB__MAX_MEM_DATABASES];
+	#else
+	}sDB2[C_FCTL_TRACKDB__MAX_MEM_DATABASES];
+	#endif
+	#ifdef WIN32
+	#pragma pack(pop)
+	#endif
 
 
+#if 0
 	/** List of all track databases
 	 * SHOULD MAKE A MULTIPLE OF 16 BYTES for better eeprom layout
 	 * 8 + STRIPES(64) + SPARE(16) = 88
@@ -230,10 +259,7 @@
 	#pragma pack(pop)
 #endif
 
-
-
-
-
+#endif //0
 
 
 #endif /* _FCU__FCTL__TRACK_DATABASE__TYPES_H_ */

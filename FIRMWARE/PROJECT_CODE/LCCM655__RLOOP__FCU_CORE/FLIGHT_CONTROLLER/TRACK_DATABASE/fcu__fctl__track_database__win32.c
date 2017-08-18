@@ -24,6 +24,7 @@
 #if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
 #ifdef WIN32
+#if 0
 
 //the structure
 extern struct _strFCU sFCU;
@@ -473,6 +474,9 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_CRC(Luint16 u16Value)
 {
 	vSIL3_NUM_CONVERT__Array_U16(&sTrackDB.sDB.u8CRC[0], u16Value);
 }
+
+
+#endif //0
 
 #endif //WIN32
 #endif //C_LOCALDEF__LCCM655__ENABLE_TRACK_DB
