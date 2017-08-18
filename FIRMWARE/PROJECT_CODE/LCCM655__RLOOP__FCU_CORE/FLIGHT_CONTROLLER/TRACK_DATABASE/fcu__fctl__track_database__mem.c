@@ -28,7 +28,7 @@
 extern struct _strFCU sFCU;
 
 //The current working track database
-extern struct _strTrackDatabase sTrackDB;
+//extern struct _strTrackDatabase sTrackDB;
 
 /***************************************************************************//**
  * @brief
@@ -78,7 +78,7 @@ void vFCU_FCTL_TRACKDB_MEM__UploadChunk(Luint32 u32TrackID, Luint32 u32ChunkInde
 	if(u32TrackID < C_FCTL_TRACKDB__MAX_MEM_DATABASES)
 	{
 		//point to our working track database
-		pu8Temp = (Luint8*)&sTrackDB;
+		//pu8Temp = (Luint8*)&sTrackDB;
 
 		//create the offiset
 		//rule here is that all chunk indexes have to be the same, else we need to track the packet sizes
@@ -93,6 +93,7 @@ void vFCU_FCTL_TRACKDB_MEM__UploadChunk(Luint32 u32TrackID, Luint32 u32ChunkInde
 			pu8Temp[u32Counter] = pu8Buffer[u32Counter];
 		}
 
+/*
 		//we need to determine what the last chunk size is
 		u32Offset = (u32ChunkIndex + 1U) * u32Length;
 		if(u32Offset >= (Luint32)sizeof(struct _strTrackDatabase))
@@ -103,7 +104,7 @@ void vFCU_FCTL_TRACKDB_MEM__UploadChunk(Luint32 u32TrackID, Luint32 u32ChunkInde
 		{
 			//keep going.
 		}
-
+*/
 	}
 	else
 	{
@@ -128,7 +129,7 @@ void vFCU_FCLT_TRACKDB_MEM__Save_TrackDB(Luint32 u32Index)
 	Luint32 u32Length;
 	Luint32 u32Addx;
 	Lint16 s16Return;
-
+#if 0
 	if(u32Index < C_FCTL_TRACKDB__MAX_MEM_DATABASES)
 	{
 		//get the length of the structure
@@ -204,6 +205,7 @@ void vFCU_FCLT_TRACKDB_MEM__Save_TrackDB(Luint32 u32Index)
 	{
 		//big error
 	}
+#endif //
 
 }
 

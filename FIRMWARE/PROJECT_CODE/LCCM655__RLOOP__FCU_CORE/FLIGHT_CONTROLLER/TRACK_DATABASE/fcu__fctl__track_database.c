@@ -28,7 +28,7 @@
 extern struct _strFCU sFCU;
 
 //The current working track database
-struct _strTrackDatabase sTrackDB;
+//struct _strTrackDatabase sTrackDB;
 
 Luint32 u32FCU_FCTL_TRACKDB__Get_Current_TrackEndPosX_mm(void);
 
@@ -90,11 +90,9 @@ void vFCU_FCTL_TRACKDB__Process(void)
 
 }
 
-
-//allow the ground to change the current database, this will force a re-load
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Allow the ground to change the current database, this will force a re-load
  * 
  * @param[in]		u32TrackID		## Desc ##
  * @param[in]		u32Key		## Desc ##
@@ -129,10 +127,9 @@ void vFCU_FCTL_TRACKDB__Set_CurrentDB(Luint32 u32Key, Luint32 u32TrackID)
 	}
 }
 
-//the current EEPROM config of the track database
 /***************************************************************************//**
  * @brief
- * ToDo
+ * The current EEPROM config of the track database
  * 
  * @st_funcMD5		76D332CEC704875969A1CE33030DE949
  * @st_funcID		LCCM655R0.FILE.084.FUNC.004
@@ -153,7 +150,7 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_CurrentDB(void)
  */
 Luint32 u32FCU_FCTL_TRACKDB__Get_TrackID(void)
 {
-	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8TrackID[0]);
+	return 0; //u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8TrackID[0]);
 }
 
 /***************************************************************************//**
@@ -165,7 +162,7 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_TrackID(void)
  */
 Luint32 u32FCU_FCTL_TRACKDB__Get_TrackStartPosX_mm(void)
 {
-	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8TrackBeginningXPosition_mm[0]);
+	return 0; //u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8TrackBeginningXPosition_mm[0]);
 }
 
 /***************************************************************************//**
@@ -177,7 +174,7 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_TrackStartPosX_mm(void)
  */
 Luint32 u32FCU_FCTL_TRACKDB__Get_Current_TrackEndPosX_mm(void)
 {
-	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8TrackEndXPosition_mm[0]);
+	return 0; //u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8TrackEndXPosition_mm[0]);
 }
 
 /***************************************************************************//**
@@ -189,7 +186,7 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_Current_TrackEndPosX_mm(void)
  */
 Luint32 u32FCU_FCTL_TRACKDB__Get_LRF_StartPosX_mm(void)
 {
-	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8LRFAreaBeginningXPosition_mm[0]);
+	return 0; //u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8LRFAreaBeginningXPosition_mm[0]);
 }
 
 /***************************************************************************//**
@@ -201,7 +198,7 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_LRF_StartPosX_mm(void)
  */
 Luint32 u32FCU_FCTL_TRACKDB__Get_NumStripes(void)
 {
-	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8NumberOfStripes[0]);
+	return 0; //u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8NumberOfStripes[0]);
 }
 
 /***************************************************************************//**
@@ -215,7 +212,7 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_NumStripes(void)
  */
 Luint32 u32FCU_FCTL_TRACKDB__Get_StripeStartPosX_mm(Luint32 u32StripeIndex)
 {
-	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8StripeBeginningXPosition_mm[u32StripeIndex][0]);
+	return 0; //u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8StripeBeginningXPosition_mm[u32StripeIndex][0]);
 }
 
 //enable LRF for track
@@ -228,7 +225,7 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_StripeStartPosX_mm(Luint32 u32StripeIndex)
  */
 Luint32 u32FCU_FCTL_TRACKDB__Get_EnableLRF(void)
 {
-	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8EnableLRF[0]);
+	return 0;//u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8EnableLRF[0]);
 }
 
 //enable accels for track DB
@@ -241,7 +238,7 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_EnableLRF(void)
  */
 Luint32 u32FCU_FCTL_TRACKDB__Get_EnableAccels(void)
 {
-	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8EnableAccels[0]);
+	return 0; //u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8EnableAccels[0]);
 }
 
 /***************************************************************************//**
@@ -253,7 +250,7 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_EnableAccels(void)
  */
 Luint32 u32FCU_FCTL_TRACKDB__Get_EnableContrast(void)
 {
-	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8EnableContrast[0]);
+	return 0; //u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8EnableContrast[0]);
 }
 
 //get the footer, a really easy way of checking if things are good
@@ -266,7 +263,7 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_EnableContrast(void)
  */
 Luint32 u32FCU_FCTL_TRACKDB__Get_GetFooter(void)
 {
-	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8Footer[0]);
+	return 0; //u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB.u8Footer[0]);
 }
 
 
