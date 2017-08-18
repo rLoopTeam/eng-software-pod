@@ -194,15 +194,39 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(Luint8 u8TrackIndex, Luint8 u8Value
 	sTrackDB.sDB2[u8TrackIndex].sAccel.u8Use = u8Value;
 }
 
-void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_mm_ss(Luint8 u8TrackIndex, Lint32 s32Thresh_mm_ss)
+void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_mm_ss(Luint8 u8TrackIndex, Lint32 s32Thresh_mm_ss)
 {
 	vSIL3_NUM_CONVERT__Array_S32(&sTrackDB.sDB2[u8TrackIndex].sAccel.u8Thresh_mm_ss[0], s32Thresh_mm_ss);
 }
 
-void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_x10ms(Luint8 u8TrackIndex, Luint32 u32Thresh_x10ms)
+void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(Luint8 u8TrackIndex, Luint32 u32Thresh_x10ms)
 {
 	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sAccel.u8Thresh_x10ms[0], u32Thresh_x10ms);
 }
+
+
+
+
+void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackStart_mm(Luint8 u8TrackIndex, Luint32 u32Value)
+{
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sTrack.u8TrackStart_mm[0], u32Value);
+}
+
+void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackEnd_mm(Luint8 u8TrackIndex, Luint32 u32Value)
+{
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sTrack.u8TrackEnd_mm[0], u32Value);
+}
+
+void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackLength_mm(Luint8 u8TrackIndex, Luint32 u32Value)
+{
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sTrack.u8TrackLength_mm[0], u32Value);
+}
+
+
+
+
+
+
 
 #if 0
 

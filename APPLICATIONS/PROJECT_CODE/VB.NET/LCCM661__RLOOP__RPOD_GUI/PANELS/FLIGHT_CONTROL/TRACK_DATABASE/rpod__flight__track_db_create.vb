@@ -44,11 +44,25 @@
         Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(u8TrackIndex As Byte, u8Value As Byte)
         End Sub
         <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_mm_ss(u8TrackIndex As Byte, s32Thresh_mm_ss As Int32)
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_mm_ss(u8TrackIndex As Byte, s32Thresh_mm_ss As Int32)
         End Sub
         <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_x10ms(u8TrackIndex As Byte, u32Thresh_x10ms As UInt32)
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(u8TrackIndex As Byte, u32Thresh_x10ms As UInt32)
         End Sub
+
+
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackStart_mm(u8TrackIndex As Byte, u32Value As UInt32)
+        End Sub
+
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackEnd_mm(u8TrackIndex As Byte, u32Value As UInt32)
+        End Sub
+
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackLength_mm(u8TrackIndex As Byte, u32Value As UInt32)
+        End Sub
+
 
         '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
         'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_TrackID(u32Value As UInt32)
@@ -723,55 +737,43 @@
 
                 vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(iRow, CByte(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
                 iItem += 1
-                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_mm_ss(iRow, CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
+                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_mm_ss(iRow, CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
                 iItem += 1
-                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_x10ms(iRow, CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
+                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(iRow, CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
                 iItem += 1
                 'spare
+                iItem += 1
+
+                'fwd laser
+                iItem += 1
+                iItem += 1
+                iItem += 1
+                iItem += 1
+
+                'contrast laser
+                iItem += 1
+                iItem += 1
+                iItem += 1
+                iItem += 1
+
+                'push, hover, cooling, lgu
+                iItem += 1
+                iItem += 1
+                iItem += 1
+                iItem += 1
+
+                'track specifics
+                vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackStart_mm(iRow, CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
+                iItem += 1
+                vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackEnd_mm(iRow, CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
+                iItem += 1
+                vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackLength_mm(iRow, CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
                 iItem += 1
 
 
             Next
 
-
-
-
-            'vFCU_FCTL_TRACKDB_WIN32__Set_DataLength(32)
-            'vFCU_FCTL_TRACKDB_WIN32__Set_TrackID(iIndex)
-            'vFCU_FCTL_TRACKDB_WIN32__Set_TrackStartXPos(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(3).ToString))
-            'vFCU_FCTL_TRACKDB_WIN32__Set_TrackEndXPos(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(4).ToString))
-            'vFCU_FCTL_TRACKDB_WIN32__Set_LRF_StartXPos(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(5).ToString))
-            'vFCU_FCTL_TRACKDB_WIN32__Set_NumStripes(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(6).ToString))
-
-            'For u32Counter As UInt32 = 0 To iNumStripes - 1
-            '    vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(u32Counter, u32Counter * 10)
-            'Next
-
-            'vFCU_FCTL_TRACKDB_WIN32__Set_EnableAccels(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(7).ToString))
-            'vFCU_FCTL_TRACKDB_WIN32__Set_EnableLRF(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(8).ToString))
-            'vFCU_FCTL_TRACKDB_WIN32__Set_EnableContrast(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(9).ToString))
-
-            'For u32Counter As UInt32 = 0 To C_FCTL_TRACKDB__HEADER_SPARE_WORDS - 1
-            '    vFCU_FCTL_TRACKDB_WIN32__Set_HeaderSpare(u32Counter, 0)
-            'Next
-
-            'vFCU_FCTL_TRACKDB_WIN32__Set_Footer(&H12345678L)
-
-
-            ''setup the profile
-            'vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontStartPos(0)
-            'vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontEndPos(1200)
-            'vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PodFrontTargetXPos(1500)
-            'vFCU_FCTL_TRACKDB_WIN32__Set_Profile_NumSetpoints(u32NumSetpoints)
-            'For u32Counter = 0 To u32NumSetpoints - 1
-            '    vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointPosX(u32Counter, u32Counter * 22)
-            '    vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointVelocityX(u32Counter, u32Counter * 33)
-            'Next
-
-            'For u32Counter As UInt32 = 0 To C_FCTL_TRACKDB__PROFILE_SPARE_WORDS - 1
-            '    vFCU_FCTL_TRACKDB_WIN32__Set_Profile_Spare(u32Counter, 0)
-            'Next
-
+            'finally compute the CRC
             Dim u16CRC As UInt16 = u16FCTL_TRAKDB_WIN32__ComputeCRC()
             vFCU_FCTL_TRACKDB_WIN32__Set_CRC(u16CRC)
 

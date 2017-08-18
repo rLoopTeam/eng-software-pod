@@ -16,7 +16,7 @@
  * @ingroup FCU
  * @{ */
 
-#include "../../fcu_core.h"
+#include "../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
@@ -45,8 +45,19 @@ void vFCU_FCTL__Init(void)
 	#endif
 
 	#if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
+		//getting the track databse loaded configures our data
 		vFCU_FCTL_TRACKDB__Init();
 	#endif
+
+	//now that the track database was loaded, we need to configure our settings
+	vFCU_FCTL__Config_From_Database();
+
+	//Configure the main state machine
+	#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+		vFCU_FCTL_MAINSM__Init();
+	#endif
+
+
 
 }
 
@@ -72,6 +83,34 @@ void vFCU_FCTL__Process(void)
 	#if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
 		vFCU_FCTL_TRACKDB__Process();
 	#endif
+
+	//process the main state machine
+	#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+		vFCU_FCTL_MAINSM__Process();
+	#endif
+
+}
+
+
+//based on our current track ID, configure all the subsystems from the
+//track database
+void vFCU_FCTL__Config_From_Database(void)
+{
+
+	//accel system
+	//enable the Accel system
+	vFCU_ACCEL_VALID__Enable(u8FCU_FCTL_TRACKDB__Accel__Get_Use());
+
+
+	//fwd laser
+
+	//contrast laser
+
+	//state machine options
+
+
+	//track options
+
 
 }
 

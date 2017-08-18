@@ -20,17 +20,10 @@
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
-//the structure
+
+ //the structure
 extern struct _strFCU sFCU;
 
-//TODO: need the following function implemented
-
-//u32FCU_FCTL_NAV__PodSpeed();
-//u32FCU_FCTL_NAV__GetFrontPos();
-//u32FCU_FCTL_NAV__GetRearPos();
-//u32FCU_FCTL_NAV__PodSpeed();
-//u32FCU_FCTL_LASERORIENT__Get_Z_Pos()
-//u32LandingGearMLPLeftAftValue = u32FCU_LGU__Get_MLP_Value(Luint8 u8Counter);
 
 /***************************************************************************//**
  * @brief
@@ -41,7 +34,8 @@ extern struct _strFCU sFCU;
  */
 void vFCU_FCTL_MAINSM__Init(void)
 {
-	sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__RESET;
+	//startup in the init phase
+	sFCU.sStateMachine.eMissionPhase = POD_STATE__INIT;
 
 }
 
@@ -55,85 +49,56 @@ void vFCU_FCTL_MAINSM__Init(void)
  */
 void vFCU_FCTL_MAINSM__Process(void)
 {
-	Luint8 u8Counter;
-	Luint8 u8Test;
-	Luint8 u8TestsSuccesful;
-	Lint32 u32Accelmmss;
-	Luint32 u32PodSpeed;
-	Luint8 ePusherState;
-	Luint32 u32PodRearPos;
+
+	//handle the SM guarding system
 
 	//handle the state machine.
 	switch(sFCU.sStateMachine.eMissionPhase)
 	{
 
-		case MISSION_PHASE__RESET:
-			//we have just come out of reset here.
-			//init our rPod specific systems
-
-			#if C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH == 1U
-				vFCU_PODHEALTH__Init();
-			#endif
-			//init the auto sequence
-			vFCU_MAINSM_AUTO__Init();
-
-
-
-
-			//finally init the flight controller
-			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
-				vFCU_FCTL__Init();
-			#endif
-
-
-			#if C_LOCALDEF__LCCM655__ENABLE_GEOM == 1U
-				vFCU_GEOM__Init();
-			#endif //C_LOCALDEF__LCCM655__ENABLE_GEOM
-
-			//put the flight computer into startup mode now that everything has been initted.
-			sFCU.sStateMachine.eMissionPhase = MISSION_PHASE__DEBUG; //MISSION_PHASE__TEST;
-
+		case POD_STATE__NULL:
+			//we must never be here
 			break;
 
+		case POD_STATE__INIT:
+			break;
 
-		case MISSION_PHASE__DEBUG:
+		case POD_STATE__IDLE:
+			break;
 
+		case POD_STATE__TEST_MODE:
+			break;
+
+		case POD_STATE__DRIVE:
+			break;
+
+		case POD_STATE__ARMED_WAIT:
+			break;
+
+		case POD_STATE__FLIGHT_PREP:
+			break;
+
+		case POD_STATE__READY:
+			break;
+
+		case POD_STATE__ACCEL:
+			break;
+
+		case POD_STATE__COAST_INTERLOCK:
+			break;
+
+		case POD_STATE__BRAKE:
+			break;
+
+		case POD_STATE__SPINDOWN:
 			break;
 
 		default:
-			//should not get here
+			//
 			break;
 
+
 	}//switch(sFCU.eRunState)
-
-	//always process these items after we have been initted
-	if(sFCU.sStateMachine.eMissionPhase > MISSION_PHASE__RESET)
-	{
-		#if C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH == 1U
-			vFCU_PODHEALTH__Process();
-		#endif
-
-		//LG
-		vFCU_FCTL__Process();
-
-
-
-
-
-
-		#if C_LOCALDEF__LCCM655__ENABLE_GEOM == 1U
-			vFCU_GEOM__Process();
-		#endif
-		//Start the Hover Engine Control
-		#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
-			vFCU_FCTL_HOVERENGINES__Process();
-		#endif
-	}
-	else
-	{
-		//do nothing.
-	}
-
 
 }
 

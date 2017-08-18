@@ -496,6 +496,10 @@ void vFCU__Process(void)
 				vFCU_PUSHER__Init();
 			#endif
 
+			//the final thing to start is the flight controller
+			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
+				vFCU_FCTL__Init();
+			#endif
 			//move state
 			sFCU.eInitStates = INIT_STATE__RUN;
 			break;
@@ -576,9 +580,8 @@ void vFCU__Process(void)
 				vFCU_ASI__Process();
 			#endif
 
-			//process the main state machine
-			#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
-				vFCU_FCTL_MAINSM__Process();
+			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
+				vFCU_FCTL__Process();
 			#endif
 
 			//do the DAQ
@@ -635,10 +638,8 @@ void vFCU__RTI_100MS_ISR(void)
 		vFCU_BRAKES__100MS_ISR();
 	#endif
 
-	#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 	#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
 		vFCU_FCTL_MAINSM__100MS_ISR();
-	#endif
 	#endif
 
 }
@@ -679,10 +680,8 @@ void vFCU__RTI_10MS_ISR(void)
 		vFCU_FCTL_DRIVEPOD__10MS_ISR();
 	#endif
 
-	#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 	#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
 		vFCU_FCTL_MAINSM__10MS_ISR();
-	#endif
 	#endif
 
 

@@ -117,11 +117,17 @@
 			struct
 			{
 
+				/** The start of pod on track in mm */
+				Luint8 u8TrackStart_mm[4];
+
+				/** The end position of track in mm */
+				Luint8 u8TrackEnd_mm[4];
+
 				/** The length of the track in mm */
-				Luint32 u32TrackLength_mm;
+				Luint8 u8TrackLength_mm[4];
 
 				/** make up to 16 bytes */
-				Luint8 u8Spares[12];
+				Luint8 u8Spares[4];
 
 			}sTrack;
 
