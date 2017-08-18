@@ -905,6 +905,11 @@ LAPP188__RLOOP__RPOD_CONTROL
  </summary>
  <remarks></remarks>
 </member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.C_NUM_TRACK_DATABASES">
+ <summary>
+ Total number in FCU, don't change
+ </summary>
+</member>
 <member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.m_sLogDir">
  <summary>
  The logging directory
@@ -1443,11 +1448,10 @@ LAPP188__RLOOP__RPOD_CONTROL
  </summary>
  <param name="iIndex"></param>
 </member>
-<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.TrackDatabase.Creator.Database__GenBinary(System.UInt32)">
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.TrackDatabase.Creator.Database__GenBinary">
  <summary>
  Generate the binary form of the database file
  </summary>
- <param name="iIndex"></param>
 </member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.TrackDatabase.Monitor">
  <summary>

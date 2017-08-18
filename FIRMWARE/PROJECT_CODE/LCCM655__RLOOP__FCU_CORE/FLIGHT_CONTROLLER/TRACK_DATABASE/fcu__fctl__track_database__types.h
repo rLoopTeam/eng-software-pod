@@ -29,97 +29,115 @@
 
 
 	/** Track database V2
+	 * Header = 4
 	 * Size = 16 + 16 + 16 + 16 + 16 = 80
-	 * For 8 tracks = 640 bytes.
+	 * Spares 10
+	 * CRC = 2
+	 * For 8 tracks = 656 bytes.
 	 * */
 #ifdef WIN32
 	#pragma pack(push, 1)
 #endif
-	struct
+	typedef struct
 	{
 
-		/** Accel Subsystem */
+		/** A simple header word to ensure we can ID our memory */
+		Luint8 u8Header[4];
+
 		struct
 		{
 
-			/** Use the accel system as part of the track database */
-			Luint8 u8Use;
+			/** Accel Subsystem */
+			struct
+			{
 
-			/** Accel threshold*/
-			Lint32 s32Thresh_mm_ss;
+				/** Use the accel system as part of the track database */
+				Luint8 u8Use;
 
-			/** Threshold time */
-			Luint32 u32Thresh_x10ms;
+				/** Accel threshold S32*/
+				Luint8 u8Thresh_mm_ss[4];
 
-			/** Spare */
-			Luint32 u32Spare;
+				/** Threshold time */
+				Luint8 u8Thresh_x10ms[4];
 
-			//3 spares to take it to 16 bytes
-			Luint8 u8Spares[3];
+				/** Spare */
+				Luint32 u32Spare;
 
-		}sAccel;
+				//3 spares to take it to 16 bytes
+				Luint8 u8Spares[3];
 
-		/** FWD Laser configuration */
-		struct
-		{
+			}sAccel;
 
-			/** Use the forward laser */
-			Luint8 u8Use;
+			/** FWD Laser configuration */
+			struct
+			{
 
-			//make up 16 spares
-			Luint8 u8Spares[15];
+				/** Use the forward laser */
+				Luint8 u8Use;
 
-		}sFwdLaser;
+				//make up 16 spares
+				Luint8 u8Spares[15];
 
-		/** Contrast laser config */
-		struct
-		{
-			/** Use the contrast laser */
-			Luint8 u8Use;
+			}sFwdLaser;
 
-			//make up 16 spares
-			Luint8 u8Spares[15];
+			/** Contrast laser config */
+			struct
+			{
+				/** Use the contrast laser */
+				Luint8 u8Use;
 
-		}sContrastLaser;
+				//make up 16 spares
+				Luint8 u8Spares[15];
+
+			}sContrastLaser;
 
 
-		/** Control options */
-		struct
-		{
+			/** Control options */
+			struct
+			{
 
-			/** Use the pusher pin detection */
-			Luint8 u8UsePusher;
+				/** Use the pusher pin detection */
+				Luint8 u8UsePusher;
 
-			/** Use hover engines, if 0 then do not spinup or spindown */
-			Luint8 u8UseHover;
+				/** Use hover engines, if 0 then do not spinup or spindown */
+				Luint8 u8UseHover;
 
-			/** Use Landing Gear Control */
-			Luint8 u8UseLandingGear;
+				/** Use Landing Gear Control */
+				Luint8 u8UseLandingGear;
 
-			/** Enable end of run cooling */
-			Luint8 u8UseCooling;
+				/** Enable end of run cooling */
+				Luint8 u8UseCooling;
 
-			/** make up to 16*/
-			Luint8 u8Spares[12];
+				/** make up to 16*/
+				Luint8 u8Spares[12];
 
-		}sControl;
+			}sControl;
 
-		/** Track Specifics */
-		struct
-		{
+			/** Track Specifics */
+			struct
+			{
 
-			/** The length of the track in mm */
-			Luint32 u32TrackLength_mm;
+				/** The length of the track in mm */
+				Luint32 u32TrackLength_mm;
 
-			/** make up to 16 bytes */
-			Luint8 u8Spares[12];
+				/** make up to 16 bytes */
+				Luint8 u8Spares[12];
 
-		}sTrack;
+			}sTrack;
+
+		}sDB2[C_FCTL_TRACKDB__MAX_MEM_DATABASES];
+
+		//make up to x16 for RM48 alignment
+		//should get zeroed out when WIN32 creates the file
+		Luint8 u8Dummy[16-2-4];
+
+		//CRC protection
+		Luint8 u8CRC[2];
 
 	#ifndef WIN32
-	}sDB2[C_FCTL_TRACKDB__MAX_MEM_DATABASES];
+	}TS_FCU_TRACK_DB;
 	#else
-	}sDB2[C_FCTL_TRACKDB__MAX_MEM_DATABASES];
+	}TS_FCU_TRACK_DB;
 	#endif
 	#ifdef WIN32
 	#pragma pack(pop)

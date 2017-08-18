@@ -1223,21 +1223,14 @@
 
 				//get functions
 				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_CurrentDB(void);
-				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_TrackID(void);
-				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_TrackStartPosX_mm(void);
-				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_Current_TrackEndPosX_mm(void);
-				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_LRF_StartPosX_mm(void);
-				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_NumStripes(void);
-				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_StripeStartPosX_mm(Luint32 u32StripeIndex);
-				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_EnableLRF(void);
-				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_EnableAccels(void);
-				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_EnableContrast(void);
-				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_GetFooter(void);
+
+				//accel system
+				Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void);
 
 				//mem
 				void vFCU_FCTL_TRACKDB_MEM__Init(void);
 				void vFCU_FCTL_TRACKDB_MEM__Process(void);
-				void vFCU_FCTL_TRACKDB_MEM__UploadChunk(Luint32 u32TrackID, Luint32 u32ChunkIndex, Luint32 u32Length, Luint8 *pu8Buffer);
+				void vFCU_FCTL_TRACKDB_MEM__UploadChunk(Luint32 u32ChunkIndex, Luint32 u32Length, Luint8 *pu8Buffer);
 
 				//win32
 				void vFCU_FCTL_TRACKDB_WIN32__Init(void);
@@ -1247,6 +1240,12 @@
 				DLL_DECLARATION Luint16 u16FCU_FCTL_TRACKDB_WIN32__Get_StructureSize(void);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Array(Luint8 *pu8ByteArray);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Header(Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(Luint8 u8TrackIndex, Luint8 u8Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_mm_ss(Luint8 u8TrackIndex, Lint32 s32Thresh_mm_ss);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_x10ms(Luint8 u8TrackIndex, Luint32 u32Thresh_x10ms);
+
+
+
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_DataLength(Luint32 u32Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_TrackID(Luint32 u32Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_TrackStartXPos(Luint32 u32Value);

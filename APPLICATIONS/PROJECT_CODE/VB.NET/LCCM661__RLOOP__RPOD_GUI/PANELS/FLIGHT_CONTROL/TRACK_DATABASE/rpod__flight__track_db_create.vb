@@ -27,68 +27,8 @@
         <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
         Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Array(pu8ByteArray() As Byte)
         End Sub
-
         <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
         Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Header(u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_DataLength(u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_TrackID(u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_TrackStartXPos(u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_TrackEndXPos(u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_LRF_StartXPos(u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_NumStripes(u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(u32Index As UInt32, u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_EnableAccels(u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_EnableLRF(u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_EnableContrast(u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_HeaderSpare(u32Index As UInt32, u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Footer(u32Value As UInt32)
-        End Sub
-
-        'profile system
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontStartPos(u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontEndPos(u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PodFrontTargetXPos(u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_NumSetpoints(u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointPosX(u32Index As UInt32, u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointVelocityX(u32Index As UInt32, u32Value As UInt32)
-        End Sub
-        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_Spare(u32Index As UInt32, u32Value As UInt32)
         End Sub
         <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
         Public Shared Function u16FCTL_TRAKDB_WIN32__ComputeCRC() As UInt16
@@ -96,6 +36,76 @@
         <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
         Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_CRC(u16Value As UInt16)
         End Sub
+
+
+
+
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(u8TrackIndex As Byte, u8Value As Byte)
+        End Sub
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_mm_ss(u8TrackIndex As Byte, s32Thresh_mm_ss As Int32)
+        End Sub
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_x10ms(u8TrackIndex As Byte, u32Thresh_x10ms As UInt32)
+        End Sub
+
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_TrackID(u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_TrackStartXPos(u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_TrackEndXPos(u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_LRF_StartXPos(u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_NumStripes(u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(u32Index As UInt32, u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_EnableAccels(u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_EnableLRF(u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_EnableContrast(u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_HeaderSpare(u32Index As UInt32, u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Footer(u32Value As UInt32)
+        'End Sub
+
+        ''profile system
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontStartPos(u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontEndPos(u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PodFrontTargetXPos(u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_NumSetpoints(u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointPosX(u32Index As UInt32, u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointVelocityX(u32Index As UInt32, u32Value As UInt32)
+        'End Sub
+        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_Spare(u32Index As UInt32, u32Value As UInt32)
+        'End Sub
 
 #End Region ' #Region "DLL"
 
@@ -121,6 +131,7 @@
         Private m_sLogDir As String
 
         Private m_txtTrackIndex As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
+        Private m_txtTrackHumanName As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
         'accel system
         Private m_chkAccel_Use As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
@@ -128,19 +139,22 @@
         Private m_txtAccel_Timer_x10ms_u32 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
         Private m_txtAccel_Spare_u32 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
 
+        'fwd laser
+        Private m_chkFwdLaser_Use As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
+        Private m_txtFwdLaser_Spare0 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtFwdLaser_Spare1 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtFwdLaser_Spare2 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+
+        'contrast laser system
+        Private m_chkContLaser_Use As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
+        Private m_txtContLaser_Spare0 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtContLaser_Spare1 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtContLaser_Spare2 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
 
 
-
-        Private m_txtTrackHumanName As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtTrack_StartXPos As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtTrack_EndXPos As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtLRF_BeginXPos As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
-        Private m_txtNumStripes As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
-
-        Private m_chkEnableAccels As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
-        Private m_chkEnableLRF As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
-        Private m_chkEnableContrast As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
-
+        Private m_txtTrack__Start_mm As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtTrack__End_mm As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtTrack__Length_mm As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
 
 
         ''' <summary>
@@ -194,6 +208,9 @@
                     'load up some headers
                     Me.m_pCSV.Header__Add("TRACK_INDEX_U8")
 
+                    Me.m_pCSV.Header__Add("TRACK_HUMAN")
+
+
                     'accel subsystem
                     'use the accel system
                     Me.m_pCSV.Header__Add("ACCEL_USE_U8")
@@ -221,15 +238,9 @@
 
                     'pusher
                     Me.m_pCSV.Header__Add("PUSHER_USE_U8")
-
-                    'hover
                     Me.m_pCSV.Header__Add("HOVER_USE_U8")
-
-                    'cooling
-                    Me.m_pCSV.Header__Add("COOLING_USE_U8")
-
-                    'Use the LGU
                     Me.m_pCSV.Header__Add("LGU_USE_U8")
+                    Me.m_pCSV.Header__Add("COOLING_USE_U8")
 
                     'track specifics
                     Me.m_pCSV.Header__Add("TRACK_START_XPOS_MM_U32")
@@ -261,6 +272,9 @@
 
                         'index
                         pSB.Append(iCounter.ToString & ",")
+
+                        'human name
+                        pSB.Append("NO NAME ASSIGNED" & ",")
 
                         'ACCEL_USE_U8"
                         pSB.Append("0" & ",")
@@ -413,70 +427,81 @@
         Public Overrides Sub LayoutPanel()
 
             Dim l0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(10, 10, "Track Database List", MyBase.m_pInnerPanel)
-            Me.m_cboDatabase = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper(500, l0)
+            Me.m_cboDatabase = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper(300, l0)
 
             'fill
             For iCounter As Integer = 0 To Me.m_pCSV.m_alRows.Count - 1
                 Dim pAL As ArrayList = Me.m_pCSV.m_alRows(iCounter)
-                Me.m_cboDatabase.Threadsafe__AddItem("INDEX = " & pAL.Item(0).ToString & " [DESCRIPTION = " & pAL.Item(1).ToString & "]")
+                Me.m_cboDatabase.Threadsafe__AddItem("INDEX = " & pAL.Item(0).ToString & " [DESC: " & pAL.Item(1).ToString & "]")
             Next
-
             Me.m_cboDatabase.Threadsafe__SetSelectedIndex(0)
 
             Dim btnChoose As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Choose", AddressOf Me.btnChooseDB__Click)
             btnChoose.Layout__RightOfControl(Me.m_cboDatabase)
 
             Dim btnGenBinary As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Gen Binary", AddressOf Me.btnGenBinary__Click)
-            btnGenBinary.Layout__BelowControl(Me.m_cboDatabase)
+            btnGenBinary.Layout__RightOfControl(btnChoose)
 
-            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Track Index", btnGenBinary)
+            Dim btnSave As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Save CSV", AddressOf Me.btnSave__Click)
+            btnSave.Layout__RightOfControl(btnGenBinary)
+
+
+            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Track Index", Me.m_cboDatabase)
             Me.m_txtTrackIndex = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, l1)
             Me.m_txtTrackIndex.ReadOnly = True
 
-            Me.m_chkAccel_Use = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Accel: Use", "Accel: Use", "Use Accelerometer System")
-            Me.m_chkAccel_Use.Layout__BelowControl(Me.m_txtTrackIndex)
+            Dim l1a As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Track Human Name")
+            l1a.Layout__AboveRightControl(l1, Me.m_txtTrackIndex)
+            Me.m_txtTrackHumanName = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(300, l1a)
 
-            Dim l100 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel mms²", Me.m_chkAccel_Use)
+
+            'accel subsystem
+            Dim l100 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel mms²", Me.m_txtTrackIndex)
             Me.m_txtAccel_Thresh_mm_ss_s32 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l100)
-
             Dim l101 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel x10ms")
             l101.Layout__AboveRightControl(l100, Me.m_txtAccel_Thresh_mm_ss_s32)
             Me.m_txtAccel_Timer_x10ms_u32 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l101)
-
             Dim l102 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel Spare")
             l102.Layout__AboveRightControl(l101, Me.m_txtAccel_Timer_x10ms_u32)
             Me.m_txtAccel_Spare_u32 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l102)
 
+            Me.m_chkAccel_Use = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Accel: Use", "Accel: Use", "Use Accelerometer System")
+            Me.m_chkAccel_Use.Layout__RightOfControl(Me.m_txtAccel_Spare_u32)
 
 
+            Dim l200 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Fwd: Spare 0", Me.m_txtAccel_Thresh_mm_ss_s32)
+            Me.m_txtFwdLaser_Spare0 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l200)
+            Dim l201 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Fwd: Spare 1")
+            l201.Layout__AboveRightControl(l200, Me.m_txtFwdLaser_Spare0)
+            Me.m_txtFwdLaser_Spare1 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l201)
+            Dim l202 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Fwd: Spare 2")
+            l202.Layout__AboveRightControl(l201, Me.m_txtFwdLaser_Spare1)
+            Me.m_txtFwdLaser_Spare2 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l202)
+            Me.m_chkFwdLaser_Use = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("FwdLaser: Use", "FwdLaser: Use", "Use the Fwd Laser")
+            Me.m_chkFwdLaser_Use.Layout__RightOfControl(Me.m_txtFwdLaser_Spare2)
 
-            'Dim l3 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Start XPos (mm)")
-            'l3.Layout__AboveRightControl(l2, Me.m_txtTrackHumanName)
-            'Me.m_txtTrack_StartXPos = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l3)
 
-            'Dim l4 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("End XPos (mm)")
-            'l4.Layout__AboveRightControl(l3, Me.m_txtTrack_StartXPos)
-            'Me.m_txtTrack_EndXPos = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l4)
+            Dim l300 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Cont: Spare 0", Me.m_txtFwdLaser_Spare0)
+            Me.m_txtContLaser_Spare0 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l300)
+            Dim l301 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Cont: Spare 1")
+            l301.Layout__AboveRightControl(l300, Me.m_txtContLaser_Spare0)
+            Me.m_txtContLaser_Spare1 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l301)
+            Dim l302 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Cont: Spare 2")
+            l302.Layout__AboveRightControl(l301, Me.m_txtContLaser_Spare1)
+            Me.m_txtContLaser_Spare2 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l302)
+            Me.m_chkContLaser_Use = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("ContLaser: Use", "ContLaser: Use", "Use the Contrast Laser")
+            Me.m_chkContLaser_Use.Layout__RightOfControl(Me.m_txtContLaser_Spare2)
 
-            'Dim l5 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("LRF Start X (mm)")
-            'l5.Layout__AboveRightControl(l4, Me.m_txtTrack_EndXPos)
-            'Me.m_txtLRF_BeginXPos = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l5)
 
-            'Dim l6 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Num Stripes")
-            'l6.Layout__BelowControl(Me.m_txtTrackIndex)
-            'Me.m_txtNumStripes = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l6)
+            Dim l400 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Track Start mm", Me.m_txtContLaser_Spare0)
+            Me.m_txtTrack__Start_mm = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l400)
+            Dim l401 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Track End mm")
+            l401.Layout__AboveRightControl(l400, Me.m_txtTrack__Start_mm)
+            Me.m_txtTrack__End_mm = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l401)
+            Dim l402 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Track Len mm")
+            l402.Layout__AboveRightControl(l401, Me.m_txtTrack__End_mm)
+            Me.m_txtTrack__Length_mm = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l402)
 
-            'Me.m_chkEnableAccels = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Enable Accels")
-            'Me.m_chkEnableAccels.Layout__BelowControl(Me.m_txtNumStripes)
-
-            'Me.m_chkEnableLRF = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Enable LRF")
-            'Me.m_chkEnableLRF.Layout__RightOfControl(Me.m_chkEnableAccels)
-
-            'Me.m_chkEnableContrast = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Enable Contrast")
-            'Me.m_chkEnableContrast.Layout__RightOfControl(Me.m_chkEnableLRF)
-
-            'Dim btnSave As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Save", AddressOf Me.btnSave__Click)
-            'btnSave.Layout__RightOfControl(Me.m_txtLRF_BeginXPos)
 
         End Sub
 
@@ -491,48 +516,84 @@
         ''' <param name="e"></param>
         Private Sub btnSave__Click(s As Object, e As EventArgs)
 
+
             If Me.m_txtTrackHumanName.Dirty = True Then
-                Me.m_pCSV.Cell__SetContents("TRACK_HUMAN_NAME", Me.m_iCurrentIndex, Me.m_txtTrackHumanName.Text, True)
+                Me.m_pCSV.Cell__SetContents("TRACK_HUMAN", Me.m_iCurrentIndex, Me.m_txtTrackHumanName.Text, True)
                 Me.m_txtTrackHumanName.Dirty = False
             End If
 
-            If Me.m_txtTrack_StartXPos.Dirty = True Then
-                Me.m_pCSV.Cell__SetContents("TRACK_START_XPOS_MM", Me.m_iCurrentIndex, Me.m_txtTrack_StartXPos.Text, True)
-                Me.m_txtTrack_StartXPos.Dirty = False
-            End If
-
-            If Me.m_txtTrack_EndXPos.Dirty = True Then
-                Me.m_pCSV.Cell__SetContents("TRACK_END_XPOS_MM", Me.m_iCurrentIndex, Me.m_txtTrack_EndXPos.Text, True)
-                Me.m_txtTrack_EndXPos.Dirty = False
-            End If
-
-            If Me.m_txtLRF_BeginXPos.Dirty = True Then
-                Me.m_pCSV.Cell__SetContents("LRF_START_POS_MM", Me.m_iCurrentIndex, Me.m_txtLRF_BeginXPos.Text, True)
-                Me.m_txtLRF_BeginXPos.Dirty = False
-            End If
-
-            If Me.m_txtNumStripes.Dirty = True Then
-                Me.m_pCSV.Cell__SetContents("NUM_STRIPES", Me.m_iCurrentIndex, Me.m_txtNumStripes.Text, True)
-                Me.m_txtNumStripes.Dirty = False
-            End If
-
-            If Me.m_chkEnableAccels.Checked = True Then
-                Me.m_pCSV.Cell__SetContents("ENABLE_ACCELS", Me.m_iCurrentIndex, "1", True)
+            If Me.m_chkAccel_Use.Checked = True Then
+                Me.m_pCSV.Cell__SetContents("ACCEL_USE_U8", Me.m_iCurrentIndex, "1", True)
             Else
-                Me.m_pCSV.Cell__SetContents("ENABLE_ACCELS", Me.m_iCurrentIndex, "0", True)
+                Me.m_pCSV.Cell__SetContents("ACCEL_USE_U8", Me.m_iCurrentIndex, "0", True)
+            End If
+            If Me.m_txtAccel_Thresh_mm_ss_s32.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("ACCEL_THRESH_MM_SS_S32", Me.m_iCurrentIndex, Me.m_txtAccel_Thresh_mm_ss_s32.Text.ToString, True)
+                Me.m_txtAccel_Thresh_mm_ss_s32.Dirty = False
+            End If
+            If Me.m_txtAccel_Timer_x10ms_u32.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("ACCEL_THRESH_TIME_X10MS_U32", Me.m_iCurrentIndex, Me.m_txtAccel_Timer_x10ms_u32.Text.ToString, True)
+                Me.m_txtAccel_Timer_x10ms_u32.Dirty = False
+            End If
+            If Me.m_txtAccel_Spare_u32.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("ACCEL_SPARE_U32", Me.m_iCurrentIndex, Me.m_txtAccel_Spare_u32.Text.ToString, True)
+                Me.m_txtAccel_Spare_u32.Dirty = False
             End If
 
-            If Me.m_chkEnableLRF.Checked = True Then
-                Me.m_pCSV.Cell__SetContents("ENABLE_LRF", Me.m_iCurrentIndex, "1", True)
+
+            If Me.m_chkFwdLaser_Use.Checked = True Then
+                Me.m_pCSV.Cell__SetContents("FWD_USE_U8", Me.m_iCurrentIndex, "1", True)
             Else
-                Me.m_pCSV.Cell__SetContents("ENABLE_LRF", Me.m_iCurrentIndex, "0", True)
+                Me.m_pCSV.Cell__SetContents("FWD_USE_U8", Me.m_iCurrentIndex, "0", True)
+            End If
+            If Me.m_txtFwdLaser_Spare0.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("FWD_SPARE_0_U32", Me.m_iCurrentIndex, Me.m_txtFwdLaser_Spare0.Text.ToString, True)
+                Me.m_txtFwdLaser_Spare0.Dirty = False
+            End If
+            If Me.m_txtFwdLaser_Spare1.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("FWD_SPARE_1_U32", Me.m_iCurrentIndex, Me.m_txtFwdLaser_Spare1.Text.ToString, True)
+                Me.m_txtFwdLaser_Spare1.Dirty = False
+            End If
+            If Me.m_txtFwdLaser_Spare2.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("FWD_SPARE_2_U32", Me.m_iCurrentIndex, Me.m_txtFwdLaser_Spare2.Text.ToString, True)
+                Me.m_txtFwdLaser_Spare2.Dirty = False
             End If
 
-            If Me.m_chkEnableContrast.Checked = True Then
-                Me.m_pCSV.Cell__SetContents("ENABLE_CONTRAST", Me.m_iCurrentIndex, "1", True)
+
+
+            If Me.m_chkContLaser_Use.Checked = True Then
+                Me.m_pCSV.Cell__SetContents("CONT_USE_U8", Me.m_iCurrentIndex, "1", True)
             Else
-                Me.m_pCSV.Cell__SetContents("ENABLE_CONTRAST", Me.m_iCurrentIndex, "0", True)
+                Me.m_pCSV.Cell__SetContents("CONT_USE_U8", Me.m_iCurrentIndex, "0", True)
             End If
+            If Me.m_txtContLaser_Spare0.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("CONT_SPARE_0_U32", Me.m_iCurrentIndex, Me.m_txtContLaser_Spare0.Text.ToString, True)
+                Me.m_txtContLaser_Spare0.Dirty = False
+            End If
+            If Me.m_txtContLaser_Spare1.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("CONT_SPARE_1_U32", Me.m_iCurrentIndex, Me.m_txtContLaser_Spare1.Text.ToString, True)
+                Me.m_txtContLaser_Spare1.Dirty = False
+            End If
+            If Me.m_txtContLaser_Spare2.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("CONT_SPARE_2_U32", Me.m_iCurrentIndex, Me.m_txtContLaser_Spare2.Text.ToString, True)
+                Me.m_txtContLaser_Spare2.Dirty = False
+            End If
+
+
+            'track specifics
+            If Me.m_txtTrack__Start_mm.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("TRACK_START_XPOS_MM_U32", Me.m_iCurrentIndex, Me.m_txtTrack__Start_mm.Text.ToString, True)
+                Me.m_txtTrack__Start_mm.Dirty = False
+            End If
+            If Me.m_txtTrack__End_mm.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("TRACK_END_XPOS_MM_U32", Me.m_iCurrentIndex, Me.m_txtTrack__End_mm.Text.ToString, True)
+                Me.m_txtTrack__End_mm.Dirty = False
+            End If
+            If Me.m_txtTrack__Length_mm.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("TRACK_LENGTH_MM_U32", Me.m_iCurrentIndex, Me.m_txtTrack__Length_mm.Text.ToString, True)
+                Me.m_txtTrack__Length_mm.Dirty = False
+            End If
+
 
         End Sub
 
@@ -547,37 +608,70 @@
             Me.m_iCurrentIndex = Me.m_cboDatabase.SelectedIndex
 
             'see if the points file exists
-            Me.m_txtTrackIndex.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(0).ToString)
+            Dim iItem As Integer = 0
+            Me.m_txtTrackIndex.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
 
-            If Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(1).ToString = "0" Then
+            Me.m_txtTrackHumanName.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+
+            'use accel
+            If Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString = "1" Then
                 Me.m_chkAccel_Use.Checked = True
             Else
                 Me.m_chkAccel_Use.Checked = False
             End If
+            iItem += 1
+            Me.m_txtAccel_Thresh_mm_ss_s32.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+            Me.m_txtAccel_Timer_x10ms_u32.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+            Me.m_txtAccel_Spare_u32.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+
+            'fwd laser
+            If Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString = "1" Then
+                Me.m_chkFwdLaser_Use.Checked = True
+            Else
+                Me.m_chkFwdLaser_Use.Checked = False
+            End If
+            iItem += 1
+            Me.m_txtFwdLaser_Spare0.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+            Me.m_txtFwdLaser_Spare1.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+            Me.m_txtFwdLaser_Spare2.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+
+            'contrast laser
+            If Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString = "1" Then
+                Me.m_chkContLaser_Use.Checked = True
+            Else
+                Me.m_chkContLaser_Use.Checked = False
+            End If
+            iItem += 1
+            Me.m_txtContLaser_Spare0.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+            Me.m_txtContLaser_Spare0.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+            Me.m_txtContLaser_Spare0.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
 
 
+            'push, hover, cooling, lgu
+            iItem += 1
+            iItem += 1
+            iItem += 1
+            iItem += 1
 
-            'Me.m_txtTrackHumanName.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(1).ToString)
-            'Me.m_txtTrack_StartXPos.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(3).ToString)
-            'Me.m_txtTrack_EndXPos.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(4).ToString)
-            'Me.m_txtLRF_BeginXPos.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(5).ToString)
-            'Me.m_txtNumStripes.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(6).ToString)
+            Me.m_txtTrack__Start_mm.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+            Me.m_txtTrack__End_mm.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+            Me.m_txtTrack__Length_mm.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
 
-            'If CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(7).ToString) = 1 Then
-            '    Me.m_chkEnableAccels.Checked = True
-            'Else
-            '    Me.m_chkEnableAccels.Checked = False
-            'End If
-            'If CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(8).ToString) = 1 Then
-            '    Me.m_chkEnableLRF.Checked = True
-            'Else
-            '    Me.m_chkEnableLRF.Checked = False
-            'End If
-            'If CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(9).ToString) = 1 Then
-            '    Me.m_chkEnableContrast.Checked = True
-            'Else
-            '    Me.m_chkEnableContrast.Checked = False
-            'End If
+
 
         End Sub
 
@@ -587,11 +681,8 @@
         ''' <param name="s"></param>
         ''' <param name="e"></param>
         Private Sub btnGenBinary__Click(s As Object, e As EventArgs)
-            If Me.m_iCurrentIndex = -1 Then
-                MsgBox("You have not selected an index yet")
-                Exit Sub
-            End If
-            Me.Database__GenBinary(Me.m_iCurrentIndex)
+
+            Me.Database__GenBinary()
         End Sub
 
 #End Region '#Region "BUTTON HELPERS"
@@ -611,11 +702,8 @@
         ''' <summary>
         ''' Generate the binary form of the database file
         ''' </summary>
-        ''' <param name="iIndex"></param>
-        Private Sub Database__GenBinary(iIndex As UInt32)
+        Private Sub Database__GenBinary()
 
-            Dim iNumStripes As UInt32 = 41
-            Dim u32NumSetpoints As UInt32 = 88
 
             'clear the internal mem array
             vFCU_FCTL_TRACKDB_WIN32__Clear_Array()
@@ -623,41 +711,66 @@
             'setup the header
             vFCU_FCTL_TRACKDB_WIN32__Set_Header(&HABCD1234L)
 
-            vFCU_FCTL_TRACKDB_WIN32__Set_DataLength(32)
-            vFCU_FCTL_TRACKDB_WIN32__Set_TrackID(iIndex)
-            vFCU_FCTL_TRACKDB_WIN32__Set_TrackStartXPos(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(3).ToString))
-            vFCU_FCTL_TRACKDB_WIN32__Set_TrackEndXPos(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(4).ToString))
-            vFCU_FCTL_TRACKDB_WIN32__Set_LRF_StartXPos(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(5).ToString))
-            vFCU_FCTL_TRACKDB_WIN32__Set_NumStripes(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(6).ToString))
+            'setup the accel
+            For iRow As Integer = 0 To Me.m_pCSV.m_alRows.Count - 1
+                Dim iItem As Integer = 0
 
-            For u32Counter As UInt32 = 0 To iNumStripes - 1
-                vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(u32Counter, u32Counter * 10)
+                'track ID
+                iItem += 1
+
+                'human nam
+                iItem += 1
+
+                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(iRow, CByte(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
+                iItem += 1
+                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_mm_ss(iRow, CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
+                iItem += 1
+                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_x10ms(iRow, CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
+                iItem += 1
+                'spare
+                iItem += 1
+
+
             Next
 
-            vFCU_FCTL_TRACKDB_WIN32__Set_EnableAccels(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(7).ToString))
-            vFCU_FCTL_TRACKDB_WIN32__Set_EnableLRF(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(8).ToString))
-            vFCU_FCTL_TRACKDB_WIN32__Set_EnableContrast(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(9).ToString))
-
-            For u32Counter As UInt32 = 0 To C_FCTL_TRACKDB__HEADER_SPARE_WORDS - 1
-                vFCU_FCTL_TRACKDB_WIN32__Set_HeaderSpare(u32Counter, 0)
-            Next
-
-            vFCU_FCTL_TRACKDB_WIN32__Set_Footer(&H12345678L)
 
 
-            'setup the profile
-            vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontStartPos(0)
-            vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontEndPos(1200)
-            vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PodFrontTargetXPos(1500)
-            vFCU_FCTL_TRACKDB_WIN32__Set_Profile_NumSetpoints(u32NumSetpoints)
-            For u32Counter = 0 To u32NumSetpoints - 1
-                vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointPosX(u32Counter, u32Counter * 22)
-                vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointVelocityX(u32Counter, u32Counter * 33)
-            Next
 
-            For u32Counter As UInt32 = 0 To C_FCTL_TRACKDB__PROFILE_SPARE_WORDS - 1
-                vFCU_FCTL_TRACKDB_WIN32__Set_Profile_Spare(u32Counter, 0)
-            Next
+            'vFCU_FCTL_TRACKDB_WIN32__Set_DataLength(32)
+            'vFCU_FCTL_TRACKDB_WIN32__Set_TrackID(iIndex)
+            'vFCU_FCTL_TRACKDB_WIN32__Set_TrackStartXPos(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(3).ToString))
+            'vFCU_FCTL_TRACKDB_WIN32__Set_TrackEndXPos(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(4).ToString))
+            'vFCU_FCTL_TRACKDB_WIN32__Set_LRF_StartXPos(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(5).ToString))
+            'vFCU_FCTL_TRACKDB_WIN32__Set_NumStripes(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(6).ToString))
+
+            'For u32Counter As UInt32 = 0 To iNumStripes - 1
+            '    vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(u32Counter, u32Counter * 10)
+            'Next
+
+            'vFCU_FCTL_TRACKDB_WIN32__Set_EnableAccels(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(7).ToString))
+            'vFCU_FCTL_TRACKDB_WIN32__Set_EnableLRF(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(8).ToString))
+            'vFCU_FCTL_TRACKDB_WIN32__Set_EnableContrast(UInt32.Parse(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(9).ToString))
+
+            'For u32Counter As UInt32 = 0 To C_FCTL_TRACKDB__HEADER_SPARE_WORDS - 1
+            '    vFCU_FCTL_TRACKDB_WIN32__Set_HeaderSpare(u32Counter, 0)
+            'Next
+
+            'vFCU_FCTL_TRACKDB_WIN32__Set_Footer(&H12345678L)
+
+
+            ''setup the profile
+            'vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontStartPos(0)
+            'vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontEndPos(1200)
+            'vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PodFrontTargetXPos(1500)
+            'vFCU_FCTL_TRACKDB_WIN32__Set_Profile_NumSetpoints(u32NumSetpoints)
+            'For u32Counter = 0 To u32NumSetpoints - 1
+            '    vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointPosX(u32Counter, u32Counter * 22)
+            '    vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointVelocityX(u32Counter, u32Counter * 33)
+            'Next
+
+            'For u32Counter As UInt32 = 0 To C_FCTL_TRACKDB__PROFILE_SPARE_WORDS - 1
+            '    vFCU_FCTL_TRACKDB_WIN32__Set_Profile_Spare(u32Counter, 0)
+            'Next
 
             Dim u16CRC As UInt16 = u16FCTL_TRAKDB_WIN32__ComputeCRC()
             vFCU_FCTL_TRACKDB_WIN32__Set_CRC(u16CRC)
@@ -668,7 +781,7 @@
             Dim u16Size As UInt16 = u16FCU_FCTL_TRACKDB_WIN32__Get_StructureSize()
             ReDim u8Array(u16Size - 1)
 
-            Dim pS As New System.IO.FileStream(Me.m_sDBDir & Me.m_iCurrentIndex.ToString("00") & ".bin", IO.FileMode.Create)
+            Dim pS As New System.IO.FileStream(Me.m_sDBDir & "database2.bin", IO.FileMode.Create)
             Dim pW As New System.IO.BinaryWriter(pS)
 
             'load

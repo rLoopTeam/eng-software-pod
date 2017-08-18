@@ -9,6 +9,11 @@
 
 #Region "CONSTANTS"
 
+        ''' <summary>
+        ''' Total number in FCU, don't change
+        ''' </summary>
+        Private Const C_NUM_TRACK_DATABASES As Integer = 8
+
 #End Region '#Region "CONSTANTS"
 
 #Region "MEMBERS"
@@ -119,25 +124,10 @@
             Me.m_txtRxCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l11)
             Me.m_txtRxCount.ReadOnly = True
 
-            Dim l110 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Flight Controls")
-            l110.Layout__AboveRightControl(l11, Me.m_txtRxCount)
-            Dim btnEnterPreRun As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Enter Pre-Run", Nothing)
-            btnEnterPreRun.Layout__BelowControl(l110)
-            'btnEnterPreRun.BackColor = Color.Orange
-            Dim btnFlightAbort As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Flight Abort", Nothing)
-            btnFlightAbort.Layout__RightOfControl(btnEnterPreRun)
-            Dim btnPodStop As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Pod Stop", AddressOf Me.btnPodStop__Click)
-            btnPodStop.Layout__RightOfControl(btnFlightAbort)
-            Dim btnPodSafe As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Pod Safe", AddressOf Me.btnPodSafed__Click)
-            btnPodSafe.Layout__RightOfControl(btnPodStop)
-
-
-            Dim l00 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Fault Flags", btnOn)
+            Dim l00 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Fault Flags")
+            l00.Layout__AboveRightControl(l11, Me.m_txtRxCount)
             Me.m_txtFlags = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags(100, l00)
-            Me.m_txtFlags.Flags__Add("ACCEL SUBSYSTEM")
-            Me.m_txtFlags.Flags__Add("ASI SUBSYSTEM")
-            Me.m_txtFlags.Flags__Add("BRAKES SUBSYSTEM")
-            Me.m_txtFlags.Flags__Add("DAQ SUBSYSTEM")
+            Me.m_txtFlags.FlagsFile__Read("../../../../FIRMWARE/PROJECT_CODE/LCCM655__RLOOP__FCU_CORE/FAULTS/fcu__faults__fault_flags.h", "FAULTS")
 
 
             Dim l01 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Pod Health")
@@ -155,23 +145,33 @@
             Me.m_txtPodHealth.Flags__Add("P9: PV_PRESS_RANGE")
             Me.m_txtPodHealth.Flags__Add("P10: PV_TEMP_RANGE")
 
-
-            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Mission State")
-            l1.Layout__AboveRightControl(l01, Me.m_txtPodHealth)
-            Me.m_txtMissionPhase = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l1)
+            Dim l02 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Mission State")
+            l02.Layout__AboveRightControl(l01, Me.m_txtPodHealth)
+            Me.m_txtMissionPhase = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l02)
             Me.m_txtMissionPhase.ReadOnly = True
-            Me.m_txtMissionPhase.States__Add("MISSION_PHASE__RESET")
-            Me.m_txtMissionPhase.States__Add("MISSION_PHASE__TEST_PHASE")
-            Me.m_txtMissionPhase.States__Add("MISSION_PHASE__PRE_RUN_PHASE")
-            Me.m_txtMissionPhase.States__Add("MISSION_PHASE__PUSH_INTERLOCK_PHASE")
-            Me.m_txtMissionPhase.States__Add("MISSION_PHASE__FLIGHT_MODE")
+            Me.m_txtMissionPhase.HeaderFile__Set("../../../../FIRMWARE/PROJECT_CODE/LCCM655__RLOOP__FCU_CORE/FLIGHT_CONTROLLER/fcu__flight_controller__state_types.h", "TE_POD_STATE_T")
 
 
-            Dim l2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Select Track DB")
-            l2.Layout__BelowControl(Me.m_txtFlags)
+
+
+            Dim l110 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Flight Controls", btnOn)
+
+            Dim btnEnterPreRun As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Enter Pre-Run", Nothing)
+            btnEnterPreRun.Layout__BelowControl(l110)
+            'btnEnterPreRun.BackColor = Color.Orange
+            Dim btnFlightAbort As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Flight Abort", Nothing)
+            btnFlightAbort.Layout__RightOfControl(btnEnterPreRun)
+            Dim btnPodStop As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Pod Stop", AddressOf Me.btnPodStop__Click)
+            btnPodStop.Layout__RightOfControl(btnFlightAbort)
+            Dim btnPodSafe As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Pod Safe", AddressOf Me.btnPodSafed__Click)
+            btnPodSafe.Layout__RightOfControl(btnPodStop)
+
+
+
+            Dim l2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Select Track DB", btnEnterPreRun)
             Me.m_cboSelectTrackDB = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper(100, l2)
 
-            For iCounter As Integer = 0 To 8 - 1
+            For iCounter As Integer = 0 To C_NUM_TRACK_DATABASES - 1
                 Me.m_cboSelectTrackDB.Threadsafe__AddItem(iCounter.ToString)
             Next
             Me.m_cboSelectTrackDB.Threadsafe__SetSelectedIndex(0)
