@@ -27,7 +27,6 @@ extern TS_HET__MAIN sHET;
 
 Luint8 Sol_Open[4];  // 1 for open, 0 for close
 
-
 /***************************************************************************//**
  * @brief
  * Configure the solenoids
@@ -156,7 +155,6 @@ void vHETHERM_SOL__Process(void)
     else
     {
     }
-
 
 
 	//  IF something is critical, TURN IT ON!!
