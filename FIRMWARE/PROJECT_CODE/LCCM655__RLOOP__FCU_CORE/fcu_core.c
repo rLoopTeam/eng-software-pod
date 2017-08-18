@@ -607,47 +607,47 @@ void vFCU__Process(void)
 
 strTimeout create_timeout(Luint32 duration_ms)
 {
-    strTimeout t;
-    t.duration_ms = duration_ms;
-    t.elapsed_ms = 0;
-    return t;
+	strTimeout t;
+	t.duration_ms = duration_ms;
+	t.elapsed_ms = 0;
+	return t;
 }
 
 void timeout_restart(strTimeout *timeout)
 {
-    // Call this to start or restart a timeout
-    timeout->elapsed_ms = 0U;
-    timeout->started = true;
+	// Call this to start or restart a timeout
+	timeout->elapsed_ms = 0U;
+	timeout->started = true;
 }
 
 void timeout_reset(strTimeout *timeout)
 {
-    timeout->elapsed_ms = 0U;
-    timeout->started = false;
+	timeout->elapsed_ms = 0U;
+	timeout->started = false;
 }
 
 void timeout_ensure_started(strTimeout *timeout)
 {
-    if ( ! timeout->started ) {
-        // If we're not started, make sure we are and reset our elapsed time
-        timeout_restart(timeout);
-    } else {
-        // We're already started; nothing to do
-    }
+	if ( ! timeout->started ) {
+		// If we're not started, make sure we are and reset our elapsed time
+		timeout_restart(timeout);
+	} else {
+		// We're already started; nothing to do
+	}
 }
 
 bool timeout_expired(strTimeout *timeout)
 {
-    return timeout->elapsed_ms >= timeout->duration_ms;
+	return timeout->elapsed_ms >= timeout->duration_ms;
 }
 
 void timeout_update(strTimeout *timeout, int elapsed_ms)
 {
-    if ( ! timeout_expired(timeout) ) 
-    {
-        // If we haven't expired, update our timeout. We have no reason to keep adding once we've expired.
-        timeout->elapsed_ms += elapsed_ms;
-    }
+	if ( ! timeout_expired(timeout) ) 
+	{
+		// If we haven't expired, update our timeout. We have no reason to keep adding once we've expired.
+		timeout->elapsed_ms += elapsed_ms;
+	}
 }
 
 
@@ -657,9 +657,9 @@ void timeout_update(strTimeout *timeout, int elapsed_ms)
 
 strInterlockCommand create_interlock_command(const Luint32 duration_ms)
 {
-    strInterlockCommand ic;
-    ic.commandTimeout = create_timeout(duration_ms);
-    ic.enabled = false;
+	strInterlockCommand ic;
+	ic.commandTimeout = create_timeout(duration_ms);
+	ic.enabled = false;
 	return ic;
 }
 
@@ -667,40 +667,40 @@ strInterlockCommand create_interlock_command(const Luint32 duration_ms)
 // Call this when the first packet is received. Ok to call it multiple times; it will just reset the timer.
 void interlock_command_enable(strInterlockCommand *ic)
 {
-    ic->enabled = true;
-    timeout_restart(&ic->commandTimeout);
+	ic->enabled = true;
+	timeout_restart(&ic->commandTimeout);
 }
 
 // Call this when the second packet is received to check whether the command can execute (i.e. timeout has not expired)
 bool interlock_command_can_execute(strInterlockCommand *ic)
 {
-    bool can_execute;
-    
-    // Note: I know this is not great code style but under time crunch    
-    if (ic->enabled && ! timeout_expired(&ic->commandTimeout) )
-    {
-        can_execute = true;
-    } 
-    else 
-    {
-        can_execute = false;
-    }
-    return can_execute;
+	bool can_execute;
+	
+	// Note: I know this is not great code style but under time crunch	
+	if (ic->enabled && ! timeout_expired(&ic->commandTimeout) )
+	{
+		can_execute = true;
+	} 
+	else 
+	{
+		can_execute = false;
+	}
+	return can_execute;
 }
 
 // Call this if the command was executed and we're ready to listen for the initial packet again
 // @todo: do we even need this? if we receive another enable packet, we will restart the timeout. Once its timed out, it will not keep counting, so we're ok. 
 void interlock_command_reset(strInterlockCommand *ic)
 {
-    // Reset the timeout (stop it and set the elapsed time to 0)
-    timeout_reset(&ic->commandTimeout);
+	// Reset the timeout (stop it and set the elapsed time to 0)
+	timeout_reset(&ic->commandTimeout);
 }
 
 // Call this in one of our timer ISRs. Ok to call this since the timeout has to be started for the update to have any effect. 
 void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms)
 {
-    // Update the timeout
-    timeout_update(&ic->commandTimeout, time_ms);
+	// Update the timeout
+	timeout_update(&ic->commandTimeout, time_ms);
 }
 
 

@@ -1,5 +1,5 @@
-#ifndef _POD__GUARDS_H_
-#define _POD__GUARDS_H_
+#ifndef _POD__CONTROL_H_
+#define _POD__CONTROL_H_
 
 
 /////////////////////////////////////////////////////////////////////
@@ -113,51 +113,6 @@ void handle_POD_SPINDOWN_STATE_transitions();
 
 
 /////////////////////////////////////////////////////////////////////
-//  Pod transitions
-/////////////////////////////////////////////////////////////////////
-
-/**
- *  Pod conditional transitions
- */
-//bool handle_pod_conditional_transition(strPod *sPod);
-
-/**
- *  Pod timeout transitions
- */
-//bool handle_pod_timeout_transition(strPod *sPod);
-
-/**
- *  Pod automatic transitions
- */
-//bool handle_pod_automatic_transition(strPod *sPod);
-
-
-/////////////////////////////////////////////////////////////////////
-//  Pod command handling
-/////////////////////////////////////////////////////////////////////
-
-/**
- *  Pod command handler
- */
-//bool handle_pod_command(strPod *sPod, const strPodCmd *cmd, strPodCmd *command_slot);
-
-/**
- *  Apply changes to the system based on the command
- */
-//void commit_pod_command(strPod *sPod, const strPodCmd *cmd, strPodCmd *command_slot);
-
-/**
- *  Reject a command so that no change is made to the system
- */
-//void reject_pod_command(strPod *sPod, const strPodCmd *cmd, const char *reject_message, strPodCmd *command_slot);
-
-/**
- *  Clear command from sPod
- */
-//void clear_pod_command(strPod *sPod, strPodCmd *command_slot);
-
-
-/////////////////////////////////////////////////////////////////////
 //  Pod command functions
 /////////////////////////////////////////////////////////////////////
 
@@ -192,4 +147,4 @@ void cmd_POD_ARMED_WAIT();
 void cmd_POD_READY();
 
 
-#endif // _POD__GUARDS_H_
+#endif // _POD__CONTROL_H_
