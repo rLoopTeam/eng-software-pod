@@ -37,6 +37,9 @@
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
 		#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8451__types.h>
 
+		//flight controller states
+		#include <LCCM655__RLOOP__FCU_CORE/FLIGHT_CONTROLLER/fcu__flight_controller__state_types.h>
+
 		/*******************************************************************************
 		Defines
 		*******************************************************************************/
@@ -131,7 +134,7 @@
 				/** The mission phases
 				 * http://confluence.rloop.org/display/SD/1.+Determine+Mission+Phases+and+Operating+States
 				 * */
-				E_FCU__MISSION_PHASE_T eMissionPhase;
+				TE_POD_STATE_T eMissionPhase;
 
 				/** Counter to count the time elapsed from the disconnection from the pusher **/
 				Luint32 PusherCounter;
@@ -1188,13 +1191,13 @@
 		//flight controller
 		void vFCU_FCTL__Init(void);
 		void vFCU_FCTL__Process(void);
+		void vFCU_FCTL__Config_From_Database(void);
 
 			//main state machine
 			void vFCU_FCTL_MAINSM__Init(void);
 			void vFCU_FCTL_MAINSM__Process(void);
 			void vFCU_FCTL_MAINSM__10MS_ISR(void);
 			void vFCU_FCTL_MAINSM__100MS_ISR(void);
-			void vFCU_FCTL_MAINSM__MISERABLE_STOP_100MS_ISR(void);
 
 			//drive pod
 			Luint32 u32FCU_NET_RX__GetGsCommTimer(void);
@@ -1240,31 +1243,18 @@
 				DLL_DECLARATION Luint16 u16FCU_FCTL_TRACKDB_WIN32__Get_StructureSize(void);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Array(Luint8 *pu8ByteArray);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Header(Luint32 u32Value);
+
+				//accel system
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(Luint8 u8TrackIndex, Luint8 u8Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_mm_ss(Luint8 u8TrackIndex, Lint32 s32Thresh_mm_ss);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_x10ms(Luint8 u8TrackIndex, Luint32 u32Thresh_x10ms);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_mm_ss(Luint8 u8TrackIndex, Lint32 s32Thresh_mm_ss);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(Luint8 u8TrackIndex, Luint32 u32Thresh_x10ms);
 
+				//track system
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackStart_mm(Luint8 u8TrackIndex, Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackEnd_mm(Luint8 u8TrackIndex, Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackLength_mm(Luint8 u8TrackIndex, Luint32 u32Value);
 
-
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_DataLength(Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_TrackID(Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_TrackStartXPos(Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_TrackEndXPos(Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_LRF_StartXPos(Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_NumStripes(Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(Luint32 u32Index, Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_EnableAccels(Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_EnableLRF(Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_EnableContrast(Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_HeaderSpare(Luint32 u32Index, Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Footer(Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontStartPos(Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontEndPos(Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PodFrontTargetXPos(Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_NumSetpoints(Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointPosX(Luint32 u32Index, Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointVelocityX(Luint32 u32Index, Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_Spare(Luint32 u32Index, Luint32 u32Value);
+				//CRC control
 				DLL_DECLARATION Luint16 u16FCTL_TRAKDB_WIN32__ComputeCRC(void);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_CRC(Luint16 u16Value);
 

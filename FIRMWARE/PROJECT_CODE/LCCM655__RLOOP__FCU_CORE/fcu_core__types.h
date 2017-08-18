@@ -66,39 +66,6 @@
 	}E_FCU__ASI_STATE_T;
 
 
-	/** Mission Phase Types */
-	typedef enum
-	{
-		/** Come out of reset and handle any startup tasks. This is done when
-		 * power is first applied to the FCU*/
-		MISSION_PHASE__RESET = 0U,
-
-		/** Run the flight computer in startup, do any diagnostics, etc
-		 * Diagnostics here will be on systems that do not involve actuators such as
-		 * memory CRC tests, etc.
-		 * We can stay in startup mode, or startup-fail mode if something is not right here.*/
-		MISSION_PHASE__TEST,
-
-		/** In this mode the pod takes care of its functional tests as a terminal countdown.
-		 * Autosequence is entered by the GS and once Autosequence tests are complete we
-		 * move to flight mode. */
-		MISSION_PHASE__PRE_RUN,
-
-		MISSION_PHASE__PUSHER_INTERLOCK,
-
-		/** Run the flight computer in flight mode, the flight controller takes care
-		 * of everything until flight finished*/
-		MISSION_PHASE__FLIGHT,
-
-		/** we have aborted flight, need to cleanup systems, landing gear and safe the pod.
-		 * This mode can also be the flight finished mode. */
-		MISSION_PHASE__POST_RUN,
-
-		MISSION_PHASE__DEBUG,
-
-	}E_FCU__MISSION_PHASE_T;
-
-
 	/** Auto sequence functional mode cheks */
 	typedef enum
 	{
