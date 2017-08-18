@@ -1158,6 +1158,7 @@
 
 		// General Timer and timeouts
 		strTimeout create_timeout(Luint32 duration_ms);
+        void init_timeout(strTimeout *timeout, Luint32 duration_ms);
 		void timeout_restart(strTimeout *timeout);
 		void timeout_reset(strTimeout *timeout);
 		void timeout_ensure_started(strTimeout *timeout);

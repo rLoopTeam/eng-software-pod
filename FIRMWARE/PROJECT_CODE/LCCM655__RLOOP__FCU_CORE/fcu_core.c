@@ -610,7 +610,15 @@ strTimeout create_timeout(Luint32 duration_ms)
 	strTimeout t;
 	t.duration_ms = duration_ms;
 	t.elapsed_ms = 0;
+    t.started = false;
 	return t;
+}
+
+void init_timeout(strTimeout *timeout, Luint32 duration_ms)
+{
+    timeout->duration_ms = duration_ms;
+    timeout->elapsed_ms = 0;
+    timeout->started = false;
 }
 
 void timeout_restart(strTimeout *timeout)

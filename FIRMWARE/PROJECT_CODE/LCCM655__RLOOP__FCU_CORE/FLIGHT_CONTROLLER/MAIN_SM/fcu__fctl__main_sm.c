@@ -50,8 +50,26 @@ void vFCU_FCTL_MAINSM__Init(void)
 	DEBUG_PRINT("vFCU_FCTL_MAINSM__Init()");
 	#endif
 
-	// @todo: Initialize the state machine (set state)
-	sFCU.sPodStateMachine.sm.state = POD_INIT_STATE;  // @todo: should we have a 'startup' state that checks to make sure the FCU is initialized before moving to 'IDLE'?
+    // Set the pod state machine to POD_INIT_STATE. It will automatically transition to IDLE once sFCU.eInitStates is in INIT_STATE__RUN (see below)
+	sFCU.sPodStateMachine.sm.state = POD_INIT_STATE;
+
+    // Initialize our various state machine related timeouts
+
+	// Ready state to Idle backup timeout
+	init_timeout(&sFCU.sPodStateMachine.ReadyExpiredBackupTimeout);
+
+	// Accel to Coast Interlock backup timeout
+	init_timeout(&sFCU.sPodStateMachine.AccelBackupTimeout);
+
+	// Coast interlock timeout
+	init_timeout(&sFCU.sPodStateMachine.CoastInterlockTimeout);
+
+	// Brake to Spindown backup timeout
+	init_timeout(&sFCU.sPodStateMachine.BrakeToSpindownBackupTimeout);
+
+	// Spindown to Idle backup timeout
+	init_timeout(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout);
+
 
 }
 
