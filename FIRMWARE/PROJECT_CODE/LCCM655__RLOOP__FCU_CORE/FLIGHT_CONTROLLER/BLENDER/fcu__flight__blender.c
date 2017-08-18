@@ -7,7 +7,7 @@
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
-
+#if 0
 //the structure
 extern struct _strFCU sFCU;
 
@@ -220,6 +220,8 @@ void vFCU_FCTL_BLENDER__Displacement_UpdateFrom_Contrast(Luint8 u8Channel, Luint
 
 }
 
+
+#endif //0
 #endif //C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
 #ifndef C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
 	#error

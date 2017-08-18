@@ -94,7 +94,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			break;
 
 		default:
-			//
+			//should never get here.
 			break;
 
 
