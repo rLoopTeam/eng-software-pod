@@ -649,7 +649,7 @@ bool timeout_expired(strTimeout *timeout)
 	return timeout->elapsed_ms >= timeout->duration_ms;
 }
 
-void timeout_update(strTimeout *timeout, int elapsed_ms)
+void timeout_update(strTimeout *timeout, Luint32 elapsed_ms)
 {
 	if ( ! timeout_expired(timeout) ) 
 	{
