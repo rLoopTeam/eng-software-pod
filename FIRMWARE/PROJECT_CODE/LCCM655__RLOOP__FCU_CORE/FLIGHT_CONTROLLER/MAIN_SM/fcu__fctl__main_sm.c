@@ -56,19 +56,20 @@ void vFCU_FCTL_MAINSM__Init(void)
     // Initialize our various state machine related timeouts
 
 	// Ready state to Idle backup timeout
-	init_timeout(&sFCU.sPodStateMachine.ReadyExpiredBackupTimeout);
+	// @todo: Move timeout duration values to config/mission profile
+	init_timeout(&sFCU.sPodStateMachine.ReadyExpiredBackupTimeout, 90 * 1000);
 
 	// Accel to Coast Interlock backup timeout
-	init_timeout(&sFCU.sPodStateMachine.AccelBackupTimeout);
+	init_timeout(&sFCU.sPodStateMachine.AccelBackupTimeout, 10 * 1000);
 
 	// Coast interlock timeout
-	init_timeout(&sFCU.sPodStateMachine.CoastInterlockTimeout);
+	init_timeout(&sFCU.sPodStateMachine.CoastInterlockTimeout, 1 * 1000);
 
 	// Brake to Spindown backup timeout
-	init_timeout(&sFCU.sPodStateMachine.BrakeToSpindownBackupTimeout);
+	init_timeout(&sFCU.sPodStateMachine.BrakeToSpindownBackupTimeout, 60 * 1000);
 
 	// Spindown to Idle backup timeout
-	init_timeout(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout);
+	init_timeout(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout, 120 * 1000);
 
 
 }
@@ -931,6 +932,26 @@ void vFCU_FCTL_MAINSM__10MS_ISR(void)
 void vFCU_FCTL_MAINSM__100MS_ISR(void)
 {
     // @todo: add updates for interlock commands
+    
+    
+    // Update our various timeouts. Note that these will only update the time if the timeout has been started (elsewhere)
+    
+    // Ready state to Idle backup timeout
+	timeout_update(&sFCU.sPodStateMachine.ReadyExpiredBackupTimeout, 100);
+
+	// Accel to Coast Interlock backup timeout
+	timeout_update(&sFCU.sPodStateMachine.AccelBackupTimeout, 100);
+
+	// Coast interlock timeout
+	timeout_update(&sFCU.sPodStateMachine.CoastInterlockTimeout, 100);
+
+	// Brake to Spindown backup timeout
+	timeout_update(&sFCU.sPodStateMachine.BrakeToSpindownBackupTimeout, 100);
+
+	// Spindown to Idle backup timeout
+	timeout_update(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout, 100);
+
+    
 }
 
 
