@@ -4,7 +4,7 @@
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
  */
-/**
+/**//
  * @addtogroup RLOOP
  * @{ */
 /**
@@ -48,13 +48,25 @@ void vFCU_LASERDIST_FILT__Process(void)
 
 	//input value
 	//sFCU.sLaserDist.f32DistanceRAW
+	Luint32 arraysFCUsLaserDistf32DistanceRAW[10];
+	Luint8 u8Counter;
 
+	for (u8Counter = 0; u8Counter < 11; ++u8Counter)
+	{
+		arraysFCUsLaserDistf32DistanceRAW[u8Counter] = sFCU.sLaserDist.f32DistanceRAW;
+		//make sure the next value of the sensor is ready; I am not sure there is a while(flag) in the sampling
+	}
+	
 
 	//todo: filtering
+	//Results: -2.496310179882773e-18; -0.0079; 0.0402; -0.1033; 0.1708; 0.8005; 0.1708; -0.1033; 0.0402; -0.0079; -2.496310179882773e-18;
+	//order of the filter = 10; Fsampling = 50 Hz; Transition band = 10 Hz; delay = 0.14 s; FIR;
+	//for each output value we should have the last 11 values of the input because of the order of the filter;
+	sFCU.sLaserDist.s32Distance_mm = -0.0079 * arraysFCUsLaserDistf32DistanceRAW[9] + 0.0402 * arraysFCUsLaserDistf32DistanceRAW[8] - 0.1033 * arraysFCUsLaserDistf32DistanceRAW[7] + 0.1708 * arraysFCUsLaserDistf32DistanceRAW[6] + 0.8005 * arraysFCUsLaserDistf32DistanceRAW[5] + 0.1708 * arraysFCUsLaserDistf32DistanceRAW[4] - 0.1033 * arraysFCUsLaserDistf32DistanceRAW[3] + 0.0402 * arraysFCUsLaserDistf32DistanceRAW[2] - 0.0079 * arraysFCUsLaserDistf32DistanceRAW[1];
 
 	//output at
 	//todo:
-	//sFCU.sLaserDist.f32DistanceFiltered = sFCU.sLaserDist.s32Distance_mm;
+	sFCU.sLaserDist.f32DistanceFiltered = sFCU.sLaserDist.s32Distance_mm;
 
 }
 
