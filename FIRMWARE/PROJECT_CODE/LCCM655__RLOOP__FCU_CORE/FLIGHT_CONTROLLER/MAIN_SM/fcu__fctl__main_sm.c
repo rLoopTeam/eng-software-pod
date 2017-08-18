@@ -721,19 +721,6 @@ void handle_POD_READY_STATE_transitions()
 		}
 	}
 
-	// Check timeouts (if we aren't already transitioning)
-	if ( ! sm_transitioning(sm) )
-	{
-		if ( timeout_expired(&sFCU.sPodStateMachine.ReadyExpiredBackupTimeout) ) 
-		{
-			sm->state = POD_IDLE_STATE;
-		} 
-		else 
-		{
-			// fall on
-		}
-	}
-
 }
 
 void handle_POD_ACCEL_STATE_transitions()
