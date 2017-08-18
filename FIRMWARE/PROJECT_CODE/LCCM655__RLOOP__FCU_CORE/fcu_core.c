@@ -674,7 +674,7 @@ strInterlockCommand create_interlock_command(const Luint32 duration_ms)
 // Initialize an existing interlock command
 void init_interlock_command(strInterlockCommand *ic, Luint32 duration_ms)
 {
-    init_timeout(&ic->commandTimeout);
+    init_timeout(&ic->commandTimeout, duration_ms);
     ic->enabled = false;
 }
 

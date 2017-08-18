@@ -1171,7 +1171,7 @@
 		strInterlockCommand create_interlock_command(const Luint32 duration_ms);
 
         // Initialize interlock command
-        void init_interlock_command(strInterlockCommand *command);
+        void init_interlock_command(strInterlockCommand *command, Luint32 duration_ms);
 
 		// Call this when the first packet is received. Ok to call it multiple times; it will just restart the timeout.
 		void interlock_command_enable(strInterlockCommand *ic);
@@ -1186,6 +1186,10 @@
 		// Call this in one of our timer ISRs. Ok to call this since the timeout has to be started for the update to have any effect. 
 		void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms);
 
+
+        // Helper functions for executing interlock commands
+        void unlock_pod_interlock_command(E_POD_COMMAND_T command);
+        void attempt_pod_interlock_command(E_POD_COMMAND_T command);
 
 
 		//flight controller
