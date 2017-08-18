@@ -187,8 +187,9 @@
             Dim pF As New LAPP188__RLOOP__LIB.SIL3.FileSupport.BinaryFileReader(Me.m_sFileName, IO.FileMode.Open)
             Dim u8Array() As Byte = pF.Get_AllBytes
             Dim iFileSize As Integer = pF.GetFileSize
-            Dim u8Tx((56 * 16) - 1) As Byte
+            Dim u8Tx(656 - 1) As Byte
             Dim iTxPos As Integer = 0
+            Dim iDataLength As Integer = 656
 
             Do While Me.m_bRunThread = True
 
@@ -202,7 +203,7 @@
                     Case _eUploadStates.UPLOAD_STATE__SEND_CHUNK
 
                         'format the chunk
-                        For iCounter As Integer = 0 To (56 * 16) - 1
+                        For iCounter As Integer = 0 To (iDataLength - 1)
                             u8Tx(iCounter) = u8Array(iTxPos)
                             iTxPos += 1
                         Next
@@ -210,7 +211,7 @@
                         'send it
                         RaiseEvent UserEvent__SafeUDP__Tx_X3_Array(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_FLT__TX_TRACK_DB_CHUNK,
-                                                0, Me.m_iChunkCount, (56 * 16), u8Tx, (56 * 16))
+                                                0, Me.m_iChunkCount, iDataLength, u8Tx, iDataLength)
 
                         Me.m_eUploadState = _eUploadStates.UPLOAD_STATE__WAIT_CHUNK_ACK
 
@@ -218,6 +219,7 @@
                     Case _eUploadStates.UPLOAD_STATE__WAIT_CHUNK_ACK
 
                         'will be acked via reception
+                        Me.m_bRunThread = False
 
                     Case _eUploadStates.UPLOAD_STATE__CHUNK_ACKED
 

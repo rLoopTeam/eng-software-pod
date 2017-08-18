@@ -24,17 +24,21 @@
 #if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
 #ifdef WIN32
-#if 0
+
+#include <stdio.h>
+
+Luint8 u32WIN32_TRACK_DATABASE[32000];
 
 //the structure
 extern struct _strFCU sFCU;
 
 //The current working track database
-extern struct _strTrackDatabase sTrackDB;
+extern TS_FCU_TRACK_DB sTrackDB;
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Init the track database on WIN32.  What we want to do here is to load up
+ * a normal track databse into the FCU
  * 
  * @st_funcMD5		E54E0B6EFABF762040B6145F052A5CBC
  * @st_funcID		LCCM655R0.FILE.088.FUNC.001
@@ -42,6 +46,27 @@ extern struct _strTrackDatabase sTrackDB;
 void vFCU_FCTL_TRACKDB_WIN32__Init(void)
 {
 
+	//on win32 simulate, read the file in
+	FILE * pFile = fopen("D:\\SIL3\\DESIGN\\RLOOP\\FIRMWARE\\PROJECT_CODE\\LCCM655__RLOOP__FCU_CORE\\FLIGHT_CONTROLLER\\TRACK_DATABASE\\DATABASES\\database2.bin", "rb");
+
+	if (pFile != 0)
+	{
+
+		//set the file pointer to end of file
+		fseek(pFile, 0, SEEK_END);
+
+		//get the file size
+		Luint32 u32Size = ftell(pFile);
+
+		//return the file pointer to begin of file if you want to read it
+		rewind(pFile);
+
+		//read in
+		fread(&u32WIN32_TRACK_DATABASE[0], 1, u32Size, pFile);
+
+		fclose(pFile);
+
+	}
 
 }
 
@@ -60,10 +85,10 @@ void vFCU_FCTL_TRACKDB_WIN32__Process(void)
 
 }
 
-//zero the array
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Zero the array
+ * Use this before trying to update a fresh database
  * 
  * @st_funcMD5		6DFAA77B344B57DB54D01D8A018F338D
  * @st_funcID		LCCM655R0.FILE.088.FUNC.003
@@ -76,8 +101,8 @@ void vFCU_FCTL_TRACKDB_WIN32__Clear_Array(void)
 	//get a pointer to our first byte
 	pu8Struct = (Luint8*)&sTrackDB;
 
-	//do a blind copy
-	for(u16Counter = 0U; u16Counter < (Luint16)sizeof(struct _strTrackDatabase); u16Counter++)
+	//do a blind clear
+	for(u16Counter = 0U; u16Counter < (Luint16)sizeof(TS_FCU_TRACK_DB); u16Counter++)
 	{
 		pu8Struct[u16Counter] = 0x00U;
 
@@ -85,16 +110,16 @@ void vFCU_FCTL_TRACKDB_WIN32__Clear_Array(void)
 }
 
 
-//Get the copy of the array in bytes
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * ToDoGet the copy of the array in bytes
  * 
- * @param[in]		pu8ByteArray		## Desc ##
+ * @param[in]		*pu8ByteArray			Pointer to return array
  * @st_funcMD5		073378FAE4C956D8FB0C3F0D2376A8AE
  * @st_funcID		LCCM655R0.FILE.088.FUNC.004
  */
-void vFCU_FCTL_TRACKDB_WIN32__Get_Array(Luint8 * pu8ByteArray)
+void vFCU_FCTL_TRACKDB_WIN32__Get_Array(Luint8 *pu8ByteArray)
 {
 	Luint16 u16Counter;
 	Luint8 * pu8Struct;
@@ -103,33 +128,32 @@ void vFCU_FCTL_TRACKDB_WIN32__Get_Array(Luint8 * pu8ByteArray)
 	pu8Struct = (Luint8*)&sTrackDB;
 
 	//do a blind copy
-	for(u16Counter = 0U; u16Counter < (Luint16)sizeof(struct _strTrackDatabase); u16Counter++)
+	for(u16Counter = 0U; u16Counter < (Luint16)sizeof(TS_FCU_TRACK_DB); u16Counter++)
 	{
 		pu8ByteArray[u16Counter] = pu8Struct[u16Counter];
 
 	}
 }
 
-//Return the structure size
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Return the structure size
  * 
  * @st_funcMD5		03FDD59CDD8D94E154BE7574806E08C9
  * @st_funcID		LCCM655R0.FILE.088.FUNC.005
  */
 Luint16 u16FCU_FCTL_TRACKDB_WIN32__Get_StructureSize(void)
 {
-	return (Luint16)sizeof(struct _strTrackDatabase);
+	return (Luint16)sizeof(TS_FCU_TRACK_DB);
 
 }
 
-//Update the internal structure from an extrnal byte array
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Update the internal structure from an extrnal byte array
  * 
- * @param[in]		pu8ByteArray		## Desc ##
+ * @param[in]		pu8ByteArray			Pointer to input array
  * @st_funcMD5		5EE6CCC97D1D5A09662B3C120970217E
  * @st_funcID		LCCM655R0.FILE.088.FUNC.006
  */
@@ -142,7 +166,7 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_Array(Luint8 *pu8ByteArray)
 	pu8Struct = (Luint8*)&sTrackDB;
 
 	//do a blind copy
-	for(u16Counter = 0U; u16Counter < (Luint16)sizeof(struct _strTrackDatabase); u16Counter++)
+	for(u16Counter = 0U; u16Counter < (Luint16)sizeof(TS_FCU_TRACK_DB); u16Counter++)
 	{
 		pu8Struct[u16Counter] = pu8ByteArray[u16Counter];
 
@@ -150,18 +174,38 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_Array(Luint8 *pu8ByteArray)
 
 }
 
+
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Set the structure header
  * 
- * @param[in]		u32Value		## Desc ##
+ * @param[in]		u32Value				Header value
  * @st_funcMD5		D3F26AEFAAF4E792541D578C93EBF5AD
  * @st_funcID		LCCM655R0.FILE.088.FUNC.007
  */
 void vFCU_FCTL_TRACKDB_WIN32__Set_Header(Luint32 u32Value)
 {
-	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.u8Header[0], u32Value);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.u8Header[0], u32Value);
 }
+
+
+void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(Luint8 u8TrackIndex, Luint8 u8Value)
+{
+	sTrackDB.sDB2[u8TrackIndex].sAccel.u8Use = u8Value;
+}
+
+void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_mm_ss(Luint8 u8TrackIndex, Lint32 s32Thresh_mm_ss)
+{
+	vSIL3_NUM_CONVERT__Array_S32(&sTrackDB.sDB2[u8TrackIndex].sAccel.u8Thresh_mm_ss[0], s32Thresh_mm_ss);
+}
+
+void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Thershold_x10ms(Luint8 u8TrackIndex, Luint32 u32Thresh_x10ms)
+{
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sAccel.u8Thresh_x10ms[0], u32Thresh_x10ms);
+}
+
+#if 0
+
 
 //The total length of the data from after this point to the end of the CRC
 /***************************************************************************//**
@@ -429,10 +473,11 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_Profile_Spare(Luint32 u32Index, Luint32 u32Val
 	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB.sRunProfile.u8SpareData[u32Index][0], u32Value);
 }
 
+#endif //0
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Compute the CRC across the structure
  * 
  * @st_funcMD5		71B875E9D443D73BF9E31D1ED1EFF7B9
  * @st_funcID		LCCM655R0.FILE.088.FUNC.027
@@ -464,19 +509,19 @@ Luint16 u16FCTL_TRAKDB_WIN32__ComputeCRC(void)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Update the CRC
  * 
- * @param[in]		u16Value		## Desc ##
+ * @param[in]		u16Value		CRC value
  * @st_funcMD5		9D02B39F99268F9B0A5A5032F2F79675
  * @st_funcID		LCCM655R0.FILE.088.FUNC.028
  */
 void vFCU_FCTL_TRACKDB_WIN32__Set_CRC(Luint16 u16Value)
 {
-	vSIL3_NUM_CONVERT__Array_U16(&sTrackDB.sDB.u8CRC[0], u16Value);
+	vSIL3_NUM_CONVERT__Array_U16(&sTrackDB.u8CRC[0], u16Value);
 }
 
 
-#endif //0
+
 
 #endif //WIN32
 #endif //C_LOCALDEF__LCCM655__ENABLE_TRACK_DB
