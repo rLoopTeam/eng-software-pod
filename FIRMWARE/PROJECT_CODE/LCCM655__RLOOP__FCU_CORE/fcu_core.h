@@ -155,6 +155,10 @@
 	
 				// Spindown to Idle backup timeout
 				strTimeout SpindownToIdleBackupTimeout;
+				
+				
+				// Interlock command timeouts
+                strInterlockCommand command_interlocks[E_POD_COMMAND_N];
 
 			} sPodStateMachine;
 			
@@ -1165,6 +1169,9 @@
 
 		// Interlock command handling
 		strInterlockCommand create_interlock_command(const Luint32 duration_ms);
+
+        // Initialize interlock command
+        void init_interlock_command(strInterlockCommand *command);
 
 		// Call this when the first packet is received. Ok to call it multiple times; it will just restart the timeout.
 		void interlock_command_enable(strInterlockCommand *ic);

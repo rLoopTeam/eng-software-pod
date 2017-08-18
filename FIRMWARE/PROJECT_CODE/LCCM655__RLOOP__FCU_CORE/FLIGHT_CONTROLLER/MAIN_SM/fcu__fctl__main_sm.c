@@ -53,8 +53,8 @@ void vFCU_FCTL_MAINSM__Init(void)
     // Set the pod state machine to POD_INIT_STATE. It will automatically transition to IDLE once sFCU.eInitStates is in INIT_STATE__RUN (see below)
 	sFCU.sPodStateMachine.sm.state = POD_INIT_STATE;
 
-    // Initialize our various state machine related timeouts
 
+    // Initialize our various state machine related timeouts
 	// @todo: Move timeout duration values to config/mission profile
 
 	// Accel to Coast Interlock backup timeout
@@ -69,6 +69,13 @@ void vFCU_FCTL_MAINSM__Init(void)
 	// Spindown to Idle backup timeout
 	init_timeout(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout, 120 * 1000);
 
+
+    // Initialize our commands. They're all interlock commands, so we'll just do them in a loop
+    for(Luint8 u8Counter = 0U; u8Counter < E_POD_COMMAND_N; u8Counter++)
+    {
+        // Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
+        init_interlock_command( &sFCU.sPodStateMachine.command_interlocks[ (E_POD_COMMAND_T)u8Counter ], 10 * 1000 );
+    }
 
 }
 
@@ -859,6 +866,43 @@ void handle_POD_SPINDOWN_STATE_transitions()
 /////////////////////////////////////////////////////////////////////
 //  Pod command functions
 /////////////////////////////////////////////////////////////////////
+
+void unlock_pod_interlock_command(E_POD_COMMAND_T command)
+{
+    // @todo: unlock the command
+    interlock_command_enable(&sFCU.sPodStateMachine.command_interlocks[command]);
+}
+
+void attempt_pod_interlock_command(E_POD_COMMAND_T command)
+{
+    // Attempt to execute the command (provided that the interlock timeout has not expired)
+    switch(command)
+    {
+        case POD_IDLE:
+            cmd_POD_IDLE();
+            break;
+        case POD_TEST_MODE:
+            cmd_POD_TEST_MODE();
+            break;
+        case POD_DRIVE:
+            cmd_POD_DRIVE();
+            break;
+        case POD_FLIGHT_PREP:
+            cmd_POD_FLIGHT_PREP();
+            break;
+        case POD_ARMED_WAIT:
+            cmd_POD_ARMED_WAIT();
+            break;
+        case POD_READY:
+            cmd_POD_READY();
+            break;
+        default:
+            // do nothing
+            break;
+    }
+
+}
+
 
 void cmd_POD_IDLE()
 {

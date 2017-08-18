@@ -671,6 +671,12 @@ strInterlockCommand create_interlock_command(const Luint32 duration_ms)
 	return ic;
 }
 
+// Initialize an existing interlock command
+void init_interlock_command(strInterlockCommand *ic, Luint32 duration_ms)
+{
+    init_timeout(&ic->commandTimeout);
+    ic->enabled = false;
+}
 
 // Call this when the first packet is received. Ok to call it multiple times; it will just reset the timer.
 void interlock_command_enable(strInterlockCommand *ic)

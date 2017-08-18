@@ -52,6 +52,10 @@
 		/** GS Hearbeat */
 		NET_PKT__FCU_GEN__GS_HEARTBEAT = 0x0400U,
 
+		/** Pod State Machine Command */
+		NET_PKT__FCU_GEN__POD_COMMAND = 0x0500U,
+
+
 		//////////////////////////////////////////////////////
 		//FCU: ACCEL (0x1000)
 		//////////////////////////////////////////////////////
