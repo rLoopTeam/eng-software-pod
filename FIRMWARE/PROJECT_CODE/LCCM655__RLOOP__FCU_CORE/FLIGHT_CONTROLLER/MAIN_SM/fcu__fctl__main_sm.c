@@ -50,11 +50,11 @@ void vFCU_FCTL_MAINSM__Init(void)
 	DEBUG_PRINT("vFCU_FCTL_MAINSM__Init()");
 	#endif
 
-    // Set the pod state machine to POD_INIT_STATE. It will automatically transition to IDLE once sFCU.eInitStates is in INIT_STATE__RUN (see below)
+	// Set the pod state machine to POD_INIT_STATE. It will automatically transition to IDLE once sFCU.eInitStates is in INIT_STATE__RUN (see below)
 	sFCU.sPodStateMachine.sm.state = POD_INIT_STATE;
 
 
-    // Initialize our various state machine related timeouts
+	// Initialize our various state machine related timeouts
 	// @todo: Move timeout duration values to config/mission profile
 
 	// Accel to Coast Interlock backup timeout
@@ -70,12 +70,12 @@ void vFCU_FCTL_MAINSM__Init(void)
 	init_timeout(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout, 120 * 1000);
 
 
-    // Initialize our commands. They're all interlock commands, so we'll just do them in a loop
-    for(Luint8 u8Counter = 0U; u8Counter < E_POD_COMMAND_N; u8Counter++)
-    {
-        // Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
-        init_interlock_command( &sFCU.sPodStateMachine.command_interlocks[ (E_POD_COMMAND_T)u8Counter ], 10 * 1000 );
-    }
+	// Initialize our commands. They're all interlock commands, so we'll just do them in a loop
+	for(Luint8 u8Counter = 0U; u8Counter < E_POD_COMMAND_N; u8Counter++)
+	{
+		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
+		init_interlock_command( &sFCU.sPodStateMachine.command_interlocks[ (E_POD_COMMAND_T)u8Counter ], 10 * 1000 );
+	}
 
 }
 
@@ -272,7 +272,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				
 				// (Re)start the ready expired backup timer that will transition us (where?) 
 				// @todo: We now have the capability to transition back to FLIGHT_PREP from READY, so we don't need this any more most likely.
-                // timeout_restart(&sFCU.sPodStateMachine.ReadyExpiredBackupTimeout);
+				// timeout_restart(&sFCU.sPodStateMachine.ReadyExpiredBackupTimeout);
 			}
 		
 			// Handle transitions
@@ -301,8 +301,8 @@ void vFCU_FCTL_MAINSM__Process(void)
 					DEBUG_PRINT("Entering POD_ACCEL_STATE");
 				#endif
 
-                // (Re)start the accel backup timeout. If this expires, we will automatically transition to COAST_INTERLOCK (see below)
-	            timeout_restart(&sFCU.sPodStateMachine.AccelBackupTimeout);
+				// (Re)start the accel backup timeout. If this expires, we will automatically transition to COAST_INTERLOCK (see below)
+				timeout_restart(&sFCU.sPodStateMachine.AccelBackupTimeout);
 
 			}
 		
@@ -333,7 +333,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#endif
 				
 				// (Re)start our coast interlock timer. Expiration will transition us to BRAKE (see below)
-                timeout_restart(&sFCU.sPodStateMachine.CoastInterlockTimeout);				
+				timeout_restart(&sFCU.sPodStateMachine.CoastInterlockTimeout);				
 			}
 		
 			// Handle transitions
@@ -391,9 +391,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_SPINDOWN_STATE");
 				#endif
-	            
-	            // (Re)start our spindown backup timeout. If this expires we'll automatically transition to IDLE.
-	            timeout_restart(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout);
+				
+				// (Re)start our spindown backup timeout. If this expires we'll automatically transition to IDLE.
+				timeout_restart(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout);
 			}
 		
 			// Handle transitions
@@ -705,7 +705,7 @@ void handle_POD_READY_STATE_transitions()
 		switch(command) {
 			
 			case POD_FLIGHT_PREP:
-			    // Go back to FLIGHT PREP if commanded
+				// Go back to FLIGHT PREP if commanded
 				sm->state = POD_FLIGHT_PREP_STATE;
 				break;
 		
@@ -754,7 +754,7 @@ void handle_POD_ACCEL_STATE_transitions()
 	// Check timeouts (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
 	{
-	    // If our ACCEL backup timeout has expired, automatically go to COAST_INTERLOCK
+		// If our ACCEL backup timeout has expired, automatically go to COAST_INTERLOCK
 		if ( timeout_expired(&sFCU.sPodStateMachine.AccelBackupTimeout) ) 
 		{
 			sm->state = POD_COAST_INTERLOCK_STATE;
@@ -869,37 +869,37 @@ void handle_POD_SPINDOWN_STATE_transitions()
 
 void unlock_pod_interlock_command(E_POD_COMMAND_T command)
 {
-    // @todo: unlock the command
-    interlock_command_enable(&sFCU.sPodStateMachine.command_interlocks[command]);
+	// @todo: unlock the command
+	interlock_command_enable(&sFCU.sPodStateMachine.command_interlocks[command]);
 }
 
 void attempt_pod_interlock_command(E_POD_COMMAND_T command)
 {
-    // Attempt to execute the command (provided that the interlock timeout has not expired)
-    switch(command)
-    {
-        case POD_IDLE:
-            cmd_POD_IDLE();
-            break;
-        case POD_TEST_MODE:
-            cmd_POD_TEST_MODE();
-            break;
-        case POD_DRIVE:
-            cmd_POD_DRIVE();
-            break;
-        case POD_FLIGHT_PREP:
-            cmd_POD_FLIGHT_PREP();
-            break;
-        case POD_ARMED_WAIT:
-            cmd_POD_ARMED_WAIT();
-            break;
-        case POD_READY:
-            cmd_POD_READY();
-            break;
-        default:
-            // do nothing
-            break;
-    }
+	// Attempt to execute the command (provided that the interlock timeout has not expired)
+	switch(command)
+	{
+		case POD_IDLE:
+			cmd_POD_IDLE();
+			break;
+		case POD_TEST_MODE:
+			cmd_POD_TEST_MODE();
+			break;
+		case POD_DRIVE:
+			cmd_POD_DRIVE();
+			break;
+		case POD_FLIGHT_PREP:
+			cmd_POD_FLIGHT_PREP();
+			break;
+		case POD_ARMED_WAIT:
+			cmd_POD_ARMED_WAIT();
+			break;
+		case POD_READY:
+			cmd_POD_READY();
+			break;
+		default:
+			// do nothing
+			break;
+	}
 
 }
 
@@ -978,12 +978,13 @@ void vFCU_FCTL_MAINSM__10MS_ISR(void)
 }
 
 void vFCU_FCTL_MAINSM__100MS_ISR(void)
-{
-    // @todo: add updates for interlock commands
-    
-    
-    // Update our various timeouts. Note that these will only update the time if the timeout has been started (elsewhere)
-    
+{	
+	// Update Timeouts
+	// Note that these will only update the time if the timeout has been started (elsewhere)
+	
+	
+	// Update our state machine timeouts. 
+
 	// Accel to Coast Interlock backup timeout
 	timeout_update(&sFCU.sPodStateMachine.AccelBackupTimeout, 100);
 
@@ -996,8 +997,15 @@ void vFCU_FCTL_MAINSM__100MS_ISR(void)
 	// Spindown to Idle backup timeout
 	timeout_update(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout, 100);
 
-    
-}
+	
+	// Update interlock command timeouts
+	// Initialize our commands. They're all interlock commands, so we'll just do them in a loop
+	for(Luint8 u8Counter = 0U; u8Counter < E_POD_COMMAND_N; u8Counter++)
+	{
+		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
+		interlock_command_update_timeout( &sFCU.sPodStateMachine.command_interlocks[ (E_POD_COMMAND_T)u8Counter ], 100);
+	}
+
 
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM

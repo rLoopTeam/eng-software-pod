@@ -158,7 +158,7 @@
 				
 				
 				// Interlock command timeouts
-                strInterlockCommand command_interlocks[E_POD_COMMAND_N];
+				strInterlockCommand command_interlocks[E_POD_COMMAND_N];
 
 			} sPodStateMachine;
 			
@@ -1159,7 +1159,7 @@
 
 		// General Timer and timeouts
 		strTimeout create_timeout(Luint32 duration_ms);
-        void init_timeout(strTimeout *timeout, Luint32 duration_ms);
+		void init_timeout(strTimeout *timeout, Luint32 duration_ms);
 		void timeout_restart(strTimeout *timeout);
 		void timeout_reset(strTimeout *timeout);
 		void timeout_ensure_started(strTimeout *timeout);
@@ -1170,8 +1170,8 @@
 		// Interlock command handling
 		strInterlockCommand create_interlock_command(const Luint32 duration_ms);
 
-        // Initialize interlock command
-        void init_interlock_command(strInterlockCommand *command, Luint32 duration_ms);
+		// Initialize interlock command
+		void init_interlock_command(strInterlockCommand *command, Luint32 duration_ms);
 
 		// Call this when the first packet is received. Ok to call it multiple times; it will just restart the timeout.
 		void interlock_command_enable(strInterlockCommand *ic);
@@ -1187,9 +1187,9 @@
 		void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms);
 
 
-        // Helper functions for executing interlock commands
-        void unlock_pod_interlock_command(E_POD_COMMAND_T command);
-        void attempt_pod_interlock_command(E_POD_COMMAND_T command);
+		// Helper functions for executing interlock commands
+		void unlock_pod_interlock_command(E_POD_COMMAND_T command);
+		void attempt_pod_interlock_command(E_POD_COMMAND_T command);
 
 
 		//flight controller

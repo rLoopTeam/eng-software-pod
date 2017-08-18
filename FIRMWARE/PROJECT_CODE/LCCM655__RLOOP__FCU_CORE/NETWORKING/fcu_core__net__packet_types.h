@@ -2,7 +2,7 @@
  * fcu_core__net__packet_types.h
  *
  *  Created on: Dec 9, 2016
- *      Author: Lachlan
+ *	  Author: Lachlan
  */
 
 #ifndef __NET__PACKET_TYPES_H_

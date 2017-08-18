@@ -610,15 +610,15 @@ strTimeout create_timeout(Luint32 duration_ms)
 	strTimeout t;
 	t.duration_ms = duration_ms;
 	t.elapsed_ms = 0;
-    t.started = false;
+	t.started = false;
 	return t;
 }
 
 void init_timeout(strTimeout *timeout, Luint32 duration_ms)
 {
-    timeout->duration_ms = duration_ms;
-    timeout->elapsed_ms = 0;
-    timeout->started = false;
+	timeout->duration_ms = duration_ms;
+	timeout->elapsed_ms = 0;
+	timeout->started = false;
 }
 
 void timeout_restart(strTimeout *timeout)
@@ -674,8 +674,8 @@ strInterlockCommand create_interlock_command(const Luint32 duration_ms)
 // Initialize an existing interlock command
 void init_interlock_command(strInterlockCommand *ic, Luint32 duration_ms)
 {
-    init_timeout(&ic->commandTimeout, duration_ms);
-    ic->enabled = false;
+	init_timeout(&ic->commandTimeout, duration_ms);
+	ic->enabled = false;
 }
 
 // Call this when the first packet is received. Ok to call it multiple times; it will just reset the timer.
