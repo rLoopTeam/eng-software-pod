@@ -433,6 +433,10 @@ void vPWRNODE__RTI_100MS_ISR(void)
 		vPWR_PVPRESS__100MS_ISR();
 	#endif
 
+    #if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+		vPWR_BMS_FANS__100MS_ISR();
+    #endif
+
 	sPWRNODE.u32NodePressCounter = 1U;
 	sPWRNODE.u32NodeTempCounter = 1U;
 

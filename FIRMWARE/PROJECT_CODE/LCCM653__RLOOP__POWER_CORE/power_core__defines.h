@@ -97,4 +97,9 @@
 	#define C_PWRCORE_COOLING_2000MS							(20U)
 
 	#define C_PWRCORE__CURRENT_AVG_SIZE						(0x4U)
+
+    #define C_PWRCORE__CURRENT_HASS_IPN                        (50.0F)
+
+    /** BMS Fans time running after last discharge resistor in secs * 10 **/
+    #define C_PWRCORE__BMS_FANS_TIMEOUT                         (300U)
 #endif /* RLOOP_POWER_CORE__DEFINES_H_ */

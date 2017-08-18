@@ -166,24 +166,41 @@
 			{
 				Luint8 u8Dummy;
 			}sBMS;
-			#endif
 
-			/** LEM HASS 600-S Current Transducer **/
-			struct
-			{
-				/** Current Reading after converted from Voltage */
-				Lfloat32 f32HASS_CurrentReading;
+            /**BMS cooling fan control **/
+            struct
+            {
+                Luint16 u16FanTimeout;
+            }sBMS_Fans;
+            #endif
 
-				/** Voltage Reading at Init **/
-				Lfloat32 f32HASS_VoltageOffSet;
+            /** Current & Voltage readings for the charger input **/
+            /** LEM HASS 600-S Current Transducer **/
+            struct
+            {
+                /** Current Reading after converted from Voltage */
+                Lfloat32 f32HASS_CurrentReading;
 
-				/** Current Transducer Fault Flag */
-				FAULT_TREE__PUBLIC_T sFaultFlags;
+                /** Reference Voltage Reading **/
+                Lfloat32 f32HASS_RefVoltageReading;
 
-				Luint16 u16HAAS_Current_Average_Counter;
-				Lfloat32 f32HAAS_Current_Average_Array[C_PWRCORE__CURRENT_AVG_SIZE];
+                /** Charger input voltage reading **/
+                Lfloat32 f32HAAS_ChargerVoltageReading;
 
-			}sHASS600;
+                /** Current Transducer Fault Flag */
+                FAULT_TREE__PUBLIC_T sFaultFlags;
+
+
+                //todo: separate out the average size defines
+                Luint16 u16HAAS_Current_Average_Counter;
+                Lfloat32 f32HAAS_Current_Average_Array[C_PWRCORE__CURRENT_AVG_SIZE];
+
+                Luint16 u16HAAS_Voltage_Ref_Average_Counter;
+                Lfloat32 f32HAAS_Voltage_Ref_Average_Array[C_PWRCORE__CURRENT_AVG_SIZE];
+
+                Luint16 u16Charger_Voltage_Average_Counter;
+                Lfloat32 f32Charger_Voltage_Average_Array[C_PWRCORE__CURRENT_AVG_SIZE];
+            }sCHARGER_IV;
 
 		
 			/** Win32 Functions*/
@@ -316,6 +333,13 @@
 		void vPWRNODE_CHG_RELAY__Process(void);
 		void vPWRNODE_CHG_RELAY__On(void);
 		void vPWRNODE_CHG_RELAY__Off(void);
+
+        //bms fans
+        void vPWRNODE_BMS_FANS__Init(void);
+        void vPWRNODE_BMS_FANS__Process(void);
+        void vPWRNODE_BMS_FANS__On(void);
+        void vPWRNODE_BMS_FANS__Off(void);
+        void vPWR_BMS_FANS__100MS_ISR(void);
 
 		//charge algo
 		void vPWRNODE_CHG__Init(void);

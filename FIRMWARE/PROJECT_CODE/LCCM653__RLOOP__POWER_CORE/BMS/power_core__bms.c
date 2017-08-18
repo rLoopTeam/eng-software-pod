@@ -69,6 +69,8 @@ void vPWRNODE_BMS__Init(void)
 	#endif
 #endif
 
+	vPWRNODE_BMS_FANS__Init();
+
 	//setup any ethernet systems.
 	vPWR_BMS_ETH__Init();
 
@@ -89,6 +91,7 @@ void vPWRNODE_BMS__Process(void)
 		vATA6870__Process();
 	#elif C_LOCALDEF__BMS_REVISION == 2U
 		vBQ76__Process();
+		vPWRNODE_BMS_FANS__Process();
 	#else
 		#error
 	#endif

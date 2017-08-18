@@ -65,7 +65,7 @@ void vPWR_CHARGER_ETH__Transmit(E_NET__PACKET_T ePacketType)
 		{
 			case NET_PKT__PWR_CURRENT__TX_CURRENT_STATUS:
 				//Current Reading
-				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sHASS600.f32HASS_CurrentReading);
+				vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sCHARGER_IV.f32HASS_CurrentReading);
 				pu8Buffer += 4U;
 			default:
 				//fall on

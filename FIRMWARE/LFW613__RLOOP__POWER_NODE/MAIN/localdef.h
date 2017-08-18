@@ -659,7 +659,7 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__DC_CONVERTER__HEART_TIMER_MAX			(30U)
 
 		/** Enable the charger subsystem */
-		#define C_LOCALDEF__LCCM653__ENABLE_CHARGER							(0U)
+		#define C_LOCALDEF__LCCM653__ENABLE_CHARGER							(1U)
 
 		/** Enable Ethernet */
 		#define C_LOCALDEF__LCCM653__ENABLE_ETHERNET						(1U)
