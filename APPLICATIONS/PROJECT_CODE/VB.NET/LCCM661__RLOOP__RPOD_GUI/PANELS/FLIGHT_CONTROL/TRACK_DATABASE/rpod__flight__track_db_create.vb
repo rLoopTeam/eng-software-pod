@@ -172,8 +172,7 @@
 
             Me.m_sDBDir = "..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE\DATABASES\"
 
-            'for now
-            Return
+
 
             'create the log files in prep
             Me.m_pCSV = New LAPP188__RLOOP__LIB.SIL3.FileSupport.CSV(Me.m_sDBDir & "databases.csv", ",", False, False)
