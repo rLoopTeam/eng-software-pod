@@ -979,7 +979,7 @@ void vFCU_FCTL_MAINSM__10MS_ISR(void)
 
 void vFCU_FCTL_MAINSM__100MS_ISR(void)
 {	
-	// Update Timeouts
+    // Update Timeouts
 	// Note that these will only update the time if the timeout has been started (elsewhere)
 	
 	
@@ -1003,9 +1003,10 @@ void vFCU_FCTL_MAINSM__100MS_ISR(void)
 	for(Luint8 u8Counter = 0U; u8Counter < E_POD_COMMAND_N; u8Counter++)
 	{
 		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
-		interlock_command_update_timeout( &sFCU.sPodStateMachine.command_interlocks[ (E_POD_COMMAND_T)u8Counter ], 100);
+		init_interlock_command( &sFCU.sPodStateMachine.command_interlocks[ (E_POD_COMMAND_T)u8Counter ], 10 * 1000 );
 	}
 
+}
 
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
