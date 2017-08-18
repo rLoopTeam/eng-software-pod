@@ -133,63 +133,63 @@ void vHETHERM_SOL__Process(void)
 	//  IF something is critical, TURN IT ON!!
 	if (sHET.sSol.sLeft.u8ChannelOverTemp_State == 2U)
 	{
-	    vHETHERM_SOL__Open(0);   // ??? WHICH SOLENOID COOLS WHICH SIDE???
-	    SOL_OPEN[0] = 1;
+	    vHETHERM_SOL__Open(SOL_LEFT);   // ??? WHICH SOLENOID COOLS WHICH SIDE???
+	    SOL_OPEN[SOL_LEFT] = 1;
 	}
 	if (sHET.sSol.sRight.u8ChannelOverTemp_State == 2U)
 	{
-	    vHETHERM_SOL__Open(1);
-	    SOL_OPEN[1] = 1;
+	    vHETHERM_SOL__Open(SOL_RIGHT);
+	    SOL_OPEN[SOL_RIGHT] = 1;
 	}
 	if (sHET.sSol.sBrake.u8ChannelOverTemp_State == 2U)
 	{
-	    vHETHERM_SOL__Open(2);
-	    SOL_OPEN[2] = 1;
+	    vHETHERM_SOL__Open(SOL_BRAKE);
+	    SOL_OPEN[SOL_BRAKE] = 1;
 	}
 
 	// Is anything in WARN STATE!!  If so, 1 second on, 1 second off
 	if (sHET.sSol.sBrake.u8ChannelOverTemp_State == 1U)
 	{
-	    if (SOL_OPEN[2] && sHET.sUDPDiag.u81000MS_Flag > 100)
+	    if (SOL_OPEN[SOL_BRAKE] && sHET.sUDPDiag.u81000MS_Flag > 100)
 	    {
-	        vHETHERM_SOL__Close(2);
-	        SOL_OPEN[2] = 0;
+	        vHETHERM_SOL__Close(SOL_BRAKE);
+	        SOL_OPEN[SOL_BRAKE] = 0;
 	        trip2 = 1;
 	    }
-	    if (!SOL_OPEN[2] && sHET.sUDPDiag.u81000MS_Flag > 100)
+	    if (!SOL_OPEN[SOL_BRAKE] && sHET.sUDPDiag.u81000MS_Flag > 100)
 	    {
-	        vHETHERM_SOL__Open(2);
-	        SOL_OPEN[2] = 1;
+	        vHETHERM_SOL__Open(SOL_BRAKE);
+	        SOL_OPEN[SOL_BRAKE] = 1;
 	        trip2 = 1;
 	    }
 	}
 	if (sHET.sSol.sRight.u8ChannelOverTemp_State == 1U)
 	{
-	    if (SOL_OPEN[1] && sHET.sUDPDiag.u81000MS_Flag > 100)
+	    if (SOL_OPEN[SOL_RIGHT] && sHET.sUDPDiag.u81000MS_Flag > 100)
 	    {
-	        vHETHERM_SOL__Close(1);
-	        SOL_OPEN[1] = 0;
+	        vHETHERM_SOL__Close(SOL_RIGHT);
+	        SOL_OPEN[SOL_RIGHT] = 0;
 	        trip2 = 1;
 	    }
 	    if (!SOL_OPEN[1] && sHET.sUDPDiag.u81000MS_Flag > 100)
 	    {
-	        vHETHERM_SOL__Open(1);
-	        SOL_OPEN[1] = 1;
+	        vHETHERM_SOL__Open(SOL_RIGHT);
+	        SOL_OPEN[SOL_RIGHT] = 1;
 	        trip2 = 1;
 	    }
 	}
 	if (sHET.sSol.sLeft.u8ChannelOverTemp_State == 1U)
 	{
-	    if (SOL_OPEN[0] && sHET.sUDPDiag.u81000MS_Flag > 100)
+	    if (SOL_OPEN[SOL_LEFT] && sHET.sUDPDiag.u81000MS_Flag > 100)
 	    {
-	        vHETHERM_SOL__Close(0);
-	        SOL_OPEN[0] = 0;
+	        vHETHERM_SOL__Close(SOL_LEFT);
+	        SOL_OPEN[SOL_LEFT] = 0;
 	        trip2 = 1;
 	    }
-	    if (!SOL_OPEN[0] && sHET.sUDPDiag.u81000MS_Flag > 100)
+	    if (!SOL_OPEN[SOL_LEFT] && sHET.sUDPDiag.u81000MS_Flag > 100)
 	    {
-	        vHETHERM_SOL__Open(0);
-	        SOL_OPEN[0] = 1;
+	        vHETHERM_SOL__Open(SOL_LEFT);
+	        SOL_OPEN[SOL_LEFT] = 1;
 	        trip2 = 1;
 	    }
 	}
@@ -197,49 +197,49 @@ void vHETHERM_SOL__Process(void)
 	//  IF no overtemp situation is occurring -> 0.5 second on, 1.5 second off
 	if (!sHET.sSol.sBrake.u8ChannelOverTemp_State)
 	{
-	    if (SOL_OPEN[2] && sHET.sUDPDiag.u8500MS_Flag > 50)
+	    if (SOL_OPEN[SOL_BRAKE] && sHET.sUDPDiag.u8500MS_Flag > 50)
 	    {
 	        // if it's been 3/2 a second, turn off the solenoids.
-	        vHETHERM_SOL__Close(2);
-	        SOL_OPEN[2] = 0;
+	        vHETHERM_SOL__Close(SOL_BRAKE);
+	        SOL_OPEN[SOL_BRAKE] = 0;
 	        trip = 1;
 	    }
-	    if (!SOL_OPEN[2] && sHET.sUDPDiag.u8500MS_Flag > 150)
+	    if (!SOL_OPEN[SOL_BRAKE] && sHET.sUDPDiag.u8500MS_Flag > 150)
 	    {
-	        vHETHERM_SOL__Open(2);
-	        SOL_OPEN[2] = 1;
+	        vHETHERM_SOL__Open(SOL_BRAKE);
+	        SOL_OPEN[SOL_BRAKE] = 1;
 	        trip = 1;
 	    }
 	}
 	if (!sHET.sSol.sRight.u8ChannelOverTemp_State)
 	{
-	    if (SOL_OPEN[1] && sHET.sUDPDiag.u8500MS_Flag > 50)
+	    if (SOL_OPEN[SOL_RIGHT] && sHET.sUDPDiag.u8500MS_Flag > 50)
 	    {
 	        // if it's been 3/2 a second, turn off the solenoids.
-	        vHETHERM_SOL__Close(1);
-	        SOL_OPEN[1] = 0;
+	        vHETHERM_SOL__Close(SOL_RIGHT);
+	        SOL_OPEN[SOL_RIGHT] = 0;
 	        trip = 1;
 	    }
-	    if (!SOL_OPEN[1] && sHET.sUDPDiag.u8500MS_Flag > 150)
+	    if (!SOL_OPEN[SOL_RIGHT] && sHET.sUDPDiag.u8500MS_Flag > 150)
 	    {
-	        vHETHERM_SOL__Open(1);
-	        SOL_OPEN[1] = 1;
+	        vHETHERM_SOL__Open(SOL_RIGHT);
+	        SOL_OPEN[SOL_RIGHT] = 1;
 	        trip = 1;
 	    }
 	}
 	if (!sHET.sSol.sLeft.u8ChannelOverTemp_State)
 	{
-	    if (SOL_OPEN[0] && sHET.sUDPDiag.u8500MS_Flag > 50)
+	    if (SOL_OPEN[SOL_LEFT] && sHET.sUDPDiag.u8500MS_Flag > 50)
 	    {
 	        // if it's been 3/2 a second, turn off the solenoids.
-	        vHETHERM_SOL__Close(0);
-	        SOL_OPEN[0] = 0;
+	        vHETHERM_SOL__Close(SOL_LEFT);
+	        SOL_OPEN[SOL_LEFT] = 0;
 	        trip = 1;
 	    }
-	    if (!SOL_OPEN[0] && sHET.sUDPDiag.u8500MS_Flag > 150)
+	    if (!SOL_OPEN[SOL_LEFT] && sHET.sUDPDiag.u8500MS_Flag > 150)
 	    {
-	        vHETHERM_SOL__Open(0);
-	        SOL_OPEN[0] = 1;
+	        vHETHERM_SOL__Open(SOL_LEFT);
+	        SOL_OPEN[SOL_LEFT] = 1;
 	        trip = 1;
 	    }
 	}
