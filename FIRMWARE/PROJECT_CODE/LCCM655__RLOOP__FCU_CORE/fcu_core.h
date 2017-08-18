@@ -39,8 +39,6 @@
 
 		// For flight controller
 		#include <LCCM655__RLOOP__FCU_CORE/state_machine.h>
-		// #include <LCCM655__RLOOP__FCU_CORE/timers.h>
-		// #include <LCCM655__RLOOP__FCU_CORE/interlock_command.h>
 
 
 		/*******************************************************************************
