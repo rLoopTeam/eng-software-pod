@@ -27,6 +27,36 @@
 	/** Define the size of the blob, but compare this to the actual sizeof*/
 	#define C_FCTL_TRACKDB__BLOB_SIZE			 ((((8U + C_FCTL_TRACKDB__MAX_CONTRAST_STRIPES + C_FCTL_TRACKDB__HEADER_SPARE_WORDS) + (4U + C_FCTL_TRACKDB__MAX_SETPOINTS + C_FCTL_TRACKDB__MAX_SETPOINTS + C_FCTL_TRACKDB__PROFILE_SPARE_WORDS)) * 4U) + 2U)
 
+
+	/** Track database V2 */
+	struct
+	{
+
+		Luint8 u8Dummy;
+
+
+		/** Accel Subsystem */
+		struct
+		{
+
+			/** Use the accel system as part of the track database */
+			Luint8 u8Use;
+
+			/** Accel threshold*/
+			Lint32 s32Thresh_mm_ss;
+
+			/** Threshold time */
+			Luint32 u32Thresh_x10ms;
+
+			/** Spare */
+			Luint32 u32Spare;
+
+
+		}sAccel;
+
+	}sDB2[C_FCTL_TRACKDB__MAX_MEM_DATABASES];
+
+
 	/** List of all track databases
 	 * SHOULD MAKE A MULTIPLE OF 16 BYTES for better eeprom layout
 	 * 8 + STRIPES(64) + SPARE(16) = 88

@@ -503,7 +503,7 @@ SIL3 - RM4 ADC DRIVER
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN5						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN6						(0U)
 		//battery current
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN7						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN7						(1U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN8						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN9						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN10						(0U)
@@ -515,13 +515,13 @@ SIL3 - RM4 ADC DRIVER
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN16						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN17						(0U)
 		//batt current reference
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN18						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN18						(1U)
 		//batt voltage
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN19						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN19						(1U)
 		//charge current ref
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN20						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN20						(1U)
 		//charge current.
-		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN21						(0U)
+		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN21						(1U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN22						(0U)
 		#define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN23						(0U)
 
