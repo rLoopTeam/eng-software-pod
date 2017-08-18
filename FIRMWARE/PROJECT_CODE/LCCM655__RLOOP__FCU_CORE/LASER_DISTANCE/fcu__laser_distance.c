@@ -158,9 +158,7 @@ void vFCU_LASERDIST__Process(void)
 			{
 				//vSIL3_FAULTTREE__Clear_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
 
-				//onsite hack
-				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__CHECK_NEW_DATA;
-//				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__INIT_LASER_TURNON;
+				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__INIT_LASER_TURNON;
 			}
 			else
 			{
@@ -169,8 +167,8 @@ void vFCU_LASERDIST__Process(void)
 			break;
 
 		case LASERDIST_STATE__INIT_LASER_TURNON:
-#if 0
-				if(0)
+#if 1
+				if(1)
 				{
 					//tell the pointer to turn on
 					//<ESC>, O, 1, <CR>
@@ -273,7 +271,7 @@ void vFCU_LASERDIST__Process(void)
 					u8Array[0] = 0x1BU;
 					u8Array[1] = 0x63U;
 					u8Array[2] = 0x0DU;
-
+				}
 				if(0)
 				{
 					//Check all current params
@@ -323,10 +321,10 @@ void vFCU_LASERDIST__Process(void)
 					u8Temp = u8SIL3_SC16_USER__Get_Byte(C_FCU__SC16_FWD_LASER_INDEX);
 
 				//BINARY MODE
-					vFCU_LASERDIST__Append_Byte(u8Temp);
+					//vFCU_LASERDIST__Append_Byte(u8Temp);
 
 
-#if 0			    //ASCII MODE
+#if 1			    //ASCII MODE
 					vFCU_LASERDIST__Append_Byte_ASCII(u8Temp);
 #endif
 				}
@@ -345,10 +343,10 @@ void vFCU_LASERDIST__Process(void)
 				//we have a new laser packet, process it for distance or error code.
 
 			//Continues binary mode
-				vFCU_LASERDIST__Process_Packet();
+				//vFCU_LASERDIST__Process_Packet();
 
 
-#if 0			//Continues ascii mode
+#if 1			//Continues ascii mode
 				vFCU_LASERDIST__Process_Packet_ASCII();
 #endif
 
@@ -727,14 +725,29 @@ void vFCU_LASERDIST__Append_Byte(Luint8 u8Value)
 			sFCU.sLaserDist.sBinary.unRx.u8[1] = u8Value;
 			}
 
-			//signal that a new packet is ready
-			sFCU.sLaserDist.u8NewPacket = 1U;
-
 			//clear the packets seeen counter
 			sFCU.sLaserDist.u32PacketsSeen_Counter = 0U;
 
-			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_D;
+			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_2;
 			break;
+
+		case LASERDIST_RX__BYTE_2:
+            //check if third byte starts with 0 not 1
+            if((u8Value & 0x80U) != 0x80U)
+            {
+            //distance mid
+            // = "E" if there is an error
+            sFCU.sLaserDist.sBinary.unRx.u8[0] = u8Value;
+            }
+
+            //signal that a new packet is ready
+            sFCU.sLaserDist.u8NewPacket = 1U;
+
+            //clear the packets seeen counter
+            sFCU.sLaserDist.u32PacketsSeen_Counter = 0U;
+
+            sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_D;
+            break;
 
 		default:
 			//todo, log the error

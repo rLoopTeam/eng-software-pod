@@ -49,7 +49,7 @@ void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser)
 	f32Temp = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32DistanceRAW;
 
 	//subtract the zero
-	f32Temp += sFCU.sLaserOpto.sCalibration[(Luint8)eLaser].f32Offset;
+    f32Temp += sFCU.sLaserOpto.sCalibration[(Luint8)eLaser].f32Offset;
 	sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue = f32Temp;
 
 	//LG Hack
