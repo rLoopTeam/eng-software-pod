@@ -1,8 +1,6 @@
 #ifndef _POD__GUARDS_H_
 #define _POD__GUARDS_H_
 
-#include "pod__types.h"
-
 
 /////////////////////////////////////////////////////////////////////
 //  Pod guard/check functions
