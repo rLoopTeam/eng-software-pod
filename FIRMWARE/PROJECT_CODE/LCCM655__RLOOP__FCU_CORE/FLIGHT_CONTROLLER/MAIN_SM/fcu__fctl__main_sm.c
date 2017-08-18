@@ -55,9 +55,7 @@ void vFCU_FCTL_MAINSM__Init(void)
 
     // Initialize our various state machine related timeouts
 
-	// Ready state to Idle backup timeout
 	// @todo: Move timeout duration values to config/mission profile
-	init_timeout(&sFCU.sPodStateMachine.ReadyExpiredBackupTimeout, 90 * 1000);
 
 	// Accel to Coast Interlock backup timeout
 	init_timeout(&sFCU.sPodStateMachine.AccelBackupTimeout, 10 * 1000);
@@ -264,6 +262,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_READY_STATE");
 				#endif
+				
+				// (Re)start the ready expired backup timer that will transition us (where?) 
+				// @todo: We now have the capability to transition back to FLIGHT_PREP from READY, so we don't need this any more most likely.
+                // timeout_restart(&sFCU.sPodStateMachine.ReadyExpiredBackupTimeout);
 			}
 		
 			// Handle transitions
@@ -291,6 +293,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_ACCEL_STATE");
 				#endif
+
+                // (Re)start the accel backup timeout. If this expires, we will automatically transition to COAST_INTERLOCK (see below)
+	            timeout_restart(&sFCU.sPodStateMachine.AccelBackupTimeout);
+
 			}
 		
 			// Handle transitions
@@ -318,6 +324,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_COAST_INTERLOCK_STATE");
 				#endif
+				
+				// (Re)start our coast interlock timer. Expiration will transition us to BRAKE (see below)
+                timeout_restart(&sFCU.sPodStateMachine.CoastInterlockTimeout);				
 			}
 		
 			// Handle transitions
@@ -345,6 +354,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_BRAKE_STATE");
 				#endif
+				
+				// (Re)start the BRAKE to SPINDOWN backup timeout. If this expires, we'll transition to SPINDOWN
+				timeout_restart(&sFCU.sPodStateMachine.BrakeToSpindownBackupTimeout);
 			}
 		
 			// Handle transitions
@@ -372,6 +384,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_SPINDOWN_STATE");
 				#endif
+	            
+	            // (Re)start our spindown backup timeout. If this expires we'll automatically transition to IDLE.
+	            timeout_restart(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout);
 			}
 		
 			// Handle transitions
@@ -683,6 +698,7 @@ void handle_POD_READY_STATE_transitions()
 		switch(command) {
 			
 			case POD_FLIGHT_PREP:
+			    // Go back to FLIGHT PREP if commanded
 				sm->state = POD_FLIGHT_PREP_STATE;
 				break;
 		
@@ -744,6 +760,7 @@ void handle_POD_ACCEL_STATE_transitions()
 	// Check timeouts (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
 	{
+	    // If our ACCEL backup timeout has expired, automatically go to COAST_INTERLOCK
 		if ( timeout_expired(&sFCU.sPodStateMachine.AccelBackupTimeout) ) 
 		{
 			sm->state = POD_COAST_INTERLOCK_STATE;
@@ -936,9 +953,6 @@ void vFCU_FCTL_MAINSM__100MS_ISR(void)
     
     // Update our various timeouts. Note that these will only update the time if the timeout has been started (elsewhere)
     
-    // Ready state to Idle backup timeout
-	timeout_update(&sFCU.sPodStateMachine.ReadyExpiredBackupTimeout, 100);
-
 	// Accel to Coast Interlock backup timeout
 	timeout_update(&sFCU.sPodStateMachine.AccelBackupTimeout, 100);
 

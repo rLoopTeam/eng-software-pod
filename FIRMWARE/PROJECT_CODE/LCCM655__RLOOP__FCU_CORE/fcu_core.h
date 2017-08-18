@@ -144,9 +144,6 @@
 				
 				// Timers and timeouts:
 				
-				// Ready state to Idle backup timeout
-				strTimeout ReadyExpiredBackupTimeout;
-	
 				// Accel to Coast Interlock backup timeout
 				strTimeout AccelBackupTimeout;
 	
