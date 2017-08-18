@@ -37,6 +37,10 @@
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
 		#include <MULTICORE/LCCM418__MULTICORE__MMA8451/mma8451__types.h>
 
+		// For flight controller
+		#include <LCCM655__RLOOP__FCU_CORE/state_machine.h>
+
+
 		/*******************************************************************************
 		Defines
 		*******************************************************************************/
@@ -57,7 +61,7 @@
 
 			}sCoolingControl;
 
-            #if C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION == 1U
+			#if C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION == 1U
 			/** Navigation */
 			struct
 			{
@@ -95,7 +99,7 @@
 					}sAccel[C_LOCALDEF__LCCM418__NUM_DEVICES];
 
 			}sNavigation;
-            #endif
+			#endif
 
 			/** Hover Engines Control Structure */
 			//#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
@@ -125,7 +129,42 @@
 			}sHoverEngines;
 			//#endif
 
-			/** State Machine Structure **/
+			/** Pod State Machine / Flight Controller */
+			struct 
+			{
+				StateMachine sm;
+				
+				strPodCmd command;
+	
+				/** Enum for Pod Status for SpaceX telemetry */
+				// @todo: update code to reflect move from sStateMachine to ePodStateMachine
+				E_FCU__POD_STATUS ePodStatus;
+				
+				// @todo: add commands (and enum for commands from ground station)
+				
+				// Timers and timeouts:
+				
+				// Accel to Coast Interlock backup timeout
+				strTimeout AccelBackupTimeout;
+	
+				// Coast interlock timeout
+				strTimeout CoastInterlockTimeout;
+	
+				// Brake to Spindown backup timeout
+				strTimeout BrakeToSpindownBackupTimeout;
+	
+				// Spindown to Idle backup timeout
+				strTimeout SpindownToIdleBackupTimeout;
+				
+				
+				// Interlock command timeouts
+				strInterlockCommand command_interlocks[E_POD_COMMAND_N];
+
+			} sPodStateMachine;
+			
+
+
+			/** State Machine Structure (DEPRECATED) **/
 			struct
 			{
 				/** The mission phases
@@ -1183,6 +1222,41 @@
 		DLL_DECLARATION void vFCU__Process(void);
 		DLL_DECLARATION void vFCU__RTI_100MS_ISR(void);
 		DLL_DECLARATION void vFCU__RTI_10MS_ISR(void);
+
+
+		// General Timer and timeouts
+		strTimeout create_timeout(Luint32 duration_ms);
+		void init_timeout(strTimeout *timeout, Luint32 duration_ms);
+		void timeout_restart(strTimeout *timeout);
+		void timeout_reset(strTimeout *timeout);
+		void timeout_ensure_started(strTimeout *timeout);
+		bool timeout_expired(strTimeout *timeout);
+		void timeout_update(strTimeout *timeout, Luint32 elapsed_ms);
+
+
+		// Interlock command handling
+		strInterlockCommand create_interlock_command(const Luint32 duration_ms);
+
+		// Initialize interlock command
+		void init_interlock_command(strInterlockCommand *command, Luint32 duration_ms);
+
+		// Call this when the first packet is received. Ok to call it multiple times; it will just restart the timeout.
+		void interlock_command_enable(strInterlockCommand *ic);
+
+		// Call this when the second packet is received to check whether the command can execute (i.e. timeout has not expired)
+		bool interlock_command_can_execute(strInterlockCommand *ic);
+
+		// Call this if the command was executed and we're ready to listen for the initial packet again
+		// @todo: do we even need this? if we receive another enable packet, we will restart the timeout. Once its timed out, it will not keep counting, so we're ok. 
+		void interlock_command_reset(strInterlockCommand *ic);
+
+		// Call this in one of our timer ISRs. Ok to call this since the timeout has to be started for the update to have any effect. 
+		void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms);
+
+
+		// Helper functions for executing interlock commands
+		void unlock_pod_interlock_command(E_POD_COMMAND_T command);
+		void attempt_pod_interlock_command(E_POD_COMMAND_T command);
 
 
 		//flight controller

@@ -2,7 +2,7 @@
  * fcu_core__net__packet_types.h
  *
  *  Created on: Dec 9, 2016
- *      Author: Lachlan
+ *	  Author: Lachlan
  */
 
 #ifndef __NET__PACKET_TYPES_H_
@@ -51,6 +51,10 @@
 
 		/** GS Hearbeat */
 		NET_PKT__FCU_GEN__GS_HEARTBEAT = 0x0400U,
+
+		/** Pod State Machine Command */
+		NET_PKT__FCU_GEN__POD_COMMAND = 0x0500U,
+
 
 		//////////////////////////////////////////////////////
 		//FCU: ACCEL (0x1000)
