@@ -51,8 +51,49 @@
 			/** Spare */
 			Luint32 u32Spare;
 
+			//3 spares to take it to 16 bytes
+			Luint8 u8Spares[3];
 
 		}sAccel;
+
+		/** FWD Laser configuration */
+		struct
+		{
+
+			/** Use the forward laser */
+			Luint8 u8Use;
+
+			//make up 16 spares
+			Luint8 u8Spares[15];
+
+		}sFwdLaser;
+
+		/** Contrast laser config */
+		struct
+		{
+			/** Use the contrast laser */
+			Luint8 u8Use;
+
+			//make up 16 spares
+			Luint8 u8Spares[15];
+
+		}sContrastLaser;
+
+
+		/** Control options */
+		struct
+		{
+
+			/** Use the pusher pin detection */
+			Luint8 u8UsePusher;
+
+			/** Use hover engines, if 0 then do not spinup or spindown */
+			Luint8 u8UseHover;
+
+			/** Use Landing Gear Control */
+			Luint8 u8UseLanding.
+
+		}sControl;
 
 	}sDB2[C_FCTL_TRACKDB__MAX_MEM_DATABASES];
 
