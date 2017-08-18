@@ -143,7 +143,7 @@ void vDS18B20__Process(void)
 
 
 			sDS18B20.u16MainStateCounter++;
-			if(sDS18B20.u16MainStateCounter >= sDS18B20.sEnum.u16NumDevices)
+			if(sDS18B20.u16MainStateCounter > sDS18B20.sEnum.u16NumDevices)
 			{
 				//move on and read-back the resolution.
 				sDS18B20.u16MainStateCounter = 0U;
@@ -176,7 +176,7 @@ void vDS18B20__Process(void)
 				}
 			}else{
 				//configure the resolution
-				s16Return = s16DS18B20_TEMP__Get_UserID(sDS18B20.u16MainStateCounter);
+				// s16Return = s16DS18B20_TEMP__Get_UserID(sDS18B20.u16MainStateCounter);  // this wipes out the userID  set to 0.
 				if(s16Return >= 0)
 				{
 					//res get was set good.
@@ -192,7 +192,7 @@ void vDS18B20__Process(void)
 
 
 			sDS18B20.u16MainStateCounter++;
-			if(sDS18B20.u16MainStateCounter >= sDS18B20.sEnum.u16NumDevices)
+			if(sDS18B20.u16MainStateCounter > sDS18B20.sEnum.u16NumDevices)
 			{
 				sDS18B20.eMainState = DS18B20_STATE__START_CONVERT_ALL;
 			}
@@ -317,7 +317,7 @@ void vDS18B20__Process(void)
 
 
 			sDS18B20.u16MainStateCounter++;
-			if(sDS18B20.u16MainStateCounter >= sDS18B20.sEnum.u16NumDevices)
+			if(sDS18B20.u16MainStateCounter > sDS18B20.sEnum.u16NumDevices)
 			{
 				sDS18B20.eMainState = DS18B20_STATE__READ_DONE;
 			}

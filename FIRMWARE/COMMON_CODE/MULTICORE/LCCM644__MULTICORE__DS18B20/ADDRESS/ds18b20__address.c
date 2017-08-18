@@ -26,7 +26,7 @@
 #if C_LOCALDEF__LCCM644__ENABLE_THIS_MODULE == 1U
 
 extern struct _strDS18B20 sDS18B20;
-
+extern const Luint8 u8HETherm_ROMID[];
 
 /***************************************************************************//**
  * @brief
@@ -222,6 +222,47 @@ void vDS18B20_ADDX__SearchSM_Start(void)
 	}
 }
 
+
+/***************************************************************************//**
+ * @brief
+ * Search ROMID table for matching serial number and pull its UserID
+ *
+ * @st_funcMD5
+ * @st_funcID
+ */
+Luint16 vDS18B20_ADDX__SearchSM_GrabUserID(Luint8 ID1, Luint8 ID2)
+{
+    Luint32 u32Counter;
+    Luint32 u32Max;
+    union
+    {
+        Luint8 u8[2];
+        Luint16 u16;
+    }unT;
+
+    u32Max = 0U;
+    unT.u16 = 0x0000U;
+
+    for(u32Counter = 0U; u32Counter < C_LOCALDEF__LCCM644__MAX_DEVICES; u32Counter++)
+    {
+
+        if ((u8HETherm_ROMID[u32Max + 1U] == ID1) && (u8HETherm_ROMID[u32Max + 2U] == ID2))
+            // only the 2nd & 3rd bytes changes for each device. Make it a fast check
+        {
+            // We have a match; Grab it and go.
+            unT.u8[0] = u8HETherm_ROMID[u32Max + 11U];
+            unT.u8[1] = u8HETherm_ROMID[u32Max + 10U];
+            return (unT.u16);
+        }
+        else
+        {
+            //increment the memory addx size
+            u32Max += 12U;
+        }
+    }
+    return (unT.u16);
+}
+
 /***************************************************************************//**
  * @brief
  * State machine based search processing
@@ -231,8 +272,10 @@ void vDS18B20_ADDX__SearchSM_Start(void)
  */
 void vDS18B20_ADDX__SearchSM_Process(void)
 {
-	Lint16 s16Return;
-	Luint8 u8Flag;
+	Lint16  s16Return;
+	Luint16 u16UserID = 0;
+	Luint8  u8Flag;
+	Luint8  Channel;
 
 	//handle the search processing states
 	switch(sDS18B20.sSearch.sSearchState)
@@ -271,6 +314,11 @@ void vDS18B20_ADDX__SearchSM_Process(void)
 					//set the channel index we are on
 					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8ChannelIndex = sDS18B20.sSearch.u8WireChannelCounter;
 					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8Resolution = 0U;
+					// PROBLEM:  u8ChannelIndex is set, but u16UserIndex is NOT.
+					//           It should follow the device, right?  Otherwise we could be cooling the wrong area.
+					u16UserID = vDS18B20_ADDX__SearchSM_GrabUserID(sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8SerialNumber[1],
+					                                               sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8SerialNumber[2]);
+					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u16UserIndex = u16UserID;
 
 					//set to our known max temp
 					sDS18B20.sTemp[sDS18B20.sEnum.u16NumDevices].f32Temperature = 127.0F;
@@ -303,6 +351,11 @@ void vDS18B20_ADDX__SearchSM_Process(void)
 					//set the channel index we are on
 					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8ChannelIndex = sDS18B20.sSearch.u8WireChannelCounter;
 					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8Resolution = 0U;
+					// PROBLEM:  u8ChannelIndex is set, but u16UserIndex is NOT.
+					//           It should follow the device, right?  Otherwise we could be cooling the wrong area.
+					u16UserID = vDS18B20_ADDX__SearchSM_GrabUserID(sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8SerialNumber[1],
+					                                               sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8SerialNumber[2]);
+					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u16UserIndex = u16UserID;
 
 					//set to our known max temp.
 					sDS18B20.sTemp[sDS18B20.sEnum.u16NumDevices].f32Temperature = 127.0F;

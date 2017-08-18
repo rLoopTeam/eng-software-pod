@@ -54,6 +54,8 @@ void vHETHERM_ETH__Init(void)
 	sHET.sEthernet.u8IPAddx[3] = C_RLOOP_NET_IP__HETHERM;
 
 	sHET.sUDPDiag.eTxStreamingType = NET_PKT__NONE;
+	sHET.sUDPDiag.u81000MS_Flag = 0U;
+	sHET.sUDPDiag.u8500MS_Flag = 0U;
 	sHET.sUDPDiag.u8250MS_Flag = 0U;
 	sHET.sUDPDiag.u810MS_Flag = 0U;
 
@@ -77,8 +79,8 @@ void vHETHERM_ETH__Init(void)
 void vHETHERM_ETH__Process(void)
 {
 	Luint8 u8Test;
-	Luint8 u8Flag;
-	E_NET__PACKET_T eType;
+	// Luint8 u8Flag;
+	// E_NET__PACKET_T eType;
 
 #ifndef WIN32
 	//constantly process the EMAC link as it will take some time to get operational
@@ -170,7 +172,7 @@ void vHETHERM_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	Luint8 u8BufferIndex;
 	Luint16 u16Length;
 	Luint8 u8Counter;
-	Luint8 *pu8Temp;
+	// Luint8 *pu8Temp;
 
 	pu8Buffer = 0;
 
@@ -420,6 +422,9 @@ void vHETHERM_ETH__10MS_ISR(void)
 {
 	sHET.sUDPDiag.u810MS_Flag = 1U;
 	sHET.sUDPDiag.u8250MS_Flag++;
+	sHET.sUDPDiag.u8500MS_Flag++;
+	sHET.sUDPDiag.u81000MS_Flag++;
+
 }
 
 #endif //#if C_LOCALDEF__LCCM721__ENABLE_THIS_MODULE == 1U
