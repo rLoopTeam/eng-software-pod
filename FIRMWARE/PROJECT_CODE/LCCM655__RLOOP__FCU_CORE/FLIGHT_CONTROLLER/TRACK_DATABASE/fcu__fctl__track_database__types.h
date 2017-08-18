@@ -32,9 +32,6 @@
 	struct
 	{
 
-		Luint8 u8Dummy;
-
-
 		/** Accel Subsystem */
 		struct
 		{
@@ -91,7 +88,10 @@
 			Luint8 u8UseHover;
 
 			/** Use Landing Gear Control */
-			Luint8 u8UseLanding.
+			Luint8 u8UseLandingGear;
+
+			/** Enable end of run cooling */
+			Luint8 u8UseCooling;
 
 		}sControl;
 
