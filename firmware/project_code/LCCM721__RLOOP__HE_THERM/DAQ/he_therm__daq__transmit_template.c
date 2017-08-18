@@ -44,7 +44,7 @@ Lint16 s16SIL3_DAQ_TRANSMIT__Template(Luint16 u16Index, Luint8 *pu8BufferPointer
 	//the UDP payload Length
 	Luint16 u16Length;
 	//the UDP packet type.
-	Luint16 u16PacketType;
+	// Luint16 u16PacketType;
 	Lint16 s16Return;
 	Luint16 u16Counter;
 	Luint8 u8BufferIndex;

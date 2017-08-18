@@ -49,6 +49,12 @@
 				/** 25x 10 MS ticks */
 				Luint8 u8250MS_Flag;
 
+				/** 50x 10 MS ticks */
+				Luint8 u8500MS_Flag;
+
+				/** 100x 10 MS ticks for 1 second  */
+				Luint8 u81000MS_Flag;
+
 				/** The next packet type to transmit */
 				E_NET__PACKET_T eTxPacketType;
 

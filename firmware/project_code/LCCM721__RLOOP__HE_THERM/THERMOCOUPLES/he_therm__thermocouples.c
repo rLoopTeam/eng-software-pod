@@ -78,7 +78,7 @@ void vHETHERM_TC__Process(void)
 	Luint16 u16NumSensors;
 	Luint16 u16User;
 	Lfloat32 f32Temp;
-	Lint16 s16Return;
+	// Lint16 s16Return;
 	Luint32 u32Counter;
 	Luint32 u32Max;
 	union
@@ -129,7 +129,7 @@ void vHETHERM_TC__Process(void)
 			//signal to the device that we have loaded all our avail data.
 			vDS18B20_ADDX__Set_SearchComplete();
 
-			sHET.sTemp.eState = HETHERM_TEMP_STATE__CONFIGURE_RESOLUTION;
+			sHET.sTemp.eState = HETHERM_TEMP_STATE__START_SCAN; // HETHERM_TEMP_STATE__CONFIGURE_RESOLUTION;
 			break;
 
 
@@ -202,7 +202,7 @@ void vHETHERM_TC__Process(void)
 
 				//get the number of sensors found
 				u16NumSensors = u16DS18B20__Get_NumEnum_Sensors();
-				for(u16Counter = 0U; u16Counter < u16NumSensors; u16Counter++)
+				for(u16Counter = 0U; u16Counter <= u16NumSensors; u16Counter++)
 				{
 
 					//make sure the sensors belong to us.
@@ -211,75 +211,78 @@ void vHETHERM_TC__Process(void)
 					//get the temp;
 					f32Temp = f32DS18B20__Get_Temperature_DegC(u16Counter);
 
+					if (f32Temp < 2000.0F) {  // throw away unconnected sensor temps.
 					//do the left
-					switch(u16User)
-					{
-						case 0x1000:
+					    switch(u16User)
+					    {
+						    case 0x100:
 
-							//inc the count of sensors on this side
-							sHET.sMotorTemp.sLeftHE.u16TotalCount++;
+							    //inc the count of sensors on this side
+							    sHET.sMotorTemp.sLeftHE.u16TotalCount++;
 
-							//Compare
-							if(f32Temp > sHET.sMotorTemp.sLeftHE.f32High)
-							{
-								//this sensor value is > than the last highest reading, save it
-								sHET.sMotorTemp.sLeftHE.f32High = f32Temp;
-								sHET.sMotorTemp.sLeftHE.u16HighestSensorIndex = u16Counter;
-								//add to the sum
-								sHET.sMotorTemp.sLeftHE.f32Sum += f32Temp;
+							    //Compare
+							    if(f32Temp > sHET.sMotorTemp.sLeftHE.f32High)
+							    {
+							        //this sensor value is > than the last highest reading, save it
+							        sHET.sMotorTemp.sLeftHE.f32High = f32Temp;
+							        sHET.sMotorTemp.sLeftHE.u16HighestSensorIndex = u16Counter;
+							        //add to the sum
+							        sHET.sMotorTemp.sLeftHE.f32Sum += f32Temp;
 
-							}
-							else
-							{
-								//this sensor was lower than the last sensor
-							}
-							break;
-
-						case 0x2000:
-							//inc the count of sensors on this side
-							sHET.sMotorTemp.sRightHE.u16TotalCount++;
-
-							//Compare
-							if(f32Temp > sHET.sMotorTemp.sRightHE.f32High)
-							{
-								//this sensor value is > than the last highest reading, save it
-								sHET.sMotorTemp.sRightHE.f32High = f32Temp;
-								sHET.sMotorTemp.sRightHE.u16HighestSensorIndex = u16Counter;
-								//add to the sum
-								sHET.sMotorTemp.sRightHE.f32Sum += f32Temp;
-
-							}
-							else
-							{
-								//this sensor was lower than the last sensor
-							}
-							break;
-
-						case 0x4000:
-							//inc the count of sensors on this side
-							sHET.sMotorTemp.sBrakeMotor.u16TotalCount++;
-
-							//Compare
-							if(f32Temp > sHET.sMotorTemp.sBrakeMotor.f32High)
-							{
-								//this sensor value is > than the last highest reading, save it
-								sHET.sMotorTemp.sBrakeMotor.f32High = f32Temp;
-								sHET.sMotorTemp.sBrakeMotor.u16HighestSensorIndex = u16Counter;
-								//add to the sum
-								sHET.sMotorTemp.sBrakeMotor.f32Sum += f32Temp;
-
-							}
-							else
-							{
-								//this sensor was lower than the last sensor
-							}
-							break;
-						default:
-							//do nothing
-							break;
-					}//switch(u16User)
+							    }
+							    else
+							    {
+							        //this sensor was lower than the last sensor
+							    }
+							    break;
 
 
+						    case 0x200:
+
+						        //inc the count of sensors on this side
+							    sHET.sMotorTemp.sRightHE.u16TotalCount++;
+
+							    //Compare
+							    if(f32Temp > sHET.sMotorTemp.sRightHE.f32High)
+							    {
+							        //this sensor value is > than the last highest reading, save it
+							        sHET.sMotorTemp.sRightHE.f32High = f32Temp;
+							        sHET.sMotorTemp.sRightHE.u16HighestSensorIndex = u16Counter;
+							        //add to the sum
+							        sHET.sMotorTemp.sRightHE.f32Sum += f32Temp;
+
+							    }
+							    else
+							    {
+							        //this sensor was lower than the last sensor
+							    }
+							    break;
+
+						    case 0x0400:
+						        //inc the count of sensors on this side
+							    sHET.sMotorTemp.sBrakeMotor.u16TotalCount++;
+
+							    //Compare
+							    if(f32Temp > sHET.sMotorTemp.sBrakeMotor.f32High)
+							    {
+								    //this sensor value is > than the last highest reading, save it
+								    sHET.sMotorTemp.sBrakeMotor.f32High = f32Temp;
+								    sHET.sMotorTemp.sBrakeMotor.u16HighestSensorIndex = u16Counter;
+								    //add to the sum
+							        sHET.sMotorTemp.sBrakeMotor.f32Sum += f32Temp;
+
+							    }
+							    else
+							    {
+								    //this sensor was lower than the last sensor
+							    }
+							    break;
+
+						    default:
+							        //do nothing
+							    break;
+					    }//switch(u16User)
+					}// if (f32Temp < 500.0F)
 				}//for(u16Counter = 0U; u16Counter < u16NumSensors; u16Counter++)
 
 

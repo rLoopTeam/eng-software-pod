@@ -270,7 +270,7 @@ DS18B20 - 1-Wire Temperature Sensor
 		#define C_LOCALDEF__LCCM644__CONNECT_LCCM641						(1U)
 
 		//max supported devices
-		#define C_LOCALDEF__LCCM644__MAX_DEVICES							(32U)
+		#define C_LOCALDEF__LCCM644__MAX_DEVICES							(24U)
 
 		/** Define the number of I2C channels available in the system
 		 * If using the DS2482 we can support 4 devices on the one I2C bus
