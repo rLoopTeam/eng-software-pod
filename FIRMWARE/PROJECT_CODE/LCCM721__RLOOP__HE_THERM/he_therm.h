@@ -126,6 +126,7 @@
 				{
 					/** Have we thresholded above 75C = 1
 					 * Have we thresholded above 95C = 2
+					 * Have we thresholded below 65C = 3
 					 * Else 0
 					 *  */
 					Luint8 u8ChannelOverTemp_State;
