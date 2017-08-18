@@ -61,6 +61,7 @@ void vFCU_ACCEL_VALID__Process(void)
 		if(u32Temp == 0U)
 		{
 			//valid
+			u8Valid = 1U;
 
 			//do the simple assignment
 			sFCU.sAccel.sValid.s32ValidAccel_mm_ss = sFCU.sAccel.sChannels[u8Channel].s32CurrentAccel_mm_ss;
@@ -80,6 +81,7 @@ void vFCU_ACCEL_VALID__Process(void)
 			if(u32Temp == 0U)
 			{
 				//valid
+				u8Valid = 1U;
 
 				//do the simple assignment
 				sFCU.sAccel.sValid.s32ValidAccel_mm_ss = sFCU.sAccel.sChannels[u8Channel].s32CurrentAccel_mm_ss;

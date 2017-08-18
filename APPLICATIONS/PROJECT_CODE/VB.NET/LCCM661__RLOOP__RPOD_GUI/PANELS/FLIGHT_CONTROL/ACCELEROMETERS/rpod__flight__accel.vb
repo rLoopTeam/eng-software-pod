@@ -36,7 +36,7 @@
         Private m_txtValid_Valid As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
         Private m_txtValid_Accel_mm_ss As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
         Private m_txtValid_Veloc_mm_s As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
-        Private m_txtValid_Dist_mm As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtValid_Displacement_mm As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
 
         'thresholding
         Private m_txtThresh_True As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
@@ -151,6 +151,19 @@
                         iOffset += 4 ' Me.m_txtCalc__PrevDisplacement_mm(iDevice).Value__Update(u8Array, iOffset)
 
                     Next
+
+                    'valid subsystem
+                    iOffset += Me.m_txtValid_Enable.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtValid_Valid.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtValid_Accel_mm_ss.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtValid_Veloc_mm_s.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtValid_Displacement_mm.Value__Update(u8Payload, iOffset)
+
+                    iOffset += Me.m_txtThresh_True.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtThresh_10xms.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtThresh_Accel_mm_ss.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtThresh_10ms_Counter.Value__Update(u8Payload, iOffset)
+
 
                     'crc
                     Me.m_txtCRC.Threadsafe__SetText(u16CRC.To_String)
@@ -316,7 +329,7 @@
 
             Dim l304 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Displace mm")
             l304.Layout__AboveRightControl(l303, Me.m_txtValid_Veloc_mm_s)
-            Me.m_txtValid_Dist_mm = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l304)
+            Me.m_txtValid_Displacement_mm = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l304)
 
             ''thresholding
             Dim l400 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Thresh: True", Me.m_txtValid_Enable)
