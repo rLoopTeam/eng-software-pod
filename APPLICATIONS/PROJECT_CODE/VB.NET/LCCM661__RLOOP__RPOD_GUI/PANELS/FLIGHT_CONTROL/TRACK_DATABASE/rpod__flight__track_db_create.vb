@@ -120,7 +120,17 @@
 
         Private m_sLogDir As String
 
-        Private m_txtTrackID As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtTrackIndex As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
+
+        'accel system
+        Private m_chkAccel_Use As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
+        Private m_txtAccel_Thresh_mm_ss_s32 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtAccel_Timer_x10ms_u32 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtAccel_Spare_u32 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+
+
+
+
         Private m_txtTrackHumanName As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtTrack_StartXPos As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtTrack_EndXPos As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
@@ -175,30 +185,68 @@
 
 
             'create the log files in prep
-            Me.m_pCSV = New LAPP188__RLOOP__LIB.SIL3.FileSupport.CSV(Me.m_sDBDir & "databases.csv", ",", False, False)
+            Me.m_pCSV = New LAPP188__RLOOP__LIB.SIL3.FileSupport.CSV(Me.m_sDBDir & "databases2.csv", ",", False, False)
             If Me.m_pCSV.File__Exists = False Then
 
                 If MsgBox("Warn: A new track database CSV will be created, are you sure?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
 
 
                     'load up some headers
-                    Me.m_pCSV.Header__Add("TRACK_INDEX")
-                    Me.m_pCSV.Header__Add("TRACK_HUMAN_NAME")
-                    Me.m_pCSV.Header__Add("LAST_EDIT_TIME")
+                    Me.m_pCSV.Header__Add("TRACK_INDEX_U8")
 
-                    Me.m_pCSV.Header__Add("TRACK_START_XPOS_MM")
-                    Me.m_pCSV.Header__Add("TRACK_END_XPOS_MM")
-                    Me.m_pCSV.Header__Add("LRF_START_POS_MM")
-                    Me.m_pCSV.Header__Add("NUM_STRIPES")
+                    'accel subsystem
+                    'use the accel system
+                    Me.m_pCSV.Header__Add("ACCEL_USE_U8")
+                    'The threshold in mm ss
+                    Me.m_pCSV.Header__Add("ACCEL_THRESH_MM_SS_S32")
+                    'the time the threshold needs to be on 
+                    Me.m_pCSV.Header__Add("ACCEL_THRESH_TIME_X10MS_U32")
+                    'spare accel
+                    Me.m_pCSV.Header__Add("ACCEL_SPARE_U32")
 
-                    Me.m_pCSV.Header__Add("ENABLE_ACCELS")
-                    Me.m_pCSV.Header__Add("ENABLE_LRF")
-                    Me.m_pCSV.Header__Add("ENABLE_CONTRAST")
+
+                    'fwd laser
+                    'use the fwd laser
+                    Me.m_pCSV.Header__Add("FWD_USE_U8")
+                    Me.m_pCSV.Header__Add("FWD_SPARE_0_U32")
+                    Me.m_pCSV.Header__Add("FWD_SPARE_1_U32")
+                    Me.m_pCSV.Header__Add("FWD_SPARE_2_U32")
+
+                    'contrast system
+                    'use the contrast laser system
+                    Me.m_pCSV.Header__Add("CONT_USE_U8")
+                    Me.m_pCSV.Header__Add("CONT_SPARE_0_U32")
+                    Me.m_pCSV.Header__Add("CONT_SPARE_1_U32")
+                    Me.m_pCSV.Header__Add("CONT_SPARE_2_U32")
+
+                    'pusher
+                    Me.m_pCSV.Header__Add("PUSHER_USE_U8")
+
+                    'hover
+                    Me.m_pCSV.Header__Add("HOVER_USE_U8")
+
+                    'cooling
+                    Me.m_pCSV.Header__Add("COOLING_USE_U8")
+
+                    'Use the LGU
+                    Me.m_pCSV.Header__Add("LGU_USE_U8")
+
+                    'track specifics
+                    Me.m_pCSV.Header__Add("TRACK_START_XPOS_MM_U32")
+                    Me.m_pCSV.Header__Add("TRACK_END_XPOS_MM_U32")
+                    Me.m_pCSV.Header__Add("TRACK_LENGTH_MM_U32")
+
+                    'state machine timers
+                    Me.m_pCSV.Header__Add("SM_SPARE0_U32")
+                    Me.m_pCSV.Header__Add("SM_SPARE1_U32")
+                    Me.m_pCSV.Header__Add("SM_SPARE2_U32")
+                    Me.m_pCSV.Header__Add("SM_SPARE3_U32")
 
 
-                    For iCounter As Integer = 0 To C_FCTL_TRACKDB__HEADER_SPARE_WORDS - 1
-                        Me.m_pCSV.Header__Add("SPARE_" & iCounter.ToString("00"))
-                    Next
+                    'braking strategy
+                    'control strategy
+                    Me.m_pCSV.Header__Add("BRAKE_USE_PID_U8")
+                    Me.m_pCSV.Header__Add("BRAKE_TARGET_DISTANCE_F32")
 
                     'save off the new headers
                     Me.m_pCSV.Header__Save()
@@ -213,39 +261,94 @@
 
                         'index
                         pSB.Append(iCounter.ToString & ",")
-                        pSB.Append("N/A" & ",")
-                        pSB.Append(Now.ToString.Replace(",", "_") & ",")
 
+                        'ACCEL_USE_U8"
                         pSB.Append("0" & ",")
+                        '"ACCEL_THRESH_MM_SS_S32"
                         pSB.Append("0" & ",")
+                        '"ACCEL_THRESH_TIME_X10MS_U32"
                         pSB.Append("0" & ",")
+                        '"ACCEL_SPARE_U32"
                         pSB.Append("0" & ",")
 
-                        For iCounter2 As Integer = 0 To C_FCTL_TRACKDB__HEADER_SPARE_WORDS - 1
-                            pSB.Append("0" & ",")
-                        Next
+                        '"FWD_USE_U8"
+                        pSB.Append("0" & ",")
+                        '"FWD_SPARE_0_U32"
+                        pSB.Append("0" & ",")
+                        '"FWD_SPARE_1_U32"
+                        pSB.Append("0" & ",")
+                        '"FWD_SPARE_2_U32"
+                        pSB.Append("0" & ",")
+
+                        '"CONT_USE_U8"
+                        pSB.Append("0" & ",")
+                        '"CONT_SPARE_0_U32"
+                        pSB.Append("0" & ",")
+                        '"CONT_SPARE_1_U32"
+                        pSB.Append("0" & ",")
+                        '"CONT_SPARE_2_U32"
+                        pSB.Append("0" & ",")
+
+
+                        'pusher
+                        '"PUSHER_USE_U8"
+                        pSB.Append("0" & ",")
+
+                        'hover
+                        '"HOVER_USE_U8"
+                        pSB.Append("0" & ",")
+
+                        'cooling
+                        '"COOLING_USE_U8"
+                        pSB.Append("0" & ",")
+
+                        'Use the LGU
+                        '"LGU_USE_U8"
+                        pSB.Append("0" & ",")
+
+                        'track specifics
+                        '"TRACK_START_XPOS_MM_U32"
+                        pSB.Append("0" & ",")
+                        '"TRACK_END_XPOS_MM_U32"
+                        pSB.Append("0" & ",")
+                        '"TRACK_LENGTH_MM_U32"
+                        pSB.Append("0" & ",")
+
+                        '"SM_SPARE0_U32"
+                        pSB.Append("0" & ",")
+                        '"SM_SPARE1_U32"
+                        pSB.Append("0" & ",")
+                        '"SM_SPARE2_U32"
+                        pSB.Append("0" & ",")
+                        '"SM_SPARE3_U32"
+                        pSB.Append("0" & ",")
+
+                        '"BRAKE_USE_PID_U8"
+                        pSB.Append("0" & ",")
+                        '"BRAKE_TARGET_DISTANCE_F32"
+                        pSB.Append("0" & ",")
 
                         Dim sL As String = pSB.ToString
                         sL = sL.Remove(sL.Length - 1, 1)
                         Me.m_pCSV.Write_CSV_Line(sL)
 
 
-                        'now write out a list of points to a single file
-                        Dim lStripe As New List(Of String)
-                        For iStripes As Integer = 0 To C_FCTL_TRACKDB__MAX_CONTRAST_STRIPES - 1
-                            lStripe.Add("0")
-                        Next
-                        'save it off
-                        LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__stripes.txt", lStripe)
+                        ''now write out a list of points to a single file
+                        'Dim lStripe As New List(Of String)
+                        'For iStripes As Integer = 0 To C_FCTL_TRACKDB__MAX_CONTRAST_STRIPES - 1
+                        '    lStripe.Add("0")
+                        'Next
+                        ''save it off
+                        'LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__stripes.txt", lStripe)
 
-                        'create the setpoint list
-                        Dim lSet As New List(Of String)
-                        For iSet As Integer = 0 To C_FCTL_TRACKDB__MAX_SETPOINTS - 1
-                            lSet.Add("0")
-                        Next
-                        'save it off
-                        LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__set_xpos.txt", lSet)
-                        LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__set_veloc.txt", lSet)
+                        ''create the setpoint list
+                        'Dim lSet As New List(Of String)
+                        'For iSet As Integer = 0 To C_FCTL_TRACKDB__MAX_SETPOINTS - 1
+                        '    lSet.Add("0")
+                        'Next
+                        ''save it off
+                        'LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__set_xpos.txt", lSet)
+                        'LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__set_veloc.txt", lSet)
 
                     Next 'For iCounter As Integer = 0 To C_FCTL_TRACKDB__MAX_MEM_DATABASES - 1
 
@@ -326,42 +429,54 @@
             Dim btnGenBinary As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Gen Binary", AddressOf Me.btnGenBinary__Click)
             btnGenBinary.Layout__BelowControl(Me.m_cboDatabase)
 
-            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Track ID")
-            l1.Layout__BelowControl(btnGenBinary)
-            Me.m_txtTrackID = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l1)
-            Me.m_txtTrackID.ReadOnly = True
+            Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Track Index", btnGenBinary)
+            Me.m_txtTrackIndex = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, l1)
+            Me.m_txtTrackIndex.ReadOnly = True
 
-            Dim l2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Track Human Name")
-            l2.Layout__AboveRightControl(l1, Me.m_txtTrackID)
-            Me.m_txtTrackHumanName = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(200, l2)
+            Me.m_chkAccel_Use = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Accel: Use", "Accel: Use", "Use Accelerometer System")
+            Me.m_chkAccel_Use.Layout__BelowControl(Me.m_txtTrackIndex)
 
-            Dim l3 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Start XPos (mm)")
-            l3.Layout__AboveRightControl(l2, Me.m_txtTrackHumanName)
-            Me.m_txtTrack_StartXPos = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l3)
+            Dim l100 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel mms²", Me.m_chkAccel_Use)
+            Me.m_txtAccel_Thresh_mm_ss_s32 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l100)
 
-            Dim l4 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("End XPos (mm)")
-            l4.Layout__AboveRightControl(l3, Me.m_txtTrack_StartXPos)
-            Me.m_txtTrack_EndXPos = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l4)
+            Dim l101 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel x10ms")
+            l101.Layout__AboveRightControl(l100, Me.m_txtAccel_Thresh_mm_ss_s32)
+            Me.m_txtAccel_Timer_x10ms_u32 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l101)
 
-            Dim l5 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("LRF Start X (mm)")
-            l5.Layout__AboveRightControl(l4, Me.m_txtTrack_EndXPos)
-            Me.m_txtLRF_BeginXPos = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l5)
+            Dim l102 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel Spare")
+            l102.Layout__AboveRightControl(l101, Me.m_txtAccel_Timer_x10ms_u32)
+            Me.m_txtAccel_Spare_u32 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l102)
 
-            Dim l6 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Num Stripes")
-            l6.Layout__BelowControl(Me.m_txtTrackID)
-            Me.m_txtNumStripes = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l6)
 
-            Me.m_chkEnableAccels = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Enable Accels")
-            Me.m_chkEnableAccels.Layout__BelowControl(Me.m_txtNumStripes)
 
-            Me.m_chkEnableLRF = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Enable LRF")
-            Me.m_chkEnableLRF.Layout__RightOfControl(Me.m_chkEnableAccels)
 
-            Me.m_chkEnableContrast = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Enable Contrast")
-            Me.m_chkEnableContrast.Layout__RightOfControl(Me.m_chkEnableLRF)
+            'Dim l3 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Start XPos (mm)")
+            'l3.Layout__AboveRightControl(l2, Me.m_txtTrackHumanName)
+            'Me.m_txtTrack_StartXPos = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l3)
 
-            Dim btnSave As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Save", AddressOf Me.btnSave__Click)
-            btnSave.Layout__RightOfControl(Me.m_txtLRF_BeginXPos)
+            'Dim l4 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("End XPos (mm)")
+            'l4.Layout__AboveRightControl(l3, Me.m_txtTrack_StartXPos)
+            'Me.m_txtTrack_EndXPos = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l4)
+
+            'Dim l5 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("LRF Start X (mm)")
+            'l5.Layout__AboveRightControl(l4, Me.m_txtTrack_EndXPos)
+            'Me.m_txtLRF_BeginXPos = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l5)
+
+            'Dim l6 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Num Stripes")
+            'l6.Layout__BelowControl(Me.m_txtTrackIndex)
+            'Me.m_txtNumStripes = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l6)
+
+            'Me.m_chkEnableAccels = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Enable Accels")
+            'Me.m_chkEnableAccels.Layout__BelowControl(Me.m_txtNumStripes)
+
+            'Me.m_chkEnableLRF = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Enable LRF")
+            'Me.m_chkEnableLRF.Layout__RightOfControl(Me.m_chkEnableAccels)
+
+            'Me.m_chkEnableContrast = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Enable Contrast")
+            'Me.m_chkEnableContrast.Layout__RightOfControl(Me.m_chkEnableLRF)
+
+            'Dim btnSave As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Save", AddressOf Me.btnSave__Click)
+            'btnSave.Layout__RightOfControl(Me.m_txtLRF_BeginXPos)
 
         End Sub
 
@@ -432,28 +547,37 @@
             Me.m_iCurrentIndex = Me.m_cboDatabase.SelectedIndex
 
             'see if the points file exists
-            Me.m_txtTrackID.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(0).ToString)
-            Me.m_txtTrackHumanName.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(1).ToString)
-            Me.m_txtTrack_StartXPos.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(3).ToString)
-            Me.m_txtTrack_EndXPos.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(4).ToString)
-            Me.m_txtLRF_BeginXPos.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(5).ToString)
-            Me.m_txtNumStripes.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(6).ToString)
+            Me.m_txtTrackIndex.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(0).ToString)
 
-            If CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(7).ToString) = 1 Then
-                Me.m_chkEnableAccels.Checked = True
+            If Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(1).ToString = "0" Then
+                Me.m_chkAccel_Use.Checked = True
             Else
-                Me.m_chkEnableAccels.Checked = False
+                Me.m_chkAccel_Use.Checked = False
             End If
-            If CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(8).ToString) = 1 Then
-                Me.m_chkEnableLRF.Checked = True
-            Else
-                Me.m_chkEnableLRF.Checked = False
-            End If
-            If CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(9).ToString) = 1 Then
-                Me.m_chkEnableContrast.Checked = True
-            Else
-                Me.m_chkEnableContrast.Checked = False
-            End If
+
+
+
+            'Me.m_txtTrackHumanName.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(1).ToString)
+            'Me.m_txtTrack_StartXPos.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(3).ToString)
+            'Me.m_txtTrack_EndXPos.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(4).ToString)
+            'Me.m_txtLRF_BeginXPos.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(5).ToString)
+            'Me.m_txtNumStripes.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(6).ToString)
+
+            'If CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(7).ToString) = 1 Then
+            '    Me.m_chkEnableAccels.Checked = True
+            'Else
+            '    Me.m_chkEnableAccels.Checked = False
+            'End If
+            'If CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(8).ToString) = 1 Then
+            '    Me.m_chkEnableLRF.Checked = True
+            'Else
+            '    Me.m_chkEnableLRF.Checked = False
+            'End If
+            'If CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(9).ToString) = 1 Then
+            '    Me.m_chkEnableContrast.Checked = True
+            'Else
+            '    Me.m_chkEnableContrast.Checked = False
+            'End If
 
         End Sub
 
