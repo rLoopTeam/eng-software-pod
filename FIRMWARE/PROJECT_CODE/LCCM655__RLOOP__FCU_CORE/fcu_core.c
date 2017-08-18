@@ -605,7 +605,7 @@ void vFCU__Process(void)
 //  Timers and timeouts
 /////////////////////////////////////////////////////////////////////
 
-strTimeout create_timeout(int duration_ms)
+strTimeout create_timeout(Luint32 duration_ms)
 {
     strTimeout t;
     t.duration_ms = duration_ms;
