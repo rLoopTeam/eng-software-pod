@@ -35,6 +35,7 @@ extern struct _strFCU sFCU;
  */
 void vFCU_FCTL_MAINSM__Init(void)
 {
+	Luint8 u8Counter;
 
 	#ifdef WIN32
 	DEBUG_PRINT("vFCU_FCTL_MAINSM__Init()");
@@ -60,7 +61,7 @@ void vFCU_FCTL_MAINSM__Init(void)
 
 
 	// Initialize our commands. They're all interlock commands, so we'll just do them in a loop
-	for(Luint8 u8Counter = 0U; u8Counter < POD_COMMAND__NUM_COMMANDS; u8Counter++)
+	for(u8Counter = 0U; u8Counter < (Luint8)POD_COMMAND__NUM_COMMANDS; u8Counter++)
 	{
 		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
 		init_interlock_command( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
@@ -83,7 +84,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 	StateMachine *sm = &sFCU.sStateMachine.sm;
 	
 	// Step the state machine to pick up on state changes etc.
-	sm_step(sm);
+	vFCU_FCTL_MAINSM__Step(sm);
 		
 	// Process pod state machine
 	switch (sm->state)
@@ -94,7 +95,8 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 		case POD_STATE__INIT:
 		
-			if (sm_entering(sm, POD_STATE__INIT)) {
+			if (sm_entering(sm, POD_STATE__INIT))
+			{
 				// Perform entering actions
 				#if DEBUG == 1U
 					printf("- %s Entering POD_STATE__INIT\n", "sFCU.sStateMachine.sm");
@@ -415,6 +417,26 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 }
 
+/** Step the state machine -- detect state changes and update sm status */
+void vFCU_FCTL_MAINSM__Step(StateMachine* p_sm)
+{
+
+	// Update old state and signal that a state change has occurred
+	if(p_sm->old_state != p_sm->state)
+	{
+		// printf("State changed! %d to %d\n", p_sm->old_state, p_sm->state);
+		p_sm->state_changed = 1U;
+		p_sm->old_state = p_sm->state;
+	}
+	else if(p_sm->state_changed)
+	{
+		// the 'else' means that we go through the loop exactly once with the 'state_changed' variable set to 1U once a state change has occured
+		// Note that if the state changes again on the next loop, the old_state != state stanza gets triggered and starts this over again, which is what we want
+		p_sm->state_changed = 0U;
+	}
+
+}
+
 
 void vFCU_FCTL_MAINSM__10MS_ISR(void)
 {
@@ -423,6 +445,8 @@ void vFCU_FCTL_MAINSM__10MS_ISR(void)
 
 void vFCU_FCTL_MAINSM__100MS_ISR(void)
 {
+	Luint8 u8Counter;
+
     // Update Timeouts
 	// Note that these will only update the time if the timeout has been started (elsewhere)
 	
@@ -443,7 +467,7 @@ void vFCU_FCTL_MAINSM__100MS_ISR(void)
 
 	// Update interlock command timeouts
 	// Initialize our commands. They're all interlock commands, so we'll just do them in a loop
-	for(Luint8 u8Counter = 0U; u8Counter < POD_COMMAND__NUM_COMMANDS; u8Counter++)
+	for(u8Counter = 0U; u8Counter < (Luint8)POD_COMMAND__NUM_COMMANDS; u8Counter++)
 	{
 		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
 		init_interlock_command( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
@@ -461,7 +485,7 @@ strTimeout create_timeout(Luint32 duration_ms)
 	strTimeout t;
 	t.duration_ms = duration_ms;
 	t.elapsed_ms = 0;
-	t.started = false;
+	t.started = 0U;
 	return t;
 }
 
@@ -469,20 +493,20 @@ void init_timeout(strTimeout *timeout, Luint32 duration_ms)
 {
 	timeout->duration_ms = duration_ms;
 	timeout->elapsed_ms = 0;
-	timeout->started = false;
+	timeout->started = 0U;
 }
 
 void timeout_restart(strTimeout *timeout)
 {
 	// Call this to start or restart a timeout
 	timeout->elapsed_ms = 0U;
-	timeout->started = true;
+	timeout->started = 1;
 }
 
 void timeout_reset(strTimeout *timeout)
 {
 	timeout->elapsed_ms = 0U;
-	timeout->started = false;
+	timeout->started = 0U;
 }
 
 void timeout_ensure_started(strTimeout *timeout)
@@ -495,7 +519,7 @@ void timeout_ensure_started(strTimeout *timeout)
 	}
 }
 
-bool timeout_expired(strTimeout *timeout)
+Luint8 timeout_expired(strTimeout *timeout)
 {
 	return timeout->elapsed_ms >= timeout->duration_ms;
 }
@@ -518,7 +542,7 @@ strInterlockCommand create_interlock_command(const Luint32 duration_ms)
 {
 	strInterlockCommand ic;
 	ic.commandTimeout = create_timeout(duration_ms);
-	ic.enabled = false;
+	ic.enabled = 0U;
 	return ic;
 }
 
@@ -526,29 +550,29 @@ strInterlockCommand create_interlock_command(const Luint32 duration_ms)
 void init_interlock_command(strInterlockCommand *ic, Luint32 duration_ms)
 {
 	init_timeout(&ic->commandTimeout, duration_ms);
-	ic->enabled = false;
+	ic->enabled = 0U;
 }
 
 // Call this when the first packet is received. Ok to call it multiple times; it will just reset the timer.
 void interlock_command_enable(strInterlockCommand *ic)
 {
-	ic->enabled = true;
+	ic->enabled = 1;
 	timeout_restart(&ic->commandTimeout);
 }
 
 // Call this when the second packet is received to check whether the command can execute (i.e. timeout has not expired)
-bool interlock_command_can_execute(strInterlockCommand *ic)
+Luint8 interlock_command_can_execute(strInterlockCommand *ic)
 {
-	bool can_execute;
+	Luint8 can_execute;
 	
 	// Note: I know this is not great code style but under time crunch	
 	if (ic->enabled && ! timeout_expired(&ic->commandTimeout) )
 	{
-		can_execute = true;
+		can_execute = 1;
 	} 
 	else 
 	{
-		can_execute = false;
+		can_execute = 0U;
 	}
 	return can_execute;
 }
