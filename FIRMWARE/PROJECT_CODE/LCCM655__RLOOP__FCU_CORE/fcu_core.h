@@ -1305,11 +1305,11 @@
                 void handle_POD_STATE__SPINDOWN_transitions();
 
                 //  Pod command functions
-                void cmd_POD_IDLE();
-                void cmd_POD_TEST_MODE();
+                void cmd_POD_COMMAND__IDLE();
+                void cmd_POD_COMMAND__TEST_MODE();
                 void cmd_POD_COMMAND__DRIVE();
                 void cmd_POD_COMMAND__FLIGHT_PREP();
-                void cmd_POD_ARMED_WAIT();
+                void cmd_POD_COMMAND__ARMED_WAIT();
                 void cmd_POD_COMMAND__READY();
 
 
