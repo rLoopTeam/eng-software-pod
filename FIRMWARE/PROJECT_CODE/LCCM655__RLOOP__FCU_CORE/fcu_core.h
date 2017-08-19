@@ -45,6 +45,97 @@
 		*******************************************************************************/
 		#define C_MLP__MAX_AVERAGE_SIZE				(8U)
 
+
+        // State machine management struct
+        typedef struct 
+        {
+            int state;
+            int old_state;
+            bool state_changed;  // For when we start, to trigger if entry(sm, state) stanzas
+
+        } StateMachine; 
+
+        // State Machine Functions
+
+        /** Step the state machine -- detect state changes and update sm status */
+        static inline void sm_step(StateMachine* p_sm) 
+        {
+
+            // Update old state and signal that a state change has occurred 
+            if (p_sm->old_state != p_sm->state) {
+                // printf("State changed! %d to %d\n", p_sm->old_state, p_sm->state);
+                p_sm->state_changed = true;
+                p_sm->old_state = p_sm->state;
+            } else if (p_sm->state_changed) {
+                // the 'else' means that we go through the loop exactly once with the 'state_changed' variable set to true once a state change has occured
+                // Note that if the state changes again on the next loop, the old_state != state stanza gets triggered and starts this over again, which is what we want
+                p_sm->state_changed = false;
+            }
+
+        }
+
+
+        // Determine if we've just entered test_state on this step (a step is a go-round of the main loop)
+        static inline bool sm_entering(const StateMachine *sm, int test_state) 
+        {
+            return sm->state_changed && sm->state == test_state;
+        }
+
+        // Determine if we're marked to exit this state. Put this in your case statements after anything that could cause a state change.
+        static inline bool sm_exiting(const StateMachine *sm, int test_state) 
+        {
+            return sm->state != test_state;
+        }
+
+        static inline bool sm_transitioning(const StateMachine *sm)
+        {
+            // If our state is different from our old state, we are transitioning (?)
+            return sm->state != sm->old_state;
+        }
+
+
+        /** Timer/Timeout struct */
+        typedef struct
+        {
+            // Duration of the timeout
+            Luint32 duration_ms;
+
+            // Is the timer running?
+            bool started;
+
+            // Elapsed time in milliseconds   
+            Luint32 elapsed_ms;
+
+        } strTimeout;
+
+
+        /** Interlock command struct */
+        typedef struct
+        {
+            // Has the command been enabled? 
+            bool enabled;
+
+            // Once the command has been enabled, start the timeout and don't allow execution if it's expired.
+            strTimeout commandTimeout;
+
+        } strInterlockCommand;
+
+
+        /** Pod command struct */
+        typedef struct 
+        {
+            // Command
+            TE_POD_COMMAND_T command;
+
+            struct {
+                // Args would go here, under a sub-struct with the same name as the command
+                // e.g. struct { Luint16 some_arg; } POD_COMMAND__ARMED_WAIT
+            } args;
+
+        } strPodCmd;
+            
+
+
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
@@ -153,67 +244,33 @@
 			/** State Machine Structure **/
 			struct
 			{
-				/** The mission phases
-				 * http://confluence.rloop.org/display/SD/1.+Determine+Mission+Phases+and+Operating+States
-				 * */
-				TE_POD_STATE_T eMissionPhase;
+                /** Main pod state machine structure. @see TE_POD_STATE_T */
+				StateMachine sm;
 
-				/** Counter to count the time elapsed from the disconnection from the pusher **/
-				Luint32 PusherCounter;
-
-				/** Enable Counter counting time elapsed from the disconnection from the pusher **/
-				Luint8 EnablePusherCounter;
-
-				/**Counter to count the time the pod experiences acceleration higher than value speccd in the db */
-				Luint32 AccelCounter;
-
-				/**Enable the Accel Counter */
-				Luint8 EnableAccelCounter;
-
-				/** In case Pusher fails and doesn't get us to the min pushed distance */
-				Luint32 MiserableStopCounter;
-
-				/** Enable Miserable Stop Counter */
-				Luint8 EnableMiserableStopCounter;
-
+				/** Main pod command holder. @see TE_POD_COMMAND_T */
+				strPodCmd command;
+	
 				/** Enum for Pod Status for SpaceX telemetry */
+				// @todo: Update code to change this as needed when states change
 				E_FCU__POD_STATUS ePodStatus;
-
-				/** Enum for GS commands */
-				E_FCU__MAINSM_GS_COMM eGSCommands;
-
-				/** Operating States Structure*/
-				struct
-				{
-					/** Lifted State */
-					Luint8 u8Lifted;
-
-					/** Unlifted State */
-					Luint8 u8Unlifted;
-
-					/** Static Hovering */
-					Luint8 u8StaticHovering;
-
-					/** Gimballing Adjustment State */
-					Luint8 u8GimbAdj;
-
-					/** Ready For Push State */
-					Luint8 u8ReadyForPush;
-
-					/** Pushing State */
-					Luint8 u8Pushing;
-
-					/** Coast State */
-					Luint8 u8Coasting;
-
-					/** Braking State */
-					Luint8 u8Braking;
-
-					/** Controlled Emergency State */
-					Luint8 u8CtlEmergBraking;
-
-				}sOpStates;
-
+				
+				// Timers and timeouts:
+				
+				/** Accel to Coast Interlock backup timeout */
+				strTimeout AccelBackupTimeout;
+	
+				/** Coast interlock timeout */
+				strTimeout CoastInterlockTimeout;
+	
+				/** Brake to Spindown backup timeout */
+				strTimeout BrakeToSpindownBackupTimeout;
+	
+				/** Spindown to Idle backup timeout */
+				strTimeout SpindownToIdleBackupTimeout;
+				
+				/** Interlock command timeouts */
+				strInterlockCommand command_interlocks[POD_COMMAND__NUM_COMMANDS];
+				
 			}sStateMachine;
 
 
@@ -231,6 +288,7 @@
 				FAULT_TREE__PUBLIC_T sTopLevel;
 
 			}sFaults;
+
 
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 
@@ -1181,6 +1239,7 @@
 
 		};
 
+
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/
@@ -1202,6 +1261,60 @@
 			void vFCU_FCTL_MAINSM__10MS_ISR(void);
 			void vFCU_FCTL_MAINSM__100MS_ISR(void);
 
+
+        		// General Timer and timeouts
+        		strTimeout create_timeout(Luint32 duration_ms);
+        		void init_timeout(strTimeout *timeout, Luint32 duration_ms);
+        		void timeout_restart(strTimeout *timeout);
+        		void timeout_reset(strTimeout *timeout);
+        		void timeout_ensure_started(strTimeout *timeout);
+        		bool timeout_expired(strTimeout *timeout);
+        		void timeout_update(strTimeout *timeout, Luint32 elapsed_ms);
+
+        		strInterlockCommand create_interlock_command(const Luint32 duration_ms);
+        		void init_interlock_command(strInterlockCommand *command, Luint32 duration_ms);
+        		void interlock_command_enable(strInterlockCommand *ic);
+        		bool interlock_command_can_execute(strInterlockCommand *ic);
+        		void interlock_command_reset(strInterlockCommand *ic);
+        		void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms);
+
+        		// Helper functions for executing interlock commands
+        		void unlock_pod_interlock_command(TE_POD_COMMAND_T command);
+        		void attempt_pod_interlock_command(TE_POD_COMMAND_T command);
+
+
+                //  Pod guard/check functions 
+                bool pod_init_complete();
+                bool armed_wait_checks_ok();
+                bool drive_checks_ok();
+                bool flight_prep_checks_ok();
+                bool flight_readiness_checks_ok();
+                bool accel_confirmed();
+                bool pusher_separation_confirmed();
+                bool pod_stop_confirmed();
+                bool spindown_complete_confirmed();
+
+                //  Pod state transition functions
+                void handle_POD_STATE__INIT_transitions();
+                void handle_POD_STATE__IDLE_transitions();
+                void handle_POD_STATE__TEST_MODE_transitions();
+                void handle_POD_STATE__DRIVE_transitions();
+                void handle_POD_STATE__ARMED_WAIT_transitions();
+                void handle_POD_STATE__FLIGHT_PREP_transitions();
+                void handle_POD_STATE__READY_transitions();
+                void handle_POD_STATE__ACCEL_transitions();
+                void handle_POD_STATE__COAST_INTERLOCK_transitions();
+                void handle_POD_STATE__BRAKE_transitions();
+                void handle_POD_STATE__SPINDOWN_transitions();
+
+                //  Pod command functions
+                void cmd_POD_COMMAND__IDLE();
+                void cmd_POD_COMMAND__TEST_MODE();
+                void cmd_POD_COMMAND__DRIVE();
+                void cmd_POD_COMMAND__FLIGHT_PREP();
+                void cmd_POD_COMMAND__ARMED_WAIT();
+                void cmd_POD_COMMAND__READY();
+
 			//navigation
 			void vFCU_FCTL_NAV__Init(void);
 			void vFCU_FCTL_NAV__Process(void);
@@ -1211,6 +1324,7 @@
 			Lint32 s32FCU_FCTL_NAV__Get_Veloc_mm_s(void);
 			Lint32 s32FCU_FCTL_NAV__Get_Displacement_mm(void);
 			Lint32 s32FCU_FCTL_NAV__Get_Track_Position_mm(void);
+
 
 
 			//drive pod
