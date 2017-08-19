@@ -167,7 +167,7 @@ void vFCU_LASERDIST__Process(void)
 			break;
 
 		case LASERDIST_STATE__INIT_LASER_TURNON:
-#if 1
+#if 0
 				if(1)
 				{
 					//tell the pointer to turn on
@@ -495,198 +495,112 @@ void vFCU_LASERDIST__Process_Packet_ASCII(void)
 
 	//compute the distance
 	//1s
-	u8Temp = sFCU.sLaserDist.u8NewByteArray[4];
-	u8Temp -= 0x30U;
-	u32Distance = (Luint32)u8Temp;
+	if(sFCU.sLaserDist.u8NewByteArray[5] == '\r'){
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[4];
+		u8Temp -= 0x30U;
+		u32Distance = (Luint32)u8Temp;
 
-	//10s
-	u8Temp = sFCU.sLaserDist.u8NewByteArray[3];
-	u8Temp -= 0x30U;
-	u32Temp = (Luint32)u8Temp;
-	u32Temp *= 10U;
-	u32Distance += u32Temp;
+		//10s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[3];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 10U;
+		u32Distance += u32Temp;
 
-	//100s
-	u8Temp = sFCU.sLaserDist.u8NewByteArray[2];
-	u8Temp -= 0x30U;
-	u32Temp = (Luint32)u8Temp;
-	u32Temp *= 100U;
-	u32Distance += u32Temp;
+		//100s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[2];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 100U;
+		u32Distance += u32Temp;
 
-	//1000s
-	u8Temp = sFCU.sLaserDist.u8NewByteArray[1];
-	u8Temp -= 0x30U;
-	u32Temp = (Luint32)u8Temp;
-	u32Temp *= 1000U;
-	u32Distance += u32Temp;
+		//1000s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[1];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 1000U;
+		u32Distance += u32Temp;
 
-	//10000s
-	u8Temp = sFCU.sLaserDist.u8NewByteArray[0];
-	u8Temp -= 0x30U;
-	u32Temp = (Luint32)u8Temp;
-	u32Temp *= 10000U;
-	u32Distance += u32Temp;
+		//10000s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[0];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 10000U;
+		u32Distance += u32Temp;
+	}
+	else{
+		// there's an extra byte because we're >100m
 
-	//todo, check if u32Distance == 00000 error
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[5];
+		u8Temp -= 0x30U;
+		u32Distance = (Luint32)u8Temp;
 
-	//update
-	sFCU.sLaserDist.s32Distance_mm = (Lint32)u32Distance;
+		//10s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[4];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 10U;
+		u32Distance += u32Temp;
+
+		//100s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[3];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 100U;
+		u32Distance += u32Temp;
+
+		//1000s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[2];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 1000U;
+		u32Distance += u32Temp;
+
+		//10000s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[1];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 10000U;
+		u32Distance += u32Temp;
+
+		//100000s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[0];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 100000U;
+		u32Distance += u32Temp;
+	}
+
+	// check for error distance value
+	if(u32Distance == 0){
+		//u32Distance == 0 error
+		sFCU.sLaserDist.sFaultFlags.u32Flags[0] = 1U;
+	}
+	else{
+		// all good, clear error flag
+		sFCU.sLaserDist.sFaultFlags.u32Flags[0] = 0U;
+
+		//update
+		sFCU.sLaserDist.s32Distance_mm = (Lint32)u32Distance;
 
 
-//////////////////
-	//compute veloc
-	f32Delta = (Lfloat32)sFCU.sLaserDist.s32PrevDistance_mm;
-	f32Delta -= sFCU.sLaserDist.s32Distance_mm;
+		//////////////////
+		//compute veloc
+		f32Delta = (Lfloat32)sFCU.sLaserDist.s32PrevDistance_mm;
+		f32Delta -= sFCU.sLaserDist.s32Distance_mm;
 
-	//100Hz
-	f32Delta *= .01F;
+		//100Hz
+		f32Delta *= .01F;
 
-	//do it.
-	sFCU.sLaserDist.s32Velocity_mm_s = (Lint32)f32Delta;
+		//do it.
+		sFCU.sLaserDist.s32Velocity_mm_s = (Lint32)f32Delta;
 
-	//save prev
-	sFCU.sLaserDist.s32PrevDistance_mm = sFCU.sLaserDist.s32Distance_mm;
-	sFCU.sLaserDist.s32PrevVelocity_mm_s = sFCU.sLaserDist.s32Velocity_mm_s;
-
-}
-
-
-/***************************************************************************//**
- * @brief
- * Append a new byte from the UART into the internal array, handle any error checking
- * 
- * @param[in]		u8Value				The new byte
- * @st_funcMD5		708617CB2763AB7FA8B77C62A942DD43
- * @st_funcID		LCCM655R0.FILE.033.FUNC.005
- */
-void vFCU_LASERDIST__Append_Byte(Luint8 u8Value)
-{
-
-	//TODO:
-	//NEED TO UPDATE THIS RX STRUCTURE PER DETAILS ON:
-	//https://github.com/rLoopTeam/eng-controls-acc-vs-lrf-test-rig/blob/master/LRF/LRF.ino
-	//document in documents folder.
+		//save prev
+		sFCU.sLaserDist.s32PrevDistance_mm = sFCU.sLaserDist.s32Distance_mm;
+		sFCU.sLaserDist.s32PrevVelocity_mm_s = sFCU.sLaserDist.s32Velocity_mm_s;
+	}
 
 
-	//handle the laser distance rx states
-	switch(sFCU.sLaserDist.eRxState)
-	{
-		case LASERDIST_RX__BYTE_D:
-
-			//make sure the first two bits are valid
-			//todo
-#if 0 // ASCII MODE
-			if(u8Value == 'D')
-			{
-				//wait for byte 2
-				sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_1;
-			}
-			else
-			{
-				//we are not at the right point for detection of the packet start, loop back
-
-				//todo: check if we can see a laser error here
-			}
-#endif //
-
-			//check for the start bit
-			if((u8Value & 0x80U) == 0x80U)
-			{
-				//correct distance measurement
-				if((u8Value & 0x40U) == 0x00U)
-				{
-					//correct
-					//distance upper, else error code if bit6 = 1
-					if((u8Value & 0x20U) == 0x20U)
-					{
-						//we have an error code
-						sFCU.sLaserDist.sBinary.u32Counter__ErrorCode++;
-					}
-					else
-					{
-						//we have the MSB value
-						sFCU.sLaserDist.sBinary.unRx.u8[2] = u8Value & 0x3F;
-					}
-
-				}
-				else
-				{
-					//error in distance measurement
-					sFCU.sLaserDist.sBinary.u32Counter__BadDistance++;
-				}
-
-				//in any condition, move on
-				sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_0;
-
-			}
-			else
-			{
-				//maybe not for us, stay in state
-				sFCU.sLaserDist.sBinary.u32Counter__MissedStart++;
-			}
-
-			break;
-
-		case LASERDIST_RX__BYTE_0:
-
-			//distance mid
-			// = "E" if there is an error
-			sFCU.sLaserDist.sBinary.unRx.u8[1] = u8Value;
-			sFCU.sLaserDist.u8NewByteArray[0] = u8Value;
-			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_1;
-			break;
-
-		case LASERDIST_RX__BYTE_1:
-
-			sFCU.sLaserDist.sBinary.unRx.u8[0] = u8Value;
-			sFCU.sLaserDist.u8NewByteArray[1] = u8Value;
-
-			//millimeter binary mode hack
-			sFCU.sLaserDist.u8NewPacket = 1U;
-
-			//go back and rx the next new packet
-			//in binary mode
-			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_D;
-
-			//sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_2;
-			break;
-
-		case LASERDIST_RX__BYTE_2:
-
-			sFCU.sLaserDist.u8NewByteArray[2] = u8Value;
-			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_3;
-			break;
-
-		case LASERDIST_RX__BYTE_3:
-
-			sFCU.sLaserDist.u8NewByteArray[3] = u8Value;
-			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_4;
-			break;
-
-		case LASERDIST_RX__BYTE_4:
-
-			sFCU.sLaserDist.u8NewByteArray[4] = u8Value;
-
-			//signal that a new packet is ready
-			sFCU.sLaserDist.u8NewPacket = 1U;
-
-			//clear the packets seeen counter
-			sFCU.sLaserDist.u32PacketsSeen_Counter = 0U;
-
-			//go back and rx the next new packet
-			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_D;
-			break;
-
-		default:
-			//todo, log the error
-			break;
-
-	}//switch
-
-	//save prev
-	sFCU.sLaserDist.s32PrevDistance_mm = sFCU.sLaserDist.s32Distance_mm;
-	sFCU.sLaserDist.s32PrevVelocity_mms = sFCU.sLaserDist.s32Velocity_mms;
-  sFCU.sLaserDist.s32PrevAccel_mmss = sFCU.sLaserDist.s32Accel_mmss;
 }
 
 
@@ -805,7 +719,7 @@ void vFCU_LASERDIST__Append_Byte_ASCII(Luint8 u8Value)
 				sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_1;
 			}
 
-      sFCU.sLaserDist.u8NewByteArray[0] = u8Value;
+			sFCU.sLaserDist.u8NewByteArray[0] = u8Value;
 
 			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_2;
 			break;
@@ -833,15 +747,27 @@ void vFCU_LASERDIST__Append_Byte_ASCII(Luint8 u8Value)
 
 			sFCU.sLaserDist.u8NewByteArray[4] = u8Value;
 
+			//clear the packets seeen counter
+			sFCU.sLaserDist.u32PacketsSeen_Counter = 0U;
+
+			//go back and rx the next new packet
+			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_6;
+			break;
+
+		case LASERDIST_RX__BYTE_6:
+
+			sFCU.sLaserDist.u8NewByteArray[5] = u8Value;
+
 			//signal that a new packet is ready
 			sFCU.sLaserDist.u8NewPacket = 1U;
 
-			//clear the packets seeen counter
+			//clear the packets seen counter
 			sFCU.sLaserDist.u32PacketsSeen_Counter = 0U;
 
 			//go back and rx the next new packet
 			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_D;
 			break;
+
 
 		default:
 			//todo, log the error
