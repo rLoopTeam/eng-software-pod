@@ -111,11 +111,11 @@ void handle_POD_STATE__IDLE_transitions()
 		// Handle commands
 		switch(command) {
 			
-			case POD_TEST_MODE:
+			case POD_COMMAND__TEST_MODE:
 				sm->state = POD_STATE__TEST_MODE;
 				break;
 			
-			case POD_ARMED_WAIT:
+			case POD_COMMAND__ARMED_WAIT:
 				if ( armed_wait_checks_ok() )
 				{
 					sm->state = POD_STATE__ARMED_WAIT;
@@ -123,7 +123,7 @@ void handle_POD_STATE__IDLE_transitions()
 				else 
 				{
 					#if DEBUG == 1U
-					printf("%s -- REJECTING COMMAND %s in state %s: failed armed_wait_checks_ok() check", sPod->absname, lookup_pod_command(POD_ARMED_WAIT), lookup_pod_state(POD_STATE__IDLE));
+					printf("%s -- REJECTING COMMAND %s in state %s: failed armed_wait_checks_ok() check", sPod->absname, lookup_pod_command(POD_COMMAND__ARMED_WAIT), lookup_pod_state(POD_STATE__IDLE));
 					#endif
 				}
 				break;
@@ -164,7 +164,7 @@ void handle_POD_STATE__TEST_MODE_transitions()
 		// Handle commands
 		switch(command) {
 			
-			case POD_IDLE:
+			case POD_COMMAND__IDLE:
 				sm->state = POD_STATE__IDLE;
 				break;
 		
@@ -191,7 +191,7 @@ void handle_POD_STATE__DRIVE_transitions()
 		// Handle commands
 		switch(command) {
 			
-			case POD_IDLE:
+			case POD_COMMAND__IDLE:
 				sm->state = POD_STATE__IDLE;
 				break;
 		
@@ -218,7 +218,7 @@ void handle_POD_STATE__ARMED_WAIT_transitions()
 		// Handle commands
 		switch(command) {
 			
-			case POD_IDLE:
+			case POD_COMMAND__IDLE:
 				sm->state = POD_STATE__IDLE;
 				break;
 			
@@ -258,7 +258,7 @@ void handle_POD_STATE__FLIGHT_PREP_transitions()
 		// Handle commands
 		switch(command) {
 			
-			case POD_ARMED_WAIT:
+			case POD_COMMAND__ARMED_WAIT:
 				sm->state = POD_STATE__ARMED_WAIT;
 				break;
 			
@@ -461,25 +461,25 @@ void handle_POD_STATE__SPINDOWN_transitions()
 //  Pod command functions
 /////////////////////////////////////////////////////////////////////
 
-void cmd_POD_IDLE()
+void cmd_POD_COMMAND__IDLE()
 {
 	#if DEBUG == 1U
-		printf("cmd_POD_IDLE() called\n");
+		printf("cmd_POD_COMMAND__IDLE() called\n");
 	#endif
 	
 	strPodCmd * cmd = &sFCU.sStateMachine.command;
-	cmd->command = POD_IDLE;
+	cmd->command = POD_COMMAND__IDLE;
 
 }
 
-void cmd_POD_TEST_MODE()
+void cmd_POD_COMMAND__TEST_MODE()
 {
 	#if DEBUG == 1U
-		printf("cmd_POD_TEST_MODE() called\n");
+		printf("cmd_POD_COMMAND__TEST_MODE() called\n");
 	#endif
 	
 	strPodCmd * cmd = &sFCU.sStateMachine.command;
-	cmd->command = POD_TEST_MODE;
+	cmd->command = POD_COMMAND__TEST_MODE;
 
 }
 
@@ -505,14 +505,14 @@ void cmd_POD_COMMAND__FLIGHT_PREP()
 
 }
 
-void cmd_POD_ARMED_WAIT()
+void cmd_POD_COMMAND__ARMED_WAIT()
 {
 	#if DEBUG == 1U
-		printf("cmd_POD_ARMED_WAIT() called\n");
+		printf("cmd_POD_COMMAND__ARMED_WAIT() called\n");
 	#endif
 	
 	strPodCmd * cmd = &sFCU.sStateMachine.command;
-	cmd->command = POD_ARMED_WAIT;
+	cmd->command = POD_COMMAND__ARMED_WAIT;
 
 }
 

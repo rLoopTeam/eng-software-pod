@@ -60,7 +60,7 @@ void vFCU_FCTL_MAINSM__Init(void)
 
 
 	// Initialize our commands. They're all interlock commands, so we'll just do them in a loop
-	for(Luint8 u8Counter = 0U; u8Counter < E_POD_COMMAND_N; u8Counter++)
+	for(Luint8 u8Counter = 0U; u8Counter < POD_COMMAND__NUM_COMMANDS; u8Counter++)
 	{
 		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
 		init_interlock_command( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
@@ -443,7 +443,7 @@ void vFCU_FCTL_MAINSM__100MS_ISR(void)
 
 	// Update interlock command timeouts
 	// Initialize our commands. They're all interlock commands, so we'll just do them in a loop
-	for(Luint8 u8Counter = 0U; u8Counter < E_POD_COMMAND_N; u8Counter++)
+	for(Luint8 u8Counter = 0U; u8Counter < POD_COMMAND__NUM_COMMANDS; u8Counter++)
 	{
 		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
 		init_interlock_command( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
@@ -582,11 +582,11 @@ void attempt_pod_interlock_command(TE_POD_COMMAND_T command)
 	// Attempt to execute the command (provided that the interlock timeout has not expired)
 	switch(command)
 	{
-		case POD_IDLE:
-			cmd_POD_IDLE();
+		case POD_COMMAND__IDLE:
+			cmd_POD_COMMAND__IDLE();
 			break;
-		case POD_TEST_MODE:
-			cmd_POD_TEST_MODE();
+		case POD_COMMAND__TEST_MODE:
+			cmd_POD_COMMAND__TEST_MODE();
 			break;
 		case POD_COMMAND__DRIVE:
 			cmd_POD_COMMAND__DRIVE();
@@ -594,8 +594,8 @@ void attempt_pod_interlock_command(TE_POD_COMMAND_T command)
 		case POD_COMMAND__FLIGHT_PREP:
 			cmd_POD_COMMAND__FLIGHT_PREP();
 			break;
-		case POD_ARMED_WAIT:
-			cmd_POD_ARMED_WAIT();
+		case POD_COMMAND__ARMED_WAIT:
+			cmd_POD_COMMAND__ARMED_WAIT();
 			break;
 		case POD_COMMAND__READY:
 			cmd_POD_COMMAND__READY();
