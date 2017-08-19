@@ -105,6 +105,9 @@ void vFCU_FCTL__Config_From_Database(void)
 	//enable the Accel system
 	vFCU_ACCEL_VALID__Enable(u8FCU_FCTL_TRACKDB__Accel__Get_Use());
 
+	//load up the thresholding
+	vFCU_ACCEL_THRESH__Set_Threshold(s32FCU_FCTL_TRACKDB__Accel__Get_Threshold_mm_ss(), s32FCU_FCTL_TRACKDB__Accel__Get_ThresholdTime_x10ms());
+
 
 	//fwd laser
 

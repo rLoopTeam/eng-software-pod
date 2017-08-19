@@ -42,7 +42,7 @@ void vFCU_FCTL_MAINSM__Init(void)
 	#endif
 
 	// Set the pod state machine to POD_STATE__INIT. It will automatically transition to IDLE once sFCU.eInitStates is in INIT_STATE__RUN (see below)
-	sFCU.sStateMachine.sm.state = POD_STATE__INIT;
+	sFCU.sStateMachine.sm.eCurrentState = POD_STATE__INIT;
 
 	// Initialize our various state machine related timeouts
 	// @todo: Move timeout duration values to config/mission profile
@@ -81,13 +81,13 @@ void vFCU_FCTL_MAINSM__Process(void)
 {
 	//handle the state machine.
 
-	StateMachine *sm = &sFCU.sStateMachine.sm;
+	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
 	
 	// Step the state machine to pick up on state changes etc.
 	vFCU_FCTL_MAINSM__Step(sm);
 		
 	// Process pod state machine
-	switch (sm->state)
+	switch (sm->eCurrentState)
 	{
 		case POD_STATE__NULL:
 			//we must never be here
@@ -95,7 +95,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 		case POD_STATE__INIT:
 		
-			if (sm_entering(sm, POD_STATE__INIT))
+			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__INIT) == 1U)
 			{
 				// Perform entering actions
 				#if DEBUG == 1U
@@ -105,11 +105,15 @@ void vFCU_FCTL_MAINSM__Process(void)
 					DEBUG_PRINT("Entering POD_STATE__INIT");
 				#endif
 			}
+			else
+			{
+				//we are not entering.
+			}
 		
 			// Handle transitions
 			handle_POD_STATE__INIT_transitions();
 		 
-			if (sm_exiting(sm, POD_STATE__INIT)) 
+			if(u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__INIT) == 1U)
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
@@ -123,7 +127,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__IDLE:
 		
-			if (sm_entering(sm, POD_STATE__IDLE)) {
+			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__IDLE)) {
 				// Perform entering actions
 				#if DEBUG == 1U
 					printf("- %s Entering POD_STATE__IDLE\n", "sFCU.sStateMachine.sm");
@@ -136,7 +140,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			// Handle transitions
 			handle_POD_STATE__IDLE_transitions();
 		 
-			if (sm_exiting(sm, POD_STATE__IDLE)) 
+			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__IDLE)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
@@ -150,7 +154,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__TEST_MODE:
 		
-			if (sm_entering(sm, POD_STATE__TEST_MODE)) {
+			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__TEST_MODE)) {
 				// Perform entering actions
 				#if DEBUG == 1U
 					printf("- %s Entering POD_STATE__TEST_MODE\n", "sFCU.sStateMachine.sm");
@@ -163,7 +167,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			// Handle transitions
 			handle_POD_STATE__TEST_MODE_transitions();
 		 
-			if (sm_exiting(sm, POD_STATE__TEST_MODE)) 
+			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__TEST_MODE)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
@@ -177,7 +181,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__DRIVE:
 		
-			if (sm_entering(sm, POD_STATE__DRIVE)) {
+			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__DRIVE)) {
 				// Perform entering actions
 				#if DEBUG == 1U
 					printf("- %s Entering POD_STATE__DRIVE\n", "sFCU.sStateMachine.sm");
@@ -190,7 +194,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			// Handle transitions
 			handle_POD_STATE__DRIVE_transitions();
 		 
-			if (sm_exiting(sm, POD_STATE__DRIVE)) 
+			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__DRIVE)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
@@ -204,7 +208,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__ARMED_WAIT:
 		
-			if (sm_entering(sm, POD_STATE__ARMED_WAIT)) {
+			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__ARMED_WAIT)) {
 				// Perform entering actions
 				#if DEBUG == 1U
 					printf("- %s Entering POD_STATE__ARMED_WAIT\n", "sFCU.sStateMachine.sm");
@@ -217,7 +221,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			// Handle transitions
 			handle_POD_STATE__ARMED_WAIT_transitions();
 		 
-			if (sm_exiting(sm, POD_STATE__ARMED_WAIT)) 
+			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__ARMED_WAIT)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
@@ -231,7 +235,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__FLIGHT_PREP:
 		
-			if (sm_entering(sm, POD_STATE__FLIGHT_PREP)) {
+			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__FLIGHT_PREP)) {
 				// Perform entering actions
 				#if DEBUG == 1U
 					printf("- %s Entering POD_STATE__FLIGHT_PREP\n", "sFCU.sStateMachine.sm");
@@ -244,7 +248,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			// Handle transitions
 			handle_POD_STATE__FLIGHT_PREP_transitions();
 		 
-			if (sm_exiting(sm, POD_STATE__FLIGHT_PREP)) 
+			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__FLIGHT_PREP)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
@@ -258,7 +262,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__READY:
 		
-			if (sm_entering(sm, POD_STATE__READY)) {
+			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__READY)) {
 				// Perform entering actions
 				#if DEBUG == 1U
 					printf("- %s Entering POD_STATE__READY\n", "sFCU.sStateMachine.sm");
@@ -275,7 +279,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			// Handle transitions
 			handle_POD_STATE__READY_transitions();
 		 
-			if (sm_exiting(sm, POD_STATE__READY)) 
+			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__READY)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
@@ -289,7 +293,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__ACCEL:
 		
-			if (sm_entering(sm, POD_STATE__ACCEL)) {
+			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__ACCEL)) {
 				// Perform entering actions
 				#if DEBUG == 1U
 					printf("- %s Entering POD_STATE__ACCEL\n", "sFCU.sStateMachine.sm");
@@ -306,7 +310,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			// Handle transitions
 			handle_POD_STATE__ACCEL_transitions();
 		 
-			if (sm_exiting(sm, POD_STATE__ACCEL)) 
+			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__ACCEL)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
@@ -320,7 +324,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__COAST_INTERLOCK:
 		
-			if (sm_entering(sm, POD_STATE__COAST_INTERLOCK)) {
+			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__COAST_INTERLOCK)) {
 				// Perform entering actions
 				#if DEBUG == 1U
 					printf("- %s Entering POD_STATE__COAST_INTERLOCK\n", "sFCU.sStateMachine.sm");
@@ -336,7 +340,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			// Handle transitions
 			handle_POD_STATE__COAST_INTERLOCK_transitions();
 		 
-			if (sm_exiting(sm, POD_STATE__COAST_INTERLOCK)) 
+			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__COAST_INTERLOCK)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
@@ -350,7 +354,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__BRAKE:
 		
-			if (sm_entering(sm, POD_STATE__BRAKE)) {
+			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__BRAKE)) {
 				// Perform entering actions
 				#if DEBUG == 1U
 					printf("- %s Entering POD_STATE__BRAKE\n", "sFCU.sStateMachine.sm");
@@ -366,7 +370,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			// Handle transitions
 			handle_POD_STATE__BRAKE_transitions();
 		 
-			if (sm_exiting(sm, POD_STATE__BRAKE)) 
+			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__BRAKE)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
@@ -380,7 +384,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__SPINDOWN:
 		
-			if (sm_entering(sm, POD_STATE__SPINDOWN)) {
+			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__SPINDOWN)) {
 				// Perform entering actions
 				#if DEBUG == 1U
 					printf("- %s Entering POD_STATE__SPINDOWN\n", "sFCU.sStateMachine.sm");
@@ -396,7 +400,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			// Handle transitions
 			handle_POD_STATE__SPINDOWN_transitions();
 		 
-			if (sm_exiting(sm, POD_STATE__SPINDOWN)) 
+			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__SPINDOWN)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
@@ -418,21 +422,28 @@ void vFCU_FCTL_MAINSM__Process(void)
 }
 
 /** Step the state machine -- detect state changes and update sm status */
-void vFCU_FCTL_MAINSM__Step(StateMachine* p_sm)
+void vFCU_FCTL_MAINSM__Step(TS_FCTL__STATE_MACHINE_T* p_sm)
 {
 
 	// Update old state and signal that a state change has occurred
-	if(p_sm->old_state != p_sm->state)
+	if(p_sm->ePrevState != p_sm->eCurrentState)
 	{
-		// printf("State changed! %d to %d\n", p_sm->old_state, p_sm->state);
-		p_sm->state_changed = 1U;
-		p_sm->old_state = p_sm->state;
+		// printf("State changed! %d to %d\n", p_sm->ePrevState, p_sm->state);
+		p_sm->u8StateChanged = 1U;
+		p_sm->ePrevState = p_sm->eCurrentState;
 	}
-	else if(p_sm->state_changed)
+	else
 	{
-		// the 'else' means that we go through the loop exactly once with the 'state_changed' variable set to 1U once a state change has occured
-		// Note that if the state changes again on the next loop, the old_state != state stanza gets triggered and starts this over again, which is what we want
-		p_sm->state_changed = 0U;
+		if(p_sm->u8StateChanged == 1U)
+		{
+			// the 'else' means that we go through the loop exactly once with the 'u8StateChanged' variable set to 1U once a state change has occured
+			// Note that if the state changes again on the next loop, the ePrevState != state stanza gets triggered and starts this over again, which is what we want
+			p_sm->u8StateChanged = 0U;
+		}
+		else
+		{
+			//do not step
+		}
 	}
 
 }
@@ -631,7 +642,56 @@ void attempt_pod_interlock_command(TE_POD_COMMAND_T command)
 
 }
 
+// Determine if we've just entered test_state on this step (a step is a go-round of the main loop)
+Luint8 u8FCU_FCTL_MAINSM__Check_IsEntering(const TS_FCTL__STATE_MACHINE_T *cpSM, TE_POD_STATE_T eTestState)
+{
+	Luint8 u8Return;
 
+	if((cpSM->u8StateChanged == 1U) && (cpSM->eCurrentState == eTestState))
+	{
+		u8Return = 1U;
+	}
+	else
+	{
+		u8Return = 0U;
+	}
+
+	return u8Return;
+}
+
+// Determine if we're marked to exit this state. Put this in your case statements after anything that could cause a state change.
+Luint8 u8FCU_FCTL_MAINSM__Check_IsExiting(const TS_FCTL__STATE_MACHINE_T *cpSM, TE_POD_STATE_T eTestState)
+{
+	Luint8 u8Return;
+
+	if(cpSM->eCurrentState != eTestState)
+	{
+		u8Return = 1U;
+	}
+	else
+	{
+		u8Return = 0U;
+	}
+
+	return u8Return;
+}
+
+Luint8 u8FCU_FCTL_MAINSM__Check_IsTransitioning(const TS_FCTL__STATE_MACHINE_T *cpSM)
+{
+	Luint8 u8Return;
+
+	// If our state is different from our old state, we are transitioning (?)
+	if(cpSM->eCurrentState != cpSM->ePrevState)
+	{
+		u8Return = 1U;
+	}
+	else
+	{
+		u8Return = 0U;
+	}
+
+	return u8Return;
+}
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 #ifndef C_LOCALDEF__LCCM655__ENABLE_MAIN_SM

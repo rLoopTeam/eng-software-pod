@@ -1,0 +1,23 @@
+parameternames,value,description
+mpod,441,Total pod mass (kg)
+dt,0.01,time step (s)
+xf,37,Target distance (m)
+xdotf,0.01,Target final velocity at xf (m/s)
+gForce_pusher,0.5,Pusher acceleration (gs)
+deltat_pusher,3,Push time (s)
+deltat_cruising,2,Cruising time between pusher and deceleration phase (minimum 2s required) (s)
+brakegapNom,2.5,Nominal brake gap during controlled braking phase (mm)
+deltax_dangerzone,8,Distance between final target and end of track (DANGER ZONE!!!) (m)
+z_nom,0.012,Nominal hover height (m)
+ski_option,1,Enables/disables addition of skis
+instant_braking,0,true = brakes reach nominal brakegap instantaneously
+PIDcontroller,0,true = brakes actuators use PID controller to adjust trajectory
+Ppsi,14.7,Atmospheric air pressure inside SpaceX Hyperloop test tube (Psi)
+P,101352.972,Atmospheric air pressure inside SpaceX Hyperloop test tube (Pa)
+T,293.15,Atmospheric air temperature inside SpaceX Hyperloop test tube (K)
+R,287.05,Ideal gas constant (J/(kg*K)
+rho,1.2044507278974,Air density inside SpaceX Hyperloop test tube (kg/m^3)
+eta_aerodrag,0,Estimated aerodynamic drag relative error
+eta_hoverdrag,0,Estimated hover-engine drag relative error
+eta_brakedrag,0,Estimated brake drag relative error
+eta_skidrag,0,Estimated ski drag relative error
