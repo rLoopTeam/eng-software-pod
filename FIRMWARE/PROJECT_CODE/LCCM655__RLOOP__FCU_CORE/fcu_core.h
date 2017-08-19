@@ -231,7 +231,7 @@
 				/** Enum for Pod Status for SpaceX telemetry */
 				// @todo: Update code to change this as needed when states change
 				E_FCU__POD_STATUS ePodStatus;
-								
+				
 				// Timers and timeouts:
 				
 				/** Accel to Coast Interlock backup timeout */
