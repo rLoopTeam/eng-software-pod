@@ -1491,6 +1491,7 @@
 		void vFCU_LASERDIST__Process(void);
 		Lint32 s32FCU_LASERDIST__Get_Distance_mm(void);
 		Lint32 s32FCU_LASERDIST__Get_Velocity_mms(void);
+		Lint32 s32FCU_LASERDIST__Get_Acceleration_mmss(void);
 		void vFCU_LASERDIST__100MS_ISR(void);
 		DLL_DECLARATION void vFCU_LASERDIST_WIN32__Set_DistanceRaw(Lint32 s32Value);
 

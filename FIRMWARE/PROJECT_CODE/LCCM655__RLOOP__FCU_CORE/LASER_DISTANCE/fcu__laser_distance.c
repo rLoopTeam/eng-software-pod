@@ -413,6 +413,26 @@ Lint32 s32FCU_LASERDIST__Get_Distance_mm(void)
 	return sFCU.sLaserDist.s32Distance_mm;
 }
 
+/***************************************************************************//**
+ * @brief
+ * Return the current computed velocity.
+ * 
+ */
+Lint32 s32FCU_LASERDIST__Get_Velocity_mms(void)
+{
+	return sFCU.sLaserDist.s32Velocity_mms;
+}
+
+/***************************************************************************//**
+ * @brief
+ * Return the current computed acceleration.
+ * 
+ */
+Lint32 s32FCU_LASERDIST__Get_Acceleration_mmss(void)
+{
+	return sFCU.sLaserDist.s32Accel_mmss;
+}
+
 
 //process the binary packet.
 /***************************************************************************//**
