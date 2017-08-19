@@ -131,17 +131,14 @@
 			/** State Machine Structure **/
 			struct
 			{
-				/** The mission phases
-				 * http://confluence.rloop.org/display/SD/1.+Determine+Mission+Phases+and+Operating+States
-				 * */
-				TE_POD_STATE_T eMissionPhase;
-
+                /** Main pod state machine structure. @see TE_POD_STATE_T */
 				StateMachine sm;
-				
+
+				/** Main pod command holder. @see TE_POD_COMMAND_T */
 				strPodCmd command;
 	
 				/** Enum for Pod Status for SpaceX telemetry */
-				// @todo: update to update this 
+				// @todo: Update code to change this as needed when states change
 				E_FCU__POD_STATUS ePodStatus;
 								
 				// Timers and timeouts:
@@ -1211,6 +1208,39 @@
 			void vFCU_FCTL_MAINSM__Process(void);
 			void vFCU_FCTL_MAINSM__10MS_ISR(void);
 			void vFCU_FCTL_MAINSM__100MS_ISR(void);
+
+                //  Pod guard/check functions 
+                bool pod_init_complete();
+                bool armed_wait_checks_ok();
+                bool drive_checks_ok();
+                bool flight_prep_checks_ok();
+                bool flight_readiness_checks_ok();
+                bool accel_confirmed();
+                bool pusher_separation_confirmed();
+                bool pod_stop_confirmed();
+                bool spindown_complete_confirmed();
+
+                //  Pod state transition functions
+                void handle_POD_INIT_STATE_transitions();
+                void handle_POD_IDLE_STATE_transitions();
+                void handle_POD_TEST_MODE_STATE_transitions();
+                void handle_POD_DRIVE_STATE_transitions();
+                void handle_POD_ARMED_WAIT_STATE_transitions();
+                void handle_POD_FLIGHT_PREP_STATE_transitions();
+                void handle_POD_READY_STATE_transitions();
+                void handle_POD_ACCEL_STATE_transitions();
+                void handle_POD_COAST_INTERLOCK_STATE_transitions();
+                void handle_POD_BRAKE_STATE_transitions();
+                void handle_POD_SPINDOWN_STATE_transitions();
+
+                //  Pod command functions
+                void cmd_POD_IDLE();
+                void cmd_POD_TEST_MODE();
+                void cmd_POD_DRIVE();
+                void cmd_POD_FLIGHT_PREP();
+                void cmd_POD_ARMED_WAIT();
+                void cmd_POD_READY();
+
 
 			//drive pod
 			Luint32 u32FCU_NET_RX__GetGsCommTimer(void);
