@@ -82,7 +82,7 @@ void vFCU_FCTL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 
 				//mission state
-				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, (Luint16)sFCU.sStateMachine.eMissionPhase);
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, (Luint16)sFCU.sStateMachine.sm.state);
 				pu8Buffer += 2U;
 
 				//current track database
@@ -102,6 +102,16 @@ void vFCU_FCTL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
 					pu8Buffer += 4U;
 				#endif
+
+				//Navigation System
+
+
+				//Valid data sources
+
+
+				//Thresholding sources
+
+
 
 
 				break;

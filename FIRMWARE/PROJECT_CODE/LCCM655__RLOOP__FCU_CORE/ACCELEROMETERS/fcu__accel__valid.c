@@ -15,7 +15,7 @@ void vFCU_ACCEL_VALID__Init(void)
 	sFCU.sAccel.sValid.s32ValidAccel_mm_ss = 0;
 	sFCU.sAccel.sValid.s32ValidDisplacement_mm = 0;
 	sFCU.sAccel.sValid.s32ValidVeloc_mm_s = 0;
-
+	sFCU.sAccel.sValid.u8NewDataAvail = 0U;
 }
 
 
@@ -27,6 +27,7 @@ void vFCU_ACCEL_VALID__Process(void)
 	Luint32 u32Temp;
 	Luint8 u8Valid;
 	Luint8 u8Channel;
+	Luint8 u8Test;
 
 
 	//If any faults, accel not valid
@@ -63,11 +64,24 @@ void vFCU_ACCEL_VALID__Process(void)
 			//valid
 			u8Valid = 1U;
 
-			//do the simple assignment
-			sFCU.sAccel.sValid.s32ValidAccel_mm_ss = sFCU.sAccel.sChannels[u8Channel].s32CurrentAccel_mm_ss;
-			sFCU.sAccel.sValid.s32ValidDisplacement_mm = sFCU.sAccel.sChannels[u8Channel].s32CurrentDisplacement_mm;
-			sFCU.sAccel.sValid.s32ValidVeloc_mm_s = sFCU.sAccel.sChannels[u8Channel].s32CurrentVeloc_mm_s;
+			u8Test = u8FCU_ACCEL__Get_New_Sample_Avail(u8Channel);
+			if(u8Test == 1U)
+			{
 
+				//do the simple assignment
+				sFCU.sAccel.sValid.s32ValidAccel_mm_ss = sFCU.sAccel.sChannels[u8Channel].s32CurrentAccel_mm_ss;
+				sFCU.sAccel.sValid.s32ValidDisplacement_mm = sFCU.sAccel.sChannels[u8Channel].s32CurrentDisplacement_mm;
+				sFCU.sAccel.sValid.s32ValidVeloc_mm_s = sFCU.sAccel.sChannels[u8Channel].s32CurrentVeloc_mm_s;
+
+				sFCU.sAccel.sValid.u8NewDataAvail = 1U;
+
+				//clear
+				vFCU_ACCEL__Clear_New_Sample_Avail(u8Channel);
+			}
+			else
+			{
+				//no new data
+			}
 		}
 		else
 		{
@@ -83,10 +97,25 @@ void vFCU_ACCEL_VALID__Process(void)
 				//valid
 				u8Valid = 1U;
 
-				//do the simple assignment
-				sFCU.sAccel.sValid.s32ValidAccel_mm_ss = sFCU.sAccel.sChannels[u8Channel].s32CurrentAccel_mm_ss;
-				sFCU.sAccel.sValid.s32ValidDisplacement_mm = sFCU.sAccel.sChannels[u8Channel].s32CurrentDisplacement_mm;
-				sFCU.sAccel.sValid.s32ValidVeloc_mm_s = sFCU.sAccel.sChannels[u8Channel].s32CurrentVeloc_mm_s;
+				u8Test = u8FCU_ACCEL__Get_New_Sample_Avail(u8Channel);
+				if(u8Test == 1U)
+				{
+
+					//do the simple assignment
+					sFCU.sAccel.sValid.s32ValidAccel_mm_ss = sFCU.sAccel.sChannels[u8Channel].s32CurrentAccel_mm_ss;
+					sFCU.sAccel.sValid.s32ValidDisplacement_mm = sFCU.sAccel.sChannels[u8Channel].s32CurrentDisplacement_mm;
+					sFCU.sAccel.sValid.s32ValidVeloc_mm_s = sFCU.sAccel.sChannels[u8Channel].s32CurrentVeloc_mm_s;
+
+					sFCU.sAccel.sValid.u8NewDataAvail = 1U;
+
+					//clear
+					vFCU_ACCEL__Clear_New_Sample_Avail(u8Channel);
+
+				}
+				else
+				{
+					//no new data
+				}
 
 			}
 			else
@@ -111,6 +140,16 @@ void vFCU_ACCEL_VALID__Process(void)
 	sFCU.sAccel.sValid.u8IsValid = u8Valid;
 
 
+}
+
+Luint8 u8FCU_ACCEL_VALID__Get_New_Sample_Avail(void)
+{
+	return sFCU.sAccel.sValid.u8NewDataAvail;
+}
+
+void vFCU_ACCEL_VALID__Clear_NewSample_Avail(void)
+{
+	sFCU.sAccel.sValid.u8NewDataAvail = 0U;
 }
 
 //set enable to 1 if we want to use the accel module, and therefore

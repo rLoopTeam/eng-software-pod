@@ -111,41 +111,42 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Data Acqusition System */
 		#define C_LOCALDEF__LCCM655__ENABLE_DAQ								(1U)
 
-		/** Enable or disable the PiComms layer */
-		#define C_LOCALDEF__LCCM655__ENABLE_PI_COMMS						(0U)
-
 		/** Enable the OptoNCDT laser interface */
-		#define C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT					(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT					(0U)
 
 		/** Enable the Laser contrast sensors */
-		#define C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST					(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_LASER_CONTRAST					(0U)
 
 		/** Laser Distance Unit */
-		#define C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE					(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_LASER_DISTANCE					(0U)
 
 		/** Enable accel subsystem */
-		#define C_LOCALDEF__LCCM655__ENABLE_ACCEL							(0U)
+		#define C_LOCALDEF__LCCM655__ENABLE_ACCEL							(1U)
 
 		/** Enable the braking subsystems */
 		#define C_LOCALDEF__LCCM655__ENABLE_BRAKES							(1U)
 
 		/** Enable the throttle control */
-		#define C_LOCALDEF__LCCM655__ENABLE_THROTTLE						(1U)//TODO: Change to 0
+		#define C_LOCALDEF__LCCM655__ENABLE_THROTTLE						(0U)
 
 		/** Enable the ASI_RS485 */
-		#define C_LOCALDEF__LCCM655__ENABLE_ASI_RS485						(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_ASI_RS485						(0U)
+
+		/** If you have the ASI monitoring on, to simplify things if we have all the
+		 * devices on different addresses, set this to one and then daisy-chain*/
+		#define C_LOCALDEF__LCCM655__SINGLE_RS485_ONLY						(1U)
 
 		/** Enable the pusher detection system */
-		#define C_LOCALDEF__LCCM655__ENABLE_PUSHER							(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_PUSHER							(0U)
 
 		/** Ethernet Systems */
 		#define C_LOCALDEF__LCCM655__ENABLE_ETHERNET						(1U)
 
 		/** SpaceX Telemetry Requirements Enable */
-		#define C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY				(1U)
+		#define C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY				(0U)
 
-		/** Serial comms to and from the LGU */
-		#define C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM						(1U)
+		/**Geom system */
+		#define C_LOCALDEF__LCCM655__ENABLE_GEOM							(0U)
 
 		/** Flight control specifics */
 		#define C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL					(1U)
@@ -160,50 +161,44 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_BRAKE_CONTROL				(1U)
 
 			//Contrast Sensor Navigation
-			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_CONTRAST_NAV				(1U)
-
-			//hover engine drag modelling
-			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_HE_DRAG					(1U)
-
-			//aero drag modelling
-			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_AERO_DRAG					(1U)
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_CONTRAST_NAV				(0U)
 
 			/** Allow us to control the gimbals and include in calculations */
-			#define C_LOCALDEF__LCCM655__ENABLE_GIMBAL_CONTROL					(1U)
+			#define C_LOCALDEF__LCCM655__ENABLE_GIMBAL_CONTROL					(0U)
 
 			/** Track Database */
 			#define C_LOCALDEF__LCCM655__ENABLE_TRACK_DB						(1U)
 
 			/** Pod Health System */
-			#define C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH						(1U)
+			#define C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH						(0U)
+
 			/** Hover Engine Control */
-			#define C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL			(1U)
+			#define C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL			(0U)
 
 			/** Drive Pod Control */
-			#define C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL				(1U)
+			#define C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL				(0U)
 
 			/** Eddy Brakes Control */
-			#define C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES					(1U)
+			#define C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES						(0U)
 
 			/** Lift Mechanism Control */
-			#define C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL				(1U)
+			#define C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL				(0U)
 
 			/** Navigation function */
-			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION 				(1U)
+			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION 				(0U)
 
 			/** Control Aux Propulsion */
-			#define C_LOCALDEF__LCCM655__ENABLE_AUX_PROPULSION_CONTROL 		(1U)
+			#define C_LOCALDEF__LCCM655__ENABLE_AUX_PROPULSION_CONTROL 			(0U)
 
 			/** Enable PID for the Brakes */
-			#define C_LOCALDEF__LCCM655__ENABLE_BRAKEPID 					(1U)
+			#define C_LOCALDEF__LCCM655__ENABLE_BRAKEPID 						(0U)
 
-			/** Enable Cooling control */
-			#define C_LOCALDEF__LCCM655__ENABLE_COOLING_CONTROL				(1U)
-
+            /** Enable fault handling out ethernet */
+            #define C_LOCALDEF__LCCM655__ENABLE_ETHERNET_FAULTS                 (1U)
 
 		/** ADC Sample Limits */
-		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__LOWER_BOUND				(300U)
-		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__UPPER_BOUND				(3000U)
+		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__LOWER_BOUND				(200U)
+		#define C_LOCALDEF__LCCM655__ADC_SAMPLE__UPPER_BOUND				(3100U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM655__ENABLE_TEST_SPEC						(0U)

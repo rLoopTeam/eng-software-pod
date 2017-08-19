@@ -10,9 +10,27 @@
 	 * Select below the DAQ enable.
 	 */
 
+	/** Navigation DAQ */
+	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_NAV								(1U)
+	#if C_FCU_DAQ_SET__ENABLE__DAQ_FOR_NAV == 1U
+
+		//define here the actual DAQ channel indexes
+		#define C_FCU_DAQ_SET__DAQ_FOR_NAV__CPU_LOAD_U8						(0U)
+
+		#define C_FCU_DAQ_SET__DAQ_FOR_NAV__A0X_S16							(1U)
+
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U8					(1U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S16					(6U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U16					(0U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S32					(6U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U32					(0U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__F32					(0U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U64					(0U)
+
+	#endif
 
 	/** Accelerometer DAQ */
-	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS							(1U)
+	#define C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS							(0U)
 	#if C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS == 1U
 
 		//define here the actual DAQ channel indexes

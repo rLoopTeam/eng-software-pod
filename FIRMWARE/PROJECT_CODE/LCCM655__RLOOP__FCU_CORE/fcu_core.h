@@ -45,6 +45,82 @@
 		*******************************************************************************/
 		#define C_MLP__MAX_AVERAGE_SIZE				(8U)
 
+
+        // State machine management struct
+        typedef struct 
+        {
+            int state;
+            int old_state;
+            Luint8 state_changed;  // For when we start, to trigger if entry(sm, state) stanzas
+
+        } StateMachine; 
+
+        // State Machine Functions
+
+
+
+
+        // Determine if we've just entered test_state on this step (a step is a go-round of the main loop)
+        static inline Luint8 sm_entering(const StateMachine *sm, int test_state)
+        {
+            return sm->state_changed && sm->state == test_state;
+        }
+
+        // Determine if we're marked to exit this state. Put this in your case statements after anything that could cause a state change.
+        static inline Luint8 sm_exiting(const StateMachine *sm, int test_state)
+        {
+            return sm->state != test_state;
+        }
+
+        static inline Luint8 sm_transitioning(const StateMachine *sm)
+        {
+            // If our state is different from our old state, we are transitioning (?)
+            return sm->state != sm->old_state;
+        }
+
+
+        /** Timer/Timeout struct */
+        typedef struct
+        {
+            // Duration of the timeout
+            Luint32 duration_ms;
+
+            // Is the timer running?
+            Luint8 started;
+
+            // Elapsed time in milliseconds   
+            Luint32 elapsed_ms;
+
+        } strTimeout;
+
+
+        /** Interlock command struct */
+        typedef struct
+        {
+            // Has the command been enabled? 
+            Luint8 enabled;
+
+            // Once the command has been enabled, start the timeout and don't allow execution if it's expired.
+            strTimeout commandTimeout;
+
+        } strInterlockCommand;
+
+
+        /** Pod command struct */
+        typedef struct 
+        {
+            // Command
+            TE_POD_COMMAND_T command;
+
+            struct {
+                // Args would go here, under a sub-struct with the same name as the command
+                // e.g. struct { Luint16 some_arg; } POD_COMMAND__ARMED_WAIT
+            } args;
+
+        } strPodCmd;
+            
+
+
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
@@ -54,11 +130,36 @@
 			/** Structure guard 1*/
 			Luint32 u32Guard1;
 
+
+			/** Navigation System */
 			struct
 			{
-				E_FCU__COOLING_GS_COMM_T eGSCoolingCommand;
 
-			}sCoolingControl;
+				/** The navigation state machine */
+				TE_NAV_SM__TYPES sStateMachine;
+
+				/** Is there a new navigation value available */
+				Luint8 u8NewSampleAvail;
+
+				/** Calculated Values */
+				struct
+				{
+					/** What is our valid accel? */
+					Lint32 s32Accel_mm_ss;
+
+					/** The computed current velocity in mm/sec*/
+					Lint32 s32Veloc_mm_s;
+
+					/** Current displacement from some point */
+					Lint32 s32Displacement_mm;
+
+					/** Track position, which may be different from displacement */
+					Lint32 s32Position_mm;
+
+				}sCalc;
+
+			}sNavigation;
+
 
             #if C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION == 1U
 			/** Navigation */
@@ -131,67 +232,33 @@
 			/** State Machine Structure **/
 			struct
 			{
-				/** The mission phases
-				 * http://confluence.rloop.org/display/SD/1.+Determine+Mission+Phases+and+Operating+States
-				 * */
-				TE_POD_STATE_T eMissionPhase;
+                /** Main pod state machine structure. @see TE_POD_STATE_T */
+				StateMachine sm;
 
-				/** Counter to count the time elapsed from the disconnection from the pusher **/
-				Luint32 PusherCounter;
-
-				/** Enable Counter counting time elapsed from the disconnection from the pusher **/
-				Luint8 EnablePusherCounter;
-
-				/**Counter to count the time the pod experiences acceleration higher than value speccd in the db */
-				Luint32 AccelCounter;
-
-				/**Enable the Accel Counter */
-				Luint8 EnableAccelCounter;
-
-				/** In case Pusher fails and doesn't get us to the min pushed distance */
-				Luint32 MiserableStopCounter;
-
-				/** Enable Miserable Stop Counter */
-				Luint8 EnableMiserableStopCounter;
-
+				/** Main pod command holder. @see TE_POD_COMMAND_T */
+				strPodCmd command;
+	
 				/** Enum for Pod Status for SpaceX telemetry */
+				// @todo: Update code to change this as needed when states change
 				E_FCU__POD_STATUS ePodStatus;
-
-				/** Enum for GS commands */
-				E_FCU__MAINSM_GS_COMM eGSCommands;
-
-				/** Operating States Structure*/
-				struct
-				{
-					/** Lifted State */
-					Luint8 u8Lifted;
-
-					/** Unlifted State */
-					Luint8 u8Unlifted;
-
-					/** Static Hovering */
-					Luint8 u8StaticHovering;
-
-					/** Gimballing Adjustment State */
-					Luint8 u8GimbAdj;
-
-					/** Ready For Push State */
-					Luint8 u8ReadyForPush;
-
-					/** Pushing State */
-					Luint8 u8Pushing;
-
-					/** Coast State */
-					Luint8 u8Coasting;
-
-					/** Braking State */
-					Luint8 u8Braking;
-
-					/** Controlled Emergency State */
-					Luint8 u8CtlEmergBraking;
-
-				}sOpStates;
-
+				
+				// Timers and timeouts:
+				
+				/** Accel to Coast Interlock backup timeout */
+				strTimeout AccelBackupTimeout;
+	
+				/** Coast interlock timeout */
+				strTimeout CoastInterlockTimeout;
+	
+				/** Brake to Spindown backup timeout */
+				strTimeout BrakeToSpindownBackupTimeout;
+	
+				/** Spindown to Idle backup timeout */
+				strTimeout SpindownToIdleBackupTimeout;
+				
+				/** Interlock command timeouts */
+				strInterlockCommand command_interlocks[POD_COMMAND__NUM_COMMANDS];
+				
 			}sStateMachine;
 
 
@@ -209,31 +276,6 @@
 				FAULT_TREE__PUBLIC_T sTopLevel;
 
 			}sFaults;
-
-			#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
-			struct
-			{
-				/** Main state machine*/
-				E_FCU__DRIVEPOD_PRERUN_STATE ePreRunState;
-
-				E_FCU__DRIVEPOD_GS_COMM eGSCommand;
-
-				Luint8 u8100MS_Timer;
-
-			}sDrivePod;
-			#endif
-
-			struct
-			{
-				struct
-				{
-
-					E_FCU__FCTL_EDDYBRAKES_DIRECTION eEddyBrakesDir;
-
-					E_FCU__FCTL_EDDYBRAKES_ACTUATOR	eEddyBrakesAct;
-				}sEddyBrakes;
-			}sFctl;
-
 
 
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
@@ -448,6 +490,9 @@
 				struct
 				{
 
+					/** Is a new sample of data ready */
+					Luint8 u8NewDataAvail;
+
 					/** Is the accel module enabled? */
 					Luint8 u8Enabled;
 
@@ -469,6 +514,10 @@
 				/** individual accel channels */
 				struct
 				{
+
+					/** A new update for this channel is available */
+					Luint8 u8NewSampleAvail;
+
 					/** most recent recorded sample from the Accel in raw units */
 					Lint16 s16LastSample[MMA8451_AXIS__MAX];
 
@@ -1178,6 +1227,7 @@
 
 		};
 
+
 		/*******************************************************************************
 		Function Prototypes
 		*******************************************************************************/
@@ -1198,6 +1248,73 @@
 			void vFCU_FCTL_MAINSM__Process(void);
 			void vFCU_FCTL_MAINSM__10MS_ISR(void);
 			void vFCU_FCTL_MAINSM__100MS_ISR(void);
+
+				void vFCU_FCTL_MAINSM__Step(StateMachine* p_sm);
+
+        		// General Timer and timeouts
+        		strTimeout create_timeout(Luint32 duration_ms);
+        		void init_timeout(strTimeout *timeout, Luint32 duration_ms);
+        		void timeout_restart(strTimeout *timeout);
+        		void timeout_reset(strTimeout *timeout);
+        		void timeout_ensure_started(strTimeout *timeout);
+        		Luint8 timeout_expired(strTimeout *timeout);
+        		void timeout_update(strTimeout *timeout, Luint32 elapsed_ms);
+
+        		strInterlockCommand create_interlock_command(const Luint32 duration_ms);
+        		void init_interlock_command(strInterlockCommand *command, Luint32 duration_ms);
+        		void interlock_command_enable(strInterlockCommand *ic);
+        		Luint8 interlock_command_can_execute(strInterlockCommand *ic);
+        		void interlock_command_reset(strInterlockCommand *ic);
+        		void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms);
+
+        		// Helper functions for executing interlock commands
+        		void unlock_pod_interlock_command(TE_POD_COMMAND_T command);
+        		void attempt_pod_interlock_command(TE_POD_COMMAND_T command);
+
+
+                //  Pod guard/check functions 
+                Luint8 pod_init_complete();
+                Luint8 armed_wait_checks_ok();
+                Luint8 drive_checks_ok();
+                Luint8 flight_prep_checks_ok();
+                Luint8 flight_readiness_checks_ok();
+                Luint8 accel_confirmed();
+                Luint8 pusher_separation_confirmed();
+                Luint8 pod_stop_confirmed();
+                Luint8 spindown_complete_confirmed();
+
+                //  Pod state transition functions
+                void handle_POD_STATE__INIT_transitions();
+                void handle_POD_STATE__IDLE_transitions();
+                void handle_POD_STATE__TEST_MODE_transitions();
+                void handle_POD_STATE__DRIVE_transitions();
+                void handle_POD_STATE__ARMED_WAIT_transitions();
+                void handle_POD_STATE__FLIGHT_PREP_transitions();
+                void handle_POD_STATE__READY_transitions();
+                void handle_POD_STATE__ACCEL_transitions();
+                void handle_POD_STATE__COAST_INTERLOCK_transitions();
+                void handle_POD_STATE__BRAKE_transitions();
+                void handle_POD_STATE__SPINDOWN_transitions();
+
+                //  Pod command functions
+                void cmd_POD_COMMAND__IDLE();
+                void cmd_POD_COMMAND__TEST_MODE();
+                void cmd_POD_COMMAND__DRIVE();
+                void cmd_POD_COMMAND__FLIGHT_PREP();
+                void cmd_POD_COMMAND__ARMED_WAIT();
+                void cmd_POD_COMMAND__READY();
+
+			//navigation
+			void vFCU_FCTL_NAV__Init(void);
+			void vFCU_FCTL_NAV__Process(void);
+			void vFCU_FCTL_NAV__Reset(Luint32 u32Key);
+			void vFCU_FCTL_NAV__Run(void);
+			Lint32 s32FCU_FCTL_NAV__Get_Accel_mm_ss(void);
+			Lint32 s32FCU_FCTL_NAV__Get_Veloc_mm_s(void);
+			Lint32 s32FCU_FCTL_NAV__Get_Displacement_mm(void);
+			Lint32 s32FCU_FCTL_NAV__Get_Track_Position_mm(void);
+
+
 
 			//drive pod
 			Luint32 u32FCU_NET_RX__GetGsCommTimer(void);
@@ -1473,6 +1590,8 @@
 		void vFCU_ACCEL__Init(void);
 		void vFCU_ACCEL__Process(void);
 		void vFCU_ACCEL__10MS_ISR(void);
+		Luint8 u8FCU_ACCEL__Get_New_Sample_Avail(Luint8 u8Channel);
+		void vFCU_ACCEL__Clear_New_Sample_Avail(Luint8 u8Channel);
 		Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis);
 		Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis);
 		DLL_DECLARATION Lint32 s32FCU_ACCELL__Get_CurrentAccel_mmss(Luint8 u8Channel);
@@ -1498,6 +1617,9 @@
 			Lint32 sFCU_ACCEL_VALID__Get_Velocity_mm_s(void);
 			Lint32 sFCU_ACCEL_VALID__Get_Displacement_mm(void);
 			void vFCU_ACCEL_VALID__Enable(Luint8 u8Enable);
+			Luint8 u8FCU_ACCEL_VALID__Get_New_Sample_Avail(void);
+			void vFCU_ACCEL_VALID__Clear_NewSample_Avail(void);
+
 
 			//win32
 			void vFCU_ACCEL_WIN32__Set_Raw(Luint8 u8DeviceIndex, Luint8 u8ChannelIndex, Lint32 s32Value);

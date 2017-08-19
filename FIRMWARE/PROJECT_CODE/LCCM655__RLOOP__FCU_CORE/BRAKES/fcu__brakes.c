@@ -91,7 +91,7 @@ void vFCU_BRAKES__Init(void)
  * @brief
  * Process any brakes tasks.
  * 
- * @st_funcMD5		DAA9C7B260F462B16845D3B2D3C482CC
+ * @st_funcMD5		D2C7FFFBCD1BE9D5190540A916FA7511
  * @st_funcID		LCCM655R0.FILE.007.FUNC.002
  */
 void vFCU_BRAKES__Process(void)
@@ -276,6 +276,14 @@ void vFCU_BRAKES__Process(void)
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		f32BrakePadPos		## Desc ##
+ * @st_funcMD5		C175FC20851F18BFF1220DCD3CC09765
+ * @st_funcID		LCCM655R0.FILE.007.FUNC.013
+ */
 Lint32 s32FCU_BRAKES__ScrewPos_Compute_um(Lfloat32 f32BrakePadPos)
 {
 	Lfloat32 f32Temp;

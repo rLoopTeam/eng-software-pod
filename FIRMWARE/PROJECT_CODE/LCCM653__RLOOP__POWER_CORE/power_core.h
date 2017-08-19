@@ -127,6 +127,9 @@
 				/** Increments of 100ms */
 				Luint32 u32100MS_TimerCount;
 
+				/** The relay state, used for diagnsotics */
+				Luint8 u8RelayState;
+
 			}sDC;
 			#endif
 
@@ -327,6 +330,10 @@
 		void vPWRNODE_DC__Pod_Safe_Go(void);
 		void vPWRNODE_DC__100MS_ISR(void);
 		void vPWRNODE_DC__Latch(Luint32 u32Key);
+
+#ifdef WIN32
+		DLL_DECLARATION Luint8 u8PWRNODE_DC_WIN32__Get_Relay_State(void);
+#endif
 
 		//charger relay
 		void vPWRNODE_CHG_RELAY__Init(void);
