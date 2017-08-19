@@ -327,6 +327,9 @@ Public Class Form1
 
     Private m_txtNav_AccelY(2 - 1) As LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
+    Private m_cboNav_CSV As LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper
+    Private m_pCSV_Nav As LAPP185__RLOOP__LIB.SIL3.FileSupport.CSV
+    Private m_btnNav_Start As LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper
 
 #Region "SENSOR SIM VALUES"
 
@@ -341,6 +344,26 @@ Public Class Form1
     Private m_iR_MLP As Integer
 
 #End Region '#Region "SENSOR SIM VALUES"
+
+#Region "NAV SIM"
+
+    ''' <summary>
+    ''' Current simulation time step
+    ''' </summary>
+    Private m_iNavSim__CurrentPosition As Integer
+
+    ''' <summary>
+    ''' Number of time steps in simulation file
+    ''' </summary>
+    Private m_iNavSim__MaxPosition As Integer
+    Private m_iNavSim__Accel0 As Integer
+
+    Private m_bNavSim_Running As Boolean
+
+    Private m_pNavSim__Timer As System.Timers.Timer
+
+#End Region
+
 
 #End Region '#Region "MEMBERS"
 
@@ -487,13 +510,30 @@ Public Class Form1
         AddHandler Me.m_txtNav_AccelY(1).KeyDown, AddressOf Me.txtAccelY_Raw__KeyDown
 
 
+        Dim l202 As New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Simulation Directory")
+        l202.Layout__BelowControl(Me.m_txtNav_AccelY(0))
+        Me.m_cboNav_CSV = New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper(800, l202)
+
+        'add one case for now
+        'Me.m_cboNav_CSV.Threadsafe__AddItem("D:\\SIL3\\DESIGN\\RLOOP\\FIRMWARE\\PROJECT_CODE\\LCCM655__RLOOP__FCU_CORE\\UNIT_TEST\\TEST_VECTORS\\TRAJECTORY_TABLES\\Trajectory_case_no_37_avionics.csv")
+        Me.m_cboNav_CSV.Threadsafe__AddItem("..\\..\\..\\...\\FIRMWARE\\PROJECT_CODE\\LCCM655__RLOOP__FCU_CORE\\UNIT_TEST\\TEST_VECTORS\\TRAJECTORY_TABLES\\Trajectory_case_no_37_avionics.csv")
+
+
+        Me.m_cboNav_CSV.Threadsafe__SetSelectedIndex(0)
+
+        Dim btnNavChoose As New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "...", AddressOf Me.btnNavChoose__Click)
+        btnNavChoose.Layout__RightOfControl(Me.m_cboNav_CSV)
+
+        Me.m_btnNav_Start = New LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Start", AddressOf Me.btnNavStart__Click)
+        Me.m_btnNav_Start.Layout__BelowControl(Me.m_cboNav_CSV)
+
 
 
         'create a logging box
         Me.m_txtOutput = New TextBox
         With Me.m_txtOutput
             .Multiline = True
-            .Size = New Size(100, 300)
+            .Size = New Size(100, 100)
             .ScrollBars = ScrollBars.Both
             .Dock = DockStyle.Bottom
             .BorderStyle = BorderStyle.FixedSingle
@@ -663,6 +703,52 @@ Public Class Form1
 #Region "BUTTON HANDLERS"
 
     ''' <summary>
+    ''' Choose a CSV file
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub btnNavChoose__Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    ''' <summary>
+    ''' Start or stop (reset) the csv replay system
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub btnNavStart__Click(sender As Object, e As EventArgs)
+
+        Dim pB As LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper = CType(sender, LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper)
+
+        If pB.Text = "Start" Then
+
+
+            'load up the csv
+            Me.m_pCSV_Nav = New LAPP185__RLOOP__LIB.SIL3.FileSupport.CSV(Me.m_cboNav_CSV.SelectedItem.ToString, ",", False, True)
+
+            Me.m_iNavSim__CurrentPosition = 0
+            Me.m_iNavSim__MaxPosition = Me.m_pCSV_Nav.m_alRows.Count - 1
+            Me.m_iNavSim__Accel0 = 0
+            Me.m_bNavSim_Running = True
+
+            Me.m_pNavSim__Timer = New System.Timers.Timer
+            '10ms
+            Me.m_pNavSim__Timer.Interval = 10
+            AddHandler Me.m_pNavSim__Timer.Elapsed, AddressOf Me.NavSimTimer__Tick
+            Me.m_pNavSim__Timer.Start()
+
+            pB.Text = "Stop/Reset"
+        Else
+
+            Me.m_pNavSim__Timer.Stop()
+            Me.m_bNavSim_Running = False
+
+            pB.Text = "Start"
+        End If
+
+    End Sub
+
+    ''' <summary>
     ''' Run the test cases
     ''' </summary>
     ''' <param name="sender"></param>
@@ -726,6 +812,37 @@ Public Class Form1
 #End Region '#Region "BUTTON HANDLERS"
 
 #Region "ACCEL SIMULATION"
+
+    ''' <summary>
+    ''' Timer tick when the nav simulation is running
+    ''' </summary>
+    ''' <param name="s"></param>
+    ''' <param name="e"></param>
+    Private Sub NavSimTimer__Tick(s As Object, e As System.Timers.ElapsedEventArgs)
+
+        'get the next sample
+        Dim pAL As ArrayList = Me.m_pCSV_Nav.m_alRows(Me.m_iNavSim__CurrentPosition)
+        Dim sSample As Single = CSng(pAL.Item(0).ToString)
+
+        'conver to 4G mode raw
+        'sSample *= 2048
+
+        Me.m_iAccel0_Y = sSample
+        Me.m_iAccel1_Y = Me.m_iAccel0_Y
+
+        Me.m_txtNav_AccelY(0).Threadsafe__SetText(Me.m_iAccel0_Y.ToString)
+        Me.m_txtNav_AccelY(1).Threadsafe__SetText(Me.m_iAccel1_Y.ToString)
+
+        Me.m_iNavSim__CurrentPosition += 1
+
+        If Me.m_iNavSim__CurrentPosition >= Me.m_iNavSim__MaxPosition Then
+            Me.m_pNavSim__Timer.Stop()
+            Me.m_bNavSim_Running = False
+            Me.m_btnNav_Start.Threadsafe__SetText("Start")
+        End If
+
+
+    End Sub
 
 #End Region '#Region "ACCEL SIMULATION"
 

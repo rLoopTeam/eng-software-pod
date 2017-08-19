@@ -76,7 +76,7 @@ Luint8 u8FCU_ACCEL_THRES__Is_Threshold_Met(void)
 }
 
 //allows our upper layer to set the thresholding time and mm ss accel value
-void vFCU_ACCEL_THRESH__Set_Threshold(Luint32 u32Time_x10ms, Lint32 s32Accel_mm_ss)
+void vFCU_ACCEL_THRESH__Set_Threshold(Lint32 s32Accel_mm_ss, Luint32 u32Time_x10ms)
 {
 	//set the user params
 	sFCU.sAccel.sThresh.u32ThreshTime_x10ms = u32Time_x10ms;

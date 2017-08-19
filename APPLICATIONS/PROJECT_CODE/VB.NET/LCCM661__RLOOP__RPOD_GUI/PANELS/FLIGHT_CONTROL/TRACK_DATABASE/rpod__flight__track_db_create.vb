@@ -735,11 +735,19 @@
                 'human nam
                 iItem += 1
 
-                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(iRow, CByte(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
+                Dim u8Row As Byte = CByte(iRow)
+                Dim u8Temp As Byte
+
+                u8Temp = CByte(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(u8Row, u8Temp)
                 iItem += 1
-                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_mm_ss(iRow, CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
+
+                Dim s32Temp As Int32 = CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_mm_ss(u8Row, s32Temp)
                 iItem += 1
-                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(iRow, CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
+
+                Dim u32Temp As UInt32 = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(u8Row, u32Temp)
                 iItem += 1
                 'spare
                 iItem += 1

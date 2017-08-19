@@ -135,6 +135,16 @@ LAPP185__RLOOP__FCU_EMU
  Timer to handle accels.
  </summary>
 </member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_iNavSim__CurrentPosition">
+ <summary>
+ Current simulation time step
+ </summary>
+</member>
+<member name="F:LAPP185__RLOOP__FCU_EMU.Form1.m_iNavSim__MaxPosition">
+ <summary>
+ Number of time steps in simulation file
+ </summary>
+</member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Form1_Load(System.Object,System.EventArgs)">
  <summary>
  Create the form
@@ -161,6 +171,20 @@ LAPP185__RLOOP__FCU_EMU
  <param name="s"></param>
  <param name="e"></param>
 </member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.btnNavChoose__Click(System.Object,System.EventArgs)">
+ <summary>
+ Choose a CSV file
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.btnNavStart__Click(System.Object,System.EventArgs)">
+ <summary>
+ Start or stop (reset) the csv replay system
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.Form1.btnTestCases__Click(System.Object,System.EventArgs)">
  <summary>
  Run the test cases
@@ -173,6 +197,13 @@ LAPP185__RLOOP__FCU_EMU
  Called to start/stop
  </summary>
  <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP185__RLOOP__FCU_EMU.Form1.NavSimTimer__Tick(System.Object,System.Timers.ElapsedEventArgs)">
+ <summary>
+ Timer tick when the nav simulation is running
+ </summary>
+ <param name="s"></param>
  <param name="e"></param>
 </member>
 <member name="M:LAPP185__RLOOP__FCU_EMU.Form1.Thread__Main">

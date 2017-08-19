@@ -46,37 +46,8 @@
 		#define C_MLP__MAX_AVERAGE_SIZE				(8U)
 
 
-        // State machine management struct
-        typedef struct 
-        {
-            int state;
-            int old_state;
-            Luint8 state_changed;  // For when we start, to trigger if entry(sm, state) stanzas
-
-        } StateMachine; 
-
-        // State Machine Functions
 
 
-
-
-        // Determine if we've just entered test_state on this step (a step is a go-round of the main loop)
-        static inline Luint8 sm_entering(const StateMachine *sm, int test_state)
-        {
-            return sm->state_changed && sm->state == test_state;
-        }
-
-        // Determine if we're marked to exit this state. Put this in your case statements after anything that could cause a state change.
-        static inline Luint8 sm_exiting(const StateMachine *sm, int test_state)
-        {
-            return sm->state != test_state;
-        }
-
-        static inline Luint8 sm_transitioning(const StateMachine *sm)
-        {
-            // If our state is different from our old state, we are transitioning (?)
-            return sm->state != sm->old_state;
-        }
 
 
         /** Timer/Timeout struct */
@@ -233,7 +204,7 @@
 			struct
 			{
                 /** Main pod state machine structure. @see TE_POD_STATE_T */
-				StateMachine sm;
+				TS_FCTL__STATE_MACHINE_T sm;
 
 				/** Main pod command holder. @see TE_POD_COMMAND_T */
 				strPodCmd command;
@@ -1249,7 +1220,12 @@
 			void vFCU_FCTL_MAINSM__10MS_ISR(void);
 			void vFCU_FCTL_MAINSM__100MS_ISR(void);
 
-				void vFCU_FCTL_MAINSM__Step(StateMachine* p_sm);
+				void vFCU_FCTL_MAINSM__Step(TS_FCTL__STATE_MACHINE_T* p_sm);
+
+				Luint8 u8FCU_FCTL_MAINSM__Check_IsEntering(const TS_FCTL__STATE_MACHINE_T *cpSM, TE_POD_STATE_T eTestState);
+				Luint8 u8FCU_FCTL_MAINSM__Check_IsExiting(const TS_FCTL__STATE_MACHINE_T *cpSM, TE_POD_STATE_T eTestState);
+				Luint8 u8FCU_FCTL_MAINSM__Check_IsTransitioning(const TS_FCTL__STATE_MACHINE_T *cpSM);
+
 
         		// General Timer and timeouts
         		strTimeout create_timeout(Luint32 duration_ms);
@@ -1346,6 +1322,9 @@
 
 				//accel system
 				Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void);
+				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Threshold_mm_ss(void);
+				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_ThresholdTime_x10ms(void);
+
 
 				//mem
 				void vFCU_FCTL_TRACKDB_MEM__Init(void);
@@ -1602,7 +1581,7 @@
 			void vFCU_ACCEL_THRESH__Init(void);
 			void vFCU_ACCEL_THRESH__Process(void);
 			Luint8 u8FCU_ACCEL_THRES__Is_Threshold_Met(void);
-			void vFCU_ACCEL_THRESH__Set_Threshold(Luint32 u32Time_x10ms, Lint32 s32Accel_mm_ss);
+			void vFCU_ACCEL_THRESH__Set_Threshold(Lint32 s32Accel_mm_ss, Luint32 u32Time_x10ms);
 			void vFCU_ACCEL_THRESH__10MS_ISR(void);
 
 			//eth

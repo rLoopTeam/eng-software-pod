@@ -148,6 +148,16 @@ Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void)
 	return sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sAccel.u8Use;
 }
 
+Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Threshold_mm_ss(void)
+{
+	return s32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sAccel.u8Thresh_mm_ss[0]);
+}
+
+Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_ThresholdTime_x10ms(void)
+{
+	return s32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sAccel.u8Thresh_x10ms[0]);
+}
+
 
 
 

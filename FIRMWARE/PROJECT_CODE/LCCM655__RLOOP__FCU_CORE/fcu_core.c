@@ -416,11 +416,6 @@ void vFCU__Process(void)
 				vFCU_NET__Init();
 			#endif
 
-			//get our main SM operational
-			#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
-				vFCU_FCTL_MAINSM__Init();
-			#endif
-
 			sFCU.eInitStates = INIT_STATE__START_TIMERS;
 			break;
 
@@ -500,6 +495,7 @@ void vFCU__Process(void)
 			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
 				vFCU_FCTL__Init();
 			#endif
+
 			//move state
 			sFCU.eInitStates = INIT_STATE__RUN;
 			break;

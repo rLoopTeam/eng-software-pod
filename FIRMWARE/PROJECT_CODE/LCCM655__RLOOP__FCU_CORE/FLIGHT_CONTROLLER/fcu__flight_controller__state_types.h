@@ -63,4 +63,19 @@
     }TE_POD_COMMAND_T;
 
 
+    /**  State machine management struct */
+	typedef struct
+	{
+		/** Current state */
+		TE_POD_STATE_T eCurrentState;
+
+		/** Previous state */
+		TE_POD_STATE_T ePrevState;
+
+		/** For when we start, to trigger if entry(sm, state) stanzas */
+		Luint8 u8StateChanged;
+
+	} TS_FCTL__STATE_MACHINE_T;
+
+
 #endif /* __FLIGHT_CONTROLLER__STATE_TYPES_H_ */
