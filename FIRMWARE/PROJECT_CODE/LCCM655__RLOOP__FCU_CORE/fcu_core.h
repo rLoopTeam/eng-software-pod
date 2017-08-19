@@ -131,7 +131,7 @@
 			/** State Machine Structure **/
 			struct
 			{
-                /** Main pod state machine structure. @see TTE_POD_STATE_T */
+                /** Main pod state machine structure. @see TE_POD_STATE_T */
 				StateMachine sm;
 
 				/** Main pod command holder. @see TE_POD_COMMAND_T */
