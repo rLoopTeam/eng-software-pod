@@ -45,6 +45,50 @@
 		*******************************************************************************/
 		#define C_MLP__MAX_AVERAGE_SIZE				(8U)
 
+
+
+        /** Timer/Timeout struct */
+        typedef struct
+        {
+            // Duration of the timeout
+            Luint32 duration_ms;
+
+            // Is the timer running?
+            bool started;
+
+            // Elapsed time in milliseconds   
+            Luint32 elapsed_ms;
+
+        } strTimeout;
+
+
+        /** Interlock command struct */
+        typedef struct
+        {
+            // Has the command been enabled? 
+            bool enabled;
+
+            // Once the command has been enabled, start the timeout and don't allow execution if it's expired.
+            strTimeout commandTimeout;
+
+        } strInterlockCommand;
+
+
+        /** Pod command struct */
+        typedef struct 
+        {
+            // Command
+            TE_POD_COMMAND_T command;
+
+            struct {
+                // Args would go here, under a sub-struct with the same name as the command
+                // e.g. struct { Luint16 some_arg; } POD_COMMAND__ARMED_WAIT
+            } args;
+
+        } strPodCmd;
+            
+
+
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
@@ -1146,47 +1190,6 @@
 
 		};
 
-
-        /** Timer/Timeout struct */
-        typedef struct
-        {
-            // Duration of the timeout
-            Luint32 duration_ms;
-
-            // Is the timer running?
-            bool started;
-
-            // Elapsed time in milliseconds   
-            Luint32 elapsed_ms;
-
-        } strTimeout;
-
-
-        /** Interlock command struct */
-        typedef struct
-        {
-            // Has the command been enabled? 
-            bool enabled;
-
-            // Once the command has been enabled, start the timeout and don't allow execution if it's expired.
-            strTimeout commandTimeout;
-
-        } strInterlockCommand;
-
-
-        /** Pod command struct */
-        typedef struct 
-        {
-            // Command
-            TE_POD_COMMAND_T command;
-
-            struct {
-                // Args would go here, under a sub-struct with the same name as the command
-                // e.g. struct { Luint16 some_arg; } POD_COMMAND__ARMED_WAIT
-            } args;
-
-        } strPodCmd;
-            
 
 		/*******************************************************************************
 		Function Prototypes
