@@ -72,13 +72,13 @@ bool spindown_complete_confirmed()
 /////////////////////////////////////////////////////////////////////
 
 
-void handle_POD_INIT_STATE_transitions()
+void handle_POD_STATE__INIT_transitions()
 {
 
 	StateMachine *sm = &sFCU.sPodStateMachine.sm;
 
 	// Convenience
-	E_POD_STATE_T state = POD_INIT_STATE;
+	TE_POD_STATE_T state = POD_STATE__INIT;
 	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
@@ -86,7 +86,7 @@ void handle_POD_INIT_STATE_transitions()
 	{
 		if ( pod_init_complete() )
 		{
-			sm->state = POD_IDLE_STATE;
+			sm->state = POD_STATE__IDLE;
 		} 
 		else
 		{
@@ -97,12 +97,12 @@ void handle_POD_INIT_STATE_transitions()
 
 }
 
-void handle_POD_IDLE_STATE_transitions()
+void handle_POD_STATE__IDLE_transitions()
 {
 	StateMachine *sm = &sFCU.sPodStateMachine.sm;
 
 	// Convenience
-	E_POD_STATE_T state = POD_IDLE_STATE;
+	TE_POD_STATE_T state = POD_STATE__IDLE;
 	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
@@ -112,31 +112,31 @@ void handle_POD_IDLE_STATE_transitions()
 		switch(command) {
 			
 			case POD_TEST_MODE:
-				sm->state = POD_TEST_MODE_STATE;
+				sm->state = POD_STATE__TEST_MODE;
 				break;
 			
 			case POD_ARMED_WAIT:
 				if ( armed_wait_checks_ok() )
 				{
-					sm->state = POD_ARMED_WAIT_STATE;
+					sm->state = POD_STATE__ARMED_WAIT;
 				} 
 				else 
 				{
 					#if DEBUG == 1U
-					printf("%s -- REJECTING COMMAND %s in state %s: failed armed_wait_checks_ok() check", sPod->absname, lookup_pod_command(POD_ARMED_WAIT), lookup_pod_state(POD_IDLE_STATE));
+					printf("%s -- REJECTING COMMAND %s in state %s: failed armed_wait_checks_ok() check", sPod->absname, lookup_pod_command(POD_ARMED_WAIT), lookup_pod_state(POD_STATE__IDLE));
 					#endif
 				}
 				break;
 			
-			case POD_DRIVE:
+			case POD_COMMAND__DRIVE:
 				if ( drive_checks_ok() )
 				{
-					sm->state = POD_DRIVE_STATE;
+					sm->state = POD_STATE__DRIVE;
 				} 
 				else 
 				{
 					#if DEBUG == 1U
-					printf("%s -- REJECTING COMMAND %s in state %s: failed drive_checks_ok() check", sPod->absname, lookup_pod_command(POD_DRIVE), lookup_pod_state(POD_IDLE_STATE));
+					printf("%s -- REJECTING COMMAND %s in state %s: failed drive_checks_ok() check", sPod->absname, lookup_pod_command(POD_COMMAND__DRIVE), lookup_pod_state(POD_STATE__IDLE));
 					#endif
 				}
 				break;
@@ -150,12 +150,12 @@ void handle_POD_IDLE_STATE_transitions()
 
 }
 
-void handle_POD_TEST_MODE_STATE_transitions()
+void handle_POD_STATE__TEST_MODE_transitions()
 {
 	StateMachine *sm = &sFCU.sPodStateMachine.sm;
 
 	// Convenience
-	E_POD_STATE_T state = POD_TEST_MODE_STATE;
+	TE_POD_STATE_T state = POD_STATE__TEST_MODE;
 	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
@@ -165,7 +165,7 @@ void handle_POD_TEST_MODE_STATE_transitions()
 		switch(command) {
 			
 			case POD_IDLE:
-				sm->state = POD_IDLE_STATE;
+				sm->state = POD_STATE__IDLE;
 				break;
 		
 			default:
@@ -177,12 +177,12 @@ void handle_POD_TEST_MODE_STATE_transitions()
 
 }
 
-void handle_POD_DRIVE_STATE_transitions()
+void handle_POD_STATE__DRIVE_transitions()
 {
 	StateMachine *sm = &sFCU.sPodStateMachine.sm;
 
 	// Convenience
-	E_POD_STATE_T state = POD_DRIVE_STATE;
+	TE_POD_STATE_T state = POD_STATE__DRIVE;
 	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
@@ -192,7 +192,7 @@ void handle_POD_DRIVE_STATE_transitions()
 		switch(command) {
 			
 			case POD_IDLE:
-				sm->state = POD_IDLE_STATE;
+				sm->state = POD_STATE__IDLE;
 				break;
 		
 			default:
@@ -204,12 +204,12 @@ void handle_POD_DRIVE_STATE_transitions()
 
 }
 
-void handle_POD_ARMED_WAIT_STATE_transitions()
+void handle_POD_STATE__ARMED_WAIT_transitions()
 {
 	StateMachine *sm = &sFCU.sPodStateMachine.sm;
 
 	// Convenience
-	E_POD_STATE_T state = POD_ARMED_WAIT_STATE;
+	TE_POD_STATE_T state = POD_STATE__ARMED_WAIT;
 	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
@@ -219,18 +219,18 @@ void handle_POD_ARMED_WAIT_STATE_transitions()
 		switch(command) {
 			
 			case POD_IDLE:
-				sm->state = POD_IDLE_STATE;
+				sm->state = POD_STATE__IDLE;
 				break;
 			
-			case POD_FLIGHT_PREP:
+			case POD_COMMAND__FLIGHT_PREP:
 				if ( flight_prep_checks_ok() )
 				{
-					sm->state = POD_FLIGHT_PREP_STATE;
+					sm->state = POD_STATE__FLIGHT_PREP;
 				} 
 				else 
 				{
 					#if DEBUG == 1U
-					printf("%s -- REJECTING COMMAND %s in state %s: failed flight_prep_checks_ok() check", sPod->absname, lookup_pod_command(POD_FLIGHT_PREP), lookup_pod_state(POD_ARMED_WAIT_STATE));
+					printf("%s -- REJECTING COMMAND %s in state %s: failed flight_prep_checks_ok() check", sPod->absname, lookup_pod_command(POD_COMMAND__FLIGHT_PREP), lookup_pod_state(POD_STATE__ARMED_WAIT));
 					#endif
 				}
 				break;
@@ -244,12 +244,12 @@ void handle_POD_ARMED_WAIT_STATE_transitions()
 
 }
 
-void handle_POD_FLIGHT_PREP_STATE_transitions()
+void handle_POD_STATE__FLIGHT_PREP_transitions()
 {
 	StateMachine *sm = &sFCU.sPodStateMachine.sm;
 
 	// Convenience
-	E_POD_STATE_T state = POD_FLIGHT_PREP_STATE;
+	TE_POD_STATE_T state = POD_STATE__FLIGHT_PREP;
 	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
@@ -259,18 +259,18 @@ void handle_POD_FLIGHT_PREP_STATE_transitions()
 		switch(command) {
 			
 			case POD_ARMED_WAIT:
-				sm->state = POD_ARMED_WAIT_STATE;
+				sm->state = POD_STATE__ARMED_WAIT;
 				break;
 			
-			case POD_READY:
+			case POD_COMMAND__READY:
 				if ( flight_readiness_checks_ok() )
 				{
-					sm->state = POD_READY_STATE;
+					sm->state = POD_STATE__READY;
 				} 
 				else 
 				{
 					#if DEBUG == 1U
-					printf("%s -- REJECTING COMMAND %s in state %s: failed flight_readiness_checks_ok() check", sPod->absname, lookup_pod_command(POD_READY), lookup_pod_state(POD_FLIGHT_PREP_STATE));
+					printf("%s -- REJECTING COMMAND %s in state %s: failed flight_readiness_checks_ok() check", sPod->absname, lookup_pod_command(POD_COMMAND__READY), lookup_pod_state(POD_STATE__FLIGHT_PREP));
 					#endif
 				}
 				break;
@@ -284,12 +284,12 @@ void handle_POD_FLIGHT_PREP_STATE_transitions()
 
 }
 
-void handle_POD_READY_STATE_transitions()
+void handle_POD_STATE__READY_transitions()
 {
 	StateMachine *sm = &sFCU.sPodStateMachine.sm;
 
 	// Convenience
-	E_POD_STATE_T state = POD_READY_STATE;
+	TE_POD_STATE_T state = POD_STATE__READY;
 	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
@@ -298,9 +298,9 @@ void handle_POD_READY_STATE_transitions()
 		// Handle commands
 		switch(command) {
 			
-			case POD_FLIGHT_PREP:
+			case POD_COMMAND__FLIGHT_PREP:
 				// Go back to FLIGHT PREP if commanded
-				sm->state = POD_FLIGHT_PREP_STATE;
+				sm->state = POD_STATE__FLIGHT_PREP;
 				break;
 		
 			default:
@@ -314,7 +314,7 @@ void handle_POD_READY_STATE_transitions()
 	{
 		if ( accel_confirmed() )
 		{
-			sm->state = POD_ACCEL_STATE;
+			sm->state = POD_STATE__ACCEL;
 		} 
 		else
 		{
@@ -324,12 +324,12 @@ void handle_POD_READY_STATE_transitions()
 
 }
 
-void handle_POD_ACCEL_STATE_transitions()
+void handle_POD_STATE__ACCEL_transitions()
 {
 	StateMachine *sm = &sFCU.sPodStateMachine.sm;
 
 	// Convenience
-	E_POD_STATE_T state = POD_ACCEL_STATE;
+	TE_POD_STATE_T state = POD_STATE__ACCEL;
 	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
@@ -337,7 +337,7 @@ void handle_POD_ACCEL_STATE_transitions()
 	{
 		if ( pusher_separation_confirmed() )
 		{
-			sm->state = POD_COAST_INTERLOCK_STATE;
+			sm->state = POD_STATE__COAST_INTERLOCK;
 		} 
 		else
 		{
@@ -351,7 +351,7 @@ void handle_POD_ACCEL_STATE_transitions()
 		// If our ACCEL backup timeout has expired, automatically go to COAST_INTERLOCK
 		if ( timeout_expired(&sFCU.sPodStateMachine.AccelBackupTimeout) ) 
 		{
-			sm->state = POD_COAST_INTERLOCK_STATE;
+			sm->state = POD_STATE__COAST_INTERLOCK;
 		} 
 		else 
 		{
@@ -361,12 +361,12 @@ void handle_POD_ACCEL_STATE_transitions()
 
 }
 
-void handle_POD_COAST_INTERLOCK_STATE_transitions()
+void handle_POD_STATE__COAST_INTERLOCK_transitions()
 {
 	StateMachine *sm = &sFCU.sPodStateMachine.sm;
 
 	// Convenience
-	E_POD_STATE_T state = POD_COAST_INTERLOCK_STATE;
+	TE_POD_STATE_T state = POD_STATE__COAST_INTERLOCK;
 	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
 
 	// Check timeouts (if we aren't already transitioning)
@@ -374,7 +374,7 @@ void handle_POD_COAST_INTERLOCK_STATE_transitions()
 	{
 		if ( timeout_expired(&sFCU.sPodStateMachine.CoastInterlockTimeout) ) 
 		{
-			sm->state = POD_BRAKE_STATE;
+			sm->state = POD_STATE__BRAKE;
 		} 
 		else 
 		{
@@ -384,12 +384,12 @@ void handle_POD_COAST_INTERLOCK_STATE_transitions()
 
 }
 
-void handle_POD_BRAKE_STATE_transitions()
+void handle_POD_STATE__BRAKE_transitions()
 {
 	StateMachine *sm = &sFCU.sPodStateMachine.sm;
 
 	// Convenience
-	E_POD_STATE_T state = POD_BRAKE_STATE;
+	TE_POD_STATE_T state = POD_STATE__BRAKE;
 	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
@@ -397,7 +397,7 @@ void handle_POD_BRAKE_STATE_transitions()
 	{
 		if ( pod_stop_confirmed() )
 		{
-			sm->state = POD_SPINDOWN_STATE;
+			sm->state = POD_STATE__SPINDOWN;
 		} 
 		else
 		{
@@ -410,7 +410,7 @@ void handle_POD_BRAKE_STATE_transitions()
 	{
 		if ( timeout_expired(&sFCU.sPodStateMachine.BrakeToSpindownBackupTimeout) ) 
 		{
-			sm->state = POD_SPINDOWN_STATE;
+			sm->state = POD_STATE__SPINDOWN;
 		} 
 		else 
 		{
@@ -420,12 +420,12 @@ void handle_POD_BRAKE_STATE_transitions()
 
 }
 
-void handle_POD_SPINDOWN_STATE_transitions()
+void handle_POD_STATE__SPINDOWN_transitions()
 {
 	StateMachine *sm = &sFCU.sPodStateMachine.sm;
 
 	// Convenience
-	E_POD_STATE_T state = POD_SPINDOWN_STATE;
+	TE_POD_STATE_T state = POD_STATE__SPINDOWN;
 	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
@@ -433,7 +433,7 @@ void handle_POD_SPINDOWN_STATE_transitions()
 	{
 		if ( spindown_complete_confirmed() )
 		{
-			sm->state = POD_IDLE_STATE;
+			sm->state = POD_STATE__IDLE;
 		} 
 		else
 		{
@@ -446,7 +446,7 @@ void handle_POD_SPINDOWN_STATE_transitions()
 	{
 		if ( timeout_expired(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout) ) 
 		{
-			sm->state = POD_IDLE_STATE;
+			sm->state = POD_STATE__IDLE;
 		} 
 		else 
 		{
@@ -483,25 +483,25 @@ void cmd_POD_TEST_MODE()
 
 }
 
-void cmd_POD_DRIVE()
+void cmd_POD_COMMAND__DRIVE()
 {
 	#if DEBUG == 1U
-		printf("cmd_POD_DRIVE() called\n");
+		printf("cmd_POD_COMMAND__DRIVE() called\n");
 	#endif
 	
 	strPodCmd * cmd = &sFCU.sPodStateMachine.command;
-	cmd->command = POD_DRIVE;
+	cmd->command = POD_COMMAND__DRIVE;
 
 }
 
-void cmd_POD_FLIGHT_PREP()
+void cmd_POD_COMMAND__FLIGHT_PREP()
 {
 	#if DEBUG == 1U
-		printf("cmd_POD_FLIGHT_PREP() called\n");
+		printf("cmd_POD_COMMAND__FLIGHT_PREP() called\n");
 	#endif
 	
 	strPodCmd * cmd = &sFCU.sPodStateMachine.command;
-	cmd->command = POD_FLIGHT_PREP;
+	cmd->command = POD_COMMAND__FLIGHT_PREP;
 
 }
 
@@ -516,14 +516,14 @@ void cmd_POD_ARMED_WAIT()
 
 }
 
-void cmd_POD_READY()
+void cmd_POD_COMMAND__READY()
 {
 	#if DEBUG == 1U
-		printf("cmd_POD_READY() called\n");
+		printf("cmd_POD_COMMAND__READY() called\n");
 	#endif
 	
 	strPodCmd * cmd = &sFCU.sPodStateMachine.command;
-	cmd->command = POD_READY;
+	cmd->command = POD_COMMAND__READY;
 
 }
 

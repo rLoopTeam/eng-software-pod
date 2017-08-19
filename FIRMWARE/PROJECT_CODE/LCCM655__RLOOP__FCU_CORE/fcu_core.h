@@ -131,7 +131,7 @@
 			/** State Machine Structure **/
 			struct
 			{
-                /** Main pod state machine structure. @see TE_POD_STATE_T */
+                /** Main pod state machine structure. @see TTE_POD_STATE_T */
 				StateMachine sm;
 
 				/** Main pod command holder. @see TE_POD_COMMAND_T */
@@ -1221,25 +1221,25 @@
                 bool spindown_complete_confirmed();
 
                 //  Pod state transition functions
-                void handle_POD_INIT_STATE_transitions();
-                void handle_POD_IDLE_STATE_transitions();
-                void handle_POD_TEST_MODE_STATE_transitions();
-                void handle_POD_DRIVE_STATE_transitions();
-                void handle_POD_ARMED_WAIT_STATE_transitions();
-                void handle_POD_FLIGHT_PREP_STATE_transitions();
-                void handle_POD_READY_STATE_transitions();
-                void handle_POD_ACCEL_STATE_transitions();
-                void handle_POD_COAST_INTERLOCK_STATE_transitions();
-                void handle_POD_BRAKE_STATE_transitions();
-                void handle_POD_SPINDOWN_STATE_transitions();
+                void handle_POD_STATE__INIT_transitions();
+                void handle_POD_STATE__IDLE_transitions();
+                void handle_POD_STATE__TEST_MODE_transitions();
+                void handle_POD_STATE__DRIVE_transitions();
+                void handle_POD_STATE__ARMED_WAIT_transitions();
+                void handle_POD_STATE__FLIGHT_PREP_transitions();
+                void handle_POD_STATE__READY_transitions();
+                void handle_POD_STATE__ACCEL_transitions();
+                void handle_POD_STATE__COAST_INTERLOCK_transitions();
+                void handle_POD_STATE__BRAKE_transitions();
+                void handle_POD_STATE__SPINDOWN_transitions();
 
                 //  Pod command functions
                 void cmd_POD_IDLE();
                 void cmd_POD_TEST_MODE();
-                void cmd_POD_DRIVE();
-                void cmd_POD_FLIGHT_PREP();
+                void cmd_POD_COMMAND__DRIVE();
+                void cmd_POD_COMMAND__FLIGHT_PREP();
                 void cmd_POD_ARMED_WAIT();
-                void cmd_POD_READY();
+                void cmd_POD_COMMAND__READY();
 
 
 			//drive pod

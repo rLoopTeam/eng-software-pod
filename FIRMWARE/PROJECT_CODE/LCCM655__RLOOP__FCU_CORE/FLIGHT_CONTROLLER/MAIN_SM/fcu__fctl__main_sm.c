@@ -40,8 +40,8 @@ void vFCU_FCTL_MAINSM__Init(void)
 	DEBUG_PRINT("vFCU_FCTL_MAINSM__Init()");
 	#endif
 
-	// Set the pod state machine to POD_INIT_STATE. It will automatically transition to IDLE once sFCU.eInitStates is in INIT_STATE__RUN (see below)
-	sFCU.sPodStateMachine.sm.state = POD_INIT_STATE;
+	// Set the pod state machine to POD_STATE__INIT. It will automatically transition to IDLE once sFCU.eInitStates is in INIT_STATE__RUN (see below)
+	sFCU.sPodStateMachine.sm.state = POD_STATE__INIT;
 
 	// Initialize our various state machine related timeouts
 	// @todo: Move timeout duration values to config/mission profile
@@ -92,177 +92,177 @@ void vFCU_FCTL_MAINSM__Process(void)
 			//we must never be here
 			break;
 
-		case POD_INIT_STATE:
+		case POD_STATE__INIT:
 		
-			if (sm_entering(sm, POD_INIT_STATE)) {
+			if (sm_entering(sm, POD_STATE__INIT)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_INIT_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__INIT\n", "sFCU.sPodStateMachine.sm");
 				#endif
 				#ifdef WIN32
-					DEBUG_PRINT("Entering POD_INIT_STATE");
+					DEBUG_PRINT("Entering POD_STATE__INIT");
 				#endif
 			}
 		
 			// Handle transitions
-			handle_POD_INIT_STATE_transitions();
+			handle_POD_STATE__INIT_transitions();
 		 
-			if (sm_exiting(sm, POD_INIT_STATE)) 
+			if (sm_exiting(sm, POD_STATE__INIT)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_INIT_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__INIT\n", "sFCU.sPodStateMachine.sm");
 				#endif
 		
 			}
 			
 			break;
 		
-		case POD_IDLE_STATE:
+		case POD_STATE__IDLE:
 		
-			if (sm_entering(sm, POD_IDLE_STATE)) {
+			if (sm_entering(sm, POD_STATE__IDLE)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_IDLE_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__IDLE\n", "sFCU.sPodStateMachine.sm");
 				#endif
 				#ifdef WIN32
-					DEBUG_PRINT("Entering POD_IDLE_STATE");
+					DEBUG_PRINT("Entering POD_STATE__IDLE");
 				#endif
 			}
 		
 			// Handle transitions
-			handle_POD_IDLE_STATE_transitions();
+			handle_POD_STATE__IDLE_transitions();
 		 
-			if (sm_exiting(sm, POD_IDLE_STATE)) 
+			if (sm_exiting(sm, POD_STATE__IDLE)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_IDLE_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__IDLE\n", "sFCU.sPodStateMachine.sm");
 				#endif
 		
 			}
 			
 			break;
 		
-		case POD_TEST_MODE_STATE:
+		case POD_STATE__TEST_MODE:
 		
-			if (sm_entering(sm, POD_TEST_MODE_STATE)) {
+			if (sm_entering(sm, POD_STATE__TEST_MODE)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_TEST_MODE_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__TEST_MODE\n", "sFCU.sPodStateMachine.sm");
 				#endif
 				#ifdef WIN32
-					DEBUG_PRINT("Entering POD_TEST_MODE_STATE");
+					DEBUG_PRINT("Entering POD_STATE__TEST_MODE");
 				#endif
 			}
 		
 			// Handle transitions
-			handle_POD_TEST_MODE_STATE_transitions();
+			handle_POD_STATE__TEST_MODE_transitions();
 		 
-			if (sm_exiting(sm, POD_TEST_MODE_STATE)) 
+			if (sm_exiting(sm, POD_STATE__TEST_MODE)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_TEST_MODE_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__TEST_MODE\n", "sFCU.sPodStateMachine.sm");
 				#endif
 		
 			}
 			
 			break;
 		
-		case POD_DRIVE_STATE:
+		case POD_STATE__DRIVE:
 		
-			if (sm_entering(sm, POD_DRIVE_STATE)) {
+			if (sm_entering(sm, POD_STATE__DRIVE)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_DRIVE_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__DRIVE\n", "sFCU.sPodStateMachine.sm");
 				#endif
 				#ifdef WIN32
-					DEBUG_PRINT("Entering POD_DRIVE_STATE");
+					DEBUG_PRINT("Entering POD_STATE__DRIVE");
 				#endif
 			}
 		
 			// Handle transitions
-			handle_POD_DRIVE_STATE_transitions();
+			handle_POD_STATE__DRIVE_transitions();
 		 
-			if (sm_exiting(sm, POD_DRIVE_STATE)) 
+			if (sm_exiting(sm, POD_STATE__DRIVE)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_DRIVE_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__DRIVE\n", "sFCU.sPodStateMachine.sm");
 				#endif
 		
 			}
 			
 			break;
 		
-		case POD_ARMED_WAIT_STATE:
+		case POD_STATE__ARMED_WAIT:
 		
-			if (sm_entering(sm, POD_ARMED_WAIT_STATE)) {
+			if (sm_entering(sm, POD_STATE__ARMED_WAIT)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_ARMED_WAIT_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__ARMED_WAIT\n", "sFCU.sPodStateMachine.sm");
 				#endif
 				#ifdef WIN32
-					DEBUG_PRINT("Entering POD_ARMED_WAIT_STATE");
+					DEBUG_PRINT("Entering POD_STATE__ARMED_WAIT");
 				#endif
 			}
 		
 			// Handle transitions
-			handle_POD_ARMED_WAIT_STATE_transitions();
+			handle_POD_STATE__ARMED_WAIT_transitions();
 		 
-			if (sm_exiting(sm, POD_ARMED_WAIT_STATE)) 
+			if (sm_exiting(sm, POD_STATE__ARMED_WAIT)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_ARMED_WAIT_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__ARMED_WAIT\n", "sFCU.sPodStateMachine.sm");
 				#endif
 		
 			}
 			
 			break;
 		
-		case POD_FLIGHT_PREP_STATE:
+		case POD_STATE__FLIGHT_PREP:
 		
-			if (sm_entering(sm, POD_FLIGHT_PREP_STATE)) {
+			if (sm_entering(sm, POD_STATE__FLIGHT_PREP)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_FLIGHT_PREP_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__FLIGHT_PREP\n", "sFCU.sPodStateMachine.sm");
 				#endif
 				#ifdef WIN32
-					DEBUG_PRINT("Entering POD_FLIGHT_PREP_STATE");
+					DEBUG_PRINT("Entering POD_STATE__FLIGHT_PREP");
 				#endif
 			}
 		
 			// Handle transitions
-			handle_POD_FLIGHT_PREP_STATE_transitions();
+			handle_POD_STATE__FLIGHT_PREP_transitions();
 		 
-			if (sm_exiting(sm, POD_FLIGHT_PREP_STATE)) 
+			if (sm_exiting(sm, POD_STATE__FLIGHT_PREP)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_FLIGHT_PREP_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__FLIGHT_PREP\n", "sFCU.sPodStateMachine.sm");
 				#endif
 		
 			}
 			
 			break;
 		
-		case POD_READY_STATE:
+		case POD_STATE__READY:
 		
-			if (sm_entering(sm, POD_READY_STATE)) {
+			if (sm_entering(sm, POD_STATE__READY)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_READY_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__READY\n", "sFCU.sPodStateMachine.sm");
 				#endif
 				#ifdef WIN32
-					DEBUG_PRINT("Entering POD_READY_STATE");
+					DEBUG_PRINT("Entering POD_STATE__READY");
 				#endif
 				
 				// (Re)start the ready expired backup timer that will transition us (where?) 
@@ -271,29 +271,29 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_READY_STATE_transitions();
+			handle_POD_STATE__READY_transitions();
 		 
-			if (sm_exiting(sm, POD_READY_STATE)) 
+			if (sm_exiting(sm, POD_STATE__READY)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_READY_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__READY\n", "sFCU.sPodStateMachine.sm");
 				#endif
 		
 			}
 			
 			break;
 		
-		case POD_ACCEL_STATE:
+		case POD_STATE__ACCEL:
 		
-			if (sm_entering(sm, POD_ACCEL_STATE)) {
+			if (sm_entering(sm, POD_STATE__ACCEL)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_ACCEL_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__ACCEL\n", "sFCU.sPodStateMachine.sm");
 				#endif
 				#ifdef WIN32
-					DEBUG_PRINT("Entering POD_ACCEL_STATE");
+					DEBUG_PRINT("Entering POD_STATE__ACCEL");
 				#endif
 
 				// (Re)start the accel backup timeout. If this expires, we will automatically transition to COAST_INTERLOCK (see below)
@@ -302,29 +302,29 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_ACCEL_STATE_transitions();
+			handle_POD_STATE__ACCEL_transitions();
 		 
-			if (sm_exiting(sm, POD_ACCEL_STATE)) 
+			if (sm_exiting(sm, POD_STATE__ACCEL)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_ACCEL_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__ACCEL\n", "sFCU.sPodStateMachine.sm");
 				#endif
 		
 			}
 			
 			break;
 		
-		case POD_COAST_INTERLOCK_STATE:
+		case POD_STATE__COAST_INTERLOCK:
 		
-			if (sm_entering(sm, POD_COAST_INTERLOCK_STATE)) {
+			if (sm_entering(sm, POD_STATE__COAST_INTERLOCK)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_COAST_INTERLOCK_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__COAST_INTERLOCK\n", "sFCU.sPodStateMachine.sm");
 				#endif
 				#ifdef WIN32
-					DEBUG_PRINT("Entering POD_COAST_INTERLOCK_STATE");
+					DEBUG_PRINT("Entering POD_STATE__COAST_INTERLOCK");
 				#endif
 				
 				// (Re)start our coast interlock timer. Expiration will transition us to BRAKE (see below)
@@ -332,29 +332,29 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_COAST_INTERLOCK_STATE_transitions();
+			handle_POD_STATE__COAST_INTERLOCK_transitions();
 		 
-			if (sm_exiting(sm, POD_COAST_INTERLOCK_STATE)) 
+			if (sm_exiting(sm, POD_STATE__COAST_INTERLOCK)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_COAST_INTERLOCK_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__COAST_INTERLOCK\n", "sFCU.sPodStateMachine.sm");
 				#endif
 		
 			}
 			
 			break;
 		
-		case POD_BRAKE_STATE:
+		case POD_STATE__BRAKE:
 		
-			if (sm_entering(sm, POD_BRAKE_STATE)) {
+			if (sm_entering(sm, POD_STATE__BRAKE)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_BRAKE_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__BRAKE\n", "sFCU.sPodStateMachine.sm");
 				#endif
 				#ifdef WIN32
-					DEBUG_PRINT("Entering POD_BRAKE_STATE");
+					DEBUG_PRINT("Entering POD_STATE__BRAKE");
 				#endif
 				
 				// (Re)start the BRAKE to SPINDOWN backup timeout. If this expires, we'll transition to SPINDOWN
@@ -362,29 +362,29 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_BRAKE_STATE_transitions();
+			handle_POD_STATE__BRAKE_transitions();
 		 
-			if (sm_exiting(sm, POD_BRAKE_STATE)) 
+			if (sm_exiting(sm, POD_STATE__BRAKE)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_BRAKE_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__BRAKE\n", "sFCU.sPodStateMachine.sm");
 				#endif
 		
 			}
 			
 			break;
 		
-		case POD_SPINDOWN_STATE:
+		case POD_STATE__SPINDOWN:
 		
-			if (sm_entering(sm, POD_SPINDOWN_STATE)) {
+			if (sm_entering(sm, POD_STATE__SPINDOWN)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_SPINDOWN_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__SPINDOWN\n", "sFCU.sPodStateMachine.sm");
 				#endif
 				#ifdef WIN32
-					DEBUG_PRINT("Entering POD_SPINDOWN_STATE");
+					DEBUG_PRINT("Entering POD_STATE__SPINDOWN");
 				#endif
 				
 				// (Re)start our spindown backup timeout. If this expires we'll automatically transition to IDLE.
@@ -392,14 +392,14 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_SPINDOWN_STATE_transitions();
+			handle_POD_STATE__SPINDOWN_transitions();
 		 
-			if (sm_exiting(sm, POD_SPINDOWN_STATE)) 
+			if (sm_exiting(sm, POD_STATE__SPINDOWN)) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_SPINDOWN_STATE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__SPINDOWN\n", "sFCU.sPodStateMachine.sm");
 				#endif
 		
 			}
@@ -588,17 +588,17 @@ void attempt_pod_interlock_command(E_POD_COMMAND_T command)
 		case POD_TEST_MODE:
 			cmd_POD_TEST_MODE();
 			break;
-		case POD_DRIVE:
-			cmd_POD_DRIVE();
+		case POD_COMMAND__DRIVE:
+			cmd_POD_COMMAND__DRIVE();
 			break;
-		case POD_FLIGHT_PREP:
-			cmd_POD_FLIGHT_PREP();
+		case POD_COMMAND__FLIGHT_PREP:
+			cmd_POD_COMMAND__FLIGHT_PREP();
 			break;
 		case POD_ARMED_WAIT:
 			cmd_POD_ARMED_WAIT();
 			break;
-		case POD_READY:
-			cmd_POD_READY();
+		case POD_COMMAND__READY:
+			cmd_POD_COMMAND__READY();
 			break;
 		default:
 			// do nothing

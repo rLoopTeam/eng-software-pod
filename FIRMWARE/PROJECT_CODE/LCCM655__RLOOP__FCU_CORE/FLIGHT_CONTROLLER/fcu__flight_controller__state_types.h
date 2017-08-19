@@ -38,7 +38,7 @@
 		/** Keep this as the last item */
 		POD_STATE__NUM_STATES
 
-	}TE_POD_STATE_T;
+	}TTE_POD_STATE_T;
 
     /** Pod Commands */    
     typedef enum 
