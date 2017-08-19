@@ -1,7 +1,6 @@
 //handle the main state machine transition cases
 
 #include "../../fcu_core.h"
-#include "../fcu__flight_controller__state_types.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
