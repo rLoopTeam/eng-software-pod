@@ -13,57 +13,57 @@ extern struct _strFCU sFCU;
 //  Pod transition and command guard functions
 /////////////////////////////////////////////////////////////////////
 
-bool pod_init_complete()
+Luint8 pod_init_complete()
 {
 	return sFCU.eInitStates == INIT_STATE__RUN;
 }
 
-bool armed_wait_checks_ok()
+Luint8 armed_wait_checks_ok()
 {
 	// @todo: implement
-	return false;
+	return 0U;
 }
 
-bool drive_checks_ok()
+Luint8 drive_checks_ok()
 {
 	// @todo: implement
-	return false;
+	return 0U;
 }
 
-bool flight_prep_checks_ok()
+Luint8 flight_prep_checks_ok()
 {
 	// @todo: implement
-	return false;
+	return 0U;
 }
 
-bool flight_readiness_checks_ok()
+Luint8 flight_readiness_checks_ok()
 {
 	// @todo: implement
-	return false;
+	return 0U;
 }
 
-bool accel_confirmed()
+Luint8 accel_confirmed()
 {
 	// @todo: implement
-	return false;
+	return 0U;
 }
 
-bool pusher_separation_confirmed()
+Luint8 pusher_separation_confirmed()
 {
 	// @todo: implement
-	return false;
+	return 0U;
 }
 
-bool pod_stop_confirmed()
+Luint8 pod_stop_confirmed()
 {
 	// @todo: implement
-	return false;
+	return 0U;
 }
 
-bool spindown_complete_confirmed()
+Luint8 spindown_complete_confirmed()
 {
 	// @todo: implement
-	return false;
+	return 0U;
 }
 
 

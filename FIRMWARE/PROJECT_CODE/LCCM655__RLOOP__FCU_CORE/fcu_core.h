@@ -51,43 +51,28 @@
         {
             int state;
             int old_state;
-            bool state_changed;  // For when we start, to trigger if entry(sm, state) stanzas
+            Luint8 state_changed;  // For when we start, to trigger if entry(sm, state) stanzas
 
         } StateMachine; 
 
         // State Machine Functions
 
-        /** Step the state machine -- detect state changes and update sm status */
-        static inline void sm_step(StateMachine* p_sm) 
-        {
 
-            // Update old state and signal that a state change has occurred 
-            if (p_sm->old_state != p_sm->state) {
-                // printf("State changed! %d to %d\n", p_sm->old_state, p_sm->state);
-                p_sm->state_changed = true;
-                p_sm->old_state = p_sm->state;
-            } else if (p_sm->state_changed) {
-                // the 'else' means that we go through the loop exactly once with the 'state_changed' variable set to true once a state change has occured
-                // Note that if the state changes again on the next loop, the old_state != state stanza gets triggered and starts this over again, which is what we want
-                p_sm->state_changed = false;
-            }
-
-        }
 
 
         // Determine if we've just entered test_state on this step (a step is a go-round of the main loop)
-        static inline bool sm_entering(const StateMachine *sm, int test_state) 
+        static inline Luint8 sm_entering(const StateMachine *sm, int test_state)
         {
             return sm->state_changed && sm->state == test_state;
         }
 
         // Determine if we're marked to exit this state. Put this in your case statements after anything that could cause a state change.
-        static inline bool sm_exiting(const StateMachine *sm, int test_state) 
+        static inline Luint8 sm_exiting(const StateMachine *sm, int test_state)
         {
             return sm->state != test_state;
         }
 
-        static inline bool sm_transitioning(const StateMachine *sm)
+        static inline Luint8 sm_transitioning(const StateMachine *sm)
         {
             // If our state is different from our old state, we are transitioning (?)
             return sm->state != sm->old_state;
@@ -101,7 +86,7 @@
             Luint32 duration_ms;
 
             // Is the timer running?
-            bool started;
+            Luint8 started;
 
             // Elapsed time in milliseconds   
             Luint32 elapsed_ms;
@@ -113,7 +98,7 @@
         typedef struct
         {
             // Has the command been enabled? 
-            bool enabled;
+            Luint8 enabled;
 
             // Once the command has been enabled, start the timeout and don't allow execution if it's expired.
             strTimeout commandTimeout;
@@ -1264,6 +1249,7 @@
 			void vFCU_FCTL_MAINSM__10MS_ISR(void);
 			void vFCU_FCTL_MAINSM__100MS_ISR(void);
 
+				void vFCU_FCTL_MAINSM__Step(StateMachine* p_sm);
 
         		// General Timer and timeouts
         		strTimeout create_timeout(Luint32 duration_ms);
@@ -1271,13 +1257,13 @@
         		void timeout_restart(strTimeout *timeout);
         		void timeout_reset(strTimeout *timeout);
         		void timeout_ensure_started(strTimeout *timeout);
-        		bool timeout_expired(strTimeout *timeout);
+        		Luint8 timeout_expired(strTimeout *timeout);
         		void timeout_update(strTimeout *timeout, Luint32 elapsed_ms);
 
         		strInterlockCommand create_interlock_command(const Luint32 duration_ms);
         		void init_interlock_command(strInterlockCommand *command, Luint32 duration_ms);
         		void interlock_command_enable(strInterlockCommand *ic);
-        		bool interlock_command_can_execute(strInterlockCommand *ic);
+        		Luint8 interlock_command_can_execute(strInterlockCommand *ic);
         		void interlock_command_reset(strInterlockCommand *ic);
         		void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms);
 
@@ -1287,15 +1273,15 @@
 
 
                 //  Pod guard/check functions 
-                bool pod_init_complete();
-                bool armed_wait_checks_ok();
-                bool drive_checks_ok();
-                bool flight_prep_checks_ok();
-                bool flight_readiness_checks_ok();
-                bool accel_confirmed();
-                bool pusher_separation_confirmed();
-                bool pod_stop_confirmed();
-                bool spindown_complete_confirmed();
+                Luint8 pod_init_complete();
+                Luint8 armed_wait_checks_ok();
+                Luint8 drive_checks_ok();
+                Luint8 flight_prep_checks_ok();
+                Luint8 flight_readiness_checks_ok();
+                Luint8 accel_confirmed();
+                Luint8 pusher_separation_confirmed();
+                Luint8 pod_stop_confirmed();
+                Luint8 spindown_complete_confirmed();
 
                 //  Pod state transition functions
                 void handle_POD_STATE__INIT_transitions();

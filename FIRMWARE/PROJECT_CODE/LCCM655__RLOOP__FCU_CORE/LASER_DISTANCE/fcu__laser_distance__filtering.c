@@ -46,6 +46,7 @@ void vFCU_LASERDIST_FILT__Init(void)
 void vFCU_LASERDIST_FILT__Process(void)
 {
 
+#if 0
 	//input value
 	//sFCU.sLaserDist.f32DistanceRAW
 	Luint32 arraysFCUsLaserDistf32DistanceRAW[10];
@@ -67,6 +68,8 @@ void vFCU_LASERDIST_FILT__Process(void)
 	//output at
 	//todo:
 	sFCU.sLaserDist.f32DistanceFiltered = sFCU.sLaserDist.s32Distance_mm;
+
+#endif //0
 
 }
 
