@@ -4,7 +4,7 @@
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
  */
-/**//
+/**
  * @addtogroup RLOOP
  * @{ */
 /**
