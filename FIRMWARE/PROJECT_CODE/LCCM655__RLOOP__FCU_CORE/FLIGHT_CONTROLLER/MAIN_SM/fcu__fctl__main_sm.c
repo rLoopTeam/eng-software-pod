@@ -127,7 +127,8 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__IDLE:
 		
-			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__IDLE)) {
+			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__IDLE) == 1U)
+			{
 				// Perform entering actions
 				#if DEBUG == 1U
 					printf("- %s Entering POD_STATE__IDLE\n", "sFCU.sStateMachine.sm");
@@ -262,7 +263,8 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__READY:
 		
-			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__READY)) {
+			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__READY) == 1U)
+			{
 				// Perform entering actions
 				#if DEBUG == 1U
 					printf("- %s Entering POD_STATE__READY\n", "sFCU.sStateMachine.sm");
@@ -279,7 +281,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			// Handle transitions
 			handle_POD_STATE__READY_transitions();
 		 
-			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__READY)) 
+			if(u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__READY) == 1U)
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
