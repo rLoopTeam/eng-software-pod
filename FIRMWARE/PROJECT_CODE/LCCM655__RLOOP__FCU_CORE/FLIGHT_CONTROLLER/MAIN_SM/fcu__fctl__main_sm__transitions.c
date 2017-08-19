@@ -75,11 +75,11 @@ bool spindown_complete_confirmed()
 void handle_POD_STATE__INIT_transitions()
 {
 
-	StateMachine *sm = &sFCU.sPodStateMachine.sm;
+	StateMachine *sm = &sFCU.sStateMachine.sm;
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__INIT;
-	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
+	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -99,11 +99,11 @@ void handle_POD_STATE__INIT_transitions()
 
 void handle_POD_STATE__IDLE_transitions()
 {
-	StateMachine *sm = &sFCU.sPodStateMachine.sm;
+	StateMachine *sm = &sFCU.sStateMachine.sm;
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__IDLE;
-	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
+	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -152,11 +152,11 @@ void handle_POD_STATE__IDLE_transitions()
 
 void handle_POD_STATE__TEST_MODE_transitions()
 {
-	StateMachine *sm = &sFCU.sPodStateMachine.sm;
+	StateMachine *sm = &sFCU.sStateMachine.sm;
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__TEST_MODE;
-	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
+	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -179,11 +179,11 @@ void handle_POD_STATE__TEST_MODE_transitions()
 
 void handle_POD_STATE__DRIVE_transitions()
 {
-	StateMachine *sm = &sFCU.sPodStateMachine.sm;
+	StateMachine *sm = &sFCU.sStateMachine.sm;
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__DRIVE;
-	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
+	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -206,11 +206,11 @@ void handle_POD_STATE__DRIVE_transitions()
 
 void handle_POD_STATE__ARMED_WAIT_transitions()
 {
-	StateMachine *sm = &sFCU.sPodStateMachine.sm;
+	StateMachine *sm = &sFCU.sStateMachine.sm;
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__ARMED_WAIT;
-	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
+	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -246,11 +246,11 @@ void handle_POD_STATE__ARMED_WAIT_transitions()
 
 void handle_POD_STATE__FLIGHT_PREP_transitions()
 {
-	StateMachine *sm = &sFCU.sPodStateMachine.sm;
+	StateMachine *sm = &sFCU.sStateMachine.sm;
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__FLIGHT_PREP;
-	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
+	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -286,11 +286,11 @@ void handle_POD_STATE__FLIGHT_PREP_transitions()
 
 void handle_POD_STATE__READY_transitions()
 {
-	StateMachine *sm = &sFCU.sPodStateMachine.sm;
+	StateMachine *sm = &sFCU.sStateMachine.sm;
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__READY;
-	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
+	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -326,11 +326,11 @@ void handle_POD_STATE__READY_transitions()
 
 void handle_POD_STATE__ACCEL_transitions()
 {
-	StateMachine *sm = &sFCU.sPodStateMachine.sm;
+	StateMachine *sm = &sFCU.sStateMachine.sm;
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__ACCEL;
-	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
+	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -349,7 +349,7 @@ void handle_POD_STATE__ACCEL_transitions()
 	if ( ! sm_transitioning(sm) )
 	{
 		// If our ACCEL backup timeout has expired, automatically go to COAST_INTERLOCK
-		if ( timeout_expired(&sFCU.sPodStateMachine.AccelBackupTimeout) ) 
+		if ( timeout_expired(&sFCU.sStateMachine.AccelBackupTimeout) ) 
 		{
 			sm->state = POD_STATE__COAST_INTERLOCK;
 		} 
@@ -363,16 +363,16 @@ void handle_POD_STATE__ACCEL_transitions()
 
 void handle_POD_STATE__COAST_INTERLOCK_transitions()
 {
-	StateMachine *sm = &sFCU.sPodStateMachine.sm;
+	StateMachine *sm = &sFCU.sStateMachine.sm;
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__COAST_INTERLOCK;
-	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
+	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check timeouts (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
 	{
-		if ( timeout_expired(&sFCU.sPodStateMachine.CoastInterlockTimeout) ) 
+		if ( timeout_expired(&sFCU.sStateMachine.CoastInterlockTimeout) ) 
 		{
 			sm->state = POD_STATE__BRAKE;
 		} 
@@ -386,11 +386,11 @@ void handle_POD_STATE__COAST_INTERLOCK_transitions()
 
 void handle_POD_STATE__BRAKE_transitions()
 {
-	StateMachine *sm = &sFCU.sPodStateMachine.sm;
+	StateMachine *sm = &sFCU.sStateMachine.sm;
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__BRAKE;
-	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
+	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -408,7 +408,7 @@ void handle_POD_STATE__BRAKE_transitions()
 	// Check timeouts (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
 	{
-		if ( timeout_expired(&sFCU.sPodStateMachine.BrakeToSpindownBackupTimeout) ) 
+		if ( timeout_expired(&sFCU.sStateMachine.BrakeToSpindownBackupTimeout) ) 
 		{
 			sm->state = POD_STATE__SPINDOWN;
 		} 
@@ -422,11 +422,11 @@ void handle_POD_STATE__BRAKE_transitions()
 
 void handle_POD_STATE__SPINDOWN_transitions()
 {
-	StateMachine *sm = &sFCU.sPodStateMachine.sm;
+	StateMachine *sm = &sFCU.sStateMachine.sm;
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__SPINDOWN;
-	E_POD_COMMAND_T command = sFCU.sPodStateMachine.command.command;
+	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -444,7 +444,7 @@ void handle_POD_STATE__SPINDOWN_transitions()
 	// Check timeouts (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
 	{
-		if ( timeout_expired(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout) ) 
+		if ( timeout_expired(&sFCU.sStateMachine.SpindownToIdleBackupTimeout) ) 
 		{
 			sm->state = POD_STATE__IDLE;
 		} 
@@ -467,7 +467,7 @@ void cmd_POD_IDLE()
 		printf("cmd_POD_IDLE() called\n");
 	#endif
 	
-	strPodCmd * cmd = &sFCU.sPodStateMachine.command;
+	strPodCmd * cmd = &sFCU.sStateMachine.command;
 	cmd->command = POD_IDLE;
 
 }
@@ -478,7 +478,7 @@ void cmd_POD_TEST_MODE()
 		printf("cmd_POD_TEST_MODE() called\n");
 	#endif
 	
-	strPodCmd * cmd = &sFCU.sPodStateMachine.command;
+	strPodCmd * cmd = &sFCU.sStateMachine.command;
 	cmd->command = POD_TEST_MODE;
 
 }
@@ -489,7 +489,7 @@ void cmd_POD_COMMAND__DRIVE()
 		printf("cmd_POD_COMMAND__DRIVE() called\n");
 	#endif
 	
-	strPodCmd * cmd = &sFCU.sPodStateMachine.command;
+	strPodCmd * cmd = &sFCU.sStateMachine.command;
 	cmd->command = POD_COMMAND__DRIVE;
 
 }
@@ -500,7 +500,7 @@ void cmd_POD_COMMAND__FLIGHT_PREP()
 		printf("cmd_POD_COMMAND__FLIGHT_PREP() called\n");
 	#endif
 	
-	strPodCmd * cmd = &sFCU.sPodStateMachine.command;
+	strPodCmd * cmd = &sFCU.sStateMachine.command;
 	cmd->command = POD_COMMAND__FLIGHT_PREP;
 
 }
@@ -511,7 +511,7 @@ void cmd_POD_ARMED_WAIT()
 		printf("cmd_POD_ARMED_WAIT() called\n");
 	#endif
 	
-	strPodCmd * cmd = &sFCU.sPodStateMachine.command;
+	strPodCmd * cmd = &sFCU.sStateMachine.command;
 	cmd->command = POD_ARMED_WAIT;
 
 }
@@ -522,7 +522,7 @@ void cmd_POD_COMMAND__READY()
 		printf("cmd_POD_COMMAND__READY() called\n");
 	#endif
 	
-	strPodCmd * cmd = &sFCU.sPodStateMachine.command;
+	strPodCmd * cmd = &sFCU.sStateMachine.command;
 	cmd->command = POD_COMMAND__READY;
 
 }

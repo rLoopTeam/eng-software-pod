@@ -41,29 +41,29 @@ void vFCU_FCTL_MAINSM__Init(void)
 	#endif
 
 	// Set the pod state machine to POD_STATE__INIT. It will automatically transition to IDLE once sFCU.eInitStates is in INIT_STATE__RUN (see below)
-	sFCU.sPodStateMachine.sm.state = POD_STATE__INIT;
+	sFCU.sStateMachine.sm.state = POD_STATE__INIT;
 
 	// Initialize our various state machine related timeouts
 	// @todo: Move timeout duration values to config/mission profile
 
 	// Accel to Coast Interlock backup timeout
-	init_timeout(&sFCU.sPodStateMachine.AccelBackupTimeout, 10 * 1000);
+	init_timeout(&sFCU.sStateMachine.AccelBackupTimeout, 10 * 1000);
 
 	// Coast interlock timeout
-	init_timeout(&sFCU.sPodStateMachine.CoastInterlockTimeout, 1 * 1000);
+	init_timeout(&sFCU.sStateMachine.CoastInterlockTimeout, 1 * 1000);
 
 	// Brake to Spindown backup timeout
-	init_timeout(&sFCU.sPodStateMachine.BrakeToSpindownBackupTimeout, 60 * 1000);
+	init_timeout(&sFCU.sStateMachine.BrakeToSpindownBackupTimeout, 60 * 1000);
 
 	// Spindown to Idle backup timeout
-	init_timeout(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout, 120 * 1000);
+	init_timeout(&sFCU.sStateMachine.SpindownToIdleBackupTimeout, 120 * 1000);
 
 
 	// Initialize our commands. They're all interlock commands, so we'll just do them in a loop
 	for(Luint8 u8Counter = 0U; u8Counter < E_POD_COMMAND_N; u8Counter++)
 	{
 		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
-		init_interlock_command( &sFCU.sPodStateMachine.command_interlocks[ (E_POD_COMMAND_T)u8Counter ], 10 * 1000 );
+		init_interlock_command( &sFCU.sStateMachine.command_interlocks[ (E_POD_COMMAND_T)u8Counter ], 10 * 1000 );
 	}
 
 }
@@ -80,7 +80,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 {
 	//handle the state machine.
 
-	StateMachine *sm = &sFCU.sPodStateMachine.sm;
+	StateMachine *sm = &sFCU.sStateMachine.sm;
 	
 	// Step the state machine to pick up on state changes etc.
 	sm_step(sm);
@@ -97,7 +97,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (sm_entering(sm, POD_STATE__INIT)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__INIT\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__INIT\n", "sFCU.sStateMachine.sm");
 				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__INIT");
@@ -112,7 +112,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__INIT\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__INIT\n", "sFCU.sStateMachine.sm");
 				#endif
 		
 			}
@@ -124,7 +124,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (sm_entering(sm, POD_STATE__IDLE)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__IDLE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__IDLE\n", "sFCU.sStateMachine.sm");
 				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__IDLE");
@@ -139,7 +139,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__IDLE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__IDLE\n", "sFCU.sStateMachine.sm");
 				#endif
 		
 			}
@@ -151,7 +151,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (sm_entering(sm, POD_STATE__TEST_MODE)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__TEST_MODE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__TEST_MODE\n", "sFCU.sStateMachine.sm");
 				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__TEST_MODE");
@@ -166,7 +166,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__TEST_MODE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__TEST_MODE\n", "sFCU.sStateMachine.sm");
 				#endif
 		
 			}
@@ -178,7 +178,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (sm_entering(sm, POD_STATE__DRIVE)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__DRIVE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__DRIVE\n", "sFCU.sStateMachine.sm");
 				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__DRIVE");
@@ -193,7 +193,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__DRIVE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__DRIVE\n", "sFCU.sStateMachine.sm");
 				#endif
 		
 			}
@@ -205,7 +205,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (sm_entering(sm, POD_STATE__ARMED_WAIT)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__ARMED_WAIT\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__ARMED_WAIT\n", "sFCU.sStateMachine.sm");
 				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__ARMED_WAIT");
@@ -220,7 +220,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__ARMED_WAIT\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__ARMED_WAIT\n", "sFCU.sStateMachine.sm");
 				#endif
 		
 			}
@@ -232,7 +232,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (sm_entering(sm, POD_STATE__FLIGHT_PREP)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__FLIGHT_PREP\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__FLIGHT_PREP\n", "sFCU.sStateMachine.sm");
 				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__FLIGHT_PREP");
@@ -247,7 +247,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__FLIGHT_PREP\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__FLIGHT_PREP\n", "sFCU.sStateMachine.sm");
 				#endif
 		
 			}
@@ -259,7 +259,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (sm_entering(sm, POD_STATE__READY)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__READY\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__READY\n", "sFCU.sStateMachine.sm");
 				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__READY");
@@ -267,7 +267,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				
 				// (Re)start the ready expired backup timer that will transition us (where?) 
 				// @todo: We now have the capability to transition back to FLIGHT_PREP from READY, so we don't need this any more most likely.
-				// timeout_restart(&sFCU.sPodStateMachine.ReadyExpiredBackupTimeout);
+				// timeout_restart(&sFCU.sStateMachine.ReadyExpiredBackupTimeout);
 			}
 		
 			// Handle transitions
@@ -278,7 +278,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__READY\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__READY\n", "sFCU.sStateMachine.sm");
 				#endif
 		
 			}
@@ -290,14 +290,14 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (sm_entering(sm, POD_STATE__ACCEL)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__ACCEL\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__ACCEL\n", "sFCU.sStateMachine.sm");
 				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__ACCEL");
 				#endif
 
 				// (Re)start the accel backup timeout. If this expires, we will automatically transition to COAST_INTERLOCK (see below)
-				timeout_restart(&sFCU.sPodStateMachine.AccelBackupTimeout);
+				timeout_restart(&sFCU.sStateMachine.AccelBackupTimeout);
 
 			}
 		
@@ -309,7 +309,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__ACCEL\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__ACCEL\n", "sFCU.sStateMachine.sm");
 				#endif
 		
 			}
@@ -321,14 +321,14 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (sm_entering(sm, POD_STATE__COAST_INTERLOCK)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__COAST_INTERLOCK\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__COAST_INTERLOCK\n", "sFCU.sStateMachine.sm");
 				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__COAST_INTERLOCK");
 				#endif
 				
 				// (Re)start our coast interlock timer. Expiration will transition us to BRAKE (see below)
-				timeout_restart(&sFCU.sPodStateMachine.CoastInterlockTimeout);				
+				timeout_restart(&sFCU.sStateMachine.CoastInterlockTimeout);				
 			}
 		
 			// Handle transitions
@@ -339,7 +339,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__COAST_INTERLOCK\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__COAST_INTERLOCK\n", "sFCU.sStateMachine.sm");
 				#endif
 		
 			}
@@ -351,14 +351,14 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (sm_entering(sm, POD_STATE__BRAKE)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__BRAKE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__BRAKE\n", "sFCU.sStateMachine.sm");
 				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__BRAKE");
 				#endif
 				
 				// (Re)start the BRAKE to SPINDOWN backup timeout. If this expires, we'll transition to SPINDOWN
-				timeout_restart(&sFCU.sPodStateMachine.BrakeToSpindownBackupTimeout);
+				timeout_restart(&sFCU.sStateMachine.BrakeToSpindownBackupTimeout);
 			}
 		
 			// Handle transitions
@@ -369,7 +369,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__BRAKE\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__BRAKE\n", "sFCU.sStateMachine.sm");
 				#endif
 		
 			}
@@ -381,14 +381,14 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (sm_entering(sm, POD_STATE__SPINDOWN)) {
 				// Perform entering actions
 				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__SPINDOWN\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Entering POD_STATE__SPINDOWN\n", "sFCU.sStateMachine.sm");
 				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__SPINDOWN");
 				#endif
 				
 				// (Re)start our spindown backup timeout. If this expires we'll automatically transition to IDLE.
-				timeout_restart(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout);
+				timeout_restart(&sFCU.sStateMachine.SpindownToIdleBackupTimeout);
 			}
 		
 			// Handle transitions
@@ -399,7 +399,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				// We're exiting this state -- perform any exit actions
 				// ...
 				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__SPINDOWN\n", "sFCU.sPodStateMachine.sm");
+					printf("- %s Exiting POD_STATE__SPINDOWN\n", "sFCU.sStateMachine.sm");
 				#endif
 		
 			}
@@ -410,7 +410,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			//should never get here.
 			break;
 
-	}// switch(sFCU.sPodStateMachine.sm.state)
+	}// switch(sFCU.sStateMachine.sm.state)
    
 
 }
@@ -429,16 +429,16 @@ void vFCU_FCTL_MAINSM__100MS_ISR(void)
 	// Update our state machine timeouts. 
 
 	/** Accel to Coast Interlock backup timeout */
-	timeout_update(&sFCU.sPodStateMachine.AccelBackupTimeout, 100);
+	timeout_update(&sFCU.sStateMachine.AccelBackupTimeout, 100);
 
 	/** Coast interlock timeout */
-	timeout_update(&sFCU.sPodStateMachine.CoastInterlockTimeout, 100);
+	timeout_update(&sFCU.sStateMachine.CoastInterlockTimeout, 100);
 
 	/** Brake to Spindown backup timeout */
-	timeout_update(&sFCU.sPodStateMachine.BrakeToSpindownBackupTimeout, 100);
+	timeout_update(&sFCU.sStateMachine.BrakeToSpindownBackupTimeout, 100);
 
 	/** Spindown to Idle backup timeout */
-	timeout_update(&sFCU.sPodStateMachine.SpindownToIdleBackupTimeout, 100);
+	timeout_update(&sFCU.sStateMachine.SpindownToIdleBackupTimeout, 100);
 
 
 	// Update interlock command timeouts
@@ -446,7 +446,7 @@ void vFCU_FCTL_MAINSM__100MS_ISR(void)
 	for(Luint8 u8Counter = 0U; u8Counter < E_POD_COMMAND_N; u8Counter++)
 	{
 		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
-		init_interlock_command( &sFCU.sPodStateMachine.command_interlocks[ (E_POD_COMMAND_T)u8Counter ], 10 * 1000 );
+		init_interlock_command( &sFCU.sStateMachine.command_interlocks[ (E_POD_COMMAND_T)u8Counter ], 10 * 1000 );
 	}
 
 }
@@ -574,7 +574,7 @@ void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms)
 void unlock_pod_interlock_command(E_POD_COMMAND_T command)
 {
 	// @todo: unlock the command
-	interlock_command_enable(&sFCU.sPodStateMachine.command_interlocks[command]);
+	interlock_command_enable(&sFCU.sStateMachine.command_interlocks[command]);
 }
 
 void attempt_pod_interlock_command(E_POD_COMMAND_T command)
