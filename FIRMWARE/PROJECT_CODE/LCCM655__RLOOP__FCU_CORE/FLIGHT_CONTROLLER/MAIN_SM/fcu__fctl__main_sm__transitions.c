@@ -140,6 +140,11 @@ void handle_POD_STATE__IDLE_transitions()
 					#endif
 				}
 				break;
+
+			//LG hack for testing
+			case POD_COMMAND__READY:
+				sm->eCurrentState = POD_STATE__READY;
+				break;
 		
 			default:
 				// Nothing to do
@@ -293,10 +298,11 @@ void handle_POD_STATE__READY_transitions()
 	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
-	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
+	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
 		// Handle commands
-		switch(command) {
+		switch(command)
+		{
 			
 			case POD_COMMAND__FLIGHT_PREP:
 				// Go back to FLIGHT PREP if commanded
@@ -308,11 +314,19 @@ void handle_POD_STATE__READY_transitions()
 				break;
 		}
 	}
+	else
+	{
+
+	}
 	
 	// Check conditionals (if we aren't already transitioning)
-	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
+	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if ( accel_confirmed() )
+
+		//LG, check the various nav sources and determine how we need to
+		//transition, for now just threshold it
+
+		if(u8FCU_ACCEL_THRES__Is_Threshold_Met() == 1U)
 		{
 			sm->eCurrentState = POD_STATE__ACCEL;
 		} 
@@ -320,6 +334,10 @@ void handle_POD_STATE__READY_transitions()
 		{
 			// fall on
 		}
+	}
+	else
+	{
+
 	}
 
 }

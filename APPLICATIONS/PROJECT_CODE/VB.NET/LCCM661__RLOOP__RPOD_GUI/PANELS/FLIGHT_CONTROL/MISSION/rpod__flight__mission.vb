@@ -156,11 +156,11 @@
 
             Dim l110 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Flight Controls", btnOn)
 
-            Dim btnEnterPreRun As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Enter Pre-Run", Nothing)
-            btnEnterPreRun.Layout__BelowControl(l110)
+            Dim btnGo As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Go", AddressOf Me.btnGo__Click)
+            btnGo.Layout__BelowControl(l110)
 
             Dim btnFlightAbort As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Flight Abort", Nothing)
-            btnFlightAbort.Layout__RightOfControl(btnEnterPreRun)
+            btnFlightAbort.Layout__RightOfControl(btnGo)
 
 
             'Dim btnPodStop As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Pod Stop", AddressOf Me.btnPodStop__Click)
@@ -171,7 +171,7 @@
 
 
 
-            Dim l2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Select Track DB", btnEnterPreRun)
+            Dim l2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Select Track DB", btnGo)
             Me.m_cboSelectTrackDB = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper(100, l2)
 
             For iCounter As Integer = 0 To C_NUM_TRACK_DATABASES - 1
@@ -276,6 +276,13 @@
                                                  &H1234ABCDL, 0, 0, 0)
 
             End If
+
+        End Sub
+
+        Private Sub btnGo__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                &HDCBA9876L, 6, 0, 0)
 
         End Sub
 
