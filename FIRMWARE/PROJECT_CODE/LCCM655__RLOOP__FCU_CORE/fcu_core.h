@@ -125,7 +125,7 @@
         typedef struct 
         {
             // Command
-            TTE_POD_COMMAND_T command;
+            TE_POD_COMMAND_T command;
 
             struct {
                 // Args would go here, under a sub-struct with the same name as the command
@@ -225,7 +225,7 @@
                 /** Main pod state machine structure. @see TE_POD_STATE_T */
 				StateMachine sm;
 
-				/** Main pod command holder. @see TTE_POD_COMMAND_T */
+				/** Main pod command holder. @see TE_POD_COMMAND_T */
 				strPodCmd command;
 	
 				/** Enum for Pod Status for SpaceX telemetry */
