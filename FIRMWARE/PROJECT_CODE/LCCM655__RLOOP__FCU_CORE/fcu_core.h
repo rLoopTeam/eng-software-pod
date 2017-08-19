@@ -136,62 +136,31 @@
 				 * */
 				TE_POD_STATE_T eMissionPhase;
 
-				/** Counter to count the time elapsed from the disconnection from the pusher **/
-				Luint32 PusherCounter;
-
-				/** Enable Counter counting time elapsed from the disconnection from the pusher **/
-				Luint8 EnablePusherCounter;
-
-				/**Counter to count the time the pod experiences acceleration higher than value speccd in the db */
-				Luint32 AccelCounter;
-
-				/**Enable the Accel Counter */
-				Luint8 EnableAccelCounter;
-
-				/** In case Pusher fails and doesn't get us to the min pushed distance */
-				Luint32 MiserableStopCounter;
-
-				/** Enable Miserable Stop Counter */
-				Luint8 EnableMiserableStopCounter;
-
+				StateMachine sm;
+				
+				strPodCmd command;
+	
 				/** Enum for Pod Status for SpaceX telemetry */
+				// @todo: update to update this 
 				E_FCU__POD_STATUS ePodStatus;
-
-				/** Enum for GS commands */
-				E_FCU__MAINSM_GS_COMM eGSCommands;
-
-				/** Operating States Structure*/
-				struct
-				{
-					/** Lifted State */
-					Luint8 u8Lifted;
-
-					/** Unlifted State */
-					Luint8 u8Unlifted;
-
-					/** Static Hovering */
-					Luint8 u8StaticHovering;
-
-					/** Gimballing Adjustment State */
-					Luint8 u8GimbAdj;
-
-					/** Ready For Push State */
-					Luint8 u8ReadyForPush;
-
-					/** Pushing State */
-					Luint8 u8Pushing;
-
-					/** Coast State */
-					Luint8 u8Coasting;
-
-					/** Braking State */
-					Luint8 u8Braking;
-
-					/** Controlled Emergency State */
-					Luint8 u8CtlEmergBraking;
-
-				}sOpStates;
-
+								
+				// Timers and timeouts:
+				
+				/** Accel to Coast Interlock backup timeout */
+				strTimeout AccelBackupTimeout;
+	
+				/** Coast interlock timeout */
+				strTimeout CoastInterlockTimeout;
+	
+				/** Brake to Spindown backup timeout */
+				strTimeout BrakeToSpindownBackupTimeout;
+	
+				/** Spindown to Idle backup timeout */
+				strTimeout SpindownToIdleBackupTimeout;
+				
+				/** Interlock command timeouts */
+				strInterlockCommand command_interlocks[POD_COMMAND__NUM_COMMANDS];
+				
 			}sStateMachine;
 
 
@@ -211,6 +180,7 @@
 			}sFaults;
 
 			#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
+            // @todo: sDrivePod deprecated? Only found in fcu_core.h (under project code)
 			struct
 			{
 				/** Main state machine*/
@@ -223,6 +193,7 @@
 			}sDrivePod;
 			#endif
 
+            // @todo: sFctl deprecated? Only found in fcu_core.h (under project code)
 			struct
 			{
 				struct
@@ -1177,6 +1148,48 @@
 
 
 		};
+
+
+        /** Timer/Timeout struct */
+        typedef struct
+        {
+            // Duration of the timeout
+            Luint32 duration_ms;
+
+            // Is the timer running?
+            bool started;
+
+            // Elapsed time in milliseconds   
+            Luint32 elapsed_ms;
+
+        } strTimeout;
+
+
+        /** Interlock command struct */
+        typedef struct
+        {
+            // Has the command been enabled? 
+            bool enabled;
+
+            // Once the command has been enabled, start the timeout and don't allow execution if it's expired.
+            strTimeout commandTimeout;
+
+        } strInterlockCommand;
+
+
+        /** Pod command struct */
+        typedef struct 
+        {
+            // Command
+            TE_POD_COMMAND_T command;
+
+            struct {
+                // Args would go here, under a sub-struct with the same name as the command
+                // e.g. struct { Luint16 some_arg; } POD_COMMAND__ARMED_WAIT
+            } args;
+
+        } strPodCmd;
+            
 
 		/*******************************************************************************
 		Function Prototypes
