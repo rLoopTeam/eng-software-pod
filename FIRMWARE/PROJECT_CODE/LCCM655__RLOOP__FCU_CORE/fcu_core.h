@@ -54,11 +54,33 @@
 			/** Structure guard 1*/
 			Luint32 u32Guard1;
 
+
+			/** Navigation System */
 			struct
 			{
-				E_FCU__COOLING_GS_COMM_T eGSCoolingCommand;
 
-			}sCoolingControl;
+				/** The navigation state machine */
+				TE_NAV_SM__TYPES sStateMachine;
+
+				/** Calculated Values */
+				struct
+				{
+					/** What is our valid accel? */
+					Lint32 s32Accel_mm_ss;
+
+					/** The computed current velocity in mm/sec*/
+					Lint32 s32Veloc_mm_s;
+
+					/** Current displacement from some point */
+					Lint32 s32Displacement_mm;
+
+					/** Track position, which may be different from displacement */
+					Lint32 s32Position_mm;
+
+				}sCalc;
+
+			}sNavigation;
+
 
             #if C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION == 1U
 			/** Navigation */
@@ -209,32 +231,6 @@
 				FAULT_TREE__PUBLIC_T sTopLevel;
 
 			}sFaults;
-
-			#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
-			struct
-			{
-				/** Main state machine*/
-				E_FCU__DRIVEPOD_PRERUN_STATE ePreRunState;
-
-				E_FCU__DRIVEPOD_GS_COMM eGSCommand;
-
-				Luint8 u8100MS_Timer;
-
-			}sDrivePod;
-			#endif
-
-			struct
-			{
-				struct
-				{
-
-					E_FCU__FCTL_EDDYBRAKES_DIRECTION eEddyBrakesDir;
-
-					E_FCU__FCTL_EDDYBRAKES_ACTUATOR	eEddyBrakesAct;
-				}sEddyBrakes;
-			}sFctl;
-
-
 
 			#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 
@@ -448,6 +444,9 @@
 				struct
 				{
 
+					/** Is a new sample of data ready */
+					Luint8 u8NewDataAvail;
+
 					/** Is the accel module enabled? */
 					Luint8 u8Enabled;
 
@@ -469,6 +468,10 @@
 				/** individual accel channels */
 				struct
 				{
+
+					/** A new update for this channel is available */
+					Luint8 u8NewSampleAvail;
+
 					/** most recent recorded sample from the Accel in raw units */
 					Lint16 s16LastSample[MMA8451_AXIS__MAX];
 
@@ -1198,6 +1201,17 @@
 			void vFCU_FCTL_MAINSM__Process(void);
 			void vFCU_FCTL_MAINSM__10MS_ISR(void);
 			void vFCU_FCTL_MAINSM__100MS_ISR(void);
+
+			//navigation
+			void vFCU_FCTL_NAV__Init(void);
+			void vFCU_FCTL_NAV__Process(void);
+			void vFCU_FCTL_NAV__Reset(Luint32 u32Key);
+			void vFCU_FCTL_NAV__Run(void);
+			Lint32 s32FCU_FCTL_NAV__Get_Accel_mm_ss(void);
+			Lint32 s32FCU_FCTL_NAV__Get_Veloc_mm_s(void);
+			Lint32 s32FCU_FCTL_NAV__Get_Displacement_mm(void);
+			Lint32 s32FCU_FCTL_NAV__Get_Track_Position_mm(void);
+
 
 			//drive pod
 			Luint32 u32FCU_NET_RX__GetGsCommTimer(void);

@@ -276,7 +276,7 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS						(1U)
 
 		/** Enable the DC/DC converter subsystem */
-		#define C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER					(0U)
+		#define C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER					(1U)
 
 		//when the DC/DC is enabled we can implement a timeout timer from
 		//heartbeat (or any GS comms)

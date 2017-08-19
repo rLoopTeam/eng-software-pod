@@ -158,13 +158,16 @@
 
             Dim btnEnterPreRun As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Enter Pre-Run", Nothing)
             btnEnterPreRun.Layout__BelowControl(l110)
-            'btnEnterPreRun.BackColor = Color.Orange
+
             Dim btnFlightAbort As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Flight Abort", Nothing)
             btnFlightAbort.Layout__RightOfControl(btnEnterPreRun)
-            Dim btnPodStop As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Pod Stop", AddressOf Me.btnPodStop__Click)
-            btnPodStop.Layout__RightOfControl(btnFlightAbort)
+
+
+            'Dim btnPodStop As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Pod Stop", AddressOf Me.btnPodStop__Click)
+            'btnPodStop.Layout__RightOfControl(btnFlightAbort)
             Dim btnPodSafe As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Pod Safe", AddressOf Me.btnPodSafed__Click)
-            btnPodSafe.Layout__RightOfControl(btnPodStop)
+            btnPodSafe.ToolTip__Set("Pod Safe", "Immediatly remove all power and safe the pod")
+            btnPodSafe.Layout__RightOfControl(btnFlightAbort)
 
 
 

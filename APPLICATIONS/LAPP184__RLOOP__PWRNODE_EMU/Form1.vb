@@ -104,6 +104,11 @@ Public Class Form1
     <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
     Private Shared Function u8PWRNODE_WIN32__Get_RepressSolState() As Byte
     End Function
+
+    <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+    Private Shared Function u8PWRNODE_DC_WIN32__Get_Relay_State() As Byte
+    End Function
+
 #End Region '#Region "C CODE SPECIFICS"
 
 #Region "BATTERY SPECIFICS"
@@ -132,30 +137,36 @@ Public Class Form1
     ''' Our output text box used for serial debugging
     ''' </summary>
     ''' <remarks></remarks>
-    Private m_txtOutput As Windows.Forms.TextBox
+    Private m_txtOutput As TextBox
 
     ''' <summary>
     ''' Allows us to choose which index we want
     ''' </summary>
-    Private m_cboNodeIndex As ComboBox
+    Private m_cboNodeIndex As LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper
     Private m_bNodeIndex As Byte
 
     ''' <summary>
     ''' Our node temperature value
     ''' </summary>
-    Private m_txtNodeTemp As TextBox
+    Private m_txtNodeTemp As LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
     ''' <summary>
     ''' Node pressure box
     ''' </summary>
-    Private m_txtNodePress As TextBox
+    Private m_txtNodePress As LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
     ''' <summary>
     ''' Repress Solenoid
     ''' </summary>
-    Private m_chkPressSol As CheckBox
+    Private m_chkPressSol As LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
 
-    Private m_txtBatteryV As TextBox
+    ''' <summary>
+    ''' Are we latched onto the bus
+    ''' </summary>
+    Private m_chkLatch As LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
+
+
+    Private m_txtBatteryV As LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
     ''' <summary>
     ''' The debug delegate
@@ -212,84 +223,35 @@ Public Class Form1
         Me.Controls.Add(pP)
 
         'add a start / stop button
-        Dim pB1 As New Button
-        With pB1
-            .Location = New Point(10, 10)
-            .Size = New Size(100, 24)
-            .Text = "Start"
-        End With
-        pP.Controls.Add(pB1)
-        AddHandler pB1.Click, AddressOf Me.btnStart__Click
+        Dim pB1 As New LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(10, 10, 100, "Start", pP, AddressOf Me.btnStart__Click)
 
-        Me.m_cboNodeIndex = New ComboBox
-        With Me.m_cboNodeIndex
-            .Location = New Point(pB1.Location.X + pB1.Size.Width + 5, pB1.Location.Y)
-            .Size = New Size(100, 24)
-
-        End With
+        Me.m_cboNodeIndex = New LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper(100, pB1)
         Me.m_cboNodeIndex.Items.Add("Node A")
         Me.m_cboNodeIndex.Items.Add("Node B")
         Me.m_cboNodeIndex.SelectedIndex = 0
-        pP.Controls.Add(Me.m_cboNodeIndex)
-
 
         'create some node temperature items
-        Dim l1 As New Label
-        With l1
-            .Location = New Point(10, pB1.Top + pB1.Height + 20)
-            .Text = "TSYS01 Temp."
-        End With
-        pP.Controls.Add(l1)
-        Me.m_txtNodeTemp = New TextBox
-        With Me.m_txtNodeTemp
-            .Location = New Point(10, l1.Top + l1.Height + 0)
-            .Size = New Size(100, 24)
-            .Text = "27.0"
-        End With
-        pP.Controls.Add(Me.m_txtNodeTemp)
+        Dim l1 As New LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("TSYS01 Temp", Me.m_cboNodeIndex)
+        Me.m_txtNodeTemp = New LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l1)
+        Me.m_txtNodeTemp.Threadsafe__SetText("27.0")
         AddHandler Me.m_txtNodeTemp.KeyDown, AddressOf Me.txtNodeTemp__KeyDown
 
 
-        Dim l2 As New Label
-        With l2
-            .Location = New Point(Me.m_txtNodeTemp.Location.X + Me.m_txtNodeTemp.Size.Width + 10, l1.Top)
-            .Text = "Pressure (Bar)"
-        End With
-        pP.Controls.Add(l2)
-        Me.m_txtNodePress = New TextBox
-        With Me.m_txtNodePress
-            .Location = New Point(l2.Location.X, l2.Top + l2.Height + 0)
-            .Size = New Size(100, 24)
-            .Text = "1.00000"
-        End With
-        pP.Controls.Add(Me.m_txtNodePress)
+        Dim l2 As New LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Press. (Bar)")
+        l2.Layout__AboveRightControl(l1, Me.m_txtNodeTemp)
+        Me.m_txtNodePress = New LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l2)
+        Me.m_txtNodePress.Threadsafe__SetText("1.0000")
         AddHandler Me.m_txtNodePress.KeyDown, AddressOf Me.txtNodePress__KeyDown
 
         'add the PV repress solenoid
-        Me.m_chkPressSol = New CheckBox
-        With Me.m_chkPressSol
-            .Location = New Point(Me.m_txtNodePress.Location.X + Me.m_txtNodePress.Size.Width + 10, Me.m_txtNodePress.Location.Y)
-            .Text = "Solenoid"
-            .Enabled = False
-        End With
-        pP.Controls.Add(Me.m_chkPressSol)
+        Me.m_chkPressSol = New LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Press Sol")
+        Me.m_chkPressSol.Layout__RightOfControl(Me.m_txtNodePress)
 
-        Dim l3 As New Label
-        With l3
-            .Location = New Point(Me.m_txtNodeTemp.Location.X, Me.m_txtNodeTemp.Top + Me.m_txtNodeTemp.Height + 10)
-            .Text = "Battery"
-        End With
-        pP.Controls.Add(l3)
-        Me.m_txtBatteryV = New TextBox
-        With Me.m_txtBatteryV
-            .Location = New Point(l3.Location.X, l3.Top + l3.Height + 0)
-            .Size = New Size(100, 24)
-            .Text = ""
-        End With
-        pP.Controls.Add(Me.m_txtBatteryV)
+        Dim l3 As New LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Battery V", Me.m_txtNodeTemp)
+        Me.m_txtBatteryV = New LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l3)
 
-
-
+        Me.m_chkLatch = New LAPP184__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Bus Latch")
+        Me.m_chkLatch.Layout__BelowControl(Me.m_txtBatteryV)
 
 
         'create a logging box
@@ -316,7 +278,9 @@ Public Class Form1
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
         'kill the threads
-        Me.m_pMainThread.Abort()
+        If Not Me.m_pMainThread Is Nothing Then
+            Me.m_pMainThread.Abort()
+        End If
 
         Me.m_pTimer10m.Stop()
         Me.m_pTimer100m.Stop()
@@ -434,6 +398,13 @@ Public Class Form1
     Private Sub Timers__T100_Tick(s As Object, e As System.Timers.ElapsedEventArgs)
         If Me.m_bThreadRun = True Then
             vPWRNODE__RTI_100MS_ISR()
+
+            If u8PWRNODE_DC_WIN32__Get_Relay_State() = 1 Then
+                Me.m_chkLatch.Threadsafe__SetChecked(True)
+            Else
+                Me.m_chkLatch.Threadsafe__SetChecked(False)
+            End If
+
         End If
     End Sub
 

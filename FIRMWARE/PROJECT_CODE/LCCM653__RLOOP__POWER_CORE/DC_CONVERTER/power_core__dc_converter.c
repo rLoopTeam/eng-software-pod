@@ -42,25 +42,25 @@ void vPWRNODE_DC__Init(void)
 	sPWRNODE.sDC.u8PodSafeCommand = 0U;
 	sPWRNODE.sDC.u8100MS_Tick = 0U;
 	sPWRNODE.sDC.u32100MS_TimerCount = 0U;
+	sPWRNODE.sDC.u8RelayState = 0U;
 
 	#ifndef WIN32
 	#if C_LOCALDEF__BMS_REVISION == 1U
 		//Setup the hardware pins (DC_WATCHDOG Signal)
 		//GPIOA0
 		vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_A, 0U, GIO_DIRECTION__OUTPUT);
-
 		//set to OFF
 		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 0U);
 
 	#elif C_LOCALDEF__BMS_REVISION == 2U
 		vRM4_GIO__Set_BitDirection(RM4_GIO__PORT_B, 2U, GIO_DIRECTION__OUTPUT);
-
 		//set to OFF
 		vRM4_GIO__Set_Bit(RM4_GIO__PORT_B, 2U, 0U);
 	#else
 		#error
 	#endif
 	#endif
+	sPWRNODE.sDC.u8RelayState = 0U;
 }
 
 /***************************************************************************//**
@@ -87,6 +87,7 @@ void vPWRNODE_DC__Process(void)
 			// we must not do anything yet until the GS has latched us
 
 			//now we can set to on
+#ifndef WIN32
 			#if C_LOCALDEF__BMS_REVISION == 1U
 				vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 1U);
 			#elif C_LOCALDEF__BMS_REVISION == 2U
@@ -94,7 +95,9 @@ void vPWRNODE_DC__Process(void)
 			#else
 				#error
 			#endif
+#endif
 
+			sPWRNODE.sDC.u8RelayState = 1U;
 			sPWRNODE.sDC.eState = DC_STATE__CHECK_WDT_PET;
 			break;
 
@@ -265,6 +268,7 @@ Luint32 u32PWRNODE_DC__Get_TimerCount(void)
  */
 void vPWRNODE_DC__Power_Off(void)
 {
+#ifndef WIN32
 	#if C_LOCALDEF__BMS_REVISION == 1U
 		vRM4_GIO__Set_Bit(RM4_GIO__PORT_A, 0U, 0U);
 	#elif C_LOCALDEF__BMS_REVISION == 2U
@@ -272,6 +276,10 @@ void vPWRNODE_DC__Power_Off(void)
 	#else
 		#error
 	#endif
+#endif
+
+	sPWRNODE.sDC.u8RelayState = 0U;
+
 }
 
 
@@ -301,6 +309,13 @@ void vPWRNODE_DC__100MS_ISR(void)
 	sPWRNODE.sDC.u8100MS_Tick = 1U;
 }
 
+#ifdef WIN32
+//return the state of the relay
+Luint8 u8PWRNODE_DC_WIN32__Get_Relay_State(void)
+{
+	return sPWRNODE.sDC.u8RelayState;
+}
+#endif
 
 //safetys
 #ifndef C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER__HEART_TIMEOUT

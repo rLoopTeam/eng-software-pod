@@ -57,7 +57,8 @@ void vFCU_FCTL__Init(void)
 		vFCU_FCTL_MAINSM__Init();
 	#endif
 
-
+	//init the navigation system
+	vFCU_FCTL_NAV__Init();
 
 }
 
@@ -83,6 +84,9 @@ void vFCU_FCTL__Process(void)
 	#if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
 		vFCU_FCTL_TRACKDB__Process();
 	#endif
+
+	//process navigation
+	vFCU_FCTL_NAV__Process();
 
 	//process the main state machine
 	#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
