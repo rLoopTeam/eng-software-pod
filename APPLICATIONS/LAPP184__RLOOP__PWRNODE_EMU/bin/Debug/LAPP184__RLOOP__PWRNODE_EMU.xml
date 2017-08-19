@@ -93,6 +93,11 @@ LAPP184__RLOOP__PWRNODE_EMU
  Repress Solenoid
  </summary>
 </member>
+<member name="F:LAPP184__RLOOP__PWRNODE_EMU.Form1.m_chkLatch">
+ <summary>
+ Are we latched onto the bus
+ </summary>
+</member>
 <member name="F:LAPP184__RLOOP__PWRNODE_EMU.Form1.m_pDebug_Delegate">
  <summary>
  The debug delegate

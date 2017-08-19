@@ -118,6 +118,9 @@
     <Filter Include="Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812\ADC">
       <UniqueIdentifier>{d5ed7a32-8f12-4431-afcf-f8f96ba4d1e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\LGU">
+      <UniqueIdentifier>{e8ea368e-db84-4e34-9263-5b746eb20c26}</UniqueIdentifier>
+    </Filter>
     <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE">
       <UniqueIdentifier>{a8681542-0e8c-48c7-b72b-8455ba4bcce7}</UniqueIdentifier>
     </Filter>
@@ -127,14 +130,14 @@
     <Filter Include="LCCM655__RLOOP__FCU_CORE\DAQ">
       <UniqueIdentifier>{64dfe888-22fb-4760-9f1a-d10922bb2708}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BLENDER">
-      <UniqueIdentifier>{d94d6efb-24e8-4ea5-82fa-7ca58999a665}</UniqueIdentifier>
-    </Filter>
     <Filter Include="LCCM655__RLOOP__FCU_CORE\POD_HEALTH">
       <UniqueIdentifier>{7d6e3984-e495-49aa-8f0d-3f0bc8cf2e30}</UniqueIdentifier>
     </Filter>
     <Filter Include="LIB">
       <UniqueIdentifier>{d862e578-40e4-4cd0-ab50-e70dddde0ea0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\NAVIGATION">
+      <UniqueIdentifier>{9596a346-d960-405f-916e-c48b369725de}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -339,9 +342,6 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\DAQ\daq__transmit_template.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\DAQ</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BLENDER\fcu__flight__blender.c">
-      <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BLENDER</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\POD_HEALTH\fcu__pod_health.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\POD_HEALTH</Filter>
     </ClCompile>
@@ -365,6 +365,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\MAIN_SM\fcu__fctl__main_sm__transitions.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\MAIN_SM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\NAVIGATION\fcu__fctl__navigation.c">
+      <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\NAVIGATION</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

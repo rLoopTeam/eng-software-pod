@@ -278,11 +278,11 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, u32PWRNODE_BMS__Get_DeviceFlags(2U));
 				pu8Buffer += 4U;
 #else
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
 				pu8Buffer += 4U;
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
 				pu8Buffer += 4U;
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0U);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, 0xFFFFFFFFU);
 				pu8Buffer += 4U;
 
 #endif

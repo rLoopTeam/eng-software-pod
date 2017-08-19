@@ -38,7 +38,7 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_Current_TrackEndPosX_mm(void);
  * @brief
  * Init the track database
  * 
- * @st_funcMD5		B286AD7FA7BCE655DDB9E0A5A9436A2F
+ * @st_funcMD5		B16481ED485CD446B788B5CBF79BA24E
  * @st_funcID		LCCM655R0.FILE.084.FUNC.001
  */
 void vFCU_FCTL_TRACKDB__Init(void)
@@ -74,7 +74,7 @@ void vFCU_FCTL_TRACKDB__Init(void)
  * @brief
  * Process any track database tasks
  * 
- * @st_funcMD5		6ADE11075F825B49F38C20A1ADB8F9D5
+ * @st_funcMD5		206F04609970B5F4F96D6892F9CE1978
  * @st_funcID		LCCM655R0.FILE.084.FUNC.002
  */
 void vFCU_FCTL_TRACKDB__Process(void)
@@ -137,6 +137,12 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_CurrentDB(void)
 
 
 //Use accelerometers option?
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcID		LCCM655R0.FILE.084.FUNC.015
+ */
 Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void)
 {
 	return sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sAccel.u8Use;

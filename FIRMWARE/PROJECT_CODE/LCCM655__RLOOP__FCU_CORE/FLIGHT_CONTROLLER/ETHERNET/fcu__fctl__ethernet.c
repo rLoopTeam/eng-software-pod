@@ -103,6 +103,16 @@ void vFCU_FCTL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer += 4U;
 				#endif
 
+				//Navigation System
+
+
+				//Valid data sources
+
+
+				//Thresholding sources
+
+
+
 
 				break;
 

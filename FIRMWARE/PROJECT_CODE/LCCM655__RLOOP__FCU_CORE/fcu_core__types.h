@@ -2,6 +2,23 @@
 #ifndef RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__TYPES_H_
 #define RLOOP_LCCM655__RLOOP__FCU_CORE_FCU_CORE__TYPES_H_
 
+
+	/** Navigation state machine types */
+	typedef enum
+	{
+		/** Idle state */
+		NAV_STATE__IDLE = 0,
+
+		/** Nav reset */
+		NAV_STATE__RESET,
+
+		/** Nav run, processing the navigation */
+		NAV_STATE__RUN
+
+
+	}TE_NAV_SM__TYPES;
+
+
 	/** Enum for the Control Hover Engines state machine */
 	typedef enum {
 		HOVERENGINES_STATE__IDLE,
