@@ -28,7 +28,7 @@ extern struct _strFCU sFCU;
  * @brief
  * Init the accel subsystem layer
  * 
- * @st_funcMD5		46C37AE8833944FB73FC33A8719C9594
+ * @st_funcMD5		228023E6C160A7BB877AE0116DB9D297
  * @st_funcID		LCCM655R0.FILE.010.FUNC.001
  */
 void vFCU_ACCEL__Init(void)
@@ -59,6 +59,7 @@ void vFCU_ACCEL__Init(void)
 		}//for(u8Counter = 0U; u8Counter < 3U; u8Counter++)
 
 		//clear the computed varaiables.
+		sFCU.sAccel.sChannels[u8Device].u8NewSampleAvail = 0U;
 		sFCU.sAccel.sChannels[u8Device].s32CurrentAccel_mm_ss = 0;
 		sFCU.sAccel.sChannels[u8Device].s32CurrentVeloc_mm_s = 0;
 		sFCU.sAccel.sChannels[u8Device].s32PrevVeloc_mm_s = 0;
@@ -144,7 +145,7 @@ void vFCU_ACCEL__Init(void)
  * Process the accel's
  * Call as fast as possible from the main loop
  * 
- * @st_funcMD5		DFABA0A8D784F428A045DA419B306A3D
+ * @st_funcMD5		0C7EE7686E457B1E4BDF1E8304B97461
  * @st_funcID		LCCM655R0.FILE.010.FUNC.002
  */
 void vFCU_ACCEL__Process(void)
@@ -308,7 +309,7 @@ void vFCU_ACCEL__Process(void)
  * Return the current velocity as most recently computed in mm/sec
  * 
  * @param[in]		u8Channel				Accel Channel
- * @st_funcMD5		191B8EC70FB8DA0FCE32BB03F443D0D3
+ * @st_funcMD5		7CC447262C7735B3DB7A39CB6E245D56
  * @st_funcID		LCCM655R0.FILE.010.FUNC.005
  */
 Lint32 s32FCU_ACCELL__Get_CurrentAccel_mmss(Luint8 u8Channel)
@@ -322,7 +323,7 @@ Lint32 s32FCU_ACCELL__Get_CurrentAccel_mmss(Luint8 u8Channel)
  * Return the current velocity as most recently computed in mm/sec
  * 
  * @param[in]		u8Channel				Accel Channel
- * @st_funcMD5		1157DBB2F10EFDDEA1EEE276145B8F66
+ * @st_funcMD5		CC098E0A4FB3D5872E08D26CA11396CA
  * @st_funcID		LCCM655R0.FILE.010.FUNC.006
  */
 Lint32 s32FCU_ACCELL__Get_CurrentVeloc_mms(Luint8 u8Channel)
@@ -382,6 +383,13 @@ Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis)
 }
 
 
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @st_funcMD5		448A3FE6733707EEBF70C29A5E02E632
+ * @st_funcID		LCCM655R0.FILE.010.FUNC.008
+ */
 void vFCU_ACCEL__10MS_ISR(void)
 {
 	//pass off to thrreshold detection system.

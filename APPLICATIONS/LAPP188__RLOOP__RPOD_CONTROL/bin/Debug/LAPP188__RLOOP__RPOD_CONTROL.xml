@@ -280,6 +280,52 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="u16PayloadLength"></param>
  <param name="u8Payload"></param>
 </member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Control">
+ <summary>
+ BMS Control
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Control.m_iBMSIndex">
+ <summary>
+ The current bms channel
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Control.#ctor(System.String,System.Int32)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Control.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Control.btnlatch_Click(System.Object,System.EventArgs)">
+ <summary>
+ Latch on the power node to the bus
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Control.btnSafe_Click(System.Object,System.EventArgs)">
+ <summary>
+ Pod safe
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Control.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__LIB.SIL3.Numerical.U16,System.Byte[]@)">
+ <summary>
+ New Packet In
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.BMS.Top">
  <summary>
  Top level BMS Channel A panel
@@ -970,6 +1016,83 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="e"></param>
 </member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.btnPodStop__Click(System.Object,System.EventArgs)">
+ <summary>
+ Do the pod stop command
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation">
+ <summary>
+ Primary Navigation Page
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation.C_NUM_TRACK_DATABASES">
+ <summary>
+ Total number in FCU, don't change
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation.m_sLogDir">
+ <summary>
+ The logging directory
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation.#ctor(System.String,System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation.UserEvent__SafeUDP__Tx_X4">
+ <summary>
+ Raised wehen we want to transmit a control packet
+ </summary>
+ <param name="u16Type"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__LIB.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__LIB.SIL3.Numerical.U16)">
+ <summary>
+ New Packet In
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation.btnChangeTrackDB__Click(System.Object,System.EventArgs)">
+ <summary>
+ Change the current track database
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation.btnStreamOn__Click(System.Object,System.EventArgs)">
+ <summary>
+ Enable mission streaming
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation.btnPodSafed__Click(System.Object,System.EventArgs)">
+ <summary>
+ Transmit our pod safed command to power nodes, kills all power
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation.btnPodStop__Click(System.Object,System.EventArgs)">
  <summary>
  Do the pod stop command
  </summary>

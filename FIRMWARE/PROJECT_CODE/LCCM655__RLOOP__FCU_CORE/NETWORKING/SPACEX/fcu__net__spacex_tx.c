@@ -138,22 +138,22 @@ void vFCU_NET_SPACEX_TX__Process(void)
                 pu8Return += 1U;
 
                 //acceleration  INT32           Acceleration in centimeters per second squared. Required.
-                s32Temp = 0; //s32FCU_FCTL_BLENDER__Get_Accel_mmss();
+                s32Temp = s32FCU_FCTL_NAV__Get_Accel_mm_ss();
                 //convert to cm/ss
                 s32Temp /= 10;
                 vSIL3_NUM_CONVERT__Array_S32(pu8Return, s32Temp);
                 pu8Return += 4U;
 
                 //position      INT32           Velocity in centimeters per second. Required.
-                s32Temp = 0; //s32FCU_FCTL_BLENDER__Get_Veloc_mms();
-                //convert to cm/ss
+                s32Temp = s32FCU_FCTL_NAV__Get_Veloc_mm_s();
+                //convert to cm/s
                 s32Temp /= 10;
                 vSIL3_NUM_CONVERT__Array_S32(pu8Return, s32Temp);
                 pu8Return += 4U;
 
                 //velocity      INT32           Position in centimeters. Required.
-                s32Temp = 0; //s32FCU_FCTL_BLENDER__Get_Displacement_mm();
-                //convert to cm/ss
+                s32Temp = s32FCU_FCTL_NAV__Get_Track_Position_mm();
+                //convert to cm
                 s32Temp /= 10;
                 vSIL3_NUM_CONVERT__Array_S32(pu8Return, s32Temp);
                 pu8Return += 4U;

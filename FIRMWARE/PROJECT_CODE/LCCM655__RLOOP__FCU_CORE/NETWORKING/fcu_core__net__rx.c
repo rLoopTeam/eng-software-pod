@@ -74,7 +74,7 @@ void vFCU_NET_RX__RxUDP(Luint8 *pu8Buffer, Luint16 u16Length, Luint16 u16DestPor
  * @param[in]		ePacketType				SafeUDP packet Type
  * @param[in]		u16PayloadLength		Length of only the SafeUDP payload
  * @param[in]		*pu8Payload				Pointer to the payload bytes
- * @st_funcMD5		C3A4BF57DFA63DF34F9A148740791C65
+ * @st_funcMD5		AE79C707BD4D6398E47FD62875E2B42D
  * @st_funcID		LCCM655R0.FILE.018.FUNC.002
  */
 void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint16 ePacketType, Luint16 u16DestPort, Luint16 u16Fault)
@@ -514,7 +514,13 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 			case NET_PKT__FCU_FLT__SELECT_TRACK_DB:
 				#if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
+
+					//selet the new track
 					vFCU_FCTL_TRACKDB__Set_CurrentDB(u32Block[0], u32Block[1]);
+
+					//update / reload the data
+					vFCU_FCTL__Config_From_Database();
+
 				#endif
 				break;
 

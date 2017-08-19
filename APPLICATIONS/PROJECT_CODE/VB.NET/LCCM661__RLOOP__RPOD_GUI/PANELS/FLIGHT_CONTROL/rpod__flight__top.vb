@@ -28,6 +28,7 @@
         ''' Mission control page
         ''' </summary>
         Private m_pnlFlight__Mission As SIL3.rLoop.rPodControl.Panels.FlightControl.Mission
+        Private m_pnlFlight__Navigation As SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation
 
         ''' <summary>
         ''' Total system fault flags
@@ -133,6 +134,7 @@
 
             Me.m_iBarIndex = Me.m_pExplorer.Bar__Add("Flight Control")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Mission")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Navigation")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "SpaceX Telemetry")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Pod Health + Fault Flags")
 
@@ -156,6 +158,8 @@
             'add the panels before the bar so as we have docking working well.
             Me.m_pnlFlight__Mission = New SIL3.rLoop.rPodControl.Panels.FlightControl.Mission("Mission", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__Mission)
+            Me.m_pnlFlight__Navigation = New SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation("Navigation", Me.m_sLogDir)
+            pf.Controls.Add(Me.m_pnlFlight__Navigation)
 
             Me.m_pnlFlight__SpaceX = New SIL3.rLoop.rPodControl.Panels.FlightControl.SpaceX("SpaceX Telemetry", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__SpaceX)
@@ -201,6 +205,7 @@
 			
             'setup the eth
             AddHandler Me.m_pnlFlight__Mission.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
+            AddHandler Me.m_pnlFlight__Navigation.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__SpaceX.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__FaultFlags.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
             AddHandler Me.m_pnlFlight__Accel.UserEvent__SafeUDP__Tx_X4, AddressOf Me.InternalEvent__SafeUDP__Tx_X4
@@ -259,6 +264,7 @@
         ''' <remarks></remarks>
         Private Sub LinkBar_LinkClick(ByVal sText As String)
             Me.m_pnlFlight__Mission.Panel__HideShow(sText)
+            Me.m_pnlFlight__Navigation.Panel__HideShow(sText)
             Me.m_pnlFlight__SpaceX.Panel__HideShow(sText)
             Me.m_pnlFlight__FaultFlags.Panel__HideShow(sText)
             Me.m_pnlFlight__Accel.Panel__HideShow(sText)
@@ -314,9 +320,8 @@
         ''' <param name="u32Sequence"></param>
         Public Sub InternalEvent__UDPSafe__RxPacketB(u16PacketType As UInt16, ByVal u16PayloadLength As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByRef u8Payload() As Byte, ByVal u16CRC As LAPP188__RLOOP__LIB.SIL3.Numerical.U16, ByVal bCRC_OK As Boolean, ByVal u32Sequence As UInt32)
             Me.m_pnlFlight__Mission.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
+            Me.m_pnlFlight__Navigation.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
             Me.m_pnlFlight__FaultFlags.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
-
-
             Me.m_pnlFlight__Accel.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
             Me.m_pnlFlight__ASI.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)
             Me.m_pnlFlight__Contrast.InernalEvent__UDPSafe__RxPacketB(u16PacketType, u16PayloadLength, u8Payload, u16CRC)

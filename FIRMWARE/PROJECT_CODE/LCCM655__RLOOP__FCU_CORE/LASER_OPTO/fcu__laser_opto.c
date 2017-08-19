@@ -137,7 +137,7 @@ void vFCU_LASEROPTO__Init(void)
  * @brief
  * Process any laser opto tasks
  * 
- * @st_funcMD5		8EFE61E3DF3A87B20FE282AEC922686C
+ * @st_funcMD5		E5ED40BBFD36575488778EB5A13815A0
  * @st_funcID		LCCM655R0.FILE.021.FUNC.002
  */
 void vFCU_LASEROPTO__Process(void)
@@ -387,7 +387,7 @@ void vFCU_LASEROPTO__Process(void)
  * @param[in]		u8Enable			1 = enable
  * @param[in]		u32Key2				Second Key
  * @param[in]		u32Key1				First Key
- * @st_funcMD5		642B56910936A715E8ABCE4609418B1C
+ * @st_funcMD5		5994AFFA974AAC0CEF98FBCAD2494E84
  * @st_funcID		LCCM655R0.FILE.021.FUNC.010
  */
 void vFCU_LASEROPTO__Enable_Ethernet_Injection(Luint32 u32Key1, Luint32 u32Key2, Luint8 u8Enable)
