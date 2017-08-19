@@ -464,7 +464,7 @@ void vFCU_LASERDIST__Process_Packet(void)
     f32Delta -= sFCU.sLaserDist.s32Velocity_mms;
 
     //100hz
-    f32Delta *= .1F;
+    f32Delta *= .01F;
 
     //do it.
     sFCU.sLaserDist.s32Accel_mmss = (Lint32)f32Delta;
@@ -472,8 +472,7 @@ void vFCU_LASERDIST__Process_Packet(void)
 	//save prev
 	sFCU.sLaserDist.s32PrevDistance_mm = sFCU.sLaserDist.s32Distance_mm;
 	sFCU.sLaserDist.s32PrevVelocity_mms = sFCU.sLaserDist.s32Velocity_mms;
-  sFCU.sLaserDist.s32PrevAccel_mmss = sFCU.sLaserDist.s32Accel_mmss;
-
+	sFCU.sLaserDist.s32PrevAccel_mmss = sFCU.sLaserDist.s32Accel_mmss;
 
 }
 
@@ -589,18 +588,29 @@ void vFCU_LASERDIST__Process_Packet_ASCII(void)
 		f32Delta = (Lfloat32)sFCU.sLaserDist.s32PrevDistance_mm;
 		f32Delta -= sFCU.sLaserDist.s32Distance_mm;
 
-		//100Hz
-		f32Delta *= .01F;
+		//50Hz
+		f32Delta *= .02F;
 
 		//do it.
 		sFCU.sLaserDist.s32Velocity_mm_s = (Lint32)f32Delta;
 
+		//////////////////
+	    //compute accel
+	    f32Delta = sFCU.sLaserDist.s32Velocity_mms;
+	    f32Delta -= (Lfloat32)sFCU.sLaserDist.s32PrevVelocity_mms;
+
+	    //50hz
+	    f32Delta *= .02F;
+
+	    //do it.
+	    sFCU.sLaserDist.s32Accel_mmss = (Lint32)f32Delta;
+
 		//save prev
 		sFCU.sLaserDist.s32PrevDistance_mm = sFCU.sLaserDist.s32Distance_mm;
-		sFCU.sLaserDist.s32PrevVelocity_mm_s = sFCU.sLaserDist.s32Velocity_mm_s;
+		sFCU.sLaserDist.s32PrevVelocity_mms = sFCU.sLaserDist.s32Velocity_mms;
+		sFCU.sLaserDist.s32PrevAccel_mmss = sFCU.sLaserDist.s32Accel_mmss;
+
 	}
-
-
 }
 
 
