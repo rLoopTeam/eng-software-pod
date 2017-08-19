@@ -136,11 +136,11 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_CurrentDB(void)
 }
 
 
-//Use accelerometers option?
 /***************************************************************************//**
  * @brief
- * ToDo
+ * Use accelerometers option?
  * 
+ * @st_funcMD5		47FF4E89A2B51DD87321DC6EF545998A
  * @st_funcID		LCCM655R0.FILE.084.FUNC.015
  */
 Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void)
