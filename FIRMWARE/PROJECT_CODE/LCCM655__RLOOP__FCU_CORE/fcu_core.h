@@ -1276,8 +1276,8 @@
         		void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms);
 
         		// Helper functions for executing interlock commands
-        		void unlock_pod_interlock_command(E_POD_COMMAND_T command);
-        		void attempt_pod_interlock_command(E_POD_COMMAND_T command);
+        		void unlock_pod_interlock_command(TE_POD_COMMAND_T command);
+        		void attempt_pod_interlock_command(TE_POD_COMMAND_T command);
 
 
                 //  Pod guard/check functions 
