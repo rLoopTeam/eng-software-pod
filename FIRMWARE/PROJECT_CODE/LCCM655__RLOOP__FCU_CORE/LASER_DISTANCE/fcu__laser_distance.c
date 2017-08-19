@@ -97,7 +97,7 @@ void vFCU_LASERDIST__Process_Packet(void);
  * @brief
  * Init any of the laser distance items
  * 
- * @st_funcMD5		FCC72DBDF50BF7A9B8218E9DE78B2C2B
+ * @st_funcMD5		A7E0792439C45DE8B1C6853C1AF2D712
  * @st_funcID		LCCM655R0.FILE.033.FUNC.001
  */
 void vFCU_LASERDIST__Init(void)

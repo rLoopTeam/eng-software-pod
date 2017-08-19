@@ -285,6 +285,9 @@ void vFCU_ACCEL__Process(void)
 
 				//done with the sample now
 				vSIL3_MMA8451__Clear_NewSampleReady(u8Counter);
+
+				sFCU.sAccel.sChannels[u8Counter].u8NewSampleAvail = 1U;
+
 			}
 			else
 			{
@@ -301,6 +304,23 @@ void vFCU_ACCEL__Process(void)
 	//process the thresholding detection
 	vFCU_ACCEL_THRESH__Process();
 
+}
+
+Luint8 u8FCU_ACCEL__Get_New_Sample_Avail(Luint8 u8Channel)
+{
+	return sFCU.sAccel.sChannels[u8Channel].u8NewSampleAvail;
+}
+
+void vFCU_ACCEL__Clear_New_Sample_Avail(Luint8 u8Channel)
+{
+	if(u8Channel < C_LOCALDEF__LCCM418__NUM_DEVICES)
+	{
+		sFCU.sAccel.sChannels[u8Channel].u8NewSampleAvail = 0U;
+	}
+	else
+	{
+		//error
+	}
 }
 
 

@@ -62,6 +62,9 @@
 				/** The navigation state machine */
 				TE_NAV_SM__TYPES sStateMachine;
 
+				/** Is there a new navigation value available */
+				Luint8 u8NewSampleAvail;
+
 				/** Calculated Values */
 				struct
 				{
@@ -1487,6 +1490,8 @@
 		void vFCU_ACCEL__Init(void);
 		void vFCU_ACCEL__Process(void);
 		void vFCU_ACCEL__10MS_ISR(void);
+		Luint8 u8FCU_ACCEL__Get_New_Sample_Avail(Luint8 u8Channel);
+		void vFCU_ACCEL__Clear_New_Sample_Avail(Luint8 u8Channel);
 		Lint16 s16FCU_ACCEL__Get_LastSample(Luint8 u8Index, Luint8 u8Axis);
 		Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis);
 		DLL_DECLARATION Lint32 s32FCU_ACCELL__Get_CurrentAccel_mmss(Luint8 u8Channel);
@@ -1512,6 +1517,9 @@
 			Lint32 sFCU_ACCEL_VALID__Get_Velocity_mm_s(void);
 			Lint32 sFCU_ACCEL_VALID__Get_Displacement_mm(void);
 			void vFCU_ACCEL_VALID__Enable(Luint8 u8Enable);
+			Luint8 u8FCU_ACCEL_VALID__Get_New_Sample_Avail(void);
+			void vFCU_ACCEL_VALID__Clear_NewSample_Avail(void);
+
 
 			//win32
 			void vFCU_ACCEL_WIN32__Set_Raw(Luint8 u8DeviceIndex, Luint8 u8ChannelIndex, Lint32 s32Value);
