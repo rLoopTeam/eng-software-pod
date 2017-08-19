@@ -60,7 +60,7 @@
         /** Keep this as the last item */
         POD_COMMAND__NUM_COMMANDS
 
-    }TE_POD_COMMAND_T;
+    }TTE_POD_COMMAND_T;
 
 
 #endif /* __FLIGHT_CONTROLLER__STATE_TYPES_H_ */

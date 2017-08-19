@@ -79,7 +79,7 @@ void handle_POD_STATE__INIT_transitions()
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__INIT;
-	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
+	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -103,7 +103,7 @@ void handle_POD_STATE__IDLE_transitions()
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__IDLE;
-	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
+	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -156,7 +156,7 @@ void handle_POD_STATE__TEST_MODE_transitions()
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__TEST_MODE;
-	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
+	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -183,7 +183,7 @@ void handle_POD_STATE__DRIVE_transitions()
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__DRIVE;
-	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
+	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -210,7 +210,7 @@ void handle_POD_STATE__ARMED_WAIT_transitions()
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__ARMED_WAIT;
-	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
+	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -250,7 +250,7 @@ void handle_POD_STATE__FLIGHT_PREP_transitions()
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__FLIGHT_PREP;
-	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
+	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -290,7 +290,7 @@ void handle_POD_STATE__READY_transitions()
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__READY;
-	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
+	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -330,7 +330,7 @@ void handle_POD_STATE__ACCEL_transitions()
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__ACCEL;
-	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
+	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -367,7 +367,7 @@ void handle_POD_STATE__COAST_INTERLOCK_transitions()
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__COAST_INTERLOCK;
-	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
+	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check timeouts (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -390,7 +390,7 @@ void handle_POD_STATE__BRAKE_transitions()
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__BRAKE;
-	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
+	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )
@@ -426,7 +426,7 @@ void handle_POD_STATE__SPINDOWN_transitions()
 
 	// Convenience
 	TE_POD_STATE_T state = POD_STATE__SPINDOWN;
-	E_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
+	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
 	if ( ! sm_transitioning(sm) )

@@ -63,7 +63,7 @@ void vFCU_FCTL_MAINSM__Init(void)
 	for(Luint8 u8Counter = 0U; u8Counter < E_POD_COMMAND_N; u8Counter++)
 	{
 		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
-		init_interlock_command( &sFCU.sStateMachine.command_interlocks[ (E_POD_COMMAND_T)u8Counter ], 10 * 1000 );
+		init_interlock_command( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
 	}
 
 }
@@ -446,7 +446,7 @@ void vFCU_FCTL_MAINSM__100MS_ISR(void)
 	for(Luint8 u8Counter = 0U; u8Counter < E_POD_COMMAND_N; u8Counter++)
 	{
 		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
-		init_interlock_command( &sFCU.sStateMachine.command_interlocks[ (E_POD_COMMAND_T)u8Counter ], 10 * 1000 );
+		init_interlock_command( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
 	}
 
 }
@@ -571,13 +571,13 @@ void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms)
 
 
 // Interlock command integration functions (depends on sFCU and state machine -- the functions above do not)
-void unlock_pod_interlock_command(E_POD_COMMAND_T command)
+void unlock_pod_interlock_command(TE_POD_COMMAND_T command)
 {
 	// @todo: unlock the command
 	interlock_command_enable(&sFCU.sStateMachine.command_interlocks[command]);
 }
 
-void attempt_pod_interlock_command(E_POD_COMMAND_T command)
+void attempt_pod_interlock_command(TE_POD_COMMAND_T command)
 {
 	// Attempt to execute the command (provided that the interlock timeout has not expired)
 	switch(command)
