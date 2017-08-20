@@ -574,6 +574,7 @@ void vFCU_LASERDIST__Process_Packet_ASCII(void)
 	if(u32Distance == 0){
 		//u32Distance == 0 error
 		sFCU.sLaserDist.sFaultFlags.u32Flags[0] = 1U;
+		sFCU.sLaserDist.u32Counter__BadDistance++;
 	}
 	else{
 		// all good, clear error flag

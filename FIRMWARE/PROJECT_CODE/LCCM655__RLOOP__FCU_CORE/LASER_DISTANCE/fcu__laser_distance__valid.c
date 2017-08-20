@@ -24,7 +24,7 @@ void vFCU_LASERDIST_VALID__Process(void)
 	{
 		//we are good to go
 
-		//todo: check the sensor range
+		//check the sensor range
 		if(sFCU.sLaserDist.s32Distance_mm < 130000)
 		{
 			//if the range is good, apply the current dat
