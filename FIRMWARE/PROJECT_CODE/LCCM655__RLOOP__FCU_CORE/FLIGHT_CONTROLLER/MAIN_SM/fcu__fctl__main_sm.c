@@ -420,6 +420,8 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 	}// switch(sFCU.sStateMachine.sm.state)
    
+	// Clear any command that may have been set for this loop
+	vFCU_FCTL_MAINSM__Clear_Command();
 
 }
 
@@ -584,6 +586,16 @@ Luint8 interlock_command_can_execute(strInterlockCommand *ic)
 	}
 	else
 	{
+#ifdef WIN32
+		if (expired)
+		{
+			DEBUG_PRINT("Can not execute interlock command: timeout expired.");
+		}
+		else
+		{
+			DEBUG_PRINT("Can not execute interlock command: command not enabled.");
+		}
+#endif
 		can_execute = 0;
 	}
 
@@ -596,6 +608,7 @@ void interlock_command_reset(strInterlockCommand *ic)
 {
 	// Reset the timeout (stop it and set the elapsed time to 0)
 	timeout_reset(&ic->commandTimeout);
+	ic->enabled = 0;
 }
 
 // Call this in one of our timer ISRs. Ok to call this since the timeout has to be started for the update to have any effect. 
@@ -641,13 +654,15 @@ Luint8 attempt_pod_interlock_command(TE_POD_COMMAND_T command)
 				cmd_POD_COMMAND__READY();
 				break;
 			default:
-				// do nothing
+				// Do nothing
 				break;
 		}
 		command_sent = 1U;
 	}
 	else
-	{
+	{	
+		// Reset the interlock command (note that this does not restart the timer)
+		interlock_command_reset(&sFCU.sStateMachine.command_interlocks[command]);
 		command_sent = 0U;
 	}
 	return command_sent;
@@ -703,6 +718,13 @@ Luint8 u8FCU_FCTL_MAINSM__Check_IsTransitioning(const TS_FCTL__STATE_MACHINE_T *
 
 	return u8Return;
 }
+
+
+void vFCU_FCTL_MAINSM__Clear_Command()
+{
+	sFCU.sStateMachine.command.command = POD_COMMAND__NO_COMMAND;
+}
+
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 #ifndef C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
