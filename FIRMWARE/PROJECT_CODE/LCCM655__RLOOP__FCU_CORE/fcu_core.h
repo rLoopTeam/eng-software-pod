@@ -1225,6 +1225,7 @@
 				Luint8 u8FCU_FCTL_MAINSM__Check_IsEntering(const TS_FCTL__STATE_MACHINE_T *cpSM, TE_POD_STATE_T eTestState);
 				Luint8 u8FCU_FCTL_MAINSM__Check_IsExiting(const TS_FCTL__STATE_MACHINE_T *cpSM, TE_POD_STATE_T eTestState);
 				Luint8 u8FCU_FCTL_MAINSM__Check_IsTransitioning(const TS_FCTL__STATE_MACHINE_T *cpSM);
+				void vFCU_FCTL_MAINSM__Clear_Command();
 
 
         		// General Timer and timeouts
@@ -1245,7 +1246,10 @@
 
         		// Helper functions for executing interlock commands
         		void unlock_pod_interlock_command(TE_POD_COMMAND_T command);
-        		void attempt_pod_interlock_command(TE_POD_COMMAND_T command);
+        		Luint8 attempt_pod_interlock_command(TE_POD_COMMAND_T command);
+#ifdef WIN32
+				void vWIN32_DEBUG_PRINT__CommandNotAllowed(TE_POD_COMMAND_T command);
+#endif
 
 
                 //  Pod guard/check functions 

@@ -420,6 +420,8 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 	}// switch(sFCU.sStateMachine.sm.state)
    
+	// Clear any command that may have been set for this loop
+	vFCU_FCTL_MAINSM__Clear_Command();
 
 }
 
@@ -479,11 +481,10 @@ void vFCU_FCTL_MAINSM__100MS_ISR(void)
 
 
 	// Update interlock command timeouts
-	// Initialize our commands. They're all interlock commands, so we'll just do them in a loop
 	for(u8Counter = 0U; u8Counter < (Luint8)POD_COMMAND__NUM_COMMANDS; u8Counter++)
 	{
-		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
-		init_interlock_command( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
+		// Add 100ms to our interlock command timeout elapsed time
+		interlock_command_update_timeout( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 100 );
 	}
 
 }
@@ -534,7 +535,7 @@ void timeout_ensure_started(strTimeout *timeout)
 
 Luint8 timeout_expired(strTimeout *timeout)
 {
-	return timeout->elapsed_ms >= timeout->duration_ms;
+	return timeout->elapsed_ms > timeout->duration_ms;
 }
 
 void timeout_update(strTimeout *timeout, Luint32 elapsed_ms)
@@ -576,17 +577,28 @@ void interlock_command_enable(strInterlockCommand *ic)
 // Call this when the second packet is received to check whether the command can execute (i.e. timeout has not expired)
 Luint8 interlock_command_can_execute(strInterlockCommand *ic)
 {
-	Luint8 can_execute;
-	
-	// Note: I know this is not great code style but under time crunch	
-	if (ic->enabled && ! timeout_expired(&ic->commandTimeout) )
+	Luint8 can_execute = 0;
+	Luint8 expired = timeout_expired(&ic->commandTimeout);
+	Luint8 enabled = ic->enabled == 1;
+	if (enabled == 1 && expired != 1)
 	{
 		can_execute = 1;
-	} 
-	else 
-	{
-		can_execute = 0U;
 	}
+	else
+	{
+#ifdef WIN32
+		if (expired)
+		{
+			DEBUG_PRINT("Can not execute interlock command: timeout expired.");
+		}
+		else
+		{
+			DEBUG_PRINT("Can not execute interlock command: command not enabled.");
+		}
+#endif
+		can_execute = 0;
+	}
+
 	return can_execute;
 }
 
@@ -596,6 +608,7 @@ void interlock_command_reset(strInterlockCommand *ic)
 {
 	// Reset the timeout (stop it and set the elapsed time to 0)
 	timeout_reset(&ic->commandTimeout);
+	ic->enabled = 0;
 }
 
 // Call this in one of our timer ISRs. Ok to call this since the timeout has to be started for the update to have any effect. 
@@ -614,34 +627,45 @@ void unlock_pod_interlock_command(TE_POD_COMMAND_T command)
 	interlock_command_enable(&sFCU.sStateMachine.command_interlocks[command]);
 }
 
-void attempt_pod_interlock_command(TE_POD_COMMAND_T command)
+Luint8 attempt_pod_interlock_command(TE_POD_COMMAND_T command)
 {
+	Luint8 command_sent = 0U;
 	// Attempt to execute the command (provided that the interlock timeout has not expired)
-	switch(command)
+	if (interlock_command_can_execute(&sFCU.sStateMachine.command_interlocks[command]) == 1)
 	{
-		case POD_COMMAND__IDLE:
-			cmd_POD_COMMAND__IDLE();
-			break;
-		case POD_COMMAND__TEST_MODE:
-			cmd_POD_COMMAND__TEST_MODE();
-			break;
-		case POD_COMMAND__DRIVE:
-			cmd_POD_COMMAND__DRIVE();
-			break;
-		case POD_COMMAND__FLIGHT_PREP:
-			cmd_POD_COMMAND__FLIGHT_PREP();
-			break;
-		case POD_COMMAND__ARMED_WAIT:
-			cmd_POD_COMMAND__ARMED_WAIT();
-			break;
-		case POD_COMMAND__READY:
-			cmd_POD_COMMAND__READY();
-			break;
-		default:
-			// do nothing
-			break;
+		switch (command)
+		{
+			case POD_COMMAND__IDLE:
+				cmd_POD_COMMAND__IDLE();
+				break;
+			case POD_COMMAND__TEST_MODE:
+				cmd_POD_COMMAND__TEST_MODE();
+				break;
+			case POD_COMMAND__DRIVE:
+				cmd_POD_COMMAND__DRIVE();
+				break;
+			case POD_COMMAND__FLIGHT_PREP:
+				cmd_POD_COMMAND__FLIGHT_PREP();
+				break;
+			case POD_COMMAND__ARMED_WAIT:
+				cmd_POD_COMMAND__ARMED_WAIT();
+				break;
+			case POD_COMMAND__READY:
+				cmd_POD_COMMAND__READY();
+				break;
+			default:
+				// Do nothing
+				break;
+		}
+		command_sent = 1U;
 	}
-
+	else
+	{	
+		// Reset the interlock command (note that this does not restart the timer)
+		interlock_command_reset(&sFCU.sStateMachine.command_interlocks[command]);
+		command_sent = 0U;
+	}
+	return command_sent;
 }
 
 // Determine if we've just entered test_state on this step (a step is a go-round of the main loop)
@@ -694,6 +718,13 @@ Luint8 u8FCU_FCTL_MAINSM__Check_IsTransitioning(const TS_FCTL__STATE_MACHINE_T *
 
 	return u8Return;
 }
+
+
+void vFCU_FCTL_MAINSM__Clear_Command()
+{
+	sFCU.sStateMachine.command.command = POD_COMMAND__NO_COMMAND;
+}
+
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 #ifndef C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
