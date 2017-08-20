@@ -93,16 +93,6 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 			/** Pod Health System */
 			#define C_LOCALDEF__LCCM655__ENABLE_POD_HEALTH						(1U)
 
-
-			/** Hover Engine Control */
-			#define C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL			(1U)
-
-			/** Drive Pod Control */
-			#define C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL				(1U)
-
-			/** Eddy Brakes Control */
-			#define C_LOCALDEF__LCCM655__ENABLE_EDDY_BRAKES						(1U)
-
 			/** Lift Mechanism Control */
 			#define C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL				(1U)
 

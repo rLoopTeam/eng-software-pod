@@ -13,54 +13,54 @@ extern struct _strFCU sFCU;
 //  Pod transition and command guard functions
 /////////////////////////////////////////////////////////////////////
 
-Luint8 pod_init_complete()
+Luint8 pod_init_complete(void)
 {
 	return sFCU.eInitStates == INIT_STATE__RUN;
 }
 
-Luint8 armed_wait_checks_ok()
+Luint8 armed_wait_checks_ok(void)
 {
 	// @todo: implement
 	return 0U;
 }
 
-Luint8 drive_checks_ok()
+Luint8 drive_checks_ok(void)
 {
 	// @todo: implement
 	return 0U;
 }
 
-Luint8 flight_prep_checks_ok()
+Luint8 flight_prep_checks_ok(void)
 {
 	// @todo: implement
 	return 0U;
 }
 
-Luint8 flight_readiness_checks_ok()
+Luint8 flight_readiness_checks_ok(void)
 {
 	// @todo: implement
 	return 0U;
 }
 
-Luint8 accel_confirmed()
+Luint8 accel_confirmed(void)
 {
 	// @todo: implement
 	return 0U;
 }
 
-Luint8 pusher_separation_confirmed()
+Luint8 pusher_separation_confirmed(void)
 {
 	// @todo: implement
 	return 0U;
 }
 
-Luint8 pod_stop_confirmed()
+Luint8 pod_stop_confirmed(void)
 {
 	// @todo: implement
 	return 0U;
 }
 
-Luint8 spindown_complete_confirmed()
+Luint8 spindown_complete_confirmed(void)
 {
 	// @todo: implement
 	return 0U;
@@ -72,14 +72,10 @@ Luint8 spindown_complete_confirmed()
 /////////////////////////////////////////////////////////////////////
 
 
-void handle_POD_STATE__INIT_transitions()
+void vFCU_FCTL_MAINSM_XSN__POD_STATE__INIT(void)
 {
 
 	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
-
-	// Convenience
-	TE_POD_STATE_T state = POD_STATE__INIT;
-	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
@@ -97,19 +93,16 @@ void handle_POD_STATE__INIT_transitions()
 
 }
 
-void handle_POD_STATE__IDLE_transitions()
+void vFCU_FCTL_MAINSM_XSN__POD_STATE__IDLE()
 {
 	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
 
-	// Convenience
-	TE_POD_STATE_T state = POD_STATE__IDLE;
-	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
-
 	// Check commands (if we aren't already transitioning)
-	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
+	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
 		// Handle commands
-		switch(command) {
+		switch(sFCU.sStateMachine.command.command)
+		{
 			
 			case POD_COMMAND__TEST_MODE:
 				sm->eCurrentState = POD_STATE__TEST_MODE;
@@ -155,46 +148,15 @@ void handle_POD_STATE__IDLE_transitions()
 
 }
 
-void handle_POD_STATE__TEST_MODE_transitions()
+void vFCU_FCTL_MAINSM_XSN__POD_STATE__TEST_MODE()
 {
 	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
 
-	// Convenience
-	TE_POD_STATE_T state = POD_STATE__TEST_MODE;
-	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
-
 	// Check commands (if we aren't already transitioning)
-	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
+	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
 		// Handle commands
-		switch(command) {
-			
-			case POD_COMMAND__IDLE:
-				sm->eCurrentState = POD_STATE__IDLE;
-				break;
-		
-			default:
-				// Nothing to do
-				break;
-		}
-	}
-	
-
-}
-
-void handle_POD_STATE__DRIVE_transitions()
-{
-	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
-
-	// Convenience
-	TE_POD_STATE_T state = POD_STATE__DRIVE;
-	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
-
-	// Check commands (if we aren't already transitioning)
-	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
-	{
-		// Handle commands
-		switch(command)
+		switch(sFCU.sStateMachine.command.command)
 		{
 			
 			case POD_COMMAND__IDLE:
@@ -210,19 +172,40 @@ void handle_POD_STATE__DRIVE_transitions()
 
 }
 
-void handle_POD_STATE__ARMED_WAIT_transitions()
+void vFCU_FCTL_MAINSM_XSN__POD_STATE__DRIVE(void)
 {
 	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
 
-	// Convenience
-	TE_POD_STATE_T state = POD_STATE__ARMED_WAIT;
-	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
-
 	// Check commands (if we aren't already transitioning)
-	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
+	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
 		// Handle commands
-		switch(command) {
+		switch(sFCU.sStateMachine.command.command)
+		{
+			
+			case POD_COMMAND__IDLE:
+				sm->eCurrentState = POD_STATE__IDLE;
+				break;
+		
+			default:
+				// Nothing to do
+				break;
+		}
+	}
+	
+
+}
+
+void vFCU_FCTL_MAINSM_XSN__POD_STATE__ARMED_WAIT(void)
+{
+	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
+
+	// Check commands (if we aren't already transitioning)
+	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
+	{
+		// Handle commands
+		switch(sFCU.sStateMachine.command.command)
+		{
 			
 			case POD_COMMAND__IDLE:
 				sm->eCurrentState = POD_STATE__IDLE;
@@ -250,19 +233,16 @@ void handle_POD_STATE__ARMED_WAIT_transitions()
 
 }
 
-void handle_POD_STATE__FLIGHT_PREP_transitions()
+void vFCU_FCTL_MAINSM_XSN__POD_STATE__FLIGHT_PREP(void)
 {
 	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
 
-	// Convenience
-	TE_POD_STATE_T state = POD_STATE__FLIGHT_PREP;
-	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
-
 	// Check commands (if we aren't already transitioning)
-	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
+	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
 		// Handle commands
-		switch(command) {
+		switch(sFCU.sStateMachine.command.command)
+		{
 			
 			case POD_COMMAND__ARMED_WAIT:
 				sm->eCurrentState = POD_STATE__ARMED_WAIT;
@@ -290,19 +270,15 @@ void handle_POD_STATE__FLIGHT_PREP_transitions()
 
 }
 
-void handle_POD_STATE__READY_transitions()
+void vFCU_FCTL_MAINSM_XSN__POD_STATE__READY(void)
 {
 	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
-
-	// Convenience
-	TE_POD_STATE_T state = POD_STATE__READY;
-	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check commands (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
 		// Handle commands
-		switch(command)
+		switch(sFCU.sStateMachine.command.command)
 		{
 			
 			case POD_COMMAND__FLIGHT_PREP:
@@ -343,14 +319,10 @@ void handle_POD_STATE__READY_transitions()
 
 }
 
-void handle_POD_STATE__ACCEL_transitions()
+void vFCU_FCTL_MAINSM_XSN__POD_STATE__ACCEL(void)
 {
 	Luint8 u8Test;
 	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
-
-	// Convenience
-	TE_POD_STATE_T state = POD_STATE__ACCEL;
-	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
@@ -383,7 +355,7 @@ void handle_POD_STATE__ACCEL_transitions()
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
 		// If our ACCEL backup timeout has expired, automatically go to COAST_INTERLOCK
-		if(u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.pAccel_To_Coast) )
+		if(u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max) )
 		{
 			sm->eCurrentState = POD_STATE__COAST_INTERLOCK;
 		} 
@@ -399,18 +371,14 @@ void handle_POD_STATE__ACCEL_transitions()
 
 }
 
-void handle_POD_STATE__COAST_INTERLOCK_transitions()
+void vFCU_FCTL_MAINSM_XSN__POD_STATE__COAST_INTERLOCK(void)
 {
 	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
 
-	// Convenience
-	TE_POD_STATE_T state = POD_STATE__COAST_INTERLOCK;
-	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
-
 	// Check timeouts (if we aren't already transitioning)
-	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
+	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if ( u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.pCoast_To_Brake) )
+		if(u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.pCoast_To_Brake) == 1U)
 		{
 			sm->eCurrentState = POD_STATE__BRAKE;
 		} 
@@ -422,16 +390,12 @@ void handle_POD_STATE__COAST_INTERLOCK_transitions()
 
 }
 
-void handle_POD_STATE__BRAKE_transitions()
+void vFCU_FCTL_MAINSM_XSN__POD_STATE__BRAKE()
 {
 	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
 
-	// Convenience
-	TE_POD_STATE_T state = POD_STATE__BRAKE;
-	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
-
 	// Check conditionals (if we aren't already transitioning)
-	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
+	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
 		if ( pod_stop_confirmed() )
 		{
@@ -444,9 +408,9 @@ void handle_POD_STATE__BRAKE_transitions()
 	}
 
 	// Check timeouts (if we aren't already transitioning)
-	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
+	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if ( u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout) )
+		if(u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout) == 1U)
 		{
 			sm->eCurrentState = POD_STATE__SPINDOWN;
 		} 
@@ -458,16 +422,12 @@ void handle_POD_STATE__BRAKE_transitions()
 
 }
 
-void handle_POD_STATE__SPINDOWN_transitions()
+void vFCU_FCTL_MAINSM_XSN__POD_STATE__SPINDOWN(void)
 {
 	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
 
-	// Convenience
-	TE_POD_STATE_T state = POD_STATE__SPINDOWN;
-	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
-
 	// Check conditionals (if we aren't already transitioning)
-	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
+	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
 		if ( spindown_complete_confirmed() )
 		{
@@ -480,9 +440,9 @@ void handle_POD_STATE__SPINDOWN_transitions()
 	}
 
 	// Check timeouts (if we aren't already transitioning)
-	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
+	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if ( u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout) )
+		if(u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout) == 1U)
 		{
 			sm->eCurrentState = POD_STATE__IDLE;
 		} 
@@ -494,76 +454,6 @@ void handle_POD_STATE__SPINDOWN_transitions()
 
 }
 
-
-/////////////////////////////////////////////////////////////////////
-//  Pod command functions
-/////////////////////////////////////////////////////////////////////
-
-void cmd_POD_COMMAND__IDLE()
-{
-	#if DEBUG == 1U
-		printf("cmd_POD_COMMAND__IDLE() called\n");
-	#endif
-	
-	strPodCmd * cmd = &sFCU.sStateMachine.command;
-	cmd->command = POD_COMMAND__IDLE;
-
-}
-
-void cmd_POD_COMMAND__TEST_MODE()
-{
-	#if DEBUG == 1U
-		printf("cmd_POD_COMMAND__TEST_MODE() called\n");
-	#endif
-	
-	strPodCmd * cmd = &sFCU.sStateMachine.command;
-	cmd->command = POD_COMMAND__TEST_MODE;
-
-}
-
-void cmd_POD_COMMAND__DRIVE()
-{
-	#if DEBUG == 1U
-		printf("cmd_POD_COMMAND__DRIVE() called\n");
-	#endif
-	
-	strPodCmd * cmd = &sFCU.sStateMachine.command;
-	cmd->command = POD_COMMAND__DRIVE;
-
-}
-
-void cmd_POD_COMMAND__FLIGHT_PREP()
-{
-	#if DEBUG == 1U
-		printf("cmd_POD_COMMAND__FLIGHT_PREP() called\n");
-	#endif
-	
-	strPodCmd * cmd = &sFCU.sStateMachine.command;
-	cmd->command = POD_COMMAND__FLIGHT_PREP;
-
-}
-
-void cmd_POD_COMMAND__ARMED_WAIT()
-{
-	#if DEBUG == 1U
-		printf("cmd_POD_COMMAND__ARMED_WAIT() called\n");
-	#endif
-	
-	strPodCmd * cmd = &sFCU.sStateMachine.command;
-	cmd->command = POD_COMMAND__ARMED_WAIT;
-
-}
-
-void cmd_POD_COMMAND__READY()
-{
-	#if DEBUG == 1U
-		printf("cmd_POD_COMMAND__READY() called\n");
-	#endif
-	
-	strPodCmd * cmd = &sFCU.sStateMachine.command;
-	cmd->command = POD_COMMAND__READY;
-
-}
 
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM

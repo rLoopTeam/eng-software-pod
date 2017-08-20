@@ -164,6 +164,16 @@ Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation(void)
 }
 
 
+Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max(void)
+{
+	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sTime.u8Accel_Coast[0]);
+}
+
+Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Coast_to_Brake(void)
+{
+	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sTime.u8Coast_Brake[0]);
+}
+
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_TRACK_DB
 #ifndef C_LOCALDEF__LCCM655__ENABLE_TRACK_DB
