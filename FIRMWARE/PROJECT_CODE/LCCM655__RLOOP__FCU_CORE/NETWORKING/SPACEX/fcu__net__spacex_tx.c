@@ -130,7 +130,7 @@ void vFCU_NET_SPACEX_TX__Process(void)
                 pu8Return = (Luint8*) u32Buffer;
 
                 //team_id           UINT8           Identifier for the team, assigned by SpaceX. Required.
-                pu8Return[0] = 0x08U;
+                pu8Return[0] = 13U;
                 pu8Return += 1U;
 
                 //status            UINT8           Pod status, indicating current pod health and pushing state, as defined below. Required.

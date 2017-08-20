@@ -112,10 +112,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 		{
 
 			case NET_PKT__FCU_GEN__GS_HEARTBEAT:
-			#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
-				vFCU_FCTL_DRIVEPOD__10MS_ISR();
-			#endif
-			break;
+				break;
 
 			case NET_PKT__FCU_GEN__POD_COMMAND:
 				// Key (unlock or execute), command (from E_POD_COMMAND_T enum)
@@ -228,20 +225,6 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 //					vFCU_FCTL_LIFTMECH__SetDirAll(dir);
 //				#endif
 //				break;
-#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
-			case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE1:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE2:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE3:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE4:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE5:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE6:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE7:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__M_SET_SPEED_HE8:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__STATIC_HOVERING:
-						case 	NET_PKT__FCU_HOVERENGINES_CONTROL__RELEASE_STATIC_HOVERING:
-							vFCU_FLIGHTCTL_HOVERENGINES__SetCommand( (Luint32)ePacketType, u32Block[0]);
-							break;
-#endif //C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL
 
 			case NET_PKT__FCU_LIFTMECH__SET_GROUP_SPEED:
 				//set speed of all mech lift actuators
@@ -257,18 +240,6 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				break;
 
 			case NET_PKT__FCU_GEN__POD_STOP_COMMAND:
-				//Execute Pod Stop Command
-				#if C_LOCALDEF__LCCM655__ENABLE_DRIVEPOD_CONTROL == 1U
-				if(u32Block[0] == 0x1234ABCDU)
-				{
-					//transition to the pod stop phase.
-					vFCU_FCTL_DRIVEPOD__SetPodStopCmd();
-				}
-				else
-				{
-					//maybe should log this error.
-				}
-				#endif
 				break;
 
 			case NET_PKT__FCU_GEN__POD_EMULATION_CONTROL:

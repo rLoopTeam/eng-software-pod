@@ -48,7 +48,7 @@ void vFCU_FCTL_MAINSM__Init(void)
 	// @todo: Move timeout duration values to config/mission profile
 
 	// Accel to Coast Interlock backup timeout
-	vFCU_FCTL_MAINSM_TIMER__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast, 10 * 1000);
+	vFCU_FCTL_MAINSM_TIMER__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max, 10 * 1000);
 
 	// Coast interlock timeout
 	vFCU_FCTL_MAINSM_TIMER__Init(&sFCU.sStateMachine.sTimers.pCoast_To_Brake, 1 * 1000);
@@ -112,7 +112,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_STATE__INIT_transitions();
+			vFCU_FCTL_MAINSM_XSN__POD_STATE__INIT();
 		 
 			if(u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__INIT) == 1U)
 			{
@@ -140,7 +140,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_STATE__IDLE_transitions();
+			vFCU_FCTL_MAINSM_XSN__POD_STATE__IDLE();
 		 
 			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__IDLE)) 
 			{
@@ -167,7 +167,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_STATE__TEST_MODE_transitions();
+			vFCU_FCTL_MAINSM_XSN__POD_STATE__TEST_MODE();
 		 
 			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__TEST_MODE)) 
 			{
@@ -195,7 +195,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_STATE__DRIVE_transitions();
+			vFCU_FCTL_MAINSM_XSN__POD_STATE__DRIVE();
 		 
 			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__DRIVE)) 
 			{
@@ -223,7 +223,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_STATE__ARMED_WAIT_transitions();
+			vFCU_FCTL_MAINSM_XSN__POD_STATE__ARMED_WAIT();
 		 
 			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__ARMED_WAIT)) 
 			{
@@ -239,8 +239,12 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__FLIGHT_PREP:
 		
-			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__FLIGHT_PREP))
+			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__FLIGHT_PREP) == 1U)
 			{
+
+				//During flight prep, we must re-load the track specific data
+				vFCU_FCTL_MAINSM_TIMER__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max, u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max());
+
 				// Perform entering actions
 				#if DEBUG == 1U
 					printf("- %s Entering POD_STATE__FLIGHT_PREP\n", "sFCU.sStateMachine.sm");
@@ -251,9 +255,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_STATE__FLIGHT_PREP_transitions();
+			vFCU_FCTL_MAINSM_XSN__POD_STATE__FLIGHT_PREP();
 		 
-			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__FLIGHT_PREP)) 
+			if(u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__FLIGHT_PREP) == 1U) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
@@ -283,7 +287,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_STATE__READY_transitions();
+			vFCU_FCTL_MAINSM_XSN__POD_STATE__READY();
 		 
 			if(u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__READY) == 1U)
 			{
@@ -310,12 +314,12 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#endif
 
 				// (Re)start the accel backup timeout. If this expires, we will automatically transition to COAST_INTERLOCK (see below)
-				vFCU_FCTL_MAINSM_TIMER__Restart(&sFCU.sStateMachine.sTimers.pAccel_To_Coast);
+				vFCU_FCTL_MAINSM_TIMER__Restart(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max);
 
 			}
 		
 			// Handle transitions
-			handle_POD_STATE__ACCEL_transitions();
+			vFCU_FCTL_MAINSM_XSN__POD_STATE__ACCEL();
 		 
 			if(u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__ACCEL) == 1U) 
 			{
@@ -346,7 +350,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_STATE__COAST_INTERLOCK_transitions();
+			vFCU_FCTL_MAINSM_XSN__POD_STATE__COAST_INTERLOCK();
 		 
 			if(u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__COAST_INTERLOCK) == 1U) 
 			{
@@ -362,7 +366,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__BRAKE:
 		
-			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__BRAKE))
+			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__BRAKE) == 1U)
 			{
 				// Perform entering actions
 				#if DEBUG == 1U
@@ -377,9 +381,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_STATE__BRAKE_transitions();
+			vFCU_FCTL_MAINSM_XSN__POD_STATE__BRAKE();
 		 
-			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__BRAKE)) 
+			if(u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__BRAKE) == 1U) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
@@ -393,7 +397,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__SPINDOWN:
 		
-			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__SPINDOWN))
+			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__SPINDOWN) == 1U)
 			{
 				// Perform entering actions
 				#if DEBUG == 1U
@@ -408,9 +412,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 			}
 		
 			// Handle transitions
-			handle_POD_STATE__SPINDOWN_transitions();
+			vFCU_FCTL_MAINSM_XSN__POD_STATE__SPINDOWN();
 		 
-			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__SPINDOWN)) 
+			if(u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__SPINDOWN) == 1U) 
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
@@ -432,7 +436,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 }
 
 /** Step the state machine -- detect state changes and update sm status */
-void vFCU_FCTL_MAINSM__Step(TS_FCTL__STATE_MACHINE_T* p_sm)
+void vFCU_FCTL_MAINSM__Step(TS_FCTL__STATE_MACHINE_T *p_sm)
 {
 
 	// Update old state and signal that a state change has occurred
@@ -462,7 +466,7 @@ void vFCU_FCTL_MAINSM__Step(TS_FCTL__STATE_MACHINE_T* p_sm)
 void vFCU_FCTL_MAINSM__10MS_ISR(void)
 {
 	/** Accel to Coast Interlock backup timeout */
-	vFCU_FCTL_MAINSM_TIMER__Update_x10ms(&sFCU.sStateMachine.sTimers.pAccel_To_Coast);
+	vFCU_FCTL_MAINSM_TIMER__Update_x10ms(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max);
 
 	/** Coast interlock timeout */
 	vFCU_FCTL_MAINSM_TIMER__Update_x10ms(&sFCU.sStateMachine.sTimers.pCoast_To_Brake);

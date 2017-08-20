@@ -125,8 +125,8 @@
 			}sNavigation;
             #endif
 
+#if 0
 			/** Hover Engines Control Structure */
-			//#if C_LOCALDEF__LCCM655__ENABLE_HOVERENGINES_CONTROL == 1U
 			struct
 			{
 				/** The hover engines state machine */
@@ -151,7 +151,7 @@
 				}sIntParams;
 
 			}sHoverEngines;
-			//#endif
+#endif //0
 
 			/** State Machine Structure **/
 			struct
@@ -170,7 +170,7 @@
 				struct
 				{
 					/** Accel to Coast Interlock backup timeout */
-					TS_FCTL__TIMEOUT_T pAccel_To_Coast;
+					TS_FCTL__TIMEOUT_T pAccel_To_Coast_Max;
 
 					/** Coast interlock timeout */
 					TS_FCTL__TIMEOUT_T pCoast_To_Brake;
@@ -1220,17 +1220,17 @@
                 Luint8 spindown_complete_confirmed();
 
                 //  Pod state transition functions
-                void handle_POD_STATE__INIT_transitions();
-                void handle_POD_STATE__IDLE_transitions();
-                void handle_POD_STATE__TEST_MODE_transitions();
-                void handle_POD_STATE__DRIVE_transitions();
-                void handle_POD_STATE__ARMED_WAIT_transitions();
-                void handle_POD_STATE__FLIGHT_PREP_transitions();
-                void handle_POD_STATE__READY_transitions();
-                void handle_POD_STATE__ACCEL_transitions();
-                void handle_POD_STATE__COAST_INTERLOCK_transitions();
-                void handle_POD_STATE__BRAKE_transitions();
-                void handle_POD_STATE__SPINDOWN_transitions();
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__INIT();
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__IDLE();
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__TEST_MODE();
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__DRIVE();
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__ARMED_WAIT();
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__FLIGHT_PREP();
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__READY();
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__ACCEL();
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__COAST_INTERLOCK();
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__BRAKE();
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__SPINDOWN();
 
                 //  Pod command functions
                 void cmd_POD_COMMAND__IDLE();
@@ -1287,7 +1287,8 @@
 				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Threshold_mm_ss(void);
 				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_ThresholdTime_x10ms(void);
 				Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation(void);
-
+				Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max(void);
+				Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Coast_to_Brake(void);
 
 				//mem
 				void vFCU_FCTL_TRACKDB_MEM__Init(void);

@@ -264,9 +264,6 @@
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BRAKE_PROFILE\fcu__flight_control__brake_profile.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\BRAKE_PROFILE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS\LCCM655R0_TS_006.c">
-      <Filter>LCCM655__RLOOP__FCU_CORE\UNIT_TEST\FUNCTION_ENTRY_TESTS</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST\fcu__laser_cont__ethernet.c">
       <Filter>LCCM655__RLOOP__FCU_CORE\LASER_CONTRAST</Filter>
     </ClCompile>
