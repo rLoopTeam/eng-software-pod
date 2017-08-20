@@ -1245,7 +1245,7 @@
 
         		// Helper functions for executing interlock commands
         		void unlock_pod_interlock_command(TE_POD_COMMAND_T command);
-        		void attempt_pod_interlock_command(TE_POD_COMMAND_T command);
+        		Luint8 attempt_pod_interlock_command(TE_POD_COMMAND_T command);
 
 
                 //  Pod guard/check functions 
