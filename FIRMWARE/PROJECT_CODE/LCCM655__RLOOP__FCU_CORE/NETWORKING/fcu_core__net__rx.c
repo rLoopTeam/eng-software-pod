@@ -124,7 +124,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					// Unlock command
 					if (u32Block[1] >= 0 && u32Block[1] < POD_COMMAND__NUM_COMMANDS)  // Check bounds
 					{
-						unlock_pod_interlock_command((TE_POD_COMMAND_T)u32Block[1]);
+						//unlock_pod_interlock_command((TE_POD_COMMAND_T)u32Block[1]);
 					}
 					else
 					{

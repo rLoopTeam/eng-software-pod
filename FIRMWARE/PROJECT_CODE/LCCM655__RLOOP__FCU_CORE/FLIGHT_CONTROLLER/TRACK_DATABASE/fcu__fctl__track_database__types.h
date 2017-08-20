@@ -108,6 +108,9 @@
 				/** Enable end of run cooling */
 				Luint8 u8UseCooling;
 
+				/** Should we transition from accel to coast on pusher or just timeout?*/
+				Luint8 u8EnablePuserSeparationDetection;
+
 				/** make up to 16*/
 				Luint8 u8Spares[12];
 
@@ -131,11 +134,24 @@
 
 			}sTrack;
 
+			/** Timers */
+			struct
+			{
+
+				/** The time from accel to coast interlock */
+				Luint8 u8Accel_Coast[4];
+
+				/** The time from coast to brake */
+				Luint8 u8Coast_Brake[4];
+
+			}sTime;
+
+
 		}sDB2[C_FCTL_TRACKDB__MAX_MEM_DATABASES];
 
 		//make up to x16 for RM48 alignment
 		//should get zeroed out when WIN32 creates the file
-		Luint8 u8Dummy[16-2-4];
+		Luint8 u8Dummy[16-2-4-4-4];
 
 		//CRC protection
 		Luint8 u8CRC[2];

@@ -64,62 +64,16 @@
         End Sub
 
 
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_TrackID(u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_TrackStartXPos(u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_TrackEndXPos(u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_LRF_StartXPos(u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_NumStripes(u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_StripeStartX(u32Index As UInt32, u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_EnableAccels(u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_EnableLRF(u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_EnableContrast(u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_HeaderSpare(u32Index As UInt32, u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Footer(u32Value As UInt32)
-        'End Sub
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Time__Accel_Coast_x10ms(u8TrackIndex As Byte, u32Value As UInt32)
+        End Sub
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Time__Coast_Brake_x10ms(u8TrackIndex As Byte, u32Value As UInt32)
+        End Sub
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_UsePusherSeparation(u8TrackIndex As Byte, u8Value As Byte)
+        End Sub
 
-        ''profile system
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontStartPos(u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PusherFrontEndPos(u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_PodFrontTargetXPos(u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_NumSetpoints(u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointPosX(u32Index As UInt32, u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_BrakeSetpointVelocityX(u32Index As UInt32, u32Value As UInt32)
-        'End Sub
-        '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Profile_Spare(u32Index As UInt32, u32Value As UInt32)
-        'End Sub
 
 #End Region ' #Region "DLL"
 
@@ -170,6 +124,10 @@
         Private m_txtTrack__End_mm As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
         Private m_txtTrack__Length_mm As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
 
+        'time values
+        Private m_txtTime__Accel_Coast_x10ms As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtTime__Coast_Brake_x10ms As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_chkSM__CheckPuserSeparation As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
 
         ''' <summary>
         ''' The database directory
@@ -262,9 +220,9 @@
                     Me.m_pCSV.Header__Add("TRACK_LENGTH_MM_U32")
 
                     'state machine timers
-                    Me.m_pCSV.Header__Add("SM_SPARE0_U32")
-                    Me.m_pCSV.Header__Add("SM_SPARE1_U32")
-                    Me.m_pCSV.Header__Add("SM_SPARE2_U32")
+                    Me.m_pCSV.Header__Add("TIME_ACCEL_COAST_X10MS_U32")
+                    Me.m_pCSV.Header__Add("TIME_COAST_BRAKE_X10MS_U32")
+                    Me.m_pCSV.Header__Add("SM_CHECK_PUSHER_SEP_U8")
                     Me.m_pCSV.Header__Add("SM_SPARE3_U32")
 
 
@@ -272,6 +230,10 @@
                     'control strategy
                     Me.m_pCSV.Header__Add("BRAKE_USE_PID_U8")
                     Me.m_pCSV.Header__Add("BRAKE_TARGET_DISTANCE_F32")
+
+
+
+
 
                     'save off the new headers
                     Me.m_pCSV.Header__Save()
@@ -342,11 +304,11 @@
                         '"TRACK_LENGTH_MM_U32"
                         pSB.Append("0" & ",")
 
-                        '"SM_SPARE0_U32"
+                        '"TIME_ACCEL_COAST_X10MS_U32"
                         pSB.Append("0" & ",")
-                        '"SM_SPARE1_U32"
+                        '"TIME_COAST_BRAKE_X10MS_U32"
                         pSB.Append("0" & ",")
-                        '"SM_SPARE2_U32"
+                        '"SM_CHECK_PUSHER_SEP_U8"
                         pSB.Append("0" & ",")
                         '"SM_SPARE3_U32"
                         pSB.Append("0" & ",")
@@ -359,24 +321,6 @@
                         Dim sL As String = pSB.ToString
                         sL = sL.Remove(sL.Length - 1, 1)
                         Me.m_pCSV.Write_CSV_Line(sL)
-
-
-                        ''now write out a list of points to a single file
-                        'Dim lStripe As New List(Of String)
-                        'For iStripes As Integer = 0 To C_FCTL_TRACKDB__MAX_CONTRAST_STRIPES - 1
-                        '    lStripe.Add("0")
-                        'Next
-                        ''save it off
-                        'LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__stripes.txt", lStripe)
-
-                        ''create the setpoint list
-                        'Dim lSet As New List(Of String)
-                        'For iSet As Integer = 0 To C_FCTL_TRACKDB__MAX_SETPOINTS - 1
-                        '    lSet.Add("0")
-                        'Next
-                        ''save it off
-                        'LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__set_xpos.txt", lSet)
-                        'LAPP188__RLOOP__LIB.SIL3.FileSupport.FileHelpers.File__WriteLines(Me.m_sDBDir & iCounter.ToString("00") & "__set_veloc.txt", lSet)
 
                     Next 'For iCounter As Integer = 0 To C_FCTL_TRACKDB__MAX_MEM_DATABASES - 1
 
@@ -517,6 +461,16 @@
             Me.m_txtTrack__Length_mm = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l402)
 
 
+            Dim l500 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel-Coast x10ms", Me.m_txtTrack__Start_mm)
+            Me.m_txtTime__Accel_Coast_x10ms = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l500)
+
+            Dim l501 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Coast-Brake x10ms")
+            l501.Layout__AboveRightControl(l500, Me.m_txtTime__Accel_Coast_x10ms)
+            Me.m_txtTime__Coast_Brake_x10ms = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l501)
+
+            Me.m_chkSM__CheckPuserSeparation = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Pusher Separation Check", Me.m_txtTime__Accel_Coast_x10ms)
+
+
         End Sub
 
 #End Region '#Region "PANEL LAYOUT"
@@ -609,6 +563,20 @@
             End If
 
 
+            If Me.m_txtTime__Accel_Coast_x10ms.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("TIME_ACCEL_COAST_X10MS_U32", Me.m_iCurrentIndex, Me.m_txtTime__Accel_Coast_x10ms.Text.ToString, True)
+                Me.m_txtTime__Accel_Coast_x10ms.Dirty = False
+            End If
+            If Me.m_txtTime__Coast_Brake_x10ms.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("TIME_COAST_BRAKE_X10MS_U32", Me.m_iCurrentIndex, Me.m_txtTime__Coast_Brake_x10ms.Text.ToString, True)
+                Me.m_txtTime__Coast_Brake_x10ms.Dirty = False
+            End If
+            If Me.m_chkSM__CheckPuserSeparation.Checked = True Then
+                Me.m_pCSV.Cell__SetContents("SM_CHECK_PUSHER_SEP_U8", Me.m_iCurrentIndex, "1", True)
+            Else
+                Me.m_pCSV.Cell__SetContents("SM_CHECK_PUSHER_SEP_U8", Me.m_iCurrentIndex, "0", True)
+            End If
+
         End Sub
 
         ''' <summary>
@@ -686,6 +654,18 @@
             iItem += 1
 
 
+            'timer
+            Me.m_txtTime__Accel_Coast_x10ms.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+            Me.m_txtTime__Coast_Brake_x10ms.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+
+            If Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString = "1" Then
+                Me.m_chkSM__CheckPuserSeparation.Checked = True
+            Else
+                Me.m_chkSM__CheckPuserSeparation.Checked = False
+            End If
+            iItem += 1
 
         End Sub
 
@@ -771,13 +751,31 @@
                 iItem += 1
 
                 'track specifics
-                vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackStart_mm(iRow, CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
-                iItem += 1
-                vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackEnd_mm(iRow, CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
-                iItem += 1
-                vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackLength_mm(iRow, CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString))
+                u32Temp = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackStart_mm(u8Row, u32Temp)
                 iItem += 1
 
+                u32Temp = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackEnd_mm(u8Row, u32Temp)
+                iItem += 1
+
+                u32Temp = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackLength_mm(u8Row, u32Temp)
+                iItem += 1
+
+
+                'time
+                u32Temp = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                vFCU_FCTL_TRACKDB_WIN32__Set_Time__Accel_Coast_x10ms(u8Row, u32Temp)
+                iItem += 1
+
+                u32Temp = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                vFCU_FCTL_TRACKDB_WIN32__Set_Time__Coast_Brake_x10ms(u8Row, u32Temp)
+                iItem += 1
+
+                u8Temp = CByte(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                vFCU_FCTL_TRACKDB_WIN32__Set_UsePusherSeparation(u8Row, u8Temp)
+                iItem += 1
 
             Next
 
