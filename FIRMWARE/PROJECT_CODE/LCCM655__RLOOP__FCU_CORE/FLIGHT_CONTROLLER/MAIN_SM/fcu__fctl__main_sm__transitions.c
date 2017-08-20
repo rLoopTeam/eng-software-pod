@@ -194,7 +194,8 @@ void handle_POD_STATE__DRIVE_transitions()
 	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
 	{
 		// Handle commands
-		switch(command) {
+		switch(command)
+		{
 			
 			case POD_COMMAND__IDLE:
 				sm->eCurrentState = POD_STATE__IDLE;
@@ -344,6 +345,7 @@ void handle_POD_STATE__READY_transitions()
 
 void handle_POD_STATE__ACCEL_transitions()
 {
+	Luint8 u8Test;
 	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
 
 	// Convenience
@@ -351,23 +353,37 @@ void handle_POD_STATE__ACCEL_transitions()
 	TE_POD_COMMAND_T command = sFCU.sStateMachine.command.command;
 
 	// Check conditionals (if we aren't already transitioning)
-	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
+	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if ( pusher_separation_confirmed() )
+
+		//do we want to use the pusher detection?
+		u8Test = u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation();
+		if(u8Test == 1U)
 		{
-			sm->eCurrentState = POD_STATE__COAST_INTERLOCK;
-		} 
+			if ( pusher_separation_confirmed() )
+			{
+				sm->eCurrentState = POD_STATE__COAST_INTERLOCK;
+			}
+			else
+			{
+				// fall on
+			}
+		}
 		else
 		{
-			// fall on
+			//do not want to use the pusher
 		}
+	}
+	else
+	{
+
 	}
 
 	// Check timeouts (if we aren't already transitioning)
-	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
+	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
 		// If our ACCEL backup timeout has expired, automatically go to COAST_INTERLOCK
-		if ( timeout_expired(&sFCU.sStateMachine.AccelBackupTimeout) ) 
+		if(u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.pAccel_To_Coast) )
 		{
 			sm->eCurrentState = POD_STATE__COAST_INTERLOCK;
 		} 
@@ -375,6 +391,10 @@ void handle_POD_STATE__ACCEL_transitions()
 		{
 			// fall on
 		}
+	}
+	else
+	{
+
 	}
 
 }
@@ -390,7 +410,7 @@ void handle_POD_STATE__COAST_INTERLOCK_transitions()
 	// Check timeouts (if we aren't already transitioning)
 	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
 	{
-		if ( timeout_expired(&sFCU.sStateMachine.CoastInterlockTimeout) ) 
+		if ( u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.pCoast_To_Brake) )
 		{
 			sm->eCurrentState = POD_STATE__BRAKE;
 		} 
@@ -426,7 +446,7 @@ void handle_POD_STATE__BRAKE_transitions()
 	// Check timeouts (if we aren't already transitioning)
 	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
 	{
-		if ( timeout_expired(&sFCU.sStateMachine.BrakeToSpindownBackupTimeout) ) 
+		if ( u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout) )
 		{
 			sm->eCurrentState = POD_STATE__SPINDOWN;
 		} 
@@ -462,7 +482,7 @@ void handle_POD_STATE__SPINDOWN_transitions()
 	// Check timeouts (if we aren't already transitioning)
 	if ( ! u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) )
 	{
-		if ( timeout_expired(&sFCU.sStateMachine.SpindownToIdleBackupTimeout) ) 
+		if ( u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout) )
 		{
 			sm->eCurrentState = POD_STATE__IDLE;
 		} 

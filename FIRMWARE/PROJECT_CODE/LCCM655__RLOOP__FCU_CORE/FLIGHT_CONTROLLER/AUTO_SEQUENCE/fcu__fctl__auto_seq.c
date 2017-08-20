@@ -19,6 +19,7 @@
 #include "../../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+#if 0
 
 //the structure
 extern struct _strFCU sFCU;
@@ -121,6 +122,7 @@ Luint8 u8FCU_MAINSM_AUTO__Is_Abort(void)
 	return 0;
 }
 
+#endif //0
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 //safetys
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE

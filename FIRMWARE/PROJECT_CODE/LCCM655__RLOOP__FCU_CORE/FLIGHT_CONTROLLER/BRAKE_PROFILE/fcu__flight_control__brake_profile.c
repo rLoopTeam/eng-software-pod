@@ -22,6 +22,7 @@
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_FCTL_BRAKE_CONTROL == 1U
+#if 0
 
 //https://drive.google.com/open?id=0B6nyc_uvAyY0YTdyNmotZ2p6Nlk
 
@@ -140,6 +141,8 @@ Lint16 s16FCU_FLIGHTCTL_BRAKES__Brake_Lookup(Luint32 u32Veloc_mms, Luint32 u32Dr
 	return s16Return;
 }
 
+
+#endif //0
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_FCTL_BRAKE_CONTROL
 #ifndef C_LOCALDEF__LCCM655__ENABLE_FCTL_BRAKE_CONTROL

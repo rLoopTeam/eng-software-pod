@@ -78,4 +78,44 @@
 	} TS_FCTL__STATE_MACHINE_T;
 
 
+	/** Timer/Timeout struct */
+	typedef struct
+	{
+		/** Duration of the timeout */
+		Luint32 u32Duration_x10ms;
+
+		/** Is the timer running?*/
+		Luint8 u8IsStarted;
+
+		/** Elapsed time in milliseconds*/
+		Luint32 u32Elapsed_x10ms;
+
+	} TS_FCTL__TIMEOUT_T;
+
+	/** Interlock command struct */
+	typedef struct
+	{
+		// Has the command been enabled?
+		Luint8 enabled;
+
+		// Once the command has been enabled, start the timeout and don't allow execution if it's expired.
+		TS_FCTL__TIMEOUT_T commandTimeout;
+
+	} strInterlockCommand;
+
+
+	/** Pod command struct */
+	typedef struct
+	{
+		// Command
+		TE_POD_COMMAND_T command;
+
+		struct
+		{
+		// Args would go here, under a sub-struct with the same name as the command
+		// e.g. struct { Luint16 some_arg; } POD_COMMAND__ARMED_WAIT
+		} args;
+
+	} strPodCmd;
+
 #endif /* __FLIGHT_CONTROLLER__STATE_TYPES_H_ */

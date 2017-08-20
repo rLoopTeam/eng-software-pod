@@ -45,53 +45,6 @@
 		*******************************************************************************/
 		#define C_MLP__MAX_AVERAGE_SIZE				(8U)
 
-
-
-
-
-
-        /** Timer/Timeout struct */
-        typedef struct
-        {
-            // Duration of the timeout
-            Luint32 duration_ms;
-
-            // Is the timer running?
-            Luint8 started;
-
-            // Elapsed time in milliseconds   
-            Luint32 elapsed_ms;
-
-        } strTimeout;
-
-
-        /** Interlock command struct */
-        typedef struct
-        {
-            // Has the command been enabled? 
-            Luint8 enabled;
-
-            // Once the command has been enabled, start the timeout and don't allow execution if it's expired.
-            strTimeout commandTimeout;
-
-        } strInterlockCommand;
-
-
-        /** Pod command struct */
-        typedef struct 
-        {
-            // Command
-            TE_POD_COMMAND_T command;
-
-            struct {
-                // Args would go here, under a sub-struct with the same name as the command
-                // e.g. struct { Luint16 some_arg; } POD_COMMAND__ARMED_WAIT
-            } args;
-
-        } strPodCmd;
-            
-
-
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
@@ -214,18 +167,23 @@
 				E_FCU__POD_STATUS ePodStatus;
 				
 				// Timers and timeouts:
+				struct
+				{
+					/** Accel to Coast Interlock backup timeout */
+					TS_FCTL__TIMEOUT_T pAccel_To_Coast;
+
+					/** Coast interlock timeout */
+					TS_FCTL__TIMEOUT_T pCoast_To_Brake;
+
+					/** Brake to Spindown backup timeout */
+					TS_FCTL__TIMEOUT_T BrakeToSpindownBackupTimeout;
+
+					/** Spindown to Idle backup timeout */
+					TS_FCTL__TIMEOUT_T SpindownToIdleBackupTimeout;
+
+				}sTimers;
+
 				
-				/** Accel to Coast Interlock backup timeout */
-				strTimeout AccelBackupTimeout;
-	
-				/** Coast interlock timeout */
-				strTimeout CoastInterlockTimeout;
-	
-				/** Brake to Spindown backup timeout */
-				strTimeout BrakeToSpindownBackupTimeout;
-	
-				/** Spindown to Idle backup timeout */
-				strTimeout SpindownToIdleBackupTimeout;
 				
 				/** Interlock command timeouts */
 				strInterlockCommand command_interlocks[POD_COMMAND__NUM_COMMANDS];
@@ -1228,14 +1186,15 @@
 
 
         		// General Timer and timeouts
-        		strTimeout create_timeout(Luint32 duration_ms);
-        		void init_timeout(strTimeout *timeout, Luint32 duration_ms);
-        		void timeout_restart(strTimeout *timeout);
-        		void timeout_reset(strTimeout *timeout);
-        		void timeout_ensure_started(strTimeout *timeout);
-        		Luint8 timeout_expired(strTimeout *timeout);
-        		void timeout_update(strTimeout *timeout, Luint32 elapsed_ms);
+        		TS_FCTL__TIMEOUT_T create_timeout(Luint32 duration_ms);
+        		void vFCU_FCTL_MAINSM_TIMER__Init(TS_FCTL__TIMEOUT_T *timeout, Luint32 duration_ms);
+        		void vFCU_FCTL_MAINSM_TIMER__Restart(TS_FCTL__TIMEOUT_T *timeout);
+        		void vFCU_FCTL_MAINSM_TIMER__Reset(TS_FCTL__TIMEOUT_T *timeout);
+        		void timeout_ensure_started(TS_FCTL__TIMEOUT_T *timeout);
+        		Luint8 u8FCU_FCTL_MAINSM_TIMER__Is_Expired(TS_FCTL__TIMEOUT_T *timeout);
+        		void vFCU_FCTL_MAINSM_TIMER__Update_x10ms(TS_FCTL__TIMEOUT_T *timeout);
 
+#if 0
         		strInterlockCommand create_interlock_command(const Luint32 duration_ms);
         		void init_interlock_command(strInterlockCommand *command, Luint32 duration_ms);
         		void interlock_command_enable(strInterlockCommand *ic);
@@ -1245,8 +1204,9 @@
 
         		// Helper functions for executing interlock commands
         		void unlock_pod_interlock_command(TE_POD_COMMAND_T command);
-        		void attempt_pod_interlock_command(TE_POD_COMMAND_T command);
 
+#endif //0
+        		void attempt_pod_interlock_command(TE_POD_COMMAND_T command);
 
                 //  Pod guard/check functions 
                 Luint8 pod_init_complete();
@@ -1295,6 +1255,7 @@
 			//drive pod
 			Luint32 u32FCU_NET_RX__GetGsCommTimer(void);
 
+#if 0
 			//blender
 			void vFCU_FCTL_BLENDER__Init(void);
 			void vFCU_FCTL_BLENDER__Process(void);
@@ -1310,6 +1271,7 @@
 			void vFCU_FCTL_BLENDER__Displacement_UpdateFrom_Accel(Luint8 u8Channel, Luint32 u32Disp_mm);
 			void vFCU_FCTL_BLENDER__Displacement_UpdateFrom_LRF(Luint8 u8Channel, Luint32 u32Disp_mm);
 			void vFCU_FCTL_BLENDER__Displacement_UpdateFrom_Contrast(Luint8 u8Channel, Luint32 u32Disp_mm);
+#endif //
 
 			//track DB
 			void vFCU_FCTL_TRACKDB__Init(void);
@@ -1324,6 +1286,7 @@
 				Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void);
 				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Threshold_mm_ss(void);
 				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_ThresholdTime_x10ms(void);
+				Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation(void);
 
 
 				//mem
@@ -1349,6 +1312,9 @@
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackStart_mm(Luint8 u8TrackIndex, Luint32 u32Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackEnd_mm(Luint8 u8TrackIndex, Luint32 u32Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackLength_mm(Luint8 u8TrackIndex, Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Time__Accel_Coast_x10ms(Luint8 u8TrackIndex, Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Time__Coast_Brake_x10ms(Luint8 u8TrackIndex, Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_UsePusherSeparation(Luint8 u8TrackIndex, Luint8 u8Value);
 
 				//CRC control
 				DLL_DECLARATION Luint16 u16FCTL_TRAKDB_WIN32__ComputeCRC(void);

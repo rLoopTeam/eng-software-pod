@@ -1,5 +1,5 @@
 #include "../../fcu_core.h"
-
+#if 0
 // The index for this table is the measured distance (probably scaled by some value)
 // TODO: add real values, these are examples
 #ifndef WIN32
@@ -20,3 +20,6 @@ Lfloat32 f32A34_SetPointVelocityTable[] = {
 3.1449,
 3.3394
 };
+
+
+#endif //0
