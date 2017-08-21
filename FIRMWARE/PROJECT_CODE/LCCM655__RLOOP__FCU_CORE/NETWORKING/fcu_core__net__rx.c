@@ -135,10 +135,10 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					// Execute command if the timeout has not been reached
 					if (u32Block[1] >= 0 && u32Block[1] < POD_COMMAND__NUM_COMMANDS)  // Check bounds
 					{
-						if ( vFCU_FCTL__NetCommand_IsEnabled((TE_POD_COMMAND_T)u32Block[1]) == 1 )
+						if ( vFCU_FCTL__NetCommand_IsUnlocked((TE_POD_COMMAND_T)u32Block[1]) == 1 )
 						{
 							// @todo: change this to take a strPodCmd
-							vFCU_FCTL__PushCommand((TE_POD_COMMAND_T)u32Block[1]);
+							vFCU_FCTL__PutCommand((TE_POD_COMMAND_T)u32Block[1]);
 						}
 					}
 					else

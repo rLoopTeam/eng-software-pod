@@ -66,10 +66,6 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		/** Flight control specifics */
 		#define C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL					(1U)
 
-		
-				/** Enable network commands (and interlocks) */
-				//#define C_LOCALDEF__LCCM655__ENABLE_FCTL_NET_COMMANDS			(1U)
-
 			/** Main SM */
 			#define C_LOCALDEF__LCCM655__ENABLE_MAIN_SM							(1U)
 
