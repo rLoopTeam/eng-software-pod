@@ -119,7 +119,7 @@ void vFCU_FCTL__PutCommand(TE_POD_COMMAND_T command)
 // Initialize an existing interlock command
 void vFCU_FCTL_MAINSM__InterlockGuard__Init(TS_INTERLOCK_GUARD_T *pInterlockGuard, Luint32 u32Duration_x10ms)
 {
-	vFCU_FCTL__TIMEOUT__Init(&pInterlockGuard->guardTimeout, u32Duration_x10ms);
+	vFCU_FCTL__TIMEOUT__Init(&pInterlockGuard->timeout, u32Duration_x10ms);
 	pInterlockGuard->enabled = 0U;
 }
 
@@ -127,7 +127,7 @@ void vFCU_FCTL_MAINSM__InterlockGuard__Init(TS_INTERLOCK_GUARD_T *pInterlockGuar
 void vFCU_FCTL_MAINSM__InterlockGuard__Unlock(TS_INTERLOCK_GUARD_T *pInterlockGuard)
 {
 	pInterlockGuard->enabled = 1;
-	vFCU_FCTL__TIMEOUT__Restart(&pInterlockGuard->guardTimeout);
+	vFCU_FCTL__TIMEOUT__Restart(&pInterlockGuard->timeout);
 }
 
 // Call this when the second packet is received to check whether the command can execute (i.e. timeout has not expired)
@@ -136,7 +136,7 @@ Luint8 u8FCU_FCTL_MAINSM__InterlockGuard__IsUnlocked(TS_INTERLOCK_GUARD_T *pInte
 	Luint8 can_execute;
 
 	Luint8 enabled = pInterlockGuard->enabled;
-	Luint8 expired = u8FCU_FCTL__TIMEOUT__Is_Expired(&pInterlockGuard->guardTimeout);
+	Luint8 expired = u8FCU_FCTL__TIMEOUT__Is_Expired(&pInterlockGuard->timeout);
 	Luint8 is_unlocked = (enabled == 1 && expired == 0);
 
 	return is_unlocked;
@@ -150,14 +150,14 @@ Luint8 u8FCU_FCTL_MAINSM__InterlockGuard__IsUnlocked(TS_INTERLOCK_GUARD_T *pInte
 void vFCU_FCTL_MAINSM__InterlockGuard__Reset(TS_INTERLOCK_GUARD_T *pInterlockGuard)
 {
 	// Reset the timeout (stop it and set the elapsed time to 0)
-	vFCU_FCTL__TIMEOUT__Reset(&pInterlockGuard->guardTimeout);
+	vFCU_FCTL__TIMEOUT__Reset(&pInterlockGuard->timeout);
 }
 
 // Call this in one of our timer ISRs. Ok to call this since the timeout has to be started for the update to have any effect.
 void vFCU_FCTL_MAINSM__InterlockGuard__UpdateTimeout_x10ms(TS_INTERLOCK_GUARD_T *pInterlockGuard)
 {
 	// Update the timeout
-	vFCU_FCTL__TIMEOUT__Update_x10ms(&pInterlockGuard->guardTimeout);
+	vFCU_FCTL__TIMEOUT__Update_x10ms(&pInterlockGuard->timeout);
 }
 
 
