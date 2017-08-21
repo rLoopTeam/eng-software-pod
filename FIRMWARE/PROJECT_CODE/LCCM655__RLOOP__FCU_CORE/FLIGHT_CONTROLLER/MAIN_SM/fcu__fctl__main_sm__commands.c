@@ -18,7 +18,7 @@ void cmd_POD_COMMAND__IDLE(void)
 		printf("cmd_POD_COMMAND__IDLE() called\n");
 	#endif
 
-	strPodCmd * cmd = &sFCU.sStateMachine.command;
+	TS_POD_COMMAND_T * cmd = &sFCU.sStateMachine.command;
 	cmd->command = POD_COMMAND__IDLE;
 
 }
@@ -29,7 +29,7 @@ void cmd_POD_COMMAND__TEST_MODE(void)
 		printf("cmd_POD_COMMAND__TEST_MODE() called\n");
 	#endif
 
-	strPodCmd * cmd = &sFCU.sStateMachine.command;
+	TS_POD_COMMAND_T * cmd = &sFCU.sStateMachine.command;
 	cmd->command = POD_COMMAND__TEST_MODE;
 
 }
@@ -40,7 +40,7 @@ void cmd_POD_COMMAND__DRIVE(void)
 		printf("cmd_POD_COMMAND__DRIVE() called\n");
 	#endif
 
-	strPodCmd * cmd = &sFCU.sStateMachine.command;
+	TS_POD_COMMAND_T * cmd = &sFCU.sStateMachine.command;
 	cmd->command = POD_COMMAND__DRIVE;
 
 }
@@ -51,7 +51,7 @@ void cmd_POD_COMMAND__FLIGHT_PREP(void)
 		printf("cmd_POD_COMMAND__FLIGHT_PREP() called\n");
 	#endif
 
-	strPodCmd * cmd = &sFCU.sStateMachine.command;
+	TS_POD_COMMAND_T * cmd = &sFCU.sStateMachine.command;
 	cmd->command = POD_COMMAND__FLIGHT_PREP;
 
 }
@@ -62,7 +62,7 @@ void cmd_POD_COMMAND__ARMED_WAIT(void)
 		printf("cmd_POD_COMMAND__ARMED_WAIT() called\n");
 	#endif
 
-	strPodCmd * cmd = &sFCU.sStateMachine.command;
+	TS_POD_COMMAND_T * cmd = &sFCU.sStateMachine.command;
 	cmd->command = POD_COMMAND__ARMED_WAIT;
 
 }
@@ -73,7 +73,7 @@ void cmd_POD_COMMAND__READY(void)
 		printf("cmd_POD_COMMAND__READY() called\n");
 	#endif
 
-	strPodCmd * cmd = &sFCU.sStateMachine.command;
+	TS_POD_COMMAND_T * cmd = &sFCU.sStateMachine.command;
 	cmd->command = POD_COMMAND__READY;
 
 }
@@ -166,13 +166,13 @@ void vFCU_FCTL_MAINSM__InterlockGuard__UpdateTimeout_x10ms(TS_INTERLOCK_GUARD_T 
 
 Luint8 vFCU_FCTL_MAINSM__NetCommand_IsUnlocked(TE_POD_COMMAND_T command)
 {
-	return u8FCU_FCTL_MAINSM__InterlockGuard__IsUnlocked(&sFCU.sStateMachine.command_interlocks[command]);
+	return u8FCU_FCTL_MAINSM__InterlockGuard__IsUnlocked(&sFCU.sStateMachine.sInterlockGuards[command]);
 }
 
 
 void vFCU_FCTL_MAINSM__NetCommand_Unlock(TE_POD_COMMAND_T command)
 {
-	vFCU_FCTL_MAINSM__InterlockGuard__Unlock(&sFCU.sStateMachine.command_interlocks[command]);
+	vFCU_FCTL_MAINSM__InterlockGuard__Unlock(&sFCU.sStateMachine.sInterlockGuards[command]);
 }
 
 

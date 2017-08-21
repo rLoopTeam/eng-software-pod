@@ -137,7 +137,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					{
 						if ( vFCU_FCTL_MAINSM__NetCommand_IsUnlocked((TE_POD_COMMAND_T)u32Block[1]) == 1 )
 						{
-							// @todo: change this to take a strPodCmd
+							// @todo: change this to take a TS_POD_COMMAND_T
 							vFCU_FCTL__PutCommand((TE_POD_COMMAND_T)u32Block[1]);
 						}
 					}

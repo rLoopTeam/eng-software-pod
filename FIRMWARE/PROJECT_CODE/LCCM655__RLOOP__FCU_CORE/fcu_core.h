@@ -162,7 +162,7 @@
 				TS_FCTL__STATE_MACHINE_T sm;
 
 				/** Main pod command holder. @see TE_POD_COMMAND_T */
-				strPodCmd command;
+				TS_POD_COMMAND_T command;
 	
 				/** Enum for Pod Status for SpaceX telemetry */
 				// @todo: Update code to change this as needed when states change
@@ -185,9 +185,12 @@
 
 				}sTimers;
 				
-				/** Interlock command timeouts */
-				TS_INTERLOCK_GUARD_T command_interlocks[POD_COMMAND__NUM_COMMANDS];
-				
+				// Interlock guards for commands from the network
+				// These are used to determine if a command from the network
+				// can call a cmd_POD_COMMAND__* method. 
+				TS_INTERLOCK_GUARD_T sInterlockGuards[ (Luint8) POD_COMMAND__NUM_COMMANDS ];
+
+
 			}sStateMachine;
 			#endif//C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 			#endif//C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL

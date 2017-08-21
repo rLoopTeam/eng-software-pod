@@ -121,7 +121,7 @@
 		// e.g. struct { Luint16 some_arg; } POD_COMMAND__ARMED_WAIT
 		} args;
 
-	} strPodCmd;
+	} TS_POD_COMMAND_T;
 
 
 //safetys

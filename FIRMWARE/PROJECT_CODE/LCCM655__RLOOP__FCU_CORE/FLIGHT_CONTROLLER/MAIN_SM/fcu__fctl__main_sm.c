@@ -60,14 +60,17 @@ void vFCU_FCTL_MAINSM__Init(void)
 	// Spindown to Idle backup timeout
 	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout, 120 * 1000);
 
-#if 0
-	// Initialize our commands. They're all interlock commands, so we'll just do them in a loop
+
+	// Initialize some interlock guards for command requests coming in over the network
+	// Note: These are only used to determine if a cmd_POD_COMMAND__* function should be
+	//       called when we receive a NET_PKT__FCU_GEN__POD_COMMAND. You can always call 
+	//       cmd_POD_COMMAND__* functions directly to bypass the interlock guards. 
 	for(u8Counter = 0U; u8Counter < (Luint8)POD_COMMAND__NUM_COMMANDS; u8Counter++)
 	{
-		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
-		vFCU_FCTL_MAINSM__InterlockGuard__Init( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
+		// Initialize the interlock commands with a 10 second timeout
+		Luint32 u32InterlockDuration_x10ms = 10 * 100; // 10 seconds = 10 * (10ms * 100) 
+		vFCU_FCTL_MAINSM__InterlockGuard__Init( &sFCU.sStateMachine.sInterlockGuards[ (TE_POD_COMMAND_T)u8Counter ], u32InterlockDuration_x10ms);
 	}
-#endif
 
 }
 
@@ -466,6 +469,8 @@ void vFCU_FCTL_MAINSM__Step(TS_FCTL__STATE_MACHINE_T *p_sm)
 
 void vFCU_FCTL_MAINSM__10MS_ISR(void)
 {
+	Luint8 u8Counter;
+
 	/** Accel to Coast Interlock backup timeout */
 	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max);
 
@@ -477,6 +482,13 @@ void vFCU_FCTL_MAINSM__10MS_ISR(void)
 
 	/** Spindown to Idle backup timeout */
 	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout);
+
+	/** Update the timeouts for our net command interlock guards */
+	for (u8Counter = 0U; u8Counter < (Luint8)POD_COMMAND__NUM_COMMANDS; u8Counter++)
+	{
+		vFCU_FCTL_MAINSM__InterlockGuard__UpdateTimeout_x10ms(&sFCU.sStateMachine.sInterlockGuards[(TE_POD_COMMAND_T)u8Counter]);
+	}
+
 }
 
 void vFCU_FCTL_MAINSM__100MS_ISR(void)
