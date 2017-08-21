@@ -153,6 +153,8 @@
 			}sHoverEngines;
 #endif //0
 
+			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
+			#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
 			/** State Machine Structure **/
 			struct
 			{
@@ -182,14 +184,13 @@
 					TS_FCTL__TIMEOUT_T SpindownToIdleBackupTimeout;
 
 				}sTimers;
-
-				
 				
 				/** Interlock command timeouts */
 				strInterlockCommand command_interlocks[POD_COMMAND__NUM_COMMANDS];
 				
 			}sStateMachine;
-
+			#endif//C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
+			#endif//C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
 
 			/** Auto sequence state machine */
 			E_FCU__AUTO_SEQUENCE_STATE_T eAutoSeqState;
@@ -1172,6 +1173,28 @@
 		void vFCU_FCTL__Process(void);
 		void vFCU_FCTL__Config_From_Database(void);
 
+			// General Timer and timeouts
+			void vFCU_FCTL__TIMEOUT__Init(TS_FCTL__TIMEOUT_T *pTimeout, Luint32 u32Duration_x10ms);
+			void vFCU_FCTL__TIMEOUT__Restart(TS_FCTL__TIMEOUT_T *pTimeout);
+			void vFCU_FCTL__TIMEOUT__Reset(TS_FCTL__TIMEOUT_T *pTimeout);
+			void vFCU_FCTL__TIMEOUT__Ensure_Started(TS_FCTL__TIMEOUT_T *pTimeout);
+			Luint8 u8FCU_FCTL__TIMEOUT__Is_Expired(TS_FCTL__TIMEOUT_T *pTimeout);
+			void vFCU_FCTL__TIMEOUT__Update_x10ms(TS_FCTL__TIMEOUT_T *pTimeout);
+
+			// Flight Control interlock guards
+			void vFCU_FCTL__InterlockGuard__Init(strInterlockCommand *pInterlockGuard, Luint32 u32Duration_x10ms);
+			void vFCU_FCTL__InterlockGuard__Unlock(strInterlockCommand *pInterlockGuard);
+			Luint8 u8FCU_FCTL__InterlockGuard__IsUnlocked(strInterlockCommand *pInterlockGuard);
+			void vFCU_FCTL__InterlockGuard__Reset(strInterlockCommand *pInterlockGuard);
+			void vFCU_FCTL__InterlockGuard__UpdateTimeout_x10ms(strInterlockCommand *pInterlockGuard);
+
+			// Helper functions for executing interlock commands
+			void vFCU_FCTL__NetCommand_Unlock(TE_POD_COMMAND_T command);
+			Luint8 vFCU_FCTL__NetCommand_IsEnabled(TE_POD_COMMAND_T command);
+			// @todo: change this to take a pointer (or a copy) of a pod command struct
+			// @todo: is this only for the state machine? I suppose commands could do things unrelated to the SM...
+			void vFCU_FCTL__PushCommand(TE_POD_COMMAND_T command);
+
 			//main state machine
 			void vFCU_FCTL_MAINSM__Init(void);
 			void vFCU_FCTL_MAINSM__Process(void);
@@ -1184,29 +1207,6 @@
 				Luint8 u8FCU_FCTL_MAINSM__Check_IsExiting(const TS_FCTL__STATE_MACHINE_T *cpSM, TE_POD_STATE_T eTestState);
 				Luint8 u8FCU_FCTL_MAINSM__Check_IsTransitioning(const TS_FCTL__STATE_MACHINE_T *cpSM);
 
-
-        		// General Timer and timeouts
-        		TS_FCTL__TIMEOUT_T create_timeout(Luint32 duration_ms);
-        		void vFCU_FCTL_MAINSM_TIMER__Init(TS_FCTL__TIMEOUT_T *timeout, Luint32 duration_ms);
-        		void vFCU_FCTL_MAINSM_TIMER__Restart(TS_FCTL__TIMEOUT_T *timeout);
-        		void vFCU_FCTL_MAINSM_TIMER__Reset(TS_FCTL__TIMEOUT_T *timeout);
-        		void timeout_ensure_started(TS_FCTL__TIMEOUT_T *timeout);
-        		Luint8 u8FCU_FCTL_MAINSM_TIMER__Is_Expired(TS_FCTL__TIMEOUT_T *timeout);
-        		void vFCU_FCTL_MAINSM_TIMER__Update_x10ms(TS_FCTL__TIMEOUT_T *timeout);
-
-#if 0
-        		strInterlockCommand create_interlock_command(const Luint32 duration_ms);
-        		void init_interlock_command(strInterlockCommand *command, Luint32 duration_ms);
-        		void interlock_command_enable(strInterlockCommand *ic);
-        		Luint8 interlock_command_can_execute(strInterlockCommand *ic);
-        		void interlock_command_reset(strInterlockCommand *ic);
-        		void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms);
-
-        		// Helper functions for executing interlock commands
-        		void unlock_pod_interlock_command(TE_POD_COMMAND_T command);
-
-#endif //0
-        		void attempt_pod_interlock_command(TE_POD_COMMAND_T command);
 
                 //  Pod guard/check functions 
                 Luint8 pod_init_complete();

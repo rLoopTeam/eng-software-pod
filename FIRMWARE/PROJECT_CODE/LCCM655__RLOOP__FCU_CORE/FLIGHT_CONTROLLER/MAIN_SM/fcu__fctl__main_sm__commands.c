@@ -1,6 +1,7 @@
 #include "../../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
 
  //the structure
@@ -93,26 +94,26 @@ strInterlockCommand create_interlock_command(const Luint32 duration_ms)
 }
 
 // Initialize an existing interlock command
-void init_interlock_command(strInterlockCommand *ic, Luint32 duration_ms)
+void vFCU_FCTL__InterlockGuard__Init(strInterlockCommand *ic, Luint32 duration_ms)
 {
 	vFCU_FCTL_MAINSM_TIMER__Init(&ic->commandTimeout, duration_ms);
 	ic->enabled = 0U;
 }
 
 // Call this when the first packet is received. Ok to call it multiple times; it will just reset the timer.
-void interlock_command_enable(strInterlockCommand *ic)
+void vFCU_FCTL__InterlockGuard__Unlock(strInterlockCommand *ic)
 {
 	ic->enabled = 1;
-	vFCU_FCTL_MAINSM_TIMER__Restart(&ic->commandTimeout);
+	vFCU_FCTL__TIMEOUT__Restart(&ic->commandTimeout);
 }
 
 // Call this when the second packet is received to check whether the command can execute (i.e. timeout has not expired)
-Luint8 interlock_command_can_execute(strInterlockCommand *ic)
+Luint8 u8FCU_FCTL__InterlockGuard__IsUnlocked(strInterlockCommand *ic)
 {
 	Luint8 can_execute;
 
 	// Note: I know this is not great code style but under time crunch
-	if (ic->enabled && ! u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&ic->commandTimeout) )
+	if (ic->enabled && ! u8FCU_FCTL__TIMEOUT__Is_Expired(&ic->commandTimeout) )
 	{
 		can_execute = 1;
 	}
@@ -125,26 +126,26 @@ Luint8 interlock_command_can_execute(strInterlockCommand *ic)
 
 // Call this if the command was executed and we're ready to listen for the initial packet again
 // @todo: do we even need this? if we receive another enable packet, we will restart the timeout. Once its timed out, it will not keep counting, so we're ok.
-void interlock_command_reset(strInterlockCommand *ic)
+void vFCU_FCTL__InterlockGuard__Reset(strInterlockCommand *ic)
 {
 	// Reset the timeout (stop it and set the elapsed time to 0)
 	timeout_reset(&ic->commandTimeout);
 }
 
 // Call this in one of our timer ISRs. Ok to call this since the timeout has to be started for the update to have any effect.
-void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms)
+void vFCU_FCTL__InterlockGuard__UpdateTimeout_x10ms(strInterlockCommand *ic, Luint8 time_ms)
 {
 	// Update the timeout
-	vFCU_FCTL_MAINSM_TIMER__Update_x10ms(&ic->commandTimeout, time_ms);
+	vFCU_FCTL__TIMEOUT__Update_x10ms(&ic->commandTimeout, time_ms);
 }
 
 
 
 // Interlock command integration functions (depends on sFCU and state machine -- the functions above do not)
-void unlock_pod_interlock_command(TE_POD_COMMAND_T command)
+void vFCU_FCTL__NetCommand_Unlock(TE_POD_COMMAND_T command)
 {
 	// @todo: unlock the command
-	interlock_command_enable(&sFCU.sStateMachine.command_interlocks[command]);
+	vFCU_FCTL__InterlockGuard__Unlock(&sFCU.sStateMachine.command_interlocks[command]);
 }
 
 
@@ -152,7 +153,7 @@ void unlock_pod_interlock_command(TE_POD_COMMAND_T command)
 #endif //0
 
 
-void attempt_pod_interlock_command(TE_POD_COMMAND_T command)
+void vFCU_FCTL__PushCommand(TE_POD_COMMAND_T command)
 {
 	// Attempt to execute the command (provided that the interlock timeout has not expired)
 	switch(command)
@@ -182,8 +183,13 @@ void attempt_pod_interlock_command(TE_POD_COMMAND_T command)
 
 }
 
+//safetys
 #endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 #ifndef C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
+	#error
+#endif
+#endif //C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
+#ifndef C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
 	#error
 #endif
 #endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE

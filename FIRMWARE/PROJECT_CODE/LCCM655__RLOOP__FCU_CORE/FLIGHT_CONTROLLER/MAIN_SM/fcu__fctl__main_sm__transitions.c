@@ -3,6 +3,7 @@
 #include "../../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
 
  //the structure
@@ -355,7 +356,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__ACCEL(void)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
 		// If our ACCEL backup timeout has expired, automatically go to COAST_INTERLOCK
-		if(u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max) )
+		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max) )
 		{
 			sm->eCurrentState = POD_STATE__COAST_INTERLOCK;
 		} 
@@ -378,7 +379,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__COAST_INTERLOCK(void)
 	// Check timeouts (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if(u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.pCoast_To_Brake) == 1U)
+		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.pCoast_To_Brake) == 1U)
 		{
 			sm->eCurrentState = POD_STATE__BRAKE;
 		} 
@@ -410,7 +411,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__BRAKE()
 	// Check timeouts (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if(u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout) == 1U)
+		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout) == 1U)
 		{
 			sm->eCurrentState = POD_STATE__SPINDOWN;
 		} 
@@ -442,7 +443,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__SPINDOWN(void)
 	// Check timeouts (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if(u8FCU_FCTL_MAINSM_TIMER__Is_Expired(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout) == 1U)
+		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout) == 1U)
 		{
 			sm->eCurrentState = POD_STATE__IDLE;
 		} 
@@ -456,12 +457,17 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__SPINDOWN(void)
 
 
 
+//safetys
 #endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 #ifndef C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 	#error
 #endif
+#endif //C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
+#ifndef C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
+	#error
+#endif
 #endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
-//safetys
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
 	#error
 #endif
+
