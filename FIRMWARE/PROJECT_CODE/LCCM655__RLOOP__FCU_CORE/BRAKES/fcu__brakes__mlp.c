@@ -484,7 +484,7 @@ void vFCU_BRAKES_MLP__ComputeCalibration_Span(Luint32 u32Key, E_FCU__BRAKE_INDEX
 			case FCU_BRAKE__LEFT:
 
 				//current screw pos
-				f32Temp = 75000.0F; //(Lfloat32)sFCU.sBrakes[(Luint8)eBrake].sMove.s32currentPos;
+				f32Temp = 60000.0F; //(Lfloat32)sFCU.sBrakes[(Luint8)eBrake].sMove.s32currentPos;
 				//to mm
 				f32Temp /= 1000.0F;
 				f32Temp /= (Lfloat32)sFCU.sBrakes[(Luint32)eBrake].sMLP.s32ADC_Minus_Zero;
@@ -505,7 +505,7 @@ void vFCU_BRAKES_MLP__ComputeCalibration_Span(Luint32 u32Key, E_FCU__BRAKE_INDEX
 
 			case FCU_BRAKE__RIGHT:
 				//current screw pos
-				f32Temp = 75000.0F; // (Lfloat32)sFCU.sBrakes[(Luint8)eBrake].sMove.s32currentPos;
+				f32Temp = 60000.0F; // (Lfloat32)sFCU.sBrakes[(Luint8)eBrake].sMove.s32currentPos;
 				//to mm
 				f32Temp /= 1000.0F;
 				f32Temp /= (Lfloat32)sFCU.sBrakes[(Luint32)eBrake].sMLP.s32ADC_Minus_Zero;

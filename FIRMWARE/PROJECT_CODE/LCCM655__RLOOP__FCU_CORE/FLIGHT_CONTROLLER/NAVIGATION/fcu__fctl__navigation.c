@@ -2,6 +2,7 @@
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION == 1U
 
  //the structure
 extern struct _strFCU sFCU;
@@ -157,6 +158,7 @@ Lint32 s32FCU_FCTL_NAV__Get_Track_Position_mm(void)
 	return sFCU.sNavigation.sCalc.s32Position_mm;
 }
 
+#endif //C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 #ifndef C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
