@@ -119,7 +119,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				if(u32Block[0] == 0x4321FEDCU)  // Unlock key
 				{
 					// Unlock command
-					if (u32Block[1] >= 0 && u32Block[1] < POD_COMMAND__NUM_COMMANDS)  // Check bounds
+					if(u32Block[1] < POD_COMMAND__NUM_COMMANDS)  // Check bounds
 					{
 						//unlock_pod_interlock_command((TE_POD_COMMAND_T)u32Block[1]);
 					}
@@ -131,7 +131,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				else if(u32Block[0] == 0xDCBA9876U)  // Execute key
 				{
 					// Execute command if the timeout has not been reached
-					if (u32Block[1] >= 0 && u32Block[1] < POD_COMMAND__NUM_COMMANDS)  // Check bounds
+					if(u32Block[1] < POD_COMMAND__NUM_COMMANDS)  // Check bounds
 					{
 						attempt_pod_interlock_command((TE_POD_COMMAND_T)u32Block[1]);
 					}
