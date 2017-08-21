@@ -39,7 +39,6 @@ void vFCU_FCTL__TIMEOUT__Update_x10ms(TS_FCTL__TIMEOUT_T *pTimeout)
 	pTimeout->u32Elapsed_x10ms += 1U;
 }
 
-#if 0
 void vFCU_FCTL__TIMEOUT__Ensure_Started(TS_FCTL__TIMEOUT_T *pTimeout)
 {
 	if ( ! pTimeout->u8IsStarted ) {
@@ -50,16 +49,6 @@ void vFCU_FCTL__TIMEOUT__Ensure_Started(TS_FCTL__TIMEOUT_T *pTimeout)
 	}
 }
 
-
-TS_FCTL__TIMEOUT_T create_timeout(Luint32 duration_ms)
-{
-	TS_FCTL__TIMEOUT_T t;
-	t.u32Duration_x10ms = duration_ms;
-	t.u32Elapsed_x10ms = 0;
-	t.u8IsStarted = 0U;
-	return t;
-}
-#endif //0
 
 //safetys
 #endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM

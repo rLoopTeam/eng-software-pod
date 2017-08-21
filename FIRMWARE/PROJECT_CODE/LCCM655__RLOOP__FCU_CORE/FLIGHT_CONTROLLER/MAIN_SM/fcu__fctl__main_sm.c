@@ -65,7 +65,7 @@ void vFCU_FCTL_MAINSM__Init(void)
 	for(u8Counter = 0U; u8Counter < (Luint8)POD_COMMAND__NUM_COMMANDS; u8Counter++)
 	{
 		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
-		vFCU_FCTL__InterlockGuard__Init( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
+		vFCU_FCTL_MAINSM__InterlockGuard__Init( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
 	}
 #endif
 
@@ -496,7 +496,7 @@ void vFCU_FCTL_MAINSM__100MS_ISR(void)
 	for(u8Counter = 0U; u8Counter < (Luint8)POD_COMMAND__NUM_COMMANDS; u8Counter++)
 	{
 		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
-		vFCU_FCTL__InterlockGuard__Init( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
+		vFCU_FCTL_MAINSM__InterlockGuard__Init( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
 	}
 
 #endif //0

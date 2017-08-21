@@ -117,66 +117,62 @@ void vFCU_FCTL__PutCommand(TE_POD_COMMAND_T command)
 
 
 // Initialize an existing interlock command
-void vFCU_FCTL__InterlockGuard__Init(strInterlockCommand *ic, Luint32 duration_ms)
+void vFCU_FCTL_MAINSM__InterlockGuard__Init(TS_INTERLOCK_GUARD_T *pInterlockGuard, Luint32 u32Duration_x10ms)
 {
-	vFCU_FCTL__TIMEOUT__Init(&ic->commandTimeout, duration_ms);
-	ic->enabled = 0U;
+	vFCU_FCTL__TIMEOUT__Init(&pInterlockGuard->guardTimeout, u32Duration_x10ms);
+	pInterlockGuard->enabled = 0U;
 }
 
 // Call this when the first packet is received. Ok to call it multiple times; it will just reset the timer.
-void vFCU_FCTL__InterlockGuard__Unlock(strInterlockCommand *ic)
+void vFCU_FCTL_MAINSM__InterlockGuard__Unlock(TS_INTERLOCK_GUARD_T *pInterlockGuard)
 {
-	ic->enabled = 1;
-	vFCU_FCTL__TIMEOUT__Restart(&ic->commandTimeout);
+	pInterlockGuard->enabled = 1;
+	vFCU_FCTL__TIMEOUT__Restart(&pInterlockGuard->guardTimeout);
 }
 
 // Call this when the second packet is received to check whether the command can execute (i.e. timeout has not expired)
-Luint8 u8FCU_FCTL__InterlockGuard__IsUnlocked(strInterlockCommand *ic)
+Luint8 u8FCU_FCTL_MAINSM__InterlockGuard__IsUnlocked(TS_INTERLOCK_GUARD_T *pInterlockGuard)
 {
 	Luint8 can_execute;
 
-	// Note: I know this is not great code style but under time crunch
-	if (ic->enabled && !u8FCU_FCTL__TIMEOUT__Is_Expired(&ic->commandTimeout))
-	{
-		can_execute = 1U;
-	}
-	else
-	{
-		can_execute = 0U;
-	}
-	return can_execute;
+	Luint8 enabled = pInterlockGuard->enabled;
+	Luint8 expired = u8FCU_FCTL__TIMEOUT__Is_Expired(&pInterlockGuard->guardTimeout);
+	Luint8 is_unlocked = (enabled == 1 && expired == 0);
+
+	return is_unlocked;
+
 }
 
 
 
 // Call this if the command was executed and we're ready to listen for the initial packet again
 // @todo: do we even need this? if we receive another enable packet, we will restart the timeout. Once its timed out, it will not keep counting, so we're ok.
-void vFCU_FCTL__InterlockGuard__Reset(strInterlockCommand *ic)
+void vFCU_FCTL_MAINSM__InterlockGuard__Reset(TS_INTERLOCK_GUARD_T *pInterlockGuard)
 {
 	// Reset the timeout (stop it and set the elapsed time to 0)
-	vFCU_FCTL__TIMEOUT__Reset(&ic->commandTimeout);
+	vFCU_FCTL__TIMEOUT__Reset(&pInterlockGuard->guardTimeout);
 }
 
 // Call this in one of our timer ISRs. Ok to call this since the timeout has to be started for the update to have any effect.
-void vFCU_FCTL__InterlockGuard__UpdateTimeout_x10ms(strInterlockCommand *ic, Luint8 time_ms)
+void vFCU_FCTL_MAINSM__InterlockGuard__UpdateTimeout_x10ms(TS_INTERLOCK_GUARD_T *pInterlockGuard)
 {
 	// Update the timeout
-	vFCU_FCTL__TIMEOUT__Update_x10ms(&ic->commandTimeout);
+	vFCU_FCTL__TIMEOUT__Update_x10ms(&pInterlockGuard->guardTimeout);
 }
 
 
 // Convenience functions for interlocked commands
 // Interlock command integration functions (depends on sFCU and state machine -- the functions above do not)
 
-Luint8 vFCU_FCTL__NetCommand_IsUnlocked(TE_POD_COMMAND_T command)
+Luint8 vFCU_FCTL_MAINSM__NetCommand_IsUnlocked(TE_POD_COMMAND_T command)
 {
-	return u8FCU_FCTL__InterlockGuard__IsUnlocked(&sFCU.sStateMachine.command_interlocks[command]);
+	return u8FCU_FCTL_MAINSM__InterlockGuard__IsUnlocked(&sFCU.sStateMachine.command_interlocks[command]);
 }
 
 
-void vFCU_FCTL__NetCommand_Unlock(TE_POD_COMMAND_T command)
+void vFCU_FCTL_MAINSM__NetCommand_Unlock(TE_POD_COMMAND_T command)
 {
-	vFCU_FCTL__InterlockGuard__Unlock(&sFCU.sStateMachine.command_interlocks[command]);
+	vFCU_FCTL_MAINSM__InterlockGuard__Unlock(&sFCU.sStateMachine.command_interlocks[command]);
 }
 
 

@@ -186,7 +186,7 @@
 				}sTimers;
 				
 				/** Interlock command timeouts */
-				strInterlockCommand command_interlocks[POD_COMMAND__NUM_COMMANDS];
+				TS_INTERLOCK_GUARD_T command_interlocks[POD_COMMAND__NUM_COMMANDS];
 				
 			}sStateMachine;
 			#endif//C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
@@ -1182,15 +1182,15 @@
 			void vFCU_FCTL__TIMEOUT__Update_x10ms(TS_FCTL__TIMEOUT_T *pTimeout);
 
 			// Flight Control interlock guards
-			void vFCU_FCTL__InterlockGuard__Init(strInterlockCommand *pInterlockGuard, Luint32 u32Duration_x10ms);
-			void vFCU_FCTL__InterlockGuard__Unlock(strInterlockCommand *pInterlockGuard);
-			Luint8 u8FCU_FCTL__InterlockGuard__IsUnlocked(strInterlockCommand *pInterlockGuard);
-			void vFCU_FCTL__InterlockGuard__Reset(strInterlockCommand *pInterlockGuard);
-			void vFCU_FCTL__InterlockGuard__UpdateTimeout_x10ms(strInterlockCommand *pInterlockGuard);
+			void vFCU_FCTL_MAINSM__InterlockGuard__Init(TS_INTERLOCK_GUARD_T *pInterlockGuard, Luint32 u32Duration_x10ms);
+			void vFCU_FCTL_MAINSM__InterlockGuard__Unlock(TS_INTERLOCK_GUARD_T *pInterlockGuard);
+			Luint8 u8FCU_FCTL_MAINSM__InterlockGuard__IsUnlocked(TS_INTERLOCK_GUARD_T *pInterlockGuard);
+			void vFCU_FCTL_MAINSM__InterlockGuard__Reset(TS_INTERLOCK_GUARD_T *pInterlockGuard);
+			void vFCU_FCTL_MAINSM__InterlockGuard__UpdateTimeout_x10ms(TS_INTERLOCK_GUARD_T *pInterlockGuard);
 
 			// Helper functions for executing interlock commands
-			void vFCU_FCTL__NetCommand_Unlock(TE_POD_COMMAND_T command);
-			Luint8 vFCU_FCTL__NetCommand_IsUnlocked(TE_POD_COMMAND_T command);
+			void vFCU_FCTL_MAINSM__NetCommand_Unlock(TE_POD_COMMAND_T command);
+			Luint8 vFCU_FCTL_MAINSM__NetCommand_IsUnlocked(TE_POD_COMMAND_T command);
 			// @todo: change this to take a pointer (or a copy) of a pod command struct
 			// @todo: is this only for the state machine? I suppose commands could do things unrelated to the SM...
 			void vFCU_FCTL__PutCommand(TE_POD_COMMAND_T command);
@@ -1209,36 +1209,36 @@
 
 
                 //  Pod guard/check functions 
-                Luint8 pod_init_complete();
-                Luint8 armed_wait_checks_ok();
-                Luint8 drive_checks_ok();
-                Luint8 flight_prep_checks_ok();
-                Luint8 flight_readiness_checks_ok();
-                Luint8 accel_confirmed();
-                Luint8 pusher_separation_confirmed();
-                Luint8 pod_stop_confirmed();
-                Luint8 spindown_complete_confirmed();
+                Luint8 pod_init_complete(void);
+                Luint8 armed_wait_checks_ok(void);
+                Luint8 drive_checks_ok(void);
+                Luint8 flight_prep_checks_ok(void);
+                Luint8 flight_readiness_checks_ok(void);
+                Luint8 accel_confirmed(void);
+                Luint8 pusher_separation_confirmed(void);
+                Luint8 pod_stop_confirmed(void);
+                Luint8 spindown_complete_confirmed(void);
 
                 //  Pod state transition functions
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__INIT();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__IDLE();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__TEST_MODE();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__DRIVE();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__ARMED_WAIT();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__FLIGHT_PREP();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__READY();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__ACCEL();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__COAST_INTERLOCK();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__BRAKE();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__SPINDOWN();
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__INIT(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__IDLE(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__TEST_MODE(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__DRIVE(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__ARMED_WAIT(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__FLIGHT_PREP(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__READY(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__ACCEL(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__COAST_INTERLOCK(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__BRAKE(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__SPINDOWN(void);
 
                 //  Pod command functions
-                void cmd_POD_COMMAND__IDLE();
-                void cmd_POD_COMMAND__TEST_MODE();
-                void cmd_POD_COMMAND__DRIVE();
-                void cmd_POD_COMMAND__FLIGHT_PREP();
-                void cmd_POD_COMMAND__ARMED_WAIT();
-                void cmd_POD_COMMAND__READY();
+                void cmd_POD_COMMAND__IDLE(void);
+                void cmd_POD_COMMAND__TEST_MODE(void);
+                void cmd_POD_COMMAND__DRIVE(void);
+                void cmd_POD_COMMAND__FLIGHT_PREP(void);
+                void cmd_POD_COMMAND__ARMED_WAIT(void);
+                void cmd_POD_COMMAND__READY(void);
 
 			//navigation
 			void vFCU_FCTL_NAV__Init(void);

@@ -104,9 +104,9 @@
 		Luint8 enabled;
 
 		// Once the command has been enabled, start the timeout and don't allow execution if it's expired.
-		TS_FCTL__TIMEOUT_T commandTimeout;
+		TS_FCTL__TIMEOUT_T guardTimeout;
 
-	} strInterlockCommand;
+	} TS_INTERLOCK_GUARD_T;
 
 
 	/** Pod command struct */
