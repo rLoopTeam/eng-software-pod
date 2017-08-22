@@ -34,6 +34,10 @@ Lint16 s16FCU_ASI__SendCommand(void);
 Lint16 s16FCU_ASI__ProcessReply(void);
 
 
+//Because of addx 1 always being responded to, we need to do from address 2 to 9
+#define C_ASI__ADDX_OFFSET		(2U)
+
+
 /***************************************************************************//**
  * @brief
  * Init any variables
@@ -96,7 +100,7 @@ void vFCU_ASI__Init(void)
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
 	{
 		//set the slave addx
-		vSIL3_MODBUS_MASTER_SLAVEREGS__Set_SlaveAddx(u8Counter, u8Counter + 1U);
+		vSIL3_MODBUS_MASTER_SLAVEREGS__Set_SlaveAddx(u8Counter, u8Counter + C_ASI__ADDX_OFFSET);
 
 		//setup the Modbus system to handle the slave data
 		vSIL3_MODBUS_MASTER_SLAVEREGS__Set_RegisterAddx(u8Counter, 0, (C_FCU_ASI__FAULTS));
@@ -203,7 +207,7 @@ void vFCU_ASI__Process(void)
 			if(u8Temp == 0U)
 			{
 				//set the slave Addx to be n + 1 (i.e. first engine is 1)
-				s16Return = s16SIL3_MODBUS_MASTER_CMD__Slave_Reqest_Read(sFCU.sASI.u8ScanIndex + 1U,
+				s16Return = s16SIL3_MODBUS_MASTER_CMD__Slave_Reqest_Read(sFCU.sASI.u8ScanIndex + C_ASI__ADDX_OFFSET,
 																		 MODBUS_FUNCCODE__READ_MULTIPLE_HOLDING_REGS,
 																		 sFCU.sASI.eCommandList[sFCU.sASI.u8CommandListIndex],
 																		 1U);
