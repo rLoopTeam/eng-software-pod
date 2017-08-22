@@ -111,6 +111,11 @@ void vFCU_FCTL__PutCommand(TE_POD_COMMAND_T command)
 }
 
 
+void vFCU_FCTL_MAINSM__Clear_Command()
+{
+	sFCU.sStateMachine.command.command = POD_COMMAND__NO_COMMAND;
+}
+
 /////////////////////////////////////////////////////////////////////
 //  Interlock guard handling
 /////////////////////////////////////////////////////////////////////
