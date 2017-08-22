@@ -63,7 +63,7 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	switch(ePacketType)
 	{
 		case NET_PKT__FCU_BRAKES__TX_DATA:
-			u16Length = ((Luint8)FCU_BRAKE__MAX_BRAKES * (36U + 5U + 16U + 12U + 1U)) + 2U;
+			u16Length = (2U * (36U + 5U + 16U + 12U)) + 2U;
 			break;
 
 		case NET_PKT__FCU_BRAKES__TX_MOTOR_PARAM:
@@ -127,7 +127,7 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer += 4U;
 					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sTarget.f32LeadScrew_mm);
 					pu8Buffer += 4U;
-					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sBrakes[u8Counter].sTarget.s32LeadScrew_um);
+					vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sBrakes[u8Counter].sTarget.u32LeadScrew_um);
 					pu8Buffer += 4U;
 
 					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sBrakes[u8Counter].sCurrent.f32IBeam_mm);
@@ -170,9 +170,6 @@ void vFCU_BRAKES_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer += 4U;
 					vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sBrakes[u8Counter].sMove.s32currentPos);
 					pu8Buffer += 4U;
-
-					pu8Buffer[0] = u8SIL3_STEPDRIVE_LIMIT__Get_Limit_Interrupt(u8Counter);
-					pu8Buffer += 1U;
 
 
 				}//for(u8Counter = 0U; u8Counter < FCU_BRAKE__MAX_BRAKES; u8Counter++)
@@ -234,17 +231,13 @@ void vFCU_BRAKES_ETH__MoveMotor_RAW(Luint32 u32Index, Lint32 s32Position)
 			{
 				case 0:
 					//move left
-					vSIL3_STEPDRIVE_LIMIT__Clear_Limit_ISR(FCU_BRAKE__LEFT);
 					vFCU_BRAKES_STEP__Move(s32Position, s32FCU_BRAKES__Get_CurrentPos_um(FCU_BRAKE__RIGHT));
 					break;
 				case 1:
 					//move right
-					vSIL3_STEPDRIVE_LIMIT__Clear_Limit_ISR(FCU_BRAKE__RIGHT);
 					vFCU_BRAKES_STEP__Move(s32FCU_BRAKES__Get_CurrentPos_um(FCU_BRAKE__LEFT), s32Position);
 					break;
 				case 2:
-					vSIL3_STEPDRIVE_LIMIT__Clear_Limit_ISR(FCU_BRAKE__LEFT);
-					vSIL3_STEPDRIVE_LIMIT__Clear_Limit_ISR(FCU_BRAKE__RIGHT);
 					vFCU_BRAKES_STEP__Move(s32Position, s32Position);
 					break;
 				default:

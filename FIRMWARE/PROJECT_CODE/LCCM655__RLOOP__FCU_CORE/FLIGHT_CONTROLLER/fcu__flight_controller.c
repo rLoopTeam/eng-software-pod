@@ -58,9 +58,7 @@ void vFCU_FCTL__Init(void)
 	#endif
 
 	//init the navigation system
-#if C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION == 1U
 	vFCU_FCTL_NAV__Init();
-#endif
 
 }
 
@@ -88,9 +86,7 @@ void vFCU_FCTL__Process(void)
 	#endif
 
 	//process navigation
-#if C_LOCALDEF__LCCM655__ENABLE_FCTL_NAVIGATION == 1U
 	vFCU_FCTL_NAV__Process();
-#endif
 
 	//process the main state machine
 	#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
@@ -105,14 +101,13 @@ void vFCU_FCTL__Process(void)
 void vFCU_FCTL__Config_From_Database(void)
 {
 
-#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 	//accel system
 	//enable the Accel system
 	vFCU_ACCEL_VALID__Enable(u8FCU_FCTL_TRACKDB__Accel__Get_Use());
 
 	//load up the thresholding
 	vFCU_ACCEL_THRESH__Set_Threshold(s32FCU_FCTL_TRACKDB__Accel__Get_Threshold_mm_ss(), s32FCU_FCTL_TRACKDB__Accel__Get_ThresholdTime_x10ms());
-#endif //C_LOCALDEF__LCCM655__ENABLE_ACCEL
+
 
 	//fwd laser
 

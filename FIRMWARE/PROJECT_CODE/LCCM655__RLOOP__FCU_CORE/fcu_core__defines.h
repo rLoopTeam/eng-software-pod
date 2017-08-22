@@ -69,7 +69,7 @@
 
 
 	/** Min brakes I-Beam Distance */
-	#define C_FCU__BRAKES__MIN_IBEAM_DIST_MM				(5.0F)
+	#define C_FCU__BRAKES__MIN_IBEAM_DIST_MM				(2.5F)
 
 	#define C_FCU__BRAKES__MAX_IBEAM_DIST_MM				(22.0F)
 
