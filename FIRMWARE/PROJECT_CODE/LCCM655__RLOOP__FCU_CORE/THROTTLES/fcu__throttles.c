@@ -91,6 +91,9 @@ void vFCU_THROTTLE__Init(void)
 	//clear some internal vars.
 	for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
 	{
+		//set our min safety voltage.
+		vAMC7182__DAC_SetVoltage(u8Counter, 0.95F * 1.15F);
+
 		sFCU.sThrottle.u16RequestedRPM[u8Counter] = 0U;
 		sFCU.sThrottle.eRequestedMode[u8Counter] = THROTTLE_TYPE__STEP;
 		sFCU.sThrottle.u16CurrentRPM[u8Counter] = 0U;
@@ -428,27 +431,16 @@ Lfloat32 f32FCU_THROTTLE__RPM_To_Volts(Luint16 u16RPM)
 	Lfloat32 f32Temp;
 
 	//example 0.5 to 4.5v = 0 to 2000 rpm.
-	//todo after hardware rest.
-
 	f32Temp = (Lfloat32)u16RPM;
 
 	//scale to volts, range of 1-4V
-	f32Temp *= 0.002F;
+	f32Temp *= 0.004F;
 
 	//add zero offset
 	//for now add in 0.95V, actually 1.0v on the controller, but we don't want to have any issues
+	f32Temp += (0.95F * 1.15F);
 
-	//make sure if RPM = 0 then we are off
-	if(u16RPM == 0U)
-	{
-		f32Temp += 0.0F;
-
-	}
-	else
-	{
-		f32Temp += 0.95F;
-	}
-
+	//return
 	return f32Temp;
 
 }

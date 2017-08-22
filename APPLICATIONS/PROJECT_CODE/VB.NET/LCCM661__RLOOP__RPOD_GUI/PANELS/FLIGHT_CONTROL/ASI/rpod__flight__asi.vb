@@ -27,7 +27,7 @@
         Private m_txtAct_Faults(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
         Private m_txtAct_TempC(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtAct_Current(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
-        Private m_txtAct_RPM(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
+        Private m_txtAct_RPM(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16
         Private m_txtAct_ThrottleV(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
 
         'setup the HE
@@ -235,7 +235,7 @@
                 Else
                     l34(iCounter).Layout__AboveRightControl(l34(iCounter - 1), Me.m_txtAct_RPM(iCounter - 1))
                 End If
-                Me.m_txtAct_RPM(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, l34(iCounter))
+                Me.m_txtAct_RPM(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16(100, l34(iCounter))
             Next
 
 
@@ -276,6 +276,9 @@
             Dim btnChange As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Change", AddressOf Me.btnChange__Click)
             btnChange.Layout__RightOfControl(Me.m_txtSetRPM)
 
+            Dim btnRPM0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Stop", AddressOf Me.btnRPM0__Click)
+            btnRPM0.Layout__RightOfControl(btnChange)
+
 
         End Sub
 
@@ -303,6 +306,18 @@
                                                  UInt32.Parse(Me.m_txtSetRPM.Text),
                                                  Me.m_cboMode.SelectedIndex, 0)
         End Sub
+
+        Private Sub btnRPM0__Click(s As Object, e As EventArgs)
+
+            'all
+            Dim iHE As Integer = 8
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_THROTTLE__SET_RAW_THROTTLE,
+                                                 iHE,
+                                                 0,
+                                                 Me.m_cboMode.SelectedIndex, 0)
+        End Sub
+
 
         ''' <summary>
         ''' Control streaming
