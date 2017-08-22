@@ -411,12 +411,14 @@ void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void)
  */
 void vFCU_BRAKES_SW_WIN32__Inject_SwitchState(Luint8 u8Brake, Luint8 u8ExtendRetract, Luint8 u8Value)
 {
+	#if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
 	//no index checking on win32
 	sFCU.sBrakes[u8Brake].sLimits[u8ExtendRetract].u8InjectedValue = u8Value;
+	#endif 
 }
 
 
-#endif
+#endif //WIN32
 
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 //safetys
