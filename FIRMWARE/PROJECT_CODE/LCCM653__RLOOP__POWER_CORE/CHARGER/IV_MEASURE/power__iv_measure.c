@@ -24,9 +24,13 @@
 
 extern struct _strPWRNODE sPWRNODE;
 
-Lfloat32 f32PWRNODE_CHG_IV__Filter_Current_ADC_Value(Lfloat32 ADC_Sample);
-Lfloat32 f32PWRNODE_CHG_IV__Filter_Voltage_ADC_Value(Lfloat32 ADC_Sample);
-Lfloat32 f32PWRNODE_CHG_IV__Filter_Ref_ADC_Value(Lfloat32 ADC_Sample);
+Lfloat32 f32PWRNODE_CHG_IV__Filter_Small_Current_Ref_ADC_Value(Lfloat32 ADC_Sample);
+Lfloat32 f32PWRNODE_CHG_IV__Filter_Small_Current_ADC_Value(Lfloat32 ADC_Sample);
+Lfloat32 f32PWRNODE_CHG_IV__Filter_Large_Current_Ref_ADC_Value(Lfloat32 ADC_Sample);
+Lfloat32 f32PWRNODE_CHG_IV__Filter_Large_Current_ADC_Value(Lfloat32 ADC_Sample);
+Lfloat32 f32PWRNODE_CHG_IV__Filter_Charger_Voltage_ADC_Value(Lfloat32 ADC_Sample);
+Lfloat32 f32PWRNODE_CHG_IV__Filter_Battery_Voltage_ADC_Value(Lfloat32 ADC_Sample);
+
 
 /***************************************************************************//**
  * @brief
@@ -52,12 +56,12 @@ void vPWRNODE_CHG_IV__Init(void)
  */
 void vPWRNODE_CHG_IV__Process(void)
 {
-    Lfloat32 f32ChargeCurrentVoltage_Sample;
-    Lfloat32 f32ChargeCurrentRefVoltage_Sample;
-    //Lfloat32 f32BattCurrentVoltage_Sample;
-    //Lfloat32 f32BattCurrentRefVoltage_Sample;
     Lfloat32 f32ChargerVoltageVoltage_Sample;
-    //Lfloat32 f32BattVoltageVoltage_Sample;
+    Lfloat32 f32LargeCurrentVoltage_Sample;
+    Lfloat32 f32LargeCurrentRefVoltage_Sample;
+    Lfloat32 f32BattVoltageVoltage_Sample;
+    Lfloat32 f32SmallCurrentRefVoltage_Sample;
+    Lfloat32 f32SmallCurrent_Sample;
     Luint8 u8New;
 
 
@@ -73,34 +77,61 @@ void vPWRNODE_CHG_IV__Process(void)
         //get the ADC data for each channel
 #ifndef WIN32
         f32ChargerVoltageVoltage_Sample = f32RM4_ADC_USER__Get_Voltage(0U);
-        //f32BattCurrentVoltage_Sample = f32RM4_ADC_USER__Get_Voltage(1U);
-        //f32BattCurrentRefVoltage_Sample = f32RM4_ADC_USER__Get_Voltage(2U);
-        //f32BattVoltageVoltage_Sample = f32RM4_ADC_USER__Get_Voltage(3U);
-        f32ChargeCurrentRefVoltage_Sample = f32RM4_ADC_USER__Get_Voltage(4U);
-        f32ChargeCurrentVoltage_Sample = f32RM4_ADC_USER__Get_Voltage(5U);
+
+        f32LargeCurrentVoltage_Sample = f32RM4_ADC_USER__Get_Voltage(1U);
+        f32LargeCurrentRefVoltage_Sample = f32RM4_ADC_USER__Get_Voltage(2U);
+
+        f32BattVoltageVoltage_Sample = f32RM4_ADC_USER__Get_Voltage(3U);
+
+        f32SmallCurrentRefVoltage_Sample = f32RM4_ADC_USER__Get_Voltage(4U);
+        f32SmallCurrent_Sample = f32RM4_ADC_USER__Get_Voltage(5U);
 
 #else
         //f32Voltage_Sample = 0 - sPWRNODE.sHASS600.f32HASS_VoltageOffSet;
         f32ChargeCurrentRefVoltage_Sample = 2.5;
 #endif
 
-        //Filter the reference voltage and save it to the main struct
-        sPWRNODE.sCHARGER_IV.f32HASS_RefVoltageReading = f32PWRNODE_CHG_IV__Filter_Ref_ADC_Value(f32ChargeCurrentRefVoltage_Sample);
+        //Filter the small current reference voltage and save it to the main struct
+        sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentRefVoltageReading = f32PWRNODE_CHG_IV__Filter_Small_Current_Ref_ADC_Value(f32SmallCurrentRefVoltage_Sample);
 
         //Convert voltage reading to current reading
-        //Charger current sensor is 50A model
-        sPWRNODE.sCHARGER_IV.f32HASS_CurrentReading = f32PWRNODE_CHG_IV__Filter_Current_ADC_Value( C_PWRCORE__CURRENT_HASS_IPN/.625F * (f32ChargeCurrentVoltage_Sample - sPWRNODE.sCHARGER_IV.f32HASS_RefVoltageReading));
+        //small current sensor is 50A model
+        sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading = f32PWRNODE_CHG_IV__Filter_Small_Current_ADC_Value( 50.0F/.625F * (f32SmallCurrent_Sample - sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentRefVoltageReading));
 
-        //Convert ADC voltage reading to node input voltage value
-        sPWRNODE.sCHARGER_IV.f32HAAS_ChargerVoltageReading = f32PWRNODE_CHG_IV__Filter_Voltage_ADC_Value((f32ChargerVoltageVoltage_Sample - 1.28F) * 77.93F);
+        //Filter the large current reference voltage and save it to the main struct
+        sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentRefVoltageReading = f32PWRNODE_CHG_IV__Filter_Large_Current_Ref_ADC_Value(f32LargeCurrentRefVoltage_Sample);
+
+        //Convert voltage reading to current reading
+        //small current sensor is 600A model
+        sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentReading = f32PWRNODE_CHG_IV__Filter_Large_Current_ADC_Value( 600.0F/.625F * (f32LargeCurrentVoltage_Sample - sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentRefVoltageReading));
+
+        //Convert ADC voltage reading to charger voltage reading
+        sPWRNODE.sCHARGER_IV.f32HASS_ChargerVoltageReading = f32PWRNODE_CHG_IV__Filter_Charger_Voltage_ADC_Value((f32ChargerVoltageVoltage_Sample - 1.28F) * 77.93F);
+
+        //Convert ADC voltage reading to battery input voltage value
+        sPWRNODE.sCHARGER_IV.f32HASS_BattVoltageReading = f32PWRNODE_CHG_IV__Filter_Battery_Voltage_ADC_Value((f32BattVoltageVoltage_Sample - 1.28F) * 77.93F);
 
         //TODO Change 999999 limit to something like 50 A
         //set any alarms (flags based on any limits)
-        if (sPWRNODE.sCHARGER_IV.f32HASS_CurrentReading > 999999)
+        if (sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentReading > 999999)
         {
             vSIL3_FAULTTREE__Set_Flag(&sPWRNODE.sCHARGER_IV.sFaultFlags, C_LCCM653__IVMEASURE__FAULT_INDEX__00);
             vSIL3_FAULTTREE__Set_Flag(&sPWRNODE.sCHARGER_IV.sFaultFlags, C_LCCM653__IVMEASURE__FAULT_INDEX_MASK__00);
         }
+
+        if(sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading < 100 && sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading >= 0)
+        {
+            sPWRNODE.sCHARGER_IV.f32HASS_BatteryCurrent = sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading;
+            sPWRNODE.sCHARGER_IV.f32HASS_ChargingCurrent = 0;
+        }else if (sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading >= 100) {
+            sPWRNODE.sCHARGER_IV.f32HASS_BatteryCurrent = sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading;
+            sPWRNODE.sCHARGER_IV.f32HASS_ChargingCurrent = 0;
+        }else if (sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading < 0)
+        {
+            sPWRNODE.sCHARGER_IV.f32HASS_BatteryCurrent = 0;
+            sPWRNODE.sCHARGER_IV.f32HASS_ChargingCurrent = sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading * -1;
+        }
+
 
         //taken the data now
 #ifndef WIN32
@@ -116,53 +147,93 @@ void vPWRNODE_CHG_IV__Process(void)
 
 /***************************************************************************//**
  * @brief
- * Average the current readings
+ * Average the small current reference voltage
  *
  * @st_funcMD5
  * @st_funcID
  */
 
-Lfloat32 f32PWRNODE_CHG_IV__Filter_Ref_ADC_Value(Lfloat32 ADC_Sample)
+Lfloat32 f32PWRNODE_CHG_IV__Filter_Small_Current_Ref_ADC_Value(Lfloat32 ADC_Sample)
 {
     Lfloat32 f32Return;
 
     f32Return = f32SIL3_NUM_FILTERING__Add_F32( ADC_Sample,
-                                                &sPWRNODE.sCHARGER_IV.u16HAAS_Voltage_Ref_Average_Counter,
+                                                &sPWRNODE.sCHARGER_IV.u16HASS_Small_Current_Ref_Average_Counter,
                                                 C_PWRCORE__CURRENT_AVG_SIZE,
-                                                &sPWRNODE.sCHARGER_IV.f32HAAS_Voltage_Ref_Average_Array[0]);
+                                                &sPWRNODE.sCHARGER_IV.f32HASS_Small_Current_Ref_Average_Array[0]);
 
     return f32Return;
 }
 
 /***************************************************************************//**
  * @brief
- * Average the current readings
+ * Average the small current reading
  *
  * @st_funcMD5
  * @st_funcID
  */
 
-Lfloat32 f32PWRNODE_CHG_IV__Filter_Current_ADC_Value(Lfloat32 ADC_Sample)
+Lfloat32 f32PWRNODE_CHG_IV__Filter_Small_Current_ADC_Value(Lfloat32 ADC_Sample)
 {
     Lfloat32 f32Return;
 
     f32Return = f32SIL3_NUM_FILTERING__Add_F32( ADC_Sample,
-                                                &sPWRNODE.sCHARGER_IV.u16HAAS_Current_Average_Counter,
+                                                &sPWRNODE.sCHARGER_IV.u16HASS_Small_Current_Average_Counter,
                                                 C_PWRCORE__CURRENT_AVG_SIZE,
-                                                &sPWRNODE.sCHARGER_IV.f32HAAS_Current_Average_Array[0]);
+                                                &sPWRNODE.sCHARGER_IV.f32HASS_Small_Current_Average_Array[0]);
 
     return f32Return;
 }
 
 /***************************************************************************//**
  * @brief
- * Average the current readings
+ * Average the large current reference voltage readings
  *
  * @st_funcMD5
  * @st_funcID
  */
 
-Lfloat32 f32PWRNODE_CHG_IV__Filter_Voltage_ADC_Value(Lfloat32 ADC_Sample)
+Lfloat32 f32PWRNODE_CHG_IV__Filter_Large_Current_Ref_ADC_Value(Lfloat32 ADC_Sample)
+{
+    Lfloat32 f32Return;
+
+    f32Return = f32SIL3_NUM_FILTERING__Add_F32( ADC_Sample,
+                                                &sPWRNODE.sCHARGER_IV.u16HASS_Large_Current_Ref_Average_Counter,
+                                                C_PWRCORE__CURRENT_AVG_SIZE,
+                                                &sPWRNODE.sCHARGER_IV.f32HASS_Large_Current_Ref_Average_Array[0]);
+
+    return f32Return;
+}
+
+/***************************************************************************//**
+ * @brief
+ * Average the large current sensor readings
+ *
+ * @st_funcMD5
+ * @st_funcID
+ */
+
+Lfloat32 f32PWRNODE_CHG_IV__Filter_Large_Current_ADC_Value(Lfloat32 ADC_Sample)
+{
+    Lfloat32 f32Return;
+
+    f32Return = f32SIL3_NUM_FILTERING__Add_F32( ADC_Sample,
+                                                &sPWRNODE.sCHARGER_IV.u16HASS_Large_Current_Average_Counter,
+                                                C_PWRCORE__CURRENT_AVG_SIZE,
+                                                &sPWRNODE.sCHARGER_IV.f32HASS_Large_Current_Average_Array[0]);
+
+    return f32Return;
+}
+
+/***************************************************************************//**
+ * @brief
+ * Average the charger voltage readings
+ *
+ * @st_funcMD5
+ * @st_funcID
+ */
+
+Lfloat32 f32PWRNODE_CHG_IV__Filter_Charger_Voltage_ADC_Value(Lfloat32 ADC_Sample)
 {
     Lfloat32 f32Return;
 
@@ -174,7 +245,25 @@ Lfloat32 f32PWRNODE_CHG_IV__Filter_Voltage_ADC_Value(Lfloat32 ADC_Sample)
     return f32Return;
 }
 
-//todo: provide functions to get the current voltages and currents as well as any fault flags.
+/***************************************************************************//**
+ * @brief
+ * Average the battery voltage readings
+ *
+ * @st_funcMD5
+ * @st_funcID
+ */
+
+Lfloat32 f32PWRNODE_CHG_IV__Filter_Battery_Voltage_ADC_Value(Lfloat32 ADC_Sample)
+{
+    Lfloat32 f32Return;
+
+    f32Return = f32SIL3_NUM_FILTERING__Add_F32( ADC_Sample,
+                                                &sPWRNODE.sCHARGER_IV.u16Charger_Batt_Voltage_Average_Counter,
+                                                C_PWRCORE__CURRENT_AVG_SIZE,
+                                                &sPWRNODE.sCHARGER_IV.f32Charger_Batt_Voltage_Average_Array[0]);
+
+    return f32Return;
+}
 
 
 #endif //C_LOCALDEF__LCCM653__ENABLE_CHARGER

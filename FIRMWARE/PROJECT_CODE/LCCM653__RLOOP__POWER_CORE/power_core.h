@@ -178,25 +178,51 @@
             /** LEM HASS 600-S Current Transducer **/
             struct
             {
-                /** Current Reading after converted from Voltage */
-                Lfloat32 f32HASS_CurrentReading;
+                /** Current Reading after converted from Voltage of the HASS 50-S **/
+                Lfloat32 f32HASS_SmallCurrentReading;
 
-                /** Reference Voltage Reading **/
-                Lfloat32 f32HASS_RefVoltageReading;
+                /** Reference Voltage Reading for the HASS 50-2 **/
+                Lfloat32 f32HASS_SmallCurrentRefVoltageReading;
+
+                /** Current Reading after converted from Voltage of the HASS 600-S **/
+                Lfloat32 f32HASS_LargeCurrentReading;
+
+                /** Reference Voltage Reading for the HASS 600-2 **/
+                Lfloat32 f32HASS_LargeCurrentRefVoltageReading;
 
                 /** Charger input voltage reading **/
-                Lfloat32 f32HAAS_ChargerVoltageReading;
+                Lfloat32 f32HASS_ChargerVoltageReading;
+
+                /** Charger input voltage reading **/
+                Lfloat32 f32HASS_BattVoltageReading;
+
+                /** Current battery is supplying to the pod **/
+                Lfloat32 f32HASS_BatteryCurrent;
+
+                /** Current being supplied into the batteries for charging **/
+                Lfloat32 f32HASS_ChargingCurrent;
 
                 /** Current Transducer Fault Flag */
                 FAULT_TREE__PUBLIC_T sFaultFlags;
 
+                //Large current sensor, HASS 600-S, +- 900 Amps range
+                //Small current sensor, HASS 50-S, +- 150 Amps range
 
                 //todo: separate out the average size defines
-                Luint16 u16HAAS_Current_Average_Counter;
-                Lfloat32 f32HAAS_Current_Average_Array[C_PWRCORE__CURRENT_AVG_SIZE];
+                Luint16 u16HASS_Small_Current_Average_Counter;
+                Lfloat32 f32HASS_Small_Current_Average_Array[C_PWRCORE__CURRENT_AVG_SIZE];
 
-                Luint16 u16HAAS_Voltage_Ref_Average_Counter;
-                Lfloat32 f32HAAS_Voltage_Ref_Average_Array[C_PWRCORE__CURRENT_AVG_SIZE];
+                Luint16 u16HASS_Small_Current_Ref_Average_Counter;
+                Lfloat32 f32HASS_Small_Current_Ref_Average_Array[C_PWRCORE__CURRENT_AVG_SIZE];
+
+                Luint16 u16HASS_Large_Current_Average_Counter;
+                Lfloat32 f32HASS_Large_Current_Average_Array[C_PWRCORE__CURRENT_AVG_SIZE];
+
+                Luint16 u16HASS_Large_Current_Ref_Average_Counter;
+                Lfloat32 f32HASS_Large_Current_Ref_Average_Array[C_PWRCORE__CURRENT_AVG_SIZE];
+
+                Luint16 u16Charger_Batt_Voltage_Average_Counter;
+                Lfloat32 f32Charger_Batt_Voltage_Average_Array[C_PWRCORE__CURRENT_AVG_SIZE];
 
                 Luint16 u16Charger_Voltage_Average_Counter;
                 Lfloat32 f32Charger_Voltage_Average_Array[C_PWRCORE__CURRENT_AVG_SIZE];
