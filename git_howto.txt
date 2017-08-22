@@ -1,4 +1,4 @@
-
+== Setup =====
 
 1. Clone into the current directory, open a Git power shell from the git-desktop gear icon
 
@@ -7,3 +7,29 @@ git clone git@github.com:rLoopTeam/eng-software-pod.git .
 2. Add the repo under Git_desktop (+) -> ADD -> Choose Path
 
 
+== Tips and Tricks =====
+
+Ignoring local build artifacts to keep commits clean:
+-----------------------------------------------------
+
+@see https://medium.com/@igloude/git-skip-worktree-and-how-i-used-to-hate-config-files-e84a44a8c859
+
+Ignore local changes to a file:
+  git update-index --skip-worktree <file_name>
+Un-ignore local changes to a file:
+ git update-index --no-skip-worktree <file_name>
+Show git skip-worktree files (Windows):
+  git ls-files -v| select-string -pattern '^s'
+Show git skip-worktree files (OSX/Linux):
+  git ls-files -v|grep ^S
+
+Examples:
+git update-index --skip-worktree APPLICATIONS/LAPP184__RLOOP__PWRNODE_EMU/bin/Debug/LAPP184__RLOOP__PWRNODE_EMU.exe
+git update-index --skip-worktree APPLICATIONS/LAPP188__RLOOP__RPOD_CONTROL/bin/Debug/LAPP188__RLOOP__RPOD_CONTROL.exe
+git update-index --skip-worktree APPLICATIONS/LAPP208__RLOOP__AUXPROP_EMU/bin/Debug/LAPP208__RLOOP__AUXPROP_EMU.exe
+git update-index --skip-worktree APPLICATIONS/LAPP209__RLOOP__HE_THERM_EMU/bin/Debug/LAPP209__RLOOP__HE_THERM_EMU.exe
+git update-index --skip-worktree APPLICATIONS/LAPP210__RLOOP__LGU_EMU/bin/Debug/LAPP210__RLOOP__LGU_EMU.exe
+git update-index --skip-worktree APPLICATIONS/PROJECT_CODE/DLLS/LDLL174__RLOOP__LCCM655/bin/Debug/LDLL174__RLOOP__LCCM655.dll
+git update-index --skip-worktree APPLICATIONS/PROJECT_CODE/DLLS/LDLL174__RLOOP__LCCM655/bin/Debug/LDLL174__RLOOP__LCCM655.exp
+git update-index --skip-worktree APPLICATIONS/PROJECT_CODE/DLLS/LDLL174__RLOOP__LCCM655/bin/Debug/LDLL174__RLOOP__LCCM655.lib
+git update-index --skip-worktree APPLICATIONS/PROJECT_CODE/DLLS/LDLL174__RLOOP__LCCM655/bin/Debug/LDLL174__RLOOP__LCCM655.pdb
