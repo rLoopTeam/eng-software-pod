@@ -281,10 +281,7 @@ void vFCU_BRAKES_SW__Left_SwitchRetract_ISR(void)
 		if(eState == SW_STATE__CLOSED)
 		{
 			//halt the stepper
-			if(sFCU.sBrakesGlobal.u8IgnoreRetractSwitches == 0U)
-			{
-				vSIL3_STEPDRIVE_LIMIT__Limit_ISR(FCU_BRAKE__LEFT);
-			}
+			vSIL3_STEPDRIVE_LIMIT__Limit_ISR(FCU_BRAKE__LEFT);
 		}
 		else
 		{
@@ -313,10 +310,7 @@ void vFCU_BRAKES_SW__Left_SwitchExtend_ISR(void)
 		if(eState == SW_STATE__CLOSED)
 		{
 			//halt the stepper
-			if(sFCU.sBrakesGlobal.u8IgnoreExtendSwitches == 0U)
-			{
-				vSIL3_STEPDRIVE_LIMIT__Limit_ISR(FCU_BRAKE__LEFT);
-			}
+			vSIL3_STEPDRIVE_LIMIT__Limit_ISR(FCU_BRAKE__LEFT);
 		}
 		else
 		{
@@ -347,11 +341,7 @@ void vFCU_BRAKES_SW__Right_SwitchRetract_ISR(void)
 		if(eState == SW_STATE__CLOSED)
 		{
 			//halt
-			if(sFCU.sBrakesGlobal.u8IgnoreRetractSwitches == 0U)
-			{
-				vSIL3_STEPDRIVE_LIMIT__Limit_ISR(FCU_BRAKE__RIGHT);
-			}
-
+			vSIL3_STEPDRIVE_LIMIT__Limit_ISR(FCU_BRAKE__RIGHT);
 		}
 		else
 		{
@@ -381,10 +371,7 @@ void vFCU_BRAKES_SW__Right_SwitchExtend_ISR(void)
 		if(eState == SW_STATE__CLOSED)
 		{
 			//Halt
-			if(sFCU.sBrakesGlobal.u8IgnoreExtendSwitches == 0U)
-			{
-				vSIL3_STEPDRIVE_LIMIT__Limit_ISR(FCU_BRAKE__RIGHT);
-			}
+			vSIL3_STEPDRIVE_LIMIT__Limit_ISR(FCU_BRAKE__RIGHT);
 		}
 		else
 		{

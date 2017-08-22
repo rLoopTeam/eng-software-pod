@@ -64,7 +64,7 @@ void vFCU_BRAKES__Init(void)
 
 		sFCU.sBrakes[u8Counter].sTarget.f32IBeam_mm = 0.0F;
 		sFCU.sBrakes[u8Counter].sTarget.f32LeadScrew_mm = 0.0F;
-		sFCU.sBrakes[u8Counter].sTarget.s32LeadScrew_um = 0U;
+		sFCU.sBrakes[u8Counter].sTarget.u32LeadScrew_um = 0U;
 	}
 
 	//init the limit switches
@@ -174,13 +174,25 @@ void vFCU_BRAKES__Process(void)
 			//While it seams redundant, we could apply some real-world hardware offets here
 			for(u8Counter = 0U; u8Counter < FCU_BRAKE__MAX_BRAKES; u8Counter++)
 			{
+				//get the target I-Beam distance
+				f32Temp = sFCU.sBrakes[u8Counter].sTarget.f32IBeam_mm;
 
-				//compute the lead screw in mm
-				sFCU.sBrakes[u8Counter].sTarget.s32LeadScrew_um = s32FCU_BRAKES__BrakePad_To_ScrewPos_um(sFCU.sBrakes[u8Counter].sTarget.f32IBeam_mm);
+				//equation:
+				//screw_pos = tan(17) * ibeam_dist
 
-				//to human units
-				sFCU.sBrakes[u8Counter].sTarget.f32LeadScrew_mm = (Lfloat32)sFCU.sBrakes[u8Counter].sTarget.s32LeadScrew_um / 1000.0F;
+				//div by Tan(17)
+				f32Temp /= 0.305730681F;
 
+				//because our min brake gap is 2.5mm, and this should equal to 0mm lead screw, we
+				//need to subtract -2.5mm/tan(17)
+				f32Temp -= 8.1771F;
+
+				//convert to a target distance
+				sFCU.sBrakes[u8Counter].sTarget.f32LeadScrew_mm = f32Temp;
+
+				//to microns
+				f32Temp *= 1000.0F;
+				sFCU.sBrakes[u8Counter].sTarget.u32LeadScrew_um = (Luint32)f32Temp;
 
 			}//for(u8Counter = 0U; u8Counter < FCU_BRAKE__MAX_BRAKES; u8Counter++)
 
@@ -188,7 +200,7 @@ void vFCU_BRAKES__Process(void)
 			vSIL3_STEPDRIVE__Clear_TaskComplete();
 
 			//feed this to the stepper system
-			vFCU_BRAKES_STEP__Move(sFCU.sBrakes[0].sTarget.s32LeadScrew_um, sFCU.sBrakes[1].sTarget.s32LeadScrew_um);
+			vFCU_BRAKES_STEP__Move(sFCU.sBrakes[0].sTarget.u32LeadScrew_um, sFCU.sBrakes[1].sTarget.u32LeadScrew_um);
 
 			sFCU.sBrakesGlobal.eBrakeStates = BRAKE_STATE__MOVING;
 			break;
@@ -204,8 +216,7 @@ void vFCU_BRAKES__Process(void)
 			sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sMove.s32currentPos = s32FCU_BRAKES__Get_CurrentPos_um(FCU_BRAKE__RIGHT);
 
 			//todo, compute the brake position in terms of Ibeam distance.
-			sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sCurrent.f32IBeam_mm = f32FCU_BRAKES__ScrewPos_To_BrakePad_mm(sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sMove.s32currentPos);
-			sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sCurrent.f32IBeam_mm = f32FCU_BRAKES__ScrewPos_To_BrakePad_mm(sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sMove.s32currentPos);
+
 
 			//check to see if the curent move task is done.
 			u8Test = u8SIL3_STEPDRIVE__Get_TaskComplete();
@@ -265,20 +276,29 @@ void vFCU_BRAKES__Process(void)
 }
 
 
-
-Lint32 s32FCU_BRAKES__BrakePad_To_ScrewPos_um(Lfloat32 f32BrakePadPos)
+/***************************************************************************//**
+ * @brief
+ * ToDo
+ * 
+ * @param[in]		f32BrakePadPos		## Desc ##
+ * @st_funcMD5		C175FC20851F18BFF1220DCD3CC09765
+ * @st_funcID		LCCM655R0.FILE.007.FUNC.013
+ */
+Lint32 s32FCU_BRAKES__ScrewPos_Compute_um(Lfloat32 f32BrakePadPos)
 {
 	Lfloat32 f32Temp;
-	Lfloat32 f32Temp2;
+	//equation:
+	//ibeam_dist = tan(17) * screw_dist
 
-	//Initial
-	f32Temp = 78.767F;
+	//72 * .305 = 21.9mm
+	//8.17 * .305 = 2.5mm
 
-	//compute the subtraction
-	f32Temp2 = 3.425F * f32BrakePadPos;
+	//div by Tan(17)
+	f32Temp /= 0.305730681F;
 
-	//subtract
-	f32Temp -= f32Temp2;
+	//because our min brake gap is 2.5mm, and this should equal to 0mm lead screw, we
+	//need to subtract -2.5mm/tan(17)
+	f32Temp -= 8.1771F;
 
 	//to microns
 	f32Temp *= 1000.0F;
@@ -287,30 +307,6 @@ Lint32 s32FCU_BRAKES__BrakePad_To_ScrewPos_um(Lfloat32 f32BrakePadPos)
 	return (Lint32)f32Temp;
 }
 
-Lfloat32 f32FCU_BRAKES__ScrewPos_To_BrakePad_mm(Lint32 s32ScrewPos)
-{
-
-	Lfloat32 f32Temp;
-	Lfloat32 f32Temp2;
-
-	//initial
-	f32Temp2 = 23.0F;
-
-	//screw pos to float
-	f32Temp = (Lfloat32)s32ScrewPos;
-
-	//microns to mm
-	f32Temp /= 1000.0F;
-
-	//compute subtraction
-	f32Temp *= 0.292F;
-
-	//subtract
-	f32Temp2 -= f32Temp;
-
-	//already in mm
-	return f32Temp2;
-}
 
 //The purpose of this function is to handle detection of the end limit switches and set the brake screw positions
 //based on those limits.
@@ -382,7 +378,7 @@ void vFCU_BRAKES__Begin_Init(Luint32 u32Key)
 {
 
 	//can only cal from reset state
-	if((sFCU.sBrakesGlobal.eBrakeStates == BRAKE_STATE__RESET) || (sFCU.sBrakesGlobal.eBrakeStates == BRAKE_STATE__IDLE))
+	if(sFCU.sBrakesGlobal.eBrakeStates == BRAKE_STATE__RESET)
 	{
 		if(u32Key == 0x98765432U)
 		{
@@ -570,8 +566,8 @@ void vFCU_BRAKES__10MS_ISR(void)
 		vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__LEFT_CURRENTPOS_S32, sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sMove.s32currentPos);
 		vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__RIGHT_CURRENTPOS_S32, sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sMove.s32currentPos);
 
-		vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__LEFT_TARGET_U32, sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sTarget.s32LeadScrew_um);
-		vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__RIGHT_TARGET_U32, sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sTarget.s32LeadScrew_um);
+		vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__LEFT_TARGET_U32, sFCU.sBrakes[(Luint8)FCU_BRAKE__LEFT].sTarget.u32LeadScrew_um);
+		vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_BRAKES__RIGHT_TARGET_U32, sFCU.sBrakes[(Luint8)FCU_BRAKE__RIGHT].sTarget.u32LeadScrew_um);
 
 
 	#endif

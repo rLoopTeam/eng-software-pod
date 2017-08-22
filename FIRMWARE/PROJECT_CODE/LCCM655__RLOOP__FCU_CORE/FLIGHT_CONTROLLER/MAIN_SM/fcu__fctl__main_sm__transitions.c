@@ -304,11 +304,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__READY(void)
 		//LG, check the various nav sources and determine how we need to
 		//transition, for now just threshold it
 
-#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 		if(u8FCU_ACCEL_THRES__Is_Threshold_Met() == 1U)
-#else
-		if(1)
-#endif
 		{
 			sm->eCurrentState = POD_STATE__ACCEL;
 		} 
