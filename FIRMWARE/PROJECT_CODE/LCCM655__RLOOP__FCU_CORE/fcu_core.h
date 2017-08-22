@@ -122,7 +122,7 @@
 						Luint8 u8Valid;
 					}sAccel[C_LOCALDEF__LCCM418__NUM_DEVICES];
 
-			}sNavigationX;
+			}sNavigation;
             #endif
 
 #if 0
@@ -153,6 +153,8 @@
 			}sHoverEngines;
 #endif //0
 
+			#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
+			#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
 			/** State Machine Structure **/
 			struct
 			{
@@ -160,7 +162,7 @@
 				TS_FCTL__STATE_MACHINE_T sm;
 
 				/** Main pod command holder. @see TE_POD_COMMAND_T */
-				strPodCmd command;
+				TS_POD_COMMAND_T command;
 	
 				/** Enum for Pod Status for SpaceX telemetry */
 				// @todo: Update code to change this as needed when states change
@@ -182,14 +184,16 @@
 					TS_FCTL__TIMEOUT_T SpindownToIdleBackupTimeout;
 
 				}sTimers;
+				
+				// Interlock guards for commands from the network
+				// These are used to determine if a command from the network
+				// can call a cmd_POD_COMMAND__* method. 
+				TS_INTERLOCK_GUARD_T sInterlockGuards[ (Luint8) POD_COMMAND__NUM_COMMANDS ];
 
-				
-				
-				/** Interlock command timeouts */
-				strInterlockCommand command_interlocks[POD_COMMAND__NUM_COMMANDS];
-				
+
 			}sStateMachine;
-
+			#endif//C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
+			#endif//C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
 
 			/** Auto sequence state machine */
 			E_FCU__AUTO_SEQUENCE_STATE_T eAutoSeqState;
@@ -244,14 +248,6 @@
 
 				/** 100ms tick */
 				Luint8 u8Timer_100ms;
-
-
-				/** Setting this to 1 ignores any bouncing in the retract swtiches */
-				Luint8 u8IgnoreRetractSwitches;
-
-				/** Ignore extend switches during calibration*/
-				Luint8 u8IgnoreExtendSwitches;
-
 
 			}sBrakesGlobal;
 
@@ -389,7 +385,7 @@
 					Lfloat32 f32LeadScrew_mm;
 
 					/** Microns for the planner */
-					Luint32 s32LeadScrew_um;
+					Luint32 u32LeadScrew_um;
 
 				}sTarget;
 
@@ -1180,6 +1176,28 @@
 		void vFCU_FCTL__Process(void);
 		void vFCU_FCTL__Config_From_Database(void);
 
+			// General Timer and timeouts
+			void vFCU_FCTL__TIMEOUT__Init(TS_FCTL__TIMEOUT_T *pTimeout, Luint32 u32Duration_x10ms);
+			void vFCU_FCTL__TIMEOUT__Restart(TS_FCTL__TIMEOUT_T *pTimeout);
+			void vFCU_FCTL__TIMEOUT__Reset(TS_FCTL__TIMEOUT_T *pTimeout);
+			void vFCU_FCTL__TIMEOUT__Ensure_Started(TS_FCTL__TIMEOUT_T *pTimeout);
+			Luint8 u8FCU_FCTL__TIMEOUT__Is_Expired(TS_FCTL__TIMEOUT_T *pTimeout);
+			void vFCU_FCTL__TIMEOUT__Update_x10ms(TS_FCTL__TIMEOUT_T *pTimeout);
+
+			// Flight Control interlock guards
+			void vFCU_FCTL_MAINSM__InterlockGuard__Init(TS_INTERLOCK_GUARD_T *pInterlockGuard, Luint32 u32Duration_x10ms);
+			void vFCU_FCTL_MAINSM__InterlockGuard__Unlock(TS_INTERLOCK_GUARD_T *pInterlockGuard);
+			Luint8 u8FCU_FCTL_MAINSM__InterlockGuard__IsUnlocked(TS_INTERLOCK_GUARD_T *pInterlockGuard);
+			void vFCU_FCTL_MAINSM__InterlockGuard__Reset(TS_INTERLOCK_GUARD_T *pInterlockGuard);
+			void vFCU_FCTL_MAINSM__InterlockGuard__UpdateTimeout_x10ms(TS_INTERLOCK_GUARD_T *pInterlockGuard);
+
+			// Helper functions for executing interlock commands
+			void vFCU_FCTL_MAINSM__NetCommand_Unlock(TE_POD_COMMAND_T command);
+			Luint8 vFCU_FCTL_MAINSM__NetCommand_IsUnlocked(TE_POD_COMMAND_T command);
+			// @todo: change this to take a pointer (or a copy) of a pod command struct
+			// @todo: is this only for the state machine? I suppose commands could do things unrelated to the SM...
+			void vFCU_FCTL__PutCommand(TE_POD_COMMAND_T command);
+
 			//main state machine
 			void vFCU_FCTL_MAINSM__Init(void);
 			void vFCU_FCTL_MAINSM__Process(void);
@@ -1193,60 +1211,37 @@
 				Luint8 u8FCU_FCTL_MAINSM__Check_IsTransitioning(const TS_FCTL__STATE_MACHINE_T *cpSM);
 
 
-        		// General Timer and timeouts
-        		TS_FCTL__TIMEOUT_T create_timeout(Luint32 duration_ms);
-        		void vFCU_FCTL_MAINSM_TIMER__Init(TS_FCTL__TIMEOUT_T *timeout, Luint32 duration_ms);
-        		void vFCU_FCTL_MAINSM_TIMER__Restart(TS_FCTL__TIMEOUT_T *timeout);
-        		void vFCU_FCTL_MAINSM_TIMER__Reset(TS_FCTL__TIMEOUT_T *timeout);
-        		void timeout_ensure_started(TS_FCTL__TIMEOUT_T *timeout);
-        		Luint8 u8FCU_FCTL_MAINSM_TIMER__Is_Expired(TS_FCTL__TIMEOUT_T *timeout);
-        		void vFCU_FCTL_MAINSM_TIMER__Update_x10ms(TS_FCTL__TIMEOUT_T *timeout);
-
-#if 0
-        		strInterlockCommand create_interlock_command(const Luint32 duration_ms);
-        		void init_interlock_command(strInterlockCommand *command, Luint32 duration_ms);
-        		void interlock_command_enable(strInterlockCommand *ic);
-        		Luint8 interlock_command_can_execute(strInterlockCommand *ic);
-        		void interlock_command_reset(strInterlockCommand *ic);
-        		void interlock_command_update_timeout(strInterlockCommand *ic, Luint8 time_ms);
-
-        		// Helper functions for executing interlock commands
-        		void unlock_pod_interlock_command(TE_POD_COMMAND_T command);
-
-#endif //0
-        		void attempt_pod_interlock_command(TE_POD_COMMAND_T command);
-
                 //  Pod guard/check functions 
-                Luint8 pod_init_complete();
-                Luint8 armed_wait_checks_ok();
-                Luint8 drive_checks_ok();
-                Luint8 flight_prep_checks_ok();
-                Luint8 flight_readiness_checks_ok();
-                Luint8 accel_confirmed();
-                Luint8 pusher_separation_confirmed();
-                Luint8 pod_stop_confirmed();
-                Luint8 spindown_complete_confirmed();
+                Luint8 pod_init_complete(void);
+                Luint8 armed_wait_checks_ok(void);
+                Luint8 drive_checks_ok(void);
+                Luint8 flight_prep_checks_ok(void);
+                Luint8 flight_readiness_checks_ok(void);
+                Luint8 accel_confirmed(void);
+                Luint8 pusher_separation_confirmed(void);
+                Luint8 pod_stop_confirmed(void);
+                Luint8 spindown_complete_confirmed(void);
 
                 //  Pod state transition functions
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__INIT();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__IDLE();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__TEST_MODE();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__DRIVE();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__ARMED_WAIT();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__FLIGHT_PREP();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__READY();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__ACCEL();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__COAST_INTERLOCK();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__BRAKE();
-                void vFCU_FCTL_MAINSM_XSN__POD_STATE__SPINDOWN();
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__INIT(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__IDLE(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__TEST_MODE(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__DRIVE(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__ARMED_WAIT(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__FLIGHT_PREP(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__READY(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__ACCEL(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__COAST_INTERLOCK(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__BRAKE(void);
+                void vFCU_FCTL_MAINSM_XSN__POD_STATE__SPINDOWN(void);
 
                 //  Pod command functions
-                void cmd_POD_COMMAND__IDLE();
-                void cmd_POD_COMMAND__TEST_MODE();
-                void cmd_POD_COMMAND__DRIVE();
-                void cmd_POD_COMMAND__FLIGHT_PREP();
-                void cmd_POD_COMMAND__ARMED_WAIT();
-                void cmd_POD_COMMAND__READY();
+                void cmd_POD_COMMAND__IDLE(void);
+                void cmd_POD_COMMAND__TEST_MODE(void);
+                void cmd_POD_COMMAND__DRIVE(void);
+                void cmd_POD_COMMAND__FLIGHT_PREP(void);
+                void cmd_POD_COMMAND__ARMED_WAIT(void);
+                void cmd_POD_COMMAND__READY(void);
 
 			//navigation
 			void vFCU_FCTL_NAV__Init(void);
@@ -1490,10 +1485,6 @@
 		Luint16 u16FCU_BRAKES__Get_ADC_Raw(E_FCU__BRAKE_INDEX_T eBrake);
 		Lfloat32 f32FCU_BRAKES__Get_IBeam_mm(E_FCU__BRAKE_INDEX_T eBrake);
 		Lfloat32 f32FCU_BRAKES__Get_MLP_mm(E_FCU__BRAKE_INDEX_T eBrake);
-
-
-		Lint32 s32FCU_BRAKES__BrakePad_To_ScrewPos_um(Lfloat32 f32BrakePadPos);
-		Lfloat32 f32FCU_BRAKES__ScrewPos_To_BrakePad_mm(Lint32 s32ScrewPos);
 
 
 			//stepper drive

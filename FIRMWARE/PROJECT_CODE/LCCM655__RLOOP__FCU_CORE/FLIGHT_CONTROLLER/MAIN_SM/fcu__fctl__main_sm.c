@@ -19,6 +19,7 @@
 #include "../../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
 
  //the structure
@@ -48,25 +49,28 @@ void vFCU_FCTL_MAINSM__Init(void)
 	// @todo: Move timeout duration values to config/mission profile
 
 	// Accel to Coast Interlock backup timeout
-	vFCU_FCTL_MAINSM_TIMER__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max, 10 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max, 10 * 1000);
 
 	// Coast interlock timeout
-	vFCU_FCTL_MAINSM_TIMER__Init(&sFCU.sStateMachine.sTimers.pCoast_To_Brake, 1 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pCoast_To_Brake, 1 * 1000);
 
 	// Brake to Spindown backup timeout
-	vFCU_FCTL_MAINSM_TIMER__Init(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout, 60 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout, 60 * 1000);
 
 	// Spindown to Idle backup timeout
-	vFCU_FCTL_MAINSM_TIMER__Init(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout, 120 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout, 120 * 1000);
 
-#if 0
-	// Initialize our commands. They're all interlock commands, so we'll just do them in a loop
+
+	// Initialize some interlock guards for command requests coming in over the network
+	// Note: These are only used to determine if a cmd_POD_COMMAND__* function should be
+	//       called when we receive a NET_PKT__FCU_GEN__POD_COMMAND. You can always call 
+	//       cmd_POD_COMMAND__* functions directly to bypass the interlock guards. 
 	for(u8Counter = 0U; u8Counter < (Luint8)POD_COMMAND__NUM_COMMANDS; u8Counter++)
 	{
-		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
-		init_interlock_command( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
+		// Initialize the interlock commands with a 10 second timeout
+		Luint32 u32InterlockDuration_x10ms = 10 * 100; // 10 seconds = 10 * (10ms * 100) 
+		vFCU_FCTL_MAINSM__InterlockGuard__Init( &sFCU.sStateMachine.sInterlockGuards[ (TE_POD_COMMAND_T)u8Counter ], u32InterlockDuration_x10ms);
 	}
-#endif
 
 }
 
@@ -243,7 +247,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			{
 
 				//During flight prep, we must re-load the track specific data
-				vFCU_FCTL_MAINSM_TIMER__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max, u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max());
+				vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max, u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max());
 
 				// Perform entering actions
 				#if DEBUG == 1U
@@ -283,7 +287,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				
 				// (Re)start the ready expired backup timer that will transition us (where?) 
 				// @todo: We now have the capability to transition back to FLIGHT_PREP from READY, so we don't need this any more most likely.
-				// vFCU_FCTL_MAINSM_TIMER__Restart(&sFCU.sStateMachine.ReadyExpiredBackupTimeout);
+				// vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.ReadyExpiredBackupTimeout);
 			}
 		
 			// Handle transitions
@@ -314,7 +318,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#endif
 
 				// (Re)start the accel backup timeout. If this expires, we will automatically transition to COAST_INTERLOCK (see below)
-				vFCU_FCTL_MAINSM_TIMER__Restart(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max);
+				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max);
 
 			}
 		
@@ -346,7 +350,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#endif
 				
 				// (Re)start our coast interlock timer. Expiration will transition us to BRAKE (see below)
-				vFCU_FCTL_MAINSM_TIMER__Restart(&sFCU.sStateMachine.sTimers.pCoast_To_Brake);
+				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.pCoast_To_Brake);
 			}
 		
 			// Handle transitions
@@ -377,7 +381,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#endif
 				
 				// (Re)start the BRAKE to SPINDOWN backup timeout. If this expires, we'll transition to SPINDOWN
-				vFCU_FCTL_MAINSM_TIMER__Restart(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout);
+				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout);
 			}
 		
 			// Handle transitions
@@ -408,7 +412,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#endif
 				
 				// (Re)start our spindown backup timeout. If this expires we'll automatically transition to IDLE.
-				vFCU_FCTL_MAINSM_TIMER__Restart(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout);
+				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout);
 			}
 		
 			// Handle transitions
@@ -465,17 +469,26 @@ void vFCU_FCTL_MAINSM__Step(TS_FCTL__STATE_MACHINE_T *p_sm)
 
 void vFCU_FCTL_MAINSM__10MS_ISR(void)
 {
+	Luint8 u8Counter;
+
 	/** Accel to Coast Interlock backup timeout */
-	vFCU_FCTL_MAINSM_TIMER__Update_x10ms(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max);
+	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max);
 
 	/** Coast interlock timeout */
-	vFCU_FCTL_MAINSM_TIMER__Update_x10ms(&sFCU.sStateMachine.sTimers.pCoast_To_Brake);
+	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.pCoast_To_Brake);
 
 	/** Brake to Spindown backup timeout */
-	vFCU_FCTL_MAINSM_TIMER__Update_x10ms(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout);
+	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout);
 
 	/** Spindown to Idle backup timeout */
-	vFCU_FCTL_MAINSM_TIMER__Update_x10ms(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout);
+	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout);
+
+	/** Update the timeouts for our net command interlock guards */
+	for (u8Counter = 0U; u8Counter < (Luint8)POD_COMMAND__NUM_COMMANDS; u8Counter++)
+	{
+		vFCU_FCTL_MAINSM__InterlockGuard__UpdateTimeout_x10ms(&sFCU.sStateMachine.sInterlockGuards[(TE_POD_COMMAND_T)u8Counter]);
+	}
+
 }
 
 void vFCU_FCTL_MAINSM__100MS_ISR(void)
@@ -495,7 +508,7 @@ void vFCU_FCTL_MAINSM__100MS_ISR(void)
 	for(u8Counter = 0U; u8Counter < (Luint8)POD_COMMAND__NUM_COMMANDS; u8Counter++)
 	{
 		// Initialize the interlock commands with a 10 second timeout (you have to hit the second button within 10 seconds)
-		init_interlock_command( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
+		vFCU_FCTL_MAINSM__InterlockGuard__Init( &sFCU.sStateMachine.command_interlocks[ (TE_POD_COMMAND_T)u8Counter ], 10 * 1000 );
 	}
 
 #endif //0
@@ -558,6 +571,10 @@ Luint8 u8FCU_FCTL_MAINSM__Check_IsTransitioning(const TS_FCTL__STATE_MACHINE_T *
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 #ifndef C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
+	#error
+#endif
+#endif //C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
+#ifndef C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
 	#error
 #endif
 #endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
