@@ -36,12 +36,16 @@ Luint8 u8FCU_FCTL__TIMEOUT__Is_Expired(TS_FCTL__TIMEOUT_T *pTimeout)
 
 void vFCU_FCTL__TIMEOUT__Update_x10ms(TS_FCTL__TIMEOUT_T *pTimeout)
 {
-	pTimeout->u32Elapsed_x10ms += 1U;
+	// Stop counting once we've passed our duration to avoid a runaway timeout
+	if (pTimeout->u32Duration_x10ms > pTimeout->u32Elapsed_x10ms)
+	{
+		pTimeout->u32Elapsed_x10ms += 1U;
+	}
 }
 
 void vFCU_FCTL__TIMEOUT__Ensure_Started(TS_FCTL__TIMEOUT_T *pTimeout)
 {
-	if ( ! pTimeout->u8IsStarted ) {
+	if ( ! pTimeout->u8IsStarted == 1U ) {
 		// If we're not started, make sure we are and reset our elapsed time
 		vFCU_FCTL__TIMEOUT__Restart(pTimeout);
 	} else {
