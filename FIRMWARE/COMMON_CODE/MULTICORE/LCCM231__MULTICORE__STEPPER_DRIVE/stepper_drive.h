@@ -461,7 +461,9 @@
 		//limits
 		void vSIL3_STEPDRIVE_LIMIT__Init(void);
 		void vSIL3_STEPDRIVE_LIMIT__Limit_ISR(Luint8 u8MotorIndex);
+		void vSIL3_STEPDRIVE_LIMIT__Clear_Limit_ISR(Luint8 u8MotorIndex);
 		void vSIL3_STEPDRIVE_LIMIT__GlobalLimit(void);
+		Luint8 u8SIL3_STEPDRIVE_LIMIT__Get_Limit_Interrupt(Luint8 u8MotorIndex);
 
 		//memory
 		void vSIL3_STEPDRIVE_MEM__Init(void);

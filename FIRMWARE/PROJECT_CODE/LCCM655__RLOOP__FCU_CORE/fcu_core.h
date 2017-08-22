@@ -122,7 +122,7 @@
 						Luint8 u8Valid;
 					}sAccel[C_LOCALDEF__LCCM418__NUM_DEVICES];
 
-			}sNavigation;
+			}sNavigationX;
             #endif
 
 #if 0
@@ -248,6 +248,14 @@
 
 				/** 100ms tick */
 				Luint8 u8Timer_100ms;
+
+
+				/** Setting this to 1 ignores any bouncing in the retract swtiches */
+				Luint8 u8IgnoreRetractSwitches;
+
+				/** Ignore extend switches during calibration*/
+				Luint8 u8IgnoreExtendSwitches;
+
 
 			}sBrakesGlobal;
 
@@ -385,7 +393,7 @@
 					Lfloat32 f32LeadScrew_mm;
 
 					/** Microns for the planner */
-					Luint32 u32LeadScrew_um;
+					Luint32 s32LeadScrew_um;
 
 				}sTarget;
 
@@ -1485,6 +1493,10 @@
 		Luint16 u16FCU_BRAKES__Get_ADC_Raw(E_FCU__BRAKE_INDEX_T eBrake);
 		Lfloat32 f32FCU_BRAKES__Get_IBeam_mm(E_FCU__BRAKE_INDEX_T eBrake);
 		Lfloat32 f32FCU_BRAKES__Get_MLP_mm(E_FCU__BRAKE_INDEX_T eBrake);
+
+
+		Lint32 s32FCU_BRAKES__BrakePad_To_ScrewPos_um(Lfloat32 f32BrakePadPos);
+		Lfloat32 f32FCU_BRAKES__ScrewPos_To_BrakePad_mm(Lint32 s32ScrewPos);
 
 
 			//stepper drive

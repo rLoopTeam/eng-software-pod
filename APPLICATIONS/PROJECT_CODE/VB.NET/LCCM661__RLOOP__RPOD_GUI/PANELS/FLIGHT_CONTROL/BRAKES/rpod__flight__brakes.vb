@@ -33,6 +33,8 @@
         Private m_txtLimitsRetract_State(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay
         Private m_txtLimitsExtend_EdgeSeen(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
         Private m_txtLimitsRetract_EdgeSeen(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtLimitsInterrupts(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+
 
         'mlp
         Private m_txtMLP_ADC(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
@@ -141,6 +143,7 @@
                     Dim pu8LimitsRetract_State(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.U8
                     Dim pu8LimitsExtend_EdgeSeen(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.U8
                     Dim pu8LimitsRetract_EdgeSeen(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.U8
+                    Dim pu8LimitsInterrupts(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.U8
 
 
                     Dim pu16ADC_Sample(C_NUM_BRAKES - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.U16
@@ -207,6 +210,9 @@
                         ps32Step_CurrentPos(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.S32(u8Payload, iOffset)
                         iOffset += 4
 
+                        pu8LimitsInterrupts(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(u8Payload, iOffset)
+                        iOffset += 1
+
                     Next
 
                     pu8BrakeState = New LAPP188__RLOOP__LIB.SIL3.Numerical.U8(u8Payload, iOffset)
@@ -227,6 +233,7 @@
                         Me.m_txtLimitsRetract_State(iCounter).Value__Update(pu8LimitsRetract_State(iCounter).To__Int)
                         Me.m_txtLimitsExtend_EdgeSeen(iCounter).Threadsafe__SetText(pu8LimitsExtend_EdgeSeen(iCounter).To_String)
                         Me.m_txtLimitsRetract_EdgeSeen(iCounter).Threadsafe__SetText(pu8LimitsRetract_EdgeSeen(iCounter).To_String)
+                        Me.m_txtLimitsInterrupts(iCounter).Threadsafe__SetText(pu8LimitsInterrupts(iCounter).To_String)
 
                         'mlp
                         Me.m_txtMLP_ADC(iCounter).Threadsafe__SetText(pu16ADC_Sample(iCounter).To__Int)
@@ -312,7 +319,7 @@
         ''' <remarks></remarks>
         Public Overrides Sub LayoutPanel()
 
-            Dim l0(C_NUM_BRAKES - 1, 20) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper
+            Dim l0(C_NUM_BRAKES - 1, 21) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper
 
             Dim iDevice As Integer = 0
             Dim iIndex As Integer = 0
@@ -374,6 +381,12 @@
             l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtLimitsExtend_EdgeSeen(iDevice))
             Me.m_txtLimitsRetract_EdgeSeen(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
+
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Int Flags " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtLimitsRetract_EdgeSeen(iDevice))
+            Me.m_txtLimitsInterrupts(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
+
 
             'mlp
             l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("MLP ADC " & Me.Layout__GetBrakeSide(iDevice))
@@ -481,6 +494,13 @@
             Me.m_txtLimitsRetract_EdgeSeen(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
             iIndex += 1
 
+            l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Int Flags " & Me.Layout__GetBrakeSide(iDevice))
+            l0(iDevice, iIndex).Layout__AboveRightControl(l0(iDevice, iIndex - 1), Me.m_txtLimitsRetract_EdgeSeen(iDevice))
+            Me.m_txtLimitsInterrupts(iDevice) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l0(iDevice, iIndex))
+            iIndex += 1
+
+
+
             'mlp
             l0(iDevice, iIndex) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("MLP ADC " & Me.Layout__GetBrakeSide(iDevice))
             l0(iDevice, iIndex).Layout__BelowControl(Me.m_txtLimitsExtend_EdgeSeen(iDevice))
@@ -528,13 +548,13 @@
             Dim l10 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Brakes State")
             l10.Layout__BelowControl(btnUpdateVeloc0)
             Me.m_txtBrakeState = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l10)
-            Me.m_txtBrakeState.HeaderFile__Set("D:\SIL3\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core__types.h", "E_FCU_BRAKES__STATES_T")
+            Me.m_txtBrakeState.HeaderFile__Set("..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core__types.h", "E_FCU_BRAKES__STATES_T")
 
 
             Dim l100 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Calibration State")
             l100.Layout__AboveRightControl(l10, Me.m_txtBrakeState)
             Me.m_txtBrakeCalState = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_StateDisplay(200, l100)
-            Me.m_txtBrakeCalState.HeaderFile__Set("D:\SIL3\DESIGN\RLOOP\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core__types.h", "E_FCU_CAL_BRAKES__STATES_T")
+            Me.m_txtBrakeCalState.HeaderFile__Set("..\..\..\..\FIRMWARE\PROJECT_CODE\LCCM655__RLOOP__FCU_CORE\fcu_core__types.h", "E_FCU_CAL_BRAKES__STATES_T")
 
 
 
@@ -830,7 +850,7 @@
 
         Private Sub btnMLP_L_SPAN__Click(s As Object, e As EventArgs)
 
-            If MsgBox("Warning: Really Span LEFT MLP ADC?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If MsgBox("Warning: Really Span LEFT MLP ADC at 60mm?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
 
                 RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__MLP_ZEROSPAN,
@@ -841,7 +861,7 @@
 
         Private Sub btnMLP_R_SPAN__Click(s As Object, e As EventArgs)
 
-            If MsgBox("Warning: Really Span RIGHT MLP ADC?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            If MsgBox("Warning: Really Span RIGHT MLP ADC at 60mm?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
 
                 RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_BRAKES__MLP_ZEROSPAN,
