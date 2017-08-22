@@ -115,13 +115,15 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				break;
 
 			case NET_PKT__FCU_GEN__POD_COMMAND:
+				#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
+				#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
 				// Key (unlock or execute), command (from E_POD_COMMAND_T enum)
 				if(u32Block[0] == 0x4321FEDCU)  // Unlock key
 				{
 					// Unlock command
 					if(u32Block[1] < POD_COMMAND__NUM_COMMANDS)  // Check bounds
 					{
-						//unlock_pod_interlock_command((TE_POD_COMMAND_T)u32Block[1]);
+						vFCU_FCTL_MAINSM__NetCommand_Unlock((TE_POD_COMMAND_T)u32Block[1]);
 					}
 					else
 					{
@@ -133,13 +135,23 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					// Execute command if the timeout has not been reached
 					if(u32Block[1] < POD_COMMAND__NUM_COMMANDS)  // Check bounds
 					{
-						attempt_pod_interlock_command((TE_POD_COMMAND_T)u32Block[1]);
+						if ( vFCU_FCTL_MAINSM__NetCommand_IsUnlocked((TE_POD_COMMAND_T)u32Block[1]) == 1 )
+						{
+							// @todo: change this to take a TS_POD_COMMAND_T
+							vFCU_FCTL__PutCommand((TE_POD_COMMAND_T)u32Block[1]);
+						}
 					}
 					else
 					{
 						// log an error?
 					}
 				}
+				else
+				{
+					// No valid command -- nothing to do (log an error?)
+				}
+				#endif//C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
+				#endif//C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
 				break;
 
 //			case NET_PKT__FCU_LIFTMECH__SET_DIR:

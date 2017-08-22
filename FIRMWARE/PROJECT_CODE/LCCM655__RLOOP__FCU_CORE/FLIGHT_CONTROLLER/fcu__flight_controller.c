@@ -127,6 +127,7 @@ void vFCU_FCTL__Config_From_Database(void)
 }
 
 
+
 #endif //C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
 #ifndef C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
 	#error

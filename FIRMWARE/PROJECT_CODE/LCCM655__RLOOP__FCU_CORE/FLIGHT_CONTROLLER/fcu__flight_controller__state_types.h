@@ -8,6 +8,10 @@
 #ifndef __FLIGHT_CONTROLLER__STATE_TYPES_H_
 #define __FLIGHT_CONTROLLER__STATE_TYPES_H_
 
+#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
+#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
+
+	#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
 	/** Pod state types */
 	typedef enum
 	{
@@ -40,6 +44,22 @@
 
 	}TE_POD_STATE_T;
 
+	/**  State machine management struct */
+	typedef struct
+	{
+		/** Current state */
+		TE_POD_STATE_T eCurrentState;
+
+		/** Previous state */
+		TE_POD_STATE_T ePrevState;
+
+		/** For when we start, to trigger if entry(sm, state) stanzas */
+		Luint8 u8StateChanged;
+
+	} TS_FCTL__STATE_MACHINE_T;
+	#endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
+
+
     /** Pod Commands */    
     typedef enum 
     {
@@ -63,21 +83,6 @@
     }TE_POD_COMMAND_T;
 
 
-    /**  State machine management struct */
-	typedef struct
-	{
-		/** Current state */
-		TE_POD_STATE_T eCurrentState;
-
-		/** Previous state */
-		TE_POD_STATE_T ePrevState;
-
-		/** For when we start, to trigger if entry(sm, state) stanzas */
-		Luint8 u8StateChanged;
-
-	} TS_FCTL__STATE_MACHINE_T;
-
-
 	/** Timer/Timeout struct */
 	typedef struct
 	{
@@ -99,9 +104,9 @@
 		Luint8 enabled;
 
 		// Once the command has been enabled, start the timeout and don't allow execution if it's expired.
-		TS_FCTL__TIMEOUT_T commandTimeout;
+		TS_FCTL__TIMEOUT_T timeout;
 
-	} strInterlockCommand;
+	} TS_INTERLOCK_GUARD_T;
 
 
 	/** Pod command struct */
@@ -116,6 +121,19 @@
 		// e.g. struct { Luint16 some_arg; } POD_COMMAND__ARMED_WAIT
 		} args;
 
-	} strPodCmd;
+	} TS_POD_COMMAND_T;
+
+
+//safetys
+#endif //C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
+#ifndef C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
+	#error
+#endif
+#endif //C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
+	//safetys
+#ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
+	#error
+#endif
+
 
 #endif /* __FLIGHT_CONTROLLER__STATE_TYPES_H_ */
