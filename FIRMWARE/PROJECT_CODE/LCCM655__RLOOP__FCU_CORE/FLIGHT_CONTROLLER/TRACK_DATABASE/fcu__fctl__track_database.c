@@ -153,7 +153,7 @@ Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Accel_Threshold_mm_ss(void)
 	return s32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sAccel.u8AccelThresh_mm_ss[0]);
 }
 
-Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Accel_ThresholdTime_x10ms(void)
+Lint16 s16FCU_FCTL_TRACKDB__Accel__Get_Accel_ThresholdTime_x10ms(void)
 {
 	return s32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sAccel.u8AccelThresh_x10ms[0]);
 }
@@ -163,7 +163,7 @@ Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Decel_Threshold_mm_ss(void)
 	return s32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sAccel.u8DecelThresh_mm_ss[0]);
 }
 
-Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Decel_ThresholdTime_x10ms(void)
+Lint16 s16FCU_FCTL_TRACKDB__Accel__Get_Decel_ThresholdTime_x10ms(void)
 {
 	return s32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sAccel.u8DecelThresh_x10ms[0]);
 }

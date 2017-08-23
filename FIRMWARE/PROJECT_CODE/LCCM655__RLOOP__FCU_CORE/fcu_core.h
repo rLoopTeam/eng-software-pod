@@ -1320,9 +1320,9 @@
 				//accel system
 				Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void);
 				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Accel_Threshold_mm_ss(void);
-				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Accel_ThresholdTime_x10ms(void);
+				Lint16 s16FCU_FCTL_TRACKDB__Accel__Get_Accel_ThresholdTime_x10ms(void);
 				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Decel_Threshold_mm_ss(void);
-				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Decel_ThresholdTime_x10ms(void);
+				Lint16 s16FCU_FCTL_TRACKDB__Accel__Get_Decel_ThresholdTime_x10ms(void);
 				Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation(void);
 				Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max(void);
 				Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Coast_to_Brake(void);
