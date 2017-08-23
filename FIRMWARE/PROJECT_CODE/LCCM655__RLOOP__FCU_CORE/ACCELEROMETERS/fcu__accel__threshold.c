@@ -11,12 +11,12 @@ extern struct _strFCU sFCU;
 void vFCU_ACCEL_THRESH__Init(void)
 {
 	sFCU.sAccel.sAccelThresh.u8ThresholdTrue = 0U;
-	sFCU.sAccel.sAccelThresh.u32ThreshTime_x10ms = 0U;
+	sFCU.sAccel.sAccelThresh.u16ThreshTime_x10ms = 0U;
 	sFCU.sAccel.sAccelThresh.s32Thresh_Accel_mm_ss = 0;
 	sFCU.sAccel.sAccelThresh.u3210MS_Counter = 0U;
 
 	sFCU.sAccel.sDecelThresh.u8ThresholdTrue = 0U;
-	sFCU.sAccel.sDecelThresh.u32ThreshTime_x10ms = 0U;
+	sFCU.sAccel.sDecelThresh.u16ThreshTime_x10ms = 0U;
 	sFCU.sAccel.sDecelThresh.s32Thresh_Accel_mm_ss = 0;
 	sFCU.sAccel.sDecelThresh.u3210MS_Counter = 0U;
 }
@@ -44,7 +44,7 @@ void vFCU_ACCEL_THRESH__Process(void)
 			//we are over our threshold, keep the timer going
 
 			//check the timer
-			if(sFCU.sAccel.sAccelThresh.u3210MS_Counter > sFCU.sAccel.sAccelThresh.u32ThreshTime_x10ms)
+			if(sFCU.sAccel.sAccelThresh.u3210MS_Counter > sFCU.sAccel.sAccelThresh.u16ThreshTime_x10ms)
 			{
 				//ok so we are over our valid range for the time period, we are valid
 				u8AccelTrue = 1U;
@@ -69,7 +69,7 @@ void vFCU_ACCEL_THRESH__Process(void)
 			//we are under our threshold, keep the timer going
 
 			//check the timer
-			if (sFCU.sAccel.sDecelThresh.u3210MS_Counter > sFCU.sAccel.sDecelThresh.u32ThreshTime_x10ms)
+			if (sFCU.sAccel.sDecelThresh.u3210MS_Counter > sFCU.sAccel.sDecelThresh.u16ThreshTime_x10ms)
 			{
 				//ok so we are over our valid range for the time period, we are valid
 				u8DecelTrue = 1U;
@@ -110,10 +110,10 @@ Luint8 u8FCU_ACCEL_THRES__Is_Accel_Threshold_Met(void)
 }
 
 //allows our upper layer to set the accel thresholding time and mm ss accel value
-void vFCU_ACCEL_THRESH__Set_Accel_Threshold(Lint32 s32Accel_mm_ss, Luint32 u32Time_x10ms)
+void vFCU_ACCEL_THRESH__Set_Accel_Threshold(Lint32 s32Accel_mm_ss, Luint16 u16Time_x10ms)
 {
 	//set the user params
-	sFCU.sAccel.sAccelThresh.u32ThreshTime_x10ms = u32Time_x10ms;
+	sFCU.sAccel.sAccelThresh.u16ThreshTime_x10ms = u16Time_x10ms;
 	sFCU.sAccel.sAccelThresh.s32Thresh_Accel_mm_ss = s32Accel_mm_ss;
 }
 
@@ -125,10 +125,10 @@ Luint8 u8FCU_ACCEL_THRES__Is_Decel_Threshold_Met(void)
 }
 
 //allows our upper layer to set the decel thresholding time and mm ss accel value
-void vFCU_ACCEL_THRESH__Set_Decel_Threshold(Lint32 s32Accel_mm_ss, Luint32 u32Time_x10ms)
+void vFCU_ACCEL_THRESH__Set_Decel_Threshold(Lint32 s32Accel_mm_ss, Luint16 u16Time_x10ms)
 {
 	//set the user params
-	sFCU.sAccel.sDecelThresh.u32ThreshTime_x10ms = u32Time_x10ms;
+	sFCU.sAccel.sDecelThresh.u16ThreshTime_x10ms = u32Time_x10ms;
 	sFCU.sAccel.sDecelThresh.s32Thresh_Accel_mm_ss = s32Accel_mm_ss;
 }
 

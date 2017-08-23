@@ -417,13 +417,13 @@
 					Luint8 u8ThresholdTrue;
 
 					/** The threshold time in count of 10ms increments */
-					Luint32 u32ThreshTime_x10ms;
+					Luint16 u16ThreshTime_x10ms;
 
 					/** The threshold acceleration in mm_ss*/
 					Lint32 s32Thresh_Accel_mm_ss;
 
 					/** Count of the number of 10ms interrupts */
-					Luint32 u3210MS_Counter;
+					Luint16 u1610MS_Counter;
 
 				}sAccelThresh;
 
@@ -434,13 +434,13 @@
 					Luint8 u8ThresholdTrue;
 
 					/** The threshold time in count of 10ms increments */
-					Luint32 u32ThreshTime_x10ms;
+					Luint16 u16ThreshTime_x10ms;
 
 					/** The threshold acceleration in mm_ss*/
 					Lint32 s32Thresh_Accel_mm_ss;
 
 					/** Count of the number of 10ms interrupts */
-					Luint32 u3210MS_Counter;
+					Luint16 u1610MS_Counter;
 
 				}sDecelThresh;
 
@@ -1592,8 +1592,8 @@
 			void vFCU_ACCEL_THRESH__Process(void);
 			Luint8 u8FCU_ACCEL_THRES__Is_Accel_Threshold_Met(void);
 			Luint8 u8FCU_ACCEL_THRES__Is_Decel_Threshold_Met(void); 
-			void vFCU_ACCEL_THRESH__Set_Accel_Threshold(Lint32 s32Accel_mm_ss, Luint32 u32Time_x10ms);
-			void vFCU_ACCEL_THRESH__Set_Decel_Threshold(Lint32 s32Accel_mm_ss, Luint32 u32Time_x10ms);
+			void vFCU_ACCEL_THRESH__Set_Accel_Threshold(Lint32 s32Accel_mm_ss, Luint16 u16Time_x10ms);
+			void vFCU_ACCEL_THRESH__Set_Decel_Threshold(Lint32 s32Accel_mm_ss, Luint16 u16Time_x10ms);
 			void vFCU_ACCEL_THRESH__10MS_ISR(void);
 
 			//eth
