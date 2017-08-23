@@ -49,7 +49,12 @@
         <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
         Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(u8TrackIndex As Byte, u16Thresh_x10ms As UInt16)
         End Sub
-
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_mm_ss(u8TrackIndex As Byte, s32Thresh_mm_ss As Int32)
+        End Sub
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_x10ms(u8TrackIndex As Byte, u16Thresh_x10ms As UInt16)
+        End Sub
 
         <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
         Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackStart_mm(u8TrackIndex As Byte, u32Value As UInt32)
@@ -104,8 +109,10 @@
         'accel system
         Private m_chkAccel_Use As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
         Private m_txtAccel_Thresh_mm_ss_s32 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
-        Private m_txtAccel_Timer_x10ms_u32 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
-        Private m_txtAccel_Spare_u32 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtAccel_Timer_x10ms_u16 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
+        Private m_txtDecel_Thresh_mm_ss_s32 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtDecel_Timer_x10ms_u16 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
+        Private m_txtAccel_Spare_3_u8 As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
 
         'fwd laser
         Private m_chkFwdLaser_Use As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
@@ -186,12 +193,16 @@
                     'accel subsystem
                     'use the accel system
                     Me.m_pCSV.Header__Add("ACCEL_USE_U8")
-                    'The threshold in mm ss
+                    'The accel threshold in mm ss
                     Me.m_pCSV.Header__Add("ACCEL_THRESH_MM_SS_S32")
-                    'the time the threshold needs to be on 
-                    Me.m_pCSV.Header__Add("ACCEL_THRESH_TIME_X10MS_U32")
+                    'the time the accel threshold needs to be on 
+                    Me.m_pCSV.Header__Add("ACCEL_THRESH_TIME_X10MS_U16")
+                    'The decel threshold in mm ss
+                    Me.m_pCSV.Header__Add("DECEL_THRESH_MM_SS_S32")
+                    'the time the decel threshold needs to be on 
+                    Me.m_pCSV.Header__Add("DECEL_THRESH_TIME_X10MS_U16")
                     'spare accel
-                    Me.m_pCSV.Header__Add("ACCEL_SPARE_U32")
+                    Me.m_pCSV.Header__Add("ACCEL_SPARE_3_U8")
 
 
                     'fwd laser
@@ -256,9 +267,13 @@
                         pSB.Append("0" & ",")
                         '"ACCEL_THRESH_MM_SS_S32"
                         pSB.Append("0" & ",")
-                        '"ACCEL_THRESH_TIME_X10MS_U32"
+                        '"ACCEL_THRESH_TIME_X10MS_U16"
                         pSB.Append("0" & ",")
-                        '"ACCEL_SPARE_U32"
+                        '"DECEL_THRESH_MM_SS_S32"
+                        pSB.Append("0" & ",")
+                        '"DECEL_THRESH_TIME_X10MS_U16"
+                        pSB.Append("0" & ",")
+                        '"ACCEL_SPARE_3_U8"
                         pSB.Append("0" & ",")
 
                         '"FWD_USE_U8"
@@ -416,15 +431,25 @@
             'accel subsystem
             Dim l100 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel mms²", Me.m_txtTrackIndex)
             Me.m_txtAccel_Thresh_mm_ss_s32 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l100)
+
             Dim l101 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel x10ms")
             l101.Layout__AboveRightControl(l100, Me.m_txtAccel_Thresh_mm_ss_s32)
-            Me.m_txtAccel_Timer_x10ms_u32 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l101)
-            Dim l102 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel Spare")
-            l102.Layout__AboveRightControl(l101, Me.m_txtAccel_Timer_x10ms_u32)
-            Me.m_txtAccel_Spare_u32 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l102)
+            Me.m_txtAccel_Timer_x10ms_u16 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, l101)
+
+            Dim l102 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Decel mms²", Me.m_txtTrackIndex)
+            Me.m_txtDecel_Thresh_mm_ss_s32 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l102)
+
+            Dim l103 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Decel x10ms")
+            l103.Layout__AboveRightControl(l102, Me.m_txtDecel_Thresh_mm_ss_s32)
+            Me.m_txtDecel_Timer_x10ms_u16 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, l103)
+
+            Dim l104 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel Spare")
+            l102.Layout__AboveRightControl(l103, Me.m_txtAccel_Timer_x10ms_u16)
+
+            Me.m_txtAccel_Spare_3_u8 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l104)
 
             Me.m_chkAccel_Use = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Accel: Use", "Accel: Use", "Use Accelerometer System")
-            Me.m_chkAccel_Use.Layout__RightOfControl(Me.m_txtAccel_Spare_u32)
+            Me.m_chkAccel_Use.Layout__RightOfControl(Me.m_txtAccel_Spare_3_u8)
 
 
             Dim l200 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Fwd: Spare 0", Me.m_txtAccel_Thresh_mm_ss_s32)
@@ -499,13 +524,21 @@
                 Me.m_pCSV.Cell__SetContents("ACCEL_THRESH_MM_SS_S32", Me.m_iCurrentIndex, Me.m_txtAccel_Thresh_mm_ss_s32.Text.ToString, True)
                 Me.m_txtAccel_Thresh_mm_ss_s32.Dirty = False
             End If
-            If Me.m_txtAccel_Timer_x10ms_u32.Dirty = True Then
-                Me.m_pCSV.Cell__SetContents("ACCEL_THRESH_TIME_X10MS_U32", Me.m_iCurrentIndex, Me.m_txtAccel_Timer_x10ms_u32.Text.ToString, True)
-                Me.m_txtAccel_Timer_x10ms_u32.Dirty = False
+            If Me.m_txtAccel_Timer_x10ms_u16.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("ACCEL_THRESH_TIME_X10MS_U16", Me.m_iCurrentIndex, Me.m_txtAccel_Timer_x10ms_u16.Text.ToString, True)
+                Me.m_txtAccel_Timer_x10ms_u16.Dirty = False
             End If
-            If Me.m_txtAccel_Spare_u32.Dirty = True Then
-                Me.m_pCSV.Cell__SetContents("ACCEL_SPARE_U32", Me.m_iCurrentIndex, Me.m_txtAccel_Spare_u32.Text.ToString, True)
-                Me.m_txtAccel_Spare_u32.Dirty = False
+            If Me.m_txtDecel_Thresh_mm_ss_s32.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("DECEL_THRESH_MM_SS_S32", Me.m_iCurrentIndex, Me.m_txtDecel_Thresh_mm_ss_s32.Text.ToString, True)
+                Me.m_txtDecel_Thresh_mm_ss_s32.Dirty = False
+            End If
+            If Me.m_txtDecel_Timer_x10ms_u16.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("DECEL_THRESH_TIME_X10MS_U16", Me.m_iCurrentIndex, Me.m_txtDecel_Timer_x10ms_u16.Text.ToString, True)
+                Me.m_txtDecel_Timer_x10ms_u16.Dirty = False
+            End If
+            If Me.m_txtAccel_Spare_3_u8.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("ACCEL_SPARE_3_U8", Me.m_iCurrentIndex, Me.m_txtAccel_Spare_3_u8.Text.ToString, True)
+                Me.m_txtAccel_Spare_3_u8.Dirty = False
             End If
 
 
@@ -606,9 +639,13 @@
             iItem += 1
             Me.m_txtAccel_Thresh_mm_ss_s32.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
             iItem += 1
-            Me.m_txtAccel_Timer_x10ms_u32.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            Me.m_txtAccel_Timer_x10ms_u16.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
             iItem += 1
-            Me.m_txtAccel_Spare_u32.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            Me.m_txtDecel_Thresh_mm_ss_s32.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+            Me.m_txtDecel_Timer_x10ms_u16.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+            Me.m_txtAccel_Spare_3_u8.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
             iItem += 1
 
             'fwd laser
@@ -717,20 +754,30 @@
 
                 Dim u8Row As Byte = CByte(iRow)
                 Dim u8Temp As Byte
+                Dim u32Temp As UInt32
 
                 u8Temp = CByte(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
                 vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(u8Row, u8Temp)
                 iItem += 1
 
-                Dim s32Temp As Int32 = CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
-                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_mm_ss(u8Row, s32Temp)
+                Dim s32Temp_Accel As Int32 = CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_mm_ss(u8Row, s32Temp_Accel)
                 iItem += 1
 
-                Dim u32Temp As UInt32 = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
-                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(u8Row, u32Temp)
+                Dim u16Temp_Accel As UInt16 = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(u8Row, u16Temp_Accel)
                 iItem += 1
+
+                Dim s32Temp_Decel As Int32 = CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_mm_ss(u8Row, s32Temp_Decel)
+                iItem += 1
+
+                Dim u16Temp_Decel As UInt16 = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_x10ms(u8Row, u16Temp_Decel)
+                iItem += 1
+
                 'spare
-                iItem += 1
+                iItem += 1  ' @todo: adjust this? 
 
                 'fwd laser
                 iItem += 1
