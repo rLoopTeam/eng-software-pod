@@ -2,7 +2,7 @@
  * fcu__flight_controller__state_types.h
  *
  *  Created on: 19Aug.,2017
- *      Author: Lachlan
+ *      Author: Lachlan, Ryan
  */
 
 #ifndef __FLIGHT_CONTROLLER__STATE_TYPES_H_

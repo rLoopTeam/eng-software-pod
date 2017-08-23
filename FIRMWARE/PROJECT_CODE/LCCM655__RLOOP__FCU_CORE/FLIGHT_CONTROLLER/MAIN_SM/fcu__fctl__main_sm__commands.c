@@ -1,3 +1,21 @@
+/**
+* @file		FCU__FCTL__MAIN_SM__COMMANDS.C
+* @brief		Main state machine commands for the flight control unit
+* @author		Ryan Adams
+* @copyright	rLoop Inc.
+*/
+/**
+* @addtogroup RLOOP
+* @{ */
+/**
+* @addtogroup FCU
+* @ingroup RLOOP
+* @{ */
+/**
+* @addtogroup FCU__FCTL__MAIN_SM
+* @ingroup FCU
+* @{ */
+
 #include "../../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
@@ -249,3 +267,6 @@ void vFCU_FCTL_MAINSM__NetCommand_Unlock(TE_POD_COMMAND_T command)
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
 	#error
 #endif
+/** @} */
+/** @} */
+/** @} */

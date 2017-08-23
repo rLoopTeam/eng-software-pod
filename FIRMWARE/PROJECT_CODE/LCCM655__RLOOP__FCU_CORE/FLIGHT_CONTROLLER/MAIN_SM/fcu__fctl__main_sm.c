@@ -1,7 +1,7 @@
 /**
  * @file		FCU__FCTL__MAIN_SM.C
  * @brief		Main state machine for the flight control unit
- * @author		Lachlan Grogan, Marek Gutt-Mostowy
+ * @author		Lachlan Grogan, Ryan Adams
  * @copyright	rLoop Inc.
  */
 /**

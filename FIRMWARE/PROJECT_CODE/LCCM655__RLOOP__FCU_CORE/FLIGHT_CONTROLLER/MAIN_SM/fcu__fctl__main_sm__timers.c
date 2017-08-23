@@ -1,3 +1,20 @@
+/**
+* @file		FCU__FCTL__MAIN_SM__TIMERS.C
+* @brief		Main state machine timers and timeouts for the flight control unit
+* @author		Ryan Adams
+* @copyright	rLoop Inc.
+*/
+/**
+* @addtogroup RLOOP
+* @{ */
+/**
+* @addtogroup FCU
+* @ingroup RLOOP
+* @{ */
+/**
+* @addtogroup FCU__FCTL__MAIN_SM
+* @ingroup FCU
+* @{ */
 #include "../../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
@@ -67,3 +84,6 @@ void vFCU_FCTL__TIMEOUT__Ensure_Started(TS_FCTL__TIMEOUT_T *pTimeout)
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
 	#error
 #endif
+/** @} */
+/** @} */
+/** @} */
