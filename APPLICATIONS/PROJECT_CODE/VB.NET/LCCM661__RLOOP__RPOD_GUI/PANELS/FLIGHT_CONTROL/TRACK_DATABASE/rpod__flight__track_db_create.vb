@@ -47,7 +47,7 @@
         Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_mm_ss(u8TrackIndex As Byte, s32Thresh_mm_ss As Int32)
         End Sub
         <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
-        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(u8TrackIndex As Byte, u32Thresh_x10ms As UInt32)
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(u8TrackIndex As Byte, u16Thresh_x10ms As UInt16)
         End Sub
 
 

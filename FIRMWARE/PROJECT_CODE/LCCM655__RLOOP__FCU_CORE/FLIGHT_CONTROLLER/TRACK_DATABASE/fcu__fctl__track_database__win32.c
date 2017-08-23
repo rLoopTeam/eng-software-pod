@@ -200,9 +200,9 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_mm_ss(Luint8 u8TrackIndex, Li
 }
 
 //Accel threshold time
-void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(Luint8 u8TrackIndex, Luint32 u32Thresh_x10ms)
+void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(Luint8 u8TrackIndex, Luint16 u16Thresh_x10ms)
 {
-	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sAccel.u8AccelThresh_x10ms[0], u32Thresh_x10ms);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sAccel.u8AccelThresh_x10ms[0], u16Thresh_x10ms);
 }
 
 //Decel threshold in mm/ss
@@ -212,9 +212,9 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_mm_ss(Luint8 u8TrackIndex, Li
 }
 
 //Decel threshold time
-void vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_x10ms(Luint8 u8TrackIndex, Luint32 u32Thresh_x10ms)
+void vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_x10ms(Luint8 u8TrackIndex, Luint16 u16Thresh_x10ms)
 {
-	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sAccel.u8DecelThresh_x10ms[0], u32Thresh_x10ms);
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sAccel.u8DecelThresh_x10ms[0], u16Thresh_x10ms);
 }
 
 
