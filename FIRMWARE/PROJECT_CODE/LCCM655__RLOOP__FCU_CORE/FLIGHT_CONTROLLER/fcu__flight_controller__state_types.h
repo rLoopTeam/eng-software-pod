@@ -56,9 +56,6 @@
 		/** For when we start, to trigger if entry(sm, state) stanzas */
 		Luint8 u8StateChanged;
 
-		/** Holder for changing state directly */
-		TE_POD_STATE_T eDebugForcedState;
-
 	} TS_FCTL__STATE_MACHINE_T;
 	#endif //C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 
