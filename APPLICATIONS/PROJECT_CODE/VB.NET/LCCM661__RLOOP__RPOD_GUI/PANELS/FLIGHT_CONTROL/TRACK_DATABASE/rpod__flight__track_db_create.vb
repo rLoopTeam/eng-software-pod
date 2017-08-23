@@ -437,6 +437,7 @@
             Me.m_txtAccel_Timer_x10ms_u16 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, l101)
 
             Dim l102 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Decel mms²", Me.m_txtTrackIndex)
+            l102.Layout__AboveRightControl(l101, Me.m_txtAccel_Timer_x10ms_u16)
             Me.m_txtDecel_Thresh_mm_ss_s32 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l102)
 
             Dim l103 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Decel x10ms")
@@ -444,7 +445,7 @@
             Me.m_txtDecel_Timer_x10ms_u16 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, l103)
 
             Dim l104 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel Spare")
-            l102.Layout__AboveRightControl(l103, Me.m_txtAccel_Timer_x10ms_u16)
+            l104.Layout__AboveRightControl(l103, Me.m_txtDecel_Timer_x10ms_u16)
 
             Me.m_txtAccel_Spare_3_u8 = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l104)
 
