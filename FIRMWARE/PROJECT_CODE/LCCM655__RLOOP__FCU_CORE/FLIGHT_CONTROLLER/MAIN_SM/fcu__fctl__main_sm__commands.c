@@ -165,6 +165,10 @@ void vFCU_FCTL_MAINSM__Debug__ForceState(TE_POD_STATE_T state)
 
 }
 
+TE_POD_STATE_T vFCU_FCTL_MAINSM__Debug__GetState(void)
+{
+	return sFCU.sStateMachine.sm.eCurrentState;
+}
 
 /////////////////////////////////////////////////////////////////////
 //  Interlock guard handling
