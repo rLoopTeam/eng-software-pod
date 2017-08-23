@@ -24,7 +24,7 @@
         Private m_txtPackVolts As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtCell_Highest As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtCell_Lowest As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
-
+        Private m_txtBatt_Current As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
 
         ''' <summary>
         ''' The current bms channel

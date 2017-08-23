@@ -53,9 +53,9 @@ extern struct _strFCU sFCU;
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 // last command values
-static Luint16 u16LastThrottleSetPoint;
-static Luint16 u16LastThrottleCommandValue;
-static Luint16 u16InitThrottleCommand;
+//static Luint16 u16LastThrottleSetPoint;
+//static Luint16 u16LastThrottleCommandValue;
+//static Luint16 u16InitThrottleCommand;
 
 //locals
 Lfloat32 f32FCU_THROTTLE__RPM_To_Volts(Luint16 u16RPM);
