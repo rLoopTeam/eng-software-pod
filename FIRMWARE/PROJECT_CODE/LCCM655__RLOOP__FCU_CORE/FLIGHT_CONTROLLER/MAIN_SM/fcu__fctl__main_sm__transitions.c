@@ -62,7 +62,7 @@ Luint8 flight_readiness_checks_ok(void)
 
 Luint8 accel_confirmed(void)
 {
-	return u8FCU_ACCEL_THRES__Is_Threshold_Met();
+	return u8FCU_ACCEL_THRES__Is_Accel_Threshold_Met();
 }
 
 Luint8 pusher_separation_confirmed(void)
@@ -326,7 +326,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__READY(void)
 		//transition, for now just threshold it
 
 #if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
-		if(u8FCU_ACCEL_THRES__Is_Threshold_Met() == 1U)
+		if(u8FCU_ACCEL_THRES__Is_Accel_Threshold_Met() == 1U)
 #else
 		if(1)
 #endif

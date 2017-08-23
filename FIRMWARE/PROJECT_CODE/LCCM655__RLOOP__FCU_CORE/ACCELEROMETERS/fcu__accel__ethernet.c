@@ -174,14 +174,14 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 
 				//send the thresholding data
-				pu8Buffer[0] = sFCU.sAccel.sThresh.u8ThresholdTrue;
+				pu8Buffer[0] = sFCU.sAccel.sAccelThresh.u8ThresholdTrue;
 				pu8Buffer += 1U;
 
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sAccel.sThresh.u32ThreshTime_x10ms);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sAccel.sAccelThresh.u32ThreshTime_x10ms);
 				pu8Buffer += 4U;
-				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sThresh.s32Thresh_Accel_mm_ss);
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sAccelThresh.s32Thresh_Accel_mm_ss);
 				pu8Buffer += 4U;
-				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sAccel.sThresh.u3210MS_Counter);
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sAccel.sAccelThresh.u3210MS_Counter);
 				pu8Buffer += 4U;
 
 				break;
