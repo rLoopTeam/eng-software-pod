@@ -1202,9 +1202,13 @@
 			// Helper functions for executing interlock commands
 			void vFCU_FCTL_MAINSM__NetCommand_Unlock(TE_POD_COMMAND_T command);
 			Luint8 vFCU_FCTL_MAINSM__NetCommand_IsUnlocked(TE_POD_COMMAND_T command);
-			// @todo: change this to take a pointer (or a copy) of a pod command struct
+			// @todo: change this to take a pointer (or a copy) of a pod command struct so that we can carry args?
 			// @todo: is this only for the state machine? I suppose commands could do things unrelated to the SM...
 			void vFCU_FCTL__PutCommand(TE_POD_COMMAND_T command);
+			void vFCU_FCTL_MAINSM__Clear_Command();
+			#ifdef WIN32
+			void vWIN32_DEBUG_PRINT__CommandNotAllowed(TE_POD_COMMAND_T command);
+			#endif//WIN32
 
 			//main state machine
 			void vFCU_FCTL_MAINSM__Init(void);
@@ -1217,6 +1221,8 @@
 				Luint8 u8FCU_FCTL_MAINSM__Check_IsEntering(const TS_FCTL__STATE_MACHINE_T *cpSM, TE_POD_STATE_T eTestState);
 				Luint8 u8FCU_FCTL_MAINSM__Check_IsExiting(const TS_FCTL__STATE_MACHINE_T *cpSM, TE_POD_STATE_T eTestState);
 				Luint8 u8FCU_FCTL_MAINSM__Check_IsTransitioning(const TS_FCTL__STATE_MACHINE_T *cpSM);
+
+				void vFCU_FCTL_MAINSM__Debug__ForceState(TE_POD_STATE_T state);
 
 
                 //  Pod guard/check functions 

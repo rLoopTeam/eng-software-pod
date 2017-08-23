@@ -123,6 +123,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					// Unlock command
 					if(u32Block[1] < POD_COMMAND__NUM_COMMANDS)  // Check bounds
 					{
+						// Note: this can be called many times; it resets the timer each time.
 						vFCU_FCTL_MAINSM__NetCommand_Unlock((TE_POD_COMMAND_T)u32Block[1]);
 					}
 					else
@@ -139,6 +140,10 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 						{
 							// @todo: change this to take a TS_POD_COMMAND_T
 							vFCU_FCTL__PutCommand((TE_POD_COMMAND_T)u32Block[1]);
+						} 
+						else
+						{ 
+							// Do nothing
 						}
 					}
 					else
@@ -153,6 +158,26 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				#endif//C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
 				#endif//C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
 				break;
+
+			case NET_PKT__FCU_GEN__MAINSM_DEBUG_FORCE_STATE:
+				#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
+				#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
+				if (u32Block[0] == 0xDEDBEEF4U)  // Unlock key
+				{
+					if (u32Block[1] < POD_STATE__NUM_STATES)  // Check bounds
+					{
+						// Force the state machine into a particular state
+						vFCU_FCTL_MAINSM__Debug__ForceState((TE_POD_STATE_T)u32Block[1]);
+					}
+					else
+					{
+						// log an error?
+					}
+				}
+				#endif//C_LOCALDEF__LCCM655__ENABLE_MAIN_SM
+				#endif//C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
+				break;
+
 
 //			case NET_PKT__FCU_LIFTMECH__SET_DIR:
 //				//set direction of specific mech lift

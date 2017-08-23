@@ -55,6 +55,10 @@
 		/** Pod State Machine Command */
 		NET_PKT__FCU_GEN__POD_COMMAND = 0x0500U,
 
+		/** Pod State Machine Force State (FOR DEBUGGING ONLY) */
+		NET_PKT__FCU_GEN__MAINSM_DEBUG_FORCE_STATE = 0x0590U,
+
+
 		//////////////////////////////////////////////////////
 		//FCU: ACCEL (0x1000)
 		//////////////////////////////////////////////////////

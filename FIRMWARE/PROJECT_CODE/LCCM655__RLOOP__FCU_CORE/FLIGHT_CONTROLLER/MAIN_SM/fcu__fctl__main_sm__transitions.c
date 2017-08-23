@@ -78,6 +78,11 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__INIT(void)
 
 	TS_FCTL__STATE_MACHINE_T *sm = &sFCU.sStateMachine.sm;
 
+#ifdef WIN32
+	// No commands are allowed during init state
+	vWIN32_DEBUG_PRINT__CommandNotAllowed(sFCU.sStateMachine.command.command);
+#endif//WIN32
+
 	// Check conditionals (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{

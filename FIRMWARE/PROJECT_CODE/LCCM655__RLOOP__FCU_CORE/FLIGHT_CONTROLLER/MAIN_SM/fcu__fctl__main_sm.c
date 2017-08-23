@@ -437,6 +437,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 	}// switch(sFCU.sStateMachine.sm.state)
    
 
+	 // Clear command (we will have handled it in the transition functions)
+	vFCU_FCTL_MAINSM__Clear_Command();
+
+
 }
 
 /** Step the state machine -- detect state changes and update sm status */
