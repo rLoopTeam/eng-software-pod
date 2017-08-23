@@ -228,7 +228,7 @@ void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THR
 					sFCU.sThrottle.u16RequestedRPM[3] = u16RPM;
 					sFCU.sThrottle.eRequestedMode[3] = eRampType;
 				}
-				else if(u8EngineIndex == C_FCU__NUM_HOVER_ENGINES + 2)
+				else if(u8EngineIndex == C_FCU__NUM_HOVER_ENGINES + 3)
 				{
 					//engines 4 + 5
 					sFCU.sThrottle.u16RequestedRPM[4] = u16RPM;
@@ -236,7 +236,7 @@ void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THR
 					sFCU.sThrottle.u16RequestedRPM[5] = u16RPM;
 					sFCU.sThrottle.eRequestedMode[5] = eRampType;
 				}
-				else if(u8EngineIndex == C_FCU__NUM_HOVER_ENGINES + 3)
+				else if(u8EngineIndex == C_FCU__NUM_HOVER_ENGINES + 4)
 				{
 					//engines 6 + 7
 					sFCU.sThrottle.u16RequestedRPM[6] = u16RPM;

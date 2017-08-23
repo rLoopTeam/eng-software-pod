@@ -76,16 +76,16 @@ void vLGU_LIFT__Init(void)
 	sLGU.sPWM[3].u16ProgIndex = 0U;
 #endif //WIN32
 
-	vLGU_LIFT__Set_Direction(0U, LIFT_DIR__EXTEND);
-	vLGU_LIFT__Set_Direction(1U, LIFT_DIR__RETRACT);
-	vLGU_LIFT__Set_Direction(2U, LIFT_DIR__RETRACT);
-	vLGU_LIFT__Set_Direction(3U, LIFT_DIR__RETRACT);
+	vLGU_LIFT__Set_Direction(0U, LIFT_DIR__NONE);
+	vLGU_LIFT__Set_Direction(1U, LIFT_DIR__NONE);
+	vLGU_LIFT__Set_Direction(2U, LIFT_DIR__NONE);
+	vLGU_LIFT__Set_Direction(3U, LIFT_DIR__NONE);
 
 
-	vLGU_LIFT__Set_Speed(0U, 0.9F);
-	vLGU_LIFT__Set_Speed(1U, 0.5F);
-	vLGU_LIFT__Set_Speed(2U, 0.5F);
-	vLGU_LIFT__Set_Speed(3U, 0.5F);
+	vLGU_LIFT__Set_Speed(0U, 0.0F);
+	vLGU_LIFT__Set_Speed(1U, 0.0F);
+	vLGU_LIFT__Set_Speed(2U, 0.0F);
+	vLGU_LIFT__Set_Speed(3U, 0.0F);
 
 
 }
@@ -117,6 +117,7 @@ void vLGU_LIFT__Set_Speed(Luint8 u8Actuator, Lfloat32 f32Percent)
 {
 	Lfloat32 f32Period_us;
 	Lfloat32 f32Freq;
+	Luint8 u8Counter;
 
 	//some default frequency of 5KHZ
 	f32Freq = 5000.0F;
@@ -161,6 +162,23 @@ void vLGU_LIFT__Set_Speed(Luint8 u8Actuator, Lfloat32 f32Percent)
 #endif //WIN32
 
 	}
+	else if(u8Actuator == C_LGU__NUM_ACTUATORS)
+	{
+		//do all
+		for(u8Counter = 0U; u8Counter < C_LGU__NUM_ACTUATORS; u8Counter++)
+		{
+			//update the frequency
+			vRM4_N2HET_PWM__Dyanmic_SetPeriod(N2HET_CHANNEL__1, sLGU.sPWM[u8Counter].u16ProgIndex, f32Period_us);
+
+			//update the duty cycle
+			vRM4_N2HET_PWM__Dyanmic_SetDutyCycle(N2HET_CHANNEL__1, sLGU.sPWM[u8Counter].u16ProgIndex, f32Percent);
+
+			//start the PWM
+			vRM4_N2HET_PWM__Dyanmic_Start(N2HET_CHANNEL__1, sLGU.sPWM[u8Counter].u16ProgIndex);
+		}
+
+
+	}
 	else
 	{
 		//error
@@ -180,7 +198,7 @@ void vLGU_LIFT__Set_Speed(Luint8 u8Actuator, Lfloat32 f32Percent)
  */
 void vLGU_LIFT__Set_Direction(Luint8 u8Actuator, TE_LGU__LIFT_DIRECTIONS eDir)
 {
-	if(u8Actuator < C_LGU__NUM_ACTUATORS)
+	if(u8Actuator <= C_LGU__NUM_ACTUATORS)
 	{
 
 		switch(eDir)
@@ -225,6 +243,30 @@ void vLGU_LIFT__Set_Direction(Luint8 u8Actuator, TE_LGU__LIFT_DIRECTIONS eDir)
 						//B
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B4, 0U);
 #endif
+						break;
+
+					case 4:
+#ifndef WIN32
+						//A
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A1, 0U);
+						//B
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B1, 0U);
+						//A
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A2, 0U);
+						//B
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B2, 0U);
+						//A
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A3, 0U);
+						//B
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B3, 0U);
+						//A
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A4, 0U);
+						//B
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B4, 0U);
+
+
+#endif
+
 						break;
 
 					default:
@@ -274,6 +316,27 @@ void vLGU_LIFT__Set_Direction(Luint8 u8Actuator, TE_LGU__LIFT_DIRECTIONS eDir)
 #endif
 						break;
 
+					case 4:
+					#ifndef WIN32
+						//A
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A1, 1U);
+						//B
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B1, 0U);
+						//A
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A2, 1U);
+						//B
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B2, 0U);
+						//A
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A3, 1U);
+						//B
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B3, 0U);
+						//A
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A4, 1U);
+						//B
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B4, 0U);
+					#endif
+						break;
+
 					default:
 						//error
 						break;
@@ -320,6 +383,28 @@ void vLGU_LIFT__Set_Direction(Luint8 u8Actuator, TE_LGU__LIFT_DIRECTIONS eDir)
 						//B
 						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B4, 1U);
 #endif
+						break;
+
+
+					case 4:
+					#ifndef WIN32
+						//A
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A1, 0U);
+						//B
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B1, 1U);
+						//A
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A2, 0U);
+						//B
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B2, 1U);
+						//A
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A3, 0U);
+						//B
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B3, 1U);
+						//A
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_A4, 0U);
+						//B
+						vRM4_N2HET_PINS__Set_Pin(C_LOCALDEF__LCCM667___DIR_B4, 1U);
+					#endif
 						break;
 
 					default:

@@ -25,6 +25,8 @@
         Private m_txtCell_Highest As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtCell_Lowest As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtBatt_Current As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtCharge_Current As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_txtBatt_SoC As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
 
         ''' <summary>
         ''' The current bms channel
@@ -95,6 +97,20 @@
             l8.Layout__AboveRightControl(l7, Me.m_txtCell_Highest)
             Me.m_txtCell_Lowest = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l8)
             Me.m_txtCell_Lowest.Limits__SetLower(3.2)
+
+            Dim l9 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Batt I")
+            l9.Layout__AboveRightControl(l8, Me.m_txtCell_Lowest)
+            Me.m_txtBatt_Current = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l9)
+
+            Dim l10 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Charger I")
+            l10.Layout__AboveRightControl(l9, Me.m_txtBatt_Current)
+            Me.m_txtCharge_Current = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l10)
+
+            Dim l11 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Battery SoC")
+            l11.Layout__AboveRightControl(l10, Me.m_txtCharge_Current)
+            Me.m_txtBatt_SoC = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l11)
+
+
 
             Dim btnLatch As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Latch", AddressOf Me.btnlatch_Click)
             btnLatch.Layout__BelowControl(Me.m_txtPackVolts)
@@ -254,7 +270,7 @@
                     iOffset += 4
 
                     'charger state
-                    iOffset += 0
+                    iOffset += 1
 
                     'temp sensor state
                     iOffset += 1
@@ -270,6 +286,18 @@
                     iOffset += 2
 
                     'temp scan count
+                    iOffset += 4
+
+                    'Node press
+                    iOffset += 4
+
+                    'node temp
+                    iOffset += 4
+
+                    iOffset += m_txtBatt_Current.Value__Update(u8Payload, iOffset)
+                    iOffset += m_txtCharge_Current.Value__Update(u8Payload, iOffset)
+                    iOffset += m_txtBatt_SoC.Value__Update(u8Payload, iOffset)
+
 
 
                     Me.m_iRxCount += 1

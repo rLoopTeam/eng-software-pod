@@ -1159,6 +1159,9 @@
 				/** PV Press */
 				Lfloat32 f32PV_Press;
 
+				Lfloat32 f32BatteryCurrent;
+				Lfloat32 f32BatterySoC;
+
 
 			}sBMS[2];
 

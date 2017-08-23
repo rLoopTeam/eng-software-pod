@@ -42,6 +42,8 @@ void vFCU_NET_RX__Init(void)
 		sFCU.sBMS[u8Counter].f32LowestCellVoltage = 0.0F;
 		sFCU.sBMS[u8Counter].f32PV_Temp = 0.0F;
 		sFCU.sBMS[u8Counter].f32PV_Press = 0.0F;
+		sFCU.sBMS[u8Counter].f32BatteryCurrent = 0.0F;
+		sFCU.sBMS[u8Counter].f32BatterySoC = 0.0F;
 	}
 
 }
@@ -577,10 +579,45 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 					//fault flags
 					pu8Payload += 4U;
+
+					//device fault flags
+					pu8Payload += 4U;
+					pu8Payload += 4U;
+					pu8Payload += 4U;
+
+					//pack volts
+					sFCU.sBMS[u8Device].f32PackVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
+					pu8Payload += 4U;
+
+					//highest volts
+					sFCU.sBMS[u8Device].f32HighestCellVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
+					pu8Payload += 4U;
+
+					//lowest volts
+					sFCU.sBMS[u8Device].f32LowestCellVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
+					pu8Payload += 4U;
+
+					//cell volts
+					pu8Payload += (18 * 4);
+
+					//cell spares
+					pu8Payload += (18 * 4);
+
+					//discharge resistors
+					pu8Payload += 18U;
+
+					//voltage update
+					pu8Payload += 4U;
+
+					//batt spare
+					pu8Payload += 4U;
+
+					//chg state
+					pu8Payload += 1U;
+
 					//temp sensor state
 					pu8Payload += 1U;
-					//charger state
-					pu8Payload += 1U;
+
 					//num sensors
 					pu8Payload += 2U;
 
@@ -595,19 +632,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					//highest temp sensor index
 					pu8Payload += 2U;
 
-					//pack volts
-					sFCU.sBMS[u8Device].f32PackVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
-					pu8Payload += 4U;
-
-					//highest volts
-					sFCU.sBMS[u8Device].f32HighestCellVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
-					pu8Payload += 4U;
-
-					//lowest volts
-					sFCU.sBMS[u8Device].f32LowestCellVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
-					pu8Payload += 4U;
-
-					//BMS boards Temp
+					//scan count
 					pu8Payload += 4U;
 
 					//node press
@@ -617,6 +642,19 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					//node temp
 					sFCU.sBMS[u8Device].f32PV_Temp = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 					pu8Payload += 4U;
+
+					//bat current
+					pu8Payload += 4U;
+					sFCU.sBMS[u8Device].f32BatteryCurrent = f32SIL3_NUM_CONVERT__Array(pu8Payload);
+
+					//charge current
+					pu8Payload += 4U;
+
+					//battery SoC
+					pu8Payload += 4U;
+					sFCU.sBMS[u8Device].f32BatterySoC = f32SIL3_NUM_CONVERT__Array(pu8Payload);
+
+
 					break;
 
 
@@ -638,10 +676,45 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 						//fault flags
 						pu8Payload += 4U;
+
+						//device fault flags
+						pu8Payload += 4U;
+						pu8Payload += 4U;
+						pu8Payload += 4U;
+
+						//pack volts
+						sFCU.sBMS[u8Device].f32PackVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
+						pu8Payload += 4U;
+
+						//highest volts
+						sFCU.sBMS[u8Device].f32HighestCellVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
+						pu8Payload += 4U;
+
+						//lowest volts
+						sFCU.sBMS[u8Device].f32LowestCellVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
+						pu8Payload += 4U;
+
+						//cell volts
+						pu8Payload += (18 * 4);
+
+						//cell spares
+						pu8Payload += (18 * 4);
+
+						//discharge resistors
+						pu8Payload += 18U;
+
+						//voltage update
+						pu8Payload += 4U;
+
+						//batt spare
+						pu8Payload += 4U;
+
+						//chg state
+						pu8Payload += 1U;
+
 						//temp sensor state
 						pu8Payload += 1U;
-						//charger state
-						pu8Payload += 1U;
+
 						//num sensors
 						pu8Payload += 2U;
 
@@ -656,19 +729,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 						//highest temp sensor index
 						pu8Payload += 2U;
 
-						//pack volts
-						sFCU.sBMS[u8Device].f32PackVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
-						pu8Payload += 4U;
-
-						//highest volts
-						sFCU.sBMS[u8Device].f32HighestCellVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
-						pu8Payload += 4U;
-
-						//lowest volts
-						sFCU.sBMS[u8Device].f32LowestCellVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
-						pu8Payload += 4U;
-
-						//BMS boards Temp
+						//scan count
 						pu8Payload += 4U;
 
 						//node press
@@ -679,7 +740,16 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 						sFCU.sBMS[u8Device].f32PV_Temp = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 						pu8Payload += 4U;
 
-						//need pack current
+						//bat current
+						pu8Payload += 4U;
+						sFCU.sBMS[u8Device].f32BatteryCurrent = f32SIL3_NUM_CONVERT__Array(pu8Payload);
+
+						//charge current
+						pu8Payload += 4U;
+
+						//battery SoC
+						pu8Payload += 4U;
+						sFCU.sBMS[u8Device].f32BatterySoC = f32SIL3_NUM_CONVERT__Array(pu8Payload);
 
 						break;
 
