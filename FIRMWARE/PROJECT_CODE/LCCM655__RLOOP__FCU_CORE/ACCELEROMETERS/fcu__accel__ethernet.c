@@ -64,7 +64,8 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 			u16Length += 14U;
 
 			//thresholding
-			u16Length += 13U;
+			u16Length += 13U;  // Accel
+			u16Length += 13U;  // Decel
 			break;
 
 		case NET_PKT__FCU_ACCEL__TX_CAL_DATA:
@@ -173,7 +174,7 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sValid.s32ValidDisplacement_mm);
 				pu8Buffer += 4U;
 
-				//send the thresholding data
+				//send the accel thresholding data
 				pu8Buffer[0] = sFCU.sAccel.sAccelThresh.u8ThresholdTrue;
 				pu8Buffer += 1U;
 
@@ -183,6 +184,18 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				pu8Buffer += 4U;
 				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sAccel.sAccelThresh.u3210MS_Counter);
 				pu8Buffer += 4U;
+
+				//send the accel thresholding data
+				pu8Buffer[0] = sFCU.sAccel.sDecelThresh.u8ThresholdTrue;
+				pu8Buffer += 1U;
+
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sAccel.sDecelThresh.u32ThreshTime_x10ms);
+				pu8Buffer += 4U;
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sDecelThresh.s32Thresh_Accel_mm_ss);
+				pu8Buffer += 4U;
+				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sAccel.sDecelThresh.u3210MS_Counter);
+				pu8Buffer += 4U;
+
 
 				break;
 

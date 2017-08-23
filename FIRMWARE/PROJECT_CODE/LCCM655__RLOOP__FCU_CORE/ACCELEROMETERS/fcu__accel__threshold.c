@@ -31,7 +31,7 @@ void vFCU_ACCEL_THRESH__Process(void)
 		//we have valid accel data
 		s32Test = sFCU_ACCEL_VALID__Get_Accel_mm_ss();
 
-		//WARNING: ONLY POSITIVE ACCEL POSSIBLE HERE  @todo: negative now implemented as 'decel' -- remove this?
+		//WARNING: ONLY POSITIVE ACCEL POSSIBLE HERE  @todo: negative now implemented as 'decel'
 
 		//check if we are over the accel threshold
 		if(s32Test > sFCU.sAccel.sAccelThresh.s32Thresh_Accel_mm_ss)
@@ -57,7 +57,6 @@ void vFCU_ACCEL_THRESH__Process(void)
 			sFCU.sAccel.sAccelThresh.u3210MS_Counter = 0U;
 			u8AccelTrue = 0U;
 		}
-
 
 		//check if we are under the decel threshold
 		if (s32Test < sFCU.sAccel.sDecelThresh.s32Thresh_Accel_mm_ss)

@@ -1319,8 +1319,10 @@
 
 				//accel system
 				Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void);
-				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Threshold_mm_ss(void);
-				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_ThresholdTime_x10ms(void);
+				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Accel_Threshold_mm_ss(void);
+				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Accel_ThresholdTime_x10ms(void);
+				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Decel_Threshold_mm_ss(void);
+				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Decel_ThresholdTime_x10ms(void);
 				Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation(void);
 				Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max(void);
 				Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Coast_to_Brake(void);
@@ -1588,6 +1590,7 @@
 			void vFCU_ACCEL_THRESH__Process(void);
 			Luint8 u8FCU_ACCEL_THRES__Is_Accel_Threshold_Met(void);
 			void vFCU_ACCEL_THRESH__Set_Accel_Threshold(Lint32 s32Accel_mm_ss, Luint32 u32Time_x10ms);
+			void vFCU_ACCEL_THRESH__Set_Decel_Threshold(Lint32 s32Accel_mm_ss, Luint32 u32Time_x10ms);
 			void vFCU_ACCEL_THRESH__10MS_ISR(void);
 
 			//eth
