@@ -343,6 +343,21 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 		//not for us
 	}
 
+
+    //make sure we are rx'ing on our port number
+    if(u16DestPort == C_PWRCORE__IPS_CHARGER_PORT)
+    {
+        //determine the type of packet that came in
+        switch((E_NET__PACKET_T)ePacketType)
+        {
+            case NET_PKT__IPS__STATUS:
+
+                break;
+        }
+
+    }else{
+        //Nothing to do
+    }
 }
 
 

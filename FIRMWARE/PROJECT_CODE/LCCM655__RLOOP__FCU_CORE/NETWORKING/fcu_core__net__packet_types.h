@@ -435,6 +435,12 @@
 		/** Transmit the LGU ADC Calibration Data */
 		NET_PKT__LGU__TX_ADC_CAL_PACKET = 0x7003U,
 
+
+        //////////////////////////////////////////////////////
+        //IPS CHARGER DATA
+        //////////////////////////////////////////////////////
+		NET_PKT__IPS__STATUS = 0x9125U,
+
 	}E_NET__PACKET_T;
 
 

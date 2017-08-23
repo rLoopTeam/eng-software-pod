@@ -97,6 +97,15 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 				//press+temp = 8
 				u16Length += 8U;
+
+				//Battery current reading
+				u16Length += 4U;
+
+                //Charger current reading
+                u16Length += 4U;
+
+				//State of charge
+				u16Length += 4U;
 			#else
 				#error
 			#endif
@@ -342,6 +351,9 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				#endif
 
 				//battery spares
+                #if C_LOCALDEF__LCCM653__ENABLE_CHARGER == 1U
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading);
+                #endif
 				pu8Buffer += 4U;
 
 
@@ -400,12 +412,17 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer += 4U;
 				#endif
 
+                //Battery Current
+                vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sCHARGER_IV.f32HASS_BatteryCurrent);
+                pu8Buffer += 4U;
 
+                //charging current
+                vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sCHARGER_IV.f32HASS_ChargingCurrent);
+                pu8Buffer += 4U;
 
-
-				//Current through the battery pack
-				//vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sHASS600.f32HASS_CurrentReading);
-				//pu8Buffer += 4U;
+                //state of charge
+                vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sBMS.f32StateOfCharge);
+                pu8Buffer += 4U;
 
 				break;
 

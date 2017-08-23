@@ -96,14 +96,14 @@ void vPWRNODE_CHG_IV__Process(void)
 
         //Convert voltage reading to current reading
         //small current sensor is 50A model
-        sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading = f32PWRNODE_CHG_IV__Filter_Small_Current_ADC_Value( 50.0F/.625F * (f32SmallCurrent_Sample - sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentRefVoltageReading));
+        sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading = f32PWRNODE_CHG_IV__Filter_Small_Current_ADC_Value(( 50.0F/.625F * (f32SmallCurrent_Sample - sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentRefVoltageReading))*-1.0F);
 
         //Filter the large current reference voltage and save it to the main struct
         sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentRefVoltageReading = f32PWRNODE_CHG_IV__Filter_Large_Current_Ref_ADC_Value(f32LargeCurrentRefVoltage_Sample);
 
         //Convert voltage reading to current reading
         //small current sensor is 600A model
-        sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentReading = f32PWRNODE_CHG_IV__Filter_Large_Current_ADC_Value( 600.0F/.625F * (f32LargeCurrentVoltage_Sample - sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentRefVoltageReading));
+        sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentReading = f32PWRNODE_CHG_IV__Filter_Large_Current_ADC_Value( (600.0F/.625F * (f32LargeCurrentVoltage_Sample - sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentRefVoltageReading))*-1.0F);
 
         //Convert ADC voltage reading to charger voltage reading
         sPWRNODE.sCHARGER_IV.f32HASS_ChargerVoltageReading = f32PWRNODE_CHG_IV__Filter_Charger_Voltage_ADC_Value((f32ChargerVoltageVoltage_Sample - 1.28F) * 77.93F);

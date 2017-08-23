@@ -96,10 +96,16 @@
 	#define C_PWRCORE_COOLING_1000MS							(10U)
 	#define C_PWRCORE_COOLING_2000MS							(20U)
 
-	#define C_PWRCORE__CURRENT_AVG_SIZE						(0x100U)
+	#define C_PWRCORE__CURRENT_AVG_SIZE						    (0x100U)
 
-    #define C_PWRCORE__CURRENT_HASS_IPN                        (50.0F)
+    #define C_PWRCORE__CURRENT_HASS_IPN                         (50.0F)
+
+    #define C_PWRCORE__IPS_CHARGER_PORT                         (9633U)
 
     /** BMS Fans time running after last discharge resistor in secs * 10 **/
-    #define C_PWRCORE__BMS_FANS_TIMEOUT                         (300U)
+    #define C_PWRCORE__BMS_FANS_TIMEOUT                         (50U)
+
+    /** 2.99 V Absolute minimum for the cells **/
+    #define C_PWRCORE__UNDERVOLTAGE_KILL                        (3.20F)
+    #define C_PWRCORE__OVERVOLTAGE_KILL                         (4.15F)
 #endif /* RLOOP_POWER_CORE__DEFINES_H_ */

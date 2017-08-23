@@ -45,6 +45,8 @@ void vBQ76_BALANCE__Init(void)
 	{
 		sBQ76.sBalance.u8Resistor[u8Counter] = 0U;
 	}
+
+	sBQ76.sBalance.u3210MS_Counter = 0U;
 }
 
 /***************************************************************************//**
@@ -56,7 +58,12 @@ void vBQ76_BALANCE__Init(void)
  */
 void vBQ76_BALANCE__Process(void)
 {
-	//nothing here yet
+
+    //Update cell balance discharge resistor at 2 Hz
+	if(sBQ76.sBalance.u3210MS_Counter >= 50U){
+	    sBQ76.sBalance.u3210MS_Counter = 0U;
+	    vBQ76_BALANCE__Update_Discharge_Resistors();
+	}
 }
 
 /***************************************************************************//**
@@ -164,6 +171,47 @@ void vBQ76_BALANCE__Manual(Luint8 u8CellIndex, Luint8 u8Enable)
 
 	}//for(u8DeviceCounter = 0U; u8DeviceCounter < C_LOCALDEF__LCCM715__NUM_DEVICES; u8DeviceCounter++)
 
+}
+
+/***************************************************************************//**
+ * @brief
+ * Read discharge resistor status from BMS
+ *
+ */
+//TODO: maybe move to RESISTOR
+void vBQ76_BALANCE__Update_Discharge_Resistors(void)
+{
+    Luint8 u8DeviceCounter;
+    Luint8 u8Temp;
+    Luint8 u8Counter;
+
+
+    for(u8DeviceCounter = 0U; u8DeviceCounter < C_LOCALDEF__LCCM715__NUM_DEVICES; u8DeviceCounter++)
+    {
+        u8Temp = u8BQ76_SPI__Read_U8(u8DeviceCounter + 1U, BQ76_REG__CB_CTRL);
+        for(u8Counter = 0U; u8Counter < 8; u8Counter++){
+            sBQ76.sBalance.u8Resistor[u8Counter+8*u8DeviceCounter] = (u8Temp >> u8Counter) & 0x01;
+        }
+
+        //set the balance time. 5 min = 0x85U
+        //vBQ76_SPI__Write_U8(u8DeviceCounter + 1U, BQ76_REG__CB_TIME, 0x0AU);
+
+        //refresh the resistor value
+//        vBQ76_SPI__Write_U8(u8DeviceCounter + 1U, BQ76_REG__CB_CTRL, u8Temp);
+    }
+}
+
+/***************************************************************************//**
+ * @brief
+ * 10MS interrupt
+ *
+ * @st_funcMD5      1CEDE1D02EFC86149E3C00E8A5AB3EA1
+ * @st_funcID       LCCM715R0.FILE.010.FUNC.007
+ */
+void vBQ76_BALANCE__10MS_ISR(void)
+{
+
+    sBQ76.sBalance.u3210MS_Counter++;
 }
 
 #endif //#if C_LOCALDEF__LCCM715__ENABLE_THIS_MODULE == 1U

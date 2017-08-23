@@ -41,6 +41,8 @@ void vPWRNODE_BMS__Init(void)
 
 	#elif C_LOCALDEF__BMS_REVISION == 2U
 
+		sPWRNODE.sBMS.f32StateOfCharge = 0;
+
 		//configure the IO ports
 
 		//Comms Enable
@@ -74,6 +76,7 @@ void vPWRNODE_BMS__Init(void)
 	//setup any ethernet systems.
 	vPWR_BMS_ETH__Init();
 
+
 }
 
 /***************************************************************************//**
@@ -85,6 +88,10 @@ void vPWRNODE_BMS__Init(void)
  */
 void vPWRNODE_BMS__Process(void)
 {
+    Lfloat32 f32Temp;
+    Lfloat32 f32MaxV;
+    Lfloat32 f32MinV;
+
 #ifndef WIN32
 	#if C_LOCALDEF__BMS_REVISION == 1U
 		//process any ATA6870 tasks
@@ -92,6 +99,43 @@ void vPWRNODE_BMS__Process(void)
 	#elif C_LOCALDEF__BMS_REVISION == 2U
 		vBQ76__Process();
 		vPWRNODE_BMS_FANS__Process();
+
+		//Verify all cells are above the minimum voltage spec
+		if(f32BQ76_CELLS__Get_LowestVoltage() <= C_PWRCORE__UNDERVOLTAGE_KILL)
+		{
+            #if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
+		        vPWRNODE_DC__Pod_Safe_Go();
+            #endif
+		    //TODO: set fault flag
+		}else{
+		    //Nothing to do
+		    //TODO: clear fault flag
+		}
+
+		//Verify all cells are below the maximum voltage spec
+        if(f32BQ76_CELLS__Get_HighestVoltage() >= C_PWRCORE__OVERVOLTAGE_KILL)
+        {
+            #if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U
+                vPWRNODE_DC__Pod_Safe_Go();
+            #endif
+            //TODO: set fault flag
+        }else{
+            //Nothing to do
+            //TODO: clear fault flag
+        }
+
+        //TODO: Check voltage update count
+
+        //Move to 10 ms ISR?
+        f32MaxV = C_PWRCORE__OVERVOLTAGE_KILL-.1;
+        f32MinV = C_PWRCORE__UNDERVOLTAGE_KILL+.1;
+        f32Temp = ((f32PWRNODE_BMS__Cell_Get_LowestVoltage() - f32MinV)/(f32MaxV - f32MinV))*100.0F;
+        if(f32Temp < 0 || f32Temp > 100){
+            //TODO: Fault
+        }else{
+            sPWRNODE.sBMS.f32StateOfCharge = f32Temp;
+        }
+
 	#else
 		#error
 	#endif

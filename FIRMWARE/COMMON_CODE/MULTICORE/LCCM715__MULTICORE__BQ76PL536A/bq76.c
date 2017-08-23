@@ -137,6 +137,7 @@ Luint32 u32BQ76__Get_VoltsUpdateCount(void)
 void vBQ76__10MS_ISR(void)
 {
 	vBQ76_CELLS__10MS_ISR();
+	vBQ76_BALANCE__10MS_ISR();
 }
 
 /***************************************************************************//**

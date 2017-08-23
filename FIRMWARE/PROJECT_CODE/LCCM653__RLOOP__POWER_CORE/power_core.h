@@ -24,6 +24,7 @@
 		//local fault flags
 		#include <LCCM653__RLOOP__POWER_CORE/power_core__fault_flags.h>
 		#include <LCCM653__RLOOP__POWER_CORE/CHARGER/IV_MEASURE/power__iv_measure__fault_flags.h>
+        #include <LCCM653__RLOOP__POWER_CORE/BMS/power_core__bms__fault_flags.h>
 
 		#include <LCCM655__RLOOP__FCU_CORE/NETWORKING/fcu_core__net__packet_types.h>
 
@@ -167,7 +168,12 @@
 			/** BMS Subsystem */
 			struct
 			{
-				Luint8 u8Dummy;
+                /** BMS System Fault Flags */
+                FAULT_TREE__PUBLIC_T sFaultFlags;
+
+                /** State of charge **/
+                Lfloat32 f32StateOfCharge;
+
 			}sBMS;
 
             /**BMS cooling fan control **/

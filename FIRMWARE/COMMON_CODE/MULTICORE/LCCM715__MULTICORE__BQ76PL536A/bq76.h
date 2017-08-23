@@ -131,6 +131,10 @@
 				/** Resistor control state for the balancer */
 				Luint8 u8Resistor[C_BQ76__TOTAL_CELLS];
 
+				/** Hit every 10ms by the ISR **/
+				/** Used to update the discharge resistor status **/
+				Luint32 u3210MS_Counter;
+
 			}sBalance;
 
 
@@ -208,6 +212,8 @@
 		Luint8 u8BQ76_BALANCE__Is_Busy(void);
 		void vBQ76_BALANCE__Stop(void);
 		void vBQ76_BALANCE__Manual(Luint8 u8CellIndex, Luint8 u8Enable);
+		void vBQ76_BALANCE__Update_Discharge_Resistors(void);
+		void vBQ76_BALANCE__10MS_ISR(void);
 
 		//battery pack calculations
 		void vBQ76_BATTERY__Init(void);
@@ -228,6 +234,7 @@
 		void vBQ76_RES__Process(void);
 		void vBQ76_RES__Resistor_On(Luint8 u8CellIndex);
 		void vBQ76_RES__Resistor_Off(Luint8 u8CellIndex);
+		void vBQ76_RES__Resistors_Update(void);
 		void vBQ76_RES__All_Off(void);
 
 		//CRC
