@@ -1222,8 +1222,8 @@
 				Luint8 u8FCU_FCTL_MAINSM__Check_IsExiting(const TS_FCTL__STATE_MACHINE_T *cpSM, TE_POD_STATE_T eTestState);
 				Luint8 u8FCU_FCTL_MAINSM__Check_IsTransitioning(const TS_FCTL__STATE_MACHINE_T *cpSM);
 
-				void vFCU_FCTL_MAINSM__Debug__ForceState(TE_POD_STATE_T state);
-
+				DLL_DECLARATION void vFCU_FCTL_MAINSM__Debug__ForceState(TE_POD_STATE_T state);
+				DLL_DECLARATION TE_POD_STATE_T vFCU_FCTL_MAINSM__Debug__GetState(void);
 
                 //  Pod guard/check functions 
                 Luint8 pod_init_complete(void);

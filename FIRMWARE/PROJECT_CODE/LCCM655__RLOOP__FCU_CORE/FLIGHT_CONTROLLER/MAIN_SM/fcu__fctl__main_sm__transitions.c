@@ -1,3 +1,20 @@
+/**
+* @file		FCU__FCTL__MAIN_SM__TRANSITIONS.C
+* @brief		Main state machine transitions for the flight control unit
+* @author		Ryan Adams
+* @copyright	rLoop Inc.
+*/
+/**
+* @addtogroup RLOOP
+* @{ */
+/**
+* @addtogroup FCU
+* @ingroup RLOOP
+* @{ */
+/**
+* @addtogroup FCU__FCTL__MAIN_SM
+* @ingroup FCU
+* @{ */
 //handle the main state machine transition cases
 
 #include "../../fcu_core.h"
@@ -45,8 +62,7 @@ Luint8 flight_readiness_checks_ok(void)
 
 Luint8 accel_confirmed(void)
 {
-	// @todo: implement
-	return 0U;
+	return u8FCU_ACCEL_THRES__Is_Threshold_Met();
 }
 
 Luint8 pusher_separation_confirmed(void)
@@ -479,4 +495,6 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__SPINDOWN(void)
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
 	#error
 #endif
-
+/** @} */
+/** @} */
+/** @} */
