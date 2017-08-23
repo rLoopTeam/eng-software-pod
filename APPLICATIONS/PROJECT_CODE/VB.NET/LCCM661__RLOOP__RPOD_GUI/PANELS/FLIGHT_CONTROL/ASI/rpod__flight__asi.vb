@@ -331,9 +331,9 @@
 
             Dim iRPM As Integer = 0
             If Me.m_cboSetRPM.SelectedIndex = 1 Then
-                iRPM = 250
+                iRPM = 550
             ElseIf Me.m_cboSetRPM.SelectedIndex = 2 Then
-                iRPM = 500
+                iRPM = 2000
             End If
 
             'UInt32.Parse(Me.m_txtSetRPM.Text),

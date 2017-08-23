@@ -340,10 +340,10 @@ Luint16 u16FCU_THROTTLE__Compute_RPM_StepDown(Luint16 u16RPM)
 	u16Return = u16RPM;
 
 	//protect the math
-	if(u16Return >= 200U)
+	if(u16Return >= 20U)
 	{
 		//sub the step
-		u16Return -= 200U;
+		u16Return -= 20U;
 	}
 	else
 	{

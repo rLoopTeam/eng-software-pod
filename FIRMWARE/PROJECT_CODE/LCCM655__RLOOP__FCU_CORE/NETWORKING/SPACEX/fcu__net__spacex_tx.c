@@ -111,6 +111,8 @@ void vFCU_NET_SPACEX_TX__Process(void)
     Luint32 u32Buffer;
     Luint8* pu8Return;
     Lint32 s32Temp;
+    Lfloat32 f32Temp;
+
     //do we have a timer flag?
     if(sFCU.sSpaceX.u8100MS_Flag == 1U)
     {
@@ -159,19 +161,46 @@ void vFCU_NET_SPACEX_TX__Process(void)
                 pu8Return += 4U;
 
                 //battery_voltage   INT32           Battery voltage in millivolts.
-                vSIL3_NUM_CONVERT__Array_S32(pu8Return, 4444);
+                f32Temp = sFCU.sBMS[0].f32PackVoltage;
+                f32Temp += sFCU.sBMS[1].f32PackVoltage;
+                f32Temp /= 2.0F;
+
+                //convert to mV
+                f32Temp *= 1000.0F;
+
+                vSIL3_NUM_CONVERT__Array_S32(pu8Return, (Lint32)f32Temp);
                 pu8Return += 4U;
 
                 //battery_current   INT32           Battery current in milliamps.
-                vSIL3_NUM_CONVERT__Array_S32(pu8Return, 55555);
+
+                f32Temp = sFCU.sBMS[0].f32BatteryCurrent;
+                f32Temp += sFCU.sBMS[1].f32BatteryCurrent;
+                f32Temp /= 2.0F;
+
+                //convert to mA
+                f32Temp *= 1000.0F;
+
+                vSIL3_NUM_CONVERT__Array_S32(pu8Return, (Lint32)f32Temp);
                 pu8Return += 4U;
 
                 //battery_temperature INT32         Battery temperature in tenths of a degree Celsius.
-                vSIL3_NUM_CONVERT__Array_S32(pu8Return, 66666);
+                f32Temp = sFCU.sBMS[0].f32AverageTemp;
+                f32Temp += sFCU.sBMS[1].f32AverageTemp;
+                f32Temp /= 2.0F;
+
+                f32Temp /= 10.0F;
+
+                vSIL3_NUM_CONVERT__Array_S32(pu8Return, (Lint32)f32Temp);
                 pu8Return += 4U;
 
                 //pod_temperature   INT32           Pod temperature in tenths of a degree Celsius.
-                vSIL3_NUM_CONVERT__Array_S32(pu8Return, -77777);
+                f32Temp = sFCU.sBMS[0].f32PV_Temp;
+				f32Temp += sFCU.sBMS[1].f32PV_Temp;
+				f32Temp /= 2.0F;
+
+				f32Temp /= 10.0F;
+
+                vSIL3_NUM_CONVERT__Array_S32(pu8Return, (Lint32)f32Temp);
                 pu8Return += 4U;
 
                 //stripe_count  UINT32          Count of optical navigation stripes detected in the tube.

@@ -117,10 +117,52 @@
                 .TickStyle = TickStyle.BottomRight
             End With
 
+
+            Dim btnStopAll As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Stop All", AddressOf Me.btnAll_Stop)
+            btnStopAll.Layout__BelowControl(btnA3_Stop)
+
+            Dim btnExtendAll As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Extend All", AddressOf Me.btnAll_Extend)
+            btnExtendAll.Layout__RightOfControl(btnStopAll)
+
+            Dim btnRetractAll As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Retract All", AddressOf Me.btnAll_Retract)
+            btnRetractAll.Layout__RightOfControl(btnExtendAll)
+
+
+
         End Sub
 #End Region '#Region "PANEL LAYOUT"
 
 #Region "BUTTON"
+
+        Private Sub btnAll_Stop(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 4
+            Dim f32Speed As New LAPP188__RLOOP__LIB.SIL3.Numerical.F32(1.0)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 0, f32Speed.Union__Uint32)
+
+        End Sub
+
+        Private Sub btnAll_Retract(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 4
+            Dim f32Speed As New LAPP188__RLOOP__LIB.SIL3.Numerical.F32(1.0)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 1, f32Speed.Union__Uint32)
+        End Sub
+
+        Private Sub btnAll_Extend(sender As Object, e As EventArgs)
+            Dim u32Index As UInt32 = 4
+            Dim f32Speed As New LAPP188__RLOOP__LIB.SIL3.Numerical.F32(1.0)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__LGU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__LGU__MANUAL_MODE,
+                                                 &HABAB1122L,
+                                                 u32Index, 2, f32Speed.Union__Uint32)
+
+        End Sub
+
 
         Private Sub btnA0_Stop(sender As Object, e As EventArgs)
             Dim u32Index As UInt32 = 0
