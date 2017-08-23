@@ -185,7 +185,7 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				vSIL3_NUM_CONVERT__Array_U32(pu8Buffer, sFCU.sAccel.sAccelThresh.u3210MS_Counter);
 				pu8Buffer += 4U;
 
-				//send the accel thresholding data
+				//send the decel thresholding data
 				pu8Buffer[0] = sFCU.sAccel.sDecelThresh.u8ThresholdTrue;
 				pu8Buffer += 1U;
 

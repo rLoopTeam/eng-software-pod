@@ -14,6 +14,11 @@ void vFCU_ACCEL_THRESH__Init(void)
 	sFCU.sAccel.sAccelThresh.u32ThreshTime_x10ms = 0U;
 	sFCU.sAccel.sAccelThresh.s32Thresh_Accel_mm_ss = 0;
 	sFCU.sAccel.sAccelThresh.u3210MS_Counter = 0U;
+
+	sFCU.sAccel.sDecelThresh.u8ThresholdTrue = 0U;
+	sFCU.sAccel.sDecelThresh.u32ThreshTime_x10ms = 0U;
+	sFCU.sAccel.sDecelThresh.s32Thresh_Accel_mm_ss = 0;
+	sFCU.sAccel.sDecelThresh.u3210MS_Counter = 0U;
 }
 
 //process the thresholds
