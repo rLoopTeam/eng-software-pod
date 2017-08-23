@@ -24,7 +24,7 @@
         Private m_txtCurTx__CurrCommand As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
 
         'actual data
-        Private m_txtAct_Faults(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
+        Private m_txtAct_Faults(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags_U16
         Private m_txtAct_TempC(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtAct_Current(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtAct_RPM(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16
@@ -33,7 +33,8 @@
         'setup the HE
         Private m_cboHE As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper
         Private m_cboMode As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper
-        Private m_txtSetRPM As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        'Private m_txtSetRPM As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_cboSetRPM As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper
 
         ''' <summary>
         ''' The logging directory
@@ -108,7 +109,7 @@
                     iOffset += Me.m_txtCurTx__CurrCommand.Value__Update(u8Payload, iOffset)
 
                     For iCounter As Integer = 0 To C_NUM_ASI_CONTROLLERS - 1
-                        iOffset += Me.m_txtAct_Faults(iCounter).Value__Update(u8Payload, iOffset)
+                        iOffset += Me.m_txtAct_Faults(iCounter).Flags__Update(u8Payload, iOffset, True)
                         iOffset += Me.m_txtAct_TempC(iCounter).Value__Update(u8Payload, iOffset)
                         iOffset += Me.m_txtAct_Current(iCounter).Value__Update(u8Payload, iOffset)
                         iOffset += Me.m_txtAct_RPM(iCounter).Value__Update(u8Payload, iOffset)
@@ -202,7 +203,26 @@
                 Else
                     l31(iCounter).Layout__AboveRightControl(l31(iCounter - 1), Me.m_txtAct_Faults(iCounter - 1))
                 End If
-                Me.m_txtAct_Faults(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, l31(iCounter))
+                Me.m_txtAct_Faults(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_FaultFlags_U16(100, l31(iCounter))
+
+                'add the faults
+                Me.m_txtAct_Faults(iCounter).Flags__Add("CONTROLLER OVER VOLTAGE")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("PHASE OVER CURRENT")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("CURRENT SENSOR CALIBRATION")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("CURRENT SENSOR OVER CURRENT")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("CONTROLLER TEMPERATURE")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("PARAM CRC32")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("CONTROLLER UNDER VOLTAGE")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("BRIDGE OPEN CIRCUIT")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("COMMS TIMEOUT")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("INSTANT PHASE CURRENT")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("MOTOR TEMP")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("THROTTLE VOLT RAGE")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("FAST DC OVER VOLT")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("INTERNAL ERROR")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("BRIDGE TURN ON TEST")
+                Me.m_txtAct_Faults(iCounter).Flags__Add("FAST DC UNDER VOLT")
+
             Next
 
             Dim l32(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper
@@ -259,6 +279,10 @@
                 Me.m_cboHE.Threadsafe__AddItem(iCounter.ToString)
             Next
             Me.m_cboHE.Threadsafe__AddItem("ALL")
+            Me.m_cboHE.Threadsafe__AddItem("0 + 1")
+            Me.m_cboHE.Threadsafe__AddItem("2 + 3")
+            Me.m_cboHE.Threadsafe__AddItem("4 + 5")
+            Me.m_cboHE.Threadsafe__AddItem("6 + 7")
             Me.m_cboHE.Threadsafe__SetSelectedIndex(0)
 
             Dim l91 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Throttle Mode")
@@ -270,11 +294,16 @@
 
             Dim l92 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Target RPM")
             l92.Layout__AboveRightControl(l91, Me.m_cboMode)
-            Me.m_txtSetRPM = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l92)
-            Me.m_txtSetRPM.Threadsafe__SetText("0")
+            'Me.m_txtSetRPM = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l92)
+            'Me.m_txtSetRPM.Threadsafe__SetText("0")
+            Me.m_cboSetRPM = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper(100, l92)
+            Me.m_cboSetRPM.Threadsafe__AddItem("OFF")
+            Me.m_cboSetRPM.Threadsafe__AddItem("SLOW")
+            Me.m_cboSetRPM.Threadsafe__AddItem("FULL")
+            Me.m_cboSetRPM.Threadsafe__SetSelectedIndex(0)
 
             Dim btnChange As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Change", AddressOf Me.btnChange__Click)
-            btnChange.Layout__RightOfControl(Me.m_txtSetRPM)
+            btnChange.Layout__RightOfControl(Me.m_cboSetRPM)
 
             Dim btnRPM0 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Stop", AddressOf Me.btnRPM0__Click)
             btnRPM0.Layout__RightOfControl(btnChange)
@@ -300,13 +329,26 @@
                 Exit Sub
             End If
 
+            Dim iRPM As Integer = 0
+            If Me.m_cboSetRPM.SelectedIndex = 1 Then
+                iRPM = 250
+            ElseIf Me.m_cboSetRPM.SelectedIndex = 2 Then
+                iRPM = 500
+            End If
+
+            'UInt32.Parse(Me.m_txtSetRPM.Text),
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
                                                  SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_THROTTLE__SET_RAW_THROTTLE,
                                                  iHE,
-                                                 UInt32.Parse(Me.m_txtSetRPM.Text),
+                                                 iRPM,
                                                  Me.m_cboMode.SelectedIndex, 0)
         End Sub
 
+        ''' <summary>
+        ''' 
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
         Private Sub btnRPM0__Click(s As Object, e As EventArgs)
 
             'all

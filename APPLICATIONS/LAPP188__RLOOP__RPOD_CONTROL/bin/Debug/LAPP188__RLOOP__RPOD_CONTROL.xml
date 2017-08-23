@@ -550,6 +550,13 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="s"></param>
  <param name="e"></param>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.ASI.btnRPM0__Click(System.Object,System.EventArgs)">
+ <summary>
+ 
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.ASI.btnStreamOn__Click(System.Object,System.EventArgs)">
  <summary>
  Control streaming

@@ -47,7 +47,6 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		 * devices on different addresses, set this to one and then daisy-chain*/
 		#define C_LOCALDEF__LCCM655__SINGLE_RS485_ONLY						(1U)
 
-
 		/** Enable the pusher detection system */
 		#define C_LOCALDEF__LCCM655__ENABLE_PUSHER							(0U)
 
@@ -56,9 +55,6 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 
 		/** SpaceX Telemetry Requirements Enable */
 		#define C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY				(1U)
-
-		/** Serial comms to and from the LGU */
-		#define C_LOCALDEF__LCCM655__LGU_COMMS_SYSTEM						(1U)
 
 		/** Geom system */
 		#define C_LOCALDEF__LCCM655__ENABLE_GEOM							(0U)
@@ -80,9 +76,6 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 
 			//hover engine drag modelling
 			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_HE_DRAG					(1U)
-
-			//aero drag modelling
-			#define C_LOCALDEF__LCCM655__ENABLE_FCTL_AERO_DRAG					(1U)
 
 			/** Allow us to control the gimbals and include in calculations */
 			#define C_LOCALDEF__LCCM655__ENABLE_GIMBAL_CONTROL					(1U)
