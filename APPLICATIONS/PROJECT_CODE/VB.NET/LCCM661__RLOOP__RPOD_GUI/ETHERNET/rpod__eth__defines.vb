@@ -221,6 +221,12 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** FCU to Host, return ASI data */
         NET_PKT__FCU_ASI__SET_THROTTLE = &H1702
 
+        '/** Inhibit the RS485 interface */
+        NET_PKT__FCU_ASI__SET_INHIBIT_RS485 = &H1703
+
+        '/** Use faster scanning times */
+        NET_PKT__FCU_ASI__FAST_RS485 = &H1704
+
         '//////////////////////////////////////////////////////
         '//FCU: PUSHER (0x1800)
         '//////////////////////////////////////////////////////

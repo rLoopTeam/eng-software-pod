@@ -32,7 +32,7 @@ void vFCU_ACCEL_VALID__Process(void)
 
 	//If any faults, accel not valid
 	u8Valid = 0U;
-	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Counter++)
+	for(u8Counter = 0U; u8Counter < C_FCU__NUM_ACCEL_CHIPS; u8Counter++)
 	{
 
 		//if we have any fault, then clear our flag

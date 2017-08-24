@@ -60,7 +60,7 @@ void vFCU_ASI_ETH__Transmit(E_NET__PACKET_T ePacketType)
 	{
 		case NET_PKT__FCU_ASI__TX_ASI_DATA:
 			u16Length = 8U ;
-			u16Length += (C_FCU__NUM_HOVER_ENGINES * 16U);
+			u16Length += (C_FCU__NUM_HOVER_ENGINES * 20U);
 			break;
 
 
@@ -118,6 +118,11 @@ void vFCU_ASI_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					//throttle v
 					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sASI.sHolding[u8Counter].f32ThrottleV);
 					pu8Buffer += 4U;
+
+					//commanded voltage
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sThrottle.f32CurrentVolts[u8Counter]);
+					pu8Buffer += 4U;
+
 
 				}
 				break;

@@ -30,11 +30,16 @@
         Private m_txtAct_RPM(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16
         Private m_txtAct_ThrottleV(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
 
+        Private m_txtActRPM_Volts(C_NUM__THROTTLES - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+
         'setup the HE
         Private m_cboHE As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper
         Private m_cboMode As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper
         'Private m_txtSetRPM As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
         Private m_cboSetRPM As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper
+
+        Private m_txtSlowSpeed As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
+        Private m_txtFastSpeed As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
 
         ''' <summary>
         ''' The logging directory
@@ -103,6 +108,7 @@
                     iOffset += 1
 
                     'scan index
+                    Dim iScanIndex As Integer = u8Payload(iOffset)
                     iOffset += Me.m_txtScanIndex.Value__Update(u8Payload, iOffset)
 
                     'current command
@@ -110,10 +116,48 @@
 
                     For iCounter As Integer = 0 To C_NUM_ASI_CONTROLLERS - 1
                         iOffset += Me.m_txtAct_Faults(iCounter).Flags__Update(u8Payload, iOffset, True)
+
+                        Dim sPrev As String = Me.m_txtAct_TempC(iCounter).Text
                         iOffset += Me.m_txtAct_TempC(iCounter).Value__Update(u8Payload, iOffset)
+                        If iScanIndex = iCounter Then
+                            If Me.m_txtAct_TempC(iCounter).Text <> sPrev Then
+                                Me.m_txtAct_TempC(iCounter).Fade__Colour(Color.Blue)
+                            End If
+                        End If
+
+
+                        sPrev = Me.m_txtAct_Current(iCounter).Text
                         iOffset += Me.m_txtAct_Current(iCounter).Value__Update(u8Payload, iOffset)
+                        If iScanIndex = iCounter Then
+                            If Me.m_txtAct_Current(iCounter).Text <> sPrev Then
+                                Me.m_txtAct_Current(iCounter).Fade__Colour(Color.Blue)
+                            End If
+                        End If
+
+                        sPrev = Me.m_txtAct_RPM(iCounter).Text
                         iOffset += Me.m_txtAct_RPM(iCounter).Value__Update(u8Payload, iOffset)
+                        If iScanIndex = iCounter Then
+                            If Me.m_txtAct_RPM(iCounter).Text <> sPrev Then
+                                Me.m_txtAct_RPM(iCounter).Fade__Colour(Color.Blue)
+                            End If
+                        End If
+
+                        sPrev = Me.m_txtAct_ThrottleV(iCounter).Text
                         iOffset += Me.m_txtAct_ThrottleV(iCounter).Value__Update(u8Payload, iOffset)
+                        If iScanIndex = iCounter Then
+                            If Me.m_txtAct_ThrottleV(iCounter).Text <> sPrev Then
+                                Me.m_txtAct_ThrottleV(iCounter).Fade__Colour(Color.Blue)
+                            End If
+                        End If
+
+                        sPrev = Me.m_txtActRPM_Volts(iCounter).Text
+                        iOffset += Me.m_txtActRPM_Volts(iCounter).Value__Update(u8Payload, iOffset)
+                        If iScanIndex = iCounter Then
+                            If Me.m_txtActRPM_Volts(iCounter).Text <> sPrev Then
+                                Me.m_txtActRPM_Volts(iCounter).Fade__Colour(Color.Blue)
+                            End If
+                        End If
+
                     Next
 
                     Me.m_iRxCount += 1
@@ -141,6 +185,13 @@
             Dim l11 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Rx Count")
             l11.Layout__AboveRightControl(l0, btnOn)
             Me.m_txtCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l11)
+
+            Dim btnDisableTx As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Disable RS485", AddressOf Me.btnInhibitRS485__Click)
+            btnDisableTx.Layout__RightOfControl(Me.m_txtCount)
+
+            Dim btnFast485 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Fast RS485", AddressOf Me.btnFastRS485__Click)
+            btnFast485.Layout__RightOfControl(btnDisableTx)
+
 
             Dim l1 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Fault Flags")
             l1.Layout__BelowControl(btnOn)
@@ -184,6 +235,10 @@
             Me.m_txtMainState.States__Add("ASI_STATE__ISSUE_COMMAND")
             Me.m_txtMainState.States__Add("ASI_STATE__WAIT_COMMAND_COMPLETE")
             Me.m_txtMainState.States__Add("ASI_STATE__INC_SCAN_INDEX")
+            Me.m_txtMainState.States__Add("ASI_STATE__INHIBIT")
+
+
+
 
             Me.m_txtModbusState.States__Add("ASI_COMM_STATE__IDLE")
             Me.m_txtModbusState.States__Add("ASI_COMM_STATE__WAIT_TURNAROUND_DELAY")
@@ -256,6 +311,7 @@
                     l34(iCounter).Layout__AboveRightControl(l34(iCounter - 1), Me.m_txtAct_RPM(iCounter - 1))
                 End If
                 Me.m_txtAct_RPM(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S16(100, l34(iCounter))
+                Me.m_txtAct_RPM(iCounter).Limits__SetUpper(250)
             Next
 
 
@@ -268,11 +324,25 @@
                     l35(iCounter).Layout__AboveRightControl(l35(iCounter - 1), Me.m_txtAct_ThrottleV(iCounter - 1))
                 End If
                 Me.m_txtAct_ThrottleV(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l35(iCounter))
+                Me.m_txtAct_ThrottleV(iCounter).Limits__SetLower(0.8)
+            Next
+
+
+            Dim l36(C_NUM_ASI_CONTROLLERS - 1) As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper
+            For iCounter As Integer = 0 To C_NUM_ASI_CONTROLLERS - 1
+                l36(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper(iCounter.ToString & ": CMD V")
+                If iCounter = 0 Then
+                    l36(iCounter).Layout__BelowControl(Me.m_txtAct_ThrottleV(0))
+                Else
+                    l36(iCounter).Layout__AboveRightControl(l36(iCounter - 1), Me.m_txtActRPM_Volts(iCounter - 1))
+                End If
+                Me.m_txtActRPM_Volts(iCounter) = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32(100, l36(iCounter))
+                Me.m_txtActRPM_Volts(iCounter).Limits__SetLower(0.9)
             Next
 
 
             Dim l90 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Throttle Index")
-            l90.Layout__BelowControl(Me.m_txtAct_ThrottleV(0))
+            l90.Layout__BelowControl(Me.m_txtActRPM_Volts(0))
             Me.m_cboHE = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper(100)
             Me.m_cboHE.Layout__BelowControl(l90)
             For iCounter As Integer = 0 To C_NUM__THROTTLES - 1
@@ -309,11 +379,39 @@
             btnRPM0.Layout__RightOfControl(btnChange)
 
 
+            Dim l100 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Low Speed")
+            l100.Layout__BelowControl(Me.m_cboHE)
+            Me.m_txtSlowSpeed = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l100)
+            Me.m_txtSlowSpeed.Threadsafe__SetText(250)
+
+            Dim l101 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Fast Speed")
+            l101.Layout__BelowControl(Me.m_txtSlowSpeed)
+            Me.m_txtFastSpeed = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l101)
+            Me.m_txtFastSpeed.Threadsafe__SetText(500)
+
+
         End Sub
 
 #End Region '#Region "PANEL LAYOUT"
 
 #Region "BUTTON HELPERS"
+
+
+        Private Sub btnFastRS485__Click(s As Object, e As EventArgs)
+
+            'UInt32.Parse(Me.m_txtSetRPM.Text),
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_ASI__FAST_RS485,
+                                                 0, 0, 0, 0)
+        End Sub
+
+        Private Sub btnInhibitRS485__Click(s As Object, e As EventArgs)
+
+            'UInt32.Parse(Me.m_txtSetRPM.Text),
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_ASI__SET_INHIBIT_RS485,
+                                                 0, 0, 0, 0)
+        End Sub
 
 
         ''' <summary>
@@ -331,9 +429,9 @@
 
             Dim iRPM As Integer = 0
             If Me.m_cboSetRPM.SelectedIndex = 1 Then
-                iRPM = 550
+                iRPM = CInt(Me.m_txtSlowSpeed.Text)
             ElseIf Me.m_cboSetRPM.SelectedIndex = 2 Then
-                iRPM = 2000
+                iRPM = CInt(Me.m_txtFastSpeed.Text)
             End If
 
             'UInt32.Parse(Me.m_txtSetRPM.Text),

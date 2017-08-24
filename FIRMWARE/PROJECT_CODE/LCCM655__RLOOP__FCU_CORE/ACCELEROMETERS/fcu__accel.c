@@ -50,13 +50,13 @@ void vFCU_ACCEL__Init(void)
 	vFCU_ACCEL_THRESH__Init();
 
 	//init vars
-	for(u8Device = 0U; u8Device < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Device++)
+	for(u8Device = 0U; u8Device < C_FCU__NUM_ACCEL_CHIPS; u8Device++)
 	{
 		for(u8Counter = 0U; u8Counter < MMA8451_AXIS__MAX; u8Counter++)
 		{
 			sFCU.sAccel.sChannels[u8Device].s16LastSample[u8Counter] = 0;
 
-		}//for(u8Counter = 0U; u8Counter < 3U; u8Counter++)
+		}//for(u8Counter = 0U; u8Counter < C_FCU__NUM_ACCEL_CHIPS; u8Counter++)
 
 		//clear the computed varaiables.
 		sFCU.sAccel.sChannels[u8Device].u8NewSampleAvail = 0U;
@@ -313,7 +313,7 @@ Luint8 u8FCU_ACCEL__Get_New_Sample_Avail(Luint8 u8Channel)
 
 void vFCU_ACCEL__Clear_New_Sample_Avail(Luint8 u8Channel)
 {
-	if(u8Channel < C_LOCALDEF__LCCM418__NUM_DEVICES)
+	if(u8Channel < C_FCU__NUM_ACCEL_CHIPS)
 	{
 		sFCU.sAccel.sChannels[u8Channel].u8NewSampleAvail = 0U;
 	}

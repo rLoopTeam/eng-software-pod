@@ -140,21 +140,33 @@ void vFCU_NET_SPACEX_TX__Process(void)
                 pu8Return += 1U;
 
                 //acceleration  INT32           Acceleration in centimeters per second squared. Required.
+#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
                 s32Temp = s32FCU_FCTL_NAV__Get_Accel_mm_ss();
+#else
+                s32Temp = 0;
+#endif
                 //convert to cm/ss
                 s32Temp /= 10;
                 vSIL3_NUM_CONVERT__Array_S32(pu8Return, s32Temp);
                 pu8Return += 4U;
 
                 //position      INT32           Velocity in centimeters per second. Required.
+#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
                 s32Temp = s32FCU_FCTL_NAV__Get_Veloc_mm_s();
+#else
+                s32Temp = 0;
+#endif
                 //convert to cm/s
                 s32Temp /= 10;
                 vSIL3_NUM_CONVERT__Array_S32(pu8Return, s32Temp);
                 pu8Return += 4U;
 
                 //velocity      INT32           Position in centimeters. Required.
+#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
                 s32Temp = s32FCU_FCTL_NAV__Get_Track_Position_mm();
+#else
+                s32Temp = 0;
+#endif
                 //convert to cm
                 s32Temp /= 10;
                 vSIL3_NUM_CONVERT__Array_S32(pu8Return, s32Temp);
@@ -163,7 +175,15 @@ void vFCU_NET_SPACEX_TX__Process(void)
                 //battery_voltage   INT32           Battery voltage in millivolts.
                 f32Temp = sFCU.sBMS[0].f32PackVoltage;
                 f32Temp += sFCU.sBMS[1].f32PackVoltage;
-                f32Temp /= 2.0F;
+
+                if(sFCU.sBMS[1].u8Seen == 1U)
+                {
+                	f32Temp /= 2.0F;
+                }
+                else
+                {
+                	//no div
+                }
 
                 //convert to mV
                 f32Temp *= 1000.0F;
@@ -175,7 +195,14 @@ void vFCU_NET_SPACEX_TX__Process(void)
 
                 f32Temp = sFCU.sBMS[0].f32BatteryCurrent;
                 f32Temp += sFCU.sBMS[1].f32BatteryCurrent;
-                f32Temp /= 2.0F;
+                if(sFCU.sBMS[1].u8Seen == 1U)
+                {
+                	f32Temp /= 2.0F;
+                }
+                else
+                {
+                	//no div
+                }
 
                 //convert to mA
                 f32Temp *= 1000.0F;
@@ -196,7 +223,14 @@ void vFCU_NET_SPACEX_TX__Process(void)
                 //pod_temperature   INT32           Pod temperature in tenths of a degree Celsius.
                 f32Temp = sFCU.sBMS[0].f32PV_Temp;
 				f32Temp += sFCU.sBMS[1].f32PV_Temp;
-				f32Temp /= 2.0F;
+                if(sFCU.sBMS[1].u8Seen == 1U)
+                {
+                	f32Temp /= 2.0F;
+                }
+                else
+                {
+                	//no div
+                }
 
 				f32Temp /= 10.0F;
 

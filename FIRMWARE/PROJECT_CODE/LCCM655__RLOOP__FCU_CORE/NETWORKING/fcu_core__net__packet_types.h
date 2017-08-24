@@ -221,6 +221,11 @@
 		/** FCU to Host, return ASI data */
 		NET_PKT__FCU_ASI__SET_THROTTLE = 0x1702U,
 
+		/** Inhibit the RS485 interface */
+		NET_PKT__FCU_ASI__SET_INHIBIT_RS485 = 0x1703U,
+
+		/** Use faster scanning times */
+		NET_PKT__FCU_ASI__FAST_RS485 = 0x1704U,
 
 
 		//////////////////////////////////////////////////////
