@@ -611,6 +611,8 @@
                 Me.m_pCSV.Cell__SetContents("SM_CHECK_PUSHER_SEP_U8", Me.m_iCurrentIndex, "0", True)
             End If
 
+            '@todo: reload the csv / update the pulldown menup after saving?
+
         End Sub
 
         ''' <summary>
@@ -672,9 +674,9 @@
             iItem += 1
             Me.m_txtContLaser_Spare0.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
             iItem += 1
-            Me.m_txtContLaser_Spare0.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            Me.m_txtContLaser_Spare1.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
             iItem += 1
-            Me.m_txtContLaser_Spare0.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            Me.m_txtContLaser_Spare2.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
             iItem += 1
 
 
