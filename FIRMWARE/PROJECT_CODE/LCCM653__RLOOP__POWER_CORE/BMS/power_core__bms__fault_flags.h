@@ -53,7 +53,7 @@
  *
  * No voltage updates
 */
-#define C_BMS__FAULT_INDEX__02               0x00000003U
-#define C_BMS__FAULT_INDEX_MASK__02          0x00000008U
+#define C_BMS__FAULT_INDEX__03               0x00000003U
+#define C_BMS__FAULT_INDEX_MASK__03          0x00000008U
 
 #endif /* _LCCM653__00__FAULT_FLAGS_H_ */

@@ -80,7 +80,7 @@ void vFCU_NET_TX__Process(void)
 		{
 
 			//do we have a timer flag?
-			if(sFCU.sUDPDiag.u810MS_Flag > 1U)
+			if(sFCU.sUDPDiag.u810MS_Flag > 4U)
 			{
 				//set it
 				eType = sFCU.sUDPDiag.eTxStreamingType;

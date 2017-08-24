@@ -489,7 +489,7 @@
 
 
 
-				}sChannels[C_LOCALDEF__LCCM418__NUM_DEVICES];
+				}sChannels[C_FCU__NUM_ACCEL_CHIPS];
 
 			}sAccel;
 			#endif //C_LOCALDEF__LCCM655__ENABLE_ACCEL
@@ -1059,6 +1059,9 @@
 				/** 10ms timer used for scanning */
 				Luint8 u810MS_Timer;
 
+				/** should be 10 for automated, can be 2 for faster */
+				Luint8 u8MaxScanTime;
+
 				/** ASI Subsystemfaults */
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
@@ -1085,10 +1088,14 @@
 				/** The throttle value to change to */
 				Luint16 u16Throttle[C_FCU__NUM_HOVER_ENGINES];
 
+				/** Timeout checks */
+				Luint32 u32WaitCommandTimeout;
+
+				/** number of counts that timed out */
+				Luint32 u32TimeoutCounts[C_FCU__NUM_HOVER_ENGINES];
 
 				/** The lower guard */
 				Luint32 u32Guard2;
-
 			}sASI;
 			#endif
 
@@ -1096,6 +1103,12 @@
 			#if C_LOCALDEF__LCCM655__ENABLE_THROTTLE == 1U
 			struct strThrottleInterfaceData
 			{
+
+				Luint32 u32Guard0;
+
+				/** Keep alive timer, after 1 second of no signal, switch off */
+				Luint32 u32KeepAlive;
+				Luint8 u8KeepAliveActive;
 
 				/* State Variable*/
 				E_THROTTLE_STATES_T eState;
@@ -1111,6 +1124,9 @@
 
 				/** The current (actually set RPM) */
 				Luint16 u16CurrentRPM[C_FCU__NUM_HOVER_ENGINES];
+
+				/** The most recently commanded volts */
+				Lfloat32 f32CurrentVolts[C_FCU__NUM_HOVER_ENGINES];
 
 				/** A 100ms timer for each ramp increment */
 				Luint8 u8100ms_Timer[C_FCU__NUM_HOVER_ENGINES];
@@ -1130,6 +1146,8 @@
 
 				}sDevMode;
 
+				Luint32 u32Guard1;
+
 			} sThrottle;
 			#endif //C_LOCALDEF__LCCM655__ENABLE_THROTTLE
 
@@ -1138,6 +1156,10 @@
 			/** Critical info from the BMS */
 			struct
 			{
+
+				/** has the pack been seen? */
+				Luint8 u8Seen;
+
 				/** Highest cell temp */
 				Lfloat32 f32HighestTemp;
 
@@ -1181,7 +1203,7 @@
 		DLL_DECLARATION void vFCU__RTI_100MS_ISR(void);
 		DLL_DECLARATION void vFCU__RTI_10MS_ISR(void);
 
-
+#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
 		//flight controller
 		void vFCU_FCTL__Init(void);
 		void vFCU_FCTL__Process(void);
@@ -1275,24 +1297,6 @@
 			//drive pod
 			Luint32 u32FCU_NET_RX__GetGsCommTimer(void);
 
-#if 0
-			//blender
-			void vFCU_FCTL_BLENDER__Init(void);
-			void vFCU_FCTL_BLENDER__Process(void);
-			Lint32 s32FCU_FCTL_BLENDER__Get_Accel_mmss(void);
-			Lint32 s32FCU_FCTL_BLENDER__Get_Veloc_mms(void);
-			Lint32 s32FCU_FCTL_BLENDER__Get_Displacement_mm(void);
-			void vFCU_FCTL_BLENDER__Veloc_UpdateFrom_Accel(Luint8 u8Channel, Luint32 u32Veloc_mms);
-			void vFCU_FCTL_BLENDER__Veloc_UpdateFrom_LRF(Luint8 u8Channel, Luint32 u32Veloc_mms);
-			void vFCU_FCTL_BLENDER__Veloc_UpdateFrom_Contrast(Luint8 u8Channel, Luint32 u32Veloc_mms);
-			void vFCU_FCTL_BLENDER__Accel_UpdateFrom_Accel(Luint8 u8Channel, Luint32 u32Accel_mmss);
-			void vFCU_FCTL_BLENDER__Accel_UpdateFrom_LRF(Luint8 u8Channel, Luint32 u32Accel_mmss);
-			void vFCU_FCTL_BLENDER__Accel_UpdateFrom_Contrast(Luint8 u8Channel, Luint32 u32Accel_mmss);
-			void vFCU_FCTL_BLENDER__Displacement_UpdateFrom_Accel(Luint8 u8Channel, Luint32 u32Disp_mm);
-			void vFCU_FCTL_BLENDER__Displacement_UpdateFrom_LRF(Luint8 u8Channel, Luint32 u32Disp_mm);
-			void vFCU_FCTL_BLENDER__Displacement_UpdateFrom_Contrast(Luint8 u8Channel, Luint32 u32Disp_mm);
-#endif //
-
 			//track DB
 			void vFCU_FCTL_TRACKDB__Init(void);
 			void vFCU_FCTL_TRACKDB__Process(void);
@@ -1376,6 +1380,7 @@
 			//brake profiler
 			Lint16 s16FCU_FLIGHTCTL_BRAKES__Brake_Lookup(Luint32 u32Veloc_mms, Luint32 u32DragForce_n, Luint32 *pu32IBDistance_um);
 
+#endif //C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
 
 
 
@@ -1616,6 +1621,7 @@
 		void vFCU_ASI__Process(void);
 		void vFCU_ASI__MemSet(Luint8 *pu8Buffer, Luint8 u8Value, Luint32 u32Count);
 		void vFCU_ASI__Set_Throttle(Luint8 u8Index, Luint16 u16RPM);
+		void vFCU_ASI__Inhibit(void);
 
 
 			//mux

@@ -70,15 +70,14 @@
 		/** Issue a command to the ASI */
 		ASI_STATE__ISSUE_COMMAND,
 
-		/** Switch the ASI into serial throttle mode */
-		ASI_STATE__ISSUE_SERIAL_TRHOTTLE,
-
 		/** Wait until the recent issued command is complete */
 		ASI_STATE__WAIT_COMMAND_COMPLETE,
 
-
 		/** Change to the next scanning address */
-		ASI_STATE__INC_SCAN_INDEX
+		ASI_STATE__INC_SCAN_INDEX,
+
+		//no tx possible, mux in Rx mode
+		ASI_STATE__INHIBIT
 
 	}E_FCU__ASI_STATE_T;
 

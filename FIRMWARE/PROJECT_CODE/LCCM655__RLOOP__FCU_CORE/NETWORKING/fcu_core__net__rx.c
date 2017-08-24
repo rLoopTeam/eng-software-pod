@@ -35,6 +35,7 @@ void vFCU_NET_RX__Init(void)
 	//init
 	for(u8Counter = 0U; u8Counter < 2U; u8Counter++)
 	{
+		sFCU.sBMS[u8Counter].u8Seen = 0U;
 		sFCU.sBMS[u8Counter].f32HighestTemp = 0.0F;
 		sFCU.sBMS[u8Counter].f32AverageTemp = 0.0F;
 		sFCU.sBMS[u8Counter].f32PackVoltage = 0.0F;
@@ -161,6 +162,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				#endif//C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
 				break;
 
+
 			case NET_PKT__FCU_GEN__MAINSM_DEBUG_FORCE_STATE:
 				#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
 				#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
@@ -180,92 +182,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				#endif//C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL
 				break;
 
-
-//			case NET_PKT__FCU_LIFTMECH__SET_DIR:
-//				//set direction of specific mech lift
-//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
-//				E_FCU__LIFTMECH_ACTUATOR actuator;
-//				E_FCU__LIFTMECH_DIRECTION dir;
-//				switch(u32Block[0])
-//				{
-//					case 0:
-//						actuator = LIFTMECH_AftLeft;
-//						break;
-//					case 1:
-//						actuator = LIFTMECH_AftRight;
-//						break;
-//					case 2:
-//						actuator = LIFTMECH_ForwardLeft;
-//						break;
-//					case 3:
-//						actuator = LIFTMECH_ForwardRight;
-//						break;
-//					default:
-//						//report error
-//						break;
-//				}
-//				switch(u32Block[1])
-//				{
-//					case 0:
-//						dir = LIFTMECH_DIR_DOWN;
-//						break;
-//					case 1:
-//						dir = LIFTMECH_DIR_UP;
-//						break;
-//					default:
-//						//report error
-//						break;
-//				}
-//				vFCU_FCTL_LIFTMECH_Dir(actuator, dir);
-//				#endif
-//				break;
-//
-//			case NET_PKT__FCU_LIFTMECH__SET_SPEED:
-//				//set speed of specific mech lift
-//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
-//					E_FCU__LIFTMECH_ACTUATOR actuator;
-//					switch(u32Block[0])
-//					{
-//						case 0:
-//							actuator = LIFTMECH_AftLeft;
-//							break;
-//						case 1:
-//							actuator = LIFTMECH_AftRight;
-//							break;
-//						case 2:
-//							actuator = LIFTMECH_ForwardLeft;
-//							break;
-//						case 3:
-//							actuator = LIFTMECH_ForwardRight;
-//							break;
-//						default:
-//							//report error
-//							break;
-//					}
-//					vFCU_FCTL_LIFTMECH_Speed(actuator, u32Block[1]);
-//				#endif
-//				break;
-//
-//			case NET_PKT__FCU_LIFTMECH__SET_GROUP_DIR:
-//				//set direction of all mech lift actuators
-//				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
-//					switch(u32Block[0])
-//					{
-//						case 0:
-//							dir = LIFTMECH_DIR_DOWN;
-//							break;
-//						case 1:
-//							dir = LIFTMECH_DIR_UP;
-//							break;
-//						default:
-//							//report error
-//							break;
-//					}
-//					vFCU_FCTL_LIFTMECH__SetDirAll(dir);
-//				#endif
-//				break;
-
-			case NET_PKT__FCU_LIFTMECH__SET_GROUP_SPEED:
+      case NET_PKT__FCU_LIFTMECH__SET_GROUP_SPEED:
 				//set speed of all mech lift actuators
 				#if C_LOCALDEF__LCCM655__ENABLE_LIFT_MECH_CONTROL == 1U
 					vFCU_FCTL_LIFTMECH__SetSpeedAll(u32Block[0]);
@@ -539,6 +456,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 
 			case NET_PKT__FCU_FLT__TX_TRACK_DB_CHUNK:
 
+				#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
 				#if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
 
 					//inc to the data start
@@ -548,9 +466,11 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					vFCU_FCTL_TRACKDB_MEM__UploadChunk(/*u32Block[0],*/ u32Block[1], u32Block[2], pu8Payload);
 
 				#endif
+				#endif
 				break;
 
 			case NET_PKT__FCU_FLT__SELECT_TRACK_DB:
+				#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
 				#if C_LOCALDEF__LCCM655__ENABLE_TRACK_DB == 1U
 
 					//selet the new track
@@ -560,6 +480,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					vFCU_FCTL__Config_From_Database();
 
 				#endif
+				#endif
 				break;
 
 			case NET_PKT__FCU_ASI__SET_THROTTLE:
@@ -568,7 +489,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
                 #if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
                     if(u32Block[0] == 0x12123434U)
                     {
-                        	vFCU_ASI__Set_Throttle((Luint8)u32Block[1], (Luint16)u32Block[1]);
+                       	vFCU_ASI__Set_Throttle((Luint8)u32Block[1], (Luint16)u32Block[1]);
                     }
                     else
                     {
@@ -577,13 +498,18 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
                 #endif//C_LOCALDEF__LCCM655__ENABLE_ASI_RS485
                 break;
 
-			case NET_PKT__FCU_GEN__ENTER_PRE_RUN_PHASE_COMMAND:
-				#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U
-#if 0
-					vFCU_FCTL_MAINSM__EnterPreRun_Phase();
-#endif
+			case NET_PKT__FCU_ASI__SET_INHIBIT_RS485:
+				#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
+					vFCU_ASI__Inhibit();
 				#endif
 				break;
+
+			case NET_PKT__FCU_ASI__FAST_RS485:
+				#if C_LOCALDEF__LCCM655__ENABLE_ASI_RS485 == 1U
+					sFCU.sASI.u8MaxScanTime = 2U;
+				#endif
+				break;
+
 
 			default:
 				//do nothing
@@ -609,6 +535,8 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					pu8Payload += 4U;
 					pu8Payload += 4U;
 					pu8Payload += 4U;
+
+					sFCU.sBMS[u8Device].u8Seen = 1U;
 
 					//pack volts
 					sFCU.sBMS[u8Device].f32PackVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
@@ -669,15 +597,15 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 					pu8Payload += 4U;
 
 					//bat current
-					pu8Payload += 4U;
 					sFCU.sBMS[u8Device].f32BatteryCurrent = f32SIL3_NUM_CONVERT__Array(pu8Payload);
+					pu8Payload += 4U;
 
 					//charge current
 					pu8Payload += 4U;
 
 					//battery SoC
-					pu8Payload += 4U;
 					sFCU.sBMS[u8Device].f32BatterySoC = f32SIL3_NUM_CONVERT__Array(pu8Payload);
+					pu8Payload += 4U;
 
 
 					break;
@@ -706,6 +634,7 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 						pu8Payload += 4U;
 						pu8Payload += 4U;
 						pu8Payload += 4U;
+						sFCU.sBMS[u8Device].u8Seen = 1U;
 
 						//pack volts
 						sFCU.sBMS[u8Device].f32PackVoltage = f32SIL3_NUM_CONVERT__Array(pu8Payload);
@@ -766,15 +695,15 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 						pu8Payload += 4U;
 
 						//bat current
-						pu8Payload += 4U;
 						sFCU.sBMS[u8Device].f32BatteryCurrent = f32SIL3_NUM_CONVERT__Array(pu8Payload);
+						pu8Payload += 4U;
 
 						//charge current
 						pu8Payload += 4U;
 
 						//battery SoC
-						pu8Payload += 4U;
 						sFCU.sBMS[u8Device].f32BatterySoC = f32SIL3_NUM_CONVERT__Array(pu8Payload);
+						pu8Payload += 4U;
 
 						break;
 

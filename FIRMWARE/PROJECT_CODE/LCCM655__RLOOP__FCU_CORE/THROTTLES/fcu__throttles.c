@@ -36,6 +36,7 @@ extern struct _strFCU sFCU;
 
 #define THROTTLE_RAMP_TIMER_INTERVAL 100.0F
 
+/*
 //xxxxxxxxxxxxxxxx  DUMMY VALUES - TO BE FINALIZED IN FCU  xxxxxxxxxxxxxxxxx
 #define HOVER_ENGINE_MINIMUM_SPEED			0U
 #define HOVER_ENGINE_MAXIMUM_SPEED			50000U
@@ -51,6 +52,7 @@ extern struct _strFCU sFCU;
 #define GS_ENGINE_NUMBER					6U//0U
 #define GS_THROTTLE_RAMP_DURATION			3000U
 //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
 
 // last command values
 //static Luint16 u16LastThrottleSetPoint;
@@ -83,6 +85,7 @@ void vFCU_THROTTLE__Init(void)
 
 	sFCU.sThrottle.eState = THROTTLE_STATE__IDLE;
 	sFCU.sThrottle.u8RunIndex = 0U;
+	sFCU.sThrottle.u32KeepAlive = 0U;
 
 	vSIL3_FAULTTREE__Init(&sFCU.sThrottle.sFaultFlags);
 	vSIL3_FAULTTREE__Set_Flag(&sFCU.sThrottle.sFaultFlags, C_LCCM655__THROTTLES__FAULT_INDEX__03);
@@ -97,8 +100,12 @@ void vFCU_THROTTLE__Init(void)
 		sFCU.sThrottle.u16RequestedRPM[u8Counter] = 0U;
 		sFCU.sThrottle.eRequestedMode[u8Counter] = THROTTLE_TYPE__STEP;
 		sFCU.sThrottle.u16CurrentRPM[u8Counter] = 0U;
+		sFCU.sThrottle.f32CurrentVolts[u8Counter] = 0.0F;
 		sFCU.sThrottle.u8100ms_Timer[u8Counter] = 0U;
 	}
+
+	//set to 1 to prevent clearing the throttle.
+	sFCU.sThrottle.u8KeepAliveActive = 1U;
 
 }
 
@@ -114,6 +121,7 @@ void vFCU_THROTTLE__Process(void)
 {
 	Lfloat32 f32Temp;
 	Luint32 u32Test;
+	Luint8 u8Counter;
 
 	//process the AMC device
 	vAMC7812__Process();
@@ -187,6 +195,7 @@ void vFCU_THROTTLE__Process(void)
 			f32Temp = f32FCU_THROTTLE__RPM_To_Volts(sFCU.sThrottle.u16RequestedRPM[sFCU.sThrottle.u8RunIndex]);
 
 			//set DAC
+			sFCU.sThrottle.f32CurrentVolts[sFCU.sThrottle.u8RunIndex] = f32Temp;
 			vAMC7182__DAC_SetVoltage(sFCU.sThrottle.u8RunIndex, f32Temp);
 
 			//update the actual RPM based on the change
@@ -220,6 +229,7 @@ void vFCU_THROTTLE__Process(void)
 				f32Temp = f32FCU_THROTTLE__RPM_To_Volts(sFCU.sThrottle.u16CurrentRPM[sFCU.sThrottle.u8RunIndex]);
 
 				//set DAC
+				sFCU.sThrottle.f32CurrentVolts[sFCU.sThrottle.u8RunIndex] = f32Temp;
 				vAMC7182__DAC_SetVoltage(sFCU.sThrottle.u8RunIndex, f32Temp);
 
 				//clear the flag
@@ -256,6 +266,7 @@ void vFCU_THROTTLE__Process(void)
 				f32Temp = f32FCU_THROTTLE__RPM_To_Volts(sFCU.sThrottle.u16CurrentRPM[sFCU.sThrottle.u8RunIndex]);
 
 				//set DAC
+				sFCU.sThrottle.f32CurrentVolts[sFCU.sThrottle.u8RunIndex] = f32Temp;
 				vAMC7182__DAC_SetVoltage(sFCU.sThrottle.u8RunIndex, f32Temp);
 
 				//clear the flag
@@ -282,8 +293,30 @@ void vFCU_THROTTLE__Process(void)
 			}
 
 			//see what else needs doing
-			sFCU.sThrottle.eState = THROTTLE_STATE__RUN;
+			sFCU.sThrottle.eState = THROTTLE_STATE__CHECK_KEEPALIVE;
 
+			break;
+
+		case THROTTLE_STATE__CHECK_KEEPALIVE:
+
+			//30 seconds
+			if((sFCU.sThrottle.u32KeepAlive >= 30U) && (sFCU.sThrottle.u8KeepAliveActive == 0U))
+			{
+				//clear all
+				for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
+				{
+					//set to zero and trip out.
+					vAMC7182__DAC_SetVoltage(sFCU.sThrottle.u8RunIndex, 0.0F);
+				}
+
+				sFCU.sThrottle.u8KeepAliveActive = 1U;
+			}
+			else
+			{
+				//safe
+			}
+
+			sFCU.sThrottle.eState = THROTTLE_STATE__RUN;
 			break;
 
 		case THROTTLE_STATE__ERROR:
@@ -396,6 +429,11 @@ void vFCU_THROTTLE__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THROTTL
 		//just set the RPM
 		sFCU.sThrottle.u16RequestedRPM[u8EngineIndex] = u16RPM;
 		sFCU.sThrottle.eRequestedMode[u8EngineIndex] = eRampType;
+
+		//clear the keepalive
+		sFCU.sThrottle.u32KeepAlive = 0U;
+		sFCU.sThrottle.u8KeepAliveActive = 0U;
+
 	}
 	else if(u8EngineIndex == C_FCU__NUM_HOVER_ENGINES)
 	{
@@ -405,6 +443,19 @@ void vFCU_THROTTLE__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THROTTL
 			sFCU.sThrottle.u16RequestedRPM[u8Counter] = u16RPM;
 			sFCU.sThrottle.eRequestedMode[u8Counter] = eRampType;
 		}
+
+		//clear the keepalive
+		sFCU.sThrottle.u32KeepAlive = 0U;
+		if(u16RPM == 0U)
+		{
+			//prevent clearing.
+			sFCU.sThrottle.u8KeepAliveActive = 1U;
+		}
+		else
+		{
+			sFCU.sThrottle.u8KeepAliveActive = 0U;
+		}
+
 	}
 	else
 	{
@@ -460,6 +511,9 @@ void vFCU_THROTTLE__100MS_ISR(void)
 	{
 		sFCU.sThrottle.u8100ms_Timer[u8Counter] = 1U;
 	}
+
+	//inc the keepalive timer.
+	sFCU.sThrottle.u32KeepAlive += 1U;
 
 }
 

@@ -292,6 +292,9 @@
 		/** an error was encountered */
 		THROTTLE_STATE__ERROR,
 
+		/** Check the keepalive timer and make sure we did not time out */
+		THROTTLE_STATE__CHECK_KEEPALIVE
+
 	} E_THROTTLE_STATES_T;
 
 
