@@ -376,9 +376,6 @@
             Me.m_txtDecelThresh_10ms_Counter = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, l503)
 
 
-
-
-
             For iIndex = 0 To C_NUM_ACCELS - 1
                 Me.m_txtStatusFlags(iIndex).Flags__Add("GENERAL")
                 Me.m_txtStatusFlags(iIndex).Flags__Add("SENSOR INDEX NOT FOUND ")

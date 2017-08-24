@@ -47,7 +47,7 @@ void vFCU_FCTL_TRACKDB_WIN32__Init(void)
 {
 
 	//on win32 simulate, read the file in
-	FILE * pFile = fopen("D:\\SIL3\\DESIGN\\RLOOP\\FIRMWARE\\PROJECT_CODE\\LCCM655__RLOOP__FCU_CORE\\FLIGHT_CONTROLLER\\TRACK_DATABASE\\DATABASES\\database2.bin", "rb");
+	FILE * pFile = fopen("..\\..\\..\\..\\FIRMWARE\\PROJECT_CODE\\LCCM655__RLOOP__FCU_CORE\\FLIGHT_CONTROLLER\\TRACK_DATABASE\\DATABASES\\database2.bin", "rb");
 
 	if (pFile != 0)
 	{

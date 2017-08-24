@@ -136,9 +136,25 @@ void vFCU_ACCEL_THRESH__Set_Decel_Threshold(Lint32 s32Accel_mm_ss, Luint16 u16Ti
 //10ms isr used for thresh detection.
 void vFCU_ACCEL_THRESH__10MS_ISR(void)
 {
-	//inc the interrupt counter;
-	sFCU.sAccel.sAccelThresh.u1610MS_Counter += 1U;
-	sFCU.sAccel.sDecelThresh.u1610MS_Counter += 1U;
+	//inc the interrupt counters, but not too far past the threshold (to avoid overrunning our Luint16 counters)
+
+	if (sFCU.sAccel.sAccelThresh.u1610MS_Counter <= sFCU.sAccel.sAccelThresh.u16ThreshTime_x10ms)
+	{
+		sFCU.sAccel.sAccelThresh.u1610MS_Counter += 1U;
+	} 
+	else
+	{
+		// no reason to continue incrementing the counter after we've crossed the threshold
+	}
+
+	if (sFCU.sAccel.sDecelThresh.u1610MS_Counter <= sFCU.sAccel.sDecelThresh.u16ThreshTime_x10ms)
+	{
+		sFCU.sAccel.sDecelThresh.u1610MS_Counter += 1U;
+	}
+	else
+	{
+		// don't continue to increment the counter -- we've already crossed the threshold
+	}
 }
 
 #endif //
