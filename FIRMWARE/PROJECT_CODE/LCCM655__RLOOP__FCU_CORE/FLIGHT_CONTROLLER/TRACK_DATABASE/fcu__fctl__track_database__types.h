@@ -55,13 +55,16 @@
 				Luint8 u8Use;
 
 				/** Accel threshold S32*/
-				Luint8 u8Thresh_mm_ss[4];
+				Luint8 u8AccelThresh_mm_ss[4];
 
 				/** Threshold time */
-				Luint8 u8Thresh_x10ms[4];
+				Luint8 u8AccelThresh_x10ms[2];
 
-				/** Spare */
-				Luint32 u32Spare;
+				/** Decel threshold S32*/
+				Luint8 u8DecelThresh_mm_ss[4];
+
+				/** Threshold time */
+				Luint8 u8DecelThresh_x10ms[2];
 
 				//3 spares to take it to 16 bytes
 				Luint8 u8Spares[3];

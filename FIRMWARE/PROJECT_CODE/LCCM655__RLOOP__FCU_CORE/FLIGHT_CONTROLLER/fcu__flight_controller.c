@@ -111,7 +111,8 @@ void vFCU_FCTL__Config_From_Database(void)
 	vFCU_ACCEL_VALID__Enable(u8FCU_FCTL_TRACKDB__Accel__Get_Use());
 
 	//load up the thresholding
-	vFCU_ACCEL_THRESH__Set_Threshold(s32FCU_FCTL_TRACKDB__Accel__Get_Threshold_mm_ss(), s32FCU_FCTL_TRACKDB__Accel__Get_ThresholdTime_x10ms());
+	vFCU_ACCEL_THRESH__Set_Accel_Threshold(s32FCU_FCTL_TRACKDB__Accel__Get_Accel_Threshold_mm_ss(), s16FCU_FCTL_TRACKDB__Accel__Get_Accel_ThresholdTime_x10ms());
+	vFCU_ACCEL_THRESH__Set_Decel_Threshold(s32FCU_FCTL_TRACKDB__Accel__Get_Decel_Threshold_mm_ss(), s16FCU_FCTL_TRACKDB__Accel__Get_Decel_ThresholdTime_x10ms());
 #endif //C_LOCALDEF__LCCM655__ENABLE_ACCEL
 
 	//fwd laser

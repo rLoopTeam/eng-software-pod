@@ -39,10 +39,16 @@
         Private m_txtValid_Displacement_mm As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
 
         'thresholding
-        Private m_txtThresh_True As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
-        Private m_txtThresh_10xms As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
-        Private m_txtThresh_Accel_mm_ss As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
-        Private m_txtThresh_10ms_Counter As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtAccelThresh_True As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
+        Private m_txtAccelThresh_10xms As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
+        Private m_txtAccelThresh_Accel_mm_ss As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtAccelThresh_10ms_Counter As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
+
+        Private m_txtDecelThresh_True As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
+        Private m_txtDecelThresh_10xms As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
+        Private m_txtDecelThresh_Accel_mm_ss As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32
+        Private m_txtDecelThresh_10ms_Counter As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16
+
 
         ''' <summary>
         ''' Our DAQ Receiver
@@ -159,10 +165,15 @@
                     iOffset += Me.m_txtValid_Veloc_mm_s.Value__Update(u8Payload, iOffset)
                     iOffset += Me.m_txtValid_Displacement_mm.Value__Update(u8Payload, iOffset)
 
-                    iOffset += Me.m_txtThresh_True.Value__Update(u8Payload, iOffset)
-                    iOffset += Me.m_txtThresh_10xms.Value__Update(u8Payload, iOffset)
-                    iOffset += Me.m_txtThresh_Accel_mm_ss.Value__Update(u8Payload, iOffset)
-                    iOffset += Me.m_txtThresh_10ms_Counter.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtAccelThresh_True.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtAccelThresh_10xms.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtAccelThresh_Accel_mm_ss.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtAccelThresh_10ms_Counter.Value__Update(u8Payload, iOffset)
+
+                    iOffset += Me.m_txtDecelThresh_True.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtDecelThresh_10xms.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtDecelThresh_Accel_mm_ss.Value__Update(u8Payload, iOffset)
+                    iOffset += Me.m_txtDecelThresh_10ms_Counter.Value__Update(u8Payload, iOffset)
 
 
                     'crc
@@ -332,25 +343,37 @@
             Me.m_txtValid_Displacement_mm = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l304)
 
             ''thresholding
-            Dim l400 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Thresh: True", Me.m_txtValid_Enable)
-            Me.m_txtThresh_True = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, l400)
+            Dim l400 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel Thresh: True", Me.m_txtValid_Enable)
+            Me.m_txtAccelThresh_True = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, l400)
 
-            Dim l401 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Thresh x10MS")
-            l401.Layout__AboveRightControl(l400, Me.m_txtThresh_True)
-            Me.m_txtThresh_10xms = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l401)
+            Dim l401 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel Thresh x10MS")
+            l401.Layout__AboveRightControl(l400, Me.m_txtAccelThresh_True)
+            Me.m_txtAccelThresh_10xms = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, l401)
 
-            Dim l402 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel mm ss")
-            l402.Layout__AboveRightControl(l401, Me.m_txtThresh_10xms)
-            Me.m_txtThresh_Accel_mm_ss = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l402)
+            Dim l402 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel Thresh mm ss")
+            l402.Layout__AboveRightControl(l401, Me.m_txtAccelThresh_10xms)
+            Me.m_txtAccelThresh_Accel_mm_ss = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l402)
 
-            Dim l403 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("10ms Counter")
-            l403.Layout__AboveRightControl(l402, Me.m_txtThresh_Accel_mm_ss)
-            Me.m_txtThresh_10ms_Counter = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100, l403)
+            Dim l403 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel 10ms Counter")
+            l403.Layout__AboveRightControl(l402, Me.m_txtAccelThresh_Accel_mm_ss)
+            Me.m_txtAccelThresh_10ms_Counter = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, l403)
 
+            ''decel
+            ' @todo: why don't these start on a new line??
+            Dim l500 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Decel Thresh: True", Me.m_txtAccelThresh_True)
+            Me.m_txtDecelThresh_True = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8(100, l500)
 
+            Dim l501 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Decel Thresh x10MS")
+            l501.Layout__AboveRightControl(l500, Me.m_txtDecelThresh_True)
+            Me.m_txtDecelThresh_10xms = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, l501)
 
+            Dim l502 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Decel Thresh mm ss")
+            l502.Layout__AboveRightControl(l501, Me.m_txtDecelThresh_10xms)
+            Me.m_txtDecelThresh_Accel_mm_ss = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_S32(100, l502)
 
-
+            Dim l503 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Decel 10ms Counter")
+            l503.Layout__AboveRightControl(l502, Me.m_txtDecelThresh_Accel_mm_ss)
+            Me.m_txtDecelThresh_10ms_Counter = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U16(100, l503)
 
 
             For iIndex = 0 To C_NUM_ACCELS - 1

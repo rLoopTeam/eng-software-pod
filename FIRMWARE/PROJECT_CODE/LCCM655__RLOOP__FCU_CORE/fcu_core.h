@@ -417,15 +417,33 @@
 					Luint8 u8ThresholdTrue;
 
 					/** The threshold time in count of 10ms increments */
-					Luint32 u32ThreshTime_x10ms;
+					Luint16 u16ThreshTime_x10ms;
 
 					/** The threshold acceleration in mm_ss*/
 					Lint32 s32Thresh_Accel_mm_ss;
 
 					/** Count of the number of 10ms interrupts */
-					Luint32 u3210MS_Counter;
+					Luint16 u1610MS_Counter;
 
-				}sThresh;
+				}sAccelThresh;
+
+				struct
+				{
+
+					/** Set to 1 when the threshold has been reached*/
+					Luint8 u8ThresholdTrue;
+
+					/** The threshold time in count of 10ms increments */
+					Luint16 u16ThreshTime_x10ms;
+
+					/** The threshold acceleration in mm_ss*/
+					Lint32 s32Thresh_Accel_mm_ss;
+
+					/** Count of the number of 10ms interrupts */
+					Luint16 u1610MS_Counter;
+
+				}sDecelThresh;
+
 
 				/** Data validity checks */
 				struct
@@ -1308,8 +1326,10 @@
 
 				//accel system
 				Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void);
-				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Threshold_mm_ss(void);
-				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_ThresholdTime_x10ms(void);
+				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Accel_Threshold_mm_ss(void);
+				Lint16 s16FCU_FCTL_TRACKDB__Accel__Get_Accel_ThresholdTime_x10ms(void);
+				Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Decel_Threshold_mm_ss(void);
+				Lint16 s16FCU_FCTL_TRACKDB__Accel__Get_Decel_ThresholdTime_x10ms(void);
 				Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation(void);
 				Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max(void);
 				Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Coast_to_Brake(void);
@@ -1331,7 +1351,9 @@
 				//accel system
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(Luint8 u8TrackIndex, Luint8 u8Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_mm_ss(Luint8 u8TrackIndex, Lint32 s32Thresh_mm_ss);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(Luint8 u8TrackIndex, Luint32 u32Thresh_x10ms);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(Luint8 u8TrackIndex, Luint16 u16Thresh_x10ms);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_mm_ss(Luint8 u8TrackIndex, Lint32 s32Thresh_mm_ss);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_x10ms(Luint8 u8TrackIndex, Luint16 u16Thresh_x10ms);
 
 				//track system
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackStart_mm(Luint8 u8TrackIndex, Luint32 u32Value);
@@ -1576,8 +1598,10 @@
 			//thresholding
 			void vFCU_ACCEL_THRESH__Init(void);
 			void vFCU_ACCEL_THRESH__Process(void);
-			Luint8 u8FCU_ACCEL_THRES__Is_Threshold_Met(void);
-			void vFCU_ACCEL_THRESH__Set_Threshold(Lint32 s32Accel_mm_ss, Luint32 u32Time_x10ms);
+			Luint8 u8FCU_ACCEL_THRES__Is_Accel_Threshold_Met(void);
+			Luint8 u8FCU_ACCEL_THRES__Is_Decel_Threshold_Met(void); 
+			void vFCU_ACCEL_THRESH__Set_Accel_Threshold(Lint32 s32Accel_mm_ss, Luint16 u16Time_x10ms);
+			void vFCU_ACCEL_THRESH__Set_Decel_Threshold(Lint32 s32Accel_mm_ss, Luint16 u16Time_x10ms);
 			void vFCU_ACCEL_THRESH__10MS_ISR(void);
 
 			//eth
