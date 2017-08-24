@@ -1,3 +1,21 @@
+/**
+* @file		FCU__FCTL__MAIN_SM__COMMANDS.C
+* @brief		Main state machine commands for the flight control unit
+* @author		Ryan Adams
+* @copyright	rLoop Inc.
+*/
+/**
+* @addtogroup RLOOP
+* @{ */
+/**
+* @addtogroup FCU
+* @ingroup RLOOP
+* @{ */
+/**
+* @addtogroup FCU__FCTL__MAIN_SM
+* @ingroup FCU
+* @{ */
+
 #include "../../fcu_core.h"
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
@@ -111,6 +129,65 @@ void vFCU_FCTL__PutCommand(TE_POD_COMMAND_T command)
 }
 
 
+void vFCU_FCTL_MAINSM__Clear_Command()
+{
+	sFCU.sStateMachine.command.command = POD_COMMAND__NO_COMMAND;
+}
+
+#ifdef WIN32
+void vWIN32_DEBUG_PRINT__CommandNotAllowed(TE_POD_COMMAND_T command)
+{
+	switch (command)
+	{
+		case POD_COMMAND__NO_COMMAND:
+			break;
+		case POD_COMMAND__IDLE:
+			DEBUG_PRINT("POD_COMMAND__IDLE not allowed in this state");
+			break;
+		case POD_COMMAND__TEST_MODE:
+			DEBUG_PRINT("POD_COMMAND__TEST_MODE not allowed in this state");
+			break;
+		case POD_COMMAND__DRIVE:
+			DEBUG_PRINT("POD_COMMAND__DRIVE not allowed in this state");
+			break;
+		case POD_COMMAND__ARMED_WAIT:
+			DEBUG_PRINT("POD_COMMAND__ARMED_WAIT not allowed in this state");
+			break;
+		case POD_COMMAND__FLIGHT_PREP:
+			DEBUG_PRINT("POD_COMMAND__FLIGHT_PREP not allowed in this state");
+			break;
+		case POD_COMMAND__READY:
+			DEBUG_PRINT("POD_COMMAND__READY not allowed in this state");
+			break;
+		default:
+			// Nothing to do
+		break;
+	}
+}
+#endif
+
+
+// Directly set the state of the main state machine
+void vFCU_FCTL_MAINSM__Debug__ForceState(TE_POD_STATE_T state)
+{
+	// As long as this is done outside of vFCU_FCTL_MAINSM__Process(), it
+	// will have the same effect as successfully executing a command that
+	// causes a state transition.
+	// Note: calling this from fcu_core__net_rx.c is OK because packets are
+	// handled in the process loop but outside of vFCU_FCTL_MAINSM__Process()
+
+	// ** Fair warning, skipping states may have unintended consequences **
+	//     (please understand the state machine flow before using this)
+	
+	sFCU.sStateMachine.sm.eCurrentState = state;
+
+}
+
+TE_POD_STATE_T vFCU_FCTL_MAINSM__Debug__GetState(void)
+{
+	return sFCU.sStateMachine.sm.eCurrentState;
+}
+
 /////////////////////////////////////////////////////////////////////
 //  Interlock guard handling
 /////////////////////////////////////////////////////////////////////
@@ -190,3 +267,6 @@ void vFCU_FCTL_MAINSM__NetCommand_Unlock(TE_POD_COMMAND_T command)
 #ifndef C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE
 	#error
 #endif
+/** @} */
+/** @} */
+/** @} */

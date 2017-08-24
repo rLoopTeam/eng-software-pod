@@ -1,7 +1,7 @@
 /**
  * @file		FCU__FCTL__MAIN_SM.C
  * @brief		Main state machine for the flight control unit
- * @author		Lachlan Grogan, Marek Gutt-Mostowy
+ * @author		Lachlan Grogan, Ryan Adams
  * @copyright	rLoop Inc.
  */
 /**
@@ -103,9 +103,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__INIT) == 1U)
 			{
 				// Perform entering actions
-				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__INIT\n", "sFCU.sStateMachine.sm");
-				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__INIT");
 				#endif
@@ -122,9 +119,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
-				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__INIT\n", "sFCU.sStateMachine.sm");
-				#endif
 		
 			}
 			
@@ -135,9 +129,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__IDLE) == 1U)
 			{
 				// Perform entering actions
-				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__IDLE\n", "sFCU.sStateMachine.sm");
-				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__IDLE");
 				#endif
@@ -149,11 +140,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__IDLE)) 
 			{
 				// We're exiting this state -- perform any exit actions
-				// ...
-				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__IDLE\n", "sFCU.sStateMachine.sm");
-				#endif
-		
+				// ...		
 			}
 			
 			break;
@@ -162,9 +149,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__TEST_MODE)) {
 				// Perform entering actions
-				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__TEST_MODE\n", "sFCU.sStateMachine.sm");
-				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__TEST_MODE");
 				#endif
@@ -176,11 +160,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__TEST_MODE)) 
 			{
 				// We're exiting this state -- perform any exit actions
-				// ...
-				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__TEST_MODE\n", "sFCU.sStateMachine.sm");
-				#endif
-		
+				// ...		
 			}
 			
 			break;
@@ -190,9 +170,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__DRIVE))
 			{
 				// Perform entering actions
-				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__DRIVE\n", "sFCU.sStateMachine.sm");
-				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__DRIVE");
 				#endif
@@ -204,11 +181,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__DRIVE)) 
 			{
 				// We're exiting this state -- perform any exit actions
-				// ...
-				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__DRIVE\n", "sFCU.sStateMachine.sm");
-				#endif
-		
+				// ...		
 			}
 			
 			break;
@@ -218,9 +191,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__ARMED_WAIT))
 			{
 				// Perform entering actions
-				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__ARMED_WAIT\n", "sFCU.sStateMachine.sm");
-				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__ARMED_WAIT");
 				#endif
@@ -233,10 +203,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
-				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__ARMED_WAIT\n", "sFCU.sStateMachine.sm");
-				#endif
-		
 			}
 			
 			break;
@@ -250,9 +216,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 				vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max, u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max());
 
 				// Perform entering actions
-				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__FLIGHT_PREP\n", "sFCU.sStateMachine.sm");
-				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__FLIGHT_PREP");
 				#endif
@@ -265,10 +228,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
-				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__FLIGHT_PREP\n", "sFCU.sStateMachine.sm");
-				#endif
-		
 			}
 			
 			break;
@@ -278,9 +237,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__READY) == 1U)
 			{
 				// Perform entering actions
-				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__READY\n", "sFCU.sStateMachine.sm");
-				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__READY");
 				#endif
@@ -296,11 +252,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if(u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__READY) == 1U)
 			{
 				// We're exiting this state -- perform any exit actions
-				// ...
-				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__READY\n", "sFCU.sStateMachine.sm");
-				#endif
-		
+				// ...		
 			}
 			
 			break;
@@ -310,9 +262,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__ACCEL) == 1U)
 			{
 				// Perform entering actions
-				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__ACCEL\n", "sFCU.sStateMachine.sm");
-				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__ACCEL");
 				#endif
@@ -329,10 +278,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
-				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__ACCEL\n", "sFCU.sStateMachine.sm");
-				#endif
-		
 			}
 			
 			break;
@@ -342,9 +287,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__COAST_INTERLOCK) == 1U)
 			{
 				// Perform entering actions
-				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__COAST_INTERLOCK\n", "sFCU.sStateMachine.sm");
-				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__COAST_INTERLOCK");
 				#endif
@@ -360,10 +302,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
-				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__COAST_INTERLOCK\n", "sFCU.sStateMachine.sm");
-				#endif
-		
 			}
 			
 			break;
@@ -373,9 +311,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__BRAKE) == 1U)
 			{
 				// Perform entering actions
-				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__BRAKE\n", "sFCU.sStateMachine.sm");
-				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__BRAKE");
 				#endif
@@ -391,10 +326,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
-				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__BRAKE\n", "sFCU.sStateMachine.sm");
-				#endif
-		
 			}
 			
 			break;
@@ -404,9 +335,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__SPINDOWN) == 1U)
 			{
 				// Perform entering actions
-				#if DEBUG == 1U
-					printf("- %s Entering POD_STATE__SPINDOWN\n", "sFCU.sStateMachine.sm");
-				#endif
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__SPINDOWN");
 				#endif
@@ -422,10 +350,6 @@ void vFCU_FCTL_MAINSM__Process(void)
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...
-				#if DEBUG == 1U
-					printf("- %s Exiting POD_STATE__SPINDOWN\n", "sFCU.sStateMachine.sm");
-				#endif
-		
 			}
 			
 			break;
@@ -436,6 +360,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 
 	}// switch(sFCU.sStateMachine.sm.state)
    
+
+	 // Clear command (we will have handled it in the transition functions)
+	vFCU_FCTL_MAINSM__Clear_Command();
+
 
 }
 
