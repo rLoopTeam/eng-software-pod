@@ -759,23 +759,23 @@
                 Dim u8Temp As Byte
                 Dim u32Temp As UInt32
 
-                u8Temp = CByte(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                u8Temp = CByte(Me.m_pCSV.m_alRows(iRow).item(iItem).ToString)
                 vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(u8Row, u8Temp)
                 iItem += 1
 
-                Dim s32Temp_Accel As Int32 = CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                Dim s32Temp_Accel As Int32 = CInt(Me.m_pCSV.m_alRows(iRow).item(iItem).ToString)
                 vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_mm_ss(u8Row, s32Temp_Accel)
                 iItem += 1
 
-                Dim u16Temp_Accel As UInt16 = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                Dim u16Temp_Accel As UInt16 = CUInt(Me.m_pCSV.m_alRows(iRow).item(iItem).ToString)
                 vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(u8Row, u16Temp_Accel)
                 iItem += 1
 
-                Dim s32Temp_Decel As Int32 = CInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                Dim s32Temp_Decel As Int32 = CInt(Me.m_pCSV.m_alRows(iRow).item(iItem).ToString)
                 vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_mm_ss(u8Row, s32Temp_Decel)
                 iItem += 1
 
-                Dim u16Temp_Decel As UInt16 = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                Dim u16Temp_Decel As UInt16 = CUInt(Me.m_pCSV.m_alRows(iRow).item(iItem).ToString)
                 vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_x10ms(u8Row, u16Temp_Decel)
                 iItem += 1
 
@@ -801,29 +801,29 @@
                 iItem += 1
 
                 'track specifics
-                u32Temp = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                u32Temp = CUInt(Me.m_pCSV.m_alRows(iRow).item(iItem).ToString)
                 vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackStart_mm(u8Row, u32Temp)
                 iItem += 1
 
-                u32Temp = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                u32Temp = CUInt(Me.m_pCSV.m_alRows(iRow).item(iItem).ToString)
                 vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackEnd_mm(u8Row, u32Temp)
                 iItem += 1
 
-                u32Temp = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                u32Temp = CUInt(Me.m_pCSV.m_alRows(iRow).item(iItem).ToString)
                 vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackLength_mm(u8Row, u32Temp)
                 iItem += 1
 
 
                 'time
-                u32Temp = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                u32Temp = CUInt(Me.m_pCSV.m_alRows(iRow).item(iItem).ToString)
                 vFCU_FCTL_TRACKDB_WIN32__Set_Time__Accel_Coast_x10ms(u8Row, u32Temp)
                 iItem += 1
 
-                u32Temp = CUInt(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                u32Temp = CUInt(Me.m_pCSV.m_alRows(iRow).item(iItem).ToString)
                 vFCU_FCTL_TRACKDB_WIN32__Set_Time__Coast_Brake_x10ms(u8Row, u32Temp)
                 iItem += 1
 
-                u8Temp = CByte(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+                u8Temp = CByte(Me.m_pCSV.m_alRows(iRow).item(iItem).ToString)
                 vFCU_FCTL_TRACKDB_WIN32__Set_UsePusherSeparation(u8Row, u8Temp)
                 iItem += 1
 
