@@ -135,6 +135,8 @@ void vFCU_FCLT_TRACKDB_MEM__Save_TrackDB(void)
 	Luint32 u32Addx;
 	Lint16 s16Return;
 
+	// @todo: do we need to do something on WIN32 (like save the trackdb to the buffer?)
+
 	//get the length of the structure
 	u32Length = (Luint32)sizeof(TS_FCU_TRACK_DB);
 
