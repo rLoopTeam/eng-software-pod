@@ -31,7 +31,7 @@ extern struct _strFCU sFCU;
 //  Pod transition and command guard functions
 /////////////////////////////////////////////////////////////////////
 
-Luint8 pod_init_complete(void)
+Luint8 u8FCU_FCTL_MAINSM___IsPodInitComplete(void)
 {
 	return sFCU.eInitStates == INIT_STATE__RUN;
 }
@@ -60,25 +60,43 @@ Luint8 flight_readiness_checks_ok(void)
 	return 0U;
 }
 
-Luint8 accel_confirmed(void)
+Luint8 u8FCU_FCTL_MAINSM__IsAccelConfirmed(void)
 {
+	// Note: Having this method allows us to change how we confirm acceleration without having to change the state machine
 	return u8FCU_ACCEL_THRES__Is_Accel_Threshold_Met();
 }
 
-Luint8 pusher_separation_confirmed(void)
+Luint8 u8FCU_FCTL_MAINSM__IsDecelConfirmed(void)
 {
+	// Note: Having this method allows us to change how we confirm acceleration without having to change the state machine
+	return u8FCU_ACCEL_THRES__Is_Decel_Threshold_Met();
+}
+
+Luint8 u8FCU_FCTL_MAINSM__IsPusherSeparationConfirmed(void)
+{
+	#ifdef WIN32
+	DEBUG_PRINT("Pusher separation (not) confirmed?");
+	#endif//WIN32
+
+	return 0U;
+}
+
+Luint8 u8FCU_FCTL_MAINSM__IsPodStopConfirmed(void)
+{
+	#ifdef WIN32
+	DEBUG_PRINT("Pod stop confirmed?");
+	#endif//WIN32
+
 	// @todo: implement
 	return 0U;
 }
 
-Luint8 pod_stop_confirmed(void)
+Luint8 u8FCU_FCTL_MAINSM__IsSpindownCompleteConfirmed(void)
 {
-	// @todo: implement
-	return 0U;
-}
+#ifdef WIN32
+	DEBUG_PRINT("Spindown is complete?");
+#endif//WIN32
 
-Luint8 spindown_complete_confirmed(void)
-{
 	// @todo: implement
 	return 0U;
 }
@@ -102,7 +120,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__INIT(void)
 	// Check conditionals (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if(1/* pod_init_complete() */)
+		if(u8FCU_FCTL_MAINSM___IsPodInitComplete())
 		{
 			sm->eCurrentState = POD_STATE__IDLE;
 		} 
@@ -326,11 +344,15 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__READY(void)
 		//transition, for now just threshold it
 
 #if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
-		if(u8FCU_ACCEL_THRES__Is_Accel_Threshold_Met() == 1U)
+		if(u8FCU_FCTL_MAINSM__IsAccelConfirmed() == 1U)
 #else
+		// For testing only
 		if(1)
 #endif
 		{
+			#ifdef WIN32
+			DEBUG_PRINT("Acceleration confirmed -- transitioning to POD_STATE__ACCEL");
+			#endif
 			sm->eCurrentState = POD_STATE__ACCEL;
 		} 
 		else
@@ -353,28 +375,68 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__ACCEL(void)
 	// Check conditionals (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
+		/** Determining ACCEL => COAST_INTERLOCK:
+			- if using accelerometers AND pusher separation:
+				- confirm decel and pusher separation = transition
+			- if using accelerometers and NO pusher separation:
+				- confirm decel
+			- if using pusher separation and NO acclerometers:
+				- confirm pusher separation
+			- if using neither, just timeout
+			- timeout = transition
+		*/
+
+
+		// Have we confirmed deceleration?
+		Luint8 u8IsDecelConfirmed = 0U;
 
 		//do we want to use the pusher detection?
-		u8Test = u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation();
-		if(u8Test == 1U)
+		Luint8 u8UsePusherSeparation = u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation();
+
+		// Have we confirmed pusher separation?
+		Luint8 u8PusherSeparationConfirmed = 0U;
+
+		// Do we feel that we've detected the end of the push?
+		Luint8 u8PushCompleteDetected = 0U;
+
+
+		#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
+			u8IsDecelConfirmed = u8FCU_FCTL_MAINSM__IsDecelConfirmed();
+		#else
+			// For testing only
+			u8IsDecelConfirmed = 1U;
+		#endif
+
+		// Determine if we've detected the end of the push		
+		if (u8UsePusherSeparation == 1U)
 		{
-			if ( pusher_separation_confirmed() )
-			{
-				sm->eCurrentState = POD_STATE__COAST_INTERLOCK;
-			}
-			else
-			{
-				// fall on
-			}
+			// Use both decel and pusher pin detection to see if we're at the end of the push
+			u8PusherSeparationConfirmed = u8FCU_FCTL_MAINSM__IsPusherSeparationConfirmed();
+			u8PushCompleteDetected = u8IsDecelConfirmed && u8PusherSeparationConfirmed;
 		}
 		else
 		{
-			//do not want to use the pusher
+			// Not using the pusher pin detection; rely on deceleration only
+			u8PushCompleteDetected = u8IsDecelConfirmed;
 		}
+
+		// Handle state change if we've detected the end of the push
+		if (u8PushCompleteDetected == 1U)
+		{
+#ifdef WIN32
+			DEBUG_PRINT("End of push detected -- transitioning to POD_STATE__COAST_INTERLOCK");
+#endif
+			sm->eCurrentState = POD_STATE__COAST_INTERLOCK;
+		}
+		else
+		{
+			// fall on
+		}
+
 	}
 	else
 	{
-
+		// We're already transitioning
 	}
 
 	// Check timeouts (if we aren't already transitioning)
@@ -383,6 +445,9 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__ACCEL(void)
 		// If our ACCEL backup timeout has expired, automatically go to COAST_INTERLOCK
 		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max) )
 		{
+			#ifdef WIN32
+			DEBUG_PRINT("Accel_To_Coast timeout expired -- transitioning to POD_STATE__COAST_INTERLOCK");
+			#endif
 			sm->eCurrentState = POD_STATE__COAST_INTERLOCK;
 		} 
 		else 
@@ -406,6 +471,9 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__COAST_INTERLOCK(void)
 	{
 		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.pCoast_To_Brake) == 1U)
 		{
+			#ifdef WIN32
+			DEBUG_PRINT("Coast_To_Brake timeout expired -- transitioning to POD_STATE__BRAKE");
+			#endif
 			sm->eCurrentState = POD_STATE__BRAKE;
 		} 
 		else 
@@ -423,8 +491,11 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__BRAKE()
 	// Check conditionals (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if ( pod_stop_confirmed() )
+		if ( u8FCU_FCTL_MAINSM__IsPodStopConfirmed() )
 		{
+			#ifdef WIN32
+			DEBUG_PRINT("Pod stop confirmed -- transitioning to POD_STATE__SPINDOWN");
+			#endif
 			sm->eCurrentState = POD_STATE__SPINDOWN;
 		} 
 		else
@@ -438,6 +509,9 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__BRAKE()
 	{
 		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout) == 1U)
 		{
+			#ifdef WIN32
+			DEBUG_PRINT("Brake_To_Spindown timeout expired -- transitioning to POD_STATE__SPINDOWN");
+			#endif
 			sm->eCurrentState = POD_STATE__SPINDOWN;
 		} 
 		else 
@@ -455,8 +529,11 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__SPINDOWN(void)
 	// Check conditionals (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if ( spindown_complete_confirmed() )
+		if ( u8FCU_FCTL_MAINSM__IsSpindownCompleteConfirmed() )
 		{
+			#ifdef WIN32
+			DEBUG_PRINT("Spindown complete confirmed");
+			#endif
 			sm->eCurrentState = POD_STATE__IDLE;
 		} 
 		else
@@ -470,6 +547,9 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__SPINDOWN(void)
 	{
 		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout) == 1U)
 		{
+			#ifdef WIN32
+			DEBUG_PRINT("Spindown_To_Idle timeout expired -- transitioning to POD_STATE__IDLE");
+			#endif
 			sm->eCurrentState = POD_STATE__IDLE;
 		} 
 		else 
