@@ -133,7 +133,16 @@ void vLGU__Init(void)
 	vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_1);
 */
 
+	//init the user layer
+	vRM4_ADC_USER__Init();
+
+	//start the first conversion
+	vRM4_ADC_USER__StartConversion();
+
 #endif //win32
+
+	//Init the MLP interface
+	vLGU_MLP__Init();
 
 	//Setup the lift control
 	vLGU_LIFT__Init();
@@ -176,6 +185,11 @@ void vLGU__Init(void)
  */
 void vLGU__Process(void)
 {
+
+	//MLP interface
+	vLGU_MLP__Process();
+
+	//Ethernet
 	vLGU_ETH__Process();
 
 	//process the lifting actuators

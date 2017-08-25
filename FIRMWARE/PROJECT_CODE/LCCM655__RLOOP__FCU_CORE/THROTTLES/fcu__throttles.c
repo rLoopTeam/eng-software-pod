@@ -64,6 +64,8 @@ Lfloat32 f32FCU_THROTTLE__RPM_To_Volts(Luint16 u16RPM);
 Luint16 u16FCU_THROTTLE__Compute_RPM_StepUp(Luint16 u16RPM);
 Luint16 u16FCU_THROTTLE__Compute_RPM_StepDown(Luint16 u16RPM);
 
+#define C_THROTTLE_UPDATE_TIMEOUT  100U
+
 /***************************************************************************//**
  * @brief
  * Init any variables
@@ -300,13 +302,13 @@ void vFCU_THROTTLE__Process(void)
 		case THROTTLE_STATE__CHECK_KEEPALIVE:
 
 			//30 seconds
-			if((sFCU.sThrottle.u32KeepAlive >= 30U) && (sFCU.sThrottle.u8KeepAliveActive == 0U))
+			if((sFCU.sThrottle.u32KeepAlive >= C_THROTTLE_UPDATE_TIMEOUT) && (sFCU.sThrottle.u8KeepAliveActive == 0U))
 			{
 				//clear all
 				for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
 				{
 					//set to zero and trip out.
-					vAMC7182__DAC_SetVoltage(sFCU.sThrottle.u8RunIndex, 0.0F);
+					vAMC7182__DAC_SetVoltage(u8Counter, 0.0F);
 				}
 
 				sFCU.sThrottle.u8KeepAliveActive = 1U;
@@ -432,7 +434,15 @@ void vFCU_THROTTLE__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THROTTL
 
 		//clear the keepalive
 		sFCU.sThrottle.u32KeepAlive = 0U;
-		sFCU.sThrottle.u8KeepAliveActive = 0U;
+		if(u16RPM == 0U)
+		{
+			//prevent clearing.
+			sFCU.sThrottle.u8KeepAliveActive = 1U;
+		}
+		else
+		{
+			sFCU.sThrottle.u8KeepAliveActive = 0U;
+		}
 
 	}
 	else if(u8EngineIndex == C_FCU__NUM_HOVER_ENGINES)

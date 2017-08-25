@@ -199,6 +199,18 @@ void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THR
 			{
 				sFCU.sThrottle.u16RequestedRPM[u8EngineIndex] = u16RPM;
 				sFCU.sThrottle.eRequestedMode[u8EngineIndex] = eRampType;
+
+				sFCU.sThrottle.u32KeepAlive = 0U;
+				if(u16RPM == 0U)
+				{
+					//prevent clearing.
+					sFCU.sThrottle.u8KeepAliveActive = 1U;
+				}
+				else
+				{
+					sFCU.sThrottle.u8KeepAliveActive = 0U;
+				}
+
 			}
 			else
 			{
@@ -211,6 +223,19 @@ void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THR
 						sFCU.sThrottle.eRequestedMode[u8Counter] = eRampType;
 
 					}//for (u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
+
+					sFCU.sThrottle.u32KeepAlive = 0U;
+					if(u16RPM == 0U)
+					{
+						//prevent clearing.
+						sFCU.sThrottle.u8KeepAliveActive = 1U;
+					}
+					else
+					{
+						sFCU.sThrottle.u8KeepAliveActive = 0U;
+					}
+
+
 				}
 				else if(u8EngineIndex == C_FCU__NUM_HOVER_ENGINES + 1)
 				{
@@ -219,6 +244,19 @@ void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THR
 					sFCU.sThrottle.eRequestedMode[0] = eRampType;
 					sFCU.sThrottle.u16RequestedRPM[1] = u16RPM;
 					sFCU.sThrottle.eRequestedMode[1] = eRampType;
+
+					sFCU.sThrottle.u32KeepAlive = 0U;
+					if(u16RPM == 0U)
+					{
+						//prevent clearing.
+						sFCU.sThrottle.u8KeepAliveActive = 1U;
+					}
+					else
+					{
+						sFCU.sThrottle.u8KeepAliveActive = 0U;
+					}
+
+
 				}
 				else if(u8EngineIndex == C_FCU__NUM_HOVER_ENGINES + 2)
 				{
@@ -227,6 +265,18 @@ void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THR
 					sFCU.sThrottle.eRequestedMode[2] = eRampType;
 					sFCU.sThrottle.u16RequestedRPM[3] = u16RPM;
 					sFCU.sThrottle.eRequestedMode[3] = eRampType;
+
+					sFCU.sThrottle.u32KeepAlive = 0U;
+					if(u16RPM == 0U)
+					{
+						//prevent clearing.
+						sFCU.sThrottle.u8KeepAliveActive = 1U;
+					}
+					else
+					{
+						sFCU.sThrottle.u8KeepAliveActive = 0U;
+					}
+
 				}
 				else if(u8EngineIndex == C_FCU__NUM_HOVER_ENGINES + 3)
 				{
@@ -235,6 +285,18 @@ void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THR
 					sFCU.sThrottle.eRequestedMode[4] = eRampType;
 					sFCU.sThrottle.u16RequestedRPM[5] = u16RPM;
 					sFCU.sThrottle.eRequestedMode[5] = eRampType;
+
+					sFCU.sThrottle.u32KeepAlive = 0U;
+					if(u16RPM == 0U)
+					{
+						//prevent clearing.
+						sFCU.sThrottle.u8KeepAliveActive = 1U;
+					}
+					else
+					{
+						sFCU.sThrottle.u8KeepAliveActive = 0U;
+					}
+
 				}
 				else if(u8EngineIndex == C_FCU__NUM_HOVER_ENGINES + 4)
 				{
@@ -243,6 +305,18 @@ void vFCU_THROTTLE_ETH__Set_Throttle(Luint8 u8EngineIndex, Luint16 u16RPM, E_THR
 					sFCU.sThrottle.eRequestedMode[6] = eRampType;
 					sFCU.sThrottle.u16RequestedRPM[7] = u16RPM;
 					sFCU.sThrottle.eRequestedMode[7] = eRampType;
+
+					sFCU.sThrottle.u32KeepAlive = 0U;
+					if(u16RPM == 0U)
+					{
+						//prevent clearing.
+						sFCU.sThrottle.u8KeepAliveActive = 1U;
+					}
+					else
+					{
+						sFCU.sThrottle.u8KeepAliveActive = 0U;
+					}
+
 				}
 				else
 				{

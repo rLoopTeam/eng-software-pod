@@ -101,7 +101,8 @@ void vHETHERM_TC__Process(void)
 	{
 		case HETHERM_TEMP_STATE__IDLE:
 			//just come out of reset
-			sHET.sTemp.eState = HETHERM_TEMP_STATE__LOAD_DEFAULTS;
+			//sHET.sTemp.eState = HETHERM_TEMP_STATE__LOAD_DEFAULTS;
+			sHET.sTemp.eState = HETHERM_TEMP_STATE__START_SCAN;
 			break;
 
 		case HETHERM_TEMP_STATE__LOAD_DEFAULTS:
