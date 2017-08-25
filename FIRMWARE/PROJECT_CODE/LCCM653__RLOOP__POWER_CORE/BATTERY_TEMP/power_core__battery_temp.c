@@ -23,6 +23,10 @@
 #if C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP == 1U
 
 extern struct _strPWRNODE sPWRNODE;
+extern Luint8 u8AftPack__Default[];
+extern Luint8 u8FwdPack__Default[];
+extern Luint8 u8FwdPack__Default_Comp2[];
+
 
 /***************************************************************************//**
  * @brief
@@ -80,6 +84,9 @@ void vPWRNODE_BATTTEMP__Process(void)
 	Lfloat32 f32Sum;
 	Lint16 s16Return;
 	Luint16 u16Mask;
+	Luint32 u32Max;
+	Luint8 *u8PtrPackMem;
+	Luint32 u32Counter;
 
 #ifndef WIN32
 	//process any search tasks
@@ -105,10 +112,37 @@ void vPWRNODE_BATTTEMP__Process(void)
 
 		case BATT_TEMP_STATE__LOAD_DEFAULTS:
 			//now load the memory
-			s16Return = s16PWRNODE_BATTEMP_MEM__Load();
+		    //TODO: Code to save to memory is incomplete
+			//s16Return = s16PWRNODE_BATTEMP_MEM__Load();
 
-			//todo:
-			//Check the result
+            //load up the memory default arrays
+
+            u32Max = 0U;
+            if(sPWRNODE.ePersonality == PWRNODE_TYPE__PACK_A){
+                u8PtrPackMem = (Luint8 *)&u8FwdPack__Default_Comp2[0];
+            }else if(sPWRNODE.ePersonality == PWRNODE_TYPE__PACK_B){
+                u8PtrPackMem = (Luint8 *)&u8AftPack__Default[0];
+            }else{
+                //todo: handle this case
+            }
+
+            //copy into the driver
+            for(u32Counter = 0U; u32Counter < C_LOCALDEF__LCCM644__MAX_DEVICES; u32Counter++)
+            {
+                //Prevent blank entries at the end from incrementing the number of devices counter
+                if(u8PtrPackMem[u32Max] != 0U){
+                    //upload
+                    s16DS18B20_ADDX__Upload_Addx2(u32Counter, u8PtrPackMem[u32Max + 8U],
+                                              (Luint8 *)&u8PtrPackMem[u32Max],
+                                              u8PtrPackMem[u32Max + 9U], *((Luint16 *)u8PtrPackMem+10));
+                }
+
+                //increment the memory addx size
+                u32Max += 12U;
+            }
+
+            //signal to the device that we have loaded all our avail data.
+            vDS18B20_ADDX__Set_SearchComplete();
 
 			//setup the resolution
 			sPWRNODE.sTemp.eState = BATT_TEMP_STATE__CONFIGURE_RESOLUTION;
@@ -120,8 +154,11 @@ void vPWRNODE_BATTTEMP__Process(void)
 			//This has been implemented in the DS18B20 stack now, so as soon as the sensors are loaded
 			//and ScanComplete is set, the DS18B20 will configure the resolutions per the localdef setting.
 			//vDS18B20__Start_ConfigureResolution();
-
-			sPWRNODE.sTemp.eState = BATT_TEMP_STATE__START_SCAN;
+		    if(C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP_SEARCH == 1U){
+		        sPWRNODE.sTemp.eState = BATT_TEMP_STATE__START_SCAN;
+		    }else{
+		        sPWRNODE.sTemp.eState = BATT_TEMP_STATE__RUN;
+		    }
 			break;
 
 		case BATT_TEMP_STATE__START_SCAN:
@@ -163,7 +200,7 @@ void vPWRNODE_BATTTEMP__Process(void)
 			u8Test = u8DS18B20__Is_NewDataAvail();
 			if(u8Test == 1U)
 			{
-				//clear the hghest index as it will be recomputed belwo
+				//clear the hghest index as it will be recomputed below
 				sPWRNODE.sTemp.u16HighestSensorIndex = 0U;
 
 				//0x2000 onwards is our BMS sensors

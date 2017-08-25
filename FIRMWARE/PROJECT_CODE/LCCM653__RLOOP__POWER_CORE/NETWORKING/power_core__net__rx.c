@@ -109,7 +109,9 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 		//determine the type of packet that came in
 		switch((E_NET__PACKET_T)ePacketType)
 		{
-
+		    case NET_PKT__PWR_GEN__HEARTBEAT:
+		        vPWRNODE_DC__Pet_GS_Message(u32Block[0]);
+		        break;
 
 			case NET_PKT__PWR_GEN__POD_SAFE_COMMAND:
 				//already done above

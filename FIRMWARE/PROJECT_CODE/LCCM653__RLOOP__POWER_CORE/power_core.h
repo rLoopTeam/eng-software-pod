@@ -235,6 +235,8 @@
 
                 Luint16 u16Charger_Voltage_Average_Counter;
                 Lfloat32 f32Charger_Voltage_Average_Array[C_PWRCORE__CURRENT_AVG_SIZE];
+
+                Luint8 u8FirstRun;
             }sCHARGER_IV;
 
 		

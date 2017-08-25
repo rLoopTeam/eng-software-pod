@@ -30,6 +30,7 @@ Lfloat32 f32PWRNODE_CHG_IV__Filter_Large_Current_Ref_ADC_Value(Lfloat32 ADC_Samp
 Lfloat32 f32PWRNODE_CHG_IV__Filter_Large_Current_ADC_Value(Lfloat32 ADC_Sample);
 Lfloat32 f32PWRNODE_CHG_IV__Filter_Charger_Voltage_ADC_Value(Lfloat32 ADC_Sample);
 Lfloat32 f32PWRNODE_CHG_IV__Filter_Battery_Voltage_ADC_Value(Lfloat32 ADC_Sample);
+Lfloat32 f32PWRNODE_CHG_IV__Current_Sensor_Value(Lfloat32 f32MeasVolts, Lfloat32 f32RefVolts, Lfloat32 f32IPN);
 
 
 /***************************************************************************//**
@@ -44,6 +45,8 @@ void vPWRNODE_CHG_IV__Init(void)
     vSIL3_FAULTTREE__Init(&sPWRNODE.sCHARGER_IV.sFaultFlags);
 
     //the ADC is already init
+
+    sPWRNODE.sCHARGER_IV.u8FirstRun = 1U;
 
 }
 
@@ -63,6 +66,7 @@ void vPWRNODE_CHG_IV__Process(void)
     Lfloat32 f32SmallCurrentRefVoltage_Sample;
     Lfloat32 f32SmallCurrent_Sample;
     Luint8 u8New;
+    Luint8 u8Counter;
 
 
     //Sample the ADC channels if new data is available
@@ -91,19 +95,21 @@ void vPWRNODE_CHG_IV__Process(void)
         f32ChargeCurrentRefVoltage_Sample = 2.5;
 #endif
 
+
+
         //Filter the small current reference voltage and save it to the main struct
         sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentRefVoltageReading = f32PWRNODE_CHG_IV__Filter_Small_Current_Ref_ADC_Value(f32SmallCurrentRefVoltage_Sample);
 
         //Convert voltage reading to current reading
         //small current sensor is 50A model
-        sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading = f32PWRNODE_CHG_IV__Filter_Small_Current_ADC_Value(( 50.0F/.625F * (f32SmallCurrent_Sample - sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentRefVoltageReading))*-1.0F);
+        sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading = f32PWRNODE_CHG_IV__Filter_Small_Current_ADC_Value(f32PWRNODE_CHG_IV__Current_Sensor_Value(f32SmallCurrent_Sample, sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentRefVoltageReading, 50.0));
 
         //Filter the large current reference voltage and save it to the main struct
         sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentRefVoltageReading = f32PWRNODE_CHG_IV__Filter_Large_Current_Ref_ADC_Value(f32LargeCurrentRefVoltage_Sample);
 
         //Convert voltage reading to current reading
         //small current sensor is 600A model
-        sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentReading = f32PWRNODE_CHG_IV__Filter_Large_Current_ADC_Value( (600.0F/.625F * (f32LargeCurrentVoltage_Sample - sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentRefVoltageReading))*-1.0F);
+        sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentReading = f32PWRNODE_CHG_IV__Filter_Large_Current_ADC_Value(f32PWRNODE_CHG_IV__Current_Sensor_Value(f32LargeCurrentVoltage_Sample, sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentRefVoltageReading, 600.0));
 
         //Convert ADC voltage reading to charger voltage reading
         sPWRNODE.sCHARGER_IV.f32HASS_ChargerVoltageReading = f32PWRNODE_CHG_IV__Filter_Charger_Voltage_ADC_Value((f32ChargerVoltageVoltage_Sample - 1.28F) * 77.93F);
@@ -119,6 +125,31 @@ void vPWRNODE_CHG_IV__Process(void)
             vSIL3_FAULTTREE__Set_Flag(&sPWRNODE.sCHARGER_IV.sFaultFlags, C_LCCM653__IVMEASURE__FAULT_INDEX_MASK__00);
         }
 
+        //Seed the averages on the first sample
+        if(sPWRNODE.sCHARGER_IV.u8FirstRun == 1U)
+        {
+            sPWRNODE.sCHARGER_IV.u16HASS_Large_Current_Average_Counter = 0;
+            sPWRNODE.sCHARGER_IV.u16HASS_Small_Current_Average_Counter = 0;
+            sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading = f32PWRNODE_CHG_IV__Filter_Small_Current_ADC_Value(f32PWRNODE_CHG_IV__Current_Sensor_Value(f32SmallCurrent_Sample, sPWRNODE.sCHARGER_IV.f32HASS_Small_Current_Ref_Average_Array[0], 50.0));
+            sPWRNODE.sCHARGER_IV.f32HASS_LargeCurrentReading = f32PWRNODE_CHG_IV__Filter_Large_Current_ADC_Value(f32PWRNODE_CHG_IV__Current_Sensor_Value(f32LargeCurrentVoltage_Sample, sPWRNODE.sCHARGER_IV.f32HASS_Large_Current_Ref_Average_Array[0], 600.0));
+
+            for(u8Counter = 1;u8Counter< C_PWRCORE__CURRENT_AVG_SIZE; u8Counter++){
+                sPWRNODE.sCHARGER_IV.f32Charger_Batt_Voltage_Average_Array[u8Counter] = sPWRNODE.sCHARGER_IV.f32Charger_Batt_Voltage_Average_Array[0];
+                sPWRNODE.sCHARGER_IV.f32Charger_Voltage_Average_Array[u8Counter] = sPWRNODE.sCHARGER_IV.f32Charger_Voltage_Average_Array[0];
+                sPWRNODE.sCHARGER_IV.f32HASS_Large_Current_Average_Array[u8Counter] = sPWRNODE.sCHARGER_IV.f32HASS_Large_Current_Average_Array[0];
+                sPWRNODE.sCHARGER_IV.f32HASS_Large_Current_Ref_Average_Array[u8Counter] = sPWRNODE.sCHARGER_IV.f32HASS_Large_Current_Ref_Average_Array[0];
+                sPWRNODE.sCHARGER_IV.f32HASS_Small_Current_Average_Array[u8Counter] = sPWRNODE.sCHARGER_IV.f32HASS_Small_Current_Average_Array[0];
+                sPWRNODE.sCHARGER_IV.f32HASS_Small_Current_Ref_Average_Array[u8Counter] = sPWRNODE.sCHARGER_IV.f32HASS_Small_Current_Ref_Average_Array[0];
+            }
+
+            sPWRNODE.sCHARGER_IV.f32HASS_BattVoltageReading = sPWRNODE.sCHARGER_IV.f32Charger_Batt_Voltage_Average_Array[0];
+            sPWRNODE.sCHARGER_IV.f32HASS_ChargerVoltageReading = sPWRNODE.sCHARGER_IV.f32Charger_Voltage_Average_Array[0];
+
+            sPWRNODE.sCHARGER_IV.u8FirstRun = 0U;
+        }else{
+            //Do nothing
+        }
+
         if(sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading < 100 && sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading >= 0)
         {
             sPWRNODE.sCHARGER_IV.f32HASS_BatteryCurrent = sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading;
@@ -131,7 +162,6 @@ void vPWRNODE_CHG_IV__Process(void)
             sPWRNODE.sCHARGER_IV.f32HASS_BatteryCurrent = 0;
             sPWRNODE.sCHARGER_IV.f32HASS_ChargingCurrent = sPWRNODE.sCHARGER_IV.f32HASS_SmallCurrentReading * -1;
         }
-
 
         //taken the data now
 #ifndef WIN32
@@ -263,6 +293,18 @@ Lfloat32 f32PWRNODE_CHG_IV__Filter_Battery_Voltage_ADC_Value(Lfloat32 ADC_Sample
                                                 &sPWRNODE.sCHARGER_IV.f32Charger_Batt_Voltage_Average_Array[0]);
 
     return f32Return;
+}
+
+/***************************************************************************//**
+ * @brief
+ * Current sensor voltage reading to current
+ *
+ * @st_funcMD5
+ * @st_funcID
+ */
+Lfloat32 f32PWRNODE_CHG_IV__Current_Sensor_Value(Lfloat32 f32MeasVolts, Lfloat32 f32RefVolts, Lfloat32 f32IPN)
+{
+   return (f32IPN/.625F * (f32MeasVolts - f32RefVolts))*-1.0F;
 }
 
 

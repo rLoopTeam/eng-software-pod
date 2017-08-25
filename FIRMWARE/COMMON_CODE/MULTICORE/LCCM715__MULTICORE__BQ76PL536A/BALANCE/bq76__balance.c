@@ -194,10 +194,11 @@ void vBQ76_BALANCE__Update_Discharge_Resistors(void)
         }
 
         //set the balance time. 5 min = 0x85U
-        //vBQ76_SPI__Write_U8(u8DeviceCounter + 1U, BQ76_REG__CB_TIME, 0x0AU);
+        vBQ76_SPI__Write_U8(u8DeviceCounter + 1U, BQ76_REG__CB_TIME, 0x0AU);
 
         //refresh the resistor value
-//        vBQ76_SPI__Write_U8(u8DeviceCounter + 1U, BQ76_REG__CB_CTRL, u8Temp);
+        vBQ76_SPI__Write_U8(u8DeviceCounter + 1U, BQ76_REG__CB_CTRL, 0);
+        vBQ76_SPI__Write_U8(u8DeviceCounter + 1U, BQ76_REG__CB_CTRL, u8Temp);
     }
 }
 

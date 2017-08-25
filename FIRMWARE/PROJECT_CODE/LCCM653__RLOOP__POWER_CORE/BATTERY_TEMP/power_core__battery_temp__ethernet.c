@@ -45,7 +45,7 @@ void vPWRNODE_BAATTEMP_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 	pu8Buffer = 0;
 
-	u16Temp = u16PWRNODE_BATTTEMP_MEM__Get_NumSensors();
+	u16Temp = u16DS18B20__Get_NumEnum_Sensors();
 
 	//setup length based on packet.
 	switch(ePacketType)

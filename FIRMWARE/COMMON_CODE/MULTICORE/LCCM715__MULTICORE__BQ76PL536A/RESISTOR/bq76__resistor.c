@@ -107,7 +107,7 @@ void vBQ76_RES__Resistor_On(Luint8 u8CellIndex)
 				sBQ76.sBalance.u8Resistor[u8CellIndex] = 1U;
 
 				//set the balance time of 5 min
-				vBQ76_SPI__Write_U8(u8DeviceCounter + 1U, BQ76_REG__CB_TIME, 0x85U);
+				vBQ76_SPI__Write_U8(u8DeviceCounter + 1U, BQ76_REG__CB_TIME, 0x05U);
 
 				//read the current resistors
 				u8Temp = u8BQ76_SPI__Read_U8(u8DeviceCounter + 1U, BQ76_REG__CB_CTRL);

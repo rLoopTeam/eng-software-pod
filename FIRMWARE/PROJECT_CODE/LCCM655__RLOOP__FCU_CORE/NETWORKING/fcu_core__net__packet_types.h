@@ -314,6 +314,9 @@
 		/** Power node cooling system */
 		NET_PKT__PWR_GEN__COOLING = 0x3041U,
 
+		/** Heartbeat Command **/
+		NET_PKT__PWR_GEN__HEARTBEAT = 0x3FFFU,
+
 		//////////////////////////////////////////////////////
 		//POWER: TEMPERATURE SYSTEM (0x3200)
 		//////////////////////////////////////////////////////

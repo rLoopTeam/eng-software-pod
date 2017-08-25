@@ -334,7 +334,7 @@ DS2482S - I2C TO 1-WIRE CONVERTER
 		#define C_LOCALDEF__LCCM641__USE_ON_RM4								(1U)
 
 		/** Max number of DS2482 devices on the same I2C Bus */
-		#define C_LOCALDEF__LCCM641__NUM_DEVICS								(2U)
+		#define C_LOCALDEF__LCCM641__NUM_DEVICS								(4U)
 
 		/** Use table based LUT CRC or slow computed CRC */
 		#define C_LOCALDEF__LCCM641__USE_TABLE_CRC							(1U)
@@ -343,10 +343,10 @@ DS2482S - I2C TO 1-WIRE CONVERTER
 		#define C_LOCALDEF__LCCM641__MAX_TIMEOUT_LOOPS						(100000U)
 
 		// I2C MACROS
-		#define M_LOCALDEF__LCCM641__I2C_RX_REG(device, reg)				s16RM4_I2C_USER__RxReg(RM4_I2C_CH__1, device, reg)
-		#define M_LOCALDEF__LCCM641__I2C_TX_REG(device, reg)				s16RM4_I2C_USER__TxReg(RM4_I2C_CH__1, device, reg)
-		#define M_LOCALDEF__LCCM641__I2C_TX_BYTE(device, reg, value)		s16RM4_I2C_USER__Tx_U8(RM4_I2C_CH__1, device, reg, value)
-		#define M_LOCALDEF__LCCM641__I2C_RX_BYTE(device, reg, value)		s16RM4_I2C_USER__Rx_U8(RM4_I2C_CH__1, device, reg, value)
+		#define M_LOCALDEF__LCCM641__I2C_RX_REG(device, reg)				s16RM4_I2C_USER__RxReg(RM4_I2C_CH__2, device, reg)
+		#define M_LOCALDEF__LCCM641__I2C_TX_REG(device, reg)				s16RM4_I2C_USER__TxReg(RM4_I2C_CH__2, device, reg)
+		#define M_LOCALDEF__LCCM641__I2C_TX_BYTE(device, reg, value)		s16RM4_I2C_USER__Tx_U8(RM4_I2C_CH__2, device, reg, value)
+		#define M_LOCALDEF__LCCM641__I2C_RX_BYTE(device, reg, value)		s16RM4_I2C_USER__Rx_U8(RM4_I2C_CH__2, device, reg, value)
 
 
 		/** Testing Options */
@@ -371,7 +371,7 @@ DS18B20 - 1-Wire Temperature Sensor
 		/** Specific the required resoltuion 9, 10, 11 or 12 bit
 		 * Each resolution takes longer to convert
 		 */
-		#define C_LOCALDEF__LCCM644__RESOLUTION_SETTING						(9U)
+		#define C_LOCALDEF__LCCM644__RESOLUTION_SETTING						(11U)
 
 		/** If we have access to a 10ms ISR then we don't need to wait
 		 * for the conversion to finish. If we don't have an ISR then
@@ -392,7 +392,7 @@ DS18B20 - 1-Wire Temperature Sensor
 		 * If using the DS2482 we can support 4 devices on the one I2C bus
 		 * Which means we can support hundreds of devices per channel
 		 */
-		#define C_LOCALDEF__LCCM644__MAX_1WIRE_CHANNELS						(2U)
+		#define C_LOCALDEF__LCCM644__MAX_1WIRE_CHANNELS						(4U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM644__ENABLE_TEST_SPEC						(0U)
@@ -635,7 +635,7 @@ RLOOP - POWER NODE CORE
 	#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 
 		/** Enable the battery temperature measurement system */
-		#define C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP						(0U)
+		#define C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP						(1U)
 
 		/** Enable or disable battery temp search */
 		#define C_LOCALDEF__LCCM653__ENABLE_BATT_TEMP_SEARCH				(0U)
@@ -647,13 +647,13 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP						(0U)
 
 		/** Node pressure using MS5607 */
-		#define C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS						(0U)
+		#define C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS						(1U)
 
 		/** Enable the DC/DC converter subsystem */
-		#define C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER					(0U)
+		#define C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER					(1U)
 		//when the DC/DC is enabled we can implement a timeout timer from
 		//heartbeat (or any GS comms)
-		#define C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER__HEART_TIMEOUT		(0U)
+		#define C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER__HEART_TIMEOUT		(1U)
 
 		//define the max amount of 100ms increments before the WDT turns off
 		#define C_LOCALDEF__LCCM653__DC_CONVERTER__HEART_TIMER_MAX			(30U)
