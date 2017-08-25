@@ -129,6 +129,12 @@
                     For iCounter As Integer = 0 To C_NUM_TEMP_SENSORS - 1
                         iOffset += Me.m_txtTemperature(iCounter).Value__Update(u8Payload, iOffset)
 
+                        If Me.m_txtTemperature(iCounter).Text = "2047.7500" Then
+                            Me.m_txtTemperature(iCounter).BackColor = Color.Orange
+                        Else
+                            Me.m_txtTemperature(iCounter).BackColor = Color.White
+                        End If
+
                         'RomID
                         Dim pU8A As New LAPP188__RLOOP__LIB.SIL3.Numerical.U8Array(u8Payload, iOffset, 8)
                         iOffset += 8

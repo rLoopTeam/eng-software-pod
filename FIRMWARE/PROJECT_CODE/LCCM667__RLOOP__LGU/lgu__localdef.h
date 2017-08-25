@@ -20,6 +20,9 @@ RLOOP - LANDING GEAR UNIT
 		/** Lift Mechanisms*/
 		#define C_LOCALDEF__LCCM667__LGU_ENABLE_LIFT						(0U)
 
+		/** MLP Systems */
+		#define C_LOCALDEF__LCCM667__ENABLE_MLP								(1U)
+
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM667__ENABLE_TEST_SPEC						(0U)
 		

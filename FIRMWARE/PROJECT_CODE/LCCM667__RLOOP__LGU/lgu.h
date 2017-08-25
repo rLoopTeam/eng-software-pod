@@ -31,6 +31,10 @@
 		/** Number of actuators being controlled, don't EVER change this */
 		#define C_LGU__NUM_ACTUATORS												(4U)
 
+		/** Num linear position sensors */
+		#define C_LGU__NUM_MLP														(4U)
+
+
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
@@ -87,6 +91,15 @@
 
             }sPWM[C_LGU__NUM_ACTUATORS];
 
+            /** Linear position sensors */
+            struct
+			{
+
+            	/** RAW ADC */
+            	Luint16 u16ADC_Raw;
+
+			}sMLP[C_LGU__NUM_MLP];
+
         }TS_LGU__MAIN;
 
 
@@ -101,6 +114,9 @@
 		DLL_DECLARATION void vLGU_TIMERS__10MS_ISR(void);
 		DLL_DECLARATION void vLGU_TIMERS__100MS_ISR(void);
 		
+		//MLP Interface
+		void vLGU_MLP__Init(void);
+		void vLGU_MLP__Process(void);
 		
 		//liftmech
 		void vLGU_LIFT__Init(void);

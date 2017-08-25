@@ -343,7 +343,7 @@ void vDS18B20_TEMP__Scratch_To_Temp(Luint16 u16SensorIndex, const Luint8 *pu8Scr
 	#endif
 
 	if(sDS18B20.sDevice[u16SensorIndex].u8SerialNumber[0] != 0x3BU) //Thermocouples don't have resolution settings
-		{
+	{
 
 		//save off.
 		u16WholeCelcius = unT.u16;

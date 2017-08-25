@@ -83,7 +83,9 @@ void vFCU_BRAKES__Init(void)
 	vFCU_BRAKES_CAL__Init();
 
 	//brakes watchdog
-	vFCU_BRAKES_WDT__Init();
+	#if C_LOCALDEF__LCCM655__ENABLE_BRAKES_WATCHDOG == 1U
+		vFCU_BRAKES_WDT__Init();
+	#endif
 
 }
 
@@ -241,26 +243,27 @@ void vFCU_BRAKES__Process(void)
 
 	}//switch(sFCU.sBrakesGlobal.eBrakeStates)
 
+	#if C_LOCALDEF__LCCM655__ENABLE_BRAKES_WATCHDOG == 1U
+		//handle WDT tasks
+		if(sFCU.sBrakesGlobal.u8Timer_100ms == 2U)
+		{
+			//watchdog start
+			vFCU_BRAKES_WDT__Pet_Start();
 
-	//handle WDT tasks
-	if(sFCU.sBrakesGlobal.u8Timer_100ms == 2U)
-	{
-		//watchdog start
-		vFCU_BRAKES_WDT__Pet_Start();
+		}
+		else if(sFCU.sBrakesGlobal.u8Timer_100ms >= 4U)
+		{
 
-	}
-	else if(sFCU.sBrakesGlobal.u8Timer_100ms >= 4U)
-	{
+			//watchdog end
+			vFCU_BRAKES_WDT__Pet_End();
 
-		//watchdog end
-		vFCU_BRAKES_WDT__Pet_End();
-
-		sFCU.sBrakesGlobal.u8Timer_100ms = 0U;
-	}
-	else
-	{
-		//fall on
-	}
+			sFCU.sBrakesGlobal.u8Timer_100ms = 0U;
+		}
+		else
+		{
+			//fall on
+		}
+	#endif
 
 }
 

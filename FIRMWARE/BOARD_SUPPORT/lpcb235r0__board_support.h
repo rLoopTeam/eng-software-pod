@@ -365,7 +365,7 @@ RM4 I2C
 		#define C_LOCALDEF__LCCM215__OWN_ADDRESS                        	(0x50)
 
 		/** Number of loops to wait for the timeout*/
-		#define C_LOCALDEF__LCCM215__TIMEOUT_CYCLES   						(1000000U)
+		#define C_LOCALDEF__LCCM215__TIMEOUT_CYCLES   						(500000U)
 
 		#define C_LOCALDEF__LCCM215__USE_INTERRUPTS 						(0U)
 
