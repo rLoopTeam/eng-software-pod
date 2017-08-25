@@ -471,6 +471,15 @@ void vPWRNODE__RTI_10MS_ISR(void)
 			#error
 		#endif
 	#endif
+
+	#if C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS == 1U
+		vPWRNODE_NODEPRESS__10MS_ISR();
+	#endif
+
+	#if C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP == 1U
+		vPWRNODE_NODETEMP__10MS_ISR();
+	#endif
+
 }
 
 

@@ -90,6 +90,11 @@ Luint32 u32PWRNODE_NODETEMP__Get_FaultFlags(void)
 
 }
 
+void vPWRNODE_NODETEMP__10MS_ISR(void)
+{
+	vTSYS01__10MS_Timer();
+}
+
 #endif //C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP
 #ifndef C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP
 	#error

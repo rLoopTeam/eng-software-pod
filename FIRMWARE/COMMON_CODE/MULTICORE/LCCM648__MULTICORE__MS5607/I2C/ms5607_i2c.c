@@ -8,7 +8,8 @@ Lint16 s16MS5607_I2C__TxCommand(Luint8 u8DeviceAddx, E_MS5607_CMD_T eRegister)
 
 #ifndef WIN32
 	//tx only the command
-	s16Return = s16RM4_I2C_USER__TxReg(RM4_I2C_CH__1, u8DeviceAddx, (Luint8)eRegister);
+	//s16Return = s16RM4_I2C_USER__TxReg(RM4_I2C_CH__1, u8DeviceAddx, (Luint8)eRegister);
+	s16Return = s16RM4_I2C_USER__Tx_U8(RM4_I2C_CH__1, u8DeviceAddx, (Luint8)eRegister, 0U);
 #else
 	//fake on win32
 	s16Return = 0;

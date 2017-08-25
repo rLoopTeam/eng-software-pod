@@ -138,6 +138,10 @@
 
 			/** second order temperature compensation **/
 			struct _strSecondOrderCompensation sSECONDORDER;
+
+			/** Number of 10ms increments */
+			Luint32 u3210MS_Timer;
+
 		};
 
 		/*******************************************************************************
@@ -160,6 +164,7 @@
         void vMS5607__compensateSecondOrder(void);
         Luint8 u8MS5607__CRC4(Luint16 * pu16Coefficients);
         Luint8 uMS5607__getLSB4Bits(Luint32 u32LastCoefficient);
+        void vMS5607__10MS_Timer(void);
 
 
         //I2C

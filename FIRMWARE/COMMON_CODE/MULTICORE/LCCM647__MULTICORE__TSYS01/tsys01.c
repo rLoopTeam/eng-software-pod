@@ -54,6 +54,7 @@ void vTSYS01__Init(void)
 
 	//set to some out there value
 	sTSYS.f32TempDegC = 127.0F;
+	sTSYS.u3210MS_Timer = 0U;
 
 	//clear the average
 	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM647__MAX_FILTER_SAMPLES; u8Counter++)
@@ -178,6 +179,7 @@ void vTSYS01__Process(void)
 				sTSYS.u32LoopCounter = 0U;
 
 				//change states
+				sTSYS.u3210MS_Timer = 0U;
 				sTSYS.eState = TSYS01_STATE__WAIT_LOOPS;
 
 			}
@@ -192,7 +194,8 @@ void vTSYS01__Process(void)
 		case TSYS01_STATE__WAIT_LOOPS:
 
 			//todo, change to constant
-			if(sTSYS.u32LoopCounter > C_LOCALDEF__LCCM647__NUM_CONVERSION_LOOPS)
+			if(sTSYS.u3210MS_Timer > 20U)
+			//if(sTSYS.u32LoopCounter > C_LOCALDEF__LCCM647__NUM_CONVERSION_LOOPS)
 			{
 				//move on to read the ADC
 				sTSYS.eState = TSYS01_STATE__READ_ADC;
@@ -390,6 +393,11 @@ Lfloat32 f32TSYS01__Get_TempDegC(void)
 Luint32 u32TSYS01__Get_FaultFlags(void)
 {
 	return sTSYS.sFaultFlags.u32Flags[0];
+}
+
+void vTSYS01__10MS_Timer(void)
+{
+	sTSYS.u3210MS_Timer++;
 }
 
 #endif //#if C_LOCALDEF__LCCM647__ENABLE_THIS_MODULE == 1U

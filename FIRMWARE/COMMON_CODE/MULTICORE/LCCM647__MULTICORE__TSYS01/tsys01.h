@@ -82,6 +82,9 @@
 			/** Upper Guard */
 			Luint32 u32Guard0;
 		
+			/** Count of 10ms timers */
+			Luint32 u3210MS_Timer;
+
 			/** Fault flags */
 			FAULT_TREE__PUBLIC_T sFaultFlags;
 		
@@ -132,6 +135,7 @@
 		Luint8 u8TSYS__Get_NewDataAvail(void);
 		Lfloat32 f32TSYS01__Get_TempDegC(void);
 		Luint32 u32TSYS01__Get_FaultFlags(void);
+		void vTSYS01__10MS_Timer(void);
 		
 		
 		//I2C

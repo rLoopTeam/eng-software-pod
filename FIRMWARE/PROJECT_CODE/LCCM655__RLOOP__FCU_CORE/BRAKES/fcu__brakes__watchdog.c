@@ -20,7 +20,7 @@
 
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_BRAKES == 1U
-
+#if C_LOCALDEF__LCCM655__ENABLE_BRAKES_WATCHDOG == 1U
 
 /***************************************************************************//**
  * @brief
@@ -68,7 +68,7 @@ void vFCU_BRAKES_WDT__Pet_End(void)
 }
 
 
-
+#endif //C_LOCALDEF__LCCM655__ENABLE_BRAKES_WATCHDOG
 #endif //C_LOCALDEF__LCCM655__ENABLE_BRAKES
 #endif //#if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 //safetys

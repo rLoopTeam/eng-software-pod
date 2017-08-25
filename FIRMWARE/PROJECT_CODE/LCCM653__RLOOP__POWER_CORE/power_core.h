@@ -438,11 +438,13 @@
 		void vPWRNODE_NODETEMP__Process(void);
 		Lfloat32 f32PWRNODE_NODETEMP__Get_DegC(void);
 		Luint32 u32PWRNODE_NODETEMP__Get_FaultFlags(void);
+		void vPWRNODE_NODETEMP__10MS_ISR(void);
 
 		//node pressure reading
 		void vPWRNODE_NODEPRESS__Init(void);
 		void vPWRNODE_NODEPRESS__Process(void);
 		Lfloat32 f32PWRNODE_NODEPRESS__Get_Pressure_Bar(void);
+		void vPWRNODE_NODEPRESS__10MS_ISR(void);
 
 		//PV repress system
 		void vPWR_PVPRESS__Init(void);
