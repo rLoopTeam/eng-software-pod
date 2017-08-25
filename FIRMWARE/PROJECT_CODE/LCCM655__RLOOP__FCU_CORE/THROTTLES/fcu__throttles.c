@@ -64,7 +64,7 @@ Lfloat32 f32FCU_THROTTLE__RPM_To_Volts(Luint16 u16RPM);
 Luint16 u16FCU_THROTTLE__Compute_RPM_StepUp(Luint16 u16RPM);
 Luint16 u16FCU_THROTTLE__Compute_RPM_StepDown(Luint16 u16RPM);
 
-#define C_THROTTLE_UPDATE_TIMEOUT  100U
+#define C_THROTTLE_UPDATE_TIMEOUT  200U
 
 /***************************************************************************//**
  * @brief
