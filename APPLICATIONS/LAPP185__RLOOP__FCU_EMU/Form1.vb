@@ -1435,8 +1435,8 @@ Public Class Form1
     ''' <param name="f32Value"></param>
     Private Sub AMC7182_DAC__SetVolts(u8Channel As Byte, f32Value As Single)
         'tell our ASI about it.
-        Me.m_pASI(u8Channel).Voltage__Update(f32Value)
-        Me.Threadsafe__SetText(Me.m_txtASI_Volts(u8Channel), f32Value.ToString("0.000"))
+        'Me.m_pASI(u8Channel).Voltage__Update(f32Value)
+        'Me.Threadsafe__SetText(Me.m_txtASI_Volts(u8Channel), f32Value.ToString("0.000"))
     End Sub
 
 #End Region '#Region "AMC7812 DAC"

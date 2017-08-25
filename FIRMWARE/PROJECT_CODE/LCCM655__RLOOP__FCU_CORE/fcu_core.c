@@ -501,8 +501,10 @@ void vFCU__Process(void)
 				vFCU_FCTL__Init();
 			#endif
 
+#ifndef WIN32
 			//release RM57 boards from reset.
 			vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__1, MIBSPI135_PIN__CS3, 1U);
+#endif
 
 			//move state
 			sFCU.eInitStates = INIT_STATE__RUN;

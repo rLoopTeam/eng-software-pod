@@ -154,7 +154,7 @@
 
 		//make up to x16 for RM48 alignment
 		//should get zeroed out when WIN32 creates the file
-		Luint8 u8Dummy[16-2-4-4-4];
+		Luint8 u8Dummy[6];
 
 		//CRC protection
 		Luint8 u8CRC[2];
