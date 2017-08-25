@@ -222,8 +222,8 @@ RM4 GIO MODULE
 			#define GIOA_PIN_3_ISR()										vSIL3_SC16_INT__Handle_ISR(1U)
 			#define GIOA_PIN_4_ISR()										vSIL3_SC16_INT__Handle_ISR(2U)
 			#define GIOA_PIN_5_ISR()										vRM4_GIO_ISR__DefaultRoutine()
-			#define GIOA_PIN_6_ISR()										vSIL3_MMA8451__ISR(0U)
-			#define GIOA_PIN_7_ISR()										vSIL3_MMA8451__ISR(1U)
+			#define GIOA_PIN_6_ISR()										vRM4_GIO_ISR__DefaultRoutine() /*vSIL3_MMA8451__ISR(0U)*/
+			#define GIOA_PIN_7_ISR()										vRM4_GIO_ISR__DefaultRoutine() /*vSIL3_MMA8451__ISR(1U)*/
 
 			#define GIOB_PIN_0_ISR()										vSIL3_SC16_INT__Handle_ISR(6U)
 			#define GIOB_PIN_1_ISR()										vSIL3_SC16_INT__Handle_ISR(3U)

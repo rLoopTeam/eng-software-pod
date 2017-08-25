@@ -509,6 +509,9 @@
 
 				}sChannels[C_FCU__NUM_ACCEL_CHIPS];
 
+
+				Luint8 u810MS_Flag;
+
 			}sAccel;
 			#endif //C_LOCALDEF__LCCM655__ENABLE_ACCEL
 

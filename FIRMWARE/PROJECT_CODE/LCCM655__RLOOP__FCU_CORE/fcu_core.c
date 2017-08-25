@@ -239,8 +239,8 @@ void vFCU__Process(void)
 
 				//set the WDT pulse output which is used for RM57 reset.
 				vRM4_MIBSPI135_PINS__Set_OutputDirection(MIBSPI135_CHANNEL__1, MIBSPI135_PIN__CS3);
-				vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__1, MIBSPI135_PIN__CS3, 1U);
 				vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__1, MIBSPI135_PIN__CS3, 0U);
+				vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__1, MIBSPI135_PIN__CS3, 1U);
 			#endif
 
 			//serial subsystem B
@@ -503,7 +503,7 @@ void vFCU__Process(void)
 
 #ifndef WIN32
 			//release RM57 boards from reset.
-			vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__1, MIBSPI135_PIN__CS3, 1U);
+			vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__1, MIBSPI135_PIN__CS3, 0U);
 #endif
 
 			//move state

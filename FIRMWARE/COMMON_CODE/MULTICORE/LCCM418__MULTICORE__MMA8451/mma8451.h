@@ -72,6 +72,9 @@
 			/** The count of interrupts last seen */
 			Luint32 u32InterruptLastSeen;
 
+			/** Do we need to inhibit interrupt to prevent multiple polling */
+			Luint8 u8InterruptInhibit;
+
 		}sPortFlags;
 
 		/** The first X,Y,Z read */
