@@ -86,7 +86,9 @@ void vFCU_ACCEL__Init(void)
 	vRM4_GIO__Set_Port_Pullup(RM4_GIO__PORT_A, 6U);
 
 	//enable
-	vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_6);
+	#if C_LOCALDEF__LCCM418__USE_INTERRUPT_DEV0 == 1U
+		vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_6);
+	#endif
 #endif //win32
 
 	//init the MMA devices
@@ -116,7 +118,9 @@ void vFCU_ACCEL__Init(void)
 		vRM4_GIO__Set_Port_Pullup(RM4_GIO__PORT_A, 7U);
 
 		//enable
-		vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_7);
+		#if C_LOCALDEF__LCCM418__USE_INTERRUPT_DEV1 == 1U
+			vRM4_GIO_ISR__EnableISR(GIO_ISR_PIN__GIOA_7);
+		#endif
 #endif
 
 		//device 1
@@ -172,6 +176,36 @@ void vFCU_ACCEL__Process(void)
 		#error
 	#endif
 
+
+	if(sFCU.sAccel.u810MS_Flag == 1)
+	{
+#if 0
+		//process the device
+		for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Counter++)
+		{
+			vSIL3_MMA8451__Process(u8Counter);
+		}
+#endif
+
+		sFCU.sAccel.u810MS_Flag = 0U;
+	}
+	else
+	{
+		//no new data
+	}
+
+#ifndef WIN32
+	if(u32RM4_GIO__Get_Bit(RM4_GIO__PORT_A, 6U) == 0U)
+	{
+		vSIL3_MMA8451__ISR(0);
+	}
+#if C_LOCALDEF__LCCM418__NUM_DEVICES > 1
+	if(u32RM4_GIO__Get_Bit(RM4_GIO__PORT_A, 7U) == 0U)
+	{
+		vSIL3_MMA8451__ISR(1);
+	}
+#endif
+#endif
 
 	//loop through each device
 	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Counter++)
@@ -405,13 +439,15 @@ Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis)
 
 /***************************************************************************//**
  * @brief
- * ToDo
+ * 10ms Interrupt
  * 
  * @st_funcMD5		448A3FE6733707EEBF70C29A5E02E632
  * @st_funcID		LCCM655R0.FILE.010.FUNC.008
  */
 void vFCU_ACCEL__10MS_ISR(void)
 {
+	sFCU.sAccel.u810MS_Flag = 0U;
+
 	//pass off to thrreshold detection system.
 	vFCU_ACCEL_THRESH__10MS_ISR();
 }

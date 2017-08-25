@@ -115,7 +115,7 @@
 				Luint8 u8EnablePuserSeparationDetection;
 
 				/** make up to 16*/
-				Luint8 u8Spares[12];
+				Luint8 u8Spares[11];
 
 			}sControl;
 
