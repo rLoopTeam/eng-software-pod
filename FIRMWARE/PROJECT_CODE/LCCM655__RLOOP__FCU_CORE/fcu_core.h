@@ -1272,13 +1272,14 @@
 				DLL_DECLARATION TE_POD_STATE_T vFCU_FCTL_MAINSM__Debug__GetState(void);
 
                 //  Pod guard/check functions 
-                Luint8 pod_init_complete(void);
+                Luint8 u8FCU__FCTL__MAIN_SM__IsPodInitComplete(void);
                 Luint8 armed_wait_checks_ok(void);
                 Luint8 drive_checks_ok(void);
                 Luint8 flight_prep_checks_ok(void);
                 Luint8 flight_readiness_checks_ok(void);
-                Luint8 accel_confirmed(void);
-                Luint8 pusher_separation_confirmed(void);
+                Luint8 u8FCU__FCTL__MAIN_SM__IsAccelConfirmed(void);
+				Luint8 u8FCU__FCTL__MAIN_SM__IsDecelConfirmed(void);
+				Luint8 pusher_separation_confirmed(void);
                 Luint8 pod_stop_confirmed(void);
                 Luint8 spindown_complete_confirmed(void);
 
@@ -1321,7 +1322,7 @@
 			//track DB
 			void vFCU_FCTL_TRACKDB__Init(void);
 			void vFCU_FCTL_TRACKDB__Process(void);
-			void vFCU_FCTL_TRACKDB__Set_CurrentDB(Luint32 u32Key, Luint32 u32TrackID);
+			DLL_DECLARATION void vFCU_FCTL_TRACKDB__Set_CurrentDB(Luint32 u32Key, Luint32 u32TrackID);
 
 
 				//get functions
