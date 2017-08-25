@@ -103,10 +103,19 @@ void vFCU_FCTL_TRACKDB__Set_CurrentDB(Luint32 u32Key, Luint32 u32TrackID)
 		//check
 		if(u32TrackID < C_FCTL_TRACKDB__MAX_MEM_DATABASES)
 		{
+#ifdef WIN32
+			DEBUG_PRINT("Setting current track db");
+#endif//WIN32
+
 			sFCU.sFlightControl.sTrackDB.u32CurrentDB = u32TrackID;
 
 			//update the EEPROM
 			vSIL3_EEPARAM__WriteU32(C_LOCALDEF__LCCM655__FCTL_TRACKDB___CURRENT_DB, sFCU.sFlightControl.sTrackDB.u32CurrentDB, DELAY_T__IMMEDIATE_WRITE);
+
+			#ifdef WIN32
+			//ALWAYS CALL THIS BEFORE MEM INIT
+			vFCU_FCTL_TRACKDB_WIN32__Init();
+			#endif
 
 			//reinit the track database memory
 			vFCU_FCTL_TRACKDB_MEM__Init();
