@@ -87,6 +87,7 @@ void vPWRNODE_BATTTEMP__Process(void)
 	Luint32 u32Max;
 	Luint8 *u8PtrPackMem;
 	Luint32 u32Counter;
+	Luint16 u16NumWorkingSensors;
 
 #ifndef WIN32
 	//process any search tasks
@@ -209,6 +210,7 @@ void vPWRNODE_BATTTEMP__Process(void)
 
 				//get the number of sensors in the pack
 				u16NumSensors = u16DS18B20__Get_NumEnum_Sensors();
+				u16NumWorkingSensors = 0U;
 				for(u16Counter = 0U; u16Counter < u16NumSensors; u16Counter++)
 				{
 
@@ -221,20 +223,34 @@ void vPWRNODE_BATTTEMP__Process(void)
 
 						//compute the highest
 						f32Temp = f32DS18B20__Get_Temperature_DegC(u16Counter);
-						if(f32Temp > f32High)
+
+						if(f32Temp < 126.0F)
 						{
-							//this sensor value is > than the last higest reading, save it
-							f32High = f32Temp;
-							sPWRNODE.sTemp.u16HighestSensorIndex = u16Counter;
+
+							//inc the number of working sensors
+							u16NumWorkingSensors ++;
+
+							if(f32Temp > f32High)
+							{
+								//this sensor value is > than the last higest reading, save it
+								f32High = f32Temp;
+								sPWRNODE.sTemp.u16HighestSensorIndex = u16Counter;
+
+							}
+							else
+							{
+								//this sensor was lower than the last sensor
+							}
+
+							//add to the sum
+							f32Sum += f32Temp;
 
 						}
 						else
 						{
-							//this sensor was lower than the last sensor
+
 						}
 
-						//add to the sum
-						f32Sum += f32Temp;
 
 					}
 					else
@@ -248,6 +264,15 @@ void vPWRNODE_BATTTEMP__Process(void)
 
 				//divide
 				//math safety
+				if(u16NumWorkingSensors != 0U)
+				{
+					f32Sum /= (Lfloat32)u16NumWorkingSensors;
+				}
+				else
+				{
+					//stay the same
+				}
+#if 0
 				if(u16NumSensors != 0U)
 				{
 					f32Sum /= (Lfloat32)u16NumSensors;
@@ -256,6 +281,8 @@ void vPWRNODE_BATTTEMP__Process(void)
 				{
 					//stay the same
 				}
+
+#endif
 
 				//update our internal vars
 				sPWRNODE.sTemp.f32HighestTemp = f32High;

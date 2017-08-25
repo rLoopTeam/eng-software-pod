@@ -36,29 +36,6 @@ extern struct _strFCU sFCU;
 
 #define THROTTLE_RAMP_TIMER_INTERVAL 100.0F
 
-/*
-//xxxxxxxxxxxxxxxx  DUMMY VALUES - TO BE FINALIZED IN FCU  xxxxxxxxxxxxxxxxx
-#define HOVER_ENGINE_MINIMUM_SPEED			0U
-#define HOVER_ENGINE_MAXIMUM_SPEED			50000U
-#define HOVER_ENGINE_STATIC_HOVER_SPEED		20000U
-#define HOVER_ENGINE_STANDBY_SPEED			20000U
-#define FCU_MODE							STOPPED_LIFTED
-//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-//xxxxxxxxxxxxx  DUMMY VALUES - TO BE SENT BY GROUND STATION  xxxxxxxxxxxxxx
-#define GS_COMMAND_MODE						SET_HEX_SPEED
-#define GS_COMMAND_UNITS					0U
-#define GS_THROTTLE_COMMAND					15000U
-#define GS_ENGINE_NUMBER					6U//0U
-#define GS_THROTTLE_RAMP_DURATION			3000U
-//xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-*/
-
-// last command values
-//static Luint16 u16LastThrottleSetPoint;
-//static Luint16 u16LastThrottleCommandValue;
-//static Luint16 u16InitThrottleCommand;
-
 //locals
 Lfloat32 f32FCU_THROTTLE__RPM_To_Volts(Luint16 u16RPM);
 Luint16 u16FCU_THROTTLE__Compute_RPM_StepUp(Luint16 u16RPM);
