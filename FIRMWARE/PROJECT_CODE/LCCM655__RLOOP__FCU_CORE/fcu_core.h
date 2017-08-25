@@ -1272,16 +1272,16 @@
 				DLL_DECLARATION TE_POD_STATE_T vFCU_FCTL_MAINSM__Debug__GetState(void);
 
                 //  Pod guard/check functions 
-                Luint8 u8FCU__FCTL__MAIN_SM__IsPodInitComplete(void);
+                Luint8 u8FCU_FCTL_MAINSM___IsPodInitComplete(void);
                 Luint8 armed_wait_checks_ok(void);
                 Luint8 drive_checks_ok(void);
                 Luint8 flight_prep_checks_ok(void);
                 Luint8 flight_readiness_checks_ok(void);
-                Luint8 u8FCU__FCTL__MAIN_SM__IsAccelConfirmed(void);
-				Luint8 u8FCU__FCTL__MAIN_SM__IsDecelConfirmed(void);
-				Luint8 pusher_separation_confirmed(void);
-                Luint8 pod_stop_confirmed(void);
-                Luint8 spindown_complete_confirmed(void);
+                Luint8 u8FCU_FCTL_MAINSM__IsAccelConfirmed(void);
+				Luint8 u8FCU_FCTL_MAINSM__IsDecelConfirmed(void);
+				Luint8 u8FCU_FCTL_MAINSM__IsPusherSeparationConfirmed(void);
+                Luint8 u8FCU_FCTL_MAINSM__IsPodStopConfirmed(void);
+                Luint8 u8FCU_FCTL_MAINSM__IsSpindownCompleteConfirmed(void);
 
                 //  Pod state transition functions
                 void vFCU_FCTL_MAINSM_XSN__POD_STATE__INIT(void);
