@@ -100,7 +100,7 @@ Lint16 s16DS18B20_ADDX__Search(void)
 					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8Resolution = 0U;
 					
 					//set to our known max temp
-					sDS18B20.sTemp[sDS18B20.sEnum.u16NumDevices].f32Temperature = -1.0F;
+					sDS18B20.sTemp[sDS18B20.sEnum.u16NumDevices].f32Temperature = 127.0F;
 					//inc
 					sDS18B20.sEnum.u16NumDevices++;
 
@@ -134,7 +134,7 @@ Lint16 s16DS18B20_ADDX__Search(void)
 					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8Resolution = 0U;
 					
 					//set to our known max temp.
-					sDS18B20.sTemp[sDS18B20.sEnum.u16NumDevices].f32Temperature = -1.0F;
+					sDS18B20.sTemp[sDS18B20.sEnum.u16NumDevices].f32Temperature = 127.0F;
 
 					//inc
 					sDS18B20.sEnum.u16NumDevices++;
@@ -273,7 +273,7 @@ void vDS18B20_ADDX__SearchSM_Process(void)
 					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8Resolution = 0U;
 
 					//set to our known max temp
-					sDS18B20.sTemp[sDS18B20.sEnum.u16NumDevices].f32Temperature = -1.0F;
+					sDS18B20.sTemp[sDS18B20.sEnum.u16NumDevices].f32Temperature = 127.0F;
 					//inc
 					sDS18B20.sEnum.u16NumDevices++;
 					//protect
@@ -305,7 +305,7 @@ void vDS18B20_ADDX__SearchSM_Process(void)
 					sDS18B20.sDevice[sDS18B20.sEnum.u16NumDevices].u8Resolution = 0U;
 
 					//set to our known max temp.
-					sDS18B20.sTemp[sDS18B20.sEnum.u16NumDevices].f32Temperature = -1.0F;
+					sDS18B20.sTemp[sDS18B20.sEnum.u16NumDevices].f32Temperature = 127.0F;
 
 					//inc
 					sDS18B20.sEnum.u16NumDevices++;

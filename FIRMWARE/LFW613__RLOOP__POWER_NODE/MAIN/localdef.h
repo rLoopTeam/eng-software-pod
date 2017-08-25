@@ -442,13 +442,7 @@ TSYS01 - DIGITAL TEMP SENSOR
 		#define C_LOCALDEF__LCCM647__NUM_CONVERSION_LOOPS					(10000U)
 
 		/** the I2C address on the bus */
-		#if C_LOCALDEF__BMS_REVISION == 1U
-			#define C_LOCALDEF__LCCM647__BUS_ADDX								(0x77U)
-		#elif C_LOCALDEF__BMS_REVISION == 2U
-			#define C_LOCALDEF__LCCM647__BUS_ADDX								(0x76U)
-		#else
-			#error
-		#endif
+		#define C_LOCALDEF__LCCM647__BUS_ADDX								(0x77U)
 
 		/** Testing Options */
 		#define C_LOCALDEF__LCCM647__ENABLE_TEST_SPEC						(0U)
@@ -644,7 +638,7 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__ENABLE_BMS								(1U)
 
 		/** Enable the PV temp system using TSYS01 */
-		#define C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP						(0U)
+		#define C_LOCALDEF__LCCM653__ENABLE_NODE_TEMP						(1U)
 
 		/** Node pressure using MS5607 */
 		#define C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS						(1U)
