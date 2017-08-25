@@ -85,6 +85,12 @@ Lfloat32 f32PWRNODE_NODEPRESS__Get_Pressure_Bar(void)
 
 }
 
+
+void vPWRNODE_NODEPRESS__10MS_ISR(void)
+{
+	vMS5607__10MS_Timer();
+}
+
 #endif //C_LOCALDEF__LCCM653__ENABLE_NODE_PRESS
 #endif //#if C_LOCALDEF__LCCM653__ENABLE_THIS_MODULE == 1U
 //safetys

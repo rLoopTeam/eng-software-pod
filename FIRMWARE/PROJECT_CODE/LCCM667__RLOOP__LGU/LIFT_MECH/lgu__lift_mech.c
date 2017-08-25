@@ -19,8 +19,7 @@
  * @ingroup LGU
  * @{ */
  
- #include "../lgu.h"
-
+#include "../lgu.h"
 #if C_LOCALDEF__LCCM667__ENABLE_THIS_MODULE == 1U
 
 extern TS_LGU__MAIN sLGU;

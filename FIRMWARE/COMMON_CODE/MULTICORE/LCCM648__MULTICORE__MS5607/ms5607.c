@@ -39,8 +39,7 @@ void vMS5607__Init(void)
 
 	}
 
-
-
+	sMS5607.u3210MS_Timer = 0U;
 
 }
 
@@ -119,13 +118,13 @@ void vMS5607__Process(void)
 	    case MS5607_STATE__BEGIN_SAMPLE_TEMPERATURE:
 			//Start conversion here
 	    	s16Return = s16MS5607__StartTemperatureConversion();
-
 	    	if(s16Return >= 0)
 			{
 	    		//clear the counter
 	    		sMS5607.u32LoopCounter = 0U;
 
 				//success
+	    		sMS5607.u3210MS_Timer = 0U;
 				sMS5607.eState = MS5607_STATE__WAIT_LOOPS_TEMPERATURE;
 			}
 			else
@@ -139,7 +138,8 @@ void vMS5607__Process(void)
 			//TODO add delay here for conversion then
 			//After the conversion is over, move to next stage to read ADC
 			//todo, change to constant
-			if(sMS5607.u32LoopCounter > C_LOCALDEF__LCCM648__NUM_CONVERSION_LOOPS)
+			if(sMS5607.u3210MS_Timer > 20U)
+			//if(sMS5607.u32LoopCounter > C_LOCALDEF__LCCM648__NUM_CONVERSION_LOOPS)
 			{
 				//move on to read the ADC
 				sMS5607.eState = MS5607_STATE__READ_ADC_TEMPERATURE;
@@ -187,13 +187,13 @@ void vMS5607__Process(void)
 		case MS5607_STATE__BEGIN_SAMPLE_PRESSURE:
 			//Start conversion here
 			s16Return = s16MS5607__StartPressureConversion();
-
 			if(s16Return >= 0)
 			{
 				//clear the counter
 				sMS5607.u32LoopCounter = 0U;
 
 				//success
+				sMS5607.u3210MS_Timer = 0U;
 				sMS5607.eState = MS5607_STATE__WAIT_LOOPS_PRESSURE;
 			}
 			else
@@ -205,7 +205,8 @@ void vMS5607__Process(void)
 
 		case MS5607_STATE__WAIT_LOOPS_PRESSURE:
 				//After the conversion is over, move to next stage to read ADC
-				if(sMS5607.u32LoopCounter > C_LOCALDEF__LCCM648__NUM_CONVERSION_LOOPS)
+				if(sMS5607.u3210MS_Timer > 20U)
+				//if(sMS5607.u32LoopCounter > C_LOCALDEF__LCCM648__NUM_CONVERSION_LOOPS)
 				{
 					//move on to read the ADC
 					sMS5607.eState = MS5607_STATE__READ_ADC_PRESSURE;
@@ -488,6 +489,12 @@ Luint8 uMS5607__getLSB4Bits(Luint32 u32LastCoefficient)
 {
 	return u32LastCoefficient & 0x000F;
 }
+
+void vMS5607__10MS_Timer(void)
+{
+	sMS5607.u3210MS_Timer++;
+}
+
 
 #endif //#if C_LOCALDEF__LCCM648__ENABLE_THIS_MODULE == 1U
 //safetys
