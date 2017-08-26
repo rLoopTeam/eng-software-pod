@@ -147,7 +147,8 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__TEST_MODE:
 		
-			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__TEST_MODE)) {
+			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__TEST_MODE) == 1U)
+			{
 				// Perform entering actions
 				#ifdef WIN32
 					DEBUG_PRINT("Entering POD_STATE__TEST_MODE");
@@ -157,7 +158,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			// Handle transitions
 			vFCU_FCTL_MAINSM_XSN__POD_STATE__TEST_MODE();
 		 
-			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__TEST_MODE)) 
+			if(u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__TEST_MODE) == 1U)
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...		
@@ -167,7 +168,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__DRIVE:
 		
-			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__DRIVE))
+			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__DRIVE) == 1U)
 			{
 				// Perform entering actions
 				#ifdef WIN32
@@ -178,7 +179,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			// Handle transitions
 			vFCU_FCTL_MAINSM_XSN__POD_STATE__DRIVE();
 		 
-			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__DRIVE)) 
+			if(u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__DRIVE) == 1U)
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...		
@@ -188,7 +189,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 		
 		case POD_STATE__ARMED_WAIT:
 		
-			if (u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__ARMED_WAIT))
+			if(u8FCU_FCTL_MAINSM__Check_IsEntering(sm, POD_STATE__ARMED_WAIT) == 1U)
 			{
 				// Perform entering actions
 				#ifdef WIN32
@@ -199,7 +200,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			// Handle transitions
 			vFCU_FCTL_MAINSM_XSN__POD_STATE__ARMED_WAIT();
 		 
-			if (u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__ARMED_WAIT)) 
+			if(u8FCU_FCTL_MAINSM__Check_IsExiting(sm, POD_STATE__ARMED_WAIT) == 1U)
 			{
 				// We're exiting this state -- perform any exit actions
 				// ...

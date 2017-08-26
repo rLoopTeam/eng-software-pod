@@ -26,6 +26,8 @@ Public Class Form1
     ''' </summary>
     Private Const C_NUM_OPTONCDT As Integer = 6
 
+    Private Const C_NUM_ACCEL As Integer = 1
+
 #End Region '#Region "CONSTANTS"
 
 #Region "ENUMS"
@@ -982,7 +984,9 @@ Public Class Form1
     Private Sub Timers__Accel_Tick(s As Object, e As System.Timers.ElapsedEventArgs)
         If Me.m_bThreadRun = True Then
             vSIL3_MMA8451_WIN32__TriggerInterrupt(0)
-            vSIL3_MMA8451_WIN32__TriggerInterrupt(1)
+            If C_NUM_ACCEL = 2 Then
+                vSIL3_MMA8451_WIN32__TriggerInterrupt(1)
+            End If
         End If
     End Sub
 

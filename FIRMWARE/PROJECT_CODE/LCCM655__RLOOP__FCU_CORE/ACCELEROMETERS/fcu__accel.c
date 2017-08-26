@@ -452,6 +452,14 @@ void vFCU_ACCEL__10MS_ISR(void)
 	vFCU_ACCEL_THRESH__10MS_ISR();
 }
 
+
+//enable accel data injection
+void vFCU_ACCEL__Enable_Injection(Luint32 u32Key)
+{
+
+}
+
+
 //make sure both sensors are in the same range
 #if C_LOCALDEF__LCCM418__DEV0__DATA_RATE_HZ != C_LOCALDEF__LCCM418__DEV1__DATA_RATE_HZ
 	#error

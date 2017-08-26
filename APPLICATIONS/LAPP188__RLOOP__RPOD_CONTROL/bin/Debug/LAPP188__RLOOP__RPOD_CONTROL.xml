@@ -1092,6 +1092,139 @@ LAPP188__RLOOP__RPOD_CONTROL
  <param name="s"></param>
  <param name="e"></param>
 </member>
+<member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation">
+ <summary>
+ Mission Emulation
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.C_NUM_TRACK_DATABASES">
+ <summary>
+ Total number in FCU, don't change
+ </summary>
+</member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.m_sLogDir">
+ <summary>
+ The logging directory
+ </summary>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.#ctor(System.String,System.String)">
+ <summary>
+ New instance
+ </summary>
+ <param name="sPanelText"></param>
+ <remarks></remarks>
+</member>
+<member name="E:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.UserEvent__SafeUDP__Tx_X4">
+ <summary>
+ Raised wehen we want to transmit a control packet
+ </summary>
+ <param name="u16Type"></param>
+ <param name="u32Block0"></param>
+ <param name="u32Block1"></param>
+ <param name="u32Block2"></param>
+ <param name="u32Block3"></param>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.InernalEvent__UDPSafe__RxPacketB(LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T,LAPP188__RLOOP__LIB.SIL3.Numerical.U16,System.Byte[]@,LAPP188__RLOOP__LIB.SIL3.Numerical.U16)">
+ <summary>
+ New Packet In
+ </summary>
+ <param name="ePacketType"></param>
+ <param name="u16PayloadLength"></param>
+ <param name="u8Payload"></param>
+ <param name="u16CRC"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.LayoutPanel">
+ <summary>
+ Create our layout prior to being shown
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.btnTEST_IDLE__Click(System.Object,System.EventArgs)">
+ <summary>
+ Test to Idle mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.btnIDLE_ARMED__Click(System.Object,System.EventArgs)">
+ <summary>
+ Idle to armed mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.btnARMED_IDLE__Click(System.Object,System.EventArgs)">
+ <summary>
+ Armed to idle mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.btnARMED_PREP__Click(System.Object,System.EventArgs)">
+ <summary>
+ Armed to flight prep mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.btnPREP_ARMED__Click(System.Object,System.EventArgs)">
+ <summary>
+ Flight prep to Armed mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.btnPREP_RDY__Click(System.Object,System.EventArgs)">
+ <summary>
+ Flight prep to ready mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.btnRDY_PREP__Click(System.Object,System.EventArgs)">
+ <summary>
+ Ready to Flight prep mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.btnBRAKE__Click(System.Object,System.EventArgs)">
+ <summary>
+ (emergency) Braking mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.btnChangeTrackDB__Click(System.Object,System.EventArgs)">
+ <summary>
+ Change the current track database
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.btnStreamOn__Click(System.Object,System.EventArgs)">
+ <summary>
+ Enable mission streaming
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.btnPodSafed__Click(System.Object,System.EventArgs)">
+ <summary>
+ Transmit our pod safed command to power nodes, kills all power
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation.btnPodStop__Click(System.Object,System.EventArgs)">
+ <summary>
+ Do the pod stop command
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
 <member name="T:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation">
  <summary>
  Primary Navigation Page

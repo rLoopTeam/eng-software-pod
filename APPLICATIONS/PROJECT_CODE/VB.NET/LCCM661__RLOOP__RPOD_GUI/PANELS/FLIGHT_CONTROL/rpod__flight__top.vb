@@ -28,6 +28,7 @@
         ''' Mission control page
         ''' </summary>
         Private m_pnlFlight__Mission As SIL3.rLoop.rPodControl.Panels.FlightControl.Mission
+        Private m_pnlFlight__MissionEmulation As SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation
         Private m_pnlFlight__Navigation As SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation
 
         ''' <summary>
@@ -134,6 +135,7 @@
 
             Me.m_iBarIndex = Me.m_pExplorer.Bar__Add("Flight Control")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Mission")
+            Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Mission Emulation")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Navigation")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "SpaceX Telemetry")
             Me.m_pExplorer.SubItem__Add_LinkItem(Me.m_iBarIndex, "Pod Health + Fault Flags")
@@ -158,6 +160,8 @@
             'add the panels before the bar so as we have docking working well.
             Me.m_pnlFlight__Mission = New SIL3.rLoop.rPodControl.Panels.FlightControl.Mission("Mission", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__Mission)
+            Me.m_pnlFlight__MissionEmulation = New SIL3.rLoop.rPodControl.Panels.FlightControl.MissionEmulation("Mission Emulation", Me.m_sLogDir)
+            pf.Controls.Add(Me.m_pnlFlight__MissionEmulation)
             Me.m_pnlFlight__Navigation = New SIL3.rLoop.rPodControl.Panels.FlightControl.Navigation("Navigation", Me.m_sLogDir)
             pf.Controls.Add(Me.m_pnlFlight__Navigation)
 
@@ -238,6 +242,7 @@
         ''' <remarks></remarks>
         Public Sub Panel__HideShow(sText As String)
             Me.m_pnlFlight__Mission.Panel__HideShow(sText)
+            Me.m_pnlFlight__MissionEmulation.Panel__HideShow(sText)
             Me.m_pnlFlight__SpaceX.Panel__HideShow(sText)
             Me.m_pnlFlight__FaultFlags.Panel__HideShow(sText)
             Me.m_pnlFlight__Accel.Panel__HideShow(sText)
@@ -264,6 +269,7 @@
         ''' <remarks></remarks>
         Private Sub LinkBar_LinkClick(ByVal sText As String)
             Me.m_pnlFlight__Mission.Panel__HideShow(sText)
+            Me.m_pnlFlight__MissionEmulation.Panel__HideShow(sText)
             Me.m_pnlFlight__Navigation.Panel__HideShow(sText)
             Me.m_pnlFlight__SpaceX.Panel__HideShow(sText)
             Me.m_pnlFlight__FaultFlags.Panel__HideShow(sText)
