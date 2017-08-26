@@ -281,6 +281,11 @@
     </None>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\PROJECT_CODE\VB.NET\LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\TRACK_DATABASE\track_01.png">
+      <Link>LCCM661__RLOOP__RPOD_GUI\PANELS\FLIGHT_CONTROL\TRACK_DATABASE\track_01.png</Link>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

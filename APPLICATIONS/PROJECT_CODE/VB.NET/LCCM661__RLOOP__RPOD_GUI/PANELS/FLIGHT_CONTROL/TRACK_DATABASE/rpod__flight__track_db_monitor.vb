@@ -11,6 +11,21 @@
 
 #End Region '#Region "CONSTANTS"
 
+
+#Region "DLL"
+        ''' <summary>
+        ''' The name of our DLL, could be a bit better done with relative paths
+        ''' </summary>
+        Private Const C_DLL_NAME As String = "..\..\..\PROJECT_CODE\DLLS\LDLL174__RLOOP__LCCM655\bin\Debug\LDLL174__RLOOP__LCCM655.dll"
+
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Function u16FCU_FCTL_TRACKDB_WIN32__Get_StructureSize() As UInt16
+        End Function
+
+
+#End Region
+
+
 #Region "ENUMS"
         Private Enum _eUploadStates
             UPLOAD_STATE__IDLE
@@ -189,7 +204,7 @@
             Dim iFileSize As Integer = pF.GetFileSize
             Dim u8Tx(656 - 1) As Byte
             Dim iTxPos As Integer = 0
-            Dim iDataLength As Integer = 656
+            Dim iDataLength As Integer = u16FCU_FCTL_TRACKDB_WIN32__Get_StructureSize()
 
             Do While Me.m_bRunThread = True
 
@@ -217,6 +232,8 @@
 
 
                     Case _eUploadStates.UPLOAD_STATE__WAIT_CHUNK_ACK
+
+                        MsgBox("Done")
 
                         'will be acked via reception
                         Me.m_bRunThread = False

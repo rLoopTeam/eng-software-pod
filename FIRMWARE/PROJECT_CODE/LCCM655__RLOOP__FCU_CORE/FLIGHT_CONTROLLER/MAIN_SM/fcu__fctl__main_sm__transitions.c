@@ -402,7 +402,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__ACCEL(void)
 		Luint8 u8IsDecelConfirmed = 0U;
 
 		//do we want to use the pusher detection?
-		Luint8 u8UsePusherSeparation = u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation();
+		Luint8 u8UsePusherSeparation = 0; // u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation();
 
 		// Have we confirmed pusher separation?
 		Luint8 u8PusherSeparationConfirmed = 0U;

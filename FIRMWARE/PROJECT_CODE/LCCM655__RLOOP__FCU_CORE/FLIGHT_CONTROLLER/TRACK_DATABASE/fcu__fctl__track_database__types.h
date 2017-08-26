@@ -66,11 +66,9 @@
 				/** Threshold time */
 				Luint8 u8DecelThresh_x10ms[2];
 
-				//3 spares to take it to 16 bytes
-				Luint8 u8Spares[3];
-
 			}sAccel;
 
+#if 0
 			/** FWD Laser configuration */
 			struct
 			{
@@ -82,7 +80,9 @@
 				Luint8 u8Spares[15];
 
 			}sFwdLaser;
+#endif
 
+#if 0
 			/** Contrast laser config */
 			struct
 			{
@@ -93,8 +93,9 @@
 				Luint8 u8Spares[15];
 
 			}sContrastLaser;
+#endif
 
-
+#if 0
 			/** Control options */
 			struct
 			{
@@ -118,7 +119,9 @@
 				Luint8 u8Spares[11];
 
 			}sControl;
+#endif //0
 
+#if 0
 			/** Track Specifics */
 			struct
 			{
@@ -136,6 +139,7 @@
 				Luint8 u8Spares[4];
 
 			}sTrack;
+#endif //0
 
 			/** Timers */
 			struct
@@ -147,6 +151,10 @@
 				/** The time from coast to brake */
 				Luint8 u8Coast_Brake[4];
 
+				/** Brake to spindown time */
+				Luint8 u8Brake_Spindown[4];
+
+
 			}sTime;
 
 
@@ -154,7 +162,7 @@
 
 		//make up to x16 for RM48 alignment
 		//should get zeroed out when WIN32 creates the file
-		Luint8 u8Dummy[6];
+		Luint8 u8Dummy[2];
 
 		//CRC protection
 		Luint8 u8CRC[2];
