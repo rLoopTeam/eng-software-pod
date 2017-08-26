@@ -74,29 +74,17 @@ Luint8 u8FCU_FCTL_MAINSM__IsDecelConfirmed(void)
 
 Luint8 u8FCU_FCTL_MAINSM__IsPusherSeparationConfirmed(void)
 {
-	#ifdef WIN32
-	DEBUG_PRINT("Pusher separation (not) confirmed?");
-	#endif//WIN32
-
 	return 0U;
 }
 
 Luint8 u8FCU_FCTL_MAINSM__IsPodStopConfirmed(void)
 {
-	#ifdef WIN32
-	DEBUG_PRINT("Pod stop confirmed?");
-	#endif//WIN32
-
 	// @todo: implement
 	return 0U;
 }
 
 Luint8 u8FCU_FCTL_MAINSM__IsSpindownCompleteConfirmed(void)
 {
-#ifdef WIN32
-	DEBUG_PRINT("Spindown is complete?");
-#endif//WIN32
-
 	// @todo: implement
 	return 0U;
 }
