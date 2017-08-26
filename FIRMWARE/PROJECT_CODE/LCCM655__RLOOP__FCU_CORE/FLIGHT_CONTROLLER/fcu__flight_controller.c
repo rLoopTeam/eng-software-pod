@@ -21,6 +21,10 @@
 #if C_LOCALDEF__LCCM655__ENABLE_THIS_MODULE == 1U
 #if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
 
+#ifdef WIN32
+#include <stdio.h>
+#endif
+
 //the structure
 extern struct _strFCU sFCU;
 
@@ -105,6 +109,10 @@ void vFCU_FCTL__Process(void)
 void vFCU_FCTL__Config_From_Database(void)
 {
 
+#ifdef WIN32
+	char cBuffer[1024];
+#endif
+
 #if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 	//accel system
 	//enable the Accel system
@@ -113,6 +121,35 @@ void vFCU_FCTL__Config_From_Database(void)
 	//load up the thresholding
 	vFCU_ACCEL_THRESH__Set_Accel_Threshold(s32FCU_FCTL_TRACKDB__Accel__Get_Accel_Threshold_mm_ss(), s16FCU_FCTL_TRACKDB__Accel__Get_Accel_ThresholdTime_x10ms());
 	vFCU_ACCEL_THRESH__Set_Decel_Threshold(s32FCU_FCTL_TRACKDB__Accel__Get_Decel_Threshold_mm_ss(), s16FCU_FCTL_TRACKDB__Accel__Get_Decel_ThresholdTime_x10ms());
+
+	#ifdef WIN32
+
+		sprintf(cBuffer, "**************************");
+		DEBUG_PRINT(&cBuffer[0]);
+
+		sprintf(cBuffer, "Track ID: %d", sFCU.sFlightControl.sTrackDB.u32CurrentDB);
+		DEBUG_PRINT(&cBuffer[0]);
+
+		sprintf(cBuffer, "Accel Thresh: %d", s32FCU_FCTL_TRACKDB__Accel__Get_Accel_Threshold_mm_ss());
+		DEBUG_PRINT(&cBuffer[0]);
+
+		sprintf(cBuffer, "Accel Time: %d", s16FCU_FCTL_TRACKDB__Accel__Get_Accel_ThresholdTime_x10ms());
+		DEBUG_PRINT(&cBuffer[0]);
+
+
+		sprintf(cBuffer, "Decel Thresh: %d", s32FCU_FCTL_TRACKDB__Accel__Get_Decel_Threshold_mm_ss());
+		DEBUG_PRINT(&cBuffer[0]);
+
+		sprintf(cBuffer, "Decel Time: %d", s16FCU_FCTL_TRACKDB__Accel__Get_Decel_ThresholdTime_x10ms());
+		DEBUG_PRINT(&cBuffer[0]);
+
+
+		sprintf(cBuffer, "**************************");
+		DEBUG_PRINT(&cBuffer[0]);
+
+
+	#endif
+
 #endif //C_LOCALDEF__LCCM655__ENABLE_ACCEL
 
 	//fwd laser

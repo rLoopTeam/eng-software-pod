@@ -11,7 +11,6 @@
 
 #End Region '#Region "CONSTANTS"
 
-
 #Region "DLL"
         ''' <summary>
         ''' The name of our DLL, could be a bit better done with relative paths
@@ -24,7 +23,6 @@
 
 
 #End Region
-
 
 #Region "ENUMS"
         Private Enum _eUploadStates
@@ -180,6 +178,7 @@
                 Exit Sub
             End If
 
+            Me.m_eUploadState = _eUploadStates.UPLOAD_STATE__IDLE
             Me.m_bRunThread = True
             Me.m_sFileName = Me.m_cboTrackToUpload.SelectedItem.ToString
             Me.m_pThread = New System.Threading.Thread(AddressOf Me.Thread_Run)

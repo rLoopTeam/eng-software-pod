@@ -114,11 +114,13 @@ void vFCU_FCTL_TRACKDB__Set_CurrentDB(Luint32 u32Key, Luint32 u32TrackID)
 
 			#ifdef WIN32
 			//ALWAYS CALL THIS BEFORE MEM INIT
-			vFCU_FCTL_TRACKDB_WIN32__Init();
+			//vFCU_FCTL_TRACKDB_WIN32__Init();
 			#endif
 
 			//reinit the track database memory
+#ifndef WIN32
 			vFCU_FCTL_TRACKDB_MEM__Init();
+#endif
 		}
 		else
 		{
