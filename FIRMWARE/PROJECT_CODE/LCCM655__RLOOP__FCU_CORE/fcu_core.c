@@ -642,6 +642,29 @@ void vFCU__Process(void)
 				//no flag yet
 			}
 
+			u8Flag = 0U;
+			for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
+			{
+				//check the controller rage condition
+				if(sFCU.sASI.sHolding[u8Counter].u16Faults == 0xFFFFU)
+				{
+					u8Flag = 1U;
+				}
+				else
+				{
+					//no flag
+				}
+			}
+
+			if(u8Flag == 1U)
+			{
+				sFCU.eInitStates = INIT_STATE__RESET_ASI_SYSTEMS;
+			}
+			else
+			{
+				//no issue
+			}
+
 
 			break;
 
@@ -687,6 +710,18 @@ void vFCU__Process(void)
 			//back to init state
 			sFCU.eInitStates = INIT_STATE__RUN;
 			break;
+
+
+		case INIT_STATE__RESET_ASI_SYSTEMS:
+
+			//reset the ASI's
+			vFCU_ASI__Init();
+
+			//back to run mode
+			sFCU.eInitStates = INIT_STATE__RUN;
+			break;
+
+
 
 		default:
 			//not a good point;

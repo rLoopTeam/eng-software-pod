@@ -231,6 +231,10 @@
 		/** if we detect a I2C fault during run, re-init all I2C devices */
 		INIT_STATE__RESET_I2C_SYSTEMS,
 
+		/** Check and reset the ASI's if there is an issue */
+		INIT_STATE__RESET_ASI_SYSTEMS,
+
+
 	}E_FCU__INIT_STATE_TYPES;
 
 	/** Brakes states */
