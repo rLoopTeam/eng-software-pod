@@ -71,8 +71,7 @@ void vFCU_LASEROPTO__Init(void)
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].u8NewDistanceAvail = 0U;
 		//just set to some obscene distance
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].f32DistanceRAW = 0.0F;
-		sFCU.sLaserOpto.sOptoLaser[u8Counter].sFiltered.f32FilteredValue = 0.0F;
-		sFCU.sLaserOpto.sOptoLaser[u8Counter].sFiltered.f32PreviousValue = 0.0F;
+		sFCU.sLaserOpto.sOptoLaser[u8Counter].f32FilteredValue_mm = 0.0F;
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].u8Error = 0U;
 
 		sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u32ErrorCode = 0U;
@@ -85,6 +84,9 @@ void vFCU_LASEROPTO__Init(void)
 		vSIL3_FAULTTREE__Init(&sFCU.sLaserOpto.sOptoLaser[u8Counter].sFaultFlags);
 
 	}//for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++)
+
+	//Init the filtering stuff
+	vFCU_LASEROPTO_FILT__Init();
 
 	//check the CRC
 	u8Test = u8SIL3_EEPARAM_CRC__Is_CRC_OK(	C_LOCALDEF__LCCM655__FCTL_OPTONCDT___FL_ZERO,
@@ -463,7 +465,7 @@ void vFCU_LASEROPTO__Inject_Value(Luint8 u8LaserIndex, Lfloat32 f32Value)
  */
 Lfloat32 f32FCU_LASEROPTO__Get_Distance(E_FCU__LASER_OPTO__INDEX_T eLaser)
 {
-	return sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue;
+	return sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32FilteredValue_mm;
 }
 
 
@@ -535,7 +537,7 @@ void vFCU_LASEROPTO__Process_Packet(E_FCU__LASER_OPTO__INDEX_T eLaser)
 			f32Temp /= 100.0F;
 
 			//save off the distance.
-			sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32DistanceRAW = f32Temp;
+			sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32DistanceRAW = f32Temp; 
 
 			//save off.
 			sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].u8NewDistanceAvail = 1U; //todo: currently never cleared

@@ -606,7 +606,12 @@
 					/** is f32Distance equal to error value? */
 					Luint8 u8Error;
 
+					/** The filtered height */
+					Lfloat32 f32FilteredValue_mm;
 
+					/** The previous value */
+					Lfloat32 f32PrevDistances_mm[10];
+					
 					/** Diagnostic Counters */
 					struct
 					{
@@ -623,19 +628,13 @@
 						/** Keep track of how long its takes between bytes being seen */
 						Luint32 u32ByteSeenTimeOut;
 
+						/** Wait until there are at least ten measurements for a laser */
+						Luint8 u8AverageCounter_wait;
+
+						/** index counter to keep track oldest data point */
+						Luint8 u8AverageCounter;
+
 					}sCounters;
-
-					/** Filtered data structure */
-					struct
-					{
-
-						/** The filtered height */
-						Lfloat32 f32FilteredValue;
-
-						/** The previous value */
-						Lfloat32 f32PreviousValue;
-
-					}sFiltered;
 
 				}sOptoLaser[C_FCU__NUM_LASERS_OPTONCDT];
 
@@ -1521,8 +1520,8 @@
 			void vFCU_LASEROPTO_ETH__Transmit(E_NET__PACKET_T ePacketType);
 
 			//filtering
+			void vFCU_LASEROPTO_FILT__Init(void);
 			void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser);
-
 
 		
 		//brakes

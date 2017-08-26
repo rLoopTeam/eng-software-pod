@@ -1,7 +1,7 @@
 /**
  * @file		FCU__LASER_OPTO__FILTERING.C
- * @brief		OptoNCDT laser filtering system
- * @author		Lachlan Grogan, Marek Gutt-Mostowy
+ * @brief		OptoNCDT laser moving average filtering system
+ * @author		Lachlan Grogan, Dean Skoien
  * @copyright	rLoop Inc.
  */
 /**
@@ -24,6 +24,18 @@
 //the structure
 extern struct _strFCU sFCU;
 
+
+void vFCU_LASEROPTO_FILT__Init(void){
+	Luint8 u8Counter;
+
+	for(u8Counter = 0U; u8Counter < C_FCU__NUM_LASERS_OPTONCDT; u8Counter++){
+		sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u8AverageCounter = 0U;
+		sFCU.sLaserOpto.sOptoLaser[u8Counter].sCounters.u8AverageCounter_wait = 0U;
+	}
+
+}
+
+
 /***************************************************************************//**
  * @brief
  * Apply the laser opto filter
@@ -34,56 +46,35 @@ extern struct _strFCU sFCU;
  */
 void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser)
 {
-	Lfloat32 f32Temp;
-	Lfloat32 f32Temp2;
-	Lfloat32 f32FilterAlpha;
-	Lfloat32 f32NewSampleInfluence;
-	Lfloat32 f32OldSampleInfluence;
 
-	//initial parameters
-	f32FilterAlpha = 0.01F;
-	f32NewSampleInfluence = 0.0F;
-	f32OldSampleInfluence = 0.0F;
+	//update
+	sFCU.sLaserOpto.sOptoLaser[eLaser].f32PrevDistances_mm[sFCU.sLaserOpto.sOptoLaser[eLaser].sCounters.u8AverageCounter] = sFCU.sLaserOpto.sOptoLaser[eLaser].f32DistanceRAW;
 
-	//LG HACK
-	f32Temp = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32DistanceRAW;
+	if(sFCU.sLaserOpto.sOptoLaser[eLaser].sCounters.u8AverageCounter_wait == 9U){
+		//enough measurements taken, calculate moving average of distance
+		Luint8 u8Counter;
+		Lfloat32 f32AvgTemp;
+		f32AvgTemp = 0U;
+		for(u8Counter = 0U; u8Counter < C_FCU__OPTO_FILTER_WINDOW; u8Counter++){
+			f32AvgTemp += sFCU.sLaserOpto.sOptoLaser[eLaser].f32PreviousDistances_mm[u8Counter];
+			f32AvgTemp /= C_FCU__OPTO_FILTER_WINDOW;
+		}
 
-	//subtract the zero
-	f32Temp += sFCU.sLaserOpto.sCalibration[(Luint8)eLaser].f32Offset;
-	sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue = f32Temp;
+		//done calculating moving average, store it
+		sFCU.sLaserOpto.sOptoLaser[eLaser].f32FilteredValue_mm = f32AvgTemp;
 
-	//LG Hack
-	return;
-
-	//exponential moving average filter
-	f32Temp = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32DistanceRAW;
-	f32Temp -= sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32PreviousValue;
-
-	f32Temp2 = f32SIL3_NUM_ABS__F32(f32Temp);
-
-	//reject current value which differ by more than 5 mm from the previous value
-	if(f32Temp2 < 5.0F)
-	{
-		//  @see http://dsp.stackexchange.com/questions/20333/how-to-implement-a-moving-average-in-c-without-a-buffer
-
-		//Calculate the old sample influence
-		f32NewSampleInfluence = f32FilterAlpha * sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].f32DistanceRAW;
-
-		//Calculatre the new sample influence
-		f32OldSampleInfluence = (1.0F - f32FilterAlpha) * sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32PreviousValue;
-
-		//Update the current value
-		sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue = f32OldSampleInfluence + f32NewSampleInfluence;
-
-		// Remember the current value for next iteration
-		sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32PreviousValue = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue;
-	
 	}
-	else
-	{
-		// set current filtered value to the previous filtered value in case the differential is higher than 5
-		sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32FilteredValue = sFCU.sLaserOpto.sOptoLaser[(Luint8)eLaser].sFiltered.f32PreviousValue;
+	else{
+		// need at least ten measurements to compute the moving average, increment waiting counter
+		sFCU.sLaserOpto.sOptoLaser[eLaser].sCounters.u8AverageCounter_wait++;
 	}
+
+	//increment counter for next data point
+	sFCU.sLaserOpto.sOptoLaser[eLaser].sCounters.u8AverageCounter++; 
+	if(sFCU.sLaserOpto.sOptoLaser[eLaser].sCounters.u8AverageCounter == 10U){
+		sFCU.sLaserOpto.sOptoLaser[eLaser].sCounters.u8AverageCounter = 0U;
+	}
+
 }
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT
