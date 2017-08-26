@@ -556,7 +556,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__SPINDOWN(void)
 	// Check timeouts (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout) == 1U)
+		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.pSpindown_To_Idle_x10ms) == 1U)
 		{
 			#ifdef WIN32
 			DEBUG_PRINT("Spindown_To_Idle timeout expired -- transitioning to POD_STATE__IDLE");

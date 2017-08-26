@@ -183,6 +183,10 @@ Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Brake_To_Spindown(void)
 	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sTime.u8Brake_Spindown[0]);
 }
 
+Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Spindown_To_Idle(void)
+{
+	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sTime.u8Spindown_Idle[0]);
+}
 
 /*
 Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void)

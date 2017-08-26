@@ -251,6 +251,11 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_Time__Brake_Spindown_x10ms(Luint8 u8TrackIndex
 	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sTime.u8Brake_Spindown[0], u32Value);
 }
 
+void vFCU_FCTL_TRACKDB_WIN32__Set_Time__Spindown_Idle_x10ms(Luint8 u8TrackIndex, Luint32 u32Value)
+{
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sTime.u8Spindown_Idle[0], u32Value);
+}
+
 /*
 void vFCU_FCTL_TRACKDB_WIN32__Set_UsePusherSeparation(Luint8 u8TrackIndex, Luint8 u8Value)
 {
