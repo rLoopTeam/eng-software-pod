@@ -29,6 +29,16 @@
         Private m_cboSelectTrackDB As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper
         Private m_txtCurrentTrackDB As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U8
 
+        Private btnIDLE_TEST As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper
+        Private btnTEST_IDLE As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper
+        Private btnIDLE_ARMED As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper
+        Private btnARMED_IDLE As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper
+        Private btnARMED_PREP As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper
+        Private btnPREP_ARMED As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper
+        Private btnPREP_RDY As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper
+        Private btnRDY_PREP As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper
+        Private btnBRAKE As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper
+
         ''' <summary>
         ''' The logging directory
         ''' </summary>
@@ -98,6 +108,7 @@
                     Me.m_iRxCount += 1
                     Me.m_txtRxCount.Threadsafe__SetText(Me.m_iRxCount.ToString)
 
+                    Me.btnARMED_IDLE.Fade__Green()
 
                 End If
             End If
@@ -151,27 +162,11 @@
             Me.m_txtMissionPhase.ReadOnly = True
             Me.m_txtMissionPhase.HeaderFile__Set("../../../../FIRMWARE/PROJECT_CODE/LCCM655__RLOOP__FCU_CORE/FLIGHT_CONTROLLER/fcu__flight_controller__state_types.h", "TE_POD_STATE_T")
 
-
-
-
-            Dim l110 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Flight Controls", btnOn)
-
-            Dim btnGo As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Go", AddressOf Me.btnGo__Click)
-            btnGo.Layout__BelowControl(l110)
-
-            Dim btnFlightAbort As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Flight Abort", Nothing)
-            btnFlightAbort.Layout__RightOfControl(btnGo)
-
-
-            'Dim btnPodStop As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Pod Stop", AddressOf Me.btnPodStop__Click)
-            'btnPodStop.Layout__RightOfControl(btnFlightAbort)
             Dim btnPodSafe As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Pod Safe", AddressOf Me.btnPodSafed__Click)
             btnPodSafe.ToolTip__Set("Pod Safe", "Immediatly remove all power and safe the pod")
-            btnPodSafe.Layout__RightOfControl(btnFlightAbort)
+            btnPodSafe.Layout__RightOfControl(Me.m_txtMissionPhase)
 
-
-
-            Dim l2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Select Track DB", btnGo)
+            Dim l2 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Select Track DB", btnOn)
             Me.m_cboSelectTrackDB = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ComboBoxHelper(100, l2)
 
             For iCounter As Integer = 0 To C_NUM_TRACK_DATABASES - 1
@@ -186,11 +181,221 @@
             Dim btnChangeTrackDB As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Change DB", AddressOf Me.btnChangeTrackDB__Click)
             btnChangeTrackDB.Layout__RightOfControl(Me.m_txtCurrentTrackDB)
 
+
+            Dim l110 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Flight Controls", m_cboSelectTrackDB)
+
+            'Dim btnGo As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Go", AddressOf Me.btnGo__Click)
+            'btnGo.Layout__BelowControl(l110)
+
+            'Dim btnFlightAbort As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Flight Abort", Nothing)
+            'btnFlightAbort.Layout__RightOfControl(btnGo)
+
+
+            'button controls
+            'IDLE -> TEST
+            'TEST -> IDLE
+            'IDLE -> ARMED
+            'ARMED -> IDLE
+            'ARMED -> PREP
+            'PREP -> ARMED
+            'PREP -> RDY
+            'ABORT
+            Me.btnIDLE_TEST = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(120, "IDLE > TEST", AddressOf Me.btnIDLE_TEST__Click)
+            btnIDLE_TEST.Layout__BelowControl(l110)
+            Me.btnTEST_IDLE = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(120, "IDLE < TEST", AddressOf Me.btnTEST_IDLE__Click)
+            btnTEST_IDLE.Layout__RightOfControl(btnIDLE_TEST)
+
+            Me.btnIDLE_ARMED = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(120, "IDLE > ARMED", AddressOf Me.btnIDLE_ARMED__Click)
+            btnIDLE_ARMED.Layout__BelowControl(btnIDLE_TEST)
+            Me.btnARMED_IDLE = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(120, "ARMED < IDLE", AddressOf Me.btnARMED_IDLE__Click)
+            btnARMED_IDLE.Layout__RightOfControl(btnIDLE_ARMED)
+
+            Me.btnARMED_PREP = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(120, "ARMED > PREP", AddressOf Me.btnARMED_PREP__Click)
+            btnARMED_PREP.Layout__BelowControl(btnIDLE_ARMED)
+            Me.btnPREP_ARMED = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(120, "PREP < ARMED", AddressOf Me.btnPREP_ARMED__Click)
+            btnPREP_ARMED.Layout__RightOfControl(btnARMED_PREP)
+
+            Me.btnPREP_RDY = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(120, "PREP > RDY", AddressOf Me.btnPREP_RDY__Click)
+            btnPREP_RDY.Layout__BelowControl(btnARMED_PREP)
+            Me.btnRDY_PREP = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(120, "PREP < RDY", AddressOf Me.btnRDY_PREP__Click)
+            btnRDY_PREP.Layout__RightOfControl(btnPREP_RDY)
+
+            Me.btnBRAKE = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(120, "BRAKE", AddressOf Me.btnBRAKE__Click)
+            btnBRAKE.Layout__RightOfControl(btnRDY_PREP)
+
+
+
         End Sub
 
 #End Region '#Region "PANEL LAYOUT"
 
 #Region "BUTTON HELPERS"
+
+        ''' <summary>
+        ''' Idle to Test mode
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnIDLE_TEST__Click(s As Object, e As EventArgs)
+
+            'unlock
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &H4321FEDCL,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__TEST_MODE, 0, 0)
+            'execute
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &HDCBA9876L,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__TEST_MODE, 0, 0)
+
+
+        End Sub
+
+
+        ''' <summary>
+        ''' Test to Idle mode
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnTEST_IDLE__Click(s As Object, e As EventArgs)
+            'unlock
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &H4321FEDCL,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__IDLE, 0, 0)
+            'execute
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &HDCBA9876L,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__IDLE, 0, 0)
+
+        End Sub
+
+        ''' <summary>
+        ''' Idle to armed mode
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnIDLE_ARMED__Click(s As Object, e As EventArgs)
+            'unlock
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &H4321FEDCL,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__ARMED_WAIT, 0, 0)
+            'execute
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &HDCBA9876L,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__ARMED_WAIT, 0, 0)
+
+        End Sub
+
+
+        ''' <summary>
+        ''' Armed to idle mode
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnARMED_IDLE__Click(s As Object, e As EventArgs)
+            'unlock
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &H4321FEDCL,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__IDLE, 0, 0)
+            'execute
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &HDCBA9876L,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__IDLE, 0, 0)
+
+        End Sub
+
+        ''' <summary>
+        ''' Armed to flight prep mode
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnARMED_PREP__Click(s As Object, e As EventArgs)
+            'unlock
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &H4321FEDCL,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__FLIGHT_PREP, 0, 0)
+            'execute
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &HDCBA9876L,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__FLIGHT_PREP, 0, 0)
+
+        End Sub
+
+        ''' <summary>
+        ''' Flight prep to Armed mode
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnPREP_ARMED__Click(s As Object, e As EventArgs)
+            'unlock
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &H4321FEDCL,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__ARMED_WAIT, 0, 0)
+            'execute
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &HDCBA9876L,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__ARMED_WAIT, 0, 0)
+
+        End Sub
+
+        ''' <summary>
+        ''' Flight prep to ready mode
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnPREP_RDY__Click(s As Object, e As EventArgs)
+            'unlock
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &H4321FEDCL,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__READY, 0, 0)
+            'execute
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &HDCBA9876L,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__READY, 0, 0)
+
+        End Sub
+
+
+        ''' <summary>
+        ''' Ready to Flight prep mode
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnRDY_PREP__Click(s As Object, e As EventArgs)
+            'unlock
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &H4321FEDCL,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__FLIGHT_PREP, 0, 0)
+            'execute
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                 &HDCBA9876L,
+                                                 SIL3.rLoop.rPodControl.Ethernet.TE_POD_COMMAND_T.POD_COMMAND__FLIGHT_PREP, 0, 0)
+
+        End Sub
+
+        ''' <summary>
+        ''' (emergency) Braking mode
+        ''' </summary>
+        ''' <param name="s"></param>
+        ''' <param name="e"></param>
+        Private Sub btnBRAKE__Click(s As Object, e As EventArgs)
+
+        End Sub
 
         ''' <summary>
         ''' Change the current track database

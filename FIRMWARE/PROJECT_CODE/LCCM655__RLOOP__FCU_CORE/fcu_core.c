@@ -36,6 +36,8 @@ void vFCU__Init(void)
 
 	//init any FCU variabes
 	sFCU.eInitStates = INIT_STATE__RESET;
+	sFCU.u32ResetTimer = 0U;
+	sFCU.u8ResetActive = 0U;
 
 	//setup some guarding, prevents people lunching the memory
 	sFCU.u32Guard1 = 0xAABBCCDDU;
@@ -501,16 +503,24 @@ void vFCU__Process(void)
 				vFCU_FCTL__Init();
 			#endif
 
-#ifndef WIN32
-			//release RM57 boards from reset.
-			vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__1, MIBSPI135_PIN__CS3, 0U);
-#endif
 
 			//move state
 			sFCU.eInitStates = INIT_STATE__RUN;
 			break;
 
 		case INIT_STATE__RUN:
+
+
+			if((sFCU.u32ResetTimer > 10) && (sFCU.u8ResetActive == 0U))
+			{
+
+#ifndef WIN32
+				//release RM57 boards from reset.
+				vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__1, MIBSPI135_PIN__CS3, 0U);
+#endif
+				sFCU.u8ResetActive = 1U;
+			}
+
 
 			#if C_LOCALDEF__LCCM663__ENABLE_THIS_MODULE == 1U
 				//CPU load processing
@@ -618,6 +628,8 @@ void vFCU__Process(void)
  */
 void vFCU__RTI_100MS_ISR(void)
 {
+
+	sFCU.u32ResetTimer++;
 
 	//OptoNCDT Timer
 	#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U

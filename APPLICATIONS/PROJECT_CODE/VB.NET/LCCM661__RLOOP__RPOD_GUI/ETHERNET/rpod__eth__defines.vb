@@ -22,6 +22,15 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         POD_CTRL_PT__BMS_B
     End Enum
 
+    Public Enum TE_POD_COMMAND_T
+        POD_COMMAND__NO_COMMAND
+        POD_COMMAND__IDLE
+        POD_COMMAND__TEST_MODE
+        POD_COMMAND__DRIVE
+        POD_COMMAND__FLIGHT_PREP
+        POD_COMMAND__ARMED_WAIT
+        POD_COMMAND__READY
+    End Enum
 
     ''' <summary>
     ''' Network packet defines

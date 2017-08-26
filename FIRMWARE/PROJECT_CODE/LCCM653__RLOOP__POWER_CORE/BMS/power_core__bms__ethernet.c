@@ -106,6 +106,9 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 				//State of charge
 				u16Length += 4U;
+
+				//latch status
+				u16Length += 1U;
 			#else
 				#error
 			#endif
@@ -423,6 +426,9 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
                 //state of charge
                 vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sPWRNODE.sBMS.f32StateOfCharge);
                 pu8Buffer += 4U;
+
+                pu8Buffer[0] = sPWRNODE.sDC.u8RelayState;
+                pu8Buffer += 1U;
 
 				break;
 

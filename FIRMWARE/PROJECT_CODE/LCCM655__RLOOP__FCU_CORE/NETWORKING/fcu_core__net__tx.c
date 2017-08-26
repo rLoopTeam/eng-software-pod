@@ -37,7 +37,7 @@ void vFCU_NET_TX__Init(void)
 
 	//set our default packet types
 	sFCU.sUDPDiag.eTxPacketType = NET_PKT__NONE;
-	sFCU.sUDPDiag.eTxStreamingType = NET_PKT__NONE;
+	sFCU.sUDPDiag.eTxStreamingType = NET_PKT__FCU_GEN__TX_MISSION_DATA;
 
 	#if C_LOCALDEF__LCCM655__ENABLE_SPACEX_TELEMETRY == 1U
 		vFCU_NET_SPACEX_TX__Init();

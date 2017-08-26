@@ -365,7 +365,7 @@ RM4 I2C
 		#define C_LOCALDEF__LCCM215__OWN_ADDRESS                        	(0x50)
 
 		/** Number of loops to wait for the timeout*/
-		#define C_LOCALDEF__LCCM215__TIMEOUT_CYCLES   						(500000U)
+		#define C_LOCALDEF__LCCM215__TIMEOUT_CYCLES   						(50000U)
 
 		#define C_LOCALDEF__LCCM215__USE_INTERRUPTS 						(0U)
 
@@ -1209,7 +1209,7 @@ SIL3 - MMA8451 3 AXIS ACCELEROMETER
 #if C_LOCALDEF__LCCM668__ENABLE_THIS_MODULE == 1U
 		#define C_LOCALDEF__LCCM418__NUM_DEVICES							(1U)
 #else
-		#define C_LOCALDEF__LCCM418__NUM_DEVICES							(2U)
+		#define C_LOCALDEF__LCCM418__NUM_DEVICES							(1U)
 #endif
 
 		#define C_LOCALDEF__LCCM418__DELAY_US(x)							vRM4_DELAYS__Delay_uS(x)

@@ -54,6 +54,10 @@
 			/** Structure guard 1*/
 			Luint32 u32Guard1;
 
+			/** Timer to handle external resets */
+			Luint32 u32ResetTimer;
+			Luint8 u8ResetActive;
+
 
 			/** Navigation System */
 			struct

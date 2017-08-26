@@ -1001,6 +1001,69 @@ LAPP188__RLOOP__RPOD_CONTROL
  </summary>
  <remarks></remarks>
 </member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.btnIDLE_TEST__Click(System.Object,System.EventArgs)">
+ <summary>
+ Idle to Test mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.btnTEST_IDLE__Click(System.Object,System.EventArgs)">
+ <summary>
+ Test to Idle mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.btnIDLE_ARMED__Click(System.Object,System.EventArgs)">
+ <summary>
+ Idle to armed mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.btnARMED_IDLE__Click(System.Object,System.EventArgs)">
+ <summary>
+ Armed to idle mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.btnARMED_PREP__Click(System.Object,System.EventArgs)">
+ <summary>
+ Armed to flight prep mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.btnPREP_ARMED__Click(System.Object,System.EventArgs)">
+ <summary>
+ Flight prep to Armed mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.btnPREP_RDY__Click(System.Object,System.EventArgs)">
+ <summary>
+ Flight prep to ready mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.btnRDY_PREP__Click(System.Object,System.EventArgs)">
+ <summary>
+ Ready to Flight prep mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
+<member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.btnBRAKE__Click(System.Object,System.EventArgs)">
+ <summary>
+ (emergency) Braking mode
+ </summary>
+ <param name="s"></param>
+ <param name="e"></param>
+</member>
 <member name="M:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.Mission.btnChangeTrackDB__Click(System.Object,System.EventArgs)">
  <summary>
  Change the current track database

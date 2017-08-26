@@ -37,15 +37,15 @@
 		/** RM4 I2C Main Structure */
 		struct _strRM4I2C
 		{
-			Luint32 u32Length;
-			Luint8 *pu8Data;
+			//Luint32 u32Length;
+			//Luint8 *pu8Data;
 
 
 			/** The fault flags for the module */
 			FAULT_TREE__PUBLIC_T sFaultFlags;
 
 			/** The timeout counter */
-			Luint32 u32TimeoutCounter;
+			Luint32 u32TimeoutCounter[2U];
 
 
 			/** Statistics Structure */
@@ -146,9 +146,9 @@
 		Luint8 u8RM4_I2C_WAIT__RxBufferFull(TE_RM4_I2C__CHANNEL eChannel);
 
 		//timeout
-		void vRM4_I2C_TIMEOUT__Start(void);
-		Luint8 u8RM4_I2C_TIMEOUT__Check(void);
-		void vRM4_I2C_TIMEOUT__Stop(void);
+		void vRM4_I2C_TIMEOUT__Start(TE_RM4_I2C__CHANNEL eChannel);
+		Luint8 u8RM4_I2C_TIMEOUT__Check(TE_RM4_I2C__CHANNEL eChannel);
+		void vRM4_I2C_TIMEOUT__Stop(TE_RM4_I2C__CHANNEL eChannel);
 
 		//local functions
 		void vRM4_I2C__TransmiterEnable(TE_RM4_I2C__CHANNEL eChannel);
