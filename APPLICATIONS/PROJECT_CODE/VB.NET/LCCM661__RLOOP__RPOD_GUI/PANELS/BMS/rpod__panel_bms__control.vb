@@ -27,6 +27,7 @@
         Private m_txtBatt_Current As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtCharge_Current As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
         Private m_txtBatt_SoC As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_F32
+        Private m_chkLatched As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
 
         ''' <summary>
         ''' The current bms channel
@@ -112,11 +113,15 @@
 
 
 
+
             Dim btnLatch As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Latch", AddressOf Me.btnlatch_Click)
             btnLatch.Layout__BelowControl(Me.m_txtPackVolts)
 
             Dim btnSafe As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Safe", AddressOf Me.btnSafe_Click)
             btnSafe.Layout__RightOfControl(btnLatch)
+
+            Me.m_chkLatched = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper("Latched")
+            Me.m_chkLatched.Layout__BelowControl(btnLatch)
 
 
         End Sub
@@ -298,7 +303,12 @@
                     iOffset += m_txtCharge_Current.Value__Update(u8Payload, iOffset)
                     iOffset += m_txtBatt_SoC.Value__Update(u8Payload, iOffset)
 
+                    If u8Payload(iOffset) = 0 Then
+                        Me.m_chkLatched.Threadsafe__SetChecked(False)
+                    Else
+                        Me.m_chkLatched.Threadsafe__SetChecked(True)
 
+                    End If
 
                     Me.m_iRxCount += 1
                     Me.m_txtRxCount.Threadsafe__SetText(Me.m_iRxCount.ToString)

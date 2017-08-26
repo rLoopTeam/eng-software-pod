@@ -86,9 +86,27 @@
                     Me.m_iRxCount += 1
                     Me.m_txtRxCount.Threadsafe__SetText(Me.m_iRxCount.ToString)
 
+                ElseIf ePacketType = SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__TX_MISSION_DATA Then
+
+                    Dim iOffset As Integer = 0
+
+                        Dim pu32Flags(C_NUM__FAULT_FLAGS - 1) As LAPP188__RLOOP__LIB.SIL3.Numerical.U32
+
+                    '11 in
+                    iOffset += 11
+
+                    For iCounter As Integer = 0 To 33 - 1
+                        pu32Flags(iCounter) = New LAPP188__RLOOP__LIB.SIL3.Numerical.U32(u8Payload, iOffset)
+                        iOffset += 4
+                        Me.m_txtFaults(iCounter).Flags__Update(pu32Flags(iCounter), True)
+                    Next
 
 
-                End If
+                    Me.m_iRxCount += 1
+                        Me.m_txtRxCount.Threadsafe__SetText(Me.m_iRxCount.ToString)
+
+
+                    End If
             End If
 
         End Sub
