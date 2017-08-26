@@ -735,18 +735,32 @@
 
 				/** The most recent distance in mm*/
 				Lint32 s32Distance_mm;
-
-				/** Previous distance of last sample */
+				/** Previous distances */
 				Lint32 s32PrevDistance_mm;
-
-				Lint32 s32Velocity_mm_s;
-				Lint32 s32PrevVelocity_mm_s;
-
-				Lint32 s32Accel_mm_ss;
-				Lint32 s32PrevAccel_mm_ss;
-
+				Lint32 s32PrevDistances_mm[10]; //compute velocity using change in distance per .2s
 				/** The final filtered distance*/
-				//Lfloat32 f32DistanceFiltered;
+				Lint32 s32Distance_Filtered_mm; //distance moving average
+
+				/** The most recent velocity in mm/s */
+				Lint32 s32Velocity_mm_s;
+				/** Previous distances */
+				Lint32 s32PrevVelocity_mm_s;
+				Lint32 s32PrevVelocities_mm_s[10]; //compute accel using change in velocity per .2s
+				/** The final filtered velocity */
+				Lint32 s32Velocity_Filtered_mm_s;
+
+				/** The most recent acceleration in mm/s */
+				Lint32 s32Accel_mm_ss;
+				/** Previous distances */
+				Lint32 s32PrevAccel_mm_ss;
+				Lint32 s32PrevAccelerations_mm_ss[10]; //used for moving average of acceleration values
+				/** The final filtered acceleration */
+				Lint32 s32Acceleration_Filtered_mm_ss;
+
+				Luint8 u8AverageCounter;
+				Luint8 u8AverageCounter_Distance_wait;
+				Luint8 u8AverageCounter_Velocity_wait;
+				Luint8 u8AverageCounter_Acceleration_wait;
 
 				/** New distance has been measured, other layer to clear it */
 				Luint8 u8NewDistanceAvail;
@@ -791,6 +805,10 @@
 					Luint32 u32Counter__ErrorCode;
 
 				}sBinary;
+
+				/** Count Bad Distance Measurements in ascii mode **/
+				Luint32 u32Counter__BadDistance;
+
 
 			}sLaserDist;
 
@@ -1491,6 +1509,7 @@
 		void vFCU_LASERDIST__Process(void);
 		Lint32 s32FCU_LASERDIST__Get_Distance_mm(void);
 		Lint32 s32FCU_LASERDIST__Get_Velocity_mms(void);
+		Lint32 s32FCU_LASERDIST__Get_Acceleration_mmss(void);
 		void vFCU_LASERDIST__100MS_ISR(void);
 		DLL_DECLARATION void vFCU_LASERDIST_WIN32__Set_DistanceRaw(Lint32 s32Value);
 

@@ -24,8 +24,8 @@ void vFCU_LASERDIST_VALID__Process(void)
 	{
 		//we are good to go
 
-		//todo: check the sensor range
-		if(sFCU.sLaserDist.s32Distance_mm < 40000)
+		//check the sensor range
+		if(sFCU.sLaserDist.s32Distance_mm < 130000)
 		{
 			//if the range is good, apply the current dat
 			sFCU.sLaserDist.sValid.s32ValidAccel_mm_ss = sFCU.sLaserDist.s32Accel_mm_ss;
@@ -38,7 +38,7 @@ void vFCU_LASERDIST_VALID__Process(void)
 		}
 		else
 		{
-			//we are greater than 40m, not valid anymore
+			//we are greater than 130m, not valid anymore
 			u8Valid = 0U;
 		}
 

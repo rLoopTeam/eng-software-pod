@@ -17,55 +17,7 @@
  *
  * 2 					MOK
  * 						(Binary format distances)
- *
- * 3 					MOK
- * 						HW BINARY MODE
- * 						ESC to EXIT
- *
- * 4 					MOK
- * 						RS BINARY MODE
- * 						ESC to EXIT
- *
- * 5 (example) 			MOK
- * 						TRIGGER MODE
- * 						TRIG IN 500�550 cm
- * 						ESC to EXIT
- *
- * 6 (example) 			MOK
- * 						TWO DEVICE SPEED MODE
- * 						TRIG IN 500�550 cm
- * 						ESC to EXIT
- *
- * 7 (example) 			MOK
- * 						SINGLE DEVICE SPEED MODE
- * 						Approaching vehicles mode Speed window size : 100 cm
- * 						TRIG IN 2000�2500cm
- * 						ESC to EXIT
- *
- * 8 					MOK
- * 						ESC to EXIT
- * 						HW CAPTURE MODE (1000 SAMPLES)
- *
- * 9 					RS CAPTURE MODE (1000 SAMPLES)
- * 						ESC to EXIT
- *
- * 10 					CONTINUOUS SPEED MODE. ESC TO EXIT
- *
- * 11 (example) 		SINGLE DEVICE SIZE MODE
- * 						Departing vehicles mode
- * 						Speed window size : 300 cm
- * 						Vehicle classification activated.
- * 						TRIG IN 2460�2960 cm
- * 						ESC to EXIT
- *
- * 12 (example) 		MULTILANE SINGLE DEVICE SPEED MODE
- * 						Lane Configuration:
- * 						ESC to EXIT
- *
- * 13 (example) 		MOVEMENT TRIGGER MODE
- * 						Reference distance : 995 cm
- * 						TRIG IN 945- 1045 cm
- * 						ESC to EXIT
+
  *
  * @author		Lachlan Grogan
  * @copyright	rLoop Inc.
@@ -97,7 +49,7 @@ void vFCU_LASERDIST__Process_Packet(void);
  * @brief
  * Init any of the laser distance items
  * 
- * @st_funcMD5		A7E0792439C45DE8B1C6853C1AF2D712
+ * @st_funcMD5		FCC72DBDF50BF7A9B8218E9DE78B2C2B
  * @st_funcID		LCCM655R0.FILE.033.FUNC.001
  */
 void vFCU_LASERDIST__Init(void)
@@ -125,13 +77,24 @@ void vFCU_LASERDIST__Init(void)
 	sFCU.sLaserDist.s32Accel_mm_ss = 0;
 	sFCU.sLaserDist.s32PrevAccel_mm_ss = 0;
 
+	sFCU.sLaserDist.u8AverageCounter = 0U;
+	sFCU.sLaserDist.u8AverageCounter_Distance_wait = 0U;
+	sFCU.sLaserDist.u8AverageCounter_Velocity_wait = 0U;
+	sFCU.sLaserDist.u8AverageCounter_Acceleration_wait = 0U;
+
+	//clear the time dependent arrays
+	Luint8 u8Counter;
+	for(u8Counter = 0U; u8Counter < 10; u8Counter++) //todo: fix the hardcoded val
+	{
+		sFCU.sLaserDist.s32PrevDistances_mm[u8Counter] = 0;
+		sFCU.sLaserDist.s32PrevVelocities_mm_s[u8Counter] = 0;
+	}
 
 	//clear the binary distance mode
 	sFCU.sLaserDist.sBinary.unRx.u32 = 0U;
 	sFCU.sLaserDist.sBinary.u32Counter__MissedStart = 0U;
 	sFCU.sLaserDist.sBinary.u32Counter__BadDistance = 0U;
 	sFCU.sLaserDist.sBinary.u32Counter__ErrorCode = 0U;
-
 	//setup the filtering
 	vFCU_LASERDIST_FILT__Init();
 
@@ -153,8 +116,6 @@ void vFCU_LASERDIST__Process(void)
 	Luint8 u8Temp;
 	Luint8 u8BurstCount;
 	Luint8 u8Array[4];
-
-
 
 
 	//check for emulation
@@ -186,6 +147,16 @@ void vFCU_LASERDIST__Process(void)
 
 			//vSIL3_FAULTTREE__Set_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
 
+#if 0
+			//G - tell the laser to reset
+			//<ESC>, G, <CR>
+			u8Array[0] = 0x1BU;
+			u8Array[1] = 0x47U;
+			u8Array[2] = 0x0DU;
+
+			//send it.
+			vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 3U);
+#endif
 			//setup the lasers
 			sFCU.sLaserDist.eLaserState = LASERDIST_STATE__WAIT_LASER_RESET;
 			break;
@@ -194,12 +165,11 @@ void vFCU_LASERDIST__Process(void)
 
 			//wait here until the lasers are out of rest.
 			//5 seconds onsite hack to wait for the laser up.
-			if(sFCU.sLaserDist.u32LaserPOR_Counter > 500U)
+			if(sFCU.sLaserDist.u32LaserPOR_Counter > 50U)
 			{
 				//vSIL3_FAULTTREE__Clear_Flag(&sFCU.sLaserDist.sFaultFlags, 0);
 
-				//onsite hack
-				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__CHECK_NEW_DATA; //LASERDIST_STATE__INIT_LASER_TURNON;
+				sFCU.sLaserDist.eLaserState = LASERDIST_STATE__INIT_LASER_TURNON;
 			}
 			else
 			{
@@ -208,42 +178,122 @@ void vFCU_LASERDIST__Process(void)
 			break;
 
 		case LASERDIST_STATE__INIT_LASER_TURNON:
+#if 0
+				if(1)
+				{
+					//tell the pointer to turn on
+					//<ESC>, O, 1, <CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x4FU;
+					u8Array[2] = 0x31U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
 
-			//tell the laser to turn on
-			//<ESC>, O, 1, <CR>
-			u8Array[0] = 0x1BU;
-			u8Array[1] = 0x4FU;
-			u8Array[2] = 0x31U;
-			u8Array[3] = 0x0DU;
+				if(0)
+				{
+					//laser info
+					//<ESC>, V, 1, <CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x56U;
+					u8Array[2] = 0x31U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
 
-			//send it.
-			vSIL3_SC16__Tx_U8Array(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				if(0)
+				{
+					//Run self test - responds 'OK' if good, else 'ERR'
+					//<ESC>, V, 2, <CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x56U;
+					u8Array[2] = 0x32U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
 
-#ifndef WIN32
-			vRM4_DELAYS__Delay_mS(50);
+				//Read user parameters in permanent memory
+				if(0)
+				{
+					//Operation mode, No. 1
+					//<ESC>, P, 1, <CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x50U;
+					u8Array[2] = 0x31U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
+
+				if(0)
+				{
+					//baud, No. 4
+					//<ESC>P4<CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x50U;
+					u8Array[2] = 0x34U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
+				if(0)
+				{
+					//Control Byte2, No. 3 (if extended cm: 128, or mm: 64, or none: 0 )
+					//<ESC>P3<CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x50U;
+					u8Array[2] = 0x33U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
+
+				if(0)
+				{
+					//binary averaging, No. 22
+					//<ESC>P22<CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x50U;
+					u8Array[2] = 0x32U;
+					u8Array[3] = 0x32U;
+					u8Array[4] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 5U);
+				}
+
+				if(0)
+				{
+					//Set measurement mode to continuous ASCII
+					//<ESC>, M, 1, <CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x4DU;
+					u8Array[2] = 0x31U;
+					u8Array[3] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
+				}
+
+				if(0)
+				{
+					//C - enable continious ascii
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x63U;
+					u8Array[2] = 0x0DU;
+				}
+				if(0)
+				{
+					//Check all current params
+					//<ESC>, L <CR>
+					u8Array[0] = 0x1BU;
+					u8Array[1] = 0x4CU;
+					u8Array[2] = 0x0DU;
+					//send it.
+					vSIL3_SC16__Tx_ByteArray(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 3U);
+				}
 #endif
-
-			//<ESC>, M, 1, <CR>
-			u8Array[0] = 0x1BU;
-			u8Array[1] = 0x4DU;
-			u8Array[2] = 0x31U;
-			u8Array[3] = 0x0DU;
-
-			//send it.
-			vSIL3_SC16__Tx_U8Array(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 4U);
-
-#ifndef WIN32
-			vRM4_DELAYS__Delay_mS(50);
-#endif
-
-			//C
-			u8Array[0] = 0x1BU;
-			u8Array[1] = 0x63U;
-			u8Array[2] = 0x0DU;
-
-			//send it.
-			vSIL3_SC16__Tx_U8Array(C_FCU__SC16_FWD_LASER_INDEX, (Luint8*)&u8Array[0], 3U);
-
 			sFCU.sLaserDist.eLaserState = LASERDIST_STATE__WAIT_INIT_DONE;
 			break;
 
@@ -281,8 +331,13 @@ void vFCU_LASERDIST__Process(void)
 					//get the byte and send it off for processing if we have enough data
 					u8Temp = u8SIL3_SC16_USER__Get_Byte(C_FCU__SC16_FWD_LASER_INDEX);
 
-					//process the byte.
-					vFCU_LASERDIST__Append_Byte(u8Temp);
+				//BINARY MODE
+					//vFCU_LASERDIST__Append_Byte(u8Temp);
+
+
+#if 1			    //ASCII MODE
+					vFCU_LASERDIST__Append_Byte_ASCII(u8Temp);
+#endif
 				}
 
 			}//for(u8BurstCount = 0U; u8BurstCount < 3U; u8BurstCount++)
@@ -297,7 +352,14 @@ void vFCU_LASERDIST__Process(void)
 			if(sFCU.sLaserDist.u8NewPacket == 1U)
 			{
 				//we have a new laser packet, process it for distance or error code.
-				vFCU_LASERDIST__Process_Packet();
+
+			//Continues binary mode
+				//vFCU_LASERDIST__Process_Packet();
+
+
+#if 1			//Continues ascii mode
+				vFCU_LASERDIST__Process_Packet_ASCII();
+#endif
 
 				//clear the flag
 				sFCU.sLaserDist.u8NewPacket = 0U;
@@ -319,7 +381,7 @@ void vFCU_LASERDIST__Process(void)
 	}//switch(sFCU.sLasers.eLaserState)
 
 	//process the laser distance filtering.
-	vFCU_LASERDIST_FILT__Process();
+	//vFCU_LASERDIST_FILT__Process();
 
 	//no new data
 	if(sFCU.sLaserDist.u32BytesSeen_Counter > 5U)
@@ -362,6 +424,26 @@ Lint32 s32FCU_LASERDIST__Get_Distance_mm(void)
 	return sFCU.sLaserDist.s32Distance_mm;
 }
 
+/***************************************************************************//**
+ * @brief
+ * Return the current computed velocity.
+ * 
+ */
+Lint32 s32FCU_LASERDIST__Get_Velocity_mms(void)
+{
+	return sFCU.sLaserDist.s32Velocity_mm_s;
+}
+
+/***************************************************************************//**
+ * @brief
+ * Return the current computed acceleration.
+ * 
+ */
+Lint32 s32FCU_LASERDIST__Get_Acceleration_mmss(void)
+{
+	return sFCU.sLaserDist.s32Accel_mm_ss;
+}
+
 
 //process the binary packet.
 /***************************************************************************//**
@@ -374,24 +456,34 @@ Lint32 s32FCU_LASERDIST__Get_Distance_mm(void)
 void vFCU_LASERDIST__Process_Packet(void)
 {
 	Lfloat32 f32Delta;
-
 	//update
-	sFCU.sLaserDist.s32Distance_mm = (Lint32)sFCU.sLaserDist.sBinary.unRx.u32;
-
+	sFCU.sLaserDist.s32Distance_mm = (Lint32)sFCU.sLaserDist.sBinary.unRx.u32 / 100;
+     /////////////////
 	//compute veloc
 	f32Delta = (Lfloat32)sFCU.sLaserDist.s32PrevDistance_mm;
 	f32Delta -= sFCU.sLaserDist.s32Distance_mm;
 
-	//50hz
-	f32Delta *= 0.05F;
+	//100Hz
+	f32Delta *= .01F;
 
 	//do it.
 	sFCU.sLaserDist.s32Velocity_mm_s = (Lint32)f32Delta;
 
+	//////////////////
+    //compute accel
+    f32Delta = (Lfloat32)sFCU.sLaserDist.s32PrevVelocity_mm_s;
+    f32Delta -= sFCU.sLaserDist.s32Velocity_mm_s;
+
+    //100hz
+    f32Delta *= .01F;
+
+    //do it.
+    sFCU.sLaserDist.s32Accel_mm_ss = (Lint32)f32Delta;
+
 	//save prev
 	sFCU.sLaserDist.s32PrevDistance_mm = sFCU.sLaserDist.s32Distance_mm;
 	sFCU.sLaserDist.s32PrevVelocity_mm_s = sFCU.sLaserDist.s32Velocity_mm_s;
-
+	sFCU.sLaserDist.s32PrevAccel_mm_ss = sFCU.sLaserDist.s32Accel_mm_ss;
 
 }
 
@@ -413,55 +505,211 @@ void vFCU_LASERDIST__Process_Packet_ASCII(void)
 
 	//compute the distance
 	//1s
-	u8Temp = sFCU.sLaserDist.u8NewByteArray[4];
-	u8Temp -= 0x30U;
-	u32Distance = (Luint32)u8Temp;
+	if(sFCU.sLaserDist.u8NewByteArray[5] == '\r'){
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[4];
+		u8Temp -= 0x30U;
+		u32Distance = (Luint32)u8Temp;
 
-	//10s
-	u8Temp = sFCU.sLaserDist.u8NewByteArray[3];
-	u8Temp -= 0x30U;
-	u32Temp = (Luint32)u8Temp;
-	u32Temp *= 10U;
-	u32Distance += u32Temp;
+		//10s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[3];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 10U;
+		u32Distance += u32Temp;
 
-	//100s
-	u8Temp = sFCU.sLaserDist.u8NewByteArray[2];
-	u8Temp -= 0x30U;
-	u32Temp = (Luint32)u8Temp;
-	u32Temp *= 100U;
-	u32Distance += u32Temp;
+		//100s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[2];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 100U;
+		u32Distance += u32Temp;
 
-	//1000s
-	u8Temp = sFCU.sLaserDist.u8NewByteArray[1];
-	u8Temp -= 0x30U;
-	u32Temp = (Luint32)u8Temp;
-	u32Temp *= 1000U;
-	u32Distance += u32Temp;
+		//1000s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[1];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 1000U;
+		u32Distance += u32Temp;
 
-	//10000s
-	u8Temp = sFCU.sLaserDist.u8NewByteArray[0];
-	u8Temp -= 0x30U;
-	u32Temp = (Luint32)u8Temp;
-	u32Temp *= 10000U;
-	u32Distance += u32Temp;
+		//10000s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[0];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 10000U;
+		u32Distance += u32Temp;
+	}
+	else{
+		// there's an extra byte because we're >100m
 
-	//update
-	sFCU.sLaserDist.s32Distance_mm = (Lint32)u32Distance;
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[5];
+		u8Temp -= 0x30U;
+		u32Distance = (Luint32)u8Temp;
 
-	//compute veloc
-	f32Delta = (Lfloat32)sFCU.sLaserDist.s32PrevDistance_mm;
-	f32Delta -= sFCU.sLaserDist.s32Distance_mm;
+		//10s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[4];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 10U;
+		u32Distance += u32Temp;
 
-	//50hz
-	f32Delta *= 0.05F;
+		//100s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[3];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 100U;
+		u32Distance += u32Temp;
 
-	//do it.
-	sFCU.sLaserDist.s32Velocity_mm_s = (Lint32)f32Delta;
+		//1000s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[2];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 1000U;
+		u32Distance += u32Temp;
 
-	//save prev
-	sFCU.sLaserDist.s32PrevDistance_mm = sFCU.sLaserDist.s32Distance_mm;
-	sFCU.sLaserDist.s32PrevVelocity_mm_s = sFCU.sLaserDist.s32Velocity_mm_s;
+		//10000s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[1];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 10000U;
+		u32Distance += u32Temp;
 
+		//100000s
+		u8Temp = sFCU.sLaserDist.u8NewByteArray[0];
+		u8Temp -= 0x30U;
+		u32Temp = (Luint32)u8Temp;
+		u32Temp *= 100000U;
+		u32Distance += u32Temp;
+	}
+	//todo: should move to a new function here
+	// check for error distance value
+	if(u32Distance == 0U){
+		//u32Distance == 0 error
+		sFCU.sLaserDist.sFaultFlags.u32Flags[0] = 1U;
+		sFCU.sLaserDist.u32Counter__BadDistance++;
+	}
+	else{
+		// all good, clear error flag
+		sFCU.sLaserDist.sFaultFlags.u32Flags[0] = 0U;
+
+		//update
+		sFCU.sLaserDist.s32Distance_mm = (Lint32)u32Distance;
+		sFCU.sLaserDist.s32PrevDistances_mm[sFCU.sLaserDist.u8AverageCounter] = sFCU.sLaserDist.s32Distance_mm;
+
+		if(sFCU.sLaserDist.u8AverageCounter_Distance_wait == 9U){
+			//enough measurements to compute distance moving avg and vel
+
+			//calculate distance moving average
+			Luint8 u8Counter;
+			Lint32 s32AvgTemp;
+			s32AvgTemp = 0U;
+			for(u8Counter = 0U; u8Counter < 10; u8Counter++){ //todo: fix hardcoded value
+				s32AvgTemp += sFCU.sLaserDist.s32PrevDistances_mm[u8Counter];
+				s32AvgTemp /= 10; //todo: fix hardcoded value
+			}
+
+			//done calculating moving average, store it
+			sFCU.sLaserDist.s32Distance_Filtered_mm = s32AvgTemp;
+
+			//compute new velocity
+			Lint32 s32VelTemp;
+
+			s32VelTemp = sFCU.sLaserDist.s32Distance_mm;
+
+			//move counter forward one temporarily to get the oldest value in the array
+			sFCU.sLaserDist.u8AverageCounter++;
+			if(sFCU.sLaserDist.u8AverageCounter == 10U){
+				sFCU.sLaserDist.u8AverageCounter = 0U;
+			}
+
+			s32VelTemp -= sFCU.sLaserDist.s32PrevDistances_mm[sFCU.sLaserDist.u8AverageCounter];
+			s32VelTemp *= 5; //.2s time window for velocity calc
+
+			// done calculating velocity
+			sFCU.sLaserDist.s32Velocity_mm_s = s32VelTemp;
+
+			//move the counter back one 
+			if(sFCU.sLaserDist.u8AverageCounter == 0U){
+				sFCU.sLaserDist.u8AverageCounter = 9U;
+			}
+			else{
+				sFCU.sLaserDist.u8AverageCounter--;
+			}
+
+			//store velocity
+			sFCU.sLaserDist.s32PrevVelocities_mm_s[sFCU.sLaserDist.u8AverageCounter] = sFCU.sLaserDist.s32Velocity_mm_s;
+
+			if(sFCU.sLaserDist.u8AverageCounter_Velocity_wait == 9U){
+				//have enough measurements to calc vel moving avg and accel
+
+				//calculate velocity moving average
+				s32AvgTemp = 0U;
+				for(u8Counter = 0U; u8Counter < 10; u8Counter++){ //todo: fix hardcoded value
+					s32AvgTemp += sFCU.sLaserDist.s32PrevVelocities_mm_s[u8Counter];
+					s32AvgTemp /= 10; //todo: fix hardcoded value
+				}
+
+				//done calculating moving average, store it
+				sFCU.sLaserDist.s32Velocity_Filtered_mm_s = s32AvgTemp;
+
+				//calculate acceleration
+				Lint32 s32AccelTemp;
+
+				s32AccelTemp = sFCU.sLaserDist.s32Velocity_mm_s;
+
+				//move counter forward one temporarily to get the oldest value in the array
+				sFCU.sLaserDist.u8AverageCounter++;
+				if(sFCU.sLaserDist.u8AverageCounter == 10U){
+					sFCU.sLaserDist.u8AverageCounter = 0U;
+				}
+
+				s32AccelTemp -= sFCU.sLaserDist.s32PrevVelocities_mm_s[sFCU.sLaserDist.u8AverageCounter];
+				s32AccelTemp *= 5; //.2s time window for acceleration calc
+
+				//done calculating acceleration
+				sFCU.sLaserDist.s32Accel_mm_ss = s32AccelTemp;
+
+				//move the counter back one so it can be used for acceleration moving avg
+				if(sFCU.sLaserDist.u8AverageCounter == 0U){
+					sFCU.sLaserDist.u8AverageCounter = 9U;
+				}
+				else{
+					sFCU.sLaserDist.u8AverageCounter--;
+				}
+
+				//store acceleration
+				sFCU.sLaserDist.s32PrevAccelerations_mm_ss[sFCU.sLaserDist.u8AverageCounter] = sFCU.sLaserDist.s32Accel_mm_ss;
+
+				if(sFCU.sLaserDist.u8AverageCounter_Acceleration_wait == 9U){
+					//calculate acceleration moving average
+					s32AvgTemp = 0U;
+					for(u8Counter = 0U; u8Counter < 10; u8Counter++){ //todo: fix hardcoded value
+						s32AvgTemp += sFCU.sLaserDist.s32PrevAccelerations_mm_ss[u8Counter];
+						s32AvgTemp /= 10; //todo: fix hardcoded value
+					}
+
+					sFCU.sLaserDist.s32Acceleration_Filtered_mm_ss = s32AvgTemp;
+				}
+				else{
+					//need at least ten measurements to calc a moving avg of accel, increment waiting counter
+					sFCU.sLaserDist.u8AverageCounter_Acceleration_wait++;
+				}
+			}
+			else{
+				//need at least ten measurements to calc a reasonable accel, increment waiting counter
+				sFCU.sLaserDist.u8AverageCounter_Velocity_wait++;
+			}
+		}
+		else{
+			// need at least ten measurements to calc a reasonable velocity, increment waiting counter
+			sFCU.sLaserDist.u8AverageCounter_Distance_wait++;
+		}
+
+		//increment counter for next data point
+		sFCU.sLaserDist.u8AverageCounter++; 
+		if(sFCU.sLaserDist.u8AverageCounter == 10U){
+			sFCU.sLaserDist.u8AverageCounter = 0U;
+		}
+	}
 }
 
 
@@ -476,132 +724,165 @@ void vFCU_LASERDIST__Process_Packet_ASCII(void)
 void vFCU_LASERDIST__Append_Byte(Luint8 u8Value)
 {
 
-	//TODO:
-	//NEED TO UPDATE THIS RX STRUCTURE PER DETAILS ON:
-	//https://github.com/rLoopTeam/eng-controls-acc-vs-lrf-test-rig/blob/master/LRF/LRF.ino
-	//document in documents folder.
-
-
 	//handle the laser distance rx states
 	switch(sFCU.sLaserDist.eRxState)
 	{
 		case LASERDIST_RX__BYTE_D:
-
 			//make sure the first two bits are valid
-			//todo
-#if 0 // ASCII MODE
-			if(u8Value == 'D')
-			{
-				//wait for byte 2
-				sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_1;
-			}
-			else
-			{
-				//we are not at the right point for detection of the packet start, loop back
-
-				//todo: check if we can see a laser error here
-			}
-#endif //
-
 			//check for the start bit
 			if((u8Value & 0x80U) == 0x80U)
 			{
 				//correct distance measurement
 				if((u8Value & 0x40U) == 0x00U)
 				{
-					//correct
-					//distance upper, else error code if bit6 = 1
-					if((u8Value & 0x20U) == 0x20U)
-					{
-						//we have an error code
-						sFCU.sLaserDist.sBinary.u32Counter__ErrorCode++;
-					}
-					else
-					{
-						//we have the MSB value
-						sFCU.sLaserDist.sBinary.unRx.u8[2] = u8Value & 0x3F;
-					}
-
+					//we have the MSB value
+					sFCU.sLaserDist.sBinary.unRx.u8[2] = u8Value & 0x3F;
 				}
 				else
 				{
-					//error in distance measurement
+					//error in distance measurement, bit6 = 1
 					sFCU.sLaserDist.sBinary.u32Counter__BadDistance++;
+						if((u8Value & 0x20U) == 0x20U)
+						{
+							//we have an error code
+							sFCU.sLaserDist.sBinary.u32Counter__ErrorCode++;
+						}
 				}
 
 				//in any condition, move on
-				sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_0;
-
+				sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_1;
 			}
 			else
 			{
 				//maybe not for us, stay in state
 				sFCU.sLaserDist.sBinary.u32Counter__MissedStart++;
 			}
-
-			break;
-
-		case LASERDIST_RX__BYTE_0:
-
-			//distance mid
-			// = "E" if there is an error
-			sFCU.sLaserDist.sBinary.unRx.u8[1] = u8Value;
-			sFCU.sLaserDist.u8NewByteArray[0] = u8Value;
-			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_1;
 			break;
 
 		case LASERDIST_RX__BYTE_1:
-
-			sFCU.sLaserDist.sBinary.unRx.u8[0] = u8Value;
-			sFCU.sLaserDist.u8NewByteArray[1] = u8Value;
-
-			//millimeter binary mode hack
-			sFCU.sLaserDist.u8NewPacket = 1U;
-
-			//go back and rx the next new packet
-			//in binary mode
-			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_D;
-
-			//sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_2;
-			break;
-
-		case LASERDIST_RX__BYTE_2:
-
-			sFCU.sLaserDist.u8NewByteArray[2] = u8Value;
-			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_3;
-			break;
-
-		case LASERDIST_RX__BYTE_3:
-
-			sFCU.sLaserDist.u8NewByteArray[3] = u8Value;
-			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_4;
-			break;
-
-		case LASERDIST_RX__BYTE_4:
-
-			sFCU.sLaserDist.u8NewByteArray[4] = u8Value;
-
-			//signal that a new packet is ready
-			sFCU.sLaserDist.u8NewPacket = 1U;
+            //check if second byte starts with 0 not 1
+			if((u8Value & 0x80U) != 0x80U)
+			{
+			//distance mid
+			// = "E" if there is an error
+			sFCU.sLaserDist.sBinary.unRx.u8[1] = u8Value;
+			}
 
 			//clear the packets seeen counter
 			sFCU.sLaserDist.u32PacketsSeen_Counter = 0U;
 
-			//go back and rx the next new packet
-			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_D;
+			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_2;
 			break;
+
+		case LASERDIST_RX__BYTE_2:
+            //check if third byte starts with 0 not 1
+            if((u8Value & 0x80U) != 0x80U)
+            {
+            //distance mid
+            // = "E" if there is an error
+            sFCU.sLaserDist.sBinary.unRx.u8[0] = u8Value;
+            }
+
+            //signal that a new packet is ready
+            sFCU.sLaserDist.u8NewPacket = 1U;
+
+            //clear the packets seeen counter
+            sFCU.sLaserDist.u32PacketsSeen_Counter = 0U;
+
+            sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_D;
+            break;
 
 		default:
 			//todo, log the error
 			break;
 
 	}//switch
-
-
-
-
 }
 
+void vFCU_LASERDIST__Append_Byte_ASCII(Luint8 u8Value)
+{
+
+	//handle the laser distance rx states
+	switch(sFCU.sLaserDist.eRxState)
+	{
+		case LASERDIST_RX__BYTE_D:
+			//check if first byte is equals "D"
+			if(u8Value == 'D')
+			{
+				//wait for byte next
+				sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_1;
+			}
+			else
+			{
+				//we are not at the right point for detection of the packet start, loop back
+			}
+			break;
+
+
+		case LASERDIST_RX__BYTE_1:
+			//check if second byte is equals "Z" for distance > 99m
+			//todo, write code to handle z
+			if(u8Value == 'Z')
+			{
+				//wait for next byte and go back to this state
+				sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_1;
+			}
+
+			sFCU.sLaserDist.u8NewByteArray[0] = u8Value;
+
+			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_2;
+			break;
+
+		case LASERDIST_RX__BYTE_2:
+
+			sFCU.sLaserDist.u8NewByteArray[1] = u8Value;
+
+			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_3;
+			break;
+
+		case LASERDIST_RX__BYTE_3:
+
+			sFCU.sLaserDist.u8NewByteArray[2] = u8Value;
+			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_4;
+			break;
+
+		case LASERDIST_RX__BYTE_4:
+
+			sFCU.sLaserDist.u8NewByteArray[3] = u8Value;
+			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_5;
+			break;
+
+		case LASERDIST_RX__BYTE_5:
+
+			sFCU.sLaserDist.u8NewByteArray[4] = u8Value;
+
+			//clear the packets seeen counter
+			sFCU.sLaserDist.u32PacketsSeen_Counter = 0U;
+
+			//go back and rx the next new packet
+			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_6;
+			break;
+
+		case LASERDIST_RX__BYTE_6:
+
+			sFCU.sLaserDist.u8NewByteArray[5] = u8Value;
+
+			//signal that a new packet is ready
+			sFCU.sLaserDist.u8NewPacket = 1U;
+
+			//clear the packets seen counter
+			sFCU.sLaserDist.u32PacketsSeen_Counter = 0U;
+
+			//go back and rx the next new packet
+			sFCU.sLaserDist.eRxState = LASERDIST_RX__BYTE_D;
+			break;
+
+
+		default:
+			//todo, log the error
+			break;
+	}//switch
+}
 
 /***************************************************************************//**
  * @brief
