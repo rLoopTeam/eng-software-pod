@@ -32,6 +32,8 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 
 		/** Enable accel subsystem */
 		#define C_LOCALDEF__LCCM655__ENABLE_ACCEL							(0U)
+		#define C_LOCALDEF__LCCM655__ENABLE_ACCEL_INJECTION					(0U)
+
 
 		/** Enable the braking subsystems */
 		#define C_LOCALDEF__LCCM655__ENABLE_BRAKES							(0U)

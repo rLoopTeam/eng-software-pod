@@ -271,6 +271,22 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 				#endif
 				break;
 
+			case NET_PKT__FCU_ACCEL__ENAB_ETH_INJECTION:
+				#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
+				#if C_LOCALDEF__LCCM655__ENABLE_ACCEL_INJECTION == 1U
+					vFCU_ACCEL__Enable_Injection(u32Block[0]);
+				#endif
+				#endif
+				break;
+
+			case NET_PKT__FCU_ACCEL__INJECTION_DATA:
+				#if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
+				#if C_LOCALDEF__LCCM655__ENABLE_ACCEL_INJECTION == 1U
+					vFCU_ACCEL__Enable_Injection(u32Block[0]);
+				#endif
+				#endif
+				break;
+
 
 			case NET_PKT__LASER_OPTO__REQUEST_LASER_DATA:
 				//transmit the laser opto's data

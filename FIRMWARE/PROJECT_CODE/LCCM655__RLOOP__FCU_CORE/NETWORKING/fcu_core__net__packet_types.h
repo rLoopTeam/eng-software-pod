@@ -81,6 +81,12 @@
 		/** Fine adjustment on Any */
 		NET_PKT__FCU_ACCEL__FINE_ZERO_ADJUSTMENT = 0x1005U,
 
+		/** Enable ethernet injection */
+		NET_PKT__FCU_ACCEL__ENAB_ETH_INJECTION = 0x1006U,
+
+		/** Eth Injection Data */
+		NET_PKT__FCU_ACCEL__INJECTION_DATA = 0x1007U,
+
 
 		//////////////////////////////////////////////////////
 		//FCU: LASER OPTONCDT (0x1100)

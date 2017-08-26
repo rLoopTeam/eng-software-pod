@@ -45,6 +45,10 @@
 		*******************************************************************************/
 		#define C_MLP__MAX_AVERAGE_SIZE				(8U)
 
+		/** Max accel injection size */
+		#define C_FCU__MAX_ACCEL_INJECTION_SIZE										(128U)
+
+
 		/*******************************************************************************
 		Structures
 		*******************************************************************************/
@@ -509,9 +513,17 @@
 					/** Previous displacement */
 					Luint32 s32PrevDisplacement_mm;
 
-
-
 				}sChannels[C_FCU__NUM_ACCEL_CHIPS];
+
+				/** Packet injection*/
+				#if C_LOCALDEF__LCCM655__ENABLE_ACCEL_INJECTION == 1U
+				struct
+				{
+
+
+
+				}sInjection;
+				#endif
 
 
 				Luint8 u810MS_Flag;
@@ -1594,6 +1606,8 @@
 		//accelerometer layer
 		void vFCU_ACCEL__Init(void);
 		void vFCU_ACCEL__Process(void);
+		void vFCU_ACCEL__Enable_Injection(Luint32 u32Key);
+		void vFCU_ACCEL__Inject_Data(Luint32 u32Num, Lint16 *ps16Values);
 		void vFCU_ACCEL__10MS_ISR(void);
 		Luint8 u8FCU_ACCEL__Get_New_Sample_Avail(Luint8 u8Channel);
 		void vFCU_ACCEL__Clear_New_Sample_Avail(Luint8 u8Channel);

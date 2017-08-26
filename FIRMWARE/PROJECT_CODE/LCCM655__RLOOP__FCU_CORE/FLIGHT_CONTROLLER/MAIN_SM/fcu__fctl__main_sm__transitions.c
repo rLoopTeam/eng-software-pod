@@ -39,7 +39,7 @@ Luint8 u8FCU_FCTL_MAINSM___IsPodInitComplete(void)
 Luint8 armed_wait_checks_ok(void)
 {
 	// @todo: implement
-	return 0U;
+	return 1U;
 }
 
 Luint8 drive_checks_ok(void)
@@ -51,13 +51,13 @@ Luint8 drive_checks_ok(void)
 Luint8 flight_prep_checks_ok(void)
 {
 	// @todo: implement
-	return 0U;
+	return 1U;
 }
 
 Luint8 flight_readiness_checks_ok(void)
 {
 	// @todo: implement
-	return 0U;
+	return 1U;
 }
 
 Luint8 u8FCU_FCTL_MAINSM__IsAccelConfirmed(void)
@@ -147,7 +147,14 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__IDLE()
 			case POD_COMMAND__TEST_MODE:
 				sm->eCurrentState = POD_STATE__TEST_MODE;
 				break;
-			
+
+			/*
+			 * FROM STATE		CONDITIONS
+			 * State - IDLE		Pusher pin ENGAGED
+			 * 					&& Laser height WITHIN HEIGHT TOLERANCE of PRE-STARTUP HEIGHT
+			 * 					&& NO FAULT
+			 * 					&& Ground Station Manual Command
+			 */
 			case POD_COMMAND__ARMED_WAIT:
 				if ( armed_wait_checks_ok() )
 				{
@@ -174,10 +181,12 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__IDLE()
 				}
 				break;
 
+/*
 			//LG hack for testing
 			case POD_COMMAND__READY:
 				sm->eCurrentState = POD_STATE__READY;
-				break;
+			break;
+*/
 		
 			default:
 				// Nothing to do
@@ -288,6 +297,20 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__FLIGHT_PREP(void)
 				sm->eCurrentState = POD_STATE__ARMED_WAIT;
 				break;
 			
+
+			/*
+			 * FROM STATE				CONDITIONS
+			 * State - ARMED_WAIT		Pusher pin ENGAGED
+			 * 							&& Laser height within HEIGHT TOLERANCE of PRE-STARTUP HEIGHT
+			 * 							&& NO FAULT
+			 *							&& Ground Station Command
+			 *
+			 *
+			 * ACTIONS
+			 * 1. Cooling:			Turn cooling on (manual control)
+			 * 2. Hover Engine: 	Spin up (manual control)
+			 * 3: Navigation:		Navigation RESET
+			 */
 			case POD_COMMAND__READY:
 				if ( flight_readiness_checks_ok() )
 				{
