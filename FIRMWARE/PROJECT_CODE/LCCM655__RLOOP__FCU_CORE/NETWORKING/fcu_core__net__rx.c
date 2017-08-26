@@ -117,6 +117,29 @@ void vFCU_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Luint1
 			case NET_PKT__FCU_GEN__GS_HEARTBEAT:
 				break;
 
+			case NET_PKT__FCU_GEN__GS_NODE_RESET:
+				if(u32Block[0] == 0x11223344U)
+				{
+#ifndef WIN32
+
+					//release RM57 boards from reset.
+					vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__1, MIBSPI135_PIN__CS3, 0U);
+
+					vRM4_DELAYS__Delay_mS(250U);
+
+					vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__1, MIBSPI135_PIN__CS3, 1U);
+
+					vRM4_DELAYS__Delay_mS(250U);
+					//release RM57 boards from reset.
+					vRM4_MIBSPI135_PINS__Set(MIBSPI135_CHANNEL__1, MIBSPI135_PIN__CS3, 0U);
+#endif
+				}
+				else
+				{
+
+				}
+				break;
+
 			case NET_PKT__FCU_GEN__POD_COMMAND:
 				#if C_LOCALDEF__LCCM655__ENABLE_FLIGHT_CONTROL == 1U
 				#if C_LOCALDEF__LCCM655__ENABLE_MAIN_SM == 1U

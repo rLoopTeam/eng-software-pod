@@ -65,6 +65,12 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** All system fault flags */
         NET_PKT__FCU_GEN__TX_ALL_FAULT_FLAGS = &H300
 
+        '/** GS Hearbeat */
+        NET_PKT__FCU_GEN__GS_HEARTBEAT = &H400
+
+        '/** Node Reset */
+        NET_PKT__FCU_GEN__GS_NODE_RESET = &H401
+
         '/** Pod State Machine Command */
         NET_PKT__FCU_GEN__POD_COMMAND = &H500
 

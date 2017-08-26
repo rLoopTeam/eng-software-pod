@@ -226,7 +226,10 @@
 		INIT_STATE__START_POD_SYSTEMS,
 
 		/** init is done, run the main state machine */
-		INIT_STATE__RUN
+		INIT_STATE__RUN,
+
+		/** if we detect a I2C fault during run, re-init all I2C devices */
+		INIT_STATE__RESET_I2C_SYSTEMS,
 
 	}E_FCU__INIT_STATE_TYPES;
 

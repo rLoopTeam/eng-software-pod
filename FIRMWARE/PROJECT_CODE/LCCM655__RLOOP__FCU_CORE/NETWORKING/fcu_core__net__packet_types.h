@@ -52,6 +52,9 @@
 		/** GS Hearbeat */
 		NET_PKT__FCU_GEN__GS_HEARTBEAT = 0x0400U,
 		
+		/** Node Reset */
+		NET_PKT__FCU_GEN__GS_NODE_RESET = 0x0401U,
+
 		/** Pod State Machine Command */
 		NET_PKT__FCU_GEN__POD_COMMAND = 0x0500U,
 

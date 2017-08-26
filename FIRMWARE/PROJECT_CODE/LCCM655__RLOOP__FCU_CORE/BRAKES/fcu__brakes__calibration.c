@@ -248,7 +248,7 @@ void vFCU_BRAKES_CAL__Process(void)
 
 			//for now until we solve the math, lets take those to +72mm, at worst
 			//we will hit the limits
-			s32Pos_um[FCU_BRAKE__LEFT] = 63000;
+			s32Pos_um[FCU_BRAKE__LEFT] = 60000;
 			s32Pos_um[FCU_BRAKE__RIGHT] = s32Pos_um[FCU_BRAKE__LEFT];
 
 			//keep the velocity low
@@ -296,11 +296,11 @@ void vFCU_BRAKES_CAL__Process(void)
 			s32Pos_um[FCU_BRAKE__RIGHT] = s32Pos_um[FCU_BRAKE__LEFT];
 
 			//full speed
-			s32Velocity_um_s[FCU_BRAKE__LEFT] = sFCU.sBrakes[FCU_BRAKE__LEFT].sMove.s32LinearVeloc_um_s;
+			s32Velocity_um_s[FCU_BRAKE__LEFT] = sFCU.sBrakes[FCU_BRAKE__LEFT].sMove.s32LinearVeloc_um_s / C_BRAKES_CAL_SPEED_FACTOR;
 			s32Velocity_um_s[FCU_BRAKE__RIGHT] = s32Velocity_um_s[FCU_BRAKE__LEFT];
 
 			//full accel
-			s32Accel_um_ss[FCU_BRAKE__LEFT] = sFCU.sBrakes[FCU_BRAKE__LEFT].sMove.s32LinearAccel_um_ss;
+			s32Accel_um_ss[FCU_BRAKE__LEFT] = sFCU.sBrakes[FCU_BRAKE__LEFT].sMove.s32LinearAccel_um_ss / C_BRAKES_CAL_SPEED_FACTOR;
 			s32Accel_um_ss[FCU_BRAKE__RIGHT] = s32Accel_um_ss[FCU_BRAKE__LEFT];
 
 			//clear the previous task flag

@@ -36,7 +36,7 @@ void vFCU__Init(void)
 
 	//init any FCU variabes
 	sFCU.eInitStates = INIT_STATE__RESET;
-	sFCU.u32ResetTimer = 0U;
+	sFCU.u32ResetTimer_100ms = 0U;
 	sFCU.u8ResetActive = 0U;
 
 	//setup some guarding, prevents people lunching the memory
@@ -64,6 +64,7 @@ void vFCU__Init(void)
 void vFCU__Process(void)
 {
 	Luint8 u8Counter;
+	Luint8 u8Flag;
 
 	//check the guarding
 	if(sFCU.u32Guard1 != 0xAABBCCDDU)
@@ -510,8 +511,8 @@ void vFCU__Process(void)
 
 		case INIT_STATE__RUN:
 
-
-			if((sFCU.u32ResetTimer > 10) && (sFCU.u8ResetActive == 0U))
+#if 0
+			if((sFCU.u32ResetTimer_100ms > 20) && (sFCU.u8ResetActive == 0U))
 			{
 
 #ifndef WIN32
@@ -520,7 +521,7 @@ void vFCU__Process(void)
 #endif
 				sFCU.u8ResetActive = 1U;
 			}
-
+#endif //0
 
 			#if C_LOCALDEF__LCCM663__ENABLE_THIS_MODULE == 1U
 				//CPU load processing
@@ -613,6 +614,82 @@ void vFCU__Process(void)
 				vRM4_CPULOAD__While_Exit();
 			#endif
 
+
+			//lets see if we have any I2C issues.
+			u8Flag = 0U;
+			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Counter++)
+			{
+				if(sFCU.sAccel.sFaultHandling[u8Counter].u8FaultCondition_Active == 1U)
+				{
+					u8Flag = 1U;
+
+					sFCU.sAccel.sFaultHandling[u8Counter].u8FaultCondition_Active = 0U;
+				}
+				else
+				{
+					//fall on
+				}
+			}
+
+			if(u8Flag == 1U)
+			{
+
+				//change to reset state
+				sFCU.eInitStates = INIT_STATE__RESET_I2C_SYSTEMS;
+			}
+			else
+			{
+				//no flag yet
+			}
+
+
+			break;
+
+		case INIT_STATE__RESET_I2C_SYSTEMS:
+
+			//I2C Channel
+			#if C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE == 1U
+				vRM4_I2C_USER__Init(RM4_I2C_CH__1);
+			#endif
+
+			//re-init the MMA devices
+			for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Counter++)
+			{
+				vSIL3_MMA8451__Init(u8Counter);
+
+			}
+			//clear the accel faults
+			vSIL3_FAULTTREE__Init(&sFCU.sAccel.sFaultFlags);
+
+
+			//clear the throttle faults.
+			vSIL3_FAULTTREE__Init(&sFCU.sThrottle.sFaultFlags);
+
+			//init the AMC devices
+			vAMC7812__Init();
+
+			//clear some internal vars.
+			for(u8Counter = 0U; u8Counter < C_FCU__NUM_HOVER_ENGINES; u8Counter++)
+			{
+				//set our min safety voltage.
+				vAMC7182__DAC_SetVoltage(u8Counter, 0.95F * 1.15F);
+
+				sFCU.sThrottle.u16RequestedRPM[u8Counter] = 0U;
+				sFCU.sThrottle.eRequestedMode[u8Counter] = THROTTLE_TYPE__STEP;
+				sFCU.sThrottle.u16CurrentRPM[u8Counter] = 0U;
+				sFCU.sThrottle.f32CurrentVolts[u8Counter] = 0.0F;
+				sFCU.sThrottle.u8100ms_Timer[u8Counter] = 0U;
+			}
+
+			//signal
+			vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__31);
+
+			//back to init state
+			sFCU.eInitStates = INIT_STATE__RUN;
+			break;
+
+		default:
+			//not a good point;
 			break;
 
 	}//switch(sFCU.eInitStates)
@@ -629,7 +706,7 @@ void vFCU__Process(void)
 void vFCU__RTI_100MS_ISR(void)
 {
 
-	sFCU.u32ResetTimer++;
+	sFCU.u32ResetTimer_100ms++;
 
 	//OptoNCDT Timer
 	#if C_LOCALDEF__LCCM655__ENABLE_LASER_OPTONCDT == 1U
