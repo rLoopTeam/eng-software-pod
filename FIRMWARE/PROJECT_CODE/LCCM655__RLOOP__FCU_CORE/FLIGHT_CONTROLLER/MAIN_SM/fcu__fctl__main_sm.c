@@ -49,16 +49,16 @@ void vFCU_FCTL_MAINSM__Init(void)
 	// @todo: Move timeout duration values to config/mission profile
 
 	// Accel to Coast Interlock backup timeout
-	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max_x10ms, 10 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max_x10ms, 10 * 100);
 
 	// Coast interlock timeout
-	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pCoast_To_Brake_x10ms, 1 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pCoast_To_Brake_x10ms, 1 * 100);
 
 	// Brake to Spindown backup timeout
-	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown_x10ms, 60 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown_x10ms, 60 * 100);
 
 	// Spindown to Idle backup timeout
-	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout, 120 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pSpindown_To_Idle_x10ms, 120 * 100);
 
 
 	// Initialize some interlock guards for command requests coming in over the network
@@ -256,6 +256,9 @@ void vFCU_FCTL_MAINSM__Process(void)
 				// Brake to Spindown backup timeout
 				vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown_x10ms, u32FCU_FCTL_TRACKDB__Time__Get_Brake_To_Spindown());
 
+				// Spindown to Idle backup timeout
+				vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pSpindown_To_Idle_x10ms, u32FCU_FCTL_TRACKDB__Time__Get_Spindown_To_Idle());
+
 			}
 		
 			// Handle transitions
@@ -352,7 +355,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#endif
 				
 				// (Re)start our spindown backup timeout. If this expires we'll automatically transition to IDLE.
-				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout);
+				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.pSpindown_To_Idle_x10ms);
 			}
 		
 			// Handle transitions
@@ -421,7 +424,7 @@ void vFCU_FCTL_MAINSM__10MS_ISR(void)
 	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown_x10ms);
 
 	/** Spindown to Idle backup timeout */
-	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout);
+	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.pSpindown_To_Idle_x10ms);
 
 	/** Update the timeouts for our net command interlock guards */
 	for (u8Counter = 0U; u8Counter < (Luint8)POD_COMMAND__NUM_COMMANDS; u8Counter++)

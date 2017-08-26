@@ -154,6 +154,8 @@
 				/** Brake to spindown time */
 				Luint8 u8Brake_Spindown[4];
 
+				/** Brake to spindown time */
+				Luint8 u8Spindown_Idle[4]; // @todo @safetylok: align the memory after adding this
 
 			}sTime;
 

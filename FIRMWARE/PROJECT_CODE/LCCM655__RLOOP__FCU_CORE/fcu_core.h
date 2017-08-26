@@ -189,7 +189,7 @@
 					TS_FCTL__TIMEOUT_T pBrake_To_Spindown_x10ms;
 
 					/** Spindown to Idle backup timeout */
-					TS_FCTL__TIMEOUT_T SpindownToIdleBackupTimeout;
+					TS_FCTL__TIMEOUT_T pSpindown_To_Idle_x10ms;
 
 				}sTimers;
 				
@@ -1354,6 +1354,7 @@
 				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max(void);
 				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Coast_to_Brake(void);
 				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Brake_To_Spindown(void);
+				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Spindown_To_Idle(void);
 
 				//DLL_DECLARATION Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void);
 				//DLL_DECLARATION Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation(void);
@@ -1387,6 +1388,7 @@
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Time__Accel_Coast_x10ms(Luint8 u8TrackIndex, Luint32 u32Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Time__Coast_Brake_x10ms(Luint8 u8TrackIndex, Luint32 u32Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Time__Brake_Spindown_x10ms(Luint8 u8TrackIndex, Luint32 u32Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Time__Spindown_Idle_x10ms(Luint8 u8TrackIndex, Luint32 u32Value);
 				//DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_UsePusherSeparation(Luint8 u8TrackIndex, Luint8 u8Value);
 
 				//CRC control
