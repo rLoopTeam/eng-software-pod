@@ -1785,6 +1785,11 @@ LAPP188__RLOOP__RPOD_CONTROL
  </summary>
  <remarks></remarks>
 </member>
+<member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.TrackDatabase.Monitor.C_DLL_NAME">
+ <summary>
+ The name of our DLL, could be a bit better done with relative paths
+ </summary>
+</member>
 <member name="F:LAPP188__RLOOP__RPOD_CONTROL.SIL3.rLoop.rPodControl.Panels.FlightControl.TrackDatabase.Monitor.m_sLogDir">
  <summary>
  The logging directory

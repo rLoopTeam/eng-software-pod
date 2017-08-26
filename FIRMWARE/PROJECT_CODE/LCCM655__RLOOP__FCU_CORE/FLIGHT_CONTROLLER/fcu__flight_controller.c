@@ -108,7 +108,7 @@ void vFCU_FCTL__Config_From_Database(void)
 #if C_LOCALDEF__LCCM655__ENABLE_ACCEL == 1U
 	//accel system
 	//enable the Accel system
-	vFCU_ACCEL_VALID__Enable(u8FCU_FCTL_TRACKDB__Accel__Get_Use());
+	vFCU_ACCEL_VALID__Enable(1 /*u8FCU_FCTL_TRACKDB__Accel__Get_Use()*/);
 
 	//load up the thresholding
 	vFCU_ACCEL_THRESH__Set_Accel_Threshold(s32FCU_FCTL_TRACKDB__Accel__Get_Accel_Threshold_mm_ss(), s16FCU_FCTL_TRACKDB__Accel__Get_Accel_ThresholdTime_x10ms());

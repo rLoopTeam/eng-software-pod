@@ -145,17 +145,6 @@ Luint32 u32FCU_FCTL_TRACKDB__Get_CurrentDB(void)
 }
 
 
-/***************************************************************************//**
- * @brief
- * Use accelerometers option?
- * 
- * @st_funcMD5		47FF4E89A2B51DD87321DC6EF545998A
- * @st_funcID		LCCM655R0.FILE.084.FUNC.015
- */
-Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void)
-{
-	return sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sAccel.u8Use;
-}
 
 Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Accel_Threshold_mm_ss(void)
 {
@@ -177,12 +166,6 @@ Lint16 s16FCU_FCTL_TRACKDB__Accel__Get_Decel_ThresholdTime_x10ms(void)
 	return s16SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sAccel.u8DecelThresh_x10ms[0]);
 }
 
-Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation(void)
-{
-	return sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sControl.u8EnablePuserSeparationDetection;
-}
-
-
 Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max(void)
 {
 	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sTime.u8Accel_Coast[0]);
@@ -192,6 +175,25 @@ Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Coast_to_Brake(void)
 {
 	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sTime.u8Coast_Brake[0]);
 }
+
+Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Brake_To_Spindown(void)
+{
+	return u32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sTime.u8Brake_Spindown[0]);
+}
+
+
+/*
+Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void)
+{
+	return sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sAccel.u8Use;
+}
+
+Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation(void)
+{
+	return sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sControl.u8EnablePuserSeparationDetection;
+}
+*/
+
 
 
 #endif //C_LOCALDEF__LCCM655__ENABLE_TRACK_DB
