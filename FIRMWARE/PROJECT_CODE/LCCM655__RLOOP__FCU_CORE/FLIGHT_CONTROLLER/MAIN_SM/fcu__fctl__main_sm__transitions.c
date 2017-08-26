@@ -144,7 +144,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__IDLE()
 			 * 					&& Ground Station Manual Command
 			 */
 			case POD_COMMAND__ARMED_WAIT:
-				if ( armed_wait_checks_ok() )
+				if(armed_wait_checks_ok() == 1)
 				{
 					sm->eCurrentState = POD_STATE__ARMED_WAIT;
 				} 

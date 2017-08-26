@@ -118,9 +118,6 @@
     <Filter Include="Source Files\MULTICORE\LCCM658__MULTICORE__AMC7812\ADC">
       <UniqueIdentifier>{d5ed7a32-8f12-4431-afcf-f8f96ba4d1e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LCCM655__RLOOP__FCU_CORE\LGU">
-      <UniqueIdentifier>{e8ea368e-db84-4e34-9263-5b746eb20c26}</UniqueIdentifier>
-    </Filter>
     <Filter Include="LCCM655__RLOOP__FCU_CORE\FLIGHT_CONTROLLER\TRACK_DATABASE">
       <UniqueIdentifier>{a8681542-0e8c-48c7-b72b-8455ba4bcce7}</UniqueIdentifier>
     </Filter>

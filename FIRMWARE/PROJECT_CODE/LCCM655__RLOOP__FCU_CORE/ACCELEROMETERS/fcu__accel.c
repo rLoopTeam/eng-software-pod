@@ -219,12 +219,21 @@ void vFCU_ACCEL__Process(void)
 		u32Temp[sFCU.sAccel.u8ChannelCounter] = u32SIL3_MMA8451__Get_FaultFlags(sFCU.sAccel.u8ChannelCounter);
 		if(u32Temp[sFCU.sAccel.u8ChannelCounter] != 0x00000000U)
 		{
-			//set the fault condition flag true
-			sFCU.sAccel.sFaultHandling[sFCU.sAccel.u8ChannelCounter].u8FaultCondition_Active = 1U;
 
-			//we had a fault with sensor 0
-			vSIL3_FAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__00);
-			vSIL3_FAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__01);
+			if((u32Temp[sFCU.sAccel.u8ChannelCounter] & C_LCCM418__CORE__FAULT_INDEX_MASK__08) != C_LCCM418__CORE__FAULT_INDEX_MASK__08)
+			{
+				//set the fault condition flag true
+				sFCU.sAccel.sFaultHandling[sFCU.sAccel.u8ChannelCounter].u8FaultCondition_Active = 1U;
+
+				//we had a fault with sensor 0
+				vSIL3_FAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__00);
+				vSIL3_FAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__01);
+			}
+			else
+			{
+				//cal in progress
+			}
+
 		}
 		else
 		{

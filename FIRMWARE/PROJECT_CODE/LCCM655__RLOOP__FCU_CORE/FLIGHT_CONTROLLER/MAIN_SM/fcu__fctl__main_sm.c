@@ -332,6 +332,10 @@ void vFCU_FCTL_MAINSM__Process(void)
 				
 				// (Re)start the BRAKE to SPINDOWN backup timeout. If this expires, we'll transition to SPINDOWN
 				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown_x10ms);
+
+				//shut the brakes.
+				vFCU_BRAKES__Move_IBeam_Distance_mm(8.0F);
+
 			}
 		
 			// Handle transitions
