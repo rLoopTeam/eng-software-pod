@@ -187,11 +187,13 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_Header(Luint32 u32Value)
 	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.u8Header[0], u32Value);
 }
 
+/*
 //Do we want to use the accelerometers on this track?
 void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(Luint8 u8TrackIndex, Luint8 u8Value)
 {
 	sTrackDB.sDB2[u8TrackIndex].sAccel.u8Use = u8Value;
 }
+*/
 
 //Accel threshold in mm/ss
 void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_mm_ss(Luint8 u8TrackIndex, Lint32 s32Thresh_mm_ss)
@@ -217,7 +219,7 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_x10ms(Luint8 u8TrackIndex, Lu
 	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sAccel.u8DecelThresh_x10ms[0], u16Thresh_x10ms);
 }
 
-
+/*
 void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackStart_mm(Luint8 u8TrackIndex, Luint32 u32Value)
 {
 	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sTrack.u8TrackStart_mm[0], u32Value);
@@ -232,6 +234,7 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackLength_mm(Luint8 u8TrackIndex, Lui
 {
 	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sTrack.u8TrackLength_mm[0], u32Value);
 }
+*/
 
 void vFCU_FCTL_TRACKDB_WIN32__Set_Time__Accel_Coast_x10ms(Luint8 u8TrackIndex, Luint32 u32Value)
 {
@@ -243,10 +246,17 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_Time__Coast_Brake_x10ms(Luint8 u8TrackIndex, L
 	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sTime.u8Coast_Brake[0], u32Value);
 }
 
+void vFCU_FCTL_TRACKDB_WIN32__Set_Time__Brake_Spindown_x10ms(Luint8 u8TrackIndex, Luint32 u32Value)
+{
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sTime.u8Brake_Spindown[0], u32Value);
+}
+
+/*
 void vFCU_FCTL_TRACKDB_WIN32__Set_UsePusherSeparation(Luint8 u8TrackIndex, Luint8 u8Value)
 {
 	sTrackDB.sDB2[u8TrackIndex].sControl.u8EnablePuserSeparationDetection = u8Value;
 }
+*/
 
 /***************************************************************************//**
  * @brief

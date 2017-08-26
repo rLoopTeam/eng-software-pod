@@ -521,6 +521,8 @@
 				{
 
 
+					C_FCU__MAX_ACCEL_INJECTION_SIZE
+
 
 				}sInjection;
 				#endif
@@ -1345,14 +1347,17 @@
 				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Get_CurrentDB(void);
 
 				//accel system
-				DLL_DECLARATION Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void);
 				DLL_DECLARATION Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Accel_Threshold_mm_ss(void);
 				DLL_DECLARATION Lint16 s16FCU_FCTL_TRACKDB__Accel__Get_Accel_ThresholdTime_x10ms(void);
 				DLL_DECLARATION Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Decel_Threshold_mm_ss(void);
 				DLL_DECLARATION Lint16 s16FCU_FCTL_TRACKDB__Accel__Get_Decel_ThresholdTime_x10ms(void);
-				DLL_DECLARATION Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation(void);
 				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max(void);
 				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Coast_to_Brake(void);
+				DLL_DECLARATION Luint32 u32FCU_FCTL_TRACKDB__Time__Get_Brake_To_Spindown(void);
+
+				//DLL_DECLARATION Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_Use(void);
+				//DLL_DECLARATION Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation(void);
+
 
 				//mem
 				void vFCU_FCTL_TRACKDB_MEM__Init(void);
@@ -1369,19 +1374,20 @@
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Header(Luint32 u32Value);
 
 				//accel system
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(Luint8 u8TrackIndex, Luint8 u8Value);
+				//DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Use(Luint8 u8TrackIndex, Luint8 u8Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_mm_ss(Luint8 u8TrackIndex, Lint32 s32Thresh_mm_ss);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Accel__Threshold_x10ms(Luint8 u8TrackIndex, Luint16 u16Thresh_x10ms);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_mm_ss(Luint8 u8TrackIndex, Lint32 s32Thresh_mm_ss);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_x10ms(Luint8 u8TrackIndex, Luint16 u16Thresh_x10ms);
 
 				//track system
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackStart_mm(Luint8 u8TrackIndex, Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackEnd_mm(Luint8 u8TrackIndex, Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackLength_mm(Luint8 u8TrackIndex, Luint32 u32Value);
+				//DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackStart_mm(Luint8 u8TrackIndex, Luint32 u32Value);
+				//DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackEnd_mm(Luint8 u8TrackIndex, Luint32 u32Value);
+				//DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackLength_mm(Luint8 u8TrackIndex, Luint32 u32Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Time__Accel_Coast_x10ms(Luint8 u8TrackIndex, Luint32 u32Value);
 				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Time__Coast_Brake_x10ms(Luint8 u8TrackIndex, Luint32 u32Value);
-				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_UsePusherSeparation(Luint8 u8TrackIndex, Luint8 u8Value);
+				DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_Time__Brake_Spindown_x10ms(Luint8 u8TrackIndex, Luint32 u32Value);
+				//DLL_DECLARATION void vFCU_FCTL_TRACKDB_WIN32__Set_UsePusherSeparation(Luint8 u8TrackIndex, Luint8 u8Value);
 
 				//CRC control
 				DLL_DECLARATION Luint16 u16FCTL_TRAKDB_WIN32__ComputeCRC(void);
