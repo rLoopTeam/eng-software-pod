@@ -49,13 +49,13 @@ void vFCU_FCTL_MAINSM__Init(void)
 	// @todo: Move timeout duration values to config/mission profile
 
 	// Accel to Coast Interlock backup timeout
-	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max, 10 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max_x10ms, 10 * 1000);
 
 	// Coast interlock timeout
-	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pCoast_To_Brake, 1 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pCoast_To_Brake_x10ms, 1 * 1000);
 
 	// Brake to Spindown backup timeout
-	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout, 60 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown_x10ms, 60 * 1000);
 
 	// Spindown to Idle backup timeout
 	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout, 120 * 1000);
@@ -214,7 +214,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 			{
 
 				//During flight prep, we must re-load the track specific data
-				vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max, u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max());
+				vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max_x10ms, u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max());
 
 				// Perform entering actions
 				#ifdef WIN32
@@ -245,6 +245,17 @@ void vFCU_FCTL_MAINSM__Process(void)
 				// (Re)start the ready expired backup timer that will transition us (where?) 
 				// @todo: We now have the capability to transition back to FLIGHT_PREP from READY, so we don't need this any more most likely.
 				// vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.ReadyExpiredBackupTimeout);
+
+				//reload all the timers
+				// Accel to Coast Interlock backup timeout
+				vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max_x10ms, u32FCU_FCTL_TRACKDB__Time__Get_Accel_to_Coast_Max());
+
+				// Coast interlock timeout
+				vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pCoast_To_Brake_x10ms, u32FCU_FCTL_TRACKDB__Time__Get_Coast_to_Brake());
+
+				// Brake to Spindown backup timeout
+				vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown_x10ms, u32FCU_FCTL_TRACKDB__Time__Get_Brake_To_Spindown());
+
 			}
 		
 			// Handle transitions
@@ -268,7 +279,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#endif
 
 				// (Re)start the accel backup timeout. If this expires, we will automatically transition to COAST_INTERLOCK (see below)
-				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max);
+				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max_x10ms);
 
 			}
 		
@@ -293,7 +304,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#endif
 				
 				// (Re)start our coast interlock timer. Expiration will transition us to BRAKE (see below)
-				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.pCoast_To_Brake);
+				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.pCoast_To_Brake_x10ms);
 			}
 		
 			// Handle transitions
@@ -317,7 +328,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#endif
 				
 				// (Re)start the BRAKE to SPINDOWN backup timeout. If this expires, we'll transition to SPINDOWN
-				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout);
+				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown_x10ms);
 			}
 		
 			// Handle transitions
@@ -401,13 +412,13 @@ void vFCU_FCTL_MAINSM__10MS_ISR(void)
 	Luint8 u8Counter;
 
 	/** Accel to Coast Interlock backup timeout */
-	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max);
+	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max_x10ms);
 
 	/** Coast interlock timeout */
-	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.pCoast_To_Brake);
+	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.pCoast_To_Brake_x10ms);
 
 	/** Brake to Spindown backup timeout */
-	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout);
+	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown_x10ms);
 
 	/** Spindown to Idle backup timeout */
 	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout);

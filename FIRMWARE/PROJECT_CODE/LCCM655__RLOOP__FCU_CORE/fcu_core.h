@@ -180,13 +180,13 @@
 				struct
 				{
 					/** Accel to Coast Interlock backup timeout */
-					TS_FCTL__TIMEOUT_T pAccel_To_Coast_Max;
+					TS_FCTL__TIMEOUT_T pAccel_To_Coast_Max_x10ms;
 
 					/** Coast interlock timeout */
-					TS_FCTL__TIMEOUT_T pCoast_To_Brake;
+					TS_FCTL__TIMEOUT_T pCoast_To_Brake_x10ms;
 
 					/** Brake to Spindown backup timeout */
-					TS_FCTL__TIMEOUT_T BrakeToSpindownBackupTimeout;
+					TS_FCTL__TIMEOUT_T pBrake_To_Spindown_x10ms;
 
 					/** Spindown to Idle backup timeout */
 					TS_FCTL__TIMEOUT_T SpindownToIdleBackupTimeout;

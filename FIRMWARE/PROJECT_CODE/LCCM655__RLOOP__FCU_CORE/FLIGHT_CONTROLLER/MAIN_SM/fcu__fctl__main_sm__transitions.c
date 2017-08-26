@@ -454,7 +454,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__ACCEL(void)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
 		// If our ACCEL backup timeout has expired, automatically go to COAST_INTERLOCK
-		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max) )
+		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max_x10ms) )
 		{
 			#ifdef WIN32
 			DEBUG_PRINT("Accel_To_Coast timeout expired -- transitioning to POD_STATE__COAST_INTERLOCK");
@@ -480,7 +480,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__COAST_INTERLOCK(void)
 	// Check timeouts (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.pCoast_To_Brake) == 1U)
+		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.pCoast_To_Brake_x10ms) == 1U)
 		{
 			#ifdef WIN32
 			DEBUG_PRINT("Coast_To_Brake timeout expired -- transitioning to POD_STATE__BRAKE");
@@ -518,7 +518,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__BRAKE()
 	// Check timeouts (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout) == 1U)
+		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown_x10ms) == 1U)
 		{
 			#ifdef WIN32
 			DEBUG_PRINT("Brake_To_Spindown timeout expired -- transitioning to POD_STATE__SPINDOWN");
