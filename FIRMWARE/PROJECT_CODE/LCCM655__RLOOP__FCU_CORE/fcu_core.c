@@ -669,7 +669,7 @@ void vFCU__Process(void)
 			break;
 
 		case INIT_STATE__RESET_I2C_SYSTEMS:
-
+#ifndef WIN32
 			//I2C Channel
 			#if C_LOCALDEF__LCCM215__ENABLE_THIS_MODULE == 1U
 				vRM4_I2C_USER__Init(RM4_I2C_CH__1);
@@ -706,6 +706,7 @@ void vFCU__Process(void)
 
 			//signal
 			vSIL3_FAULTTREE__Set_Flag(&sFCU.sFaults.sTopLevel, C_LCCM655__FAULTS__FAULT_INDEX__31);
+#endif //win32
 
 			//back to init state
 			sFCU.eInitStates = INIT_STATE__RUN;
@@ -714,9 +715,11 @@ void vFCU__Process(void)
 
 		case INIT_STATE__RESET_ASI_SYSTEMS:
 
+#ifndef WIN32
 			//reset the ASI's
 			vFCU_ASI__Init();
 
+#endif
 			//back to run mode
 			sFCU.eInitStates = INIT_STATE__RUN;
 			break;

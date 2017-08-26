@@ -166,6 +166,8 @@
 		//should get zeroed out when WIN32 creates the file
 		Luint8 u8Dummy[2];
 
+		//238
+
 		//CRC protection
 		Luint8 u8CRC[2];
 

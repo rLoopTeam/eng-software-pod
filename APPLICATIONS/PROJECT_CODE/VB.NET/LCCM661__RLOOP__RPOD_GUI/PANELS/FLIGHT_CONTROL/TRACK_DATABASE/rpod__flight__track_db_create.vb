@@ -74,6 +74,9 @@
         <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
         Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Time__Brake_Spindown_x10ms(u8TrackIndex As Byte, u32Value As UInt32)
         End Sub
+        <System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
+        Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_Time__Spindown_Idle_x10ms(u8TrackIndex As Byte, u32Value As UInt32)
+        End Sub
 
         '<System.Runtime.InteropServices.DllImport(C_DLL_NAME, CallingConvention:=System.Runtime.InteropServices.CallingConvention.Cdecl)>
         'Public Shared Sub vFCU_FCTL_TRACKDB_WIN32__Set_UsePusherSeparation(u8TrackIndex As Byte, u8Value As Byte)
@@ -135,6 +138,7 @@
         Private m_txtTime__Accel_Coast_x10ms As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
         Private m_txtTime__Coast_Brake_x10ms As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
         Private m_txtTime__Brake_Spindown_x10ms As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
+        Private m_txtTime__Spindown_Idle_x10ms As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32
         'Private m_chkSM__CheckPuserSeparation As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.CheckBoxHelper
 
         Private m_picProfile As LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.PictureBoxHelper
@@ -238,6 +242,7 @@
                     Me.m_pCSV.Header__Add("TIME_ACCEL_COAST_X10MS_U32")
                     Me.m_pCSV.Header__Add("TIME_COAST_BRAKE_X10MS_U32")
                     Me.m_pCSV.Header__Add("TIME_BRAKE_SPINDOWN_X10MS_U32")
+                    Me.m_pCSV.Header__Add("TIME_SPINDOWN_IDLE_X10MS_U32")
                     'Me.m_pCSV.Header__Add("SM_CHECK_PUSHER_SEP_U8")
                     'Me.m_pCSV.Header__Add("SM_SPARE3_U32")
 
@@ -330,8 +335,8 @@
                         pSB.Append("0" & ",")
                         '"TIME_BRAKE_COASTDONW_X10MS_U32"
                         pSB.Append("0" & ",")
-                        '"SM_SPARE3_U32"
-                        'pSB.Append("0" & ",")
+                        '"TIME_SPINDOWN_IDLE_X10MS_U32"
+                        pSB.Append("0" & ",")
 
                         '"BRAKE_USE_PID_U8"
                         'pSB.Append("0" & ",")
@@ -466,6 +471,10 @@
             Me.m_txtTime__Brake_Spindown_x10ms.Location = New Point(730, 185)
             Me.m_pInnerPanel.Controls.Add(Me.m_txtTime__Brake_Spindown_x10ms)
 
+            Me.m_txtTime__Spindown_Idle_x10ms = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper_U32(100)
+            Me.m_txtTime__Spindown_Idle_x10ms.Location = New Point(730, 205)
+            Me.m_pInnerPanel.Controls.Add(Me.m_txtTime__Spindown_Idle_x10ms)
+
 
             ''accel subsystem
             'Dim l100 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Accel mms²", Me.m_txtTrackIndex)
@@ -584,6 +593,10 @@
                 Me.m_pCSV.Cell__SetContents("TIME_BRAKE_SPINDOWN_X10MS_U32", Me.m_iCurrentIndex, Me.m_txtTime__Brake_Spindown_x10ms.Text.ToString, True)
                 Me.m_txtTime__Brake_Spindown_x10ms.Dirty = False
             End If
+            If Me.m_txtTime__Spindown_Idle_x10ms.Dirty = True Then
+                Me.m_pCSV.Cell__SetContents("TIME_SPINDOWN_IDLE_X10MS_U32", Me.m_iCurrentIndex, Me.m_txtTime__Spindown_Idle_x10ms.Text.ToString, True)
+                Me.m_txtTime__Spindown_Idle_x10ms.Dirty = False
+            End If
 
 
             'If Me.m_chkAccel_Use.Checked = True Then
@@ -695,6 +708,8 @@
             Me.m_txtTime__Coast_Brake_x10ms.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
             iItem += 1
             Me.m_txtTime__Brake_Spindown_x10ms.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
+            iItem += 1
+            Me.m_txtTime__Spindown_Idle_x10ms.Threadsafe__SetText(Me.m_pCSV.m_alRows(Me.m_iCurrentIndex).item(iItem).ToString)
             iItem += 1
 
 
@@ -876,6 +891,11 @@
                 u32Temp = CUInt(Me.m_pCSV.m_alRows(iRow).item(iItem).ToString)
                 vFCU_FCTL_TRACKDB_WIN32__Set_Time__Brake_Spindown_x10ms(u8Row, u32Temp)
                 iItem += 1
+
+                u32Temp = CUInt(Me.m_pCSV.m_alRows(iRow).item(iItem).ToString)
+                vFCU_FCTL_TRACKDB_WIN32__Set_Time__Spindown_Idle_x10ms(u8Row, u32Temp)
+                iItem += 1
+
 
                 'u8Temp = CByte(Me.m_pCSV.m_alRows(iRow).item(iItem).ToString)
                 'vFCU_FCTL_TRACKDB_WIN32__Set_UsePusherSeparation(u8Row, u8Temp)
