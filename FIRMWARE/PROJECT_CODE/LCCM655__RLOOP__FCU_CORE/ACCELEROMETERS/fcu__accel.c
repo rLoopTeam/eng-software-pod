@@ -37,6 +37,10 @@ void vFCU_ACCEL__Init(void)
 	Luint8 u8Counter;
 	Luint8 u8Device;
 
+	//init
+	sFCU.sAccel.u8ChannelCounter = 0U;
+
+
 	//accel subsystem
 	vSIL3_FAULTTREE__Init(&sFCU.sAccel.sFaultFlags);
 
@@ -52,6 +56,11 @@ void vFCU_ACCEL__Init(void)
 	//init vars
 	for(u8Device = 0U; u8Device < C_FCU__NUM_ACCEL_CHIPS; u8Device++)
 	{
+
+		//clear the specific fault handling system
+		sFCU.sAccel.sFaultHandling[u8Device].u8FaultCondition_Active = 0U;
+
+
 		for(u8Counter = 0U; u8Counter < MMA8451_AXIS__MAX; u8Counter++)
 		{
 			sFCU.sAccel.sChannels[u8Device].s16LastSample[u8Counter] = 0;
@@ -156,7 +165,7 @@ void vFCU_ACCEL__Process(void)
 {
 	Luint32 u32Temp[2];
 	Luint8 u8Test;
-	Luint8 u8Counter;
+	//Luint8 u8Counter;
 	MMA8451__AXIS_E eTargetAxis;
 	Lint32 s32Axis_To_ms;
 	Lint32 s32Temp;
@@ -177,76 +186,75 @@ void vFCU_ACCEL__Process(void)
 	#endif
 
 
+	//handle the timer flag
 	if(sFCU.sAccel.u810MS_Flag == 1)
 	{
-#if 0
-		//process the device
-		for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Counter++)
+
+		//check to see what the interrupt is doing
+#ifndef WIN32
+		if(sFCU.sAccel.u8ChannelCounter == 0U)
 		{
-			vSIL3_MMA8451__Process(u8Counter);
+			if(u32RM4_GIO__Get_Bit(RM4_GIO__PORT_A, 6U) == 0U)
+			{
+				vSIL3_MMA8451__ISR(0U);
+			}
+		}
+		else if(sFCU.sAccel.u8ChannelCounter == 1U)
+		{
+		#if C_LOCALDEF__LCCM418__NUM_DEVICES > 1
+			if(u32RM4_GIO__Get_Bit(RM4_GIO__PORT_A, 7U) == 0U)
+			{
+				vSIL3_MMA8451__ISR(1U);
+			}
+		#endif
+		}
+		else
+		{
+			//some error
 		}
 #endif
 
-		sFCU.sAccel.u810MS_Flag = 0U;
-	}
-	else
-	{
-		//no new data
-	}
 
-#ifndef WIN32
-	if(u32RM4_GIO__Get_Bit(RM4_GIO__PORT_A, 6U) == 0U)
-	{
-		vSIL3_MMA8451__ISR(0);
-	}
-#if C_LOCALDEF__LCCM418__NUM_DEVICES > 1
-	if(u32RM4_GIO__Get_Bit(RM4_GIO__PORT_A, 7U) == 0U)
-	{
-		vSIL3_MMA8451__ISR(1);
-	}
-#endif
-#endif
-
-	//loop through each device
-	for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Counter++)
-	{
-
-		//process the device
-		vSIL3_MMA8451__Process(u8Counter);
-
-		u32Temp[u8Counter] = u32SIL3_MMA8451__Get_FaultFlags(u8Counter);
-		if(u32Temp[u8Counter] != 0x00000000U)
+		//check the fault flags.
+		u32Temp[sFCU.sAccel.u8ChannelCounter] = u32SIL3_MMA8451__Get_FaultFlags(sFCU.sAccel.u8ChannelCounter);
+		if(u32Temp[sFCU.sAccel.u8ChannelCounter] != 0x00000000U)
 		{
+			//set the fault condition flag true
+			sFCU.sAccel.sFaultHandling[sFCU.sAccel.u8ChannelCounter].u8FaultCondition_Active = 1U;
+
 			//we had a fault with sensor 0
 			vSIL3_FAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__00);
 			vSIL3_FAULTTREE__Set_Flag(&sFCU.sAccel.sFaultFlags, C_LCCM655__ACCEL__FAULT_INDEX__01);
 		}
 		else
 		{
+			//process the device, only if we are not faulted out
+			vSIL3_MMA8451__Process(sFCU.sAccel.u8ChannelCounter);
+
 			//no faults, good to process
-			u8Test = u8SIL3_MMA8451__Get_NewSampleReady(u8Counter);
+			u8Test = u8SIL3_MMA8451__Get_NewSampleReady(sFCU.sAccel.u8ChannelCounter);
 			if(u8Test == 1U)
 			{
 				//no faults on sensor 0, safe to process accel data
-				sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__X] = s16SIL3_MMA8451_FILTERING__Get_Average(u8Counter, MMA8451_AXIS__X);
-				sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Y] = s16SIL3_MMA8451_FILTERING__Get_Average(u8Counter, MMA8451_AXIS__Y);
-				sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Z] = s16SIL3_MMA8451_FILTERING__Get_Average(u8Counter, MMA8451_AXIS__Z);
+				sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s16LastSample[MMA8451_AXIS__X] = s16SIL3_MMA8451_FILTERING__Get_Average(sFCU.sAccel.u8ChannelCounter, MMA8451_AXIS__X);
+				sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s16LastSample[MMA8451_AXIS__Y] = s16SIL3_MMA8451_FILTERING__Get_Average(sFCU.sAccel.u8ChannelCounter, MMA8451_AXIS__Y);
+				sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s16LastSample[MMA8451_AXIS__Z] = s16SIL3_MMA8451_FILTERING__Get_Average(sFCU.sAccel.u8ChannelCounter, MMA8451_AXIS__Z);
 
 				#if C_LOCALDEF__LCCM418__ENABLE_G_FORCE == 1U
-					sFCU.sAccel.sChannels[u8Counter].f32LastG[MMA8451_AXIS__X] = f32MMA8451_MATH__Get_GForce(u8Counter, MMA8451_AXIS__X);
-					sFCU.sAccel.sChannels[u8Counter].f32LastG[MMA8451_AXIS__Y] = f32MMA8451_MATH__Get_GForce(u8Counter, MMA8451_AXIS__Y);
-					sFCU.sAccel.sChannels[u8Counter].f32LastG[MMA8451_AXIS__Z] = f32MMA8451_MATH__Get_GForce(u8Counter, MMA8451_AXIS__Z);
+					sFCU.sAccel.sChannels[u8Counter].f32LastG[MMA8451_AXIS__X] = f32MMA8451_MATH__Get_GForce(sFCU.sAccel.u8ChannelCounter, MMA8451_AXIS__X);
+					sFCU.sAccel.sChannels[u8Counter].f32LastG[MMA8451_AXIS__Y] = f32MMA8451_MATH__Get_GForce(sFCU.sAccel.u8ChannelCounter, MMA8451_AXIS__Y);
+					sFCU.sAccel.sChannels[u8Counter].f32LastG[MMA8451_AXIS__Z] = f32MMA8451_MATH__Get_GForce(sFCU.sAccel.u8ChannelCounter, MMA8451_AXIS__Z);
 				#endif
 
 
 				//Filter, I will just use a very basic filter here until someone gives me a more advanced one
-				sFCU.sAccel.sChannels[u8Counter].s16FilteredResult = s16SIL3_NUM_FILTERING__Add_S16(sFCU.sAccel.sChannels[u8Counter].s16LastSample[(Luint8)eTargetAxis],
-																									&sFCU.sAccel.sChannels[u8Counter].u16FilterCounter,
+				sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s16FilteredResult = s16SIL3_NUM_FILTERING__Add_S16(sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s16LastSample[(Luint8)eTargetAxis],
+																									&sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].u16FilterCounter,
 																									C_FCU__ACCEL_FILTER_WINDOW,
-																									&sFCU.sAccel.sChannels[u8Counter].s16FilterValues[0]);
+																									&sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s16FilterValues[0]);
 
 				//Get the current filtered value in accel units
-				f32Temp = (Lfloat32)sFCU.sAccel.sChannels[u8Counter].s16FilteredResult;
+				f32Temp = (Lfloat32)sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s16FilteredResult;
 
 				//convert this raw value into G-Force
 				f32Temp /= (Lfloat32)s32Axis_To_ms;
@@ -261,7 +269,7 @@ void vFCU_ACCEL__Process(void)
 				f32Temp *= 1000.0F;
 
 				//assign
-				sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mm_ss = (Lint32)f32Temp;
+				sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32CurrentAccel_mm_ss = (Lint32)f32Temp;
 
 				//at this point here we have raw acceleration units updating every 1/freq
 
@@ -272,43 +280,43 @@ void vFCU_ACCEL__Process(void)
 
 				//v = u + at
 				//where u = prev sample and t = time slice
-				f32Temp += (Lfloat32)sFCU.sAccel.sChannels[u8Counter].s32PrevVeloc_mm_s;
+				f32Temp += (Lfloat32)sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32PrevVeloc_mm_s;
 
 				//assign
-				sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mm_s = (Lint32)f32Temp;
+				sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32CurrentVeloc_mm_s = (Lint32)f32Temp;
 
 				//assing prev (u)
-				sFCU.sAccel.sChannels[u8Counter].s32PrevVeloc_mm_s = sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mm_s;
+				sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32PrevVeloc_mm_s = sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32CurrentVeloc_mm_s;
 
 				//compute poition
 				//pos = posPrev + T * veloc
-				sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm = sFCU.sAccel.sChannels[u8Counter].s32PrevDisplacement_mm + sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mm_s;
+				sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32CurrentDisplacement_mm = sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32PrevDisplacement_mm + sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32CurrentVeloc_mm_s;
 
 				//update the previous
-				sFCU.sAccel.sChannels[u8Counter].s32PrevDisplacement_mm = sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm;
+				sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32PrevDisplacement_mm = sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32CurrentDisplacement_mm;
 
 				//handle the Daq
 				#if C_FCU_DAQ_SET__ENABLE__DAQ_FOR_ACCELS == 1U
 				switch(u8Counter)
 				{
 					case 0:
-						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0X_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__X]);
-						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0Y_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Y]);
-						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0Z_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Z]);
+						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0X_S16, sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s16LastSample[MMA8451_AXIS__X]);
+						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0Y_S16, sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s16LastSample[MMA8451_AXIS__Y]);
+						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0Z_S16, sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s16LastSample[MMA8451_AXIS__Z]);
 
-						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_ACCEL_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mm_ss);
-						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_VELOC_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mm_s);
-						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_DISP_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm);
+						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_ACCEL_S32, sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32CurrentAccel_mm_ss);
+						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_VELOC_S32, sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32CurrentVeloc_mm_s);
+						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A0_DISP_S32, sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32CurrentDisplacement_mm);
 						break;
 
 					case 1:
-						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1X_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__X]);
-						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1Y_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Y]);
-						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1Z_S16, sFCU.sAccel.sChannels[u8Counter].s16LastSample[MMA8451_AXIS__Z]);
+						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1X_S16, sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s16LastSample[MMA8451_AXIS__X]);
+						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1Y_S16, sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s16LastSample[MMA8451_AXIS__Y]);
+						vSIL3_DAQ_APPEND__S16(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1Z_S16, sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s16LastSample[MMA8451_AXIS__Z]);
 
-						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_ACCEL_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentAccel_mm_ss);
-						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_VELOC_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentVeloc_mm_s);
-						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_DISP_S32, sFCU.sAccel.sChannels[u8Counter].s32CurrentDisplacement_mm);
+						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_ACCEL_S32, sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32CurrentAccel_mm_ss);
+						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_VELOC_S32, sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32CurrentVeloc_mm_s);
+						vSIL3_DAQ_APPEND__S32(C_FCU_DAQ_SET__DAQ_FOR_ACCELS__A1_DISP_S32, sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].s32CurrentDisplacement_mm);
 						break;
 
 					default:
@@ -318,9 +326,10 @@ void vFCU_ACCEL__Process(void)
 				#endif
 
 				//done with the sample now
-				vSIL3_MMA8451__Clear_NewSampleReady(u8Counter);
+				vSIL3_MMA8451__Clear_NewSampleReady(sFCU.sAccel.u8ChannelCounter);
 
-				sFCU.sAccel.sChannels[u8Counter].u8NewSampleAvail = 1U;
+				//tell the upper layers we have new data avail.
+				sFCU.sAccel.sChannels[sFCU.sAccel.u8ChannelCounter].u8NewSampleAvail = 1U;
 
 			}
 			else
@@ -329,8 +338,24 @@ void vFCU_ACCEL__Process(void)
 			}
 		}
 
-	}//for(u8Counter = 0U; u8Counter < C_LOCALDEF__LCCM418__NUM_DEVICES; u8Counter++)
+		//inc the channel
+		sFCU.sAccel.u8ChannelCounter++;
+		if(sFCU.sAccel.u8ChannelCounter >= C_LOCALDEF__LCCM418__NUM_DEVICES)
+		{
+			sFCU.sAccel.u8ChannelCounter = 0U;
+		}
+		else
+		{
+			//do nothing.
+		}
 
+		//clear the flag
+		sFCU.sAccel.u810MS_Flag = 0U;
+	}
+	else
+	{
+		//no new data
+	}
 
 	//finally process the valid checks.
 	vFCU_ACCEL_VALID__Process();
@@ -446,7 +471,7 @@ Lfloat32 f32FCU_ACCEL__Get_LastG(Luint8 u8Index, Luint8 u8Axis)
  */
 void vFCU_ACCEL__10MS_ISR(void)
 {
-	sFCU.sAccel.u810MS_Flag = 0U;
+	sFCU.sAccel.u810MS_Flag++;
 
 	//pass off to thrreshold detection system.
 	vFCU_ACCEL_THRESH__10MS_ISR();

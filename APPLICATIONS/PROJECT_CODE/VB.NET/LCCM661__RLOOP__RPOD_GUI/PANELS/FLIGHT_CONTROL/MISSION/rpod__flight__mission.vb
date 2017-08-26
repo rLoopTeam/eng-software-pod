@@ -130,8 +130,11 @@
             Dim btnOn As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Stream On", AddressOf btnStreamOn__Click)
             btnOn.Layout__BelowControl(l0)
 
+            Dim btnRelease As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Release Rst", AddressOf Me.btnReleaseReset__Click)
+            btnRelease.Layout__RightOfControl(btnOn)
+
             Dim l11 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Rx Count")
-            l11.Layout__AboveRightControl(l0, btnOn)
+            l11.Layout__AboveRightControl(l0, btnRelease)
             Me.m_txtRxCount = New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper(100, l11)
             Me.m_txtRxCount.ReadOnly = True
 
@@ -230,6 +233,14 @@
 #End Region '#Region "PANEL LAYOUT"
 
 #Region "BUTTON HELPERS"
+
+        Private Sub btnReleaseReset__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__GS_NODE_RESET,
+                                                 &H11223344L,
+                                                 0, 0, 0)
+
+        End Sub
 
         ''' <summary>
         ''' Idle to Test mode

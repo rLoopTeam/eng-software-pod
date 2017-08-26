@@ -520,6 +520,7 @@ Public Class Form1
         'add one case for now
         'Me.m_cboNav_CSV.Threadsafe__AddItem("D:\\SIL3\\DESIGN\\RLOOP\\FIRMWARE\\PROJECT_CODE\\LCCM655__RLOOP__FCU_CORE\\UNIT_TEST\\TEST_VECTORS\\TRAJECTORY_TABLES\\Trajectory_case_no_37_avionics.csv")
         Me.m_cboNav_CSV.Threadsafe__AddItem("..\\..\\..\\...\\FIRMWARE\\PROJECT_CODE\\LCCM655__RLOOP__FCU_CORE\\UNIT_TEST\\TEST_VECTORS\\TRAJECTORY_TABLES\\Trajectory_case_no_37_avionics.csv")
+        Me.m_cboNav_CSV.Threadsafe__AddItem("..\\..\\..\\...\\FIRMWARE\\PROJECT_CODE\\LCCM655__RLOOP__FCU_CORE\\UNIT_TEST\\TEST_VECTORS\\TRAJECTORY_TABLES\\Trajectory_case_no_38_avionics.csv")
 
 
         Me.m_cboNav_CSV.Threadsafe__SetSelectedIndex(0)

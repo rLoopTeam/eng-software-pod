@@ -17,12 +17,23 @@
 		//define here the actual DAQ channel indexes
 		#define C_FCU_DAQ_SET__DAQ_FOR_NAV__CPU_LOAD_U8						(0U)
 
-		#define C_FCU_DAQ_SET__DAQ_FOR_NAV__A0X_S16							(1U)
+		//y channel 0 accelerometer
+		#define C_FCU_DAQ_SET__DAQ_FOR_NAV__A0Y_S16							(1U)
 
-		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U8					(1U)
-		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S16					(6U)
+		//accel threshold
+		#define C_FCU_DAQ_SET__DAQ_FOR_NAV__ACCEL_U8						(2U)
+
+		//decel threshold
+		#define C_FCU_DAQ_SET__DAQ_FOR_NAV__DECEL_U8						(3U)
+
+		//state
+		#define C_FCU_DAQ_SET__DAQ_FOR_NAV__STATE_U8						(4U)
+
+
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U8					(4U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S16					(1U)
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U16					(0U)
-		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S32					(6U)
+		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__S32					(0U)
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U32					(0U)
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__F32					(0U)
 		#define C_LOCALDEF__LCCM662__NUM_DAQ_CHANNELS__U64					(0U)

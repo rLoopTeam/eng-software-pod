@@ -59,7 +59,7 @@
 			Luint32 u32Guard1;
 
 			/** Timer to handle external resets */
-			Luint32 u32ResetTimer;
+			Luint32 u32ResetTimer_100ms;
 			Luint8 u8ResetActive;
 
 
@@ -417,6 +417,9 @@
 				/** Accel subsystem faults */
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
+				/** Accel channel counter */
+				Luint8 u8ChannelCounter;
+
 				/** Thresholding system */
 				struct
 				{
@@ -517,6 +520,7 @@
 
 				/** Packet injection*/
 				#if C_LOCALDEF__LCCM655__ENABLE_ACCEL_INJECTION == 1U
+/*
 				struct
 				{
 
@@ -525,10 +529,21 @@
 
 
 				}sInjection;
+*/
 				#endif
 
-
 				Luint8 u810MS_Flag;
+
+				/** Handle accel faults that we saw.*/
+				struct
+				{
+
+					/** We are in the middle of an active fault condition */
+					Luint8 u8FaultCondition_Active;
+
+
+				}sFaultHandling[C_FCU__NUM_ACCEL_CHIPS];
+
 
 			}sAccel;
 			#endif //C_LOCALDEF__LCCM655__ENABLE_ACCEL
