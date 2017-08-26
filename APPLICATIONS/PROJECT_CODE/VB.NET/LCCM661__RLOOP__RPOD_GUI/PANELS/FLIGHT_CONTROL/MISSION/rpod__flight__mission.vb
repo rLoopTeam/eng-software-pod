@@ -156,8 +156,46 @@
 
             Dim l110 As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.LabelHelper("Flight Controls", btnOn)
 
+            Dim btn_IDLE_Set As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "IDLE Set", AddressOf Me.btn_IDLE_Enable__Click)
+            btn_IDLE_Set.Layout__BelowControl(l110)
+
+            Dim btn_IDLE_Go As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "IDLE Go", AddressOf Me.btn_IDLE_Go__Click)
+            btn_IDLE_Go.Layout__RightOfControl(btn_IDLE_Set)
+
+
+            Dim btn_TEST_MODE_Set As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "TEST_MODE Set", AddressOf Me.btn_TEST_MODE_Enable__Click)
+            btn_TEST_MODE_Set.Layout__BelowControl(btn_IDLE_Set)
+
+            Dim btn_TEST_MODE_Go As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "TEST_MODE Go", AddressOf Me.btn_TEST_MODE_Go__Click)
+            btn_TEST_MODE_Go.Layout__RightOfControl(btn_TEST_MODE_Set)
+
+            Dim btn_DRIVE_Set As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "DRIVE Set", AddressOf Me.btn_DRIVE_Enable__Click)
+            btn_DRIVE_Set.Layout__BelowControl(btn_TEST_MODE_Set)
+
+            Dim btn_DRIVE_Go As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "DRIVE Go", AddressOf Me.btn_DRIVE_Go__Click)
+            btn_DRIVE_Go.Layout__RightOfControl(btn_DRIVE_Set)
+
+            Dim btn_ARMED_WAIT_Set As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "ARMED_WAIT Set", AddressOf Me.btn_ARMED_WAIT_Enable__Click)
+            btn_ARMED_WAIT_Set.Layout__BelowControl(btn_DRIVE_Set)
+
+            Dim btn_ARMED_WAIT_Go As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "ARMED_WAIT Go", AddressOf Me.btn_ARMED_WAIT_Go__Click)
+            btn_ARMED_WAIT_Go.Layout__RightOfControl(btn_ARMED_WAIT_Set)
+
+            Dim btn_FLIGHT_PREP_Set As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "FLIGHT_PREP Set", AddressOf Me.btn_FLIGHT_PREP_Enable__Click)
+            btn_FLIGHT_PREP_Set.Layout__BelowControl(btn_ARMED_WAIT_Set)
+
+            Dim btn_FLIGHT_PREP_Go As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "FLIGHT_PREP Go", AddressOf Me.btn_FLIGHT_PREP_Go__Click)
+            btn_FLIGHT_PREP_Go.Layout__RightOfControl(btn_FLIGHT_PREP_Set)
+
+            Dim btn_READY_Set As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "READY Set", AddressOf Me.btn_READY_Enable__Click)
+            btn_READY_Set.Layout__BelowControl(btn_FLIGHT_PREP_Set)
+
+            Dim btn_READY_Go As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "READY Go", AddressOf Me.btn_READY_Go__Click)
+            btn_READY_Go.Layout__RightOfControl(btn_READY_Set)
+
+
             Dim btnGo As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Go", AddressOf Me.btnGo__Click)
-            btnGo.Layout__BelowControl(l110)
+            btnGo.Layout__BelowControl(btn_READY_Set)
 
             Dim btnFlightAbort As New LAPP188__RLOOP__LIB.SIL3.ApplicationSupport.ButtonHelper(100, "Flight Abort", Nothing)
             btnFlightAbort.Layout__RightOfControl(btnGo)
@@ -278,6 +316,78 @@
             End If
 
         End Sub
+
+        ' Pod interlocked commands
+        Private Sub btn_IDLE_Enable__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                &H4321FEDCL, 1, 0, 0)
+        End Sub
+        Private Sub btn_IDLE_Go__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                &HDCBA9876L, 1, 0, 0)
+        End Sub
+
+        Private Sub btn_TEST_MODE_Enable__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                &H4321FEDCL, 2, 0, 0)
+        End Sub
+        Private Sub btn_TEST_MODE_Go__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                &HDCBA9876L, 2, 0, 0)
+        End Sub
+
+
+        Private Sub btn_DRIVE_Enable__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                &H4321FEDCL, 3, 0, 0)
+        End Sub
+        Private Sub btn_DRIVE_Go__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                &HDCBA9876L, 3, 0, 0)
+        End Sub
+
+
+        Private Sub btn_FLIGHT_PREP_Enable__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                &H4321FEDCL, 4, 0, 0)
+        End Sub
+        Private Sub btn_FLIGHT_PREP_Go__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                &HDCBA9876L, 4, 0, 0)
+        End Sub
+
+
+        Private Sub btn_ARMED_WAIT_Enable__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                &H4321FEDCL, 5, 0, 0)
+        End Sub
+        Private Sub btn_ARMED_WAIT_Go__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                &HDCBA9876L, 5, 0, 0)
+        End Sub
+
+
+        Private Sub btn_READY_Enable__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                &H4321FEDCL, 6, 0, 0)
+        End Sub
+        Private Sub btn_READY_Go__Click(s As Object, e As EventArgs)
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__POD_COMMAND,
+                                                &HDCBA9876L, 6, 0, 0)
+        End Sub
+
 
         Private Sub btnGo__Click(s As Object, e As EventArgs)
             RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
