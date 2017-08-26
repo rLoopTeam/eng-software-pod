@@ -56,7 +56,7 @@ void vFCU_LASEROPTO_FILT__FilterPacket(E_FCU__LASER_OPTO__INDEX_T eLaser)
 		Lfloat32 f32AvgTemp;
 		f32AvgTemp = 0U;
 		for(u8Counter = 0U; u8Counter < C_FCU__OPTO_FILTER_WINDOW; u8Counter++){
-			f32AvgTemp += sFCU.sLaserOpto.sOptoLaser[eLaser].f32PreviousDistances_mm[u8Counter];
+			f32AvgTemp += sFCU.sLaserOpto.sOptoLaser[eLaser].f32PrevDistances_mm[u8Counter];
 			f32AvgTemp /= C_FCU__OPTO_FILTER_WINDOW;
 		}
 
