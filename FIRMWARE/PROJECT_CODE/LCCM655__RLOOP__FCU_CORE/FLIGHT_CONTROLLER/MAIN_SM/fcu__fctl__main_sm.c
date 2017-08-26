@@ -55,10 +55,10 @@ void vFCU_FCTL_MAINSM__Init(void)
 	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pCoast_To_Brake, 1 * 1000);
 
 	// Brake to Spindown backup timeout
-	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout, 60 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown, 60 * 1000);
 
 	// Spindown to Idle backup timeout
-	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout, 120 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pSpindown_To_Idle, 120 * 1000);
 
 
 	// Initialize some interlock guards for command requests coming in over the network
@@ -316,7 +316,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#endif
 				
 				// (Re)start the BRAKE to SPINDOWN backup timeout. If this expires, we'll transition to SPINDOWN
-				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout);
+				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown);
 			}
 		
 			// Handle transitions
@@ -340,7 +340,7 @@ void vFCU_FCTL_MAINSM__Process(void)
 				#endif
 				
 				// (Re)start our spindown backup timeout. If this expires we'll automatically transition to IDLE.
-				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout);
+				vFCU_FCTL__TIMEOUT__Restart(&sFCU.sStateMachine.sTimers.pSpindown_To_Idle);
 			}
 		
 			// Handle transitions
@@ -406,10 +406,10 @@ void vFCU_FCTL_MAINSM__10MS_ISR(void)
 	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.pCoast_To_Brake);
 
 	/** Brake to Spindown backup timeout */
-	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout);
+	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown);
 
 	/** Spindown to Idle backup timeout */
-	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout);
+	vFCU_FCTL__TIMEOUT__Update_x10ms(&sFCU.sStateMachine.sTimers.pSpindown_To_Idle);
 
 	/** Update the timeouts for our net command interlock guards */
 	for (u8Counter = 0U; u8Counter < (Luint8)POD_COMMAND__NUM_COMMANDS; u8Counter++)

@@ -178,10 +178,10 @@
 					TS_FCTL__TIMEOUT_T pCoast_To_Brake;
 
 					/** Brake to Spindown backup timeout */
-					TS_FCTL__TIMEOUT_T BrakeToSpindownBackupTimeout;
+					TS_FCTL__TIMEOUT_T pBrake_To_Spindown;
 
 					/** Spindown to Idle backup timeout */
-					TS_FCTL__TIMEOUT_T SpindownToIdleBackupTimeout;
+					TS_FCTL__TIMEOUT_T pSpindown_To_Idle;
 
 				}sTimers;
 				
@@ -410,6 +410,7 @@
 				FAULT_TREE__PUBLIC_T sFaultFlags;
 
 				/** Thresholding system */
+				// Accel threshold
 				struct
 				{
 
@@ -427,6 +428,7 @@
 
 				}sAccelThresh;
 
+				// Decel threshold
 				struct
 				{
 
@@ -444,6 +446,23 @@
 
 				}sDecelThresh;
 
+				// Stop thresholding
+				struct
+				{
+
+					/** Set to 1 when the threshold has been reached*/
+					Luint8 u8ThresholdTrue;
+
+					/** The threshold time in count of 10ms increments */
+					Luint16 u16ThreshTime_x10ms;
+
+					/** The plus-or-minus threshold acceleration in mm_ss */
+					Lint32 s32Thresh_Accel_mm_ss;
+
+					/** Count of the number of 10ms interrupts */
+					Luint16 u1610MS_Counter;
+
+				}sStopThresh;
 
 				/** Data validity checks */
 				struct
@@ -1602,10 +1621,15 @@
 			//thresholding
 			void vFCU_ACCEL_THRESH__Init(void);
 			void vFCU_ACCEL_THRESH__Process(void);
-			DLL_DECLARATION Luint8 u8FCU_ACCEL_THRES__Is_Accel_Threshold_Met(void);
-			DLL_DECLARATION Luint8 u8FCU_ACCEL_THRES__Is_Decel_Threshold_Met(void);
+			DLL_DECLARATION void u8FCU_ACCEL_THRESH__Debug_Set_Accel_Threshold_Met(Luint8 u8ThresholdTrue);
+			DLL_DECLARATION void u8FCU_ACCEL_THRESH__Debug_Set_Decel_Threshold_Met(Luint8 u8ThresholdTrue);
+			DLL_DECLARATION void u8FCU_ACCEL_THRESH__Debug_Set_Stop_Threshold_Met(Luint8 u8ThresholdTrue);
+			DLL_DECLARATION Luint8 u8FCU_ACCEL_THRESH__Is_Accel_Threshold_Met(void);
+			DLL_DECLARATION Luint8 u8FCU_ACCEL_THRESH__Is_Decel_Threshold_Met(void);
+			DLL_DECLARATION Luint8 u8FCU_ACCEL_THRESH__Is_Stop_Threshold_Met(void);
 			DLL_DECLARATION void vFCU_ACCEL_THRESH__Set_Accel_Threshold(Lint32 s32Accel_mm_ss, Luint16 u16Time_x10ms);
 			DLL_DECLARATION void vFCU_ACCEL_THRESH__Set_Decel_Threshold(Lint32 s32Accel_mm_ss, Luint16 u16Time_x10ms);
+			DLL_DECLARATION void vFCU_ACCEL_THRESH__Set_Stop_Threshold(Lint32 s32Accel_mm_ss, Luint16 u16Time_x10ms);
 			void vFCU_ACCEL_THRESH__10MS_ISR(void);
 
 			//eth

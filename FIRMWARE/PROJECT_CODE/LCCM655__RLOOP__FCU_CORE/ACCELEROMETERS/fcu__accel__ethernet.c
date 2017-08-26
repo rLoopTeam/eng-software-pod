@@ -177,7 +177,6 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				//send the accel thresholding data
 				pu8Buffer[0] = sFCU.sAccel.sAccelThresh.u8ThresholdTrue;
 				pu8Buffer += 1U;
-
 				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sAccel.sAccelThresh.u16ThreshTime_x10ms);
 				pu8Buffer += 2U;
 				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sAccelThresh.s32Thresh_Accel_mm_ss);
@@ -188,7 +187,6 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				//send the decel thresholding data
 				pu8Buffer[0] = sFCU.sAccel.sDecelThresh.u8ThresholdTrue;
 				pu8Buffer += 1U;
-
 				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sAccel.sDecelThresh.u16ThreshTime_x10ms);
 				pu8Buffer += 2U;
 				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sDecelThresh.s32Thresh_Accel_mm_ss);
@@ -196,6 +194,15 @@ void vFCU_ACCEL_ETH__Transmit(E_NET__PACKET_T ePacketType)
 				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sAccel.sDecelThresh.u1610MS_Counter);
 				pu8Buffer += 2U;
 
+				//send the stop thresholding data
+				pu8Buffer[0] = sFCU.sAccel.sStopThresh.u8ThresholdTrue;
+				pu8Buffer += 1U;
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sAccel.sStopThresh.u16ThreshTime_x10ms);
+				pu8Buffer += 2U;
+				vSIL3_NUM_CONVERT__Array_S32(pu8Buffer, sFCU.sAccel.sStopThresh.s32Thresh_Accel_mm_ss);
+				pu8Buffer += 4U;
+				vSIL3_NUM_CONVERT__Array_U16(pu8Buffer, sFCU.sAccel.sStopThresh.u1610MS_Counter);
+				pu8Buffer += 2U;
 
 				break;
 

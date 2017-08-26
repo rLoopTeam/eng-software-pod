@@ -63,13 +63,13 @@ Luint8 flight_readiness_checks_ok(void)
 Luint8 u8FCU_FCTL_MAINSM__IsAccelConfirmed(void)
 {
 	// Note: Having this method allows us to change how we confirm acceleration without having to change the state machine
-	return u8FCU_ACCEL_THRES__Is_Accel_Threshold_Met();
+	return u8FCU_ACCEL_THRESH__Is_Accel_Threshold_Met();
 }
 
 Luint8 u8FCU_FCTL_MAINSM__IsDecelConfirmed(void)
 {
 	// Note: Having this method allows us to change how we confirm acceleration without having to change the state machine
-	return u8FCU_ACCEL_THRES__Is_Decel_Threshold_Met();
+	return u8FCU_ACCEL_THRESH__Is_Decel_Threshold_Met();
 }
 
 Luint8 u8FCU_FCTL_MAINSM__IsPusherSeparationConfirmed(void)
@@ -423,9 +423,9 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__ACCEL(void)
 		// Handle state change if we've detected the end of the push
 		if (u8PushCompleteDetected == 1U)
 		{
-#ifdef WIN32
+			#ifdef WIN32
 			DEBUG_PRINT("End of push detected -- transitioning to POD_STATE__COAST_INTERLOCK");
-#endif
+			#endif
 			sm->eCurrentState = POD_STATE__COAST_INTERLOCK;
 		}
 		else
@@ -507,7 +507,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__BRAKE()
 	// Check timeouts (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.BrakeToSpindownBackupTimeout) == 1U)
+		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown) == 1U)
 		{
 			#ifdef WIN32
 			DEBUG_PRINT("Brake_To_Spindown timeout expired -- transitioning to POD_STATE__SPINDOWN");
@@ -545,7 +545,7 @@ void vFCU_FCTL_MAINSM_XSN__POD_STATE__SPINDOWN(void)
 	// Check timeouts (if we aren't already transitioning)
 	if(u8FCU_FCTL_MAINSM__Check_IsTransitioning(sm) == 0U)
 	{
-		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.SpindownToIdleBackupTimeout) == 1U)
+		if(u8FCU_FCTL__TIMEOUT__Is_Expired(&sFCU.sStateMachine.sTimers.pSpindown_To_Idle) == 1U)
 		{
 			#ifdef WIN32
 			DEBUG_PRINT("Spindown_To_Idle timeout expired -- transitioning to POD_STATE__IDLE");
