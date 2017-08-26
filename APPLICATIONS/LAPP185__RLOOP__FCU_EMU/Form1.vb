@@ -321,6 +321,7 @@ Public Class Form1
     ''' Timer to handle accels.
     ''' </summary>
     Private m_pTimerAccel As System.Timers.Timer
+    Private m_bAccelDataRequired As Boolean
 
     Private m_txtBrakeL_Pos As LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
     Private m_txtBrakeR_Pos As LAPP185__RLOOP__LIB.SIL3.ApplicationSupport.TextBoxHelper
@@ -733,9 +734,11 @@ Public Class Form1
             Me.m_iNavSim__Accel0 = 0
             Me.m_bNavSim_Running = True
 
+            Me.m_bAccelDataRequired = True
+
             Me.m_pNavSim__Timer = New System.Timers.Timer
             '10ms
-            Me.m_pNavSim__Timer.Interval = 10
+            Me.m_pNavSim__Timer.Interval = 5
             AddHandler Me.m_pNavSim__Timer.Elapsed, AddressOf Me.NavSimTimer__Tick
             Me.m_pNavSim__Timer.Start()
 
@@ -823,24 +826,29 @@ Public Class Form1
     Private Sub NavSimTimer__Tick(s As Object, e As System.Timers.ElapsedEventArgs)
 
         'get the next sample
-        Dim pAL As ArrayList = Me.m_pCSV_Nav.m_alRows(Me.m_iNavSim__CurrentPosition)
-        Dim sSample As Single = CSng(pAL.Item(0).ToString)
+        If m_bAccelDataRequired = True Then
+            Dim pAL As ArrayList = Me.m_pCSV_Nav.m_alRows(Me.m_iNavSim__CurrentPosition)
+            Dim sSample As Single = CSng(pAL.Item(0).ToString)
 
-        'conver to 4G mode raw
-        'sSample *= 2048
+            'conver to 4G mode raw
+            'sSample *= 2048
 
-        Me.m_iAccel0_Y = sSample
-        Me.m_iAccel1_Y = Me.m_iAccel0_Y
+            Me.m_iAccel0_Y = sSample
+            Me.m_iAccel1_Y = Me.m_iAccel0_Y
 
-        Me.m_txtNav_AccelY(0).Threadsafe__SetText(Me.m_iAccel0_Y.ToString)
-        Me.m_txtNav_AccelY(1).Threadsafe__SetText(Me.m_iAccel1_Y.ToString)
+            Me.m_txtNav_AccelY(0).Threadsafe__SetText(Me.m_iAccel0_Y.ToString)
+            Me.m_txtNav_AccelY(1).Threadsafe__SetText(Me.m_iAccel1_Y.ToString)
 
-        Me.m_iNavSim__CurrentPosition += 1
+            Me.m_iNavSim__CurrentPosition += 1
 
-        If Me.m_iNavSim__CurrentPosition >= Me.m_iNavSim__MaxPosition Then
-            Me.m_pNavSim__Timer.Stop()
-            Me.m_bNavSim_Running = False
-            Me.m_btnNav_Start.Threadsafe__SetText("Start")
+            If Me.m_iNavSim__CurrentPosition >= Me.m_iNavSim__MaxPosition Then
+                Me.m_pNavSim__Timer.Stop()
+                Me.m_bNavSim_Running = False
+                Me.m_btnNav_Start.Threadsafe__SetText("Start")
+            End If
+
+            Me.m_bAccelDataRequired = False
+
         End If
 
 
@@ -859,9 +867,6 @@ Public Class Form1
 
         'needs to be done due to WIN32_ETH_Init
         vSIL3_ETH_WIN32__Set_Ethernet_TxCallback(Me.m_pETH_TX__Delegate)
-
-
-
 
         'force the two motor positions to random so as we can simulate the cal process
         vSIL3_STEPDRIVE_WIN32__ForcePosition(0, -34)
@@ -1237,6 +1242,8 @@ Public Class Form1
         Dim iEthPort As Integer = C_ETH_PORT
         Dim bArray(1500 - 1) As Byte
         'LAPP185__RLOOP__LIB.SIL3.MemoryCopy.MemoryCopy.Copy_Memory(bArray, u8Buffer, CInt(u16BufferLength))
+
+        Me.m_bAccelDataRequired = True
 
         Dim xS16X As LAPP185__RLOOP__LIB.SIL3.Numerical.S16
         Dim xS16Y As LAPP185__RLOOP__LIB.SIL3.Numerical.S16
