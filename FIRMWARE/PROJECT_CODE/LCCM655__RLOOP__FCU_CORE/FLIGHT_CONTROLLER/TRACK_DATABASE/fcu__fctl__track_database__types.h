@@ -66,6 +66,13 @@
 				/** Threshold time */
 				Luint8 u8DecelThresh_x10ms[2];
 
+				// @todo: This takes us above 16 bytes even without spares...
+				/** Stop threshold S32*/
+				Luint8 u8StopThresh_mm_ss[4];
+
+				/** Threshold time */
+				Luint8 u8StopThresh_x10ms[2];
+
 				//3 spares to take it to 16 bytes
 				Luint8 u8Spares[3];
 

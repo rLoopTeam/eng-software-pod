@@ -83,10 +83,6 @@ Luint8 u8FCU_FCTL_MAINSM__IsPusherSeparationConfirmed(void)
 
 Luint8 u8FCU_FCTL_MAINSM__IsPodStopConfirmed(void)
 {
-	#ifdef WIN32
-	DEBUG_PRINT("Pod stop confirmed?");
-	#endif//WIN32
-
 	// @todo: implement
 	return 0U;
 }

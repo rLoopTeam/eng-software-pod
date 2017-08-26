@@ -177,6 +177,16 @@ Lint16 s16FCU_FCTL_TRACKDB__Accel__Get_Decel_ThresholdTime_x10ms(void)
 	return s16SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sAccel.u8DecelThresh_x10ms[0]);
 }
 
+Lint32 s32FCU_FCTL_TRACKDB__Accel__Get_Stop_Threshold_mm_ss(void)
+{
+	return s32SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sAccel.u8StopThresh_mm_ss[0]);
+}
+
+Lint16 s16FCU_FCTL_TRACKDB__Accel__Get_Stop_ThresholdTime_x10ms(void)
+{
+	return s16SIL3_NUM_CONVERT__Array(&sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sAccel.u8StopThresh_x10ms[0]);
+}
+
 Luint8 u8FCU_FCTL_TRACKDB__Accel__Get_UsePusherSeparaation(void)
 {
 	return sTrackDB.sDB2[sFCU.sFlightControl.sTrackDB.u32CurrentDB].sControl.u8EnablePuserSeparationDetection;

@@ -217,6 +217,17 @@ void vFCU_FCTL_TRACKDB_WIN32__Set_Decel__Threshold_x10ms(Luint8 u8TrackIndex, Lu
 	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sAccel.u8DecelThresh_x10ms[0], u16Thresh_x10ms);
 }
 
+//Stop threshold in mm/ss
+void vFCU_FCTL_TRACKDB_WIN32__Set_Stop__Threshold_mm_ss(Luint8 u8TrackIndex, Lint32 s32Thresh_mm_ss)
+{
+	vSIL3_NUM_CONVERT__Array_S32(&sTrackDB.sDB2[u8TrackIndex].sAccel.u8StopThresh_mm_ss[0], s32Thresh_mm_ss);
+}
+
+//Stop threshold time
+void vFCU_FCTL_TRACKDB_WIN32__Set_Stop__Threshold_x10ms(Luint8 u8TrackIndex, Luint16 u16Thresh_x10ms)
+{
+	vSIL3_NUM_CONVERT__Array_U32(&sTrackDB.sDB2[u8TrackIndex].sAccel.u8StopThresh_x10ms[0], u16Thresh_x10ms);
+}
 
 void vFCU_FCTL_TRACKDB_WIN32__Set_Track__TrackStart_mm(Luint8 u8TrackIndex, Luint32 u32Value)
 {

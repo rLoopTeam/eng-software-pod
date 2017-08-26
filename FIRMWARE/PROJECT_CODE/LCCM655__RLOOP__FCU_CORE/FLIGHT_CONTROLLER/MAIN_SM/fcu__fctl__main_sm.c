@@ -46,19 +46,19 @@ void vFCU_FCTL_MAINSM__Init(void)
 	sFCU.sStateMachine.sm.eCurrentState = POD_STATE__INIT;
 
 	// Initialize our various state machine related timeouts
-	// @todo: Move timeout duration values to config/mission profile
+	// @todo: Move timeout duration values to config/mission profile (!)
 
 	// Accel to Coast Interlock backup timeout
-	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max, 10 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pAccel_To_Coast_Max, 10 * 100);
 
 	// Coast interlock timeout
-	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pCoast_To_Brake, 1 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pCoast_To_Brake, 1 * 100);
 
 	// Brake to Spindown backup timeout
-	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown, 60 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pBrake_To_Spindown, 7 * 100);
 
 	// Spindown to Idle backup timeout
-	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pSpindown_To_Idle, 120 * 1000);
+	vFCU_FCTL__TIMEOUT__Init(&sFCU.sStateMachine.sTimers.pSpindown_To_Idle, 15 * 100);
 
 
 	// Initialize some interlock guards for command requests coming in over the network
