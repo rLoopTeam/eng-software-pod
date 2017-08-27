@@ -74,6 +74,9 @@ Namespace SIL3.rLoop.rPodControl.Ethernet
         '/** Pod State Machine Command */
         NET_PKT__FCU_GEN__POD_COMMAND = &H500
 
+        '/** Pod State Machine Force State (FOR DEBUGGING ONLY) */
+        NET_PKT__FCU_GEN__MAINSM_DEBUG_FORCE_STATE = &H590
+
         '//////////////////////////////////////////////////////
         '//FCU: ACCEL (&h1000)
         '//////////////////////////////////////////////////////

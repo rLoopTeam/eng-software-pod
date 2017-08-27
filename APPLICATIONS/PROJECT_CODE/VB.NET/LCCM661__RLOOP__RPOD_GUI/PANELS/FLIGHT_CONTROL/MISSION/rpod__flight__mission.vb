@@ -406,6 +406,13 @@
         ''' <param name="e"></param>
         Private Sub btnBRAKE__Click(s As Object, e As EventArgs)
 
+            RaiseEvent UserEvent__SafeUDP__Tx_X4(SIL3.rLoop.rPodControl.Ethernet.E_POD_CONTROL_POINTS.POD_CTRL_PT__FCU,
+                                                 SIL3.rLoop.rPodControl.Ethernet.E_NET__PACKET_T.NET_PKT__FCU_GEN__MAINSM_DEBUG_FORCE_STATE,
+                                                 &HDEDBEEF4L,
+                                                10, 0, 0)
+
+
+
         End Sub
 
         ''' <summary>
