@@ -1,0 +1,10 @@
+[BEGIN]
+0
+
+[END]
+20
+
+[MIN_POSITION_TO_USE_LRF]
+0
+
+[STRIPES]
