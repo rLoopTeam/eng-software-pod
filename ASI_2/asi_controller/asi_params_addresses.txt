@@ -1,0 +1,9 @@
+rated motor current adress is 71
+slave address ? 65
+
+slave address ? 5
+
+throttle is on adress 213 - 16384 ---->10240
+throttle is fully off/closed address 214 - 4096
+
+
