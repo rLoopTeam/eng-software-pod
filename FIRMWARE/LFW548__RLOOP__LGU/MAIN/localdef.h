@@ -13,6 +13,120 @@
 #endif
 
 /*******************************************************************************
+SIL3 - RM4 ADC DRIVER
+*******************************************************************************/
+    #define C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE                         (1U)
+    #if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
+
+        /** Vref constant used for voltage calc 3.3/(2^12)*/
+        #define C_LOCALDEF__LCCM414__VREF_CONSTANT                          (0.0008056640625F)
+
+        /** The number of ADC channels (modules) being used
+         * Keep a 1 for now
+         */
+        #define C_LOCALDEF__LCCM414__NUM_ADC_MODULES                        (1U)
+
+        /** Continuous Conversion Mode:  When enabled the ADC
+         * Will always keep making samples of the configured channels
+         */
+        #define C_LOCALDEF__LCCM414__ENABLE_CONTINUOUS_CONVERSION           (0U)
+
+        /** Averaging is enabled across all channels.
+         * It can consume serious CPU time for a fully enabled ADC
+         */
+        #define C_LOCALDEF__LCCM414__ENABLE_AVERAGING                       (1U)
+
+        /** The number of samples for each channels ADC averager */
+        #define C_LOCALDEF__LCCM414__AVERAGE_MAX_SAMPLES                    (4U)
+
+
+        /** Determine which of ADC1 to enable */
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN0                       (1U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN1                       (1U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN2                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN3                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN4                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN5                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN6                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN7                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN8                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN9                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN10                      (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN11                      (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN12                      (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN13                      (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN14                      (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN15                      (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN16                      (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN17                      (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN18                      (1U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN19                      (1U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN20                      (1U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN21                      (1U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN22                      (0U)
+        #define C_LOCALDEF__LCCM414__ADC1__ENABLE_IN23                      (0U)
+
+        /** The number of connected devices to the ADC's
+         * We store a local copy of our ADC results in a user addressable
+         * structure to reduce the complexity of finding our result
+         * Value can be from 1 to 24
+         */
+        #define C_LOCALDEF__LCCM414__NUM_CONNECTED_DEVICES                  (4U)
+
+        /** For each device we determine the location of the device within our strucrture
+         * You must configure an index from 0 to NUM_CONNECTED_DEVICES - 1
+         * No two units may have the same index
+         * Example MAP ADC1_IN0 to Device (1)
+         */
+        #define C_LOCALDEF__LCCM414__ADC1_IN0__INDEX                        (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN1__INDEX                        (1U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN2__INDEX                        (2U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN3__INDEX                        (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN4__INDEX                        (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN5__INDEX                        (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN6__INDEX                        (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN7__INDEX                        (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN8__INDEX                        (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN9__INDEX                        (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN10__INDEX                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN11__INDEX                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN12__INDEX                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN13__INDEX                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN14__INDEX                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN15__INDEX                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN16__INDEX                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN17__INDEX                       (0U)
+
+        //MLP1
+        #define C_LOCALDEF__LCCM414__ADC1_IN18__INDEX                       (0U)
+        //MLP2
+        #define C_LOCALDEF__LCCM414__ADC1_IN19__INDEX                       (1U)
+        //MLP3
+        #define C_LOCALDEF__LCCM414__ADC1_IN20__INDEX                       (2U)
+        //MLP4
+        #define C_LOCALDEF__LCCM414__ADC1_IN21__INDEX                       (3U)
+
+
+        #define C_LOCALDEF__LCCM414__ADC1_IN22__INDEX                       (0U)
+        #define C_LOCALDEF__LCCM414__ADC1_IN23__INDEX                       (0U)
+
+        /** Enable voltage conversion to return the voltage value
+         * for a device.  This reduces the external workload to compute the
+         * voltage based on VREF
+         */
+        #define C_LOCALDEF__LCCM414__ENABLE_VOLTAGE_CALC                    (1U)
+
+        /** Use interrupts */
+        #define C_LOCALDEF__LCCM414__ENABLE_INTERRUPTS                      (0U)
+
+        //testing
+        #define C_LOCALDEF__LCCM414__ENABLE_TEST_SPEC                       (0U)
+
+        //main include file
+        #include <RM4/LCCM414__RM4__ADC/rm4_adc.h>
+    #endif
+
+/*******************************************************************************
 RM4 GIO MODULE
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM133__ENABLE_THIS_MODULE							(1U)
@@ -95,34 +209,71 @@ RM4 - RTI MODULE
 
 	#endif //#if C_LOCALDEF__LCCM124__ENABLE_THIS_MODULE == 1U
 
+
+
 /*******************************************************************************
-SIL3 - ETHERNET TRANSPORT
+SIL3 - 802.3 ETHERNET
 *******************************************************************************/
-	#define C_LOCALDEF__LCCM325__ENABLE_THIS_MODULE							(1U)
-	#if C_LOCALDEF__LCCM325__ENABLE_THIS_MODULE == 1U
+    #define C_LOCALDEF__LCCM325__ENABLE_THIS_MODULE                         (1U)
+    #if C_LOCALDEF__LCCM325__ENABLE_THIS_MODULE == 1U
 
-		//various protocol options
-		//DHCP Client
-		#define C_LOCALDEF__LCCM325__ENABLE_DHCP_CLIENT						(0U)
-		//Link Layer Discovery Protocol
-		#define C_LOCALDEF__LCCM325__ENABLE_LLDP							(0U)
-		#define C_LOCALDEF__LCCM325__ENABLE_SNMP							(0U)
+        /** On Xilinx Architectures we can use NPI burst transfers */
+        #define C_LOCALDEF__LCCM325__XILINX_USE_NPI_INTERFACE               (0U)
 
-		//UDP Rx
-		#define C_LOCALDEF__LCCM325__UDP_RX_CALLBACK(buffer,length,dest_port)	vLGU_ETH__RxUDP(buffer, length, dest_port)
-		/*vECU_ETHERNET_RX__UDPPacket*/
+        //ARP Configuration
+        /** Enable ARP Requesting */
+        #define C_LOCALDEF__LCCM325__ARP__ENABLE_REQUEST                    (0U)
+        /** Enable ARP Cache */
+        #define C_LOCALDEF__LCCM325__ARP__ENABLE_CACHE                      (0U)
+        /** If caching is enabled what is the maximum ARP cache size (entries) */
+        #define C_LOCALDEF__LCCM325__ARP__MAX_CACHE_SIZE                    (4U)
+        /** If caching is enabled how long until the entry expires in 100ms
+         * The default is 300 seconds */
+        #define C_LOCALDEF__LCCM325__ARP__ENTRY_EXPIRE_X100MS               (3000U)
+        /** The amount of time from when a request is sent to a timeout occurring
+         * Currently set at 3 seconds. */
+        #define C_LOCALDEF__LCCM325__ARP__RESPONSE_TIMEOUT_X100MS           (30U)
 
-		//testing options
-		#define C_LOCALDEF__LCCM325__ENABLE_TEST_SPEC						(0U)
+        //DNS Client Configuration
+        /** Enable the DNS Client for DNS lookup */
+        #define C_LOCALDEF__LCCM325__DNS__ENABLE_DNS_CLIENT                 (0U)
+        /** Maximum number of host names in the cache */
+        #define C_LOCALDEF__LCCM325__DNS__MAX_CACHE_SIZE                    (4U)
 
-		//protocol specific options
-		//set to 1 to consider port numbers
-		#define C_LOCALDEF__LCCM325__PROTO_UDP__ENABLE_PORT_NUMBERS			(1U)
 
-		//main include file
-		#include <MULTICORE/LCCM325__MULTICORE__802_3/eth.h>
+        //DHCP Client Configuration
+        /** DHCP Client */
+        #define C_LOCALDEF__LCCM325__DHCP__ENABLE_DHCP_CLIENT               (0U)
 
-	#endif //C_LOCALDEF__LCCM325__ENABLE_THIS_MODULE
+        //TCP/IP Settings
+        /** TCP/IP Module Enable*/
+        #define C_LOCALDEF__LCCM325__TCPIP__ENABLE_TCPIP                    (0U)
+        /** New TCP data callback */
+        #define M_LOCALDEF__LCCM325__TCPIP__NEW_RX_DATA(id, buffer, length) {}
+
+
+
+        //various protocol options
+        /** Link Layer Discovery Protocol */
+        #define C_LOCALDEF__LCCM325__ENABLE_LLDP                            (0U)
+        /** Simple Network Management Protocol */
+        #define C_LOCALDEF__LCCM325__ENABLE_SNMP                            (0U)
+
+        //UDP Rx
+        #define C_LOCALDEF__LCCM325__UDP_RX_CALLBACK(buffer,length,port)    vLGU_ETH__RxUDP(buffer, length, port)
+
+        //testing options
+        #define C_LOCALDEF__LCCM325__ENABLE_TEST_SPEC                       (0U)
+
+
+        //protocol specific options
+        //set to 1 to consider port numbers
+        #define C_LOCALDEF__LCCM325__PROTO_UDP__ENABLE_PORT_NUMBERS         (1U)
+
+        //main include file
+        #include <MULTICORE/LCCM325__MULTICORE__802_3/eth.h>
+
+    #endif //C_LOCALDEF__LCCM325__ENABLE_THIS_MODULE
 
 /*******************************************************************************
 SIL3 - SAFETY UDP LAYER
@@ -183,6 +334,15 @@ RLOOP - LANDING GEAR UNIT
 		#define C_LOCALDEF__LCCM667___RETRACT_4								RM4_GIO__PORT_B, 3U
 		#define C_LOCALDEF__LCCM667___EXTEND_4								RM4_GIO__PORT_B, 2U
 
+
+        /** Clutch control*/
+        #define C_LOCALDEF__LCCM667__ENABLE_CLUTCHES                        (1U)
+
+        /** Lift Mechanisms*/
+        #define C_LOCALDEF__LCCM667__LGU_ENABLE_LIFT                        (0U)
+
+        /** MLP Systems */
+        #define C_LOCALDEF__LCCM667__ENABLE_MLP                             (1U)
 
         /** Testing Options */
         #define C_LOCALDEF__LCCM667__ENABLE_TEST_SPEC                       (0U)
