@@ -8,7 +8,7 @@
 #ifdef __LACHLANS__PC__
 	#define C_RLOOP_NET_IP__SUBNET								(1U)
 #else
-	#define C_RLOOP_NET_IP__SUBNET								(0U)
+	#define C_RLOOP_NET_IP__SUBNET								(1U)
 #endif
 	
 	/** Flight Control Unit*/

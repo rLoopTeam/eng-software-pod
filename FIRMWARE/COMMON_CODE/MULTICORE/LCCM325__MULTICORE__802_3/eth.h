@@ -23,7 +23,7 @@
 		Includes
 		*****************************************************************************/
 		#include <MULTICORE/LCCM325__MULTICORE__802_3/eth__types.h>
-		#include <MULTICORE/LCCM325__MULTICORE__802_3/TCP_CLIENT/eth__tcp_client_types.h>
+//		#include <MULTICORE/LCCM325__MULTICORE__802_3/TCP_CLIENT/eth__tcp_client_types.h>
 	
 		/*****************************************************************************
 		Defines
@@ -601,9 +601,9 @@
 		/*****************************************************************************
 		Safetys
 		*****************************************************************************/
-		#ifndef C_LOCALDEF__LCCM325__ARP__MAX_CACHE_SIZE
-			#error
-		#endif
+//		#ifndef C_LOCALDEF__LCCM325__ARP__MAX_CACHE_SIZE
+//			#error
+//		#endif
 
 	
 	#endif //C_LOCALDEF__LCCM325__ENABLE_THIS_MODULE
