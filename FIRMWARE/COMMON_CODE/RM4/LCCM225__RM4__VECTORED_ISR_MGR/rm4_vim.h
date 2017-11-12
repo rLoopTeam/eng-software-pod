@@ -46,6 +46,7 @@
 	*/
 	/*****************************************************************************
 	*****************************************************************************/
+#if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 0U
 	typedef volatile struct vimBase
 	{
 		Luint32      IRQINDEX;         /* 0x0000        */
@@ -84,7 +85,55 @@
 	} vimBASE_t;
 
 	#define vimREG ((vimBASE_t *)0xFFFFFE00U)
+#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
+	typedef volatile struct vimBase
+	{
+	    Luint32      rsvd1[59U];       /* 0x0000 - 0x00E8 Reserved */
+	    Luint32      ECCSTAT;          /* 0x00EC        */
+	    Luint32      ECCCTL;           /* 0x00F0        */
+	    Luint32      UERRADDR;         /* 0x00F4        */
+	    Luint32      FBVECADDR;        /* 0x00F8        */
+	    Luint32      SBERRADDR;        /* 0x00FC        */
+	    Luint32      IRQINDEX;         /* 0x0100        */
+	    Luint32      FIQINDEX;         /* 0x0104        */
+	    Luint32      rsvd2;            /* 0x0108        */
+	    Luint32      rsvd3;            /* 0x010C        */
+	    Luint32      FIRQPR0;          /* 0x0110        */
+	    Luint32      FIRQPR1;          /* 0x0114        */
+	    Luint32      FIRQPR2;          /* 0x0118        */
+	    Luint32      FIRQPR3;          /* 0x011C        */
+	    Luint32      INTREQ0;          /* 0x0120        */
+	    Luint32      INTREQ1;          /* 0x0124        */
+	    Luint32      INTREQ2;          /* 0x0128        */
+	    Luint32      INTREQ3;          /* 0x012C        */
+	    Luint32      REQMASKSET0;      /* 0x0130        */
+	    Luint32      REQMASKSET1;      /* 0x0134        */
+	    Luint32      REQMASKSET2;      /* 0x0138        */
+	    Luint32      REQMASKSET3;      /* 0x013C        */
+	    Luint32      REQMASKCLR0;      /* 0x0140        */
+	    Luint32      REQMASKCLR1;      /* 0x0144        */
+	    Luint32      REQMASKCLR2;      /* 0x0148        */
+	    Luint32      REQMASKCLR3;      /* 0x014C        */
+	    Luint32      WAKEMASKSET0;     /* 0x0150        */
+	    Luint32      WAKEMASKSET1;     /* 0x0154        */
+	    Luint32      WAKEMASKSET2;     /* 0x0158        */
+	    Luint32      WAKEMASKSET3;     /* 0x015C        */
+	    Luint32      WAKEMASKCLR0;     /* 0x0160        */
+	    Luint32      WAKEMASKCLR1;     /* 0x0164        */
+	    Luint32      WAKEMASKCLR2;     /* 0x0168        */
+	    Luint32      WAKEMASKCLR3;     /* 0x016C        */
+	    Luint32      IRQVECREG;        /* 0x0170        */
+	    Luint32      FIQVECREG;        /* 0x0174        */
+	    Luint32      CAPEVT;           /* 0x0178        */
+	    Luint32      rsvd4;            /* 0x017C        */
+	    Luint32      CHANCTRL[32U];    /* 0x0180-0x02FC */
+	} vimBASE_t;
 
+	#define vimREG ((vimBASE_t *)0xFFFFFD00U)
+
+#else
+#error
+#endif
 	/* VIM Type Definitions */
 
 	/** @typedef t_isrFuncPTR
@@ -99,8 +148,13 @@
 
 
 	/* VIM General Configuration */
-
+#if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 0U
 	#define VIM_CHANNELS 96U
+#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
+	#define VIM_CHANNELS 128U
+#else
+	#error
+#endif
 
 	/* USER CODE BEGIN (2) */
 	/* USER CODE END */
@@ -108,6 +162,7 @@
 	/* Interrupt Handlers */
 
 	extern void phantomInterrupt(void);
+	extern void esmHighInterrupt(void);
 
 	/* USER CODE BEGIN (3) */
 	/* USER CODE END */
@@ -116,6 +171,12 @@
 	#define VIM_PARCTL		(*(volatile Luint32 *)0xFFFFFDF0U)
 	#define VIM_ADDERR		(*(volatile Luint32 *)0xFFFFFDF4U)
 	#define VIM_FBPARERR	(*(volatile Luint32 *)0xFFFFFDF8U)
+
+	#define VIM_ECCSTAT			(*(volatile uint32 *)0xFFFFFDECU)
+	#define VIM_ECCCTL			(*(volatile uint32 *)0xFFFFFDF0U)
+	#define VIM_UERRADDR		(*(volatile uint32 *)0xFFFFFDF4U)
+	#define VIM_FBVECADDR		(*(volatile uint32 *)0xFFFFFDF8U)
+	#define VIM_SBERRADDR		(*(volatile uint32 *)0xFFFFFDFCU)
 
 	#define VIMRAMPARLOC	(*(volatile Luint32 *)0xFFF82400U)
 	#define VIMRAMLOC		(*(volatile Luint32 *)0xFFF82000U)

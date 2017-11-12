@@ -456,10 +456,24 @@
 		/** Actual image data from slave to host */
 		SAFE_UDP__LCCM528__SAFEUDP_IMGTX__IMAGE_DATA = 0xC001,
 
-		SAFE_UDP__LCCM528__SAFEUDP_VISION__IMAGE_DATA = 0xC002
+		SAFE_UDP__LCCM528__SAFEUDP_VISION__IMAGE_DATA = 0xC002,
 
 
+		////////////////////////////////////////////////
+		// LCCM748 - Auto Test System
+		// 0xC100 - 0xC1FF
+		////////////////////////////////////////////////
+		/** Host application transmit UART data to the ATS which sends it onto a DUT */
+		SAFE_UDP__LCCM748__ATS__UART_TX_DATA = 0xC100,
 
+		/** Host application to Rx data */
+		SAFE_UDP__LCCM748__ATS__UART_RX_DATA = 0xC101,
+
+		/** WIN32 application wants to read GPIO data */
+		SAFE_UDP__LCCM748__ATS__WIN32_GPIO_READ_DATA = 0xC102,
+
+		/** ATS module to return the GPIO data read */
+		SAFE_UDP__LCCM748__ATS__RETURN_GPIO_READ_DATA = 0xC103,
 
 
 	}SAFE_UDP__PACKET_T;

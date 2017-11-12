@@ -25,16 +25,45 @@ SIL3 - 802.3 ETHERNET
 		/** On Xilinx Architectures we can use NPI burst transfers */
 		#define C_LOCALDEF__LCCM325__XILINX_USE_NPI_INTERFACE				(0U)
 
-		//various protocol options
+		//ARP Configuration
+		/** Enable ARP Requesting */
+		#define C_LOCALDEF__LCCM325__ARP__ENABLE_REQUEST					(0U)
+		/** Enable ARP Cache */
+		#define C_LOCALDEF__LCCM325__ARP__ENABLE_CACHE						(0U)
+		/** If caching is enabled what is the maximum ARP cache size (entries) */
+		#define C_LOCALDEF__LCCM325__ARP__MAX_CACHE_SIZE					(4U)
+		/** If caching is enabled how long until the entry expires in 100ms
+		 * The default is 300 seconds */
+		#define C_LOCALDEF__LCCM325__ARP__ENTRY_EXPIRE_X100MS				(3000U)
+		/** The amount of time from when a request is sent to a timeout occurring
+		 * Currently set at 3 seconds. */
+		#define C_LOCALDEF__LCCM325__ARP__RESPONSE_TIMEOUT_X100MS			(30U)
+
+		//DNS Client Configuration
+		/** Enable the DNS Client for DNS lookup */
+		#define C_LOCALDEF__LCCM325__DNS__ENABLE_DNS_CLIENT					(0U)
+		/** Maximum number of host names in the cache */
+		#define C_LOCALDEF__LCCM325__DNS__MAX_CACHE_SIZE					(4U)
+
+
+		//DHCP Client Configuration
 		/** DHCP Client */
-		#define C_LOCALDEF__LCCM325__ENABLE_DHCP_CLIENT						(0U)
+		#define C_LOCALDEF__LCCM325__DHCP__ENABLE_DHCP_CLIENT				(0U)
+
+		//TCP/IP Settings
+		/** TCP/IP Module Enable*/
+		#define C_LOCALDEF__LCCM325__TCPIP__ENABLE_TCPIP					(0U)
+		/** New TCP data callback */
+		#define M_LOCALDEF__LCCM325__TCPIP__NEW_RX_DATA(id, buffer, length)	{}
+
+
+
+		//various protocol options
 		/** Link Layer Discovery Protocol */
 		#define C_LOCALDEF__LCCM325__ENABLE_LLDP							(0U)
 		/** Simple Network Management Protocol */
 		#define C_LOCALDEF__LCCM325__ENABLE_SNMP							(0U)
-		/** TCP/IP */
-		#define C_LOCALDEF__LCCM325__ENABLE_TCP								(0U)
-
+		
 		//UDP Rx
 		#define C_LOCALDEF__LCCM325__UDP_RX_CALLBACK(buffer,length,port)	vSIL3_SAFEUDP_RX__UDPPacket(buffer, length, port)
 	

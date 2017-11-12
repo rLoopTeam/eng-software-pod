@@ -35,20 +35,14 @@
 			#if C_LOCALDEF__LCCM282__ENABLE_SCI_1 == 1U
 				SCI_CHANNEL__1 = 0U,
 			#endif
-
 			#if C_LOCALDEF__LCCM282__ENABLE_SCI_2 == 1U
 				SCI_CHANNEL__2 = 1U,
 			#endif
-
-            #if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
-                #if C_LOCALDEF__LCCM282__ENABLE_SCI_3 == 1U
-                    SCI_CHANNEL__3 = 2U,
-                #endif
+            #if (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U) && (C_LOCALDEF__LCCM282__ENABLE_SCI_3 == 1U)
+				SCI_CHANNEL__3 = 2U,
             #endif
-			#if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
-				#if C_LOCALDEF__LCCM282__ENABLE_SCI_4 == 1U
-					SCI_CHANNEL__4 = 3U
-				#endif
+			#if (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U) && (C_LOCALDEF__LCCM282__ENABLE_SCI_4 == 1U)
+				SCI_CHANNEL__4 = 3U
 			#endif
 
 		}RM4_SCI__CHANNEL_T;
@@ -59,7 +53,9 @@
 			SCI_LOOPBACK__ANALOG = 1U
 		}RM4_SCI__LOOPBACK_T;
 
+
 		/*****************************************************************************
+		Structures
 		*****************************************************************************/
 		typedef struct /*g_sciTransfer*/
 		{
@@ -140,7 +136,7 @@
 		Luint8 u8RM4_SCI__Get_IsIdle(RM4_SCI__CHANNEL_T eChannel);
 
 		//baud
-		void vRM4_SCI_BAUD__Set_Baudrate(RM4_SCI__CHANNEL_T eChannel, Luint32 baud);
+		void vRM4_SCI_BAUD__Set_Baudrate(RM4_SCI__CHANNEL_T eChannel, Luint32 u32BaudRate);
 
 		//ports
 		void vRM4_SCI_PORTS__Set_PortFunctional(RM4_SCI__CHANNEL_T eChannel, Luint32 u32Port);
@@ -204,6 +200,13 @@
 
 		//helpers
 		void vRM4_SCI_HELPERS__DisplayText(RM4_SCI__CHANNEL_T eChannel, const Luint8 *cpu8Text, Luint32 u32Length);
+
+		/*****************************************************************************
+		Unit Test Functions
+		*****************************************************************************/
+		#if C_LOCALDEF__LCCM282__ENABLE_TEST_SPEC == 1U
+			void vLCCM282R0_TS_000(void);
+		#endif
 
 	#endif //C_LOCALDEF__LCCM282__ENABLE_THIS_MODULE
 	

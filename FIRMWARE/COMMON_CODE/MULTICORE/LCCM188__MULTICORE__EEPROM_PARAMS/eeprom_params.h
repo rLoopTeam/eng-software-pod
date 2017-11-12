@@ -17,23 +17,21 @@
 #ifndef _EEPROM_PARAMETERS_H_
 #define _EEPROM_PARAMETERS_H_
 
-	/*******************************************************************************
-	Includes
-	*******************************************************************************/
 	#include <localdef.h>
-	
-	#ifndef C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE
-		#error
-	#endif
-	
 	#if C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE == 1U
 
+		/*******************************************************************************
+		Includes
+		*******************************************************************************/
 		#include <MULTICORE/LCCM118__MULTICORE__NUMERICAL/numerical.h>
 		#include <MULTICORE/LCCM118__MULTICORE__NUMERICAL/numerical__structs.h>
 
 		//#define C_LOCALDEF__LCCM188_DELAYED_WRITE								1U
 		//#define C_LOCALDEF__LCCM188_IMMEDIATE_WRITE								0U
 
+		/*******************************************************************************
+		Types
+		*******************************************************************************/
 		/** Write delay types */
 		typedef enum
 		{
@@ -149,14 +147,14 @@
 				#define C_LOCALDEF__LCCM188__EEPROM_READ_S32(addx)			s32SIL3_EEPARAM_WIN32__Read((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx)
 				#define C_LOCALDEF__LCCM188__EEPROM_READ_F32(addx)			f32SIL3_EEPARAM_WIN32__Read((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx)
 				
-			#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__MSP430F5529 == 1U
+			#elif (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__MSP430F5529 == 1U) || (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__MSP430F5659 == 1U)
 				//eeprom routines (MSP430)
-				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_U8(addx,val,delay)		vMSP430_EEPROM__WriteU32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, (Luint32)val, delay)
-				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_U16(addx,val,delay)		vMSP430_EEPROM__WriteU32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, (Luint32)val, delay)
-				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_S16(addx,val,delay)		vMSP430_EEPROM__WriteS32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, (Lint32)val, delay)
-				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_U32(addx,val,delay)		vMSP430_EEPROM__WriteU32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, val, delay)
-				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_S32(addx,val,delay)		vMSP430_EEPROM__WriteS32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, val, delay)
-				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_F32(addx,val,delay)		vMSP430_EEPROM__WriteF32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, val, delay)
+				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_U8(addx,val,delay)		vMSP430_EEPROM__WriteU32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, (Luint32)val, (TE_MSP430__FLASH_DELAY)delay)
+				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_U16(addx,val,delay)		vMSP430_EEPROM__WriteU32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, (Luint32)val, (TE_MSP430__FLASH_DELAY)delay)
+				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_S16(addx,val,delay)		vMSP430_EEPROM__WriteS32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, (Lint32)val, (TE_MSP430__FLASH_DELAY)delay)
+				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_U32(addx,val,delay)		vMSP430_EEPROM__WriteU32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, val, (TE_MSP430__FLASH_DELAY)delay)
+				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_S32(addx,val,delay)		vMSP430_EEPROM__WriteS32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, val, (TE_MSP430__FLASH_DELAY)delay)
+				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_F32(addx,val,delay)		vMSP430_EEPROM__WriteF32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, val, (TE_MSP430__FLASH_DELAY)delay)
 
 				#define C_LOCALDEF__LCCM188__EEPROM_READ_U8(addx)			(Luint8)u32MSP430_EEPROM__Read((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx)
 				#define C_LOCALDEF__LCCM188__EEPROM_READ_U16(addx)			(Luint16)u32MSP430_EEPROM__Read((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx)
@@ -164,14 +162,29 @@
 				#define C_LOCALDEF__LCCM188__EEPROM_READ_U32(addx)			u32MSP430_EEPROM__Read((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx)
 				#define C_LOCALDEF__LCCM188__EEPROM_READ_S32(addx)			s32MSP430_EEPROM__Read((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx)
 				#define C_LOCALDEF__LCCM188__EEPROM_READ_F32(addx)			f32MSP430_EEPROM__Read((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx)
+			#elif (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__CC1310 == 1U) || (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__CC1350 == 1U) || (C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__CC2650 == 1U)
+				//eeprom routines (MSP430)
+				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_U8(addx,val,delay)		vCC2650_EEPROM__WriteU32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, (Luint32)val, (TE_CC2650__FLASH_DELAY)delay)
+				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_U16(addx,val,delay)		vCC2650_EEPROM__WriteU32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, (Luint32)val, (TE_CC2650__FLASH_DELAY)delay)
+				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_S16(addx,val,delay)		vCC2650_EEPROM__WriteS32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, (Lint32)val, (TE_CC2650__FLASH_DELAY)delay)
+				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_U32(addx,val,delay)		vCC2650_EEPROM__WriteU32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, val, (TE_CC2650__FLASH_DELAY)delay)
+				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_S32(addx,val,delay)		vCC2650_EEPROM__WriteS32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, val, (TE_CC2650__FLASH_DELAY)delay)
+				#define C_LOCALDEF__LCCM188__EEPROM_WRITE_F32(addx,val,delay)		vCC2650_EEPROM__WriteF32((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx, val, (TE_CC2650__FLASH_DELAY)delay)
+
+				#define C_LOCALDEF__LCCM188__EEPROM_READ_U8(addx)			(Luint8)u32CC2650_EEPROM__Read((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx)
+				#define C_LOCALDEF__LCCM188__EEPROM_READ_U16(addx)			(Luint16)u32CC2650_EEPROM__Read((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx)
+				#define C_LOCALDEF__LCCM188__EEPROM_READ_S16(addx)			(Lint16)s32CC2650_EEPROM__Read((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx)
+				#define C_LOCALDEF__LCCM188__EEPROM_READ_U32(addx)			u32CC2650_EEPROM__Read((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx)
+				#define C_LOCALDEF__LCCM188__EEPROM_READ_S32(addx)			s32CC2650_EEPROM__Read((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx)
+				#define C_LOCALDEF__LCCM188__EEPROM_READ_F32(addx)			f32CC2650_EEPROM__Read((Luint32)C_LOCALDEF__LCCM188__EEPROM_START_OFFSET + (Luint32)addx)
 
 			#else
 				#error
 			#endif
 		#endif //#if C_LOCALDEF__LCCM188__USE_WITH_LCCM013 == 1U
 
-		//structures
 		/*****************************************************************************
+		Structures
 		*****************************************************************************/
 		struct _strEEPARAM
 		{
@@ -228,7 +241,9 @@
 			Lfloat32 f32SIL3_EEPARAM_WIN32__Read(Luint32 u32Addx);
 		#endif
 		
-		//testing
+		/*******************************************************************************
+		Unit Test Prototypes
+		*******************************************************************************/
 		#if C_LOCALDEF__LCCM188__ENABLE_TEST_SPEC == 1U
 			DLL_DECLARATION void vLCCM188_TS_001(void);
 			DLL_DECLARATION void vLCCM188_TS_002(void);
@@ -253,7 +268,9 @@
 	
 		#endif //C_LOCALDEF__LCCM188__ENABLE_TEST_SPEC
 	
-		//safetys
+		/*******************************************************************************
+		Safetys
+		*******************************************************************************/
 		#ifndef C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__PIC18F1220
 			#error
 		#endif
@@ -268,5 +285,8 @@
 		#endif
 
 	#endif
-	
+	#ifndef C_LOCALDEF__LCCM188__ENABLE_THIS_MODULE
+		#error
+	#endif
+
 #endif //_EEPROM_PARAMETERS_H_

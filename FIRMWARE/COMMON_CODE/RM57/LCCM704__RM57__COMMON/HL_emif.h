@@ -43,8 +43,8 @@
 #ifndef _EMIF_H_
 #define _EMIF_H_
 
-#include "HL_reg_emif.h"
 #include <localdef.h>
+#include "HL_reg_emif.h"
 
 #ifdef __cplusplus
 extern "C" {

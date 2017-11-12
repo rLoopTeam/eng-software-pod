@@ -35,13 +35,17 @@
 		/** user configurable fifo depth */
 		C_SOFTFIFO__DT uFIFO_Depth;
 	
-		//FIFO Positions
+		/** FIFO Write Position */
 		C_SOFTFIFO__DT uFIFO_WritePosition;
+
+		/** FIFO Read Position */
 		C_SOFTFIFO__DT uFIFO_ReadPosition;
 				
 		//the full flag is set by the write position going to the end.
 		Luint8 u8FIFO_Full;
 		Luint8 u8FIFO_Empty;
+
+		/** The current fill level of the FIFO */
 		C_SOFTFIFO__DT uFIFO_FillLevel;
 
 		/** Indicates that the FIFO is busy writing, and therfore a read should be delayed*/

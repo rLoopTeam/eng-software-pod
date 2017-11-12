@@ -14,11 +14,17 @@
 #ifndef _RM4_BIST_H_
 #define _RM4_BIST_H_
 
-#include <localdef.h>
+	#include <localdef.h>
 
+	/*****************************************************************************
+	Includes
+	*****************************************************************************/
 	#include <RM4/LCCM227__RM4__BIST/rm4_bist__fault_flags.h>
 	#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
 
+	/*****************************************************************************
+	Structures
+	*****************************************************************************/
 	struct _strRM4BIST
 	{
 		FAULT_TREE__PUBLIC_T sFaultFlags;
@@ -65,7 +71,9 @@
 
 	#define pbistREG   ((pbistBASE_t *)0xFFFFE560U)
 
-	//Function Protos
+	/*****************************************************************************
+	Function Prototypes
+	*****************************************************************************/
 	void vRM4_BIST__Init(void);
 	Luint32 u32RM4_BIST__Get_FaultFlags(void);
 
@@ -79,6 +87,11 @@
 	//errata
 	void vRM4_BIST__errata_PBIST_4(void);
 	void vRM57_BIST__errata_PBIST_4(void);
+
+	/*****************************************************************************
+	Unit Test Prototypes
+	*****************************************************************************/
+
 
 	#define PBISTERRATA_FAIL1         1U
 	#define PBISTERRATA_FAIL2         2U

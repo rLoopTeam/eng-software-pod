@@ -28,6 +28,7 @@
 	*/
 	/*****************************************************************************
 	*****************************************************************************/
+#if C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 0U
 	typedef volatile struct esmBase
 	{
 		Luint32 EEPAPR1;           /* 0x0000                 */
@@ -53,6 +54,43 @@
 		Luint32 SR4[3U];           /* 0x0058, 0x005C, 0x0060 */
 		Luint32 ESTATUS5EMU;       /* 0x0064                 */
 	} esmBASE_t;
+
+#elif C_LOCALDEF__SIL3_GENERIC__CPU_TYPE__RM57L843 == 1U
+	typedef volatile struct esmBase
+	{
+	    Luint32 EEPAPR1;           /* 0x0000                 */
+	    Luint32 DEPAPR1;           /* 0x0004                 */
+	    Luint32 IESR1;             /* 0x0008                 */
+	    Luint32 IECR1;             /* 0x000C                 */
+	    Luint32 ILSR1;             /* 0x0010                 */
+	    Luint32 ILCR1;             /* 0x0014                 */
+	    Luint32 SR1[3U];           /* 0x0018, 0x001C, 0x0020 */
+	    Luint32 EPSR;              /* 0x0024                 */
+	    Luint32 IOFFHR;            /* 0x0028                 */
+	    Luint32 IOFFLR;            /* 0x002C                 */
+	    Luint32 LTCR;              /* 0x0030                 */
+	    Luint32 LTCPR;             /* 0x0034                 */
+	    Luint32 EKR;               /* 0x0038                 */
+	    Luint32 SSR2;              /* 0x003C                 */
+	    Luint32 IEPSR4;            /* 0x0040                 */
+	    Luint32 IEPCR4;            /* 0x0044                 */
+	    Luint32 IESR4;             /* 0x0048                 */
+	    Luint32 IECR4;             /* 0x004C                 */
+	    Luint32 ILSR4;             /* 0x0050                 */
+	    Luint32 ILCR4;             /* 0x0054                 */
+	    Luint32 SR4[3U];           /* 0x0058, 0x005C, 0x0060 */
+	    Luint32 rsvd1[7U];         /* 0x0064 - 0x007C        */
+	    Luint32 IEPSR7;            /* 0x0080                 */
+	    Luint32 IEPCR7;            /* 0x0084                 */
+	    Luint32 IESR7;             /* 0x0088                 */
+	    Luint32 IECR7;             /* 0x008C                 */
+	    Luint32 ILSR7;             /* 0x0090                 */
+	    Luint32 ILCR7;             /* 0x0094                 */
+	    Luint32 SR7[3U];           /* 0x0098, 0x009C, 0x00A0 */
+	} esmBASE_t;
+#else
+	#error
+#endif
 
 	/** @def esmREG
 	*   @brief Esm Register Frame Pointer

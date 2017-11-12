@@ -3,6 +3,7 @@
 #define _RM57_PINMUX_H_
 
 	#include <localdef.h>
+
 	#if C_LOCALDEF__LCCM709__ENABLE_THIS_MODULE == 1U
 
 		/* IOMM Revision and Boot Register */
@@ -66,7 +67,13 @@
 			Luint32 FAULT_STATUS_REG;	/**< 0xF8: Fault Status Register */
 			Luint32 FAULT_CLEAR_REG;		/**< 0xFC: Fault Clear Register */
 			Luint32 rsvd5[4];			/**< Reserved*/
-			Luint32 PINMUX[180];			/**< 0x110 - 1A4 : Output Pin Multiplexing Control Registers (38 registers); 0x250 - 0x29C : Input Pin Multiplexing Control Registers (20); 0X390 - 3DC : Special Functionality Control Registers (20) */
+
+
+			/**0x110 - 1A4 : 	Output Pin Multiplexing Control Registers (38 registers);
+			 * 0x250 - 0x29C : 	Input Pin Multiplexing Control Registers (20);
+			 * 0X390 - 3DC : 	Special Functionality Control Registers (20) */
+			Luint32 PINMUX[180];
+
 		}pinMuxBASE_t;
 
 

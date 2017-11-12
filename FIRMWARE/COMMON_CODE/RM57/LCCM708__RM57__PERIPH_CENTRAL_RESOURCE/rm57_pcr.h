@@ -19,11 +19,12 @@
  * @st_fileID	LCCM223R0.FILE.002
  */
 
-#ifndef _RM4_PCR_H_
-#define _RM4_PCR_H_
+#ifndef _RM57_PCR_H_
+#define _RM57_PCR_H_
 
 	#include <localdef.h>
-	
+
+
 	#include <RM57/LCCM708__RM57__PERIPH_CENTRAL_RESOURCE/rm57_pcr__private.h>
 
 	

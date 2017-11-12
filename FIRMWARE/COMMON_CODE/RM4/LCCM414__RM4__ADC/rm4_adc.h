@@ -16,32 +16,15 @@
 	#include <localdef.h>
 	#if C_LOCALDEF__LCCM414__ENABLE_THIS_MODULE == 1U
 
+		/*******************************************************************************
+		Includes
+		*******************************************************************************/
 		#include <RM4/LCCM414__RM4__ADC/rm4_adc__private.h>
 
 
-		/*ADC General Definitions */
-
-		/** @def adcGROUP0
-		* @brief Alias name for ADC event u32Group
-		*
-		* @note This value should be used for API argument @a u32Group
-		*/
-	//	#define adcGROUP0 0U
-
-		/** @def adcGROUP1
-		* @brief Alias name for ADC u32Group 1
-		*
-		* @note This value should be used for API argument @a u32Group
-		*/
-	//	#define adcGROUP1 1U
-
-		/** @def adcGROUP2
-		* @brief Alias name for ADC u32Group 2
-		*
-		* @note This value should be used for API argument @a u32Group
-		*/
-	//	#define adcGROUP2 2U
-
+		/*******************************************************************************
+		Defines
+		*******************************************************************************/
 		/** @def ADC_12_BIT_MODE
 		* @brief Alias name for ADC 12-bit mode of operation
 		*/
@@ -108,7 +91,9 @@
 
 		};
 
-
+		/*******************************************************************************
+		Function Prototpes
+		*******************************************************************************/
 		void vRM4_ADC_USER__Init(void);
 		void vRM4_ADC_USER__StartConversion(void);
 		void vRM4_ADC_USER__Process(void);
@@ -124,6 +109,7 @@
 		void vRM4_ADC__Clear_GroupPins(RM4_ADC__INDEX_T eADC, RM4_ADC__GROUPS_T eGroup);
 		void vRM4_ADC__Set_ConversionMode(RM4_ADC__INDEX_T eADC, RM4_ADC__GROUPS_T eGroup, RM4_ADC__CONVERT_MODE_E eMode);
 		void vRM4_ADC__ChannelID_InResult(RM4_ADC__INDEX_T eADC, RM4_ADC__GROUPS_T eGroup, Luint8 u8Enable);
+		void vRM4_ADC_FIFO__Set_FIFO_Size(RM4_ADC__INDEX_T eADC, RM4_ADC__GROUPS_T eGroup, Luint32 u32Size);
 
 		//inits
 		void vRM4_ADC_INIT__Group_1(RM4_ADC__INDEX_T eADC, RM4_ADC__PRECISION_T ePrecision);
@@ -145,7 +131,6 @@
 		Luint32 vRM4_ADC_LOWLEVEL__Get_EVTPin(RM4_ADC__BASE_T *adc);
 
 
-
 		//interrupts
 		void vRM4_ADC_LOWLEVEL__Enable_Notification(RM4_ADC__INDEX_T eADC, RM4_ADC__GROUPS_T eGroup);
 		void vRM4_ADC_LOWLEVEL__Disable_Notification(RM4_ADC__INDEX_T eADC, RM4_ADC__GROUPS_T eGroup);
@@ -159,6 +144,28 @@
 
 		//DMA
 		void vRM4_ADC_DMA__Setup_Interleave(RM4_ADC__INDEX_T eADC, RM4_ADC__GROUPS_T eGroup, Luint32 u32ArrayDestAddx, Luint32 u32ArraySize, Luint32 u32NumChannels);
+		void vRM4_ADC_DMA__Enable_BlockTransferDMA(RM4_ADC__INDEX_T eADC, RM4_ADC__GROUPS_T eGroup, Luint32 u32BlockSize);
+		void vRM4_ADC_DMA__Enable_SingleConversionDMA(RM4_ADC__INDEX_T eADC, RM4_ADC__GROUPS_T eGroup);
+
+		/*******************************************************************************
+		Unit Test Prototypes
+		*******************************************************************************/
+		#if C_LOCALDEF__LCCM414__ENABLE_TEST_SPEC == 1U
+			void vLCCM414R0_TS_005(void);
+			void vLCCM414R0_TS_006(void);
+			void vLCCM414R0_TS_007(void);
+			void vLCCM414R0_TS_009(void);
+			void vLCCM414R0_TS_011(void);
+			void vLCCM414R0_TS_012(void);
+			void vLCCM414R0_TS_013(void);
+			void vLCCM414R0_TS_014(void);
+			void vLCCM414R0_TS_015(void);
+			void vLCCM414R0_TS_016(void);
+			void vLCCM414R0_TS_017(void);
+			void vLCCM414R0_TS_018(void);
+			void vLCCM414R0_TS_019(void);
+			void vLCCM414R0_TS_020(void);
+		#endif
 
 		//safetys
 		#ifndef C_LOCALDEF__LCCM414__VREF_CONSTANT

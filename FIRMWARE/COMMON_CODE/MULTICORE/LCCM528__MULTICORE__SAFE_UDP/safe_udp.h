@@ -88,7 +88,6 @@
 				/** The address of the image in memory (linear addx) */
 				Luint32 u32ImageAddx;
 				
-				
 				/** The current transfer state */
 				E_SPECIAL__IMAGE_TX_STATE eState;
 			
@@ -108,10 +107,10 @@
 		void vSIL3_SAFEUDP__100MS_TimerTick(void);
 		
 		//rx
-		DLL_DECLARATION void vSIL3_SAFEUDP_RX__UDPPacket(Luint8 * pu8PacketBuffer, Luint16 u16PacketLength, Luint16 u16DestPort);
+		DLL_DECLARATION void vSIL3_SAFEUDP_RX__UDPPacket(Luint8 *pu8PacketBuffer, Luint16 u16PacketLength, Luint16 u16DestPort);
 		
 		//tx
-		Luint16 s16SIL3_SAFEUDP_TX__PreCommit(Luint16 u16PayloadLength, SAFE_UDP__PACKET_T ePacketType, Luint8 ** pu8Buffer, Luint8 * pu8BufferIndex);
+		Luint16 s16SIL3_SAFEUDP_TX__PreCommit(Luint16 u16PayloadLength, SAFE_UDP__PACKET_T ePacketType, Luint8 **pu8Buffer, Luint8 *pu8BufferIndex);
 		void vSIL3_SAFEUDP_TX__Commit(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort);
 		void vSIL3_SAFEUDP_TX__Commit_ZeroCRC(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort);
 		void vSIL3_SAFEUDP_TX__Commit_WithPayload(Luint8 u8BufferIndex, Luint16 u16PayloadLength, Luint16 u16SrcPort, Luint16 u16DestPort, Luint32 u32ExtraLength, Luint32 u32ExtraAddx);
@@ -129,25 +128,31 @@
 		
 		//special functions
 		#if C_LOCALDEF__LCCM528__VISION__ENABLE_TX == 1U
-			void vSAFEUDP_VISION_TX__Init(void);
-			Luint8 u8SAFEUDP_VISION_TX__Is_Busy(void);
-			void vSAFEUDP_VISION_TX__Process(void);
-			void vSAFEUDP_VISION_TX__Start(Luint32 u32TotalDataLength, Luint32 u32Width, Luint32 u32Height, Luint32 u32ImageAddx);
+			void vSIL3_SAFEUDP_VISION_TX__Init(void);
+			Luint8 u8SIL3_SAFEUDP_VISION_TX__Is_Busy(void);
+			void vSIL3_SAFEUDP_VISION_TX__Process(void);
+			void vSIL3_SAFEUDP_VISION_TX__Start(Luint32 u32TotalDataLength, Luint32 u32Width, Luint32 u32Height, Luint32 u32ImageAddx);
 		#endif
 
 		#if C_LOCALDEF__LCCM528__VISION__ENABLE_RX == 1U
-			void vSAFEUDP_VISION_RX__Packet(Luint8 *pu8PacketBuffer, Luint16 u16PacketLength);
+			void vSIL3_SAFEUDP_VISION_RX__Packet(Luint8 *pu8PacketBuffer, Luint16 u16PacketLength);
 		#endif	
 		
-		//testing
+		#ifdef WIN32
+			void vUSER__RxUDPSafe(Luint8 * pu8Payload, Luint16 u16PayloadLength, SAFE_UDP__PACKET_T ePayloadType, Luint16 u16DestPort, SAFE_UDP__FAULTS_T ePayloadFault);
+		#endif
+
+		/*******************************************************************************
+		Unit Test Prototypes
+		*******************************************************************************/
 		#if C_LOCALDEF__LCCM528__ENABLE_TEST_SPEC == 1U
 			DLL_DECLARATION void vLCCM528R0_TS_000(void);
 			DLL_DECLARATION void vLCCM528R0_TS_001(void);
 		#endif	
 
-#ifdef WIN32
-		void vUSER__RxUDPSafe(Luint8 * pu8Payload, Luint16 u16PayloadLength, SAFE_UDP__PACKET_T ePayloadType, Luint16 u16DestPort, SAFE_UDP__FAULTS_T ePayloadFault);
-#endif
+		/*******************************************************************************
+		Safetys
+		*******************************************************************************/
 
 	#endif //#if C_LOCALDEF__LCCM528__ENABLE_THIS_MODULE == 1U
 	//safetys

@@ -20,21 +20,26 @@
 	#endif
 	#if C_LOCALDEF__LCCM226__ENABLE_THIS_MODULE == 1U
 
+		/*******************************************************************************
+		Includes
+		*******************************************************************************/
 		#include <RM4/LCCM226__RM4__CRC/rm4_crc__private.h>
 
 
-	/* Function Prots */
-	void vRM4_CRC__Init(void);
-	void vRM4_CRC__SendPowerDown(RM4_CRC__BASET_T *crc);
-	void vRM4_CRC__SignatureGen(const RM4_CRC__BASET_T *crc, const RM4_CRC__MODE_CONFIG__T *param);
-	void vRM4_CRC__Set_Config(RM4_CRC__BASET_T *crc, const RM4_CRC__CONFIG_T *param);
-	Luint64 vRM4_CRC__Get_PSASignature(const RM4_CRC__BASET_T *crc,Luint32 channel);
-	Luint64 u64RM4_CRC__Get_SectorSignature(const RM4_CRC__BASET_T *crc,Luint32 channel);
-	Luint32 u32RM4_CRC__Get_FailedSector(const RM4_CRC__BASET_T *crc,Luint32 channel);
-	Luint32 u32RM4_CRC__Get_InterruptPending(const RM4_CRC__BASET_T *crc,Luint32 channel);
-	void vRM4_CRC__ChannelReset(RM4_CRC__BASET_T *crc,Luint32 channel);
-	void vRM4_CRC__EnableNotification(RM4_CRC__BASET_T *crc, Luint32 flags);
-	void vRM4_CRC__DisableNotification(RM4_CRC__BASET_T *crc, Luint32 flags);
+		/*******************************************************************************
+		Function Prototypes
+		*******************************************************************************/
+		void vRM4_CRC__Init(void);
+		void vRM4_CRC__SendPowerDown(RM4_CRC__BASET_T *crc);
+		void vRM4_CRC__SignatureGen(const RM4_CRC__BASET_T *crc, const RM4_CRC__MODE_CONFIG__T *param);
+		void vRM4_CRC__Set_Config(RM4_CRC__BASET_T *crc, const RM4_CRC__CONFIG_T *param);
+		Luint64 vRM4_CRC__Get_PSASignature(const RM4_CRC__BASET_T *crc,Luint32 channel);
+		Luint64 u64RM4_CRC__Get_SectorSignature(const RM4_CRC__BASET_T *crc,Luint32 channel);
+		Luint32 u32RM4_CRC__Get_FailedSector(const RM4_CRC__BASET_T *crc,Luint32 channel);
+		Luint32 u32RM4_CRC__Get_InterruptPending(const RM4_CRC__BASET_T *crc,Luint32 channel);
+		void vRM4_CRC__ChannelReset(RM4_CRC__BASET_T *crc,Luint32 channel);
+		void vRM4_CRC__EnableNotification(RM4_CRC__BASET_T *crc, Luint32 flags);
+		void vRM4_CRC__DisableNotification(RM4_CRC__BASET_T *crc, Luint32 flags);
 
 	/** @fn void crcNotification(RM4_CRC__BASET_T *crc, Luint32 flags)
 	*   @brief Interrupt callback

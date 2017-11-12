@@ -12,8 +12,8 @@
  */
 
 
-#ifndef RM4_PC4__PRIVATE_H_
-#define RM4_PC4__PRIVATE_H_
+#ifndef RM57_PCR__PRIVATE_H_
+#define RM57_PCR__PRIVATE_H_
 
 	/* Pcr Register Frame Definition */
 	/** @struct pcrBase

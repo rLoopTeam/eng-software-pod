@@ -40,26 +40,41 @@
 
 ;-------------------------------------------------------------------------------
 ; import reference for interrupt routines
+; https://e2e.ti.com/support/microcontrollers/hercules/f/312/p/375116/1334286
 
     .ref _c_int00
+    .ref _dabort
     .ref phantomInterrupt
     .def resetEntry
 
 ;-------------------------------------------------------------------------------
 ; interrupt vectors
 
+;RESET Interrupt
 resetEntry
         b   _c_int00
+
+;UNDEFINED INSTRUCTION Interrupt
 undefEntry
         b   undefEntry
+;SOFTWARE Interrupt
 svcEntry
         b   svcEntry
+;ABORT Prefectch Interrupt
 prefetchEntry
         b   prefetchEntry
+
+;ABORT Data Interrupt
 dataEntry
         b   dataEntry
+        ;b   _dabort
+;RESERVED
+; b #-8
         b   phantomInterrupt
+
+;IRQ Interrupt
         ldr pc,[pc,#-0x1b0]
+;FIQ Interrupt
         ldr pc,[pc,#-0x1b0]
 
     

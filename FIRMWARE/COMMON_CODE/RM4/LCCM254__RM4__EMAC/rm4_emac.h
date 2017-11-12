@@ -64,9 +64,13 @@
 
 			LINK_STATE__CABLE_CHECK,
 
+			/** Start a gratoutious ARP */
 			LINK_STATE__GRAT_ARP,
 
 			LINK_STATE__LLDP,
+
+			/** If we have No IP Addx, we will want to get one */
+			LINK_STATE__START_DHCP_CLIENT,
 
 			LINK_STATE__RUN
 

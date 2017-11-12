@@ -36,7 +36,9 @@
 		Lint16 s16SIL3_SOFTFIFO__PopMany(SOFTWARE_FIFO__USER_T *pUserT, Luint16 u16Num);
 		Luint8 u8SIL3_SOFTFIFO__Is_Empty(const SOFTWARE_FIFO__USER_T *pUserT);
 		Luint8 u8SIL3_SOFTFIFO__Is_Full(const SOFTWARE_FIFO__USER_T *pUserT);
-		Luint8 u8SIL3_SOFTFIFO__Get__WritePosition(const SOFTWARE_FIFO__USER_T *pUserT);
+		C_SOFTFIFO__DT uSIL3_SOFTFIFO__Get__FillLevel(const SOFTWARE_FIFO__USER_T *pUserT);
+		C_SOFTFIFO__DT uSIL3_SOFTFIFO__Get__WritePosition(const SOFTWARE_FIFO__USER_T *pUserT);
+		C_SOFTFIFO__DT uSIL3_SOFTFIFO__Get__ReadPosition(const SOFTWARE_FIFO__USER_T *pUserT);
 		Luint8 u8SIL3_SOFTFIFO__Get_IsWriteBusy(const SOFTWARE_FIFO__USER_T *pUserT);
 		Luint8 u8SIL3_SOFTFIFO__Get_IsReadBusy(const SOFTWARE_FIFO__USER_T *pUserT);
 	
@@ -45,6 +47,8 @@
 			DLL_DECLARATION void vLCCM357_TS_004(void);
 			DLL_DECLARATION void vLCCM357_TS_005(void);
 			DLL_DECLARATION void vLCCM357_TS_006(void);
+			DLL_DECLARATION void vLCCM357_TS_007(void);
+			DLL_DECLARATION void vLCCM357_TS_008(void);
 			DLL_DECLARATION void vLCCM357R0_TS_011(void);
 			DLL_DECLARATION void vLCCM357R0_TS_012(void);
 		#endif

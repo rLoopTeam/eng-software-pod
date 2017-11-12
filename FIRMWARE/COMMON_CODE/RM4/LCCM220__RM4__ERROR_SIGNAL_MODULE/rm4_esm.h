@@ -20,12 +20,17 @@
 		#error
 	#endif
 	#if C_LOCALDEF__LCCM220__ENABLE_THIS_MODULE == 1U
+		/*****************************************************************************
+		Includes
+		*****************************************************************************/
 		#include <RM4/LCCM220__RM4__ERROR_SIGNAL_MODULE/rm4_esm__private.h>
-
 		#include <RM4/LCCM220__RM4__ERROR_SIGNAL_MODULE/rm4_esm__fault_flags.h>
 		#include <RM4/LCCM220__RM4__ERROR_SIGNAL_MODULE/rm4_esm__fault_flags_g2.h>
 		#include <MULTICORE/LCCM284__MULTICORE__FAULT_TREE/fault_tree__public.h>
 
+		/*****************************************************************************
+		Structures
+		*****************************************************************************/
 		struct _strRM4ESM
 		{
 

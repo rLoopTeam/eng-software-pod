@@ -14,6 +14,7 @@
 #ifndef _RM4_I2C_PRIVATE_H_
 #define _RM4_I2C_PRIVATE_H_
 
+	/** I2C Channel Definitions */
 	typedef enum
 	{
 

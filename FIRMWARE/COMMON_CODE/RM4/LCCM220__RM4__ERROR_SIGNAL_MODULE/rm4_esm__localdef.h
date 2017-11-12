@@ -13,15 +13,15 @@
 #if 0
 
 /*******************************************************************************
-ERROR SIGNALLING MODULE
+SIL3 = RM4/RM57 - ERROR SIGNAL MODULE (ESM)
 *******************************************************************************/
 	#define C_LOCALDEF__LCCM220__ENABLE_THIS_MODULE							(1U)
 	#if C_LOCALDEF__LCCM220__ENABLE_THIS_MODULE == 1U
 
-		//testing options
+		/** Testing options */
 		#define C_LOCALDEF__LCCM220__ENABLE_TEST_SPEC						(0U)
 
-		//main include file
+		/** Main include file */
 		#include <RM4/LCCM220__RM4__ERROR_SIGNAL_MODULE/rm4_esm.h>
 
 	#endif //C_LOCALDEF__LCCM220__ENABLE_THIS_MODULE

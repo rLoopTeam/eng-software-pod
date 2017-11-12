@@ -16,9 +16,10 @@
 
 #include <localdef.h>
 
-
-	//protos
-	void vRM4_DELAYS__Delay_mS(Luint32 u32Value);
-	void vRM4_DELAYS__Delay_uS(Luint32 u32Value);
+		/*******************************************************************************
+		Function Prototypes
+		*******************************************************************************/
+		void vRM4_DELAYS__Delay_mS(Luint32 u32Value);
+		void vRM4_DELAYS__Delay_uS(Luint32 u32Value);
 
 #endif ///RM4_DELAYS

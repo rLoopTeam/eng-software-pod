@@ -81,6 +81,9 @@
 
 					/** The slave address used for networking */
 					Luint8 u8SlaveAddx;
+					
+					/** Last command error code, check after busy = 0 */
+					Lint16 s16LastCommandCode;
 
 				}sSlave;
 
@@ -283,6 +286,7 @@
 			void vSIL3_MODBUS_SLAVE__Init(void);
 			void vSIL3_MODBUS_SLAVE__Process(void);
 			void vSIL3_MODBUS_SLAVE__Set_SlaveAddx(Luint8 u8Addx);
+			Lint16 s16SIL3_MODBUS_SLAVE__Get_LastErrorCode(void);
 			void vSIL3_MODBUS_SLAVE__Append_UART_U8(Luint8 u8Value);
 
 			//slave registers
@@ -366,6 +370,21 @@
 			DLL_DECLARATION void vLCCM690R0_TS_017(void);
 			DLL_DECLARATION void vLCCM690R0_TS_018(void);
 			DLL_DECLARATION void vLCCM690R0_TS_019(void);
+			DLL_DECLARATION void vLCCM690R0_TS_020(void);
+			DLL_DECLARATION void vLCCM690R0_TS_021(void);
+			DLL_DECLARATION void vLCCM690R0_TS_022(void);
+			DLL_DECLARATION void vLCCM690R0_TS_028(void);
+			DLL_DECLARATION void vLCCM690R0_TS_029(void);
+			DLL_DECLARATION void vLCCM690R0_TS_030(void);
+			DLL_DECLARATION void vLCCM690R0_TS_031(void);
+			DLL_DECLARATION void vLCCM690R0_TS_032(void);
+			DLL_DECLARATION void vLCCM690R0_TS_033(void);
+			DLL_DECLARATION void vLCCM690R0_TS_034(void);
+			DLL_DECLARATION void vLCCM690R0_TS_035(void);
+			DLL_DECLARATION void vLCCM690R0_TS_036(void);
+			DLL_DECLARATION void vLCCM690R0_TS_037(void);
+			DLL_DECLARATION void vLCCM690R0_TS_038(void);
+			DLL_DECLARATION void vLCCM690R0_TS_039(void);
 #endif //C_LOCALDEF__LCCM690__ENABLE_TEST_SPEC
 		
 		
