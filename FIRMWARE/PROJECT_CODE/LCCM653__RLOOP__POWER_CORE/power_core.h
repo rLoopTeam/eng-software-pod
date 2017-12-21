@@ -405,11 +405,10 @@
 		Lfloat32 f32PWRNODE_BMS__Cell_Get_LowestVoltage(void);
 		Lfloat32 f32PWRNODE_BMS__Get_PackVoltage(void);
 		Luint8 u8PWRNODE_BMS__Balance_IsBusy(void);
-		void vPWRNODE_BMS__Balance_Start(void);
-		void vPWRNODE_BMS__Balance_Stop(void);
 		void vPWRNODE_BMS__Balance_Manual(Luint8 u8CellIndex, Luint8 u8Enable);
 		Luint32 u32PWRNODE_BMS__Get_VoltsUpdateCount(void);
-
+		void vPWRNODE_BMS__Balance_Start(void); //i.e. User enable of auto balance
+		void vPWRNODE_BMS__Balance_Stop(void); //IE user disable of auto balance
 		
 		//eth
 		void vPWR_BMS_ETH__Init(void);

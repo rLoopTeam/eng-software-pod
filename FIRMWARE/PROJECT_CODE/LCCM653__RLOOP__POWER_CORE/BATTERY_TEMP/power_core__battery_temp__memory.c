@@ -41,7 +41,6 @@ void vPWRNODE_BATTTEMP_MEM__Init(void)
 
 	Luint16 u16CRC;
 	Luint8 u8Test;
-	Lint16 s16Return;
 
 	//first up, lets load (or default) our top level params
 	sPWRNODE.sTemp.u16NumSensors = 0U;

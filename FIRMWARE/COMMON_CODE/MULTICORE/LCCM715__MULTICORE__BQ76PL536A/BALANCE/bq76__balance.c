@@ -47,6 +47,10 @@ void vBQ76_BALANCE__Init(void)
 	}
 
 	sBQ76.sBalance.u3210MS_Counter = 0U;
+	sBQ76.sBalance.u8SystemDisabled = 0U;
+	sBQ76.sBalance.u8UserDisabled = 0U;
+	sBQ76.sBalance.u32LastVoltageUpdate = 00U;
+	sBQ76.sBalance.eState = BALANCE_STATE__WAIT_VOLTAGE_UPDATE;
 }
 
 /***************************************************************************//**
@@ -58,11 +62,70 @@ void vBQ76_BALANCE__Init(void)
  */
 void vBQ76_BALANCE__Process(void)
 {
+    Luint8 u8FlaggedCells[C_BQ76__TOTAL_CELLS];
+    Luint8 u8Temp;
 
     //Update cell balance discharge resistor at 2 Hz
 	if(sBQ76.sBalance.u3210MS_Counter >= 50U){
 	    sBQ76.sBalance.u3210MS_Counter = 0U;
 	    vBQ76_BALANCE__Update_Discharge_Resistors();
+	}
+
+	switch(sBQ76.sBalance.eState){
+        /** not doing anything, waiting for conditions that allow or require balancing **/
+        case BALANCE_STATE__IDLE:
+                if(sBQ76.sCells.f32Lowest > 3.5F && sBQ76.sBalance.u8UserDisabled == 0 && sBQ76.sBalance.u8SystemDisabled == 0) //Only balance with plenty of charge left
+                {
+                    for(u8Temp = 0;u8Temp < C_BQ76__TOTAL_CELLS; u8Temp++)
+                    {
+                        //Check if cell is out of balance
+                        if(f32BQ76__Get_CellVoltage(u8Temp) - sBQ76.sCells.f32Lowest >= C_BQ76__BALANCE_DELTA)
+                        {
+                            sBQ76.sBalance.eState = BALANCE_STATE__START_BALANCING;
+                            u8Temp = C_BQ76__TOTAL_CELLS;
+                        }else{
+                            //Not this one
+                        }
+                    }
+                }
+            break;
+
+        /** Start the balancing process */
+        case BALANCE_STATE__START_BALANCING:
+            //Check which cells need to be balanced
+            for(u8Temp = 0;u8Temp < C_BQ76__TOTAL_CELLS; u8Temp++)
+            {
+                //Check if cell is out of balance
+                if(f32BQ76__Get_CellVoltage(u8Temp) - sBQ76.sCells.f32Lowest >= C_BQ76__BALANCE_DELTA)
+                {
+                    vBQ76_RES__Resistor_On(u8Temp);
+                }else{
+                    vBQ76_RES__Resistor_Off(u8Temp);
+                }
+            }
+
+            sBQ76.sBalance.u32BalanceCounter = 0;
+            sBQ76.sBalance.eState = BALANCE_STATE__BALANCING;
+            break;
+
+        /** Resistors are enabled cells are discharging **/
+        case BALANCE_STATE__BALANCING:
+                if(sBQ76.sBalance.u32BalanceCounter >=  C_BQ76__BALANCE_TIME){
+                    vBQ76_RES__All_Off();
+                    sBQ76.sBalance.eState = BALANCE_STATE__WAIT_VOLTAGE_UPDATE;
+                    sBQ76.sBalance.u32LastVoltageUpdate = sBQ76.sCells.u32UpdateCount;
+                }else{
+                    //Keep waiting
+                }
+            break;
+
+        /** Wait for a voltage update and averaging before starting again */
+        case BALANCE_STATE__WAIT_VOLTAGE_UPDATE:
+                if(sBQ76.sCells.u32UpdateCount - sBQ76.sBalance.u32LastVoltageUpdate > C_LOCALDEF__LCCM715__AVERAGE_WINDOW){
+                    sBQ76.sBalance.eState = BALANCE_STATE__IDLE;
+                }
+            break;
+
 	}
 }
 
@@ -73,9 +136,21 @@ void vBQ76_BALANCE__Process(void)
  * @st_funcMD5		C75001693893BA9946A832499E1350EF
  * @st_funcID		LCCM715R0.FILE.012.FUNC.003
  */
-void vBQ76_BALANCE__Start(void)
+void vBQ76_BALANCE__User_Start(void)
 {
-	//nothing here yet
+    sBQ76.sBalance.u8UserDisabled = 0U;
+}
+
+/***************************************************************************//**
+ * @brief
+ * Start the balancing process
+ *
+ * @st_funcMD5      C75001693893BA9946A832499E1350EF
+ * @st_funcID       LCCM715R0.FILE.012.FUNC.003
+ */
+void vBQ76_BALANCE__System_Start(void)
+{
+    sBQ76.sBalance.u8SystemDisabled = 0U;
 }
 
 /***************************************************************************//**
@@ -88,19 +163,47 @@ void vBQ76_BALANCE__Start(void)
  */
 Luint8 u8BQ76_BALANCE__Is_Busy(void)
 {
-	return 0;
+	if(sBQ76.sBalance.eState == BALANCE_STATE__START_BALANCING || sBQ76.sBalance.eState == BALANCE_STATE__BALANCING){
+	    return 1;
+	}else{
+	    return 0;
+	}
 }
 
 /***************************************************************************//**
  * @brief
- * Stop the balancing
+ * Stop the balancing. Set all resistors off, enter idle state.
  * 
  * @st_funcMD5		FB05686967B46A17D238B4B6740C4B4F
  * @st_funcID		LCCM715R0.FILE.012.FUNC.005
  */
-void vBQ76_BALANCE__Stop(void)
+void vBQ76_BALANCE__User_Stop(void)
 {
-	//nothign here yet
+    sBQ76.sBalance.u8UserDisabled = 1U;
+    if(sBQ76.sBalance.eState != BALANCE_STATE__IDLE){
+        vBQ76_RES__All_Off();
+        sBQ76.sBalance.eState = BALANCE_STATE__IDLE;
+    }else{
+        //Nothing to do
+    }
+}
+
+/***************************************************************************//**
+ * @brief
+ * Stop the balancing. Set all resistors off, enter idle state.
+ *
+ * @st_funcMD5      FB05686967B46A17D238B4B6740C4B4F
+ * @st_funcID       LCCM715R0.FILE.012.FUNC.005
+ */
+void vBQ76_BALANCE__System_Stop(void)
+{
+    sBQ76.sBalance.u8SystemDisabled = 1;
+    if(sBQ76.sBalance.eState != BALANCE_STATE__IDLE){
+        vBQ76_RES__All_Off();
+        sBQ76.sBalance.eState = BALANCE_STATE__IDLE;
+    }else{
+        //Nothing to do
+    }
 }
 
 /***************************************************************************//**
@@ -190,7 +293,7 @@ void vBQ76_BALANCE__Update_Discharge_Resistors(void)
     {
         u8Temp = u8BQ76_SPI__Read_U8(u8DeviceCounter + 1U, BQ76_REG__CB_CTRL);
         for(u8Counter = 0U; u8Counter < 8; u8Counter++){
-            sBQ76.sBalance.u8Resistor[u8Counter+8*u8DeviceCounter] = (u8Temp >> u8Counter) & 0x01;
+            sBQ76.sBalance.u8Resistor[u8Counter+6*u8DeviceCounter] = (u8Temp >> u8Counter) & 0x01;
         }
 
         //set the balance time. 5 min = 0x85U
@@ -200,6 +303,11 @@ void vBQ76_BALANCE__Update_Discharge_Resistors(void)
         vBQ76_SPI__Write_U8(u8DeviceCounter + 1U, BQ76_REG__CB_CTRL, 0);
         vBQ76_SPI__Write_U8(u8DeviceCounter + 1U, BQ76_REG__CB_CTRL, u8Temp);
     }
+}
+
+Luint8 u8BQ76_BALANCE__Get_State(void)
+{
+    return sBQ76.sBalance.eState;
 }
 
 /***************************************************************************//**
@@ -213,6 +321,7 @@ void vBQ76_BALANCE__10MS_ISR(void)
 {
 
     sBQ76.sBalance.u3210MS_Counter++;
+    sBQ76.sBalance.u32BalanceCounter++;
 }
 
 #endif //#if C_LOCALDEF__LCCM715__ENABLE_THIS_MODULE == 1U

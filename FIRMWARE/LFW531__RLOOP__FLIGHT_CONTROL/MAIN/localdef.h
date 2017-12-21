@@ -127,10 +127,10 @@ RLOOP - FLIGHT CONTROL UNIT - CORE
 		#define C_LOCALDEF__LCCM655__ENABLE_BRAKES							(1U)
 
 		/** Enable the throttle control */
-		#define C_LOCALDEF__LCCM655__ENABLE_THROTTLE						(0U)
+		#define C_LOCALDEF__LCCM655__ENABLE_THROTTLE						(1U)
 
 		/** Enable the ASI_RS485 */
-		#define C_LOCALDEF__LCCM655__ENABLE_ASI_RS485						(0U)
+		#define C_LOCALDEF__LCCM655__ENABLE_ASI_RS485						(1U)
 
 		/** If you have the ASI monitoring on, to simplify things if we have all the
 		 * devices on different addresses, set this to one and then daisy-chain*/

@@ -85,6 +85,11 @@ void vBQ76_CELLS__Process(void)
 	Luint8 u8CellCounter;
 	Luint8 u8CellIndex;
 
+	//Balancing throws off the voltage readings
+	//due to voltage drop in the sense wires
+	if(u8BQ76_BALANCE__Is_Busy() == 1U ){
+	    sBQ76.sCells.sState = CELLS_STATE__IDLE;
+	}
 
 	switch(sBQ76.sCells.sState)
 	{

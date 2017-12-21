@@ -82,7 +82,6 @@ void vPWRNODE_BATTTEMP__Process(void)
 	Lfloat32 f32High;
 	Lfloat32 f32Temp;
 	Lfloat32 f32Sum;
-	Lint16 s16Return;
 	Luint16 u16Mask;
 	Luint32 u32Max;
 	Luint8 *u8PtrPackMem;

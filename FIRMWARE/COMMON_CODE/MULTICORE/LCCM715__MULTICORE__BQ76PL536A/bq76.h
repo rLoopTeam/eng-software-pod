@@ -36,24 +36,29 @@
 		/** The total number of cells managed by the device chain */
 		#define C_BQ76__TOTAL_CELLS													(C_LOCALDEF__LCCM715__NUM_DEVICES * C_BQ76__MAX_CELLS_PER_DEVICE)
 
+        /** Difference in cell voltages to require balancing */
+        #define C_BQ76__BALANCE_DELTA                                               (.02F)
+
+        /** Time to drain a cell per each balance loop 100 = 1 second **/
+        #define C_BQ76__BALANCE_TIME                                                (12000U) //12000 = 2 Minutes
+
 		/** Balancer Stats */
 		typedef enum
 		{
-
-			/** not doing anything, waiting for a start command*/
+			/** not doing anything, waiting for conditions that allow or require balancing **/
 			BALANCE_STATE__IDLE = 0U,
-
-			/** Wait for a voltage update before starting balancing */
-			BALANCE_STATE__WAIT_VOLTAGE_UPDATE,
 
 			/** Start the balancing process */
 			BALANCE_STATE__START_BALANCING,
 
-			/** Check to see if we are balanced	 */
-			BALANCE_STATE__CHECK_BALANCED,
+			/** Resistors are enabled cells are discharging **/
+			BALANCE_STATE__BALANCING,
 
-			/** balancing has completed */
-			BALANCE_STATE__BALANCED
+            /** Wait for a voltage update before starting balancing */
+            BALANCE_STATE__WAIT_VOLTAGE_UPDATE,
+
+			/** prevent balancing from starting automatically **/
+			BALANCE_STATE__DISABLED
 
 		}TE_BQ76__BALANCE_STATE_T;
 
@@ -135,6 +140,21 @@
 				/** Used to update the discharge resistor status **/
 				Luint32 u3210MS_Counter;
 
+				/** BMS State Machine **/
+				TE_BQ76__BALANCE_STATE_T eState;
+
+				/** Incremented every 10ms **/
+				Luint32 u32BalanceCounter;
+
+				/** Last voltage update **/
+				Luint32 u32LastVoltageUpdate;
+
+				/** User disables balanceing **/
+				Luint8 u8UserDisabled;
+
+				/** System disables balancing **/
+				Luint8 u8SystemDisabled;
+
 			}sBalance;
 
 
@@ -208,12 +228,15 @@
 		//balance control
 		void vBQ76_BALANCE__Init(void);
 		void vBQ76_BALANCE__Process(void);
-		void vBQ76_BALANCE__Start(void);
+		void vBQ76_BALANCE__System_Start(void);
+		void vBQ76_BALANCE__User_Start(void);
 		Luint8 u8BQ76_BALANCE__Is_Busy(void);
-		void vBQ76_BALANCE__Stop(void);
+		void vBQ76_BALANCE__User_Stop(void);
+		void vBQ76_BALANCE__System_Stop(void);
 		void vBQ76_BALANCE__Manual(Luint8 u8CellIndex, Luint8 u8Enable);
 		void vBQ76_BALANCE__Update_Discharge_Resistors(void);
 		void vBQ76_BALANCE__10MS_ISR(void);
+		Luint8 u8BQ76_BALANCE__Get_State(void);
 
 		//battery pack calculations
 		void vBQ76_BATTERY__Init(void);

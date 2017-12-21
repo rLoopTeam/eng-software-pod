@@ -167,7 +167,7 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 					if(u32Block[1] == 1U)
 					{
 						
-						vPWRNODE_GHG__Start_ManualBalance();
+						//vPWRNODE_GHG__Start_ManualBalance();
 
 						//apply
 						#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
@@ -178,23 +178,51 @@ void vPWRNODE_NET_RX__RxSafeUDP(Luint8 *pu8Payload, Luint16 u16PayloadLength, Lu
 					else
 					{
 						//abort
-						vPWRNODE_GHG__Stop_ManualBalance();
+						//vPWRNODE_GHG__Stop_ManualBalance();
 						#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
-							vPWRNODE_BMS__Balance_Stop();
+							//vPWRNODE_BMS__Balance_Stop();
 						#endif
+
+					    vBQ76_RES__All_Off();
 					}
 				}
 				else
 				{
 					//abort
-					vPWRNODE_GHG__Stop_ManualBalance();
+					//vPWRNODE_GHG__Stop_ManualBalance();
+
 					#if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
-						vPWRNODE_BMS__Balance_Stop();
+				        vBQ76_RES__All_Off();
+					//	vPWRNODE_BMS__Balance_Stop();
 					#endif
 				}
 				#endif //C_LOCALDEF__LCCM653__ENABLE_CHARGER
 
 				break;
+
+            case NET_PKT__PWR_GEN__AUTO_BALANCE_CONTROL:
+
+                #if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+                //check our key
+                if(u32Block[0] == 0x34566543U)
+                {
+                    //check our enable bit
+                    if(u32Block[1] == 1U)
+                    {
+                        vPWRNODE_BMS__Balance_Start();
+                    }
+                    else
+                    {
+                        vPWRNODE_BMS__Balance_Stop();
+                    }
+                }
+                else
+                {
+                    //bad command, do nothing
+                }
+                #endif //C_LOCALDEF__LCCM653__ENABLE_BMS
+
+                break;
 
 			case NET_PKT__PWR_GEN__LATCH:
 				#if C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER == 1U

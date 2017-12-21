@@ -311,6 +311,9 @@
 		/** Manually Balance */
 		NET_PKT__PWR_GEN__MANUAL_BALANCE_CONTROL = 0x3021U,
 
+        /** Auto Balance Control */
+        NET_PKT__PWR_GEN__AUTO_BALANCE_CONTROL = 0x3022U,
+
 		/** Latch */
 		NET_PKT__PWR_GEN__LATCH = 0x3030U,
 

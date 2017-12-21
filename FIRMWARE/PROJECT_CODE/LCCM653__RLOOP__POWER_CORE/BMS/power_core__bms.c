@@ -124,8 +124,6 @@ void vPWRNODE_BMS__Process(void)
             //TODO: clear fault flag
         }
 
-        //TODO: Check voltage update count
-
         //Move to 10 ms ISR?
         f32MaxV = C_PWRCORE__OVERVOLTAGE_KILL-.1;
         f32MinV = C_PWRCORE__UNDERVOLTAGE_KILL+.1;
@@ -134,6 +132,14 @@ void vPWRNODE_BMS__Process(void)
             //TODO: Fault
         }else{
             sPWRNODE.sBMS.f32StateOfCharge = f32Temp;
+        }
+
+        if(sPWRNODE.sCHARGER_IV.f32HASS_BatteryCurrent > 5  || sPWRNODE.sCHARGER_IV.f32HASS_ChargingCurrent > 5)
+        {
+            //Keep the balancer off while the pod is in use or the battery is charging
+            vBQ76_BALANCE__System_Stop();
+        }else{
+            vBQ76_BALANCE__System_Start();
         }
 
 	#else
@@ -223,7 +229,7 @@ void vPWRNODE_BMS__Balance_Start(void)
 	#if C_LOCALDEF__BMS_REVISION == 1U
 		vATA6870_BALANCE__Start();
 	#elif C_LOCALDEF__BMS_REVISION == 2U
-		vBQ76_BALANCE__Start();
+		vBQ76_BALANCE__User_Start();
 	#else
 		#error
 	#endif
@@ -263,7 +269,7 @@ void vPWRNODE_BMS__Balance_Stop(void)
 	#if C_LOCALDEF__BMS_REVISION == 1U
 		vATA6870_BALANCE__Stop();
 	#elif C_LOCALDEF__BMS_REVISION == 2U
-		vBQ76_BALANCE__Stop();
+		vBQ76_BALANCE__User_Stop();
 	#else
 		#error
 	#endif

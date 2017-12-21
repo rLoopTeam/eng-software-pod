@@ -59,7 +59,7 @@ void vPWRNODE_NET__Init(void)
 	//IP
 	sPWRNODE.sEthernet.u8IPAddx[0] = 192;
 	sPWRNODE.sEthernet.u8IPAddx[1] = 168;
-	sPWRNODE.sEthernet.u8IPAddx[2] = C_RLOOP_NET_IP__SUBNET;
+	sPWRNODE.sEthernet.u8IPAddx[2] = 1;
 
 	//different packs are on diff IP's
 	if(sPWRNODE.ePersonality == PWRNODE_TYPE__PACK_A)

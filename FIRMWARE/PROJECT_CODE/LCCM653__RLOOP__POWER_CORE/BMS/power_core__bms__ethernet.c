@@ -109,6 +109,9 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
 				//latch status
 				u16Length += 1U;
+
+				//Balance state
+				u16Length += 1U;
 			#else
 				#error
 			#endif
@@ -429,6 +432,15 @@ void vPWR_BMS_ETH__Transmit(E_NET__PACKET_T ePacketType)
 
                 pu8Buffer[0] = sPWRNODE.sDC.u8RelayState;
                 pu8Buffer += 1U;
+
+                //Balancing state
+                #if C_LOCALDEF__LCCM653__ENABLE_BMS == 1U
+                    pu8Buffer[0] = u8BQ76_BALANCE__Get_State();
+                    pu8Buffer += 1U;
+                #else
+                    pu8Buffer[0] = 0U;
+                    pu8Buffer += 1U;
+                #endif
 
 				break;
 

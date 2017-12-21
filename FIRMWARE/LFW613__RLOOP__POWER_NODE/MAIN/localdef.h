@@ -685,7 +685,7 @@ RLOOP - POWER NODE CORE
 		#define C_LOCALDEF__LCCM653__ENABLE_DC_CONVERTER__HEART_TIMEOUT		(1U)
 
 		//define the max amount of 100ms increments before the WDT turns off
-		#define C_LOCALDEF__LCCM653__DC_CONVERTER__HEART_TIMER_MAX			(30U)
+		#define C_LOCALDEF__LCCM653__DC_CONVERTER__HEART_TIMER_MAX			(100U)
 
 		/** Enable the charger subsystem */
 		#define C_LOCALDEF__LCCM653__ENABLE_CHARGER							(1U)
