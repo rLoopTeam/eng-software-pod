@@ -95,7 +95,7 @@ void vFCU_LASEROPTO_ETH__Transmit(E_NET__PACKET_T ePacketType)
 					pu8Buffer += 4U;
 
 					//Filtered laser packet from filtering system
-					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].sFiltered.f32FilteredValue);
+					vSIL3_NUM_CONVERT__Array_F32(pu8Buffer, sFCU.sLaserOpto.sOptoLaser[u8Device].f32FilteredValue_mm);
 					pu8Buffer += 4U;
 
 					//Spare

@@ -40,6 +40,8 @@
 	/** Total number of Laser OptoNCDT's*/
 	#define C_FCU__NUM_LASERS_OPTONCDT						(C_FCU__NUM_LASERS_GROUND + C_FCU__NUM_LASERS_IBEAM)
 
+		#define C_FCU__OPTO_FILTER_WINDOW					(10U)
+
 	/** number of lasers for the constrast detection system */
 	#define C_FCU__NUM_LASERS_CONTRAST						(3U)
 
